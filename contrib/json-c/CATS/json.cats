@@ -37,8 +37,10 @@
 
 /* ****** ****** */
 
-#define atscntrb_jsonc_json_c_version json_c_version
-#define atscntrb_jsonc_json_c_version_num json_c_version_num
+#define \
+atscntrb_jsonc_json_c_version() ((void*)(json_c_version()))
+#define \
+atscntrb_jsonc_json_c_version_num() ((int)(json_c_version_num()))
 
 /* ****** ****** */
 

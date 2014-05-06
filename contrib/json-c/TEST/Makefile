@@ -6,12 +6,13 @@
 
 PATSCC=patscc
 PATSHOMEQ="$(PATSHOME)"
+PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 ######
 
 CFLAGS :=
-CFLAGS += -I${PATSHOMEQ}/contrib
-CFLAGS += $(shell pkg-config --cflags json-c)
+CFLAGS += -I${PATSHOMERELOCQ}/contrib
+CFLAGS +=  $(shell pkg-config --cflags json-c)
 
 ######
 
@@ -37,7 +38,7 @@ all:: test07
 ######
 
 test00: test00.dats ; \
-  $(PATSCC) -cleanaft $(CFLAGS) -o $@ $< $(LDFLAGS)
+  $(PATSCC) $(CFLAGS) -o $@ $< $(LDFLAGS)
 cleanall:: ; $(RMF) test00
 
 ######
