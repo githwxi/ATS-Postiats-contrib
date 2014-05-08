@@ -124,7 +124,10 @@ clean:: ; $(RMF) *_?ats.o *_?ats.c
 clean:: ; $(RMF) *_atxt.txt
 clean:: ; $(RMF) *_atxt.dats
 
+######
+
 cleanall:: clean
+cleanall:: ; $(RMF) TRYIT/*.?ats
 
 ###### end of [Makefile] ######
 \

@@ -194,7 +194,7 @@ main () = let
   var err: json_err? 
 //
   val root =
-    json_loads ("{\"int\":0}", 0(*flag*), err)
+    json_loads ("{\\\\"int\\\\":0}", 0(*flag*), err)
   val () = assertloc (JSONptr_isnot_null (root))
 //
   val _(*err*) =
@@ -221,9 +221,16 @@ end // end of [main]
 
 (* ****** ****** *)
 //
-// Some convenience functions
+// HX: various overloaded symbols
 //
 (* ****** ****** *)
+
+#declname("Overloaded Symbols")
+
+(* ****** ****** *)
+
+#declnamesynop("iseqz")
+#declnamesynop("isneqz")
 
 (* ****** ****** *)
 

@@ -99,17 +99,15 @@ JSONptr_free_null
 // end of [JSONptr_free_null]
 
 (* ****** ****** *)
-
+//
 fun JSONptr_is_null
   {l:addr} (x: !JSONptr l):<> bool (l==null) = "mac#atspre_ptr_is_null"
-// end of [JSONptr_is_null]
-
 fun JSONptr_isnot_null
   {l:addr} (x: !JSONptr (l)):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
-// end of [JSONptr_isnot_null]
-
-overload ~ with JSONptr_isnot_null
-
+//
+overload iseqz with JSONptr_is_null
+overload isneqz with JSONptr_isnot_null
+//
 (* ****** ****** *)
 
 fun json_typeof (json: !JSONptr1): int = "mac#%"
@@ -125,7 +123,7 @@ fun json_is_true
   {l:addr} (json: !JSONptr (l)) : bool = "mac#%"
 fun json_is_false
   {l:addr} (json: !JSONptr (l)) : bool = "mac#%"
-
+//
 (* ****** ****** *)
 
 fun json_is_boolean
