@@ -27,7 +27,7 @@ Hello:: libHello_dats.so
 Hello.h: Hello.class ; javah Hello
 Hello.class: Hello.java ; javac $<
 Hello_dats.o: Hello.dats; \
-  $(PATSCC) -IIATS $(PATSHOME)/contrib -I $(JNIincl) -fPIC -c Hello.dats
+  $(PATSCC) -IIATS $(PATSHOMERELOC)/contrib -I $(JNIincl) -fPIC -c Hello.dats
 libHello_dats.so: Hello_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl
 
 ######

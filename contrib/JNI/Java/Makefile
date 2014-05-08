@@ -5,6 +5,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
+PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 ######
 
@@ -32,7 +33,7 @@ ATSarrayptr.h: \
   ATSarrayptr.class ; javah ATSarrayptr
 ATSarrayptr.class: ATSarrayptr.java ; javac $<
 ATSarrayptr_dats.o: ./../DATS/ATSarrayptr.dats; \
-  $(PATSCC) -D_GNU_SOURCE -IIATS $(PATSHOMEQ)/contrib -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c $<
+  $(PATSCC) -D_GNU_SOURCE -IIATS $(PATSHOMERELOCQ)/contrib -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c $<
 libATSarrayptr_dats.so: ATSarrayptr_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -latslib
 
 ######
