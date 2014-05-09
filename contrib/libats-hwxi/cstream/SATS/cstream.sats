@@ -118,5 +118,24 @@ cstream_make_fileptr
   (file_mode_lte (m, r) | FILEptr(l, m)): cstream(TKfileptr)
 //
 (* ****** ****** *)
+//
+// HX-2014-05-08:
+// Some convenience functions for tokenizing
+//
+(* ****** ****** *)
+//
+staload
+SBF = "libats/SATS/stringbuf.sats"
+vtypedef stringbuf = $SBF.stringbuf
+//
+fun{}
+cstream_tokenize_uint
+  (!cstream, c0: &int >> _): uint
+//
+fun{}
+cstream_tokenize_string
+  (!cstream, c0: &int >> _, !stringbuf): Strptr1
+//
+(* ****** ****** *)
 
 (* end of [cstream.sats] *)

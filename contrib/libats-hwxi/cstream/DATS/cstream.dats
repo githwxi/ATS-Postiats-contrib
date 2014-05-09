@@ -172,5 +172,87 @@ in
 end // end of [cstream_get_charlst]
 
 (* ****** ****** *)
+//
+// HX-2014-05-08:
+// Some common tokenizing functions
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+cstream_tokenize_uint
+  (cs0, c0) = let
+//
+#define i2c int2char0
+//
+fun loop
+(
+  cs0: !cstream, res: &int >> _
+) : int(*c*) = let
+  val i = cstream_get_char (cs0)
+in
+//
+if i >= 0 then
+(
+  if isdigit (i)
+    then let
+      val d = i2c(i) - '0'
+      val () = res := 10*res+d
+    in
+      loop (cs0, res)
+    end // end-of-then
+    else (i) // end-of-else
+) else (i)
+//
+end // end of [loop]
+//
+var res: int = i2c(c0) -'0'
+val () = c0 := loop (cs0, res)
+//
+in
+  g0int2uint(res)
+end // end of [cstream_tokenize_uint]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+cstream_tokenize_string
+  (cs0, c0, sbf) = let
+//
+fun loop
+(
+  cs0: !cstream
+, sbf: !stringbuf
+) : int = let
+//
+val i =
+cstream_get_char (cs0)
+val c = int2char0 (i)
+//
+in
+if i >= 0 then
+(
+case+ c of
+| '"' => (i)
+| '\0' => (i)
+(*
+| '\\' => loop_escaped (cs0, sbf)
+*)
+| _(*any*) => let
+    val c = $UN.cast{charNZ}(i)
+    val _ = $SBF.stringbuf_insert (sbf, c) in loop (cs0, sbf)
+  end // end of [any]
+) else (i) // end of [if]
+//
+end // end of [loop]
+//
+val () = c0 := loop (cs0, sbf)
+//
+in
+  $SBF.stringbuf_truncout_all (sbf)
+end // end of [cstream_tokenize_string]
+
+(* ****** ****** *)
 
 (* end of [cstream.dats] *)

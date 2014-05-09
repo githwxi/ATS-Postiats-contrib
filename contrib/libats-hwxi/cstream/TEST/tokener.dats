@@ -153,7 +153,7 @@ if i >= 0 then
 end // end of [loop]
 //
 var res: int = (i2c(i0) - '0')
-val () = i0 := loop (cs0, res)
+val ((*void*)) = i0 := loop (cs0, res)
 //
 in
   res
