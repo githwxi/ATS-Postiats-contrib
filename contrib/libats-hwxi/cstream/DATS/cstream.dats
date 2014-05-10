@@ -217,8 +217,11 @@ end // end of [cstream_tokenize_uint]
 
 implement
 {}(*tmp*)
-cstream_tokenize_string
+cstream_tokenize_ident
   (cs0, c0, sbf) = let
+//
+fun isalnum_ (i: int): bool =
+  if isalnum (i) then true else (i = char2int0('_'))
 //
 fun loop
 (
@@ -226,28 +229,136 @@ fun loop
 , sbf: !stringbuf
 ) : int = let
 //
+val i = cstream_get_char (cs0)
+//
+in
+//
+if i >= 0 then
+(
+  if isalnum_ (i)
+    then let
+      val c = $UN.cast{charNZ}(i)
+      val _ =
+      $SBF.stringbuf_insert (sbf, c) in loop (cs0, sbf)
+    end // end-of-then
+    else (i) // end-of-else
+) else (i)
+//
+end // end of [tokener_get_ide]
+//
+val _ =
+$SBF.stringbuf_insert (sbf, $UN.cast{charNZ}(c0))
+val ((*void*)) = c0 := loop (cs0, sbf)
+//
+in
+  $SBF.stringbuf_truncout_all (sbf)
+end // end of [cstream_tokenize_ident]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+cstream_tokenize_string
+  (cs0, c0, sbf) = let
+//
+fun loop
+(
+  cs0: !cstream
+, sbf: !stringbuf
+, nerr: &int >> _
+) : int = let
+//
 val i =
 cstream_get_char (cs0)
 val c = int2char0 (i)
 //
 in
+//
 if i >= 0 then
 (
 case+ c of
-| '"' => (i)
-| '\0' => (i)
-(*
-| '\\' => loop_escaped (cs0, sbf)
-*)
+| '"' => cstream_get_char (cs0)
+| '\\' => loop_escaped (cs0, sbf, nerr)
+| '\0' => (0)
 | _(*any*) => let
     val c = $UN.cast{charNZ}(i)
-    val _ = $SBF.stringbuf_insert (sbf, c) in loop (cs0, sbf)
+    val _ = $SBF.stringbuf_insert (sbf, c)
+  in
+    loop (cs0, sbf, nerr)
   end // end of [any]
-) else (i) // end of [if]
+) else (0) // end of [if]
 //
 end // end of [loop]
 //
-val () = c0 := loop (cs0, sbf)
+and loop_escaped
+(
+  cs0: !cstream
+, sbf: !stringbuf
+, nerr: &int >> _
+) : int = let
+//
+val i =
+cstream_get_char (cs0)
+val c = int2char0 (i)
+//
+in
+//
+if i >= 0 then
+(
+case+ c of
+| '"' => let
+    val c = $UN.cast{charNZ}(c)
+    val _ = $SBF.stringbuf_insert (sbf, c)
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+| '\\' => let
+    val c = $UN.cast{charNZ}(c)
+    val _ = $SBF.stringbuf_insert (sbf, c)
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+| 'n' => let
+    val _ = $SBF.stringbuf_insert (sbf, '\n')
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+| 't' => let
+    val _ = $SBF.stringbuf_insert (sbf, '\t')
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+| 'b' => let
+    val _ = $SBF.stringbuf_insert (sbf, '\b')
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+| 'f' => let
+    val _ = $SBF.stringbuf_insert (sbf, '\f')
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+| 'r' => let
+    val _ = $SBF.stringbuf_insert (sbf, '\r')
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of ...
+//
+| '\0' => (0)
+//
+| _(*any*) => let
+    val c = $UN.cast{charNZ}(c)
+    val _ = $SBF.stringbuf_insert (sbf, c)
+    val () = nerr := (nerr + 1)
+  in
+    loop (cs0, sbf, nerr) 
+  end // end of [any]
+) else (0) // end of [if]
+//
+end // end of [loop_escaped]
+//
+var nerr: int = 0
+val ((*void*)) = c0 := loop (cs0, sbf, nerr)
 //
 in
   $SBF.stringbuf_truncout_all (sbf)

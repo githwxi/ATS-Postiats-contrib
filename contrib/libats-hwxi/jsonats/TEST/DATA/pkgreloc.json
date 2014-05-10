@@ -1,0 +1,963 @@
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "share/atspre_staload.hats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/basics.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/pointer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer_fixed.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/char.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/bool.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/float.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/tuple.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/memory.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/string.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/strptr.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/reference.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/filebas.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/SATS/stdio.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/sys/SATS/types.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/SATS/string.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/SATS/stdio.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/intrange.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/gorder.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_int.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_uint.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_bool.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_char.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_float.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_string.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/unsafe.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list_vt.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list_vt_mergesort.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list_vt_quicksort.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/option.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/option_vt.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/array.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/giterator.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/array_bsearch.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/array_quicksort.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/arrayptr.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/arrayref.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/matrix.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/matrixptr.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/matrixref.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/stream.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/stream_vt.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/gprint.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/unsafe.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/checkast.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "require"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/CATS/pcre.cats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/CATS/pcre.cats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/SATS/pcre.sats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/SATS/pcre_ML.sats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/SATS/pcre_ML.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre_ML.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre_ML.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre_ML.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre_ML.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "share/atspre_staload.hats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/basics.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/pointer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer_fixed.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/char.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/bool.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/float.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/tuple.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/memory.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/string.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/strptr.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/reference.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/filebas.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/integer.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/SATS/stdio.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/sys/SATS/types.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/SATS/string.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "libc/SATS/stdio.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/intrange.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/gorder.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_int.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_uint.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_bool.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_char.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_float.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/DATS/gorder_string.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/unsafe.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list_vt.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list_vt_mergesort.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/list_vt_quicksort.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/option.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/option_vt.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/array.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/giterator.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/array_bsearch.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/array_quicksort.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/arrayptr.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/arrayref.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/matrix.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/matrixptr.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/matrixref.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/stream.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/stream_vt.dats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_given": "prelude/params.hats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/gprint.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/unsafe.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/DATS/checkast.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "require"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/CATS/pcre.cats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/CATS/pcre.cats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/SATS/pcre.sats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/SATS/pcre_ML.sats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/SATS/pcre_ML.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre_ML.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre_ML.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre_ML.sats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "include"
+,
+"pkgreloc_target": ".TEST03/contrib/pcre/DATS/pcre_ML.dats"
+,
+"pkgreloc_source": "https://raw.githubusercontent.com/githwxi/ATS-Postiats-contrib/master/contrib/pcre/DATS/pcre_ML.dats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "prelude/SATS/unsafe.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre.sats"
+}
+{
+"pkgreloc_kind": "staload"
+,
+"pkgreloc_given": "./../SATS/pcre_ML.sats"
+}

@@ -133,6 +133,10 @@ cstream_tokenize_uint
   (!cstream, c0: &int >> _): uint
 //
 fun{}
+cstream_tokenize_ident
+  (!cstream, c0: &int >> _, !stringbuf): Strptr1
+//
+fun{}
 cstream_tokenize_string
   (!cstream, c0: &int >> _, !stringbuf): Strptr1
 //
