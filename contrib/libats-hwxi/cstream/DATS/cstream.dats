@@ -261,7 +261,7 @@ implement
 cstream_tokenize_string
   (cs0, c0, sbf) = let
 //
-fun loop
+fnx loop
 (
   cs0: !cstream
 , sbf: !stringbuf

@@ -163,6 +163,43 @@ in
 end // end of [fprint_jsonvalist]
 
 (* ****** ****** *)
+
+implement
+{}(*tmp*)
+jsonval_array_get_at
+  (jsv, i0) = let
+in
+//
+case+ jsv of
+| JSONarray
+    (xs) => list_get_at_opt (xs, i0)
+| _ (*non-array*) => None_vt ((*void*))
+//
+end // end of [jsonval_array_get_at]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+jsonval_object_get_key
+  (jsv, k0) = let
+//
+typedef key = string
+typedef itm = jsonval
+//
+implement
+list_assoc$eqfn<key> (k1, k2) = k1 = k2
+//
+in
+//
+case+ jsv of
+| JSONobject
+    (lxs) => list_assoc_opt<key,itm> (lxs, k0)
+| _ (*non-object*) => None_vt ((*void*))
+//
+end // end of [jsonval_object_get_key]
+
+(* ****** ****** *)
 //
 extern
 fun{

@@ -112,6 +112,15 @@ overload fprint with fprint_jsonval
 (* ****** ****** *)
 //
 fun{}
+jsonval_array_get_at
+  (jsonval, intGte(0)): Option_vt(jsonval)
+fun{}
+jsonval_object_get_key
+  (jsonval, key: string): Option_vt(jsonval)
+//
+(* ****** ****** *)
+//
+fun{}
 jsonats_parsexn_string (inp: string): jsonval
 fun{}
 jsonats_parsexnlst_string (inp: string): jsonvalist

@@ -18,14 +18,21 @@ MALLOCFLAG=-DATS_MEMALLOC_LIBC
 ######
 
 all:: test01
-test01: test01.dats ; $(PATSCC2) -O2 $(MALLOCFLAG) -o $@ $< testlib.dats
+test01: test01.dats ; \
+$(PATSCC2) -O2 $(MALLOCFLAG) -o $@ $< testlib.dats
 cleanall:: ; $(RMF) test01
 
 ######
 
 all:: test02
-test02: test02.dats ; $(PATSCC2) -O2 $(MALLOCFLAG) -o $@ $< testlib.dats
+test02: test02.dats ; \
+$(PATSCC2) -O2 $(MALLOCFLAG) -o $@ $< testlib.dats
 cleanall:: ; $(RMF) test02
+
+######
+
+regress:: test01 ; ./test01
+regress:: test02 ; ./test02 < DATA/pkgreloc.json
 
 ######
 
