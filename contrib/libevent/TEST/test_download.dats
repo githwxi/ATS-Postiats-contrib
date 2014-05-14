@@ -175,22 +175,23 @@ download_renew_request
 //
 val uri = evhttp_uri_parse (url)
 val () = assertlocmsg (isneqz(uri), "[evhttp_uri_parse] failed")
+//
 val (fpf_host | host) = evhttp_uri_get_host (uri)
 val () = assertlocmsg (isneqz(host), "[evhttp_uri_parse] failed")
+//
 val port = evhttp_uri_get_port (uri)
 val port = (if (port >= 0) then g0i2u(port) else 80u): uint
-val cnn = evhttp_connection_base_new(env.bas,
-                                    the_null_ptr,
-                                    $UN.strptr2string(host),
-                                    $UN.cast{uint16}(port))
-val () = assertlocmsg (isneqz(cnn), "[evhttp_connection_base_new] failed")
-
-val req = evhttp_request_new1_ref {myenv1} (download_callback, env)
-
-val () = assertlocmsg (isneqz(req), "evhttp_request_new failed")
 //
-val (fpf_headers | headers) =
-  evhttp_request_get_output_headers(req)
+val cnn =
+evhttp_connection_base_new
+  (env.bas, the_null_ptr, $UN.strptr2string(host), $UN.cast{uint16}(port))
+val ((*void*)) =
+assertlocmsg (isneqz(cnn), "[evhttp_connection_base_new] failed")
+//
+val req = evhttp_request_new1_ref {myenv1} (download_callback, env)
+val ((*void*)) = assertlocmsg (isneqz(req), "evhttp_request_new failed")
+//
+val (fpf_headers | headers) = evhttp_request_get_output_headers(req)
 val err = evhttp_add_header (headers, "Host", $UN.strptr2string(host))
 prval () = minus_addback (fpf_headers, headers | req)
 //
@@ -203,6 +204,7 @@ val () = (
   | ~Some_vt (c) => evhttp_connection_free(c) | ~None_vt () => ()
 ) : void // end of [val]
 val () = env.cnn := Some_vt(cnn)
+//
 val ((*freed*)) = evhttp_uri_free(uri)
 //
 } (* end of [download_renew_request] *)

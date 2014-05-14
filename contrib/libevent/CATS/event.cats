@@ -108,8 +108,24 @@ atscntrb_libevent_event_base_priority_init event_base_priority_init
 
 /* ****** ****** */
 
+/*
+**
+** buffer.h
+**
+*/
+
+/* ****** ****** */
+
 #define \
 atscntrb_libevent_evbuffer_pullup evbuffer_pullup
+
+/* ****** ****** */
+
+/*
+**
+** http.h
+**
+*/
 
 /* ****** ****** */
 
@@ -127,6 +143,10 @@ atscntrb_libevent_evhttp_bind_socket evhttp_bind_socket
 atscntrb_libevent_evhttp_request_new1(cb, arg) evhttp_request_new((void*)cb, arg)
 #define \
 atscntrb_libevent_evhttp_request_new1_ref(cb, arg) evhttp_request_new((void*)cb, arg)
+
+/* ****** ****** */
+
+#define atscntrb_libevent_evhttp_request_free evhttp_request_free
 
 /* ****** ****** */
 

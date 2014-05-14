@@ -75,12 +75,13 @@ vtypedef event0 = [l:addr] event (l)
 vtypedef event1 = [l:addr | l > null] event (l)
 
 (* ****** ****** *)
-
-praxi
-event_is_gtez
-  {l:addr} (p: !event(l)):<> [l >= null] void
-// end of [event_is_gtez]
-
+//
+castfn
+event2ptr
+  {l:addr}(!event(l)):<> ptr(l)
+//
+overload ptrcast with event2ptr
+//
 (* ****** ****** *)
 
 fun event_null
@@ -91,14 +92,6 @@ praxi event_free_null{l:alez} (p: event l):<prf> void
 
 (* ****** ****** *)
 //
-castfn
-event2ptr
-  {l:addr}(!event(l)):<> ptr(l)
-//
-overload ptrcast with event2ptr
-//
-(* ****** ****** *)
-
 fun
 event_is_null
   {l:addr}
@@ -120,28 +113,23 @@ vtypedef
 event1_base = [l:addr | l > null] event_base (l)
 
 (* ****** ****** *)
-
-praxi
-event_base_is_gtez
-  {l:addr} (p: !event_base l):<> [l >= null] void
-// end of [event_base_is_gtez]
-
-fun event_base_null
-  ((*void*)):<> event_base (null) = "mac#atspre_ptr_null"
-
-praxi
-event_base_free_null{l:alez} (p: event_base (l)):<prf> void
-
-(* ****** ****** *)
 //
 castfn
 event2ptr_base
-  {l:addr}(p: !event(l)):<> ptr(l)
+  {l:addr}(!event_base(l)):<> ptr(l)
 //
 overload ptrcast with event2ptr_base
 //
 (* ****** ****** *)
-
+//
+fun event_base_null
+  ((*void*)):<> event_base (null) = "mac#atspre_ptr_null"
+//
+praxi
+event_base_free_null{l:alez} (p: event_base (l)):<prf> void
+//
+(* ****** ****** *)
+//
 fun
 event_base_is_null
   {l:addr}
@@ -164,37 +152,27 @@ vtypedef
 event1_config = [l:addr | l > null] event_config (l)
 
 (* ****** ****** *)
-
-praxi
-event_config_is_gtez
-  {l:addr} (p: !event_config l):<> [l >= null] void
-// end of [event_config_is_gtez]
-
+//
+castfn
+event2ptr_config
+  {l:addr}(!event_config(l)):<> ptr(l)
+//
+overload ptrcast with event2ptr_config
+//
 (* ****** ****** *)
-
+//
 fun
 event_config_null
 (
 // argumentless
 ) :<> event_config (null) = "mac#atspre_ptr_null"
-
-(* ****** ****** *)
-
+//
 praxi
 event_config_free_null
   {l:addr | l <= null} (p: event_config l):<> void
-// end of [event_config_free_null]
-
-(* ****** ****** *)
-//
-castfn
-event2ptr_config
-  {l:addr}(p: event (l)):<> ptr (l)
-//
-overload ptrcast with event2ptr_config
 //
 (* ****** ****** *)
-
+//
 fun
 event_config_is_null
   {l:addr}
@@ -330,17 +308,31 @@ abst@ype
 evutil_socket_t = $extype"evutil_socket_t"
 //
 typedef
-event_callback_fn
-  (a:vt0p, l:addr) = (evutil_socket_t, sint, cptr(a, l)) -> void
+event_callback
+(
+  a:vt0p, l:addr
+) = (evutil_socket_t, sint, cptr(a,l)) -> void
+typedef
+event_callback_ref
+  (a:vt0p) = (evutil_socket_t, sint, &(a) >> _) -> void
 //
 (* ****** ****** *)
 
 fun
-event_new{a:vt0p}{l:addr}
+event_new
+  {a:vt0p}{l:addr}
 (
-  base: !event1_base
-, fd: evutil_socket_t, what: sint
-, cb: event_callback_fn (a, l), arg: cptr (a, l)
+  evb: !event1_base
+, sock: evutil_socket_t, what: sint
+, cbfn: event_callback (a, l), arg: cptr(a, l)
+) : event0 = "mac#%" // end-of-fun
+
+fun
+event_new_ref{a:vt0p}
+(
+  evb: !event1_base
+, sock: evutil_socket_t, what: sint
+, cbfn: event_callback_ref (a), arg: &(a) >> _
 ) : event0 = "mac#%" // end-of-fun
 
 fun event_free (ev: event0): void = "mac#%"
@@ -366,7 +358,7 @@ event_base_priority_init (evb: !event1_base, pri: int): interr = "mac#%"
 
 (*
 //
-// evbuffer
+// buffer.h
 //
 *)
 
@@ -387,29 +379,20 @@ overload isneqz with evbuffer_isnot_null
 //
 (* ****** ****** *)
 
-/*
-size_t
-evbuffer_get_length (const struct evbuffer *buf);
-*/
-fun
-evbuffer_get_lenth (buf: !evbuffer1):<> size_t = "mac#%"
+#include "./buffer.sats"
 
-(* ****** ****** *)
-//
-fun
-evbuffer_pullup
-  (buf: !evbuffer1, size: ev_ssize_t): vStrptr0 = "mac#%"
-//      
 (* ****** ****** *)
 
 (*
 //
-// evhttp
+// http.h
 //
 *)
 
 (* ****** ****** *)
-
+(*
+** HX-2014-05: response code
+*)
 macdef HTTP_OK = $extval (int, "HTTP_OK")
 macdef HTTP_NOCONTENT = $extval(int, "HTTP_NOCONTENT")
 macdef HTTP_MOVEPERM = $extval(int, "HTTP_MOVEPERM")
@@ -436,6 +419,8 @@ evhttp (lh:addr, lb:addr) = ptr (lh)
 //
 vtypedef
 evhttp1 = [lh,lb:addr | lh > null; lb > null] evhttp (lh, lb)
+//
+(* ****** ****** *)
 //
 fun evhttp_null ():<> evhttp (null, null) = "mac#atspre_ptr_null"
 //
@@ -472,14 +457,18 @@ overload isneqz with evhttp_request_isnot_null
 (*
 typedef
 evhttp_callback0
-  (a:vt@ype, l:addr) = (evhttp1_request, cptr(a,l)) -> void
+(
+  a:vt@ype, l:addr
+) = (evhttp1_request, cptr(a,l)) -> void
 *)
 typedef
 evhttp_callback1
-  (a:vt@ype, l:addr) = (!evhttp1_request, cptr(a,l)) -> void
+(
+  a:vt@ype, l:addr
+) = (!evhttp1_request, cptr(a,l)) -> void
 typedef
 evhttp_callback1_ref
-  (a:vt@ype, l:addr) = (!evhttp1_request, &(a) >> _) -> void
+  (a:vt@ype) = (!evhttp1_request, &(a) >> _) -> void
 //
 (* ****** ****** *)
 //
@@ -566,24 +555,6 @@ overload isneqz with evhttp_uri_isnot_null
 //
 (* ****** ****** *)
 //
-fun
-evhttp_new{lb:agz}
-  (base: !event_base lb): [lh:agez] evhttp (lh, lb) = "mac#%"
-//
-(* ****** ****** *)
-
-/*
-void evhttp_free(struct evhttp* http);
-*/
-fun evhttp_free{lh,lb:addr}(http: evhttp (lh, lb)): void = "mac#%"
-
-(* ****** ****** *)
-
-fun evhttp_bind_socket
-  (http: !evhttp1, address: Stropt, port: uint16): interr = "mac#%"
-
-(* ****** ****** *)
-//
 abst@ype
 evhttp_cmd_type = int
 //
@@ -598,104 +569,35 @@ macdef EVHTTP_REQ_CONNECT = $extval (evhttp_cmd_type, "EVHTTP_REQ_CONNECT")
 macdef EVHTTP_REQ_PATCH = $extval (evhttp_cmd_type, "EVHTTP_REQ_PATCH")
 //
 (* ****** ****** *)
-/*
-struct
-evhttp_request
-*evhttp_request_new
-(void (*cb)(struct evhttp_request *, void *), void *arg);
-*/
-(*
-fun
-evhttp_request_new0{a:vt0p}{l:addr}
-  (cb: evhttp_callback0 (a, l), arg: cptr(a, l)): evhttp0_request = "mac#%"
-*)
-fun
-evhttp_request_new1{a:vt0p}{l:addr}
-  (cb: evhttp_callback1 (a, l), arg: cptr(a, l)): evhttp0_request = "mac#%"
-fun
-evhttp_request_new1_ref{a:vt0p}{l:addr}
-  (cb: evhttp_callback1_ref (a, l), arg: &(a) >> _): evhttp0_request = "mac#%"
+//
+abst@ype
+evhttp_request_error = int
+//
+macdef
+EVREQ_HTTP_TIMEOUT = $extval(evhttp_request_error, "EVREQ_HTTP_TIMEOUT")
+macdef
+EVREQ_HTTP_EOF = $extval(evhttp_request_error, "EVREQ_HTTP_EOF")
+macdef
+EVREQ_HTTP_INVALID_HEADER = $extval(evhttp_request_error, "EVREQ_HTTP_INVALID_HEADER")
+macdef
+EVREQ_HTTP_BUFFER_ERROR = $extval(evhttp_request_error, "EVREQ_HTTP_BUFFER_ERROR")
+macdef
+EVREQ_HTTP_REQUEST_CANCEL = $extval(evhttp_request_error, "EVREQ_HTTP_REQUEST_CANCEL")
+macdef
+EVREQ_HTTP_DATA_TOO_LONG  = $extval(evhttp_request_error, "EVREQ_HTTP_DATA_TOO_LONG")
+//
+(* ****** ****** *)
+//
+abst@ype
+evhttp_request_kind = int
+//
+macdef EVHTTP_REQUEST = $extval (evhttp_request_kind, "EVHTTP_REQUEST")
+macdef EVHTTP_RESPONSE = $extval (evhttp_request_kind, "EVHTTP_RESPONSE")
 //
 (* ****** ****** *)
 
-fun
-evhttp_request_get_input_buffer
-  {l:agz} (req: !evhttp_request(l))
-: [l2:agz] (minus (evhttp_request(l), evbuffer(l2)) | evbuffer(l2)) = "mac#%"
+#include "./http.sats"
 
-(* ****** ****** *)
-  
-fun
-evhttp_request_get_response_code
-  (req: !evhttp1_request): int(*code*) = "mac#%"
-
-(* ****** ****** *)
-//
-fun
-evhttp_request_get_host
-  (req: !evhttp1_request): vStrptr1(*host*) = "mac#%"
-//
-(* ****** ****** *)
-//
-fun
-evhttp_request_get_input_headers
-  {l:agz} (req: !evhttp_request(l))
-: [l2:agz]
-(
-  minus (evhttp_request l, evkeyvalq l2) | evkeyvalq (l2)
-) = "mac#%" // end of [evhttp_request_get_input_headers]
-//
-fun
-evhttp_request_get_output_headers
-  {l:agz} (req: !evhttp_request(l))
-: [l2:agz]
-(
-  minus (evhttp_request l, evkeyvalq l2) | evkeyvalq (l2)
-) = "mac#%" // end of [evhttp_request_get_output_headers]
-//
-(* ****** ****** *)
-//
-fun evhttp_add_header
-(
-  headers: !evkeyvalq1, key: NSH(string), value: NSH(string)
-) : interr = "mac#%" // end-of-fun
-fun evhttp_find_header
-  (headers: !evkeyvalq1, key: NSH(string)): vStrptr0 = "mac#%"
-fun evhttp_remove_header
-  (headers: !evkeyvalq1, key: NSH(string)): interr = "mac#%"
-// 
-fun evhttp_clear_headers (headers: !evkeyvalq1): void = "mac#%"
-//
-(* ****** ****** *)
-
-fun
-evhttp_connection_free (evhttp0_connection): void = "mac#%"
-fun
-evhttp_connection_base_new
-(
-  evb: !event1_base, dnsbase: ptr, address: string, port: uint16
-) : evhttp0_connection = "mac#%" // end-of-fun
-
-(* ****** ****** *)
-  
-fun evhttp_make_request
-(
-  cnn: !evhttp1_connection
-, req: evhttp1_request, type: evhttp_cmd_type, uri: string
-) : interr = "mac#%" // end-of-fun
-
-fun evhttp_cancel_request (req: evhttp1_request): void = "mac#%"
-  
-(* ****** ****** *)
-
-fun evhttp_uri_get_port (uri: !evhttp1_uri): int = "mac#%"
-fun evhttp_uri_get_host (uri: !evhttp1_uri): vStrptr0 = "mac#%"
-
-(* ****** ****** *)
-//
-fun evhttp_uri_free (uri: evhttp0_uri): void = "mac#%"
-fun evhttp_uri_parse (uri: string): evhttp0_uri = "mac#%"
-//
 (* ****** ****** *)
 
 (* end of [event.sats] *)

@@ -25,6 +25,7 @@ LDFLAGS += $(shell pkg-config --libs libevent)
 
 all::
 all:: test00
+all:: test_download
 
 ######
 

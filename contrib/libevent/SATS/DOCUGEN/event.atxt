@@ -31,63 +31,63 @@ This package contains an API in ATS for the <a href="http://libevent.org/">libev
 
 (* ****** ****** *)
 
-#declnamesynop("eventp")
-#declnamesynop("eventp0")
-#declnamesynop("eventp1")
+#declnamesynop("event")
+#declnamesynop("event0")
+#declnamesynop("event1")
 
 (* ****** ****** *)
 
-#declnamesynop("eventp_is_gtez")
+#declnamesynop("event_is_gtez")
 
-#declnamesynop("eventp2ptr")
+#declnamesynop("event2ptr")
 
-#declnamesynop("eventp_null")
-#declnamesynop("eventp_free_null")
+#declnamesynop("event_null")
+#declnamesynop("event_free_null")
 
-#declnamesynop("eventp_is_null")
-#declnamesynop("eventp_isnot_null")
-
-(* ****** ****** *)
-
-#declnamesynop("eventp_base")
-#declnamesynop("eventp0_base")
-#declnamesynop("eventp1_base")
+#declnamesynop("event_is_null")
+#declnamesynop("event_isnot_null")
 
 (* ****** ****** *)
 
-#declnamesynop("eventp_base_is_gtez")
-
-#declnamesynop("eventp2ptr_base")
-
-#declnamesynop("eventp_base_null")
-#declnamesynop("eventp_base_free_null")
-
-#declnamesynop("eventp_base_is_null")
-#declnamesynop("eventp_base_isnot_null")
+#declnamesynop("event_base")
+#declnamesynop("event0_base")
+#declnamesynop("event1_base")
 
 (* ****** ****** *)
 
-#declnamesynop("eventp_config")
-#declnamesynop("eventp0_config")
-#declnamesynop("eventp1_config")
+#declnamesynop("event_base_is_gtez")
+
+#declnamesynop("event2ptr_base")
+
+#declnamesynop("event_base_null")
+#declnamesynop("event_base_free_null")
+
+#declnamesynop("event_base_is_null")
+#declnamesynop("event_base_isnot_null")
 
 (* ****** ****** *)
 
-#declnamesynop("eventp_config_is_gtez")
-
-#declnamesynop("eventp2ptr_config")
-
-#declnamesynop("eventp_config_null")
-#declnamesynop("eventp_config_free_null")
-
-#declnamesynop("eventp_config_is_null")
-#declnamesynop("eventp_config_isnot_null")
+#declnamesynop("event_config")
+#declnamesynop("event0_config")
+#declnamesynop("event1_config")
 
 (* ****** ****** *)
 
-#declnamesynop("eventp_config_new")
-#declnamesynop("eventp_config_free")
-#declnamesynop("eventp_config_avoid_method")
+#declnamesynop("event_config_is_gtez")
+
+#declnamesynop("event2ptr_config")
+
+#declnamesynop("event_config_null")
+#declnamesynop("event_config_free_null")
+
+#declnamesynop("event_config_is_null")
+#declnamesynop("event_config_isnot_null")
+
+(* ****** ****** *)
+
+#declnamesynop("event_config_new")
+#declnamesynop("event_config_free")
+#declnamesynop("event_config_avoid_method")
 
 (* ****** ****** *)
 
