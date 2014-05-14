@@ -125,6 +125,8 @@ fun evhttp_cancel_request (req: evhttp1_request): void = "mac#%"
 
 fun evhttp_uri_get_port (uri: !evhttp1_uri): int = "mac#%"
 fun evhttp_uri_get_host (uri: !evhttp1_uri): vStrptr0 = "mac#%"
+fun evhttp_uri_get_path (uri: !evhttp1_uri): vStrptr0 = "mac#%"
+fun evhttp_uri_get_query (uri: !evhttp1_uri): vStrptr0 = "mac#%"
 
 (* ****** ****** *)
 //
