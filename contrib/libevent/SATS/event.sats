@@ -26,6 +26,20 @@
 
 (* ****** ****** *)
 
+%{#
+//
+#include "./../CATS/event.cats"
+//
+%} // end of [%{#]
+
+(* ****** ****** *)
+
+staload
+TIME = "libc/sys/SATS/time.sats"
+typedef timeval = $TIME.timeval
+
+(* ****** ****** *)
+
 #define ATS_PACKNAME "ATSCNTRB.libevent"
 #define ATS_STALOADFLAG 0 // no static loading at run-time
 #define ATS_EXTERN_PREFIX "atscntrb_libevent_" // prefix for external names
@@ -42,167 +56,183 @@ typedef interr2 = intBtwe(~1,1)
 
 (* ****** ****** *)
 
+typedef ev_ssize_t = ssize_t
+
+(* ****** ****** *)
+
+typedef ev_uint32_t = uint32
+typedef ev_uint64_t = uint64
+
+(* ****** ****** *)
+
 absvt@ype
-event = $extype"event_struct"
+event_struct = $extype"event_struct"
 
 (* ****** ****** *)
 
-absvtype eventp (l:addr) = ptr (l)
-vtypedef eventp0 = [l:addr] eventp (l)
-vtypedef eventp1 = [l:addr | l > null] eventp (l)
+absvtype event (l:addr) = ptr (l)
+vtypedef event0 = [l:addr] event (l)
+vtypedef event1 = [l:addr | l > null] event (l)
 
 (* ****** ****** *)
 
-prfun
-eventp_is_gtez
-  {l:addr} (p: !eventp(l)):<> [l >= null] void
-// end of [eventp_is_gtez]
+praxi
+event_is_gtez
+  {l:addr} (p: !event(l)):<> [l >= null] void
+// end of [event_is_gtez]
 
 (* ****** ****** *)
 
-fun eventp_null
-  ((*void*)):<> eventp (null) = "mac#atspre_ptr_null"
-// end of [eventp_null]
+fun event_null
+  ((*void*)):<> event (null) = "mac#atspre_ptr_null"
+// end of [event_null]
 
-prfun eventp_free_null {l:alez} (p: eventp l):<> void
-
-(* ****** ****** *)
-//
-castfn
-eventp2ptr
-  {l:addr}(!eventp(l)):<> ptr(l)
-//
-overload ptrcast with eventp2ptr
-//
-(* ****** ****** *)
-
-fun
-eventp_is_null
-  {l:addr}
-  (p: !eventp l):<> bool (l==null) = "mac#atspre_ptr_is_null"
-fun eventp_isnot_null
-  {l:addr}
-  (p: !eventp l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
-//
-overload iseqz with eventp_is_null
-overload isneqz with eventp_isnot_null
-//
-(* ****** ****** *)
-
-absvtype
-eventp_base (l:addr) = ptr (l)
-vtypedef
-eventp0_base = [l:addr] eventp_base (l)
-vtypedef
-eventp1_base = [l:addr | l > null] eventp_base (l)
-
-(* ****** ****** *)
-
-prfun
-eventp_base_is_gtez
-  {l:addr} (p: !eventp_base l):<> [l >= null] void
-// end of [eventp_base_is_gtez]
-
-fun eventp_base_null
-  ((*void*)):<> eventp_base (null) = "mac#atspre_ptr_null"
-
-prfun
-eventp_base_free_null {l:alez} (p: eventp_base (l)):<> void
+praxi event_free_null{l:alez} (p: event l):<prf> void
 
 (* ****** ****** *)
 //
 castfn
-eventp2ptr_base
-  {l:addr}(p: !eventp(l)):<> ptr(l)
+event2ptr
+  {l:addr}(!event(l)):<> ptr(l)
 //
-overload ptrcast with eventp2ptr_base
+overload ptrcast with event2ptr
 //
 (* ****** ****** *)
 
 fun
-eventp_base_is_null
+event_is_null
   {l:addr}
-  (p: !eventp_base l):<> bool (l==null) = "mac#atspre_ptr_is_null"
-fun
-eventp_base_isnot_null
+  (p: !event l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun event_isnot_null
   {l:addr}
-  (p: !eventp_base l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+  (p: !event l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
 //
-overload iseqz with eventp_base_is_null
-overload isneqz with eventp_base_isnot_null
+overload iseqz with event_is_null
+overload isneqz with event_isnot_null
 //
 (* ****** ****** *)
 
 absvtype
-eventp_config (l:addr) = ptr (l)
+event_base (l:addr) = ptr (l)
 vtypedef
-eventp0_config = [l:addr] eventp_config (l)
+event0_base = [l:addr] event_base (l)
 vtypedef
-eventp1_config = [l:addr | l > null] eventp_config (l)
+event1_base = [l:addr | l > null] event_base (l)
 
 (* ****** ****** *)
 
-prfun
-eventp_config_is_gtez
-  {l:addr} (p: !eventp_config l):<> [l >= null] void
-// end of [eventp_config_is_gtez]
+praxi
+event_base_is_gtez
+  {l:addr} (p: !event_base l):<> [l >= null] void
+// end of [event_base_is_gtez]
+
+fun event_base_null
+  ((*void*)):<> event_base (null) = "mac#atspre_ptr_null"
+
+praxi
+event_base_free_null{l:alez} (p: event_base (l)):<prf> void
+
+(* ****** ****** *)
+//
+castfn
+event2ptr_base
+  {l:addr}(p: !event(l)):<> ptr(l)
+//
+overload ptrcast with event2ptr_base
+//
+(* ****** ****** *)
+
+fun
+event_base_is_null
+  {l:addr}
+  (p: !event_base l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun
+event_base_isnot_null
+  {l:addr}
+  (p: !event_base l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with event_base_is_null
+overload isneqz with event_base_isnot_null
+//
+(* ****** ****** *)
+
+absvtype
+event_config (l:addr) = ptr (l)
+vtypedef
+event0_config = [l:addr] event_config (l)
+vtypedef
+event1_config = [l:addr | l > null] event_config (l)
+
+(* ****** ****** *)
+
+praxi
+event_config_is_gtez
+  {l:addr} (p: !event_config l):<> [l >= null] void
+// end of [event_config_is_gtez]
 
 (* ****** ****** *)
 
 fun
-eventp_config_null
+event_config_null
 (
 // argumentless
-) :<> eventp_config (null) = "mac#atspre_ptr_null"
+) :<> event_config (null) = "mac#atspre_ptr_null"
 
 (* ****** ****** *)
 
-prfun
-eventp_config_free_null
-  {l:addr | l <= null} (p: eventp_config l):<> void
-// end of [eventp_config_free_null]
+praxi
+event_config_free_null
+  {l:addr | l <= null} (p: event_config l):<> void
+// end of [event_config_free_null]
 
 (* ****** ****** *)
 //
 castfn
-eventp2ptr_config
-  {l:addr}(p: eventp (l)):<> ptr (l)
+event2ptr_config
+  {l:addr}(p: event (l)):<> ptr (l)
 //
-overload ptrcast with eventp2ptr_config
+overload ptrcast with event2ptr_config
 //
 (* ****** ****** *)
 
 fun
-eventp_config_is_null
+event_config_is_null
   {l:addr}
-  (p: !eventp_config l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+  (p: !event_config l):<> bool (l==null) = "mac#atspre_ptr_is_null"
 fun
-eventp_config_isnot_null
+event_config_isnot_null
   {l:addr}
-  (p: !eventp_config l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+  (p: !event_config l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
 //
-overload iseqz with eventp_config_is_null
-overload isneqz with eventp_config_isnot_null
+overload iseqz with event_config_is_null
+overload isneqz with event_config_isnot_null
 //
 (* ****** ****** *)
+
+fun event_get_version ((*void*)): string = "mac#%"
+fun event_get_version_number ((*void*)): ev_uint32_t = "mac#%"
+
+(* ****** ****** *)
 //
-fun event_enable_debug_mode ((*void*)): void = "mac#%"
-fun event_debug_unassign (ev: !eventp1): void = "mac#%"
+fun
+event_enable_debug_mode ((*void*)): void = "mac#%"
+//
+fun event_debug_unassign (ev: !event1): void = "mac#%"
 //  
 (* ****** ****** *)
 //
-fun eventp_config_new (): eventp0_config = "mac#%"
-fun eventp_config_free (p: eventp0_config): void = "mac#%"
+fun event_config_new (): event0_config = "mac#%"
+fun event_config_free (p: event0_config): void = "mac#%"
 //
-fun eventp_config_avoid_method
-  (cfg: !eventp1_config, method: NSH(string)): interr = "mac#%"
+fun event_config_avoid_method
+  (cfg: !event1_config, method: NSH(string)): interr = "mac#%"
 //
 (* ****** ****** *)
 
-fun event_base_new (): eventp0_base = "mac#%"
-fun event_reinit (evb: !eventp1_base): interr = "mac#%"
-fun event_base_dispatch (evb: !eventp1_base): interr2 = "mac#%"
-fun event_base_get_method (evb: !eventp1_base): string = "mac#%"
+fun event_base_new (): event0_base = "mac#%"
+fun event_reinit (evb: !event1_base): interr = "mac#%"
+fun event_base_dispatch (evb: !event1_base): interr2 = "mac#%"
+fun event_base_get_method (evb: !event1_base): string = "mac#%"
 
 (* ****** ****** *)
 //
@@ -231,23 +261,23 @@ EVENT_BASE_FLAG_EPOLL_USE_CHANGELIST = $extval (event_base_config_flag, "EVENT_B
 //
 fun
 event_base_get_features
-  (evb: !eventp1_base): int = "mac#%"
+  (evb: !event1_base): int = "mac#%"
 fun
 event_config_require_features
-  (cfg: !eventp1_config, feature:int): interr = "mac#%"
+  (cfg: !event1_config, features: int): interr = "mac#%"
 //
 fun
 event_config_set_flag
-  (cfg: !eventp1_config, flag: int): int = "mac#%"
+  (cfg: !event1_config, flag: int): int = "mac#%"
 fun
 event_config_set_num_cpus_hint
-  (cfg: !eventp1_config, cpus: int): interr = "mac#%"
+  (cfg: !event1_config, cpus: int): interr = "mac#%"
 //
 fun
 event_base_new_with_config
-  (cfg: !eventp1_config): eventp0_base = "mac#%"
+  (cfg: !event1_config): event0_base = "mac#%"
 //
-fun event_base_free (evb: eventp0_base):void = "mac#%"
+fun event_base_free (evb: event0_base): void = "mac#%"
 //
 (* ****** ****** *)
   
@@ -260,12 +290,12 @@ fun event_base_free (evb: eventp0_base):void = "mac#%"
 //
 typedef
 event_log_cb = (int, string) -> void
-fun event_set_log_callback(cb: event_log_cb): void = "mac#%"
+fun event_set_log_callback (cb: event_log_cb): void = "mac#%"
 //
 typedef event_fatal_cb = (int) -> void
-fun event_set_fatal_callback(cb: event_fatal_cb):void = "mac#%"
+fun event_set_fatal_callback (cb: event_fatal_cb): void = "mac#%"
 //
-fun event_base_set (evb: !eventp1_base, ev: !eventp1): int = "mac#%"
+fun event_base_set (evb: !event1_base, ev: !event1): int = "mac#%"
 //
 (* ****** ****** *)
 
@@ -276,14 +306,395 @@ fun event_base_set (evb: !eventp1_base, ev: !eventp1): int = "mac#%"
 //  
 fun
 event_base_loop
-  (evb: !eventp1_base, flag: int): interr2 = "mac#%"
+  (evb: !event1_base, flag: int): interr2 = "mac#%"
 //
 fun
 event_base_loopexit
-  (evb: !eventp1_base, timeval: ptr): interr = "mac#%"
-fun event_base_loopbreak (evb: !eventp1_base): interr = "mac#%"
+  (evb: !event1_base, tv: cPtr0(timeval)): interr = "mac#%"
+fun event_base_loopbreak (evb: !event1_base): interr = "mac#%"
 //
-fun event_base_got_exit (evb: !eventp1_base): intGte(0) = "mac#%"
+fun event_base_got_exit (evb: !event1_base): intGte(0) = "mac#%"
+//
+(* ****** ****** *)
+
+macdef EV_READ    = $extval (sint, "EV_READ")
+macdef EV_WRITE   = $extval (sint, "EV_WRITE")
+macdef EV_SIGNAL  = $extval (sint, "EV_SIGNAL")
+macdef EV_TIMEOUT = $extval (sint, "EV_TIMEOUT")
+macdef EV_PERSIST = $extval (sint, "EV_PERSIST")
+macdef EV_ET      = $extval (sint, "EV_ET") // edge-triggered
+
+(* ****** ****** *)
+//
+abst@ype
+evutil_socket_t = $extype"evutil_socket_t"
+//
+typedef
+event_callback_fn
+  (a:vt0p, l:addr) = (evutil_socket_t, sint, cptr(a, l)) -> void
+//
+(* ****** ****** *)
+
+fun
+event_new{a:vt0p}{l:addr}
+(
+  base: !event1_base
+, fd: evutil_socket_t, what: sint
+, cb: event_callback_fn (a, l), arg: cptr (a, l)
+) : event0 = "mac#%" // end-of-fun
+
+fun event_free (ev: event0): void = "mac#%"
+
+(* ****** ****** *)
+//
+fun event_add
+  (ev: !event1, tv: &timeval): interr = "mac#%"
+fun event_add_null (ev: !event1): interr = "mac#%"
+//
+(* ****** ****** *)
+
+fun event_initialized (ev: !event1): intBtwe(0, 1) = "mac#%"
+
+(* ****** ****** *)
+//
+fun event_priority_set (ev: !event1, pri: int): interr = "mac#%"
+//
+fun
+event_base_priority_init (evb: !event1_base, pri: int): interr = "mac#%"
+//
+(* ****** ****** *)
+
+(*
+//
+// evbuffer
+//
+*)
+
+(* ****** ****** *)
+//
+absvtype evbuffer (l:addr) = ptr (l)
+vtypedef evbuffer0 = [l:agez ] evbuffer(l)
+vtypedef evbuffer1 = [l:addr | l > null ] evbuffer(l)
+//
+fun evbuffer_null () :<> evbuffer (null) = "mac#atspre_null_ptr"
+fun evbuffer_is_null
+  {l:addr} (p: !evbuffer l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evbuffer_isnot_null
+  {l:addr} (p: !evbuffer l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evbuffer_is_null
+overload isneqz with evbuffer_isnot_null
+//
+(* ****** ****** *)
+
+/*
+size_t
+evbuffer_get_length (const struct evbuffer *buf);
+*/
+fun
+evbuffer_get_lenth (buf: !evbuffer1):<> size_t = "mac#%"
+
+(* ****** ****** *)
+//
+fun
+evbuffer_pullup
+  (buf: !evbuffer1, size: ev_ssize_t): vStrptr0 = "mac#%"
+//      
+(* ****** ****** *)
+
+(*
+//
+// evhttp
+//
+*)
+
+(* ****** ****** *)
+
+macdef HTTP_OK = $extval (int, "HTTP_OK")
+macdef HTTP_NOCONTENT = $extval(int, "HTTP_NOCONTENT")
+macdef HTTP_MOVEPERM = $extval(int, "HTTP_MOVEPERM")
+macdef HTTP_MOVETEMP = $extval(int, "HTTP_MOVETEMP")
+macdef HTTP_NOTMODIFIED = $extval(int, "HTTP_NOTMODIFIED")
+macdef HTTP_BADREQUEST = $extval(int, "HTTP_BADREQUEST")
+macdef HTTP_NOTFOUND = $extval(int, "HTTP_NOTFOUND")
+macdef HTTP_BADMETHOD = $extval(int, "HTTP_BADMETHOD")
+macdef HTTP_ENTITYTOOLARGE = $extval(int, "HTTP_ENTITYTOOLARGE")
+macdef HTTP_EXPECTATIONFAILED = $extval(int, "HTTP_EXPECTATIONFAILED")
+macdef HTTP_INTERNAL = $extval(int, "HTTP_INTERNAL")
+macdef HTTP_NOTIMPLEMENTED = $extval(int, "HTTP_NOTIMPLEMENTED")
+macdef HTTP_SERVUNAVAIL = $extval(int, "HTTP_SERVUNAVAIL")
+
+(* ****** ****** *)
+
+(*
+** CD:
+** [lb] is the address of an event_base object
+** with which that the evhttp object is associated
+*)
+absvtype
+evhttp (lh:addr, lb:addr) = ptr (lh)
+//
+vtypedef
+evhttp1 = [lh,lb:addr | lh > null; lb > null] evhttp (lh, lb)
+//
+fun evhttp_null ():<> evhttp (null, null) = "mac#atspre_ptr_null"
+//
+praxi
+evhttp_free_null
+  {lh,lb:addr | lh <= null} (http: evhttp (null, null)):<prf> void
+//
+fun evhttp_is_null
+  {lh,lb:addr} (!evhttp (lh, lb)):<> bool (lh==null) = "mac#atspre_ptr_is_null"
+fun evhttp_isnot_null
+  {lh,lb:addr} (!evhttp (lh, lb)):<> bool (lh > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evhttp_is_null
+overload isneqz with evhttp_isnot_null
+//
+(* ****** ****** *)
+//
+absvtype evhttp_request (l:addr) = ptr (l)
+vtypedef evhttp0_request = [l:agez] evhttp_request(l)
+vtypedef evhttp1_request = [l:addr | l > null ] evhttp_request(l)
+//
+fun evhttp_request_null () :<> evhttp_request (null) = "mac#atspre_ptr_null"
+//
+fun evhttp_request_is_null
+  {l:addr} (!evhttp_request l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evhttp_request_isnot_null
+  {l:addr} (!evhttp_request l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evhttp_request_is_null
+overload isneqz with evhttp_request_isnot_null
+//
+(* ****** ****** *)
+//
+(*
+typedef
+evhttp_callback0
+  (a:vt@ype, l:addr) = (evhttp1_request, cptr(a,l)) -> void
+*)
+typedef
+evhttp_callback1
+  (a:vt@ype, l:addr) = (!evhttp1_request, cptr(a,l)) -> void
+typedef
+evhttp_callback1_ref
+  (a:vt@ype, l:addr) = (!evhttp1_request, &(a) >> _) -> void
+//
+(* ****** ****** *)
+//
+absvtype evkeyvalq (l:addr) = ptr (l)
+vtypedef evkeyvalq0 = [l:agez ] evkeyvalq l
+vtypedef evkeyvalq1 = [l:addr | l > null ] evkeyvalq l
+//
+fun evkeyvalq_null () :<> evkeyvalq (null) = "mac#atspre_ptr_null"
+//
+fun evkeyvalq_is_null {l:addr} (p: !evkeyvalq l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evkeyvalq_isnot_null {l:addr} (p: !evkeyvalq l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evkeyvalq_is_null
+overload isneqz with evkeyvalq_isnot_null
+//
+(* ****** ****** *)
+//
+absvtype
+evhttp_bound_socket (l:addr) = ptr l
+vtypedef
+evhttp0_bound_socket = [l:agez] evhttp_bound_socket l
+vtypedef
+evhttp1_bound_socket = [l:addr | l > null ] evhttp_bound_socket l
+//
+fun evhttp_bound_socket_null ():<> evhttp_bound_socket (null) = "mac#atspre_ptr_null"
+//
+fun evhttp_bound_socket_is_null
+  {l:addr} (p: !evhttp_bound_socket l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evhttp_bound_socket_isnot_null
+  {l:addr} (p: !evhttp_bound_socket l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evhttp_bound_socket_is_null
+overload isneqz with evhttp_bound_socket_isnot_null
+//
+(* ****** ****** *)
+//
+absvtype
+evconnlistener (l:addr) = ptr (l)
+vtypedef
+evconnlistener0 = [l:agez ] evconnlistener(l)
+vtypedef
+evconnlistener1 = [l:addr | l > null ] evconnlistener(l)
+//
+fun evconnlistener_null () :<> evconnlistener (null) = "mac#atspre_ptr_null"
+//
+fun evconnlistener_is_null
+  {l:addr} (p: !evconnlistener l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evconnlistener_isnot_null
+  {l:addr} (p: !evconnlistener l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evconnlistener_is_null
+overload isneqz with evconnlistener_isnot_null
+//
+(* ****** ****** *)
+
+absvtype evhttp_connection (l:addr) = ptr (l)
+vtypedef evhttp0_connection = [l:agez] evhttp_connection(l)
+vtypedef evhttp1_connection = [l:addr | l > null ] evhttp_connection(l)
+//
+fun evhttp_connection_null () :<> evhttp_connection (null) = "mac#atspre_ptr_null"
+//
+fun evhttp_connection_is_null
+  {l:addr} (p: !evhttp_connection l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evhttp_connection_isnot_null
+  {l:addr} (p: !evhttp_connection l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evhttp_connection_is_null
+overload isneqz with evhttp_connection_isnot_null
+//
+(* ****** ****** *)
+//
+absvtype evhttp_uri (l:addr) = ptr (l)
+vtypedef evhttp0_uri = [l:agez] evhttp_uri(l)
+vtypedef evhttp1_uri = [l:addr | l > null ] evhttp_uri(l)
+//
+fun evhttp_uri_null () :<> evhttp_uri (null) = "mac#atspre_ptr_null"
+fun evhttp_uri_is_null
+  {l:addr} (p: !evhttp_uri l):<> bool (l==null) = "mac#atspre_ptr_is_null"
+fun evhttp_uri_isnot_null
+  {l:addr} (p: !evhttp_uri l):<> bool (l > null) = "mac#atspre_ptr_isnot_null"
+//
+overload iseqz with evhttp_uri_is_null
+overload isneqz with evhttp_uri_isnot_null
+//
+(* ****** ****** *)
+//
+fun
+evhttp_new{lb:agz}
+  (base: !event_base lb): [lh:agez] evhttp (lh, lb) = "mac#%"
+//
+(* ****** ****** *)
+
+/*
+void evhttp_free(struct evhttp* http);
+*/
+fun evhttp_free{lh,lb:addr}(http: evhttp (lh, lb)): void = "mac#%"
+
+(* ****** ****** *)
+
+fun evhttp_bind_socket
+  (http: !evhttp1, address: Stropt, port: uint16): interr = "mac#%"
+
+(* ****** ****** *)
+//
+abst@ype
+evhttp_cmd_type = int
+//
+macdef EVHTTP_REQ_GET = $extval (evhttp_cmd_type, "EVHTTP_REQ_GET")
+macdef EVHTTP_REQ_POST = $extval (evhttp_cmd_type, "EVHTTP_REQ_POST")
+macdef EVHTTP_REQ_HEAD = $extval (evhttp_cmd_type, "EVHTTP_REQ_HEAD")
+macdef EVHTTP_REQ_PUT = $extval (evhttp_cmd_type, "EVHTTP_REQ_PUT")
+macdef EVHTTP_REQ_DELETE = $extval (evhttp_cmd_type, "EVHTTP_REQ_DELETE")
+macdef EVHTTP_REQ_OPTIONS = $extval (evhttp_cmd_type, "EVHTTP_REQ_OPTIONS")
+macdef EVHTTP_REQ_TRACE = $extval (evhttp_cmd_type, "EVHTTP_REQ_TRACE")
+macdef EVHTTP_REQ_CONNECT = $extval (evhttp_cmd_type, "EVHTTP_REQ_CONNECT")
+macdef EVHTTP_REQ_PATCH = $extval (evhttp_cmd_type, "EVHTTP_REQ_PATCH")
+//
+(* ****** ****** *)
+/*
+struct
+evhttp_request
+*evhttp_request_new
+(void (*cb)(struct evhttp_request *, void *), void *arg);
+*/
+(*
+fun
+evhttp_request_new0{a:vt0p}{l:addr}
+  (cb: evhttp_callback0 (a, l), arg: cptr(a, l)): evhttp0_request = "mac#%"
+*)
+fun
+evhttp_request_new1{a:vt0p}{l:addr}
+  (cb: evhttp_callback1 (a, l), arg: cptr(a, l)): evhttp0_request = "mac#%"
+fun
+evhttp_request_new1_ref{a:vt0p}{l:addr}
+  (cb: evhttp_callback1_ref (a, l), arg: &(a) >> _): evhttp0_request = "mac#%"
+//
+(* ****** ****** *)
+
+fun
+evhttp_request_get_input_buffer
+  {l:agz} (req: !evhttp_request(l))
+: [l2:agz] (minus (evhttp_request(l), evbuffer(l2)) | evbuffer(l2)) = "mac#%"
+
+(* ****** ****** *)
+  
+fun
+evhttp_request_get_response_code
+  (req: !evhttp1_request): int(*code*) = "mac#%"
+
+(* ****** ****** *)
+//
+fun
+evhttp_request_get_host
+  (req: !evhttp1_request): vStrptr1(*host*) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+evhttp_request_get_input_headers
+  {l:agz} (req: !evhttp_request(l))
+: [l2:agz]
+(
+  minus (evhttp_request l, evkeyvalq l2) | evkeyvalq (l2)
+) = "mac#%" // end of [evhttp_request_get_input_headers]
+//
+fun
+evhttp_request_get_output_headers
+  {l:agz} (req: !evhttp_request(l))
+: [l2:agz]
+(
+  minus (evhttp_request l, evkeyvalq l2) | evkeyvalq (l2)
+) = "mac#%" // end of [evhttp_request_get_output_headers]
+//
+(* ****** ****** *)
+//
+fun evhttp_add_header
+(
+  headers: !evkeyvalq1, key: NSH(string), value: NSH(string)
+) : interr = "mac#%" // end-of-fun
+fun evhttp_find_header
+  (headers: !evkeyvalq1, key: NSH(string)): vStrptr0 = "mac#%"
+fun evhttp_remove_header
+  (headers: !evkeyvalq1, key: NSH(string)): interr = "mac#%"
+// 
+fun evhttp_clear_headers (headers: !evkeyvalq1): void = "mac#%"
+//
+(* ****** ****** *)
+
+fun
+evhttp_connection_free (evhttp0_connection): void = "mac#%"
+fun
+evhttp_connection_base_new
+(
+  evb: !event1_base, dnsbase: ptr, address: string, port: uint16
+) : evhttp0_connection = "mac#%" // end-of-fun
+
+(* ****** ****** *)
+  
+fun evhttp_make_request
+(
+  cnn: !evhttp1_connection
+, req: evhttp1_request, type: evhttp_cmd_type, uri: string
+) : interr = "mac#%" // end-of-fun
+
+fun evhttp_cancel_request (req: evhttp1_request): void = "mac#%"
+  
+(* ****** ****** *)
+
+fun evhttp_uri_get_port (uri: !evhttp1_uri): int = "mac#%"
+fun evhttp_uri_get_host (uri: !evhttp1_uri): vStrptr0 = "mac#%"
+
+(* ****** ****** *)
+//
+fun evhttp_uri_free (uri: evhttp0_uri): void = "mac#%"
+fun evhttp_uri_parse (uri: string): evhttp0_uri = "mac#%"
 //
 (* ****** ****** *)
 
