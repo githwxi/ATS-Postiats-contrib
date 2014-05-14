@@ -67,8 +67,8 @@ prval () = minus_addback (fpf_buf, buf | req)
 
 vtypedef
 myenv (l:addr) = @{
-  base= event_base(l)
-, cn= Option_vt (evhttp1_connection), cb= string -> void
+  bas= event_base(l)
+, cnn= Option_vt (evhttp1_connection), cbk= string -> void
 } (* end of [myenv] *)
 
 viewtypedef myenv1 = [l:addr | l > null] myenv(l)
@@ -104,10 +104,10 @@ fun document_okay
   req: !evhttp1_request, env: &myenv1
 ) : void = let
   val result = get_request_result (req)
-  val ((*void*)) = env.cb($UN.strptr2string(result))
+  val ((*void*)) = env.cbk($UN.strptr2string(result))
   val ((*void*)) = strptr_free(result)
 in
-  ignoret(event_base_loopexit(env.base, $UN.cast{cPtr0(timeval)}(0)))
+  ignoret(event_base_loopexit(env.bas, $UN.cast{cPtr0(timeval)}(0)))
 end // end of [document_okay]
 
 (* ****** ****** *)
@@ -118,7 +118,7 @@ fun document_error
 ) :void = let
   val () = println! ("error!")
 in
-  ignoret(event_base_loopexit(env.base, $UN.cast{cPtr0(timeval)}(0)))
+  ignoret(event_base_loopexit(env.bas, $UN.cast{cPtr0(timeval)}(0)))
 end // end of [document_error]
 
 (* ****** ****** *)
@@ -150,20 +150,20 @@ download_url
   var env: myenv(null)?
   val evb = event_base_new()
   val () = assertlocmsg(isneqz(evb), "[event_base_new] failed")
-  val () = env.base := evb
-  val () = env.cn := None_vt(*void*)
-  val () = env.cb := (lam (msg: string): void => println! (msg))
+  val () = env.bas := evb
+  val () = env.cnn := None_vt(*void*)
+  val () = env.cbk := (lam (msg: string): void => println! (msg))
 //
   val () = download_renew_request (url, env)
 //
   val err = // -1/0/1
-    event_base_dispatch (env.base)
+    event_base_dispatch (env.bas)
   val () = (
-    case+ env.cn of
-    | ~Some_vt(c) => evhttp_connection_free (c) | ~None_vt () => ()
+    case+ env.cnn of
+    | ~Some_vt(cnn) => evhttp_connection_free (cnn) | ~None_vt () => ()
   ) : void // end of [val]
-  val () = event_base_free (env.base)
-  prval ((*void*)) = topize (env.cb)
+  val () = event_base_free (env.bas)
+  prval ((*void*)) = topize (env.cbk)
 } (* end of [download_url] *)
 
 (* ****** ****** *)
@@ -172,36 +172,39 @@ implement
 download_renew_request
   (url, env) = () where
 {
-  val uri = evhttp_uri_parse (url)
-  val () = assertlocmsg (isneqz(uri), "[evhttp_uri_parse] failed")
-  val (fpf_host | host) = evhttp_uri_get_host (uri)
-  val () = assertlocmsg (isneqz(host), "[evhttp_uri_parse] failed")
-  val port = evhttp_uri_get_port (uri)
-  val port = (if (port >= 0) then g0i2u(port) else 80u): uint
-  val cn = evhttp_connection_base_new(env.base,
-                                      the_null_ptr,
-                                      $UN.strptr2string(host),
-                                      $UN.cast{uint16}(port))
-  val () = assertlocmsg (isneqz(cn), "[evhttp_connection_base_new] failed")
+//
+val uri = evhttp_uri_parse (url)
+val () = assertlocmsg (isneqz(uri), "[evhttp_uri_parse] failed")
+val (fpf_host | host) = evhttp_uri_get_host (uri)
+val () = assertlocmsg (isneqz(host), "[evhttp_uri_parse] failed")
+val port = evhttp_uri_get_port (uri)
+val port = (if (port >= 0) then g0i2u(port) else 80u): uint
+val cnn = evhttp_connection_base_new(env.bas,
+                                    the_null_ptr,
+                                    $UN.strptr2string(host),
+                                    $UN.cast{uint16}(port))
+val () = assertlocmsg (isneqz(cnn), "[evhttp_connection_base_new] failed")
 
-  val req = evhttp_request_new1_ref {myenv1} (download_callback, env)
+val req = evhttp_request_new1_ref {myenv1} (download_callback, env)
 
-  val () = assertlocmsg (isneqz(req), "evhttp_request_new failed")
+val () = assertlocmsg (isneqz(req), "evhttp_request_new failed")
 //
-  val (fpf_headers | headers) =
-    evhttp_request_get_output_headers(req)
-  val err = evhttp_add_header (headers, "Host", $UN.strptr2string(host))
-  prval () = minus_addback (fpf_headers, headers | req)
+val (fpf_headers | headers) =
+  evhttp_request_get_output_headers(req)
+val err = evhttp_add_header (headers, "Host", $UN.strptr2string(host))
+prval () = minus_addback (fpf_headers, headers | req)
 //
-  prval () = fpf_host (host)
+prval () = fpf_host (host)
 //
-  val _ = evhttp_make_request(cn, req, EVHTTP_REQ_GET, "/")
-  val () = (
-    case+ env.cn of
-    | ~Some_vt (c) => evhttp_connection_free(c) | ~None_vt () => ()
-  ) : void // end of [val]
-  val () = env.cn := Some_vt(cn)
-  val ((*freed*)) = evhttp_uri_free(uri)
+val err =
+  evhttp_make_request(cnn, req, EVHTTP_REQ_GET, "/")
+val () = (
+  case+ env.cnn of
+  | ~Some_vt (c) => evhttp_connection_free(c) | ~None_vt () => ()
+) : void // end of [val]
+val () = env.cnn := Some_vt(cnn)
+val ((*freed*)) = evhttp_uri_free(uri)
+//
 } (* end of [download_renew_request] *)
 
 (* ****** ****** *)
