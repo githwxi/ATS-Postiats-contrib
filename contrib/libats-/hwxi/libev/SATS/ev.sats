@@ -36,33 +36,33 @@
 
 (* ****** ****** *)
 //
-macdef EV_UNDEF = $extval (uint, "EV_UNDEF")
-macdef EV_NONE = $extval (uint, "EV_NONE")
-macdef EV_READ = $extval (uint, "EV_READ")
-macdef EV_WRITE = $extval (uint, "EV_WRITE")
-macdef EV__IOFDSET = $extval (uint, "EV__IOFDSET")
-macdef EV_IO = $extval (uint, "EV_IO")
-macdef EV_TIMER = $extval (uint, "EV_TIMER")
-macdef EV_TIMEOUT = $extval (uint, "EV_TIMEOUT")
-macdef EV_PERIODIC = $extval (uint, "EV_PERIODIC")
-macdef EV_SIGNAL = $extval (uint, "EV_SIGNAL")
-macdef EV_CHILD = $extval (uint, "EV_CHILD")
-macdef EV_STAT = $extval (uint, "EV_STAT")
-macdef EV_IDLE = $extval (uint, "EV_IDLE")
-macdef EV_PREPARE = $extval (uint, "EV_PREPARE")
-macdef EV_CHECK = $extval (uint, "EV_CHECK")
-macdef EV_EMBED = $extval (uint, "EV_EMBED")
-macdef EV_FORK = $extval (uint, "EV_FORK")
-macdef EV_CLEANUP = $extval (uint, "EV_CLEANUP")
-macdef EV_ASYNC = $extval (uint, "EV_ASYNC")
-macdef EV_CUSTOM = $extval (uint, "EV_CUSTOM")
-macdef EV_ERROR = $extval (uint, "EV_ERROR")
+macdef EV_UNDEF = $extval (int, "EV_UNDEF")
+macdef EV_NONE = $extval (int, "EV_NONE")
+macdef EV_READ = $extval (int, "EV_READ")
+macdef EV_WRITE = $extval (int, "EV_WRITE")
+macdef EV__IOFDSET = $extval (int, "EV__IOFDSET")
+macdef EV_IO = $extval (int, "EV_IO")
+macdef EV_TIMER = $extval (int, "EV_TIMER")
+macdef EV_TIMEOUT = $extval (int, "EV_TIMEOUT")
+macdef EV_PERIODIC = $extval (int, "EV_PERIODIC")
+macdef EV_SIGNAL = $extval (int, "EV_SIGNAL")
+macdef EV_CHILD = $extval (int, "EV_CHILD")
+macdef EV_STAT = $extval (int, "EV_STAT")
+macdef EV_IDLE = $extval (int, "EV_IDLE")
+macdef EV_PREPARE = $extval (int, "EV_PREPARE")
+macdef EV_CHECK = $extval (int, "EV_CHECK")
+macdef EV_EMBED = $extval (int, "EV_EMBED")
+macdef EV_FORK = $extval (int, "EV_FORK")
+macdef EV_CLEANUP = $extval (int, "EV_CLEANUP")
+macdef EV_ASYNC = $extval (int, "EV_ASYNC")
+macdef EV_CUSTOM = $extval (int, "EV_CUSTOM")
+macdef EV_ERROR = $extval (int, "EV_ERROR")
 //
 (* ****** ****** *)
 
 (*
 **
-** Global Functions
+** Global functions
 **
 *)
 
@@ -112,6 +112,14 @@ fun ev_feed_signal (signum: int): void = "mac#%"
 
 (* ****** ****** *)
 
+(*
+**
+** Functions controlling event loops
+**
+*)
+
+(* ****** ****** *)
+
 abstype ev_loop_ref = ptr // HX: NZ
 absvtype ev_loop_ptr(l:addr) = ptr(l)
 
@@ -139,8 +147,55 @@ EV_DEFAULT = $extval (ev_loop_ref, "EV_DEFAULT")
 
 (* ****** ****** *)
 
+(*
+** flag bits for ev_default_loop and ev_loop_new
+*)
+macdef EVFLAG_AUTO = $extval (uint, "EVFLAG_AUTO")
+macdef EVFLAG_NOENV = $extval (uint, "EVFLAG_NOENV")
+macdef EVFLAG_FORKCHECK = $extval (uint, "EVFLAG_FORKCHECK")
+macdef EVFLAG_NOINOTIFY = $extval (uint, "EVFLAG_NOINOTIFY")
+macdef EVFLAG_NOSIGFD = $extval (uint, "EVFLAG_NOSIGFD")
+macdef EVFLAG_SIGNALFD = $extval (uint, "EVFLAG_SIGNALFD")
+macdef EVFLAG_NOSIGMASK = $extval (uint, "EVFLAG_NOSIGMASK")
+
+(* ****** ****** *)
+
+(*
+** method bits to be ored together
+*)
+macdef EVBACKEND_SELECT = $extval (uint, "EVBACKEND_SELECT")
+macdef EVBACKEND_POLL = $extval (uint, "EVBACKEND_POLL")
+macdef EVBACKEND_EPOLL = $extval (uint, "EVBACKEND_EPOLL")
+macdef EVBACKEND_KQUEUE = $extval (uint, "EVBACKEND_KQUEUE")
+macdef EVBACKEND_DEVPOLL = $extval (uint, "EVBACKEND_DEVPOLL")
+macdef EVBACKEND_PORT = $extval (uint, "EVBACKEND_PORT")
+macdef EVBACKEND_ALL = $extval (uint, "EVBACKEND_ALL")
+macdef EVBACKEND_MASK = $extval (uint, "EVBACKEND_MASK")
+
+(* ****** ****** *)
+
+/*
 fun
 ev_default_loop (flags: int): ev_loop_ref = "mac#%"
+
+(* ****** ****** *)
+
+/*
+struct ev_loop *ev_loop_new (unsigned int flags)
+*/
+fun ev_loop_new (flags: int): ev_loop_ptr0 = "mac#%"
+
+(* ****** ****** *)
+
+fun ev_loop_destroy (loop: ev_loop_ptr1): void = "mac#%"
+
+(* ****** ****** *)
+
+fun ev_loop_fork (loop: ev_loop_ref): void = "mac#%"
+
+(* ****** ****** *)
+
+fun ev_is_default_loop (loop: ev_loop_ref): bool = "mac#%"
 
 (* ****** ****** *)
 //
@@ -201,7 +256,7 @@ macdef
 EVRUN_NOWAIT = $extval (int, "EVRUN_NOWAIT")
 macdef EVRUN_ONCE = $extval (int, "EVRUN_ONCE")
 //
-fun ev_run (loop: ev_loop_ref, flags: int): void = "mac#%"
+fun ev_run (loop: ev_loop_ref, flags: int): int = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -217,6 +272,24 @@ macdef
 EVBREAK_ALL = $extval (ev_break_how, "EVBREAK_ALL")
 //
 fun ev_break (loop: ev_loop_ref, how: ev_break_how): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun{
+watcher:t0ype
+} ev_is_active (watcher: &watcher): bool
+//
+fun ev_is_active_io (watcher: &ev_io): bool = "mac#%"
+fun ev_is_active_timer (watcher: &ev_timer): bool = "mac#%"
+//
+(* ****** ****** *)
+//
+fun{
+watcher:t0ype
+} ev_is_pending (watcher: &watcher): bool
+//
+fun ev_is_pending_io (watcher: &ev_io): bool = "mac#%"
+fun ev_is_pending_timer (watcher: &ev_timer): bool = "mac#%"
 //
 (* ****** ****** *)
 

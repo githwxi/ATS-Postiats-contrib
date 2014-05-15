@@ -55,7 +55,16 @@ val () = ev_init_timer (timeout_watcher, timeout_cb)
 val () = $extfcall (void, "ev_timer_set", addr@timeout_watcher, 2.5, 0.0)
 val () = ev_timer_start (loop, timeout_watcher)
 //
-val () = ev_run (loop, 0)
+local
+//
+// HX-2014-05:
+// for backward compatibility
+//
+extern
+fun ev_run (loop: ev_loop_ref, flags: int): void = "mac#"
+in(*in-of-local*)
+val _(*cnt*) = ev_run (loop, 0)
+end // end of [loop]
 //
 } (* end of [main0] *)
 

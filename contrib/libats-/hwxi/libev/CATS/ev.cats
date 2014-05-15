@@ -61,8 +61,18 @@ atscntrb_libev_ev_embeddable_backends ev_embeddable_backends
 #define atscntrb_libev_ev_feed_signal ev_feed_signal
 
 /* ****** ****** */
-
+//
 #define atscntrb_libev_ev_default_loop ev_default_loop
+//
+#define atscntrb_libev_ev_loop_new ev_loop_new
+//
+#define atscntrb_libev_ev_loop_destroy ev_loop_destroy
+//
+#define atscntrb_libev_ev_loop_fork ev_loop_fork
+//
+/* ****** ****** */
+
+#define atscntrb_libev_ev_is_default_loop ev_is_default_loop
 
 /* ****** ****** */
 
