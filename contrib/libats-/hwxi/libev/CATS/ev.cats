@@ -31,6 +31,11 @@
 //
 /* ****** ****** */
 
+typedef
+struct ev_loop *ev_loop_ref ;
+
+/* ****** ****** */
+
 #define atscntrb_libev_ev_time ev_time
 
 /* ****** ****** */
@@ -54,6 +59,32 @@ atscntrb_libev_ev_embeddable_backends ev_embeddable_backends
 /* ****** ****** */
 
 #define atscntrb_libev_ev_feed_signal ev_feed_signal
+
+/* ****** ****** */
+
+#define atscntrb_libev_ev_default_loop ev_default_loop
+
+/* ****** ****** */
+
+#define \
+atscntrb_libev_ev_init_io(w, cb) ev_init(w, (void*)cb)
+#define \
+atscntrb_libev_ev_init_timer(w, cb) ev_init(w, (void*)cb)
+
+/* ****** ****** */
+
+#define atscntrb_libev_ev_io_start ev_io_start
+#define atscntrb_libev_ev_io_stop ev_io_stop
+
+/* ****** ****** */
+
+#define atscntrb_libev_ev_timer_start ev_timer_start
+#define atscntrb_libev_ev_timer_stop ev_timer_stop
+
+/* ****** ****** */
+
+#define atscntrb_libev_ev_run ev_run
+#define atscntrb_libev_ev_break ev_break
 
 /* ****** ****** */
 

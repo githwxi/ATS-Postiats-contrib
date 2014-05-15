@@ -40,6 +40,14 @@ cleanall:: ; $(RMF) test00
 
 ######
 
+all:: \
+test01
+test01: test01.dats ; \
+  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib/libats-/hwxi $(CFLAGS) -o $@ $< $(LDFLAGS)
+cleanall:: ; $(RMF) test01
+
+######
+
 RMF=rm -f
 RMRF=rm -rf
 
