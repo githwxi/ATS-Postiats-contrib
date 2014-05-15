@@ -8,7 +8,12 @@ staload "./game.sats"
 
 (* ****** ****** *)
   
-dynload "./game.sats"  
+dynload "./game.sats"
+
+(* ****** ****** *)
+
+dynload "./game_initize.dats"
+dynload "./game_finalize.dats"
   
 (* ****** ****** *)
 
@@ -16,7 +21,9 @@ implement
 main0 () = () where
 {
 //
-val () = println! ("M-N-K: testing ...")
+val () = game_initize ()
+//
+val () = game_finalize ()
 //
 } (* end of [main0] *)
 
