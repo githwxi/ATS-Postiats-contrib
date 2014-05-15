@@ -27,6 +27,12 @@
 *)
 
 (* ****** ****** *)
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: January, 2014
+//
+(* ****** ****** *)
 
 (*
 ** stream of characters

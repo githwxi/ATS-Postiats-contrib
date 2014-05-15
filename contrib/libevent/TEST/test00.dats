@@ -2,7 +2,6 @@
 // Some code for testing
 // the API in ATS for libevent
 //
-
 (* ****** ****** *)
 
 staload "./../SATS/event.sats"

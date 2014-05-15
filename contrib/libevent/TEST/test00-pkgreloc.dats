@@ -2,7 +2,6 @@
 // Some code for testing
 // the API in ATS for libevent
 //
-
 (* ****** ****** *)
 //
 #define
