@@ -46,4 +46,4 @@ implement main0 () = ()
 
 (* ****** ****** *)
 
-(* end of [test00.dats] *)
+(* end of [test00-pkgreloc.dats] *)
