@@ -28,6 +28,7 @@ SOURCES_SATS += \
 SOURCES_DATS += \
   game.dats \
   game_initize.dats \
+  game_mainloop.dats \
   game_finalize.dats \
 
 ######

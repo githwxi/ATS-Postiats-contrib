@@ -1,5 +1,5 @@
 (*
-** The M-N-K-tictactoe game
+** The M-N-K-game
 *)
 
 (* ****** ****** *)

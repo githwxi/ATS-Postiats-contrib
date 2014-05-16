@@ -1,5 +1,5 @@
 (*
-** The M-N-K-tictactoe game
+** The M-N-K-game
 *)
 
 (* ****** ****** *)
@@ -24,6 +24,7 @@ fun fprint_board (FILEref, board): void
 (* ****** ****** *)
 
 fun game_initize ((*void*)): void
+fun game_mainloop ((*void*)): void
 fun game_finalize ((*void*)): void
 
 (* ****** ****** *)
