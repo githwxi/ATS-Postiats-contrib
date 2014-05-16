@@ -36,6 +36,7 @@ abst@ype T
 
 extern fun get (): T
 extern fun set (x: T): void
+extern fun getref (): [l:addr] vtakeoutptr (T)
 
 (* ****** ****** *)
 
@@ -54,6 +55,21 @@ in (* in of [local] *)
 
 implement get () = !r_val
 implement set (x) = !r_val := x
+
+(* ****** ****** *)
+
+implement getref () = let
+//
+extern
+praxi
+__assert{l:addr}
+  (ptr: ptr (l)): vtakeout0 (T@l)
+//
+prval (pf, fpf) = __assert (p_val)
+//
+in
+  (pf, fpf | p_val)
+end // end of [getref]
 
 end // end of [local]
 

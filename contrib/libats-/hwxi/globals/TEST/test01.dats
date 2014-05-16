@@ -26,6 +26,12 @@ val () = println! ("$F.get() = ", $F.get ())
 val () = $F.set (2.0)
 val () = println! ("$F.get() = ", $F.get ())
 //
+val (pf, fpf | p) = $F.getref ()
+val () = !p := 3.0
+prval () = fpf (pf)
+//
+val () = println! ("$F.get() = ", $F.get ())
+//
 } (* end of [main0] *)
 
 (* ****** ****** *)
