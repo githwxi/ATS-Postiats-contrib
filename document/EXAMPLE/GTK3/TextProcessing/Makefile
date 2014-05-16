@@ -35,4 +35,3 @@ clean:: ; $(RMF) *_?ats.c
 cleanall:: clean
 
 ###### end of [Makefile] ######
-

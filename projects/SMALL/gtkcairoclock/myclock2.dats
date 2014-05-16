@@ -150,10 +150,12 @@ typedef char **charptrptr ;
 abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
-
-staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
-staload _ = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
-
+//
+staload
+"{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
+staload _ =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
+//
 (* ****** ****** *)
 
 implement
