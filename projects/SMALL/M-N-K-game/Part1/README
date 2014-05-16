@@ -21,6 +21,9 @@ project.
 Part1/game.dats: This is the main file.
 
 Part1/game_board.dats: for implementing the game-board.
+Right now, I use a matrix-with-size to represent a board. If it makes
+sense to use a dependently typed matrix, then I will do it later. As of
+now, it does not seem to be the case.
 
 Part1/game_config.dats: for handling game-configuration.
 At this moment there are three global variables for storing the values of
