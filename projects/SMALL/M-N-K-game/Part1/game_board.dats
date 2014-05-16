@@ -24,4 +24,38 @@ board_make (m, n) =
 //
 (* ****** ****** *)
 
+fun
+pid2char (id: int): char =
+(
+case+ id of
+| 0 => ' ' | 1 => 'X' | 2 => 'O' | _ => '#'
+) (* end of [pid2char] *)
+
+(* ****** ****** *)
+//
+implement
+fprint_board (out, board) =
+  fprint_mtrxszref_sep (out, board, "|", "\n")
+//
+(* ****** ****** *)
+
+// (*
+val () = // testing code
+{
+//
+val () =
+println! ("TESTING(game_board):")
+//
+val () =
+println! ("TESTING(fprint_board): beg")
+val board = board_make (3, 3)
+val ((*void*)) = fprint_board (stdout_ref, board)
+val ((*void*)) = fprint_newline (stdout_ref)
+val () =
+println! ("TESTING(fprint_board): end")
+} (* end of [val] *)
+// *)
+
+(* ****** ****** *)
+
 (* end of [game_board.dats] *)
