@@ -6,9 +6,13 @@
 //
 // Game config-info
 //
-fun game_conf_get_m (): int
-fun game_conf_get_n (): int
-fun game_conf_get_k (): int
+fun game_conf_get_m (): int // the M of M-N-K
+fun game_conf_get_n (): int // the N of M-N-K
+fun game_conf_get_k (): int // the K of M-N-K
+
+(* ****** ****** *)
+
+fun fprint_config (FILEref): void
 
 (* ****** ****** *)
 

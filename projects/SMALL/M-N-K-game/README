@@ -20,10 +20,13 @@ At this point, I use [game.sats] to store all type definitions
 and function declarations. This practice should work well for a small
 project.
 
-Part1/game.dats: This is main file for the implementation
+Part1/game.dats: This is the main file for the implementation
+
+Part1/game_config.dats: for handling game-configuration; at this moment
+there are three global variables for storing the values of M, N, and K.
 
 Part1/game_initize.dats: for implementing game-initialization
-Part1/game_mainloop.dats: for implementing the loop of playing the game
 Part1/game_finalize.dats for implementing game-finalization
+Part1/game_mainloop.dats: for implementing the loop of playing the game
 
 ###### end of [README] ######
