@@ -12,7 +12,11 @@ dynload "./game.sats"
 
 (* ****** ****** *)
 
+dynload "./game_board.dats"
 dynload "./game_config.dats"
+
+(* ****** ****** *)
+
 dynload "./game_initize.dats"
 dynload "./game_mainloop.dats"
 dynload "./game_finalize.dats"

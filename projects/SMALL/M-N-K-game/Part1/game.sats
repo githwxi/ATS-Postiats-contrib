@@ -21,6 +21,9 @@ typedef board = board_type
 
 (* ****** ****** *)
 
+fun board_make
+  (m: intGte(2), n: intGte(2)): board
+
 fun print_board (board): void
 fun prerr_board (board): void
 fun fprint_board (FILEref, board): void
