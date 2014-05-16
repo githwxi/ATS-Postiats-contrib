@@ -40,7 +40,7 @@
 (* ****** ****** *)
 
 %{#
-#include "Z3/CATS/z3.cats"
+#include "contrib/SMT/Z3/CATS/z3.cats"
 %} // end of [%{#]
 
 (* ****** ****** *)
@@ -50,12 +50,11 @@
 #define ATS_EXTERN_PREFIX "atscntrb_" // prefix for external names
 
 (* ****** ****** *)
-//
+
 #define
 ATSCNTRB_SML_Z3_Z3_HEADER
-//
 #include "./z3_header.sats"
-//
+
 (* ****** ****** *)
 
 (*
@@ -113,7 +112,7 @@ void
 Z3_del_context (__in Z3_context c)
 Delete the given logical context.
 *)
-fun Z3_del_context (ctx: Z3_context): void
+fun Z3_del_context (ctx: Z3_context): void = "mac#%"
  
 (* ****** ****** *)
 
@@ -201,12 +200,13 @@ fun Z3_interrupt (ctx: !Z3_context): void = "mac#%"
 
 (* ****** ****** *)
 
-#include "./z3_numeral.sats"
+#include "./z3_numerals.sats"
 
 (* ****** ****** *)
 
+#include "./z3_array.sats"
+
 (*
-#include "./z3_arrayset.sats"
 #include "./z3_quantifier.sats"
 *)
 
@@ -221,9 +221,17 @@ fun Z3_interrupt (ctx: !Z3_context): void = "mac#%"
 
 (* ****** ****** *)
 
+#include "./z3_parser.sats"
+
+(* ****** ****** *)
+
 (*
 #include "./z3_interlog.sats"
 *)
+
+(* ****** ****** *)
+
+#include "./z3_quantifier.sats"
 
 (* ****** ****** *)
 

@@ -46,49 +46,12 @@ ATSCNTRB_SML_Z3_Z3_HEADER
 //
 (* ****** ****** *)
 
-(*
-void
-Z3_set_ast_print_mode
-  (__in Z3_context c, __in Z3_ast_print_mode mode)
-Select mode for the format used for pretty-printing AST nodes.
-*) 
-fun Z3_set_ast_print_mode
-  (ctx: !Z3_context, mode: Z3_ast_print_mode): void
-// end of [Z3_set_ast_print_mode]
- 
-(* ****** ****** *)
+fun Z3_mk_select (
+  ctx: !Z3_context, array: !Z3_ast, index: !Z3_ast
+): Z3_ast = "mac#%"
 
-(*
-Z3_string
-Z3_ast_to_string (__in Z3_context c, __in Z3_ast a)
-Convert the given AST node into a string.
-*)
-fun Z3_ast_to_string (ctx: !Z3_context, a: !Z3_ast): string = "mac#%"
+fun Z3_mk_store (
+  ctx: !Z3_context, array: !Z3_ast, index: !Z3_ast, v: !Z3_ast
+): Z3_ast = "mac#%"
 
 (* ****** ****** *)
-
-(*
-Z3_string
-Z3_pattern_to_string (__in Z3_context c, __in Z3_pattern p)
-*)
-fun Z3_pattern_to_string (ctx: !Z3_context, p: !Z3_pattern): string
- 
-(* ****** ****** *)
-
-(*
-Z3_string
-Z3_func_decl_to_string (__in Z3_context c, __in Z3_func_decl d)
-*) 
-fun Z3_func_decl_to_string (ctx: !Z3_context, d: !Z3_func_decl): string
-
-(* ****** ****** *)
-
-(*
-Z3_string
-Z3_model_to_string (__in Z3_context c, __in Z3_model m)
-*)
-fun Z3_model_to_string (ctx: !Z3_context, m: !Z3_model): string
-
-(* ****** ****** *)
-
-(* end of [z3_stringconv.sats] *)

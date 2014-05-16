@@ -47,7 +47,7 @@ ATSCNTRB_SML_Z3_Z3_HEADER
 (* ****** ****** *)
 
 fun Z3_stats_to_string
-  (ctx: !Z3_context, s: !Z3_stats): vStrptr1 = "mac#%"
+  (ctx: !Z3_context, s: !Z3_stats): string = "mac#%"
 
 (* ****** ****** *)
 //
@@ -63,7 +63,7 @@ fun Z3_stats_size (s: !Z3_stats): uint = "mac#%"
 (* ****** ****** *)
 
 fun Z3_stats_get_key
-  (ctx: !Z3_context, s: !Z3_stats, idx: uint): vStrptr1 = "mac#%"
+  (ctx: !Z3_context, s: !Z3_stats, idx: uint): string = "mac#%"
 // end of [Z3_stats_get_key]
 
 (* ****** ****** *)

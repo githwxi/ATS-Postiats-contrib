@@ -37,7 +37,7 @@ Z3_ast
 atscntrb_Z3_mk_true
   (Z3_context ctx)
 {
-  return atscntrb_Z3_inc_ref(Z3_mk_true(ctx)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_true(ctx)) ;
 } // end of [atscntrb_Z3_mk_true]
 
 ATSinline()
@@ -45,18 +45,33 @@ Z3_ast
 atscntrb_Z3_mk_false
   (Z3_context ctx)
 {
-  return atscntrb_Z3_inc_ref(Z3_mk_false(ctx)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_false(ctx)) ;
 } // end of [atscntrb_Z3_mk_false]
 
 /* ****** ****** */
 
-ATSinline()
-Z3_ast
-atscntrb_Z3_mk_eq
-  (Z3_context ctx, Z3_ast l, Z3_ast r)
-{
-  return atscntrb_Z3_inc_ref(Z3_mk_eq(ctx, l, r)) ;
-} // end of [atscntrb_Z3_mk_eq]
+
+Z3_DECLARE_MK_AST(Z3_mk_eq, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_eq, l, r)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_not, Z3_ast ast) {
+  Z3_BODY_MK_AST(Z3_mk_not, ast)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_and, unsigned num_args, Z3_ast const args[]) {
+  Z3_BODY_MK_AST(Z3_mk_and, num_args, args)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_or, unsigned num_args, Z3_ast const args[]) {
+  Z3_BODY_MK_AST(Z3_mk_or, num_args, args)
+}
 
 /* ****** ****** */
 
@@ -67,7 +82,8 @@ atscntrb_Z3_mk_or2
 {
   Z3_ast a01[2] ;
   a01[0] = a0 ; a01[1] = a1 ;
-  return atscntrb_Z3_inc_ref(Z3_mk_or(ctx, 2, a01)) ;
+
+  Z3_BODY_MK_AST(Z3_mk_or, 2, a01)
 } // end of [atscntrb_Z3_mk_or2]
 
 /* ****** ****** */
@@ -79,12 +95,22 @@ atscntrb_Z3_mk_and2
 {
   Z3_ast a01[2] ;
   a01[0] = a0 ; a01[1] = a1 ;
-  return atscntrb_Z3_inc_ref(Z3_mk_and(ctx, 2, a01)) ;
+  Z3_BODY_MK_AST(Z3_mk_and, 2, a01)
 } // end of [atscntrb_Z3_mk_and2]
+
+#endif // end of [Z3_Z3_PROPEQ_CATS]
 
 /* ****** ****** */
 
-#endif // end of [Z3_Z3_PROPEQ_CATS]
+Z3_DECLARE_MK_AST(Z3_mk_ite, Z3_ast cond, Z3_ast t, Z3_ast f) {
+  Z3_BODY_MK_AST(Z3_mk_ite, cond, t, f)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_implies, Z3_ast a0, Z3_ast a1) {
+  Z3_BODY_MK_AST(Z3_mk_implies, a0, a1)
+}
 
 /* ****** ****** */
 

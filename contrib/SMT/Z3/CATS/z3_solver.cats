@@ -27,62 +27,69 @@
 
 /* ****** ****** */
 
-#ifndef Z3_Z3_CONSTAPP_CATS
-#define Z3_Z3_CONSTAPP_CATS
-
-/* ****** ****** */
-
-Z3_DECLARE_MK_AST(Z3_mk_const, Z3_symbol sym, Z3_sort ty) {
-  Z3_BODY_MK_AST(Z3_mk_const, sym, ty)
-}
-
-/* ****** ****** */
-
-Z3_DECLARE_MK_AST(Z3_mk_fresh_const, Z3_string prefix, Z3_sort ty) {
-  Z3_BODY_MK_AST(Z3_mk_fresh_const, prefix, ty)
-}
+#ifndef Z3_Z3_SOLVER_CATS
+#define Z3_Z3_SOLVER_CATS
 
 /* ****** ****** */
 
 ATSinline()
-Z3_func_decl
-atscntrb_Z3_mk_func_decl (Z3_context ctx, Z3_symbol s, uint n, void **domain, Z3_sort range) {
-  Z3_func_decl dec = Z3_mk_func_decl(ctx, s, n, (Z3_sort *)domain, range);
-  
+Z3_tactic
+atscntrb_Z3_mk_tactic(Z3_context ctx, Z3_string name) {
+  Z3_tactic s = Z3_mk_tactic(ctx, name);
   Z3_error_code e = Z3_get_error_code(ctx);
   if (e != Z3_OK) {
-    Z3_string msg = Z3_get_error_msg_ex(ctx, e);
-    fprintf(stderr, "Z3 Error: %s\n", msg);
+    fprintf(stderr, "Z3 Error:%s\n", Z3_get_error_msg_ex(ctx, e));
+    exit(1);
   }
-  Z3_inc_ref(ctx, Z3_func_decl_to_ast(ctx, dec));
-  return dec;
+  Z3_tactic_inc_ref(ctx, s);
+  return s;
 }
+
+#define atscntrb_Z3_tactic_dec_ref Z3_tactic_dec_ref
 
 /* ****** ****** */
 
 ATSinline()
-Z3_func_decl
-atscntrb_Z3_func_decl_inc_ref (Z3_context ctx, Z3_func_decl d) {
-  Z3_inc_ref(ctx, Z3_func_decl_to_ast(ctx, d));
-  return d;
+Z3_solver
+atscntrb_Z3_mk_solver_from_tactic(Z3_context ctx, Z3_tactic t) {
+  Z3_solver s = Z3_mk_solver_from_tactic(ctx, t);
+  Z3_error_code e = Z3_get_error_code(ctx);
+  if (e != Z3_OK) {
+    fprintf(stderr, "Z3 Error: %s\n", Z3_get_error_msg_ex(ctx, e));
+    exit(1);
+  }
+  Z3_solver_inc_ref(ctx, s);
+  return s;
 }
 
 ATSinline()
-void
-atscntrb_Z3_func_decl_dec_ref (Z3_context ctx, Z3_func_decl d) {
-  Z3_dec_ref(ctx, Z3_func_decl_to_ast(ctx, d));
+Z3_solver
+atscntrb_Z3_mk_solver(Z3_context ctx) {
+  Z3_solver s = Z3_mk_solver(ctx);
+  Z3_error_code e = Z3_get_error_code(ctx);
+  if (e != Z3_OK) {
+    fprintf(stderr, "Z3 Error: %s\n", Z3_get_error_msg_ex(ctx, e));
+    exit(1);
+  }
+  Z3_solver_inc_ref(ctx, s);
+  return s;
 }
 
-/* ****** ****** */
-
-Z3_DECLARE_MK_AST(Z3_mk_app, Z3_func_decl f, uint n, void **args) {
-  Z3_BODY_MK_AST(Z3_mk_app, f, n, (Z3_ast const *)args)
+ATSinline()
+Z3_solver
+atscntrb_Z3_solver_inc_ref(Z3_context ctx, Z3_solver s) {
+  Z3_solver_inc_ref(ctx, s);
+  return s;
 }
 
+#define atscntrb_Z3_solver_assert Z3_solver_assert
+#define atscntrb_Z3_solver_check Z3_solver_check
+#define atscntrb_Z3_solver_dec_ref Z3_solver_dec_ref
+
 /* ****** ****** */
 
-#endif // end of [Z3_Z3_CONSTAPP_CATS]
+#define atscntrb_Z3_get_num_scopes Z3_get_num_scopes
 
 /* ****** ****** */
 
-/* end of [z3_constapp.cats] */
+#endif

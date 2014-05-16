@@ -46,6 +46,29 @@ ATSCNTRB_SML_Z3_Z3_HEADER
 //
 (* ****** ****** *)
 
+fun Z3_mk_int2bv (
+  !Z3_context, int, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bv_sort (
+  !Z3_context, uint
+): Z3_sort = "mac#%"
+
+(* ****** ****** *)
+
+// Arithmetic
+
+fun Z3_mk_bvadd (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bvsub (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bvand (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
 
 (* ****** ****** *)
 
