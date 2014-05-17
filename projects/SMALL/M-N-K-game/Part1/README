@@ -33,6 +33,8 @@ Part1/game_initize.dats: for implementing game-initialization
 Part1/game_finalize.dats for implementing game-finalization
 Part1/game_mainloop.dats: for implementing the loop of playing the game
 
+Part1/game_mylib: for building the library needed for this project
+
 To compile, please just do 'make'. Then an excutable 'mygame' is generated.
 Please do './mygame' to execute it. Of course, there is really not much to
 see at this point.

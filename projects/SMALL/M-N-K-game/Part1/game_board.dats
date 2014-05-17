@@ -119,8 +119,10 @@ in
   // end of [if]
 end // end of [loop]
 //
-// gcc/clang -O1 bug if the following line
-val () = ptr_volatile (p_nseq) // is omitted
+// HX-2014-05:
+// [ptr_volatile] does nothing;
+// gcc/clang -O1 bug is triggered if the
+val () = ptr_volatile (p_nseq) // following line is omitted
 //
 val () = try loop (i, j) with ~MatrixSubscriptExn () => ()
 //
@@ -184,7 +186,9 @@ println! ("TESTING(game_board):")
 val () =
 println! ("TESTING(fprint_board): beg")
 val board = board_make (3, 3)
+val ((*void*)) = board[0,2] := 1
 val ((*void*)) = board[1,1] := 1
+val ((*void*)) = board[2,0] := 1
 val ((*void*)) = fprint_board (stdout_ref, board)
 val ((*void*)) = fprint_newline (stdout_ref)
 val () =
