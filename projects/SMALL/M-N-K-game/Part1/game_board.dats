@@ -34,8 +34,20 @@ case+ id of
 (* ****** ****** *)
 //
 implement
-fprint_board (out, board) =
-  fprint_mtrxszref_sep (out, board, "|", "\n")
+fprint_board
+  (out, board) = let
+//
+implement
+fprint_val<int>
+  (out, id) = fprint (out, pid2char(id))
+//
+val () = fprint (out, "|")
+val () = fprint_mtrxszref_sep (out, board, "|", "|\n|")
+val () = fprint (out, "|")
+//
+in
+  // nothing
+end // end of [fprint_board]
 //
 (* ****** ****** *)
 
