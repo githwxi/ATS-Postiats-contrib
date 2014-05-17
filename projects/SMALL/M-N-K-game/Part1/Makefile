@@ -9,6 +9,11 @@ $(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
+export \
+PATSCCOMP = $(CC) -D_XOPEN_SOURCE
+
+######
+
 CFLAGS += -O2
 
 ######
@@ -27,11 +32,12 @@ SOURCES_SATS += \
 
 SOURCES_DATS += \
   game.dats \
+  game_conf.dats \
   game_board.dats \
-  game_config.dats \
   game_initize.dats \
   game_mainloop.dats \
   game_finalize.dats \
+  game_mylib.dats \
 
 ######
 

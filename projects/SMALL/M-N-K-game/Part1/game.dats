@@ -12,8 +12,8 @@ dynload "./game.sats"
 
 (* ****** ****** *)
 
+dynload "./game_conf.dats"
 dynload "./game_board.dats"
-dynload "./game_config.dats"
 
 (* ****** ****** *)
 
@@ -29,7 +29,7 @@ main0 () = () where
 //
 val () = game_initize ()
 //
-val () = fprint_config (stdout_ref)
+val () = fprint_conf (stdout_ref)
 //
 val () = game_mainloop ()
 //

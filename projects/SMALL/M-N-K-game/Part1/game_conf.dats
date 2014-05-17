@@ -14,7 +14,7 @@ staload "./game.sats"
 (* ****** ****** *)
 
 implement
-fprint_config (out) =
+fprint_conf (out) =
 {
   val M = game_conf_get_m ()
   val N = game_conf_get_n ()
@@ -40,6 +40,8 @@ initize (x: &T? >> T): void = x := 0
 
 implement
 game_conf_get_m () = $M.get ()
+implement
+game_conf_set_m (m) = $M.set (m)
 
 (* ****** ****** *)
 
@@ -59,6 +61,8 @@ initize (x: &T? >> T): void = x := 0
 
 implement
 game_conf_get_n () = $N.get ()
+implement
+game_conf_set_n (n) = $N.set (n)
 
 (* ****** ****** *)
 
@@ -78,7 +82,22 @@ initize (x: &T? >> T): void = x := 0
 
 implement
 game_conf_get_k () = $K.get ()
+implement
+game_conf_set_k (k) = $K.set (k)
 
 (* ****** ****** *)
 
-(* end of [game_config.dats] *)
+// (*
+val () = // testing
+{
+//
+val () = game_conf_set_m (3)
+val () = game_conf_set_n (3)
+val () = game_conf_set_k (3)
+//
+} (* end of [val] *)
+// *)
+
+(* ****** ****** *)
+
+(* end of [game_conf.dats] *)
