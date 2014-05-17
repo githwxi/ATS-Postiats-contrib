@@ -122,7 +122,7 @@ end // end of [loop]
 // HX-2014-05:
 // [ptr_volatile] does nothing;
 // gcc/clang -O1 bug is triggered if the
-val () = ptr_volatile (p_nseq) // following line is omitted
+val () = ptr_volatile (p_nseq) // line is omitted
 //
 val () = try loop (i, j) with ~MatrixSubscriptExn () => ()
 //

@@ -47,5 +47,20 @@ fun game_mainloop ((*void*)): void
 fun game_finalize ((*void*)): void
 
 (* ****** ****** *)
+//
+// game_mylib  
+//
+(* ****** ****** *)
+
+(*
+** HX-2014-05:
+** Given a string, this function skips
+** non-digit letters, reads out an integer,
+** and then puts the rest of the string back
+** into the call-by-reference argument
+*)
+fun string_get_int (inp: &string >> _): int
+
+(* ****** ****** *)
 
 (* end of [game.sats] *)
