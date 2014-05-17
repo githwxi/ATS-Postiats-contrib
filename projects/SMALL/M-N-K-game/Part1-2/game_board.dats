@@ -150,6 +150,11 @@ val K =
 val pid = board[i,j]
 //
 val nseq =
+  board_dirmax (board, pid, N, i, j)
++ board_dirmax (board, pid, S, i, j)
+val () = if nseq > K then $raise FoundExn ()
+//
+val nseq =
   board_dirmax (board, pid, E, i, j)
 + board_dirmax (board, pid, W, i, j)
 val () = if nseq > K then $raise FoundExn ()
