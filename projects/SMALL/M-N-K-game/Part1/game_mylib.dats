@@ -55,7 +55,8 @@ in
 end
 //
 var res: int = 0
-val ((*void*)) = inp := loop2 (inp, res)
+val inp2 = loop (inp)
+val ((*void*)) = inp := loop2 (inp2, res)
 //
 in
   res

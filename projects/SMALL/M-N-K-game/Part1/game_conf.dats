@@ -87,17 +87,4 @@ game_conf_set_k (k) = $K.set (k)
 
 (* ****** ****** *)
 
-// (*
-val () = // testing
-{
-//
-val () = game_conf_set_m (3)
-val () = game_conf_set_n (3)
-val () = game_conf_set_k (3)
-//
-} (* end of [val] *)
-// *)
-
-(* ****** ****** *)
-
 (* end of [game_conf.dats] *)
