@@ -4,39 +4,15 @@
 
 ######
 #
-# Part1
+# Part1-2
 #
 ######
 
-I simply set things up in this part.
-
-Part1/Makefile: for compiling the project:
-
-Part1/game.sats:
-
-At this point, I use [game.sats] to store all type definitions
-and function declarations. This practice should work well for a small
-project.
-
-Part1/game.dats: This is the main file.
-
-Part1/game_board.dats: for implementing the game-board.
-Right now, I use a matrix-with-size to represent a board. If it makes
-sense to use a dependently typed matrix, then I will do it later. As of
-now, it does not seem to be the case.
-
-Part1/game_config.dats: for handling game-configuration.
-At this moment there are three global variables for storing the values of
-M, N, and K.
-
-Part1/game_initize.dats: for implementing game-initialization
-Part1/game_finalize.dats for implementing game-finalization
-Part1/game_mainloop.dats: for implementing the loop of playing the game
-
-Part1/game_mylib: for building the library needed for this project
+I present in this part an implementation of M-N-K-game in a style of
+sequential programming. Basically, any input from a player comes from
+the standard input channel (STDIN).
 
 To compile, please just do 'make'. Then an excutable 'mygame' is generated.
-Please do './mygame' to execute it. Of course, there is really not much to
-see at this point.
+Please do './mygame' to execute it.
 
 ###### end of [README] ######

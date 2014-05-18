@@ -48,6 +48,13 @@ val () = game_conf_set_m (M)
 val () = game_conf_set_n (N)
 val () = game_conf_set_k (K)
 //
+val M = g1ofg0 (M)
+val () = assertloc (M >= 3)
+val N = g1ofg0 (N)
+val () = assertloc (N >= 3)
+//
+val () = game_conf_set_board (board_make (M, N))
+//
 } (* end of [game_initize] *)
 
 (* ****** ****** *)

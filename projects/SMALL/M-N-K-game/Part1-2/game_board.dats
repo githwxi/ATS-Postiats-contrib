@@ -54,6 +54,31 @@ in
 end // end of [fprint_board]
 //
 (* ****** ****** *)
+  
+implement
+board_mark_at
+(
+  board, pid, i, j
+) = let
+//
+fun aux
+(
+// argless
+) : bool = let
+  val pid0 = board[i, j]
+in
+  if pid0 <= 0 then let
+    val () = board[i, j] := pid in true
+  end else false // end of [if]
+end // end of [aux]
+//
+in
+//
+try aux () with ~MatrixSubscriptExn() => false
+//
+end // end of [board_mark_at]
+  
+(* ****** ****** *)
 
 datatype dir = E | W | N | S | NE | SE | NW | SW 
 
@@ -150,13 +175,13 @@ val K =
 val pid = board[i,j]
 //
 val nseq =
-  board_dirmax (board, pid, N, i, j)
-+ board_dirmax (board, pid, S, i, j)
+  board_dirmax (board, pid, E, i, j)
++ board_dirmax (board, pid, W, i, j)
 val () = if nseq > K then $raise FoundExn ()
 //
 val nseq =
-  board_dirmax (board, pid, E, i, j)
-+ board_dirmax (board, pid, W, i, j)
+  board_dirmax (board, pid, N, i, j)
++ board_dirmax (board, pid, S, i, j)
 val () = if nseq > K then $raise FoundExn ()
 //
 val nseq =

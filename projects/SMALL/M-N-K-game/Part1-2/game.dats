@@ -33,7 +33,9 @@ val () = fprint_conf (stdout_ref)
 //
 val () = game_mainloop ()
 //
+(*
 val () = game_finalize ()
+*)
 //
 } (* end of [main0] *)
 

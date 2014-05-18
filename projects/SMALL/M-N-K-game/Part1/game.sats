@@ -20,7 +20,7 @@ fun fprint_conf (FILEref): void
 
 (* ****** ****** *)
 
-abstype board_type
+abstype board_type = ptr
 typedef board = board_type
 
 (* ****** ****** *)

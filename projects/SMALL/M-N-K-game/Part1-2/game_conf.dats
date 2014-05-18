@@ -9,6 +9,10 @@ ATS_PACKNAME "M_N_K_game"
 
 (* ****** ****** *)
 
+staload UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
 staload "./game.sats"
 
 (* ****** ****** *)
@@ -84,6 +88,28 @@ implement
 game_conf_get_k () = $K.get ()
 implement
 game_conf_set_k (k) = $K.set (k)
+
+(* ****** ****** *)
+
+staload
+BOARD = {
+//
+typedef T = ptr
+//
+fun
+initize (x: &T? >> _): void = x := the_null_ptr
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
+implement
+game_conf_get_board () = $UN.cast{board}($BOARD.get())
+implement
+game_conf_set_board (x) = $BOARD.set($UN.cast{ptr}(x))
 
 (* ****** ****** *)
 

@@ -20,18 +20,23 @@ fun fprint_conf (FILEref): void
 
 (* ****** ****** *)
 
-abstype board_type
+abstype board_type = ptr
 typedef board = board_type
 
 (* ****** ****** *)
 
 fun board_make
-  (m: intGte(2), n: intGte(2)): board
+  (m: intGte(3), n: intGte(3)): board
 
 fun print_board (board): void
 fun prerr_board (board): void
 fun fprint_board (FILEref, board): void
 
+(* ****** ****** *)
+//
+fun board_mark_at
+  (board, pid: int, i: int, j: int): bool
+//
 (* ****** ****** *)
 //
 // HX-2014-05:
@@ -40,6 +45,11 @@ fun fprint_board (FILEref, board): void
 //
 fun board_check_at (board, i: int, j: int): bool
 //
+(* ****** ****** *)
+
+fun game_conf_get_board (): board
+fun game_conf_set_board (board): void
+
 (* ****** ****** *)
 
 fun game_initize ((*void*)): void
