@@ -9,7 +9,8 @@
 //
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
@@ -100,7 +101,7 @@ end // end of [player2_move]
 
 (* ****** ****** *)
 
-exception WinnerExn of (int)
+exception WinnerExn of (int(*pid*))
 
 (* ****** ****** *)
 
@@ -126,10 +127,11 @@ end with
       (pid) => let
       val () = fprint_the_board (out)
       val () = fprint_newline (out)
-      val () = fprintln! (out, "Player", pid, " is the winner!")
+      val () = fprintln! (out, "Game Over: Player", pid, " is the winner!")
     in
-      // nothing
+      game_finalize ()
     end // end of [WinnerExn]
+// end of [try-with]
 //
 end (* end of [game_mainloop] *)
 
@@ -150,7 +152,13 @@ val () =
 fprint (out, "Player1's turn: ")
 val () = fileref_flush (out)
 val (i, j) = player1_move ()
-val error = the_board_mark_at (PLAYER1, i, j)
+//
+val done = the_board_mark_at (PLAYER1, i, j)
+val () =
+if not(done)
+  then fprintln! (out, "Player1: illegal move!")
+// end of [if]
+//
 val result = the_board_check_at (PLAYER1, i, j)
 val () = if result then $raise WinnerExn(PLAYER1)
 //
@@ -162,7 +170,13 @@ val () =
 fprint (out, "Player2's turn: ")
 val () = fileref_flush (out)
 val (i, j) = player2_move ()
-val error = the_board_mark_at (PLAYER2, i, j)
+//
+val done = the_board_mark_at (PLAYER2, i, j)
+val () =
+if not(done)
+  then fprintln! (out, "Player2: illegal move!")
+// end of [if]
+//
 val result = the_board_check_at (PLAYER2, i, j)
 val () = if result then $raise WinnerExn(PLAYER2)
 //

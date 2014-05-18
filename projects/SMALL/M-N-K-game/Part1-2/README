@@ -8,11 +8,13 @@
 #
 ######
 
-I present in this part an implementation of M-N-K-game in a style of
-sequential programming. Basically, any input from a player comes from
-the standard input channel (STDIN).
+I present in this part an implementation of M-N-K-game in the style
+of sequential programming. Basically, any input from a player in this
+implementation comes from the standard input channel (STDIN). Usually,
+this style is chosen for a prototype implementation, making sure that the
+underlying design actually works.
 
-To compile, please just do 'make'. Then an excutable 'mygame' is generated.
-Please do './mygame' to execute it.
+To compile, please just do 'make'. Then an excutable 'M-N-K-game is generated.
+Please do './M-N-K-game to execute it.
 
 ###### end of [README] ######

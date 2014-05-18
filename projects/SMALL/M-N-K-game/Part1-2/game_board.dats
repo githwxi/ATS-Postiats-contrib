@@ -27,6 +27,26 @@ board_make (m, n) =
   mtrxszref_make_elt<int> (i2sz(m), i2sz(n), 0)
 //
 (* ****** ****** *)
+//
+implement
+board_reset (board) = let
+//
+var m: size_t and n: size_t
+//
+val M = mtrxszref_get_refsize (board, m, n)
+//
+local
+implement(env)
+matrix_foreach$fwork<int><env> (x, env) = x := 0
+in (*in-of-local*)
+val ((*void*)) = matrixref_foreach (M, m, n)
+end // end of [local]
+//
+in
+  // nothing
+end // end of [board_reset]
+
+(* ****** ****** *)
 
 fun
 pid2char (id: int): char =

@@ -3,19 +3,55 @@
 *)
 
 (* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
+
+staload
+UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
 
 staload "./game.sats"
 
 (* ****** ****** *)
+//
+fun the_board_reset (): void =
+  board_reset (game_conf_get_board ())
+//
+(* ****** ****** *)
 
 implement
-game_finalize () =
-{
+game_finalize () = let
 //
-val () = println! ("game_finalize: enter")
-val () = println! ("game_finalize: leave")
+val inp = stdin_ref
+val out = stdout_ref
 //
-} (* end of [game_finalize] *)
+val () =
+fprint (out, "Playing another game? (Y/N): ")
+val () = fileref_flush (out)
+//
+val line = fileref_get_line_string (inp)
+val c0 = $UN.ptr0_get<char> (strptr2ptr (line))
+val c0 = toupper (c0)
+val () = strptr_free (line)
+//
+in
+//
+case+ c0 of
+| 'Y' =>
+  {
+    val () = the_board_reset ()
+    val () = game_mainloop ((*void*))
+  }
+| _(*quit*) =>
+  {
+    val () = fprintln! (out, "Good-bye!")
+  }
+//
+end (* end of [game_finalize] *)
 
 (* ****** ****** *)
 

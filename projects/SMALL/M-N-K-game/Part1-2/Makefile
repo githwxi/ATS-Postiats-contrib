@@ -41,7 +41,7 @@ SOURCES_DATS += \
 
 ######
 
-MYTARGET=mygame
+MYTARGET=M-N-K-game
 
 ######
 #
