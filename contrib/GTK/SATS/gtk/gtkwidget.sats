@@ -95,6 +95,15 @@ gtk_widget_get_size_request
 (* ****** ****** *)
 
 fun
+gtk_widget_is_sensitive (!GtkWidget1): gboolean = "mac#"
+fun
+gtk_widget_get_sensitive (!GtkWidget1): gboolean = "mac#"
+fun
+gtk_widget_set_sensitive (!GtkWidget1, sensitive: gboolean): void = "mac#"
+
+(* ****** ****** *)
+
+fun
 gtk_widget_queue_draw_area
 (
   widget: !GtkWidget1, x: gint, y: gint, width: gint, height: gint

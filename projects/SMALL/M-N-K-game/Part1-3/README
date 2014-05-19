@@ -10,9 +10,9 @@
 
 I give an implementation the M-N-K game in this part that uses some
 primitive form of GTK-based GUI to collect inputs from players. This is
-really a poor man's GUI. Obviously, this way of collecting inputs in this
-manner is very awkward, and it clearly reveals a serious limitation of
-sequential style of programming in the context of game implementation.
+really a poor man's GUI. Obviously, collecting inputs in such a manner is
+very awkward, and it clearly reveals a serious limitation of sequential
+style of programming in the context of game implementation.
 
 There are two common approaches to addressing this limitation:
 

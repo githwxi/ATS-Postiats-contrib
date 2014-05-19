@@ -64,6 +64,12 @@ atscntrb_gtk_widget_getref_allocation
 
 /* ****** ****** */
 
+#define atscntrb_gtk_widget_is_sensitive gtk_widget_is_sensitive
+#define atscntrb_gtk_widget_get_sensitive gtk_widget_get_sensitive
+#define atscntrb_gtk_widget_set_sensitive gtk_widget_set_sensitive
+
+/* ****** ****** */
+
 #define atscntrb_gtk_widget_queue_draw_area gtk_widget_queue_draw_area
 
 /* ****** ****** */

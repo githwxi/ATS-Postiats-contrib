@@ -32,7 +32,7 @@ gtk_button_get_label
 
 fun
 gtk_button_set_label
-  (button: !GtkButton1, label: gstrptr0): void = "mac#%"
+  (button: !GtkButton1, label: gstring): void = "mac#%"
 // end of [gtk_button_set_label]
 
 (* ****** ****** *)

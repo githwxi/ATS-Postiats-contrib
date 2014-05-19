@@ -17,4 +17,9 @@
 //
 /* ****** ****** */
 
+#define atscntrb_gtk_button_get_label gtk_button_get_label
+#define atscntrb_gtk_button_set_label gtk_button_set_label
+
+/* ****** ****** */
+
 /* end of [gtkbutton.cats] */

@@ -42,12 +42,9 @@ staload "libats/SATS/deqarray.sats"
 
 (* ****** ****** *)
 
+staload "./../SATS/channel.sats"
 staload "./../SATS/mythread.sats"
 
-(* ****** ****** *)
-//
-staload "./../SATS/channel.sats"
-//
 (* ****** ****** *)
 //
 datatype
