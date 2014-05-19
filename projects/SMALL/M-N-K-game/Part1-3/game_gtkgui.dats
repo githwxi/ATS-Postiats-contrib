@@ -125,6 +125,8 @@ fun loop
     if pid <= 0
       then let
         val btn = button_create (" ", i, j)
+        val () =
+        gtk_widget_set_size_request (btn, (gint)(YUNIT), (gint)(XUNIT))
         val () = gtk_box_pack_start (hbox, btn, GTRUE, GTRUE, (guint)0)
       in
         gtk_widget_show_unref (btn)
@@ -135,6 +137,8 @@ fun loop
           if pid = 1 then "X" else if pid = 2 then "O" else "#"
         ) : string
         val lab = label_create (msg)
+        val () =
+        gtk_widget_set_size_request (lab, (gint)(YUNIT), (gint)(XUNIT))
         val () = gtk_box_pack_start (hbox, lab, GTRUE, GTRUE, (guint)0)
       in
         gtk_widget_show_unref (lab)

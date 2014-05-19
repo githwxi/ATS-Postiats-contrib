@@ -36,4 +36,8 @@ fun game_gtkgui_return_before (): void
 
 (* ****** ****** *)
 
+fun the_buttonlst_reset ((*void*)): void
+
+(* ****** ****** *)
+
 (* end of [game_gtkgui.sats] *)

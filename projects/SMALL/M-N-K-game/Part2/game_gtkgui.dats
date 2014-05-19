@@ -136,6 +136,41 @@ end // end of [game_gtkgui_return_before]
 
 local
 
+val the_buttonlst = ref<List0(ptr)> (list_nil)
+
+in (* in-of-local *)
+
+fun the_buttonlst_add (p: ptr): void =
+  !the_buttonlst := list_cons{ptr}(p, !the_buttonlst)
+
+implement
+the_buttonlst_reset () = let
+//
+fun loop
+  (xs: List0 (ptr)): void =
+(
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => let
+    val btn = $UN.castvwtp0{GtkButton1}(x)
+    val () = gtk_button_set_label (btn, (gstring)" ")
+    val () = gtk_widget_set_sensitive (btn, GTRUE)
+    prval () = $UN.cast2void (btn)
+  in
+    loop (xs)
+  end // end of [list_cons]
+)
+//
+in
+  loop (!the_buttonlst)
+end // end of [the_buttonlst_reset]
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
 fun
 label_create
 (
@@ -157,7 +192,9 @@ button_create
 //
 val res =
 gtk_button_new_with_label ((gstring)msg)
-val ((*void*)) = assertloc (ptrcast (res) > 0)
+val p_res = ptrcast (res)
+val ((*void*)) = assertloc (p_res > 0)
+val () = the_buttonlst_add (p_res)
 //
 fun f
 (
@@ -206,8 +243,9 @@ fun loop
     if pid <= 0
       then let
         val btn = button_create (" ", i, j)
-        val () = gtk_widget_set_size_request (btn, (gint)(YUNIT), (gint)(XUNIT))
-        val () = gtk_box_pack_start (hbox, btn, GTRUE, GFALSE, (guint)0)
+        val () =
+        gtk_widget_set_size_request (btn, (gint)(YUNIT), (gint)(XUNIT))
+        val () = gtk_box_pack_start (hbox, btn, GTRUE, GTRUE, (guint)0)
       in
         gtk_widget_show_unref (btn)
       end // end of [then]
@@ -217,8 +255,9 @@ fun loop
           if pid = 1 then "X" else if pid = 2 then "O" else "#"
         ) : string
         val lab = label_create (msg)
-        val () = gtk_widget_set_size_request (lab, (gint)(YUNIT), (gint)(XUNIT))
-        val () = gtk_box_pack_start (hbox, lab, GTRUE, GFALSE, (guint)0)
+        val () =
+        gtk_widget_set_size_request (lab, (gint)(YUNIT), (gint)(XUNIT))
+        val () = gtk_box_pack_start (hbox, lab, GTRUE, GTRUE, (guint)0)
       in
         gtk_widget_show_unref (lab)
       end // end of [then]

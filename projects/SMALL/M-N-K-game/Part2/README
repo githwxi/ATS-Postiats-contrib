@@ -15,6 +15,10 @@ of programming.
 
 ######
 
+This coroutine style of programming seems to be working as expected.
+
+######
+
 To compile, please just do 'make'. Then an excutable 'M-N-K-game is generated.
 Please do './M-N-K-game to execute it.
 

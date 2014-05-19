@@ -15,6 +15,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 staload "./game.sats"
+staload "./game_gtkgui.sats"
 
 (* ****** ****** *)
 //
@@ -23,7 +24,6 @@ fun the_board_reset (): void =
 //
 (* ****** ****** *)
 
-(*
 implement
 game_finalize () = let
 //
@@ -42,9 +42,9 @@ val () = strptr_free (line)
 in
 //
 case+ c0 of
-| 'Y' =>
-  {
+| 'Y' => {
     val () = the_board_reset ()
+    val () = the_buttonlst_reset ()
     val () = game_mainloop ((*void*))
   }
 | _(*quit*) =>
@@ -53,11 +53,6 @@ case+ c0 of
   }
 //
 end (* end of [game_finalize] *)
-*)
-
-(* ****** ****** *)
-
-implement game_finalize () = ()
 
 (* ****** ****** *)
 
