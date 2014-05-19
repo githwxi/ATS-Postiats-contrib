@@ -10,7 +10,7 @@ PATSHOMERELOCQ="$(PATSHOMERELOC)"
 ######
 
 PATSCC=$(PATSHOMEQ)/bin/patscc
-GTKFLAGS=`pkg-config gtk+-3.0 --cflags --libs`
+GTKFLAGS=$(shell pkg-config gtk+-3.0 --cflags --libs)
 
 ######
 

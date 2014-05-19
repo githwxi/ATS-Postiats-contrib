@@ -14,6 +14,8 @@ implementation comes from the standard input channel (STDIN). Usually,
 this style is chosen for a prototype implementation, making sure that the
 underlying design actually works.
 
+######
+
 To compile, please just do 'make'. Then an excutable 'M-N-K-game is generated.
 Please do './M-N-K-game to execute it.
 

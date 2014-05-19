@@ -18,12 +18,17 @@ CFLAGS += -O2
 
 ######
 
-LDFLAGS :=
-LDFLAGS += -lgc
+GTKCFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
 
 ######
 
-MALLOCFLAG := -DATS_MEMALLOC_LIBC
+LDFLAGS :=
+LDFLAGS += -lgc
+LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
+
+######
+
+MALLOCFLAG := -DATS_MEMALLOC_GCBDW
 
 ######
 
@@ -38,6 +43,7 @@ SOURCES_DATS += \
   game_mainloop.dats \
   game_finalize.dats \
   game_mylib.dats \
+  game_gtkgui.dats \
 
 ######
 
@@ -49,6 +55,14 @@ MYPORTDIR=MYPORTDIR
 #
 #MYPORTCPP=MYPORTCPP
 #
+######
+
+ifdef MYCCRULE
+else
+game_gtkgui_dats.o: game_gtkgui.dats ; \
+  $(PATSCC) -cleanaft $(INCLUDE) $(INCLUDE_ATS) $(MALLOCFLAG) $(CFLAGS) $(GTKCFLAGS) -c $<
+endif
+
 ######
 
 include $(PATSHOME)/share/atsmake-post.mk

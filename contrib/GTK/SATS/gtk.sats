@@ -99,6 +99,12 @@ staload "./gdk.sats"
 
 classdec GtkObject : GInitiallyUnowned
   classdec GtkWidget_cls : GtkObject
+    classdec GtkMisc_cls : GtkWidget_cls
+      classdec GtkLabel_cls : GtkMisc_cls
+      classdec GtkArrow_cls : GtkMisc_cls
+      classdec GtkImage_cls : GtkMisc_cls
+      classdec GtkPixmap_cls : GtkMisc_cls
+    // end of [GtkMisc]
     classdec GtkContainer_cls : GtkWidget_cls
       classdec GtkBin_cls : GtkContainer_cls
         classdec GtkButton_cls : GtkBin_cls
@@ -175,6 +181,14 @@ $extype_struct"GtkTextIter" of { GtkTextIter_rest=undefined_t0ype }
 (* ****** ****** *)
 
 #include "./gtk/gtkwidget.sats"
+
+(* ****** ****** *)
+
+#include "./gtk/gtkmisc.sats"
+
+(* ****** ****** *)
+
+#include "./gtk/gtklabel.sats"
 
 (* ****** ****** *)
 

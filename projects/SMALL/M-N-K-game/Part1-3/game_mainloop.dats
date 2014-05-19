@@ -3,6 +3,11 @@
 *)
 
 (* ****** ****** *)
+
+#define
+ATS_PACKNAME "M_N_K_game"
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_staload.hats"
@@ -20,6 +25,40 @@ staload "./game.sats"
 
 #define PLAYER1 1
 #define PLAYER2 2
+
+(* ****** ****** *)
+
+staload X = {
+//
+typedef T = int
+//
+fun
+initize (x: &T? >> T): void = x := ~1
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [staload] *)
+
+implement the_X_get () = $X.get ()
+implement the_X_set (i) = $X.set (i)
+
+(* ****** ****** *)
+
+staload Y = {
+//
+typedef T = int
+//
+fun
+initize (x: &T? >> T): void = x := ~1
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [staload] *)
+
+implement the_Y_get () = $Y.get ()
+implement the_Y_set (i) = $Y.set (i)
 
 (* ****** ****** *)
 //
@@ -77,15 +116,10 @@ player_move
 // argless
 ) : (int, int) = let
 //
-val inp = stdin_ref
-val line = fileref_get_line_string (inp)
-var line2: string = $UN.strptr2string (line)
-val i = string_get_int (line2)
-val j = string_get_int (line2)
-val () = strptr_free (line)
+val () = interaction_loop ()
 //
 in
-  (i, j)
+  (the_X_get(), the_Y_get())
 end // end of [player_move]
 
 in (* in of [local] *)
@@ -142,14 +176,11 @@ game_mainloop2 () =
 val inp = stdin_ref
 val out = stdout_ref
 //
-val () = (
-  fprint_the_board (out); fprint_newline (out)
-) (* end of [val] *)
-//
 val () =
 fprint (out, "Player1's turn (x-y): ")
 val () = fileref_flush (out)
 val (i, j) = player1_move ()
+val () = fprintln! (out, i, "-", j)
 //
 val done = the_board_mark_at (PLAYER1, i, j)
 val () =
@@ -160,14 +191,11 @@ if not(done)
 val result = the_board_check_at (PLAYER1, i, j)
 val () = if result then $raise WinnerExn(PLAYER1)
 //
-val () = (
-  fprint_the_board (out); fprint_newline (out)
-) (* end of [val] *)
-//
 val () =
 fprint (out, "Player2's turn (x-y): ")
 val () = fileref_flush (out)
 val (i, j) = player2_move ()
+val () = fprintln! (out, i, "-", j)
 //
 val done = the_board_mark_at (PLAYER2, i, j)
 val () =

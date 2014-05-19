@@ -55,6 +55,14 @@
 
 /* ****** ****** */
 
+#include "./gtk/gtkmisc.cats"
+
+/* ****** ****** */
+
+#include "./gtk/gtklabel.cats"
+
+/* ****** ****** */
+
 #include "./gtk/gtkcontainer.cats"
 
 /* ****** ****** */

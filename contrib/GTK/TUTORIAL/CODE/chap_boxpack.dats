@@ -28,19 +28,11 @@ staload UN = $UNSAFE
 //
 staload
 "{$GLIB}/SATS/glib.sats"
-//
 staload
 "{$GLIB}/SATS/glib-object.sats"
 //
 staload "{$GTK}/SATS/gtk.sats"
 //
-(* ****** ****** *)
-
-%{^
-typedef char **charpp ;
-%} ;
-abstype charpp = $extype"charpp"
-
 (* ****** ****** *)
 
 extern
@@ -230,6 +222,13 @@ g_signal_connect
 ) (* end of [val] *)
 //
 } (* end of [window_handle_delete_event] *)
+
+(* ****** ****** *)
+
+%{^
+typedef char **charpp ;
+%} ;
+abstype charpp = $extype"charpp"
 
 (* ****** ****** *)
 

@@ -13,6 +13,24 @@ vtypedef GtkWidget1 = [c:cls;l:addr | c <= GtkWidget; l > null] gobjref (c, l)
 //
 (* ****** ****** *)
 //
+stadef GtkMisc = GtkMisc_cls
+//
+vtypedef
+GtkMisc (l:addr) = [c:cls | c <= GtkMisc] gobjref (c, l)
+vtypedef GtkMisc0 = [c:cls;l:agez | c <= GtkMisc] gobjref (c, l) 
+vtypedef GtkMisc1 = [c:cls;l:addr | c <= GtkMisc; l > null] gobjref (c, l) 
+//
+(* ****** ****** *)
+//
+stadef GtkLabel = GtkLabel_cls
+//
+vtypedef
+GtkLabel (l:addr) = [c:cls | c <= GtkLabel] gobjref (c, l)
+vtypedef GtkLabel0 = [c:cls;l:agez | c <= GtkLabel] gobjref (c, l) 
+vtypedef GtkLabel1 = [c:cls;l:addr | c <= GtkLabel; l > null] gobjref (c, l) 
+//
+(* ****** ****** *)
+//
 stadef GtkContainer = GtkContainer_cls
 //
 vtypedef

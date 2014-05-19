@@ -35,6 +35,8 @@ Part1/game_mainloop.dats: for implementing the loop of playing the game
 
 Part1/game_mylib: for building the library needed for this project
 
+######
+
 To compile, please just do 'make'. Then an excutable 'M-N-K-game' is
 generated.  Please do './M-N-K-game' to execute it. Of course, there is
 really not much to see at this point.

@@ -22,8 +22,8 @@ PATSOPT = $(PATSHOMEQ)/bin/patsopt
 
 ######
 
-XRLIBS=`pkg-config cairo --libs`
-XRCFLAGS=`pkg-config cairo --cflags`
+XRLIBS=$(shell pkg-config cairo --libs)
+XRCFLAGS=$(shell pkg-config cairo --cflags)
 
 ######
 

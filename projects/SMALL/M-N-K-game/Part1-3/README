@@ -1,0 +1,30 @@
+#
+# Implementing M-N-K-game in ATS2
+#
+
+######
+#
+# Part1-3
+#
+######
+
+I give an implementation the M-N-K game in this part that uses some
+primitive form of GTK-based GUI to collect inputs from players. This is
+really a poor man's GUI. Obviously, this way of collecting inputs in this
+manner is very awkward, and it clearly reveals a serious limitation of
+sequential style of programming in the context of game implementation.
+
+There are two common approaches to addressing this limitation:
+
+(1) Using an event-driven style of programming that associates callback
+    functions with GUI-events
+
+(2) Using a coroutine-style of programming that cleanly separates the code
+    for game logic from the code for GUI.
+
+######
+
+To compile, please just do 'make'. Then an excutable 'M-N-K-game is generated.
+Please do './M-N-K-game to execute it.
+
+###### end of [README] ######
