@@ -19,7 +19,7 @@ There are two common approaches to addressing this limitation:
 (1) Using an event-driven style of programming that associates callback
     functions with GUI-events
 
-(2) Using a coroutine-style of programming that cleanly separates the code
+(2) Using a coroutine style of programming that cleanly separates the code
     for game logic from the code for GUI.
 
 ######
