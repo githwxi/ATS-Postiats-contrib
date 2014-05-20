@@ -166,21 +166,12 @@ staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_t
 //
 (* ****** ****** *)
 
-extern
-fun
-the_timer_reset2 (): void
-implement
-the_timer_reset2 () =
+implement{
+} the_timer_reset_after () =
 {
   val () = the_board_cleanup ()
   val () = !the_pathlst2 := the_pathlst
-  val () = the_timer_reset () // HX: gtkcairotimer_toplevel.dats
-} (* end of [the_timer_reset2] *)
-
-(* ****** ****** *)
-
-implement
-$CP.on_reset_clicked<> (widget, event, _) = the_timer_reset2 ()
+} (* end of [the_timer_reset_after] *)
 
 (* ****** ****** *)
 //
@@ -285,6 +276,18 @@ in
 end // end of [cairo_draw_matrix0]
 
 (* ****** ****** *)
+
+fun
+button_clicked
+  (btn: ptr): void =
+{
+  val btn =
+    $UN.castvwtp0{GtkButton1}(btn)
+  val () = gtk_button_clicked (btn)
+  prval () = $UN.cast2void (btn)
+} (* end of [button_clicked] *)
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -323,13 +326,18 @@ if running then
     case+ !xss of
     | stream_nil((*void*)) =>
       {
-        val () = the_timer_reset2 ()
+        val () =
+          button_clicked ($BUTTONreset.get())
+        // end of [val]
       }
     | stream_cons (xs, xss) =>
       {
         val () = !the_pathlst2 := xss
         val () = the_board_update (xs)
-        val () = if length (xs) >= N then the_timer_pause ()
+        val () =
+        if length (xs) >= N
+          then button_clicked ($BUTTONpause.get())
+        // end of [if]
       } (* end fof [cons0] *)
   ) : void // end of [val]
 } 

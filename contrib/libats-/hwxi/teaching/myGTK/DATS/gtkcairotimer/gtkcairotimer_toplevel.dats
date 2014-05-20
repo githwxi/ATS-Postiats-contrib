@@ -129,8 +129,11 @@ extern
 fun the_timer_pause (): void
 extern
 fun the_timer_resume (): void
+//
 extern
 fun the_timer_reset (): void
+extern
+fun{} the_timer_reset_after (): void
 //
 extern
 fun the_timer_get_ntick (): double // obtaining the number of ticks
@@ -241,6 +244,11 @@ the_timer_is_running
 } (* end of [the_timer_is_running] *)
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement{}
+the_timer_reset_after () = ()
 
 (* ****** ****** *)
 

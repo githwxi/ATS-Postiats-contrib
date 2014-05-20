@@ -151,6 +151,7 @@ implement{
 } on_reset_clicked (widget, event, _) =
 {
   val () = the_timer_reset ()
+  val () = the_timer_reset_after<> ()
   val () = button_on ($BUTTONstart.get ())
   val () = button_off ($BUTTONfinish.get ())
   val () = button_off ($BUTTONpause.get ())

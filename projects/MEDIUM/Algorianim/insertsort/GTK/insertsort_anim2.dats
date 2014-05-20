@@ -219,20 +219,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
-extern
-fun
-the_timer_reset2 (): void
 implement
-the_timer_reset2 () =
-{
-  val () = ASZ_reset ()
-  val () = the_timer_reset () // HX: gtkcairotimer_toplevel.dats
-} (* end of [the_timer_reset2] *)
-
-(* ****** ****** *)
-
-implement
-$CP.on_reset_clicked<> (widget, event, _) = the_timer_reset2 ()
+the_timer_reset_after<> () = ASZ_reset ()
 
 (* ****** ****** *)
 

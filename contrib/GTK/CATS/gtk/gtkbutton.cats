@@ -22,4 +22,12 @@
 
 /* ****** ****** */
 
+#define atscntrb_gtk_button_enter gtk_button_enter
+#define atscntrb_gtk_button_leave gtk_button_leave
+#define atscntrb_gtk_button_pressed gtk_button_pressed
+#define atscntrb_gtk_button_released gtk_button_released
+#define atscntrb_gtk_button_clicked gtk_button_clicked
+
+/* ****** ****** */
+
 /* end of [gtkbutton.cats] */

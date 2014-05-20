@@ -37,4 +37,17 @@ gtk_button_set_label
 
 (* ****** ****** *)
 
+fun
+gtk_button_enter (button: !GtkButton1): void = "mac#%"
+fun
+gtk_button_leave (button: !GtkButton1): void = "mac#%"
+fun
+gtk_button_pressed (button: !GtkButton1): void = "mac#%"
+fun
+gtk_button_released (button: !GtkButton1): void = "mac#%"
+fun
+gtk_button_clicked (button: !GtkButton1): void = "mac#%"
+
+(* ****** ****** *)
+
 (* end of [gtkbutton.sats] *)
