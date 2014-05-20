@@ -3,6 +3,11 @@
 *)
 
 (* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
 
 staload "./game.sats"
 
@@ -27,15 +32,27 @@ dynload "./game_gtkgui.dats"
 
 (* ****** ****** *)
 
+(*
+** Usage:
+** ./M-N-K-game 3-3-3
+** ./M-N-K-game 19-19-5
+*)
+
 implement
-main0 () = () where
+main0 (argc, argv) =
 {
+val () =
+if argc >= 2 then
+{
+  val () = game_initize2 (argv[1])
+} (* end of [if] *)
 //
-val () = game_initize ()
+val () =
+if argc < 2 then game_initize ()
 //
 val () = fprint_conf (stdout_ref)
 //
-val () = game_mainloop ()
+val ((*loop*)) = game_mainloop ()
 //
 } (* end of [main0] *)
 

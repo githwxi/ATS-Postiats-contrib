@@ -55,9 +55,13 @@ include $(PATSHOME)/share/atsmake-post.mk
 
 ######
 
-cleanall:: ; $(RMF) $(MYPORTDIR)/*
+cleanats:: ; $(RMF) *_?ats.c
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.o
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.c
+
+######
+
+cleanall:: ; $(RMF) $(MYPORTDIR)/*
 
 ######
 

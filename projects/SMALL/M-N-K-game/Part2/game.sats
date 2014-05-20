@@ -66,6 +66,7 @@ fun game_conf_set_board (board): void
 (* ****** ****** *)
 
 fun game_initize ((*void*)): void
+fun game_initize2 (inp: string): void
 
 (* ****** ****** *)
 //
