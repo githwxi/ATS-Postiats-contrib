@@ -24,6 +24,7 @@ GTKCFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
 
 LDFLAGS :=
 LDFLAGS += -lgc
+LDFLAGS += -lpthread
 LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
 ######
