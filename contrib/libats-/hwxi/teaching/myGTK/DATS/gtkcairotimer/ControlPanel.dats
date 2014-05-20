@@ -54,13 +54,42 @@ staload "./gtkcairotimer_toplevel.dats"
 (* ****** ****** *)
 
 extern
+fun{} button_on (btn: ptr): void
+extern
+fun{} button_off (btn: ptr): void
+
+implement{
+} button_on (btn) =
+{
+  val btn = $UN.castvwtp0{GtkButton1}(btn)
+  val () = gtk_widget_set_sensitive (btn, GTRUE)
+  prval () = $UN.cast2void (btn)
+}
+implement{
+} button_off (btn) =
+{
+  val btn = $UN.castvwtp0{GtkButton1}(btn)
+  val () = gtk_widget_set_sensitive (btn, GFALSE)
+  prval () = $UN.cast2void (btn)
+}
+
+(* ****** ****** *)
+
+extern
 fun{}
 on_start_clicked
 (
   widget: !GtkWidget1, event: &GdkEvent, _: gpointer
 ) : void
 implement{
-} on_start_clicked (widget, event, _) = the_timer_start ()
+} on_start_clicked (widget, event, _) =
+{
+  val () = the_timer_start ()
+  val () = button_on ($BUTTONfinish.get ())
+  val () = button_on ($BUTTONpause.get ())
+  val () = button_on ($BUTTONreset.get ())
+  val () = button_off ($BUTTONstart.get ())
+}
 
 (* ****** ****** *)
 
@@ -71,7 +100,12 @@ on_finish_clicked
   widget: !GtkWidget1, event: &GdkEvent, _: gpointer
 ) : void
 implement{
-} on_finish_clicked (widget, event, _) = the_timer_finish ()
+} on_finish_clicked (widget, event, _) =
+{
+  val () = the_timer_finish ()
+  val () = button_off ($BUTTONfinish.get ())
+  val () = button_off ($BUTTONpause.get ())
+}
 
 (* ****** ****** *)
 
@@ -82,7 +116,12 @@ on_pause_clicked
   widget: !GtkWidget1, event: &GdkEvent, _: gpointer
 ) : void
 implement{
-} on_pause_clicked (widget, event, _) = the_timer_pause ()
+} on_pause_clicked (widget, event, _) =
+{
+  val () = the_timer_pause ()
+  val () = button_on ($BUTTONresume.get ())
+  val () = button_off ($BUTTONpause.get ())
+}
 
 (* ****** ****** *)
 
@@ -93,7 +132,12 @@ on_resume_clicked
   widget: !GtkWidget1, event: &GdkEvent, _: gpointer
 ) : void
 implement{
-} on_resume_clicked (widget, event, _) = the_timer_resume ()
+} on_resume_clicked (widget, event, _) =
+{
+  val () = the_timer_resume ()
+  val () = button_on ($BUTTONpause.get ())
+  val () = button_off ($BUTTONresume.get ())
+}
 
 (* ****** ****** *)
 
@@ -104,7 +148,15 @@ on_reset_clicked
   widget: !GtkWidget1, event: &GdkEvent, _: gpointer
 ) : void
 implement{
-} on_reset_clicked (widget, event, _) = the_timer_reset ()
+} on_reset_clicked (widget, event, _) =
+{
+  val () = the_timer_reset ()
+  val () = button_on ($BUTTONstart.get ())
+  val () = button_off ($BUTTONfinish.get ())
+  val () = button_off ($BUTTONpause.get ())
+  val () = button_off ($BUTTONresume.get ())
+  val () = button_off ($BUTTONreset.get ())
+}
 
 (* ****** ****** *)
 
@@ -269,8 +321,10 @@ gtk_box_pack_start
 val () = g_object_unref (hbox1)
 //
 val button_start =
-gtk_button_new_with_label ((gstring)"Start")
-val () = assertloc (ptrcast (button_start) > 0)
+gtk_button_new_with_label((gstring)"Start")
+val p_button_start = ptrcast (button_start)
+val () = assertloc (p_button_start > the_null_ptr)
+val () = $BUTTONstart.set (p_button_start)
 val () =
 gtk_box_pack_start
 (
@@ -283,8 +337,10 @@ val _sid = g_signal_connect
 val () = g_object_unref (button_start)
 //
 val button_finish =
-gtk_button_new_with_label ((gstring)"Finish")
-val () = assertloc (ptrcast (button_finish) > 0)
+gtk_button_new_with_label((gstring)"Finish")
+val p_button_finish = ptrcast (button_finish)
+val () = assertloc (p_button_finish > the_null_ptr)
+val () = $BUTTONfinish.set (p_button_finish)
 val () =
 gtk_box_pack_start
 (
@@ -297,8 +353,10 @@ val _sid = g_signal_connect
 val () = g_object_unref (button_finish)
 //
 val button_pause =
-gtk_button_new_with_label ((gstring)"Pause")
-val () = assertloc (ptrcast (button_pause) > 0)
+gtk_button_new_with_label((gstring)"Pause")
+val p_button_pause = ptrcast (button_pause)
+val () = $BUTTONpause.set (p_button_pause)
+val () = assertloc (p_button_pause > the_null_ptr)
 val () =
 gtk_box_pack_start
 (
@@ -311,8 +369,10 @@ val _sid = g_signal_connect
 val () = g_object_unref (button_pause)
 //
 val button_resume =
-gtk_button_new_with_label ((gstring)"Resume")
-val () = assertloc (ptrcast (button_resume) > 0)
+gtk_button_new_with_label((gstring)"Resume")
+val p_button_resume = ptrcast (button_resume)
+val () = $BUTTONresume.set (p_button_resume)
+val () = assertloc (p_button_resume > the_null_ptr)
 val () =
 gtk_box_pack_start
 (
@@ -326,7 +386,9 @@ val () = g_object_unref (button_resume)
 //
 val button_reset =
 gtk_button_new_with_label ((gstring)"Reset")
-val () = assertloc (ptrcast (button_reset) > 0)
+val p_button_reset = ptrcast (button_reset)
+val () = assertloc (p_button_reset > the_null_ptr)
+val () = $BUTTONreset.set (p_button_reset)
 val () =
 gtk_box_pack_start
 (
@@ -364,6 +426,12 @@ gtk_box_pack_start
   vbox0, hbox2, GTRUE(*expand*), GFALSE(*fill*), (guint)2
 ) (* end of [val] *)
 val () = g_object_unref (hbox2)
+//
+val () = button_on ($BUTTONstart.get ())
+val () = button_off ($BUTTONfinish.get ())
+val () = button_off ($BUTTONpause.get ())
+val () = button_off ($BUTTONresume.get ())
+val () = button_off ($BUTTONreset.get ())
 //
 in
   vbox0

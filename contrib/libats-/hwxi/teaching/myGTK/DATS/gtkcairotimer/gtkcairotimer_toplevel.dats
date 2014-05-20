@@ -39,6 +39,81 @@ initize (x: &T? >> T): void = x := the_null_ptr
 } (* end of [TOPWIN] *)
 
 (* ****** ****** *)
+
+staload
+BUTTONstart = {
+//
+typedef T = ptr
+//
+fun
+initize (x: &T? >> T): void = x := the_null_ptr
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [BUTTONstart] *)
+
+(* ****** ****** *)
+
+staload
+BUTTONfinish = {
+//
+typedef T = ptr
+//
+fun
+initize (x: &T? >> T): void = x := the_null_ptr
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [BUTTONfinish] *)
+
+(* ****** ****** *)
+
+staload
+BUTTONpause = {
+//
+typedef T = ptr
+//
+fun
+initize (x: &T? >> T): void = x := the_null_ptr
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [BUTTONpause] *)
+
+(* ****** ****** *)
+
+staload
+BUTTONresume = {
+//
+typedef T = ptr
+//
+fun
+initize (x: &T? >> T): void = x := the_null_ptr
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [BUTTONresume] *)
+
+(* ****** ****** *)
+
+staload
+BUTTONreset = {
+//
+typedef T = ptr
+//
+fun
+initize (x: &T? >> T): void = x := the_null_ptr
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [BUTTONreset] *)
+
+(* ****** ****** *)
 //
 staload
 TIMER =
