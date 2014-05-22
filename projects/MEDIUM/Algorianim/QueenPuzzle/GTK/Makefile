@@ -6,7 +6,7 @@ include $(PATSHOME)/share/atsmake-pre.mk
 #
 include $(PATSHOME)/share/atsmake-post.mk
 #
-GTKFLAGS=`pkg-config gtk+-3.0 --cflags --libs`
+GTKFLAGS=$(shell pkg-config gtk+-3.0 --cflags --libs)
 #
 all::\
 QueenPuzzle_anim
