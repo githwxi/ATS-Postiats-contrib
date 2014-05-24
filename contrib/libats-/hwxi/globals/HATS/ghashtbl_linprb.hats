@@ -72,6 +72,16 @@ fun insert_opt (k0: key, x0: itm): Option_vt (itm)
 //
 (* ****** ****** *)
 //
+extern
+fun takeout
+(
+  k0: key, res: &itm? >> opt(itm, b)
+) : #[b:bool] bool(b) // end-of-fun
+extern
+fun takeout_opt (k0: key): Option_vt (itm)
+//
+(* ****** ****** *)
+//
 local
 //
 val the_hashtbl =
@@ -156,6 +166,32 @@ prval ((*void*)) = $UNSAFE.cast2void (htbl)
 in
   opt
 end (* end of [insert_opt] *)
+
+(* ****** ****** *)
+
+implement
+takeout (k0, res) = let
+//
+val htbl =
+$UNSAFE.castvwtp0{HTBL}(the_hashtbl_ptr)
+val ans = hashtbl_takeout (htbl, k0, res)
+prval ((*void*)) = $UNSAFE.cast2void (htbl)
+//
+in
+  ans
+end (* end of [takeout] *)
+
+implement
+takeout_opt (k0) = let
+//
+val htbl =
+$UNSAFE.castvwtp0{HTBL}(the_hashtbl_ptr)
+val opt = hashtbl_takeout_opt (htbl, k0)
+prval ((*void*)) = $UNSAFE.cast2void (htbl)
+//
+in
+  opt
+end (* end of [takeout_opt] *)
 
 (* ****** ****** *)
 
