@@ -68,11 +68,11 @@ cleanall:: ; $(RMF) test04
 
 ######
 
-test05: \
-  test05.dats \
+test05-1: \
+  test05-1.dats \
   ghashtbl_chain.dats ; \
   $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
-cleanall:: ; $(RMF) test05
+cleanall:: ; $(RMF) test05-1
 
 ######
 
