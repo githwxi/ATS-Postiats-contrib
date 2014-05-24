@@ -5,7 +5,7 @@
 (***********************************************************************)
 
 (*
-** Copyright (C) 2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2014 Hongwei Xi, ATS Trustful Software, Inc.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -27,10 +27,45 @@
 *)
 
 (* ****** ****** *)
-//
-// HX-2013-11:
-// A worker is a thread with a job queue attached to it
-//
+
+(*
+** HX-2014-05-22: Start it now!
+*)
+
 (* ****** ****** *)
 
-(* end of [worker.sats] *)
+abstype
+workshop_type(a:vt@ype) = ptr
+typedef
+workshop(a:vt0p) = workshop_type(a)
+
+(* ****** ****** *)
+
+fun{
+a:vt0p
+} workshop_make_cap (cap: size_t): workshop(a)
+
+(* ****** ****** *)
+
+fun{
+a:vt0p
+} workshop_handle_job (ws: workshop(a), x: a): int
+
+(* ****** ****** *)
+
+fun{
+a:vt0p
+} workshop_insert_job (workshop(a), a): void
+fun{
+a:vt0p
+} workshop_takeout_job (ws: workshop(a)): (a)
+
+(* ****** ****** *)
+
+fun{
+a:vt0p
+} workshop_add_worker (ws: workshop(a)): int(*err*)
+
+(* ****** ****** *)
+
+(* end of [workshop.sats] *)

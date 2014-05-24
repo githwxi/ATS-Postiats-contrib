@@ -58,7 +58,8 @@ implement set (x) = !r_val := x
 
 (* ****** ****** *)
 
-implement getref () = let
+implement
+getref () = let
 //
 extern
 praxi

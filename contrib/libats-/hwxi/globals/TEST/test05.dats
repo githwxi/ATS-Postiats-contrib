@@ -33,7 +33,7 @@ val () =
 println! ("$HT.get_capacity() = ", $HT.get_capacity())
 *)
 //
-val~Some_vt(filr) = fileref_open_opt (WORDS, file_mode_r)
+val-~Some_vt(filr) = fileref_open_opt (WORDS, file_mode_r)
 //
 val () = let
 //
@@ -48,7 +48,7 @@ in
       val str =
         fileref_get_line_string (filr)
       val str = strptr2string (str)
-      val~None_vt() = $HT.insert_opt (str, 1)
+      val-~None_vt() = $HT.insert_opt (str, 1)
     in
       loop (filr)
     end // end of [then]

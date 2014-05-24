@@ -95,7 +95,7 @@ fun takeout_all (): List0_vt @(key, itm)
 local
 //
 val the_hashtbl =
-  hashtbl_make_nil(i2sz(CAPACITY))
+  hashtbl_make_nil<key,itm> (i2sz(CAPACITY))
 val the_hashtbl_ptr = $UNSAFE.castvwtp0{ptr}(the_hashtbl)
 //
 vtypedef HTBL = hashtbl (key, itm)

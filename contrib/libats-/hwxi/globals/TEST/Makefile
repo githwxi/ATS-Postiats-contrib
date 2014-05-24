@@ -35,6 +35,7 @@ all:: test02
 all:: test03
 all:: test04
 all:: test05
+all:: test05-2
 
 ######
 
@@ -72,6 +73,14 @@ test05: \
   ghashtbl_chain.dats ; \
   $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
 cleanall:: ; $(RMF) test05
+
+######
+
+test05-2: \
+  test05-2.dats \
+  ghashtbl_linprb.dats ; \
+  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
+cleanall:: ; $(RMF) test05-2
 
 ######
 
