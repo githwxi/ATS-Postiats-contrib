@@ -75,5 +75,53 @@ srand48_with_time () =
 // end of [srand48_with_time]
 
 (* ****** ****** *)
+//
+extern
+fun{}
+string_split_delim_string
+  (source: string, delim: string): List0_vt(Strptr1)
+//
+implement{}
+string_split_delim_string
+  (source, delim) = let
+//
+#define NUL '\000'
+vtypedef res = List0_vt(Strptr1)
+//
+fun loop
+(
+  p: ptr, res: res
+) : res = let
+//
+val str = $UN.cast{String}(p)
+val len = strspn (str, delim)
+val p2 = ptr_add<char> (p, len)
+val str2 = $UN.cast{String}(p2)
+val len2 = strcspn (str2, delim)
+//
+in
+//
+if
+len2 = 0
+then res
+else let
+  val x =
+  string_make_substring (str2, i2sz(0), len2)
+  prval () = lemma_strnptr_param (x)
+  val res = list_vt_cons (strnptr2strptr (x), res)
+in
+  loop (ptr_add<char> (p2, len2), res)
+end // end of [else]
+//
+end // end of [loop]
+//
+val res =
+  loop (string2ptr(source), list_vt_nil(*void*))
+//
+in
+  list_vt_reverse<Strptr1> (res)
+end // end of [string_split_delim_string]
+
+(* ****** ****** *)
 
 (* end of [BUCS.dats] *)
