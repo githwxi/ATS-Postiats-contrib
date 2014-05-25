@@ -57,7 +57,7 @@ all_html:: HTML/blas.html
 HTML/blas.html:   blas_atxt.exe ; ./$< > $@
 blas_atxt.txt: blas.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
 blas_atxt.exe: htmlgendecl_atxt.dats   blas_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOMEQ)/libatsynmark/libatsynmark.a -latsdoc
-upload_blas:: ;   scp HTML/blas.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats
+upload_blas:: ;   scp HTML/blas.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats/SATS/DOCUGEN/HTML
 clean:: ; $(RMF) blas_atxt.exe
 cleanall:: ; $(RMF) HTML/blas.html
 
@@ -65,7 +65,7 @@ all_html:: HTML/lavector.html
 HTML/lavector.html:   lavector_atxt.exe ; ./$< > $@
 lavector_atxt.txt: lavector.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
 lavector_atxt.exe: htmlgendecl_atxt.dats   lavector_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOMEQ)/libatsynmark/libatsynmark.a -latsdoc
-upload_lavector:: ;   scp HTML/lavector.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats
+upload_lavector:: ;   scp HTML/lavector.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats/SATS/DOCUGEN/HTML
 clean:: ; $(RMF) lavector_atxt.exe
 cleanall:: ; $(RMF) HTML/lavector.html
 
@@ -73,14 +73,14 @@ all_html:: HTML/lamatrix.html
 HTML/lamatrix.html:   lamatrix_atxt.exe ; ./$< > $@
 lamatrix_atxt.txt: lamatrix.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
 lamatrix_atxt.exe: htmlgendecl_atxt.dats   lamatrix_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOMEQ)/libatsynmark/libatsynmark.a -latsdoc
-upload_lamatrix:: ;   scp HTML/lamatrix.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats
+upload_lamatrix:: ;   scp HTML/lamatrix.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats/SATS/DOCUGEN/HTML
 clean:: ; $(RMF) lamatrix_atxt.exe
 cleanall:: ; $(RMF) HTML/lamatrix.html
 
 
 ######
 
-uploadall:: ;   scp HTML/*.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats
+uploadall:: ;   scp HTML/*.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libfloats/SATS/DOCUGEN/HTML
 
 ######
 

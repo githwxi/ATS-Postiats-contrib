@@ -59,14 +59,14 @@ all_html:: HTML/event.html
 HTML/event.html:   event_atxt.exe ; ./$< > $@
 event_atxt.txt: event.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
 event_atxt.exe: htmlgendecl_atxt.dats   event_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) -D_ATS_GCATS -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOMEQ)/libatsynmark/libatsynmark.a -latsdoc
-upload_event:: ;   scp HTML/event.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libevent
+upload_event:: ;   scp HTML/event.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libevent/SATS/DOCUGEN/HTML
 clean:: ; $(RMF) event_atxt.exe
 cleanall:: ; $(RMF) HTML/event.html
 
 
 ######
 
-uploadall:: ;   scp HTML/*.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libevent
+uploadall:: ; scp HTML/*.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libevent/SATS/DOCUGEN/HTML
 
 ######
 
