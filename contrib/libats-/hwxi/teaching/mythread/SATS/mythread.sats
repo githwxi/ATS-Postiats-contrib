@@ -46,12 +46,44 @@ typedef thread = thread_type
 //
 (* ****** ****** *)
 
+absview spin_v (l:addr)
+
+(* ****** ****** *)
+
+abstype spin_type (l:addr) = ptr(l)
+typedef spin (l:addr) = spin_type(l)
+typedef spin0 = [l:agez] spin_type(l)
+typedef spin1 = [l:addr | l > null] spin_type(l)
+
+(* ****** ****** *)
+
+castfn
+spin2ptr{l:addr} (spin(l)):<> ptr (l)
+overload ptrcast with spin2ptr
+
+(* ****** ****** *)
+//
+fun spin_create ((*void*)): spin0
+fun spin_create_exn ((*void*)): spin1
+//
+(* ****** ****** *)
+//
+fun
+spin_lock{l:agz} (x: spin(l)): (spin_v(l) | void)
+fun
+spin_trylock{l:agz}
+  (x: spin(l)): [b:bool] (option_v(spin_v(l), b) | bool(b))
+fun
+spin_unlock{l:agz} (pf: spin_v(l) | x: spin(l)): void
+//
+(* ****** ****** *)
+
 absview mutex_v (l:addr)
 
 (* ****** ****** *)
 
-abstype mutex_type (l:addr) = ptr (l)
-typedef mutex (l:addr) = mutex_type (l)
+abstype mutex_type (l:addr) = ptr(l)
+typedef mutex (l:addr) = mutex_type(l)
 typedef mutex0 = [l:agez] mutex_type(l)
 typedef mutex1 = [l:addr | l > null] mutex_type(l)
 
@@ -64,7 +96,6 @@ overload ptrcast with mutex2ptr
 (* ****** ****** *)
 //
 fun mutex_create ((*void*)): mutex0
-//
 fun mutex_create_exn ((*void*)): mutex1
 //
 (* ****** ****** *)
@@ -72,9 +103,8 @@ fun mutex_create_exn ((*void*)): mutex1
 fun
 mutex_lock{l:agz} (m: mutex(l)): (mutex_v(l) | void)
 fun
-mutex_trylock
-  {l:agz}(m: mutex(l)): [b:bool] (option_v(mutex_v(l), b) | bool(b))
-//
+mutex_trylock{l:agz}
+  (m: mutex(l)): [b:bool] (option_v(mutex_v(l), b) | bool(b))
 fun
 mutex_unlock{l:agz} (pf: mutex_v(l) | m: mutex(l)): void
 //

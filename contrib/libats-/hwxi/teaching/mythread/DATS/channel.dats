@@ -29,7 +29,7 @@
 (* ****** ****** *)
 //
 // HX-2013-11:
-// A simple channel implementation
+// An array-based channel
 //
 (* ****** ****** *)
 
@@ -49,8 +49,10 @@ staload "./../SATS/mythread.sats"
 //
 datatype
 channel =
-{l1,l2,l3:agz}
-CHANNEL of (ptr(*buffer*), mutex(l1), condvar(l2), condvar(l3))
+{
+l1,l2,l3:agz
+} CHANNEL of
+(ptr(*buffer*), mutex(l1), condvar(l2), condvar(l3))
 //
 (* ****** ****** *)
 

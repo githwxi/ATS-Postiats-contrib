@@ -50,6 +50,33 @@ staload "./../SATS/mythread.sats"
 (* ****** ****** *)
 //
 assume
+spin_v (l:addr) = unit_v
+//
+(* ****** ****** *)
+
+implement
+spin_create () = let
+//
+typedef
+pthread_spinlock_t = $extype"pthread_spinlock_t"
+//
+val (pfat, pfgc | p) = ptr_alloc<pthread_spinlock_t> ()
+val err = $extfcall (int, "pthread_spin_init", p, 0(*pshared*))
+//
+in
+//
+if err = 0
+  then
+    $UN.castvwtp0{spin1}((pfat, pfgc | p))
+  else let
+    val () = ptr_free (pfgc, pfat | p) in $UN.castvwtp0{spin0}(0)
+  end // end of [else]
+//
+end // end of [spin_create]
+
+(* ****** ****** *)
+//
+assume
 mutex_v (l:addr) = unit_v
 //
 (* ****** ****** *)
@@ -59,7 +86,7 @@ mutex_create () = let
 //
 typedef
 pthread_mutex_t = $extype"pthread_mutex_t"
-///
+//
 val (pfat, pfgc | p) = ptr_alloc<pthread_mutex_t> ()
 val err = $extfcall (int, "pthread_mutex_init", p, 0(*attr*))
 //
