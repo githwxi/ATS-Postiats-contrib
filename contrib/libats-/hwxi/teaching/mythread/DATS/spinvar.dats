@@ -33,7 +33,93 @@
 //
 (* ****** ****** *)
 
+staload
+UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
 staload "./../SATS/spinvar.sats"
+staload "./../SATS/mythread.sats"
+
+(* ****** ****** *)
+//
+datavtype
+spinvar_vt(a:vt0p) =
+{l:agz} SPINVAR of (a, spin(l))
+//
+(* ****** ****** *)
+
+(*
+assume spinvar_type (a:vt0p) = spinvar_vt(a)
+*)
+
+(* ****** ****** *)
+
+implement{a}
+spinvar_create_exn () = let
+//
+val spn = spin_create_exn ()
+//
+in
+  $UN.castvwtp0{spinvar(a)}(SPINVAR (_, spn))
+end // end of [spinvar_create_exn]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+spinvar_get
+  (spv) = x_ where
+{
+//
+val spv =
+$UN.castvwtp0{spinvar_vt(a)}(spv)
+//
+val+@SPINVAR(x, spn) = spv
+//
+val (pf | ()) = spin_lock (spn)
+val x_ = x
+val ((*void*)) = spin_unlock (pf | spn)
+//
+prval () = fold@ (spv)
+prval () = $UN.castview0{void}(spv)
+//
+} (* end of [spinvar_get] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+spinvar_process
+  (spv) = let
+//
+var env: void = ()
+//
+in
+  spinvar_process_env<a><void> (spv, env)
+end // end of [spinvar_process]
+
+(* ****** ****** *)
+
+implement
+{a}{env}
+spinvar_process_env
+  (spv, env) = () where
+{
+//
+val spv =
+$UN.castvwtp0{spinvar_vt(a)}(spv)
+//
+val+@SPINVAR(x, spn) = spv
+//
+val (pf | ()) = spin_lock (spn)
+val () = spinvar_process$fwork (x, env)
+val ((*void*)) = spin_unlock (pf | spn)
+//
+prval () = fold@ (spv)
+prval () = $UN.castview0{void}(spv)
+//
+} (* end of [spinvar_process_env] *)
 
 (* ****** ****** *)
 

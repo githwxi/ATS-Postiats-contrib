@@ -63,10 +63,10 @@ assume channel_type (a:vt0p) = channel
 implement{a}
 channel_create_exn (cap) = let
 //
-val deq = deqarray_make_cap<a> (cap)
 val mut = mutex_create_exn ()
 val CVisnil = condvar_create_exn ()
 val CVisful = condvar_create_exn ()
+val deq = deqarray_make_cap<a> (cap)
 //
 in
   CHANNEL ($UN.castvwtp0{ptr}(deq), mut, CVisnil, CVisful)

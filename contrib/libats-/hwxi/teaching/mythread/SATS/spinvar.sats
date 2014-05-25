@@ -39,13 +39,25 @@ typedef spinvar (a:vt0p) = spinvar_type (a)
 (* ****** ****** *)
 
 fun{a:vt0p}
-spinvar_create_exn (cap: sizeGte(1)): spinvar (a)
+spinvar_create_exn ((*void*)): spinvar (a)
 
 (* ****** ****** *)
 
-fun{a:vt0p} spinvar_insert (spinvar (a), a): void
-fun{a:vt0p} spinvar_takeout (chan: spinvar (a)): (a) 
+fun{a:t@ype} spinvar_get (spv: spinvar(a)): a
 
+(* ****** ****** *)
+//
+fun{
+a:vt0p}{env:vt0p
+} spinvar_process$fwork (x: &a >> _, env: &(env) >> _): void
+//
+fun{
+a:vt0p
+} spinvar_process (spv: spinvar(a)): void
+fun{
+a:vt0p}{env:vt0p
+} spinvar_process_env (spv: spinvar(a), env: &(env) >> _): void
+//
 (* ****** ****** *)
 
 (* end of [spinvar.sats] *)
