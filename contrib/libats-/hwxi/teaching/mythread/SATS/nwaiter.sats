@@ -29,35 +29,45 @@
 (* ****** ****** *)
 //
 // HX-2014-05:
-// This is based on spinlock
+// For waiting until the proofs for
+// a predeterminted view are all uploaded
+// in a piecewise manner.
+// Note that this version does not use types
+// to ensure a correct match between the uploaded
+// proofs and the downloaded proof.
 //
 (* ****** ****** *)
 //
-abstype spinvar_type (a:vt@ype) = ptr
-typedef spinvar (a:vt0p) = spinvar_type (a)
+absvtype
+nwaiter_vtype (i:int) = ptr
+vtypedef nwaiter(i:int) = nwaiter_vtype(i)
+absvtype nwaiter_ticket_vtype = ptr
+vtypedef nwaiter_ticket = nwaiter_ticket_vtype
+//
+(* ****** ****** *)
+//
+fun
+nwaiter_create_exn (): nwaiter(0)
+//
+(* ****** ****** *)
+//
+fun
+nwaiter_initiate
+  (nw: !nwaiter(0) >> nwaiter(1)): nwaiter_ticket
+//
+(* ****** ****** *)
+//
+fun
+nwaiter_waitfor (nw: !nwaiter(1) >> nwaiter(0)): void
+//
+(* ****** ****** *)
+//
+fun
+nwaiter_ticket_put (nwt: nwaiter_ticket): void
+fun
+nwaiter_ticket_split
+  (nwt: !nwaiter_ticket >> nwaiter_ticket): nwaiter_ticket
 //
 (* ****** ****** *)
 
-fun{a:vt0p}
-spinvar_create_exn ((*void*)): spinvar (a)
-
-(* ****** ****** *)
-
-fun{a:t@ype} spinvar_get (spnv: spinvar(a)): a
-
-(* ****** ****** *)
-//
-fun{
-a:vt0p}{env:vt0p
-} spinvar_process$fwork (x: &a >> _, env: &(env) >> _): void
-//
-fun{
-a:vt0p
-} spinvar_process (spnv: spinvar(a)): void
-fun{
-a:vt0p}{env:vt0p
-} spinvar_process_env (spnv: spinvar(a), env: &(env) >> _): void
-//
-(* ****** ****** *)
-
-(* end of [spinvar.sats] *)
+(* end of [nwaiter.sats] *)

@@ -48,8 +48,7 @@ staload "./../SATS/mythread.sats"
 (* ****** ****** *)
 //
 datatype
-channel =
-{
+channel = {
 l1,l2,l3:agz
 } CHANNEL of
 (ptr(*buffer*), mutex(l1), condvar(l2), condvar(l3))

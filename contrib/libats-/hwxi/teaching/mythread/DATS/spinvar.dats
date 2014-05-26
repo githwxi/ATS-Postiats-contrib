@@ -69,20 +69,20 @@ end // end of [spinvar_create_exn]
 implement
 {a}(*tmp*)
 spinvar_get
-  (spv) = x_ where
+  (spnv) = x_ where
 {
 //
-val spv =
-$UN.castvwtp0{spinvar_vt(a)}(spv)
+val spnv =
+$UN.castvwtp0{spinvar_vt(a)}(spnv)
 //
-val+@SPINVAR(x, spn) = spv
+val+@SPINVAR(x, spn) = spnv
 //
 val (pf | ()) = spin_lock (spn)
 val x_ = x
 val ((*void*)) = spin_unlock (pf | spn)
 //
-prval () = fold@ (spv)
-prval () = $UN.castview0{void}(spv)
+prval () = fold@ (spnv)
+prval () = $UN.castview0{void}(spnv)
 //
 } (* end of [spinvar_get] *)
 
@@ -91,12 +91,12 @@ prval () = $UN.castview0{void}(spv)
 implement
 {a}(*tmp*)
 spinvar_process
-  (spv) = let
+  (spnv) = let
 //
 var env: void = ()
 //
 in
-  spinvar_process_env<a><void> (spv, env)
+  spinvar_process_env<a><void> (spnv, env)
 end // end of [spinvar_process]
 
 (* ****** ****** *)
@@ -104,20 +104,20 @@ end // end of [spinvar_process]
 implement
 {a}{env}
 spinvar_process_env
-  (spv, env) = () where
+  (spnv, env) = () where
 {
 //
-val spv =
-$UN.castvwtp0{spinvar_vt(a)}(spv)
+val spnv =
+$UN.castvwtp0{spinvar_vt(a)}(spnv)
 //
-val+@SPINVAR(x, spn) = spv
+val+@SPINVAR(x, spn) = spnv
 //
 val (pf | ()) = spin_lock (spn)
 val () = spinvar_process$fwork (x, env)
 val ((*void*)) = spin_unlock (pf | spn)
 //
-prval () = fold@ (spv)
-prval () = $UN.castview0{void}(spv)
+prval () = fold@ (spnv)
+prval () = $UN.castview0{void}(spnv)
 //
 } (* end of [spinvar_process_env] *)
 
