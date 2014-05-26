@@ -57,15 +57,32 @@ typedef spin1 = [l:addr | l > null] spin_type(l)
 
 (* ****** ****** *)
 
+absvtype spin_vtype (l:addr) = ptr(l)
+vtypedef spin_vt (l:addr) = spin_vtype(l)
+
+(* ****** ****** *)
+
 castfn
 spin2ptr{l:addr} (spin(l)):<> ptr (l)
 overload ptrcast with spin2ptr
+castfn
+spin2ptr_vt{l:addr} (!spin_vt(l)):<> ptr (l)
+overload ptrcast with spin2ptr_vt
+
+(* ****** ****** *)
+
+castfn
+unsafe_spin_t2vt{l:addr} (spin(l)): spin_vt(l)
 
 (* ****** ****** *)
 //
 fun spin_create ((*void*)): spin0
 fun spin_create_exn ((*void*)): spin1
 //
+(* ****** ****** *)
+
+fun spin_vt_destroy{l:addr}(spin_vt(l)): void
+
 (* ****** ****** *)
 //
 fun
@@ -89,15 +106,32 @@ typedef mutex1 = [l:addr | l > null] mutex_type(l)
 
 (* ****** ****** *)
 
+absvtype mutex_vtype (l:addr) = ptr(l)
+vtypedef mutex_vt (l:addr) = mutex_vtype(l)
+
+(* ****** ****** *)
+
 castfn
 mutex2ptr{l:addr} (mutex(l)):<> ptr (l)
 overload ptrcast with mutex2ptr
+castfn
+mutex2ptr_vt{l:addr} (!mutex_vt(l)):<> ptr (l)
+overload ptrcast with mutex2ptr_vt
+
+(* ****** ****** *)
+
+castfn
+unsafe_mutex_t2vt{l:addr} (mutex(l)): mutex_vt(l)
 
 (* ****** ****** *)
 //
 fun mutex_create ((*void*)): mutex0
 fun mutex_create_exn ((*void*)): mutex1
 //
+(* ****** ****** *)
+
+fun mutex_vt_destroy{l:addr}(mutex_vt(l)): void
+
 (* ****** ****** *)
 //
 fun
@@ -111,21 +145,39 @@ mutex_unlock{l:agz} (pf: mutex_v(l) | m: mutex(l)): void
 (* ****** ****** *)
 //
 abstype condvar_type(l:addr) = ptr(l)
-//
 typedef condvar (l:addr) = condvar_type(l)
 typedef condvar0 = [l:agez] condvar_type(l)
 typedef condvar1 = [l:addr | l > null] condvar_type(l)
 //
 (* ****** ****** *)
 
+absvtype condvar_vtype (l:addr) = ptr(l)
+vtypedef condvar_vt (l:addr) = condvar_vtype(l)
+
+(* ****** ****** *)
+
 castfn
 condvar2ptr{l:addr} (condvar(l)):<> ptr (l)
 overload ptrcast with condvar2ptr
+castfn
+condvar2ptr_vt{l:addr} (!condvar_vt(l)):<> ptr (l)
+overload ptrcast with condvar2ptr_vt
+
+(* ****** ****** *)
+
+castfn
+unsafe_condvar_t2vt{l:addr} (condvar(l)): condvar_vt(l)
 
 (* ****** ****** *)
 //
 fun condvar_create (): condvar0
 fun condvar_create_exn (): condvar1
+//
+(* ****** ****** *)
+
+fun condvar_vt_destroy{l:addr}(condvar_vt(l)): void
+
+(* ****** ****** *)
 //
 fun condvar_signal (cv: condvar1): void
 fun condvar_broadcast (cv: condvar1): void

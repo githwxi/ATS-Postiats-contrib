@@ -79,6 +79,28 @@ end // end of [spin_create]
 (* ****** ****** *)
 
 implement
+spin_vt_destroy (spn) = let
+//
+val p_spn = spin2ptr_vt (spn)
+prval () = $UN.castview0 (spn)
+//
+in
+//
+if
+p_spn > 0
+then let
+  val err = $extfcall (int, "pthread_spin_destroy", p_spn)
+  val ((*freed*)) = $extfcall (void, "atspre_ptr_free", p_spn)
+in
+  // nothing
+end // end of [then]
+else () // end of [else]
+//
+end // end of [spin_vt_destroy]
+
+(* ****** ****** *)
+
+implement
 spin_lock (spn) = let
 //
 val err = $extfcall
@@ -141,6 +163,28 @@ end // end of [mutex_create]
 (* ****** ****** *)
 
 implement
+mutex_vt_destroy (mtx) = let
+//
+val p_mtx = mutex2ptr_vt (mtx)
+prval () = $UN.castview0 (mtx)
+//
+in
+//
+if
+p_mtx > 0
+then let
+  val err = $extfcall (int, "pthread_mutex_destroy", p_mtx)
+  val ((*freed*)) = $extfcall (void, "atspre_ptr_free", p_mtx)
+in
+  // nothing
+end // end of [then]
+else () // end of [else]
+//
+end // end of [mutex_vt_destroy]
+
+(* ****** ****** *)
+
+implement
 mutex_lock (mtx) = let
 //
 val err = $extfcall
@@ -194,6 +238,28 @@ if err = 0
   end // end of [else]
 //
 end // end of [condvar_create]
+
+(* ****** ****** *)
+
+implement
+condvar_vt_destroy (cvr) = let
+//
+val p_cvr = condvar2ptr_vt (cvr)
+prval () = $UN.castview0 (cvr)
+//
+in
+//
+if
+p_cvr > 0
+then let
+  val err = $extfcall (int, "pthread_cond_destroy", p_cvr)
+  val ((*freed*)) = $extfcall (void, "atspre_ptr_free", p_cvr)
+in
+  // nothing
+end // end of [then]
+else () // end of [else]
+//
+end // end of [condvar_vt_destroy]
 
 (* ****** ****** *)
   

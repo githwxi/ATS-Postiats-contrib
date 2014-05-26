@@ -32,7 +32,7 @@ mythread_create_cloptr (llam () => nwaiter_ticket_put (NWT2))
 //
 val () = nwaiter_waitfor (NW)
 //
-prval ((*leaked*)) = $UNSAFE.castview0 (NW)
+val () = nwaiter_destroy (NW)
 //
 val () = 
 println! ("test_nwaiter: leave")
