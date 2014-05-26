@@ -61,7 +61,7 @@ spinvar_create_exn () = let
 val spn = spin_create_exn ()
 //
 in
-  $UN.castvwtp0{spinvar(a)}(SPINVAR (spn, _))
+  $UN.castvwtp0{spinvar(a)}(SPINVAR{a}(spn, _))
 end // end of [spinvar_create_exn]
 
 (* ****** ****** *)

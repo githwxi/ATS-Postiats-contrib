@@ -13,6 +13,12 @@ PATSLIB=$(PATSHOMEQ)/ccomp/atslib/lib
 
 ######
 
+test_mutexvar: \
+test_mutexvar.dats ; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+
+######
+
 test_nwaiter: \
 test_nwaiter.dats ; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
@@ -30,6 +36,7 @@ clean:: ; $(RMF) *_?ats.o
 ######
 
 cleanall:: clean
+cleanall:: ; $(RMF) test_mutexvar
 cleanall:: ; $(RMF) test_nwaiter
 
 ###### end of [Makefile] ######

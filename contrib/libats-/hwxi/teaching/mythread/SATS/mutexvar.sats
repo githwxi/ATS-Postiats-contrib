@@ -33,36 +33,47 @@
 //
 (* ****** ****** *)
 //
-abstype
-mutexvar_type (a:vt@ype, int) = ptr
-typedef mutexvar (a:vt0p, i) = mutexvar_type (a, i)
+// HX-2014-05:
+// [mutexvar_type] is invariant
+// [mutexvar_ticket_type] is invariant
 //
-absvtype mutexvar_ticket_vtype = ptr
-vtypedef mutexvar_ticket = mutexvar_ticket_vtype
+absvtype
+mutexvar_vtype (a:vt@ype, int) = ptr
+vtypedef mutexvar (a:vt0p, i) = mutexvar_vtype (a, i)
+//
+absvtype
+mutexvar_ticket_vtype (a:vt@ype) = ptr
+vtypedef
+mutexvar_ticket(a:vt0p) = mutexvar_ticket_vtype(a)
 //
 (* ****** ****** *)
 
 fun{a:vt0p}
-mutexvar_create_exn ((*void*)): mutexvar (a, 0)
+mutexvar_create_exn (): mutexvar(a, 0)
 
+(* ****** ****** *)
+//
+fun{}
+mutexvar_destroy{a:vt0p}(mutexvar(a, 0)): void
+//
 (* ****** ****** *)
 //
 fun{a:vt0p}
 mutexvar_initiate
 (
-  mutexvar: !mutexvar (a, 0) >> mutexvar (a, 1)
-) : mutexvar_ticket
+  mutexvar: !mutexvar(a, 0) >> mutexvar(a, 1)
+) : mutexvar_ticket(a) // end-of-fun
 //
 (* ****** ****** *)
 //
 fun{a:vt0p}
 mutexvar_waitfor
-  (mutexvar: !mutexvar (a, 1) >> mutexvar (a, 0)): (a)
+  (mutexvar: !mutexvar(a, 1) >> mutexvar(a, 0)): (a)
 //
 (* ****** ****** *)
 
 fun{a:vt0p}
-mutexvar_ticket_put (mvt: mutexvar_ticket, x: a): void
+mutexvar_ticket_put (ticket: mutexvar_ticket(a), x: a): void
 
 (* ****** ****** *)
 

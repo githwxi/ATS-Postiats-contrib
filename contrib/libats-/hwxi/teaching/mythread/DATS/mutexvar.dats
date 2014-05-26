@@ -44,18 +44,15 @@ staload "./../SATS/mythread.sats"
 (* ****** ****** *)
 //
 datavtype
-mutexvar_vt(a:vt0p) =
+mutexvar_vt (a:vt0p) =
 {l:agz} MUTEXVAR of (mutex(l), a)
 //
 (* ****** ****** *)
-
-abstype mutexvar(a:vt0p) = ptr
-
-(* ****** ****** *)
-
+//
 assume
-mutexvar_type (a:vt0p, i:int) = mutexvar(a)
-
+mutexvar_vtype
+  (a:vt0p, i:int) = mutexvar_vt(a)
+//
 (* ****** ****** *)
 
 implement{a}
@@ -64,8 +61,24 @@ mutexvar_create_exn () = let
 val mtx = mutex_create_exn ()
 //
 in
-  $UN.castvwtp0{mutexvar(a,0)}(MUTEXVAR(mtx, _))
+  $UN.castvwtp0{mutexvar(a,0)}(MUTEXVAR{a}(mtx, _))
 end // end of [mutexvar_create_exn]
+
+(* ****** ****** *)
+
+implement{}
+mutexvar_destroy
+  (mtxv) = () where
+{
+//
+val+~MUTEXVAR (mtx, x) = mtxv
+//
+val mtx = unsafe_mutex_t2vt (mtx)
+val ((*freed*)) = mutex_vt_destroy (mtx)
+//
+prval ((*void*)) = $UN.castview0{void}(x)
+//
+} // end of [mutexvar_destroy]
 
 (* ****** ****** *)
 
@@ -74,16 +87,13 @@ implement
 mutexvar_initiate
   (mtxv) = let
 //
-val mtxv =
-$UN.castvwtp0{mutexvar_vt(a)}(mtxv)
-//
 val+MUTEXVAR(mtx, _) = mtxv
 //
 val (pf | ()) = mutex_lock (mtx)
-prval ((*void*)) = $UN.castview0 (pf)
+prval ((*void*)) = $UN.castview0{void}(pf)
 //
 in
-  $UN.castvwtp0{mutexvar_ticket}(mtxv)
+  $UN.castvwtp1{mutexvar_ticket(a)}(mtxv)
 end // end of [mutexvar_initiate]
 
 (* ****** ****** *)
@@ -94,9 +104,6 @@ mutexvar_waitfor
   (mtxv) = x_ where
 {
 //
-val mtxv =
-$UN.castvwtp0{mutexvar_vt(a)}(mtxv)
-//
 val+@MUTEXVAR(mtx, x) = mtxv
 //
 val (pf | ()) = mutex_lock (mtx)
@@ -104,7 +111,6 @@ val x_ = $UN.ptr0_get<a> (addr@x)
 val ((*void*)) = mutex_unlock (pf | mtx)
 //
 prval ((*void*)) = fold@ (mtxv)
-prval ((*void*)) = $UN.castview0{void}(mtxv)
 //
 } // end of [mutexvar_waitfor]
 
@@ -118,6 +124,7 @@ mutexvar_ticket_put
 //
 val mtxv =
 $UN.castvwtp0{mutexvar_vt(a)}(tick)
+//
 val+@MUTEXVAR(mtx, x0) = mtxv
 val () = $UN.ptr0_set<a> (addr@x0, x)
 //
