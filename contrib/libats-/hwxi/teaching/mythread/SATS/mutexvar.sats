@@ -29,98 +29,41 @@
 (* ****** ****** *)
 //
 // HX-2014-05:
-// This is based on spinlock
+// This is based on mutex
+//
+(* ****** ****** *)
+//
+abstype
+mutexvar_type (a:vt@ype, int) = ptr
+typedef mutexvar (a:vt0p, i) = mutexvar_type (a, i)
+//
+absvtype mutexvar_ticket_vtype = ptr
+vtypedef mutexvar_ticket = mutexvar_ticket_vtype
 //
 (* ****** ****** *)
 
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload "./../SATS/spinvar.sats"
-staload "./../SATS/mythread.sats"
+fun{a:vt0p}
+mutexvar_create_exn ((*void*)): mutexvar (a, 0)
 
 (* ****** ****** *)
 //
-datavtype
-spinvar_vt(a:vt0p) =
-{l:agz} SPINVAR of (spin(l), a)
+fun{a:vt0p}
+mutexvar_initiate
+(
+  mutexvar: !mutexvar (a, 0) >> mutexvar (a, 1)
+) : mutexvar_ticket
+//
+(* ****** ****** *)
+//
+fun{a:vt0p}
+mutexvar_waitfor
+  (mutexvar: !mutexvar (a, 1) >> mutexvar (a, 0)): (a)
 //
 (* ****** ****** *)
 
-(*
-assume spinvar_type (a:vt0p) = spinvar_vt(a)
-*)
+fun{a:vt0p}
+mutexvar_ticket_put (mvt: mutexvar_ticket, x: a): void
 
 (* ****** ****** *)
 
-implement{a}
-spinvar_create_exn () = let
-//
-val spn = spin_create_exn ()
-//
-in
-  $UN.castvwtp0{spinvar(a)}(SPINVAR (spn, _))
-end // end of [spinvar_create_exn]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-spinvar_get
-  (spnv) = x_ where
-{
-//
-val spnv =
-$UN.castvwtp0{spinvar_vt(a)}(spnv)
-//
-val+@SPINVAR(spn, x) = spnv
-//
-val (pf | ()) = spin_lock (spn)
-val x_ = x
-val ((*void*)) = spin_unlock (pf | spn)
-//
-prval () = fold@ (spnv)
-prval () = $UN.castview0{void}(spnv)
-//
-} (* end of [spinvar_get] *)
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-spinvar_process
-  (spnv) = let
-//
-var env: void = ()
-//
-in
-  spinvar_process_env<a><void> (spnv, env)
-end // end of [spinvar_process]
-
-(* ****** ****** *)
-
-implement
-{a}{env}
-spinvar_process_env
-  (spnv, env) = () where
-{
-//
-val spnv =
-$UN.castvwtp0{spinvar_vt(a)}(spnv)
-//
-val+@SPINVAR(spn, x) = spnv
-//
-val (pf | ()) = spin_lock (spn)
-val () = spinvar_process$fwork (x, env)
-val ((*void*)) = spin_unlock (pf | spn)
-//
-prval () = fold@ (spnv)
-prval () = $UN.castview0{void}(spnv)
-//
-} (* end of [spinvar_process_env] *)
-
-(* ****** ****** *)
-
-(* end of [spinvar.dats] *)
+(* end of [mutexvar.sats] *)

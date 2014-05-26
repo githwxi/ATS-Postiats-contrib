@@ -29,7 +29,7 @@
 (* ****** ****** *)
 //
 // HX-2014-05:
-// This is based on spinlock
+// This is based on mutex
 //
 (* ****** ****** *)
 
@@ -38,89 +38,101 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "./../SATS/spinvar.sats"
+staload "./../SATS/mutexvar.sats"
 staload "./../SATS/mythread.sats"
 
 (* ****** ****** *)
 //
 datavtype
-spinvar_vt(a:vt0p) =
-{l:agz} SPINVAR of (spin(l), a)
+mutexvar_vt(a:vt0p) =
+{l:agz} MUTEXVAR of (mutex(l), a)
 //
 (* ****** ****** *)
 
-(*
-assume spinvar_type (a:vt0p) = spinvar_vt(a)
-*)
+abstype mutexvar(a:vt0p) = ptr
+
+(* ****** ****** *)
+
+assume
+mutexvar_type (a:vt0p, i:int) = mutexvar(a)
 
 (* ****** ****** *)
 
 implement{a}
-spinvar_create_exn () = let
+mutexvar_create_exn () = let
 //
-val spn = spin_create_exn ()
+val mtx = mutex_create_exn ()
 //
 in
-  $UN.castvwtp0{spinvar(a)}(SPINVAR (spn, _))
-end // end of [spinvar_create_exn]
+  $UN.castvwtp0{mutexvar(a,0)}(MUTEXVAR(mtx, _))
+end // end of [mutexvar_create_exn]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-spinvar_get
-  (spnv) = x_ where
-{
+mutexvar_initiate
+  (mtxv) = let
 //
-val spnv =
-$UN.castvwtp0{spinvar_vt(a)}(spnv)
+val mtxv =
+$UN.castvwtp0{mutexvar_vt(a)}(mtxv)
 //
-val+@SPINVAR(spn, x) = spnv
+val+MUTEXVAR(mtx, _) = mtxv
 //
-val (pf | ()) = spin_lock (spn)
-val x_ = x
-val ((*void*)) = spin_unlock (pf | spn)
+val (pf | ()) = mutex_lock (mtx)
+prval ((*void*)) = $UN.castview0 (pf)
 //
-prval () = fold@ (spnv)
-prval () = $UN.castview0{void}(spnv)
-//
-} (* end of [spinvar_get] *)
+in
+  $UN.castvwtp0{mutexvar_ticket}(mtxv)
+end // end of [mutexvar_initiate]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-spinvar_process
-  (spnv) = let
+mutexvar_waitfor
+  (mtxv) = x_ where
+{
 //
-var env: void = ()
+val mtxv =
+$UN.castvwtp0{mutexvar_vt(a)}(mtxv)
 //
-in
-  spinvar_process_env<a><void> (spnv, env)
-end // end of [spinvar_process]
+val+@MUTEXVAR(mtx, x) = mtxv
+//
+val (pf | ()) = mutex_lock (mtx)
+val x_ = $UN.ptr0_get<a> (addr@x)
+val ((*void*)) = mutex_unlock (pf | mtx)
+//
+prval ((*void*)) = fold@ (mtxv)
+prval ((*void*)) = $UN.castview0{void}(mtxv)
+//
+} // end of [mutexvar_waitfor]
 
 (* ****** ****** *)
 
 implement
-{a}{env}
-spinvar_process_env
-  (spnv, env) = () where
+{a}(*tmp*)
+mutexvar_ticket_put
+  (tick, x) = () where
 {
 //
-val spnv =
-$UN.castvwtp0{spinvar_vt(a)}(spnv)
+val mtxv =
+$UN.castvwtp0{mutexvar_vt(a)}(tick)
+val+@MUTEXVAR(mtx, x0) = mtxv
+val () = $UN.ptr0_set<a> (addr@x0, x)
 //
-val+@SPINVAR(spn, x) = spnv
+prval pf =
+__assert (mtx) where
+{
+  extern praxi __assert {l:addr} (!mutex(l)): mutex_v(l)
+} (* end of [prval] *)
+val () = mutex_unlock (pf | mtx)
 //
-val (pf | ()) = spin_lock (spn)
-val () = spinvar_process$fwork (x, env)
-val ((*void*)) = spin_unlock (pf | spn)
+prval () = fold@ (mtxv)
+prval () = $UN.castvwtp0{void}(mtxv)
 //
-prval () = fold@ (spnv)
-prval () = $UN.castview0{void}(spnv)
-//
-} (* end of [spinvar_process_env] *)
+} // end of [mutexvar_ticket_put]
 
 (* ****** ****** *)
 
-(* end of [spinvar.dats] *)
+(* end of [mutexvar.dats] *)
