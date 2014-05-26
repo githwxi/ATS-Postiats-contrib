@@ -46,25 +46,30 @@ vtypedef nwaiter_ticket = nwaiter_ticket_vtype
 //
 (* ****** ****** *)
 //
-fun
+fun{}
 nwaiter_create_exn (): nwaiter(0)
 //
 (* ****** ****** *)
+
+fun{}
+nwaiter_destroy (nw: nwaiter(0)): void
+
+(* ****** ****** *)
 //
-fun
+fun{}
 nwaiter_initiate
   (nw: !nwaiter(0) >> nwaiter(1)): nwaiter_ticket
 //
 (* ****** ****** *)
 //
-fun
+fun{}
 nwaiter_waitfor (nw: !nwaiter(1) >> nwaiter(0)): void
 //
 (* ****** ****** *)
 //
-fun
+fun{}
 nwaiter_ticket_put (nwt: nwaiter_ticket): void
-fun
+fun{}
 nwaiter_ticket_split
   (nwt: !nwaiter_ticket >> nwaiter_ticket): nwaiter_ticket
 //

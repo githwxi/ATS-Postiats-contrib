@@ -13,8 +13,9 @@ PATSLIB=$(PATSHOMEQ)/ccomp/atslib/lib
 
 ######
 
-test_path: \
-test_path.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
+test_nwaiter: \
+test_nwaiter.dats ; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
 
 ######
 
@@ -29,6 +30,6 @@ clean:: ; $(RMF) *_?ats.o
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) test_path
+cleanall:: ; $(RMF) test_nwaiter
 
 ###### end of [Makefile] ######

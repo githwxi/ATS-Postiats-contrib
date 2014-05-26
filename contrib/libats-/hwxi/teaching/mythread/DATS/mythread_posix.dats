@@ -35,7 +35,9 @@
 (* ****** ****** *)
 
 %{^
+//
 #include <pthread.h>
+//
 %} // end of [%{^]
 
 (* ****** ****** *)
@@ -73,6 +75,41 @@ if err = 0
   end // end of [else]
 //
 end // end of [spin_create]
+
+(* ****** ****** *)
+
+implement
+spin_lock (spn) = let
+//
+val err = $extfcall
+  (int, "pthread_spin_lock", $UN.cast{ptr}(spn))
+//
+(*
+val ((*void*)) = assertloc (err = 0)
+*)
+//
+in
+  (unit_v () | ())
+end // end of [spin_lock]
+
+(* ****** ****** *)
+
+implement
+spin_unlock
+  (pf | spn) = let
+//
+prval unit_v () = pf
+//
+val err = $extfcall
+  (int, "pthread_spin_unlock", $UN.cast{ptr}(spn))
+//
+(*
+val ((*void*)) = assertloc (err = 0)
+*)
+//
+in
+  // nothing
+end // end of [spin_unlock]
 
 (* ****** ****** *)
 //
