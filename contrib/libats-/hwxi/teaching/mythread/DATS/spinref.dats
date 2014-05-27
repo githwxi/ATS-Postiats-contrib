@@ -38,89 +38,89 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "./../SATS/spinvar.sats"
+staload "./../SATS/spinref.sats"
 staload "./../SATS/mythread.sats"
 
 (* ****** ****** *)
 //
 datavtype
-spinvar_vt(a:vt0p) =
+spinref_vt(a:vt0p) =
 {l:agz} SPINVAR of (spin(l), a)
 //
 (* ****** ****** *)
 
 (*
-assume spinvar_type (a:vt0p) = spinvar_vt(a)
+assume spinref_type (a:vt0p) = spinref_vt(a)
 *)
 
 (* ****** ****** *)
 
 implement{a}
-spinvar_create_exn () = let
+spinref_create_exn (x) = let
 //
 val spn = spin_create_exn ()
 //
 in
-  $UN.castvwtp0{spinvar(a)}(SPINVAR{a}(spn, _))
-end // end of [spinvar_create_exn]
+  $UN.castvwtp0{spinref(a)}(SPINVAR{a}(spn, x))
+end // end of [spinref_create_exn]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-spinvar_get
-  (spnv) = x_ where
+spinref_get
+  (spnr) = x_ where
 {
 //
-val spnv =
-$UN.castvwtp0{spinvar_vt(a)}(spnv)
+val spnr =
+$UN.castvwtp0{spinref_vt(a)}(spnr)
 //
-val+@SPINVAR(spn, x) = spnv
+val+@SPINVAR(spn, x) = spnr
 //
 val (pf | ()) = spin_lock (spn)
 val x_ = x
 val ((*void*)) = spin_unlock (pf | spn)
 //
-prval () = fold@ (spnv)
-prval () = $UN.castview0{void}(spnv)
+prval () = fold@ (spnr)
+prval () = $UN.castview0{void}(spnr)
 //
-} (* end of [spinvar_get] *)
+} (* end of [spinref_get] *)
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-spinvar_process
-  (spnv) = let
+spinref_process
+  (spnr) = let
 //
 var env: void = ()
 //
 in
-  spinvar_process_env<a><void> (spnv, env)
-end // end of [spinvar_process]
+  spinref_process_env<a><void> (spnr, env)
+end // end of [spinref_process]
 
 (* ****** ****** *)
 
 implement
 {a}{env}
-spinvar_process_env
-  (spnv, env) = () where
+spinref_process_env
+  (spnr, env) = () where
 {
 //
-val spnv =
-$UN.castvwtp0{spinvar_vt(a)}(spnv)
+val spnr =
+$UN.castvwtp0{spinref_vt(a)}(spnr)
 //
-val+@SPINVAR(spn, x) = spnv
+val+@SPINVAR(spn, x) = spnr
 //
 val (pf | ()) = spin_lock (spn)
-val () = spinvar_process$fwork (x, env)
+val () = spinref_process$fwork (x, env)
 val ((*void*)) = spin_unlock (pf | spn)
 //
-prval () = fold@ (spnv)
-prval () = $UN.castview0{void}(spnv)
+prval () = fold@ (spnr)
+prval () = $UN.castview0{void}(spnr)
 //
-} (* end of [spinvar_process_env] *)
+} (* end of [spinref_process_env] *)
 
 (* ****** ****** *)
 
-(* end of [spinvar.dats] *)
+(* end of [spinref.dats] *)

@@ -33,31 +33,31 @@
 //
 (* ****** ****** *)
 //
-abstype spinvar_type (a:vt@ype) = ptr
-typedef spinvar (a:vt0p) = spinvar_type (a)
+abstype spinref_type (a:vt@ype) = ptr
+typedef spinref (a:vt0p) = spinref_type (a)
 //
 (* ****** ****** *)
 
 fun{a:vt0p}
-spinvar_create_exn ((*void*)): spinvar (a)
+spinref_create_exn (x: a): spinref (a)
 
 (* ****** ****** *)
 
-fun{a:t@ype} spinvar_get (spnv: spinvar(a)): a
+fun{a:t@ype} spinref_get (spnr: spinref(a)): a
 
 (* ****** ****** *)
 //
 fun{
 a:vt0p}{env:vt0p
-} spinvar_process$fwork (x: &a >> _, env: &(env) >> _): void
+} spinref_process$fwork (x: &a >> _, env: &(env) >> _): void
 //
 fun{
 a:vt0p
-} spinvar_process (spnv: spinvar(a)): void
+} spinref_process (spnr: spinref(a)): void
 fun{
 a:vt0p}{env:vt0p
-} spinvar_process_env (spnv: spinvar(a), env: &(env) >> _): void
+} spinref_process_env (spnr: spinref(a), env: &(env) >> _): void
 //
 (* ****** ****** *)
 
-(* end of [spinvar.sats] *)
+(* end of [spinref.sats] *)
