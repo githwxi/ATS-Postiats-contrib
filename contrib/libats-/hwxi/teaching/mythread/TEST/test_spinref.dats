@@ -18,7 +18,8 @@ staload _ = "./../DATS/spinref.dats"
 
 (* ****** ****** *)
 
-fun spinref_incby
+fun
+spinref_incby
   (spnr: spinref(int)): void = let
 //
 implement(env)
@@ -42,20 +43,24 @@ val SPNR = spinref_create_exn<int> (0)
 val () =
 mythread_create_cloptr
 (
-  llam () => (fix loop(x: spinref(int)): void => (spinref_incby(x); ignoret(sleep(1u)); loop(x)))(SPNR)
+llam () =>
+  (fix loop(x: spinref(int)): void => (ignoret(sleep(1u)); spinref_incby(x); loop(x)))(SPNR)
 )
-val () = println! ("The first thread has created.")
+val () = println! ("The first thread has been created.")
 //
 val () =
 mythread_create_cloptr
 (
-  llam () => (fix loop(x: spinref(int)): void => (spinref_incby(x); ignoret(sleep(1u)); loop(x)))(SPNR)
+llam () =>
+  (fix loop(x: spinref(int)): void => (ignoret(sleep(1u)); spinref_incby(x); loop(x)))(SPNR)
 )
-val () = println! ("The second thread has created.")
+val () = println! ("The second thread has been created.")
 //
 val () =
 ( fix loop
-    (spnr: spinref(int)): void =>
+  (
+    spnr: spinref(int)
+  ) : void =>
 {
   val n = spinref_get (spnr)
   val () = if n < 2 then (ignoret(sleep(1u)); loop (spnr))
