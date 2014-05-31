@@ -36,12 +36,28 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
+//
 staload
 STDLIB = "libc/SATS/stdlib.sats"
-//
 staload TIME = "libc/SATS/time.sats"
 //
+staload
+STAT = "libc/sys/SATS/stat.sats"
+staload
+TYPES = "libc/sys/SATS/types.sats"
+//
+(* ****** ****** *)
+
+fun{
+} test_file_ixoth
+  (path: string): int = let
+//
+macdef S_IXOTH = $UN.cast2uint($STAT.S_IXOTH)
+//
+in
+  test_file_mode (path, lam (mode) => (mode land S_IXOTH) != 0u)
+end // end of [test_file_ixoth]
+
 (* ****** ****** *)
 
 extern

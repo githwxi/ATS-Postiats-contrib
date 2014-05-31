@@ -13,8 +13,8 @@ PATSLIB=$(PATSHOMEQ)/ccomp/atslib/lib
 
 ######
 
-test_path: \
-test_path.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
+test_which: \
+test_which.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
 
 ######
 
@@ -29,6 +29,6 @@ clean:: ; $(RMF) *_?ats.o
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) test_path
+cleanall:: ; $(RMF) test_which
 
 ###### end of [Makefile] ######
