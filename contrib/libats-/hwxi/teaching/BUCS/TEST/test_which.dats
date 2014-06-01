@@ -19,6 +19,12 @@ main0 (argc, argv) =
 {
 //
 val () =
+if (argc <= 1) then
+{
+val () = fprintln! (stderr_ref, "Usage: ", argv[0], " ", "<filename>")
+} (* end of [if] *)
+//
+val () =
 assertloc (argc >= 2)
 val command = argv[1]
 //

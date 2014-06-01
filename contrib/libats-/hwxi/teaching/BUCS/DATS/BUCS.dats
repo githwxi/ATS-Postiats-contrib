@@ -55,7 +55,7 @@ fun{
 macdef S_IXOTH = $UN.cast2uint($STAT.S_IXOTH)
 //
 in
-  test_file_mode (path, lam (mode) => (mode land S_IXOTH) != 0u)
+  test_file_mode_fun (path, lam (mode) => (mode land S_IXOTH) != 0u)
 end // end of [test_file_ixoth]
 
 (* ****** ****** *)
