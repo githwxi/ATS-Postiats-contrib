@@ -13,19 +13,14 @@
 
 local
 //
-#include
-"{$LIBATSHWXI}/teaching/mythread/DATS/mythread.dats"
+#include "libats/DATS/athread.dats"
+#include "libats/DATS/athread_posix.dats"
 //
-in (*nothing*) end
-
-(* ****** ****** *)
-
-local
+in (* in of [local] *)
 //
-#include
-"{$LIBATSHWXI}/teaching/mythread/DATS/mythread_posix.dats"
+// HX: it is intentionally left to be empty
 //
-in (*nothing*) end
+end // end of [local]
 
 (* ****** ****** *)
 

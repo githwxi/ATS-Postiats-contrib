@@ -75,28 +75,10 @@ end // end of [local]
   
 (* ****** ****** *)
 
-staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/mythread.sats"
-
-(* ****** ****** *)
-
 local
 //
-#include
-"{$LIBATSHWXI}/teaching/mythread/DATS/mythread.dats"
-//
-in (* in of [local] *)
-//
-// HX: it is intentionally left to be empty
-//
-end // end of [local]
-
-(* ****** ****** *)
-
-local
-//
-#include
-"{$LIBATSHWXI}/teaching/mythread/DATS/mythread_posix.dats"
+#include "libats/DATS/athread.dats"
+#include "libats/DATS/athread_posix.dats"
 //
 in (* in of [local] *)
 //

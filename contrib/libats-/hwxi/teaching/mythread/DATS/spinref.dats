@@ -38,9 +38,12 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
+staload "libats/SATS/athread.sats"
+
+(* ****** ****** *)
+
 staload "./../SATS/spinvar.sats"
 staload "./../SATS/spinref.sats"
-staload "./../SATS/mythread.sats"
 
 (* ****** ****** *)
 

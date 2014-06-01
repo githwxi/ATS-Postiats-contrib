@@ -43,8 +43,11 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
+staload "libats/SATS/athread.sats"
+
+(* ****** ****** *)
+
 staload "./../SATS/nwaiter.sats"
-staload "./../SATS/mythread.sats"
 
 (* ****** ****** *)
 //
@@ -145,7 +148,7 @@ if (0 >= n) then let
   prval pf =
   __assert (mtx) where
   {
-    extern praxi __assert {l:addr} (!mutex(l)): mutex_v(l)
+    extern praxi __assert {l:addr} (!mutex(l)): locked_v(l)
   } (* end of [prval] *)
 in
   mutex_unlock (pf | mtx)

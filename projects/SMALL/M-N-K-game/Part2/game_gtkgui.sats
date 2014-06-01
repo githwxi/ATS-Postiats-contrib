@@ -11,8 +11,6 @@
 //
 staload CHAN =
 "{$LIBATSHWXI}/teaching/mythread/SATS/channel.sats"
-staload MYTHREAD =
-"{$LIBATSHWXI}/teaching/mythread/SATS/mythread.sats"
 //
 (* ****** ****** *)
 

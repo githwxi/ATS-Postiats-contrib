@@ -5,7 +5,7 @@
 //
 (* ****** ****** *)
 
-staload "./../SATS/mythread.sats"
+staload "libats/SATS/athread.sats"
 
 (* ****** ****** *)
 
@@ -26,9 +26,9 @@ val NWT1 = nwaiter_initiate (NW)
 val NWT2 = nwaiter_ticket_split (NWT1)
 //
 val () =
-mythread_create_cloptr (llam () => nwaiter_ticket_put (NWT1))
+athread_create_cloptr_exn (llam () => nwaiter_ticket_put (NWT1))
 val () =
-mythread_create_cloptr (llam () => nwaiter_ticket_put (NWT2))
+athread_create_cloptr_exn (llam () => nwaiter_ticket_put (NWT2))
 //
 val () = nwaiter_waitfor (NW)
 //

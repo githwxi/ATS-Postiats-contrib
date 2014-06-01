@@ -9,7 +9,8 @@ staload "libc/SATS/unistd.sats"
 
 (* ****** ****** *)
 
-staload "./../SATS/mythread.sats"
+staload "libats/SATS/athread.sats"
+
 
 (* ****** ****** *)
 //
@@ -43,7 +44,7 @@ println! ("test_spinref: enter")
 val SPNR = spinref_create_exn<int> (0)
 //
 val () =
-mythread_create_cloptr
+athread_create_cloptr_exn
 (
 llam () =>
   (fix loop(x: spinref(int)): void => (ignoret(sleep(1u)); spinref_incby(x); loop(x)))(SPNR)
@@ -51,7 +52,7 @@ llam () =>
 val () = println! ("The first thread has been created.")
 //
 val () =
-mythread_create_cloptr
+athread_create_cloptr_exn
 (
 llam () =>
   (fix loop(x: spinref(int)): void => (ignoret(sleep(1u)); spinref_incby(x); loop(x)))(SPNR)

@@ -37,13 +37,14 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
+//
+staload "libats/SATS/athread.sats"
+//
 staload "libats/SATS/deqarray.sats"
-
+//
 (* ****** ****** *)
 
 staload "./../SATS/channel.sats"
-staload "./../SATS/mythread.sats"
 
 (* ****** ****** *)
 //
@@ -89,7 +90,7 @@ val (pfmut | ()) = mutex_lock (mut)
 val deq =
   $UN.castvwtp0{deqarray(a)}((pfmut | deq))
 val ((*void*)) = channel_insert2<a> (chan, deq, x0)
-prval pfmut = $UN.castview0{mutex_v(l1)}(deq)
+prval pfmut = $UN.castview0{locked_v(l1)}(deq)
 val ((*void*)) = mutex_unlock (pfmut | mut)
 //
 in
@@ -121,7 +122,7 @@ if isnot
   else let
     prval (pfmut, fpf) = __assert () where
     {
-      extern praxi __assert (): vtakeout0(mutex_v(l1))
+      extern praxi __assert (): vtakeout0(locked_v(l1))
     }
     val ((*void*)) = condvar_wait (pfmut | CVisful, mut)
     prval ((*void*)) = fpf (pfmut)
@@ -150,7 +151,7 @@ val (pfmut | ()) = mutex_lock (mut)
 val deq =
   $UN.castvwtp0{deqarray(a)}((pfmut | deq))
 val x0 = channel_takeout2<a> (chan, deq)
-prval pfmut = $UN.castview0{mutex_v(l1)}(deq)
+prval pfmut = $UN.castview0{locked_v(l1)}(deq)
 val ((*void*)) = mutex_unlock (pfmut | mut)
 //
 } // end of [channel_takeout2]
@@ -180,7 +181,7 @@ if isnot
   else let
     prval (pfmut, fpf) = __assert () where
     {
-      extern praxi __assert (): vtakeout0(mutex_v(l1))
+      extern praxi __assert (): vtakeout0(locked_v(l1))
     }
     val ((*void*)) = condvar_wait (pfmut | CVisnil, mut)
     prval ((*void*)) = fpf (pfmut)

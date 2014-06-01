@@ -34,12 +34,12 @@ staload "./game.sats"
 staload "./game_gtkgui.sats"
 
 (* ****** ****** *)
-
+//
 staload _ =
 "libats/DATS/deqarray.dats"
 staload _ =
 "{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
-
+//
 (* ****** ****** *)
 
 #define NULL the_null_ptr
@@ -418,8 +418,16 @@ end (* end of [game_gtkgui_loop] *)
 
 (* ****** ****** *)
 
+local
+
+staload "libats/SATS/athread.sats"
+
+in (* in-of-local *)
+
 val () =
-$MYTHREAD.mythread_create_funenv{ptr} (game_gtkgui_loop, the_null_ptr)
+athread_create_cloptr_exn (llam () => game_gtkgui_loop(the_null_ptr))
+
+end // end of [local]
 
 (* ****** ****** *)
 
