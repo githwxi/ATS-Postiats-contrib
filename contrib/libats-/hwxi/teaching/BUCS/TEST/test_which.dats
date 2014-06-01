@@ -21,11 +21,12 @@ main0 (argc, argv) =
 val () =
 if (argc <= 1) then
 {
-val () = fprintln! (stderr_ref, "Usage: ", argv[0], " ", "<filename>")
+val () =
+fprintln! (stderr_ref, "Usage: ", argv[0], " ", "<command>")
 } (* end of [if] *)
 //
-val () =
-assertloc (argc >= 2)
+val () = assert (argc >= 2)
+//
 val command = argv[1]
 //
 val (fpf | path) = $STDLIB.getenv ("PATH")

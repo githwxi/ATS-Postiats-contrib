@@ -5,7 +5,7 @@
 (***********************************************************************)
 
 (*
-** Copyright (C) 2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2014 Hongwei Xi, ATS Trustful Software, Inc.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -27,30 +27,56 @@
 *)
 
 (* ****** ****** *)
-//
-// HX-2013-11:
-// An array-based channel for ATS
-//
-(* ****** ****** *)
 
-abstype channel_type (a:vt@ype) = ptr
-typedef channel (a:vt0p) = channel_type (a)
-
-(* ****** ****** *)
-
-fun{a:vt0p}
-channel_create_exn (cap: sizeGte(1)): channel (a)
+(*
+** HX-2014-06-01: Start it now!
+*)
 
 (* ****** ****** *)
 //
-fun{}
-channel_get_capacity{a:vt0p}(channel (a)): size_t
+staload
+AT = "libats/SATS/athread.sats"
 //
 (* ****** ****** *)
 
-fun{a:vt0p} channel_insert (channel (a), a): void
-fun{a:vt0p} channel_takeout (chan: channel (a)): (a) 
+staload "./../SATS/channel.sats"
+staload "./../SATS/workshop.sats"
 
 (* ****** ****** *)
 
-(* end of [channel.sats] *)
+typedef tid = $AT.thread
+typedef spin1 = $AT.spin1
+
+(* ****** ****** *)
+
+vtypedef
+workshop_struct
+  (a:vt0p) =
+@{
+//
+WS_spin= spin1
+//
+,
+WS_chan= channel(a)
+,
+WS_workers= List0_vt(tid)
+//
+} (* end of [workshop_struct] *)
+
+(* ****** ****** *)
+
+assume
+workshop = ref (workshop_struct)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+workshop_add_worker
+  (ws) = let
+in
+end // end of [workshop_add_worker]
+
+(* ****** ****** *)
+
+(* end of [workshop.dats] *)

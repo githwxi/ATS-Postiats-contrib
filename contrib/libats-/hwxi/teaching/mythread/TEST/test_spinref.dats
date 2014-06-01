@@ -43,7 +43,7 @@ println! ("test_spinref: enter")
 //
 val SPNR = spinref_create_exn<int> (0)
 //
-val () =
+val tid1 =
 athread_create_cloptr_exn
 (
 llam () =>
@@ -51,7 +51,7 @@ llam () =>
 )
 val () = println! ("The first thread has been created.")
 //
-val () =
+val tid2 =
 athread_create_cloptr_exn
 (
 llam () =>

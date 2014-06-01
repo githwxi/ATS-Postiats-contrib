@@ -52,7 +52,11 @@ datatype
 channel = {
 l1,l2,l3:agz
 } CHANNEL of
-(ptr(*buffer*), mutex(l1), condvar(l2), condvar(l3))
+(
+  ptr(*buf*)
+, size_t(*cap*)
+, mutex(l1), condvar(l2), condvar(l3)
+) (* end of [channel] *)
 //
 (* ****** ****** *)
 
@@ -67,11 +71,18 @@ val mut = mutex_create_exn ()
 val CVisnil = condvar_create_exn ()
 val CVisful = condvar_create_exn ()
 val deq = deqarray_make_cap<a> (cap)
+val deq = $UN.castvwtp0{ptr}(deq)
 //
 in
-  CHANNEL ($UN.castvwtp0{ptr}(deq), mut, CVisnil, CVisful)
+  CHANNEL (deq, cap, mut, CVisnil, CVisful)
 end // end of [channel_create_exn]
 
+(* ****** ****** *)
+//
+implement{}
+channel_get_capacity (chan) =
+  let val+CHANNEL(ptr, cap, _, _, _) = chan in cap end
+//
 (* ****** ****** *)
 
 extern
@@ -85,7 +96,7 @@ channel_insert
   (chan, x0) = let
 //
 val+CHANNEL{l1,l2,l3}
-  (deq, mut, CVisnil, CVisful) = chan
+  (deq, cap, mut, CVisnil, CVisful) = chan
 val (pfmut | ()) = mutex_lock (mut)
 val deq =
   $UN.castvwtp0{deqarray(a)}((pfmut | deq))
@@ -104,31 +115,32 @@ channel_insert2
   (chan, deq, x0) = let
 //
 val+CHANNEL{l1,l2,l3}
-  (ptr, mut, CVisnil, CVisful) = chan
+  (ptr, cap, mut, CVisnil, CVisful) = chan
 //
 val isnot = deqarray_isnot_full (deq)
 prval ((*void*)) = lemma_deqarray_param (deq)
 //
 in
 //
-if isnot
-  then let
-    val isnil = deqarray_is_nil (deq)
-    val ((*void*)) = deqarray_insert_atend (deq, x0)
-    val ((*void*)) = condvar_signal (CVisnil)
-  in
-    // nothing
-  end // end of [then]
-  else let
-    prval (pfmut, fpf) = __assert () where
-    {
-      extern praxi __assert (): vtakeout0(locked_v(l1))
-    }
-    val ((*void*)) = condvar_wait (pfmut | CVisful, mut)
-    prval ((*void*)) = fpf (pfmut)
-  in
-    channel_insert2 (chan, deq, x0)
-  end // end of [else]
+if
+isnot
+then let
+  val isnil = deqarray_is_nil (deq)
+  val ((*void*)) = deqarray_insert_atend (deq, x0)
+  val ((*void*)) = condvar_signal (CVisnil)
+in
+  // nothing
+end // end of [then]
+else let
+  prval (pfmut, fpf) = __assert () where
+  {
+    extern praxi __assert (): vtakeout0(locked_v(l1))
+  }
+  val ((*void*)) = condvar_wait (pfmut | CVisful, mut)
+  prval ((*void*)) = fpf (pfmut)
+in
+  channel_insert2 (chan, deq, x0)
+end // end of [else]
 //
 end // end of [channel_insert2]
 
@@ -146,7 +158,7 @@ channel_takeout
 {
 //
 val+CHANNEL{l1,l2,l3}
-  (deq, mut, CVisnil, CVisful) = chan
+  (deq, cap, mut, CVisnil, CVisful) = chan
 val (pfmut | ()) = mutex_lock (mut)
 val deq =
   $UN.castvwtp0{deqarray(a)}((pfmut | deq))
@@ -163,31 +175,32 @@ channel_takeout2
   (chan, deq) = let
 //
 val+CHANNEL{l1,l2,l3}
-  (ptr, mut, CVisnil, CVisful) = chan
+  (ptr, cap, mut, CVisnil, CVisful) = chan
 //
 val isnot = deqarray_isnot_nil (deq)
 prval ((*void*)) = lemma_deqarray_param (deq)
 //
 in
 //
-if isnot
-  then let
-    val isful = deqarray_is_full (deq)
-    val x0 = deqarray_takeout_atbeg (deq)
-    val ((*void*)) = condvar_signal (CVisful)
-  in
-    x0
-  end // end of [then]
-  else let
-    prval (pfmut, fpf) = __assert () where
-    {
-      extern praxi __assert (): vtakeout0(locked_v(l1))
-    }
-    val ((*void*)) = condvar_wait (pfmut | CVisnil, mut)
-    prval ((*void*)) = fpf (pfmut)
-  in
-    channel_takeout2 (chan, deq)
-  end // end of [else]
+if
+isnot
+then let
+  val isful = deqarray_is_full (deq)
+  val x0 = deqarray_takeout_atbeg (deq)
+  val ((*void*)) = condvar_signal (CVisful)
+in
+  x0
+end // end of [then]
+else let
+  prval (pfmut, fpf) = __assert () where
+  {
+    extern praxi __assert (): vtakeout0(locked_v(l1))
+}
+  val ((*void*)) = condvar_wait (pfmut | CVisnil, mut)
+  prval ((*void*)) = fpf (pfmut)
+in
+  channel_takeout2 (chan, deq)
+end // end of [else]
 //
 end // end of [channel_takeout2]
 

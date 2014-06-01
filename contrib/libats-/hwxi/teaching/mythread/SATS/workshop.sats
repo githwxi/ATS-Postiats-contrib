@@ -43,7 +43,12 @@ workshop(a:vt0p) = workshop_type(a)
 
 fun{
 a:vt0p
-} workshop_make_cap (cap: size_t): workshop(a)
+} workshop_create_cap (cap: size_t): workshop(a)
+
+(* ****** ****** *)
+
+fun{}
+workshop_get_capacity{a:vt0p}(ws: workshop(a)): size_t
 
 (* ****** ****** *)
 
@@ -55,10 +60,13 @@ a:vt0p
 
 fun{
 a:vt0p
-} workshop_insert_job (workshop(a), a): void
+} workshop_insert_job (workshop(a), a): void // block?
+
+(* ****** ****** *)
+
 fun{
 a:vt0p
-} workshop_takeout_job (ws: workshop(a)): (a)
+} workshop_takeout_job (ws: workshop(a)): (a) // block?
 
 (* ****** ****** *)
 

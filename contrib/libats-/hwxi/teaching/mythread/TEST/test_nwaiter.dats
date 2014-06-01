@@ -25,9 +25,9 @@ val NW = nwaiter_create_exn ()
 val NWT1 = nwaiter_initiate (NW)
 val NWT2 = nwaiter_ticket_split (NWT1)
 //
-val () =
+val tid1 =
 athread_create_cloptr_exn (llam () => nwaiter_ticket_put (NWT1))
-val () =
+val tid2 =
 athread_create_cloptr_exn (llam () => nwaiter_ticket_put (NWT2))
 //
 val () = nwaiter_waitfor (NW)
