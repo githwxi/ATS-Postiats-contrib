@@ -32,74 +32,38 @@
 // This is based on spinlock
 //
 (* ****** ****** *)
+//
+absvtype spinvar_vtype (a:vt@ype) = ptr
+vtypedef spinvar (a:vt0p) = spinvar_vtype (a)
+//
+(* ****** ****** *)
 
-staload
-UN = "prelude/SATS/unsafe.sats"
+fun{
+a:vt0p
+} spinvar_create_exn (x: a): spinvar (a)
 
 (* ****** ****** *)
 
-staload "./../SATS/spinvar.sats"
-staload "./../SATS/spinref.sats"
-staload "./../SATS/mythread.sats"
+fun{} spinvar_destroy{a:t0p}(spinvar(a)): void
 
 (* ****** ****** *)
 
-implement{a}
-spinref_create_exn (x) = let
-//
-val spnv = spinvar_create_exn (x)
-//
-in
-  $UN.castvwtp0{spinref(a)}(spnv)
-end // end of [spinref_create_exn]
+fun{a:t0p} spinvar_get (spnv: !spinvar(a)): (a)
+fun{a:vt0p} spinvar_getfree (spnv: spinvar(a)): (a)
 
 (* ****** ****** *)
-
-implement
-{a}(*tmp*)
-spinref_get
-  (spnr) = x where
-{
 //
-val spnv =
-$UN.castvwtp0{spinvar(a)}(spnr)
-val x = spinvar_get<a> (spnv)
-prval () = $UN.castview0{void}(spnv)
+fun{
+a:vt0p}{env:vt0p
+} spinvar_process$fwork (x: &a >> _, env: &(env) >> _): void
 //
-} (* end of [spinref_get] *)
-
+fun{
+a:vt0p
+} spinvar_process (spnv: !spinvar(a)): void
+fun{
+a:vt0p}{env:vt0p
+} spinvar_process_env (spnv: !spinvar(a), env: &(env) >> _): void
+//
 (* ****** ****** *)
 
-implement
-{a}(*tmp*)
-spinref_process
-  (spnr) = let
-//
-var env: void = ()
-//
-in
-  spinref_process_env<a><void> (spnr, env)
-end // end of [spinref_process]
-
-(* ****** ****** *)
-
-implement
-{a}{env}
-spinref_process_env
-  (spnr, env) = () where
-{
-//
-implement
-spinvar_process$fwork<a><env> =
-  spinref_process$fwork<a><env>
-//
-val spnv =
-$UN.castvwtp0{spinvar(a)}(spnr)
-val () = spinvar_process_env<a><env> (spnv, env)
-prval () = $UN.castview0{void}(spnv)
-//
-} (* end of [spinref_process_env] *)
-
-(* ****** ****** *)
-
-(* end of [spinref.dats] *)
+(* end of [spinvar.sats] *)

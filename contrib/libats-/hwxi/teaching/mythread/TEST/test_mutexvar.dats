@@ -30,8 +30,7 @@ val TICK =
 val () =
 mythread_create_cloptr (llam () => mutexvar_ticket_put (TICK, 1000000))
 //
-val-1000000 =
-  mutexvar_waitfor (MTXV)
+val-1000000 = mutexvar_waitfor (MTXV)
 //
 val () = mutexvar_destroy (MTXV)
 //

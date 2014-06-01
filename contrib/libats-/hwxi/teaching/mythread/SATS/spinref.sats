@@ -43,7 +43,7 @@ spinref_create_exn (x: a): spinref (a)
 
 (* ****** ****** *)
 
-fun{a:t@ype} spinref_get (spnr: spinref(a)): a
+fun{a:t0p} spinref_get (spnr: spinref(a)): (a)
 
 (* ****** ****** *)
 //

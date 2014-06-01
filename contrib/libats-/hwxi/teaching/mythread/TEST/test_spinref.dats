@@ -12,10 +12,12 @@ staload "libc/SATS/unistd.sats"
 staload "./../SATS/mythread.sats"
 
 (* ****** ****** *)
-
+//
 staload "./../SATS/spinref.sats"
+//
+staload _ = "./../DATS/spinvar.dats"
 staload _ = "./../DATS/spinref.dats"
-
+//
 (* ****** ****** *)
 
 fun
