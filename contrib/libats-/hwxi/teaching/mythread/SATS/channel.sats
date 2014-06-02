@@ -44,7 +44,7 @@ channel_create_exn (cap: sizeGte(1)): channel (a)
 (* ****** ****** *)
 //
 fun{}
-channel_get_capacity{a:vt0p}(channel (a)): size_t
+channel_get_capacity{a:vt0p}(channel (a)):<> size_t
 //
 (* ****** ****** *)
 

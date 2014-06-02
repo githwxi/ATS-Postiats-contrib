@@ -31,6 +31,12 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
 
 ######
 
+test_workshop: \
+test_workshop.dats ; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+
+######
+
 RMF=rm -f
 
 ######
@@ -45,5 +51,6 @@ cleanall:: clean
 cleanall:: ; $(RMF) test_spinref
 cleanall:: ; $(RMF) test_mutexvar
 cleanall:: ; $(RMF) test_nwaiter
+cleanall:: ; $(RMF) test_workshop
 
 ###### end of [Makefile] ######

@@ -43,12 +43,17 @@ workshop(a:vt0p) = workshop_type(a)
 
 fun{
 a:vt0p
-} workshop_create_cap (cap: size_t): workshop(a)
+} workshop_create_cap (cap: sizeGte(1)): workshop(a)
 
 (* ****** ****** *)
 
 fun{}
-workshop_get_capacity{a:vt0p}(ws: workshop(a)): size_t
+workshop_get_capacity{a:vt0p}(workshop(a)): size_t
+
+(* ****** ****** *)
+
+fun{}
+workshop_get_nworker{a:vt0p}(ws: workshop(a)): intGte(0)
 
 (* ****** ****** *)
 
