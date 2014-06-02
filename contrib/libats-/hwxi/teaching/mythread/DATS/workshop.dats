@@ -242,5 +242,34 @@ in
 end // end of [workshop_add_worker]
 
 (* ****** ****** *)
+//
+// lincloptr = ((*void*)) -<lincloptr> void
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+workshop_handle_job_lincloptr
+  (ws, job) = let
+//
+val () =
+  $UN.castvwtp0{()-<lincloptr>void}(job)() in (0)
+//
+end (* end of [workshop_handle_job_lincloptr] *)
+  
+(* ****** ****** *)
+//
+implement
+workshop_handle_job<lincloptr> = workshop_handle_job_lincloptr<>
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+workshop_insert_job_lincloptr
+  (ws, job) =
+  workshop_insert_job<lincloptr> (ws, $UN.castvwtp0{lincloptr}(job))
+//
+(* ****** ****** *)
 
 (* end of [workshop.dats] *)

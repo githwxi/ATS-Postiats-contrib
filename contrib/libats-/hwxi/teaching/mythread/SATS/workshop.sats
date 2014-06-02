@@ -80,5 +80,23 @@ a:vt0p
 } workshop_add_worker (ws: workshop(a)): int(*err*)
 
 (* ****** ****** *)
+//
+absvtype lincloptr = ptr
+//
+// lincloptr = ((*void*)) -<lincloptr> void
+//
+(* ****** ****** *)
+//
+fun{}
+workshop_handle_job_lincloptr
+  (ws: workshop(lincloptr), job: lincloptr): int // block?
+//
+(* ****** ****** *)
+//
+fun{}
+workshop_insert_job_lincloptr
+  (ws: workshop(lincloptr), job: () -<lincloptr> void): void // block?
+//
+(* ****** ****** *)
 
 (* end of [workshop.sats] *)
