@@ -92,6 +92,8 @@ workshop_type
 //
 in (* in-of-local *)
 
+(* ****** ****** *)
+
 implement{}
 workshop_get_capacity
   (ws) = let
@@ -152,12 +154,15 @@ val (
   pflock | ()
 ) = $AT.spin_lock (spn)
 val tids = p->WS_workerlst
-val ((*void*)) = p->WS_workerlst := list_vt_cons (tid, tids)
+val ((*void*)) =
+  p->WS_workerlst := list_vt_cons (tid, tids)
 val ((*void*)) = $AT.spin_unlock (pflock | spn)
 //
 in
   // nothing
 end (* end of [workshop_add_tid] *)
+
+(* ****** ****** *)
 
 end // end of [local]
 
@@ -214,7 +219,9 @@ workshop_add_worker
   (ws) = let
 //
 fun fworker
-  (ws: workshop(a)): void = let
+(
+  ws: workshop(a)
+) : void = let
   val x = workshop_takeout_job (ws)
   val status = workshop_handle_job (ws, x)
 in

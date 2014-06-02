@@ -428,7 +428,9 @@ val tid =
 athread_create_cloptr_exn
   (llam () => game_gtkgui_loop(the_null_ptr))
 //
+(*
 val () = println! ("The id of the created thread is [", tid, "].")
+*)
 //
 end // end of [local]
 
