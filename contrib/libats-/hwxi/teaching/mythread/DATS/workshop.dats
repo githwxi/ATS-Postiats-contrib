@@ -242,6 +242,34 @@ in
 end // end of [workshop_add_worker]
 
 (* ****** ****** *)
+
+implement
+{a}(*tmp*)
+workshop_add_nworker
+  {n} (ws, n) = let
+//
+fun loop
+(
+  ws: workshop(a), n: int, res: int
+) : int = let
+in
+//
+if
+n > 0
+then let
+  val err = workshop_add_worker<a> (ws)
+in
+  if err = 0 then loop (ws, n - 1, res + 1) else res
+end // end of [then]
+else res // end of [else]
+//
+end // end of [loop]
+//
+in
+  $UN.cast{natLte(n)}(loop(ws, n, 0))
+end // end of [workshop_add_nworker]
+
+(* ****** ****** *)
 //
 // lincloptr = ((*void*)) -<lincloptr> void
 //

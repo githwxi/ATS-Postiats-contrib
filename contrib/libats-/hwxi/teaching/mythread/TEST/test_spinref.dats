@@ -4,14 +4,22 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+  
+%{^
+#include <pthread.h>
+%} // end of [%{^]
+  
+(* ****** ****** *)
 
 staload "libc/SATS/unistd.sats"
 
 (* ****** ****** *)
-
+//
 staload "libats/SATS/athread.sats"
-
-
+//
+staload _ = "libats/DATS/athread.dats"
+staload _ = "libats/DATS/athread_posix.dats"
+//
 (* ****** ****** *)
 //
 staload "./../SATS/spinref.sats"

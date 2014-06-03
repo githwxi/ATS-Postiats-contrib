@@ -421,6 +421,8 @@ end (* end of [game_gtkgui_loop] *)
 local
 
 staload "libats/SATS/athread.sats"
+staload _ = "libats/DATS/athread.dats"
+staload _ = "libats/DATS/athread_posix.dats"
 
 in (* in-of-local *)
 //

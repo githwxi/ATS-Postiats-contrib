@@ -5,8 +5,17 @@
 //
 (* ****** ****** *)
 
-staload "libats/SATS/athread.sats"
+%{^
+#include <pthread.h>
+%} // end of [%{^]
 
+(* ****** ****** *)
+//
+staload "libats/SATS/athread.sats"
+//
+staload _ = "libats/DATS/athread.dats"
+staload _ = "libats/DATS/athread_posix.dats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/nwaiter.sats"

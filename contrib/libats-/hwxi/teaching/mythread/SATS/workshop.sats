@@ -74,11 +74,13 @@ a:vt0p
 } workshop_takeout_job (ws: workshop(a)): (a) // block?
 
 (* ****** ****** *)
-
-fun{
-a:vt0p
-} workshop_add_worker (ws: workshop(a)): int(*err*)
-
+//
+fun{a:vt0p}
+workshop_add_worker (ws: workshop(a)): int(*err*)
+//
+fun{a:vt0p}
+workshop_add_nworker{n:nat} (workshop(a), int(n)): natLte(n)
+//
 (* ****** ****** *)
 //
 absvtype lincloptr = ptr

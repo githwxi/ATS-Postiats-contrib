@@ -5,6 +5,12 @@
 //
 (* ****** ****** *)
 
+%{^
+#include <pthread.h>
+%} // end of [%{^]
+
+(* ****** ****** *)
+
 staload UN = $UNSAFE
 
 (* ****** ****** *)
@@ -12,9 +18,12 @@ staload UN = $UNSAFE
 staload "libc/SATS/unistd.sats"
   
 (* ****** ****** *)
-
+//
 staload "libats/SATS/athread.sats"
-
+//
+staload _ = "libats/DATS/athread.dats"
+staload _ = "libats/DATS/athread_posix.dats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/nwaiter.sats"
