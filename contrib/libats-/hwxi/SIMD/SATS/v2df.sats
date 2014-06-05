@@ -5,7 +5,7 @@
 (***********************************************************************)
 
 (*
-** Copyright (C) 2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2014 Hongwei Xi, ATS Trustful Software, Inc.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -28,34 +28,68 @@
 
 (* ****** ****** *)
 //
-// HX-2013-10:
-// A cairo-based drawing package
+// HX-2014-06-04: ported from ATS1
 //
 (* ****** ****** *)
 //
+// for supporting SIMD on vectors of 2 doubles
+//
+(* ****** ****** *)
+
+%{#
+//
+#include "SIMD/CATS/v2df.cats"
+//
+%} // end of [%{#]
+
+(* ****** ****** *)
+
 #define
-ATS_PACKNAME
-"ATSCNTRB.libats-hwxi.teaching"
-//
-(* ****** ****** *)
-//
-#include "share/atspre_define.hats"
-//
-(* ****** ****** *)
-
-staload
-XR = "{$CAIRO}/SATS/cairo.sats"
-stadef cairo_ref = $XR.cairo_ref
-stadef cairo_ref1 = $XR.cairo_ref1
+ATS_EXTERN_PREFIX "atscntrb_libatshwxi_SIMD_"
 
 (* ****** ****** *)
 //
-fun{
-} mydraw_get0_cairo (
-) : [l:agz] vttakeout0 (cairo_ref (l))
-//
-fun{} mydraw_get1_cairo (): cairo_ref1
+abst@ype v2df =
+$extype"atscntrb_v2df_type"
 //
 (* ****** ****** *)
 
-(* end of [mydraw_cairo.sats] *)
+val v2df_0_0: v2df = "mac#%"
+val v2df_1_1: v2df = "mac#%"
+
+(* ****** ****** *)
+//
+fun v2df_get_fst (dd: v2df): double = "mac#%"
+fun v2df_get_snd (dd: v2df): double = "mac#%"
+//
+(* ****** ****** *)
+//
+symintr v2df_make
+//
+fun v2df_make_int_int
+  (i0: int, i1: int): v2df = "mac#%"
+fun v2df_make_double_double
+  (d0: double, d1: double): v2df = "mac#%"
+//
+overload v2df_make with v2df_make_int_int
+overload v2df_make with v2df_make_double_double
+//
+(* ****** ****** *)
+//
+fun add_v2df_v2df
+  (dd0: v2df, dd1: v2df): v2df = "mac#%"
+fun sub_v2df_v2df
+  (dd0: v2df, dd1: v2df): v2df = "mac#%"
+fun mul_v2df_v2df
+  (dd0: v2df, dd1: v2df): v2df = "mac#%"
+fun div_v2df_v2df
+  (dd0: v2df, dd1: v2df): v2df = "mac#%"
+//
+overload + with add_v2df_v2df of 0
+overload - with sub_v2df_v2df of 0
+overload * with mul_v2df_v2df of 0
+overload / with div_v2df_v2df of 0
+//
+(* ****** ****** *)
+
+(* end of [v2df.sats] *)

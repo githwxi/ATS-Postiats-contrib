@@ -35,11 +35,12 @@
 (* ****** ****** *)
 //
 // HX-2013-02:
-// A package for multiple-precision integers
+// For multiple-precision integers
 //
 (* ****** ****** *)
 
-#define ATS_PACKNAME "ATSCNTRB.libats-hwxi.intinf"
+#define
+ATS_PACKNAME "ATSCNTRB.libats-hwxi.intinf"
 
 (* ****** ****** *)
 //

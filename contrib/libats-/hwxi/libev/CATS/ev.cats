@@ -22,8 +22,8 @@
 //
 /* ****** ****** */
 
-#ifndef LIBEV_EV_CATS
-#define LIBEV_EV_CATS
+#ifndef ATSCNTRB_LIBEV_EV_CATS
+#define ATSCNTRB_LIBEV_EV_CATS
 
 /* ****** ****** */
 //
@@ -98,7 +98,7 @@ atscntrb_libev_ev_init_timer(w, cb) ev_init(w, (void*)cb)
 
 /* ****** ****** */
 
-#endif // ifndef LIBEV_EV_CATS
+#endif // ifndef ATSCNTRB_LIBEV_EV_CATS
 
 /* ****** ****** */
 

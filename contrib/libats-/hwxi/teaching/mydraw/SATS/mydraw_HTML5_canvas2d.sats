@@ -45,10 +45,8 @@
 
 (* ****** ****** *)
 
-#define ATS_PACKNAME "ATSCNTRB.libats-hwxi.teaching.mydraw"
-
-(* ****** ****** *)
-
+#define ATS_PACKNAME
+"ATSCNTRB.libats-hwxi.teaching.mydraw"
 #define ATS_STALOADFLAG 0 // no need for staloading at run-time
 #define ATS_EXTERN_PREFIX "atscntrb_libatshwxi_" // prefix for external names
 
@@ -70,15 +68,19 @@ vtypedef canvas2d0 = [l:agez] canvas2d (l)
 vtypedef canvas2d1 = [l:addr | l > null] canvas2d (l)
 //
 (* ****** ****** *)
-
+//
 castfn
-canvas2d2ptr {l:addr} (!canvas2d (l)):<> ptr (l)
+canvas2d2ptr{l:addr}
+  (ctx: !canvas2d (l)):<> ptr (l)
+//
 overload ptrcast with canvas2d2ptr
-
+//
 (* ****** ****** *)
 //
 fun{
-} mydraw_get0_canvas2d (
+} mydraw_get0_canvas2d
+(
+// argumentless
 ) : [l:agz] vttakeout0 (canvas2d (l))
 //
 fun{} mydraw_get1_canvas2d (): canvas2d1

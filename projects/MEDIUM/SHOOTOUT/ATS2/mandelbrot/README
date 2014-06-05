@@ -1,0 +1,22 @@
+#
+# README
+#
+
+######
+
+mandelbrot.dats
+
+######
+
+mandelbrot_v2df.dats
+
+######
+
+mandelbrot_v2df_smp.dats
+
+######
+
+mandelbrot.gcc-4.c:
+The C source on which some ATS source is based.
+
+###### end of [README] ######
