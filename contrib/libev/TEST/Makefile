@@ -35,14 +35,14 @@ all::
 all:: \
 test00
 test00: test00.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib/libats-/hwxi $(CFLAGS) -o $@ $< $(LDFLAGS)
+  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
 cleanall:: ; $(RMF) test00
 
 ######
 #
 test00-pkgreloc:: \
 test00-pkgreloc.dats ; \
-$(PATSCC) -I ./.TEST00/libats-/hwxi/. -IATS ./.TEST00/. \
+$(PATSCC) -I ./.TEST00/. -IATS ./.TEST00/. \
 -DATS ATSPKGRELOCROOT=\\\".TEST00\\\" $(CFLAGS) -o $@ $< $(LDFLAGS)
 #
 test00-pkgreloc.mk: ; \
@@ -59,7 +59,7 @@ cleanall:: ; $(RMF) test00-pkgreloc.mk
 all:: \
 test01
 test01: test01.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib/libats-/hwxi $(CFLAGS) -o $@ $< $(LDFLAGS)
+  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
 cleanall:: ; $(RMF) test01
 
 ######

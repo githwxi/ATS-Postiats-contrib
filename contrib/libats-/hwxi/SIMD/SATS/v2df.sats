@@ -45,6 +45,8 @@
 (* ****** ****** *)
 
 #define
+ATS_PACKNAME "ATSCNTRB.libats-hwxi.SIMD"
+#define
 ATS_EXTERN_PREFIX "atscntrb_libatshwxi_SIMD_"
 
 (* ****** ****** *)

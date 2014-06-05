@@ -14,18 +14,19 @@ githwxi/ATS-Postiats-contrib/master/contrib"
 // HX-2014-05-14: this is a backup:
 //
 #define
-PATSCONTRIB "http://www.ats-lang.org/LIBRARY/contrib"
+PATSCONTRIB
+"http://www.ats-lang.org/LIBRARY/contrib"
 *)
 //
 (* ****** ****** *)
 //
-require "{$PATSCONTRIB}/libats-/hwxi/libev/SATS/ev.sats"
-require "{$PATSCONTRIB}/libats-/hwxi/libev/DATS/ev.dats"
-require "{$PATSCONTRIB}/libats-/hwxi/libev/CATS/ev.cats"
+require "{$PATSCONTRIB}/libev/SATS/ev.sats"
+require "{$PATSCONTRIB}/libev/DATS/ev.dats"
+require "{$PATSCONTRIB}/libev/CATS/ev.cats"
 //
 (* ****** ****** *)
 
-staload "{$PATSCONTRIB}/libats-/hwxi/libev/SATS/ev.sats"
+staload "{$PATSCONTRIB}/libev/SATS/ev.sats"
 
 (* ****** ****** *)
 
