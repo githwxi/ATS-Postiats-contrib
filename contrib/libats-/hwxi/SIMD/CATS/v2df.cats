@@ -45,9 +45,9 @@
 //
 // for vectors of two doubles
 //
-typedef
-double v2df __attribute__((vector_size(16))) ;
-typedef v2df atscntrb_v2df_type ;
+typedef double v2df __attribute__((vector_size(16))) ;
+//
+typedef v2df atscntrb_v2df_type ; // HX: extype-name
 //
 /* ****** ****** */
 //

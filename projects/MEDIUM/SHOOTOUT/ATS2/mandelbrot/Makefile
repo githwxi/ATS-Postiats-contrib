@@ -13,6 +13,9 @@ PATSCC=$(PATSHOME)/bin/patscc
 ######
 
 all:: mandelbrot
+all:: mandelbrot_v2df
+all:: mandelbrot_v2df_smp
+all:: mandelbrot_gcc4
 
 ######
 
@@ -34,8 +37,8 @@ $(PATSCC) -I$(PATSHOMERELOC)/contrib/libats-/hwxi -pipe -O3 -fomit-frame-pointer
 
 ######
 
-mandelbrot.gcc-4.gcc_run: mandelbrot.gcc-4.c ; \
-$(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native -std=c99 -D_GNU_SOURCE -mfpmath=sse -msse2 -fopenmp mandelbrot.gcc-4.c -o $@
+mandelbrot_gcc4: mandelbrot_gcc4.c ; \
+$(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native -std=c99 -D_GNU_SOURCE -mfpmath=sse -msse2 -fopenmp $< -o $@
 
 ######
 
@@ -52,6 +55,6 @@ cleanall:: clean
 cleanall:: ; $(RMF) mandelbrot
 cleanall:: ; $(RMF) mandelbrot_v2df
 cleanall:: ; $(RMF) mandelbrot_v2df_smp
-cleanall:: ; $(RMF) mandelbrot.gcc-4.gcc_run
+cleanall:: ; $(RMF) mandelbrot_gcc4
 
 ###### end of [Makefile] ######

@@ -231,14 +231,6 @@ array_iforeach_pair_env{n0:nat}
 
 (* ****** ****** *)
 
-(*
-  Useful for static variables
-*)
-extern
-praxi initialize_lemma {a:t@ype} (_: &a? >> a): void
-
-(* ****** ****** *)
-
 typedef
 distarr = @[rel_t][1000]
 typedef
@@ -249,12 +241,17 @@ planetarr (n:int) = @[planet][n]
 local 
 //
 var rel = @[rel_t][1000]()
+//
 // All static variables are initialized
-prval () = initialize_lemma (rel)
+//
+prval () = __assert (rel) where
+{
+  extern praxi __assert {a:t@ype} (_: &a? >> a): void
+}
 //
 in
 //
-val rel' = ref_make_viewptr (view@rel | addr@rel)
+val rel = ref_make_viewptr (view@rel | addr@rel)
 //
 end (* end of [local] *)
 
@@ -265,7 +262,7 @@ fun advance
 (
   bodies: &planetarr(n), n: int n, dt: double
 ): void = {
-  val (vbox (pfr) | r) = ref_get_viewptr{distarr}(rel')
+  val (vbox (pfr) | r) = ref_get_viewptr{distarr}(rel)
   //
   implement
   array_iforeach_pair$fwork<planet><distarr> (i, l, r, rel) = {
