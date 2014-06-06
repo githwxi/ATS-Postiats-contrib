@@ -3,11 +3,18 @@
 ** http://shootout.alioth.debian.org/
 **
 ** contributed by Hongwei Xi (gmhwxiATgmailDOTcom)
-**
-** compilation command:
-**   patscc -O3 -msse2 spectral-norm.dats -o spectral-norm -lm
-**
 *)
+
+(* ****** ****** *)
+
+/*
+//
+// compilation command:
+//
+$(PATSCC) -DATS_MEMALLOC_LIBC \
+  -pipe -O3 -fomit-frame-pointer -march=native -mfpmath=sse -msse2 $< -o $@ -lm
+//
+*/
 
 (* ****** ****** *)
 //

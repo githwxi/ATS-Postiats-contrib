@@ -1,6 +1,6 @@
 ######
 #
-# Makefile a CLBG benchmark
+# for SHOOTOUT/spectral-norm
 #
 ######
 
@@ -20,14 +20,14 @@ all:: spectral-norm_gcc5
 spectral-norm: \
 spectral-norm.dats ; \
 $(PATSCC) -DATS_MEMALLOC_LIBC \
-  -pipe -O3 -fomit-frame-pointer -march=native -fopenmp -mfpmath=sse -msse2 $< -o $@ -lm
+  -pipe -O3 -fomit-frame-pointer -march=natived -mfpmath=sse -msse2 $< -o $@ -lm
 
 ######
 
 spectral-norm_smp: \
 spectral-norm_smp.dats ; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
-  -pipe -O3 -fomit-frame-pointer -march=native -fopenmp -mfpmath=sse -msse2 $< -o $@ -lm -lpthread
+  -pipe -O3 -fomit-frame-pointer -march=native -mfpmath=sse -msse2 $< -o $@ -lm -lpthread
 
 ######
 

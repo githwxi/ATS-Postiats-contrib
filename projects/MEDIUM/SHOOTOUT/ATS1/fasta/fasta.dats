@@ -206,7 +206,7 @@ fun loop2
     end // end of [val]
     prval (pf1, pf2) = array_v_uncons {ptr?} (pf)
     val () = !p := addr@(aminoarr.[j])
-    val () = loop2 (pf2 | aminoarr, p + sizeof<ptr>, pred(n), fi+(float)1, j)
+    val () = loop2 (pf2 | aminoarr, ptr_succ<ptr>(p), pred(n), succ(fi), j)
   in
     pf := array_v_cons {ptr} (pf1, pf2)
   end else let

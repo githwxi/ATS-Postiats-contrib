@@ -1,6 +1,6 @@
 ######
 #
-# Makefile a CLBG benchmark
+# for SHOOTOUT/mandelbrot
 #
 ######
 
@@ -21,19 +21,19 @@ all:: mandelbrot_gcc4
 
 mandelbrot: \
 mandelbrot.dats ; \
-$(PATSCC) -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -D_GNU_SOURCE -mfpmath=sse -msse2 -fopenmp $< -o $@
+$(PATSCC) -D_GNU_SOURCE -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@
 
 ######
 
 mandelbrot_v2df: \
 mandelbrot_v2df.dats ; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 -fopenmp $< -o $@
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@
 
 ######
 
 mandelbrot_v2df_smp: \
 mandelbrot_v2df_smp.dats ; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 -fopenmp $< -o $@ -lpthread
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@ -lpthread
 
 ######
 

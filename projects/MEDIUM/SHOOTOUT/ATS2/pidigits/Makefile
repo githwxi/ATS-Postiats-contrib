@@ -1,6 +1,6 @@
 ######
 #
-# Makefile a CLBG benchmark
+# for SHOOTOUT/pidigits
 #
 ######
 
@@ -17,7 +17,8 @@ all:: pidigits_gcc
 ######
 
 pidigits: pidigits.dats ; \
-$(PATSCC) -I${PATSHOMERELOC}/contrib -pipe -O3 -fomit-frame-pointer -march=native $< -o $@ -lgmp
+$(PATSCC) -I${PATSHOMERELOC}/contrib \
+  -pipe -O3 -fomit-frame-pointer -march=native $< -o $@ -lgmp
 
 ######
 
