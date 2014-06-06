@@ -45,7 +45,7 @@ staload
 %{^
 ATSinline()
 int
-lte_v2df_v2df
+lte_v2df_v2df_bit2
 (
   v2df x, v2df y
 )
@@ -58,7 +58,7 @@ lte_v2df_v2df
 }
 %} // end of [%{^]
 extern
-fun lte_v2df_v2df (v2df, v2df): natLt(4) = "mac#"
+fun lte_v2df_v2df_bit2 (v2df, v2df): natLt(4) = "mac#"
 
 (* ****** ****** *)
 //
@@ -101,7 +101,7 @@ fun loop2
 ) : natLt(4) = let
   val r2 = r * r
   and i2 = i * i
-  val b22 = lte_v2df_v2df (r2+i2, LIMIT22)
+  val b22 = lte_v2df_v2df_bit2 (r2+i2, LIMIT22)
 (*
   val () = println! ("test_inness: b22 = ", b22)
 *)

@@ -55,32 +55,32 @@ overload vdist with vector3d_dist
 
 (* ****** ****** *)
 
-typedef _m128 = $extype "__m128"
-typedef _m128d = $extype "__m128d"
+typedef __m128 = $extype "__m128"
+typedef __m128d = $extype "__m128d"
 
 (* ****** ****** *)
 
 extern
-fun _mm_loadl_pd (_m128d?, &double): _m128d = "mac#"
+fun _mm_loadl_pd (__m128d?, &double): __m128d = "mac#"
 extern
-fun _mm_loadh_pd (_m128d?, &double): _m128d = "mac#"
+fun _mm_loadh_pd (__m128d?, &double): __m128d = "mac#"
 
 (* ****** ****** *)
 
 extern
-fun _mm_rsqrt_ps (_: _m128): _m128 = "mac#"
+fun _mm_rsqrt_ps (_: __m128): __m128 = "mac#"
 extern
-fun _mm_cvtpd_ps (_: _m128d): _m128 = "mac#"
+fun _mm_cvtpd_ps (_: __m128d): __m128 = "mac#"
 extern
-fun _mm_cvtps_pd (_: _m128): _m128d = "mac#"
+fun _mm_cvtps_pd (_: __m128): __m128d = "mac#"
 extern
-fun _mm_set1_pd (_: double): _m128d = "mac#"
+fun _mm_set1_pd (_: double): __m128d = "mac#"
 
 (* ****** ****** *)
 
 extern
 fun _mm_store_pd{l:addr}
-  (pf: !double @ l | _: ptr l, _: _m128d) : void = "mac#"
+  (pf: !double @ l | _: ptr l, _: __m128d) : void = "mac#"
 // end of [_mm_store_pd]
 
 (* ****** ****** *)
@@ -93,13 +93,13 @@ fun _mm_store_pd{l:addr}
 %}
 //
 extern
-fun add_m128d_m128d (_: _m128d, _: _m128d): _m128d = "mac#"
+fun add_m128d_m128d (__m128d, __m128d): __m128d = "mac#"
 extern
-fun sub_m128d_m128d (_: _m128d, _: _m128d): _m128d = "mac#"
+fun sub_m128d_m128d (__m128d, __m128d): __m128d = "mac#"
 extern
-fun mul_m128d_m128d (_: _m128d, _: _m128d): _m128d = "mac#"
+fun mul_m128d_m128d (__m128d, __m128d): __m128d = "mac#"
 extern
-fun div_m128d_m128d (_: _m128d, _: _m128d): _m128d = "mac#"
+fun div_m128d_m128d (__m128d, __m128d): __m128d = "mac#"
 //
 overload + with add_m128d_m128d of 20
 overload - with sub_m128d_m128d of 20
@@ -164,7 +164,7 @@ in
 end
 
 implement
-vector3d_dist<_m128d> (v) = let
+vector3d_dist<__m128d> (v) = let
 //
 val v_0 = v.[0] and v_1 = v.[1] and v_2 = v.[2]
 //
@@ -287,10 +287,10 @@ fun advance
   | s: ptr ls, d: ptr ld, n: size_t n0
   ) : void =
     if n < 2 then () else {
-      var dx = @[_m128d][3]()
+      var dx = @[__m128d][3]()
       //
       implement
-      array_initize$init<_m128d>
+      array_initize$init<__m128d>
         (i, dx) = {
         val i = $UN.cast{natLt(3)}(i)
         val (pfl, freel | l) = $UN.ptr0_vtake {rel_t} (s)
@@ -300,7 +300,7 @@ fun advance
         prval () = freel (pfl)
         prval () = freeh (pfh)
       }
-      val () = array_initize<_m128d> (dx, i2sz(3))
+      val () = array_initize<__m128d> (dx, i2sz(3))
       //
       prval (pfs, pfss) = array_v_uncons (src)
       prval (pfd, pfdd) = array_v_uncons (dst)
@@ -313,7 +313,7 @@ fun advance
       //
       val distance = let
         fun revise_distance
-          (d: _m128d, i: int): _m128d =
+          (d: __m128d, i: int): __m128d =
           if i = 2 then d else let
             val d = d * _mm_set1_pd (1.5) - ((_mm_set1_pd(0.5) * dsquared) * d) * (d * d)
           in
