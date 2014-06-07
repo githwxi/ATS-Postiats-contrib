@@ -78,9 +78,12 @@ repeat(const char *alu, const char *title, int n) {
  * in randomize().
  */
 
-void *
-fill_lookup(struct amino_acid **lookup, struct amino_acid *amino_acid, int
-amino_acid_size) {
+void
+fill_lookup
+(
+  struct amino_acid **lookup
+, struct amino_acid *amino_acid, int amino_acid_size
+) {
     float p = 0;
     for (int i = 0; i < amino_acid_size; i++) {
         p += amino_acid[i].prob;
@@ -88,7 +91,7 @@ amino_acid_size) {
     }
 
     // Prevent rounding error.
-    amino_acid[amino_acid_size - 1].cprob_lookup = LOOKUP_SIZE - 1;
+    amino_acid[amino_acid_size - 1].cprob_lookup = LOOKUP_SCALE;
 
     for (int i = 0, j = 0; i < LOOKUP_SIZE; i++) {
         while (amino_acid[j].cprob_lookup < i) {
@@ -97,37 +100,40 @@ amino_acid_size) {
         lookup[i] = &amino_acid[j];
     }
 
-    return 0;
+    return ;
 }
 
 void
-randomize(struct amino_acid *amino_acid, int amino_acid_size,
-        const char *title, int n, random_t *rand) {
-    struct amino_acid *lookup[LOOKUP_SIZE];
-    char line_buffer[LINE_LEN + 1];
-    int i, j;
+randomize
+(
+  struct amino_acid *amino_acid
+, int amino_acid_size,
+  const char *title, int n, random_t *rand
+) {
+  struct amino_acid *lookup[LOOKUP_SIZE];
+  char line_buffer[LINE_LEN + 1];
+  int i, j;
 
-    line_buffer[LINE_LEN] = '\n';
+  line_buffer[LINE_LEN] = '\n';
 
-    fill_lookup(lookup, amino_acid, amino_acid_size);
+  fill_lookup(lookup, amino_acid, amino_acid_size);
 
-    fputs_unlocked(title, stdout);
+  fputs_unlocked(title, stdout);
 
-    for (i = 0, j = 0; i < n; i++, j++) {
-        if (j == LINE_LEN) {
-            fwrite_unlocked(line_buffer, LINE_LEN + 1, 1, stdout);
-            j = 0;
-        }
-
-        float r = random_next_lookup(rand);
-        struct amino_acid *u = lookup[(short)r];
-        while (unlikely(u->cprob_lookup < r)) {
-            ++u;
-        }
-        line_buffer[j] = u->sym;
+  for (i = 0, j = 0; i < n; i++, j++) {
+    if (j == LINE_LEN) {
+      j = 0;
+      fwrite_unlocked(line_buffer, LINE_LEN + 1, 1, stdout);
     }
-    line_buffer[j] = '\n';
-    fwrite_unlocked(line_buffer, j + 1, 1, stdout);
+
+    float r = random_next_lookup(rand);
+    struct amino_acid *u = lookup[(short)r];
+    while (unlikely(u->cprob_lookup < r)) ++u;
+    line_buffer[j] = u->sym;
+  }
+  line_buffer[j] = '\n';
+  fwrite_unlocked(line_buffer, j + 1, 1, stdout);
+  return ;
 }
 
 struct amino_acid amino_acid[] = {

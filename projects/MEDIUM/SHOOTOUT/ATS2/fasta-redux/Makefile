@@ -12,7 +12,15 @@ PATSCC=$(PATSHOME)/bin/patscc
 
 ######
 
+all:: fasta-redux
 all:: fasta-redux_gcc3
+
+######
+
+fasta-redux: \
+fasta-redux.dats ; \
+$(PATSCC) -D_GNU_SOURCE \
+  -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse3 $< -o $@
 
 ######
 
