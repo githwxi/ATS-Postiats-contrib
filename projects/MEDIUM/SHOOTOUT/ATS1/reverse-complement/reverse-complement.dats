@@ -159,9 +159,8 @@ iubcmpltarr_initialize () {
 
 /* ****** ****** */
 //
-// #define NBYTE 60
-//
 #define NBYTE 1024*1024
+//
 static
 char
 theBuffer[256*1024*1024] ;
