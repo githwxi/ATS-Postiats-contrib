@@ -156,7 +156,7 @@ search_buf
 //
 val p_beg = $extval(ptr, "theBuffer")
 val theTotal = $extval(size_t, "theTotal")
-val p_end = ptr_add<byte> (p_beg, pred(theTotal))
+val p_end = ptr_add<byte> (p_beg, theTotal)
 //
 val nw = nwaiter_create_exn ()
 val tick = nwaiter_initiate (nw)
@@ -172,15 +172,14 @@ theBuffer_reverse$submit
 //
 val p0 = search_buf(p1, '\n')
 val p1 = search_buf (succ(p0), '>')
-val () = reverse_buf (succ(p0), pred(p1))
 val () =
 theBuffer_reverse$submit
   (llam () => reverse_buf_tick (succ(p0), pred(p1), tick2))
 //
 val p0 = search_buf(p1, '\n')
-val () = reverse_buf (succ(p0), p_end)
 val () =
-theBuffer_reverse$submit (llam () => reverse_buf_tick (succ(p0), p_end, tick3))
+theBuffer_reverse$submit
+  (llam () => reverse_buf_tick (succ(p0), pred(p_end), tick3))
 //
 val ((*void*)) = nwaiter_waitfor (nw)
 val ((*void*)) = nwaiter_destroy (nw)
