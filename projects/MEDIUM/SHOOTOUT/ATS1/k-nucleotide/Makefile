@@ -4,12 +4,11 @@
 #
 ######
 
-all:: regex-dna
+all:: k-nucleotide
 
 ######
 
-regex-dna: regex-dna.dats ; \
-  patscc -DATS_MEMALLOC_LIBC -O3 -msse2 -mfpmath=sse -o $@ $< -lpcre
+k-nucleotide: k-nucleotide.dats; patscc -DATS_MEMALLOC_GCBDW -O3 -o $@ $< -lm -lgc
 
 ######
 
@@ -17,12 +16,10 @@ RMF=rm -f
 
 ######
 
-.phony: clean
-
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_dats.c
 
 cleanall:: clean
-cleanall:: ; $(RMF) regex-dna
+cleanall:: ; $(RMF) k-nucleotide
 
 ###### end of [Makefile] ######

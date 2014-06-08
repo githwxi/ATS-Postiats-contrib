@@ -1,6 +1,6 @@
 ######
 #
-# Makefile a CLBG benchmark
+# For a SHOOTOUT/benchmark
 #
 ######
 
