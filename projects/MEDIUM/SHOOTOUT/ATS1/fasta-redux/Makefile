@@ -4,12 +4,13 @@
 #
 ######
 
-all:: fasta
+all:: fasta-redux
 
 ######
 
-fasta: fasta.dats ; \
-  patscc -DATS_MEMALLOC_GCBDW -D_BSD_SOURCE -O3 -msse2 -mfpmath=sse -o $@ $< -lgc
+fasta-redux: \
+fasta-redux.dats ; \
+  patscc -D_BSD_SOURCE -O3 -msse2 -mfpmath=sse -o $@ $<
 
 ######
 
@@ -23,6 +24,6 @@ clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_dats.c
 
 cleanall:: clean
-cleanall:: ; $(RMF) fasta
+cleanall:: ; $(RMF) fasta-redux
 
 ###### end of [Makefile] ######
