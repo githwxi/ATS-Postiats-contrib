@@ -10,6 +10,13 @@
 
 (* ****** ****** *)
 //
+// HX-2014-06-07:
+// Ported to ATS2 from ATS1
+// This is some very old code (of poor style).
+// It is primarily meant as a historical note for reference.
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
 //
@@ -403,15 +410,17 @@ symtbl_resize_move
 
 fun
 symtbl_resize
-  (tbl: symtbl_t): void = let
-
+(
+  tbl: symtbl_t
+) : void = let
+//
 val (vbox pf_tbl | p_tbl) = tbl
 val p_arr = p_tbl->ptr
 prval pf_arr = p_tbl->view_arr
 prval pf_arr_gc = p_tbl->view_arr_gc
 val sz = p_tbl->size
 val (pf_arr_new, pf_arr_gc_new | p_arr_new) = tblent_array_make (sz + sz)
-
+//
 in
 //
 symtbl_resize_move
@@ -472,16 +481,23 @@ tblent_array_fold
 
 atsvoid_t0ype
 tblent_array_fold
-  (atstype_ptr p, atstype_int sz, atstype_cloptr f, atstype_ptr res) {
-
+(
+  atstype_ptr p, atstype_int sz, atstype_cloptr f, atstype_ptr res
+) {
+//
   int i ; tblent_t *ent ;
-
-  i = 0 ; ent = (tblent_t *)p ;
+//
+  i = 0 ; ent = (tblent_t*)p ;
+//
   while (i < sz) {
-    if (!(ent->sym).beg) { ++i ; ++ent ; continue ; }
-    ((atsvoid_t0ype (*)(atstype_cloptr, symbol_t, atstype_int, atstype_ptr))(((ATStyclo()*)f)->cfun))(f, ent->sym, ent->cnt, res) ;
-    ++i ; ++ent ;
+    if((ent->sym).beg)
+    {
+      ATSfunclo_clo(f, (atstype_cloptr, symbol_t, atstype_int, atstype_ptr), void)(f, ent->sym, ent->cnt, res) ;
+    }
+    i += 1 ; ent += 1 ;
   }
+//
+  return ;
 }
 
 %}
@@ -500,11 +516,11 @@ tblent_array_fold{a}
 end // end of [symtbl_insert]
 
 (* ****** ****** *)
-
-implement symtbl_dna (tbl) = begin
+//
+implement
+symtbl_dna (tbl) = 
   let val (vbox pf_tbl | p_tbl) = tbl in p_tbl->dna end
-end
-
+//
 (* ****** ****** *)
 
 (* end of [symtbl.dats] *)
@@ -569,25 +585,27 @@ write_frequencies
 (
   tbl: symtbl_t, n: int n, k: int k
 ) : void = let
+//
+  var total: int = 0
   val tbl = dna_count (tbl, n, k)
-  var total: int = (0: int)
   val f = lam
   (
     k: symbol_t, cnt: int, res: &int
   ) : void =<cloptr1> (res := res + cnt)
   val () = symtbl_fold{int}(tbl, f, total)
   val () = cloptr_free ($UN.castvwtp0{cloptr(void)}(f))
+//
   val ftotal = float(total)
-  var frqs: frqlst = FRQLSTnil ()
   val f = lam
   (
     k: symbol_t, cnt: int, res: &frqlst
-  ) : void =<cloptr1>
-  let
+  ) : void =<cloptr1> let
     val fval = 100 * float(cnt) / ftotal in res := FRQLSTcons (k, fval, res)
-  end // end of [lam]
+  end // end of [let] // end of [lam]
+  var frqs: frqlst = FRQLSTnil ()
   val () = symtbl_fold{frqlst}(tbl, f, frqs)
   val () = cloptr_free ($UN.castvwtp0{cloptr(void)}(f))
+//
 in
   print_frqlst (symtbl_dna tbl, sort(frqs))
 end // end of [write_frequencies]
