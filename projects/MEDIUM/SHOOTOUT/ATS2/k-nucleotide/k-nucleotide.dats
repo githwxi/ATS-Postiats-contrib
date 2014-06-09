@@ -648,11 +648,15 @@ fileref_get_three(stdin_ref)
 val () = assertloc(ptrcast(dna) > 0)
 val dna = strptr2strnptr(dna)
 prval () = lemma_strnptr_param (dna)
+//
 local
 implement(env)
 strnptr_foreach$fwork<env>
-  (c, env) = (c := $UN.cast{charNZ}(toupper(c)))
-in(*in-of-local*)
+  (c, env) =
+(
+  c := $UN.cast{charNZ}(toupper(c))
+) (* end of [strnptr_foreach$fwork] *)
+in (*in-of-local*)
 val dna_len = strnptr_foreach<> (dna)
 end // end of [local]
 //
