@@ -239,10 +239,28 @@ end // end of [then]
 else () // end of [else]
 //
 end // end of [print_symbol32]
-
 implement
 print_symbol<uint32> = print_symbol32
-
+//
+implement
+print_symbol64
+  (key, k) = let
+in
+//
+if
+k > 0
+then let
+  val key2 = key >> 2
+  val ((*void*)) = print_symbol64 (key2, k-1)
+in
+  print_char(myint2char($UN.cast{natLt(4)}(key land $UN.cast{uint64}(0x3))))
+end // end of [then]
+else () // end of [else]
+//
+end // end of [print_symbol64]
+implement
+print_symbol<uint64> = print_symbol64
+//
 (* ****** ****** *)
 
 extern

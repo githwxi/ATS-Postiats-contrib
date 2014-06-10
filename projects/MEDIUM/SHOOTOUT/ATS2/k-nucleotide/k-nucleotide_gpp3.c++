@@ -107,10 +107,10 @@ calculate(const std::string& input,unsigned size, unsigned beg=0,unsigned incr=1
 __gnu_pbds::cc_hash_table<T,unsigned,T::hash>
 tcalculate(const std::string& input,unsigned size)
 {
-  unsigned N = 1;
   /*
-  unsigned N = sysconf (_SC_NPROCESSORS_ONLN);
+  unsigned N = 1;
   */
+  unsigned N = sysconf (_SC_NPROCESSORS_ONLN);
   
   std::future<__gnu_pbds::cc_hash_table<T,unsigned,T::hash>> ft[N];
   for(unsigned i = 0; i<N;++i)
