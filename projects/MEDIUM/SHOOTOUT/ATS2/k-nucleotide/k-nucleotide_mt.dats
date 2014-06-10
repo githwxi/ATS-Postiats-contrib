@@ -8,8 +8,16 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
+(* ****** ****** *)
+
+%{^
+#include <pthread.h>
+%} // end of [%{^]
+
 (* ****** ****** *)
 
 staload
@@ -572,12 +580,8 @@ in(*in-of-local*)
 val kfs = list_vt_mergesort<kf> (kfs)
 end // end of [local]
 //
-val () =
-print_keyfrequencies (kfs, k)
-val () = print_newline ((*void*))
-//
 in
-  // nothing
+  print_keyfrequencies (kfs, k); print_newline ()
 end // end of [write_fqlst]
 
 (* ****** ****** *)
@@ -588,39 +592,136 @@ typedef char *charptr ;
 abstype charptr = $extype"charptr"
   
 (* ****** ****** *)
-
+//
+staload
+"{$LIBATSHWXI}/teaching/mythread/SATS/spinvar.sats"
+staload
+"{$LIBATSHWXI}/teaching/mythread/SATS/spinref.sats"
+//
+(* ****** ****** *)  
+  
 extern
 fun{
 a:t@ype
-} write_count
-  {n:nat}
+} write2_count
+  {i:nat}
+  {j:int | i <= j}
+  {k:nat}
 (
-  dna: dna, n: int n, key: string
-) : void // end of [write_count]
+  dna: dna
+, i: int i, j: int j
+, key: string(k), k: int(k), spnr: spinref(int)
+) : void // end of [write2_count]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-write_count
-  (dna, n, key) = let
+write2_count
+(
+  dna, i, j, key, k, spnr
+) = () where {
 //
-val k = length(key)
-val k = g1ofg0_uint (k)
+val dna = $UN.cast2ptr(dna)
+val dna_i = $UN.cast{dna}(ptr_add<char>(dna, i))
+val tbl = symtbl_make<a> (320000)
+val ((*void*)) = dna_count (dna_i, tbl, j-i+k, k)
+//
+val key = string2symbol<a> (key)
+val cnt = symtbl_get_count (tbl, key)
+val ((*void*)) = symtbl_free (tbl)
+//
+local
+implement(env)
+spinref_process$fwork<int><env> (x, env) = x := x + cnt
+in(*in-of-local*)
+val ((*void*)) = spinref_process (spnr)
+end // end of [local]
+//
+} // end of [write2_count]
+  
+(* ****** ****** *)
+//
+staload
+"{$LIBATSHWXI}/teaching/mythread/SATS/nwaiter.sats"
+//
+(* ****** ****** *)
+
+vtypedef
+ticket = nwaiter_ticket
+
+(* ****** ****** *)
+
+extern
+fun{
+a:t@ype
+} write_fqlst_tick
+  {n,k:nat}
+(
+  dna: dna, n: int n, k: int k, tick: ticket
+) : void // end of [write_fqlst]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+write_fqlst_tick
+  (dna, n, k, tick) =
+(
+  write_fqlst<a> (dna, n, k); nwaiter_ticket_put (tick)
+) (* end of [write_fqlst_tick] *)
+
+(* ****** ****** *)
+//
+staload
+"{$LIBATSHWXI}/teaching/mythread/SATS/parallelize.sats"
+//
+(* ****** ****** *)
+
+extern
+fun{
+a:t@ype
+} write_count_mt
+  {n:nat}{k:nat}
+(
+  dna: dna, n: int n, key: string(k), cutoff: intGte(1)
+) : void // end of [write_count_mt]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+write_count_mt
+  (dna, n, key, cutoff) = let
+//
+val k = length (key)
 val k = g1uint2int_size_int (k)
 val () = assertloc (n >= k)
 //
-val tbl = symtbl_make<a> (1024*1024)
-val ((*void*)) = dna_count (dna, tbl, n, k)
+val spnv = spinvar_create_exn (0)
+val spnr = $UN.castvwtp1{spinref(int)}(spnv)
 //
-val key2 = string2symbol<a> (key)
-val cnt = symtbl_get_count (tbl, key2)
-val ((*void*)) = symtbl_free (tbl)
+implement
+intrange_parallelize$loop<>
+  (i, j) = let
+  val i = g1ofg0 (i)
+  val j = g1ofg0 (j)
+  val () = assertloc (0 <= i)
+  val () = assertloc (i <= j)
+in
+  write2_count<a> (dna, i, j, key, k, spnr)
+end // end of [intrange_parallelize$loop]
+//
+val nw = nwaiter_create_exn ()
+val () = intrange_parallelize (0, n-k, cutoff, nw)
+val ((*freed*)) = nwaiter_destroy (nw)
+//
+val cnt = spinvar_getfree<int> (spnv)
 //
 in
   $extfcall (void, "printf", "%d\t%s\n", cnt, $UN.cast{charptr}(key))
-end // end of [write_count]
-  
+end // end of [write_count_mt]
+
 (* ****** ****** *)
 //
 implement
@@ -629,6 +730,38 @@ implement
 gequal_val<uint64> (x1, x2) = (x1 = x2)
 //
 (* ****** ****** *)
+//
+staload
+"{$LIBATSHWXI}/teaching/mythread/SATS/workshop.sats"
+//  
+(* ****** ****** *)
+//
+staload _ = "libats/DATS/deqarray.dats"
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
+//
+staload _(*anon*) =
+"{$LIBATSHWXI}/teaching/mythread/DATS/spinvar.dats"
+staload _(*anon*) =
+"{$LIBATSHWXI}/teaching/mythread/DATS/spinref.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread/DATS/nwaiter.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread/DATS/workshop.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread/DATS/parallelize.dats"
+//
+staload _ = "libats/DATS/athread.dats"
+staload _ = "libats/DATS/athread_posix.dats"
+//
+(* ****** ****** *)
+
+#define CUTOFF 5000000
+
+(* ****** ****** *)
 
 implement
 main0 () = () where
@@ -636,27 +769,6 @@ main0 () = () where
 //
 val () = C__mychar2int_initize ()
 //
-(*
-val i = 0
-val () = println! ("myint2char(", i, ") = ", myint2char(i))
-val i = 1
-val () = println! ("myint2char(", i, ") = ", myint2char(i))
-val i = 2
-val () = println! ("myint2char(", i, ") = ", myint2char(i))
-val i = 3
-val () = println! ("myint2char(", i, ") = ", myint2char(i))
-*)
-//
-(*
-val c = 'A'
-val () = println! ("mychar2int(", c, ") = ", mychar2int(c))
-val c = 'C'
-val () = println! ("mychar2int(", c, ") = ", mychar2int(c))
-val c = 'T'
-val () = println! ("mychar2int(", c, ") = ", mychar2int(c))
-val c = 'G'
-val () = println! ("mychar2int(", c, ") = ", mychar2int(c))
-*)
 //
 val dna =
 fileref_get_three(stdin_ref)
@@ -682,37 +794,36 @@ val dna_len = g1uint2int_size_int (dna_len)
 val () = println! ("dna_len = ", dna_len)
 *)
 //
-local
+val ws0 = workshop_create_cap<lincloptr> (i2sz(4))
+val nwkr = workshop_add_nworker<lincloptr> (ws0, 4)
+//
+implement
+intrange_parallelize$submit<> (fwork) =
+(
+  workshop_insert_job<lincloptr> (ws0, $UN.castvwtp0{lincloptr}(fwork))
+) (* end of [intrange_parallelize$submit] *)
 //
 implement
 hash_key<uint32> (x) = $UN.cast{ulint}(x)
 implement
 hash_key<uint64> (x) = $UN.cast{ulint}(x)
 //
-in (*in-of-local*)
-//
 val () = write_fqlst<uint32> (dna, dna_len, 1)
 val () = write_fqlst<uint32> (dna, dna_len, 2)
 //
-val () = write_count<uint32> (dna, dna_len, "GGT")
-val () = write_count<uint32> (dna, dna_len, "GGTA")
-val () = write_count<uint32> (dna, dna_len, "GGTATT")
+val () = write_count_mt<uint32> (dna, dna_len, "GGT", CUTOFF)
+val () = write_count_mt<uint32> (dna, dna_len, "GGTA", CUTOFF)
+val () = write_count_mt<uint32> (dna, dna_len, "GGTATT", CUTOFF)
 //
-end // end of [local]
-//
-local
 implement
 hash_key<uint32> (x) =
   $UN.cast{ulint}(inthash_jenkins(x))
 implement
 hash_key<uint64> (x) =
   $UN.cast{ulint}(inthash_jenkins($UN.cast{uint32}(x)))
-in (*in-of-local*)
 //
-val () = write_count<uint32> (dna, dna_len, "GGTATTTTAATT")
-val () = write_count<uint64> (dna, dna_len, "GGTATTTTAATTTATAGT")
-//
-end // end of [local]
+val () = write_count_mt<uint32> (dna, dna_len, "GGTATTTTAATT", CUTOFF)
+val () = write_count_mt<uint64> (dna, dna_len, "GGTATTTTAATTTATAGT", CUTOFF)
 //
 } (* end of [main0] *)
 
@@ -726,4 +837,4 @@ in (* nothing *) end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [k-nucleotide.dats] *)
+(* end of [k-nucleotide_mt.dats] *)
