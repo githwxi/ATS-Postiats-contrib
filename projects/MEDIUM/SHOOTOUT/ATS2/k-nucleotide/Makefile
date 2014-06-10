@@ -14,6 +14,7 @@ PATSCC=$(PATSHOME)/bin/patscc
 ######
 
 all:: k-nucleotide
+all:: k-nucleotide_mt
 all:: k-nucleotide_gpp3
 
 ######
@@ -22,6 +23,13 @@ k-nucleotide: \
 k-nucleotide.dats ; \
 $(PATSCC) -DATS_MEMALLOC_LIBC \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@
+
+######
+
+k-nucleotide_mt: \
+k-nucleotide_mt.dats ; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
+  -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@ -lpthread
 
 ######
 
@@ -46,6 +54,7 @@ clean:: ; $(RMF) *_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) k-nucleotide
+cleanall:: ; $(RMF) k-nucleotide_mt
 cleanall:: ; $(RMF) k-nucleotide_gpp3
 cleanall:: ; $(RMF) k-nucleotide_gpp3.o
 
