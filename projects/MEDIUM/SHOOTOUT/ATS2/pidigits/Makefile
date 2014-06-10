@@ -12,6 +12,7 @@ PATSCC=$(PATSHOME)/bin/patscc
 
 ######
 
+all:: pidigits
 all:: pidigits_gcc
 
 ######

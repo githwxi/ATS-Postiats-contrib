@@ -13,6 +13,7 @@ PATSCC=$(PATSHOME)/bin/patscc
 ######
 
 all:: spectral-norm
+all:: spectral-norm_smp
 all:: spectral-norm_gcc5
 
 ######
@@ -20,7 +21,7 @@ all:: spectral-norm_gcc5
 spectral-norm: \
 spectral-norm.dats ; \
 $(PATSCC) -DATS_MEMALLOC_LIBC \
-  -pipe -O3 -fomit-frame-pointer -march=natived -mfpmath=sse -msse2 $< -o $@ -lm
+  -pipe -O3 -fomit-frame-pointer -march=native -mfpmath=sse -msse2 $< -o $@ -lm
 
 ######
 

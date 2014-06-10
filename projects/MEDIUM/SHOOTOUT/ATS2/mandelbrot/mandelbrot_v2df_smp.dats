@@ -229,10 +229,10 @@ val () =
 assert_errmsg (i0 >= 2, "The input integer needs to be at least 2.\n")
 //
 val ws0 =
-workshop_create_cap<lincloptr> (i2sz(2))
+workshop_create_cap<lincloptr> (i2sz(1024))
 //
 val nworker =
-  workshop_add_nworker<lincloptr> (ws0, 4)
+  workshop_add_nworker<lincloptr> (ws0, 8)
 //
 (*
 val nworker = workshop_get_nworker (ws0)
