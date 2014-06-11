@@ -36,6 +36,12 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
+
+staload "libats/ML/SATS/basis.sats"
+staload "libats/ML/SATS/list0.sats"
+staload "libats/ML/SATS/array0.sats"
+
+(* ****** ****** *)
 //
 staload
 STDLIB = "libc/SATS/stdlib.sats"
@@ -143,6 +149,33 @@ in
   list_vt_reverse<Strptr1> (res)
 end // end of [string_split_delim_string]
 
+(* ****** ****** *)
+//
+extern
+fun{}
+array0_make_argv{n:int}
+  (argv: !argv(n), argc: int(n)):<!wrt> array0 (string)
+//
+implement
+{}(*tmp*)
+array0_make_argv
+  {n}(argv, argc) = let
+//
+prval () =
+  lemma_argv_param (argv)
+//
+val n = g1int2uint_int_size(argc)
+//
+val A =
+$effmask_all (
+arrayref_copy<string>
+  ($UN.castvwtp1{arrayref(string,n)}(argv), n)
+) (* end of [val] *)
+//
+in
+  array0_make_arrayref (arrayptr_refize (A), n)
+end // end of [array0_make_argv]
+//
 (* ****** ****** *)
 
 (* end of [BUCS.dats] *)
