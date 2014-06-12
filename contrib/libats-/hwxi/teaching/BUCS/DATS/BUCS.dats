@@ -74,7 +74,8 @@ end // end of [test_file_ixoth]
 extern
 fun{}
 randint{n:pos}(int(n)): natLt(n)
-implement{}
+implement
+{}(*tmp*)
 randint{n}(n) = let
   val x = $STDLIB.random()
 in
@@ -86,7 +87,8 @@ end // end of [randint]
 extern
 fun{}
 srandom_with_time((*void*)): void
-implement{}
+implement
+{}(*tmp*)
 srandom_with_time () =
   $STDLIB.srandom($UN.cast{uint}($TIME.time_get()))
 // end of [srandom_with_time]
@@ -96,7 +98,8 @@ srandom_with_time () =
 extern
 fun{}
 srand48_with_time((*void*)): void
-implement{}
+implement
+{}(*tmp*)
 srand48_with_time () =
   $STDLIB.srand48($UN.cast{lint}($TIME.time_get()))
 // end of [srand48_with_time]
@@ -108,7 +111,8 @@ fun{}
 string_split_delim_string
   (source: string, delim: string): List0_vt(Strptr1)
 //
-implement{}
+implement
+{}(*tmp*)
 string_split_delim_string
   (source, delim) = let
 //
