@@ -51,26 +51,28 @@ typedef int2 = (int, int)
 (* ****** ****** *)
 
 local
-
+//
 val theExchlst =
-  ref<List0(int2)> (list_nil)
-
+  ref<list0(int2)> (nil0())
+//
 in (* in-of-local *)
 
-fun theExchlst_add
+fun
+theExchlst_add
   (i1: int, i2: int): void =
 (
-  !theExchlst := cons ((i1, i2), !theExchlst)
+  !theExchlst := cons0 ((i1, i2), !theExchlst)
 )
+
 fun
 theExchlst_get_all
 (
 // argumentlst
-) : List0(int2) = let
+) : list0(int2) = let
   val xys = !theExchlst
-  val ((*void*)) = !theExchlst := nil ()
+  val ((*void*)) = !theExchlst := nil0((*void*))
 in
-  list_vt2t (list_reverse (xys))
+  list0_reverse (xys)
 end // end of [theExchlst_get_all]
 
 end // end of [local]
@@ -175,7 +177,7 @@ fun loop
       then loop (k1, succ(k2))
       else (array0_swap(A, k1, k2); loop (succ(k1), succ(k2)))
     // end of [if]
-  end else k1 // end of [loop]
+  end else (k1) // end of [loop]
 //
 val k1 = loop (st, st)
 val () = array0_swap (A, k1, last)
@@ -199,7 +201,7 @@ genScript{n:int}
   out: FILEref, asz: size_t(n)
 ) :
 (
-  array0 (int), List0(int2)
+  array0 (int), list0(int2)
 ) = let
 //
 val A =
@@ -260,7 +262,7 @@ val xy0 = ref<int2> ((~1, 0))
 val (A0, xys0) =
   genScript (stdout_ref, i2sz(96))
 //
-val theExchlst2 = ref<List0(int2)> (xys0)
+val theExchlst2 = ref<list0(int2)> (xys0)
 //
 in (* in-of-local *)
 
@@ -292,8 +294,8 @@ ASZ_update () = let
 //
   val () = (
     case+ xys of
-    | nil () => !xy0 := ((~1, 0))
-    | cons (xy, xys) => (!xy0 := xy; !theExchlst2 := xys)
+    | nil0 () => !xy0 := ((~1, 0))
+    | cons0 (xy, xys) => (!xy0 := xy; !theExchlst2 := xys)
   ) (* end of [val] *)
 //
   val i = ij.0 and j = ij.1
@@ -439,7 +441,10 @@ var argv: charptrptr = $UN.castvwtp1{charptrptr}(argv)
 val () = $extfcall (void, "gtk_init", addr@(argc), addr@(argv))
 //
 implement
-gtkcairotimer_title<> () = stropt_some"InsertionSort"
+gtkcairotimer_title<>
+(
+// argumentless
+) = stropt_some"QuicksortAnimation"
 implement
 gtkcairotimer_timeout_interval<> () = 100U // millisecs
 implement
@@ -453,4 +458,4 @@ end // end of [main0]
 
 (* ****** ****** *)
 
-(* end of [insertsort_anim2.dats] *)
+(* end of [quicksort_anim2.dats] *)
