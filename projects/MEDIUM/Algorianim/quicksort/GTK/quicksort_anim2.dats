@@ -157,8 +157,12 @@ implement
 qsort_partition
   (A, st, len) = let
 //
-val last = pred(st+len)
-val pivot = A[last] // need randomness?
+val len = g1ofg0 (len)
+val () = assertloc (len > 0)
+val last = pred (st + len)
+val pind = st + i2sz(randint(sz2i(len)))
+val () = array0_swap (A, pind, last)
+val pivot = A[last]
 //
 fun loop
 (
@@ -249,12 +253,12 @@ dynload "./gtkcairotimer_toplevel.dats"
 
 local
 //
-val xy0 = ref<int2> ((0, 0))
+val () = srandom_with_time ()
 //
-val ((*void*)) = srandom_with_time ()
+val xy0 = ref<int2> ((~1, 0))
 //
 val (A0, xys0) =
-  genScript (stdout_ref, i2sz(64))
+  genScript (stdout_ref, i2sz(96))
 //
 val theExchlst2 = ref<List0(int2)> (xys0)
 //
@@ -268,8 +272,10 @@ ASZ_reset (): void
 implement
 ASZ_reset () = {
 //
+val () = srandom_with_time ()
+//
 var i: size_t
-val () = !xy0 := ((0, 0))
+val () = !xy0 := ((~1, 0))
 val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
 val () = !theExchlst2 := xys0
 //
@@ -286,7 +292,7 @@ ASZ_update () = let
 //
   val () = (
     case+ xys of
-    | nil () => !xy0 := ((0, 0))
+    | nil () => !xy0 := ((~1, 0))
     | cons (xy, xys) => (!xy0 := xy; !theExchlst2 := xys)
   ) (* end of [val] *)
 //
