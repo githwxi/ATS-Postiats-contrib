@@ -4,8 +4,7 @@
 
 ######
 
-PATSCC=patscc2
-export PATSOPT=patsopt2
+include $(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
@@ -18,26 +17,20 @@ LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
 ######
 
-all:: array0_qsort_anim
+include $(PATSHOME)/share/atsmake-post.mk
+
+######
+
+all:: \
+array0_qsort_anim
 array0_qsort_anim: \
   array0_qsort_anim.dats \
   gtkcairotimer_toplevel.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOC)/contrib -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
+  $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
 cleanall:: ; $(RMF) array0_qsort_anim
 
 ######
 
-RMF=rm -f
-
-######
-
-clean:: ; $(RMF) *~
-clean:: ; $(RMF) *_?ats.o
-clean:: ; $(RMF) *_?ats.c
-
-cleanall:: clean
-cleanall:: ; $(RMF) array0_qsort_test
-
-######
+cleanats:: ; $(RMF) *_?ats.c
 
 ###### end of [Makefile] ######
