@@ -24,6 +24,15 @@ cleanall:: ; $(RMF) quicksort_anim
 
 ######
 
+all:: quicksort_anim2
+quicksort_anim2: \
+  quicksort_anim2.dats \
+  gtkcairotimer_toplevel.dats ; \
+  $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
+cleanall:: ; $(RMF) quicksort_anim2
+
+######
+
 include $(PATSHOME)/share/atsmake-post.mk
 
 ######

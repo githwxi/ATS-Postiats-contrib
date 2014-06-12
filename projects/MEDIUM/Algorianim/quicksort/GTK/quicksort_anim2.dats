@@ -1,5 +1,5 @@
 //
-// Animating Insertion sort
+// Animating Quicksort
 //
 (* ****** ****** *)
 //
@@ -10,7 +10,15 @@
 //
 (* ****** ****** *)
 //
-staload "./../insertsort.dats"
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+staload "libats/ML/SATS/basis.sats"
+staload "libats/ML/SATS/list0.sats"
+staload "libats/ML/SATS/array0.sats"
+//
+staload _ = "libats/ML/DATS/list0.dats"
+staload _ = "libats/ML/DATS/array0.dats"
 //
 (* ****** ****** *)
 //
@@ -38,30 +46,139 @@ staload
 
 (* ****** ****** *)
 
+typedef int2 = (int, int)
+
+(* ****** ****** *)
+
 local
 
 val theExchlst =
-  ref<List0(int)> (list_nil)
+  ref<List0(int2)> (list_nil)
 
 in (* in-of-local *)
 
 fun theExchlst_add
-  (ind: int): void =
+  (i1: int, i2: int): void =
 (
-  !theExchlst := cons (ind, !theExchlst)
+  !theExchlst := cons ((i1, i2), !theExchlst)
 )
 fun
 theExchlst_get_all
 (
 // argumentlst
-) : List0(int) = let
-  val xs = !theExchlst
-  val () = !theExchlst := nil ()
+) : List0(int2) = let
+  val xys = !theExchlst
+  val ((*void*)) = !theExchlst := nil ()
 in
-  list_vt2t (list_reverse (xs))
+  list_vt2t (list_reverse (xys))
 end // end of [theExchlst_get_all]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+extern
+fun{
+a:t@ype
+} array0_swap
+  (A: array0 (a), i: size_t, j: size_t): void
+// end of [array0_swap]
+
+(* ****** ****** *)
+  
+implement
+{a}(*tmp*)
+array0_swap
+  (A, i, j) =
+{
+  val tmp = A[i]
+  val () = A[i] := A[j]
+  val () = A[j] := tmp
+  val () = theExchlst_add (sz2i(i), sz2i(j))
+}
+  
+(* ****** ****** *)
+
+extern
+fun{
+a:t@ype
+} quicksort (A: array0 (a)): void
+
+(* ****** ****** *)
+
+extern
+fun{
+a:t@ype
+} quicksort2
+(
+  A: array0 (a), st: size_t, len: size_t
+) : void // end of [quicksort2]
+
+(* ****** ****** *)
+
+extern
+fun{a:t@ype}
+qsort_partition
+(
+  A: array0 (a), st: size_t, len: size_t
+) : size_t // end of [qsort_partition]
+
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+quicksort (A) =
+  quicksort2 (A, i2sz(0), A.size)
+//
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+quicksort2 (A, st, len) =
+(
+if
+len >= 2
+then let
+  val len_f = qsort_partition<a> (A, st, len)
+  val ((*void*)) = quicksort2<a> (A, st, len_f)
+  val len_r = len - len_f
+  val ((*void*)) = quicksort2<a> (A, succ(st+len_f), pred(len_r))
+in
+  // nothing
+end // end of [then]
+else () // end of [else]
+//
+) (* end of [qsort] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+qsort_partition
+  (A, st, len) = let
+//
+val last = pred(st+len)
+val pivot = A[last] // need randomness?
+//
+fun loop
+(
+  k1: size_t, k2: size_t
+) : size_t =
+  if k2 < last then let
+    val sgn = gcompare_val<a> (pivot, A[k2])
+  in
+    if sgn <= 0
+      then loop (k1, succ(k2))
+      else (array0_swap(A, k1, k2); loop (succ(k1), succ(k2)))
+    // end of [if]
+  end else k1 // end of [loop]
+//
+val k1 = loop (st, st)
+val () = array0_swap (A, k1, last)
+//
+in
+  (k1 - st)
+end // end of [qort_partition]
 
 (* ****** ****** *)
 
@@ -78,46 +195,16 @@ genScript{n:int}
   out: FILEref, asz: size_t(n)
 ) :
 (
-  arrszref (int), List0(int)
+  array0 (int), List0(int2)
 ) = let
 //
 val A =
 randgen_arrayref<int> (asz)
 //
-local
-implement
-array_tabulate$fopr<int> (i) =
-  let val i = $UNSAFE.cast{sizeLt(n)}(i) in A[i] end
-in
+val A = array0 (A, asz)
+val A2 = array0_copy (A)
 //
-val A2 = arrayref_tabulate<int> (asz)
-//
-end // end of [local]
-//
-val p0 = arrayref2ptr (A2)
-//
-local
-//
-val ptr_exch_int = ptr_exch<int>
-//
-implement
-ptr_exch<int>
-  (pf | p, x) = let
-  val df = p - p0
-  val ind = $UNSAFE.cast{size_t}(df) / sizeof<int>
-  val ((*void*)) = $effmask_all (theExchlst_add (sz2i(ind)))
-in
-  ptr_exch_int (pf | p, x)
-end // end of [ptr_exch]
-//
-in(*in-of-local*)
-//
-val (pf0, fpf0 | p0) =
-  $UNSAFE.ptr0_vtake{array(int,n)}(p0)
-val () = array_insertsort<int> (!p0, asz)
-prval () = fpf0 (pf0)
-//
-end // end of [local]
+val () = quicksort (A2)
 //
 (*
 val () = fprint (out, A, asz)
@@ -127,7 +214,7 @@ val () = fprint_newline (out)
 *)
 //
 in
-  (arrszref_make_arrayref (A, asz), theExchlst_get_all ())
+  (A, theExchlst_get_all ())
 end (* end of [genScript] *)
 
 end // end of [local]
@@ -156,42 +243,36 @@ staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_t
 //
 (* ****** ****** *)
 
-#ifndef INSERTSORT_ANIM2_ALL
 dynload "./gtkcairotimer_toplevel.dats"
-#endif (* end of [#ifndef] *)
 
 (* ****** ****** *)
 
 local
 //
-val ind = ref<int> (0)
+val xy0 = ref<int2> ((0, 0))
 //
-val () = srandom_with_time ()
+val ((*void*)) = srandom_with_time ()
 //
-val (A0, xs0) =
-  genScript (stdout_ref, i2sz(16))
+val (A0, xys0) =
+  genScript (stdout_ref, i2sz(64))
 //
-val theExchlst2 = ref<List0(int)> (xs0)
+val theExchlst2 = ref<List0(int2)> (xys0)
 //
 in (* in-of-local *)
 
-local
-implement
-array_tabulate$fopr<int> (i) = A0[i]
-in(*in-of-local*)
-val ASZ = arrszref_tabulate<int> (A0.size)
-end // end of [local]
+val ASZ = array0_copy (A0)
 
 extern
 fun
 ASZ_reset (): void
 implement
-ASZ_reset () =
-{
+ASZ_reset () = {
+//
 var i: size_t
-val () = !ind := 0
+val () = !xy0 := ((0, 0))
 val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
-val () = !theExchlst2 := xs0
+val () = !theExchlst2 := xys0
+//
 } (* end of [ASZ_reset] *)
 
 extern
@@ -200,19 +281,19 @@ ASZ_update (): void
 implement
 ASZ_update () = let
 //
-  val i = !ind
-  val xs = !theExchlst2
+  val ij = !xy0
+  val xys = !theExchlst2
 //
   val () = (
-    case+ xs of
-    | nil () => !ind := 0
-    | cons (x, xs) => (!ind := x; !theExchlst2 := xs)
+    case+ xys of
+    | nil () => !xy0 := ((0, 0))
+    | cons (xy, xys) => (!xy0 := xy; !theExchlst2 := xys)
   ) (* end of [val] *)
 //
-  val i = g0int2uint_int_size (i)
+  val i = ij.0 and j = ij.1
 //
 in
-  if i > 0 then arrszref_interchange (ASZ, i, pred(i))
+  if i >= 0 then array0_interchange (ASZ, g0i2u(i), g0i2u(j))
 end (* end of [ASZ_update] *)
 
 end // end of [local]
@@ -226,10 +307,10 @@ the_timer_reset_after<> () = ASZ_reset ()
 
 extern
 fun
-cairo_draw_arrszref
+cairo_draw_array0
 (
   cr: !cairo_ref1
-, point, point, point, point, arrszref(int)
+, point, point, point, point, array0(int)
 ) : void // end-of-fun
 
 (* ****** ****** *)
@@ -258,7 +339,7 @@ end // end of [colorgen]
 (* ****** ****** *)
 
 implement
-cairo_draw_arrszref
+cairo_draw_array0
 (
   cr, p1, p2, p3, p4, ASZ
 ) = let
@@ -287,7 +368,7 @@ val asz = ckastloc_gintGt (asz, 0)
 //
 in
   mydraw_bargraph (asz, p1, p2, p3, p4)
-end // end of [cairo_draw_arrszref]
+end // end of [cairo_draw_array0]
 
 (* ****** ****** *)
 
@@ -324,7 +405,7 @@ val () =
 if the_timer_is_running () then ASZ_update ()
 //
 val (pf | ()) = cairo_save (cr)
-val () = cairo_draw_arrszref (cr, p1, p2, p3, p4, ASZ)
+val () = cairo_draw_array0 (cr, p1, p2, p3, p4, ASZ)
 val ((*void*)) = cairo_restore (pf | cr)
 //
 in
@@ -354,7 +435,7 @@ val () = $extfcall (void, "gtk_init", addr@(argc), addr@(argv))
 implement
 gtkcairotimer_title<> () = stropt_some"InsertionSort"
 implement
-gtkcairotimer_timeout_interval<> () = 500U // millisecs
+gtkcairotimer_timeout_interval<> () = 100U // millisecs
 implement
 gtkcairotimer_mydraw<> (cr, width, height) = mydraw_clock (cr, width, height)
 //

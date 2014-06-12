@@ -1,7 +1,6 @@
 //
 // Animating Quicksort
 //
-
 (* ****** ****** *)
 
 #include
@@ -24,8 +23,9 @@ staload _ = "libats/ML/DATS/array0.dats"
 (* ****** ****** *)
 
 extern
-fun{a:t@ype}
-array0_swap
+fun{
+a:t@ype
+} array0_swap
   (A: array0 (a), i: size_t, j: size_t): void
 // end of [array0_swap]
 
@@ -52,15 +52,19 @@ implement
 {a}(*tmp*)
 qsort (A, st, len) =
 (
-if len >= 2 then let
+if
+len >= 2
+then let
   val len_f = qsort_partition<a> (A, st, len)
   val ((*void*)) = qsort<a> (A, st, len_f)
   val len_r = len - len_f
   val ((*void*)) = qsort<a> (A, succ(st+len_f), pred(len_r))
 in
   // nothing
-end else () // end of [if]
-)
+end // end of [then]
+else () // end of [else]
+//
+) (* end of [qsort] *)
 
 (* ****** ****** *)
 
@@ -121,7 +125,13 @@ fun loop
   in
     if sgn <= 0
       then loop (k1, succ(k2))
-      else (array0_swap(A, k1, k2); loop (succ(k1), succ(k2)))
+      else let
+        val () =
+          array0_swap (A, k1, k2)
+        // end of [val]
+      in
+        loop (succ(k1), succ(k2))
+      end // end of [else]
     // end of [if]
   end else k1 // end of [loop]
 //

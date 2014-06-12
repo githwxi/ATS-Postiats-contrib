@@ -43,20 +43,16 @@ UN = "prelude/SATS/unsafe.sats"
 //
 extern
 fun{a:vt0p}
-array_insertsort$cmp
-  (x1: &RD(a), x2: &RD(a)):<> int
-extern
-fun{a:vt0p}
 array_insertsort
   {n:int}
 (
   A: &(@[INV(a)][n]) >> @[a][n], n: size_t n
 ) :<!wrt> void // end of [array_insertsort]
+extern
+fun{a:vt0p}
+array_insertsort$cmp (x1: &RD(a), x2: &RD(a)):<> int
 //
-implement
-{a}(*tmp*)
-array_insertsort$cmp
-  (x1, x2) = gcompare_ref<a> (x1, x2)
+(* ****** ****** *)
 //
 implement
 {a}(*tmp*)
@@ -103,6 +99,12 @@ loop{n:nat} .<n>.
 in
   if n >= 2 then $effmask_all (loop (ptr_succ<a> (p0), pred(n))) else ()
 end // end of [array_insertsort]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array_insertsort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
 //
 (* ****** ****** *)
 
