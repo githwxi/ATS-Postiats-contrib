@@ -61,11 +61,12 @@ randgen_val<int> () = randint (MYMAX)
 in (* in-of-local *)
 
 fun
-genScript{n:int}
+genScript
 (
-  out: FILEref, asz: size_t(n)
+  out: FILEref, asz: size_t
 ) : (array0 (int), list0(int2)) = let
 //
+val asz = g1ofg0 (asz)
 val A =
 randgen_arrayref<int> (asz)
 //
@@ -113,6 +114,11 @@ staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_t
 dynload "./gtkcairotimer_toplevel.dats"
 
 (* ****** ****** *)
+//
+val theASZ =
+  ref<size_t> (i2sz(96))
+//
+(* ****** ****** *)
 
 local
 //
@@ -121,7 +127,7 @@ val () = srandom_with_time ()
 val xy0 = ref<int2> ((~1, 0))
 //
 val (A0, xys0) =
-  genScript (stdout_ref, i2sz(96))
+  genScript (stdout_ref, !theASZ)
 //
 val theExchlst2 = ref<list0(int2)> (xys0)
 //

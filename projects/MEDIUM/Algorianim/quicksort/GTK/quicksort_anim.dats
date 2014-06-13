@@ -41,10 +41,11 @@ a:t@ype
 (* ****** ****** *)
 
 extern
-fun{a:t@ype}
-qsort_partition
+fun{
+a:t@ype
+} partition
   (A: array0 (a), st: size_t, len: size_t): size_t
-// end of [qsort_partition]
+// end of [partition]
 
 (* ****** ****** *)
 
@@ -55,10 +56,12 @@ qsort (A, st, len) =
 if
 len >= 2
 then let
-  val len_f = qsort_partition<a> (A, st, len)
-  val ((*void*)) = qsort<a> (A, st, len_f)
-  val len_r = len - len_f
-  val ((*void*)) = qsort<a> (A, succ(st+len_f), pred(len_r))
+//
+  val lenf = partition (A, st, len)
+//
+  val ((*void*)) = qsort<a> (A, st, lenf)
+  val ((*void*)) = qsort<a> (A, succ(st+lenf), pred(len-lenf))
+//
 in
   // nothing
 end // end of [then]
@@ -107,7 +110,7 @@ end // end of [gcompare_val]
 (* ****** ****** *)
 
 implement
-qsort_partition<myint>
+partition<myint>
   (A, st, len) = let
 //
 val last = pred(st+len)
@@ -140,7 +143,7 @@ val () = array0_swap (A, k1, last)
 //
 in
   (k1 - st)
-end // end of [qort_partition]
+end // end of [partition]
 
 (* ****** ****** *)
 
@@ -302,16 +305,15 @@ main0{n}
   argc, argv
 ) = let
 //
-val N = 100
-val N =
-(
+val N = 96
+val N = (
 if argc >= 2
   then g0string2int(argv[1]) else N
 // end of [if]
 ) : int // end of [val]
 val N = g1ofg0_int(N)
 val () = assertloc (N >= 0)
-val N = i2sz(N)
+val N = i2sz (N)
 //
 val seed = time_get ()
 val seed = $UN.cast{lint}(seed)
