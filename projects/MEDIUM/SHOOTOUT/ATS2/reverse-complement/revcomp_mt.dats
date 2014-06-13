@@ -2,7 +2,15 @@
 ** The Great Computer Language Shootout
 ** http://shootout.alioth.debian.org/
 **
-** contributed by Hongwei Xi (hwxi AT cs DOT bu DOT edu)
+** contributed by Hongwei Xi (gmhwxiATgmailDOTcom)
+*)
+
+(* ****** ****** *)
+
+(*
+revcomp_mt: revcomp_mt.dats ; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
+  -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@ -lpthread
 *)
 
 (* ****** ****** *)

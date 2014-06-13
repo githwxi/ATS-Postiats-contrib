@@ -2,10 +2,15 @@
 ** The Great Computer Language Shootout
 ** http://shootout.alioth.debian.org/
 **
-** contributed by Hongwei Xi (hwxi AT cs DOT bu DOT edu)
-**
-** compilation command:
-**   patscc -O3 -fomit-frame-pointer pidigits.dats -o pidigits -lgmp
+** contributed by Hongwei Xi (gmhwxiATgmailDOTcom)
+*)
+
+(* ****** ****** *)
+
+(*
+pidigits: pidigits.dats ; \
+$(PATSCC) -I${PATSHOMERELOC}/contrib \
+  -pipe -O3 -fomit-frame-pointer -march=native $< -o $@ -lgmp
 *)
 
 (* ****** ****** *)
