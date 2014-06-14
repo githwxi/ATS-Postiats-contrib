@@ -1,13 +1,13 @@
 //
-// Animating Quicksort
+// Animating Mergesort
 //
 (* ****** ****** *)
-
+//
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 //
 staload
@@ -25,146 +25,71 @@ staload _ = "libats/ML/DATS/array0.dats"
 extern
 fun{
 a:t@ype
-} array0_swap
-  (A: array0 (a), i: size_t, j: size_t): void
-// end of [array0_swap]
+} mergesort (A: array0 (a)): void
 
 (* ****** ****** *)
-
+//  
 extern
 fun{
 a:t@ype
-} qsort (
-  A: array0 (a), st: size_t, len: size_t
-) : void // end of [qsort]
-
+} mergesort2
+  (A: array0 (a), i: int, j: int): void
+// 
 (* ****** ****** *)
-
+//
+implement
+{a}(*tmp*)
+mergesort (A) =
+  mergesort2<a> (A, 0, sz2i(A.size))
+//
+(* ****** ****** *)
+//
 extern
 fun{
 a:t@ype
-} partition
-  (A: array0 (a), st: size_t, len: size_t): size_t
-// end of [partition]
-
+} sortedmerge
+  (A: array0 (a), i: int, split: int, j: int): void
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-qsort (A, st, len) =
-(
+mergesort2
+  (A, i, j) = let
+//
+val len = j - i
+//
+in
+//
 if
 len >= 2
 then let
-//
-  val lenf = partition (A, st, len)
-//
-  val ((*void*)) = qsort<a> (A, st, lenf)
-  val ((*void*)) = qsort<a> (A, succ(st+lenf), pred(len-lenf))
-//
+  val split = i + half(len)
+  val ((*void*)) = mergesort2 (A, i, split)
+  val ((*void*)) = mergesort2 (A, split, j)
+  val ((*void*)) = sortedmerge (A, i, split, j)
 in
   // nothing
 end // end of [then]
 else () // end of [else]
 //
-) (* end of [qsort] *)
-
-(* ****** ****** *)
-
-#define MYMAX 1000
-
-(* ****** ****** *)
-
-datatype myint =
-MYINT of (int(*value*), int(*color*))
+end // end of [mergesort2]
 
 (* ****** ****** *)
 
 extern
-fun fprint_myint (FILEref, myint): void
-
-overload fprint with fprint_myint
-overload fprint with fprint_array0
-
-(* ****** ****** *)
-
-implement
-fprint_myint (out, x) = let
-  val+MYINT (i, _) = x in fprint (out, i)
-end // end of [fprint_myint]
-
-implement
-fprint_val<myint> (out, x) = fprint (out, x)
-
-(* ****** ****** *)
-
-implement
-gcompare_val<myint>
-  (x1, x2) = let
-  val+MYINT(i1, _) = x1
-  and MYINT(i2, _) = x2
-in
-  g0int_compare_int (i1, i2)
-end // end of [gcompare_val]
-
-(* ****** ****** *)
-
-implement
-partition<myint>
-  (A, st, len) = let
-//
-val last = pred(st+len)
-val pivot = A[last] // need randomness?
-val+MYINT(v, c) = pivot
-val pivot = MYINT(v, 1) // coloring the pivot
-val () = A[last] := pivot
-//
-fun loop
-(
-  k1: size_t, k2: size_t
-) : size_t =
-  if k2 < last then let
-    val sgn = gcompare_val<myint> (pivot, A[k2])
-  in
-    if sgn <= 0
-      then loop (k1, succ(k2))
-      else let
-        val () =
-          array0_swap (A, k1, k2)
-        // end of [val]
-      in
-        loop (succ(k1), succ(k2))
-      end // end of [else]
-    // end of [if]
-  end else k1 // end of [loop]
-//
-val k1 = loop (st, st)
-val () = array0_swap (A, k1, last)
-//
-in
-  (k1 - st)
-end // end of [partition]
-
-(* ****** ****** *)
-
+fun snapshot_pop (): array0(int)
 extern
-fun myintqsort (A: array0(myint)): void
-
-(* ****** ****** *)
-
+fun snapshot_push (A: array0(int)): void
 extern
-fun snapshot_pop (): array0(myint)
-extern
-fun snapshot_push (A: array0(myint)): void
-extern
-fun snapshot_reverse (): void
+fun snapshot_reverse ((*void*)): void
 
 (* ****** ****** *)
 
 local
 //
 val theSnapshots =
-  ref<list0(array0(myint))> (list0_nil)
+  ref<list0(array0(int))> (list0_nil)
 //
 in (* in of [local] *)
 
@@ -181,7 +106,7 @@ implement
 snapshot_push (A) = let
   val A = array0_copy (A)
 in
-  !theSnapshots := list0_cons{array0(myint)}(A, !theSnapshots)
+  !theSnapshots := list0_cons{array0(int)}(A, !theSnapshots)
 end // end of [snapshot_push]
 
 implement
@@ -191,22 +116,71 @@ end // end of [local]
 
 (* ****** ****** *)
 
+extern
+fun{
+a:t@ype
+} subcirculate
+  (A: array0 (a), i: int, j: int): void
+
+(* ****** ****** *)
+
 implement
-myintqsort (A) = let
+{a}(*tmp*)
+subcirculate
+  (A0, i, j) = let
 //
-implement
-array0_swap<myint>
-  (A, i, j) =
-{
-  val tmp = A[i]
-  val () = A[i] := A[j]
-  val () = A[j] := tmp
-  val () = snapshot_push (A)
-}
+val i = g1ofg0 (i)
+val j = g1ofg0 (j)
+val () = assertloc (i >= 0)
+and () = assertloc (j >= 0)
+val i = i2sz (i) and j = i2sz (j)
+val [n:int] (A, n) = array0_get_refsize (A0)
+val () = assertloc (i < n)
+and () = assertloc (j < n)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
 //
 in
-  qsort<myint> (A, i2sz(0), A.size)
-end // end of [intqsort]
+  array_subcirculate (!p, i, j)
+end // end of [subcirculate]
+
+(* ****** ****** *)
+
+implement
+sortedmerge<int>
+  (A, i, split, j) = let
+in
+//
+if
+i < split && split < j
+then let
+//
+val sgn = gcompare_val<int> (A[i], A[split])
+//
+in
+//
+if sgn <= 0
+  then let
+    val () = snapshot_push (A)
+  in
+    sortedmerge<int> (A, i+1, split, j)
+  end // end of [then]
+  else let
+    val () =
+    subcirculate (A, i, split)
+    val () = snapshot_push (A)
+  in
+    sortedmerge<int> (A, i, split+1, j)
+  end // end of [else]
+//
+end // end of [then]
+else () // end of [else]
+//
+end // end of [sortedmerge]
+
+(* ****** ****** *)
+
+#define MYMAX 100
 
 (* ****** ****** *)
 
@@ -217,7 +191,7 @@ staload "{$CAIRO}/SATS/cairo.sats"
 fun
 draw_array0
 (
-  cr: !xr1, A: array0 (myint)
+  cr: !xr1, A: array0 (int)
 ) : void = let
 //
 val n = A.size
@@ -231,14 +205,10 @@ in
 //
 if i < n then let
   val Ai = A[i]
-  val+MYINT(v, c) = Ai
   val xul = $UN.cast{double}(i)
-  val yul = 1.0 * g0i2f(MYMAX-v)
-  val () =
-    if c = 0 then cairo_set_source_rgb (cr, 0.0, 0.0, 1.0) // blue
-  val () =
-    if c = 1 then cairo_set_source_rgb (cr, 1.0, 0.0, 0.0) // red
-  val () = cairo_rectangle (cr, xul, yul, 1.0, g0i2f(v))
+  val yul = 1.0 * g0i2f(MYMAX-Ai)
+  val () = cairo_set_source_rgb (cr, 0.0, 0.0, 1.0)
+  val () = cairo_rectangle (cr, xul, yul, 1.0, g0i2f(Ai))
   val () = cairo_fill (cr)
 in
   loop (cr, succ(i))
@@ -322,8 +292,8 @@ val ((*void*)) = srand48 (seed)
 implement{
 } randint{n}(n) =
   $UN.cast{natLt(n)}(0.99 * drand48 () * n)
-implement
-randgen_val<myint> () = MYINT(randint(MYMAX), 0)
+//
+implement randgen_val<int> () = randint(MYMAX)
 //
 val A = randgen_arrayref (N)
 val A = array0_make_arrayref (A, N)
@@ -335,7 +305,7 @@ val () = snapshot_push (A)
 (*
 val () = fprintln! (out, "A(bef) = ", A)
 *)
-val () = myintqsort (A)
+val () = mergesort<int> (A)
 (*
 val () = fprintln! (out, "A(aft) = ", A)
 *)
@@ -362,4 +332,4 @@ end // end of [main0]
 
 (* ****** ****** *)
 
-(* end of [quicksort_anim.dats] *)
+(* end of [mergesort_anim.dats] *)
