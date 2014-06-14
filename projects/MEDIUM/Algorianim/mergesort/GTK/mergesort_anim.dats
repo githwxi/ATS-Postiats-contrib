@@ -293,7 +293,7 @@ implement{
 } randint{n}(n) =
   $UN.cast{natLt(n)}(0.99 * drand48 () * n)
 //
-implement randgen_val<int> () = randint(MYMAX)
+implement randgen_val<int> () = 1+randint(MYMAX)
 //
 val A = randgen_arrayref (N)
 val A = array0_make_arrayref (A, N)
