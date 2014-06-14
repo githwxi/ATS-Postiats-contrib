@@ -318,7 +318,7 @@ gtkcairotimer_title<>
 // argumentless
 ) = stropt_some"QuicksortAnimation"
 implement
-gtkcairotimer_timeout_interval<> () = 50U // millisecs
+gtkcairotimer_timeout_interval<> () = 75U // millisecs
 implement
 gtkcairotimer_mydraw<> (cr, width, height) = mydraw_clock (cr, width, height)
 //
