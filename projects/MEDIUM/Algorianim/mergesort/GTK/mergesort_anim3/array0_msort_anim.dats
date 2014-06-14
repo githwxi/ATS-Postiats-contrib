@@ -1,5 +1,6 @@
 //
-// Animating Quicksort
+// HX-2014-06-12:
+// Animating parallel quicksort
 //
 (* ****** ****** *)
 //
@@ -52,185 +53,36 @@ typedef int2 = (int, int)
 
 local
 //
-val theCirclst =
-  ref<list0(int2)> (nil0())
+staload "./array0_msort.dats"
 //
-in (* in-of-local *)
-
-fun
-theCirclst_add
-  (i1: int, i2: int): void =
-(
-  !theCirclst := cons0 ((i1, i2), !theCirclst)
-)
-
-fun
-theCirclst_get_all
-(
-// argumentlst
-) : list0(int2) = let
-  val xys = !theCirclst
-  val ((*void*)) = !theCirclst := nil0((*void*))
-in
-  list0_reverse (xys)
-end // end of [theCirclst_get_all]
-
-end // end of [local]
-
-(* ****** ****** *)
-
-extern
-fun{
-a:t@ype
-} mergesort (A: array0 (a)): void
-
-(* ****** ****** *)
-//  
-extern
-fun{
-a:t@ype
-} mergesort2
-  (A: array0 (a), i: int, j: int): void
-// 
-(* ****** ****** *)
-//
-implement
-{a}(*tmp*)
-mergesort (A) =
-  mergesort2<a> (A, 0, sz2i(A.size))
-//
-(* ****** ****** *)
-//
-extern
-fun{
-a:t@ype
-} sortedmerge
-  (A: array0 (a), i: int, split: int, j: int): void
-//
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-mergesort2
-  (A, i, j) = let
-//
-val len = j - i
-//
-in
-//
-if
-len >= 2
-then let
-  val split = i + half(len)
-  val ((*void*)) = mergesort2 (A, i, split)
-  val ((*void*)) = mergesort2 (A, split, j)
-  val ((*void*)) = sortedmerge (A, i, split, j)
-in
-  // nothing
-end // end of [then]
-else () // end of [else]
-//
-end // end of [mergesort2]
-
-(* ****** ****** *)
-
-extern
-fun{
-a:t@ype
-} subcirculate
-  (A: array0 (a), i: int, j: int): void
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-subcirculate
-  (A0, i, j) = let
-//
-val i = g1ofg0 (i)
-val j = g1ofg0 (j)
-val () = assertloc (i >= 0)
-and () = assertloc (j >= 0)
-val i = i2sz (i) and j = i2sz (j)
-val [n:int] (A, n) = array0_get_refsize (A0)
-val () = assertloc (i < n)
-and () = assertloc (j < n)
-//
-val (vbox pf | p) = arrayref_get_viewptr (A)
-//
-in
-  array_subcirculate (!p, i, j)
-end // end of [subcirculate]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-sortedmerge
-  (A, i, split, j) = let
-in
-//
-if
-i < split && split < j
-then let
-//
-val sgn = gcompare_val<a> (A[i], A[split])
-//
-in
-//
-if sgn <= 0
-  then let
-    val () = theCirclst_add (i, i)
-  in
-    sortedmerge<a> (A, i+1, split, j)
-  end // end of [then]
-  else let
-    val () = theCirclst_add (i, split)
-    val () = subcirculate (A, i, split)
-  in
-    sortedmerge<a> (A, i, split+1, j)
-  end // end of [else]
-//
-end // end of [then]
-else () // end of [else]
-//
-end // end of [sortedmerge]
-
-(* ****** ****** *)
-
-local
-
 implement
 randgen_val<int> () = randint (MYMAX)
-
+//
 in (* in-of-local *)
 
 fun
-genScript{n:int}
+genScript
 (
-  out: FILEref, asz: size_t(n)
-) :
-(
-  array0 (int), list0(int2)
-) = let
+  out: FILEref, asz: size_t
+) : (array0 (int), list0(int2)) = let
 //
+val asz = g1ofg0 (asz)
 val A =
 randgen_arrayref<int> (asz)
 //
 val A = array0 (A, asz)
 val A2 = array0_copy (A)
 //
-val () = mergesort (A2)
+val xys = array0_msort (A2)
 //
 (*
-val () = fprint (out, A, asz)
-val () = fprint_newline (out)
-val () = fprint (out, A2, asz)
-val () = fprint_newline (out)
+val () = fprintln! (out, "A = ", A)
+val () = fprintln! (out, "A2 = ", A2)
+val () = fprintln! (out, "xys = ", xys)
 *)
 //
 in
-  (A, theCirclst_get_all ())
+  (A, xys)
 end (* end of [genScript] *)
 
 end // end of [local]
@@ -262,6 +114,11 @@ staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_t
 dynload "./gtkcairotimer_toplevel.dats"
 
 (* ****** ****** *)
+//
+val theASZ =
+  ref<size_t> (i2sz(96))
+//
+(* ****** ****** *)
 
 local
 //
@@ -270,7 +127,7 @@ val () = srandom_with_time ()
 val xy0 = ref<int2> ((~1, 0))
 //
 val (A0, xys0) =
-  genScript (stdout_ref, i2sz(96))
+  genScript (stdout_ref, !theASZ)
 //
 val theCirclst2 = ref<list0(int2)> (xys0)
 //
@@ -288,7 +145,10 @@ val () = srandom_with_time ()
 //
 var i: size_t
 val () = !xy0 := ((~1, 0))
-val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
+//
+val () =
+for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
+//
 val () = !theCirclst2 := xys0
 //
 } (* end of [ASZ_reset] *)
@@ -311,7 +171,9 @@ ASZ_update () = let
   val i = ij.0 and j = ij.1
 //
 in
-  if i >= 0 then subcirculate (ASZ, i, j)
+  if i >= 0
+    then array0_subcirculate (ASZ, g0i2u(i), g0i2u(j))
+  // end of [if]
 end (* end of [ASZ_update] *)
 
 end // end of [local]
@@ -456,7 +318,7 @@ gtkcairotimer_title<>
 // argumentless
 ) = stropt_some"QuicksortAnimation"
 implement
-gtkcairotimer_timeout_interval<> () = 100U // millisecs
+gtkcairotimer_timeout_interval<> () = 50U // millisecs
 implement
 gtkcairotimer_mydraw<> (cr, width, height) = mydraw_clock (cr, width, height)
 //
@@ -468,4 +330,4 @@ end // end of [main0]
 
 (* ****** ****** *)
 
-(* end of [quicksort_anim2.dats] *)
+(* end of [array0_qsort_anim.dats] *)
