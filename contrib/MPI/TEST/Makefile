@@ -8,12 +8,20 @@ MPICC=mpicc
 
 ######
 
+all::
+regress::
+
+######
+
+all:: \
+mpi_hello
 mpi_hello: \
 mpi_hello.c ; $(MPICC) -o $@ $<
 
 ######
 
-test:: mpi_hello; mpirun -n 4 ./mpi_hello
+regress:: \
+mpi_hello; mpirun -n 4 ./mpi_hello
 
 ######
 

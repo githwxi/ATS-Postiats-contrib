@@ -30,7 +30,7 @@
 
 %{#
 //
-#include "openssl/CATS/evp.cats"
+#include "OpenSSL/CATS/evp.cats"
 //
 %} // end of [%{#]
 
