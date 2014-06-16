@@ -42,8 +42,6 @@
 #define
 ATS_PACKNAME "ATSCNTRB.hiredis_ML"
 #define
-ATS_STALOADFLAG 0 // no static loading at run-time
-#define
 ATS_EXTERN_PREFIX "atscntrb_hiredis_ML_" // prefix for external names
 
 (* ****** ****** *)

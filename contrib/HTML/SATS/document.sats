@@ -38,8 +38,6 @@
 (* ****** ****** *)
 
 #define
-ATS_STALOADFLAG 0 // no staloading at run-time
-#define
 ATS_EXTERN_PREFIX "atscntrb_html_" // prefix for external names
 
 (* ****** ****** *)

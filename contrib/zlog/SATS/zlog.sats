@@ -57,8 +57,6 @@
 #define
 ATS_PACKNAME "ATSCNTRB.zlog"
 #define
-ATS_STALOADFLAG 0 // no need for staloading at run-time
-#define
 ATS_EXTERN_PREFIX "atscntrb_" // prefix for external names
 
 (* ****** ****** *)
