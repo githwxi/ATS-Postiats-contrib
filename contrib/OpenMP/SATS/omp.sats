@@ -62,21 +62,12 @@ fun omp_get_thread_num ((*void*)): int = "mac#%"
 
 (* ****** ****** *)
 //
-absview
-omp_barrier_v
-//
 fun
-pragma_omp_barrier_beg
-  (): (omp_barrier_v | void) = "mac#%"
-//
-fun
-pragma_omp_barrier_end
-  (pf: omp_barrier_v | (*void*)): void = "mac#%"
+pragma_omp_barrier (): void = "mac#%"
 //
 (* ****** ****** *)
 //
-absview
-omp_parallel_private_v
+absview omp_parallel_private_v
 //
 fun
 pragma_omp_parallel_private_beg

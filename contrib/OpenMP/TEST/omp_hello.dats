@@ -58,8 +58,8 @@ val () = tid := omp_get_thread_num ()
 val ((*void*)) =
   println! ("Hello from thread [", tid, "]!")
 //
-val (pf2 | ()) =
-pragma_omp_barrier_beg ()
+val () =
+pragma_omp_barrier ()
 //
 val ((*void*)) =
 if (tid = 0) then let
@@ -67,9 +67,6 @@ if (tid = 0) then let
 in
   println! ("There are [", nthreads, "] threads in total")
 end // end of [then] // end of [val]
-//
-val ((*void*)) = 
-pragma_omp_barrier_end (pf2 | (*void*))
 //
 val ((*void*)) =
 pragma_omp_parallel_private_end (pf | (*void*))

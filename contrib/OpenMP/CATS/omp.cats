@@ -69,11 +69,8 @@ atscntrb_openmp_omp_get_thread_num() omp_get_thread_num()
 /* ****** ****** */
 //
 #define \
-atscntrb_openmp_pragma_omp_barrier_beg() \
-  { _Pragma(atscntrb_openmp_STRINGIFY(omp barrier))
-//
-#define \
-atscntrb_openmp_pragma_omp_barrier_end() }
+atscntrb_openmp_pragma_omp_barrier() \
+  _Pragma(atscntrb_openmp_STRINGIFY(omp barrier))
 //
 /* ****** ****** */
 //
