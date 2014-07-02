@@ -9,16 +9,20 @@
 staload
 gtkcairotimer_toplevel =
 {
+//
 #include "./gtkcairotimer_toplevel.dats"
-}
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 
 staload
 mytimer1 =
 {
+//
 #define MYTIMER1_ALL 1; #include "./mytimer1.dats"
-}
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 

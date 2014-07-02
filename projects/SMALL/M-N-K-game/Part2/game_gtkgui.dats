@@ -20,6 +20,11 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
+
+staload
+"libats/SATS/athread.sats"
+
+(* ****** ****** *)
 //
 staload
 "{$GLIB}/SATS/glib.sats"
@@ -37,6 +42,10 @@ staload "./game_gtkgui.sats"
 //
 staload _ =
 "libats/DATS/deqarray.dats"
+//
+staload _ = "libats/DATS/athread.dats"
+staload _ = "libats/DATS/athread_posix.dats"
+//
 staload _ =
 "{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
 //
@@ -419,12 +428,6 @@ end (* end of [game_gtkgui_loop] *)
 (* ****** ****** *)
 
 local
-
-staload "libats/SATS/athread.sats"
-staload _ = "libats/DATS/athread.dats"
-staload _ = "libats/DATS/athread_posix.dats"
-
-in (* in-of-local *)
 //
 val tid =
 athread_create_cloptr_exn
@@ -434,7 +437,7 @@ athread_create_cloptr_exn
 val () = println! ("The id of the created thread is [", tid, "].")
 *)
 //
-end // end of [local]
+in (*nothing*) end
 
 (* ****** ****** *)
 
