@@ -12,8 +12,13 @@
 //
 (* ****** ****** *)
 
-staload UN =
-"prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
+staload
+STRING = "libc/SATS/string.sats"
 
 (* ****** ****** *)
 
@@ -86,12 +91,11 @@ end // end of [utfpleval_fileref]
 
 (* ****** ****** *)
 //
-dynload
-"./utfpl_dynloadall.dats"
-dynload
-"./parsing/dynloadall.dats"
-dynload
-"./evaluating/dynloadall.dats"
+dynload "./utfpl_dynloadall.dats"
+dynload "./parsing/dynloadall.dats"
+dynload "./evaluating/dynloadall.dats"
+//
+(* ****** ****** *)
 //
 dynload "./utfpleval_symenv.dats"
 //
