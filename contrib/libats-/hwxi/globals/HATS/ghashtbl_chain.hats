@@ -91,8 +91,17 @@ extern
 fun takeout_all (): List0_vt @(key, itm)
 
 (* ****** ****** *)
-//
+
 local
+//
+staload
+UNSAFE = "prelude/SATS/unsafe.sats"
+//
+staload "libats/SATS/hashtbl_chain.sats"
+//
+staload _ = "libats/DATS/hashfun.dats"
+staload _ = "libats/DATS/linmap_list.dats"
+staload _ = "libats/DATS/hashtbl_chain.dats"
 //
 val the_hashtbl =
   hashtbl_make_nil<key,itm> (i2sz(CAPACITY))
@@ -232,7 +241,7 @@ prval ((*void*)) = $UNSAFE.cast2void (htbl)
 (* ****** ****** *)
 
 end // end of [local]
-//
+
 (* ****** ****** *)
 
 (* end of [ghashtbl_chain.hats] *)

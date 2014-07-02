@@ -61,24 +61,20 @@ cleanall:: ; $(RMF) test03
 ######
 
 test04: \
-  test04.dats \
-  gdeqarray.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^
+  test04.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^
 cleanall:: ; $(RMF) test04
 
 ######
 
 test05-1: \
-  test05-1.dats \
-  ghashtbl_chain.dats ; \
+  test05-1.dats ; \
   $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
 cleanall:: ; $(RMF) test05-1
 
 ######
 
 test05-2: \
-  test05-2.dats \
-  ghashtbl_linprb.dats ; \
+  test05-2.dats ; \
   $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
 cleanall:: ; $(RMF) test05-2
 

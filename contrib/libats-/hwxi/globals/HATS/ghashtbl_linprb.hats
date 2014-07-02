@@ -81,8 +81,16 @@ extern
 fun takeout_opt (k0: key): Option_vt (itm)
 //
 (* ****** ****** *)
-//
+
 local
+//
+staload
+UNSAFE = "prelude/SATS/unsafe.sats"
+//
+staload "libats/SATS/hashtbl_linprb.sats"
+//
+staload _ = "libats/DATS/hashfun.dats"
+staload _ = "libats/DATS/hashtbl_linprb.dats"
 //
 val the_hashtbl =
   hashtbl_make_nil<key,itm> (i2sz(CAPACITY))
@@ -196,7 +204,7 @@ end (* end of [takeout_opt] *)
 (* ****** ****** *)
 
 end // end of [local]
-//
+
 (* ****** ****** *)
 
 (* end of [ghashtbl_linprb.hats] *)

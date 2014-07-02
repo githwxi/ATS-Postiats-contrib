@@ -10,11 +10,16 @@
 //
 (* ****** ****** *)
 
-dynload "./gdeqarray.dats"
-
-(* ****** ****** *)
-
-staload D = "./gdeqarray.dats"
+staload D =
+{
+//
+typedef T = double
+//
+#define CAPACITY1 1024
+//
+#include "./../HATS/gdeqarray.hats"
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 

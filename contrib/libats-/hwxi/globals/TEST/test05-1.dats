@@ -10,11 +10,20 @@
 //
 (* ****** ****** *)
 
-dynload "./ghashtbl_chain.dats"
-
-(* ****** ****** *)
-
-staload HT = "./ghashtbl_chain.dats"
+staload HT =
+{
+typedef key = string
+typedef itm = int(*0/1*)
+//
+#define CAPACITY 1024
+//
+(*
+implement hashtbl$recapacitize<> () = 0
+*)
+//
+#include "./../HATS/ghashtbl_chain.hats"
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 
@@ -76,4 +85,4 @@ val () = assertloc (cptr2ptr($HT.search_ref ("Postiats")) = 0)
 
 (* ****** ****** *)
 
-(* end of [test05.dats] *)
+(* end of [test05-1.dats] *)

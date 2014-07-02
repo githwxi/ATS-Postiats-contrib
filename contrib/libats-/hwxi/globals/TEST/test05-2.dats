@@ -10,11 +10,20 @@
 //
 (* ****** ****** *)
 
-dynload "./ghashtbl_linprb.dats"
-
-(* ****** ****** *)
-
-staload HT = "./ghashtbl_linprb.dats"
+staload HT =
+{
+typedef key = string
+typedef itm = int(*0/1*)
+//
+#define CAPACITY 1024
+//
+(*
+implement hashtbl$recapacitize<> () = 0
+*)
+//
+#include "./../HATS/ghashtbl_linprb.hats"
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 

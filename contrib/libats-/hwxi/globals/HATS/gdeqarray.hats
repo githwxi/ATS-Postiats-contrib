@@ -91,6 +91,13 @@ fun takeout_atend_opt ((*void*)): Option_vt (T)
 
 local
 //
+staload
+UNSAFE = "prelude/SATS/unsafe.sats"
+//
+staload "libats/SATS/deqarray.sats"
+//
+staload _ = "libats/DATS/deqarray.dats"
+//
 #define
 CAPACITY (CAPACITY1-1)
 //
