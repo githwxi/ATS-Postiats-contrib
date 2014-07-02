@@ -48,13 +48,17 @@ extern fun pop_all (): List0_vt (T)
 (* ****** ****** *)
 
 local
-
+//
+#include
+"share/atspre_staload.hats"
+//
 vtypedef TS = List0_vt (T)
+//
 var _stack: TS = list_vt_nil(*void*)
+//
 val r_stack =
   ref_make_viewptr{TS}(view@_stack | addr@_stack)
-// end of [val]
-
+//
 (* ****** ****** *)
 
 in (* in of [local] *)

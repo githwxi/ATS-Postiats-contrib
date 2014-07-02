@@ -18,6 +18,10 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
 
+PATSLIB=$(PATSHOME)/ccomp/atslib/lib
+
+######
+
 PATSCCOMP=$(CC) -D_XOPEN_SOURCE -I${PATSHOME} -I${PATSHOME}/ccomp/runtime
 
 ######
@@ -34,48 +38,45 @@ all:: test01
 all:: test02
 all:: test03
 all:: test04
-all:: test05
+all:: test05-1
 all:: test05-2
 
 ######
 
 test01: \
-  test01.dats \
-  intvar.dats floatvar.dats ; $(PATSCC) -o $@ $^
+  test01.dats ; $(PATSCC) -o $@ $<
 cleanall:: ; $(RMF) test01
 
 ######
 
 test02: \
-  test02.dats gcount1.dats gcount2.dats ; $(PATSCC) -o $@ $^
+  test02.dats ; $(PATSCC) -o $@ $<
 cleanall:: ; $(RMF) test02
 
 ######
 
 test03: \
-  test03.dats \
-  gstacklst.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^
+  test03.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
 cleanall:: ; $(RMF) test03
 
 ######
 
 test04: \
-  test04.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^
+  test04.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
 cleanall:: ; $(RMF) test04
 
 ######
 
 test05-1: \
   test05-1.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
+  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $< -L$(PATSLIB) -latslib
 cleanall:: ; $(RMF) test05-1
 
 ######
 
 test05-2: \
   test05-2.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $^ -L${PATSHOME}/ccomp/atslib/lib -latslib
+  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $< -L$(PATSLIB) -latslib
 cleanall:: ; $(RMF) test05-2
 
 ######

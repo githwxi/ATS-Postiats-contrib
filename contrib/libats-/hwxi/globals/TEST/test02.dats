@@ -5,8 +5,27 @@
 
 (* ****** ****** *)
 
-staload C1 = "./gcount1.dats"
-staload C2 = "./gcount2.dats"
+staload C1 =
+{
+//
+staload _(*anon*) =
+"prelude/DATS/integer.dats"
+//
+#include "./../HATS/gcount.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
+staload C2 =
+{
+//
+staload _(*anon*) =
+"prelude/DATS/integer.dats"
+//
+#include "./../HATS/gcount.hats"
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 

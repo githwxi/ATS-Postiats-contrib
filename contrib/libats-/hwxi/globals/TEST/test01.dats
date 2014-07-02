@@ -5,8 +5,29 @@
 
 (* ****** ****** *)
 
-staload I = "./intvar.dats"
-staload F = "./floatvar.dats"
+staload I =
+{
+//
+typedef T = int
+//
+fun initize (x: &T? >> T): void = x := 0
+//
+#include "./../HATS/globvar.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
+staload F =
+{
+//
+typedef T = double
+//
+fun initize (x: &T? >> T): void = x := 0.0
+//
+#include "./../HATS/globvar.hats"
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 

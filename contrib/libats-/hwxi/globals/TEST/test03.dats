@@ -5,7 +5,14 @@
 
 (* ****** ****** *)
 
-staload S = "./gstacklst.dats"
+staload S =
+{
+//
+typedef T = int
+//
+#include "./../HATS/gstacklst.hats"
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 
