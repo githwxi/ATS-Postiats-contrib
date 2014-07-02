@@ -196,7 +196,7 @@ end (* end of [takeout_opt] *)
 (* ****** ****** *)
 
 end // end of [local]
-//
+
 (* ****** ****** *)
 
 (* end of [ghashtbl_linprb.hats] *)

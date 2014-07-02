@@ -232,7 +232,7 @@ prval ((*void*)) = $UNSAFE.cast2void (htbl)
 (* ****** ****** *)
 
 end // end of [local]
-//
+
 (* ****** ****** *)
 
 (* end of [ghashtbl_chain.hats] *)
