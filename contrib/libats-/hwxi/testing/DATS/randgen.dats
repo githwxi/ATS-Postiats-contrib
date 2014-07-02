@@ -92,12 +92,11 @@ implement{a}
 randgen_ref (x) = x := randgen_val<a> ()
 
 (* ****** ****** *)
-
+//
 implement{a}
-randgen_list (n) =
-  list_vt2t(randgen_list_vt<a>(n))
-// end of [randgen_list]
-
+randgen_list
+  (n) = list_vt2t(randgen_list_vt<a>(n))
+//
 implement{a}
 randgen_list_vt
   (n) = res where
@@ -128,8 +127,8 @@ end // end of [loop]
 var res: ptr // uninitialized
 val () = loop (n, res)
 //
-} // end of [randgen_list_vt]
-
+} (* end of [randgen_list_vt] *)
+//
 (* ****** ****** *)
 
 implement{a}

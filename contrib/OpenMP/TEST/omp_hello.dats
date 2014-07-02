@@ -16,8 +16,6 @@ staload "./../SATS/omp.sats"
 (* ****** ****** *)
 
 (*
-#if(0)
-
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,8 +37,6 @@ int main
   }
   return EXIT_SUCCESS;
 } /* end of [main] */
-
-#endif // end of [#if(0)]
 *)
 
 (* ****** ****** *)

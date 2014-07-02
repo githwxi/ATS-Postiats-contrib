@@ -1,6 +1,6 @@
 (*
-** HX-2013-06:
-** Toplevel list-based stack
+** HX-2014:
+** Toplevel array-based deque
 *)
 
 (* ****** ****** *)
