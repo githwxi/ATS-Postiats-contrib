@@ -12,6 +12,7 @@
 
 staload HT =
 {
+//
 typedef key = string
 typedef itm = int(*0/1*)
 //
