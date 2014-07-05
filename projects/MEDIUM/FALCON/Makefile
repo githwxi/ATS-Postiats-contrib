@@ -37,14 +37,16 @@ SOURCES_DATS_O_main := \
 SOURCES_DATS_O_cmdline := \
   $(patsubst %.dats, %_dats.o, $(SOURCES_DATS_cmdline))
 #
-all:: falcon_main
+all:: \
+falcon_main
 falcon_main: \
   $(SOURCES_SATS_O) \
   $(SOURCES_DATS_O_main) ; \
   $(PATSCC) $(INCLUDE) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 cleanall:: ; $(RMF) falcon_main
 #
-all:: falcon_cmdline
+all:: \
+falcon_cmdline
 falcon_cmdline: \
   $(SOURCES_SATS_O) \
   $(SOURCES_DATS_O_cmdline) ; \

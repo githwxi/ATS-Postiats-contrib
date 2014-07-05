@@ -40,6 +40,7 @@ staload "./cstream.sats"
 //
 staload
 SBF = "libats/SATS/stringbuf.sats"
+vtypedef stringbuf = $SBF.stringbuf
 //
 (* ****** ****** *)
 
@@ -63,8 +64,9 @@ tokener_get_token (lxbf: !tokener(a)): (a)
 //
 fun{
 token:type
-} tokener_get_token$main (
-  cs0: !cstream, i0: &int >> _, sbf: !($SBF.stringbuf)
+} tokener_get_token$main
+(
+  cs0: !cstream, i0: &int >> _, sbf: !stringbuf
 ) : token // end of [tokener_get_token$main]
 //
 (* ****** ****** *)

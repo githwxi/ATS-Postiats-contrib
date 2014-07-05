@@ -39,7 +39,9 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload "./../SATS/intinf.sats"
-vtypedef intinf_vt (i:int) = intinf_vtype (i)
+//
+vtypedef
+intinf_vt (i:int) = intinf_vtype (i)
 //
 (* ****** ****** *)
 //
