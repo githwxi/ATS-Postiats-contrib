@@ -58,8 +58,8 @@ main0 () =
 {
 //
 val out = stdout_ref
-val () = fprintln! (out, "fib(10) = ", gfib<intinf> (10))
-val () = fprintln! (out, "fib(100) = ", gfib<intinf> (100))
+val () = fprintln! (out, "fib(10) = ", gfib<int> (10))
+val () = fprintln! (out, "fib(50) = ", gfib<lint> (50))
 val () = fprintln! (out, "fib(1000) = ", gfib<intinf> (1000))
 //
 } (* end of [main0] *)
