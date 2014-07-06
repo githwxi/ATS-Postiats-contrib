@@ -45,6 +45,22 @@ cleanall:: ; $(RMF) test04
 
 ######
 
+all:: test05
+test05: test05.dats ; \
+$(PATSCC) -cleanaft \
+  -IIATS $(PATSHOMEQ)/contrib -DATS_MEMALLOC_LIBC -o $@ $< -lgmp
+cleanall:: ; $(RMF) test05
+
+######
+
+all:: test06
+test06: test06.dats ; \
+$(PATSCC) -cleanaft \
+  -IIATS $(PATSHOMEQ)/contrib -DATS_MEMALLOC_LIBC -o $@ $< -lgmp
+cleanall:: ; $(RMF) test06
+
+######
+
 RMF=rm -f
 
 ######

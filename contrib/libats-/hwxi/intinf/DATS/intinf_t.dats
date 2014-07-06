@@ -50,22 +50,27 @@ staload VT = "./../SATS/intinf_vt.sats"
 //
 (* ****** ****** *)
 //
-implement{}
+implement
+{}(*tmp*)
 intinf_make_int
   (i) = intinf_vt2t ($VT.intinf_make_int (i))
-implement{}
+implement
+{}(*tmp*)
 intinf_make_uint
   (i) = intinf_vt2t ($VT.intinf_make_uint (i))
-implement{}
+implement
+{}(*tmp*)
 intinf_make_lint
   (i) = intinf_vt2t ($VT.intinf_make_lint (i))
-implement{}
+implement
+{}(*tmp*)
 intinf_make_ulint
   (i) = intinf_vt2t ($VT.intinf_make_ulint (i))
 //
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 intinf_get_int (x) = let
 //
 val
@@ -79,7 +84,8 @@ in
   (i)
 end // end of [intinf_get_int]
 
-implement{}
+implement
+{}(*tmp*)
 intinf_get_lint (x) = let
 //
 val
@@ -95,7 +101,8 @@ end // end of [intinf_get_lint]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 intinf_get_string
   (x, base) = let
 //
@@ -112,7 +119,20 @@ end (* end of [intinf_get_string] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
+print_intinf (x) = fprint_intinf (stdout_ref, x)
+implement
+{}(*tmp*)
+prerr_intinf (x) = fprint_intinf (stderr_ref, x)
+implement
+{}(*tmp*)
+fprint_intinf (out, x) = fprint_intinf_base (out, x, 10(*base*))
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 fprint_intinf_base
   (out, x, base) =
 {
@@ -125,13 +145,6 @@ val () = $VT.fprint_intinf_base (out, x, base)
 prval () = fpf (x)
 //
 } (* fprint_intinf_base *)
-
-implement{}
-print_intinf (x) = fprint_intinf (stdout_ref, x)
-implement{}
-prerr_intinf (x) = fprint_intinf (stderr_ref, x)
-implement{}
-fprint_intinf (out, x) = fprint_intinf_base (out, x, 10(*base*))
 
 (* ****** ****** *)
 
@@ -169,14 +182,17 @@ end (* end of [abs_intinf] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 succ_intinf (x) = add_intinf_int (x, 1)
-implement{}
+implement
+{}(*tmp*)
 pred_intinf (x) = sub_intinf_int (x, 1)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 add_intinf_int (x, y) = let
 //
 val
@@ -191,7 +207,8 @@ in
   intinf_vt2t (z)
 end // end of [add_intinf_int]
 
-implement{}
+implement
+{}(*tmp*)
 add_int_intinf (x, y) = let
 //
 val
@@ -206,7 +223,8 @@ in
   intinf_vt2t (z)
 end // end of [add_int_intinf]
 
-implement{}
+implement
+{}(*tmp*)
 add_intinf_intinf
   (x, y) = let
 //
@@ -228,7 +246,8 @@ end (* end of [add_intinf_intinf] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 sub_intinf_int (x, y) = let
 //
 val
@@ -243,7 +262,8 @@ in
   intinf_vt2t (z)
 end // end of [sub_intinf_int]
 
-implement{}
+implement
+{}(*tmp*)
 sub_int_intinf (x, y) = let
 //
 val
@@ -258,7 +278,8 @@ in
   intinf_vt2t (z)
 end // end of [sub_int_intinf]
 
-implement{}
+implement
+{}(*tmp*)
 sub_intinf_intinf
   (x, y) = let
 //
@@ -280,7 +301,8 @@ end (* end of [sub_intinf_intinf] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 mul_intinf_int (x, y) = let
 //
 val
@@ -295,7 +317,8 @@ in
   intinf_vt2t (z)
 end // end of [mul_intinf_int]
 
-implement{}
+implement
+{}(*tmp*)
 mul_int_intinf (x, y) = let
 //
 val
@@ -310,7 +333,8 @@ in
   intinf_vt2t (z)
 end // end of [mul_int_intinf]
 
-implement{}
+implement
+{}(*tmp*)
 mul_intinf_intinf
   (x, y) = let
 //
@@ -332,7 +356,8 @@ end (* end of [mul_intinf_intinf] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 div_intinf_int (x, y) = let
 //
 val
@@ -347,7 +372,8 @@ in
   intinf_vt2t (z)
 end // end of [div_intinf_int]
 
-implement{}
+implement
+{}(*tmp*)
 div_intinf_intinf
   (x, y) = let
 //
@@ -369,7 +395,8 @@ end (* end of [div_intinf_intinf] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 nmod_intinf_int (x, y) = let
 //
 val
@@ -386,7 +413,8 @@ end // end of [nmod_intinf_int]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 compare_intinf_int
   (x, y) = let
 //
@@ -401,7 +429,8 @@ in
   sgn (* HX: -1/0/1 *)
 end (* end of [compare_intinf_int] *)
 
-implement{}
+implement
+{}(*tmp*)
 compare_int_intinf
   (x, y) = let
 //
@@ -416,7 +445,8 @@ in
   sgn (* HX: -1/0/1 *)
 end (* end of [compare_int_intinf] *)
 
-implement{}
+implement
+{}(*tmp*)
 compare_intinf_intinf
   (x, y) = let
 //
@@ -438,7 +468,8 @@ end (* end of [compare_intinf_intinf] *)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 pow_intinf_int
   (base, exp) = let
 //
