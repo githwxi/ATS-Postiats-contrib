@@ -1,7 +1,7 @@
 (*
 **
 //
-// Generic factorial
+// Generic Fibonacci
 //
 ** Author: Hongwei Xi
 ** Authoremail: hwxi AT gmail DOT com
@@ -14,11 +14,6 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "./../SATS/intinf.sats"
-staload "./../SATS/intinf_t.sats"
-
-(* ****** ****** *)
 //
 staload "./../DATS/gintinf_t.dats"
 //
@@ -28,7 +23,9 @@ staload _ = "./../DATS/intinf_vt.dats"
 (* ****** ****** *)
 
 extern
-fun{a:t@ype} gfib (x: int): a
+fun{
+a:t@ype
+} gfib (x: int): a
 
 (* ****** ****** *)
 
@@ -36,14 +33,19 @@ implement
 {a}(*tmp*)
 gfib (x) = let
 //
-macdef ggt = ggt_val<a>
-//
 macdef gadd = gadd_val<a>
 //
 macdef gint = gnumber_int<a>
 //
-fun loop (x: int, res1: a, res2: a): a =
-  if x >= 1 then loop (x-1, res2, res1 \gadd res2) else res1
+fun loop
+(
+  x: int, res1: a, res2: a
+) : a =
+(
+  if x >= 1
+    then loop (x-1, res2, res1 \gadd res2) else res1
+  // end of [if]
+)
 //
 in
   loop (x, gint(0), gint(1))
@@ -56,7 +58,9 @@ main0 () =
 {
 //
 val out = stdout_ref
-val () = fprintln! (out, "fib(100) = ", gfib<intinf> (1000))
+val () = fprintln! (out, "fib(10) = ", gfib<intinf> (10))
+val () = fprintln! (out, "fib(100) = ", gfib<intinf> (100))
+val () = fprintln! (out, "fib(1000) = ", gfib<intinf> (1000))
 //
 } (* end of [main0] *)
 

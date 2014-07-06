@@ -14,11 +14,6 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "./../SATS/intinf.sats"
-staload "./../SATS/intinf_t.sats"
-
-(* ****** ****** *)
 //
 staload "./../DATS/gintinf_t.dats"
 //
@@ -42,7 +37,7 @@ macdef gint = gnumber_int<a>
 //
 in
 //
-if x > 0 then gint(x) \gmul gfact<a> (x - 1) else gint(1)
+if x > 0 then gint(x) \gmul gfact<a> (x-1) else gint(1)
 //
 end // end of [gfact]
 //

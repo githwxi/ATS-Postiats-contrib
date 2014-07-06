@@ -187,6 +187,47 @@ end // end of [gmul_val]
 (* ****** ****** *)
 
 implement
+gdiv_val<intinf>
+  (x1, x2) = let
+//
+val x1 = g1ofg0(x1)
+and x2 = g1ofg0(x2)
+//
+val sgn = compare_intinf_int (x2, 0)
+//
+in
+//
+if
+sgn != 0
+then let
+//
+val y =
+$effmask_all(div_intinf_intinf(x1, x2))
+//
+in
+  g0ofg1_intinf(y)
+end // end of [then]
+else
+  $raise IllegalArgExn("gdiv_val<intinf>:division-by-zero")
+//
+end // end of [gdiv_val]
+
+(* ****** ****** *)
+
+implement
+gequal_val<intinf>
+  (x1, x2) = let
+//
+val sgn =
+  gcompare_val<intinf> (x1, x2)
+//
+in
+  if sgn = 0 then true else false
+end // end of [gequal_val]
+
+(* ****** ****** *)
+
+implement
 gcompare_val<intinf>
   (x1, x2) = let
   val x1 = g1ofg0(x1)
