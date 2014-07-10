@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-emitparse
+// ATS-parsemit
 //
 (* ****** ****** *)
 //
@@ -8,8 +8,8 @@
 //
 (* ****** ****** *)
 
-staload "./emitparse.sats"
+staload "./atsparemit.sats"
 
 (* ****** ****** *)
 
-(* end of [emitparse_lexing.dats] *)
+(* end of [atsparemit_lexing.dats] *)

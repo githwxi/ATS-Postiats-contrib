@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-emitparse
+// ATS-parsemit
 //
 (* ****** ****** *)
 //
@@ -13,7 +13,7 @@
 //
 (* ****** ****** *)
 
-staload "./emitparse.sats"
+staload "./atsparemit.sats"
 
 (* ****** ****** *)
 //
@@ -109,4 +109,4 @@ val () = fprint_string (out, ")")
 
 (* ****** ****** *)
 
-(* end of [emitparse_posloc.dats] *)
+(* end of [atsparemit_posloc.dats] *)

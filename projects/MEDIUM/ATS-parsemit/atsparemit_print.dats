@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-emitparse
+// ATS-parsemit
 //
 (* ****** ****** *)
 //
@@ -8,7 +8,7 @@
 //
 (* ****** ****** *)
 
-staload "./emitparse.sats"
+staload "./atsparemit.sats"
 
 (* ****** ****** *)
 //
@@ -21,12 +21,14 @@ prerr_filename
 // 
 (* ****** ****** *)
 //
+(*
 implement
 print_position
   (pos) = fprint_position (stdout_ref, pos)
 implement
 prerr_position
   (pos) = fprint_position (stderr_ref, pos)
+*)
 // 
 (* ****** ****** *)
 //
@@ -79,4 +81,4 @@ fprint_token (out, tok) =
 //
 (* ****** ****** *)
 
-(* end of [emitparse_print.dats] *)
+(* end of [atsparemit_print.dats] *)

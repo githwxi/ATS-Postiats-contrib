@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-emitparse
+// ATS-parsemit
 //
 (* ****** ****** *)
 //
@@ -13,7 +13,7 @@
 //
 (* ****** ****** *)
 
-staload "./emitparse.sats"
+staload "./atsparemit.sats"
 
 (* ****** ****** *)
 //
@@ -43,4 +43,4 @@ end // end of [fprint_filename]
 
 (* ****** ****** *)
 
-(* end of [emitparse_fname.dats] *)
+(* end of [atsparemit_fname.dats] *)

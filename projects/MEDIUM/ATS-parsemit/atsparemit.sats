@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-emitparse
+// ATS-parsemit
 //
 (* ****** ****** *)
 //
@@ -142,4 +142,4 @@ fun fprint_token : fprint_type (token)
 
 (* ****** ****** *)
 
-(* end of [emitparse.sats] *)
+(* end of [atsparemit.sats] *)
