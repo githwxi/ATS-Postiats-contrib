@@ -63,7 +63,7 @@ position =
 , pos_ntot= int
 , pos_nrow= int
 , pos_ncol= int
-} (* end of [pos_struct] *)
+} (* end of [position] *)
 
 (* ****** ****** *)
 //
