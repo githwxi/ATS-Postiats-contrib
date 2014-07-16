@@ -29,10 +29,19 @@ fun
 print_filename : (fil_t) -> void
 fun
 prerr_filename : (fil_t) -> void
+overload print with print_filename
+overload prerr with prerr_filename
 //
 fun
 fprint_filename : fprint_type (fil_t)
 overload fprint with fprint_filename
+//
+(* ****** ****** *)
+//
+fun the_filename_pop ((*void*)): fil_t
+fun the_filename_push (fil: fil_t): void
+//
+fun the_filename_get ((*void*)): fil_t
 //
 (* ****** ****** *)
 (*
@@ -67,12 +76,14 @@ position =
 
 (* ****** ****** *)
 //
-fun position_incby1 (pos: &position): void
+fun position_incby1 (pos: &position >> _): void
 //
 fun
-position_decby (pos: &position, n: uint): void
+position_decby (pos: &position >> _, n: uint): void
 fun
-position_incby (pos: &position, n: uint): void
+position_incby (pos: &position >> _, n: uint): void
+//
+fun position_incby_char (pos: &position >> _, c: char): void
 //
 (* ****** ****** *)
 //
@@ -101,6 +112,15 @@ fun
 fprint_locrange : fprint_type (loc_t)
 //
 (* ****** ****** *)
+//
+fun
+location_make_pos_pos
+  (pos1: &position, pos2: &position): loc_t
+fun
+location_make_fil_pos_pos
+  (fil: fil_t, pos1: &position, pos2: &position): loc_t
+//
+(* ****** ****** *)
 
 datatype
 token_node =
@@ -123,6 +143,8 @@ token_node =
 | T_COMMENT_line of () // line comment
 | T_COMMENT_block of () // block comment
 //
+| T_EOF of () // end-of-file
+//
 // end of [token_node]
 
 (* ****** ****** *)
@@ -139,6 +161,83 @@ typedef token = '{
 
 fun fprint_tnode : fprint_type (tnode)
 fun fprint_token : fprint_type (token)
+
+(* ****** ****** *)
+//
+fun
+token_make (loc: loc_t, node: tnode): token
+//
+(* ****** ****** *)
+//
+datatype
+lexerr_node =
+  | LEXERR_STRING_unclosed of ()
+  | LEXERR_UNSUPPORTED_char of (char)
+//
+typedef lexerr = '{
+  lexerr_loc= loc_t, lexerr_node= lexerr_node
+} (* end of [lexerr] *)
+//
+(* ****** ****** *)
+
+fun fprint_lexerr : fprint_type (lexerr)
+
+(* ****** ****** *)
+//
+fun
+lexerr_make
+  (loc: loc_t, node: lexerr_node): lexerr
+//
+(* ****** ****** *)
+//
+fun the_lexerrlst_clear (): void
+//
+fun the_lexerrlst_add (err: lexerr): void
+//
+(* ****** ****** *)
+//
+absvt@ype lexbuf_vt0ype
+//
+vtypedef lexbuf = lexbuf_vt0ype
+//
+(* ****** ****** *)
+
+fun lexbuf_clear (buf: &lexbuf >> _?): void
+
+(* ****** ****** *)
+//
+fun
+lexbuf_set_position
+  (buf: &lexbuf >> _, pos: &position): void
+fun
+lexbuf_get_position
+  (buf: &lexbuf, pos: &position? >> _): void
+//
+(* ****** ****** *)
+
+fun lexbuf_set_nback (buf: &lexbuf, nb: int): void
+
+(* ****** ****** *)
+
+fun lexbuf_get_nspace (buf: &lexbuf): int
+fun lexbuf_set_nspace (buf: &lexbuf, n: int): void
+
+(* ****** ****** *)
+
+fun lexbuf_get_char (buf: &lexbuf >> _): int
+
+(* ****** ****** *)
+
+fun lexbuf_remove (buf: &lexbuf >> _, nchr: int): void
+
+(* ****** ****** *)
+
+fun lexbuf_get_token (buf: &lexbuf >> _): token
+
+(* ****** ****** *)
+
+fun lexbufpos_diff (buf: &lexbuf, pos: &position): int
+fun lexbufpos_get_location (buf: &lexbuf, pos: &position): loc_t
 
 (* ****** ****** *)
 

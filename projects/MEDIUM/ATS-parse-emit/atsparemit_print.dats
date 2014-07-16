@@ -71,6 +71,8 @@ case+ x0 of
 | T_COMMENT_block () =>
     fprint! (out, "COMMENTblock(", ")")
 //
+| T_EOF () => fprint! (out, "EOF(", ")")
+//
 end // end of [fprint_tnode]
 
 (* ****** ****** *)

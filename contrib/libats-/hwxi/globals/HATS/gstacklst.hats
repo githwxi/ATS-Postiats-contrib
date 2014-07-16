@@ -47,6 +47,17 @@ extern fun pop_all (): List0_vt (T)
 
 (* ****** ****** *)
 
+extern fun getref_top (): cPtr0 (T)
+
+(* ****** ****** *)
+//
+// HX: these need to be implemented
+//
+extern fun get_top_exn (): T
+extern fun get_top_opt (): Option_vt(T)
+//
+(* ****** ****** *)
+
 local
 //
 #include
@@ -119,6 +130,36 @@ push (x) = let
 in
   !p := list_vt_cons{T}(x, !p)
 end // end of [push]
+
+(* ****** ****** *)
+
+implement
+getref_top () = let
+  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
+in
+  case+ !p of
+  | list_vt_nil
+      ((*void*)) => cptr_null()
+  | @list_vt_cons (x, _) => let
+      val res = addr@(x)
+      prval () = fold@(!p) in $UNSAFE.cast{cPtr1(T)}(res)
+    end // end of [list_cons]
+end // end of [getref_top]
+
+(* ****** ****** *)
+
+implement
+get_top_exn () = let
+  val p = getref_top ()
+  val () = assertloc (isneqz(p)) in $UNSAFE.cptr_get(p)
+end // end of [get_top_exn]
+
+implement
+get_top_opt () = let
+  val p = getref_top ()
+in
+  if isneqz(p) then Some_vt($UNSAFE.cptr_get(p)) else None_vt()
+end // end of [get_top_opt]
 
 (* ****** ****** *)
 

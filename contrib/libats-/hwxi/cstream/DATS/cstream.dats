@@ -63,7 +63,7 @@ cstream_free
   (cs0) = () where
 {
 //
-  val+@CS (cstruct) = cs0
+  val+@CS(cstruct) = cs0
   val () = cstruct.free (addr@(cstruct.data))
   val ((*void*)) = free@cs0
 //
@@ -77,7 +77,7 @@ cstream_get_char
   (cs0) = ret where
 {
 //
-  val+@CS (cstruct) = cs0
+  val+@CS(cstruct) = cs0
   val ret = cstruct.getc (addr@(cstruct.data))
   prval ((*void*)) = fold@cs0
 //

@@ -4,6 +4,11 @@
 *)
 
 (* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
 
 staload S =
 {
@@ -26,10 +31,15 @@ val () = $S.push(1)
 val () = println! ("$S.push(1)")
 val () = $S.push(2)
 val () = println! ("$S.push(2)")
+val () = println! ("$S.get_top_exn() = ", $S.get_top_exn())
+//
 val () = println! ("$S.pop_exn() = ", $S.pop_exn())
 val () = println! ("$S.pop_exn() = ", $S.pop_exn())
+//
 val () = $S.push(3)
 val () = println! ("$S.push(3)")
+val () = println! ("$S.get_top_exn() = ", $S.get_top_exn())
+//
 val () = println! ("$S.pop_exn() = ", $S.pop_exn())
 val () = println! ("$S.pop_exn() = ", $S.pop_exn())
 //

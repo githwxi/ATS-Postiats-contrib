@@ -108,5 +108,55 @@ val () = fprint_string (out, ")")
 } (* end of [fprint_locrange] *)
 
 (* ****** ****** *)
+  
+implement
+position_incby_char
+  (pos, c) = let
+//
+val () = pos.pos_ntot := pos.pos_ntot+1
+//
+in
+//
+case+ c of
+| '\n' =>
+  {
+    val () = pos.pos_ncol := 0
+    val () = pos.pos_nrow := pos.pos_nrow+1
+  }
+| _ (*rest*) =>
+  {
+    val () = pos.pos_ncol := pos.pos_ncol+1
+  }
+//
+end // end of [position_incby_char]
+  
+(* ****** ****** *)
+
+implement
+location_make_pos_pos
+  (p1, p2) = let
+//
+val fil = the_filename_get ()
+//
+in
+  location_make_fil_pos_pos (fil, p1, p2)
+end // end of [location_make_pos_pos]
+
+(* ****** ****** *)
+
+implement
+location_make_fil_pos_pos
+  (fil, p1, p2) =
+'{
+  fil= fil
+, beg_ntot= p1.pos_ntot
+, beg_nrow= p1.pos_nrow
+, beg_ncol= p1.pos_ncol
+, end_ntot= p2.pos_ntot
+, end_nrow= p2.pos_nrow
+, end_ncol= p2.pos_ncol
+} (* end of [location_make_fil_pos_pos] *)
+
+(* ****** ****** *)
 
 (* end of [atsparemit_posloc.dats] *)

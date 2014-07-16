@@ -23,11 +23,13 @@ SOURCES_SATS += atsparemit.sats
 ######
 #
 SOURCES_DATS += atsparemit_main.dats
+SOURCES_DATS += atsparemit_mylib.dats
 #
 SOURCES_DATS += atsparemit_print.dats
 SOURCES_DATS += atsparemit_fname.dats
 SOURCES_DATS += atsparemit_posloc.dats
 SOURCES_DATS += atsparemit_global.dats
+SOURCES_DATS += atsparemit_lexbuf.dats
 SOURCES_DATS += atsparemit_lexing.dats
 #
 ######
