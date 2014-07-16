@@ -225,8 +225,6 @@ extern
 fun
 lexing_IDENT_alp (buf: &lexbuf): token
 //
-(* ****** ****** *)
-
 implement
 lexing_IDENT_alp
   (buf) = let
@@ -236,15 +234,136 @@ val nchr1 = succ(nchr)
 val name = lexbuf_takeout (buf, nchr1)
 val name = strptr2string (name)
 //
-var pos: position
-val () = lexbuf_get_position (buf, pos)
-val () = position_incby (pos, nchr1)
-val loc = lexbufpos_get_location (buf, pos)
-val () = lexbuf_set_position (buf, pos)
+val loc = lexbuf_getincby_location (buf, nchr1)
 //
 in
   token_make (loc, T_IDENT_alp(name))
 end // end of [lexing_IDENT_alp]
+
+(* ****** ****** *)
+//
+#define LPAREN '\('
+#define RPAREN ')';
+#define LBRACE '\{'
+#define RBRACE '}';
+#define LBRACKET '\['
+#define RBRACKET ']';
+//
+//
+extern
+fun
+lexing_LPAREN (buf: &lexbuf): token
+//
+implement
+lexing_LPAREN
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getincby_location (buf, 1)
+//
+in
+  token_make (loc, T_LPAREN)
+end // end of [lexing_LPAREN]
+//
+extern
+fun
+lexing_RPAREN (buf: &lexbuf): token
+//
+implement
+lexing_RPAREN
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getincby_location (buf, 1)
+//
+in
+  token_make (loc, T_RPAREN)
+end // end of [lexing_RPAREN]
+//
+(* ****** ****** *)
+//
+extern
+fun
+lexing_LBRACE (buf: &lexbuf): token
+//
+implement
+lexing_LBRACE
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getincby_location (buf, 1)
+//
+in
+  token_make (loc, T_LBRACE)
+end // end of [lexing_LBRACE]
+//
+extern
+fun
+lexing_RBRACE (buf: &lexbuf): token
+//
+implement
+lexing_RBRACE
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getincby_location (buf, 1)
+//
+in
+  token_make (loc, T_RBRACE)
+end // end of [lexing_RBRACE]
+//
+(* ****** ****** *)
+//
+extern
+fun
+lexing_LBRACKET (buf: &lexbuf): token
+//
+implement
+lexing_LBRACKET
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getincby_location (buf, 1)
+//
+in
+  token_make (loc, T_LBRACKET)
+end // end of [lexing_LBRACKET]
+//
+extern
+fun
+lexing_RBRACKET (buf: &lexbuf): token
+//
+implement
+lexing_RBRACKET
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getincby_location (buf, 1)
+//
+in
+  token_make (loc, T_RBRACKET)
+end // end of [lexing_RBRACKET]
+//
+(* ****** ****** *)
+//
+extern
+fun
+lexing_SHARP (buf: &lexbuf): token
+//
+implement
+lexing_SHARP
+  (buf) = let
+//
+val nchr = testing_identseq0 (buf)
+val nchr1 = succ(nchr)
+val name = lexbuf_takeout (buf, nchr1)
+val name = strptr2string (name)
+//
+val loc = lexbuf_getincby_location (buf, nchr1)
+//
+in
+  token_make (loc, T_IDENT_srp(name))
+end // end of [lexing_SHARP]
 
 (* ****** ****** *)
 
@@ -274,18 +393,21 @@ case+ 0 of
     IDENTFST_test (i0) =>
     lexing_IDENT_alp (buf)
 //
+| _ when i0 = LPAREN => lexing_LPAREN (buf)
+| _ when i0 = RPAREN => lexing_RPAREN (buf)
+| _ when i0 = LBRACE => lexing_LBRACE (buf)
+| _ when i0 = RBRACE => lexing_RBRACE (buf)
+| _ when i0 = LBRACKET => lexing_LBRACKET (buf)
+| _ when i0 = RBRACKET => lexing_RBRACKET (buf)
+//
+| _ when c0 = '#' => lexing_SHARP (buf)
+//
 | _ (*rest-of-char*) => let
 //
 // HX: skipping the unrecognized char
 //
-//
-    var pos: position
-    val () = lexbuf_get_position (buf, pos)
-    val () = position_incby1 (pos)
-    val loc = lexbufpos_get_location (buf, pos)
-    val () = lexbuf_set_position (buf, pos)
-//
     val () = lexbuf_remove_all (buf)
+    val loc = lexbuf_getincby_location (buf, 1)
 //
     val err =
       lexerr_make (loc, LEXERR_UNSUPPORTED_char(c0))
@@ -296,11 +418,9 @@ case+ 0 of
 //
 end // end of [then]
 else let
-  var pos: position
-  val () = lexbuf_get_position (buf, pos)
-  val loc = lexbufpos_get_location (buf, pos)
-in
-  token_make (loc, T_EOF)
+  val loc =
+    lexbuf_getincby_location (buf, 0) in token_make (loc, T_EOF)
+  // end of [val]
 end // end of [else]
 //
 end // end of [lexing_get_token]

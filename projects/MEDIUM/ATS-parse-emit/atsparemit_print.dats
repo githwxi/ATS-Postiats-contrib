@@ -62,9 +62,9 @@ case+ x0 of
 | T_LPAREN () => fprint! (out, "(")
 | T_RPAREN () => fprint! (out, ")")
 | T_LBRACKET () => fprint! (out, "[")
-| T_RBRACKET () => fprint! (out, "[")
-| T_LBRACE () => fprint! (out, "}")
-| T_RBRACE () => fprint! (out, "{")
+| T_RBRACKET () => fprint! (out, "]")
+| T_LBRACE () => fprint! (out, "{")
+| T_RBRACE () => fprint! (out, "}")
 //
 | T_COMMENT_line () =>
     fprint! (out, "COMMENTline(", ")")

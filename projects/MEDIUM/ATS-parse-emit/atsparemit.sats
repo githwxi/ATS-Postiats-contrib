@@ -304,10 +304,10 @@ fun lexbuf_get_char (buf: &lexbuf >> _): int
 fun lexbuf_get_token (buf: &lexbuf >> _): token
 
 (* ****** ****** *)
-
-fun lexbufpos_diff (buf: &lexbuf, pos: &position): int
-fun lexbufpos_get_location (buf: &lexbuf, pos: &position): loc_t
-
+//
+fun lexbufpos_get_location (buf: &lexbuf, pos: &position) : loc_t
+fun lexbuf_getincby_location (buf: &lexbuf, nchr: intGte(0)): loc_t
+//
 (* ****** ****** *)
 
 fun parse_from_fileref (inp: FILEref): void
