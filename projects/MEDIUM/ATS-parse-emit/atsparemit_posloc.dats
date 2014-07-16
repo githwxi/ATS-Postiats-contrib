@@ -19,7 +19,7 @@ staload "./atsparemit.sats"
 //
 implement
 position_incby1
-  (pos) = position_incby (pos, 1u)
+  (pos) = position_incby (pos, 1)
 //
 (* ****** ****** *)
 
@@ -28,8 +28,8 @@ position_decby
   (pos, n) =
 {
 //
-val () = pos.pos_ntot := pos.pos_ntot - (g0u2i)n
-val () = pos.pos_ncol := pos.pos_ncol - (g0u2i)n
+val () = pos.pos_ntot := pos.pos_ntot - n
+val () = pos.pos_ncol := pos.pos_ncol - n
 //
 } (* end of [position_decby] *)
 
@@ -40,8 +40,8 @@ position_incby
   (pos, n) =
 {
 //
-val () = pos.pos_ntot := pos.pos_ntot + (g0u2i)n
-val () = pos.pos_ncol := pos.pos_ncol + (g0u2i)n
+val () = pos.pos_ntot := pos.pos_ntot + n
+val () = pos.pos_ncol := pos.pos_ncol + n
 //
 } (* end of [position_incby] *)
 

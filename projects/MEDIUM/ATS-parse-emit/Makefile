@@ -31,6 +31,7 @@ SOURCES_DATS += atsparemit_posloc.dats
 SOURCES_DATS += atsparemit_global.dats
 SOURCES_DATS += atsparemit_lexbuf.dats
 SOURCES_DATS += atsparemit_lexing.dats
+SOURCES_DATS += atsparemit_parsing.dats
 #
 ######
 

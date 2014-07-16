@@ -23,50 +23,49 @@ staload "./atsparemit.sats"
 
 (* ****** ****** *)
 //
-staload
-SBF = "libats/SATS/stringbuf.sats"
-stadef
-stringbuf = $SBF.stringbuf
-//
 staload _ = "libats/DATS/stringbuf.dats"
-//
-(* ****** ****** *)
-//
-staload
-CS = "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
-stadef cstream = $CS.cstream
-//
 staload _ = "{$LIBATSHWXI}/cstream/DATS/cstream.dats"
 //
 (* ****** ****** *)
 
-vtypedef
-lexbuf_struct =
-@{
-//
-lexbuf_ntot= int
-,
-lexbuf_nrow= int
-,
-lexbuf_ncol= int
-,
-//
-lexbuf_nspace= int
-//
-,
-//
-lexbuf_cstream= cstream
-//
-,
-lexbuf_nback= int
-,
-lexbuf_stringbuf= stringbuf
-//
-} // end of [lexbuf]
+assume lexbuf_vt0ype = _lexbuf_vt0ype
 
 (* ****** ****** *)
 
-assume lexbuf_vt0ype = lexbuf_struct
+implement
+lexbuf_initize_fileref
+  (buf, inp) = () where
+{
+//
+#define BUFCAP 1024
+//
+val cs = $CS.cstream_make_fileref (inp)
+val sbf = $SBF.stringbuf_make_nil (i2sz(BUFCAP))
+//
+val () = buf.lexbuf_ntot := 0
+val () = buf.lexbuf_nrow := 0
+val () = buf.lexbuf_ncol := 0
+//
+val () = buf.lexbuf_nspace := 0
+//
+val () = buf.lexbuf_cstream := cs
+//
+val () = buf.lexbuf_nback := 0
+val () = buf.lexbuf_stringbuf := sbf
+//
+} (* end of [lexbuf_initize_fileref] *)
+
+(* ****** ****** *)
+
+implement
+lexbuf_uninitize
+  (buf) = () where
+{
+//
+val () = $CS.cstream_free (buf.lexbuf_cstream)
+val () = $SBF.stringbuf_free (buf.lexbuf_stringbuf)
+//
+} (* end of [lexbuf_uninitize] *)
 
 (* ****** ****** *)
 
@@ -89,12 +88,65 @@ lexbuf_set_position
 }
 
 (* ****** ****** *)
+
+implement
+lexbuf_set_nback (buf, nb) = buf.lexbuf_nback := nb
+
+(* ****** ****** *)
 //
 implement
 lexbuf_get_nspace (buf) = buf.lexbuf_nspace
 implement
 lexbuf_set_nspace (buf, n) = buf.lexbuf_nspace := n
 //
+(* ****** ****** *)
+
+implement
+lexbuf_remove
+  (buf, nchr) =
+{
+//
+val nchr = i2sz(nchr)
+val () =
+$SBF.stringbuf_remove (buf.lexbuf_stringbuf, nchr)
+//
+val nbuf =
+  $SBF.stringbuf_get_size (buf.lexbuf_stringbuf)
+val ((*void*)) = lexbuf_set_nback (buf, sz2i(nbuf))
+//
+} (* end of [lexbuf_remove] *)
+
+(* ****** ****** *)
+
+implement
+lexbuf_remove_all
+  (buf) = () where
+{
+//
+val () = lexbuf_set_nback (buf, 0)
+val () =
+$SBF.stringbuf_remove_all (buf.lexbuf_stringbuf)
+//
+} (* end of [lexbuf_remove_all] *)
+
+(* ****** ****** *)
+
+implement
+lexbuf_takeout
+  (buf, nchr) = let
+//
+val nchr = i2sz(nchr)
+//
+val strp = 
+  $SBF.stringbuf_takeout (buf.lexbuf_stringbuf, nchr)
+//
+val nbuf = $SBF.stringbuf_get_size (buf.lexbuf_stringbuf)
+val ((*void*)) = lexbuf_set_nback (buf, sz2i(nbuf))
+//
+in
+  strp
+end (* end of [lexbuf_takeout] *)
+
 (* ****** ****** *)
 
 implement
@@ -119,25 +171,13 @@ in
   i(*inserted*)
 end // end of [then]
 else let
-  val nb1 = pred (nb)
-  val () = buf.lexbuf_nback := nb1
+  val nb1 = pred(nb)
+  val ((*void*)) = buf.lexbuf_nback := nb1
 in
   $SBF.stringbuf_get_at (buf.lexbuf_stringbuf, i2sz(nb1))
 end // end of [else]
 //
 end (* end of [lexbuf_get_char] *)
-
-(* ****** ****** *)
-
-implement
-lexbuf_clear
-  (buf) = () where
-{
-//
-val () = $CS.cstream_free (buf.lexbuf_cstream)
-val () = $SBF.stringbuf_free (buf.lexbuf_stringbuf)
-//
-} (* end of [lexbuf_clear] *)
 
 (* ****** ****** *)
 

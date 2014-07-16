@@ -78,8 +78,19 @@ end // end of [fprint_tnode]
 (* ****** ****** *)
 //
 implement
-fprint_token (out, tok) =
-  fprint_tnode (out, tok.token_node)
+print_token
+  (tok) = fprint_token (stdout_ref, tok)
+implement
+prerr_token
+  (tok) = fprint_token (stderr_ref, tok)
+//
+implement
+fprint_token
+  (out, tok) =
+{
+  val () = fprint! (out, tok.token_loc, ": ")
+  val () = fprint_tnode (out, tok.token_node)
+}
 //
 (* ****** ****** *)
 

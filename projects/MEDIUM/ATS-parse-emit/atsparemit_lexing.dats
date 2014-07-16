@@ -228,6 +228,27 @@ lexing_IDENT_alp (buf: &lexbuf): token
 (* ****** ****** *)
 
 implement
+lexing_IDENT_alp
+  (buf) = let
+//
+val nchr = testing_identseq0 (buf)
+val nchr1 = succ(nchr)
+val name = lexbuf_takeout (buf, nchr1)
+val name = strptr2string (name)
+//
+var pos: position
+val () = lexbuf_get_position (buf, pos)
+val () = position_incby (pos, nchr1)
+val loc = lexbufpos_get_location (buf, pos)
+val () = lexbuf_set_position (buf, pos)
+//
+in
+  token_make (loc, T_IDENT_alp(name))
+end // end of [lexing_IDENT_alp]
+
+(* ****** ****** *)
+
+implement
 lexbuf_get_token
   (buf) = let
 //
@@ -248,6 +269,7 @@ val c0 = $UN.cast{charNZ}(i0)
 in
 //
 case+ 0 of
+//
 | _ when
     IDENTFST_test (i0) =>
     lexing_IDENT_alp (buf)
@@ -256,14 +278,18 @@ case+ 0 of
 //
 // HX: skipping the unrecognized char
 //
+//
     var pos: position
     val () = lexbuf_get_position (buf, pos)
     val () = position_incby1 (pos)
     val loc = lexbufpos_get_location (buf, pos)
+    val () = lexbuf_set_position (buf, pos)
+//
+    val () = lexbuf_remove_all (buf)
+//
     val err =
       lexerr_make (loc, LEXERR_UNSUPPORTED_char(c0))
-    val () = the_lexerrlst_add (err)
-    val () = lexbuf_set_position (buf, pos)
+    val () = the_lexerrlst_insert (err)
   in
     lexbuf_get_token (buf)
   end // end of [rest-of-char]

@@ -54,7 +54,7 @@ typedef T = lexerr
 #include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
 //
 implement
-the_lexerrlst_add (x) = push (x)
+the_lexerrlst_insert (x) = push (x)
 //
 } (* end of [staload] *)
 

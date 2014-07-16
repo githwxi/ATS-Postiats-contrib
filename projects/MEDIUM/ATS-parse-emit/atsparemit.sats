@@ -8,6 +8,24 @@
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload
+SBF = "libats/SATS/stringbuf.sats"
+stadef
+stringbuf = $SBF.stringbuf
+//
+(* ****** ****** *)
+//
+staload
+CS = "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
+stadef cstream = $CS.cstream
+//
+(* ****** ****** *)
+//
 typedef
 fprint_type
   (a: t@ype) = (FILEref, a) -> void
@@ -79,9 +97,9 @@ position =
 fun position_incby1 (pos: &position >> _): void
 //
 fun
-position_decby (pos: &position >> _, n: uint): void
+position_decby (pos: &position >> _, n: intGte(0)): void
 fun
-position_incby (pos: &position >> _, n: uint): void
+position_incby (pos: &position >> _, n: intGte(0)): void
 //
 fun position_incby_char (pos: &position >> _, c: char): void
 //
@@ -160,8 +178,19 @@ typedef token = '{
 (* ****** ****** *)
 
 fun fprint_tnode : fprint_type (tnode)
-fun fprint_token : fprint_type (token)
 
+(* ****** ****** *)
+//
+fun
+print_token : (token) -> void
+fun
+prerr_token : (token) -> void
+overload print with print_token
+overload prerr with prerr_token
+//
+fun fprint_token : fprint_type (token)
+overload fprint with fprint_token
+//
 (* ****** ****** *)
 //
 fun
@@ -192,17 +221,50 @@ lexerr_make
 //
 fun the_lexerrlst_clear (): void
 //
-fun the_lexerrlst_add (err: lexerr): void
+fun the_lexerrlst_insert (err: lexerr): void
 //
 (* ****** ****** *)
 //
-absvt@ype lexbuf_vt0ype
+vtypedef
+_lexbuf_vt0ype =
+@{
+//
+lexbuf_ntot= int
+,
+lexbuf_nrow= int
+,
+lexbuf_ncol= int
+,
+//
+lexbuf_nspace= int
+//
+,
+//
+lexbuf_cstream= cstream
+//
+,
+lexbuf_nback= int
+,
+lexbuf_stringbuf= stringbuf
+//
+} // end of [_lexbuf_vt0ype]
+
+(* ****** ****** *)
+
+absvt@ype
+lexbuf_vt0ype = _lexbuf_vt0ype
 //
 vtypedef lexbuf = lexbuf_vt0ype
 //
 (* ****** ****** *)
+//
+fun
+lexbuf_initize_fileref
+  (buf: &lexbuf? >> _, inp: FILEref): void
+//
+(* ****** ****** *)
 
-fun lexbuf_clear (buf: &lexbuf >> _?): void
+fun lexbuf_uninitize (buf: &lexbuf >> _?): void
 
 (* ****** ****** *)
 //
@@ -224,11 +286,18 @@ fun lexbuf_set_nspace (buf: &lexbuf, n: int): void
 
 (* ****** ****** *)
 
-fun lexbuf_get_char (buf: &lexbuf >> _): int
+fun lexbuf_remove
+  (buf: &lexbuf >> _, nchr: intGte(0)): void
+
+fun lexbuf_remove_all (buf: &lexbuf >> _): void
 
 (* ****** ****** *)
 
-fun lexbuf_remove (buf: &lexbuf >> _, nchr: int): void
+fun lexbuf_takeout (buf: &lexbuf >> _, nchr: intGte(0)): Strptr1
+
+(* ****** ****** *)
+
+fun lexbuf_get_char (buf: &lexbuf >> _): int
 
 (* ****** ****** *)
 
@@ -238,6 +307,10 @@ fun lexbuf_get_token (buf: &lexbuf >> _): token
 
 fun lexbufpos_diff (buf: &lexbuf, pos: &position): int
 fun lexbufpos_get_location (buf: &lexbuf, pos: &position): loc_t
+
+(* ****** ****** *)
+
+fun parse_from_fileref (inp: FILEref): void
 
 (* ****** ****** *)
 
