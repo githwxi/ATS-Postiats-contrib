@@ -247,6 +247,7 @@ end // end of [lexing_IDENT_alp]
 (* ****** ****** *)
 //
 #define COMMA ','
+#define SEMICOLON ';'
 //
 #define LPAREN '\('
 #define RPAREN ')';
@@ -465,6 +466,7 @@ case+ 0 of
     IDENTFST_test (i0) => lexing_IDENT_alp (buf)
 //
 | _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
+| _ when i0 = SEMICOLON => lexing_litchar (buf, T_SEMICOLON)
 //
 | _ when i0 = LPAREN => lexing_litchar (buf, T_LPAREN)
 | _ when i0 = RPAREN => lexing_litchar (buf, T_RPAREN)
