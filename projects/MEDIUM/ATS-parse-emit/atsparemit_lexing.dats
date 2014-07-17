@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parsemit
+// ATS-parse-emit
 //
 (* ****** ****** *)
 //
@@ -20,6 +20,10 @@ staload UN = $UNSAFE
 (* ****** ****** *)
 
 staload "./atsparemit.sats"
+
+(* ****** ****** *)
+
+macdef EOL = char2int0('\n')
 
 (* ****** ****** *)
 //
@@ -242,6 +246,8 @@ end // end of [lexing_IDENT_alp]
 
 (* ****** ****** *)
 //
+#define COMMA ','
+//
 #define LPAREN '\('
 #define RPAREN ')';
 #define LBRACE '\{'
@@ -249,100 +255,26 @@ end // end of [lexing_IDENT_alp]
 #define LBRACKET '\['
 #define RBRACKET ']';
 //
-//
-extern
-fun
-lexing_LPAREN (buf: &lexbuf): token
-//
-implement
-lexing_LPAREN
-  (buf) = let
-//
-val () = lexbuf_remove (buf, 1)
-val loc = lexbuf_getincby_location (buf, 1)
-//
-in
-  token_make (loc, T_LPAREN)
-end // end of [lexing_LPAREN]
-//
-extern
-fun
-lexing_RPAREN (buf: &lexbuf): token
-//
-implement
-lexing_RPAREN
-  (buf) = let
-//
-val () = lexbuf_remove (buf, 1)
-val loc = lexbuf_getincby_location (buf, 1)
-//
-in
-  token_make (loc, T_RPAREN)
-end // end of [lexing_RPAREN]
+#define SHARP '#'
+#define SLASH '/'
 //
 (* ****** ****** *)
 //
 extern
 fun
-lexing_LBRACE (buf: &lexbuf): token
+lexing_litchar
+  (buf: &lexbuf, node: tnode): token
 //
 implement
-lexing_LBRACE
-  (buf) = let
+lexing_litchar
+  (buf, node) = let
 //
 val () = lexbuf_remove (buf, 1)
 val loc = lexbuf_getincby_location (buf, 1)
 //
 in
-  token_make (loc, T_LBRACE)
-end // end of [lexing_LBRACE]
-//
-extern
-fun
-lexing_RBRACE (buf: &lexbuf): token
-//
-implement
-lexing_RBRACE
-  (buf) = let
-//
-val () = lexbuf_remove (buf, 1)
-val loc = lexbuf_getincby_location (buf, 1)
-//
-in
-  token_make (loc, T_RBRACE)
-end // end of [lexing_RBRACE]
-//
-(* ****** ****** *)
-//
-extern
-fun
-lexing_LBRACKET (buf: &lexbuf): token
-//
-implement
-lexing_LBRACKET
-  (buf) = let
-//
-val () = lexbuf_remove (buf, 1)
-val loc = lexbuf_getincby_location (buf, 1)
-//
-in
-  token_make (loc, T_LBRACKET)
-end // end of [lexing_LBRACKET]
-//
-extern
-fun
-lexing_RBRACKET (buf: &lexbuf): token
-//
-implement
-lexing_RBRACKET
-  (buf) = let
-//
-val () = lexbuf_remove (buf, 1)
-val loc = lexbuf_getincby_location (buf, 1)
-//
-in
-  token_make (loc, T_RBRACKET)
-end // end of [lexing_RBRACKET]
+  token_make (loc, node)
+end // end of [lexing_litchar]
 //
 (* ****** ****** *)
 //
@@ -364,6 +296,146 @@ val loc = lexbuf_getincby_location (buf, nchr1)
 in
   token_make (loc, T_IDENT_srp(name))
 end // end of [lexing_SHARP]
+
+(* ****** ****** *)
+//
+extern
+fun
+lexing_SLASH (buf: &lexbuf): token
+extern
+fun
+lexing_SLASHSTAR (buf: &lexbuf): token
+extern
+fun
+lexing_SLASHSLASH (buf: &lexbuf): token
+//
+(* ****** ****** *)
+
+implement
+lexing_SLASH
+  (buf) = let
+//
+val i0 = lexbuf_get_char(buf)
+//
+in
+//
+if
+i0 > 0
+then let
+//
+val c0 = int2char0(i0)
+//
+in
+//
+case+ 0 of
+//
+| _ when c0 = '*' => lexing_SLASHSTAR (buf)
+| _ when c0 = '/' => lexing_SLASHSLASH (buf)
+//
+| _ (*rest-of-char*) => lexing_litchar (buf, T_SLASH)
+//
+end // end of [then]
+else lexing_litchar (buf, T_SLASH)
+//
+end // end of [lexing_SLASH]
+
+(* ****** ****** *)
+//
+extern
+fun
+testing_until_literal
+  (buf: &lexbuf >> _, pos: &position >> _, lit: string): intGte(0)
+//
+implement
+testing_until_literal
+  (buf, pos, lit0) = let
+//
+val [n0:int]
+  lit0 = g1ofg0 (lit0)
+val n0 = length (lit0)
+//
+fun
+loop
+  {n:nat | n0 >= n}
+(
+  buf: &lexbuf >> _
+, pos: &position >> _
+, lit: string(n), n: size_t(n)
+, nchr: intGte(0)
+) : intGte(0) = let
+in
+//
+if
+n > 0
+then let
+  val i = lexbuf_get_char (buf)
+in
+//
+if i <= 0
+  then nchr
+  else let
+    val c = int2char0(i)
+    val () = position_incby_char (pos, c)
+  in
+    if c != lit.head
+      then let
+        val np = sz2i(n0 - n)
+        val () = position_decby (pos, np)
+        val () = lexbuf_incby_nback (buf, np)
+      in
+        loop (buf, pos, lit0, n0, succ(nchr))
+      end // end of [then]
+      else (
+        loop (buf, pos, lit.tail, pred(n), succ(nchr))
+      ) (* end of [else] *)
+  end // end of [else]
+//
+end // end of [then]
+else nchr // end of [else]
+//
+end // end of [loop]
+//
+in
+  loop (buf, pos, lit0, n0, 0)
+end // end of [testing_until_literal]
+
+(* ****** ****** *)
+
+implement
+lexing_SLASHSTAR
+  (buf) = let
+//
+var pos: position
+val () = lexbuf_get_position (buf, pos)
+val () = position_incby (pos, 2)
+//
+#define STARSLASH "*/"
+//
+val nchr =
+  testing_until_literal (buf, pos, STARSLASH)
+//
+val () = lexbuf_remove (buf, nchr + 2)
+val loc = lexbufpos_get_location (buf, pos)
+val ((*void*)) = lexbuf_set_position (buf, pos)
+//
+in
+  token_make (loc, T_COMMENT_block)
+end // end of [lexing_SLASHSTAR]
+
+(* ****** ****** *)
+
+implement
+lexing_SLASHSLASH
+  (buf) = let
+//
+val nchr =
+ftesting_seq0 (buf, lam i => i != EOL)
+val () = lexbuf_remove_all (buf)
+val loc = lexbuf_getincby_location (buf, nchr)
+//
+in
+  token_make (loc, T_COMMENT_line)
+end // end of [lexing_SLASHSLASH]
 
 (* ****** ****** *)
 
@@ -390,17 +462,20 @@ in
 case+ 0 of
 //
 | _ when
-    IDENTFST_test (i0) =>
-    lexing_IDENT_alp (buf)
+    IDENTFST_test (i0) => lexing_IDENT_alp (buf)
 //
-| _ when i0 = LPAREN => lexing_LPAREN (buf)
-| _ when i0 = RPAREN => lexing_RPAREN (buf)
-| _ when i0 = LBRACE => lexing_LBRACE (buf)
-| _ when i0 = RBRACE => lexing_RBRACE (buf)
-| _ when i0 = LBRACKET => lexing_LBRACKET (buf)
-| _ when i0 = RBRACKET => lexing_RBRACKET (buf)
+| _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
 //
-| _ when c0 = '#' => lexing_SHARP (buf)
+| _ when i0 = LPAREN => lexing_litchar (buf, T_LPAREN)
+| _ when i0 = RPAREN => lexing_litchar (buf, T_RPAREN)
+| _ when i0 = LBRACE => lexing_litchar (buf, T_LBRACE)
+| _ when i0 = RBRACE => lexing_litchar (buf, T_RBRACE)
+| _ when i0 = LBRACKET => lexing_litchar (buf, T_LBRACKET)
+| _ when i0 = RBRACKET => lexing_litchar (buf, T_RBRACKET)
+//
+| _ when c0 = SHARP => lexing_SHARP (buf)
+//
+| _ when i0 = SLASH => lexing_SLASH (buf)
 //
 | _ (*rest-of-char*) => let
 //

@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parsemit
+// ATS-parse-emit
 //
 (* ****** ****** *)
 //
@@ -94,7 +94,8 @@ position =
 
 (* ****** ****** *)
 //
-fun position_incby1 (pos: &position >> _): void
+fun
+position_incby1 (pos: &position >> _): void
 //
 fun
 position_decby (pos: &position >> _, n: intGte(0)): void
@@ -146,6 +147,11 @@ token_node =
 | T_IDENT_alp of string
 | T_IDENT_srp of string
 //
+| T_CHAR of (string)
+//
+| T_FLOAT of (string)
+| T_INTEGER of (string)
+//
 | T_STRING of (string)
 //
 | T_LPAREN of () // (
@@ -157,6 +163,8 @@ token_node =
 //
 | T_COMMA of () // ,
 | T_SEMICOLON of () // ;
+//
+| T_SLASH of () // /
 //
 | T_COMMENT_line of () // line comment
 | T_COMMENT_block of () // block comment
@@ -278,6 +286,7 @@ lexbuf_get_position
 (* ****** ****** *)
 
 fun lexbuf_set_nback (buf: &lexbuf, nb: int): void
+fun lexbuf_incby_nback (buf: &lexbuf, nb: int): void
 
 (* ****** ****** *)
 

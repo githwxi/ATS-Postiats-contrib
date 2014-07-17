@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parsemit
+// ATS-parse-emit
 //
 (* ****** ****** *)
 //
@@ -88,10 +88,15 @@ lexbuf_set_position
 }
 
 (* ****** ****** *)
-
+//
 implement
-lexbuf_set_nback (buf, nb) = buf.lexbuf_nback := nb
-
+lexbuf_set_nback
+  (buf, nb) = buf.lexbuf_nback := nb
+//
+implement
+lexbuf_incby_nback
+  (buf, nb) = buf.lexbuf_nback := buf.lexbuf_nback + nb
+//
 (* ****** ****** *)
 //
 implement

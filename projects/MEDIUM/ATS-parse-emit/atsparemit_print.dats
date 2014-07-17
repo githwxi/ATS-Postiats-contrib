@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parsemit
+// ATS-parse-emit
 //
 (* ****** ****** *)
 //
@@ -48,13 +48,21 @@ in
 //
 case+ x0 of
 //
+| T_CHAR (x) =>
+    fprint! (out, "CHAR(", x, ")")
+//
+| T_FLOAT (x) =>
+    fprint! (out, "FLOAT(", x, ")")
+| T_INTEGER (x) =>
+    fprint! (out, "INTEGER(", x, ")")
+//
+| T_STRING (x) =>
+    fprint! (out, "STRING(", x, ")")
+//
 | T_IDENT_alp (x) =>
     fprint! (out, "IDENT(", x, ")")
 | T_IDENT_srp (x) =>
     fprint! (out, "IDENT#(", x, ")")
-//
-| T_STRING (str) =>
-    fprint! (out, "STRING(", str, ")")
 //
 | T_COMMA () => fprint! (out, ",")
 | T_SEMICOLON () => fprint! (out, ";")
@@ -65,6 +73,8 @@ case+ x0 of
 | T_RBRACKET () => fprint! (out, "]")
 | T_LBRACE () => fprint! (out, "{")
 | T_RBRACE () => fprint! (out, "}")
+//
+| T_SLASH () => fprint! (out, "/")
 //
 | T_COMMENT_line () =>
     fprint! (out, "COMMENTline(", ")")
