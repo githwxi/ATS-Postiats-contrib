@@ -65,6 +65,7 @@ case+ x0 of
     fprint! (out, "IDENT#(", x, ")")
 //
 | T_COMMA () => fprint! (out, ",")
+| T_COLON () => fprint! (out, ":")
 | T_SEMICOLON () => fprint! (out, ";")
 //
 | T_LPAREN () => fprint! (out, "(")

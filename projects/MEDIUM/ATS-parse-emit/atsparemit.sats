@@ -162,6 +162,7 @@ token_node =
 | T_RBRACE of () // }
 //
 | T_COMMA of () // ,
+| T_COLON of () // :
 | T_SEMICOLON of () // ;
 //
 | T_SLASH of () // /

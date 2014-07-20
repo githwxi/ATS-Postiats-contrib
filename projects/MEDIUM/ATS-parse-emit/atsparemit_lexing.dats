@@ -275,6 +275,7 @@ end // end of [lexing_INTEGER_dec]
 (* ****** ****** *)
 //
 #define COMMA ','
+#define COLON ':'
 #define SEMICOLON ';'
 //
 #define LPAREN '\('
@@ -496,6 +497,7 @@ case+ 0 of
 | _ when DIGIT_test (i0) => lexing_INTEGER_dec (buf)
 //
 | _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
+| _ when i0 = COLON => lexing_litchar (buf, T_COLON)
 | _ when i0 = SEMICOLON => lexing_litchar (buf, T_SEMICOLON)
 //
 | _ when i0 = LPAREN => lexing_litchar (buf, T_LPAREN)
