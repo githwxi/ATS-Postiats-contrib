@@ -23,6 +23,31 @@ staload "./atsparemit.sats"
 
 (* ****** ****** *)
 
+fun
+lexbuf_process
+(
+  buf: &lexbuf
+) : void = let
+//
+val tok = lexbuf_get_token (buf)
+//
+in
+//
+case+
+tok.token_node
+of (* case+ *)
+| T_EOF () => ()
+| _ (*non-EOF*) =>
+  {
+    val () =
+    println! ("tok = ", tok)
+    val () =  lexbuf_process (buf)
+  } (* end of [_] *)
+//
+end // end of [lexbuf_process]
+
+(* ****** ****** *)
+
 implement
 parse_from_fileref
   (inp) = let
@@ -31,8 +56,7 @@ var buf: lexbuf
 val () =
   lexbuf_initize_fileref (buf, inp)
 //
-val () = println! (lexbuf_get_token (buf))
-val () = println! (lexbuf_get_token (buf))
+val () = lexbuf_process (buf)
 //
 val () = lexbuf_uninitize (buf)
 //

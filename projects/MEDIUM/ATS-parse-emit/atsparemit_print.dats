@@ -53,8 +53,8 @@ case+ x0 of
 //
 | T_FLOAT (x) =>
     fprint! (out, "FLOAT(", x, ")")
-| T_INTEGER (x) =>
-    fprint! (out, "INTEGER(", x, ")")
+| T_INTEGER (base, x) =>
+    fprint! (out, "INTEGER(", base, "; ", x, ")")
 //
 | T_STRING (x) =>
     fprint! (out, "STRING(", x, ")")

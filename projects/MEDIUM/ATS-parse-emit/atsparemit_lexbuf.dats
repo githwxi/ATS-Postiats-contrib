@@ -179,7 +179,7 @@ else let
   val nb1 = pred(nb)
   val ((*void*)) = buf.lexbuf_nback := nb1
 in
-  $SBF.stringbuf_get_at (buf.lexbuf_stringbuf, i2sz(nb1))
+  $SBF.stringbuf_rget_at (buf.lexbuf_stringbuf, i2sz(nb))
 end // end of [else]
 //
 end (* end of [lexbuf_get_char] *)

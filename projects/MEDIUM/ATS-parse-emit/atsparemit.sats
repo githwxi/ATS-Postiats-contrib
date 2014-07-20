@@ -150,7 +150,7 @@ token_node =
 | T_CHAR of (string)
 //
 | T_FLOAT of (string)
-| T_INTEGER of (string)
+| T_INTEGER of (int(*base*), string)
 //
 | T_STRING of (string)
 //

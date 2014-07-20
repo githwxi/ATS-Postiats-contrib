@@ -128,22 +128,6 @@ fun SIGN_test (c: char): bool = (c = '-' || c = '+')
 //
 extern
 fun
-ftesting_opt
-(
-  buf: &lexbuf, f: int -> bool
-) : intGte(0) // end of [ftesting_opt]
-implement
-ftesting_opt
-  (buf, f) = let
-  val i = lexbuf_get_char (buf)
-in
-  if i > 0 then (if f(i) then 1 else 0) else 0
-end // end of [ftesting_opt]
-//
-(* ****** ****** *)
-//
-extern
-fun
 ftesting_seq0
 (
   buf: &lexbuf >> _, f: int -> bool
@@ -158,14 +142,21 @@ fun loop
 ) : intGte(0) = let
   val i = lexbuf_get_char (buf)
 in
-  if i > 0
-    then (
-      if f(i)
-        then loop (buf, succ(nchr)) else nchr
-      // end of [if]
-    ) (* end of [then] *)
-    else nchr
-  // end of [if]
+//
+if (
+i > 0
+) then (
+//
+if f(i)
+  then
+    loop (buf, succ(nchr))
+  // end of [then]
+  else let
+    val () = lexbuf_incby_nback (buf, 1) in nchr
+  end // end of [else]
+//
+) else (nchr)
+//
 end // end of [loop]
 //
 in
@@ -182,7 +173,8 @@ skip_blankseq0
 //
 fun loop
 (
-  buf: &lexbuf >> _, pos: &position >> _, nchr: intGte(0)
+  buf: &lexbuf >> _
+, pos: &position >> _, nchr: intGte(0)
 ) : intGte(0) = let
 //
 val i = lexbuf_get_char (buf)
@@ -192,7 +184,7 @@ in
 if
 i > 0
 then (
-  if isspace (i)
+  if isspace(i)
     then let
       val c = int2char0 (i)
       val () = position_incby_char (pos, c)
@@ -213,7 +205,7 @@ val () = lexbuf_remove (buf, nchr)
 val () = lexbuf_set_position (buf, pos)
 //
 in
-  nchr  
+  nchr
 end // end of [skip_blankseq0]
 //
 (* ****** ****** *)
@@ -243,6 +235,42 @@ val loc = lexbuf_getincby_location (buf, nchr1)
 in
   token_make (loc, T_IDENT_alp(name))
 end // end of [lexing_IDENT_alp]
+
+(* ****** ****** *)
+//
+fun
+testing_digitseq0
+  (buf: &lexbuf): intGte(0) =
+  ftesting_seq0 (buf, DIGIT_test)
+//
+(* ****** ****** *)
+//
+fun
+testing_intspseq0
+  (buf: &lexbuf): intGte(0) =
+  ftesting_seq0 (buf, INTSP_test)
+//
+(* ****** ****** *)
+//
+extern
+fun
+lexing_INTEGER_dec (buf: &lexbuf): token
+//
+implement
+lexing_INTEGER_dec
+  (buf) = let
+//
+val k0 = testing_digitseq0 (buf)
+val k1 = testing_intspseq0 (buf)
+val nchr = succ(k0 + k1)
+val intrep = lexbuf_takeout (buf, nchr)
+val intrep = strptr2string (intrep)
+//
+val loc = lexbuf_getincby_location (buf, nchr)
+//
+in
+  token_make (loc, T_INTEGER(10, intrep))
+end // end of [lexing_INTEGER_dec]
 
 (* ****** ****** *)
 //
@@ -465,6 +493,8 @@ case+ 0 of
 | _ when
     IDENTFST_test (i0) => lexing_IDENT_alp (buf)
 //
+| _ when DIGIT_test (i0) => lexing_INTEGER_dec (buf)
+//
 | _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
 | _ when i0 = SEMICOLON => lexing_litchar (buf, T_SEMICOLON)
 //
@@ -482,6 +512,9 @@ case+ 0 of
 | _ (*rest-of-char*) => let
 //
 // HX: skipping the unrecognized char
+//
+    val () =
+    println! ("Unrecognized char: c0 = ", c0)
 //
     val () = lexbuf_remove_all (buf)
     val loc = lexbuf_getincby_location (buf, 1)
