@@ -57,6 +57,14 @@ case+ x of
 | ATSthen () => p "ATSthen"
 | ATSelse () => p "ATSelse"
 //
+| ATSreturn () => p "ATSreturn"
+| ATSreturn_void () => p "ATSreturn_void"
+//
+| ATSINSmove () => p "ATSINSmove"
+//
+| ATSPMVi0nt () => p "ATSPMVi0nt"
+| ATSPMVf0loat () => p "ATSPMVf0loat"
+//
 | KWnone () => p "KWnone"
 //
 end // end of [fprint_keyword]

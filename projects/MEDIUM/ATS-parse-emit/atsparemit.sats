@@ -148,6 +148,14 @@ keyword =
   | ATSthen of ()
   | ATSelse of ()
 //
+  | ATSreturn of ()
+  | ATSreturn_void of ()
+//
+  | ATSINSmove of ()
+//
+  | ATSPMVi0nt of ()
+  | ATSPMVf0loat of ()
+//
   | KWnone of ()
 //
 // end of [keyword]

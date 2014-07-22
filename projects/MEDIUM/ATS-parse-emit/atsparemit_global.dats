@@ -94,6 +94,14 @@ val-~None_vt() = $KW.insert_opt ("ATSif", ATSif)
 val-~None_vt() = $KW.insert_opt ("ATSthen", ATSthen)
 val-~None_vt() = $KW.insert_opt ("ATSelse", ATSelse)
 //
+val-~None_vt() = $KW.insert_opt ("ATSreturn", ATSreturn)
+val-~None_vt() = $KW.insert_opt ("ATSreturn_void", ATSreturn_void)
+//
+val-~None_vt() = $KW.insert_opt ("ATSINSmove", ATSINSmove)
+//
+val-~None_vt() = $KW.insert_opt ("ATSPMVi0nt", ATSPMVi0nt)
+val-~None_vt() = $KW.insert_opt ("ATSPMVf0loat", ATSPMVf0loat)
+//
 } (* end of [val] *)
 
 (* ****** ****** *)
