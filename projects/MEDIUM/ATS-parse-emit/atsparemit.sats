@@ -142,7 +142,34 @@ location_make_fil_pos_pos
 (* ****** ****** *)
 
 datatype
+keyword =
+//
+  | ATSif of ()
+  | ATSthen of ()
+  | ATSelse of ()
+//
+  | KWnone of ()
+//
+// end of [keyword]
+
+(* ****** ****** *)
+//
+fun
+fprint_keyword
+  (out: FILEref, x: keyword): void
+//
+overload fprint with fprint_keyword
+//
+(* ****** ****** *)
+
+fun keyword_search (name: string): keyword
+
+(* ****** ****** *)
+
+datatype
 token_node =
+//
+| T_KWORD of keyword
 //
 | T_IDENT_alp of string
 | T_IDENT_sym of string

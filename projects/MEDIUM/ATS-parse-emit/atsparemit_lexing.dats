@@ -289,8 +289,18 @@ val name = strptr2string (name)
 //
 val loc = lexbuf_getincby_location (buf, nchr1)
 //
+val kwd = keyword_search (name)
+//
 in
-  token_make (loc, T_IDENT_alp(name))
+//
+case+ kwd of
+//
+| KWnone () =>
+    token_make (loc, T_IDENT_alp(name))
+  //
+//
+| _ (*keyword*) => token_make (loc, T_KWORD (kwd))
+//
 end // end of [lexing_IDENT_alp]
 
 (* ****** ****** *)

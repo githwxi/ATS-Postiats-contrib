@@ -42,6 +42,28 @@ prerr_location
 (* ****** ****** *)
 
 implement
+fprint_keyword
+  (out, x) = let
+//
+macdef
+p (str) =
+  fprint_string (out, ,(str))
+//
+in
+//
+case+ x of
+//
+| ATSif () => p "ATSif"
+| ATSthen () => p "ATSthen"
+| ATSelse () => p "ATSelse"
+//
+| KWnone () => p "KWnone"
+//
+end // end of [fprint_keyword]
+
+(* ****** ****** *)
+
+implement
 fprint_tnode
   (out, x0) = let
 in
@@ -58,6 +80,9 @@ case+ x0 of
 //
 | T_STRING (x) =>
     fprint! (out, "STRING(", x, ")")
+//
+| T_KWORD (x) =>
+    fprint! (out, "KWORD(", x, ")")
 //
 | T_IDENT_alp (x) =>
     fprint! (out, "IDENT(", x, ")")

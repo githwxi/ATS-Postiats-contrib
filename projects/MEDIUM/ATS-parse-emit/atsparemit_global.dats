@@ -60,4 +60,57 @@ the_lexerrlst_insert (x) = push (x)
 
 (* ****** ****** *)
 
+staload KW =
+{
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+//
+staload "./atsparemit.sats"
+//
+typedef key = string
+typedef itm = keyword
+//
+#define CAPACITY 1024
+//
+//
+staload
+"libats/SATS/hashtbl_linprb.sats"
+//
+implement hashtbl$recapacitize<> () = 0
+//
+#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_linprb.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val-~None_vt() = $KW.insert_opt ("ATSif", ATSif)
+val-~None_vt() = $KW.insert_opt ("ATSthen", ATSthen)
+val-~None_vt() = $KW.insert_opt ("ATSelse", ATSelse)
+//
+} (* end of [val] *)
+
+(* ****** ****** *)
+
+implement
+keyword_search
+  (name) = let
+//
+val cp = $KW.search_ref (name)
+//
+in
+//
+if isneqz(cp)
+  then $UNSAFE.cptr_get<keyword> (cp) else KWnone()
+//
+end // end of [keyword_search]
+
+(* ****** ****** *)
+
 (* end of [atsparemit_global.dats] *)

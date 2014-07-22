@@ -18,10 +18,6 @@ typedef itm = int(*0/1*)
 //
 #define CAPACITY 1024
 //
-(*
-implement hashtbl$recapacitize<> () = 0
-*)
-//
 #include "./../HATS/ghashtbl_chain.hats"
 //
 } (* end of [staload] *)
