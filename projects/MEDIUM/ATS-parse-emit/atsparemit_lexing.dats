@@ -77,6 +77,22 @@ in
 end (* end of [IDENTRST_test] *)
 
 (* ****** ****** *)
+
+local
+//
+#define
+SYMBOLIC "%&+-./:=@~`^|*!$#?<>"
+//
+in (* in-of-local *)
+//
+fun
+SYMBOLIC_test
+  (c: int): bool =
+  strchr (SYMBOLIC, int2char0(c)) >= 0
+//
+end // end of [local]
+
+(* ****** ****** *)
 //
 fun xX_test
   (i: int): bool = let
@@ -244,9 +260,16 @@ end // end of [skip_blankseq0]
 (* ****** ****** *)
 //
 fun
-testing_identseq0
+testing_identrstseq0
   (buf: &lexbuf): intGte(0) =
   ftesting_seq0 (buf, IDENTRST_test)
+//
+(* ****** ****** *)
+//
+fun
+testing_symbolicseq0
+  (buf: &lexbuf): intGte(0) =
+  ftesting_seq0 (buf, SYMBOLIC_test)
 //
 (* ****** ****** *)
 //
@@ -258,7 +281,8 @@ implement
 lexing_IDENT_alp
   (buf) = let
 //
-val nchr = testing_identseq0 (buf)
+val nchr =
+  testing_identrstseq0 (buf)
 val nchr1 = succ(nchr)
 val name = lexbuf_takeout (buf, nchr1)
 val name = strptr2string (name)
@@ -268,6 +292,28 @@ val loc = lexbuf_getincby_location (buf, nchr1)
 in
   token_make (loc, T_IDENT_alp(name))
 end // end of [lexing_IDENT_alp]
+
+(* ****** ****** *)
+//
+extern
+fun
+lexing_IDENT_sym (buf: &lexbuf): token
+//
+implement
+lexing_IDENT_sym
+  (buf) = let
+//
+val nchr =
+  testing_symbolicseq0 (buf)
+val nchr1 = succ(nchr)
+val name = lexbuf_takeout (buf, nchr1)
+val name = strptr2string (name)
+//
+val loc = lexbuf_getincby_location (buf, nchr1)
+//
+in
+  token_make (loc, T_IDENT_sym(name))
+end // end of [lexing_IDENT_sym]
 
 (* ****** ****** *)
 //
@@ -414,15 +460,46 @@ implement
 lexing_SHARP
   (buf) = let
 //
-val nchr = testing_identseq0 (buf)
-val nchr1 = succ(nchr)
-val name = lexbuf_takeout (buf, nchr1)
-val name = strptr2string (name)
-//
-val loc = lexbuf_getincby_location (buf, nchr1)
+val i = lexbuf_get_char (buf)
 //
 in
-  token_make (loc, T_IDENT_srp(name))
+//
+if
+i > 0
+then let
+//
+val c = int2char0(i)
+//  
+in
+//
+case+ 0 of
+| _ when
+    IDENTFST_test(i) => let
+    val nchr = testing_identrstseq0 (buf)
+    val nchr2 = nchr + 2
+    val name = lexbuf_takeout (buf, nchr2)
+    val name = strptr2string (name)
+    val loc = lexbuf_getincby_location (buf, nchr2)
+  in
+    token_make (loc, T_IDENT_srp(name))
+  end
+| _ (* rest-of-char *) => let
+    val nchr = testing_symbolicseq0 (buf)
+    val nchr1 = succ(nchr)
+    val name = lexbuf_takeout (buf, nchr1)
+    val name = strptr2string (name)
+    val loc = lexbuf_getincby_location (buf, nchr1)
+  in
+    token_make (loc, T_IDENT_alp(name))
+  end
+end // end of [then]
+else let
+  val () = lexbuf_remove (buf, 1)
+  val loc = lexbuf_getincby_location (buf, 1)
+in
+  token_make (loc, T_SLASH((*void*)))
+end // end of [else]
+//
 end // end of [lexing_SHARP]
 
 (* ****** ****** *)
@@ -679,6 +756,12 @@ case+ 0 of
 | _ when
     IDENTFST_test (i0) => lexing_IDENT_alp (buf)
 //
+| _ when c0 = SHARP => lexing_SHARP (buf)
+| _ when i0 = SLASH => lexing_SLASH (buf)
+//
+| _ when
+    SYMBOLIC_test (i0) => lexing_IDENT_sym (buf)
+//
 | _ when DIGIT_test (i0) =>
   (
     if ZERO_test(i0)
@@ -702,10 +785,6 @@ case+ 0 of
 | _ when i0 = RBRACE => lexing_litchar (buf, T_RBRACE)
 | _ when i0 = LBRACKET => lexing_litchar (buf, T_LBRACKET)
 | _ when i0 = RBRACKET => lexing_litchar (buf, T_RBRACKET)
-//
-| _ when c0 = SHARP => lexing_SHARP (buf)
-//
-| _ when i0 = SLASH => lexing_SLASH (buf)
 //
 | _ when i0 = QUOTE => lexing_QUOTE (buf)
 | _ when i0 = DQUOTE => lexing_DQUOTE (buf)

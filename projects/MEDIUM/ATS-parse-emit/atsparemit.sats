@@ -145,6 +145,7 @@ datatype
 token_node =
 //
 | T_IDENT_alp of string
+| T_IDENT_sym of string
 | T_IDENT_srp of string
 //
 | T_CHAR of (string)

@@ -61,6 +61,9 @@ case+ x0 of
 //
 | T_IDENT_alp (x) =>
     fprint! (out, "IDENT(", x, ")")
+| T_IDENT_sym (x) =>
+    fprint! (out, "IDENT(", x, ")")
+//
 | T_IDENT_srp (x) =>
     fprint! (out, "IDENT#(", x, ")")
 //
