@@ -101,7 +101,15 @@ end // end of [pP_test]
 //
 (* ****** ****** *)
 //
-fun DIGIT_test (i: int): bool = isdigit (i)
+fun ZERO_test
+  (i: int): bool = (i = char2int0('0'))
+//
+fun OCTAL_test (i: int): bool =
+  (char2int0('0') <= i && i <= char2int0('7'))
+//
+fun DIGIT_test (i: int): bool =
+  (char2int0('0') <= i && i <= char2int0('9'))
+//
 fun XDIGIT_test (i: int): bool = isxdigit (i)
 //
 (* ****** ****** *)
@@ -123,6 +131,31 @@ end // end of [FLOATSP_test]
 (* ****** ****** *)
 //
 fun SIGN_test (c: char): bool = (c = '-' || c = '+')
+//
+(* ****** ****** *)
+//
+extern
+fun
+ftesting_one
+(
+  buf: &lexbuf >> _, f: int -> bool
+) : intGte(0) // end of [ftesting_one]
+//
+implement
+ftesting_one
+  (buf, f) = let
+//
+val i = lexbuf_get_char (buf)
+//
+in
+//
+if (
+i > 0
+) then (
+  if f(i) then 1 else (lexbuf_incby_nback (buf, 1); 0)
+) else (0)
+//
+end // end of [ftesting_one]
 //
 (* ****** ****** *)
 //
@@ -239,9 +272,23 @@ end // end of [lexing_IDENT_alp]
 (* ****** ****** *)
 //
 fun
+testing_octalseq0
+  (buf: &lexbuf): intGte(0) =
+  ftesting_seq0 (buf, OCTAL_test)
+//
+(* ****** ****** *)
+//
+fun
 testing_digitseq0
   (buf: &lexbuf): intGte(0) =
   ftesting_seq0 (buf, DIGIT_test)
+//
+(* ****** ****** *)
+//
+fun
+testing_xdigitseq0
+  (buf: &lexbuf): intGte(0) =
+  ftesting_seq0 (buf, XDIGIT_test)
 //
 (* ****** ****** *)
 //
@@ -252,6 +299,30 @@ testing_intspseq0
 //
 (* ****** ****** *)
 //
+extern
+fun
+lexing_INTEGER_oct (buf: &lexbuf): token
+//
+implement
+lexing_INTEGER_oct
+  (buf) = let
+val k0 = testing_octalseq0 (buf)
+val k1 = testing_intspseq0 (buf)
+val nchr = succ(k0 + k1)
+val intrep = lexbuf_takeout (buf, nchr)
+val intrep = strptr2string (intrep)
+//
+val loc = lexbuf_getincby_location (buf, nchr)
+//
+val base =
+  (if k0 > 0 then 8 else 10): int
+//
+in
+  token_make (loc, T_INTEGER(base, intrep))
+end // end of [lexing_INTEGER_oct]
+
+(* ****** ****** *)
+
 extern
 fun
 lexing_INTEGER_dec (buf: &lexbuf): token
@@ -273,10 +344,36 @@ in
 end // end of [lexing_INTEGER_dec]
 
 (* ****** ****** *)
+
+extern
+fun
+lexing_INTEGER_hex (buf: &lexbuf): token
+//
+implement
+lexing_INTEGER_hex
+  (buf) = let
+//
+val k0 =
+  testing_xdigitseq0 (buf)
+val k1 = testing_intspseq0 (buf)
+val nchr = k0 + k1 + 2
+val intrep = lexbuf_takeout (buf, nchr)
+val intrep = strptr2string (intrep)
+//
+val loc = lexbuf_getincby_location (buf, nchr)
+//
+in
+  token_make (loc, T_INTEGER(16, intrep))
+end // end of [lexing_INTEGER_hex]
+
+(* ****** ****** *)
 //
 #define COMMA ','
 #define COLON ':'
 #define SEMICOLON ';'
+//
+#define QUOTE '''
+#define DQUOTE '"'
 //
 #define LPAREN '\('
 #define RPAREN ')';
@@ -287,6 +384,7 @@ end // end of [lexing_INTEGER_dec]
 //
 #define SHARP '#'
 #define SLASH '/'
+#define BACKSLASH '\\'
 //
 (* ****** ****** *)
 //
@@ -369,6 +467,93 @@ else lexing_litchar (buf, T_SLASH)
 //
 end // end of [lexing_SLASH]
 
+(* ****** ****** *)
+//
+extern
+fun
+lexing_quote
+(
+  buf: &lexbuf, quote: char
+) : token // end-of-fun
+//
+implement
+lexing_quote
+  (buf, quote) = let
+//
+fun
+loop (
+  buf: &lexbuf
+, pos: &position >> _, nchr: intGte(0)
+) : intGte(0) = let
+//
+val i = lexbuf_get_char (buf)
+//
+in
+//
+if
+i > 0
+then let
+  val c = int2char0 (i)
+  val () = position_incby_char (pos, c)
+  val nchr = succ (nchr)
+in
+  case+ 0 of
+  | _ when c = quote => nchr
+  | _ when c = BACKSLASH => loop2 (buf, pos, nchr)
+  | _ (*rest-of-char*) => loop (buf, pos, nchr)
+end // end of [then]
+else nchr // end of [else]
+//
+end // end of [loop]
+//
+and
+loop2 (
+  buf: &lexbuf
+, pos: &position >> _, nchr: intGte(0)
+) : intGte(0) = let
+//
+val i = lexbuf_get_char (buf)
+//
+in
+//
+if
+i > 0
+then let
+  val c = int2char0 (i)
+  val () = position_incby_char (pos, c)
+  val nchr = succ (nchr)
+in
+  loop (buf, pos, nchr)
+end // end of [then]
+else nchr // end of [else]
+//
+end // end of [loop2]
+//
+var pos: position
+val () = lexbuf_get_position (buf, pos)
+val nchr = loop (buf, pos, 0)
+val loc = lexbufpos_get_location (buf, pos)
+val strp = lexbuf_takeout (buf, nchr+1)
+val () = lexbuf_set_position (buf, pos)
+//
+in
+  token_make (loc, T_STRING(strptr2string(strp)))
+end // end of [lexing_quote]
+
+(* ****** ****** *)
+//
+extern
+fun
+lexing_QUOTE (buf: &lexbuf): token
+implement
+lexing_QUOTE (buf) = lexing_quote (buf, QUOTE)
+//
+extern
+fun
+lexing_DQUOTE (buf: &lexbuf): token
+implement
+lexing_DQUOTE (buf) = lexing_quote (buf, DQUOTE)
+//
 (* ****** ****** *)
 //
 extern
@@ -494,7 +679,18 @@ case+ 0 of
 | _ when
     IDENTFST_test (i0) => lexing_IDENT_alp (buf)
 //
-| _ when DIGIT_test (i0) => lexing_INTEGER_dec (buf)
+| _ when DIGIT_test (i0) =>
+  (
+    if ZERO_test(i0)
+      then let
+        val k = ftesting_one (buf, xX_test)
+      in
+        if k = 0
+          then lexing_INTEGER_oct (buf) else lexing_INTEGER_hex (buf)
+        // end of [if]
+      end // end of [then]
+      else lexing_INTEGER_dec (buf)
+   )
 //
 | _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
 | _ when i0 = COLON => lexing_litchar (buf, T_COLON)
@@ -510,6 +706,9 @@ case+ 0 of
 | _ when c0 = SHARP => lexing_SHARP (buf)
 //
 | _ when i0 = SLASH => lexing_SLASH (buf)
+//
+| _ when i0 = QUOTE => lexing_QUOTE (buf)
+| _ when i0 = DQUOTE => lexing_DQUOTE (buf)
 //
 | _ (*rest-of-char*) => let
 //
