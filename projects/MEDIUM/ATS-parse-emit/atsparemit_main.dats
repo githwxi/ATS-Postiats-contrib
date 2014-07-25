@@ -27,8 +27,12 @@ dynload "./atsparemit_posloc.dats"
 //
 dynload "./atsparemit_global.dats"
 //
+dynload "./atsparemit_lexerr.dats"
 dynload "./atsparemit_lexbuf.dats"
 dynload "./atsparemit_lexing.dats"
+//
+dynload "./atsparemit_tokbuf.dats"
+//
 dynload "./atsparemit_parsing.dats"
 //
 (* ****** ****** *)

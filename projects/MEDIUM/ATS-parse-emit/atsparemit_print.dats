@@ -53,17 +53,42 @@ in
 //
 case+ x of
 //
+| ATStmpdec () => p "ATStmpdec"
+//
 | ATSif () => p "ATSif"
 | ATSthen () => p "ATSthen"
 | ATSelse () => p "ATSelse"
 //
+| ATSgoto () => p "ATSgoto"
+//
 | ATSreturn () => p "ATSreturn"
 | ATSreturn_void () => p "ATSreturn_void"
 //
+| ATStailcalbeg () => p "ATStailcalbeg"
+| ATStailcalend () => p "ATStailcalend"
+//
 | ATSINSmove () => p "ATSINSmove"
+//
+| ATSINSmove_boxrec () => p "ATSINSmove_boxrec"
+| ATSINSmove_boxrec_ofs () => p "ATSINSmove_boxrec_ofs"
+//
+| ATSSELboxrec () => p "ATSSELboxrec"
+//
+| ATSINSstore_boxrec_ofs () => p "ATSINSstore_boxrec_ofs"
+//
+| ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
+| ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"
 //
 | ATSPMVi0nt () => p "ATSPMVi0nt"
 | ATSPMVf0loat () => p "ATSPMVf0loat"
+//
+| ATSinline () => p "ATSinline"
+//
+| ATSglobaldec () => p "ATSglobaldec"
+| ATSstaticdec () => p "ATSstaticdec"
+//
+| ATSdyncst_mac () => p "ATSdyncst_mac"
+| ATSdyncst_extfun () => p "ATSdyncst_extfun"
 //
 | KWnone () => p "KWnone"
 //

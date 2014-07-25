@@ -827,4 +827,21 @@ end // end of [lexing_get_token]
 
 (* ****** ****** *)
 
+implement
+lexbuf_get_token_ncmnt
+  (buf) = let
+//
+val tok = lexbuf_get_token (buf)
+//
+in
+//
+case+ tok.token_node of
+| T_COMMENT_line () => lexbuf_get_token_ncmnt (buf)
+| T_COMMENT_block () => lexbuf_get_token_ncmnt (buf)
+| _(* non-comment *) => tok
+//
+end // end of [lexing_get_token_ncmnt]
+
+(* ****** ****** *)
+
 (* end of [atsparemit_lexing.dats] *)

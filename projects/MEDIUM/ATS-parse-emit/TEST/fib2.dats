@@ -5,7 +5,9 @@
 //
 (* ****** ****** *)
 //
-extern fun fib2 : int -> int
+extern
+fun
+fib2 : int -> int
 //
 implement
 fib2 (n) = let

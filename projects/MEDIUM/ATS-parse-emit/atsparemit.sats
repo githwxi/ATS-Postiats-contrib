@@ -14,9 +14,18 @@
 (* ****** ****** *)
 //
 staload
-SBF = "libats/SATS/stringbuf.sats"
-stadef
-stringbuf = $SBF.stringbuf
+SBF =
+"libats/SATS/stringbuf.sats"
+//
+stadef stringbuf = $SBF.stringbuf
+//
+(* ****** ****** *)
+//
+staload
+DA =
+"libats/SATS/dynarray.sats"
+//
+stadef dynarray = $DA.dynarray
 //
 (* ****** ****** *)
 //
@@ -144,17 +153,41 @@ location_make_fil_pos_pos
 datatype
 keyword =
 //
+  | ATStmpdec of ()
+//
   | ATSif of ()
   | ATSthen of ()
   | ATSelse of ()
 //
+  | ATSgoto of ()
+//
   | ATSreturn of ()
   | ATSreturn_void of ()
 //
+  | ATStailcalbeg of ()
+  | ATStailcalend of ()
+//
   | ATSINSmove of ()
+//
+  | ATSINSmove_boxrec of ()
+  | ATSINSmove_boxrec_ofs of ()
+//
+  | ATSSELboxrec of ()
+//
+  | ATSINSstore_boxrec_ofs of ()
+//
+  | ATSINSmove_tlcal of ()
+  | ATSINSargmove_tlcal of ()
 //
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
+//
+  | ATSinline of () // inline
+  | ATSglobaldec of () // extern
+  | ATSstaticdec of () // static
+//
+  | ATSdyncst_mac of ()
+  | ATSdyncst_extfun of ()
 //
   | KWnone of ()
 //
@@ -245,16 +278,18 @@ token_make (loc: loc_t, node: tnode): token
 //
 datatype
 lexerr_node =
-  | LEXERR_STRING_unclosed of ()
   | LEXERR_UNSUPPORTED_char of (char)
 //
 typedef lexerr = '{
   lexerr_loc= loc_t, lexerr_node= lexerr_node
 } (* end of [lexerr] *)
 //
+typedef lexerrlst = List0 (lexerr)
+//
 (* ****** ****** *)
 
 fun fprint_lexerr : fprint_type (lexerr)
+fun fprint_lexerrlst : fprint_type (lexerrlst)
 
 (* ****** ****** *)
 //
@@ -267,6 +302,10 @@ lexerr_make
 fun the_lexerrlst_clear (): void
 //
 fun the_lexerrlst_insert (err: lexerr): void
+//
+fun the_lexerrlst_pop_all ((*void*)): List0_vt(lexerr)
+//
+fun the_lexerrlst_print_free ((*void*)): int(*nerr*)
 //
 (* ****** ****** *)
 //
@@ -295,7 +334,7 @@ lexbuf_stringbuf= stringbuf
 } // end of [_lexbuf_vt0ype]
 
 (* ****** ****** *)
-
+//
 absvt@ype
 lexbuf_vt0ype = _lexbuf_vt0ype
 //
@@ -348,12 +387,72 @@ fun lexbuf_get_char (buf: &lexbuf >> _): int
 (* ****** ****** *)
 
 fun lexbuf_get_token (buf: &lexbuf >> _): token
+fun lexbuf_get_token_ncmnt (buf: &lexbuf >> _): token
 
 (* ****** ****** *)
 //
 fun lexbufpos_get_location (buf: &lexbuf, pos: &position) : loc_t
 fun lexbuf_getincby_location (buf: &lexbuf, nchr: intGte(0)): loc_t
 //
+(* ****** ****** *)
+
+vtypedef
+_tokbuf_vt0ype =
+@{
+//
+  tokbuf_tkbf = dynarray (token)
+, tokbuf_ntok= size_t, tokbuf_lxbf= lexbuf
+//
+} (* end of [_tokbuf_vt0ype] *)
+
+(* ****** ****** *)
+//
+absvt@ype
+tokbuf_vt0ype = _tokbuf_vt0ype
+//
+vtypedef tokbuf = tokbuf_vt0ype
+//
+(* ****** ****** *)
+//
+fun
+tokbuf_initize_fileref
+  (buf: &tokbuf? >> _, inp: FILEref): void
+//
+(* ****** ****** *)
+
+fun tokbuf_uninitize (buf: &tokbuf >> _?): void
+
+(* ****** ****** *)
+
+fun
+tokbuf_get_ntok (buf: &tokbuf >> _): size_t
+fun
+tokbuf_set_ntok (buf: &tokbuf >> _, ntok: size_t): void
+
+(* ****** ****** *)
+
+fun
+tokbuf_incby1 (buf: &tokbuf >> _): void
+fun
+tokbuf_incby_count (buf: &tokbuf >> _, n: size_t): void
+
+(* ****** ****** *)
+
+fun
+tokbuf_get_token (buf: &tokbuf >> _): token
+fun
+tokbuf_getinc_token (buf: &tokbuf >> _): token
+
+(* ****** ****** *)
+
+fun
+parse_from_lexbuf (buf: &lexbuf >> _): void
+
+(* ****** ****** *)
+
+fun
+parse_from_tokbuf (buf: &tokbuf >> _): void
+
 (* ****** ****** *)
 
 fun parse_from_fileref (inp: FILEref): void

@@ -24,12 +24,12 @@ staload "./atsparemit.sats"
 (* ****** ****** *)
 
 fun
-lexbuf_process
+tokbuf_process
 (
-  buf: &lexbuf
+  buf: &tokbuf >> _
 ) : void = let
 //
-val tok = lexbuf_get_token (buf)
+val tok = tokbuf_getinc_token (buf)
 //
 in
 //
@@ -41,10 +41,26 @@ of (* case+ *)
   {
     val () =
     println! ("tok = ", tok)
-    val () =  lexbuf_process (buf)
+    val () =  tokbuf_process (buf)
   } (* end of [_] *)
 //
-end // end of [lexbuf_process]
+end // end of [tokbuf_process]
+
+(* ****** ****** *)
+
+implement
+parse_from_tokbuf
+  (buf) = let
+//
+val () = the_lexerrlst_clear ()
+//
+val ((*void*)) = tokbuf_process (buf)
+//
+val nerr = the_lexerrlst_print_free ((*void*))
+//
+in
+  // nothing
+end // end of [parse_from_tokbuf]
 
 (* ****** ****** *)
 
@@ -52,13 +68,13 @@ implement
 parse_from_fileref
   (inp) = let
 //
-var buf: lexbuf
+var buf: tokbuf
 val () =
-  lexbuf_initize_fileref (buf, inp)
+  tokbuf_initize_fileref (buf, inp)
 //
-val () = lexbuf_process (buf)
+val () = parse_from_tokbuf (buf)
 //
-val () = lexbuf_uninitize (buf)
+val () = tokbuf_uninitize (buf)
 //
 in
   // nothing

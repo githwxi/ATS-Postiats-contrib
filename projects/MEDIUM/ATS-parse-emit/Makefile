@@ -29,8 +29,10 @@ SOURCES_DATS += atsparemit_print.dats
 SOURCES_DATS += atsparemit_fname.dats
 SOURCES_DATS += atsparemit_posloc.dats
 SOURCES_DATS += atsparemit_global.dats
+SOURCES_DATS += atsparemit_lexerr.dats
 SOURCES_DATS += atsparemit_lexbuf.dats
 SOURCES_DATS += atsparemit_lexing.dats
+SOURCES_DATS += atsparemit_tokbuf.dats
 SOURCES_DATS += atsparemit_parsing.dats
 #
 ######
