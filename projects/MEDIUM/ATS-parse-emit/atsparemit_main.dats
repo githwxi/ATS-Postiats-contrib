@@ -9,10 +9,12 @@
 (* ****** ****** *)
 
 staload "./atsparemit.sats"
+staload "./atsparemit_parsing.sats"
 
 (* ****** ****** *)
 //
 dynload "./atsparemit.sats"
+dynload "./atsparemit_parsing.sats"
 //
 (* ****** ****** *)
 //
@@ -33,6 +35,7 @@ dynload "./atsparemit_lexing.dats"
 //
 dynload "./atsparemit_tokbuf.dats"
 //
+dynload "./atsparemit_parerr.dats"
 dynload "./atsparemit_parsing.dats"
 //
 (* ****** ****** *)

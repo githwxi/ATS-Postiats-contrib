@@ -32,12 +32,6 @@ token_make (loc, node) =
   '{ token_loc= loc, token_node= node }
 //
 (* ****** ****** *)
-//
-implement
-lexerr_make (loc, node) =
-  '{ lexerr_loc= loc, lexerr_node= node }
-//
-(* ****** ****** *)
 
 fun BLANK_test (i: int): bool = isspace (i)
 

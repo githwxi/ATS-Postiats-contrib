@@ -73,8 +73,10 @@ case+ x of
 | ATSINSmove_boxrec_ofs () => p "ATSINSmove_boxrec_ofs"
 //
 | ATSSELboxrec () => p "ATSSELboxrec"
+| ATSSELfltrec () => p "ATSSELfltrec"
 //
 | ATSINSstore_boxrec_ofs () => p "ATSINSstore_boxrec_ofs"
+| ATSINSstore_fltrec_ofs () => p "ATSINSstore_fltrec_ofs"
 //
 | ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"

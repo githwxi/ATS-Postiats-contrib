@@ -63,6 +63,28 @@ the_lexerrlst_pop_all () = pop_all ()
 
 (* ****** ****** *)
 
+staload
+PARERR = {
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+//
+typedef T = parerr
+//
+#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+//
+implement
+the_parerrlst_insert (x) = push (x)
+//
+implement
+the_parerrlst_pop_all () = pop_all ()
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
 staload KW =
 {
 //
@@ -113,7 +135,10 @@ val-~None_vt() = $KW.insert_opt ("ATSINSmove_boxrec", ATSINSmove_boxrec)
 val-~None_vt() = $KW.insert_opt ("ATSINSmove_boxrec_ofs", ATSINSmove_boxrec_ofs)
 //
 val-~None_vt() = $KW.insert_opt ("ATSSELboxrec", ATSSELboxrec)
+val-~None_vt() = $KW.insert_opt ("ATSSELfltrec", ATSSELfltrec)
+//
 val-~None_vt() = $KW.insert_opt ("ATSINSstore_boxrec_ofs", ATSINSstore_boxrec_ofs)
+val-~None_vt() = $KW.insert_opt ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
 //
 val-~None_vt() = $KW.insert_opt ("ATSINSmove_tlcal", ATSINSmove_tlcal)
 val-~None_vt() = $KW.insert_opt ("ATSINSargmove_tlcal", ATSINSargmove_tlcal)

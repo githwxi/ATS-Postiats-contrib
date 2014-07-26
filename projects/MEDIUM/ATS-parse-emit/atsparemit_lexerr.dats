@@ -24,6 +24,12 @@ staload "./atsparemit.sats"
 (* ****** ****** *)
 //
 implement
+lexerr_make (loc, node) =
+  '{ lexerr_loc= loc, lexerr_node= node }
+//
+(* ****** ****** *)
+//
+implement
 the_lexerrlst_clear () =
   list_vt_free (the_lexerrlst_pop_all ())
 //

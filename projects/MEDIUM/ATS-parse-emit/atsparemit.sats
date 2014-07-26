@@ -173,8 +173,10 @@ keyword =
   | ATSINSmove_boxrec_ofs of ()
 //
   | ATSSELboxrec of ()
+  | ATSSELfltrec of ()
 //
   | ATSINSstore_boxrec_ofs of ()
+  | ATSINSstore_fltrec_ofs of ()
 //
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
@@ -444,19 +446,66 @@ fun
 tokbuf_getinc_token (buf: &tokbuf >> _): token
 
 (* ****** ****** *)
+  
+abstype symbol_type = ptr
+typedef symbol = symbol_type
+  
+(* ****** ****** *)
 
-fun
-parse_from_lexbuf (buf: &lexbuf >> _): void
+datatype
+s0exp_node =
+  | S0Eide of symbol
+  | S0Eapp of (s0exp, s0exp)
+  | S0Elist of (s0explst)
+// end of [s0exp_node]
+
+where
+s0exp = '{
+  s0exp_loc= loc_t, s0exp_node= s0exp_node
+} (* end of [s0exp] *)
+
+and
+s0explst = List0 (s0exp)
 
 (* ****** ****** *)
 
-fun
-parse_from_tokbuf (buf: &tokbuf >> _): void
+typedef
+parser (a:type) =
+  (&tokbuf, int(*bt*), &int(*err*)) -> a
+// end of [parser]
+
+typedef
+parser_tok (a:type) =
+  (&tokbuf, int(*bt*), &int(*err*), token) -> a
+// end of [parser_tok]
 
 (* ****** ****** *)
 
-fun parse_from_fileref (inp: FILEref): void
-
+datatype
+parerr_node =
+  | PARERR_LPAREN of ()
+  | PARERR_RPAREN of ()
+//
+typedef parerr = '{
+  parerr_loc= loc_t, parerr_node= parerr_node
+} (* end of [parerr] *)
+//
+(* ****** ****** *)
+//
+fun
+parerr_make
+  (loc: loc_t, node: parerr_node): parerr
+//
+(* ****** ****** *)
+//
+fun the_parerrlst_clear (): void
+//
+fun the_parerrlst_insert (err: parerr): void
+//
+fun the_parerrlst_pop_all ((*void*)): List0_vt(parerr)
+//
+fun the_parerrlst_print_free ((*void*)): int(*nerr*)
+//
 (* ****** ****** *)
 
 (* end of [atsparemit.sats] *)
