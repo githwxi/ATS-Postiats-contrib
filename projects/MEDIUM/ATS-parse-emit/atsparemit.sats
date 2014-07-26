@@ -469,11 +469,16 @@ overload prerr with prerr_symbol
 overload fprint with fprint_symbol
 //
 (* ****** ****** *)
+//
+abstype synent_type = ptr
+typedef synent = synent_type
+//
+(* ****** ****** *)
 
 typedef
 i0de = '{
   i0de_loc= loc_t, i0de_sym= symbol
-} // end of [i0de]
+} (* end of [i0de] *)
 
 (* ****** ****** *)
 //
