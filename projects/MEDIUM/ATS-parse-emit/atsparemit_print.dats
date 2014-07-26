@@ -13,6 +13,15 @@ staload "./atsparemit.sats"
 (* ****** ****** *)
 //
 implement
+print_symbol
+  (sym) = fprint_symbol (stdout_ref, sym)
+implement
+prerr_symbol
+  (sym) = fprint_symbol (stderr_ref, sym)
+// 
+(* ****** ****** *)
+//
+implement
 print_filename
   (fil) = fprint_filename (stdout_ref, fil)
 implement

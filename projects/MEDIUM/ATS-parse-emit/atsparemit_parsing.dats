@@ -103,10 +103,12 @@ parse_from_tokbuf
   (buf) = let
 //
 val () = the_lexerrlst_clear ()
+val () = the_parerrlst_clear ()
 //
 val ((*void*)) = tokbuf_process (buf)
 //
-val nerr = the_lexerrlst_print_free ((*void*))
+val nerr1 = the_lexerrlst_print_free ((*void*))
+val nerr2 = the_parerrlst_print_free ((*void*))
 //
 in
   // nothing

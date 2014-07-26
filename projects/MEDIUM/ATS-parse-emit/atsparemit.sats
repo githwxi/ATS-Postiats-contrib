@@ -452,11 +452,40 @@ typedef symbol = symbol_type
   
 (* ****** ****** *)
 
+fun symbol_make (name: string): symbol
+
+(* ****** ****** *)
+
+fun symbol_get_name (x: symbol):<> string
+
+(* ****** ****** *)
+//
+fun print_symbol : (symbol) -> void
+fun prerr_symbol : (symbol) -> void
+fun fprint_symbol : fprint_type (symbol)
+//
+overload print with print_symbol
+overload prerr with prerr_symbol
+overload fprint with fprint_symbol
+//
+(* ****** ****** *)
+
+typedef
+i0de = '{
+  i0de_loc= loc_t, i0de_sym= symbol
+} // end of [i0de]
+
+(* ****** ****** *)
+//
+fun
+i0de_make_sym (loc: loc_t, sym: symbol): i0de
+//
+(* ****** ****** *)
+
 datatype
 s0exp_node =
   | S0Eide of symbol
-  | S0Eapp of (s0exp, s0exp)
-  | S0Elist of (s0explst)
+  | S0Eapp of (symbol, s0explst)
 // end of [s0exp_node]
 
 where
@@ -490,6 +519,13 @@ typedef parerr = '{
   parerr_loc= loc_t, parerr_node= parerr_node
 } (* end of [parerr] *)
 //
+typedef parerrlst = List0 (parerr)
+
+(* ****** ****** *)
+
+fun fprint_parerr : fprint_type (parerr)
+fun fprint_parerrlst : fprint_type (parerrlst)
+
 (* ****** ****** *)
 //
 fun

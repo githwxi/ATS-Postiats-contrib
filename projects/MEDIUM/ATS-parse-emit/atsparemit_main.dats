@@ -24,6 +24,8 @@ dynload "./atsparemit_mylib.dats"
 //
 dynload "./atsparemit_print.dats"
 //
+dynload "./atsparemit_symbol.dats"
+//
 dynload "./atsparemit_fname.dats"
 dynload "./atsparemit_posloc.dats"
 //
