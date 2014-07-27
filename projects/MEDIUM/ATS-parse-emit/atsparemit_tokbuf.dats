@@ -36,6 +36,22 @@ tokbuf_vt0ype = _tokbuf_vt0ype
 (* ****** ****** *)
 
 implement
+tokbuf_initize_string
+  (buf, inp) = let
+//
+#define TOKBUFSZ 1024
+//
+val () = buf.tokbuf_ntok := i2sz(0)
+val () = buf.tokbuf_tkbf := $DA.dynarray_make_nil (i2sz(TOKBUFSZ))
+val () = lexbuf_initize_string (buf.tokbuf_lxbf, inp)
+//
+in
+  // nothing
+end // end of [tokbuf_initize_string]
+
+(* ****** ****** *)
+
+implement
 tokbuf_initize_fileref
   (buf, inp) = let
 //

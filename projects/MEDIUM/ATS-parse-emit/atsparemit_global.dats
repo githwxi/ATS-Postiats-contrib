@@ -41,6 +41,10 @@ the_filename_get () = get_top_exn ()
 
 (* ****** ****** *)
 
+val () = the_filename_push (filename_dummy)
+
+(* ****** ****** *)
+
 staload
 LEXERR = {
 //

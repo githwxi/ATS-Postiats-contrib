@@ -150,6 +150,10 @@ location_make_fil_pos_pos
 //
 (* ****** ****** *)
 
+fun location_combine (loc1: loc_t, loc2: loc_t): loc_t
+
+(* ****** ****** *)
+
 datatype
 keyword =
 //
@@ -345,6 +349,9 @@ vtypedef lexbuf = lexbuf_vt0ype
 (* ****** ****** *)
 //
 fun
+lexbuf_initize_string
+  (buf: &lexbuf? >> _, inp: string): void
+fun
 lexbuf_initize_fileref
   (buf: &lexbuf? >> _, inp: FILEref): void
 //
@@ -417,6 +424,9 @@ vtypedef tokbuf = tokbuf_vt0ype
 (* ****** ****** *)
 //
 fun
+tokbuf_initize_string
+  (buf: &tokbuf? >> _, inp: string): void
+fun
 tokbuf_initize_fileref
   (buf: &tokbuf? >> _, inp: FILEref): void
 //
@@ -483,14 +493,16 @@ i0de = '{
 (* ****** ****** *)
 //
 fun
-i0de_make_sym (loc: loc_t, sym: symbol): i0de
+fprint_i0de : fprint_type (i0de)
+overload fprint with fprint_i0de
 //
 (* ****** ****** *)
 
 datatype
 s0exp_node =
   | S0Eide of symbol
-  | S0Eapp of (symbol, s0explst)
+  | S0Elist of (s0explst)
+  | S0Eappid of (symbol, s0explst)
 // end of [s0exp_node]
 
 where
@@ -498,8 +510,32 @@ s0exp = '{
   s0exp_loc= loc_t, s0exp_node= s0exp_node
 } (* end of [s0exp] *)
 
-and
-s0explst = List0 (s0exp)
+and s0explst = List0 (s0exp)
+and s0expopt = Option (s0exp)
+
+(* ****** ****** *)
+//
+fun fprint_s0exp : fprint_type(s0exp)
+fun fprint_s0explst : fprint_type(s0explst)
+//
+overload fprint with fprint_s0exp
+overload fprint with fprint_s0explst
+//
+(* ****** ****** *)
+
+datatype
+d0exp_node =
+  | D0Eide of symbol
+  | D0Eapp of (symbol, d0explst)
+// end of [d0exp_node]
+
+where
+d0exp = '{
+  d0exp_loc= loc_t, d0exp_node= d0exp_node
+} (* end of [d0exp] *)
+
+and d0explst = List0 (d0exp)
+and d0expopt = Option (d0exp)
 
 (* ****** ****** *)
 
@@ -517,8 +553,17 @@ parser_tok (a:type) =
 
 datatype
 parerr_node =
-  | PARERR_LPAREN of ()
-  | PARERR_RPAREN of ()
+//
+  | PARERR_EOF
+//
+  | PARERR_COMMA
+  | PARERR_SEMICOLON
+//
+  | PARERR_LPAREN
+  | PARERR_RPAREN
+//
+  | PARERR_i0de of ()
+  | PARERR_s0exp of ()
 //
 typedef parerr = '{
   parerr_loc= loc_t, parerr_node= parerr_node

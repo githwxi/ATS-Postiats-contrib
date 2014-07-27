@@ -77,7 +77,11 @@ in
 if isneqz(cp)
   then $UNSAFE.cptr_get<symbol> (cp)
   else let
-    val n = $SYMCNT.getinc () in SYMBOL (name, n)
+    val n = $SYMCNT.getinc ()
+    val sym = SYMBOL (name, n)
+    val-~None_vt() = $SYMBOL.insert_opt (name, sym)
+  in
+    sym
   end // end of [else]
 //
 end // end of [symbol_make]

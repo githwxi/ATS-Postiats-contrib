@@ -28,19 +28,42 @@ the_parerrlst_add_ifnbt
 (* ****** ****** *)
 
 fun
+tokbuf_set_ntok_null
+  {a:type} (buf: &tokbuf >> _, n: uint): (a)
+// end of [tokbuf_set_ntok_null]
+
+(* ****** ****** *)
+
+fun
 ptoken_fun
 (
-  buf: &tokbuf, bt: int, err: &int
-, f: (tnode) -> bool, enode: parerr_node
+  buf: &tokbuf >> _
+, bt: int
+, err: &int
+, f: (tnode) -> bool
+, enode: parerr_node
 ) : token // end of [ptoken_fun]
+
+fun
+ptoken_test_fun
+(
+  buf: &tokbuf >> _, f: (tnode) -> bool
+) : bool // end of [ptoken_test_fun]
+
+(* ****** ****** *)
+
+fun p_EOF : parser (token)
+fun is_EOF (x: tnode): bool
 
 (* ****** ****** *)
 //
 fun p_COMMA : parser (token)
 fun is_COMMA (x: tnode): bool
+fun p_COMMA_test (buf: &tokbuf >> _): bool
 //
 fun p_SEMICOLON : parser (token)
 fun is_SEMICOLON (x: tnode): bool
+fun p_SEMICOLON_test (buf: &tokbuf >> _): bool
 //
 (* ****** ****** *)
 //
@@ -52,6 +75,61 @@ fun is_RPAREN (x: tnode): bool
 //
 (* ****** ****** *)
 
+fun ptest_fun
+  {a:type} (
+  buf: &tokbuf >> _, f: parser (a), ent: &synent? >> synent
+) : bool // end of [ptest_fun]
+
+(* ****** ****** *)
+
+fun
+pstar_fun{a:type}
+  (buf: &tokbuf >> _, bt: int, f: parser (a)): List0_vt(a)
+// end of [pstar_fun]
+
+(* ****** ****** *)
+
+fun
+pstar_sep_fun
+  {a:type}
+(
+  buf: &tokbuf, bt: int, sep: (&tokbuf >> _) -> bool, f: parser(a)
+) : List0_vt (a) // end of [pstar_sep_fun]
+
+(* ****** ****** *)
+
+fun
+pstar_COMMA_fun
+  {a:type}
+  (buf: &tokbuf, bt: int, f: parser(a)): List0_vt(a)
+// end of [pstar_COMMA_fun]
+
+(* ****** ****** *)
+
+fun pstar_fun0_sep
+  {a:type} (
+  buf: &tokbuf >> _, bt: int, f: parser (a), sep: (&tokbuf >> _) -> bool
+) : List0_vt (a) // end of [pstar_fun0_sep]
+
+(* ****** ****** *)
+
+fun
+pstar_fun0_COMMA
+  {a:type}
+  (buf: &tokbuf, bt: int, f: parser (a)) : List0_vt (a)
+// end of [pstar_fun0_COMMA]
+
+(* ****** ****** *)
+
+fun parse_i0de : parser (i0de)
+
+(* ****** ****** *)
+
+fun parse_s0exp : parser (s0exp)
+fun parse_s0exparg : parser (s0expopt)
+
+(* ****** ****** *)
+
 fun
 parse_from_lexbuf (buf: &lexbuf >> _): void
 
@@ -59,6 +137,13 @@ parse_from_lexbuf (buf: &lexbuf >> _): void
 
 fun
 parse_from_tokbuf (buf: &tokbuf >> _): void
+
+(* ****** ****** *)
+
+fun
+parse_from_string{a:type}
+  (inp: string, f: parser a): Option_vt (a)
+// end of [parse_from_string]
 
 (* ****** ****** *)
 

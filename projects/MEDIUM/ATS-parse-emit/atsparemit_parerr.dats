@@ -48,26 +48,60 @@ end // end of [the_parerrlst_add_if0]
 
 (* ****** ****** *)
 
+fun
+synent_needed
+(
+  out: FILEref
+, x: parerr, name: string
+) : void = () where {
+//
+val () = fprint (out, x.parerr_loc)
+val () =
+  fprintln! (out, ": error(parsing): the syntactic entity [", name, "] is needed.")
+//
+} (* end of [synent_needed] *)
+
+(* ****** ****** *)
+
+fun
+keyword_needed
+(
+  out: FILEref
+, x: parerr, name: string
+) : void = () where {
+  val () = fprint (out, x.parerr_loc)
+  val () = fprintln! (out, ": error(parsing): the keyword [", name, "] is needed.")
+} (* end of [keyword_needed] *)
+
+(* ****** ****** *)
+
 implement
 fprint_parerr
   (out, x) = let
 //
-val () =
-fprint! (out, x.parerr_loc, ": ")
+macdef
+SN (x,name) =
+synent_needed (out, ,(x), ,(name))
+macdef
+KN (x, name) =
+keyword_needed (out, ,(x), ,(name))
 //
 in
 //
 case+
 x.parerr_node of
 //
-| PARERR_LPAREN () =>
-  {
-    val () = fprintln! (out, "left-parenthese is expected")
-  }
-| PARERR_RPAREN () =>
-  {
-    val () = fprintln! (out, "right-parenthese is expected")
-  }
+| PARERR_EOF () => KN (x, "EOF")
+//
+| PARERR_COMMA () => KN (x, "COMMA")
+| PARERR_SEMICOLON () => KN (x, "SEMICOLON")
+//
+//
+| PARERR_LPAREN () => KN (x, "(")
+| PARERR_RPAREN () => KN (x, ")")
+//
+| PARERR_i0de () => SN (x, "i0de")
+| PARERR_s0exp () => SN (x, "s0exp")
 //
 end // end of [fprint_parerr]
 

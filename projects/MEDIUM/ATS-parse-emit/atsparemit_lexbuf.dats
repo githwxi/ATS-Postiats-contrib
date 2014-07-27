@@ -33,6 +33,31 @@ assume lexbuf_vt0ype = _lexbuf_vt0ype
 (* ****** ****** *)
 
 implement
+lexbuf_initize_string
+  (buf, inp) = () where
+{
+//
+#define BUFCAP 1024
+//
+val cs = $CS.cstream_make_string (inp)
+val sbf = $SBF.stringbuf_make_nil (i2sz(BUFCAP))
+//
+val () = buf.lexbuf_ntot := 0
+val () = buf.lexbuf_nrow := 0
+val () = buf.lexbuf_ncol := 0
+//
+val () = buf.lexbuf_nspace := 0
+//
+val () = buf.lexbuf_cstream := cs
+//
+val () = buf.lexbuf_nback := 0
+val () = buf.lexbuf_stringbuf := sbf
+//
+} (* end of [lexbuf_initize_string] *)
+
+(* ****** ****** *)
+
+implement
 lexbuf_initize_fileref
   (buf, inp) = () where
 {

@@ -7,6 +7,11 @@
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
 
 staload "./atsparemit.sats"
 
@@ -175,6 +180,40 @@ fprint_token
   val () = fprint_tnode (out, tok.token_node)
 }
 //
+(* ****** ****** *)
+
+implement
+fprint_i0de (out, x) = fprint (out, x.i0de_sym)
+
+(* ****** ****** *)
+
+implement
+fprint_val<s0exp> = fprint_s0exp
+
+(* ****** ****** *)
+
+implement
+fprint_s0exp
+  (out, s0e) = let
+//
+overload fprint with fprint_s0explst of 1000000
+//
+in
+//
+case+
+s0e.s0exp_node of
+//
+| S0Eide (id) => fprint! (out, "S0Eide(", id, ")")
+| S0Elist (s0es) => fprint! (out, "S0Elist(", s0es, ")")
+| S0Eappid (id, s0es) => fprint! (out, "S0Eappid(", id, "; ", s0es, ")")
+//
+end // end of [fprint_s0exp]
+
+(* ****** ****** *)
+
+implement
+fprint_s0explst (out, xs) = fprint_list_sep (out, xs, ", ")
+
 (* ****** ****** *)
 
 (* end of [atsparemit_print.dats] *)

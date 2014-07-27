@@ -19,6 +19,7 @@ MALLOCFLAG = -DATS_MEMALLOC_GCBDW
 ######
 
 SOURCES_SATS += atsparemit.sats
+SOURCES_SATS += atsparemit_syntax.sats
 SOURCES_SATS += atsparemit_parsing.sats
 
 ######
@@ -31,6 +32,7 @@ SOURCES_DATS += atsparemit_symbol.dats
 SOURCES_DATS += atsparemit_fname.dats
 SOURCES_DATS += atsparemit_posloc.dats
 SOURCES_DATS += atsparemit_global.dats
+SOURCES_DATS += atsparemit_syntax.dats
 SOURCES_DATS += atsparemit_lexerr.dats
 SOURCES_DATS += atsparemit_lexbuf.dats
 SOURCES_DATS += atsparemit_lexing.dats

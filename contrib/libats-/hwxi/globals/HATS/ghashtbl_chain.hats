@@ -70,6 +70,9 @@ fun insert
 extern
 fun insert_opt (k0: key, x0: itm): Option_vt (itm)
 //
+extern
+fun insert_any (k0: key, x0: itm): void // HX: always inserted
+//
 (* ****** ****** *)
 //
 extern
@@ -185,6 +188,20 @@ prval ((*void*)) = $UNSAFE.cast2void (htbl)
 in
   opt
 end (* end of [insert_opt] *)
+
+(* ****** ****** *)
+
+implement
+insert_any (k0, x0) = let
+//
+val htbl =
+$UNSAFE.castvwtp0{HTBL}(the_hashtbl_ptr)
+val ((*void*)) = hashtbl_insert_any (htbl, k0, x0)
+prval ((*void*)) = $UNSAFE.cast2void (htbl)
+//
+in
+  // nothing
+end (* end of [insert_any] *)
 
 (* ****** ****** *)
 
