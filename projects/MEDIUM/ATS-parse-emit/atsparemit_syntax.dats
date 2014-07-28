@@ -23,6 +23,11 @@ staload "./atsparemit_syntax.sats"
 
 (* ****** ****** *)
 
+infix ++
+overload ++ with location_combine
+
+(* ****** ****** *)
+
 implement
 synent_decode2{a}
   (x) = let
@@ -73,6 +78,48 @@ implement
 s0exp_appid (loc, id, s0es) =
   s0exp_make_node (loc, S0Eappid (id.i0de_sym, s0es))
 //
+(* ****** ****** *)
+
+implement
+f0arg_make
+  (s0e, id) = let
+//
+val loc =
+  s0e.s0exp_loc ++ id.i0de_loc
+//
+in '{
+  f0arg_loc= loc
+, f0arg_node= F0ARG (id.i0de_sym, s0e)
+} end // end of [f0arg_make]
+
+(* ****** ****** *)
+
+implement
+f0marg_make
+(
+  tok1, f0as, tok2
+) = let
+  val loc = tok1.token_loc ++ tok2.token_loc
+in '{
+  f0marg_loc= loc, f0marg_node = f0as
+} end // end of [f0marg_make]
+
+(* ****** ****** *)
+
+implement
+f0decl_make
+(
+  res, id, marg
+) = let
+//
+val loc =
+  res.s0exp_loc ++ marg.f0marg_loc
+//
+in '{
+  f0decl_loc= loc
+, f0decl_node= F0DECL (id.i0de_sym, marg, res)
+} end // end of [f0decl_make]
+
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.dats] *)

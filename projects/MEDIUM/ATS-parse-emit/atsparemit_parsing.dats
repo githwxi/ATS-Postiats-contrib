@@ -38,6 +38,14 @@ token_null
 (* ****** ****** *)
 
 implement
+tokbuf_set_ntok_null
+  (buf, n0) = let
+  val () = tokbuf_set_ntok (buf, n0) in synent_null ()
+end // end of [tokbuf_set_ntok_null]
+
+(* ****** ****** *)
+
+implement
 ptoken_fun
 (
   buf, bt, err, f, enode
@@ -253,6 +261,18 @@ pstar_fun0_COMMA
 (* ****** ****** *)
 
 implement
+pif_fun (
+  buf, bt, err, f, err0
+) = (
+//
+if err <= err0
+  then f (buf, bt, err) else synent_null ((*void*))
+//
+) (* end of [pif_fun] *)
+
+(* ****** ****** *)
+
+implement
 parse_i0de
   (buf, bt, err) = let
 //
@@ -310,7 +330,7 @@ case+ 0 of
       buf, parse_i0de, ent
     ) => let
     val id = synent_decode2{i0de}(ent)
-    val opt = parse_s0exparg (buf, bt, err)
+    val opt = parse_s0expargopt (buf, bt, err)
   in
     case+ opt of
     | None () => s0exp_ide (loc, id)
@@ -331,9 +351,17 @@ case+ 0 of
 end // end of [parse_s0exp]
 
 (* ****** ****** *)
+
+(*
+//
+s0expargopt =
+  | (*empty*)
+  | '(' s0expseq ')'
+//
+*)
   
 implement
-parse_s0exparg
+parse_s0expargopt
   (buf, bt, err) = let
 //
 val n0 = tokbuf_get_ntok (buf)
@@ -371,8 +399,91 @@ tok.token_node of
 //
 | _(*non-LPAERN*) => None ()
 //
-end // end of [parse_s0exparg]
+end // end of [parse_s0expargopt]
   
+(* ****** ****** *)
+
+implement
+parse_f0arg
+  (buf, bt, err) = let
+//
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+//
+val ent1 = parse_s0exp (buf, bt, err)
+val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+//
+in
+//
+if err = err0 then
+  f0arg_make (ent1, ent2) else tokbuf_set_ntok_null (buf, n0)
+//
+end // end of [parse_f0arg]
+
+(* ****** ****** *)
+
+(*
+
+f0marg = '(' f0argseq ')'
+
+*)
+
+implement
+parse_f0marg
+  (buf, bt, err) = let
+//
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+val loc = tok.token_loc
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_LPAREN () => let
+    val () = incby1 ()
+    val ent2 =
+      pstar_fun0_COMMA (buf, bt, parse_f0arg)
+    val ent3 = p_RPAREN (buf, bt, err) // err = err0
+  in
+    if err = err0
+      then f0marg_make (tok, list_vt2t(ent2), ent3)
+      else let
+        val () = list_vt_free (ent2) in synent_null ()
+      end // end of [else]
+    // end of [if]
+  end // end of [T_LPAREN]
+//
+| _ (*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end (* end of [_] *)
+//
+end // end of [parse_f0marg]
+
+(* ****** ****** *)
+
+implement
+parse_f0decl
+  (buf, bt, err) = let
+//
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+//
+val ent1 = parse_s0exp (buf, bt, err)
+val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+val ent3 = pif_fun (buf, bt, err, parse_f0marg, err0)
+//
+in
+//
+if err = err0 then
+  f0decl_make (ent1, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
+//
+end // end of [parse_f0decl]
+
 (* ****** ****** *)
 
 fun

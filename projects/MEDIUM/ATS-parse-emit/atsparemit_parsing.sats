@@ -29,7 +29,7 @@ the_parerrlst_add_ifnbt
 
 fun
 tokbuf_set_ntok_null
-  {a:type} (buf: &tokbuf >> _, n: uint): (a)
+  {a:type} (buf: &tokbuf >> _, n0: size_t): (a)
 // end of [tokbuf_set_ntok_null]
 
 (* ****** ****** *)
@@ -121,12 +121,26 @@ pstar_fun0_COMMA
 
 (* ****** ****** *)
 
+fun pif_fun
+  {a:type} (
+  buf: &tokbuf
+, bt: int, err: &int, f: parser (a), err0: int
+) : (a) // end of [pif_fun]
+
+(* ****** ****** *)
+
 fun parse_i0de : parser (i0de)
 
 (* ****** ****** *)
 
 fun parse_s0exp : parser (s0exp)
-fun parse_s0exparg : parser (s0expopt)
+fun parse_s0expargopt : parser (s0expopt)
+
+(* ****** ****** *)
+
+fun parse_f0arg : parser (f0arg)
+fun parse_f0marg : parser (f0marg)
+fun parse_f0decl : parser (f0decl)
 
 (* ****** ****** *)
 

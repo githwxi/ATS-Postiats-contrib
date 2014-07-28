@@ -186,12 +186,10 @@ implement
 fprint_i0de (out, x) = fprint (out, x.i0de_sym)
 
 (* ****** ****** *)
-
+//
 implement
 fprint_val<s0exp> = fprint_s0exp
-
-(* ****** ****** *)
-
+//
 implement
 fprint_s0exp
   (out, s0e) = let
@@ -208,11 +206,48 @@ s0e.s0exp_node of
 | S0Eappid (id, s0es) => fprint! (out, "S0Eappid(", id, "; ", s0es, ")")
 //
 end // end of [fprint_s0exp]
-
+//
 (* ****** ****** *)
 
 implement
 fprint_s0explst (out, xs) = fprint_list_sep (out, xs, ", ")
+
+(* ****** ****** *)
+//
+implement
+fprint_val<f0arg> = fprint_f0arg
+//
+implement
+fprint_f0arg
+  (out, f0a) = let
+in
+//
+case+
+f0a.f0arg_node of
+//
+| F0ARG (id, s0e) => fprint! (out, "F0ARG(", id, ": ", s0e, ")")
+//
+end // end of [fprint_f0arg]
+//
+(* ****** ****** *)
+//
+implement
+fprint_f0marg
+  (out, x) = fprint_list_sep (out, x.f0marg_node, ", ")
+//
+(* ****** ****** *)
+
+implement
+fprint_f0decl
+  (out, x) = let
+in
+//
+case+
+x.f0decl_node of
+| F0DECL (id, marg, res) =>
+    fprint! (out, "F0DECL(", id, "(", marg, "): ", res, ")")
+//
+end // end of [fprint_f0decl]
 
 (* ****** ****** *)
 

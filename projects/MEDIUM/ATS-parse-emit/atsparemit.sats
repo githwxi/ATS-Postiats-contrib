@@ -524,6 +524,46 @@ overload fprint with fprint_s0explst
 (* ****** ****** *)
 
 datatype
+f0arg_node = F0ARG of (symbol, s0exp)
+
+typedef
+f0arg = '{
+  f0arg_loc= loc_t, f0arg_node= f0arg_node
+} (* end of [f0arg] *)
+
+typedef f0arglst = List0 (f0arg)
+
+(* ****** ****** *)
+
+typedef
+f0marg = '{
+  f0marg_loc= loc_t, f0marg_node= f0arglst
+} (* end of [f0marg] *)
+
+(* ****** ****** *)
+//
+datatype
+f0decl_node =
+F0DECL of (symbol, f0marg, s0exp(*res*))
+//
+typedef
+f0decl = '{
+  f0decl_loc= loc_t, f0decl_node= f0decl_node
+} (* end of [f0decl] *)
+//
+(* ****** ****** *)
+//
+fun fprint_f0arg : fprint_type(f0arg)
+fun fprint_f0marg : fprint_type(f0marg)
+fun fprint_f0decl : fprint_type (f0decl)
+//
+overload fprint with fprint_f0arg
+overload fprint with fprint_f0marg
+overload fprint with fprint_f0decl
+//
+(* ****** ****** *)
+
+datatype
 d0exp_node =
   | D0Eide of symbol
   | D0Eapp of (symbol, d0explst)
