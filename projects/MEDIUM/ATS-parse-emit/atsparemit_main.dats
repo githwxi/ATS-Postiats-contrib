@@ -86,7 +86,8 @@ val () = fprintln! (stdout_ref, "s0e = ", s0e)
 *)
 //
 val-~Some_vt(f0d) =
-parse_from_string{f0decl}("foo(bar1, foo2(bar2)) xyz (int arg1, fint(int) arg2)", parse_f0decl)
+parse_from_string{f0decl}
+  ("ATSglobaldec() foo(bar1, foo2(bar2)) xyz (int arg1, fint(int) arg2) { ATStmpdec(tmp__1, int) ; ATSreturn_void(tmp_void) ; }", parse_f0decl)
 val () = fprintln! (stdout_ref, "f0d = ", f0d)
 //
 } (* end of [main0] *)

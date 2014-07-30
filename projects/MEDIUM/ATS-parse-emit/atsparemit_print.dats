@@ -81,6 +81,8 @@ case+ x of
 | ATStailcalbeg () => p "ATStailcalbeg"
 | ATStailcalend () => p "ATStailcalend"
 //
+| ATSINSlab () => p "ATSINSlab"
+//
 | ATSINSmove () => p "ATSINSmove"
 //
 | ATSINSmove_boxrec () => p "ATSINSmove_boxrec"
@@ -215,6 +217,33 @@ fprint_s0explst (out, xs) = fprint_list_sep (out, xs, ", ")
 (* ****** ****** *)
 //
 implement
+fprint_val<d0exp> = fprint_d0exp
+//
+implement
+fprint_d0exp
+  (out, d0e) = let
+//
+overload fprint with fprint_d0explst of 1000000
+//
+in
+//
+case+
+d0e.d0exp_node of
+//
+| D0Eide (id) => fprint! (out, "D0Eide(", id, ")")
+| D0Elist (d0es) => fprint! (out, "D0Elist(", d0es, ")")
+| D0Eappid (id, d0es) => fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
+//
+end // end of [fprint_d0exp]
+//
+(* ****** ****** *)
+
+implement
+fprint_d0explst (out, xs) = fprint_list_sep (out, xs, ", ")
+
+(* ****** ****** *)
+//
+implement
 fprint_val<f0arg> = fprint_f0arg
 //
 implement
@@ -238,14 +267,69 @@ fprint_f0marg
 (* ****** ****** *)
 
 implement
+fprint_f0kind
+  (out, x) = let
+in
+//
+case+
+x.f0kind_node of
+| F0KINDglobal () => fprint! (out, "ATSglobal()")
+| F0KINDstatic () => fprint! (out, "ATSstatic()")
+//
+end // end of [fprint_f0kind]
+
+(* ****** ****** *)
+
+implement
+fprint_f0head
+  (out, x) = let
+in
+//
+case+
+x.f0head_node of
+| F0HEAD
+  (
+    knd, id, marg, res
+  ) =>
+  fprint! (
+    out, "F0HEAD(", knd, "; ", id, "(", marg, "): ", res, ")"
+  ) (* end of [fprint] *)
+//
+end // end of [fprint_f0head]
+
+(* ****** ****** *)
+//
+implement
+fprint_val<tmpdec> = fprint_tmpdec
+//
+implement
+fprint_tmpdec
+  (out, x) = let
+in
+//
+case+
+x.tmpdec_node of
+| TMPDEC (tmp, s0e) =>
+    fprint! (out, "TMPDEC(", tmp, ": ", s0e, ")")
+//
+end // end of [fprint_tmpdec]
+//
+(* ****** ****** *)
+
+implement
+fprint_tmpdeclst (out, xs) = fprint_list_sep (out, xs, ", ")
+
+(* ****** ****** *)
+
+implement
 fprint_f0decl
   (out, x) = let
 in
 //
 case+
 x.f0decl_node of
-| F0DECL (id, marg, res) =>
-    fprint! (out, "F0DECL(", id, "(", marg, "): ", res, ")")
+| F0DECLnone (head) => fprint! (out, "F0DECLnone()")
+| F0DECLsome (head, body) => fprint! (out, "F0DECLsome(...)")
 //
 end // end of [fprint_f0decl]
 

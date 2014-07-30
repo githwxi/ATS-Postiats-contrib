@@ -48,16 +48,94 @@ fun s0exp_list (loc: loc_t, s0es: s0explst): s0exp
 fun s0exp_appid (loc: loc_t, id: i0de, arg: s0explst): s0exp
 
 (* ****** ****** *)
+
+fun d0exp_ide (loc: loc_t, id: i0de): d0exp
+fun d0exp_list (loc: loc_t, d0es: d0explst): d0exp
+fun d0exp_appid (loc: loc_t, id: i0de, arg: d0explst): d0exp
+
+(* ****** ****** *)
 //
-fun f0arg_make (s0e: s0exp, id: i0de): f0arg
+fun
+f0arg_make (s0e: s0exp, id: i0de): f0arg
 //
 fun
 f0marg_make
   (tok_beg: token, f0as: f0arglst, tok_end: token): f0marg
 //
-fun
-f0decl_make (res: s0exp, id: i0de, marg: f0marg): f0decl
+(* ****** ****** *)
 //
+fun
+f0kind_global (tok1: token, tok2: token): f0kind
+fun
+f0kind_static (tok1: token, tok2: token): f0kind
+//
+fun
+f0head_make
+  (knd: f0kind, res: s0exp, id: i0de, marg: f0marg): f0head
+//
+(* ****** ****** *)
+//
+fun
+tmpdec_make
+  (tok_kwd: token, tmp: i0de, s0e: s0exp, tok_end: token): tmpdec
+//
+(* ****** ****** *)
+//
+// HX: for constructing instructions
+//
+(* ****** ****** *)
+//
+fun
+ATSINSlab_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+//
+(* ****** ****** *)
+//
+fun
+ATSINSmove_make
+(
+  tok_kwd: token, tmp: i0de, d0e: d0exp, tok_end: token
+) : instr // end of [ATSINSmove_make]
+//
+(* ****** ****** *)
+
+fun ATSif_make
+(
+  tok_if: token, _test: d0exp, _then: instr, _else: instropt
+) : instr // end of [ATSif_make]
+
+fun ATSthen_make
+  (tok_then: token, inss: instrlst, tok_end: token): instr
+// end of [ATSthen_make]
+
+fun ATSelse_make
+  (tok_else: token, inss: instrlst, tok_end: token): instr
+// end of [ATSelse_make]
+
+(* ****** ****** *)
+//
+fun
+ATSreturn_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+fun
+ATSreturn_void_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+//
+(* ****** ****** *)
+
+fun
+f0body_make
+(
+  tok_beg: token, tmps: tmpdeclst, inss: instrlst, tok_end: token
+) : f0body // end-of-fun
+
+(* ****** ****** *)
+
+fun
+f0decl_none (head: f0head): f0decl
+fun
+f0decl_some (head: f0head, body: f0body): f0decl
+
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.sats] *)

@@ -94,14 +94,18 @@ x.parerr_node of
 | PARERR_EOF () => KN (x, "EOF")
 //
 | PARERR_COMMA () => KN (x, "COMMA")
+| PARERR_COLON () => KN (x, "COLON")
 | PARERR_SEMICOLON () => KN (x, "SEMICOLON")
-//
 //
 | PARERR_LPAREN () => KN (x, "(")
 | PARERR_RPAREN () => KN (x, ")")
 //
+| PARERR_LBRACE () => KN (x, "(")
+| PARERR_RBRACE () => KN (x, ")")
+//
 | PARERR_i0de () => SN (x, "i0de")
 | PARERR_s0exp () => SN (x, "s0exp")
+| PARERR_d0exp () => SN (x, "d0exp")
 //
 end // end of [fprint_parerr]
 

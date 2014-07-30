@@ -50,6 +50,11 @@ include $(PATSHOME)/share/atsmake-post.mk
 
 ######
 
+WCL=wc -l
+srclines: ; $(WCL) *.?ats
+
+######
+
 cleanats:: ; $(RMF) *_?ats.c
 
 ######

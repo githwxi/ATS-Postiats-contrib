@@ -61,6 +61,10 @@ fun p_COMMA : parser (token)
 fun is_COMMA (x: tnode): bool
 fun p_COMMA_test (buf: &tokbuf >> _): bool
 //
+fun p_COLON : parser (token)
+fun is_COLON (x: tnode): bool
+fun p_COLON_test (buf: &tokbuf >> _): bool
+//
 fun p_SEMICOLON : parser (token)
 fun is_SEMICOLON (x: tnode): bool
 fun p_SEMICOLON_test (buf: &tokbuf >> _): bool
@@ -72,6 +76,14 @@ fun is_LPAREN (x: tnode): bool
 //
 fun p_RPAREN : parser (token)
 fun is_RPAREN (x: tnode): bool
+//
+(* ****** ****** *)
+//
+fun p_LBRACE : parser (token)
+fun is_LBRACE (x: tnode): bool
+//
+fun p_RBRACE : parser (token)
+fun is_RBRACE (x: tnode): bool
 //
 (* ****** ****** *)
 
@@ -93,7 +105,7 @@ fun
 pstar_sep_fun
   {a:type}
 (
-  buf: &tokbuf, bt: int, sep: (&tokbuf >> _) -> bool, f: parser(a)
+  buf: &tokbuf >> _, bt: int, sep: (&tokbuf >> _) -> bool, f: parser(a)
 ) : List0_vt (a) // end of [pstar_sep_fun]
 
 (* ****** ****** *)
@@ -101,12 +113,13 @@ pstar_sep_fun
 fun
 pstar_COMMA_fun
   {a:type}
-  (buf: &tokbuf, bt: int, f: parser(a)): List0_vt(a)
+  (buf: &tokbuf >> _, bt: int, f: parser(a)): List0_vt(a)
 // end of [pstar_COMMA_fun]
 
 (* ****** ****** *)
 
-fun pstar_fun0_sep
+fun
+pstar_fun0_sep
   {a:type} (
   buf: &tokbuf >> _, bt: int, f: parser (a), sep: (&tokbuf >> _) -> bool
 ) : List0_vt (a) // end of [pstar_fun0_sep]
@@ -123,8 +136,7 @@ pstar_fun0_COMMA
 
 fun pif_fun
   {a:type} (
-  buf: &tokbuf
-, bt: int, err: &int, f: parser (a), err0: int
+  buf: &tokbuf >> _, bt: int, err: &int, f: parser (a), err0: int
 ) : (a) // end of [pif_fun]
 
 (* ****** ****** *)
@@ -138,8 +150,35 @@ fun parse_s0expargopt : parser (s0expopt)
 
 (* ****** ****** *)
 
+fun parse_d0exp : parser (d0exp)
+fun parse_d0expargopt : parser (d0expopt)
+
+(* ****** ****** *)
+
 fun parse_f0arg : parser (f0arg)
 fun parse_f0marg : parser (f0marg)
+
+(* ****** ****** *)
+
+fun parse_f0kind : parser (f0kind)
+fun parse_f0head : parser (f0head)
+
+(* ****** ****** *)
+
+fun parse_tmpdec : parser (tmpdec)
+fun parse_tmpdecs : parser (tmpdeclst)
+
+(* ****** ****** *)
+
+fun parse_instr : parser (instr)
+fun parse_instrseq : parser (instrlst)
+
+(* ****** ****** *)
+
+fun parse_f0body : parser (f0body)
+
+(* ****** ****** *)
+
 fun parse_f0decl : parser (f0decl)
 
 (* ****** ****** *)

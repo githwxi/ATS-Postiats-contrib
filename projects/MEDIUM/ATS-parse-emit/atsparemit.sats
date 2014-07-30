@@ -171,6 +171,8 @@ keyword =
   | ATStailcalbeg of ()
   | ATStailcalend of ()
 //
+  | ATSINSlab of ()
+//
   | ATSINSmove of ()
 //
   | ATSINSmove_boxrec of ()
@@ -524,7 +526,32 @@ overload fprint with fprint_s0explst
 (* ****** ****** *)
 
 datatype
-f0arg_node = F0ARG of (symbol, s0exp)
+d0exp_node =
+  | D0Eide of symbol
+  | D0Elist of (d0explst)
+  | D0Eappid of (symbol, d0explst)
+// end of [d0exp_node]
+
+where
+d0exp = '{
+  d0exp_loc= loc_t, d0exp_node= d0exp_node
+} (* end of [d0exp] *)
+
+and d0explst = List0 (d0exp)
+and d0expopt = Option (d0exp)
+
+(* ****** ****** *)
+//
+fun fprint_d0exp : fprint_type(d0exp)
+fun fprint_d0explst : fprint_type(d0explst)
+//
+overload fprint with fprint_d0exp
+overload fprint with fprint_d0explst
+//
+(* ****** ****** *)
+
+datatype
+f0arg_node = F0ARG of (i0de, s0exp)
 
 typedef
 f0arg = '{
@@ -541,41 +568,136 @@ f0marg = '{
 } (* end of [f0marg] *)
 
 (* ****** ****** *)
+
+datatype
+f0kind_node =
+  | F0KINDglobal of ()
+  | F0KINDstatic of ()
+// end of [f0kind_node]
+
+typedef
+f0kind = '{
+//
+f0kind_loc= loc_t, f0kind_node= f0kind_node
+//
+} (* end of [f0kind] *)
+
+(* ****** ****** *)
+//
+fun
+fprint_f0kind:fprint_type(f0kind)
+overload fprint with fprint_f0kind
+//
+(* ****** ****** *)
 //
 datatype
-f0decl_node =
-F0DECL of (symbol, f0marg, s0exp(*res*))
+f0head_node =
+F0HEAD of (f0kind, i0de, f0marg, s0exp)
 //
 typedef
-f0decl = '{
-  f0decl_loc= loc_t, f0decl_node= f0decl_node
-} (* end of [f0decl] *)
+f0head = '{
+  f0head_loc= loc_t, f0head_node= f0head_node
+} (* end of [f0head] *)
 //
 (* ****** ****** *)
 //
 fun fprint_f0arg : fprint_type(f0arg)
 fun fprint_f0marg : fprint_type(f0marg)
-fun fprint_f0decl : fprint_type (f0decl)
+fun fprint_f0head : fprint_type (f0head)
 //
 overload fprint with fprint_f0arg
 overload fprint with fprint_f0marg
-overload fprint with fprint_f0decl
+overload fprint with fprint_f0head
+//
+(* ****** ****** *)
+//
+datatype
+tmpdec_node =
+TMPDEC of (i0de, s0exp)
+//
+typedef
+tmpdec = '{
+  tmpdec_loc= loc_t, tmpdec_node= tmpdec_node
+} (* end of [tmpdec] *)
+//
+typedef tmpdeclst = List0 (tmpdec)
+//
+(* ****** ****** *)
+//
+fun fprint_tmpdec: fprint_type(tmpdec)
+fun fprint_tmpdeclst: fprint_type(tmpdeclst)
+//
+overload fprint with fprint_tmpdec
+overload fprint with fprint_tmpdeclst
+//
+(* ****** ****** *)
+//
+datatype
+instr_node =
+//
+  | ATSINSlab of (i0de)
+  | ATSINSmove of (i0de, d0exp)
+//
+  | ATSif of
+    (
+      d0exp, instrlst, instrlstopt
+    )
+  | ATSthen of instrlst
+  | ATSelse of instrlst
+//
+  | ATSreturn of (i0de)
+  | ATSreturn_void of (i0de)
+// end of [instr_node]
+//
+where
+instr = '{
+  instr_loc= loc_t, instr_node= instr_node
+} (* end of [instr] *)
+//
+and instrlst = List0 (instr)
+and instropt = Option (instr)
+and instrlstopt = Option (instrlst)
+//
+(* ****** ****** *)
+//
+fun
+fprint_instr : fprint_type (instr)
+fun
+fprint_instrlst : fprint_type (instrlst)
+//
+overload fprint with fprint_instr
+overload fprint with fprint_instrlst
 //
 (* ****** ****** *)
 
 datatype
-d0exp_node =
-  | D0Eide of symbol
-  | D0Eapp of (symbol, d0explst)
-// end of [d0exp_node]
+f0body_node =
+F0BODY of (tmpdeclst, instrlst)
+typedef
+f0body = '{
+//
+f0body_loc= loc_t, f0body_node= f0body_node
+//
+} (* end of [f0body] *)
+  
+(* ****** ****** *)
 
-where
-d0exp = '{
-  d0exp_loc= loc_t, d0exp_node= d0exp_node
-} (* end of [d0exp] *)
+datatype
+f0decl_node =
+  | F0DECLnone of (f0head)
+  | F0DECLsome of (f0head, f0body)
+// end of [f0decl_node]
 
-and d0explst = List0 (d0exp)
-and d0expopt = Option (d0exp)
+typedef
+f0decl = '{
+  f0decl_loc= loc_t, f0decl_node= f0decl_node
+} (* end of [f0decl] *)
+
+(* ****** ****** *)
+
+fun
+fprint_f0decl:fprint_type (f0decl)
+overload fprint with fprint_f0decl
 
 (* ****** ****** *)
 
@@ -597,13 +719,18 @@ parerr_node =
   | PARERR_EOF
 //
   | PARERR_COMMA
+  | PARERR_COLON
   | PARERR_SEMICOLON
 //
   | PARERR_LPAREN
   | PARERR_RPAREN
 //
+  | PARERR_LBRACE
+  | PARERR_RBRACE
+//
   | PARERR_i0de of ()
   | PARERR_s0exp of ()
+  | PARERR_d0exp of ()
 //
 typedef parerr = '{
   parerr_loc= loc_t, parerr_node= parerr_node
