@@ -164,6 +164,16 @@ p_RBRACE (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_RBRACE, PARERR_RBRACE)
 //
 (* ****** ****** *)
+//
+implement
+is_STRING (x) = case+ x of
+  | T_STRING _ => true | _ => false
+//
+implement
+p_STRING (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_STRING, PARERR_STRING)
+//
+(* ****** ****** *)
 
 implement
 ptest_fun{a}
@@ -362,9 +372,11 @@ parse_s0exp
 var err0 = err
 var ent: synent?
 //
-val tok =
-  tokbuf_get_token (buf)
-val loc = tok.token_loc
+val loc = let
+  val tok = tokbuf_get_token (buf)
+in
+  tok.token_loc
+end // end of [val]
 //
 macdef incby1 () = tokbuf_incby1 (buf)
 //
@@ -460,9 +472,11 @@ parse_d0exp
 var err0 = err
 var ent: synent?
 //
-val tok =
-  tokbuf_get_token (buf)
-val loc = tok.token_loc
+val loc = let
+  val tok = tokbuf_get_token (buf)
+in
+  tok.token_loc
+end // end of [val]
 //
 macdef incby1 () = tokbuf_incby1 (buf)
 //
@@ -485,7 +499,7 @@ case+ 0 of
         val-D0Elist (d0es) = d0e.d0exp_node
       in
         d0exp_appid (loc ++ d0e.d0exp_loc, id, d0es)
-      end
+      end // end of [Some]
   end
 //
 | _ => let
@@ -495,7 +509,7 @@ case+ 0 of
     synent_null ()
   end (* end of [_] *)
 //
-end // end of [parse_s0exp]
+end // end of [parse_d0exp]
 
 (* ****** ****** *)
 
@@ -675,16 +689,15 @@ parse_f0head
 val err0 = err
 val ntok0 = tokbuf_get_ntok (buf)
 //
-val ent1 = parse_f0kind (buf, bt, err)
-val ent2 = pif_fun (buf, bt, err, parse_s0exp, err0)
-val ent3 = pif_fun (buf, bt, err, parse_i0de, err0)
-val ent4 = pif_fun (buf, bt, err, parse_f0marg, err0)
+val ent1 = parse_s0exp (buf, bt, err)
+val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+val ent3 = pif_fun (buf, bt, err, parse_f0marg, err0)
 //
 in
 //
 if
 err = err0
-then f0head_make (ent1, ent2, ent3, ent4)
+then f0head_make (ent1, ent2, ent3)
 else tokbuf_set_ntok_null (buf, ntok0)
 //
 end // end of [parse_f0head]
@@ -968,7 +981,8 @@ err = err0
 ) then (
 case+ 0 of
 | _ when
-    p_SEMICOLON_test (buf) => f0decl_none (ent1)
+    p_SEMICOLON_test
+      (buf) => f0decl_none (ent1)
 | _ when
     ptest_fun
     (
@@ -984,6 +998,55 @@ case+ 0 of
 ) (* end of [if] *)
 //
 end // end of [parse_f0decl]
+
+(* ****** ****** *)
+
+implement
+parse_d0ecl
+  (buf, bt, err) = let
+//
+val err0 = err
+var ent: synent?
+//
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+val loc = tok.token_loc
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_KWORD(SRPinclude()) => let
+    val bt = 0
+    val () = incby1 ()
+    val tok2 = p_STRING (buf, bt, err)
+  in
+    if err = err0
+      then d0ecl_include (tok, tok2)
+      else tokbuf_set_ntok_null (buf, n0) 
+  end // end of [T_KWORD(SRPinclude)]
+//
+| _ when
+    ptest_fun
+    (
+      buf, parse_f0kind, ent
+    ) => let
+      val ent1 = synent_decode2{f0kind}(ent)
+      val ent2 = parse_f0decl (buf, bt, err)
+    in
+      if err = err0
+        then d0ecl_f0decl (ent1, ent2)
+        else tokbuf_set_ntok_null (buf, n0)
+    end // end of [parse_f0kind]
+//
+| _(*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end // end of [_]
+//
+end // end of [parse_d0ecl]
 
 (* ****** ****** *)
 

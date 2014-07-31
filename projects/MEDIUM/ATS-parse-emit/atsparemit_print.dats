@@ -108,6 +108,11 @@ case+ x of
 | ATSdyncst_mac () => p "ATSdyncst_mac"
 | ATSdyncst_extfun () => p "ATSdyncst_extfun"
 //
+| SRPif () => p "#if"
+| SRPifdef () => p "#ifdef"
+| SRPifndef () => p "#ifndef"
+| SRPinclude () => p "#include"
+//
 | KWnone () => p "KWnone"
 //
 end // end of [fprint_keyword]
@@ -289,10 +294,10 @@ case+
 x.f0head_node of
 | F0HEAD
   (
-    knd, id, marg, res
+    id, marg, res
   ) =>
   fprint! (
-    out, "F0HEAD(", knd, "; ", id, "(", marg, "): ", res, ")"
+    out, "F0HEAD(", "; ", id, "(", marg, "): ", res, ")"
   ) (* end of [fprint] *)
 //
 end // end of [fprint_f0head]
@@ -332,6 +337,26 @@ x.f0decl_node of
 | F0DECLsome (head, body) => fprint! (out, "F0DECLsome(...)")
 //
 end // end of [fprint_f0decl]
+
+(* ****** ****** *)
+
+implement
+fprint_d0ecl
+  (out, x) = let
+in
+//
+case+
+x.d0ecl_node of
+| D0Cinclude (fname) =>
+    fprint! (out, "D0Cinclude(", fname, ")")
+| D0Cdyncst_mac (name) =>
+    fprint! (out, "D0Cdyncst_mac(", name, ")")
+| D0Cdyncst_extfun (name, s0es, s0e) =>
+    fprint! (out, "D0Cdyncst_extfun(", name, ")")
+| D0Cfundecl (knd, f0d) =>
+    fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
+//
+end // end of [fprint_d0ecl]
 
 (* ****** ****** *)
 

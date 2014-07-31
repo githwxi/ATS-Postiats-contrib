@@ -70,8 +70,7 @@ fun
 f0kind_static (tok1: token, tok2: token): f0kind
 //
 fun
-f0head_make
-  (knd: f0kind, res: s0exp, id: i0de, marg: f0marg): f0head
+f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
 (* ****** ****** *)
 //
@@ -131,11 +130,14 @@ f0body_make
 
 (* ****** ****** *)
 
-fun
-f0decl_none (head: f0head): f0decl
-fun
-f0decl_some (head: f0head, body: f0body): f0decl
+fun f0decl_none (head: f0head): f0decl
+fun f0decl_some (head: f0head, body: f0body): f0decl
 
+(* ****** ****** *)
+//
+fun d0ecl_f0decl (knd: f0kind, f0d: f0decl): d0ecl
+fun d0ecl_include (tok_beg: token, fname: s0tring): d0ecl
+//
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.sats] *)

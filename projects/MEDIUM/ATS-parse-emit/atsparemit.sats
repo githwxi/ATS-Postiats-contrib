@@ -197,6 +197,11 @@ keyword =
   | ATSdyncst_mac of ()
   | ATSdyncst_extfun of ()
 //
+  | SRPif of ()
+  | SRPifdef of ()
+  | SRPifndef of ()
+  | SRPinclude of ()
+//
   | KWnone of ()
 //
 // end of [keyword]
@@ -282,6 +287,11 @@ overload fprint with fprint_token
 fun
 token_make (loc: loc_t, node: tnode): token
 //
+(* ****** ****** *)
+
+typedef i0nt = token
+typedef s0tring = token
+
 (* ****** ****** *)
 //
 datatype
@@ -458,6 +468,10 @@ fun
 tokbuf_getinc_token (buf: &tokbuf >> _): token
 
 (* ****** ****** *)
+
+fun tokbuf_get_location (buf: &tokbuf >> _): loc_t
+
+(* ****** ****** *)
   
 abstype symbol_type = ptr
 typedef symbol = symbol_type
@@ -592,7 +606,7 @@ overload fprint with fprint_f0kind
 //
 datatype
 f0head_node =
-F0HEAD of (f0kind, i0de, f0marg, s0exp)
+F0HEAD of (i0de, f0marg, s0exp)
 //
 typedef
 f0head = '{
@@ -701,6 +715,31 @@ overload fprint with fprint_f0decl
 
 (* ****** ****** *)
 
+datatype
+d0ecl_node =
+  | D0Cinclude of s0tring
+//
+  | D0Cdyncst_mac of i0de
+  | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
+//
+  | D0Cfundecl of (f0kind, f0decl)
+// end of [d0ecl_node]
+
+typedef
+d0ecl = '{
+//
+d0ecl_loc= loc_t, d0ecl_node= d0ecl_node
+//
+} (* end of [d0ecl] *)
+
+(* ****** ****** *)
+
+fun
+fprint_d0ecl:fprint_type (d0ecl)
+overload fprint with fprint_d0ecl
+
+(* ****** ****** *)
+
 typedef
 parser (a:type) =
   (&tokbuf, int(*bt*), &int(*err*)) -> a
@@ -727,6 +766,8 @@ parerr_node =
 //
   | PARERR_LBRACE
   | PARERR_RBRACE
+//
+  | PARERR_STRING of ()
 //
   | PARERR_i0de of ()
   | PARERR_s0exp of ()

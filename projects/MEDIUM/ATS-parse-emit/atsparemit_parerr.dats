@@ -103,6 +103,8 @@ x.parerr_node of
 | PARERR_LBRACE () => KN (x, "(")
 | PARERR_RBRACE () => KN (x, ")")
 //
+| PARERR_STRING () => SN (x, "STRING")
+//
 | PARERR_i0de () => SN (x, "i0de")
 | PARERR_s0exp () => SN (x, "s0exp")
 | PARERR_d0exp () => SN (x, "d0exp")

@@ -291,8 +291,7 @@ case+ kwd of
 //
 | KWnone () =>
     token_make (loc, T_IDENT_alp(name))
-  //
-//
+  // end of [KWnone]
 | _ (*keyword*) => token_make (loc, T_KWORD (kwd))
 //
 end // end of [lexing_IDENT_alp]
@@ -484,8 +483,13 @@ case+ 0 of
     val name = lexbuf_takeout (buf, nchr2)
     val name = strptr2string (name)
     val loc = lexbuf_getincby_location (buf, nchr2)
+    val kwd = keyword_search (name)
   in
-    token_make (loc, T_IDENT_srp(name))
+    case+ kwd of
+    | KWnone () =>
+        token_make (loc, T_IDENT_srp(name))
+      // end of [KWnone]
+    | _(*keyword*) => token_make (loc, T_KWORD (kwd))
   end
 | _ (* rest-of-char *) => let
     val nchr = testing_symbolicseq0 (buf)

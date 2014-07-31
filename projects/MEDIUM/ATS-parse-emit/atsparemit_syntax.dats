@@ -151,7 +151,7 @@ in '{
 implement
 f0head_make
 (
-  knd, res, id, marg
+  res, id, marg
 ) = let
 //
 val loc =
@@ -159,7 +159,7 @@ val loc =
 //
 in '{
   f0head_loc= loc
-, f0head_node= F0HEAD (knd, id, marg, res)
+, f0head_node= F0HEAD (id, marg, res)
 } end // end of [f0head_make]
 
 (* ****** ****** *)
@@ -340,6 +340,38 @@ val loc =
 in '{
   f0decl_loc= loc, f0decl_node= F0DECLsome(head, body)
 } end // end of [f0decl_some]
+
+(* ****** ****** *)
+
+fun
+d0ecl_make_node
+(
+  loc: loc_t, node: d0ecl_node
+) : d0ecl = '{ d0ecl_loc= loc, d0ecl_node= node }
+
+(* ****** ****** *)
+
+implement
+d0ecl_f0decl
+  (knd, f0d) = let
+//
+val loc = knd.f0kind_loc ++ f0d.f0decl_loc
+//
+in
+  d0ecl_make_node (loc, D0Cfundecl (knd, f0d))
+end // end of [d0ecl_f0decl]
+
+(* ****** ****** *)
+
+implement
+d0ecl_include
+  (tok, fname) = let
+//
+val loc = tok.token_loc ++ fname.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cinclude (fname))
+end // end of [d0ecl_include]
 
 (* ****** ****** *)
 

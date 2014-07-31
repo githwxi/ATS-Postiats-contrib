@@ -159,6 +159,11 @@ val-~None_vt() = kwordins ("ATSstaticdec", ATSstaticdec)
 val-~None_vt() = kwordins ("ATSdyncst_mac", ATSdyncst_mac)
 val-~None_vt() = kwordins ("ATSdyncst_extfun", ATSdyncst_extfun)
 //
+val-~None_vt() = kwordins ("#if", SRPif)
+val-~None_vt() = kwordins ("#ifdef", SRPifdef)
+val-~None_vt() = kwordins ("#ifndef", SRPifndef)
+val-~None_vt() = kwordins ("#include", SRPinclude)
+//
 } (* end of [val] *)
 
 (* ****** ****** *)

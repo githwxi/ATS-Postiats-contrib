@@ -103,7 +103,8 @@ tokbuf_get_token
   (buf) = let
 //
 val ntok = buf.tokbuf_ntok
-val ptok = $DA.dynarray_getref_at (buf.tokbuf_tkbf, ntok)
+val ptok =
+  $DA.dynarray_getref_at (buf.tokbuf_tkbf, ntok)
 //
 in
 //
@@ -113,7 +114,8 @@ then $UN.cptr_get (ptok)
 else let
 //
 val tok = lexbuf_get_token_ncmnt (buf.tokbuf_lxbf)
-val ((*void*)) = $DA.dynarray_insert_atend_exn (buf.tokbuf_tkbf, tok)
+val ((*void*)) =
+  $DA.dynarray_insert_atend_exn (buf.tokbuf_tkbf, tok)
 //
 in
   tok
@@ -130,6 +132,13 @@ tokbuf_getinc_token
   val tok = tokbuf_get_token (buf)
   val ((*void*)) = tokbuf_incby1 (buf)
 } (* end of [tokbuf_getinc_token] *)
+
+(* ****** ****** *)
+
+implement
+tokbuf_get_location (buf) =
+  let val tok = tokbuf_get_token (buf) in tok.token_loc end
+// end of [tokbuf_get_location]
 
 (* ****** ****** *)
 

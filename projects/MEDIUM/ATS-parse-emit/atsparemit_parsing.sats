@@ -87,6 +87,11 @@ fun is_RBRACE (x: tnode): bool
 //
 (* ****** ****** *)
 
+fun p_STRING : parser (token)
+fun is_STRING (x: tnode): bool
+
+(* ****** ****** *)
+
 fun ptest_fun
   {a:type} (
   buf: &tokbuf >> _, f: parser (a), ent: &synent? >> synent
@@ -152,6 +157,10 @@ fun parse_s0expargopt : parser (s0expopt)
 
 fun parse_d0exp : parser (d0exp)
 fun parse_d0expargopt : parser (d0expopt)
+
+(* ****** ****** *)
+
+fun parse_d0ecl : parser (d0ecl)
 
 (* ****** ****** *)
 
