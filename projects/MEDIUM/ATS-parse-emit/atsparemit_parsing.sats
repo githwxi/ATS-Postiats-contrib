@@ -86,10 +86,13 @@ fun p_RBRACE : parser (token)
 fun is_RBRACE (x: tnode): bool
 //
 (* ****** ****** *)
-
+//
+fun p_INT : parser (token)
+fun is_INT (x: tnode): bool
+//
 fun p_STRING : parser (token)
 fun is_STRING (x: tnode): bool
-
+//
 (* ****** ****** *)
 
 fun ptest_fun
@@ -155,12 +158,17 @@ fun parse_s0expargopt : parser (s0expopt)
 
 (* ****** ****** *)
 
+fun parse_primval : parser (primval)
+
+(* ****** ****** *)
+
 fun parse_d0exp : parser (d0exp)
 fun parse_d0expargopt : parser (d0expopt)
 
 (* ****** ****** *)
 
 fun parse_d0ecl : parser (d0ecl)
+fun parse_d0eclseq : parser (d0eclist)
 
 (* ****** ****** *)
 
@@ -193,23 +201,18 @@ fun parse_f0decl : parser (f0decl)
 (* ****** ****** *)
 
 fun
-parse_from_lexbuf (buf: &lexbuf >> _): void
-
-(* ****** ****** *)
-
-fun
-parse_from_tokbuf (buf: &tokbuf >> _): void
-
-(* ****** ****** *)
-
-fun
 parse_from_string{a:type}
   (inp: string, f: parser a): Option_vt (a)
 // end of [parse_from_string]
 
 (* ****** ****** *)
 
-fun parse_from_fileref (inp: FILEref): void
+fun
+parse_from_tokbuf (buf: &tokbuf >> _): d0eclist
+
+(* ****** ****** *)
+
+fun parse_from_fileref (inp: FILEref): d0eclist
 
 (* ****** ****** *)
 

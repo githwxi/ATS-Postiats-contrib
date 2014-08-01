@@ -315,7 +315,13 @@ val name = strptr2string (name)
 val loc = lexbuf_getincby_location (buf, nchr1)
 //
 in
-  token_make (loc, T_IDENT_sym(name))
+//
+case+ name of
+| "<" => token_make (loc, T_LT)
+| ">" => token_make (loc, T_GT)
+| ":" => token_make (loc, T_COLON)
+| _ (*rest*) => token_make (loc, T_IDENT_sym(name))
+//
 end // end of [lexing_IDENT_sym]
 
 (* ****** ****** *)
@@ -350,10 +356,10 @@ testing_intspseq0
 //
 extern
 fun
-lexing_INTEGER_oct (buf: &lexbuf): token
+lexing_INT_oct (buf: &lexbuf): token
 //
 implement
-lexing_INTEGER_oct
+lexing_INT_oct
   (buf) = let
 val k0 = testing_octalseq0 (buf)
 val k1 = testing_intspseq0 (buf)
@@ -367,17 +373,17 @@ val base =
   (if k0 > 0 then 8 else 10): int
 //
 in
-  token_make (loc, T_INTEGER(base, intrep))
-end // end of [lexing_INTEGER_oct]
+  token_make (loc, T_INT(base, intrep))
+end // end of [lexing_INT_oct]
 
 (* ****** ****** *)
 
 extern
 fun
-lexing_INTEGER_dec (buf: &lexbuf): token
+lexing_INT_dec (buf: &lexbuf): token
 //
 implement
-lexing_INTEGER_dec
+lexing_INT_dec
   (buf) = let
 //
 val k0 = testing_digitseq0 (buf)
@@ -389,17 +395,17 @@ val intrep = strptr2string (intrep)
 val loc = lexbuf_getincby_location (buf, nchr)
 //
 in
-  token_make (loc, T_INTEGER(10, intrep))
-end // end of [lexing_INTEGER_dec]
+  token_make (loc, T_INT(10(*base*), intrep))
+end // end of [lexing_INT_dec]
 
 (* ****** ****** *)
 
 extern
 fun
-lexing_INTEGER_hex (buf: &lexbuf): token
+lexing_INT_hex (buf: &lexbuf): token
 //
 implement
-lexing_INTEGER_hex
+lexing_INT_hex
   (buf) = let
 //
 val k0 =
@@ -412,8 +418,8 @@ val intrep = strptr2string (intrep)
 val loc = lexbuf_getincby_location (buf, nchr)
 //
 in
-  token_make (loc, T_INTEGER(16, intrep))
-end // end of [lexing_INTEGER_hex]
+  token_make (loc, T_INT(16(*base*), intrep))
+end // end of [lexing_INT_hex]
 
 (* ****** ****** *)
 //
@@ -484,6 +490,7 @@ case+ 0 of
     val name = strptr2string (name)
     val loc = lexbuf_getincby_location (buf, nchr2)
     val kwd = keyword_search (name)
+    val () = println! ("lexing_SHARP: loc =", loc)
   in
     case+ kwd of
     | KWnone () =>
@@ -616,10 +623,15 @@ end // end of [loop2]
 //
 var pos: position
 val () = lexbuf_get_position (buf, pos)
-val nchr = loop (buf, pos, 0)
+val () = position_incby1 (pos)
+val nchr = loop (buf, pos, 0(*nchr*))
 val loc = lexbufpos_get_location (buf, pos)
 val strp = lexbuf_takeout (buf, nchr+1)
 val () = lexbuf_set_position (buf, pos)
+//
+val () = println! ("lexing_quote: loc = ", loc)
+val () = println! ("lexing_quote: nchr = ", nchr)
+val () = println! ("lexing_quote: strp = ", strp)
 //
 in
   token_make (loc, T_STRING(strptr2string(strp)))
@@ -777,14 +789,13 @@ case+ 0 of
         val k = ftesting_one (buf, xX_test)
       in
         if k = 0
-          then lexing_INTEGER_oct (buf) else lexing_INTEGER_hex (buf)
+          then lexing_INT_oct (buf) else lexing_INT_hex (buf)
         // end of [if]
       end // end of [then]
-      else lexing_INTEGER_dec (buf)
+      else lexing_INT_dec (buf)
    )
 //
 | _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
-| _ when i0 = COLON => lexing_litchar (buf, T_COLON)
 | _ when i0 = SEMICOLON => lexing_litchar (buf, T_SEMICOLON)
 //
 | _ when i0 = LPAREN => lexing_litchar (buf, T_LPAREN)

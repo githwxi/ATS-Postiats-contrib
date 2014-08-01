@@ -100,14 +100,18 @@ x.parerr_node of
 | PARERR_LPAREN () => KN (x, "(")
 | PARERR_RPAREN () => KN (x, ")")
 //
-| PARERR_LBRACE () => KN (x, "(")
-| PARERR_RBRACE () => KN (x, ")")
+| PARERR_LBRACE () => KN (x, "{")
+| PARERR_RBRACE () => KN (x, "}")
 //
+| PARERR_INT () => SN (x, "INT")
 | PARERR_STRING () => SN (x, "STRING")
 //
 | PARERR_i0de () => SN (x, "i0de")
 | PARERR_s0exp () => SN (x, "s0exp")
+| PARERR_primval () => SN (x, "primval")
 | PARERR_d0exp () => SN (x, "d0exp")
+//
+| PARERR_instr () => SN (x, "instr")
 //
 end // end of [fprint_parerr]
 

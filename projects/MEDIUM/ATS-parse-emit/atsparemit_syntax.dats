@@ -77,6 +77,29 @@ s0exp_appid (loc, id, s0es) =
   s0exp_make_node (loc, S0Eappid (id.i0de_sym, s0es))
 //
 (* ****** ****** *)
+
+fun
+pmval_make_node
+(
+  loc: loc_t, node: primval_node
+) : primval = '{ primval_loc= loc, primval_node= node }
+
+(* ****** ****** *)
+
+implement
+ATSPMVi0nt_make
+(
+  tok1, int, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  pmval_make_node (loc, ATSPMVi0nt (int))
+end // end of [ATSPMVi0nt]
+
+(* ****** ****** *)
 //
 fun
 d0exp_make_node
@@ -87,26 +110,41 @@ d0exp_ide (loc, id) =
   d0exp_make_node (loc, D0Eide (id.i0de_sym))
 //
 implement
-d0exp_list (loc, d0es) = d0exp_make_node (loc, D0Elist (d0es))
+d0exp_pmv
+  (loc, pmv) = d0exp_make_node (loc, D0Epmv (pmv))
+//
+implement
+d0exp_list
+  (loc, d0es) = d0exp_make_node (loc, D0Elist (d0es))
 //
 implement
 d0exp_appid (loc, id, d0es) =
   d0exp_make_node (loc, D0Eappid (id.i0de_sym, d0es))
 //
 (* ****** ****** *)
-
+//
 implement
-f0arg_make
+f0arg_none
+  (s0e) = '{
+  f0arg_loc= s0e.s0exp_loc
+, f0arg_node= F0ARGnone (s0e)
+} (* end of [f0arg_none] *)
+//
+implement
+f0arg_some
   (s0e, id) = let
+//
+val () = println! ("f0arg_some: id = ", id)
+val () = println! ("f0arg_some: s0e = ", s0e)
 //
 val loc =
   s0e.s0exp_loc ++ id.i0de_loc
 //
 in '{
   f0arg_loc= loc
-, f0arg_node= F0ARG (id, s0e)
-} end // end of [f0arg_make]
-
+, f0arg_node= F0ARGsome (id, s0e)
+} end // end of [f0arg_some]
+//
 (* ****** ****** *)
 
 implement
@@ -125,15 +163,15 @@ in '{
 (* ****** ****** *)
 //
 implement
-f0kind_global
+f0kind_extern
   (tok1, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in '{
-  f0kind_loc= loc, f0kind_node = F0KINDglobal ()
-} end // end of [f0kind_global]
+  f0kind_loc= loc, f0kind_node = F0KINDextern ()
+} end // end of [f0kind_extern]
 //
 implement
 f0kind_static
@@ -372,6 +410,30 @@ val loc = tok.token_loc ++ fname.token_loc
 in
   d0ecl_make_node (loc, D0Cinclude (fname))
 end // end of [d0ecl_include]
+
+(* ****** ****** *)
+
+implement
+d0ecl_dyncst_mac
+  (tok1, name, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdyncst_mac (name))
+end // end of [d0ecl_dyncst_mac]
+
+(* ****** ****** *)
+
+implement
+d0ecl_dyncst_extfun
+  (tok1, name, s0es, s0e, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdyncst_extfun (name, s0es, s0e))
+end // end of [d0ecl_dyncst_extfun]
 
 (* ****** ****** *)
 

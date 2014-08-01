@@ -27,6 +27,7 @@ SOURCES_SATS += atsparemit_parsing.sats
 SOURCES_DATS += atsparemit_main.dats
 SOURCES_DATS += atsparemit_mylib.dats
 #
+SOURCES_DATS += atsparemit_error.dats
 SOURCES_DATS += atsparemit_print.dats
 SOURCES_DATS += atsparemit_symbol.dats
 SOURCES_DATS += atsparemit_fname.dats

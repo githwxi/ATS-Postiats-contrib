@@ -48,15 +48,26 @@ fun s0exp_list (loc: loc_t, s0es: s0explst): s0exp
 fun s0exp_appid (loc: loc_t, id: i0de, arg: s0explst): s0exp
 
 (* ****** ****** *)
+//
+// HX: for constructing primvals
+//
+(* ****** ****** *)
+//
+fun
+ATSPMVi0nt_make
+  (tok_kwd: token, int: i0nt, tok_end: token): primval
+//
+(* ****** ****** *)
 
 fun d0exp_ide (loc: loc_t, id: i0de): d0exp
+fun d0exp_pmv (loc: loc_t, pmv: primval): d0exp
 fun d0exp_list (loc: loc_t, d0es: d0explst): d0exp
 fun d0exp_appid (loc: loc_t, id: i0de, arg: d0explst): d0exp
 
 (* ****** ****** *)
 //
-fun
-f0arg_make (s0e: s0exp, id: i0de): f0arg
+fun f0arg_none (s0e: s0exp): f0arg
+fun f0arg_some (s0e: s0exp, id: i0de): f0arg
 //
 fun
 f0marg_make
@@ -65,7 +76,7 @@ f0marg_make
 (* ****** ****** *)
 //
 fun
-f0kind_global (tok1: token, tok2: token): f0kind
+f0kind_extern (tok1: token, tok2: token): f0kind
 fun
 f0kind_static (tok1: token, tok2: token): f0kind
 //
@@ -135,8 +146,19 @@ fun f0decl_some (head: f0head, body: f0body): f0decl
 
 (* ****** ****** *)
 //
-fun d0ecl_f0decl (knd: f0kind, f0d: f0decl): d0ecl
-fun d0ecl_include (tok_beg: token, fname: s0tring): d0ecl
+fun d0ecl_f0decl
+  (knd: f0kind, f0d: f0decl): d0ecl
+fun d0ecl_include
+  (tok_beg: token, fname: s0tring): d0ecl
+//
+fun
+d0ecl_dyncst_mac
+  (tok_beg: token, name: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dyncst_extfun
+(
+  tok_beg: token, name: i0de, arg: s0explst, res: s0exp, tok_end: token
+) : d0ecl // end of [d0ecl_dyncst_extfun]
 //
 (* ****** ****** *)
 

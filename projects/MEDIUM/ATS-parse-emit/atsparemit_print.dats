@@ -81,6 +81,9 @@ case+ x of
 | ATStailcalbeg () => p "ATStailcalbeg"
 | ATStailcalend () => p "ATStailcalend"
 //
+| ATSPMVi0nt () => p "ATSPMVi0nt"
+| ATSPMVf0loat () => p "ATSPMVf0loat"
+//
 | ATSINSlab () => p "ATSINSlab"
 //
 | ATSINSmove () => p "ATSINSmove"
@@ -97,13 +100,10 @@ case+ x of
 | ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"
 //
-| ATSPMVi0nt () => p "ATSPMVi0nt"
-| ATSPMVf0loat () => p "ATSPMVf0loat"
-//
 | ATSinline () => p "ATSinline"
 //
-| ATSglobaldec () => p "ATSglobaldec"
-| ATSstaticdec () => p "ATSstaticdec"
+| ATSextern () => p "ATSextern"
+| ATSstatic () => p "ATSstatic"
 //
 | ATSdyncst_mac () => p "ATSdyncst_mac"
 | ATSdyncst_extfun () => p "ATSdyncst_extfun"
@@ -129,10 +129,10 @@ case+ x0 of
 | T_CHAR (x) =>
     fprint! (out, "CHAR(", x, ")")
 //
-| T_FLOAT (x) =>
-    fprint! (out, "FLOAT(", x, ")")
-| T_INTEGER (base, x) =>
-    fprint! (out, "INTEGER(", base, "; ", x, ")")
+| T_INT (base, x) =>
+    fprint! (out, "INT(", base, "; ", x, ")")
+| T_FLOAT (base, x) =>
+    fprint! (out, "FLOAT(", base, "; ", x, ")")
 //
 | T_STRING (x) =>
     fprint! (out, "STRING(", x, ")")
@@ -148,8 +148,12 @@ case+ x0 of
 | T_IDENT_srp (x) =>
     fprint! (out, "IDENT#(", x, ")")
 //
-| T_COMMA () => fprint! (out, ",")
+| T_LT () => fprint! (out, "<")
+| T_GT () => fprint! (out, ">")
+//
 | T_COLON () => fprint! (out, ":")
+//
+| T_COMMA () => fprint! (out, ",")
 | T_SEMICOLON () => fprint! (out, ";")
 //
 | T_LPAREN () => fprint! (out, "(")
@@ -183,14 +187,30 @@ implement
 fprint_token
   (out, tok) =
 {
+(*
   val () = fprint! (out, tok.token_loc, ": ")
+*)
   val () = fprint_tnode (out, tok.token_node)
 }
 //
 (* ****** ****** *)
 
 implement
+print_i0de (x) = fprint (stdout_ref, x)
+implement
+prerr_i0de (x) = fprint (stderr_ref, x)
+
+(* ****** ****** *)
+
+implement
 fprint_i0de (out, x) = fprint (out, x.i0de_sym)
+
+(* ****** ****** *)
+
+implement
+print_s0exp (x) = fprint (stdout_ref, x)
+implement
+prerr_s0exp (x) = fprint (stderr_ref, x)
 
 (* ****** ****** *)
 //
@@ -220,6 +240,19 @@ implement
 fprint_s0explst (out, xs) = fprint_list_sep (out, xs, ", ")
 
 (* ****** ****** *)
+
+implement
+fprint_primval
+  (out, x) = let
+in
+//
+case+
+x.primval_node of
+| ATSPMVi0nt (int) => fprint! (out, "ATSPMVi0nt(", int, ")")
+//
+end // end of [fprint_primval]
+  
+(* ****** ****** *)
 //
 implement
 fprint_val<d0exp> = fprint_d0exp
@@ -236,6 +269,7 @@ case+
 d0e.d0exp_node of
 //
 | D0Eide (id) => fprint! (out, "D0Eide(", id, ")")
+| D0Epmv (pmv) => fprint! (out, "D0Epmv(", pmv, ")")
 | D0Elist (d0es) => fprint! (out, "D0Elist(", d0es, ")")
 | D0Eappid (id, d0es) => fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
 //
@@ -259,7 +293,10 @@ in
 case+
 f0a.f0arg_node of
 //
-| F0ARG (id, s0e) => fprint! (out, "F0ARG(", id, ": ", s0e, ")")
+| F0ARGnone (s0e) =>
+    fprint! (out, "F0ARGsome(", s0e, ")")
+| F0ARGsome (id, s0e) =>
+    fprint! (out, "F0ARGsome(", id, ": ", s0e, ")")
 //
 end // end of [fprint_f0arg]
 //
@@ -278,7 +315,7 @@ in
 //
 case+
 x.f0kind_node of
-| F0KINDglobal () => fprint! (out, "ATSglobal()")
+| F0KINDextern () => fprint! (out, "ATSextern()")
 | F0KINDstatic () => fprint! (out, "ATSstatic()")
 //
 end // end of [fprint_f0kind]
@@ -339,7 +376,10 @@ x.f0decl_node of
 end // end of [fprint_f0decl]
 
 (* ****** ****** *)
-
+//
+implement
+fprint_val<d0ecl> = fprint_d0ecl
+//
 implement
 fprint_d0ecl
   (out, x) = let
@@ -357,6 +397,19 @@ x.d0ecl_node of
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
 //
 end // end of [fprint_d0ecl]
+//
+(* ****** ****** *)
+
+implement
+fprint_d0eclist
+  (out, xs) = let
+//
+val () =
+  fprint_list_sep (out, xs, "\n")
+//
+in
+  fprint_newline (out)
+end // end of [fprint_d0eclist]
 
 (* ****** ****** *)
 

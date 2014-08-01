@@ -171,6 +171,9 @@ keyword =
   | ATStailcalbeg of ()
   | ATStailcalend of ()
 //
+  | ATSPMVi0nt of ()
+  | ATSPMVf0loat of ()
+//
   | ATSINSlab of ()
 //
   | ATSINSmove of ()
@@ -187,12 +190,9 @@ keyword =
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
 //
-  | ATSPMVi0nt of ()
-  | ATSPMVf0loat of ()
-//
   | ATSinline of () // inline
-  | ATSglobaldec of () // extern
-  | ATSstaticdec of () // static
+  | ATSextern of () // extern
+  | ATSstatic of () // static
 //
   | ATSdyncst_mac of ()
   | ATSdyncst_extfun of ()
@@ -231,10 +231,10 @@ token_node =
 //
 | T_CHAR of (string)
 //
-| T_FLOAT of (string)
-| T_INTEGER of (int(*base*), string)
-//
+| T_INT of (int(*base*), string)
+| T_FLOAT of (int(*base*), string)
 | T_STRING of (string)
+//
 //
 | T_LPAREN of () // (
 | T_RPAREN of () // )
@@ -243,8 +243,12 @@ token_node =
 | T_LBRACE of () // {
 | T_RBRACE of () // }
 //
-| T_COMMA of () // ,
+| T_LT of ()
+| T_GT of ()
+//
 | T_COLON of () // :
+//
+| T_COMMA of () // ,
 | T_SEMICOLON of () // ;
 //
 | T_SLASH of () // /
@@ -292,6 +296,11 @@ token_make (loc: loc_t, node: tnode): token
 typedef i0nt = token
 typedef s0tring = token
 
+(* ****** ****** *)
+//
+exception FatalErrorExn
+fun abort ((*void*)):<!exn> void
+//
 (* ****** ****** *)
 //
 datatype
@@ -508,8 +517,12 @@ i0de = '{
 
 (* ****** ****** *)
 //
-fun
-fprint_i0de : fprint_type (i0de)
+fun print_i0de : i0de -> void
+fun prerr_i0de : i0de -> void
+fun fprint_i0de : fprint_type (i0de)
+//
+overload print with print_i0de
+overload prerr with prerr_i0de
 overload fprint with fprint_i0de
 //
 (* ****** ****** *)
@@ -531,17 +544,41 @@ and s0expopt = Option (s0exp)
 
 (* ****** ****** *)
 //
+fun print_s0exp : s0exp -> void
+fun prerr_s0exp : s0exp -> void
 fun fprint_s0exp : fprint_type(s0exp)
 fun fprint_s0explst : fprint_type(s0explst)
 //
+overload print with print_s0exp
+overload prerr with prerr_s0exp
 overload fprint with fprint_s0exp
-overload fprint with fprint_s0explst
+overload fprint with fprint_s0explst of 10
+//
+(* ****** ****** *)
+
+datatype
+primval_node =
+//
+  | ATSPMVi0nt of i0nt
+// end of [primval_node]
+
+typedef
+primval = '{
+  primval_loc= loc_t, primval_node= primval_node
+} (* end of [primval] *)
+
+(* ****** ****** *)
+//
+fun
+fprint_primval:fprint_type(primval)
+overload fprint with fprint_primval
 //
 (* ****** ****** *)
 
 datatype
 d0exp_node =
   | D0Eide of symbol
+  | D0Epmv of primval
   | D0Elist of (d0explst)
   | D0Eappid of (symbol, d0explst)
 // end of [d0exp_node]
@@ -560,12 +597,15 @@ fun fprint_d0exp : fprint_type(d0exp)
 fun fprint_d0explst : fprint_type(d0explst)
 //
 overload fprint with fprint_d0exp
-overload fprint with fprint_d0explst
+overload fprint with fprint_d0explst of 10
 //
 (* ****** ****** *)
 
 datatype
-f0arg_node = F0ARG of (i0de, s0exp)
+f0arg_node =
+  | F0ARGnone of (s0exp)
+  | F0ARGsome of (i0de, s0exp)
+// end of [f0arg_node]
 
 typedef
 f0arg = '{
@@ -585,7 +625,7 @@ f0marg = '{
 
 datatype
 f0kind_node =
-  | F0KINDglobal of ()
+  | F0KINDextern of ()
   | F0KINDstatic of ()
 // end of [f0kind_node]
 
@@ -661,6 +701,7 @@ instr_node =
 //
   | ATSreturn of (i0de)
   | ATSreturn_void of (i0de)
+//
 // end of [instr_node]
 //
 where
@@ -674,10 +715,8 @@ and instrlstopt = Option (instrlst)
 //
 (* ****** ****** *)
 //
-fun
-fprint_instr : fprint_type (instr)
-fun
-fprint_instrlst : fprint_type (instrlst)
+fun fprint_instr : fprint_type (instr)
+fun fprint_instrlst : fprint_type (instrlst)
 //
 overload fprint with fprint_instr
 overload fprint with fprint_instrlst
@@ -732,12 +771,18 @@ d0ecl_loc= loc_t, d0ecl_node= d0ecl_node
 //
 } (* end of [d0ecl] *)
 
-(* ****** ****** *)
+typedef d0eclist = List0 (d0ecl)
 
+(* ****** ****** *)
+//
 fun
 fprint_d0ecl:fprint_type (d0ecl)
+fun
+fprint_d0eclist:fprint_type (d0eclist)
+//
 overload fprint with fprint_d0ecl
-
+overload fprint with fprint_d0eclist of 10
+//
 (* ****** ****** *)
 
 typedef
@@ -767,11 +812,15 @@ parerr_node =
   | PARERR_LBRACE
   | PARERR_RBRACE
 //
+  | PARERR_INT of ()
   | PARERR_STRING of ()
 //
   | PARERR_i0de of ()
   | PARERR_s0exp of ()
+  | PARERR_primval of ()
   | PARERR_d0exp of ()
+//
+  | PARERR_instr of ()
 //
 typedef parerr = '{
   parerr_loc= loc_t, parerr_node= parerr_node
