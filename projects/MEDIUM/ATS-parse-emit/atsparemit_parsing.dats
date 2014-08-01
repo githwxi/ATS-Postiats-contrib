@@ -656,6 +656,76 @@ end // end of [parse_d0expargopt]
 (* ****** ****** *)
 
 implement
+parse_tyfld
+  (buf, bt, err) = let
+//
+val err0 = err
+val ntok0 = tokbuf_get_ntok (buf)
+//
+val ent1 = parse_s0exp (buf, bt, err)
+val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+val ent3 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+//
+in
+//
+if
+err = err0
+then tyfld_make (ent1, ent2)
+else tokbuf_set_ntok_null (buf, ntok0)
+//
+end // end of [parse_tyfld]
+
+(* ****** ****** *)
+
+extern
+fun parse_tyfldseq : parser (tyfldlst)
+implement
+parse_tyfldseq
+  (buf, bt, err) =
+  list_vt2t (pstar_fun (buf, bt, parse_tyfld))
+// end of [parse_tyfldseq]
+
+(* ****** ****** *)
+
+implement
+parse_tyrec
+  (buf, bt, err) = let
+//
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+val loc = tok.token_loc
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+| T_KWORD
+  (
+    ATSstruct()
+  ) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LBRACE (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_tyfldseq, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RBRACE, err0)
+  in
+    if err = err0
+      then tyrec_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end
+| _(*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end // end of [_]
+//  
+end // end of [parse_tyrec]
+
+(* ****** ****** *)
+
+implement
 parse_f0arg
   (buf, bt, err) = let
 //
@@ -1177,6 +1247,19 @@ tok.token_node of
     // end of [if]
   end // end of [T_KWORD(ATSdyncst_extfun)]
 //
+| T_KWORD(TYPEDEF()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = parse_tyrec (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then d0ecl_typedef (tok, ent1, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [T_KWORD(TYPEDEF)]
+//
 | _ when
     ptest_fun
     (
@@ -1187,7 +1270,7 @@ tok.token_node of
       val ent2 = parse_f0decl (buf, bt, err)
     in
       if err = err0
-        then d0ecl_f0decl (ent1, ent2)
+        then d0ecl_fundecl (ent1, ent2)
         else tokbuf_set_ntok_null (buf, n0)
     end // end of [parse_f0kind]
 //

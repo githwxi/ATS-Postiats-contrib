@@ -67,6 +67,10 @@ in
 //
 case+ x of
 //
+| TYPEDEF () => p "typedef"
+//
+| ATSstruct () => p "ATSstruct"
+//
 | ATStmpdec () => p "ATStmpdec"
 //
 | ATSif () => p "ATSif"
@@ -393,6 +397,8 @@ x.d0ecl_node of
     fprint! (out, "D0Cdyncst_mac(", name, ")")
 | D0Cdyncst_extfun (name, s0es, s0e) =>
     fprint! (out, "D0Cdyncst_extfun(", name, ")")
+| D0Ctypedef (id, tyrec) =>
+    fprint! (out, "D0Ctypedef(", id, "; ", "...", ")")
 | D0Cfundecl (knd, f0d) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
 //

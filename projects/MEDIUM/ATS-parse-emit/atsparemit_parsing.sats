@@ -172,6 +172,11 @@ fun parse_d0eclseq : parser (d0eclist)
 
 (* ****** ****** *)
 
+fun parse_tyfld : parser (tyfld)
+fun parse_tyrec : parser (tyrec)
+
+(* ****** ****** *)
+
 fun parse_f0arg : parser (f0arg)
 fun parse_f0marg : parser (f0marg)
 

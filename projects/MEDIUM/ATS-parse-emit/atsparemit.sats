@@ -157,6 +157,9 @@ fun location_combine (loc1: loc_t, loc2: loc_t): loc_t
 datatype
 keyword =
 //
+  | TYPEDEF of ()
+  | ATSstruct of ()
+//
   | ATStmpdec of ()
 //
   | ATSif of ()
@@ -753,13 +756,33 @@ fprint_f0decl:fprint_type (f0decl)
 overload fprint with fprint_f0decl
 
 (* ****** ****** *)
+//
+datatype
+tyfld_node =
+TYFLD of (i0de, s0exp)
+typedef
+tyfld = '{
+  tyfld_loc= loc_t
+, tyfld_node= tyfld_node
+} (* end of [tyfld] *)
+//
+typedef tyfldlst = List0 (tyfld)
+//
+typedef tyrec = '{
+  tyrec_loc= loc_t, tyrec_node= tyfldlst
+} (* end of [tyrec] *)
+//
+(* ****** ****** *)
 
 datatype
 d0ecl_node =
+//
   | D0Cinclude of s0tring
 //
   | D0Cdyncst_mac of i0de
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
+//
+  | D0Ctypedef of (i0de, tyrec)
 //
   | D0Cfundecl of (f0kind, f0decl)
 // end of [d0ecl_node]

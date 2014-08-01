@@ -122,6 +122,32 @@ d0exp_appid (loc, id, d0es) =
   d0exp_make_node (loc, D0Eappid (id.i0de_sym, d0es))
 //
 (* ****** ****** *)
+
+implement
+tyfld_make
+  (s0e, id) = let
+//
+val loc = s0e.s0exp_loc ++ id.i0de_loc
+//
+in '{
+  tyfld_loc= loc, tyfld_node= TYFLD (id, s0e)
+} end // end of [tyfld_make]
+
+(* ****** ****** *)
+
+implement
+tyrec_make
+(
+  tok1, tyflds, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in '{
+  tyrec_loc= loc, tyrec_node= tyflds
+} end // end of [tyrec_make]
+
+(* ****** ****** *)
 //
 implement
 f0arg_none
@@ -390,18 +416,6 @@ d0ecl_make_node
 (* ****** ****** *)
 
 implement
-d0ecl_f0decl
-  (knd, f0d) = let
-//
-val loc = knd.f0kind_loc ++ f0d.f0decl_loc
-//
-in
-  d0ecl_make_node (loc, D0Cfundecl (knd, f0d))
-end // end of [d0ecl_f0decl]
-
-(* ****** ****** *)
-
-implement
 d0ecl_include
   (tok, fname) = let
 //
@@ -434,6 +448,30 @@ val loc = tok1.token_loc ++ tok2.token_loc
 in
   d0ecl_make_node (loc, D0Cdyncst_extfun (name, s0es, s0e))
 end // end of [d0ecl_dyncst_extfun]
+
+(* ****** ****** *)
+
+implement
+d0ecl_typedef
+  (tok, tyrec, id) = let
+//
+val loc = tok.token_loc ++ id.i0de_loc
+//
+in
+  d0ecl_make_node (loc, D0Ctypedef (id, tyrec))
+end // end of [d0ecl_typedef]
+
+(* ****** ****** *)
+
+implement
+d0ecl_fundecl
+  (knd, f0d) = let
+//
+val loc = knd.f0kind_loc ++ f0d.f0decl_loc
+//
+in
+  d0ecl_make_node (loc, D0Cfundecl (knd, f0d))
+end // end of [d0ecl_fundecl]
 
 (* ****** ****** *)
 

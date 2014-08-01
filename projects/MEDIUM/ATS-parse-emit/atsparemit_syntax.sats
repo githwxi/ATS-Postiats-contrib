@@ -66,6 +66,13 @@ fun d0exp_appid (loc: loc_t, id: i0de, arg: d0explst): d0exp
 
 (* ****** ****** *)
 //
+fun tyfld_make (s0e: s0exp, id: i0de): tyfld
+//
+fun tyrec_make
+  (tok_beg: token, xs: tyfldlst, tok_end: token): tyrec
+//
+(* ****** ****** *)
+//
 fun f0arg_none (s0e: s0exp): f0arg
 fun f0arg_some (s0e: s0exp, id: i0de): f0arg
 //
@@ -146,8 +153,6 @@ fun f0decl_some (head: f0head, body: f0body): f0decl
 
 (* ****** ****** *)
 //
-fun d0ecl_f0decl
-  (knd: f0kind, f0d: f0decl): d0ecl
 fun d0ecl_include
   (tok_beg: token, fname: s0tring): d0ecl
 //
@@ -159,6 +164,11 @@ d0ecl_dyncst_extfun
 (
   tok_beg: token, name: i0de, arg: s0explst, res: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_dyncst_extfun]
+//
+fun d0ecl_typedef
+  (tok_beg: token, tyrec: tyrec, id: i0de): d0ecl
+//
+fun d0ecl_fundecl (knd: f0kind, f0d: f0decl): d0ecl
 //
 (* ****** ****** *)
 

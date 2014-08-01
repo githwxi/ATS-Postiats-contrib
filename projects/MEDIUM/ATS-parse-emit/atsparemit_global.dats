@@ -121,6 +121,10 @@ macdef
 kwordins (name, kw) =
   $KWORD.insert_opt (,(name), ,(kw))
 //
+val-~None_vt() = kwordins ("typedef", TYPEDEF)
+//
+val-~None_vt() = kwordins ("ATSstruct", ATSstruct)
+//
 val-~None_vt() = kwordins ("ATStmpdec", ATStmpdec)
 //
 val-~None_vt() = kwordins ("ATSif", ATSif)
