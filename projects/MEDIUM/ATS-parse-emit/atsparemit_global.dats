@@ -140,6 +140,7 @@ val-~None_vt() = kwordins ("ATStailcalbeg", ATStailcalbeg)
 val-~None_vt() = kwordins ("ATStailcalend", ATStailcalend)
 //
 val-~None_vt() = kwordins ("ATSINSlab", ATSINSlab)
+val-~None_vt() = kwordins ("ATSINSgoto", ATSINSgoto)
 //
 val-~None_vt() = kwordins ("ATSINSmove", ATSINSmove)
 //

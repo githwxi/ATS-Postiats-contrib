@@ -144,21 +144,19 @@ pstar_fun0_COMMA
 
 fun pif_fun
   {a:type} (
-  buf: &tokbuf >> _, bt: int, err: &int, f: parser (a), err0: int
+  buf: &tokbuf >> _
+, bt: int, err: &int, f: parser (a), err0: int
 ) : (a) // end of [pif_fun]
 
 (* ****** ****** *)
 
 fun parse_i0de : parser (i0de)
+fun parse_label : parser (label)
 
 (* ****** ****** *)
 
 fun parse_s0exp : parser (s0exp)
 fun parse_s0expargopt : parser (s0expopt)
-
-(* ****** ****** *)
-
-fun parse_primval : parser (primval)
 
 (* ****** ****** *)
 
@@ -202,6 +200,10 @@ fun parse_f0body : parser (f0body)
 (* ****** ****** *)
 
 fun parse_f0decl : parser (f0decl)
+
+(* ****** ****** *)
+
+fun parse_toplevel (buf: &tokbuf >> _): d0eclist
 
 (* ****** ****** *)
 

@@ -77,13 +77,27 @@ s0exp_appid (loc, id, s0es) =
   s0exp_make_node (loc, S0Eappid (id.i0de_sym, s0es))
 //
 (* ****** ****** *)
-
+//
+// HX: for constructing dynamic expressions
+//
+(* ****** ****** *)
+//
 fun
-pmval_make_node
-(
-  loc: loc_t, node: primval_node
-) : primval = '{ primval_loc= loc, primval_node= node }
-
+d0exp_make_node
+  (loc, node) = '{ d0exp_loc=loc, d0exp_node=node }
+//
+implement
+d0exp_ide (loc, id) =
+  d0exp_make_node (loc, D0Eide (id.i0de_sym))
+//
+implement
+d0exp_list
+  (loc, d0es) = d0exp_make_node (loc, D0Elist (d0es))
+//
+implement
+d0exp_appid (loc, id, d0es) =
+  d0exp_make_node (loc, D0Eappid (id.i0de_sym, d0es))
+//
 (* ****** ****** *)
 
 implement
@@ -96,31 +110,39 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  pmval_make_node (loc, ATSPMVi0nt (int))
+  d0exp_make_node (loc, ATSPMVi0nt (int))
 end // end of [ATSPMVi0nt]
 
 (* ****** ****** *)
-//
-fun
-d0exp_make_node
-  (loc, node) = '{ d0exp_loc=loc, d0exp_node=node }
-//
+
 implement
-d0exp_ide (loc, id) =
-  d0exp_make_node (loc, D0Eide (id.i0de_sym))
+ATSSELboxrec_make
+(
+  tok1, d0e, s0e, lab, tok2
+) = let
 //
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSSELboxrec (d0e, s0e, lab))
+end // end of [ATSSELboxrec_make]
+
+(* ****** ****** *)
+
 implement
-d0exp_pmv
-  (loc, pmv) = d0exp_make_node (loc, D0Epmv (pmv))
+ATSSELfltrec_make
+(
+  tok1, d0e, s0e, lab, tok2
+) = let
 //
-implement
-d0exp_list
-  (loc, d0es) = d0exp_make_node (loc, D0Elist (d0es))
+val loc =
+  tok1.token_loc ++ tok2.token_loc
 //
-implement
-d0exp_appid (loc, id, d0es) =
-  d0exp_make_node (loc, D0Eappid (id.i0de_sym, d0es))
-//
+in
+  d0exp_make_node (loc, ATSSELfltrec (d0e, s0e, lab))
+end // end of [ATSSELfltrec_make]
+
 (* ****** ****** *)
 
 implement
@@ -254,15 +276,30 @@ instr_make_node
 implement
 ATSINSlab_make
 (
-  tok1, tmp, tok2
+  tok1, lab, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSlab (tmp))
+  instr_make_node (loc, ATSINSlab (lab))
 end // end of [ATSINSlab_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSgoto_make
+(
+  tok1, lab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSgoto (lab))
+end // end of [ATSINSgoto_make]
 
 (* ****** ****** *)
 
@@ -278,6 +315,21 @@ val loc =
 in
   instr_make_node (loc, ATSINSmove (tmp, d0e))
 end // end of [ATSINSmove_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSstore_fltrec_ofs_make
+(
+  tok1, d0e_l, s0e, lab, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSstore_fltrec_ofs (d0e_l, s0e, lab, d0e_r))
+end // end of [ATSINSstore_fltrec_ofs_make]
 
 (* ****** ****** *)
 

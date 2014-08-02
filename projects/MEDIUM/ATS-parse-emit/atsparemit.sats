@@ -177,15 +177,16 @@ keyword =
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
+  | ATSSELboxrec of ()
+  | ATSSELfltrec of ()
+//
   | ATSINSlab of ()
+  | ATSINSgoto of ()
 //
   | ATSINSmove of ()
 //
   | ATSINSmove_boxrec of ()
   | ATSINSmove_boxrec_ofs of ()
-//
-  | ATSSELboxrec of ()
-  | ATSSELfltrec of ()
 //
   | ATSINSstore_boxrec_ofs of ()
   | ATSINSstore_fltrec_ofs of ()
@@ -297,6 +298,7 @@ token_make (loc: loc_t, node: tnode): token
 (* ****** ****** *)
 
 typedef i0nt = token
+typedef f0loat = token
 typedef s0tring = token
 
 (* ****** ****** *)
@@ -456,6 +458,10 @@ tokbuf_initize_fileref
 //
 (* ****** ****** *)
 
+fun tokbuf_reset (buf: &tokbuf >> _): void
+
+(* ****** ****** *)
+  
 fun tokbuf_uninitize (buf: &tokbuf >> _?): void
 
 (* ****** ****** *)
@@ -481,10 +487,11 @@ tokbuf_getinc_token (buf: &tokbuf >> _): token
 
 (* ****** ****** *)
 
-fun tokbuf_get_location (buf: &tokbuf >> _): loc_t
+fun
+tokbuf_get_location (buf: &tokbuf >> _): loc_t
 
 (* ****** ****** *)
-  
+
 abstype symbol_type = ptr
 typedef symbol = symbol_type
   
@@ -530,6 +537,10 @@ overload fprint with fprint_i0de
 //
 (* ****** ****** *)
 
+typedef label = i0de
+
+(* ****** ****** *)
+
 datatype
 s0exp_node =
   | S0Eide of symbol
@@ -560,30 +571,18 @@ overload fprint with fprint_s0explst of 10
 (* ****** ****** *)
 
 datatype
-primval_node =
-//
-  | ATSPMVi0nt of i0nt
-// end of [primval_node]
-
-typedef
-primval = '{
-  primval_loc= loc_t, primval_node= primval_node
-} (* end of [primval] *)
-
-(* ****** ****** *)
-//
-fun
-fprint_primval:fprint_type(primval)
-overload fprint with fprint_primval
-//
-(* ****** ****** *)
-
-datatype
 d0exp_node =
   | D0Eide of symbol
-  | D0Epmv of primval
   | D0Elist of (d0explst)
   | D0Eappid of (symbol, d0explst)
+//
+  | ATSPMVi0nt of i0nt
+  | ATSPMVf0loat of f0loat
+//
+  | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))
+  | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
+  | ATSSELboxrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
+  | ATSSELfltrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
 // end of [d0exp_node]
 
 where
@@ -596,9 +595,13 @@ and d0expopt = Option (d0exp)
 
 (* ****** ****** *)
 //
+fun print_d0exp : d0exp -> void
+fun prerr_d0exp : d0exp -> void
 fun fprint_d0exp : fprint_type(d0exp)
 fun fprint_d0explst : fprint_type(d0explst)
 //
+overload print with print_d0exp
+overload prerr with prerr_d0exp
 overload fprint with fprint_d0exp
 overload fprint with fprint_d0explst of 10
 //
@@ -692,8 +695,12 @@ overload fprint with fprint_tmpdeclst
 datatype
 instr_node =
 //
-  | ATSINSlab of (i0de)
+  | ATSINSlab of (label)
+  | ATSINSgoto of (label)
+//
   | ATSINSmove of (i0de, d0exp)
+//
+  | ATSINSstore_fltrec_ofs of (d0exp, s0exp, i0de, d0exp)
 //
   | ATSif of
     (
@@ -810,13 +817,8 @@ overload fprint with fprint_d0eclist of 10
 
 typedef
 parser (a:type) =
-  (&tokbuf, int(*bt*), &int(*err*)) -> a
+  (&tokbuf(*buf*) >> _, int(*bt*), &int(*err*) >> _) -> a
 // end of [parser]
-
-typedef
-parser_tok (a:type) =
-  (&tokbuf, int(*bt*), &int(*err*), token) -> a
-// end of [parser_tok]
 
 (* ****** ****** *)
 

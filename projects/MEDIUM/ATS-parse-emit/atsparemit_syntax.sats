@@ -52,18 +52,34 @@ fun s0exp_appid (loc: loc_t, id: i0de, arg: s0explst): s0exp
 // HX: for constructing primvals
 //
 (* ****** ****** *)
-//
-fun
-ATSPMVi0nt_make
-  (tok_kwd: token, int: i0nt, tok_end: token): primval
-//
-(* ****** ****** *)
 
 fun d0exp_ide (loc: loc_t, id: i0de): d0exp
-fun d0exp_pmv (loc: loc_t, pmv: primval): d0exp
 fun d0exp_list (loc: loc_t, d0es: d0explst): d0exp
 fun d0exp_appid (loc: loc_t, id: i0de, arg: d0explst): d0exp
 
+(* ****** ****** *)
+//
+fun
+ATSPMVi0nt_make
+(
+  tok_kwd: token, int: i0nt, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
+ATSSELboxrec_make
+(
+  tok_kwd: token
+, d0e: d0exp, s0e: s0exp, lab: label
+, tok_end: token
+) : d0exp // end of [ATSSELboxrec_make]
+fun
+ATSSELfltrec_make
+(
+  tok_kwd: token
+, d0e: d0exp, s0e: s0exp, lab: label
+, tok_end: token
+) : d0exp // end of [ATSSELfltrec_make]
+//
 (* ****** ****** *)
 //
 fun tyfld_make (s0e: s0exp, id: i0de): tyfld
@@ -106,6 +122,10 @@ fun
 ATSINSlab_make
   (tok_kwd: token, tmp: i0de, tok_end: token): instr
 //
+fun
+ATSINSgoto_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+//
 (* ****** ****** *)
 //
 fun
@@ -113,6 +133,14 @@ ATSINSmove_make
 (
   tok_kwd: token, tmp: i0de, d0e: d0exp, tok_end: token
 ) : instr // end of [ATSINSmove_make]
+//
+fun
+ATSINSstore_fltrec_ofs_make
+(
+  tok_kwd: token
+, d0e_l: d0exp, s0e: s0exp, lab: label, d0e_r: d0exp
+, tok_end: token
+) : instr // end-of-function
 //
 (* ****** ****** *)
 

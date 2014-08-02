@@ -68,6 +68,17 @@ end // end of [tokbuf_initize_fileref]
 (* ****** ****** *)
 
 implement
+tokbuf_reset
+  (buf) = () where
+{
+  val ntok = buf.tokbuf_ntok
+  val ((*void*)) = buf.tokbuf_ntok := i2sz(0)
+  val ntok2 = $DA.dynarray_removeseq_at (buf.tokbuf_tkbf, i2sz(0), ntok)
+} (* end of [tokbuf_reset] *)
+
+(* ****** ****** *)
+
+implement
 tokbuf_uninitize
   (buf) = () where
 {

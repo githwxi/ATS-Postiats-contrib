@@ -375,6 +375,13 @@ tok.token_node of
 end // end of [parse_i0de]
 
 (* ****** ****** *)
+//
+implement
+parse_label
+  (buf, bt, err) =
+  parse_i0de (buf, bt, err)
+//
+(* ****** ****** *)
 
 infix ++
 overload ++ with location_combine
@@ -488,14 +495,12 @@ end // end of [parse_s0expargopt]
 (* ****** ****** *)
 
 implement
-parse_primval
+parse_d0exp
   (buf, bt, err) = let
 //
-(*
-val () = println! ("parse_primval")
-*)
+var err0 = err
+var ent: synent?
 //
-val err0 = err
 val n0 = tokbuf_get_ntok (buf)
 val tok = tokbuf_get_token (buf)
 val loc = tok.token_loc
@@ -506,54 +511,6 @@ in
 //
 case+
 tok.token_node of
-//
-| T_KWORD
-  (
-    ATSPMVi0nt()
-  ) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 =
-      pif_fun (buf, bt, err, p_INT, err0)
-    val ent3 =
-      pif_fun (buf, bt, err, p_RPAREN, err0)
-  in
-    if err = err0
-      then ATSPMVi0nt_make (tok, ent2, ent3)
-      else tokbuf_set_ntok_null (buf, n0)
-    // end of [if]
-  end // end of [ATSPMVi0nt]
-//
-| _ (*error*) => let
-    val () = err := err + 1
-    val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_primval)
-  in
-    synent_null ()
-  end (* end of [_] *)
-//
-end // end of [parse_primval]
-
-(* ****** ****** *)
-
-implement
-parse_d0exp
-  (buf, bt, err) = let
-//
-var err0 = err
-var ent: synent?
-//
-val loc = let
-  val tok = tokbuf_get_token (buf)
-in
-  tok.token_loc
-end // end of [val]
-//
-macdef incby1 () = tokbuf_incby1 (buf)
-//
-in
-//
-case+ 0 of
 //
 | _ when
     ptest_fun
@@ -573,18 +530,35 @@ case+ 0 of
       end // end of [Some]
   end
 //
-| _ when
-    ptest_fun
-    (
-      buf, parse_primval, ent
-    ) => let
+| T_KWORD(ATSPMVi0nt()) => let
     val bt = 0
-    val pmv =
-      synent_decode2{primval}(ent)
-    // end of [val]
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_INT, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
   in
-    d0exp_pmv (pmv.primval_loc, pmv)
-  end
+    if err = err0
+      then ATSPMVi0nt_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVi0nt]
+//
+| T_KWORD(ATSSELfltrec()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent6 = pif_fun (buf, bt, err, parse_label, err0)
+    val ent7 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSSELfltrec_make (tok, ent2, ent4, ent6, ent7)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSSELfltrec]
 //
 | _ => let
     val () = err := err + 1
@@ -676,15 +650,15 @@ else tokbuf_set_ntok_null (buf, ntok0)
 end // end of [parse_tyfld]
 
 (* ****** ****** *)
-
+//
 extern
 fun parse_tyfldseq : parser (tyfldlst)
+//
 implement
 parse_tyfldseq
   (buf, bt, err) =
   list_vt2t (pstar_fun (buf, bt, parse_tyfld))
-// end of [parse_tyfldseq]
-
+//
 (* ****** ****** *)
 
 implement
@@ -963,6 +937,7 @@ tok.token_node of
     if err = err0
       then ATSif_make (tok, ent2, ent4, ent5)
       else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
   end // end of [T_KWORD(ATSif)]
 //
 | T_KWORD(ATSreturn()) => let
@@ -996,14 +971,26 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 =
-      pif_fun (buf, bt, err, parse_i0de, err0)
-    val ent3 =
-      pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_COLON, err0)
   in
     if err = err0
       then ATSINSlab_make (tok, ent2, ent4)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSINSlab]
+//
+| T_KWORD(ATSINSgoto()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then ATSINSgoto_make (tok, ent2, ent4)
       else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSINSlab]
@@ -1023,6 +1010,26 @@ tok.token_node of
       else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSINSmove]
+//
+| T_KWORD(ATSINSstore_fltrec_ofs()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent6 = pif_fun (buf, bt, err, parse_label, err0)
+    val ent7 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent8 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent9 = pif_fun (buf, bt, err, p_RPAREN, err0)    
+    val ent10 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then ATSINSstore_fltrec_ofs_make (tok, ent2, ent4, ent6, ent8, ent9)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSINSstore_fltrec_ofs]
 //
 | _ (*error*) => let
     val () = err := err + 1
@@ -1069,6 +1076,7 @@ tok.token_node of
     if err = err0
       then ATSthen_make (tok, ent4, ent5)
       else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
   end // end of [T_KWORD(ATSthen)]
 //
 | _ (*error*) => let
@@ -1141,6 +1149,7 @@ tok.token_node of
     if err = err0
       then f0body_make (tok, ent1, ent2, ent3)
       else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
   end // end of [T_LBRACE]
 | _ (*error*) => let
     val () = err := err + 1 in synent_null ()
@@ -1212,6 +1221,7 @@ tok.token_node of
     if err = err0
       then d0ecl_include (tok, tok2)
       else tokbuf_set_ntok_null (buf, n0) 
+    // end of [if]
   end // end of [T_KWORD(SRPinclude)]
 //
 | T_KWORD(ATSdyncst_mac()) => let
@@ -1272,6 +1282,7 @@ tok.token_node of
       if err = err0
         then d0ecl_fundecl (ent1, ent2)
         else tokbuf_set_ntok_null (buf, n0)
+      // end of [if]
     end // end of [parse_f0kind]
 //
 | _(*error*) => let
@@ -1287,6 +1298,43 @@ parse_d0eclseq
   (buf, bt, err) =
   list_vt2t (pstar_fun (buf, bt, parse_d0ecl))
 //
+(* ****** ****** *)
+
+implement
+parse_toplevel
+  (buf) = let
+//
+fun loop
+(
+  buf: &tokbuf >> _, d0cs: List0_vt(d0ecl)
+) : List0_vt (d0ecl) = let
+//
+var ent: synent?
+//
+in
+//
+case+ 0 of
+//
+| _ when
+    ptest_fun
+    (
+      buf, parse_d0ecl, ent
+    ) => let
+       val () = tokbuf_reset (buf)
+       val d0c = synent_decode2{d0ecl}(ent)
+     in
+       loop (buf, list_vt_cons (d0c, d0cs))
+     end // end of [parse_d0ecl]
+| _ (*error*) => d0cs
+//
+end // end of [loop]
+//
+val d0cs = loop (buf, list_vt_nil)
+//
+in
+  list_vt2t(list_vt_reverse (d0cs))
+end // end of [parse_toplevel]
+
 (* ****** ****** *)
 
 implement
@@ -1315,8 +1363,9 @@ parse_from_tokbuf
 val () = the_lexerrlst_clear ()
 val () = the_parerrlst_clear ()
 //
+val d0cs = parse_toplevel (buf)
+//
 var err: int = 0
-val d0cs = parse_d0eclseq (buf, 0(*bt*), err)
 val _(*EOF*) = p_EOF (buf, 0(*bt*), err) // HX: no more tokens 
 //
 val nerr1 = the_lexerrlst_print_free ()

@@ -89,6 +89,7 @@ case+ x of
 | ATSPMVf0loat () => p "ATSPMVf0loat"
 //
 | ATSINSlab () => p "ATSINSlab"
+| ATSINSgoto () => p "ATSINSgoto"
 //
 | ATSINSmove () => p "ATSINSmove"
 //
@@ -242,20 +243,14 @@ end // end of [fprint_s0exp]
 
 implement
 fprint_s0explst (out, xs) = fprint_list_sep (out, xs, ", ")
-
+  
 (* ****** ****** *)
 
 implement
-fprint_primval
-  (out, x) = let
-in
-//
-case+
-x.primval_node of
-| ATSPMVi0nt (int) => fprint! (out, "ATSPMVi0nt(", int, ")")
-//
-end // end of [fprint_primval]
-  
+print_d0exp (x) = fprint_d0exp (stdout_ref, x)
+implement
+prerr_d0exp (x) = fprint_d0exp (stderr_ref, x)
+
 (* ****** ****** *)
 //
 implement
@@ -273,9 +268,23 @@ case+
 d0e.d0exp_node of
 //
 | D0Eide (id) => fprint! (out, "D0Eide(", id, ")")
-| D0Epmv (pmv) => fprint! (out, "D0Epmv(", pmv, ")")
 | D0Elist (d0es) => fprint! (out, "D0Elist(", d0es, ")")
 | D0Eappid (id, d0es) => fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
+//
+| ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")
+| ATSPMVf0loat (tok) => fprint! (out, "ATSPMVf0loat(", tok, ")")
+(*
+| ATSPMVs0tring (tok) => fprint! (out, "ATSPMVs0tring(", tok, ")")
+*)
+//
+| ATSSELcon (d0e, s0e, lab) =>
+    fprint! (out, "ATSSELcon(", d0e, ";", s0e, ";", lab, ")")
+| ATSSELrecsin (d0e, s0e, lab) =>
+    fprint! (out, "ATSSELrecsin(", d0e, ";", s0e, ";", lab, ")")
+| ATSSELboxrec (d0e, s0e, lab) =>
+    fprint! (out, "ATSSELboxrec(", d0e, ";", s0e, ";", lab, ")")
+| ATSSELfltrec (d0e, s0e, lab) =>
+    fprint! (out, "ATSSELfltrec(", d0e, ";", s0e, ";", lab, ")")
 //
 end // end of [fprint_d0exp]
 //
