@@ -140,6 +140,7 @@ val-~None_vt() = kwordins ("ATSdyncst_mac", ATSdyncst_mac)
 val-~None_vt() = kwordins ("ATSdyncst_extfun", ATSdyncst_extfun)
 //
 val-~None_vt() = kwordins ("ATStmpdec", ATStmpdec)
+val-~None_vt() = kwordins ("ATStmpdec_void", ATStmpdec_void)
 //
 val-~None_vt() = kwordins ("ATSif", ATSif)
 val-~None_vt() = kwordins ("ATSthen", ATSthen)

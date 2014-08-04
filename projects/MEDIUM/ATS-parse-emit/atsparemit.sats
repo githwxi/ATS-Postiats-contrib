@@ -146,23 +146,26 @@ location_make_pos_pos
   (pos1: &position, pos2: &position): loc_t
 fun
 location_make_fil_pos_pos
-  (fil: fil_t, pos1: &position, pos2: &position): loc_t
+(
+  fil: fil_t, pos1: &position, pos2: &position
+) : loc_t // end-of-fun
 //
 (* ****** ****** *)
-
-fun location_combine (loc1: loc_t, loc2: loc_t): loc_t
-
+//
+fun
+location_combine (loc1: loc_t, loc2: loc_t): loc_t
+//
 (* ****** ****** *)
 
 datatype
 keyword =
 //
+  | SRPinclude of ()
+//
   | SRPif of () // #if
   | SRPifdef of () // #ifdef
   | SRPifndef of () // #ifndef
   | SRPendif of () // #endif
-//
-  | SRPinclude of ()
 //
   | TYPEDEF of ()
   | ATSstruct of ()
@@ -175,6 +178,7 @@ keyword =
   | ATSdyncst_extfun of ()
 //
   | ATStmpdec of ()
+  | ATStmpdec_void of ()
 //
   | ATSif of ()
   | ATSthen of ()
@@ -688,7 +692,8 @@ overload fprint with fprint_f0head
 //
 datatype
 tmpdec_node =
-TMPDEC of (i0de, s0exp)
+| TMPDECnone of (i0de)
+| TMPDECsome of (i0de, s0exp)
 //
 typedef
 tmpdec = '{
@@ -818,22 +823,26 @@ d0ecl_node =
 //
   | D0Cinclude of s0tring
 //
-  | D0Cdyncst_mac of i0de
-  | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
+  | D0Cifdef of (i0de, d0eclist)
+  | D0Cifndef of (i0de, d0eclist)
 //
   | D0Ctypedef of (i0de, tyrec)
+//
+  | D0Cdyncst_mac of i0de
+  | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
   | D0Cfundecl of (f0kind, f0decl)
 // end of [d0ecl_node]
 
-typedef
+where
 d0ecl = '{
 //
 d0ecl_loc= loc_t, d0ecl_node= d0ecl_node
 //
 } (* end of [d0ecl] *)
 
-typedef d0eclist = List0 (d0ecl)
+and
+d0eclist = List0 (d0ecl)
 
 (* ****** ****** *)
 //

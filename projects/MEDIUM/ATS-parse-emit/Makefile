@@ -40,6 +40,9 @@ SOURCES_DATS += atsparemit_lexing.dats
 SOURCES_DATS += atsparemit_tokbuf.dats
 SOURCES_DATS += atsparemit_parerr.dats
 SOURCES_DATS += atsparemit_parsing.dats
+SOURCES_DATS += atsparemit_parsing_d0exp.dats
+SOURCES_DATS += atsparemit_parsing_d0ecl.dats
+SOURCES_DATS += atsparemit_parsing_instr.dats
 #
 ######
 

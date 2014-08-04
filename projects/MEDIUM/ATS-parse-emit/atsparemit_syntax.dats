@@ -268,7 +268,22 @@ in '{
 (* ****** ****** *)
 
 implement
-tmpdec_make
+tmpdec_make_none
+(
+  tok_kwd, tmp, tok_end
+) = let
+//
+val loc =
+tok_kwd.token_loc ++ tok_end.token_loc
+//
+in '{
+  tmpdec_loc= loc, tmpdec_node= TMPDECnone (tmp)
+} end // end of [tmpdec_make_none]
+
+(* ****** ****** *)
+
+implement
+tmpdec_make_some
 (
   tok_kwd, tmp, s0e, tok_end
 ) = let
@@ -277,8 +292,8 @@ val loc =
 tok_kwd.token_loc ++ tok_end.token_loc
 //
 in '{
-  tmpdec_loc= loc, tmpdec_node= TMPDEC (tmp, s0e)
-} end // end of [tmpdec_make]
+  tmpdec_loc= loc, tmpdec_node= TMPDECsome (tmp, s0e)
+} end // end of [tmpdec_make_some]
 
 (* ****** ****** *)
 
@@ -717,6 +732,34 @@ in
   d0ecl_make_node (loc, D0Cfundecl (knd, f0d))
 end // end of [d0ecl_fundecl]
 
+(* ****** ****** *)
+
+implement
+d0ecl_ifdef
+(
+  tok1, id, d0cs, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cifdef (id, d0cs))
+end // end of [d0ecl_ifdef]
+  
+(* ****** ****** *)
+
+implement
+d0ecl_ifndef
+(
+  tok1, id, d0cs, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cifdef (id, d0cs))
+end // end of [d0ecl_ifndef]
+  
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.dats] *)

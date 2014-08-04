@@ -744,7 +744,7 @@ lexing_SLASHSLASH
 val nchr =
 ftesting_seq0 (buf, lam i => i != EOL)
 val () = lexbuf_remove_all (buf)
-val loc = lexbuf_getincby_location (buf, nchr)
+val loc = lexbuf_getincby_location (buf, nchr + 3)
 //
 in
   token_make (loc, T_COMMENT_line)

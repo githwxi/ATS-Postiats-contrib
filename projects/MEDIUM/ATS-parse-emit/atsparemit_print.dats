@@ -87,6 +87,7 @@ case+ x of
 | ATSstruct () => p "ATSstruct"
 //
 | ATStmpdec () => p "ATStmpdec"
+| ATStmpdec_void () => p "ATStmpdec_void"
 //
 | ATSif () => p "ATSif"
 | ATSthen () => p "ATSthen"
@@ -379,8 +380,10 @@ in
 //
 case+
 x.tmpdec_node of
-| TMPDEC (tmp, s0e) =>
-    fprint! (out, "TMPDEC(", tmp, ": ", s0e, ")")
+| TMPDECnone (tmp) =>
+    fprint! (out, "TMPDECnone(", tmp, ")")
+| TMPDECsome (tmp, s0e) =>
+    fprint! (out, "TMPDECsome(", tmp, ": ", s0e, ")")
 //
 end // end of [fprint_tmpdec]
 //
@@ -415,14 +418,21 @@ in
 //
 case+
 x.d0ecl_node of
+//
 | D0Cinclude (fname) =>
     fprint! (out, "D0Cinclude(", fname, ")")
+//
+| D0Cifdef (id, d0cs) =>
+    fprint! (out, "D0Cifdef(", id, "; ", "...", ")")
+| D0Cifndef (id, d0cs) =>
+    fprint! (out, "D0Cifndef(", id, "; ", "...", ")")
+//
+| D0Ctypedef (id, tyrec) =>
+    fprint! (out, "D0Ctypedef(", id, "; ", "...", ")")
 | D0Cdyncst_mac (name) =>
     fprint! (out, "D0Cdyncst_mac(", name, ")")
 | D0Cdyncst_extfun (name, s0es, s0e) =>
     fprint! (out, "D0Cdyncst_extfun(", name, ")")
-| D0Ctypedef (id, tyrec) =>
-    fprint! (out, "D0Ctypedef(", id, "; ", "...", ")")
 | D0Cfundecl (knd, f0d) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
 //

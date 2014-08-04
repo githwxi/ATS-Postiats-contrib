@@ -192,6 +192,7 @@ fun parse_label : parser (label)
 (* ****** ****** *)
 
 fun parse_s0exp : parser (s0exp)
+fun parse_s0expseq : parser (s0explst)
 fun parse_s0expargopt : parser (s0expopt)
 
 (* ****** ****** *)

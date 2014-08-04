@@ -44,6 +44,9 @@ dynload "./atsparemit_tokbuf.dats"
 //
 dynload "./atsparemit_parerr.dats"
 dynload "./atsparemit_parsing.dats"
+dynload "./atsparemit_parsing_d0exp.dats"
+dynload "./atsparemit_parsing_d0ecl.dats"
+dynload "./atsparemit_parsing_instr.dats"
 //
 (* ****** ****** *)
 

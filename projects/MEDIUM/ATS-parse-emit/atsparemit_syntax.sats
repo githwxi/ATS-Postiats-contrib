@@ -117,8 +117,15 @@ f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 (* ****** ****** *)
 //
 fun
-tmpdec_make
-  (tok_kwd: token, tmp: i0de, s0e: s0exp, tok_end: token): tmpdec
+tmpdec_make_none
+(
+  tok_kwd: token, tmp: i0de, tok_end: token
+) : tmpdec // end-of-fun
+fun
+tmpdec_make_some
+(
+  tok_kwd: token, tmp: i0de, s0e: s0exp, tok_end: token
+) : tmpdec // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -279,19 +286,36 @@ fun f0decl_some (head: f0head, body: f0body): f0decl
 fun d0ecl_include
   (tok_beg: token, fname: s0tring): d0ecl
 //
+fun d0ecl_typedef
+  (tok_beg: token, tyrec: tyrec, id: i0de): d0ecl
+//
 fun
 d0ecl_dyncst_mac
   (tok_beg: token, name: i0de, tok_end: token): d0ecl
 fun
 d0ecl_dyncst_extfun
 (
-  tok_beg: token, name: i0de, arg: s0explst, res: s0exp, tok_end: token
+  tok_beg: token
+, name: i0de, arg: s0explst, res: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_dyncst_extfun]
 //
-fun d0ecl_typedef
-  (tok_beg: token, tyrec: tyrec, id: i0de): d0ecl
+(* ****** ****** *)
 //
 fun d0ecl_fundecl (knd: f0kind, f0d: f0decl): d0ecl
+//
+(* ****** ****** *)
+//
+fun
+d0ecl_ifdef
+(
+  tok_beg: token, id: i0de, d0cs: d0eclist, tok_end: token
+) : d0ecl // end of [d0ecl_ifdef]
+//
+fun
+d0ecl_ifndef
+(
+  tok_beg: token, id: i0de, d0cs: d0eclist, tok_end: token
+) : d0ecl // end of [d0ecl_ifdef]
 //
 (* ****** ****** *)
 
