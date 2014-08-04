@@ -87,6 +87,66 @@ if f(tok.token_node)
 end // end of [ptoken_test_fun]
 
 (* ****** ****** *)
+
+implement
+ptest_SRPif0
+  (buf) = let
+//
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+| T_KWORD(SRPif()) =>
+    test where
+  {
+    val () = incby1 ()
+    val test = p_LPAREN_test (buf)
+    val test =
+    (
+      if test then p_INT0_test (buf) else false
+    ) : bool // end of [val]
+    val test =
+    (
+      if test then p_RPAREN_test (buf) else false
+    ) : bool // end of [val]
+    val () = if not(test) then tokbuf_set_ntok (buf, n0)
+  } (* end of [SRPif] *)
+| _ (*non-SRPif*) => false
+//
+end // end of [ptest_SRPif0]
+
+(* ****** ****** *)
+
+implement
+pskip_SRPif0
+  (buf, level) = let
+in
+//
+case+ 0 of
+| _ when
+    ptest_SRPif0 (buf) =>
+  (
+    pskip_SRPif0 (buf, level + 1)
+  ) (* end of [SRPif0] *)
+| _ (*non-SRPif0*) => let
+    val tok = tokbuf_get_token (buf)
+    val ((*void*)) = tokbuf_incby1 (buf)
+  in
+    case+ tok.token_node of
+    | T_EOF () => ()
+    | T_KWORD(SRPendif()) =>
+        if level >= 2 then pskip_SRPif0 (buf, level-1) else ()
+    | _ (* non-SRPendif *) => pskip_SRPif0 (buf, level)
+  end // end of [non-SRPif0]
+//
+end // end of [pskip_SRPif0]
+
+(* ****** ****** *)
 //
 implement
 is_EOF (x) = case+ x of
@@ -143,6 +203,8 @@ is_LPAREN (x) = case+ x of
 implement
 p_LPAREN (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_LPAREN, PARERR_LPAREN)
+implement
+p_LPAREN_test (buf) = ptoken_test_fun (buf, is_LPAREN)
 //
 implement
 is_RPAREN (x) = case+ x of
@@ -150,6 +212,8 @@ is_RPAREN (x) = case+ x of
 implement
 p_RPAREN (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_RPAREN, PARERR_RPAREN)
+implement
+p_RPAREN_test (buf) = ptoken_test_fun (buf, is_RPAREN)
 //
 (* ****** ****** *)
 //
@@ -178,6 +242,19 @@ is_INT (x) = case+ x of
 implement
 p_INT (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_INT, PARERR_INT)
+//
+(* ****** ****** *)
+//
+implement
+is_INT0 (x) = case+ x of
+  | T_INT (_, "0") => true | _ => false
+//
+implement
+p_INT0 (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_INT0, PARERR_INT0)
+//
+implement
+p_INT0_test (buf) = ptoken_test_fun (buf, is_INT0)
 //
 (* ****** ****** *)
 //
@@ -703,19 +780,39 @@ implement
 parse_tyfld
   (buf, bt, err) = let
 //
-val err0 = err
-val ntok0 = tokbuf_get_ntok (buf)
+(*
+val () = println! ("parse_instr")
+*)
 //
-val ent1 = parse_s0exp (buf, bt, err)
-val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
-val ent3 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+val loc = tok.token_loc
+//
+macdef incby1 () = tokbuf_incby1 (buf)
 //
 in
 //
-if
-err = err0
-then tyfld_make (ent1, ent2)
-else tokbuf_set_ntok_null (buf, ntok0)
+case+
+tok.token_node of
+//
+| _ when
+    ptest_SRPif0 (buf) => let
+    val () = incby1 ()
+    val () = pskip_SRPif0 (buf, 1(*level*))
+  in
+    parse_tyfld (buf, bt, err)
+  end // end of [#if(0)]
+//
+| _ (*rest*) => let
+    val ent1 = parse_s0exp (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then tyfld_make (ent1, ent2) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [_]
 //
 end // end of [parse_tyfld]
 
@@ -997,20 +1094,13 @@ in
 case+
 tok.token_node of
 //
-| T_KWORD(SRPif()) => let
-    val bt = 0
+| _ when
+    ptest_SRPif0 (buf) => let
     val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, p_INT, err0)
-    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
-    val ent4 = pif_fun (buf, bt, err, parse_instrseq, err0)
-    val ent5 = pif_fun (buf, bt, err, p_SRPendif, err0)
+    val () = pskip_SRPif0 (buf, 1(*level*))
   in
-    if err = err0
-      then (
-        SRPif_make (tok, ent2, ent4, ent5)
-      ) else tokbuf_set_ntok_null (buf, n0)
-  end // end of [#if]
+    parse_instr (buf, bt, err)
+  end // end of [#if(0)]
 //
 | T_KWORD(ATSif()) => let
     val bt = 0

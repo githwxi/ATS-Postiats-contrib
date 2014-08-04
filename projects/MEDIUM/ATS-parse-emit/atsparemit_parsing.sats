@@ -73,9 +73,11 @@ fun p_SEMICOLON_test (buf: &tokbuf >> _): bool
 //
 fun p_LPAREN : parser (token)
 fun is_LPAREN (x: tnode): bool
+fun p_LPAREN_test (buf: &tokbuf >> _): bool
 //
 fun p_RPAREN : parser (token)
 fun is_RPAREN (x: tnode): bool
+fun p_RPAREN_test (buf: &tokbuf >> _): bool
 //
 (* ****** ****** *)
 //
@@ -92,6 +94,12 @@ fun is_INT (x: tnode): bool
 //
 fun p_STRING : parser (token)
 fun is_STRING (x: tnode): bool
+//
+(* ****** ****** *)
+//
+fun p_INT0 : parser (token)
+fun is_INT0 (x: tnode): bool
+fun p_INT0_test (buf: &tokbuf >> _): bool
 //
 (* ****** ****** *)
 
@@ -115,8 +123,9 @@ fun is_ATStailcalend (x: tnode): bool
 
 (* ****** ****** *)
 
-fun ptest_fun
-  {a:type} (
+fun
+ptest_fun{a:type}
+(
   buf: &tokbuf >> _, f: parser (a), ent: &synent? >> synent
 ) : bool // end of [ptest_fun]
 
@@ -168,6 +177,13 @@ fun pif_fun
 , bt: int, err: &int, f: parser (a), err0: int
 ) : (a) // end of [pif_fun]
 
+(* ****** ****** *)
+//
+fun
+ptest_SRPif0 (buf: &tokbuf >> _): bool
+fun
+pskip_SRPif0{n:pos} (buf: &tokbuf >> _, level: int(n)): void
+//
 (* ****** ****** *)
 
 fun parse_i0de : parser (i0de)

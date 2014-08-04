@@ -125,14 +125,6 @@ tmpdec_make
 // HX: for constructing instructions
 //
 (* ****** ****** *)
-
-fun SRPif_make
-(
-  tok_if: token
-, test: i0nt, inss: instrlst, tok_end: token
-) : instr // end of [SRPif_make]
-
-(* ****** ****** *)
 //
 fun ATSif_make
 (

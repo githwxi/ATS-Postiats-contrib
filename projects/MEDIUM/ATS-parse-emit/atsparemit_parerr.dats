@@ -104,6 +104,7 @@ x.parerr_node of
 | PARERR_RBRACE () => KN (x, "}")
 //
 | PARERR_INT () => SN (x, "INT")
+| PARERR_INT0 () => SN (x, "INT0")
 | PARERR_STRING () => SN (x, "STRING")
 //
 | PARERR_SRPendif () => SN (x, "#endif")

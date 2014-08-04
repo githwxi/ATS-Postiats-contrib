@@ -710,15 +710,9 @@ overload fprint with fprint_tmpdeclst
 datatype
 instr_node =
 //
-  | SRPif of
-    (
-      i0nt(*test*), instrlst
-    )
-//
-  | ATSif of
-    (
+  | ATSif of (
       d0exp, instrlst, instrlstopt
-    )
+    ) (* end of [ATSif] *)
   | ATSthen of instrlst // HX: temporary
   | ATSelse of instrlst // HX: temporary
 //
@@ -876,6 +870,7 @@ parerr_node =
   | PARERR_RBRACE
 //
   | PARERR_INT of ()
+  | PARERR_INT0 of ()
   | PARERR_STRING of ()
 //
   | PARERR_SRPendif

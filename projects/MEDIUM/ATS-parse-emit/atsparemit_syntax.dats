@@ -291,22 +291,6 @@ instr_make_node
 (* ****** ****** *)
 
 implement
-SRPif_make
-(
-  tok_if
-, test, inss, tok_end
-) = let
-//
-val loc =
-  tok_if.token_loc ++ tok_end.token_loc
-//
-in
-  instr_make_node (loc, SRPif (test, inss))
-end // end of [SRPif_make]
-
-(* ****** ****** *)
-
-implement
 ATSif_make
 (
   tok_if, d0e, ins1, insopt2
