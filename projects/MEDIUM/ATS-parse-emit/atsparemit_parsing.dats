@@ -697,6 +697,163 @@ end // end of [parse_tyrec]
 (* ****** ****** *)
 
 implement
+parse_fkind
+  (buf, bt, err) = let
+//
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+val loc = tok.token_loc
+//
+(*
+val () = println! ("parse_fkind: tok = ", tok)
+*)
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+| T_KWORD
+  (
+    ATSextern()
+  ) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then fkind_extern (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end
+| T_KWORD
+  (
+    ATSstatic()
+  ) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then fkind_static (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end
+| _ (*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end (* end of [_] *)
+//
+end // end of [parse_fkind]
+
+(* ****** ****** *)
+
+implement
+parse_f0arg
+  (buf, bt, err) = let
+//
+(*
+val () = println! ("parse_f0arg")
+*)
+//
+val err0 = err
+var ent: synent?
+val ntok0 = tokbuf_get_ntok (buf)
+//
+val ent1 = parse_s0exp (buf, bt, err)
+//
+in
+//
+if (
+err = err0
+) then (
+case+ 0 of
+//
+| _ when ptest_fun
+  (
+    buf, parse_i0de, ent
+  ) => let
+    val ent2 = synent_decode2{i0de}(ent)
+  in
+    f0arg_some (ent1, ent2)
+  end // end of [parse_i0de]
+//
+| _ (*none*) => f0arg_none (ent1)
+//
+) else tokbuf_set_ntok_null (buf, ntok0)
+//
+end // end of [parse_f0arg]
+
+(* ****** ****** *)
+
+(*
+f0marg = '(' f0argseq ')'
+*)
+
+implement
+parse_f0marg
+  (buf, bt, err) = let
+//
+val err0 = err
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+val loc = tok.token_loc
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_LPAREN () => let
+    val bt = 0
+    val () = incby1 ()
+    val ent2 =
+      pstar_fun0_COMMA (buf, bt, parse_f0arg)
+    val ent3 = p_RPAREN (buf, bt, err) // err = err0
+  in
+    if err = err0
+      then f0marg_make (tok, list_vt2t(ent2), ent3)
+      else let
+        val () = list_vt_free (ent2) in synent_null ()
+      end // end of [else]
+    // end of [if]
+  end // end of [T_LPAREN]
+//
+| _ (*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end (* end of [_] *)
+//
+end // end of [parse_f0marg]
+
+(* ****** ****** *)
+
+implement
+parse_f0head
+  (buf, bt, err) = let
+//
+val err0 = err
+val ntok0 = tokbuf_get_ntok (buf)
+//
+val ent1 = parse_s0exp (buf, bt, err)
+val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+val ent3 = pif_fun (buf, bt, err, parse_f0marg, err0)
+//
+in
+//
+if err = err0
+  then f0head_make (ent1, ent2, ent3)
+  else tokbuf_set_ntok_null (buf, ntok0)
+//
+end // end of [parse_f0head]
+
+(* ****** ****** *)
+
+implement
 parse_toplevel
   (buf) = let
 //

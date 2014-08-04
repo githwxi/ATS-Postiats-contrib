@@ -108,6 +108,9 @@ case+ x of
 | ATSreturn () => p "ATSreturn"
 | ATSreturn_void () => p "ATSreturn_void"
 //
+| ATSPMVint () => p "ATSPMVint"
+| ATSPMVstring () => p "ATSPMVstring"
+//
 | ATSPMVi0nt () => p "ATSPMVi0nt"
 | ATSPMVf0loat () => p "ATSPMVf0loat"
 //
@@ -118,6 +121,7 @@ case+ x of
 | ATSINSfgoto () => p "ATSINSfgoto"
 //
 | ATSINSmove () => p "ATSINSmove"
+| ATSINSmove_void () => p "ATSINSmove_void"
 //
 | ATSINSmove_boxrec () => p "ATSINSmove_boxrec"
 | ATSINSmove_boxrec_ofs () => p "ATSINSmove_boxrec_ofs"
@@ -287,6 +291,9 @@ d0e.d0exp_node of
 | D0Elist (d0es) => fprint! (out, "D0Elist(", d0es, ")")
 | D0Eappid (id, d0es) => fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
 //
+| ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
+| ATSPMVstring (tok) => fprint! (out, "ATSPMVstring(", tok, ")")
+//
 | ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")
 | ATSPMVf0loat (tok) => fprint! (out, "ATSPMVf0loat(", tok, ")")
 (*
@@ -308,6 +315,21 @@ end // end of [fprint_d0exp]
 
 implement
 fprint_d0explst (out, xs) = fprint_list_sep (out, xs, ", ")
+
+(* ****** ****** *)
+
+implement
+fprint_fkind
+  (out, x) = let
+in
+//
+case+
+x.fkind_node of
+//
+| FKextern () => fprint! (out, "ATSextern()")
+| FKstatic () => fprint! (out, "ATSstatic()")
+//
+end // end of [fprint_fkind]
 
 (* ****** ****** *)
 //
@@ -335,20 +357,6 @@ implement
 fprint_f0marg
   (out, x) = fprint_list_sep (out, x.f0marg_node, ", ")
 //
-(* ****** ****** *)
-
-implement
-fprint_f0kind
-  (out, x) = let
-in
-//
-case+
-x.f0kind_node of
-| F0KINDextern () => fprint! (out, "ATSextern()")
-| F0KINDstatic () => fprint! (out, "ATSstatic()")
-//
-end // end of [fprint_f0kind]
-
 (* ****** ****** *)
 
 implement

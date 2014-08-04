@@ -101,6 +101,36 @@ d0exp_appid (loc, id, d0es) =
 (* ****** ****** *)
 
 implement
+ATSPMVint_make
+(
+  tok1, int, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVint (int))
+end // end of [ATSPMVint]
+
+(* ****** ****** *)
+
+implement
+ATSPMVstring_make
+(
+  tok1, str, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVstring (str))
+end // end of [ATSPMVint]
+
+(* ****** ****** *)
+
+implement
 ATSPMVi0nt_make
 (
   tok1, int, tok2
@@ -228,26 +258,26 @@ in '{
 (* ****** ****** *)
 //
 implement
-f0kind_extern
+fkind_extern
   (tok1, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in '{
-  f0kind_loc= loc, f0kind_node = F0KINDextern ()
-} end // end of [f0kind_extern]
+  fkind_loc= loc, fkind_node = FKextern ()
+} end // end of [fkind_extern]
 //
 implement
-f0kind_static
+fkind_static
   (tok1, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in '{
-  f0kind_loc= loc, f0kind_node = F0KINDstatic ()
-} end // end of [f0kind_static]
+  fkind_loc= loc, fkind_node = FKstatic ()
+} end // end of [fkind_static]
 //
 (* ****** ****** *)
 
@@ -539,6 +569,21 @@ end // end of [ATSINSmove_make]
 (* ****** ****** *)
 
 implement
+ATSINSmove_void_make
+(
+  tok1, tmp, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_void (tmp, d0e))
+end // end of [ATSINSmove_void_make]
+
+(* ****** ****** *)
+
+implement
 ATSINSmove_boxrec_make
 (
   tok1, tmp, s0e, tok2
@@ -724,12 +769,12 @@ end // end of [d0ecl_typedef]
 
 implement
 d0ecl_fundecl
-  (knd, f0d) = let
+  (fk, f0d) = let
 //
-val loc = knd.f0kind_loc ++ f0d.f0decl_loc
+val loc = fk.fkind_loc ++ f0d.f0decl_loc
 //
 in
-  d0ecl_make_node (loc, D0Cfundecl (knd, f0d))
+  d0ecl_make_node (loc, D0Cfundecl (fk, f0d))
 end // end of [d0ecl_fundecl]
 
 (* ****** ****** *)

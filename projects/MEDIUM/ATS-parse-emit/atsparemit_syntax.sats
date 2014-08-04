@@ -60,10 +60,30 @@ fun d0exp_appid (loc: loc_t, id: i0de, arg: d0explst): d0exp
 (* ****** ****** *)
 //
 fun
+ATSPMVint_make
+(
+  tok_kwd: token, tok: i0nt, tok_end: token
+) : d0exp // end-of-fun
+fun
+ATSPMVstring_make
+(
+  tok_kwd: token, tok: s0tring, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
 ATSPMVi0nt_make
 (
-  tok_kwd: token, int: i0nt, tok_end: token
+  tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
+fun
+ATSPMVf0loat_make
+(
+  tok_kwd: token, tok: f0loat, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
 //
 fun
 ATSSELcon_make
@@ -97,6 +117,13 @@ fun tyrec_make
 //
 (* ****** ****** *)
 //
+fun
+fkind_extern (tok1: token, tok2: token): fkind
+fun
+fkind_static (tok1: token, tok2: token): fkind
+//
+(* ****** ****** *)
+//
 fun f0arg_none (s0e: s0exp): f0arg
 fun f0arg_some (s0e: s0exp, id: i0de): f0arg
 //
@@ -105,11 +132,6 @@ f0marg_make
   (tok_beg: token, f0as: f0arglst, tok_end: token): f0marg
 //
 (* ****** ****** *)
-//
-fun
-f0kind_extern (tok1: token, tok2: token): f0kind
-fun
-f0kind_static (tok1: token, tok2: token): f0kind
 //
 fun
 f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
@@ -224,6 +246,12 @@ ATSINSmove_make
   tok_kwd: token, tmp: i0de, d0e: d0exp, tok_end: token
 ) : instr // end of [ATSINSmove_make]
 //
+fun
+ATSINSmove_void_make
+(
+  tok_kwd: token, tmp: i0de, d0e: d0exp, tok_end: token
+) : instr // end of [ATSINSmove_void_make]
+//
 (* ****** ****** *)
 fun
 ATSINSmove_boxrec_make
@@ -301,7 +329,7 @@ d0ecl_dyncst_extfun
 //
 (* ****** ****** *)
 //
-fun d0ecl_fundecl (knd: f0kind, f0d: f0decl): d0ecl
+fun d0ecl_fundecl (knd: fkind, f0d: f0decl): d0ecl
 //
 (* ****** ****** *)
 //

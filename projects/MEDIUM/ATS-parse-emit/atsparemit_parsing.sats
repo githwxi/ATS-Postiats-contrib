@@ -16,6 +16,64 @@
 staload "./atsparemit.sats"
 
 (* ****** ****** *)
+
+datatype
+parerr_node =
+//
+  | PARERR_EOF
+//
+  | PARERR_COMMA
+  | PARERR_COLON
+  | PARERR_SEMICOLON
+//
+  | PARERR_LPAREN
+  | PARERR_RPAREN
+//
+  | PARERR_LBRACE
+  | PARERR_RBRACE
+//
+  | PARERR_INT of ()
+  | PARERR_INT0 of ()
+  | PARERR_STRING of ()
+//
+  | PARERR_SRPendif
+//
+  | PARERR_ATScaseofend of ()
+  | PARERR_ATSbranchend of ()
+  | PARERR_ATStailcalend of ()
+//
+  | PARERR_i0de of ()
+  | PARERR_s0exp of ()
+  | PARERR_d0exp of ()
+  | PARERR_d0ecl of ()
+//
+  | PARERR_instr of ()
+//
+typedef parerr = '{
+  parerr_loc= loc_t, parerr_node= parerr_node
+} (* end of [parerr] *)
+//
+typedef parerrlst = List0 (parerr)
+
+(* ****** ****** *)
+
+fun fprint_parerr : fprint_type (parerr)
+fun fprint_parerrlst : fprint_type (parerrlst)
+
+(* ****** ****** *)
+//
+fun
+parerr_make
+  (loc: loc_t, node: parerr_node): parerr
+//
+(* ****** ****** *)
+
+fun the_parerrlst_clear (): void
+fun the_parerrlst_insert (err: parerr): void
+fun the_parerrlst_pop_all ((*void*)): List0_vt(parerr)
+fun the_parerrlst_print_free ((*void*)): int(*nerr*)
+
+(* ****** ****** *)
 //
 fun the_parerrlst_add (x: parerr): void
 //
@@ -31,6 +89,13 @@ fun
 tokbuf_set_ntok_null
   {a:type} (buf: &tokbuf >> _, n0: size_t): (a)
 // end of [tokbuf_set_ntok_null]
+
+(* ****** ****** *)
+
+typedef
+parser (a:type) =
+  (&tokbuf(*buf*) >> _, int(*bt*), &int(*err*) >> _) -> a
+// end of [parser]
 
 (* ****** ****** *)
 
@@ -211,15 +276,14 @@ fun parse_tyfld : parser (tyfld)
 fun parse_tyrec : parser (tyrec)
 
 (* ****** ****** *)
-
+//
+fun parse_fkind : parser (fkind)
+//
 fun parse_f0arg : parser (f0arg)
 fun parse_f0marg : parser (f0marg)
-
-(* ****** ****** *)
-
-fun parse_f0kind : parser (f0kind)
+//
 fun parse_f0head : parser (f0head)
-
+//
 (* ****** ****** *)
 
 fun parse_tmpdec : parser (tmpdec)

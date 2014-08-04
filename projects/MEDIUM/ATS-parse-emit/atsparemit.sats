@@ -13,6 +13,12 @@
 //
 (* ****** ****** *)
 //
+typedef
+fprint_type
+  (a:t@ype) = (FILEref, a) -> void
+//
+(* ****** ****** *)
+//
 staload
 SBF =
 "libats/SATS/stringbuf.sats"
@@ -34,11 +40,10 @@ CS = "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
 stadef cstream = $CS.cstream
 //
 (* ****** ****** *)
-//
-typedef
-fprint_type
-  (a: t@ype) = (FILEref, a) -> void
-//
+
+exception FatalErrorExn
+fun abort ((*void*)):<!exn> void
+
 (* ****** ****** *)
 //
 abstype
@@ -52,15 +57,12 @@ val filename_stdin : fil_t
 
 (* ****** ****** *)
 //
-fun
-print_filename : (fil_t) -> void
-fun
-prerr_filename : (fil_t) -> void
+fun print_filename : (fil_t) -> void
+fun prerr_filename : (fil_t) -> void
+fun fprint_filename : fprint_type (fil_t)
+//
 overload print with print_filename
 overload prerr with prerr_filename
-//
-fun
-fprint_filename : fprint_type (fil_t)
 overload fprint with fprint_filename
 //
 (* ****** ****** *)
@@ -79,15 +81,12 @@ typedef pos_t = position_type
 //
 (* ****** ****** *)
 //
-fun
-print_position : (pos_t) -> void
-fun
-prerr_position : (pos_t) -> void
+fun print_position : (pos_t) -> void
+fun prerr_position : (pos_t) -> void
+fun fprint_position : fprint_type (pos_t)
+//
 overload print with print_position
 overload prerr with prerr_position
-//
-fun
-fprint_position : fprint_type (pos_t)
 overload fprint with fprint_position
 //
 *)
@@ -125,19 +124,15 @@ val location_dummy : loc_t
 
 (* ****** ****** *)
 //
-fun
-print_location : (loc_t) -> void
-fun
-prerr_location : (loc_t) -> void
+fun print_location : (loc_t) -> void
+fun prerr_location : (loc_t) -> void
+fun fprint_location : fprint_type (loc_t)
+//
 overload print with print_location
 overload prerr with prerr_location
-//
-fun
-fprint_location : fprint_type (loc_t)
 overload fprint with fprint_location
 //
-fun
-fprint_locrange : fprint_type (loc_t)
+fun fprint_locrange : fprint_type (loc_t)
 //
 (* ****** ****** *)
 //
@@ -148,7 +143,7 @@ fun
 location_make_fil_pos_pos
 (
   fil: fil_t, pos1: &position, pos2: &position
-) : loc_t // end-of-fun
+) : loc_t // end-of-function
 //
 (* ****** ****** *)
 //
@@ -199,6 +194,9 @@ keyword =
   | ATSreturn of ()
   | ATSreturn_void of ()
 //
+  | ATSPMVint of ()
+  | ATSPMVstring of ()
+//
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
@@ -213,6 +211,7 @@ keyword =
   | ATSINSfgoto of ()
 //
   | ATSINSmove of ()
+  | ATSINSmove_void of ()
 //
   | ATSINSmove_boxrec of ()
   | ATSINSmove_boxrec_ofs of ()
@@ -231,10 +230,12 @@ keyword =
 
 (* ****** ****** *)
 //
-fun
-fprint_keyword
-  (out: FILEref, x: keyword): void
+fun print_keyword : (keyword) -> void
+fun prerr_keyword : (keyword) -> void
+fun fprint_keyword: fprint_type (keyword)
 //
+overload print with print_keyword
+overload prerr with prerr_keyword
 overload fprint with fprint_keyword
 //
 (* ****** ****** *)
@@ -299,14 +300,12 @@ fun fprint_tnode : fprint_type (tnode)
 
 (* ****** ****** *)
 //
-fun
-print_token : (token) -> void
-fun
-prerr_token : (token) -> void
+fun print_token : (token) -> void
+fun prerr_token : (token) -> void
+fun fprint_token : fprint_type (token)
+//
 overload print with print_token
 overload prerr with prerr_token
-//
-fun fprint_token : fprint_type (token)
 overload fprint with fprint_token
 //
 (* ****** ****** *)
@@ -320,11 +319,6 @@ typedef i0nt = token
 typedef f0loat = token
 typedef s0tring = token
 
-(* ****** ****** *)
-//
-exception FatalErrorExn
-fun abort ((*void*)):<!exn> void
-//
 (* ****** ****** *)
 //
 datatype
@@ -579,13 +573,30 @@ and s0expopt = Option (s0exp)
 //
 fun print_s0exp : s0exp -> void
 fun prerr_s0exp : s0exp -> void
-fun fprint_s0exp : fprint_type(s0exp)
-fun fprint_s0explst : fprint_type(s0explst)
+fun fprint_s0exp : fprint_type (s0exp)
+fun fprint_s0explst : fprint_type (s0explst)
 //
 overload print with print_s0exp
 overload prerr with prerr_s0exp
 overload fprint with fprint_s0exp
 overload fprint with fprint_s0explst of 10
+//
+(* ****** ****** *)
+//
+datatype
+tyfld_node =
+TYFLD of (i0de, s0exp)
+typedef
+tyfld = '{
+  tyfld_loc= loc_t
+, tyfld_node= tyfld_node
+} (* end of [tyfld] *)
+//
+typedef tyfldlst = List0 (tyfld)
+//
+typedef tyrec = '{
+  tyrec_loc= loc_t, tyrec_node= tyfldlst
+} (* end of [tyrec] *)
 //
 (* ****** ****** *)
 
@@ -594,6 +605,9 @@ d0exp_node =
   | D0Eide of symbol
   | D0Elist of (d0explst)
   | D0Eappid of (symbol, d0explst)
+//
+  | ATSPMVint of i0nt
+  | ATSPMVstring of s0tring
 //
   | ATSPMVi0nt of i0nt
   | ATSPMVf0loat of f0loat
@@ -616,8 +630,8 @@ and d0expopt = Option (d0exp)
 //
 fun print_d0exp : d0exp -> void
 fun prerr_d0exp : d0exp -> void
-fun fprint_d0exp : fprint_type(d0exp)
-fun fprint_d0explst : fprint_type(d0explst)
+fun fprint_d0exp : fprint_type (d0exp)
+fun fprint_d0explst : fprint_type (d0explst)
 //
 overload print with print_d0exp
 overload prerr with prerr_d0exp
@@ -649,24 +663,14 @@ f0marg = '{
 (* ****** ****** *)
 
 datatype
-f0kind_node =
-  | F0KINDextern of ()
-  | F0KINDstatic of ()
-// end of [f0kind_node]
+fkind_node =
+  | FKextern of () | FKstatic of ()
+// end of [fkind_node]
 
-typedef
-f0kind = '{
-//
-f0kind_loc= loc_t, f0kind_node= f0kind_node
-//
-} (* end of [f0kind] *)
+typedef fkind = '{
+  fkind_loc= loc_t, fkind_node= fkind_node
+} (* end of [fkind] *)
 
-(* ****** ****** *)
-//
-fun
-fprint_f0kind:fprint_type(f0kind)
-overload fprint with fprint_f0kind
-//
 (* ****** ****** *)
 //
 datatype
@@ -680,12 +684,14 @@ f0head = '{
 //
 (* ****** ****** *)
 //
-fun fprint_f0arg : fprint_type(f0arg)
-fun fprint_f0marg : fprint_type(f0marg)
+fun fprint_f0arg : fprint_type (f0arg)
+fun fprint_f0marg : fprint_type (f0marg)
+fun fprint_fkind : fprint_type (fkind)
 fun fprint_f0head : fprint_type (f0head)
 //
 overload fprint with fprint_f0arg
 overload fprint with fprint_f0marg
+overload fprint with fprint_fkind
 overload fprint with fprint_f0head
 //
 (* ****** ****** *)
@@ -737,6 +743,7 @@ instr_node =
   | ATSINSfgoto of (label)
 //
   | ATSINSmove of (i0de, d0exp)
+  | ATSINSmove_void of (i0de, d0exp)
 //
   | ATSINSmove_boxrec of (i0de, s0exp)
 //
@@ -773,11 +780,9 @@ overload fprint with fprint_instrlst
 datatype
 f0body_node =
 F0BODY of (tmpdeclst, instrlst)
-typedef
-f0body = '{
 //
-f0body_loc= loc_t, f0body_node= f0body_node
-//
+typedef f0body = '{
+  f0body_loc= loc_t, f0body_node= f0body_node
 } (* end of [f0body] *)
   
 (* ****** ****** *)
@@ -800,23 +805,6 @@ fprint_f0decl:fprint_type (f0decl)
 overload fprint with fprint_f0decl
 
 (* ****** ****** *)
-//
-datatype
-tyfld_node =
-TYFLD of (i0de, s0exp)
-typedef
-tyfld = '{
-  tyfld_loc= loc_t
-, tyfld_node= tyfld_node
-} (* end of [tyfld] *)
-//
-typedef tyfldlst = List0 (tyfld)
-//
-typedef tyrec = '{
-  tyrec_loc= loc_t, tyrec_node= tyfldlst
-} (* end of [tyrec] *)
-//
-(* ****** ****** *)
 
 datatype
 d0ecl_node =
@@ -831,7 +819,7 @@ d0ecl_node =
   | D0Cdyncst_mac of i0de
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
-  | D0Cfundecl of (f0kind, f0decl)
+  | D0Cfundecl of (fkind, f0decl)
 // end of [d0ecl_node]
 
 where
@@ -846,81 +834,11 @@ d0eclist = List0 (d0ecl)
 
 (* ****** ****** *)
 //
-fun
-fprint_d0ecl:fprint_type (d0ecl)
-fun
-fprint_d0eclist:fprint_type (d0eclist)
+fun fprint_d0ecl : fprint_type (d0ecl)
+fun fprint_d0eclist : fprint_type (d0eclist)
 //
 overload fprint with fprint_d0ecl
 overload fprint with fprint_d0eclist of 10
-//
-(* ****** ****** *)
-
-typedef
-parser (a:type) =
-  (&tokbuf(*buf*) >> _, int(*bt*), &int(*err*) >> _) -> a
-// end of [parser]
-
-(* ****** ****** *)
-
-datatype
-parerr_node =
-//
-  | PARERR_EOF
-//
-  | PARERR_COMMA
-  | PARERR_COLON
-  | PARERR_SEMICOLON
-//
-  | PARERR_LPAREN
-  | PARERR_RPAREN
-//
-  | PARERR_LBRACE
-  | PARERR_RBRACE
-//
-  | PARERR_INT of ()
-  | PARERR_INT0 of ()
-  | PARERR_STRING of ()
-//
-  | PARERR_SRPendif
-//
-  | PARERR_ATScaseofend of ()
-  | PARERR_ATSbranchend of ()
-  | PARERR_ATStailcalend of ()
-//
-  | PARERR_i0de of ()
-  | PARERR_s0exp of ()
-  | PARERR_d0exp of ()
-  | PARERR_d0ecl of ()
-//
-  | PARERR_instr of ()
-//
-typedef parerr = '{
-  parerr_loc= loc_t, parerr_node= parerr_node
-} (* end of [parerr] *)
-//
-typedef parerrlst = List0 (parerr)
-
-(* ****** ****** *)
-
-fun fprint_parerr : fprint_type (parerr)
-fun fprint_parerrlst : fprint_type (parerrlst)
-
-(* ****** ****** *)
-//
-fun
-parerr_make
-  (loc: loc_t, node: parerr_node): parerr
-//
-(* ****** ****** *)
-//
-fun the_parerrlst_clear (): void
-//
-fun the_parerrlst_insert (err: parerr): void
-//
-fun the_parerrlst_pop_all ((*void*)): List0_vt(parerr)
-//
-fun the_parerrlst_print_free ((*void*)): int(*nerr*)
 //
 (* ****** ****** *)
 

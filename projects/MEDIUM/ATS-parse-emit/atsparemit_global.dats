@@ -45,50 +45,6 @@ val () = the_filename_push (filename_dummy)
 
 (* ****** ****** *)
 
-staload
-LEXERR = {
-//
-#include
-"share/atspre_define.hats"
-//
-staload "./atsparemit.sats"
-//
-typedef T = lexerr
-//
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
-//
-implement
-the_lexerrlst_insert (x) = push (x)
-//
-implement
-the_lexerrlst_pop_all () = pop_all ()
-//
-} (* end of [staload] *)
-
-(* ****** ****** *)
-
-staload
-PARERR = {
-//
-#include
-"share/atspre_define.hats"
-//
-staload "./atsparemit.sats"
-//
-typedef T = parerr
-//
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
-//
-implement
-the_parerrlst_insert (x) = push (x)
-//
-implement
-the_parerrlst_pop_all () = pop_all ()
-//
-} (* end of [staload] *)
-
-(* ****** ****** *)
-
 staload KWORD =
 {
 //
@@ -161,6 +117,9 @@ val-~None_vt() = kwordins ("ATStailcalend", ATStailcalend)
 val-~None_vt() = kwordins ("ATSreturn", ATSreturn)
 val-~None_vt() = kwordins ("ATSreturn_void", ATSreturn_void)
 //
+val-~None_vt() = kwordins ("ATSPMVint", ATSPMVint)
+val-~None_vt() = kwordins ("ATSPMVstring", ATSPMVstring)
+//
 val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)
 val-~None_vt() = kwordins ("ATSPMVf0loat", ATSPMVf0loat)
 //
@@ -175,6 +134,7 @@ val-~None_vt() = kwordins ("ATSINSflab", ATSINSflab)
 val-~None_vt() = kwordins ("ATSINSfgoto", ATSINSfgoto)
 //
 val-~None_vt() = kwordins ("ATSINSmove", ATSINSmove)
+val-~None_vt() = kwordins ("ATSINSmove_void", ATSINSmove_void)
 //
 val-~None_vt() = kwordins ("ATSINSmove_boxrec", ATSINSmove_boxrec)
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_ofs", ATSINSmove_boxrec_ofs)
@@ -200,9 +160,55 @@ val cp = $KWORD.search_ref (name)
 in
 //
 if isneqz(cp)
-  then $UNSAFE.cptr_get<keyword> (cp) else KWORDnone()
+  then $UNSAFE.cptr_get<keyword> (cp)
+  else KWORDnone()
 //
 end // end of [keyword_search]
+
+(* ****** ****** *)
+
+staload
+LEXERR = {
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+//
+typedef T = lexerr
+//
+#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+//
+implement
+the_lexerrlst_insert (x) = push (x)
+//
+implement
+the_lexerrlst_pop_all () = pop_all ()
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
+staload
+PARERR = {
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+staload "./atsparemit_parsing.sats"
+//
+typedef T = parerr
+//
+#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+//
+implement
+the_parerrlst_insert (x) = push (x)
+//
+implement
+the_parerrlst_pop_all () = pop_all ()
+//
+} (* end of [staload] *)
 
 (* ****** ****** *)
 

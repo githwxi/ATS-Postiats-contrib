@@ -24,6 +24,12 @@ fact_dats.c: fact.dats ; $(PATSCC) -ccats -o $@ $<
 ######
 
 all:: \
+fact2_dats.c
+fact2_dats.c: fact2.dats ; $(PATSCC) -ccats -o $@ $<
+
+######
+
+all:: \
 fib_dats.c
 fib_dats.c: fib.dats ; $(PATSCC) -ccats -o $@ $<
 
