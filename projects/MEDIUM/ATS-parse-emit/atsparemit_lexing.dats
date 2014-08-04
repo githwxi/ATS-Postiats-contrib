@@ -289,9 +289,9 @@ in
 //
 case+ kwd of
 //
-| KWnone () =>
+| KWORDnone () =>
     token_make (loc, T_IDENT_alp(name))
-  // end of [KWnone]
+  // end of [KWORDnone]
 | _ (*keyword*) => token_make (loc, T_KWORD (kwd))
 //
 end // end of [lexing_IDENT_alp]
@@ -490,12 +490,11 @@ case+ 0 of
     val name = strptr2string (name)
     val loc = lexbuf_getincby_location (buf, nchr2)
     val kwd = keyword_search (name)
-    val () = println! ("lexing_SHARP: loc =", loc)
   in
     case+ kwd of
-    | KWnone () =>
+    | KWORDnone () =>
         token_make (loc, T_IDENT_srp(name))
-      // end of [KWnone]
+      // end of [KWORDnone]
     | _(*keyword*) => token_make (loc, T_KWORD (kwd))
   end
 | _ (* rest-of-char *) => let
@@ -629,9 +628,11 @@ val loc = lexbufpos_get_location (buf, pos)
 val strp = lexbuf_takeout (buf, nchr+1)
 val () = lexbuf_set_position (buf, pos)
 //
+(*
 val () = println! ("lexing_quote: loc = ", loc)
 val () = println! ("lexing_quote: nchr = ", nchr)
 val () = println! ("lexing_quote: strp = ", strp)
+*)
 //
 in
   token_make (loc, T_STRING(strptr2string(strp)))
@@ -811,9 +812,6 @@ case+ 0 of
 | _ (*rest-of-char*) => let
 //
 // HX: skipping the unrecognized char
-//
-    val () =
-    println! ("Unrecognized char: c0 = ", c0)
 //
     val () = lexbuf_remove_all (buf)
     val loc = lexbuf_getincby_location (buf, 1)

@@ -66,6 +66,14 @@ ATSPMVi0nt_make
 ) : d0exp // end-of-fun
 //
 fun
+ATSSELcon_make
+(
+  tok_kwd: token
+, d0e: d0exp, s0e: s0exp, lab: label
+, tok_end: token
+) : d0exp // end of [ATSSELcon_make]
+//
+fun
 ATSSELboxrec_make
 (
   tok_kwd: token
@@ -117,6 +125,79 @@ tmpdec_make
 // HX: for constructing instructions
 //
 (* ****** ****** *)
+
+fun SRPif_make
+(
+  tok_if: token
+, test: i0nt, inss: instrlst, tok_end: token
+) : instr // end of [SRPif_make]
+
+(* ****** ****** *)
+//
+fun ATSif_make
+(
+  tok_if: token
+, _test: d0exp, _then: instr, _else: instropt
+) : instr // end of [ATSif_make]
+//
+fun ATSthen_make
+(
+  tok_then: token, inss: instrlst, tok_end: token
+) : instr // end of [ATSthen_make]
+//
+fun ATSelse_make
+(
+  tok_else: token, inss: instrlst, tok_end: token
+) : instr // end of [ATSelse_make]
+//
+(* ****** ****** *)
+//
+fun ATSifthen_make
+(
+  tok_ifthen: token
+, _test: d0exp, _then: instrlst, tok_end: token
+) : instr // end-of-fun
+//
+fun ATSifnthen_make
+(
+  tok_ifnthen: token
+, _test: d0exp, _then: instrlst, tok_end: token
+) : instr // end-of-fun
+//
+(* ****** ****** *)
+
+fun
+ATScaseofseq_make
+(
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
+
+(* ****** ****** *)
+
+fun
+ATSbranchseq_make
+(
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
+
+(* ****** ****** *)
+
+fun
+ATStailcalseq_make
+(
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
+
+(* ****** ****** *)
+//
+fun
+ATSreturn_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+fun
+ATSreturn_void_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+//
+(* ****** ****** *)
 //
 fun
 ATSINSlab_make
@@ -129,10 +210,37 @@ ATSINSgoto_make
 (* ****** ****** *)
 //
 fun
+ATSINSflab_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+//
+fun
+ATSINSfgoto_make
+  (tok_kwd: token, tmp: i0de, tok_end: token): instr
+//
+(* ****** ****** *)
+//
+fun
 ATSINSmove_make
 (
   tok_kwd: token, tmp: i0de, d0e: d0exp, tok_end: token
 ) : instr // end of [ATSINSmove_make]
+//
+(* ****** ****** *)
+fun
+ATSINSmove_boxrec_make
+(
+  tok_kwd: token, tmp: i0de, s0e: s0exp, tok_end: token
+) : instr // end of [ATSINSmove_boxrec_make]
+//
+(* ****** ****** *)
+//
+fun
+ATSINSstore_boxrec_ofs_make
+(
+  tok_kwd: token
+, d0e_l: d0exp, s0e: s0exp, lab: label, d0e_r: d0exp
+, tok_end: token
+) : instr // end-of-function
 //
 fun
 ATSINSstore_fltrec_ofs_make
@@ -143,29 +251,24 @@ ATSINSstore_fltrec_ofs_make
 ) : instr // end-of-function
 //
 (* ****** ****** *)
-
-fun ATSif_make
+//
+fun
+ATSINSmove_tlcal_make
 (
-  tok_if: token, _test: d0exp, _then: instr, _else: instropt
-) : instr // end of [ATSif_make]
-
-fun ATSthen_make
-  (tok_then: token, inss: instrlst, tok_end: token): instr
-// end of [ATSthen_make]
-
-fun ATSelse_make
-  (tok_else: token, inss: instrlst, tok_end: token): instr
-// end of [ATSelse_make]
-
+  tok_kwd: token, argx: i0de, d0e: d0exp, tok_end: token
+) : instr // end-of-function
+//
+fun
+ATSINSargmove_tlcal_make
+(
+  tok_kwd: token, arg0: i0de, argx: i0de, tok_end: token
+) : instr // end-of-function
+//
 (* ****** ****** *)
-//
+
 fun
-ATSreturn_make
-  (tok_kwd: token, tmp: i0de, tok_end: token): instr
-fun
-ATSreturn_void_make
-  (tok_kwd: token, tmp: i0de, tok_end: token): instr
-//
+ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
+
 (* ****** ****** *)
 
 fun

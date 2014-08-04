@@ -35,6 +35,12 @@ fib2_dats.c: fib2.dats ; $(PATSCC) -ccats -o $@ $<
 
 ######
 
+all:: \
+list_dats.c
+list_dats.c: list.dats ; $(PATSCC) -ccats -o $@ $<
+
+######
+
 clean:: ; $(RMF) *~
 
 ######

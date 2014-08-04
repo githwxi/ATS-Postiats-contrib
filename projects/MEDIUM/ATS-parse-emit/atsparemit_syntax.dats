@@ -116,6 +116,21 @@ end // end of [ATSPMVi0nt]
 (* ****** ****** *)
 
 implement
+ATSSELcon_make
+(
+  tok1, d0e, s0e, lab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSSELcon (d0e, s0e, lab))
+end // end of [ATSSELcon_make]
+
+(* ****** ****** *)
+
+implement
 ATSSELboxrec_make
 (
   tok1, d0e, s0e, lab, tok2
@@ -182,8 +197,10 @@ implement
 f0arg_some
   (s0e, id) = let
 //
+(*
 val () = println! ("f0arg_some: id = ", id)
 val () = println! ("f0arg_some: s0e = ", s0e)
+*)
 //
 val loc =
   s0e.s0exp_loc ++ id.i0de_loc
@@ -274,62 +291,18 @@ instr_make_node
 (* ****** ****** *)
 
 implement
-ATSINSlab_make
+SRPif_make
 (
-  tok1, lab, tok2
+  tok_if
+, test, inss, tok_end
 ) = let
 //
 val loc =
-  tok1.token_loc ++ tok2.token_loc
+  tok_if.token_loc ++ tok_end.token_loc
 //
 in
-  instr_make_node (loc, ATSINSlab (lab))
-end // end of [ATSINSlab_make]
-
-(* ****** ****** *)
-
-implement
-ATSINSgoto_make
-(
-  tok1, lab, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATSINSgoto (lab))
-end // end of [ATSINSgoto_make]
-
-(* ****** ****** *)
-
-implement
-ATSINSmove_make
-(
-  tok1, tmp, d0e, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATSINSmove (tmp, d0e))
-end // end of [ATSINSmove_make]
-
-(* ****** ****** *)
-
-implement
-ATSINSstore_fltrec_ofs_make
-(
-  tok1, d0e_l, s0e, lab, d0e_r, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATSINSstore_fltrec_ofs (d0e_l, s0e, lab, d0e_r))
-end // end of [ATSINSstore_fltrec_ofs_make]
+  instr_make_node (loc, SRPif (test, inss))
+end // end of [SRPif_make]
 
 (* ****** ****** *)
 
@@ -364,6 +337,36 @@ in
 end // end of [ATSif_make]
 
 (* ****** ****** *)
+
+implement
+ATSifthen_make
+(
+  tok1, d0e, inss, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSifthen (d0e, inss))
+end // end of [ATSifthen_make]
+
+(* ****** ****** *)
+
+implement
+ATSifnthen_make
+(
+  tok1, d0e, inss, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSifnthen (d0e, inss))
+end // end of [ATSifnthen_make]
+
+(* ****** ****** *)
 //
 implement
 ATSthen_make
@@ -387,6 +390,48 @@ in
   instr_make_node (loc, ATSelse (inss))
 end // end of [ATSelse_make]
 //
+(* ****** ****** *)
+
+implement
+ATScaseofseq_make
+(
+  tok1, inss, tok2
+) = let
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATScaseofseq (inss))
+end // end of [ATScaseofseq_make]
+
+(* ****** ****** *)
+
+implement
+ATSbranchseq_make
+(
+  tok1, inss, tok2
+) = let
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSbranchseq (inss))
+end // end of [ATSbranchseq_make]
+
+(* ****** ****** *)
+
+implement
+ATStailcalseq_make
+(
+  tok1, inss, tok2
+) = let
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATStailcalseq (inss))
+end // end of [ATStailcalseq_make]
+
 (* ****** ****** *)
 
 implement
@@ -416,6 +461,169 @@ val loc =
 in
   instr_make_node (loc, ATSreturn_void (tmp))
 end // end of [ATSreturn_void_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSlab_make
+(
+  tok1, lab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSlab (lab))
+end // end of [ATSINSlab_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSgoto_make
+(
+  tok1, lab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSgoto (lab))
+end // end of [ATSINSgoto_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSflab_make
+(
+  tok1, flab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSflab (flab))
+end // end of [ATSINSlab_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSfgoto_make
+(
+  tok1, flab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSfgoto (flab))
+end // end of [ATSINSfgoto_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_make
+(
+  tok1, tmp, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove (tmp, d0e))
+end // end of [ATSINSmove_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_boxrec_make
+(
+  tok1, tmp, s0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_boxrec (tmp, s0e))
+end // end of [ATSINSmove_boxrec_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSstore_boxrec_ofs_make
+(
+  tok1, d0e_l, s0e, lab, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSstore_boxrec_ofs (d0e_l, s0e, lab, d0e_r))
+end // end of [ATSINSstore_boxrec_ofs_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSstore_fltrec_ofs_make
+(
+  tok1, d0e_l, s0e, lab, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSstore_fltrec_ofs (d0e_l, s0e, lab, d0e_r))
+end // end of [ATSINSstore_fltrec_ofs_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_tlcal_make
+(
+  tok1, argx, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_tlcal (argx, d0e))
+end // end of [ATSINSmove_tlcal_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSargmove_tlcal_make
+(
+  tok1, arg, argx, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSargmove_tlcal (arg, argx))
+end // end of [ATSINSargmove_tlcal_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSdeadcode_fail_make
+  (tok1, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSdeadcode_fail(tok1))
+end // end of [ATSINSdeadcode_fail_make]
 
 (* ****** ****** *)
 

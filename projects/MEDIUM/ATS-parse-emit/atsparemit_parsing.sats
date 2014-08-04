@@ -95,6 +95,26 @@ fun is_STRING (x: tnode): bool
 //
 (* ****** ****** *)
 
+fun p_SRPendif : parser (token)  
+fun is_SRPendif (x: tnode): bool
+  
+(* ****** ****** *)
+
+fun p_ATScaseofend : parser (token)
+fun is_ATScaseofend (x: tnode): bool
+
+(* ****** ****** *)
+
+fun p_ATSbranchend : parser (token)
+fun is_ATSbranchend (x: tnode): bool
+
+(* ****** ****** *)
+
+fun p_ATStailcalend : parser (token)
+fun is_ATStailcalend (x: tnode): bool
+
+(* ****** ****** *)
+
 fun ptest_fun
   {a:type} (
   buf: &tokbuf >> _, f: parser (a), ent: &synent? >> synent

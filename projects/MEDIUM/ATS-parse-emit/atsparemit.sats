@@ -157,8 +157,22 @@ fun location_combine (loc1: loc_t, loc2: loc_t): loc_t
 datatype
 keyword =
 //
+  | SRPif of () // #if
+  | SRPifdef of () // #ifdef
+  | SRPifndef of () // #ifndef
+  | SRPendif of () // #endif
+//
+  | SRPinclude of ()
+//
   | TYPEDEF of ()
   | ATSstruct of ()
+//
+  | ATSinline of () // inline
+  | ATSextern of () // extern
+  | ATSstatic of () // static
+//
+  | ATSdyncst_mac of ()
+  | ATSdyncst_extfun of ()
 //
   | ATStmpdec of ()
 //
@@ -166,22 +180,33 @@ keyword =
   | ATSthen of ()
   | ATSelse of ()
 //
-  | ATSgoto of ()
+  | ATSifthen of ()
+  | ATSifnthen of ()
 //
-  | ATSreturn of ()
-  | ATSreturn_void of ()
+  | ATScaseofbeg of ()
+  | ATScaseofend of ()
+//
+  | ATSbranchbeg of ()
+  | ATSbranchend of ()
 //
   | ATStailcalbeg of ()
   | ATStailcalend of ()
 //
+  | ATSreturn of ()
+  | ATSreturn_void of ()
+//
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
+  | ATSSELcon of ()
   | ATSSELboxrec of ()
   | ATSSELfltrec of ()
 //
   | ATSINSlab of ()
   | ATSINSgoto of ()
+//
+  | ATSINSflab of ()
+  | ATSINSfgoto of ()
 //
   | ATSINSmove of ()
 //
@@ -194,19 +219,9 @@ keyword =
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
 //
-  | ATSinline of () // inline
-  | ATSextern of () // extern
-  | ATSstatic of () // static
+  | ATSINSdeadcode_fail of ()
 //
-  | ATSdyncst_mac of ()
-  | ATSdyncst_extfun of ()
-//
-  | SRPif of ()
-  | SRPifdef of ()
-  | SRPifndef of ()
-  | SRPinclude of ()
-//
-  | KWnone of ()
+  | KWORDnone of () // for indicating a non-keyword
 //
 // end of [keyword]
 
@@ -695,22 +710,45 @@ overload fprint with fprint_tmpdeclst
 datatype
 instr_node =
 //
-  | ATSINSlab of (label)
-  | ATSINSgoto of (label)
-//
-  | ATSINSmove of (i0de, d0exp)
-//
-  | ATSINSstore_fltrec_ofs of (d0exp, s0exp, i0de, d0exp)
+  | SRPif of
+    (
+      i0nt(*test*), instrlst
+    )
 //
   | ATSif of
     (
       d0exp, instrlst, instrlstopt
     )
-  | ATSthen of instrlst
-  | ATSelse of instrlst
+  | ATSthen of instrlst // HX: temporary
+  | ATSelse of instrlst // HX: temporary
+//
+  | ATSifthen of (d0exp, instrlst)
+  | ATSifnthen of (d0exp, instrlst)
+//
+  | ATScaseofseq of instrlst
+  | ATSbranchseq of instrlst
 //
   | ATSreturn of (i0de)
   | ATSreturn_void of (i0de)
+//
+  | ATSINSlab of (label)
+  | ATSINSgoto of (label)
+//
+  | ATSINSflab of (label)
+  | ATSINSfgoto of (label)
+//
+  | ATSINSmove of (i0de, d0exp)
+//
+  | ATSINSmove_boxrec of (i0de, s0exp)
+//
+  | ATSINSstore_boxrec_ofs of (d0exp, s0exp, i0de, d0exp)
+  | ATSINSstore_fltrec_ofs of (d0exp, s0exp, i0de, d0exp)
+//
+  | ATStailcalseq of instrlst
+  | ATSINSmove_tlcal of (i0de, d0exp)
+  | ATSINSargmove_tlcal of (i0de, i0de)
+//
+  | ATSINSdeadcode_fail of (token)
 //
 // end of [instr_node]
 //
@@ -840,10 +878,16 @@ parerr_node =
   | PARERR_INT of ()
   | PARERR_STRING of ()
 //
+  | PARERR_SRPendif
+//
+  | PARERR_ATScaseofend of ()
+  | PARERR_ATSbranchend of ()
+  | PARERR_ATStailcalend of ()
+//
   | PARERR_i0de of ()
   | PARERR_s0exp of ()
-  | PARERR_primval of ()
   | PARERR_d0exp of ()
+  | PARERR_d0ecl of ()
 //
   | PARERR_instr of ()
 //

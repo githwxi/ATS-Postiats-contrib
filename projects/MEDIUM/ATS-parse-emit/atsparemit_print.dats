@@ -67,6 +67,21 @@ in
 //
 case+ x of
 //
+| SRPif () => p "#if"
+| SRPifdef () => p "#ifdef"
+| SRPifndef () => p "#ifndef"
+| SRPendif () => p "#endif"
+//
+| SRPinclude () => p "#include"
+//
+| ATSinline () => p "ATSinline"
+//
+| ATSextern () => p "ATSextern"
+| ATSstatic () => p "ATSstatic"
+//
+| ATSdyncst_mac () => p "ATSdyncst_mac"
+| ATSdyncst_extfun () => p "ATSdyncst_extfun"
+//
 | TYPEDEF () => p "typedef"
 //
 | ATSstruct () => p "ATSstruct"
@@ -77,13 +92,20 @@ case+ x of
 | ATSthen () => p "ATSthen"
 | ATSelse () => p "ATSelse"
 //
-| ATSgoto () => p "ATSgoto"
+| ATSifthen () => p "ATSifthen"
+| ATSifnthen () => p "ATSifnthen"
 //
-| ATSreturn () => p "ATSreturn"
-| ATSreturn_void () => p "ATSreturn_void"
+| ATScaseofbeg () => p "ATScaseofbeg"
+| ATScaseofend () => p "ATScaseofend"
+//
+| ATSbranchbeg () => p "ATSbranchbeg"
+| ATSbranchend () => p "ATSbranchend"
 //
 | ATStailcalbeg () => p "ATStailcalbeg"
 | ATStailcalend () => p "ATStailcalend"
+//
+| ATSreturn () => p "ATSreturn"
+| ATSreturn_void () => p "ATSreturn_void"
 //
 | ATSPMVi0nt () => p "ATSPMVi0nt"
 | ATSPMVf0loat () => p "ATSPMVf0loat"
@@ -91,11 +113,15 @@ case+ x of
 | ATSINSlab () => p "ATSINSlab"
 | ATSINSgoto () => p "ATSINSgoto"
 //
+| ATSINSflab () => p "ATSINSflab"
+| ATSINSfgoto () => p "ATSINSfgoto"
+//
 | ATSINSmove () => p "ATSINSmove"
 //
 | ATSINSmove_boxrec () => p "ATSINSmove_boxrec"
 | ATSINSmove_boxrec_ofs () => p "ATSINSmove_boxrec_ofs"
 //
+| ATSSELcon () => p "ATSSELcon"
 | ATSSELboxrec () => p "ATSSELboxrec"
 | ATSSELfltrec () => p "ATSSELfltrec"
 //
@@ -105,20 +131,9 @@ case+ x of
 | ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"
 //
-| ATSinline () => p "ATSinline"
+| ATSINSdeadcode_fail () => p "ATSINSdeadcode_fail"
 //
-| ATSextern () => p "ATSextern"
-| ATSstatic () => p "ATSstatic"
-//
-| ATSdyncst_mac () => p "ATSdyncst_mac"
-| ATSdyncst_extfun () => p "ATSdyncst_extfun"
-//
-| SRPif () => p "#if"
-| SRPifdef () => p "#ifdef"
-| SRPifndef () => p "#ifndef"
-| SRPinclude () => p "#include"
-//
-| KWnone () => p "KWnone"
+| KWORDnone () => p "KWORDnone"
 //
 end // end of [fprint_keyword]
 

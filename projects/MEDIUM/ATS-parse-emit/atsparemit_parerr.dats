@@ -106,10 +106,16 @@ x.parerr_node of
 | PARERR_INT () => SN (x, "INT")
 | PARERR_STRING () => SN (x, "STRING")
 //
+| PARERR_SRPendif () => SN (x, "#endif")
+//
+| PARERR_ATScaseofend () => SN (x, "ATScaseofend")
+| PARERR_ATSbranchend () => SN (x, "ATSbranchend")
+| PARERR_ATStailcalend () => SN (x, "ATStailcalend")
+//
 | PARERR_i0de () => SN (x, "i0de")
 | PARERR_s0exp () => SN (x, "s0exp")
-| PARERR_primval () => SN (x, "primval")
 | PARERR_d0exp () => SN (x, "d0exp")
+| PARERR_d0ecl () => SN (x, "d0ecl")
 //
 | PARERR_instr () => SN (x, "instr")
 //
