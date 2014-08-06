@@ -557,7 +557,7 @@ typedef label = i0de
 datatype
 s0exp_node =
   | S0Eide of symbol
-  | S0Elist of (s0explst)
+  | S0Elist of (s0explst) // temp
   | S0Eappid of (symbol, s0explst)
 // end of [s0exp_node]
 
@@ -603,7 +603,7 @@ typedef tyrec = '{
 datatype
 d0exp_node =
   | D0Eide of symbol
-  | D0Elist of (d0explst)
+  | D0Elist of (d0explst) // temp
   | D0Eappid of (symbol, d0explst)
 //
   | ATSPMVint of i0nt

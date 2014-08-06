@@ -10,12 +10,14 @@
 
 staload "./atsparemit.sats"
 staload "./atsparemit_parsing.sats"
+staload "./atsparemit_emit.sats"
 
 (* ****** ****** *)
 //
 dynload "./atsparemit.sats"
 dynload "./atsparemit_syntax.sats"
 dynload "./atsparemit_parsing.sats"
+dynload "./atsparemit_emit.sats"
 //
 (* ****** ****** *)
 //
@@ -48,6 +50,10 @@ dynload "./atsparemit_parsing_d0exp.dats"
 dynload "./atsparemit_parsing_d0ecl.dats"
 dynload "./atsparemit_parsing_instr.dats"
 //
+(* ****** ****** *)
+
+dynload "./atsparemit_emit_python.dats"
+
 (* ****** ****** *)
 
 implement

@@ -1,5 +1,5 @@
 #
-# Makefile ATS-parsemit
+# Makefile ATS-parsemit-python
 #
 
 ######
@@ -21,10 +21,13 @@ MALLOCFLAG = -DATS_MEMALLOC_GCBDW
 SOURCES_SATS += atsparemit.sats
 SOURCES_SATS += atsparemit_syntax.sats
 SOURCES_SATS += atsparemit_parsing.sats
+SOURCES_SATS += atsparemit_emit.sats
 
 ######
 #
 SOURCES_DATS += atsparemit_main.dats
+SOURCES_DATS += atsparemit_emit_python.dats
+#
 SOURCES_DATS += atsparemit_mylib.dats
 #
 SOURCES_DATS += atsparemit_error.dats

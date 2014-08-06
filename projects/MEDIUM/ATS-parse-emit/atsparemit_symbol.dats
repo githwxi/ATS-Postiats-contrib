@@ -26,6 +26,12 @@ SYMBOL of (string(*name*), int(*stamp*))
 assume symbol_type = symbol
 
 (* ****** ****** *)
+//
+implement
+symbol_get_name (sym) =
+  let val+SYMBOL (name, _) = sym in name end
+//
+(* ****** ****** *)
 
 local
 
