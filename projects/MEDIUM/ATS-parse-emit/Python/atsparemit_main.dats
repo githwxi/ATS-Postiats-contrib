@@ -106,6 +106,8 @@ val () = fprintln! (stdout_ref, "f0d = ", f0d)
 val d0cs = parse_from_fileref (stdin_ref)
 val ((*void*)) = fprint! (stdout_ref, "d0cs =\n", d0cs)
 //
+val () = emit_toplevel (stdout_ref, d0cs)
+//
 } (* end of [main0] *)
 
 (* ****** ****** *)

@@ -441,7 +441,7 @@ x.d0ecl_node of
     fprint! (out, "D0Cdyncst_mac(", name, ")")
 | D0Cdyncst_extfun (name, s0es, s0e) =>
     fprint! (out, "D0Cdyncst_extfun(", name, ")")
-| D0Cfundecl (knd, f0d) =>
+| D0Cfundecl (knd, fdec) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
 //
 end // end of [fprint_d0ecl]

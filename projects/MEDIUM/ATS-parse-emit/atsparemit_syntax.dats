@@ -769,12 +769,12 @@ end // end of [d0ecl_typedef]
 
 implement
 d0ecl_fundecl
-  (fk, f0d) = let
+  (fk, fdec) = let
 //
-val loc = fk.fkind_loc ++ f0d.f0decl_loc
+val loc = fk.fkind_loc ++ fdec.f0decl_loc
 //
 in
-  d0ecl_make_node (loc, D0Cfundecl (fk, f0d))
+  d0ecl_make_node (loc, D0Cfundecl (fk, fdec))
 end // end of [d0ecl_fundecl]
 
 (* ****** ****** *)

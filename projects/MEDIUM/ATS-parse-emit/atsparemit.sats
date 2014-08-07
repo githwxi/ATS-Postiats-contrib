@@ -722,10 +722,13 @@ datatype
 instr_node =
 //
   | ATSif of (
-      d0exp, instrlst, instrlstopt
+      d0exp // HX: cond
+    , instrlst // HX: then
+    , instrlstopt // HX: else
     ) (* end of [ATSif] *)
-  | ATSthen of instrlst // HX: temporary
-  | ATSelse of instrlst // HX: temporary
+//
+  | ATSthen of instrlst // tempory
+  | ATSelse of instrlst // tempory
 //
   | ATSifthen of (d0exp, instrlst)
   | ATSifnthen of (d0exp, instrlst)

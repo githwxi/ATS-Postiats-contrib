@@ -18,8 +18,17 @@ emit_type
 //
 (* ****** ****** *)
 
+fun emit_EOL : FILEref -> void
+fun emit_SPACE : FILEref -> void
+
+(* ****** ****** *)
+
 fun emit_LPAREN : FILEref -> void
 fun emit_RPAREN : FILEref -> void
+
+(* ****** ****** *)
+
+fun emit_flush : FILEref -> void
 
 (* ****** ****** *)
 
@@ -38,6 +47,7 @@ fun emit_s0tring : emit_type (s0tring)
 (* ****** ****** *)
 
 fun emit_i0de : emit_type (i0de)
+fun emit_label : emit_type (label)
 
 (* ****** ****** *)
 
@@ -54,7 +64,11 @@ fun emit_instr : emit_type (instr)
 
 (* ****** ****** *)
 
-fun emit_fundecl : emit_type (f0decl)
+fun emit_f0decl : emit_type (f0decl)
+
+(* ****** ****** *)
+
+fun emit_toplevel : emit_type (d0eclist)
 
 (* ****** ****** *)
 
