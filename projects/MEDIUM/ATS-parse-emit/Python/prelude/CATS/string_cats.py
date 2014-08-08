@@ -6,8 +6,11 @@
 
 ######################################
 
-def atspre2py_eq_string_string(x, y): return (x == y)
-def atspre2py_neq_string_string(x, y): return (x != y)
+def atspre_strlen(x): return (x.__len__())
+
+######################################
+
+def atspre2py_string_get_at(x, i): return(x[i])
 
 ######################################
 
