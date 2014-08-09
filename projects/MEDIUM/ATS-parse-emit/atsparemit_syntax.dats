@@ -672,6 +672,32 @@ end // end of [ATSINSdeadcode_fail_make]
 (* ****** ****** *)
 
 implement
+ATSdynload1_make
+  (tok1, id, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSdynload1(id))
+end // end of [ATSdynload1]
+
+(* ****** ****** *)
+
+implement
+ATSdynloadset_make
+  (tok1, id, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSdynloadset(id))
+end // end of [ATSdynloadset]
+
+(* ****** ****** *)
+
+implement
 f0body_make
 (
   tok_beg, tmps, inss, tok_end

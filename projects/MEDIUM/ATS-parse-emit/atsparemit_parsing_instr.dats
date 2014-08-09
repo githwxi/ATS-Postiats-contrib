@@ -387,6 +387,30 @@ tok.token_node of
     // end of [if]
   end // end of [ATSINSdeadcode_fail]  
 //
+| T_KWORD(ATSdynload1()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if (err = err0)
+      then ATSdynload1_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynload1]
+//
+| T_KWORD(ATSdynloadset()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if (err = err0)
+      then ATSdynloadset_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynloadset]
+//
 | _ (*error*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_instr)

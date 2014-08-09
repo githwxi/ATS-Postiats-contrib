@@ -147,6 +147,9 @@ val-~None_vt() = kwordins ("ATSINSargmove_tlcal", ATSINSargmove_tlcal)
 //
 val-~None_vt() = kwordins ("ATSINSdeadcode_fail", ATSINSdeadcode_fail)
 //
+val-~None_vt() = kwordins ("ATSdynload1", ATSdynload1)
+val-~None_vt() = kwordins ("ATSdynloadset", ATSdynloadset)
+//
 } (* end of [val] *)
 
 (* ****** ****** *)

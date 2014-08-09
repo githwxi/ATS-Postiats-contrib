@@ -138,6 +138,9 @@ case+ x of
 //
 | ATSINSdeadcode_fail () => p "ATSINSdeadcode_fail"
 //
+| ATSdynload1 () => p "ATSdynload1"
+| ATSdynloadset () => p "ATSdynloadset"
+//
 | KWORDnone () => p "KWORDnone"
 //
 end // end of [fprint_keyword]

@@ -192,11 +192,16 @@ tok.token_node of
 | T_KWORD(SRPinclude()) => let
     val bt = 0
     val () = incby1 ()
-    val tok2 = p_STRING (buf, bt, err)
+    val tok2 = tokbuf_get_token (buf)
   in
-    if err = err0
-      then d0ecl_include (tok, tok2) else tokbuf_set_ntok_null (buf, n0) 
-    // end of [if]
+    case+ tok2.token_node of
+    | T_STRING _ => let
+        val () = incby1 () in d0ecl_include (tok, tok2)
+      end // end of [T_STRING]
+    | T_IDENT_alp _ => let
+        val () = incby1 () in d0ecl_include (tok, tok2)
+      end // end of [T_IDENT_alp]
+    | _ (*error*) => tokbuf_set_ntok_null (buf, n0) 
   end // end of [SRPinclude]
 //
 | T_KWORD(SRPifdef()) => let

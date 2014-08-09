@@ -253,6 +253,10 @@ ins.instr_node of
     val () = emit_i0de (out, tmp)
     val () = emit_RPAREN (out)
   }
+| ATSreturn_void (tmp) =>
+  {
+    val () = emit_text (out, "return")
+  }
 //
 | ATSINSflab (lab) =>
   {
@@ -266,6 +270,21 @@ ins.instr_node of
     val () = emit_text (out, " = ")
     val () = emit_d0exp (out, d0e)
   } (* end of [ATSINSmove] *)
+//
+| ATSdynload1 (tmp) =>
+  {
+    val () = emit_text (out, "ATSdynload1")
+    val () = emit_LPAREN (out)
+    val () = emit_i0de (out, tmp)
+    val () = emit_RPAREN (out)
+  }
+| ATSdynloadset (tmp) =>
+  {
+    val () = emit_text (out, "ATSdynloadset")
+    val () = emit_LPAREN (out)
+    val () = emit_i0de (out, tmp)
+    val () = emit_RPAREN (out)
+  }
 //
 | _ (*yet-to-be-done*) => emit_text (out, "**INSTR**")
 //

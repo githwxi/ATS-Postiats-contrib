@@ -224,6 +224,9 @@ keyword =
 //
   | ATSINSdeadcode_fail of ()
 //
+  | ATSdynload1 of ()
+  | ATSdynloadset of ()
+//
   | KWORDnone of () // for indicating a non-keyword
 //
 // end of [keyword]
@@ -758,6 +761,9 @@ instr_node =
   | ATSINSargmove_tlcal of (i0de, i0de)
 //
   | ATSINSdeadcode_fail of (token)
+//
+  | ATSdynload1 of (i0de)
+  | ATSdynloadset of (i0de)
 //
 // end of [instr_node]
 //

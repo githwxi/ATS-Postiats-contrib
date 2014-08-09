@@ -299,6 +299,13 @@ ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
 (* ****** ****** *)
 
 fun
+ATSdynload1_make (tok_kwd: token, id: i0de, tok_end: token): instr
+fun
+ATSdynloadset_make (tok_kwd: token, id: i0de, tok_end: token): instr
+
+(* ****** ****** *)
+
+fun
 f0body_make
 (
   tok_beg: token, tmps: tmpdeclst, inss: instrlst, tok_end: token
