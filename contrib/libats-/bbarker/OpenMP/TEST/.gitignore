@@ -1,3 +1,4 @@
 *.c
 gccBuild.sh
-
+omp_hello
+omp_for

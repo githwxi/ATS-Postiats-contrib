@@ -1,49 +1,60 @@
 #
-# A simple Makefile for
-# testing the ATS API for OpenMP
+# A simple Makefile
 #
 
 ######
 
-ifdef CCFOMP
-else
-CCFOMP=-fopenmp
-endif
+GCC=gcc
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+PATSHOMEQ="$(PATSHOME)"
+PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 ######
 
-LDFLAGS += 
+PATSCC=$(PATSHOMEQ)/bin/patscc
+PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
 
-CFLAGS += $(CCFOMP)
+all::
+regress::
 
 ######
 
-MYCCRULE=MYCCRULE
+# all:: \
+# omp_hello
+# omp_hello: \
+# omp_hello.c ; $(GCC) -fopenmp -o $@ $<
 
 ######
 
-MALLOCFLAG=-DATS_MEMALLOC_LIBC
+all:: \
+omp_hello omp_for
+omp_hello: \
+omp_hello.dats ; $(PATSCC) -I$(PATSHOMERELOC)/contrib -fopenmp -o $@ $<
+omp_for: \
+omp_for.dats ; $(PATSCC) -I$(PATSHOMERELOC)/contrib -fopenmp -DATS_MEMALLOC_LIBC -o $@ $<
+cleanall:: ; $(RMF) omp_for
 
 ######
 
-all:: hello
-hello: hello.dats ; $(PATSCC2) $(CFLAGS) -o $@ $< $(LDFLAGS) 
-cleanall:: ; $(RMF) hello *.exe
+regress:: omp_hello; ./omp_hello
+regress:: omp_for; ./omp_for
 
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+RMF=rm -f
 
 ######
 
-cleanats:: ; $(RMF) *_?ats.c
+clean:: ; $(RMF) *~
+clean:: ; $(RMF) *.o
+clean:: ; $(RMF) *_?ats.c
 
 ######
+
+cleanall:: clean
 
 ###### end of [Makefile] ######
