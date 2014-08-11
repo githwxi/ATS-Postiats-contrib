@@ -34,7 +34,7 @@
 
 %{#
 //
-#include "OpenMP/CATS/omp.cats"
+#include "./../CATS/omp.cats"
 //
 %} // end of [%{#]
 
@@ -76,8 +76,14 @@ pragma_omp_parallel_private_beg
 //
 fun
 pragma_omp_parallel_private_end
-  (pf: omp_parallel_private_v | (*void*)): void= "mac#%"
+  (pf: omp_parallel_private_v | (*void*)): void = "mac#%"
 //
+(* ****** Work Sharing Constructs ****** *)
+//
+fun
+pragma_omp_parallel_for (): void = "mac#%"
+//
+
 (* ****** ****** *)
 
 (* end of [omp.sats] *)

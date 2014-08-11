@@ -31,14 +31,17 @@ regress::
 ######
 
 all:: \
-omp_hello
+omp_hello omp_for
 omp_hello: \
 omp_hello.dats ; $(PATSCC) -I$(PATSHOMERELOC)/contrib -fopenmp -o $@ $<
-cleanall:: ; $(RMF) omp_hello
+omp_for: \
+omp_for.dats ; $(PATSCC) -I$(PATSHOMERELOC)/contrib -fopenmp -DATS_MEMALLOC_LIBC -o $@ $<
+cleanall:: ; $(RMF) omp_for
 
 ######
 
 regress:: omp_hello; ./omp_hello
+regress:: omp_for; ./omp_for
 
 ######
 

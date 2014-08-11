@@ -84,6 +84,16 @@ atscntrb_openmp_pragma_omp_parallel_private_beg(tid) \
 atscntrb_openmp_pragma_omp_parallel_private_end(tid) }
 //
 /* ****** ****** */
+//
+// #pragma omp parallel for
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_openmp_pragma_omp_parallel_for() \
+  _Pragma(atscntrb_openmp_STRINGIFY(omp parallel for))
+//
+/* ****** ****** */
 
 #endif // ifndef OPENMP_OMP_CATS
 
