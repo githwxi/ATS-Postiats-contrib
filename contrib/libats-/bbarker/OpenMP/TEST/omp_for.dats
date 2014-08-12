@@ -15,6 +15,10 @@ staload "./../SATS/omp.sats"
 
 (* ****** ****** *)
 
+staload UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
 
 (*
 #include <omp.h>
@@ -52,40 +56,39 @@ implement
 main0 () =
 {
 //
-val (N: size_t 100, a_sum, a_closed) = (g1i2u(100), 0, 0)
-val (a_pfat, a_pfgc | a) = array_ptr_alloc<int> (N)
-val () = array_initize_elt(!a, N, 0)
 
-local
-  var i: size_t
-  var im1: int
-  var im1u: size_t
-  var tmp: int
-  
-in
-//
-//val () = pragma_omp_parallel_for ()
-//
-// Just try direct c code first:
-//
-%{
-#pragma omp parallel for
+%{^
+#define N 100
+int a[N]; 
+int varTest = 8888;
 %}
-val () = for (i := g1i2u(1); i <= N; i := i + g1i2u(1)) 
-let
-  val itmp = g1ofg0_int(g0u2i(i) - 1)
-  val () = assertloc(itmp >= 0)
-  val itmp = g1i2u(itmp)
-  val () = assertloc(itmp < N)
-  val a_i = g1ofg0_int(g0u2i(i) * g0u2i(i)) 
-  val () = a->[itmp] := a_i
-  val a_i = (a->[itmp]):int 
-  val () = println!( a_i )
-in end // of let
-//
-end // of val ()
 
-val () = array_ptr_free (a_pfat, a_pfgc | a)
+//#define N $extval(size_t, "N")
+macdef N = $extval(size_t, "N")
+#define N N 
+macdef a = $extval(@[int?][N], "a")
+
+
+val (a_sum, a_closed) = (0, 0)
+//val (a_pfat, a_pfgc | a) = array_ptr_alloc<int> (N)
+//val () = array_initize_elt(!a, N, 0)
+
+
+macdef varTest = $extval(ptr, "&varTest")
+val () = println!($UN.ptr0_get<int>(varTest))
+val () = $UN.ptr0_set<int> (varTest, 5)
+val () = println!($UN.ptr0_get<int>(varTest))
+  
+(* %{^ *)
+(* #define OMP_FOR_TEST() \ *)
+(* _Pragma(atscntrb_openmp_STRINGIFY(omp parallel for)) \ *)
+(* for (int i = 1; i <= 75; i++) { \ *)
+(*   printf("%d\n", i); \ *)
+(* } // end of for  *)
+(* %} *)
+(* val () = $extfcall (void, "OMP_FOR_TEST")  *)
+
+//val () = array_ptr_free (a_pfat, a_pfgc | a)
 
 } (* end of [main0] *)
 
