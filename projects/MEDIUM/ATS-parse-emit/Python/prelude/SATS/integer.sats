@@ -89,4 +89,4 @@ overload != with neq_int1_int1 of 120
 //
 (* ****** ****** *)
 
-(* end of [string.sats] *)
+(* end of [integer.sats] *)
