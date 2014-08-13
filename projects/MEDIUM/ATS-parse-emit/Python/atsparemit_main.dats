@@ -52,6 +52,10 @@ dynload "./atsparemit_parsing_instr.dats"
 //
 (* ****** ****** *)
 
+dynload "./atsparemit_topenv.dats"
+
+(* ****** ****** *)
+
 dynload "./atsparemit_emit_python.dats"
 
 (* ****** ****** *)

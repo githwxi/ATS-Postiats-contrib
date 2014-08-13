@@ -28,10 +28,16 @@ fun emit_RPAREN : FILEref -> void
 
 (* ****** ****** *)
 
+fun emit_LBRACKET : FILEref -> void
+fun emit_RBRACKET : FILEref -> void
+
+(* ****** ****** *)
+
 fun emit_flush : FILEref -> void
 
 (* ****** ****** *)
 
+fun emit_int : emit_type (int)
 fun emit_text : emit_type (string)
 
 (* ****** ****** *)
@@ -39,11 +45,13 @@ fun emit_text : emit_type (string)
 fun emit_symbol : emit_type (symbol)
 
 (* ****** ****** *)
-
-fun emit_i0nt : emit_type (i0nt)
-fun emit_f0loat : emit_type (f0loat)
-fun emit_s0tring : emit_type (s0tring)
-
+//
+fun emit_PMVint : emit_type (i0nt)
+fun emit_PMVstring : emit_type (s0tring)
+//
+fun emit_PMVi0nt : emit_type (i0nt)
+fun emit_PMVf0loat : emit_type (i0nt)
+//
 (* ****** ****** *)
 
 fun emit_i0de : emit_type (i0de)
@@ -53,6 +61,10 @@ fun emit_label : emit_type (label)
 
 fun emit_d0exp : emit_type (d0exp)
 fun emit_d0explst : emit_type (d0explst)
+
+(* ****** ****** *)
+
+fun emit_SELboxrec : emit_type (d0exp)
 
 (* ****** ****** *)
 

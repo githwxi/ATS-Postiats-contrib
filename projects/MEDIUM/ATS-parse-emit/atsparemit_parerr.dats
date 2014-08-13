@@ -113,6 +113,9 @@ x.parerr_node of
 | PARERR_ATSbranchend () => SN (x, "ATSbranchend")
 | PARERR_ATStailcalend () => SN (x, "ATStailcalend")
 //
+| PARERR_ATSINSmove_fltrec_end () => SN (x, "ATSINSmove_fltrec_end")
+| PARERR_ATSINSmove_boxrec_end () => SN (x, "ATSINSmove_boxrec_end")
+//
 | PARERR_i0de () => SN (x, "i0de")
 | PARERR_s0exp () => SN (x, "s0exp")
 | PARERR_d0exp () => SN (x, "d0exp")

@@ -94,19 +94,20 @@ ATSSELcon_make
 ) : d0exp // end of [ATSSELcon_make]
 //
 fun
-ATSSELboxrec_make
-(
-  tok_kwd: token
-, d0e: d0exp, s0e: s0exp, lab: label
-, tok_end: token
-) : d0exp // end of [ATSSELboxrec_make]
-fun
 ATSSELfltrec_make
 (
   tok_kwd: token
 , d0e: d0exp, s0e: s0exp, lab: label
 , tok_end: token
 ) : d0exp // end of [ATSSELfltrec_make]
+//
+fun
+ATSSELboxrec_make
+(
+  tok_kwd: token
+, d0e: d0exp, s0e: s0exp, lab: label
+, tok_end: token
+) : d0exp // end of [ATSSELboxrec_make]
 //
 (* ****** ****** *)
 //
@@ -253,24 +254,37 @@ ATSINSmove_void_make
 ) : instr // end of [ATSINSmove_void_make]
 //
 (* ****** ****** *)
+//
 fun
-ATSINSmove_boxrec_make
+ATSINSmove_fltrec_make
 (
-  tok_kwd: token, tmp: i0de, s0e: s0exp, tok_end: token
-) : instr // end of [ATSINSmove_boxrec_make]
-//
-(* ****** ****** *)
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
 //
 fun
-ATSINSstore_boxrec_ofs_make
+ATSINSstore_fltrec_ofs_make
 (
   tok_kwd: token
 , d0e_l: d0exp, s0e: s0exp, lab: label, d0e_r: d0exp
 , tok_end: token
 ) : instr // end-of-function
 //
+(* ****** ****** *)
+//
 fun
-ATSINSstore_fltrec_ofs_make
+ATSINSmove_boxrec_make
+(
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
+//
+fun
+ATSINSmove_boxrec_new_make
+(
+  tok_kwd: token, tmp: i0de, s0e: s0exp, tok_end: token
+) : instr // end-of-function
+//
+fun
+ATSINSstore_boxrec_ofs_make
 (
   tok_kwd: token
 , d0e_l: d0exp, s0e: s0exp, lab: label, d0e_r: d0exp

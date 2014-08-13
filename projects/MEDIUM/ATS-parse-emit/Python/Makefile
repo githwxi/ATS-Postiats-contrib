@@ -13,7 +13,8 @@ CFLAGS += -O2
 #
 ######
 
-LDFLAGS += -lgc -lm
+LDFLAGS += -lm
+LDFLAGS += -lgc
 MALLOCFLAG = -DATS_MEMALLOC_GCBDW
 
 ######
@@ -26,7 +27,6 @@ SOURCES_SATS += atsparemit_emit.sats
 ######
 #
 SOURCES_DATS += atsparemit_main.dats
-SOURCES_DATS += atsparemit_emit_python.dats
 #
 SOURCES_DATS += atsparemit_mylib.dats
 #
@@ -46,6 +46,9 @@ SOURCES_DATS += atsparemit_parsing.dats
 SOURCES_DATS += atsparemit_parsing_d0exp.dats
 SOURCES_DATS += atsparemit_parsing_d0ecl.dats
 SOURCES_DATS += atsparemit_parsing_instr.dats
+#
+SOURCES_DATS += atsparemit_topenv.dats
+SOURCES_DATS += atsparemit_emit_python.dats
 #
 ######
 

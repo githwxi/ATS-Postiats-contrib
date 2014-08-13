@@ -118,7 +118,7 @@ tok.token_node of
         ATScaseofseq_make (tok, ent3, ent6)
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
-  end // end of [ATSINScaseofbeg]
+  end // end of [ATScaseofbeg]
 //
 | T_KWORD(ATSbranchbeg()) => let
     val bt = 0
@@ -135,7 +135,7 @@ tok.token_node of
         ATSbranchseq_make (tok, ent3, ent6)
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
-  end // end of [ATSINSbranchbeg]
+  end // end of [ATSbranchbeg]
 //
 | T_KWORD(ATStailcalbeg()) => let
     val bt = 0
@@ -152,7 +152,7 @@ tok.token_node of
         ATStailcalseq_make (tok, ent3, ent6)
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
-  end // end of [ATSINStailcalbeg]
+  end // end of [ATStailcalbeg]
 //
 | T_KWORD(ATSreturn()) => let
     val bt = 0
@@ -277,7 +277,47 @@ tok.token_node of
     // end of [if]
   end // end of [ATSINSmove_void]
 //
-| T_KWORD(ATSINSmove_boxrec()) => let
+| T_KWORD
+  (
+    ATSINSstore_fltrec_ofs()
+  ) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent6 = pif_fun (buf, bt, err, parse_label, err0)
+    val ent7 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent8 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent9 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent10 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then (
+        ATSINSstore_fltrec_ofs_make (tok, ent2, ent4, ent6, ent8, ent9)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSINSstore_fltrec_ofs]
+//
+| T_KWORD(ATSINSmove_boxrec_beg()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent3 = pif_fun (buf, bt, err, parse_instrseq, err0)
+    val ent4 = pif_fun (buf, bt, err, p_ATSINSmove_boxrec_end, err0)
+    val ent5 = pif_fun (buf, bt, err, p_LPAREN, err0)
+    val ent6 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSINSmove_boxrec_make (tok, ent3, ent6)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSINSmove_boxrec_beg]
+| T_KWORD(ATSINSmove_boxrec_new()) => let
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
@@ -289,10 +329,10 @@ tok.token_node of
   in
     if err = err0
       then (
-        ATSINSmove_boxrec_make (tok, ent2, ent4, ent5)
+        ATSINSmove_boxrec_new_make (tok, ent2, ent4, ent5)
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
-  end // end of [ATSINSmove_boxrec]
+  end // end of [ATSINSmove_boxrec_new]
 //
 | T_KWORD
   (
@@ -317,30 +357,6 @@ tok.token_node of
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSINSstore_boxrec_ofs]
-//
-| T_KWORD
-  (
-    ATSINSstore_fltrec_ofs()
-  ) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
-    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
-    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
-    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
-    val ent6 = pif_fun (buf, bt, err, parse_label, err0)
-    val ent7 = pif_fun (buf, bt, err, p_COMMA, err0)
-    val ent8 = pif_fun (buf, bt, err, parse_d0exp, err0)
-    val ent9 = pif_fun (buf, bt, err, p_RPAREN, err0)
-    val ent10 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
-  in
-    if err = err0
-      then (
-        ATSINSstore_fltrec_ofs_make (tok, ent2, ent4, ent6, ent8, ent9)
-      ) else tokbuf_set_ntok_null (buf, n0)
-    // end of [if]
-  end // end of [ATSINSstore_fltrec_ofs]
 //
 | T_KWORD(ATSINSmove_tlcal()) => let
     val bt = 0

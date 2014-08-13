@@ -123,15 +123,18 @@ case+ x of
 | ATSINSmove () => p "ATSINSmove"
 | ATSINSmove_void () => p "ATSINSmove_void"
 //
-| ATSINSmove_boxrec () => p "ATSINSmove_boxrec"
-| ATSINSmove_boxrec_ofs () => p "ATSINSmove_boxrec_ofs"
-//
 | ATSSELcon () => p "ATSSELcon"
-| ATSSELboxrec () => p "ATSSELboxrec"
 | ATSSELfltrec () => p "ATSSELfltrec"
+| ATSSELboxrec () => p "ATSSELboxrec"
 //
-| ATSINSstore_boxrec_ofs () => p "ATSINSstore_boxrec_ofs"
+| ATSINSmove_fltrec_beg () => p "ATSINSmove_fltrec_beg"
+| ATSINSmove_fltrec_end () => p "ATSINSmove_fltrec_end"
 | ATSINSstore_fltrec_ofs () => p "ATSINSstore_fltrec_ofs"
+//
+| ATSINSmove_boxrec_beg () => p "ATSINSmove_boxrec_beg"
+| ATSINSmove_boxrec_end () => p "ATSINSmove_boxrec_end"
+| ATSINSmove_boxrec_new () => p "ATSINSmove_boxrec_new"
+| ATSINSstore_boxrec_ofs () => p "ATSINSstore_boxrec_ofs"
 //
 | ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"

@@ -201,8 +201,8 @@ keyword =
   | ATSPMVf0loat of ()
 //
   | ATSSELcon of ()
-  | ATSSELboxrec of ()
   | ATSSELfltrec of ()
+  | ATSSELboxrec of ()
 //
   | ATSINSlab of ()
   | ATSINSgoto of ()
@@ -213,11 +213,14 @@ keyword =
   | ATSINSmove of ()
   | ATSINSmove_void of ()
 //
-  | ATSINSmove_boxrec of ()
-  | ATSINSmove_boxrec_ofs of ()
-//
-  | ATSINSstore_boxrec_ofs of ()
+  | ATSINSmove_fltrec_beg of ()
+  | ATSINSmove_fltrec_end of ()
   | ATSINSstore_fltrec_ofs of ()
+//
+  | ATSINSmove_boxrec_beg of ()
+  | ATSINSmove_boxrec_end of ()
+  | ATSINSmove_boxrec_new of ()
+  | ATSINSstore_boxrec_ofs of ()
 //
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
@@ -531,6 +534,13 @@ overload fprint with fprint_symbol
 //
 (* ****** ****** *)
 //
+fun eq_symbol_symbol
+  : (symbol, symbol) -<0> bool
+//
+overload = with eq_symbol_symbol
+//
+(* ****** ****** *)
+//
 abstype synent_type = ptr
 typedef synent = synent_type
 //
@@ -751,10 +761,12 @@ instr_node =
   | ATSINSmove of (i0de, d0exp)
   | ATSINSmove_void of (i0de, d0exp)
 //
-  | ATSINSmove_boxrec of (i0de, s0exp)
-//
-  | ATSINSstore_boxrec_ofs of (d0exp, s0exp, i0de, d0exp)
+  | ATSINSmove_fltrec of (instrlst)
   | ATSINSstore_fltrec_ofs of (d0exp, s0exp, i0de, d0exp)
+//
+  | ATSINSmove_boxrec of (instrlst)
+  | ATSINSmove_boxrec_new of (i0de, s0exp)
+  | ATSINSstore_boxrec_ofs of (d0exp, s0exp, i0de, d0exp)
 //
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)

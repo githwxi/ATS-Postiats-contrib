@@ -1,9 +1,9 @@
 ATS-Postiats-contrib
 ====================
 
-ATS-Postiats-contrib is primarily for packages contributed to ATS-Postiats
+ATS-Postiats-contrib, also referred to as ATS2-contrib, is primarily for
+packages contributed to ATS-Postiats.
 
-More information can be [found on the ATS2 wiki](https://github.com/githwxi/ATS-Postiats/wiki/contrib).
-Descriptions of packages in ATS-Postiats-contrib may also be found in various articles on the wiki.
-
+Descriptions of packages in ATS2-contrib may be found in various articles
+on [the ATS2 wiki](https://github.com/githwxi/ATS-Postiats/wiki/contrib).
 

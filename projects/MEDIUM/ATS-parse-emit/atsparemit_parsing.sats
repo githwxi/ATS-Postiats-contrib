@@ -42,6 +42,9 @@ parerr_node =
   | PARERR_ATSbranchend of ()
   | PARERR_ATStailcalend of ()
 //
+  | PARERR_ATSINSmove_fltrec_end of ()
+  | PARERR_ATSINSmove_boxrec_end of ()
+//
   | PARERR_i0de of ()
   | PARERR_s0exp of ()
   | PARERR_d0exp of ()
@@ -186,6 +189,14 @@ fun is_ATSbranchend (x: tnode): bool
 fun p_ATStailcalend : parser (token)
 fun is_ATStailcalend (x: tnode): bool
 
+(* ****** ****** *)
+//
+fun p_ATSINSmove_fltrec_end : parser (token)
+fun is_ATSINSmove_fltrec_end (x: tnode): bool
+//
+fun p_ATSINSmove_boxrec_end : parser (token)
+fun is_ATSINSmove_boxrec_end (x: tnode): bool
+//
 (* ****** ****** *)
 
 fun

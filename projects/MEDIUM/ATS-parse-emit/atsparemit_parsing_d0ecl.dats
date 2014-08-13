@@ -240,7 +240,16 @@ tok.token_node of
     val ent3 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
     if err = err0
-      then d0ecl_typedef (tok, ent1, ent2)
+      then let
+(*
+        val name = ent2.i0de_sym
+        val ((*void*)) =
+          typedef_insert (name, ent3)
+        // end of [val]
+*)
+      in
+        d0ecl_typedef (tok, ent1, ent2)
+      end // end of [then]
       else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [TYPEDEF]

@@ -309,6 +309,22 @@ p_ATStailcalend (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_ATStailcalend, PARERR_ATStailcalend)
 //
 (* ****** ****** *)
+//
+implement
+is_ATSINSmove_fltrec_end (x) = case+ x of
+  | T_KWORD(ATSINSmove_fltrec_end()) => true | _ => false
+implement
+p_ATSINSmove_fltrec_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSINSmove_fltrec_end, PARERR_ATSINSmove_fltrec_end)
+//
+implement
+is_ATSINSmove_boxrec_end (x) = case+ x of
+  | T_KWORD(ATSINSmove_boxrec_end()) => true | _ => false
+implement
+p_ATSINSmove_boxrec_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSINSmove_boxrec_end, PARERR_ATSINSmove_boxrec_end)
+//
+(* ****** ****** *)
 
 implement
 ptest_fun{a}

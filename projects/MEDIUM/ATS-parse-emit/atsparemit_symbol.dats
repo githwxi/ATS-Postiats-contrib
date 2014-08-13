@@ -33,6 +33,17 @@ symbol_get_name (sym) =
 //
 (* ****** ****** *)
 
+implement
+eq_symbol_symbol
+  (x1, x2) = let
+  val+SYMBOL (_, n1) = x1
+  val+SYMBOL (_, n2) = x2
+in
+  if n1 = n2 then true else false
+end // end of [eq_symbol_symbol]
+
+(* ****** ****** *)
+
 local
 
 staload SYMCNT =
