@@ -1,6 +1,6 @@
 (*
-** HX-2014-06-15:
-** trying out OpenMP
+** BB-2014-08-13:
+** trying out OpenMP for loops
 *)
 
 (* ****** ****** *)
@@ -45,50 +45,72 @@ int main(int argc, char *argv[]) {
   }
 
   a_closed = N*(N+1)*(2*N+1)/6;
-  printf("sum: %d and closed form: %d\n", a_sum, a_closed);
+  printf("sum: %d = closed form: %d\n", a_sum, a_closed);
   return 0;
 }
 *)
 
 (* ****** ****** *)
 
+// Could use $UN.cast, but here is an example of a custom castfn:
+extern
+castfn
+arrayref_of_ptr0 {a:vt0p} {n:nat} (ptr):<> arrayref(a, n)
+
+//
+// For demonstrating calling an ATS function in C/OpenMP for loop
+// 
+extern
+fun
+square_int (x: int): int = "ext#"
+//
+implement
+square_int (x) = x * x
+
+
 implement
 main0 () =
 {
+typedef tenv = int
+typedef T = int
 //
 
+#define N 100
 %{^
 #define N 100
 int a[N]; 
-int varTest = 8888;
 %}
 
-//#define N $extval(size_t, "N")
-macdef N = $extval(size_t, "N")
-#define N N 
-macdef a = $extval(@[int?][N], "a")
+macdef ap = $extval(ptr, "a")
+val a = arrayref_of_ptr0{T}{N}(ap)
 
-
-val (a_sum, a_closed) = (0, 0)
-//val (a_pfat, a_pfgc | a) = array_ptr_alloc<int> (N)
-//val () = array_initize_elt(!a, N, 0)
-
-
-macdef varTest = $extval(ptr, "&varTest")
-val () = println!($UN.ptr0_get<int>(varTest))
-val () = $UN.ptr0_set<int> (varTest, 5)
-val () = println!($UN.ptr0_get<int>(varTest))
+var a_sum: int = 0
   
-(* %{^ *)
-(* #define OMP_FOR_TEST() \ *)
-(* _Pragma(atscntrb_openmp_STRINGIFY(omp parallel for)) \ *)
-(* for (int i = 1; i <= 75; i++) { \ *)
-(*   printf("%d\n", i); \ *)
-(* } // end of for  *)
-(* %} *)
-(* val () = $extfcall (void, "OMP_FOR_TEST")  *)
+%{^
+extern int square_int(int);
 
-//val () = array_ptr_free (a_pfat, a_pfgc | a)
+#define OMP_FOR_TEST() \
+_Pragma(atscntrb_openmp_STRINGIFY(omp parallel for)) \
+for (int i = 1; i <= N; i++) { \
+  a[i-1] = square_int(i); \
+} // end of for
+%}
+val () = $extfcall (void, "OMP_FOR_TEST")
+
+local
+//
+implement
+array_iforeach$fwork<T><tenv> (i, x, env) = env := env + x
+//
+in
+//
+val _ = arrayref_iforeach_env<T><tenv> (a, g1i2u(N), a_sum)
+// 
+end
+
+val a_closed = N*(N+1)*(2*N+1)/6
+
+val () = println!("sum: ", a_sum, " = closed form: ", a_closed)
 
 } (* end of [main0] *)
 
