@@ -118,6 +118,8 @@ val-~None_vt() = kwordins ("ATSreturn", ATSreturn)
 val-~None_vt() = kwordins ("ATSreturn_void", ATSreturn_void)
 //
 val-~None_vt() = kwordins ("ATSPMVint", ATSPMVint)
+val-~None_vt() = kwordins ("ATSPMVbool_true", ATSPMVbool_true)
+val-~None_vt() = kwordins ("ATSPMVbool_false", ATSPMVbool_false)
 val-~None_vt() = kwordins ("ATSPMVstring", ATSPMVstring)
 //
 val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)

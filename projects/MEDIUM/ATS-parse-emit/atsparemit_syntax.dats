@@ -116,6 +116,21 @@ end // end of [ATSPMVint]
 (* ****** ****** *)
 
 implement
+ATSPMVbool_make
+(
+  tok1, tfv, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVbool (tfv))
+end // end of [ATSPMVbool]
+
+(* ****** ****** *)
+
+implement
 ATSPMVstring_make
 (
   tok1, str, tok2

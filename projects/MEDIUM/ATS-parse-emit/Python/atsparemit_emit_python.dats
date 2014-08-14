@@ -81,18 +81,6 @@ end // end of [emit_PMVint]
 (* ****** ****** *)
 
 implement
-emit_PMVstring
-  (out, tok) = let
-//
-val-T_STRING(rep) = tok.token_node
-//
-in
-  emit_text (out, rep)
-end // end of [emit_PMVstring]
-
-(* ****** ****** *)
-
-implement
 emit_PMVi0nt
   (out, tok) = let
 //
@@ -101,6 +89,27 @@ val-T_INT(base, rep) = tok.token_node
 in
   emit_text (out, rep)
 end // end of [emit_PMVi0nt]
+
+(* ****** ****** *)
+//
+implement
+emit_PMVbool
+  (out, tfv) =
+(
+  emit_text (out, if tfv then "True" else "False")
+) (* end of [emit_PMVbool] *)
+//
+(* ****** ****** *)
+
+implement
+emit_PMVstring
+  (out, tok) = let
+//
+val-T_STRING(rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVstring]
 
 (* ****** ****** *)
 //
@@ -144,6 +153,8 @@ d0e.d0exp_node of
 //
 | ATSPMVint (tok) => emit_PMVint (out, tok)
 | ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
+//
+| ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
 | ATSPMVstring (tok) => emit_PMVstring (out, tok)
 //
@@ -337,6 +348,51 @@ ins.instr_node of
     val () = emit_text (out, "#endif")
   } (* end of [ATSif] *)
 //
+| ATSifthen (d0e, inss) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "if")
+    val () = emit_LPAREN (out)
+    val () = emit_d0exp (out, d0e)
+    val () = emit_RPAREN (out)
+    val () = emit_text (out, ":\n")
+    val () = emit2_instrlst (out, ind+2, inss)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#endif")
+  }
+| ATSifnthen (d0e, inss) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "if not")
+    val () = emit_LPAREN (out)
+    val () = emit_d0exp (out, d0e)
+    val () = emit_RPAREN (out)
+    val () = emit_text (out, ":\n")
+    val () = emit2_instrlst (out, ind+2, inss)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#endif")
+  }
+//
+| ATScaseofseq (inss) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#caseofbeg")
+    val () = emit_EOL (out)
+    val () = emit2_instrlst (out, ind, inss)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#caseofend")
+  }
+//
+| ATSbranchseq (inss) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#branchbeg")
+    val () = emit_EOL (out)
+    val () = emit2_instrlst (out, ind, inss)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#branchend")
+  }
+//
 | ATSreturn (tmp) =>
   {
     val () = emit_nspc (out, ind)
@@ -351,11 +407,27 @@ ins.instr_node of
     val () = emit_text (out, "return")
   }
 //
+| ATSINSlab (lab) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#")
+    val () = emit_label (out, lab)
+  }
+//
 | ATSINSflab (lab) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "#")
     val () = emit_label (out, lab)
+  }
+| ATSINSfgoto (flab) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#")
+    val () = emit_label (out, flab)
+    val () = emit_text (out, "\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "continue")
   }
 //
 | ATSINSmove (tmp, d0e) =>
@@ -395,16 +467,6 @@ ins.instr_node of
     val () = emit_text (out, " = ")
     val () = emit_i0de (out, tmp2)
   } (* end of [ATSINSargmove_tlcal] *)
-//
-| ATSINSfgoto (flab) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#")
-    val () = emit_label (out, flab)
-    val () = emit_text (out, "\n")
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "continue")
-  }
 //
 | ATSdynload1 (tmp) =>
   {

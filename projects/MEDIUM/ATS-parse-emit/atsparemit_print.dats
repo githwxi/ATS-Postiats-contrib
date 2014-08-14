@@ -109,6 +109,8 @@ case+ x of
 | ATSreturn_void () => p "ATSreturn_void"
 //
 | ATSPMVint () => p "ATSPMVint"
+| ATSPMVbool_true () => p "ATSPMVbool_true"
+| ATSPMVbool_false () => p "ATSPMVbool_false"
 | ATSPMVstring () => p "ATSPMVstring"
 //
 | ATSPMVi0nt () => p "ATSPMVi0nt"
@@ -298,6 +300,9 @@ d0e.d0exp_node of
 | D0Eappid (id, d0es) => fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
 //
 | ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
+//
+| ATSPMVbool (tfv) => fprint! (out, "ATSPMVbool(", tfv, ")")
+//
 | ATSPMVstring (tok) => fprint! (out, "ATSPMVstring(", tok, ")")
 //
 | ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")

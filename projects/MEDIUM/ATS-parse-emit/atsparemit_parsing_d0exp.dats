@@ -73,6 +73,29 @@ tok.token_node of
     // end of [if]
   end // end of [ATSPMVint]
 //
+| T_KWORD(ATSPMVbool_true()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSPMVbool_make (tok, true, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVbool_true]
+| T_KWORD(ATSPMVbool_false()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSPMVbool_make (tok, false, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVbool_false]
+//
 | T_KWORD(ATSPMVstring()) => let
     val bt = 0
     val () = incby1 ()

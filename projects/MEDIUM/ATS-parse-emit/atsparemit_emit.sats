@@ -38,6 +38,9 @@ fun emit_flush : FILEref -> void
 (* ****** ****** *)
 
 fun emit_int : emit_type (int)
+
+(* ****** ****** *)
+
 fun emit_text : emit_type (string)
 
 (* ****** ****** *)
@@ -47,9 +50,12 @@ fun emit_symbol : emit_type (symbol)
 (* ****** ****** *)
 //
 fun emit_PMVint : emit_type (i0nt)
+fun emit_PMVi0nt : emit_type (i0nt)
+//
+fun emit_PMVbool : emit_type (bool)
+//
 fun emit_PMVstring : emit_type (s0tring)
 //
-fun emit_PMVi0nt : emit_type (i0nt)
 fun emit_PMVf0loat : emit_type (i0nt)
 //
 (* ****** ****** *)

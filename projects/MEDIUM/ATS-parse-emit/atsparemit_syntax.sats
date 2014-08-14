@@ -65,6 +65,11 @@ ATSPMVint_make
   tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
 fun
+ATSPMVbool_make
+(
+  tok_kwd: token, tfv: bool, tok_end: token
+) : d0exp // end-of-fun
+fun
 ATSPMVstring_make
 (
   tok_kwd: token, tok: s0tring, tok_end: token
