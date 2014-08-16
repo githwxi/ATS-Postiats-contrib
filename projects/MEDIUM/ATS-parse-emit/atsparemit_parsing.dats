@@ -284,29 +284,38 @@ p_SRPendif (buf, bt, err) =
 (* ****** ****** *)
 //
 implement
-is_ATScaseofend (x) = case+ x of
-  | T_KWORD(ATScaseofend()) => true | _ => false
+is_ATSfunbody_end (x) = case+ x of
+  | T_KWORD(ATSfunbody_end()) => true | _ => false
 implement
-p_ATScaseofend (buf, bt, err) =
-  ptoken_fun (buf, bt, err, is_ATScaseofend, PARERR_ATScaseofend)
+p_ATSfunbody_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSfunbody_end, PARERR_ATSfunbody_end)
 //
 (* ****** ****** *)
 //
 implement
-is_ATSbranchend (x) = case+ x of
-  | T_KWORD(ATSbranchend()) => true | _ => false
+is_ATScaseof_end (x) = case+ x of
+  | T_KWORD(ATScaseof_end()) => true | _ => false
 implement
-p_ATSbranchend (buf, bt, err) =
-  ptoken_fun (buf, bt, err, is_ATSbranchend, PARERR_ATSbranchend)
+p_ATScaseof_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATScaseof_end, PARERR_ATScaseof_end)
 //
 (* ****** ****** *)
 //
 implement
-is_ATStailcalend (x) = case+ x of
-  | T_KWORD(ATStailcalend()) => true | _ => false
+is_ATSbranch_end (x) = case+ x of
+  | T_KWORD(ATSbranch_end()) => true | _ => false
 implement
-p_ATStailcalend (buf, bt, err) =
-  ptoken_fun (buf, bt, err, is_ATStailcalend, PARERR_ATStailcalend)
+p_ATSbranch_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSbranch_end, PARERR_ATSbranch_end)
+//
+(* ****** ****** *)
+//
+implement
+is_ATStailcal_end (x) = case+ x of
+  | T_KWORD(ATStailcal_end()) => true | _ => false
+implement
+p_ATStailcal_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATStailcal_end, PARERR_ATStailcal_end)
 //
 (* ****** ****** *)
 //

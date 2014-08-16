@@ -109,9 +109,12 @@ x.parerr_node of
 //
 | PARERR_SRPendif () => SN (x, "#endif")
 //
-| PARERR_ATScaseofend () => SN (x, "ATScaseofend")
-| PARERR_ATSbranchend () => SN (x, "ATSbranchend")
-| PARERR_ATStailcalend () => SN (x, "ATStailcalend")
+| PARERR_ATSbranch_end () => SN (x, "ATSbranch_end")
+| PARERR_ATScaseof_end () => SN (x, "ATScaseof_end")
+//
+| PARERR_ATSfunbody_end () => SN (x, "ATSfunbody_end")
+//
+| PARERR_ATStailcal_end () => SN (x, "ATStailcal_end")
 //
 | PARERR_ATSINSmove_fltrec_end () => SN (x, "ATSINSmove_fltrec_end")
 | PARERR_ATSINSmove_boxrec_end () => SN (x, "ATSINSmove_boxrec_end")

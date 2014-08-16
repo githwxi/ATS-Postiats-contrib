@@ -297,6 +297,17 @@ in '{
 (* ****** ****** *)
 
 implement
+f0head_get_f0arglst
+  (fhd) = f0ma.f0marg_node where
+{
+//
+val+F0HEAD (_, f0ma, _) = fhd.f0head_node
+//
+} (* end of [f0head_get_f0arglst] *)
+
+(* ****** ****** *)
+
+implement
 f0head_make
 (
   res, id, marg
@@ -437,20 +448,6 @@ end // end of [ATSelse_make]
 (* ****** ****** *)
 
 implement
-ATScaseofseq_make
-(
-  tok1, inss, tok2
-) = let
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATScaseofseq (inss))
-end // end of [ATScaseofseq_make]
-
-(* ****** ****** *)
-
-implement
 ATSbranchseq_make
 (
   tok1, inss, tok2
@@ -465,7 +462,53 @@ end // end of [ATSbranchseq_make]
 (* ****** ****** *)
 
 implement
-ATStailcalseq_make
+caseofseq_get_tmplablst
+  (ins0) = let
+//
+vtypedef res = labelist_vt
+//
+fun auxlst
+(
+  xs: instrlst, res: res
+) : res =
+(
+case+ xs of
+| list_nil () => res
+| list_cons (x, xs) =>
+  (
+    case+ x.instr_node of
+    | ATSINSlab (lab) =>
+        auxlst (xs, cons_vt (lab, res))
+    | _(*non-ATSINSlab*) => auxlst (xs, res)
+  )
+) (* end of [auxlst] *)
+//
+fun auxlst2
+(
+  xs: instrlst, res: res
+) : res =
+(
+case+ xs of
+| list_nil () => res
+| list_cons (x, xs) =>
+  (
+    case- x.instr_node of
+    | ATSbranchseq(inss) => auxlst2 (xs, auxlst (inss, res))
+  ) (* end of [list_cons] *)
+) (* end of [auxlst2] *)
+//
+val-ATScaseofseq(inss) = ins0.instr_node
+//
+val res = auxlst2 (inss, list_vt_nil())
+//
+in
+  list_vt2t(list_vt_reverse(res))
+end // end of [caseofseq_get_tmplablst]
+
+(* ****** ****** *)
+
+implement
+ATScaseofseq_make
 (
   tok1, inss, tok2
 ) = let
@@ -473,8 +516,22 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATStailcalseq (inss))
-end // end of [ATStailcalseq_make]
+  instr_make_node (loc, ATScaseofseq (inss))
+end // end of [ATScaseofseq_make]
+
+(* ****** ****** *)
+
+implement
+ATSfunbodyseq_make
+(
+  tok1, inss, tok2
+) = let
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSfunbodyseq (inss))
+end // end of [ATSfunbodyseq_make]
 
 (* ****** ****** *)
 
@@ -674,16 +731,30 @@ end // end of [ATSINSstore_boxrec_ofs_make]
 (* ****** ****** *)
 
 implement
+ATStailcalseq_make
+(
+  tok1, inss, tok2
+) = let
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATStailcalseq (inss))
+end // end of [ATStailcalseq_make]
+
+(* ****** ****** *)
+
+implement
 ATSINSmove_tlcal_make
 (
-  tok1, argx, d0e, tok2
+  tok1, apy, d0e, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSmove_tlcal (argx, d0e))
+  instr_make_node (loc, ATSINSmove_tlcal (apy, d0e))
 end // end of [ATSINSmove_tlcal_make]
 
 (* ****** ****** *)
@@ -691,14 +762,14 @@ end // end of [ATSINSmove_tlcal_make]
 implement
 ATSINSargmove_tlcal_make
 (
-  tok1, arg, argx, tok2
+  tok1, arg, apy, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSargmove_tlcal (arg, argx))
+  instr_make_node (loc, ATSINSargmove_tlcal (arg, apy))
 end // end of [ATSINSargmove_tlcal_make]
 
 (* ****** ****** *)
@@ -739,6 +810,89 @@ val loc =
 in
   instr_make_node (loc, ATSdynloadset(id))
 end // end of [ATSdynloadset]
+
+(* ****** ****** *)
+
+implement
+f0body_classify
+  (fbody) = let
+//
+fun
+fcount
+(
+  xs: instrlst, res: int
+) : int =
+(
+case+ xs of
+| list_nil () => res
+| list_cons (x, xs) => (
+    case+ x.instr_node of
+    | ATSfunbodyseq _ => fcount (xs, res+1) | _ => fcount (xs, res)
+  ) (* end of [list_cons] *)
+)
+//
+fun istailcal
+(
+  inss: instrlst
+) : bool = let
+//
+fun aux (x: instr): bool =
+(
+case+ x.instr_node of
+| ATStailcalseq _ => true
+| ATSif (_, _then, _else) =>
+    if auxlst (_then) then true else auxlstopt (_else)
+| ATSbranchseq (inss) => auxlst (inss)
+| ATScaseofseq (inss) => auxlst (inss)
+| ATSfunbodyseq (inss) => auxlst (inss)
+| _(*rest-of-instr*) => false
+)
+//
+and auxlst
+  (xs: instrlst): bool =
+(
+case+ xs of
+| list_nil () => false
+| list_cons (x, xs) =>
+    if aux (x) then true else auxlst (xs)
+  // end of [list_cons]
+)
+//
+and auxlstopt
+  (opt: instrlstopt): bool =
+(
+case+ opt of
+| None () => false | Some (inss) => auxlst (inss)
+)
+//
+in
+  auxlst (inss)
+end // end of [istailcal]
+//
+in
+//
+case+
+fbody.f0body_node of
+| F0BODY
+    (tds, inss) => let
+    val nf = fcount (inss, 0)
+  in
+    if nf >= 2 then 2 else (if istailcal (inss) then 1 else 0)
+  end // end of [...]
+//
+end // end of [f0body_classify]
+
+(* ****** ****** *)
+
+implement
+f0body_get_tmpdeclst
+  (fbody) =
+(
+//
+case+
+fbody.f0body_node of F0BODY (tds, _) => tds
+//
+) (* end of [f0body_get_tmpdeclst] *)
 
 (* ****** ****** *)
 

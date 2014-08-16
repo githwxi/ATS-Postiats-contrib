@@ -182,14 +182,14 @@ keyword =
   | ATSifthen of ()
   | ATSifnthen of ()
 //
-  | ATScaseofbeg of ()
-  | ATScaseofend of ()
+  | ATSbranch_beg of ()
+  | ATSbranch_end of ()
 //
-  | ATSbranchbeg of ()
-  | ATSbranchend of ()
+  | ATScaseof_beg of ()
+  | ATScaseof_end of ()
 //
-  | ATStailcalbeg of ()
-  | ATStailcalend of ()
+  | ATSfunbody_beg of ()
+  | ATSfunbody_end of ()
 //
   | ATSreturn of ()
   | ATSreturn_void of ()
@@ -224,6 +224,8 @@ keyword =
   | ATSINSmove_boxrec_new of ()
   | ATSINSstore_boxrec_ofs of ()
 //
+  | ATStailcal_beg of ()
+  | ATStailcal_end of ()
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
 //
@@ -566,6 +568,8 @@ overload fprint with fprint_i0de
 (* ****** ****** *)
 
 typedef label = i0de
+typedef labelist = List0 (label)
+vtypedef labelist_vt = List0_vt (label)
 
 (* ****** ****** *)
 
@@ -743,14 +747,16 @@ instr_node =
     , instrlstopt // HX: else
     ) (* end of [ATSif] *)
 //
-  | ATSthen of instrlst // tempory
-  | ATSelse of instrlst // tempory
+  | ATSthen of instrlst // temp
+  | ATSelse of instrlst // temp
 //
   | ATSifthen of (d0exp, instrlst)
   | ATSifnthen of (d0exp, instrlst)
 //
-  | ATScaseofseq of instrlst
   | ATSbranchseq of instrlst
+  | ATScaseofseq of instrlst
+//
+  | ATSfunbodyseq of instrlst
 //
   | ATSreturn of (i0de)
   | ATSreturn_void of (i0de)
@@ -790,6 +796,9 @@ instr = '{
 and instrlst = List0 (instr)
 and instropt = Option (instr)
 and instrlstopt = Option (instrlst)
+//
+vtypedef
+instrlst_vt = List0_vt (instr)
 //
 (* ****** ****** *)
 //

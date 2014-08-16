@@ -96,14 +96,14 @@ case+ x of
 | ATSifthen () => p "ATSifthen"
 | ATSifnthen () => p "ATSifnthen"
 //
-| ATScaseofbeg () => p "ATScaseofbeg"
-| ATScaseofend () => p "ATScaseofend"
+| ATSbranch_beg () => p "ATSbranch_beg"
+| ATSbranch_end () => p "ATSbranch_end"
 //
-| ATSbranchbeg () => p "ATSbranchbeg"
-| ATSbranchend () => p "ATSbranchend"
+| ATScaseof_beg () => p "ATScaseof_beg"
+| ATScaseof_end () => p "ATScaseof_end"
 //
-| ATStailcalbeg () => p "ATStailcalbeg"
-| ATStailcalend () => p "ATStailcalend"
+| ATSfunbody_beg () => p "ATSfunbody_beg"
+| ATSfunbody_end () => p "ATSfunbody_end"
 //
 | ATSreturn () => p "ATSreturn"
 | ATSreturn_void () => p "ATSreturn_void"
@@ -138,6 +138,8 @@ case+ x of
 | ATSINSmove_boxrec_new () => p "ATSINSmove_boxrec_new"
 | ATSINSstore_boxrec_ofs () => p "ATSINSstore_boxrec_ofs"
 //
+| ATStailcal_beg () => p "ATStailcal_beg"
+| ATStailcal_end () => p "ATStailcal_end"
 | ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"
 //

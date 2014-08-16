@@ -7,11 +7,6 @@
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
-//
-#include
-"share/atspre_staload.hats"
-//
-(* ****** ****** *)
 
 staload "./atsparemit.sats"
 
@@ -139,6 +134,8 @@ f0marg_make
 //
 (* ****** ****** *)
 //
+fun f0head_get_f0arglst (fhd: f0head): f0arglst
+//
 fun
 f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
@@ -194,14 +191,6 @@ fun ATSifnthen_make
 (* ****** ****** *)
 
 fun
-ATScaseofseq_make
-(
-  tok_kwd: token, inss: instrlst, tok_end: token
-) : instr // end-of-function
-
-(* ****** ****** *)
-
-fun
 ATSbranchseq_make
 (
   tok_kwd: token, inss: instrlst, tok_end: token
@@ -210,7 +199,20 @@ ATSbranchseq_make
 (* ****** ****** *)
 
 fun
-ATStailcalseq_make
+caseofseq_get_tmplablst (x: instr): labelist
+
+(* ****** ****** *)
+
+fun
+ATScaseofseq_make
+(
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
+
+(* ****** ****** *)
+
+fun
+ATSfunbodyseq_make
 (
   tok_kwd: token, inss: instrlst, tok_end: token
 ) : instr // end-of-function
@@ -299,6 +301,12 @@ ATSINSstore_boxrec_ofs_make
 (* ****** ****** *)
 //
 fun
+ATStailcalseq_make
+(
+  tok_kwd: token, inss: instrlst, tok_end: token
+) : instr // end-of-function
+//
+fun
 ATSINSmove_tlcal_make
 (
   tok_kwd: token, argx: i0de, d0e: d0exp, tok_end: token
@@ -322,6 +330,14 @@ ATSdynload1_make (tok_kwd: token, id: i0de, tok_end: token): instr
 fun
 ATSdynloadset_make (tok_kwd: token, id: i0de, tok_end: token): instr
 
+(* ****** ****** *)
+//
+fun
+f0body_classify (f0body): int
+//
+fun
+f0body_get_tmpdeclst (f0body): tmpdeclst
+//
 (* ****** ****** *)
 
 fun

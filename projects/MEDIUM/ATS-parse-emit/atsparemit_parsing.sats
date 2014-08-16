@@ -38,9 +38,10 @@ parerr_node =
 //
   | PARERR_SRPendif
 //
-  | PARERR_ATScaseofend of ()
-  | PARERR_ATSbranchend of ()
-  | PARERR_ATStailcalend of ()
+  | PARERR_ATSbranch_end of ()
+  | PARERR_ATScaseof_end of ()
+  | PARERR_ATSfunbody_end of ()
+  | PARERR_ATStailcal_end of ()
 //
   | PARERR_ATSINSmove_fltrec_end of ()
   | PARERR_ATSINSmove_boxrec_end of ()
@@ -176,18 +177,23 @@ fun is_SRPendif (x: tnode): bool
   
 (* ****** ****** *)
 
-fun p_ATScaseofend : parser (token)
-fun is_ATScaseofend (x: tnode): bool
+fun p_ATSbranch_end : parser (token)
+fun is_ATSbranch_end (x: tnode): bool
 
 (* ****** ****** *)
 
-fun p_ATSbranchend : parser (token)
-fun is_ATSbranchend (x: tnode): bool
+fun p_ATScaseof_end : parser (token)
+fun is_ATScaseof_end (x: tnode): bool
 
 (* ****** ****** *)
 
-fun p_ATStailcalend : parser (token)
-fun is_ATStailcalend (x: tnode): bool
+fun p_ATSfunbody_end : parser (token)
+fun is_ATSfunbody_end (x: tnode): bool
+
+(* ****** ****** *)
+
+fun p_ATStailcal_end : parser (token)
+fun is_ATStailcal_end (x: tnode): bool
 
 (* ****** ****** *)
 //

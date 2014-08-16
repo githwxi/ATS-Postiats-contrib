@@ -18,8 +18,9 @@ emit_type
 //
 (* ****** ****** *)
 
-fun emit_EOL : FILEref -> void
+fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
+fun emit_SHARP : FILEref -> void
 
 (* ****** ****** *)
 
@@ -34,6 +35,7 @@ fun emit_RBRACKET : FILEref -> void
 (* ****** ****** *)
 
 fun emit_flush : FILEref -> void
+fun emit_newline : FILEref -> void
 
 (* ****** ****** *)
 
@@ -79,6 +81,10 @@ fun emit_d0ecl : emit_type (d0ecl)
 (* ****** ****** *)
 
 fun emit_instr : emit_type (instr)
+
+(* ****** ****** *)
+
+fun emit_tmpdec : emit_type (tmpdec)
 
 (* ****** ****** *)
 
