@@ -636,7 +636,7 @@ parse_tyfld
   (buf, bt, err) = let
 //
 (*
-val () = println! ("parse_instr")
+val () = println! ("parse_tyfld")
 *)
 //
 val err0 = err
