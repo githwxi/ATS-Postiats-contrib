@@ -64,51 +64,18 @@ implement
 main0 (argc, argv) =
 {
 //
-val () =
-println! ("Hello from ATS-atsparemit!")
-//
 (*
 val () =
-  the_filename_push (filename_stdin)
-//
-val () = parse_from_fileref (stdin_ref)
-//
-val _(*fil*) = the_filename_pop ((*void*))
-*)
-//
-(*
-val-~Some_vt(id) =
-parse_from_string{i0de}("foo", parse_i0de)
-val () = fprintln! (stdout_ref, "id = ", id)
-val-~Some_vt(id) =
-parse_from_string{i0de}("foo2", parse_i0de)
-val () = fprintln! (stdout_ref, "id = ", id)
-*)
-//
-(*
-val-~Some_vt(s0e) =
-parse_from_string{s0exp}("foo", parse_s0exp)
-val () = fprintln! (stdout_ref, "s0e = ", s0e)
-val-~Some_vt(s0e) =
-parse_from_string{s0exp}("foo(bar)", parse_s0exp)
-val () = fprintln! (stdout_ref, "s0e = ", s0e)
-val-~Some_vt(s0e) =
-parse_from_string{s0exp}("foo(bar1, bar2)", parse_s0exp)
-val () = fprintln! (stdout_ref, "s0e = ", s0e)
-val-~Some_vt(s0e) =
-parse_from_string{s0exp}("foo(bar1, foo2(bar2))", parse_s0exp)
-val () = fprintln! (stdout_ref, "s0e = ", s0e)
-*)
-//
-(*
-val-~Some_vt(f0d) =
-parse_from_string{f0decl}
-  ("foo(bar1, foo2(bar2)) xyz (int arg1, fint(int) arg2) { ATStmpdec(tmp__1, int) ; ATSreturn_void(tmp_void) ; }", parse_f0decl)
-val () = fprintln! (stdout_ref, "f0d = ", f0d)
+println!
+(
+  "Hello from ATS-parse-emit-python!"
+) (* end of [val] *)
 *)
 //
 val d0cs = parse_from_fileref (stdin_ref)
+(*
 val ((*void*)) = fprint! (stdout_ref, "d0cs =\n", d0cs)
+*)
 //
 val () = emit_toplevel (stdout_ref, d0cs)
 //
@@ -116,4 +83,4 @@ val () = emit_toplevel (stdout_ref, d0cs)
 
 (* ****** ****** *)
 
-(* end of [atsparemit_main.dats] *)
+(* end of [atsparemit_main_python.dats] *)

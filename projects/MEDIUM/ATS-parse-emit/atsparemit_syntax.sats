@@ -212,6 +212,11 @@ ATScaseofseq_make
 (* ****** ****** *)
 
 fun
+funbodyseq_get_funlab (ins0: instr): label
+
+(* ****** ****** *)
+
+fun
 ATSfunbodyseq_make
 (
   tok_kwd: token, inss: instrlst, tok_end: token
@@ -337,6 +342,9 @@ f0body_classify (f0body): int
 //
 fun
 f0body_get_tmpdeclst (f0body): tmpdeclst
+//
+fun
+f0body_get_bdinstrlst (f0body): instrlst
 //
 (* ****** ****** *)
 

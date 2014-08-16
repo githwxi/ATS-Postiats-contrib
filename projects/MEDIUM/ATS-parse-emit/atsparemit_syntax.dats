@@ -522,6 +522,20 @@ end // end of [ATScaseofseq_make]
 (* ****** ****** *)
 
 implement
+funbodyseq_get_funlab
+  (ins0) = fl where
+{
+//
+val-
+ATSfunbodyseq (inss) = ins0.instr_node
+val-list_cons (ins1, _(*inss2*)) = inss
+val-ATSINSflab (fl) = ins1.instr_node
+//
+} // end of [funbodyseq_get_funlab]
+
+(* ****** ****** *)
+
+implement
 ATSfunbodyseq_make
 (
   tok1, inss, tok2
@@ -893,6 +907,18 @@ case+
 fbody.f0body_node of F0BODY (tds, _) => tds
 //
 ) (* end of [f0body_get_tmpdeclst] *)
+
+(* ****** ****** *)
+
+implement
+f0body_get_bdinstrlst
+  (fbody) =
+(
+//
+case+
+fbody.f0body_node of F0BODY (_, inss) => inss
+//
+) (* end of [f0body_get_bdinstrlst] *)
 
 (* ****** ****** *)
 

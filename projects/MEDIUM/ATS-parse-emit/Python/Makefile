@@ -26,8 +26,6 @@ SOURCES_SATS += atsparemit_emit.sats
 
 ######
 #
-SOURCES_DATS += atsparemit_main.dats
-#
 SOURCES_DATS += atsparemit_mylib.dats
 #
 SOURCES_DATS += atsparemit_error.dats
@@ -49,6 +47,8 @@ SOURCES_DATS += atsparemit_parsing_instr.dats
 #
 SOURCES_DATS += atsparemit_topenv.dats
 SOURCES_DATS += atsparemit_emit_python.dats
+#
+SOURCES_DATS += atsparemit_main_python.dats
 #
 ######
 

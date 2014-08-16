@@ -543,6 +543,15 @@ the_tmpdeclst_set (tds: tmpdeclst): void
 //
 extern
 fun
+the_funbodylst_get (): instrlst
+extern
+fun
+the_funbodylst_set (inss: instrlst): void
+//
+(* ****** ****** *)
+//
+extern
+fun
 the_branchlablst_get (): labelist
 extern
 fun
@@ -564,13 +573,12 @@ local
 val the_f0arglst = ref<f0arglst> (list_nil)
 val the_tmpdeclst = ref<tmpdeclst> (list_nil)
 //
+val the_funbodylst = ref<instrlst> (list_nil)
+//
 val the_branchlablst = ref<labelist> (list_nil)
 val the_caseofseqlst = ref<instrlst> (list_nil)
 //
 in (* in-of-local *)
-
-implement
-funlab_get_index (fl) = 1
 
 implement
 the_f0arglst_get () = !the_f0arglst
@@ -581,6 +589,11 @@ implement
 the_tmpdeclst_get () = !the_tmpdeclst
 implement
 the_tmpdeclst_set (xs) = !the_tmpdeclst := xs
+
+implement
+the_funbodylst_get () = !the_funbodylst
+implement
+the_funbodylst_set (xs) = !the_funbodylst := xs
 
 implement
 the_branchlablst_get () = !the_branchlablst
@@ -597,13 +610,46 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
+funlab_get_index
+  (fl0) = let
+//
+val n0 = fl0.i0de_sym
+//
+fun
+auxlst
+(
+  xs: instrlst, i: int
+) : int = (
+//
+case+ xs of
+| list_nil () => ~1(*error*)
+| list_cons (x, xs) =>
+  (
+    case+ x.instr_node of
+    | ATSfunbodyseq _ => let
+        val fl = funbodyseq_get_funlab (x)
+      in
+        if n0 = fl.i0de_sym then i else auxlst (xs, i+1)
+      end // end of [ATSfunbodyseq]
+    | _ (*non-ATSfunbody*) => auxlst (xs, i)
+  ) (* end of [list_cons] *)
+//
+) (* end of [auxlst] *)
+//
+in
+  auxlst (the_funbodylst_get(), 1)
+end // end of [funlab_get_index]
+
+(* ****** ****** *)
+
+implement
 tmplab_get_index
   (lab0) = let
 //
 val n0 = lab0.i0de_sym
 //
 fun
-aux
+auxlst
 (
   xs: labelist, i: int
 ) : int =
@@ -611,12 +657,12 @@ aux
 case+ xs of
 | list_nil () => ~1(*error*)
 | list_cons (x, xs) =>
-    if n0 = x.i0de_sym then i else aux (xs, i+1)
+    if n0 = x.i0de_sym then i else auxlst (xs, i+1)
   // end of [list_cons]
 )
 //
 in
-  aux (the_branchlablst_get(), 1)
+  auxlst (the_branchlablst_get(), 1)
 end // end of [tmplab_get_index]
 
 (* ****** ****** *)
@@ -643,7 +689,7 @@ branchmap_get_index
 //
 val p0 = $UN.cast2ptr (x0)
 //
-fun aux
+fun auxlst
 (
   xs: instrlst, i: int
 ) : int =
@@ -651,12 +697,12 @@ fun aux
 case xs of
 | list_nil () => ~1(*error*)
 | list_cons (x, xs) =>
-    if $UN.cast2ptr(x) = p0 then i else aux (xs, i+1)
+    if $UN.cast2ptr(x) = p0 then i else auxlst (xs, i+1)
   // end of [list_cons]
 )
 //
 in
-  aux (the_caseofseqlst_get (), 1)
+  auxlst (the_caseofseqlst_get (), 1)
 end // end of [branchmap_get_index]
 
 (* ****** ****** *)
@@ -1396,10 +1442,13 @@ val () = println! ("emit_f0body: knd = ", knd)
 //
 val tmpdecs =
   f0body_get_tmpdeclst (fbody)
+val inss_body =
+  f0body_get_bdinstrlst (fbody)
 val inss_caseof =
   f0body_collect_caseof (fbody)
 //
 val () = the_tmpdeclst_set (tmpdecs)
+val () = the_funbodylst_set (inss_body)
 val () = the_caseofseqlst_set (inss_caseof)
 //
 val () = emit_tmpdeclst_initize (out, tmpdecs)
@@ -1503,24 +1552,28 @@ in
 end // end of [emit_f0body_tlcal]
 
 (* ****** ****** *)
+//
+extern
+fun
+emit_the_funbodylst (out: FILEref): void
+//
+(* ****** ****** *)
 
 implement
 emit_f0body_tlcal2
   (out, fbody) = let
 //
 val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "funlab_py = None\n")
-val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "tmplab_py = None\n")
-val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, "tmpret_py = None\n")
+//
+val () = emit_the_funbodylst (out)
 //
 val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, "funlab_py = 1\n")
 val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, "while (1):\n")
 val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, "funmap_py.get(funlab_py)()\n")
+val () = emit_text (out, "tmpret_py = funmap_py.get(funlab_py)()\n")
 val () = emit_nspc (out, 4(*ind*))
 val () = emit_text (out, "if (funlab_py == 0): break\n")
 val () = emit_nspc (out, 2(*ind*))
