@@ -60,96 +60,96 @@ fprint_keyword
   (out, x) = let
 //
 macdef
-p (str) =
+pr (str) =
   fprint_string (out, ,(str))
 //
 in
 //
 case+ x of
 //
-| SRPif () => p "#if"
-| SRPifdef () => p "#ifdef"
-| SRPifndef () => p "#ifndef"
-| SRPendif () => p "#endif"
+| SRPif () => pr "#if"
+| SRPifdef () => pr "#ifdef"
+| SRPifndef () => pr "#ifndef"
+| SRPendif () => pr "#endif"
 //
-| SRPinclude () => p "#include"
+| SRPinclude () => pr "#include"
 //
-| ATSinline () => p "ATSinline"
+| ATSinline () => pr "ATSinline"
 //
-| ATSextern () => p "ATSextern"
-| ATSstatic () => p "ATSstatic"
+| ATSextern () => pr "ATSextern"
+| ATSstatic () => pr "ATSstatic"
 //
-| ATSdyncst_mac () => p "ATSdyncst_mac"
-| ATSdyncst_extfun () => p "ATSdyncst_extfun"
+| ATSdyncst_mac () => pr "ATSdyncst_mac"
+| ATSdyncst_extfun () => pr "ATSdyncst_extfun"
 //
-| TYPEDEF () => p "typedef"
+| TYPEDEF () => pr "typedef"
 //
-| ATSstruct () => p "ATSstruct"
+| ATSstruct () => pr "ATSstruct"
 //
-| ATStmpdec () => p "ATStmpdec"
-| ATStmpdec_void () => p "ATStmpdec_void"
+| ATStmpdec () => pr "ATStmpdec"
+| ATStmpdec_void () => pr "ATStmpdec_void"
 //
-| ATSif () => p "ATSif"
-| ATSthen () => p "ATSthen"
-| ATSelse () => p "ATSelse"
+| ATSif () => pr "ATSif"
+| ATSthen () => pr "ATSthen"
+| ATSelse () => pr "ATSelse"
 //
-| ATSifthen () => p "ATSifthen"
-| ATSifnthen () => p "ATSifnthen"
+| ATSifthen () => pr "ATSifthen"
+| ATSifnthen () => pr "ATSifnthen"
 //
-| ATSbranch_beg () => p "ATSbranch_beg"
-| ATSbranch_end () => p "ATSbranch_end"
+| ATSbranch_beg () => pr "ATSbranch_beg"
+| ATSbranch_end () => pr "ATSbranch_end"
 //
-| ATScaseof_beg () => p "ATScaseof_beg"
-| ATScaseof_end () => p "ATScaseof_end"
+| ATScaseof_beg () => pr "ATScaseof_beg"
+| ATScaseof_end () => pr "ATScaseof_end"
 //
-| ATSfunbody_beg () => p "ATSfunbody_beg"
-| ATSfunbody_end () => p "ATSfunbody_end"
+| ATSfunbody_beg () => pr "ATSfunbody_beg"
+| ATSfunbody_end () => pr "ATSfunbody_end"
 //
-| ATSreturn () => p "ATSreturn"
-| ATSreturn_void () => p "ATSreturn_void"
+| ATSreturn () => pr "ATSreturn"
+| ATSreturn_void () => pr "ATSreturn_void"
 //
-| ATSPMVint () => p "ATSPMVint"
-| ATSPMVbool_true () => p "ATSPMVbool_true"
-| ATSPMVbool_false () => p "ATSPMVbool_false"
-| ATSPMVstring () => p "ATSPMVstring"
+| ATSPMVint () => pr "ATSPMVint"
+| ATSPMVbool_true () => pr "ATSPMVbool_true"
+| ATSPMVbool_false () => pr "ATSPMVbool_false"
+| ATSPMVstring () => pr "ATSPMVstring"
 //
-| ATSPMVi0nt () => p "ATSPMVi0nt"
-| ATSPMVf0loat () => p "ATSPMVf0loat"
+| ATSPMVi0nt () => pr "ATSPMVi0nt"
+| ATSPMVf0loat () => pr "ATSPMVf0loat"
 //
-| ATSINSlab () => p "ATSINSlab"
-| ATSINSgoto () => p "ATSINSgoto"
+| ATSINSlab () => pr "ATSINSlab"
+| ATSINSgoto () => pr "ATSINSgoto"
 //
-| ATSINSflab () => p "ATSINSflab"
-| ATSINSfgoto () => p "ATSINSfgoto"
+| ATSINSflab () => pr "ATSINSflab"
+| ATSINSfgoto () => pr "ATSINSfgoto"
 //
-| ATSINSmove () => p "ATSINSmove"
-| ATSINSmove_void () => p "ATSINSmove_void"
+| ATSINSmove () => pr "ATSINSmove"
+| ATSINSmove_void () => pr "ATSINSmove_void"
 //
-| ATSSELcon () => p "ATSSELcon"
-| ATSSELfltrec () => p "ATSSELfltrec"
-| ATSSELboxrec () => p "ATSSELboxrec"
+| ATSSELcon () => pr "ATSSELcon"
+| ATSSELfltrec () => pr "ATSSELfltrec"
+| ATSSELboxrec () => pr "ATSSELboxrec"
 //
-| ATSINSmove_fltrec_beg () => p "ATSINSmove_fltrec_beg"
-| ATSINSmove_fltrec_end () => p "ATSINSmove_fltrec_end"
-| ATSINSstore_fltrec_ofs () => p "ATSINSstore_fltrec_ofs"
+| ATSINSmove_fltrec_beg () => pr "ATSINSmove_fltrec_beg"
+| ATSINSmove_fltrec_end () => pr "ATSINSmove_fltrec_end"
+| ATSINSstore_fltrec_ofs () => pr "ATSINSstore_fltrec_ofs"
 //
-| ATSINSmove_boxrec_beg () => p "ATSINSmove_boxrec_beg"
-| ATSINSmove_boxrec_end () => p "ATSINSmove_boxrec_end"
-| ATSINSmove_boxrec_new () => p "ATSINSmove_boxrec_new"
-| ATSINSstore_boxrec_ofs () => p "ATSINSstore_boxrec_ofs"
+| ATSINSmove_boxrec_beg () => pr "ATSINSmove_boxrec_beg"
+| ATSINSmove_boxrec_end () => pr "ATSINSmove_boxrec_end"
+| ATSINSmove_boxrec_new () => pr "ATSINSmove_boxrec_new"
+| ATSINSstore_boxrec_ofs () => pr "ATSINSstore_boxrec_ofs"
 //
-| ATStailcal_beg () => p "ATStailcal_beg"
-| ATStailcal_end () => p "ATStailcal_end"
-| ATSINSmove_tlcal () => p "ATSINSmove_tlcal"
-| ATSINSargmove_tlcal () => p "ATSINSargmove_tlcal"
+| ATStailcal_beg () => pr "ATStailcal_beg"
+| ATStailcal_end () => pr "ATStailcal_end"
+| ATSINSmove_tlcal () => pr "ATSINSmove_tlcal"
+| ATSINSargmove_tlcal () => pr "ATSINSargmove_tlcal"
 //
-| ATSINSdeadcode_fail () => p "ATSINSdeadcode_fail"
+| ATSINSdeadcode_fail () => pr "ATSINSdeadcode_fail"
 //
-| ATSdynload0 () => p "ATSdynload0"
-| ATSdynload1 () => p "ATSdynload1"
-| ATSdynloadset () => p "ATSdynloadset"
+| ATSdynload0 () => pr "ATSdynload0"
+| ATSdynload1 () => pr "ATSdynload1"
+| ATSdynloadset () => pr "ATSdynloadset"
 //
-| KWORDnone () => p "KWORDnone"
+| KWORDnone () => pr "KWORDnone"
 //
 end // end of [fprint_keyword]
 
