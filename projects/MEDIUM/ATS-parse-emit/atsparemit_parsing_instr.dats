@@ -52,6 +52,19 @@ tok.token_node of
     parse_instr (buf, bt, err)
   end // end of [#if(0)]
 //
+| T_KWORD(SRPline()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_INT (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_STRING, err0)
+  in
+    if err = err0
+      then (
+        ATSlinepragma_make (tok, ent1, ent2)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [SRPline]
+//
 | T_KWORD(ATSfunbody_beg()) => let
     val bt = 0
     val () = incby1 ()

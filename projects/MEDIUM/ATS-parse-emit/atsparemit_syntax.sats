@@ -234,6 +234,17 @@ ATSreturn_void_make
 (* ****** ****** *)
 //
 fun
+instrlst_skip_linepragma (inss: instrlst): instrlst
+//
+(* ****** ****** *)
+//
+fun
+ATSlinepragma_make
+  (tok_kwd: token, line: token, file: token): instr
+//
+(* ****** ****** *)
+//
+fun
 ATSINSlab_make
   (tok_kwd: token, tmp: i0de, tok_end: token): instr
 //

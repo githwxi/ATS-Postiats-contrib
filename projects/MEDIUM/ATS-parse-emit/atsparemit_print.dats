@@ -72,6 +72,7 @@ case+ x of
 | SRPifndef () => pr "#ifndef"
 | SRPendif () => pr "#endif"
 //
+| SRPline () => pr "#line"
 | SRPinclude () => pr "#include"
 //
 | ATSinline () => pr "ATSinline"

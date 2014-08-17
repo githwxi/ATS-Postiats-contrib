@@ -77,11 +77,14 @@ macdef
 kwordins (name, kw) =
   $KWORD.insert_opt (,(name), ,(kw))
 //
+// HX: line pragma
+//
 val-~None_vt() = kwordins ("#if", SRPif)
 val-~None_vt() = kwordins ("#ifdef", SRPifdef)
 val-~None_vt() = kwordins ("#ifndef", SRPifndef)
 val-~None_vt() = kwordins ("#endif", SRPendif)
 //
+val-~None_vt() = kwordins ("#line", SRPline)
 val-~None_vt() = kwordins ("#include", SRPinclude)
 //
 val-~None_vt() = kwordins ("typedef", TYPEDEF)

@@ -745,6 +745,14 @@ ins0.instr_node of
     val () = emit_text (out, "return#_void")
   }
 //
+| ATSlinepragma (line, file) =>
+  {
+    val () = emit_text (out, "#line ")
+    val () = emit_PMVint (out, line)
+    val () = emit_SPACE (out)
+    val () = emit_PMVstring (out, file)
+  }
+//
 | ATSINSlab (lab) =>
   {
     val () = emit_nspc (out, ind)
@@ -1092,6 +1100,9 @@ fun auxlst
 (
   out: FILEref, inss: instrlst
 ) : void = let
+//
+val inss =
+instrlst_skip_linepragma (inss)
 //
 val-list_cons (ins, inss) = inss
 val-ATSINSlab (lab) = ins.instr_node

@@ -353,9 +353,24 @@ in '{
 
 (* ****** ****** *)
 
+implement
+instrlst_skip_linepragma
+  (inss) = (
+//
+case+ inss of
+| list_nil () => list_nil ()
+| list_cons (ins, inss2) =>
+  (
+    case+ ins.instr_node of
+    | ATSlinepragma _ => inss2 | _ => inss
+  )
+//
+) (* end of [instrlst_skip_linepragma] *)
+
+(* ****** ****** *)
+
 fun
-instr_make_node
-(
+instr_make_node (
   loc: loc_t, node: instr_node
 ) : instr = '{ instr_loc= loc, instr_node= node }
 
@@ -523,13 +538,16 @@ end // end of [ATScaseofseq_make]
 
 implement
 funbodyseq_get_funlab
-  (ins0) = fl where
+  (ins0) = flab where
 {
 //
 val-
 ATSfunbodyseq (inss) = ins0.instr_node
+val
+inss = instrlst_skip_linepragma (inss)
+//
 val-list_cons (ins1, _(*inss2*)) = inss
-val-ATSINSflab (fl) = ins1.instr_node
+val-ATSINSflab (flab) = ins1.instr_node
 //
 } // end of [funbodyseq_get_funlab]
 
@@ -576,6 +594,20 @@ val loc =
 in
   instr_make_node (loc, ATSreturn_void (tmp))
 end // end of [ATSreturn_void_make]
+
+(* ****** ****** *)
+
+implement
+ATSlinepragma_make
+  (tok_kwd, line, file) = let
+//
+val loc = tok_kwd.token_loc ++ file.token_loc
+//
+in
+  instr_make_node (loc, ATSlinepragma (line, file))
+end // end of [ATSlinepragma_make]
+
+(* ****** ****** *)
 
 (* ****** ****** *)
 

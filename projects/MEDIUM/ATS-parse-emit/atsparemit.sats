@@ -155,12 +155,13 @@ location_combine (loc1: loc_t, loc2: loc_t): loc_t
 datatype
 keyword =
 //
-  | SRPinclude of ()
-//
   | SRPif of () // #if
   | SRPifdef of () // #ifdef
   | SRPifndef of () // #ifndef
   | SRPendif of () // #endif
+//
+  | SRPline of () // #line
+  | SRPinclude of () // #include
 //
   | TYPEDEF of ()
   | ATSstruct of ()
@@ -772,6 +773,8 @@ instr_node =
 //
   | ATSreturn of (i0de)
   | ATSreturn_void of (i0de)
+//
+  | ATSlinepragma of (token(*line*), token(*file*))
 //
   | ATSINSlab of (label)
   | ATSINSgoto of (label)
