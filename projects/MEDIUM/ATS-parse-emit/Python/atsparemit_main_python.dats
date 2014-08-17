@@ -57,6 +57,7 @@ dynload "./atsparemit_topenv.dats"
 (* ****** ****** *)
 
 dynload "./atsparemit_emit_python.dats"
+dynload "./atsparemit_emit2_python.dats"
 
 (* ****** ****** *)
 

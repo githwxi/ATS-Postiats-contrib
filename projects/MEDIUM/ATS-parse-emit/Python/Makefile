@@ -47,6 +47,7 @@ SOURCES_DATS += atsparemit_parsing_instr.dats
 #
 SOURCES_DATS += atsparemit_topenv.dats
 SOURCES_DATS += atsparemit_emit_python.dats
+SOURCES_DATS += atsparemit_emit2_python.dats
 #
 SOURCES_DATS += atsparemit_main_python.dats
 #
