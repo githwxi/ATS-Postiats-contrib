@@ -63,7 +63,11 @@ end // end of [i0de_make_string]
 //
 fun
 s0exp_make_node
-  (loc, node) = '{ s0exp_loc=loc, s0exp_node=node }
+  (loc, node) = '{
+  s0exp_loc=loc, s0exp_node=node
+} (* end of [s0exp_make_node] *)
+//
+(* ****** ****** *)
 //
 implement
 s0exp_ide (loc, id) =
@@ -73,8 +77,16 @@ implement
 s0exp_list (loc, s0es) = s0exp_make_node (loc, S0Elist (s0es))
 //
 implement
-s0exp_appid (loc, id, s0es) =
-  s0exp_make_node (loc, S0Eappid (id.i0de_sym, s0es))
+s0exp_appid (id, s0e) = let
+//
+val loc =
+  id.i0de_loc ++ s0e.s0exp_loc
+//
+val-S0Elist (s0es) = s0e.s0exp_node
+//
+in
+  s0exp_make_node (loc, S0Eappid (id, s0es))
+end // end of [s0exp_appid]
 //
 (* ****** ****** *)
 //
@@ -84,7 +96,11 @@ s0exp_appid (loc, id, s0es) =
 //
 fun
 d0exp_make_node
-  (loc, node) = '{ d0exp_loc=loc, d0exp_node=node }
+  (loc, node) = '{
+  d0exp_loc=loc, d0exp_node=node
+} (* end of [d0exp_make_node] *)
+//
+(* ****** ****** *)
 //
 implement
 d0exp_ide (loc, id) =
@@ -92,11 +108,32 @@ d0exp_ide (loc, id) =
 //
 implement
 d0exp_list
-  (loc, d0es) = d0exp_make_node (loc, D0Elist (d0es))
+  (loc, d0es) =
+  d0exp_make_node (loc, D0Elist (d0es))
 //
 implement
-d0exp_appid (loc, id, d0es) =
-  d0exp_make_node (loc, D0Eappid (id.i0de_sym, d0es))
+d0exp_appid
+  (id, d0e_arg) = let
+//
+val loc = id.i0de_loc ++ d0e_arg.d0exp_loc
+val-D0Elist (d0es_arg) = d0e_arg.d0exp_node
+//
+in
+  d0exp_make_node (loc, D0Eappid (id, d0es_arg))
+end // end of [d0exp_appid]
+//
+implement
+d0exp_appexp
+  (d0e_fun, d0e_arg) = let
+//
+val loc =
+  d0e_fun.d0exp_loc ++ d0e_arg.d0exp_loc
+//
+val-D0Elist (d0es_arg) = d0e_arg.d0exp_node
+//
+in
+  d0exp_make_node (loc, D0Eappexp (d0e_fun, d0es_arg))
+end // end of [d0exp_appexp]
 //
 (* ****** ****** *)
 
@@ -202,6 +239,32 @@ val loc =
 in
   d0exp_make_node (loc, ATSSELfltrec (d0e, s0e, lab))
 end // end of [ATSSELfltrec_make]
+
+(* ****** ****** *)
+
+implement
+ATSfunclo_fun_make
+(
+  tok1, d0e, arg, res, tok2, opt
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+val d0e_fun =
+  d0exp_make_node (loc, ATSfunclo_fun(d0e, arg, res))
+//
+in
+//
+case+ opt of
+| None () => d0e
+| Some (d0e_arg) => let
+    val loc2 = loc ++ d0e_arg.d0exp_loc
+    val-D0Elist (d0es_arg) = d0e_arg.d0exp_node
+  in
+    d0exp_make_node (loc2, D0Eappexp(d0e_fun, d0es_arg))
+  end // end of [Some]
+//
+end // end of [ATSfunclo_fun_make]
 
 (* ****** ****** *)
 
@@ -542,7 +605,7 @@ funbodyseq_get_funlab
 {
 //
 val-
-ATSfunbodyseq (inss) = ins0.instr_node
+ATSfunbodyseq(inss) = ins0.instr_node
 val
 inss = instrlst_skip_linepragma (inss)
 //

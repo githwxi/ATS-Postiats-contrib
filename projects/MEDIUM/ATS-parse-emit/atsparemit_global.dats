@@ -132,6 +132,8 @@ val-~None_vt() = kwordins ("ATSSELcon", ATSSELcon)
 val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
 val-~None_vt() = kwordins ("ATSSELboxrec", ATSSELboxrec)
 //
+val-~None_vt() = kwordins ("ATSfunclo_fun", ATSfunclo_fun)
+//
 val-~None_vt() = kwordins ("ATSINSlab", ATSINSlab)
 val-~None_vt() = kwordins ("ATSINSgoto", ATSINSgoto)
 //

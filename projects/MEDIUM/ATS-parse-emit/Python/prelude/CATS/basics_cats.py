@@ -15,6 +15,9 @@ def ATSCKisneqz(x): return (x != 0)
 def ATSCKptrisnil(xs): return (xs == None)
 def ATSCKptriscons(xs): return (xs != None)
 #
+def ATSCKpat_bool(tmp, given): return (tmp == given)
+def ATSCKpat_char(tmp, given): return (tmp == given)
+#
 ############################################
 #
 def atspre2py_list_nil(): return (0)

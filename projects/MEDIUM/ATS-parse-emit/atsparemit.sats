@@ -207,6 +207,8 @@ keyword =
   | ATSSELfltrec of ()
   | ATSSELboxrec of ()
 //
+  | ATSfunclo_fun of ()
+//
   | ATSINSlab of ()
   | ATSINSgoto of ()
 //
@@ -312,6 +314,10 @@ typedef tnode = token_node
 typedef token = '{
   token_loc= loc_t, token_node= tnode
 } (* end of [token] *)
+
+(* ****** ****** *)
+
+fun token_get_loc (token): loc_t
 
 (* ****** ****** *)
 
@@ -590,7 +596,7 @@ datatype
 s0exp_node =
   | S0Eide of symbol
   | S0Elist of (s0explst) // temp
-  | S0Eappid of (symbol, s0explst)
+  | S0Eappid of (i0de, s0explst)
 // end of [s0exp_node]
 
 where
@@ -636,7 +642,8 @@ datatype
 d0exp_node =
   | D0Eide of symbol
   | D0Elist of (d0explst) // temp
-  | D0Eappid of (symbol, d0explst)
+  | D0Eappid of (i0de, d0explst)
+  | D0Eappexp of (d0exp, d0explst)
 //
   | ATSPMVint of i0nt
   | ATSPMVbool of bool
@@ -649,6 +656,8 @@ d0exp_node =
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELboxrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELfltrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
+//
+  | ATSfunclo_fun of (d0exp, s0exp(*arg*), s0exp(*res*))
 // end of [d0exp_node]
 
 where

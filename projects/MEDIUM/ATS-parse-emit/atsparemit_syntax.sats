@@ -40,18 +40,21 @@ i0de_make_string (loc: loc_t, name: string): i0de
 
 fun s0exp_ide (loc: loc_t, id: i0de): s0exp
 fun s0exp_list (loc: loc_t, s0es: s0explst): s0exp
-fun s0exp_appid (loc: loc_t, id: i0de, arg: s0explst): s0exp
+fun s0exp_appid (id: i0de, s0e: s0exp): s0exp
 
 (* ****** ****** *)
 //
 // HX: for constructing primvals
 //
 (* ****** ****** *)
-
+//
 fun d0exp_ide (loc: loc_t, id: i0de): d0exp
+//
 fun d0exp_list (loc: loc_t, d0es: d0explst): d0exp
-fun d0exp_appid (loc: loc_t, id: i0de, arg: d0explst): d0exp
-
+//
+fun d0exp_appid (id: i0de, d0e_arg: d0exp): d0exp
+fun d0exp_appexp (d0e_fun: d0exp, d0e_arg: d0exp): d0exp
+//
 (* ****** ****** *)
 //
 fun
@@ -109,6 +112,17 @@ ATSSELboxrec_make
 , tok_end: token
 ) : d0exp // end of [ATSSELboxrec_make]
 //
+(* ****** ****** *)
+
+fun
+ATSfunclo_fun_make
+(
+  tok_kwd: token
+, d0e: d0exp, arg: s0exp, res: s0exp
+, tok_end: token
+, d0argopt: d0expopt
+) : d0exp // end of [ATSfunclo_fun_make]
+
 (* ****** ****** *)
 //
 fun tyfld_make (s0e: s0exp, id: i0de): tyfld

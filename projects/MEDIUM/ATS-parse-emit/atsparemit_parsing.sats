@@ -276,16 +276,20 @@ fun parse_i0de : parser (i0de)
 fun parse_label : parser (label)
 
 (* ****** ****** *)
-
+//
 fun parse_s0exp : parser (s0exp)
 fun parse_s0expseq : parser (s0explst)
+//
+fun parse_s0exparg : parser (s0exp)
 fun parse_s0expargopt : parser (s0expopt)
-
+//
 (* ****** ****** *)
-
+//
 fun parse_d0exp : parser (d0exp)
+//
+fun parse_d0exparg : parser (d0exp)
 fun parse_d0expargopt : parser (d0expopt)
-
+//
 (* ****** ****** *)
 
 fun parse_d0ecl : parser (d0ecl)
