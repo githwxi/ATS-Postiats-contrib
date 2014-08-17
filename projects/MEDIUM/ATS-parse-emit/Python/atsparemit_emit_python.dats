@@ -173,7 +173,8 @@ d0e.d0exp_node of
 //
 | ATSPMVf0loat (tok) => emit_text (out, "ATSPMVf0loat(...)")
 //
-| ATSSELcon _ => emit_text (out, "ATSSELcon(...)")
+| ATSSELcon _ => emit_SELcon (out, d0e)
+//
 | ATSSELrecsin _ => emit_text (out, "ATSSELrecsin(...)")
 //
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e)
@@ -238,6 +239,30 @@ in
   loop (tyrec.tyrec_node, 0)
 end // end of [tyrec_labsel]
 //
+(* ****** ****** *)
+
+implement
+emit_SELcon
+  (out, d0e) = let
+//
+val-ATSSELcon
+  (d0rec, s0e, id) = d0e.d0exp_node
+val-S0Eide (name) = s0e.s0exp_node
+val-~Some_vt (s0rec) = typedef_search_opt (name)
+//
+val index = tyrec_labsel (s0rec, id.i0de_sym)
+//
+val () =
+  emit_d0exp (out, d0rec)
+//
+val () = emit_LBRACKET (out)
+val () = emit_int (out, index)
+val () = emit_RBRACKET (out)
+//
+in
+  // nothing
+end // end of [emit_SELcon]
+
 (* ****** ****** *)
 
 implement
@@ -897,9 +922,15 @@ fun emit2_ATSINSmove_boxrec
 //
 (* ****** ****** *)
 //
+// HX-2014-08:
+// this one should not be used for
+// emitting multiple-line instructions
+//
 implement
 emit_instr
   (out, ins) = emit2_instr (out, 0(*ind*), ins)
+//
+(* ****** ****** *)
 //
 implement
 emit2_instr
@@ -1255,11 +1286,12 @@ emit_fundef_nonlocal (out: FILEref): void
 //
 (* ****** ****** *)
 
-implement
-emit_branchseq
-  (out, ins0) = let
-//
-val-ATSbranchseq (inss) = ins0.instr_node
+local
+
+fun auxlst
+(
+  out: FILEref, inss: instrlst
+) : void = let
 //
 val-list_cons (ins, inss) = inss
 val-ATSINSlab (lab) = ins.instr_node
@@ -1275,11 +1307,61 @@ val () = emit_fundef_nonlocal (out)
 val () = emit_nspc (out, 4)
 val () = emit_text (out, "tmplab_py = 0\n")
 //
-val () = emit2_instrlst (out, 4(*ind*), inss)
+in
+  auxlst2 (out, lab, inss)
+end (* end of [auxlst] *)
+
+and auxlst2
+(
+  out: FILEref, lab: label, inss: instrlst
+) : void = let
+in
+//
+case+ inss of
+//
+| list_nil ((*none*)) =>
+  {
+    val () = emit_nspc (out, 4)
+    val () = emit_text (out, "return\n")  
+  } (* end of [list_nil] *)
+//
+| list_cons
+    (ins1, inss2) =>
+  (
+    case ins1.instr_node of
+    | ATSINSlab (lab) =>
+      {
+        val () = emit_nspc (out, 4)
+        val () = emit_label (out, lab)
+        val () = emit_text (out, "()\n")
+        val () = emit_nspc (out, 4)
+        val () = emit_text (out, "return\n")
+        val () = auxlst (out, inss)
+      }
+    | _ (*non-ATSINSlab*) =>
+      {
+        val () = (
+          emit2_instr (out, 4, ins1); emit_ENDL (out)
+        ) (* end of [val] *)
+        val () = auxlst2 (out, lab, inss2)
+      } (* end of [non-ATSINSlab] *)
+  ) (* end of [list_cons] *)
+//
+end // (* end of [auxlst2] *)
+
+in (* in-of-local *)
+
+implement
+emit_branchseq
+  (out, ins0) = let
+//
+val-ATSbranchseq (inss) = ins0.instr_node
 //
 in
-  // nothing
+  auxlst (out, inss)
 end // end of [emit_branchseq]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -1602,7 +1684,7 @@ case+ xs of
     // end of [if]
     val () = emit_int (out, i)
     val () = emit_text (out, ": ")
-    val () = emit_i0de (out, fl)
+    val () = emit_label (out, fl)
     val-list_cons (_, xs) = xs
   in
     auxlst (out, xs, i+1)
@@ -1638,12 +1720,12 @@ fun auxfun
 val-ATSfunbodyseq(inss) = ins0.instr_node
 //
 val-list_cons (ins1, inss) = inss
-val-ATSINSflab (flab) = ins1.instr_node
+val-ATSINSflab (fl) = ins1.instr_node
 //
 val () = emit_nspc (out, 2)
 val () = emit_text (out, "def")
 val () = emit_SPACE (out)
-val () = emit_i0de (out, flab)
+val () = emit_label (out, fl)
 val () = emit_text (out, "():\n")
 //
 val () = emit_fundef_nonlocal (out)

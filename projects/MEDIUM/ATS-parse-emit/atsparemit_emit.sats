@@ -72,6 +72,7 @@ fun emit_d0explst : emit_type (d0explst)
 
 (* ****** ****** *)
 
+fun emit_SELcon : emit_type (d0exp)
 fun emit_SELboxrec : emit_type (d0exp)
 
 (* ****** ****** *)
