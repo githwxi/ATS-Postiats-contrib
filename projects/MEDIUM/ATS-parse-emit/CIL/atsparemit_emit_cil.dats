@@ -143,6 +143,10 @@ emit_label
 (* ****** ****** *)
 //
 extern
+fun emit_instrlst
+  (out: FILEref, inss: instrlst) : void
+//
+extern
 fun
 emit_s0exp : emit_type (s0exp)
 extern
@@ -298,6 +302,38 @@ end // end of [local]
 
 (* ******* ****** *)
 
+local
+
+fun
+loop
+(
+  out: FILEref, d0es: d0explst, i: int
+) : void =
+(
+case+ d0es of
+| list_nil () => ()
+| list_cons (d0e, d0es) => let
+    val () =
+      if i > 0 then emit_newline (out)
+    // end of [val]
+  in
+    emit_d0exp (out, d0e);
+    emit_newline (out);
+    loop (out, d0es, i+1)
+  end // end of [list_cons]
+)
+
+in (* in-of-local *)
+
+implement
+emit_d0explst (out, d0es) = loop (out, d0es, 0)
+implement
+emit_d0explst_1 (out, d0es) = loop (out, d0es, 1)
+
+end // end of [local]
+
+(* ******* ****** *)
+
 implement
 emit_d0exp
   (out, d0e) = let
@@ -305,6 +341,51 @@ in
 //
 case+
 d0e.d0exp_node of
+//
+| D0Eide (id) =>
+  {
+    val () = emit_text (out, "ldloc")
+    val () = emit_SPACE (out)
+    val () = emit_symbol (out, id)
+  }
+//
+| D0Eappid (id, d0es) =>
+  {
+    val () = emit_d0explst (out, d0es)
+    val () = emit_text (out, "call")
+    val () = emit_SPACE (out)
+    val () = emit_symbol (out, id) // FIXME: need also type of [id]!
+  }
+//
+//
+| ATSPMVint (tok) =>
+  {
+    val () = emit_text (out, "ldc.i4")
+    val () = emit_SPACE (out)
+    val () = emit_PMVint (out, tok)
+  } (* end of [ATSPMVint] *)
+| ATSPMVi0nt (tok) =>
+  {
+    val () = emit_text (out, "ldc.i4")
+    val () = emit_SPACE (out)
+    val () = emit_PMVi0nt (out, tok)
+  } (* end of [ATSPMVi0nt] *)
+//
+| ATSPMVbool (tfv) =>
+  {
+    val () = emit_text (out, "ldc.i4")
+    val () = emit_SPACE (out)
+    val () = emit_PMVbool (out, tfv)
+  } (* end of [ATSPMVbool] *)
+//
+| ATSPMVstring (tok) =>
+  {
+    val () = emit_text (out, "ldstr")
+    val () = emit_SPACE(out)
+    val () = emit_PMVstring (out, tok)
+  } (* end of [ATSPMVstring] *)
+//
+| ATSPMVf0loat (tok) => emit_text (out, "ATSPMVf0loat(...)")
 //
 | _ => ()
 //
@@ -333,7 +414,12 @@ case+
 f0a.f0arg_node of
 //
 | F0ARGnone s0e => emit_text (out, "__NONE__") // FIXME: how to emit type decl?
-| F0ARGsome (id, s0e) => emit_i0de (out, id) // FIXME: how to emit type decl?
+| F0ARGsome (id, s0e) =>
+  {
+    val () = emit_s0exp (out, s0e)
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, id)
+  } (* end of [F0ARGsome] *)
 //
 end // end of [emit_f0arg]
 
@@ -436,21 +522,200 @@ in
 end // end of [emit_tmpdeclst_initize]
 //
 (* ****** ****** *)
+//
+extern
+fun emit_instr
+  (out: FILEref, ins: instr) : void
+//
+implement
+emit_instr
+  (out, ins0) = let
+in
+//
+case+
+ins0.instr_node of
+//
+| ATSif
+  (
+    d0e(*test*), inss(*then*), inssopt(*else*)
+  ) =>
+  {
+    // TODO: labels must be assigned automatically... but how?
+    val () = emit_d0exp (out, d0e)
+    val () = emit_newline (out)
+    val () = emit_text (out, "brfalse L1")
+    val () = emit_newline (out)
+    val () = emit_instrlst (out, inss)
+    val () =
+    (
+      case+ inssopt of
+      | Some(inss) =>
+        {
+          val () = emit_text (out, "br L2")
+          val () = emit_newline (out)
+          val () = emit_text (out, "L1:")
+          val () = emit_newline (out)
+          val () = emit_instrlst (out, inss)
+        }
+      | None((*void*)) => ()
+    )
+    val () = emit_text (out, "L2:") // next instruction, whatever it may be
+    val () = emit_newline (out)
+  } (* end of [ATSif] *)
+// TODO: ATSifthen, ATSifnthen, ATScaseofseq, ATSbranchseq
+// TODO: ATSlinepragma
+//
+| ATSreturn (tmp) =>
+  {
+    // FIXME: if tmp is actually funarg, we must use ldarg
+    val () = emit_text (out, "ldloc")
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, tmp)
+    val () = emit_newline (out)
+    val () = emit_text (out, "ret")
+  }
+//
+| ATSreturn_void (tmp) =>
+  {
+    val () = emit_text (out, "ret")
+  }
+//
+| ATSlinepragma (line, file) =>
+  {
+    // skip
+  }
+//
+| ATSINSlab (lab) =>
+  {
+    val () = emit_label (out, lab)
+    val () = emit_text (out, ":")
+  }
+//
+| ATSINSgoto (lab) =>
+  {
+    val () = emit_text (out, "br")
+    val () = emit_SPACE (out)
+    val () = emit_label (out, lab)
+  }
+//
+| ATSINSflab (flab) =>
+  {
+    val () = emit_label (out, flab)
+    val () = emit_text (out, ":")
+  }
+//
+| ATSINSfgoto (flab) =>
+  {
+    val () = emit_text (out, "br")
+    val () = emit_SPACE (out)
+    val () = emit_label (out, flab)
+  }
+//
+| ATSINSmove (tmp, d0e) =>
+  {
+    val () = emit_d0exp (out, d0e)
+    val () = emit_newline (out)
+    val () = emit_text (out, "stloc")
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, tmp)
+  } (* end of [ATSINSmove] *)
+| ATSINSmove_void (_, d0e) =>
+  {
+    val () = emit_d0exp (out, d0e)
+  } (* end of [ATSINSmove_void] *)
+// TODO: ATSdynload0, ATSdynload1, ATSdynloadset
+//
+| _ =>
+  {
+    val () = emit_text (out, "**INSTR**")
+  }
+//
+end // end of [emit_instr]
+
+(* ****** ****** *)
+implement
+emit_instrlst
+(
+  out, inss
+) = (
+//
+case+ inss of
+| list_nil () => ()
+| list_cons (ins, inss) =>
+  {
+    val () = emit_instr (out, ins)
+    val () = emit_ENDL (out)
+    val () = emit_instrlst (out, inss)
+  }
+//
+) (* end of [emit_instrlst] *)
+
+(* ****** ****** *)
+//
+extern
+fun emit_ATSfunbodyseq
+  (out: FILEref, ins: instr) : void
+//
+implement
+emit_ATSfunbodyseq
+  (out, ins) = let
+//
+val-ATSfunbodyseq (inss) = ins.instr_node
+//
+in
+  emit_instrlst (out, inss)
+end // end of [emit_ATSfunbodyseq]
+
+(* ****** ****** *)
+//
+extern
+fun emit_f0body_0 : emit_type (f0body)
+//
+implement
+emit_f0body_0
+  (out, fbody) = let
+//
+fun
+auxlst
+(
+  out: FILEref, inss: instrlst
+) : void =
+(
+case+ inss of
+| list_nil () => ()
+| list_cons
+    (ins0, inss1) => let
+    val-list_cons (ins1, inss2) = inss1
+    val () = emit_ATSfunbodyseq (out, ins0)
+    val () = emit_instr (out, ins1)
+  in
+    auxlst (out, inss2)
+  end // end of [list_cons]
+) (* end of [auxlst] *)
+//
+in
+//
+case+
+fbody.f0body_node of
+//
+| F0BODY (tds, inss) => auxlst (out, inss)
+//
+end // end of [emit_f0body_0]
+
+(* ****** ****** *)
 implement
 emit_f0body
   (out, fbody) = let
 //
 val tmpdecs =
   f0body_get_tmpdeclst (fbody)
-val inss_body =
-  f0body_get_bdinstrlst (fbody)
 //
 val () = the_tmpdeclst_set (tmpdecs)
-val () = the_funbodylst_set (inss_body)
 val () = emit_LBRACE (out)
-// TODO: insert body
 val () = emit_newline (out)
+// TODO: how to compute maxstack?
 val () = emit_text (out, ".maxstack 1")
+val () = emit_newline (out)
 // emit locals
 val () = emit_text (out, ".locals")
 val () = emit_SPACE (out)
@@ -465,7 +730,7 @@ val () = emit_newline (out)
 //    class [Mono.Cecil]Mono.Cecil.AssemblyNameDefinition V_0,
 //    int32 V_1
 // )
-val () = emit_text (out, "IL_0000: ret")
+val () = emit_f0body_0 (out, fbody)
 val () = emit_newline (out)
 val () = emit_RBRACE (out)
 in
@@ -506,36 +771,6 @@ fdec.f0decl_node of
   } (* end of [F0DECLsome] *)
 //
 end // end of [emit_f0decl]
-
-(* ****** ****** *)
-
-local
-
-fun
-loop
-(
-  out: FILEref, d0es: d0explst, i: int
-) : void =
-(
-case+ d0es of
-| list_nil () => ()
-| list_cons (d0e, d0es) => let
-    val () =
-      if i > 0 then emit_text (out, ", ")
-    // end of [val]
-  in
-    emit_d0exp (out, d0e); loop (out, d0es, i+1)
-  end // end of [list_cons]
-)
-
-in (* in-of-local *)
-
-implement
-emit_d0explst (out, d0es) = loop (out, d0es, 0)
-implement
-emit_d0explst_1 (out, d0es) = loop (out, d0es, 1)
-
-end // end of [local]
 
 (* ****** ****** *)
 
