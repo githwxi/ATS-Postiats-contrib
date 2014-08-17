@@ -54,6 +54,13 @@ emit_RPAREN (out) = emit_text (out, ")")
 (* ****** ****** *)
 
 implement
+emit_LBRACE (out) = emit_text (out, "{")
+implement
+emit_RBRACE (out) = emit_text (out, "}")
+
+(* ****** ****** *)
+
+implement
 emit_LBRACKET (out) = emit_text (out, "[")
 implement
 emit_RBRACKET (out) = emit_text (out, "]")

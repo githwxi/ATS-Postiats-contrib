@@ -29,6 +29,11 @@ fun emit_RPAREN : FILEref -> void
 
 (* ****** ****** *)
 
+fun emit_LBRACE : FILEref -> void
+fun emit_RBRACE : FILEref -> void
+
+(* ****** ****** *)
+
 fun emit_LBRACKET : FILEref -> void
 fun emit_RBRACKET : FILEref -> void
 
