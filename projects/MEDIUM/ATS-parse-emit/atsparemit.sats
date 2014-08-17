@@ -215,6 +215,13 @@ keyword =
   | ATSINSmove of ()
   | ATSINSmove_void of ()
 //
+  | ATSINSmove_con0 of ()
+  | ATSINSmove_con1_beg of ()
+  | ATSINSmove_con1_end of ()
+  | ATSINSmove_con1_new of ()
+  | ATSINSstore_con1_tag of ()
+  | ATSINSstore_con1_ofs of ()
+//
   | ATSINSmove_fltrec_beg of ()
   | ATSINSmove_fltrec_end of ()
   | ATSINSstore_fltrec_ofs of ()
@@ -304,6 +311,10 @@ typedef tnode = token_node
 typedef token = '{
   token_loc= loc_t, token_node= tnode
 } (* end of [token] *)
+
+(* ****** ****** *)
+
+typedef tokenopt = Option (token)
 
 (* ****** ****** *)
 
@@ -771,12 +782,19 @@ instr_node =
   | ATSINSmove of (i0de, d0exp)
   | ATSINSmove_void of (i0de, d0exp)
 //
+  | ATSINSmove_con0 of (i0de, token(*tag*))
+//
+  | ATSINSmove_con1 of (instrlst)
+  | ATSINSmove_con1_new of (i0de, s0exp)
+  | ATSINSstore_con1_tag of (i0de, token(*tag*))
+  | ATSINSstore_con1_ofs of (i0de, s0exp, i0de, d0exp)
+//
   | ATSINSmove_fltrec of (instrlst)
-  | ATSINSstore_fltrec_ofs of (d0exp, s0exp, i0de, d0exp)
+  | ATSINSstore_fltrec_ofs of (i0de, s0exp, i0de, d0exp)
 //
   | ATSINSmove_boxrec of (instrlst)
   | ATSINSmove_boxrec_new of (i0de, s0exp)
-  | ATSINSstore_boxrec_ofs of (d0exp, s0exp, i0de, d0exp)
+  | ATSINSstore_boxrec_ofs of (i0de, s0exp, i0de, d0exp)
 //
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)

@@ -138,6 +138,14 @@ val-~None_vt() = kwordins ("ATSINSfgoto", ATSINSfgoto)
 val-~None_vt() = kwordins ("ATSINSmove", ATSINSmove)
 val-~None_vt() = kwordins ("ATSINSmove_void", ATSINSmove_void)
 //
+val-~None_vt() = kwordins ("ATSINSmove_con0", ATSINSmove_con0)
+//
+val-~None_vt() = kwordins ("ATSINSmove_con1_beg", ATSINSmove_con1_beg)
+val-~None_vt() = kwordins ("ATSINSmove_con1_end", ATSINSmove_con1_end)
+val-~None_vt() = kwordins ("ATSINSmove_con1_new", ATSINSmove_con1_new)
+val-~None_vt() = kwordins ("ATSINSstore_con1_tag", ATSINSstore_con1_tag)
+val-~None_vt() = kwordins ("ATSINSstore_con1_ofs", ATSINSstore_con1_ofs)
+//
 val-~None_vt() = kwordins ("ATSINSmove_fltrec_beg", ATSINSmove_fltrec_beg)
 val-~None_vt() = kwordins ("ATSINSmove_fltrec_end", ATSINSmove_fltrec_end)
 val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)

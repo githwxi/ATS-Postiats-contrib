@@ -320,6 +320,13 @@ p_ATStailcal_end (buf, bt, err) =
 (* ****** ****** *)
 //
 implement
+is_ATSINSmove_con1_end (x) = case+ x of
+  | T_KWORD(ATSINSmove_con1_end()) => true | _ => false
+implement
+p_ATSINSmove_con1_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSINSmove_con1_end, PARERR_ATSINSmove_con1_end)
+//
+implement
 is_ATSINSmove_fltrec_end (x) = case+ x of
   | T_KWORD(ATSINSmove_fltrec_end()) => true | _ => false
 implement

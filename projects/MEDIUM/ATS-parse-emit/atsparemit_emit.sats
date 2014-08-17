@@ -69,6 +69,7 @@ fun emit_label : emit_type (label)
 
 fun emit_d0exp : emit_type (d0exp)
 fun emit_d0explst : emit_type (d0explst)
+fun emit_d0explst_1 : emit_type (d0explst)
 
 (* ****** ****** *)
 

@@ -116,6 +116,7 @@ x.parerr_node of
 //
 | PARERR_ATStailcal_end () => SN (x, "ATStailcal_end")
 //
+| PARERR_ATSINSmove_con1_end () => SN (x, "ATSINSmove_con1_end")
 | PARERR_ATSINSmove_fltrec_end () => SN (x, "ATSINSmove_fltrec_end")
 | PARERR_ATSINSmove_boxrec_end () => SN (x, "ATSINSmove_boxrec_end")
 //

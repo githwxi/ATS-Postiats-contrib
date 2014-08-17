@@ -43,6 +43,7 @@ parerr_node =
   | PARERR_ATSfunbody_end of ()
   | PARERR_ATStailcal_end of ()
 //
+  | PARERR_ATSINSmove_con1_end of ()
   | PARERR_ATSINSmove_fltrec_end of ()
   | PARERR_ATSINSmove_boxrec_end of ()
 //
@@ -196,6 +197,9 @@ fun p_ATStailcal_end : parser (token)
 fun is_ATStailcal_end (x: tnode): bool
 
 (* ****** ****** *)
+//
+fun p_ATSINSmove_con1_end : parser (token)
+fun is_ATSINSmove_con1_end (x: tnode): bool
 //
 fun p_ATSINSmove_fltrec_end : parser (token)
 fun is_ATSINSmove_fltrec_end (x: tnode): bool

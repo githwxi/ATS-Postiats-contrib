@@ -122,12 +122,20 @@ case+ x of
 | ATSINSflab () => pr "ATSINSflab"
 | ATSINSfgoto () => pr "ATSINSfgoto"
 //
-| ATSINSmove () => pr "ATSINSmove"
-| ATSINSmove_void () => pr "ATSINSmove_void"
-//
 | ATSSELcon () => pr "ATSSELcon"
 | ATSSELfltrec () => pr "ATSSELfltrec"
 | ATSSELboxrec () => pr "ATSSELboxrec"
+//
+| ATSINSmove () => pr "ATSINSmove"
+| ATSINSmove_void () => pr "ATSINSmove_void"
+//
+| ATSINSmove_con0 () => pr "ATSINSmove_con0"
+//
+| ATSINSmove_con1_beg () => pr "ATSINSmove_con1_beg"
+| ATSINSmove_con1_end () => pr "ATSINSmove_con1_end"
+| ATSINSmove_con1_new () => pr "ATSINSmove_con1_new"
+| ATSINSstore_con1_tag () => pr "ATSINSstore_con1_tag"
+| ATSINSstore_con1_ofs () => pr "ATSINSstore_con1_ofs"
 //
 | ATSINSmove_fltrec_beg () => pr "ATSINSmove_fltrec_beg"
 | ATSINSmove_fltrec_end () => pr "ATSINSmove_fltrec_end"
