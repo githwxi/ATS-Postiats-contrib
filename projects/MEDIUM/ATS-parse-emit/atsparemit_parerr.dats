@@ -112,6 +112,8 @@ x.parerr_node of
 | PARERR_ATSbranch_end () => SN (x, "ATSbranch_end")
 | PARERR_ATScaseof_end () => SN (x, "ATScaseof_end")
 //
+| PARERR_ATSextcode_end () => SN (x, "ATSextcode_end")
+//
 | PARERR_ATSfunbody_end () => SN (x, "ATSfunbody_end")
 //
 | PARERR_ATStailcal_end () => SN (x, "ATStailcal_end")

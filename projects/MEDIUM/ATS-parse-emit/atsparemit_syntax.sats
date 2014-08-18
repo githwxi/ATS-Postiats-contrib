@@ -467,5 +467,11 @@ d0ecl_ifndef
 ) : d0ecl // end of [d0ecl_ifdef]
 //
 (* ****** ****** *)
+//
+fun
+d0ecl_extcode
+  (tok_beg: token, extcode: tokenlst, tok_end: token): d0ecl
+//
+(* ****** ****** *)
 
 (* end of [atsparemit_syntax.sats] *)

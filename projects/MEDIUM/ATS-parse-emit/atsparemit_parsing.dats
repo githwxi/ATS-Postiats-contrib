@@ -284,6 +284,15 @@ p_SRPendif (buf, bt, err) =
 (* ****** ****** *)
 //
 implement
+is_ATSextcode_end (x) = case+ x of
+  | T_KWORD(ATSextcode_end()) => true | _ => false
+implement
+p_ATSextcode_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSextcode_end, PARERR_ATSextcode_end)
+//
+(* ****** ****** *)
+//
+implement
 is_ATSfunbody_end (x) = case+ x of
   | T_KWORD(ATSfunbody_end()) => true | _ => false
 implement
@@ -892,6 +901,44 @@ if err = err0
   else tokbuf_set_ntok_null (buf, ntok0)
 //
 end // end of [parse_f0head]
+
+(* ****** ****** *)
+
+implement
+parse_extcode
+  (buf) = let
+//
+vtypedef res = List0_vt(token)
+//
+fun loop
+(
+  buf: &tokbuf >> _, res: res
+) : res = let
+//
+val tok = tokbuf_get_token_any (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_EOF () => res
+//
+| T_KWORD (ATSextcode_end()) => res
+//
+| _ (*rest*) => let
+    val () = tokbuf_incby1 (buf)
+  in
+    loop (buf, list_vt_cons (tok, res))
+  end // end of [_]
+//
+end // end of [loop]
+//
+val res = loop (buf, list_vt_nil())
+//
+in
+  list_vt2t (list_vt_reverse (res))
+end // end of [parse_extcode]
 
 (* ****** ****** *)
 

@@ -114,6 +114,9 @@ val-~None_vt() = kwordins ("ATSbranch_end", ATSbranch_end)
 val-~None_vt() = kwordins ("ATScaseof_beg", ATScaseof_beg)
 val-~None_vt() = kwordins ("ATScaseof_end", ATScaseof_end)
 //
+val-~None_vt() = kwordins ("ATSextcode_beg", ATSextcode_beg)
+val-~None_vt() = kwordins ("ATSextcode_end", ATSextcode_end)
+//
 val-~None_vt() = kwordins ("ATSfunbody_beg", ATSfunbody_beg)
 val-~None_vt() = kwordins ("ATSfunbody_end", ATSfunbody_end)
 //

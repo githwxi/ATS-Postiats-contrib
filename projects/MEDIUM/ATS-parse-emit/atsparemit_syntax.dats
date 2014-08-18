@@ -1271,4 +1271,18 @@ end // end of [d0ecl_ifndef]
   
 (* ****** ****** *)
 
+implement
+d0ecl_extcode
+(
+  tok1, extcode, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cextcode (extcode))
+end // end of [d0ecl_extcode]
+
+(* ****** ****** *)
+
 (* end of [atsparemit_syntax.dats] *)

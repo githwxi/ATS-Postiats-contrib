@@ -40,6 +40,7 @@ parerr_node =
 //
   | PARERR_ATSbranch_end of ()
   | PARERR_ATScaseof_end of ()
+  | PARERR_ATSextcode_end of ()
   | PARERR_ATSfunbody_end of ()
   | PARERR_ATStailcal_end of ()
 //
@@ -188,6 +189,11 @@ fun is_ATScaseof_end (x: tnode): bool
 
 (* ****** ****** *)
 
+fun p_ATSextcode_end : parser (token)
+fun is_ATSextcode_end (x: tnode): bool
+
+(* ****** ****** *)
+
 fun p_ATSfunbody_end : parser (token)
 fun is_ATSfunbody_end (x: tnode): bool
 
@@ -212,15 +218,17 @@ fun is_ATSINSmove_boxrec_end (x: tnode): bool
 fun
 ptest_fun{a:type}
 (
-  buf: &tokbuf >> _, f: parser (a), ent: &synent? >> synent
+  buf: &tokbuf >> _
+, f: parser (a), ent: &synent? >> synent
 ) : bool // end of [ptest_fun]
 
 (* ****** ****** *)
 
 fun
 pstar_fun{a:type}
-  (buf: &tokbuf >> _, bt: int, f: parser (a)): List0_vt(a)
-// end of [pstar_fun]
+(
+  buf: &tokbuf >> _, bt: int, f: parser (a)
+) : List0_vt(a) // end of [pstar_fun]
 
 (* ****** ****** *)
 
@@ -228,7 +236,8 @@ fun
 pstar_sep_fun
   {a:type}
 (
-  buf: &tokbuf >> _, bt: int, sep: (&tokbuf >> _) -> bool, f: parser(a)
+  buf: &tokbuf >> _, bt: int
+, sep: (&tokbuf >> _) -> bool, f: parser(a)
 ) : List0_vt (a) // end of [pstar_sep_fun]
 
 (* ****** ****** *)
@@ -236,15 +245,17 @@ pstar_sep_fun
 fun
 pstar_COMMA_fun
   {a:type}
-  (buf: &tokbuf >> _, bt: int, f: parser(a)): List0_vt(a)
-// end of [pstar_COMMA_fun]
+(
+  buf: &tokbuf >> _, bt: int, f: parser(a)
+) : List0_vt(a) // end of [pstar_COMMA_fun]
 
 (* ****** ****** *)
 
 fun
 pstar_fun0_sep
   {a:type} (
-  buf: &tokbuf >> _, bt: int, f: parser (a), sep: (&tokbuf >> _) -> bool
+  buf: &tokbuf >> _, bt: int
+, f: parser (a), sep: (&tokbuf >> _) -> bool
 ) : List0_vt (a) // end of [pstar_fun0_sep]
 
 (* ****** ****** *)
@@ -268,7 +279,8 @@ fun pif_fun
 fun
 ptest_SRPif0 (buf: &tokbuf >> _): bool
 fun
-pskip_SRPif0{n:pos} (buf: &tokbuf >> _, level: int(n)): void
+pskip_SRPif0{n:pos}
+  (buf: &tokbuf >> _, level: int(n)): void
 //
 (* ****** ****** *)
 
@@ -326,6 +338,10 @@ fun parse_f0body : parser (f0body)
 (* ****** ****** *)
 
 fun parse_f0decl : parser (f0decl)
+
+(* ****** ****** *)
+
+fun parse_extcode (buf: &tokbuf >> _): tokenlst
 
 (* ****** ****** *)
 

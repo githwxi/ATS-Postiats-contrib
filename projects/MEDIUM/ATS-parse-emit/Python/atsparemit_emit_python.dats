@@ -335,6 +335,11 @@ d0c.d0ecl_node of
 //
 | D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
 //
+| D0Cextcode _ =>
+  {
+    val () = emit_text (out, "#ATSextcode...")
+  }
+//
 end // end of [emit_d0ecl]
 
 (* ****** ****** *)

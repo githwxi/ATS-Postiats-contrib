@@ -758,7 +758,7 @@ end // end of [lexing_SLASHSLASH]
 (* ****** ****** *)
 
 implement
-lexbuf_get_token
+lexbuf_get_token_any
   (buf) = let
 //
 var res: int
@@ -822,10 +822,10 @@ case+ 0 of
     val loc = lexbuf_getincby_location (buf, 1)
 //
     val err =
-      lexerr_make (loc, LEXERR_UNSUPPORTED_char(c0))
-    val () = the_lexerrlst_insert (err)
+    lexerr_make (loc, LEXERR_UNSUPPORTED_char (c0))
+    val ((*inserted*)) = the_lexerrlst_insert (err)
   in
-    lexbuf_get_token (buf)
+    lexbuf_get_token_any (buf)
   end // end of [rest-of-char]
 //
 end // end of [then]
@@ -835,24 +835,24 @@ else let
   // end of [val]
 end // end of [else]
 //
-end // end of [lexing_get_token]
+end // end of [lexing_get_token_any]
 
 (* ****** ****** *)
 
 implement
-lexbuf_get_token_ncmnt
+lexbuf_get_token_skip
   (buf) = let
 //
-val tok = lexbuf_get_token (buf)
+val tok = lexbuf_get_token_any (buf)
 //
 in
 //
 case+ tok.token_node of
-| T_COMMENT_line () => lexbuf_get_token_ncmnt (buf)
-| T_COMMENT_block () => lexbuf_get_token_ncmnt (buf)
-| _(* non-comment *) => tok
+| T_COMMENT_line () => lexbuf_get_token_skip (buf)
+| T_COMMENT_block () => lexbuf_get_token_skip (buf)
+| _ (*non-comment*) => tok
 //
-end // end of [lexing_get_token_ncmnt]
+end // end of [lexing_get_token_skip]
 
 (* ****** ****** *)
 

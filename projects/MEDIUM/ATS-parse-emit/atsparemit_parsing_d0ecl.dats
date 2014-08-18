@@ -303,6 +303,19 @@ tok.token_node of
     // end of [if]
   end // end of [parse_fkind]
 //
+| T_KWORD(ATSextcode_beg()) => let
+    val bt = 0
+    val ent1 = parse_extcode (buf)
+    val ent2 = p_ATSextcode_end (buf, bt, err)
+    val ent3 = pif_fun (buf, bt, err, p_LPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then d0ecl_extcode (tok, ent1, ent4)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [
+//
 | _ (*error*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_d0ecl)

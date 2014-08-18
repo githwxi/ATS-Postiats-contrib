@@ -103,6 +103,9 @@ case+ x of
 | ATScaseof_beg () => pr "ATScaseof_beg"
 | ATScaseof_end () => pr "ATScaseof_end"
 //
+| ATSextcode_beg () => pr "ATSextcode_beg"
+| ATSextcode_end () => pr "ATSextcode_end"
+//
 | ATSfunbody_beg () => pr "ATSfunbody_beg"
 | ATSfunbody_end () => pr "ATSfunbody_end"
 //
@@ -278,9 +281,12 @@ in
 case+
 s0e.s0exp_node of
 //
-| S0Eide (id) => fprint! (out, "S0Eide(", id, ")")
-| S0Elist (s0es) => fprint! (out, "S0Elist(", s0es, ")")
-| S0Eappid (id, s0es) => fprint! (out, "S0Eappid(", id, "; ", s0es, ")")
+| S0Eide (id) =>
+    fprint! (out, "S0Eide(", id, ")")
+| S0Elist (s0es) =>
+    fprint! (out, "S0Elist(", s0es, ")")
+| S0Eappid (id, s0es) =>
+    fprint! (out, "S0Eappid(", id, "; ", s0es, ")")
 //
 end // end of [fprint_s0exp]
 //
@@ -474,12 +480,16 @@ x.d0ecl_node of
 //
 | D0Ctypedef (id, tyrec) =>
     fprint! (out, "D0Ctypedef(", id, "; ", "...", ")")
+//
 | D0Cdyncst_mac (name) =>
     fprint! (out, "D0Cdyncst_mac(", name, ")")
 | D0Cdyncst_extfun (name, s0es, s0e) =>
     fprint! (out, "D0Cdyncst_extfun(", name, ")")
+//
 | D0Cfundecl (knd, fdec) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
+//
+| D0Cextcode _ => fprint! (out, "D0Cextcode(", "...", ")")
 //
 end // end of [fprint_d0ecl]
 //

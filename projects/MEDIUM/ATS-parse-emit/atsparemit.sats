@@ -215,6 +215,9 @@ keyword =
   | ATScaseof_beg of ()
   | ATScaseof_end of ()
 //
+  | ATSextcode_beg of ()
+  | ATSextcode_end of ()
+//
   | ATSfunbody_beg of ()
   | ATSfunbody_end of ()
 //
@@ -346,11 +349,12 @@ typedef token = '{
 
 (* ****** ****** *)
 
-fun token_get_loc (token): loc_t
+typedef tokenlst = List0 (token)
+typedef tokenopt = Option (token)
 
 (* ****** ****** *)
 
-typedef tokenopt = Option (token)
+fun token_get_loc (token): loc_t
 
 (* ****** ****** *)
 
@@ -483,17 +487,18 @@ fun lexbuf_remove
 fun lexbuf_remove_all (buf: &lexbuf >> _): void
 
 (* ****** ****** *)
-
-fun lexbuf_takeout (buf: &lexbuf >> _, nchr: intGte(0)): Strptr1
-
+//
+fun lexbuf_takeout
+  (buf: &lexbuf >> _, nchr: intGte(0)): Strptr1
+//
 (* ****** ****** *)
 
 fun lexbuf_get_char (buf: &lexbuf >> _): int
 
 (* ****** ****** *)
 
-fun lexbuf_get_token (buf: &lexbuf >> _): token
-fun lexbuf_get_token_ncmnt (buf: &lexbuf >> _): token
+fun lexbuf_get_token_any (buf: &lexbuf >> _): token
+fun lexbuf_get_token_skip (buf: &lexbuf >> _): token
 
 (* ****** ****** *)
 //
@@ -550,12 +555,15 @@ fun
 tokbuf_incby_count (buf: &tokbuf >> _, n: size_t): void
 
 (* ****** ****** *)
-
+//
 fun
 tokbuf_get_token (buf: &tokbuf >> _): token
 fun
+tokbuf_get_token_any (buf: &tokbuf >> _): token
+//
+fun
 tokbuf_getinc_token (buf: &tokbuf >> _): token
-
+//
 (* ****** ****** *)
 
 fun
@@ -917,6 +925,9 @@ d0ecl_node =
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
   | D0Cfundecl of (fkind, f0decl)
+//
+  | D0Cextcode of (tokenlst)
+//
 // end of [d0ecl_node]
 
 where
