@@ -564,11 +564,7 @@ case+ 0 of
   in
     case+ opt of
     | None () => s0exp_ide (loc, id)
-    | Some (s0e) => let
-        val-S0Elist (s0es) = s0e.s0exp_node
-      in
-        s0exp_appid (loc ++ s0e.s0exp_loc, id, s0es)
-      end
+    | Some (s0e) => s0exp_appid (id, s0e)
   end
 //
 | _ => let
@@ -592,14 +588,12 @@ parse_s0expseq
 
 (*
 //
-s0expargopt =
-  | /* empty */
-  | '(' s0expseq ')'
+s0exparg = '(' s0expseq ')'
 //
 *)
   
 implement
-parse_s0expargopt
+parse_s0exparg
   (buf, bt, err) = let
 //
 val err0 = err
@@ -618,21 +612,37 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val s0es = parse_s0expseq (buf, bt, err)
-    val tok2 = p_RPAREN (buf, bt, err)
+    val ent2 = pif_fun(buf, bt, err, p_RPAREN, err0)
   in
     if err = err0
       then let
-        val s2e =
-        s0exp_list (loc ++ tok2.token_loc, s0es)
+        val loc2 = token_get_loc (ent2)
       in
-        Some (s2e)
+        s0exp_list (loc ++ loc2, s0es)
       end // end of [then]
-      else let
-        val () = tokbuf_set_ntok (buf, n0) in None ()
-      end // end of [else]
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
   end
 //
-| _ (*non-LPAERN*) => None ()
+| _ (*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end // end of [_]
+//
+end // end of [parse_s0exparg]
+  
+(* ****** ****** *)
+  
+implement
+parse_s0expargopt
+  (buf, bt, err) = let
+//
+val err0 = err
+val s0arg = parse_s0exparg (buf, bt, err)
+//
+in
+//
+if err0 = err
+  then Some(s0arg) else (err := err0; None())
 //
 end // end of [parse_s0expargopt]
   

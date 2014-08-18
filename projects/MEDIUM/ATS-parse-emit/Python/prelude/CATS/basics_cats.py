@@ -15,10 +15,15 @@ def ATSCKisneqz(x): return (x != 0)
 def ATSCKptrisnil(xs): return (xs == None)
 def ATSCKptriscons(xs): return (xs != None)
 #
+def ATSCKpat_int(tmp, given): return (tmp == given)
+def ATSCKpat_bool(tmp, given): return (tmp == given)
+def ATSCKpat_char(tmp, given): return (tmp == given)
+def ATSCKpat_float(tmp, given): return (tmp == given)
+#
 ############################################
 #
-def atspre2py_list_nil(): return (0)
-def atspre2py_list_cons(x, xs): return (x, xs)
+def ats2pypre_list_nil(): return None
+def ats2pypre_list_cons(x, xs): return (x, xs)
 #
 ############################################
 

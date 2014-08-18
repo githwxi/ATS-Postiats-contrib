@@ -9,45 +9,45 @@
 
 ############################################
 #
-def atspre2py_succ_int0(x): return (x + 1)
-def atspre2py_succ_int1(x): return (x + 1)
+def ats2pypre_succ_int0(x): return (x + 1)
+def ats2pypre_succ_int1(x): return (x + 1)
 #
-def atspre2py_pred_int0(x): return (x - 1)
-def atspre2py_pred_int1(x): return (x - 1)
-#
-############################################
-#
-def atspre2py_add_int0_int0(x, y): return (x + y)
-def atspre2py_add_int1_int1(x, y): return (x + y)
-#
-def atspre2py_sub_int0_int0(x, y): return (x - y)
-def atspre2py_sub_int1_int1(x, y): return (x - y)
-#
-def atspre2py_mul_int0_int0(x, y): return (x * y)
-def atspre2py_mul_int1_int1(x, y): return (x * y)
-#
-def atspre2py_div_int0_int0(x, y): return (x // y)
-def atspre2py_div_int1_int1(x, y): return (x // y)
+def ats2pypre_pred_int0(x): return (x - 1)
+def ats2pypre_pred_int1(x): return (x - 1)
 #
 ############################################
 #
-def atspre2py_lt_int0_int0(x, y): return (x < y)
-def atspre2py_lt_int1_int1(x, y): return (x < y)
+def ats2pypre_add_int0_int0(x, y): return (x + y)
+def ats2pypre_add_int1_int1(x, y): return (x + y)
 #
-def atspre2py_lte_int0_int0(x, y): return (x <= y)
-def atspre2py_lte_int1_int1(x, y): return (x <= y)
+def ats2pypre_sub_int0_int0(x, y): return (x - y)
+def ats2pypre_sub_int1_int1(x, y): return (x - y)
 #
-def atspre2py_gt_int0_int0(x, y): return (x > y)
-def atspre2py_gt_int1_int1(x, y): return (x > y)
+def ats2pypre_mul_int0_int0(x, y): return (x * y)
+def ats2pypre_mul_int1_int1(x, y): return (x * y)
 #
-def atspre2py_gte_int0_int0(x, y): return (x >= y)
-def atspre2py_gte_int1_int1(x, y): return (x >= y)
+def ats2pypre_div_int0_int0(x, y): return (x // y)
+def ats2pypre_div_int1_int1(x, y): return (x // y)
 #
-def atspre2py_eq_int0_int0(x, y): return (x == y)
-def atspre2py_eq_int1_int1(x, y): return (x == y)
+############################################
 #
-def atspre2py_neq_int0_int0(x, y): return (x != y)
-def atspre2py_neq_int1_int1(x, y): return (x != y)
+def ats2pypre_lt_int0_int0(x, y): return (x < y)
+def ats2pypre_lt_int1_int1(x, y): return (x < y)
+#
+def ats2pypre_lte_int0_int0(x, y): return (x <= y)
+def ats2pypre_lte_int1_int1(x, y): return (x <= y)
+#
+def ats2pypre_gt_int0_int0(x, y): return (x > y)
+def ats2pypre_gt_int1_int1(x, y): return (x > y)
+#
+def ats2pypre_gte_int0_int0(x, y): return (x >= y)
+def ats2pypre_gte_int1_int1(x, y): return (x >= y)
+#
+def ats2pypre_eq_int0_int0(x, y): return (x == y)
+def ats2pypre_eq_int1_int1(x, y): return (x == y)
+#
+def ats2pypre_neq_int0_int0(x, y): return (x != y)
+def ats2pypre_neq_int1_int1(x, y): return (x != y)
 #
 ############################################
 

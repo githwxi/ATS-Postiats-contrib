@@ -75,7 +75,7 @@ println!
 //
 val d0cs = parse_from_fileref (stdin_ref)
 (*
-val ((*void*)) = fprint! (stdout_ref, "d0cs =\n", d0cs)
+val () = fprint! (stdout_ref, "d0cs =\n", d0cs)
 *)
 //
 val () = emit_toplevel (stdout_ref, d0cs)

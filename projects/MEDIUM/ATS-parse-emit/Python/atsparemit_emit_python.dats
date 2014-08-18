@@ -132,6 +132,15 @@ in
 end // end of [emit_PMVstring]
 
 (* ****** ****** *)
+
+implement
+emit_PMVfunlab
+  (out, flab) = let
+in
+  emit_label (out, flab)
+end // end of [emit_PMVfunlab]
+
+(* ****** ****** *)
 //
 implement
 emit_i0de
@@ -144,11 +153,11 @@ emit_label
 
 implement
 emit_d0exp
-  (out, d0e) = let
+  (out, d0e0) = let
 in
 //
 case+
-d0e.d0exp_node of
+d0e0.d0exp_node of
 //
 | D0Eide (id) =>
   {
@@ -157,7 +166,14 @@ d0e.d0exp_node of
 //
 | D0Eappid (id, d0es) =>
   {
-    val () = emit_symbol (out, id)
+    val () = emit_i0de (out, id)
+    val () = emit_LPAREN (out)
+    val () = emit_d0explst (out, d0es)
+    val () = emit_RPAREN (out)
+  }
+| D0Eappexp (d0e, d0es) =>
+  {
+    val () = emit_d0exp (out, d0e)
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
@@ -180,13 +196,17 @@ d0e.d0exp_node of
 //
 | ATSPMVf0loat (tok) => emit_text (out, "ATSPMVf0loat(...)")
 //
-| ATSSELcon _ => emit_SELcon (out, d0e)
+| ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
+//
+| ATSSELcon _ => emit_SELcon (out, d0e0)
 //
 | ATSSELrecsin _ => emit_text (out, "ATSSELrecsin(...)")
 //
-| ATSSELboxrec _ => emit_SELboxrec (out, d0e)
+| ATSSELboxrec _ => emit_SELboxrec (out, d0e0)
 //
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
+//
+| ATSfunclo_fun (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
 //
 end // end of [emit_d0exp]
 

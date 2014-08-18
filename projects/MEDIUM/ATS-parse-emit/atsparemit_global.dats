@@ -128,9 +128,13 @@ val-~None_vt() = kwordins ("ATSPMVstring", ATSPMVstring)
 val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)
 val-~None_vt() = kwordins ("ATSPMVf0loat", ATSPMVf0loat)
 //
+val-~None_vt() = kwordins ("ATSPMVfunlab", ATSPMVfunlab)
+//
 val-~None_vt() = kwordins ("ATSSELcon", ATSSELcon)
 val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
 val-~None_vt() = kwordins ("ATSSELboxrec", ATSSELboxrec)
+//
+val-~None_vt() = kwordins ("ATSfunclo_fun", ATSfunclo_fun)
 //
 val-~None_vt() = kwordins ("ATSINSlab", ATSINSlab)
 val-~None_vt() = kwordins ("ATSINSgoto", ATSINSgoto)
@@ -141,6 +145,7 @@ val-~None_vt() = kwordins ("ATSINSfgoto", ATSINSfgoto)
 val-~None_vt() = kwordins ("ATSINSmove", ATSINSmove)
 val-~None_vt() = kwordins ("ATSINSmove_void", ATSINSmove_void)
 //
+val-~None_vt() = kwordins ("ATSINSmove_nil", ATSINSmove_nil)
 val-~None_vt() = kwordins ("ATSINSmove_con0", ATSINSmove_con0)
 //
 val-~None_vt() = kwordins ("ATSINSmove_con1_beg", ATSINSmove_con1_beg)

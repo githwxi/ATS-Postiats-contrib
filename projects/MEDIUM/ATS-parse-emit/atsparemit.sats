@@ -4,6 +4,32 @@
 //
 (* ****** ****** *)
 //
+(*
+The MIT License (MIT)
+
+Copyright (c) 2014 Hongwei Xi
+
+Permission is hereby granted,  free of charge,  to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use,  copy,  modify, merge, publish, distribute, sublicense,
+and/or  sell  copies  of  the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*)
+//
+(* ****** ****** *)
+//
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
@@ -203,9 +229,13 @@ keyword =
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
+  | ATSPMVfunlab of ()
+//
   | ATSSELcon of ()
   | ATSSELfltrec of ()
   | ATSSELboxrec of ()
+//
+  | ATSfunclo_fun of ()
 //
   | ATSINSlab of ()
   | ATSINSgoto of ()
@@ -216,6 +246,7 @@ keyword =
   | ATSINSmove of ()
   | ATSINSmove_void of ()
 //
+  | ATSINSmove_nil of ()
   | ATSINSmove_con0 of ()
   | ATSINSmove_con1_beg of ()
   | ATSINSmove_con1_end of ()
@@ -312,6 +343,10 @@ typedef tnode = token_node
 typedef token = '{
   token_loc= loc_t, token_node= tnode
 } (* end of [token] *)
+
+(* ****** ****** *)
+
+fun token_get_loc (token): loc_t
 
 (* ****** ****** *)
 
@@ -590,7 +625,7 @@ datatype
 s0exp_node =
   | S0Eide of symbol
   | S0Elist of (s0explst) // temp
-  | S0Eappid of (symbol, s0explst)
+  | S0Eappid of (i0de, s0explst)
 // end of [s0exp_node]
 
 where
@@ -636,7 +671,8 @@ datatype
 d0exp_node =
   | D0Eide of symbol
   | D0Elist of (d0explst) // temp
-  | D0Eappid of (symbol, d0explst)
+  | D0Eappid of (i0de, d0explst)
+  | D0Eappexp of (d0exp, d0explst)
 //
   | ATSPMVint of i0nt
   | ATSPMVbool of bool
@@ -645,10 +681,14 @@ d0exp_node =
   | ATSPMVi0nt of i0nt
   | ATSPMVf0loat of f0loat
 //
+  | ATSPMVfunlab of (label)
+//
   | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELboxrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELfltrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
+//
+  | ATSfunclo_fun of (d0exp, s0exp(*arg*), s0exp(*res*))
 // end of [d0exp_node]
 
 where
@@ -785,6 +825,7 @@ instr_node =
   | ATSINSmove of (i0de, d0exp)
   | ATSINSmove_void of (i0de, d0exp)
 //
+  | ATSINSmove_nil of (i0de)
   | ATSINSmove_con0 of (i0de, token(*tag*))
 //
   | ATSINSmove_con1 of (instrlst)

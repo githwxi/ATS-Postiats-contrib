@@ -65,6 +65,8 @@ fun emit_PMVstring : emit_type (s0tring)
 //
 fun emit_PMVf0loat : emit_type (i0nt)
 //
+fun emit_PMVfunlab : emit_type (label)
+//
 (* ****** ****** *)
 
 fun emit_i0de : emit_type (i0de)

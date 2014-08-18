@@ -291,6 +291,7 @@ tok.token_node of
   (
     buf, parse_fkind, ent
   ) => let
+    val bt = 0
     val ent1 =
       synent_decode2{fkind}(ent)
     // end of [val]

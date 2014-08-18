@@ -117,6 +117,8 @@ case+ x of
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
 | ATSPMVf0loat () => pr "ATSPMVf0loat"
 //
+| ATSPMVfunlab () => pr "ATSPMVfunlab"
+//
 | ATSINSlab () => pr "ATSINSlab"
 | ATSINSgoto () => pr "ATSINSgoto"
 //
@@ -127,9 +129,12 @@ case+ x of
 | ATSSELfltrec () => pr "ATSSELfltrec"
 | ATSSELboxrec () => pr "ATSSELboxrec"
 //
+| ATSfunclo_fun () => pr "ATSfunclo_fun"
+//
 | ATSINSmove () => pr "ATSINSmove"
 | ATSINSmove_void () => pr "ATSINSmove_void"
 //
+| ATSINSmove_nil () => pr "ATSINSmove_nil"
 | ATSINSmove_con0 () => pr "ATSINSmove_con0"
 //
 | ATSINSmove_con1_beg () => pr "ATSINSmove_con1_beg"
@@ -309,7 +314,11 @@ d0e.d0exp_node of
 //
 | D0Eide (id) => fprint! (out, "D0Eide(", id, ")")
 | D0Elist (d0es) => fprint! (out, "D0Elist(", d0es, ")")
-| D0Eappid (id, d0es) => fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
+//
+| D0Eappid (id, d0es) =>
+    fprint! (out, "D0Eappid(", id, "; ", d0es, ")")
+| D0Eappexp (d0e, d0es) =>
+    fprint! (out, "D0Eappexp(", d0e, "; ", d0es, ")")
 //
 | ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
 //
@@ -323,6 +332,8 @@ d0e.d0exp_node of
 | ATSPMVs0tring (tok) => fprint! (out, "ATSPMVs0tring(", tok, ")")
 *)
 //
+| ATSPMVfunlab (flab) => fprint! (out, "ATSPMVfunlab(", flab, ")")
+//
 | ATSSELcon (d0e, s0e, lab) =>
     fprint! (out, "ATSSELcon(", d0e, ";", s0e, ";", lab, ")")
 | ATSSELrecsin (d0e, s0e, lab) =>
@@ -331,6 +342,9 @@ d0e.d0exp_node of
     fprint! (out, "ATSSELboxrec(", d0e, ";", s0e, ";", lab, ")")
 | ATSSELfltrec (d0e, s0e, lab) =>
     fprint! (out, "ATSSELfltrec(", d0e, ";", s0e, ";", lab, ")")
+//
+| ATSfunclo_fun (d0e, arg, res) => 
+    fprint! (out, "ATSfunclo_fun(", d0e, ";", arg, ";", res, ")")
 //
 end // end of [fprint_d0exp]
 //

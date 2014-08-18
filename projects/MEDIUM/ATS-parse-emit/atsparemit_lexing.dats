@@ -26,6 +26,11 @@ staload "./atsparemit.sats"
 macdef EOL = char2int0('\n')
 
 (* ****** ****** *)
+
+implement
+token_get_loc (tok) = tok.token_loc
+
+(* ****** ****** *)
 //
 implement
 token_make (loc, node) =
