@@ -125,6 +125,15 @@ in
 end // end of [emit_PMVstring]
 
 (* ****** ****** *)
+
+implement
+emit_PMVfunlab
+  (out, flab) = let
+in
+  emit_label (out, flab)
+end // end of [emit_PMVfunlab]
+
+(* ****** ****** *)
 //
 implement
 emit_i0de
@@ -179,6 +188,8 @@ d0e0.d0exp_node of
 | ATSPMVstring (tok) => emit_PMVstring (out, tok)
 //
 | ATSPMVf0loat (tok) => emit_text (out, "ATSPMVf0loat(...)")
+//
+| ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 //

@@ -4,6 +4,32 @@
 //
 (* ****** ****** *)
 //
+(*
+The MIT License (MIT)
+
+Copyright (c) 2014 Hongwei Xi
+
+Permission is hereby granted,  free of charge,  to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use,  copy,  modify, merge, publish, distribute, sublicense,
+and/or  sell  copies  of  the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*)
+//
+(* ****** ****** *)
+//
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
@@ -203,6 +229,8 @@ keyword =
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
+  | ATSPMVfunlab of ()
+//
   | ATSSELcon of ()
   | ATSSELfltrec of ()
   | ATSSELboxrec of ()
@@ -218,6 +246,7 @@ keyword =
   | ATSINSmove of ()
   | ATSINSmove_void of ()
 //
+  | ATSINSmove_nil of ()
   | ATSINSmove_con0 of ()
   | ATSINSmove_con1_beg of ()
   | ATSINSmove_con1_end of ()
@@ -652,6 +681,8 @@ d0exp_node =
   | ATSPMVi0nt of i0nt
   | ATSPMVf0loat of f0loat
 //
+  | ATSPMVfunlab of (label)
+//
   | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELboxrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
@@ -794,6 +825,7 @@ instr_node =
   | ATSINSmove of (i0de, d0exp)
   | ATSINSmove_void of (i0de, d0exp)
 //
+  | ATSINSmove_nil of (i0de)
   | ATSINSmove_con0 of (i0de, token(*tag*))
 //
   | ATSINSmove_con1 of (instrlst)

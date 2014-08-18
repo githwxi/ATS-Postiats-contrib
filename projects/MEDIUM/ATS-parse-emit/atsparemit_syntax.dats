@@ -198,6 +198,21 @@ end // end of [ATSPMVi0nt]
 (* ****** ****** *)
 
 implement
+ATSPMVfunlab_make
+(
+  tok1, flab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVfunlab (flab))
+end // end of [ATSPMVfunlab]
+
+(* ****** ****** *)
+
+implement
 ATSSELcon_make
 (
   tok1, d0e, s0e, lab, tok2
@@ -761,6 +776,21 @@ val loc =
 in
   instr_make_node (loc, ATSINSmove_void (tmp, d0e))
 end // end of [ATSINSmove_void_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_nil_make
+(
+  tok1, tmp, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_nil (tmp))
+end // end of [ATSINSmove_nil_make]
 
 (* ****** ****** *)
 

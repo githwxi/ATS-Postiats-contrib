@@ -118,6 +118,20 @@ tok.token_node of
     // end of [if]
   end // end of [ATSPMVi0nt]
 //
+| T_KWORD(ATSPMVfunlab()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_label, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSPMVfunlab_make (tok, ent2, ent3)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVfunlab]
+//
 | T_KWORD(ATSSELcon()) => let
     val bt = 0
     val () = incby1 ()

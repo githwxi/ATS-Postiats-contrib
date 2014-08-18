@@ -797,6 +797,14 @@ ins0.instr_node of
     val () = emit_d0exp (out, d0e)
   } (* end of [ATSINSmove] *)
 //
+| ATSINSmove_nil (tmp) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_i0de (out, tmp)
+    val () = emit_text (out, " = ")
+    val () = emit_text (out, "None")
+  }
+//
 | ATSINSmove_con0 (tmp, tag) =>
   {
     val () = emit_nspc (out, ind)

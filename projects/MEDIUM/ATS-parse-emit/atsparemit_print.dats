@@ -117,6 +117,8 @@ case+ x of
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
 | ATSPMVf0loat () => pr "ATSPMVf0loat"
 //
+| ATSPMVfunlab () => pr "ATSPMVfunlab"
+//
 | ATSINSlab () => pr "ATSINSlab"
 | ATSINSgoto () => pr "ATSINSgoto"
 //
@@ -132,6 +134,7 @@ case+ x of
 | ATSINSmove () => pr "ATSINSmove"
 | ATSINSmove_void () => pr "ATSINSmove_void"
 //
+| ATSINSmove_nil () => pr "ATSINSmove_nil"
 | ATSINSmove_con0 () => pr "ATSINSmove_con0"
 //
 | ATSINSmove_con1_beg () => pr "ATSINSmove_con1_beg"
@@ -328,6 +331,8 @@ d0e.d0exp_node of
 (*
 | ATSPMVs0tring (tok) => fprint! (out, "ATSPMVs0tring(", tok, ")")
 *)
+//
+| ATSPMVfunlab (flab) => fprint! (out, "ATSPMVfunlab(", flab, ")")
 //
 | ATSSELcon (d0e, s0e, lab) =>
     fprint! (out, "ATSSELcon(", d0e, ";", s0e, ";", lab, ")")

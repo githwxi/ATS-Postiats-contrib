@@ -87,6 +87,14 @@ ATSPMVf0loat_make
 ) : d0exp // end-of-fun
 //
 (* ****** ****** *)
+
+fun
+ATSPMVfunlab_make
+(
+  tok_kwd: token, flab: label, tok_end: token
+) : d0exp // end-of-fun
+
+(* ****** ****** *)
 //
 fun
 ATSSELcon_make
@@ -291,6 +299,12 @@ ATSINSmove_void_make
 ) : instr // end of [ATSINSmove_void_make]
 //
 (* ****** ****** *)
+//
+fun
+ATSINSmove_nil_make
+(
+  tok_kwd: token, tmp: i0de, tok_end: token
+) : instr // end of [ATSINSmove_nil_make]
 //
 fun
 ATSINSmove_con0_make
