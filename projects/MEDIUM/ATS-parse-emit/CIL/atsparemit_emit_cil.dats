@@ -31,6 +31,18 @@ staload "./atsparemit_topenv.dats"
 //
 (* ****** ****** *)
 
+fn
+symbol_is_arg (x: symbol) :<> bool = let
+  val name = g1ofg0_string (symbol_get_name (x))
+in
+  if strlen (name) >= 4 then
+   string_get_at (name, 0) = 'a' && string_get_at (name, 1) = 'r' && string_get_at (name, 2) = 'g'
+   && isdigit (string_get_at (name, 3))
+  else false
+end // end of [symbol_is_arg]
+
+(* ****** ****** *)
+
 implement
 emit_ENDL (out) = emit_text (out, "\n")
 
@@ -170,7 +182,7 @@ s0e.s0exp_node of
 | S0Eappid (id, s0es) =>
     // FIXME: what about other types? e.g. array types? struct types?
     () where {
-      val () = emit_symbol (out, id)
+      val () = emit_i0de (out, id)
       val () = emit_LPAREN (out)
       val () = emit_s0explst (out, s0es)
       val () = emit_RPAREN (out)
@@ -344,7 +356,11 @@ d0e.d0exp_node of
 //
 | D0Eide (id) =>
   {
-    val () = emit_text (out, "ldloc")
+    val () =
+      if symbol_is_arg (id)
+        then emit_text (out, "ldarg")
+        else emit_text (out, "ldloc")
+    // end of [val]
     val () = emit_SPACE (out)
     val () = emit_symbol (out, id)
   }
@@ -354,7 +370,7 @@ d0e.d0exp_node of
     val () = emit_d0explst (out, d0es)
     val () = emit_text (out, "call")
     val () = emit_SPACE (out)
-    val () = emit_symbol (out, id) // FIXME: need also type of [id]!
+    val () = emit_i0de (out, id) // FIXME: need also type of [id]!
   }
 //
 //
@@ -615,7 +631,11 @@ ins0.instr_node of
   {
     val () = emit_d0exp (out, d0e)
     val () = emit_newline (out)
-    val () = emit_text (out, "stloc")
+    val () =
+      if symbol_is_arg (tmp.i0de_sym)
+        then emit_text (out, "starg")
+        else emit_text (out, "stloc")
+    // end of [val]    
     val () = emit_SPACE (out)
     val () = emit_i0de (out, tmp)
   } (* end of [ATSINSmove] *)
@@ -860,16 +880,26 @@ in
 case+
 d0c.d0ecl_node of
 //
-| D0Cinclude include => ()
-  where {
+| D0Cinclude include =>
+  {
     val () = emit_text (out, "#include")
     val () = emit_SPACE (out)
 //    val () = emit_text (out, include)
     val () = emit_newline (out)
   }
 //
-| D0Cifdef (i0de, d0eclist) => ()
-| D0Cifndef (i0de, d0eclist) => ()
+| D0Cifdef (i0de, d0eclist) =>
+  {
+    val () = emit_text (out, "#ifdef")
+    val () = emit_SPACE (out)
+    val () = emit_newline (out)
+  }
+| D0Cifndef (i0de, d0eclist) =>
+  {
+    val () = emit_text (out, "#ifndef")
+    val () = emit_SPACE (out)
+    val () = emit_newline (out)
+  }
 //
 | D0Ctypedef (id, def) =>
   {
