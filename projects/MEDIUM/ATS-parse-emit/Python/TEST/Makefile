@@ -42,14 +42,16 @@ cleanall:: ; $(RMF) fact2_dats.py
 
 ######
 
-all:: f91_dats.py
+all:: \
+f91_dats.py
 f91_dats.py: f91.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
 regress:: f91_dats.py ; python3 f91_dats.py 23
 cleanall:: ; $(RMF) f91_dats.py
 
 ######
 
-all:: fib_dats.py
+all:: \
+fib_dats.py
 fib_dats.py: fib.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
 regress:: fib_dats.py ; python3 fib_dats.py 100
 cleanall:: ; $(RMF) fib_dats.py

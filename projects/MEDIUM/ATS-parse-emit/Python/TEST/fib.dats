@@ -4,10 +4,10 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
 "./../prelude/SATS/integer.sats"
-
+//
 (* ****** ****** *)
 //
 extern
@@ -22,7 +22,7 @@ fun aux (ff: '(int, int), n: int): int =
 //
 in
   aux ( '(0, 1), n )
-end // end of [fib2]
+end // end of [fib]
 //
 (* ****** ****** *)
 

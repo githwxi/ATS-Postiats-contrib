@@ -1,5 +1,6 @@
 #
-# Makefile ATS-parsemit-python
+# Makefile for
+# ATS-parse-emit-python
 #
 
 ######

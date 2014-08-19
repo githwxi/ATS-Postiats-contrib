@@ -939,7 +939,7 @@ case+ tok.token_node of
 | T_SPACES _ => lexbuf_get_token_skip (buf)
 | T_COMMENT_line () => lexbuf_get_token_skip (buf)
 | T_COMMENT_block () => lexbuf_get_token_skip (buf)
-| _ (*non-comment*) => tok
+| _ (*non-SKIP*) => tok
 //
 end // end of [lexing_get_token_skip]
 
