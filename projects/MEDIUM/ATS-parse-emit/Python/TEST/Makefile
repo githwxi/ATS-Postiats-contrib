@@ -13,10 +13,6 @@ ATSPAREMIT=./../atsparemit
 
 ######
 
-RMF=rm -f
-
-######
-
 all::
 regress::
 cleanall::
@@ -24,12 +20,14 @@ cleanall::
 ######
 
 RMF=rm -f
+RMRF=rm -rf
 
 ######
 
 all:: \
 fact_dats.py
-fact_dats.py: fact.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+fact_dats.py: \
+fact.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
 regress:: fact_dats.py ; python3 fact_dats.py 10
 cleanall:: ; $(RMF) fact_dats.py
 
@@ -37,7 +35,8 @@ cleanall:: ; $(RMF) fact_dats.py
 
 all:: \
 fact2_dats.py
-fact2_dats.py: fact2.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+fact2_dats.py: \
+fact2.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
 regress:: fact2_dats.py ; python3 fact2_dats.py 10
 cleanall:: ; $(RMF) fact2_dats.py
 
@@ -57,8 +56,10 @@ cleanall:: ; $(RMF) fib_dats.py
 
 ######
 
-all:: fibats_dats.py
-fibats_dats.py: fibats.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+all:: \
+fibats_dats.py
+fibats_dats.py: \
+fibats.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
 regress:: fibats_dats.py ; python3 fibats_dats.py 100
 cleanall:: ; $(RMF) fibats_dats.py
 
@@ -68,7 +69,7 @@ all:: \
 acker_dats.py
 acker_dats.py: \
 acker.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: acker_dats.py ; python3 acker_dats.py 3 6
+regress:: acker_dats.py ; python3 acker_dats.py 3 3
 cleanall:: ; $(RMF) acker_dats.py
 
 ######
@@ -104,12 +105,12 @@ cleanall:: ; $(RMF) listlen_dats.py
 ######
 
 all:: \
-pylist_dats.py
-pylist_dats.py: \
-pylist.dats ; \
+pylist_test_dats.py
+pylist_test_dats.py: \
+pylist_test.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: pylist_dats.py ; python3 pylist_dats.py
-cleanall:: ; $(RMF) pylist_dats.py
+regress:: pylist_test_dats.py ; python3 pylist_test_dats.py
+cleanall:: ; $(RMF) pylist_test_dats.py
 
 ######
 
@@ -120,5 +121,6 @@ clean:: ; $(RMF) *~
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.c
 cleanall:: ; $(RMF) *_?ats.pyc
+cleanall:: ; $(RMRF) __pycache__
 
 ###### end of [Makefile] ######

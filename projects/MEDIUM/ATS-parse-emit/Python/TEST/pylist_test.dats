@@ -70,6 +70,7 @@ import sys
 ######
 #
 from basics_cats import *
+#
 from integer_cats import *
 #
 from pylist_cats import *
@@ -92,9 +93,11 @@ xs = fromto(0, 10)
 print("xs =", xs)
 ys = pylist2list(xs)
 print("ys =", ys)
+ys_rev = pylist2list_rev(xs)
+print("ys_rev =", ys_rev)
 
 %} // end of [%{$]
 
 (* ****** ****** *)
 
-(* end of [pylist.dats] *)
+(* end of [pylist_test.dats] *)

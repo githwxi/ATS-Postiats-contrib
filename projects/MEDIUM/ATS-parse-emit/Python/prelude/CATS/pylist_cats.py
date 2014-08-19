@@ -5,7 +5,13 @@
 #
 ######
 
-###### beg of [pylist_cats.py] ######
+######
+# beg of [pylist_cats.py]
+######
+
+######
+from basics_cats import *
+######
 
 ############################################
 
@@ -37,9 +43,18 @@ def pylist_filter(xs, f): return list(filter(f, xs))
 
 ############################################
 
-def pylist_reduce(xs, ini, f):
+def \
+pylist_reduce(xs, ini, f):
   res = ini
   for x in iter(xs): res = f(res, x)
+  return res
+
+############################################
+
+def \
+pylist2list_rev(xs):
+  res = ats2pypre_list_nil()
+  for x in iter(xs): res = ats2pypre_list_cons(x, res)
   return res
 
 ############################################

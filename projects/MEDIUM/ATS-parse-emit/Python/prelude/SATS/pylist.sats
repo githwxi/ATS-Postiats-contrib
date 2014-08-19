@@ -84,9 +84,17 @@ pylist_filter{a:t0p}
 (* ****** ****** *)
 //
 fun
-pylist_reduce{a:t0p}{b:t0p}
+pylist_reduce
+  {a:t0p}{b:t0p}
   (xs: pylist(b), ini: a, f: (a, b) -> a): (a) = "mac#"
 //
 (* ****** ****** *)
+//
+fun
+pylist2list{a:t0p} (xs: pylist (a)): List0 (a) = "mac#"
+fun
+pylist2list_rev{a:t0p} (xs: pylist (a)): List0 (a) = "mac#"
+//
+(* ****** ****** *)
 
-(* end of [basics.sats] *)
+(* end of [pylist.sats] *)
