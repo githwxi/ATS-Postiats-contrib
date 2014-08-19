@@ -103,6 +103,16 @@ cleanall:: ; $(RMF) listlen_dats.py
 
 ######
 
+all:: \
+pylist_dats.py
+pylist_dats.py: \
+pylist.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: pylist_dats.py ; python3 pylist_dats.py
+cleanall:: ; $(RMF) pylist_dats.py
+
+######
+
 clean:: ; $(RMF) *~
 
 ######

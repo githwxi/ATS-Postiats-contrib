@@ -4,9 +4,10 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "./../prelude/SATS/integer.sats"
-
+//
+staload
+"./../prelude/SATS/integer.sats"
+//
 (* ****** ****** *)
 //
 dataprop FIB (int, int) =
