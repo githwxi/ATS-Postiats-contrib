@@ -311,6 +311,13 @@ in
 end // end of [emit_SELboxrec]
 
 (* ****** ****** *)
+//
+#define
+ATSEXTCODE_BEG "######\n#ATSextcode_beg()\n######"
+#define
+ATSEXTCODE_END "######\n#ATSextcode_end()\n######\n"
+//
+(* ****** ****** *)
 
 implement
 emit_d0ecl
@@ -326,21 +333,68 @@ d0c.d0ecl_node of
 | D0Cifndef _ => ()
 //
 | D0Ctypedef (id, def) =>
-  {
-    val () = typedef_insert (id.i0de_sym, def)
-  } (* end of [D0Ctypedef] *)
+    typedef_insert (id.i0de_sym, def)
 //
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
 //
-| D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
+| D0Cfundecl
+    (fk, f0d) => emit_f0decl (out, f0d)
 //
-| D0Cextcode _ =>
+| D0Cextcode (toks) =>
   {
-    val () = emit_text (out, "#ATSextcode...")
+    val () = emit_text (out, ATSEXTCODE_BEG)
+    val () = emit_extcode (out, toks)
+    val () = emit_text (out, ATSEXTCODE_END)
   }
 //
 end // end of [emit_d0ecl]
+
+(* ****** ****** *)
+
+implement
+emit_extcode
+  (out, toks) = let
+//
+fun aux
+(
+  out: FILEref, tok: token
+) : void =
+(
+case+
+tok.token_node of
+//
+| T_KWORD _ => ()
+| T_INT (_, rep) => emit_text (out, rep)
+| T_IDENT_alp (name) => emit_text (out, name)
+| T_IDENT_srp (name) =>
+  (
+    emit_SHARP (out); emit_text (out, name)
+  )
+| T_IDENT_sym (name) => emit_text (out, name)
+//
+| T_ENDL () => emit_ENDL (out)
+| T_SPACES (cs) => emit_text (out, cs)
+//
+| T_LPAREN () => emit_LPAREN (out)
+| T_RPAREN () => emit_RPAREN (out)
+//
+| T_LBRACKET () => emit_LBRACKET (out)
+| T_RBRACKET () => emit_RBRACKET (out)
+//
+| _(*unrecognized*) => fprint (out, tok)
+)
+//
+in
+//
+case+ toks of
+| list_nil () => ()
+| list_cons (tok, toks) =>
+  (
+    aux (out, tok); emit_extcode (out, toks)
+  ) (* end of [list_cons] *)
+//
+end // end of [emit_extcode]
 
 (* ****** ****** *)
 

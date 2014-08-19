@@ -129,12 +129,17 @@ position =
 (* ****** ****** *)
 //
 fun
+position_byrow (pos: &position >> _): void
+//
+(* ****** ****** *)
+//
+fun
 position_incby1 (pos: &position >> _): void
 //
 fun
-position_decby (pos: &position >> _, n: intGte(0)): void
-fun
 position_incby (pos: &position >> _, n: intGte(0)): void
+fun
+position_decby (pos: &position >> _, n: intGte(0)): void
 //
 fun position_incby_char (pos: &position >> _, c: char): void
 //
@@ -330,6 +335,9 @@ token_node =
 //
 | T_SLASH of () // /
 //
+| T_ENDL of ()
+| T_SPACES of (string)
+//
 | T_COMMENT_line of () // line comment
 | T_COMMENT_block of () // block comment
 //
@@ -503,6 +511,8 @@ fun lexbuf_get_token_skip (buf: &lexbuf >> _): token
 (* ****** ****** *)
 //
 fun lexbufpos_get_location (buf: &lexbuf, pos: &position) : loc_t
+//
+fun lexbuf_getbyrow_location (buf: &lexbuf): loc_t
 fun lexbuf_getincby_location (buf: &lexbuf, nchr: intGte(0)): loc_t
 //
 (* ****** ****** *)

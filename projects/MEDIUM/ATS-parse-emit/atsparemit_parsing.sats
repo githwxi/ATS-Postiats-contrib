@@ -341,7 +341,7 @@ fun parse_f0decl : parser (f0decl)
 
 (* ****** ****** *)
 
-fun parse_extcode (buf: &tokbuf >> _): tokenlst
+fun parse_extcode : parser (tokenlst)
 
 (* ****** ****** *)
 

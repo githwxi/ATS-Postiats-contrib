@@ -906,7 +906,7 @@ end // end of [parse_f0head]
 
 implement
 parse_extcode
-  (buf) = let
+  (buf, bt, err) = let
 //
 vtypedef res = List0_vt(token)
 //

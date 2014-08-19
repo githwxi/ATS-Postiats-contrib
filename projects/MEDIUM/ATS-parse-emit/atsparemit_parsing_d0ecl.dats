@@ -305,13 +305,16 @@ tok.token_node of
 //
 | T_KWORD(ATSextcode_beg()) => let
     val bt = 0
-    val ent1 = parse_extcode (buf)
-    val ent2 = p_ATSextcode_end (buf, bt, err)
-    val ent3 = pif_fun (buf, bt, err, p_LPAREN, err0)
-    val ent4 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val () = incby1 ()
+    val ent1 = pif_fun (buf, bt, err, p_LPAREN, err0)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent3 = pif_fun (buf, bt, err, parse_extcode, err0)
+    val ent4 = pif_fun (buf, bt, err, p_ATSextcode_end, err0)
+    val ent5 = pif_fun (buf, bt, err, p_LPAREN, err0)
+    val ent6 = pif_fun (buf, bt, err, p_RPAREN, err0)
   in
     if err = err0
-      then d0ecl_extcode (tok, ent1, ent4)
+      then d0ecl_extcode (tok, ent3, ent6)
       else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [

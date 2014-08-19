@@ -96,6 +96,10 @@ fun emit_f0decl : emit_type (f0decl)
 
 (* ****** ****** *)
 
+fun emit_extcode : emit_type (tokenlst)
+
+(* ****** ****** *)
+
 fun emit_toplevel : emit_type (d0eclist)
 
 (* ****** ****** *)

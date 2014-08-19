@@ -212,13 +212,28 @@ end (* end of [lexbuf_get_char] *)
 (* ****** ****** *)
 
 implement
+lexbuf_getbyrow_location
+  (buf) = loc where
+{
+//
+var pos: position
+val () = lexbuf_get_position (buf, pos)
+val () = position_byrow (pos) // by-1-row
+val loc = lexbufpos_get_location (buf, pos)
+val () = lexbuf_set_position (buf, pos)
+//
+} (* end of [lexbuf_getincby_location] *)
+
+(* ****** ****** *)
+
+implement
 lexbuf_getincby_location
   (buf, nchr) = loc where
 {
 //
 var pos: position
 val () = lexbuf_get_position (buf, pos)
-val () = position_incby (pos, nchr)
+val () = position_incby (pos, nchr(*char*))
 val loc = lexbufpos_get_location (buf, pos)
 val () = lexbuf_set_position (buf, pos)
 //

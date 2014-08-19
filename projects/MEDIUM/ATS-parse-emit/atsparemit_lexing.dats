@@ -23,7 +23,7 @@ staload "./atsparemit.sats"
 
 (* ****** ****** *)
 
-macdef EOL = char2int0('\n')
+macdef ENDL = char2int0('\n')
 
 (* ****** ****** *)
 
@@ -38,7 +38,17 @@ token_make (loc, node) =
 //
 (* ****** ****** *)
 
-fun BLANK_test (i: int): bool = isspace (i)
+fun BLANK_test
+  (i: int): bool = let
+//
+val c = int2char0 (i)
+//
+in
+  case+ 0 of
+  | _ when c = ' ' => true
+  | _ when c = '\t' => true
+  | _ (*rest-of-chars*) => false
+end // end of [BLANK_test]
 
 (* ****** ****** *)
 
@@ -213,6 +223,7 @@ end // end of [ftesting_seq0]
 
 (* ****** ****** *)
 //
+(*
 fun
 skip_blankseq0
 (
@@ -255,6 +266,14 @@ val () = lexbuf_set_position (buf, pos)
 in
   nchr
 end // end of [skip_blankseq0]
+*)
+//
+(* ****** ****** *)
+//
+fun
+testing_blankseq0
+  (buf: &lexbuf): intGte(0) =
+  ftesting_seq0 (buf, BLANK_test)
 //
 (* ****** ****** *)
 //
@@ -446,6 +465,46 @@ end // end of [lexing_INT_hex]
 #define SLASH '/'
 #define BACKSLASH '\\'
 //
+(* ****** ****** *)
+//
+extern
+fun
+lexing_SPACES
+  (buf: &lexbuf): token
+//
+implement
+lexing_SPACES
+  (buf) = let
+//
+val nchr = testing_blankseq0 (buf)
+val nchr1 = nchr + 1
+val () = lexbuf_set_nspace (buf, nchr1)
+val spaces = lexbuf_takeout (buf, nchr1)
+val spaces = strptr2string (spaces)
+val loc = lexbuf_getincby_location (buf, nchr1)
+//
+in
+  token_make (loc, T_SPACES (spaces))
+end // end of [lexing_SPACES]
+//
+(* ****** ****** *)
+//
+extern
+fun
+lexing_ENDL
+  (buf: &lexbuf): token
+//
+implement
+lexing_ENDL
+  (buf) = let
+//
+val () = lexbuf_remove (buf, 1)
+val loc = lexbuf_getbyrow_location (buf)
+//
+in
+  token_make (loc, T_ENDL())
+end // end of [lexing_ENDL]
+
 (* ****** ****** *)
 //
 extern
@@ -662,7 +721,9 @@ lexing_DQUOTE (buf) = lexing_quote (buf, DQUOTE)
 extern
 fun
 testing_until_literal
-  (buf: &lexbuf >> _, pos: &position >> _, lit: string): intGte(0)
+(
+  buf: &lexbuf >> _, pos: &position >> _, lit: string
+) : intGte(0)
 //
 implement
 testing_until_literal
@@ -747,7 +808,7 @@ lexing_SLASHSLASH
   (buf) = let
 //
 val nchr =
-ftesting_seq0 (buf, lam i => i != EOL)
+ftesting_seq0 (buf, lam i => i != ENDL)
 val () = lexbuf_remove_all (buf)
 val loc = lexbuf_getincby_location (buf, nchr + 3)
 //
@@ -757,13 +818,13 @@ end // end of [lexing_SLASHSLASH]
 
 (* ****** ****** *)
 
-implement
-lexbuf_get_token_any
-  (buf) = let
+local
 //
-var res: int
-val k0 = skip_blankseq0 (buf)
-val () = lexbuf_set_nspace (buf, k0)
+fun
+get_token_any
+(
+  buf: &lexbuf >> _
+) : token = let
 //
 val i0 = lexbuf_get_char (buf)
 //
@@ -780,8 +841,12 @@ in
 case+ 0 of
 //
 | _ when
+    BLANK_test (i0) => lexing_SPACES (buf)
+//
+| _ when
     IDENTFST_test (i0) => lexing_IDENT_alp (buf)
 //
+| _ when c0 = ENDL => lexing_ENDL (buf)
 | _ when c0 = SHARP => lexing_SHARP (buf)
 | _ when i0 = SLASH => lexing_SLASH (buf)
 //
@@ -835,7 +900,29 @@ else let
   // end of [val]
 end // end of [else]
 //
-end // end of [lexing_get_token_any]
+end // end of [get_token_any]
+//
+in
+//
+implement
+lexbuf_get_token_any
+  (buf) = let
+//
+val tok = get_token_any (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_SPACES _ => tok
+| _ (*non-SPACES*) => let
+    val () = lexbuf_set_nspace (buf, 0) in tok
+  end // end of [non-SPACES]
+//
+end // end of [lexbuf_get_token_any]
+//
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -848,6 +935,8 @@ val tok = lexbuf_get_token_any (buf)
 in
 //
 case+ tok.token_node of
+| T_ENDL () => lexbuf_get_token_skip (buf)
+| T_SPACES _ => lexbuf_get_token_skip (buf)
 | T_COMMENT_line () => lexbuf_get_token_skip (buf)
 | T_COMMENT_block () => lexbuf_get_token_skip (buf)
 | _ (*non-comment*) => tok

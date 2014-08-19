@@ -16,11 +16,37 @@
 staload "./atsparemit.sats"
 
 (* ****** ****** *)
+
+implement
+position_byrow
+  (pos) =
+{
+//
+val () = pos.pos_ntot := pos.pos_ntot + 1
+val () = pos.pos_ncol := 0
+val () = pos.pos_nrow := pos.pos_nrow + 1
+//
+} (* end of [position_byrow] *)
+
+(* ****** ****** *)
+
 //
 implement
 position_incby1
   (pos) = position_incby (pos, 1)
 //
+(* ****** ****** *)
+
+implement
+position_incby
+  (pos, n) =
+{
+//
+val () = pos.pos_ntot := pos.pos_ntot + n
+val () = pos.pos_ncol := pos.pos_ncol + n
+//
+} (* end of [position_incby] *)
+
 (* ****** ****** *)
 
 implement
@@ -36,15 +62,26 @@ val () = pos.pos_ncol := pos.pos_ncol - n
 (* ****** ****** *)
 
 implement
-position_incby
-  (pos, n) =
-{
+position_incby_char
+  (pos, c) = let
 //
-val () = pos.pos_ntot := pos.pos_ntot + n
-val () = pos.pos_ncol := pos.pos_ncol + n
+val () = pos.pos_ntot := pos.pos_ntot+1
 //
-} (* end of [position_incby] *)
-
+in
+//
+case+ c of
+| '\n' =>
+  {
+    val () = pos.pos_ncol := 0
+    val () = pos.pos_nrow := pos.pos_nrow+1
+  }
+| _ (*rest*) =>
+  {
+    val () = pos.pos_ncol := pos.pos_ncol+1
+  }
+//
+end // end of [position_incby_char]
+  
 (* ****** ****** *)
 
 assume
@@ -109,29 +146,6 @@ val () = fprint_string (out, ")")
 
 (* ****** ****** *)
   
-implement
-position_incby_char
-  (pos, c) = let
-//
-val () = pos.pos_ntot := pos.pos_ntot+1
-//
-in
-//
-case+ c of
-| '\n' =>
-  {
-    val () = pos.pos_ncol := 0
-    val () = pos.pos_nrow := pos.pos_nrow+1
-  }
-| _ (*rest*) =>
-  {
-    val () = pos.pos_ncol := pos.pos_ncol+1
-  }
-//
-end // end of [position_incby_char]
-  
-(* ****** ****** *)
-
 implement
 location_make_pos_pos
   (p1, p2) = let

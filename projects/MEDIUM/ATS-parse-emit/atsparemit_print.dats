@@ -218,6 +218,11 @@ case+ x0 of
 //
 | T_SLASH () => fprint! (out, "/")
 //
+| T_ENDL () =>
+    fprint! (out, "ENDL(", ")")
+| T_SPACES (cs) =>
+    fprint! (out, "SPACES(", ")")
+//
 | T_COMMENT_line () =>
     fprint! (out, "COMMENTline(", ")")
 | T_COMMENT_block () =>

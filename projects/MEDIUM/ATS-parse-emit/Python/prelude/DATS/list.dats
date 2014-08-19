@@ -11,7 +11,7 @@
 //
 // HX: prefix for external names
 //
-#define ATS_EXTERN_PREFIX "atspre2py_"
+#define ATS_EXTERN_PREFIX "ats2pypre_"
 //
 (* ****** ****** *)
 //
