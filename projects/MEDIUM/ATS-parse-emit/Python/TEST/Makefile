@@ -1,0 +1,104 @@
+#
+# A Simple Makefile
+#
+
+######
+
+PATSCC=$(PATSHOME)/bin/patscc
+PATSOPT=$(PATSHOME)/bin/patsopt
+
+######
+
+ATSPAREMIT=./../atsparemit
+
+######
+
+RMF=rm -f
+
+######
+
+all::
+regress::
+cleanall::
+
+######
+
+RMF=rm -f
+
+######
+
+all:: \
+fact_dats.py
+fact_dats.py: fact.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: fact_dats.py ; python3 fact_dats.py 10
+cleanall:: ; $(RMF) fact_dats.py
+
+######
+
+all:: \
+fact2_dats.py
+fact2_dats.py: fact2.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: fact2_dats.py ; python3 fact2_dats.py 10
+cleanall:: ; $(RMF) fact2_dats.py
+
+######
+
+all:: f91_dats.py
+f91_dats.py: f91.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: f91_dats.py ; python3 f91_dats.py 23
+cleanall:: ; $(RMF) f91_dats.py
+
+######
+
+all:: fib_dats.py
+fib_dats.py: fib.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: fib_dats.py ; python3 fib_dats.py 100
+cleanall:: ; $(RMF) fib_dats.py
+
+######
+
+all:: fibats_dats.py
+fibats_dats.py: fibats.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: fibats_dats.py ; python3 fibats_dats.py 100
+cleanall:: ; $(RMF) fibats_dats.py
+
+######
+
+all:: \
+acker_dats.py
+acker_dats.py: \
+acker.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: acker_dats.py ; python3 acker_dats.py 3 6
+cleanall:: ; $(RMF) acker_dats.py
+
+######
+
+all:: \
+isevn_dats.py
+isevn_dats.py: \
+isevn.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: isevn_dats.py ; python3 isevn_dats.py 100
+cleanall:: ; $(RMF) isevn_dats.py
+
+######
+
+all:: \
+rtfind_dats.py
+rtfind_dats.py: \
+rtfind.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: rtfind_dats.py ; python3 rtfind_dats.py
+cleanall:: ; $(RMF) rtfind_dats.py
+
+######
+
+clean:: ; $(RMF) *~
+
+######
+
+cleanall:: clean
+cleanall:: ; $(RMF) *_?ats.c
+cleanall:: ; $(RMF) *_?ats.pyc
+
+###### end of [Makefile] ######
