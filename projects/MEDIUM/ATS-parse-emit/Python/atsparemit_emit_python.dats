@@ -45,19 +45,22 @@ implement
 emit_SHARP (out) = emit_text (out, "#")
 
 (* ****** ****** *)
-
+//
 implement
 emit_LPAREN (out) = emit_text (out, "(")
 implement
 emit_RPAREN (out) = emit_text (out, ")")
-
-(* ****** ****** *)
-
+//
 implement
 emit_LBRACKET (out) = emit_text (out, "[")
 implement
 emit_RBRACKET (out) = emit_text (out, "]")
-
+//
+implement
+emit_LBRACE (out) = emit_text (out, "{")
+implement
+emit_RBRACE (out) = emit_text (out, "}")
+//
 (* ****** ****** *)
 
 implement
@@ -320,6 +323,73 @@ ATSEXTCODE_END "######\n#ATSextcode_end()\n######\n"
 (* ****** ****** *)
 
 implement
+emit_extcode
+  (out, toks) = let
+//
+fun aux
+(
+  out: FILEref, tok: token
+) : void =
+(
+case+
+tok.token_node of
+//
+| T_KWORD _ => ()
+//
+| T_ENDL () => emit_ENDL (out)
+| T_SPACES (cs) => emit_text (out, cs)
+//
+| T_INT (_, rep) => emit_text (out, rep)
+//
+| T_STRING (str) => emit_text (out, str)
+//
+| T_IDENT_alp (name) => emit_text (out, name)
+| T_IDENT_srp (name) =>
+  (
+    emit_SHARP (out); emit_text (out, name)
+  ) (* end of [T_IDENT_srp] *)
+//
+| T_IDENT_sym (name) => emit_text (out, name)
+//
+| T_LPAREN () => emit_LPAREN (out)
+| T_RPAREN () => emit_RPAREN (out)
+//
+| T_LBRACKET () => emit_LBRACKET (out)
+| T_RBRACKET () => emit_RBRACKET (out)
+//
+| T_LBRACE () => emit_LBRACE (out)
+| T_RBRACE () => emit_RBRACE (out)
+//
+| T_LT () => emit_text (out, "<")
+| T_GT () => emit_text (out, ">")
+//
+| T_COLON () => emit_text (out, ":")
+//
+| T_COMMA () => emit_text (out, ",")
+| T_SEMICOLON () => emit_text (out, ";")
+//
+| T_SLASH () => emit_text (out, "/")
+//
+| _ (*unrecognized*) =>
+  {
+    val () = fprint! (out, "TOKERR(", tok, ")")
+  }
+)
+//
+in
+//
+case+ toks of
+| list_nil () => ()
+| list_cons (tok, toks) =>
+  (
+    aux (out, tok); emit_extcode (out, toks)
+  ) (* end of [list_cons] *)
+//
+end // end of [emit_extcode]
+
+(* ****** ****** *)
+
+implement
 emit_d0ecl
   (out, d0c) = let
 in
@@ -349,52 +419,6 @@ d0c.d0ecl_node of
   }
 //
 end // end of [emit_d0ecl]
-
-(* ****** ****** *)
-
-implement
-emit_extcode
-  (out, toks) = let
-//
-fun aux
-(
-  out: FILEref, tok: token
-) : void =
-(
-case+
-tok.token_node of
-//
-| T_KWORD _ => ()
-| T_INT (_, rep) => emit_text (out, rep)
-| T_IDENT_alp (name) => emit_text (out, name)
-| T_IDENT_srp (name) =>
-  (
-    emit_SHARP (out); emit_text (out, name)
-  )
-| T_IDENT_sym (name) => emit_text (out, name)
-//
-| T_ENDL () => emit_ENDL (out)
-| T_SPACES (cs) => emit_text (out, cs)
-//
-| T_LPAREN () => emit_LPAREN (out)
-| T_RPAREN () => emit_RPAREN (out)
-//
-| T_LBRACKET () => emit_LBRACKET (out)
-| T_RBRACKET () => emit_RBRACKET (out)
-//
-| _(*unrecognized*) => fprint (out, tok)
-)
-//
-in
-//
-case+ toks of
-| list_nil () => ()
-| list_cons (tok, toks) =>
-  (
-    aux (out, tok); emit_extcode (out, toks)
-  ) (* end of [list_cons] *)
-//
-end // end of [emit_extcode]
 
 (* ****** ****** *)
 

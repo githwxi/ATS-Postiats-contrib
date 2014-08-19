@@ -65,20 +65,24 @@ implement
 main0 (argc, argv) =
 {
 //
-(*
-val () =
-println!
-(
-  "Hello from ATS-parse-emit-python!"
-) (* end of [val] *)
-*)
-//
 val d0cs = parse_from_fileref (stdin_ref)
 (*
 val () = fprint! (stdout_ref, "d0cs =\n", d0cs)
 *)
 //
+val () =
+prerrln!
+(
+  "Hello from ATS-parse-emit-python!"
+) (* end of [val] *)
+//
 val () = emit_toplevel (stdout_ref, d0cs)
+//
+val () =
+prerrln!
+(
+  "Good-bye from ATS-parse-emit-python!"
+) (* end of [val] *)
 //
 } (* end of [main0] *)
 

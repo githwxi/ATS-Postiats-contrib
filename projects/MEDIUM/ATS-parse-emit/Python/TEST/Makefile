@@ -93,6 +93,16 @@ cleanall:: ; $(RMF) rtfind_dats.py
 
 ######
 
+all:: \
+listlen_dats.py
+listlen_dats.py: \
+listlen.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: listlen_dats.py ; python3 listlen_dats.py
+cleanall:: ; $(RMF) listlen_dats.py
+
+######
+
 clean:: ; $(RMF) *~
 
 ######
