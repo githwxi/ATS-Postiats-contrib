@@ -910,6 +910,8 @@ d0c.d0ecl_node of
 //
 | D0Cdyncst_mac i0de => ()
 | D0Cdyncst_extfun (i0de, s0explst, s0exp) => ()
+| D0Cextcode _ => ()
+| D0Cclosurerize (_, _, _, _) => ()
 //
 | D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
 //
