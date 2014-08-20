@@ -776,10 +776,12 @@ fdec.f0decl_node of
     val () = emit_SPACE (out)
     val () = emit_text (out, "static")
     // TODO: public/private?
+    // static -> private
     val () = emit_SPACE (out)
     val () = emit_text (out, "public")
     val () = emit_SPACE (out)
     // FIXME: where is the type of this function??
+    // TODO: use 
     val () = emit_f0head (out, fhd)
     val () = emit_SPACE (out)    
     val () = emit_text (out, "cil")
