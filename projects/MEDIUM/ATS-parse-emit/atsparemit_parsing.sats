@@ -45,8 +45,8 @@ parerr_node =
   | PARERR_ATStailcal_end of ()
 //
   | PARERR_ATSINSmove_con1_end of ()
-  | PARERR_ATSINSmove_fltrec_end of ()
   | PARERR_ATSINSmove_boxrec_end of ()
+  | PARERR_ATSINSmove_fltrec_end of ()
 //
   | PARERR_i0de of ()
   | PARERR_s0exp of ()
@@ -54,6 +54,8 @@ parerr_node =
   | PARERR_d0ecl of ()
 //
   | PARERR_instr of ()
+//
+  | PARERR_ATSclosurerize_end of ()
 //
 typedef parerr = '{
   parerr_loc= loc_t, parerr_node= parerr_node
@@ -81,7 +83,9 @@ fun the_parerrlst_print_free ((*void*)): int(*nerr*)
 
 (* ****** ****** *)
 //
-fun the_parerrlst_add (x: parerr): void
+fun
+the_parerrlst_add
+  (loc: loc_t, node: parerr_node): void
 //
 fun
 the_parerrlst_add_ifnbt
@@ -283,6 +287,10 @@ pskip_SRPif0{n:pos}
   (buf: &tokbuf >> _, level: int(n)): void
 //
 (* ****** ****** *)
+//
+fun parse_signed : parser (signed)
+//
+(* ****** ****** *)
 
 fun parse_i0de : parser (i0de)
 fun parse_label : parser (label)
@@ -333,6 +341,10 @@ fun parse_instrseq : parser (instrlst)
 
 (* ****** ****** *)
 
+fun parse_extcode : parser (tokenlst)
+
+(* ****** ****** *)
+
 fun parse_f0body : parser (f0body)
 
 (* ****** ****** *)
@@ -341,7 +353,7 @@ fun parse_f0decl : parser (f0decl)
 
 (* ****** ****** *)
 
-fun parse_extcode : parser (tokenlst)
+fun parse_closurerize : parser (token)
 
 (* ****** ****** *)
 

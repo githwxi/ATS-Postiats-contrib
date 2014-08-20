@@ -343,7 +343,11 @@ in
 case+ name of
 | "<" => token_make (loc, T_LT)
 | ">" => token_make (loc, T_GT)
+//
+| "-" => token_make (loc, T_MINUS)
+//
 | ":" => token_make (loc, T_COLON)
+//
 | _ (*rest*) => token_make (loc, T_IDENT_sym(name))
 //
 end // end of [lexing_IDENT_sym]

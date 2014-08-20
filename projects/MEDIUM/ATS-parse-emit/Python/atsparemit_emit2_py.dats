@@ -33,22 +33,6 @@ staload "./atsparemit_topenv.dats"
 //
 extern
 fun
-emit_nspc
-  (out: FILEref, ind: int): void
-//
-implement
-emit_nspc (out, ind) =
-(
-//
-if ind > 0 then
-  (emit_text (out, " "); emit_nspc (out, ind-1))
-//
-) (* end of [emit_nspc] *)
-//
-(* ****** ****** *)
-//
-extern
-fun
 emit_f0arglst_nonlocal
   (out: FILEref, f0as: f0arglst): void
 //
@@ -1659,4 +1643,4 @@ end // end of [emit_toplevel]
 
 (* ****** ****** *)
 
-(* end of [atsparemit_emit2_python.dats] *)
+(* end of [atsparemit_emit2_py.dats] *)

@@ -13,6 +13,16 @@ ATS_EXTERN_PREFIX "atspre2py_"
 //
 (* ****** ****** *)
 //
+typedef
+cfun1 (a:t0p, b:t0p) = (a) -<cloref1> b
+typedef
+cfun2 (a1:t0p, a2:t0p, b:t0p) = (a1, a2) -<cloref1> b
+//
+stadef cfun = cfun1
+stadef cfun = cfun2
+//
+(* ****** ****** *)
+//
 // HX-2014-08:
 // invariant constructors!
 //

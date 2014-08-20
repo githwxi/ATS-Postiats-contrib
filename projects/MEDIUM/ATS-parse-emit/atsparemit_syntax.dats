@@ -18,6 +18,11 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
+staload
+STRING = "libc/SATS/string.sats"
+
+(* ****** ****** *)
+
 staload "./atsparemit.sats"
 staload "./atsparemit_syntax.sats"
 
@@ -213,6 +218,24 @@ end // end of [ATSPMVfunlab]
 (* ****** ****** *)
 
 implement
+ATSPMVcfunlab_make
+(
+  tok1, knd, fl, arg, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+val+SIGNED (_, knd) = knd
+val-D0Elist (d0es) = arg.d0exp_node
+//
+in
+  d0exp_make_node (loc, ATSPMVcfunlab (knd, fl, d0es))
+end // end of [ATSPMVcfunlab]
+
+(* ****** ****** *)
+
+implement
 ATSSELcon_make
 (
   tok1, d0e, s0e, lab, tok2
@@ -280,6 +303,32 @@ case+ opt of
   end // end of [Some]
 //
 end // end of [ATSfunclo_fun_make]
+
+(* ****** ****** *)
+
+implement
+ATSfunclo_clo_make
+(
+  tok1, d0e, arg, res, tok2, opt
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+val d0e_clo =
+  d0exp_make_node (loc, ATSfunclo_clo(d0e, arg, res))
+//
+in
+//
+case+ opt of
+| None () => d0e
+| Some (d0e_arg) => let
+    val loc2 = loc ++ d0e_arg.d0exp_loc
+    val-D0Elist (d0es_arg) = d0e_arg.d0exp_node
+  in
+    d0exp_make_node (loc2, D0Eappexp(d0e_clo, d0es_arg))
+  end // end of [Some]
+//
+end // end of [ATSfunclo_clo_make]
 
 (* ****** ****** *)
 
@@ -399,6 +448,18 @@ in '{
 , f0head_node= F0HEAD (id, marg, res)
 } end // end of [f0head_make]
 
+(* ****** ****** *)
+//
+implement
+tmpvar_is_arg (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "arg", i2sz(3)) = 0
+) (* end of [tmpvar_is_arg] *)
+//  
+implement
+tmpvar_is_env (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "env", i2sz(3)) = 0
+) (* end of [tmpvar_is_env] *)
+//
 (* ****** ****** *)
 
 implement
@@ -1282,6 +1343,20 @@ val loc = tok1.token_loc ++ tok2.token_loc
 in
   d0ecl_make_node (loc, D0Cextcode (extcode))
 end // end of [d0ecl_extcode]
+
+(* ****** ****** *)
+
+implement
+d0ecl_closurerize
+(
+  tok1, fl, env, arg, res, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cclosurerize (fl, env, arg, res))
+end // end of [d0ecl_closurerize]
 
 (* ****** ****** *)
 

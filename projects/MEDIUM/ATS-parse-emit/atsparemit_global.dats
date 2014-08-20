@@ -132,12 +132,14 @@ val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)
 val-~None_vt() = kwordins ("ATSPMVf0loat", ATSPMVf0loat)
 //
 val-~None_vt() = kwordins ("ATSPMVfunlab", ATSPMVfunlab)
+val-~None_vt() = kwordins ("ATSPMVcfunlab", ATSPMVcfunlab)
 //
 val-~None_vt() = kwordins ("ATSSELcon", ATSSELcon)
 val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
 val-~None_vt() = kwordins ("ATSSELboxrec", ATSSELboxrec)
 //
 val-~None_vt() = kwordins ("ATSfunclo_fun", ATSfunclo_fun)
+val-~None_vt() = kwordins ("ATSfunclo_clo", ATSfunclo_clo)
 //
 val-~None_vt() = kwordins ("ATSINSlab", ATSINSlab)
 val-~None_vt() = kwordins ("ATSINSgoto", ATSINSgoto)
@@ -176,6 +178,9 @@ val-~None_vt() = kwordins ("ATSINSdeadcode_fail", ATSINSdeadcode_fail)
 val-~None_vt() = kwordins ("ATSdynload0", ATSdynload0)
 val-~None_vt() = kwordins ("ATSdynload1", ATSdynload1)
 val-~None_vt() = kwordins ("ATSdynloadset", ATSdynloadset)
+//
+val-~None_vt() = kwordins ("ATSclosurerize_beg", ATSclosurerize_beg)
+val-~None_vt() = kwordins ("ATSclosurerize_end", ATSclosurerize_end)
 //
 } (* end of [val] *)
 

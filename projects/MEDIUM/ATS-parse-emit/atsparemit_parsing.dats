@@ -336,18 +336,18 @@ p_ATSINSmove_con1_end (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_ATSINSmove_con1_end, PARERR_ATSINSmove_con1_end)
 //
 implement
-is_ATSINSmove_fltrec_end (x) = case+ x of
-  | T_KWORD(ATSINSmove_fltrec_end()) => true | _ => false
-implement
-p_ATSINSmove_fltrec_end (buf, bt, err) =
-  ptoken_fun (buf, bt, err, is_ATSINSmove_fltrec_end, PARERR_ATSINSmove_fltrec_end)
-//
-implement
 is_ATSINSmove_boxrec_end (x) = case+ x of
   | T_KWORD(ATSINSmove_boxrec_end()) => true | _ => false
 implement
 p_ATSINSmove_boxrec_end (buf, bt, err) =
   ptoken_fun (buf, bt, err, is_ATSINSmove_boxrec_end, PARERR_ATSINSmove_boxrec_end)
+//
+implement
+is_ATSINSmove_fltrec_end (x) = case+ x of
+  | T_KWORD(ATSINSmove_fltrec_end()) => true | _ => false
+implement
+p_ATSINSmove_fltrec_end (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ATSINSmove_fltrec_end, PARERR_ATSINSmove_fltrec_end)
 //
 (* ****** ****** *)
 
@@ -503,6 +503,72 @@ if err <= err0
   then f (buf, bt, err) else synent_null ((*void*))
 //
 ) (* end of [pif_fun] *)
+
+(* ****** ****** *)
+
+implement
+parse_signed
+  (buf, bt, err) = let
+//
+val err0 = err
+//
+val n0 = tokbuf_get_ntok (buf)
+val tok = tokbuf_get_token (buf)
+//
+macdef incby1 () = tokbuf_incby1 (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_INT (base, rep) =>
+  (
+    if base = 10
+      then let
+        val () = incby1 ()
+        val loc = tok.token_loc
+        val int = g0string2int(rep)
+      in
+        SIGNED (loc, int)
+      end // end of [then]
+      else let
+        val () = err := err + 1 in synent_null ()
+      end // end of [else]
+    // end of [if]
+  ) (* end of [T_INT] *)
+//
+| T_MINUS ((*void*)) => let
+    val bt = 0
+    val () = incby1 ()
+    val tok2 = p_INT (buf, bt, err)
+  in
+    if err = err0
+      then let
+        val-T_INT(base, rep) = tok2.token_node
+      in
+        if base = 10
+          then let
+            val int = g0string2int(rep)
+            val loc = tok.token_loc ++ tok2.token_loc
+          in
+            SIGNED (loc, ~int)
+          end // end of [then]
+          else let
+            val () = err := err + 1
+          in
+            tokbuf_set_ntok_null (buf, n0)
+          end // end of [else]
+        // end of [if]
+      end // end of [then]
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [T_MINUS]
+| _ (*error*) => let
+    val () = err := err + 1 in synent_null ()
+  end // end of [_]
+//
+end // end of [parse_signed]
 
 (* ****** ****** *)
 
@@ -938,6 +1004,52 @@ val res = loop (buf, list_vt_nil())
 //
 in
   list_vt2t (list_vt_reverse (res))
+end // end of [parse_extcode]
+
+(* ****** ****** *)
+
+implement
+parse_closurerize
+  (buf, bt, err) = let
+//
+//
+fun loop
+(
+  buf: &tokbuf >> _
+, bt: int, err: &int >> _
+) : token = let
+//
+val tok = tokbuf_get_token (buf)
+//
+in
+//
+case+
+tok.token_node of
+//
+| T_KWORD
+  (
+    ATSclosurerize_end()
+  ) =>
+    let val () = tokbuf_incby1 (buf) in tok end
+  // end of [ATSclosurerize_end]
+//
+| T_EOF () => let
+     val () = err := err + 1
+     val () =
+     the_parerrlst_add
+       (tok.token_loc, PARERR_ATSclosurerize_end)
+     // end of [val]
+   in
+     tok
+   end // end of [T_EOF]
+//
+| _ (*rest*) =>
+    let val () = tokbuf_incby1 (buf) in loop (buf, bt, err) end
+//
+end // end of [loop]
+//
+in
+  loop (buf, bt, err)
 end // end of [parse_extcode]
 
 (* ****** ****** *)

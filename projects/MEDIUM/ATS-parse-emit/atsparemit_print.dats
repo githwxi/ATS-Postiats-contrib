@@ -121,6 +121,7 @@ case+ x of
 | ATSPMVf0loat () => pr "ATSPMVf0loat"
 //
 | ATSPMVfunlab () => pr "ATSPMVfunlab"
+| ATSPMVcfunlab () => pr "ATSPMVcfunlab"
 //
 | ATSINSlab () => pr "ATSINSlab"
 | ATSINSgoto () => pr "ATSINSgoto"
@@ -133,6 +134,7 @@ case+ x of
 | ATSSELboxrec () => pr "ATSSELboxrec"
 //
 | ATSfunclo_fun () => pr "ATSfunclo_fun"
+| ATSfunclo_clo () => pr "ATSfunclo_clo"
 //
 | ATSINSmove () => pr "ATSINSmove"
 | ATSINSmove_void () => pr "ATSINSmove_void"
@@ -165,6 +167,9 @@ case+ x of
 | ATSdynload0 () => pr "ATSdynload0"
 | ATSdynload1 () => pr "ATSdynload1"
 | ATSdynloadset () => pr "ATSdynloadset"
+//
+| ATSclosurerize_beg () => pr "ATSclosurerize_beg"
+| ATSclosurerize_end () => pr "ATSclosurerize_end"
 //
 | KWORDnone () => pr "KWORDnone"
 //
@@ -203,6 +208,8 @@ case+ x0 of
 //
 | T_LT () => fprint! (out, "<")
 | T_GT () => fprint! (out, ">")
+//
+| T_MINUS () => fprint! (out, "-")
 //
 | T_COLON () => fprint! (out, ":")
 //
@@ -343,7 +350,9 @@ d0e.d0exp_node of
 | ATSPMVs0tring (tok) => fprint! (out, "ATSPMVs0tring(", tok, ")")
 *)
 //
-| ATSPMVfunlab (flab) => fprint! (out, "ATSPMVfunlab(", flab, ")")
+| ATSPMVfunlab (fl) => fprint! (out, "ATSPMVfunlab(", fl, ")")
+| ATSPMVcfunlab (knd, fl, d0es) =>
+    fprint! (out, "ATSPMVcfunlab(", knd, "; ", fl, ";", d0es, ")")
 //
 | ATSSELcon (d0e, s0e, lab) =>
     fprint! (out, "ATSSELcon(", d0e, ";", s0e, ";", lab, ")")
@@ -356,6 +365,8 @@ d0e.d0exp_node of
 //
 | ATSfunclo_fun (d0e, arg, res) => 
     fprint! (out, "ATSfunclo_fun(", d0e, ";", arg, ";", res, ")")
+| ATSfunclo_clo (d0e, arg, res) => 
+    fprint! (out, "ATSfunclo_clo(", d0e, ";", arg, ";", res, ")")
 //
 end // end of [fprint_d0exp]
 //
@@ -491,10 +502,14 @@ x.d0ecl_node of
 | D0Cdyncst_extfun (name, s0es, s0e) =>
     fprint! (out, "D0Cdyncst_extfun(", name, ")")
 //
+| D0Cextcode _ =>
+    fprint! (out, "D0Cextcode(", "...", ")")
+//
 | D0Cfundecl (knd, fdec) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")
 //
-| D0Cextcode _ => fprint! (out, "D0Cextcode(", "...", ")")
+| D0Cclosurerize (flab, _, _, _) =>
+    fprint! (out, "D0Cclosurerize(", flab, "; ", "...", ")")
 //
 end // end of [fprint_d0ecl]
 //

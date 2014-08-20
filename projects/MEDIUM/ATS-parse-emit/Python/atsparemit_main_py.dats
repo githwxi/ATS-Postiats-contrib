@@ -56,8 +56,8 @@ dynload "./atsparemit_topenv.dats"
 
 (* ****** ****** *)
 
-dynload "./atsparemit_emit_python.dats"
-dynload "./atsparemit_emit2_python.dats"
+dynload "./atsparemit_emit_py.dats"
+dynload "./atsparemit_emit2_py.dats"
 
 (* ****** ****** *)
 
@@ -88,4 +88,4 @@ prerrln!
 
 (* ****** ****** *)
 
-(* end of [atsparemit_main_python.dats] *)
+(* end of [atsparemit_main_py.dats] *)

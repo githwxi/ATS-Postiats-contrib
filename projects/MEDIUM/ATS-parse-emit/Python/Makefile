@@ -47,10 +47,11 @@ SOURCES_DATS += atsparemit_parsing_d0ecl.dats
 SOURCES_DATS += atsparemit_parsing_instr.dats
 #
 SOURCES_DATS += atsparemit_topenv.dats
-SOURCES_DATS += atsparemit_emit_python.dats
-SOURCES_DATS += atsparemit_emit2_python.dats
 #
-SOURCES_DATS += atsparemit_main_python.dats
+SOURCES_DATS += atsparemit_emit_py.dats
+SOURCES_DATS += atsparemit_emit2_py.dats
+#
+SOURCES_DATS += atsparemit_main_py.dats
 #
 ######
 

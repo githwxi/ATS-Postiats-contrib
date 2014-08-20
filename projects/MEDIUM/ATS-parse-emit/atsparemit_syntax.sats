@@ -95,6 +95,15 @@ ATSPMVfunlab_make
 ) : d0exp // end-of-fun
 
 (* ****** ****** *)
+
+fun
+ATSPMVcfunlab_make
+(
+  tok_kwd: token
+, knd: signed, flab: label, arg: d0exp, tok_end: token
+) : d0exp // end-of-fun
+
+(* ****** ****** *)
 //
 fun
 ATSSELcon_make
@@ -132,6 +141,17 @@ ATSfunclo_fun_make
 ) : d0exp // end of [ATSfunclo_fun_make]
 
 (* ****** ****** *)
+
+fun
+ATSfunclo_clo_make
+(
+  tok_kwd: token
+, d0e: d0exp, arg: s0exp, res: s0exp
+, tok_end: token
+, d0argopt: d0expopt
+) : d0exp // end of [ATSfunclo_clo_make]
+
+(* ****** ****** *)
 //
 fun tyfld_make (s0e: s0exp, id: i0de): tyfld
 //
@@ -161,6 +181,11 @@ fun f0head_get_f0arglst (fhd: f0head): f0arglst
 fun
 f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
+(* ****** ****** *)
+
+fun tmpvar_is_arg (tmp: symbol): bool
+fun tmpvar_is_env (tmp: symbol): bool
+
 (* ****** ****** *)
 //
 fun
@@ -457,21 +482,30 @@ fun d0ecl_fundecl (knd: fkind, f0d: f0decl): d0ecl
 fun
 d0ecl_ifdef
 (
-  tok_beg: token, id: i0de, d0cs: d0eclist, tok_end: token
+  tok_kwd: token, id: i0de, d0cs: d0eclist, tok_end: token
 ) : d0ecl // end of [d0ecl_ifdef]
 //
 fun
 d0ecl_ifndef
 (
-  tok_beg: token, id: i0de, d0cs: d0eclist, tok_end: token
+  tok_kwd: token, id: i0de, d0cs: d0eclist, tok_end: token
 ) : d0ecl // end of [d0ecl_ifdef]
 //
 (* ****** ****** *)
 //
 fun
 d0ecl_extcode
-  (tok_beg: token, extcode: tokenlst, tok_end: token): d0ecl
+  (tok_kwd: token, extcode: tokenlst, tok_end: token): d0ecl
 //
+(* ****** ****** *)
+
+fun
+d0ecl_closurerize
+(
+  tok_kwd: token
+, fl: label, env: s0exp, arg: s0exp, res: s0exp, tok_end: token
+) : d0ecl // end of [d0ecl_closurerize]
+
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.sats] *)

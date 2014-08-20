@@ -39,6 +39,12 @@ fun emit_flush : FILEref -> void
 fun emit_newline : FILEref -> void
 
 (* ****** ****** *)
+//
+fun
+emit_nspc
+  (out: FILEref, ind: int): void
+//
+(* ****** ****** *)
 
 fun emit_int : emit_type (int)
 
@@ -59,9 +65,14 @@ fun emit_PMVbool : emit_type (bool)
 //
 fun emit_PMVstring : emit_type (s0tring)
 //
-fun emit_PMVf0loat : emit_type (i0nt)
+fun emit_PMVfloat : emit_type (f0loat)
+fun emit_PMVf0loat : emit_type (f0loat)
+//
+(* ****** ****** *)
 //
 fun emit_PMVfunlab : emit_type (label)
+fun emit_PMVcfunlab
+  (out: FILEref, fl: label, d0es: d0explst): void
 //
 (* ****** ****** *)
 
@@ -98,6 +109,14 @@ fun emit_f0decl : emit_type (f0decl)
 (* ****** ****** *)
 
 fun emit_extcode : emit_type (tokenlst)
+
+(* ****** ****** *)
+
+fun
+emit_closurerize
+(
+  out: FILEref, fl: label, env: s0exp, arg: s0exp, res: s0exp
+) : void // end of [emit_closurerize]
 
 (* ****** ****** *)
 

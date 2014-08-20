@@ -71,6 +71,17 @@ emit_newline (out) = fprint_newline (out)
 (* ****** ****** *)
 //
 implement
+emit_nspc (out, ind) =
+(
+//
+if ind > 0 then
+  (emit_text (out, " "); emit_nspc (out, ind-1))
+//
+) (* end of [emit_nspc] *)
+//
+(* ****** ****** *)
+//
+implement
 emit_int (out, x) = fprint_int (out, x)
 //
 implement
@@ -130,11 +141,41 @@ end // end of [emit_PMVstring]
 (* ****** ****** *)
 
 implement
+emit_PMVfloat
+  (out, tok) = let
+//
+val-T_FLOAT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVfloat]
+
+(* ****** ****** *)
+
+implement
 emit_PMVfunlab
   (out, flab) = let
 in
   emit_label (out, flab)
 end // end of [emit_PMVfunlab]
+
+(* ****** ****** *)
+
+implement
+emit_PMVcfunlab
+  (out, fl, d0es) =
+{
+//
+val () =
+  emit_label (out, fl)
+val () =
+  emit_text (out, "__closurerize")
+//
+val () = emit_LPAREN (out)
+val () = emit_d0explst (out, d0es)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_PMVcfunlab] *)
 
 (* ****** ****** *)
 //
@@ -190,9 +231,11 @@ d0e0.d0exp_node of
 //
 | ATSPMVstring (tok) => emit_PMVstring (out, tok)
 //
-| ATSPMVf0loat (tok) => emit_text (out, "ATSPMVf0loat(...)")
+| ATSPMVf0loat (tok) => emit_PMVfloat (out, tok)
 //
 | ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
+| ATSPMVcfunlab
+    (_(*knd*), fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 //
@@ -202,7 +245,14 @@ d0e0.d0exp_node of
 //
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
-| ATSfunclo_fun (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
+| ATSfunclo_fun
+    (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
+| ATSfunclo_clo
+    (d2e, _(*arg*), _(*res*)) =>
+  (
+    emit_d0exp (out, d2e);
+    emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
+  ) (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]
 
@@ -323,73 +373,6 @@ ATSEXTCODE_END "######\n#ATSextcode_end()\n######\n"
 (* ****** ****** *)
 
 implement
-emit_extcode
-  (out, toks) = let
-//
-fun aux
-(
-  out: FILEref, tok: token
-) : void =
-(
-case+
-tok.token_node of
-//
-| T_KWORD _ => ()
-//
-| T_ENDL () => emit_ENDL (out)
-| T_SPACES (cs) => emit_text (out, cs)
-//
-| T_INT (_, rep) => emit_text (out, rep)
-//
-| T_STRING (str) => emit_text (out, str)
-//
-| T_IDENT_alp (name) => emit_text (out, name)
-| T_IDENT_srp (name) =>
-  (
-    emit_SHARP (out); emit_text (out, name)
-  ) (* end of [T_IDENT_srp] *)
-//
-| T_IDENT_sym (name) => emit_text (out, name)
-//
-| T_LPAREN () => emit_LPAREN (out)
-| T_RPAREN () => emit_RPAREN (out)
-//
-| T_LBRACKET () => emit_LBRACKET (out)
-| T_RBRACKET () => emit_RBRACKET (out)
-//
-| T_LBRACE () => emit_LBRACE (out)
-| T_RBRACE () => emit_RBRACE (out)
-//
-| T_LT () => emit_text (out, "<")
-| T_GT () => emit_text (out, ">")
-//
-| T_COLON () => emit_text (out, ":")
-//
-| T_COMMA () => emit_text (out, ",")
-| T_SEMICOLON () => emit_text (out, ";")
-//
-| T_SLASH () => emit_text (out, "/")
-//
-| _ (*unrecognized*) =>
-  {
-    val () = fprint! (out, "TOKERR(", tok, ")")
-  }
-)
-//
-in
-//
-case+ toks of
-| list_nil () => ()
-| list_cons (tok, toks) =>
-  (
-    aux (out, tok); emit_extcode (out, toks)
-  ) (* end of [list_cons] *)
-//
-end // end of [emit_extcode]
-
-(* ****** ****** *)
-
-implement
 emit_d0ecl
   (out, d0c) = let
 in
@@ -418,8 +401,208 @@ d0c.d0ecl_node of
     val () = emit_text (out, ATSEXTCODE_END)
   }
 //
+| D0Cclosurerize
+  (
+    fl, env, arg, res
+  ) => emit_closurerize (out, fl, env, arg, res)
+//
 end // end of [emit_d0ecl]
 
 (* ****** ****** *)
 
-(* end of [atsparemit_emit_python.dats] *)
+implement
+emit_extcode
+  (out, toks) = let
+//
+fun aux
+(
+  out: FILEref, tok: token
+) : void =
+(
+case+
+tok.token_node of
+//
+| T_KWORD _ => ()
+//
+| T_ENDL () => emit_ENDL (out)
+| T_SPACES (cs) => emit_text (out, cs)
+//
+| T_COMMENT_line () =>
+    emit_text (out, "#COMMENT_line\n")
+| T_COMMENT_block () => ((*ignored*))
+//
+| T_INT (_, rep) => emit_text (out, rep)
+//
+| T_STRING (str) => emit_text (out, str)
+//
+| T_IDENT_alp (name) => emit_text (out, name)
+| T_IDENT_srp (name) =>
+  (
+    emit_SHARP (out); emit_text (out, name)
+  ) (* end of [T_IDENT_srp] *)
+//
+| T_IDENT_sym (name) => emit_text (out, name)
+//
+| T_LPAREN () => emit_LPAREN (out)
+| T_RPAREN () => emit_RPAREN (out)
+//
+| T_LBRACKET () => emit_LBRACKET (out)
+| T_RBRACKET () => emit_RBRACKET (out)
+//
+| T_LBRACE () => emit_LBRACE (out)
+| T_RBRACE () => emit_RBRACE (out)
+//
+| T_LT () => emit_text (out, "<")
+| T_GT () => emit_text (out, ">")
+//
+| T_MINUS () => emit_text (out, "-")
+//
+| T_COLON () => emit_text (out, ":")
+//
+| T_COMMA () => emit_text (out, ",")
+| T_SEMICOLON () => emit_text (out, ";")
+//
+| T_SLASH () => emit_text (out, "/")
+//
+| _ (*unrecognized*) =>
+  {
+    val () = fprint! (out, "TOKERR(", tok, ")")
+  }
+)
+//
+in
+//
+case+ toks of
+| list_nil () => ()
+| list_cons (tok, toks) =>
+  (
+    aux (out, tok); emit_extcode (out, toks)
+  ) (* end of [list_cons] *)
+//
+end // end of [emit_extcode]
+
+(* ****** ****** *)
+
+local
+
+fun
+aux0_arglst
+(
+  out: FILEref
+, s0es: s0explst
+, n0: int, i: int
+) : void =
+(
+case+ s0es of
+| list_nil () => ()
+| list_cons
+    (s0e, s0es) => let
+    val () =
+    if n0+i > 0 then emit_text (out, ", ")
+    val () =
+    (
+      emit_text (out, "arg"); emit_int (out, i)
+    ) (* end of [val] *)
+  in
+    aux0_arglst (out, s0es, n0, i+1)
+  end // end of [list_cons]
+) (* end of [aux0_arglst] *)
+
+fun
+aux0_envlst
+(
+  out: FILEref
+, s0es: s0explst
+, n0: int, i: int
+) : void =
+(
+case+ s0es of
+| list_nil () => ()
+| list_cons
+    (s0e, s0es) => let
+    val () =
+    if n0+i > 0 then emit_text (out, ", ")
+    val () =
+    (
+      emit_text (out, "env"); emit_int (out, i)
+    ) (* end of [val] *)
+  in
+    aux0_envlst (out, s0es, n0, i+1)
+  end // end of [list_cons]
+) (* end of [aux0_envlst] *)
+
+fun
+aux1_envlst
+(
+  out: FILEref
+, s0es: s0explst, i: int
+) : int =
+(
+case+ s0es of
+| list_nil () => (i)
+| list_cons
+    (s0e, s0es) => let
+    val () =
+    if i > 0 then emit_text (out, ", ")
+    val () =
+    (
+      emit_text (out, "cenv");
+      emit_LBRACKET (out); emit_int (out, i+1); emit_RBRACKET (out)
+    ) (* end of [val] *)
+  in
+    aux1_envlst (out, s0es, i+1)
+  end // end of [list_cons]
+) (* end of [aux1_envlst] *)
+
+in (* in-of-local *)
+
+implement
+emit_closurerize
+(
+  out, fl, env, arg, res
+) = let
+//
+val-S0Elist(s0es_env) = env.s0exp_node
+val-S0Elist(s0es_arg) = arg.s0exp_node
+//
+val () =
+  emit_text (out, "def ")
+val () = emit_label (out, fl)
+val () =
+emit_text (out, "__closurerize(")
+val () = aux0_envlst (out, s0es_env, 0, 0)
+val ((*closing*)) = emit_text (out, "):\n")
+//
+val () = emit_nspc (out, 2)
+val () = emit_text (out, "def ")
+val () = emit_label (out, fl)
+val () = emit_text (out, "__cfun(")
+val () = emit_text (out, "cenv")
+val () = aux0_arglst (out, s0es_arg, 1, 0)
+val ((*closing*)) = emit_text (out, "):\n")
+//
+val () = emit_nspc (out, 4)
+val () = emit_text (out, "return ")
+val () = emit_label (out, fl)
+val () = emit_LPAREN (out)
+val n0 = aux1_envlst (out, s0es_env, 0)
+val () = aux0_arglst (out, s0es_arg, n0, 0)
+val ((*closing*)) = emit_text (out, ")\n")
+//
+val () = emit_nspc (out, 2)
+val () = emit_text (out, "return (")
+val () = emit_label (out, fl)
+val () = emit_text (out, "__cfun")
+val () = aux0_envlst (out, s0es_env, 1, 0)
+val ((*closing*)) = emit_text (out, ")\n")
+//
+val () = emit_newline (out)
+//
+in
+end // end of [emit_closurerize]
+
+end // end of [local]
+
+(* ****** ****** *)
+
+(* end of [atsparemit_emit_py.dats] *)

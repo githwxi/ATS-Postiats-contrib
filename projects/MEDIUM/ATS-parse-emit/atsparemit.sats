@@ -238,12 +238,14 @@ keyword =
   | ATSPMVf0loat of ()
 //
   | ATSPMVfunlab of ()
+  | ATSPMVcfunlab of ()
 //
   | ATSSELcon of ()
-  | ATSSELfltrec of ()
   | ATSSELboxrec of ()
+  | ATSSELfltrec of ()
 //
   | ATSfunclo_fun of ()
+  | ATSfunclo_clo of ()
 //
   | ATSINSlab of ()
   | ATSINSgoto of ()
@@ -262,14 +264,14 @@ keyword =
   | ATSINSstore_con1_tag of ()
   | ATSINSstore_con1_ofs of ()
 //
-  | ATSINSmove_fltrec_beg of ()
-  | ATSINSmove_fltrec_end of ()
-  | ATSINSstore_fltrec_ofs of ()
-//
   | ATSINSmove_boxrec_beg of ()
   | ATSINSmove_boxrec_end of ()
   | ATSINSmove_boxrec_new of ()
   | ATSINSstore_boxrec_ofs of ()
+//
+  | ATSINSmove_fltrec_beg of ()
+  | ATSINSmove_fltrec_end of ()
+  | ATSINSstore_fltrec_ofs of ()
 //
   | ATStailcal_beg of ()
   | ATStailcal_end of ()
@@ -281,6 +283,9 @@ keyword =
   | ATSdynload0 of ()
   | ATSdynload1 of ()
   | ATSdynloadset of ()
+//
+  | ATSclosurerize_beg of ()
+  | ATSclosurerize_end of ()
 //
   | KWORDnone of () // for indicating a non-keyword
 //
@@ -327,6 +332,8 @@ token_node =
 //
 | T_LT of ()
 | T_GT of ()
+//
+| T_MINUS of ()
 //
 | T_COLON of () // :
 //
@@ -615,6 +622,11 @@ abstype synent_type = ptr
 typedef synent = synent_type
 //
 (* ****** ****** *)
+//
+datatype
+signed = SIGNED of (loc_t, int)
+//
+(* ****** ****** *)
 
 typedef
 i0de = '{
@@ -700,6 +712,7 @@ d0exp_node =
   | ATSPMVf0loat of f0loat
 //
   | ATSPMVfunlab of (label)
+  | ATSPMVcfunlab of (int(*knd*), label, d0explst)
 //
   | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
@@ -707,6 +720,7 @@ d0exp_node =
   | ATSSELfltrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
 //
   | ATSfunclo_fun of (d0exp, s0exp(*arg*), s0exp(*res*))
+  | ATSfunclo_clo of (d0exp, s0exp(*arg*), s0exp(*res*))
 // end of [d0exp_node]
 
 where
@@ -851,12 +865,12 @@ instr_node =
   | ATSINSstore_con1_tag of (i0de, token(*tag*))
   | ATSINSstore_con1_ofs of (i0de, s0exp, i0de, d0exp)
 //
-  | ATSINSmove_fltrec of (instrlst)
-  | ATSINSstore_fltrec_ofs of (i0de, s0exp, i0de, d0exp)
-//
   | ATSINSmove_boxrec of (instrlst)
   | ATSINSmove_boxrec_new of (i0de, s0exp)
   | ATSINSstore_boxrec_ofs of (i0de, s0exp, i0de, d0exp)
+//
+  | ATSINSmove_fltrec of (instrlst)
+  | ATSINSstore_fltrec_ofs of (i0de, s0exp, i0de, d0exp)
 //
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)
@@ -934,9 +948,13 @@ d0ecl_node =
   | D0Cdyncst_mac of i0de
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
+  | D0Cextcode of (tokenlst)
+//
   | D0Cfundecl of (fkind, f0decl)
 //
-  | D0Cextcode of (tokenlst)
+  | D0Cclosurerize of (
+      i0de, s0exp(*env*), s0exp(*arg*), s0exp(*res*)
+    ) (* end of [D0Cclosurerize] *)
 //
 // end of [d0ecl_node]
 

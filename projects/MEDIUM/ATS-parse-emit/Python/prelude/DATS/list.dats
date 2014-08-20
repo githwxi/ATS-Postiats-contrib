@@ -20,6 +20,25 @@ staload "./../SATS/list.sats"
 (* ****** ****** *)
 
 implement
+list_append
+  (xs, ys) = let
+//
+prval () = lemma_list_param (xs)
+prval () = lemma_list_param (ys)
+//
+in
+//
+case+ xs of
+| list_nil () =>  ys
+| list_cons (x, xs) =>
+    list_cons (x, list_append (xs, ys))
+  // end of [list_cons]
+//
+end // end of [list_append]
+
+(* ****** ****** *)
+
+implement
 list_reverse{a}(xs) =
 (
   list_reverse_append{a}(xs, list_nil(*void*))
@@ -48,6 +67,16 @@ case+ xs of
 in
   loop (xs, ys)
 end // end of [list_reverse_append]
+
+(* ****** ****** *)
+
+implement
+list_map (xs, f) =
+(
+case+ xs of
+| list_nil () => list_nil ()
+| list_cons (x, xs) => list_cons (f(x), list_map (xs, f))
+) (* end of [list_map] *)
 
 (* ****** ****** *)
 

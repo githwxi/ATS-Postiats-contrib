@@ -319,6 +319,28 @@ tok.token_node of
     // end of [if]
   end // end of [
 //
+| T_KWORD(ATSclosurerize_beg()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_label, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exparg, err0)
+    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent6 = pif_fun (buf, bt, err, parse_s0exparg, err0)
+    val ent7 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent8 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent9 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent10 = pif_fun (buf, bt, err, parse_closurerize, err0)
+    val ent11 = pif_fun (buf, bt, err, p_LPAREN, err0)
+    val ent12 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        d0ecl_closurerize (tok, ent2, ent4, ent6, ent8, ent9)
+      ) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSclosurerize_beg]
+//
 | _ (*error*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_d0ecl)

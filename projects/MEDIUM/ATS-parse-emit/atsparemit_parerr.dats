@@ -35,16 +35,22 @@ the_parerrlst_clear () =
   list_vt_free (the_parerrlst_pop_all ())
 //
 (* ****** ****** *)
+//
+implement
+the_parerrlst_add
+  (loc, node) =
+  the_parerrlst_insert (parerr_make (loc, node))
+//
+(* ****** ****** *)
 
 implement
 the_parerrlst_add_ifnbt
   (bt, loc, node) = let
 in
 //
-if (bt = 0)
-  then the_parerrlst_insert (parerr_make (loc, node)) else ()
+if (bt = 0) then the_parerrlst_add (loc, node) else ()
 //
-end // end of [the_parerrlst_add_if0]
+end // end of [the_parerrlst_add_ifnt]
 
 (* ****** ****** *)
 
@@ -128,6 +134,8 @@ x.parerr_node of
 | PARERR_d0ecl () => SN (x, "d0ecl")
 //
 | PARERR_instr () => SN (x, "instr")
+//
+| PARERR_ATSclosurerize_end () => SN (x, "ATSclosurerize_end")
 //
 end // end of [fprint_parerr]
 

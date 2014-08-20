@@ -97,12 +97,32 @@ cleanall:: ; $(RMF) rtfind_dats.py
 ######
 
 all:: \
+rtfind2_dats.py
+rtfind2_dats.py: \
+rtfind2.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: rtfind2_dats.py ; python3 rtfind2_dats.py
+cleanall:: ; $(RMF) rtfind2_dats.py
+
+######
+
+all:: \
 listlen_dats.py
 listlen_dats.py: \
 listlen.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
 regress:: listlen_dats.py ; python3 listlen_dats.py
 cleanall:: ; $(RMF) listlen_dats.py
+
+######
+
+all:: \
+listmap_dats.py
+listmap_dats.py: \
+listmap.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: listmap_dats.py ; python3 listmap_dats.py
+cleanall:: ; $(RMF) listmap_dats.py
 
 ######
 

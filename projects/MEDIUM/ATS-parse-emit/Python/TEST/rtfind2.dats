@@ -16,13 +16,11 @@ implement
 rtfind (f) = let
 //
 fun loop
-(
-  f: int -> int, i: int
-) : int =
-  if f (i) = 0 then i else loop (f, i+1)
+  (i: int): int =
+  if f (i) = 0 then i else loop (i+1)
 //
 in
-  loop (f, 0(*i*))
+  loop (0(*i*))
 end // end of [rtfind]
 
 (* ****** ****** *)
@@ -50,4 +48,4 @@ print('rtfind(lambda x: x*x - 2*x - 99) =', rtfind(poly2))
 
 (* ****** ****** *)
 
-(* end of [rtfind.dats] *)
+(* end of [rtfind2.dats] *)
