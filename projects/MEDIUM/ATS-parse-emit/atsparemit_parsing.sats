@@ -33,7 +33,9 @@ parerr_node =
   | PARERR_RBRACE
 //
   | PARERR_INT of ()
-  | PARERR_INT0 of ()
+  | PARERR_ZERO of ()
+  | PARERR_INT10 of ()
+//
   | PARERR_STRING of ()
 //
   | PARERR_SRPendif
@@ -133,26 +135,26 @@ fun is_EOF (x: tnode): bool
 (* ****** ****** *)
 //
 fun p_COMMA : parser (token)
-fun is_COMMA (x: tnode): bool
 fun p_COMMA_test (buf: &tokbuf >> _): bool
+fun is_COMMA (x: tnode): bool
 //
 fun p_COLON : parser (token)
-fun is_COLON (x: tnode): bool
 fun p_COLON_test (buf: &tokbuf >> _): bool
+fun is_COLON (x: tnode): bool
 //
 fun p_SEMICOLON : parser (token)
-fun is_SEMICOLON (x: tnode): bool
 fun p_SEMICOLON_test (buf: &tokbuf >> _): bool
+fun is_SEMICOLON (x: tnode): bool
 //
 (* ****** ****** *)
 //
 fun p_LPAREN : parser (token)
-fun is_LPAREN (x: tnode): bool
 fun p_LPAREN_test (buf: &tokbuf >> _): bool
+fun is_LPAREN (x: tnode): bool
 //
 fun p_RPAREN : parser (token)
-fun is_RPAREN (x: tnode): bool
 fun p_RPAREN_test (buf: &tokbuf >> _): bool
+fun is_RPAREN (x: tnode): bool
 //
 (* ****** ****** *)
 //
@@ -167,14 +169,17 @@ fun is_RBRACE (x: tnode): bool
 fun p_INT : parser (token)
 fun is_INT (x: tnode): bool
 //
+fun p_INT10 : parser (token)
+fun is_INT10 (x: tnode): bool
+//
 fun p_STRING : parser (token)
 fun is_STRING (x: tnode): bool
 //
 (* ****** ****** *)
 //
-fun p_INT0 : parser (token)
-fun is_INT0 (x: tnode): bool
-fun p_INT0_test (buf: &tokbuf >> _): bool
+fun p_ZERO : parser (token)
+fun p_ZERO_test (buf: &tokbuf >> _): bool
+fun is_ZERO (x: tnode): bool
 //
 (* ****** ****** *)
 

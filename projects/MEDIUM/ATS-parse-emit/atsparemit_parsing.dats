@@ -113,7 +113,7 @@ tok.token_node of
     val test = p_LPAREN_test (buf)
     val test =
     (
-      if test then p_INT0_test (buf) else false
+      if test then p_ZERO_test (buf) else false
     ) : bool // end of [val]
     val test =
     (
@@ -251,15 +251,25 @@ p_INT (buf, bt, err) =
 (* ****** ****** *)
 //
 implement
-is_INT0 (x) = case+ x of
+is_INT10 (x) = case+ x of
+  | T_INT (10, _) => true | _ => false
+//
+implement
+p_INT10 (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_INT10, PARERR_INT10)
+//
+(* ****** ****** *)
+//
+implement
+is_ZERO (x) = case+ x of
   | T_INT (_, "0") => true | _ => false
 //
 implement
-p_INT0 (buf, bt, err) =
-  ptoken_fun (buf, bt, err, is_INT0, PARERR_INT0)
+p_ZERO (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_ZERO, PARERR_ZERO)
 //
 implement
-p_INT0_test (buf) = ptoken_test_fun (buf, is_INT0)
+p_ZERO_test (buf) = ptoken_test_fun (buf, is_ZERO)
 //
 (* ****** ****** *)
 //
@@ -528,9 +538,8 @@ tok.token_node of
       then let
         val () = incby1 ()
         val loc = tok.token_loc
-        val int = g0string2int(rep)
       in
-        SIGNED (loc, int)
+        SIGNED (loc, g0string2int(rep))
       end // end of [then]
       else let
         val () = err := err + 1 in synent_null ()
@@ -541,29 +550,21 @@ tok.token_node of
 | T_MINUS ((*void*)) => let
     val bt = 0
     val () = incby1 ()
-    val tok2 = p_INT (buf, bt, err)
+    val tok2 = p_INT10 (buf, bt, err)
   in
     if err = err0
       then let
-        val-T_INT(base, rep) = tok2.token_node
+        val loc =
+          tok.token_loc ++ tok2.token_loc
+        // end of [val]
+        val-T_INT(_, rep) = tok2.token_node
       in
-        if base = 10
-          then let
-            val int = g0string2int(rep)
-            val loc = tok.token_loc ++ tok2.token_loc
-          in
-            SIGNED (loc, ~int)
-          end // end of [then]
-          else let
-            val () = err := err + 1
-          in
-            tokbuf_set_ntok_null (buf, n0)
-          end // end of [else]
-        // end of [if]
+        SIGNED (loc, ~g0string2int(rep))
       end // end of [then]
       else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [T_MINUS]
+//
 | _ (*error*) => let
     val () = err := err + 1 in synent_null ()
   end // end of [_]
