@@ -33,9 +33,16 @@ def ats2pypre_string_lower(x): return (x.lower())
 def ats2pypre_string_upper(x): return (x.upper())
 
 ############################################
-
-def ats2pypre_print_string(x): ats2pypre_print_obj(x); return
-
+#
+def ats2pypre_print_string(x):
+  out = sys.__stdout__
+  ats2pypre_fprint_string(out, x); return
+def ats2pypre_prerr_string(x):
+  out = sys.__stderr__
+  ats2pypre_fprint_string(out, x); return
+#
+def ats2pypre_fprint_string(out, x): ats2pypre_fprint_obj(out, x); return
+#
 ############################################
 
 ###### end of [string_cats.py] ######

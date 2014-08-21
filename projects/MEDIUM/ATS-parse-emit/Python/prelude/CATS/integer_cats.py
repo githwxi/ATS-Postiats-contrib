@@ -56,9 +56,16 @@ def ats2pypre_neq_int0_int0(x, y): return (x != y)
 def ats2pypre_neq_int1_int1(x, y): return (x != y)
 #
 ############################################
-
-def ats2pypre_print_int(i): ats2pypre_print_obj(i); return
-
+#
+def ats2pypre_print_int(i):
+  out = sys.__stdout__
+  ats2pypre_fprint_int(out, i); return
+def ats2pypre_prerr_int(i):
+  out = sys.__stderr__
+  ats2pypre_fprint_int(out, i); return
+#
+def ats2pypre_fprint_int(out, i): ats2pypre_fprint_obj(out, i); return
+#
 ############################################
 
 ###### end of [integer_cats.py] ######
