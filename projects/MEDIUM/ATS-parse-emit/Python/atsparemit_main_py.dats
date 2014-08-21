@@ -7,6 +7,18 @@
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
+
+staload
+STDIO = "{$PATSLIBC}/SATS/stdio.sats"
+
+(* ****** ****** *)
 
 staload "./atsparemit.sats"
 staload "./atsparemit_parsing.sats"
@@ -61,15 +73,111 @@ dynload "./atsparemit_emit_py.dats"
 dynload "./atsparemit_emit2_py.dats"
 
 (* ****** ****** *)
+//
+datatype
+comarg =
+COMARGkey of (int, string)
+//
+typedef comarglst = List0 (comarg)
+//
+(* ****** ****** *)
+
+datatype
+waitkind =
+  | WTKnone of ()
+  | WTKinput of ()
+  | WTKoutput of () // -o / --output
+// end of [waitkind]
+
+(* ****** ****** *)
+
+datatype OUTCHAN =
+  | OUTCHANref of (FILEref) | OUTCHANptr of (FILEref)
+// end of [OUTCHAN]
+
+fun
+outchan_get_fileref
+  (x: OUTCHAN): FILEref =
+(
+//
+case+ x of
+| OUTCHANref (filr) => filr | OUTCHANptr (filp) => filp
+//
+) (* end of [outchan_get_fileref] *)
+
+(* ****** ****** *)
+
+typedef
+cmdstate = @{
+  comarg0= comarg
+, waitkind= waitkind
+// number of processed input files;
+, ninputfile= int // waiting for STDIN if it is 0
+, outchan= OUTCHAN // current output channel
+, standalone= bool (* output is a stand-alone file *)
+, nerror= int // number of accumulated errors
+} (* end of [cmdstate] *)
+
+(* ****** ****** *)
+
+fun
+cmdstate_set_outchan
+(
+  state: &cmdstate, chan_new: OUTCHAN
+) : void = let
+//
+val chan_old = state.outchan
+val ((*void*)) = state.outchan := chan_new
+//
+in
+  case+ chan_old of
+  | OUTCHANref (filr) => ()
+  | OUTCHANptr (filp) => let
+      val err = $STDIO.fclose0 (filp) in (*nothing*)
+    end // end of [OUTCHANptr]
+end // end of [cmdstate_set_outchan]
+
+(* ****** ****** *)
+
+fun
+process_cmdline
+(
+  state: &cmdstate, arglst: comarglst
+) : void = let
+in
+//
+case+ arglst of
+| list_nil () => ()
+| list_cons (arg, args) =>
+    process_cmdline2 (state, arg, arglst)
+//
+end // end of [process_cmdline]
+
+and
+process_cmdline2
+(
+  state: &cmdstate, arg: comarg, arglst: comarglst
+) : void = let
+in
+end // end of [process_cmdline2]
+
+(* ****** ****** *)
+//
+extern
+fun
+comarg_parse (s: string):<> comarg
+//
+extern
+fun
+comarglst_parse{n:nat}
+  (argc: int n, argv: !argv(n)):<> list (comarg, n)
+// end of [comarglst_parse]
+//
+(* ****** ****** *)
 
 implement
 main0 (argc, argv) =
 {
-//
-val d0cs = parse_from_fileref (stdin_ref)
-(*
-val () = fprint! (stdout_ref, "d0cs =\n", d0cs)
-*)
 //
 val () =
 prerrln!
@@ -77,7 +185,24 @@ prerrln!
   "Hello from ATS-parse-emit-python!"
 ) (* end of [val] *)
 //
-val () = emit_toplevel (stdout_ref, d0cs)
+//
+val arglst =
+  comarglst_parse (argc, argv)
+//
+val+list_cons (arg0, arglst) = arglst
+//
+var
+state = @{
+  comarg0= arg0
+, waitkind= WTKnone ()
+// number of prcessed
+, ninputfile= 0 // input files
+, outchan= OUTCHANref (stdout_ref)
+, standalone= true (* standalone output *)
+, nerror= 0 // number of accumulated errors
+} : cmdstate // end of [var]
+//
+val () = process_cmdline (state, arglst)
 //
 val () =
 prerrln!

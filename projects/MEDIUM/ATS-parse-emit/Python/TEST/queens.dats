@@ -197,8 +197,8 @@ extern
 fun main_py (): void = "mac#"
 //
 implement
-main_py () = {
-  val () = print_board $tup(0, 1, 2, 3, 4, 5, 6, 7)
+main_py () =
+{
   val nsol = search ($tup(0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
 } (* end of [main_py] *)
 //

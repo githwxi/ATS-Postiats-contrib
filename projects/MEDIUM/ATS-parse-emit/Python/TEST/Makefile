@@ -26,102 +26,110 @@ RMRF=rm -rf
 
 all:: \
 fact_dats.py
-fact_dats.py: \
-fact.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: fact_dats.py ; python3 fact_dats.py 10
+fact_dats.py: fact.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+fact:: fact_dats.py ; python3 fact_dats.py 10
+regress:: fact
 cleanall:: ; $(RMF) fact_dats.py
 
 ######
 
 all:: \
 fact2_dats.py
-fact2_dats.py: \
-fact2.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: fact2_dats.py ; python3 fact2_dats.py 10
+fact2_dats.py: fact2.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+fact2:: fact2_dats.py ; python3 fact2_dats.py 10
+regress:: fact2
 cleanall:: ; $(RMF) fact2_dats.py
 
 ######
 
 all:: \
 f91_dats.py
-f91_dats.py: f91.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: f91_dats.py ; python3 f91_dats.py 23
+f91_dats.py: f91.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+f91:: f91_dats.py ; python3 f91_dats.py 23
+regress:: f91
 cleanall:: ; $(RMF) f91_dats.py
 
 ######
 
 all:: \
 fib_dats.py
-fib_dats.py: fib.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: fib_dats.py ; python3 fib_dats.py 100
+fib_dats.py: fib.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+fib:: fib_dats.py ; python3 fib_dats.py 100
+regress:: fib
 cleanall:: ; $(RMF) fib_dats.py
 
 ######
 
 all:: \
 fibats_dats.py
-fibats_dats.py: \
-fibats.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: fibats_dats.py ; python3 fibats_dats.py 100
+fibats_dats.py: fibats.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+fibats:: fibats_dats.py ; python3 fibats_dats.py 100
+regress:: fibats
 cleanall:: ; $(RMF) fibats_dats.py
 
 ######
 
 all:: \
 acker_dats.py
-acker_dats.py: \
-acker.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: acker_dats.py ; python3 acker_dats.py 3 3
+acker_dats.py: acker.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+acker:: acker_dats.py ; python3 acker_dats.py 3 3
+regress:: acker
 cleanall:: ; $(RMF) acker_dats.py
 
 ######
 
 all:: \
 isevn_dats.py
-isevn_dats.py: \
-isevn.dats ; \
+isevn_dats.py: isevn.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: isevn_dats.py ; python3 isevn_dats.py 100
+isevn:: isevn_dats.py ; python3 isevn_dats.py 100
+regress:: isevn
 cleanall:: ; $(RMF) isevn_dats.py
 
 ######
 
 all:: \
 rtfind_dats.py
-rtfind_dats.py: \
-rtfind.dats ; \
+rtfind_dats.py: rtfind.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: rtfind_dats.py ; python3 rtfind_dats.py
+rtfind:: rtfind_dats.py ; python3 rtfind_dats.py
+regress:: rtfind
 cleanall:: ; $(RMF) rtfind_dats.py
 
 ######
 
 all:: \
 rtfind2_dats.py
-rtfind2_dats.py: \
-rtfind2.dats ; \
+rtfind2_dats.py: rtfind2.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: rtfind2_dats.py ; python3 rtfind2_dats.py
+rtfind2:: rtfind2_dats.py ; python3 rtfind2_dats.py
+regress:: rtfind2
 cleanall:: ; $(RMF) rtfind2_dats.py
 
 ######
 
 all:: \
 listlen_dats.py
-listlen_dats.py: \
-listlen.dats ; \
+listlen_dats.py: listlen.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: listlen_dats.py ; python3 listlen_dats.py
+listlen:: listlen_dats.py ; python3 listlen_dats.py
+regress:: listlen
 cleanall:: ; $(RMF) listlen_dats.py
 
 ######
 
 all:: \
 listmap_dats.py
-listmap_dats.py: \
-listmap.dats ; \
+listmap_dats.py: listmap.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: listmap_dats.py ; python3 listmap_dats.py
+listmap:: listmap_dats.py ; python3 listmap_dats.py
+regress:: listmap
 cleanall:: ; $(RMF) listmap_dats.py
 
 ######
@@ -129,29 +137,29 @@ cleanall:: ; $(RMF) listmap_dats.py
 all:: \
 pylist_test_dats.py
 pylist_test_dats.py: \
-pylist_test.dats ; \
-$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: pylist_test_dats.py ; python3 pylist_test_dats.py
+pylist_test.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+pylist:: pylist_test_dats.py ; python3 pylist_test_dats.py
+regress:: pylist
 cleanall:: ; $(RMF) pylist_test_dats.py
 
 ######
 
 all:: \
 twice_dats.py
-twice_dats.py: \
-twice.dats ; \
+twice_dats.py: twice.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: twice_dats.py ; python3 twice_dats.py
+twice:: twice_dats.py ; python3 twice_dats.py
+regress:: twice
 cleanall:: ; $(RMF) twice_dats.py
 
 ######
 
 all:: \
 queens_dats.py
-queens_dats.py: \
-queens.dats ; \
+queens_dats.py: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) > $@
-regress:: queens_dats.py ; python3 queens_dats.py
+queens:: queens_dats.py ; python3 queens_dats.py
+regress:: queens
 cleanall:: ; $(RMF) queens_dats.py
 
 ######
