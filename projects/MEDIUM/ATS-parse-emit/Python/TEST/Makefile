@@ -136,6 +136,16 @@ cleanall:: ; $(RMF) pylist_test_dats.py
 
 ######
 
+all:: \
+twice_dats.py
+twice_dats.py: \
+twice.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: twice_dats.py ; python3 twice_dats.py
+cleanall:: ; $(RMF) twice_dats.py
+
+######
+
 clean:: ; $(RMF) *~
 
 ######

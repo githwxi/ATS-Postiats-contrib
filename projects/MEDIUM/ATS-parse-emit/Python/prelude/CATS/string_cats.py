@@ -5,7 +5,13 @@
 #
 ######
 
-###### beg of [string_cats.py] ######
+######
+#beg of [string_cats.py]
+######
+
+######
+from basics_cats import *
+######
 
 ############################################
 
@@ -25,6 +31,10 @@ def ats2pypre_string_isdecimal(x): return (x.isdecimal())
 
 def ats2pypre_string_lower(x): return (x.lower())
 def ats2pypre_string_upper(x): return (x.upper())
+
+############################################
+
+def ats2pypre_print_string(x): ats2pypre_print_obj(x); return
 
 ############################################
 

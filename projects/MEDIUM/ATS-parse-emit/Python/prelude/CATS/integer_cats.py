@@ -5,7 +5,13 @@
 #
 ######
 
-###### beg of [integer_cats.py] ######
+######
+#beg of [integer_cats.py]
+######
+
+######
+from basics_cats import *
+######
 
 ############################################
 #
@@ -49,6 +55,10 @@ def ats2pypre_eq_int1_int1(x, y): return (x == y)
 def ats2pypre_neq_int0_int0(x, y): return (x != y)
 def ats2pypre_neq_int1_int1(x, y): return (x != y)
 #
+############################################
+
+def ats2pypre_print_int(i): ats2pypre_print_obj(i); return
+
 ############################################
 
 ###### end of [integer_cats.py] ######

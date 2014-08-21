@@ -9,7 +9,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "atspre2py_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 //
 (* ****** ****** *)
 //
@@ -34,6 +34,17 @@ abstype
 pyset_t0ype_type (a:t@ype)
 stadef pyset = pyset_t0ype_type
 //
+(* ****** ****** *)
+//
+fun
+print_obj{a:t@ype}(obj: a): void = "mac#%"
+fun
+println_obj{a:t@ype}(obj: a): void = "mac#%"
+//
+(* ****** ****** *)
+
+fun print_newline ((*void*)): void = "mac#%"
+
 (* ****** ****** *)
 
 (* end of [basics_py.sats] *)
