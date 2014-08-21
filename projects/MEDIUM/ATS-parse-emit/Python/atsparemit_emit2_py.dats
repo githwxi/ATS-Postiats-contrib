@@ -27,7 +27,7 @@ staload "./atsparemit_emit.sats"
 //
 (* ****** ****** *)
 //
-staload "./atsparemit_topenv.dats"
+staload "./atsparemit_typedef.dats"
 //
 (* ****** ****** *)
 //

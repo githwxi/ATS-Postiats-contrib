@@ -126,4 +126,4 @@ fun emit_toplevel : emit_type (d0eclist)
 
 (* ****** ****** *)
 
-(* end of [atsparemit_emit.dats] *)
+(* end of [atsparemit_emit.sats] *)
