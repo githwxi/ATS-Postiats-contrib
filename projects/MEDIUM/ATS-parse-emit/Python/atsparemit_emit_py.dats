@@ -94,7 +94,7 @@ emit_symbol (out, x) =
   fprint_string (out, symbol_get_name (x))
 //
 (* ****** ****** *)
-
+//
 implement
 emit_PMVint
   (out, tok) = let
@@ -104,19 +104,17 @@ val-T_INT(base, rep) = tok.token_node
 in
   emit_text (out, rep)
 end // end of [emit_PMVint]
-
-(* ****** ****** *)
-
+//
 implement
-emit_PMVi0nt
+emit_PMVintrep
   (out, tok) = let
 //
 val-T_INT(base, rep) = tok.token_node
 //
 in
   emit_text (out, rep)
-end // end of [emit_PMVi0nt]
-
+end // end of [emit_PMVintrep]
+//
 (* ****** ****** *)
 //
 implement
@@ -149,6 +147,30 @@ val-T_FLOAT(base, rep) = tok.token_node
 in
   emit_text (out, rep)
 end // end of [emit_PMVfloat]
+
+(* ****** ****** *)
+
+implement
+emit_PMVi0nt
+  (out, tok) = let
+//
+val-T_INT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVi0nt]
+
+(* ****** ****** *)
+
+implement
+emit_PMVf0loat
+  (out, tok) = let
+//
+val-T_FLOAT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVf0loat]
 
 (* ****** ****** *)
 
@@ -224,13 +246,16 @@ d0e0.d0exp_node of
     val () = emit_RPAREN (out)
   }
 //
+| ATSempty (x) => emit_text (out, "None")
+//
 | ATSPMVint (tok) => emit_PMVint (out, tok)
-| ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
+| ATSPMVintrep (tok) => emit_PMVintrep (out, tok)
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
 | ATSPMVstring (tok) => emit_PMVstring (out, tok)
 //
+| ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
 | ATSPMVf0loat (tok) => emit_PMVfloat (out, tok)
 //
 | ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)

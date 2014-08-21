@@ -112,9 +112,14 @@ case+ x of
 | ATSreturn () => pr "ATSreturn"
 | ATSreturn_void () => pr "ATSreturn_void"
 //
+| ATSempty () => pr "ATSempty"
+//
 | ATSPMVint () => pr "ATSPMVint"
+| ATSPMVintrep () => pr "ATSPMVintrep"
+//
 | ATSPMVbool_true () => pr "ATSPMVbool_true"
 | ATSPMVbool_false () => pr "ATSPMVbool_false"
+//
 | ATSPMVstring () => pr "ATSPMVstring"
 //
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
@@ -338,7 +343,10 @@ d0e.d0exp_node of
 | D0Eappexp (d0e, d0es) =>
     fprint! (out, "D0Eappexp(", d0e, "; ", d0es, ")")
 //
+| ATSempty (dummy) => fprint! (out, "ATSempty(", ")")
+//
 | ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
+| ATSPMVintrep (tok) => fprint! (out, "ATSPMVintrep(", tok, ")")
 //
 | ATSPMVbool (tfv) => fprint! (out, "ATSPMVbool(", tfv, ")")
 //

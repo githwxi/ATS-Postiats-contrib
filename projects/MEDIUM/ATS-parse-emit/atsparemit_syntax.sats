@@ -58,10 +58,22 @@ fun d0exp_appexp (d0e_fun: d0exp, d0e_arg: d0exp): d0exp
 (* ****** ****** *)
 //
 fun
+ATSempty_make
+  (tok_kwd: token, tok_end: token): d0exp
+//
+(* ****** ****** *)
+//
+fun
 ATSPMVint_make
 (
   tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
+fun
+ATSPMVintrep_make
+(
+  tok_kwd: token, tok: i0nt, tok_end: token
+) : d0exp // end-of-fun
+//
 fun
 ATSPMVbool_make
 (

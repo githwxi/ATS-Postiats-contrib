@@ -15,6 +15,9 @@ from basics_cats import *
 
 ############################################
 #
+def ats2pypre_abs_int0(x): return abs(x)
+def ats2pypre_neg_int0(x): return ( -x )
+#
 def ats2pypre_succ_int0(x): return (x + 1)
 def ats2pypre_succ_int1(x): return (x + 1)
 #

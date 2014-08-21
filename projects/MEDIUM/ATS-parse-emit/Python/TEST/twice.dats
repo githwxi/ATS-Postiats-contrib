@@ -66,10 +66,10 @@ typedef I3 = I(I2)
 (* ****** ****** *)
 //
 extern
-fun mymain (): void = "mac#mymain"
+fun main_py (): void = "mac#main_py"
 //
 implement
-mymain () =
+main_py () =
 {
 val Z = 0
 val S = lam (x: int): int =<cloref1> x + 1
@@ -86,7 +86,7 @@ val ((*void*)) = println! ("ans2(16) = ", ans2)
 val ans3 = twice<I3>(twice<I2>)(twice<I1>)(twice<I0>)(S)(Z)
 val ((*void*)) = println! ("ans3(65536) = ", ans3)
 //
-} (* end of [mymain] *)
+} (* end of [main_py] *)
 
 (* ****** ****** *)
 
@@ -103,7 +103,7 @@ sys.setrecursionlimit(1000000)
 (* ****** ****** *)
 
 %{$
-mymain()
+main_py()
 %} // end of [%{$]
 
 (* ****** ****** *)

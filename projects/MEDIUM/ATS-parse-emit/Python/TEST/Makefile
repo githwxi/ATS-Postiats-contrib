@@ -146,6 +146,16 @@ cleanall:: ; $(RMF) twice_dats.py
 
 ######
 
+all:: \
+queens_dats.py
+queens_dats.py: \
+queens.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) > $@
+regress:: queens_dats.py ; python3 queens_dats.py
+cleanall:: ; $(RMF) queens_dats.py
+
+######
+
 clean:: ; $(RMF) *~
 
 ######
