@@ -165,14 +165,72 @@ end // end of [process_cmdline2]
 //
 extern
 fun
-comarg_parse (s: string):<> comarg
+comarg_parse (string):<> comarg
 //
 extern
 fun
 comarglst_parse{n:nat}
-  (argc: int n, argv: !argv(n)):<> list (comarg, n)
+  (argc: int n, argv: !argv(n)): list (comarg, n)
 // end of [comarglst_parse]
 //
+(* ****** ****** *)
+
+implement
+comarg_parse
+  (str) = let
+//
+fun
+loop
+  {n,i:nat | i <= n} .<n-i>.
+(
+  str: string n, n: int n, i: int i
+) :<> comarg = 
+(
+  if i < n
+    then (
+    if (str[i] != '-')
+      then COMARGkey (i, str) else loop (str, n, i+1)
+    ) else COMARGkey (n, str)
+) (* end of [if] *)  
+// end of [loop]
+//
+val str = g1ofg0(str)
+val len = string_length (str)
+//
+in
+  loop (str, sz2i(len), 0)
+end // end of [comarg_parse]
+
+(* ****** ****** *)
+
+implement
+comarglst_parse
+  {n}(argc, argv) = let
+//
+fun
+loop
+  {i,j:nat | i <= n} .<n-i>.
+(
+  argv: !argv(n), i: int(i), res: list_vt(comarg, j)
+) : list_vt (comarg, n-i+j) =
+(
+if i < argc
+  then let
+    val res = list_vt_cons (comarg_parse (argv[i]), res)
+  in
+    loop (argv, i+1, res)
+  end // end of [then]
+  else res // end of [else]
+// end of [if]
+) (* end of [loop] *)
+//
+val res =
+  loop (argv, 0, list_vt_nil())
+//
+in
+  list_vt2t (list_vt_reverse (res))
+end // end of [comarglst_parse]
+
 (* ****** ****** *)
 
 implement
