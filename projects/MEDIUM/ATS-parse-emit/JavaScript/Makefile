@@ -50,6 +50,7 @@ SOURCES_DATS += atsparemit_emit.dats
 SOURCES_DATS += atsparemit_typedef.dats
 #
 SOURCES_DATS += atsparemit_emit_js.dats
+SOURCES_DATS += atsparemit_emit2_js.dats
 #
 SOURCES_DATS += atsparemit_main_js.dats
 #

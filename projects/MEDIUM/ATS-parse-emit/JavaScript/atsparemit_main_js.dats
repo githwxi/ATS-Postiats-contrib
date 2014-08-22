@@ -58,6 +58,7 @@ dynload "./atsparemit_typedef.dats"
 (* ****** ****** *)
 
 dynload "./atsparemit_emit_js.dats"
+dynload "./atsparemit_emit2_js.dats"
 
 (* ****** ****** *)
 

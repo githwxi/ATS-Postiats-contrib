@@ -31,4 +31,4 @@ staload "./atsparemit_typedef.dats"
 //
 (* ****** ****** *)
 
-(* end of [atsparemit_emit_javascript.dats] *)
+(* end of [atsparemit_emit_js.dats] *)
