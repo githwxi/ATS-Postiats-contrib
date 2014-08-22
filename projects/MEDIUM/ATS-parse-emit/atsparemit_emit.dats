@@ -89,4 +89,78 @@ emit_label
 //
 (* ****** ****** *)
 
+implement
+emit_extcode
+  (out, toks) = let
+//
+fun
+auxtok
+(
+  out: FILEref, tok: token
+) : void =
+(
+case+
+tok.token_node of
+//
+| T_KWORD _ => ()
+//
+| T_ENDL () => emit_ENDL (out)
+| T_SPACES (cs) => emit_text (out, cs)
+//
+| T_COMMENT_line () =>
+    emit_text (out, "#COMMENT_line\n")
+| T_COMMENT_block () => ((*ignored*))
+//
+| T_INT (_, rep) => emit_text (out, rep)
+//
+| T_STRING (str) => emit_text (out, str)
+//
+| T_IDENT_alp (name) => emit_text (out, name)
+| T_IDENT_srp (name) =>
+  (
+    emit_SHARP (out); emit_text (out, name)
+  ) (* end of [T_IDENT_srp] *)
+//
+| T_IDENT_sym (name) => emit_text (out, name)
+//
+| T_LPAREN () => emit_LPAREN (out)
+| T_RPAREN () => emit_RPAREN (out)
+//
+| T_LBRACKET () => emit_LBRACKET (out)
+| T_RBRACKET () => emit_RBRACKET (out)
+//
+| T_LBRACE () => emit_LBRACE (out)
+| T_RBRACE () => emit_RBRACE (out)
+//
+| T_LT () => emit_text (out, "<")
+| T_GT () => emit_text (out, ">")
+//
+| T_MINUS () => emit_text (out, "-")
+//
+| T_COLON () => emit_text (out, ":")
+//
+| T_COMMA () => emit_text (out, ",")
+| T_SEMICOLON () => emit_text (out, ";")
+//
+| T_SLASH () => emit_text (out, "/")
+//
+| _ (*unrecognized*) =>
+  {
+    val () = fprint! (out, "TOKERR(", tok, ")")
+  }
+) (* end of [auxtok] *)
+//
+in
+//
+case+ toks of
+| list_nil () => ()
+| list_cons (tok, toks) =>
+  (
+    auxtok (out, tok); emit_extcode (out, toks)
+  ) (* end of [list_cons] *)
+//
+end // end of [emit_extcode]
+
+(* ****** ****** *)
+
 (* end of [atsparemit_emit.dats] *)
