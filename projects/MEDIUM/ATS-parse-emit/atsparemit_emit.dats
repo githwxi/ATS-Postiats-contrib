@@ -118,9 +118,8 @@ tok.token_node of
 | T_ENDL () => emit_ENDL (out)
 | T_SPACES (cs) => emit_text (out, cs)
 //
-| T_COMMENT_line () =>
-    emit_text (out, "#COMMENT_line\n")
-| T_COMMENT_block () => ((*ignored*))
+| T_COMMENT_line () => emit_COMMENT_line (out)
+| T_COMMENT_block () => emit_COMMENT_block (out)
 //
 | T_INT (_, rep) => emit_text (out, rep)
 //

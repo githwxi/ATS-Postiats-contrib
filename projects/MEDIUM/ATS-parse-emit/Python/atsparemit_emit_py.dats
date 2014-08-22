@@ -361,6 +361,15 @@ d0c.d0ecl_node of
 end // end of [emit_d0ecl]
 
 (* ****** ****** *)
+//
+implement
+emit_COMMENT_line (out) =
+  emit_text (out, "#COMMENT_line\n")
+//
+implement
+emit_COMMENT_block (out) = ((*ignored*))
+//
+(* ****** ****** *)
 
 local
 

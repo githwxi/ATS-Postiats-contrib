@@ -462,6 +462,10 @@ ins0.instr_node of
 | ATSINSmove_con0 (tmp, tag(*token*)) =>
     fprint! (out, "ATSINSmove_con0(", tmp, ", ", tag, ")")
 //
+| ATSdynload0 (tmp) => fprint! (out, "ATSdynload0(", tmp, ")")
+| ATSdynload1 (tmp) => fprint! (out, "ATSdynload1(", tmp, ")")
+| ATSdynloadset (tmp) => fprint! (out, "ATSdynloadset(", tmp, ")")
+//
 | _ (*rest*) => fprint (out, "fprint_instr(...)")
 //
 end // end of [fprint_instr]
