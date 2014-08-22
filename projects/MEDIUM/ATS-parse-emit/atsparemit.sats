@@ -702,7 +702,7 @@ typedef tyrec = '{
 
 datatype
 d0exp_node =
-  | D0Eide of symbol
+  | D0Eide of (i0de)
   | D0Elist of (d0explst) // temp
   | D0Eappid of (i0de, d0explst)
   | D0Eappexp of (d0exp, d0explst)

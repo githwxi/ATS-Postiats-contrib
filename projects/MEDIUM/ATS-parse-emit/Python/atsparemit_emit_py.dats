@@ -32,17 +32,6 @@ staload "./atsparemit_typedef.dats"
 (* ****** ****** *)
 //
 implement
-emit_nspc (out, ind) =
-(
-//
-if ind > 0 then
-  (emit_text (out, " "); emit_nspc (out, ind-1))
-//
-) (* end of [emit_nspc] *)
-//
-(* ****** ****** *)
-//
-implement
 emit_PMVint
   (out, tok) = let
 //
@@ -158,7 +147,7 @@ d0e0.d0exp_node of
 //
 | D0Eide (id) =>
   {
-    val () = emit_symbol (out, id)
+    val () = emit_i0de (out, id)
   }
 //
 | D0Eappid (id, d0es) =>

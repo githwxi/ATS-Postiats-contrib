@@ -67,6 +67,17 @@ emit_newline (out) = fprint_newline (out)
 (* ****** ****** *)
 //
 implement
+emit_nspc (out, ind) =
+(
+//
+if ind > 0 then
+  (emit_text (out, " "); emit_nspc (out, ind-1))
+//
+) (* end of [emit_nspc] *)
+//
+(* ****** ****** *)
+//
+implement
 emit_int (out, x) = fprint_int (out, x)
 //
 implement

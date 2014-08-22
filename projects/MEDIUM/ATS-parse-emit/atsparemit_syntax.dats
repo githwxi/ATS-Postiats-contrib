@@ -108,8 +108,8 @@ d0exp_make_node
 (* ****** ****** *)
 //
 implement
-d0exp_ide (loc, id) =
-  d0exp_make_node (loc, D0Eide (id.i0de_sym))
+d0exp_ide (id) =
+  d0exp_make_node (id.i0de_loc, D0Eide (id))
 //
 implement
 d0exp_list
@@ -487,6 +487,15 @@ implement
 tmpvar_is_env (tmp) = (
   $STRING.strncmp (symbol_get_name(tmp), "env", i2sz(3)) = 0
 ) (* end of [tmpvar_is_env] *)
+//
+implement
+tmpvar_is_tmp (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "tmp", i2sz(3)) = 0
+) (* end of [tmpvar_is_tmp] *)
+implement
+tmpvar_is_tmpret (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
+) (* end of [tmpvar_is_tmpret] *)
 //
 (* ****** ****** *)
 

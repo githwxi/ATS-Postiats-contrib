@@ -32,6 +32,40 @@ staload "./atsparemit_typedef.dats"
 (* ****** ****** *)
 
 implement
+emit_PMVint
+  (out, tok) = let
+//
+val-T_INT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVint]
+//
+implement
+emit_PMVintrep
+  (out, tok) = let
+//
+val-T_INT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVintrep]
+//
+(* ****** ****** *)
+
+implement
+emit_PMVi0nt
+  (out, tok) = let
+//
+val-T_INT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVi0nt]
+
+(* ****** ****** *)
+
+implement
 emit_d0exp
   (out, d0e0) = let
 in
@@ -39,7 +73,25 @@ in
 case+
 d0e0.d0exp_node of
 //
-| _ => fprint (out, d0e0)
+| D0Eide (id) => 
+  {
+    val () = emit_i0de (out, id)
+  }
+//
+| D0Eappid (id, d0es) =>
+  {
+    val () = emit_i0de (out, id)
+    val () = emit_LPAREN (out)
+    val () = emit_d0explst (out, d0es)
+    val () = emit_RPAREN (out)
+  }
+//
+| ATSPMVint (int) => emit_PMVint (out, int)
+| ATSPMVintrep (int) => emit_PMVintrep (out, int)
+//
+| ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
+//
+| _ (*rest*) => fprint (out, d0e0)
 //
 end // end of [emit_d0exp]
 
