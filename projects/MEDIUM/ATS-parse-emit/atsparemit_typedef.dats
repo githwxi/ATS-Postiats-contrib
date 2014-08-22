@@ -86,4 +86,4 @@ typedef_search_opt
 //
 (* ****** ****** *)
 
-(* end of [atsparemit_topenv.dats] *)
+(* end of [atsparemit_typedef.dats] *)

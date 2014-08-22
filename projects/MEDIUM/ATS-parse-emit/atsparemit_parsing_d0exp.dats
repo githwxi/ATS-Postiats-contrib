@@ -56,6 +56,18 @@ tok.token_node of
     | Some (d0e) => d0exp_appid (id, d0e)
   end // end of [_ when ...]
 //
+| T_KWORD(ATSempty()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSempty_make (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSempty]
+//
 | T_KWORD(ATSPMVint()) => let
     val bt = 0
     val () = incby1 ()
@@ -68,6 +80,19 @@ tok.token_node of
       else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSPMVint]
+//
+| T_KWORD(ATSPMVintrep()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_INT, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSPMVintrep_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVintrep]
 //
 | T_KWORD(ATSPMVbool_true()) => let
     val bt = 0

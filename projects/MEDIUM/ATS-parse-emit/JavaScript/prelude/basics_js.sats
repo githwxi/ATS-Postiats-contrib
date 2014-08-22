@@ -23,19 +23,6 @@ stadef cfun = cfun2
 //
 (* ****** ****** *)
 //
-// HX-2014-08:
-// invariant constructors!
-//
-abstype
-pylist_t0ype_type (a:t@ype)
-stadef pylist = pylist_t0ype_type
-//
-abstype
-pyset_t0ype_type (a:t@ype)
-stadef pyset = pyset_t0ype_type
-//
-(* ****** ****** *)
-//
 fun
 print_obj{a:t@ype}(obj: a): void = "mac#%"
 fun
@@ -47,4 +34,4 @@ fun print_newline ((*void*)): void = "mac#%"
 
 (* ****** ****** *)
 
-(* end of [basics_py.sats] *)
+(* end of [basics_js.sats] *)

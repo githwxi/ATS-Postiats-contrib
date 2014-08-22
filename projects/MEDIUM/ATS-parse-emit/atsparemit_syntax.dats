@@ -141,7 +141,22 @@ in
 end // end of [d0exp_appexp]
 //
 (* ****** ****** *)
-
+//
+implement
+ATSempty_make
+(
+  tok1, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSempty (0))
+end // end of [ATSempty]
+//
+(* ****** ****** *)
+//
 implement
 ATSPMVint_make
 (
@@ -154,7 +169,20 @@ val loc =
 in
   d0exp_make_node (loc, ATSPMVint (int))
 end // end of [ATSPMVint]
-
+//
+implement
+ATSPMVintrep_make
+(
+  tok1, int, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVintrep (int))
+end // end of [ATSPMVintrep]
+//
 (* ****** ****** *)
 
 implement

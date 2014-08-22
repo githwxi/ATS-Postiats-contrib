@@ -52,11 +52,13 @@ dynload "./atsparemit_parsing_instr.dats"
 //
 (* ****** ****** *)
 
-dynload "./atsparemit_topenv.dats"
+dynload "./atsparemit_emit.dats"
+dynload "./atsparemit_typedef.dats"
 
 (* ****** ****** *)
 
-dynload "./atsparemit_emit_javascript.dats"
+dynload "./atsparemit_emit_js.dats"
+dynload "./atsparemit_emit2_js.dats"
 
 (* ****** ****** *)
 

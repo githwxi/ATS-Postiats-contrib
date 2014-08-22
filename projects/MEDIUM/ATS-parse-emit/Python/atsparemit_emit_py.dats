@@ -27,47 +27,8 @@ staload "./atsparemit_emit.sats"
 //
 (* ****** ****** *)
 //
-staload "./atsparemit_topenv.dats"
+staload "./atsparemit_typedef.dats"
 //
-(* ****** ****** *)
-
-implement
-emit_ENDL (out) = emit_text (out, "\n")
-
-(* ****** ****** *)
-
-implement
-emit_SPACE (out) = emit_text (out, " ")
-
-(* ****** ****** *)
-
-implement
-emit_SHARP (out) = emit_text (out, "#")
-
-(* ****** ****** *)
-//
-implement
-emit_LPAREN (out) = emit_text (out, "(")
-implement
-emit_RPAREN (out) = emit_text (out, ")")
-//
-implement
-emit_LBRACKET (out) = emit_text (out, "[")
-implement
-emit_RBRACKET (out) = emit_text (out, "]")
-//
-implement
-emit_LBRACE (out) = emit_text (out, "{")
-implement
-emit_RBRACE (out) = emit_text (out, "}")
-//
-(* ****** ****** *)
-
-implement
-emit_flush (out) = fileref_flush (out)
-implement
-emit_newline (out) = fprint_newline (out)
-
 (* ****** ****** *)
 //
 implement
@@ -82,20 +43,6 @@ if ind > 0 then
 (* ****** ****** *)
 //
 implement
-emit_int (out, x) = fprint_int (out, x)
-//
-implement
-emit_text (out, x) = fprint_string (out, x)
-//
-(* ****** ****** *)
-//
-implement
-emit_symbol (out, x) =
-  fprint_string (out, symbol_get_name (x))
-//
-(* ****** ****** *)
-
-implement
 emit_PMVint
   (out, tok) = let
 //
@@ -104,19 +51,17 @@ val-T_INT(base, rep) = tok.token_node
 in
   emit_text (out, rep)
 end // end of [emit_PMVint]
-
-(* ****** ****** *)
-
+//
 implement
-emit_PMVi0nt
+emit_PMVintrep
   (out, tok) = let
 //
 val-T_INT(base, rep) = tok.token_node
 //
 in
   emit_text (out, rep)
-end // end of [emit_PMVi0nt]
-
+end // end of [emit_PMVintrep]
+//
 (* ****** ****** *)
 //
 implement
@@ -153,6 +98,30 @@ end // end of [emit_PMVfloat]
 (* ****** ****** *)
 
 implement
+emit_PMVi0nt
+  (out, tok) = let
+//
+val-T_INT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVi0nt]
+
+(* ****** ****** *)
+
+implement
+emit_PMVf0loat
+  (out, tok) = let
+//
+val-T_FLOAT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVf0loat]
+
+(* ****** ****** *)
+
+implement
 emit_PMVfunlab
   (out, flab) = let
 in
@@ -177,15 +146,6 @@ val () = emit_RPAREN (out)
 //
 } (* end of [emit_PMVcfunlab] *)
 
-(* ****** ****** *)
-//
-implement
-emit_i0de
-  (out, id) = emit_symbol (out, id.i0de_sym)
-implement
-emit_label
-  (out, lab) = emit_symbol (out, lab.i0de_sym)
-//
 (* ****** ****** *)
 
 implement
@@ -224,13 +184,16 @@ d0e0.d0exp_node of
     val () = emit_RPAREN (out)
   }
 //
+| ATSempty (x) => emit_text (out, "None")
+//
 | ATSPMVint (tok) => emit_PMVint (out, tok)
-| ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
+| ATSPMVintrep (tok) => emit_PMVintrep (out, tok)
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
 | ATSPMVstring (tok) => emit_PMVstring (out, tok)
 //
+| ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
 | ATSPMVf0loat (tok) => emit_PMVfloat (out, tok)
 //
 | ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
@@ -410,79 +373,6 @@ end // end of [emit_d0ecl]
 
 (* ****** ****** *)
 
-implement
-emit_extcode
-  (out, toks) = let
-//
-fun aux
-(
-  out: FILEref, tok: token
-) : void =
-(
-case+
-tok.token_node of
-//
-| T_KWORD _ => ()
-//
-| T_ENDL () => emit_ENDL (out)
-| T_SPACES (cs) => emit_text (out, cs)
-//
-| T_COMMENT_line () =>
-    emit_text (out, "#COMMENT_line\n")
-| T_COMMENT_block () => ((*ignored*))
-//
-| T_INT (_, rep) => emit_text (out, rep)
-//
-| T_STRING (str) => emit_text (out, str)
-//
-| T_IDENT_alp (name) => emit_text (out, name)
-| T_IDENT_srp (name) =>
-  (
-    emit_SHARP (out); emit_text (out, name)
-  ) (* end of [T_IDENT_srp] *)
-//
-| T_IDENT_sym (name) => emit_text (out, name)
-//
-| T_LPAREN () => emit_LPAREN (out)
-| T_RPAREN () => emit_RPAREN (out)
-//
-| T_LBRACKET () => emit_LBRACKET (out)
-| T_RBRACKET () => emit_RBRACKET (out)
-//
-| T_LBRACE () => emit_LBRACE (out)
-| T_RBRACE () => emit_RBRACE (out)
-//
-| T_LT () => emit_text (out, "<")
-| T_GT () => emit_text (out, ">")
-//
-| T_MINUS () => emit_text (out, "-")
-//
-| T_COLON () => emit_text (out, ":")
-//
-| T_COMMA () => emit_text (out, ",")
-| T_SEMICOLON () => emit_text (out, ";")
-//
-| T_SLASH () => emit_text (out, "/")
-//
-| _ (*unrecognized*) =>
-  {
-    val () = fprint! (out, "TOKERR(", tok, ")")
-  }
-)
-//
-in
-//
-case+ toks of
-| list_nil () => ()
-| list_cons (tok, toks) =>
-  (
-    aux (out, tok); emit_extcode (out, toks)
-  ) (* end of [list_cons] *)
-//
-end // end of [emit_extcode]
-
-(* ****** ****** *)
-
 local
 
 fun
@@ -592,8 +482,8 @@ val ((*closing*)) = emit_text (out, ")\n")
 val () = emit_nspc (out, 2)
 val () = emit_text (out, "return (")
 val () = emit_label (out, fl)
-val () = emit_text (out, "__cfun")
-val () = aux0_envlst (out, s0es_env, 1, 0)
+val () = emit_text (out, "__cfun, ")
+val () = aux0_envlst (out, s0es_env, 0, 0)
 val ((*closing*)) = emit_text (out, ")\n")
 //
 val () = emit_newline (out)

@@ -25,4 +25,9 @@ overload ~ with not_bool1 of 120
 
 (* ****** ****** *)
 
+fun print_bool : (bool) -> void = "mac#%"
+fun prerr_bool : (bool) -> void = "mac#%"
+
+(* ****** ****** *)
+
 (* end of [bool.sats] *)

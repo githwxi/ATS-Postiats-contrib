@@ -10,6 +10,14 @@
 #define ATS_EXTERN_PREFIX "ats2pypre_"
 //
 (* ****** ****** *)
+
+fun abs_int0 : int -> int = "mac#%"
+fun neg_int0 : int -> int = "mac#%"
+//
+overload abs with abs_int0 of 100
+overload neg with neg_int0 of 100
+//
+(* ****** ****** *)
 //
 fun succ_int0 : int -> int = "mac#%"
 fun pred_int0 : int -> int = "mac#%"
@@ -18,6 +26,12 @@ fun succ_int1
   : {i:int} int(i) -> int(i+1) = "mac#%"
 fun pred_int1
   : {i:int} int(i) -> int(i-1) = "mac#%"
+//
+overload succ with succ_int0 of 100
+overload pred with pred_int0 of 100
+//
+overload succ with succ_int1 of 110
+overload pred with pred_int1 of 110
 //
 (* ****** ****** *)
 //
@@ -79,6 +93,7 @@ overload > with gt_int0_int0 of 100
 overload >= with gte_int0_int0 of 100
 overload = with eq_int0_int0 of 100
 overload != with neq_int0_int0 of 100
+overload <> with neq_int0_int0 of 100
 //
 overload < with lt_int1_int1 of 120
 overload <= with lte_int1_int1 of 120
@@ -86,6 +101,19 @@ overload > with gt_int1_int1 of 120
 overload >= with gte_int1_int1 of 120
 overload = with eq_int1_int1 of 120
 overload != with neq_int1_int1 of 120
+overload <> with neq_int1_int1 of 120
+//
+(* ****** ****** *)
+//
+fun print_int : (int) -> void = "mac#%"
+fun prerr_int : (int) -> void = "mac#%"
+//
+fun
+fprint_int: (FILEref, int) -> void = "mac#%"
+//
+overload print with print_int of 100
+overload prerr with prerr_int of 100
+overload fprint with fprint_int of 100
 //
 (* ****** ****** *)
 

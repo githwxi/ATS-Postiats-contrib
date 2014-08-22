@@ -229,7 +229,10 @@ keyword =
   | ATSreturn of ()
   | ATSreturn_void of ()
 //
+  | ATSempty of ()
+//
   | ATSPMVint of ()
+  | ATSPMVintrep of ()
   | ATSPMVbool_true of ()
   | ATSPMVbool_false of ()
   | ATSPMVstring of ()
@@ -704,7 +707,10 @@ d0exp_node =
   | D0Eappid of (i0de, d0explst)
   | D0Eappexp of (d0exp, d0explst)
 //
+  | ATSempty of (int)
+//
   | ATSPMVint of i0nt
+  | ATSPMVintrep of i0nt
   | ATSPMVbool of bool
   | ATSPMVstring of s0tring
 //

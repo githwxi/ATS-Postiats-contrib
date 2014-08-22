@@ -46,15 +46,17 @@ SOURCES_DATS += atsparemit_parsing_d0exp.dats
 SOURCES_DATS += atsparemit_parsing_d0ecl.dats
 SOURCES_DATS += atsparemit_parsing_instr.dats
 #
-SOURCES_DATS += atsparemit_topenv.dats
+SOURCES_DATS += atsparemit_emit.dats
+SOURCES_DATS += atsparemit_typedef.dats
 #
-SOURCES_DATS += atsparemit_emit_javascript.dats
+SOURCES_DATS += atsparemit_emit_js.dats
+SOURCES_DATS += atsparemit_emit2_js.dats
 #
-SOURCES_DATS += atsparemit_main_javascript.dats
+SOURCES_DATS += atsparemit_main_js.dats
 #
 ######
 
-MYTARGET=atsparemit
+MYTARGET=atsparemit_js
 
 ######
 
