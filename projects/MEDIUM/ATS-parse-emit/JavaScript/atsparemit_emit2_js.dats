@@ -415,7 +415,7 @@ ins0.instr_node of
 | ATSreturn_void (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "return//_void")
+    val () = emit_text (out, "return/*_void*/")
   }
 //
 | ATSINSlab (lab) =>
@@ -435,15 +435,10 @@ ins0.instr_node of
 | ATSINSgoto (lab) =>
   {
     val () = emit_nspc (out, ind)
-    val () =
-    (
-      emit_text (out, "{ tmplab_js = ")
+    val () = (
+      emit_text (out, "{ tmplab_js = "); emit_tmplab_index (out, lab)
     ) (* end of [val] *)
-    val () = emit_tmplab_index (out, lab)
-    val () =
-    (
-      emit_text (out, "; break; } // "); emit_label (out, lab)
-    ) (* end of [val] *)
+    val () = emit_text (out, "; break; }")
   } (* end of [ATSINSgoto] *)
 //
 | ATSINSflab (flab) =>
@@ -475,10 +470,14 @@ ins0.instr_node of
 | ATSINSmove_void (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSINSmove_void\n")
-    val () = emit_nspc (out, ind)
-    val () = emit_d0exp (out, d0e)
-  }
+    val () = (
+      case+ d0e.d0exp_node of
+      | ATSempty _ =>
+          emit_text (out, "// ATSINSmove_void")
+        // end of [ATSempty]
+      | _ (*non-ATSempty*) => emit_d0exp (out, d0e)
+    ) : void // end of [val]
+  } (* end of [ATSINSmove_void] *)
 //
 | ATSINSmove_nil (tmp) =>
   {

@@ -19,7 +19,7 @@ f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
 
 %{^
 //
-// file is included here:
+// file inclusion
 //
 var fs = require('fs');
 eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());

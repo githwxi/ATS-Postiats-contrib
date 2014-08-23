@@ -784,10 +784,14 @@ ins0.instr_node of
 | ATSINSmove_void (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATSINSmove_void\n")
-    val () = emit_nspc (out, ind)
-    val () = emit_d0exp (out, d0e)
-  }
+    val () = (
+      case+ d0e.d0exp_node of
+      | ATSempty _ =>
+          emit_text (out, "None#ATSINSmove_void")
+        // end of [ATSempty]
+      | _ (*non-ATSempty*) => emit_d0exp (out, d0e)
+    ) : void // end of [val]
+  } (* end of [ATSINSmove_void] *)
 //
 | ATSINSmove_nil (tmp) =>
   {

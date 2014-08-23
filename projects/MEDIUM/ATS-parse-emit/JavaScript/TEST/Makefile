@@ -108,6 +108,16 @@ cleanall:: ; $(RMF) listlen_dats.js
 
 ######
 
+all:: \
+queens_dats.js
+queens_dats.js: queens.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+queens:: queens_dats.js ; $(NODEJS) queens_dats.js
+regress:: queens
+cleanall:: ; $(RMF) queens_dats.js
+
+######
+
 clean:: ; $(RMF) *~
 
 ######

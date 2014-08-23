@@ -63,6 +63,30 @@ emit_PMVbool
 (* ****** ****** *)
 
 implement
+emit_PMVstring
+  (out, tok) = let
+//
+val-T_STRING(rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVstring]
+
+(* ****** ****** *)
+
+implement
+emit_PMVfloat
+  (out, tok) = let
+//
+val-T_FLOAT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVfloat]
+
+(* ****** ****** *)
+
+implement
 emit_PMVi0nt
   (out, tok) = let
 //
@@ -71,6 +95,27 @@ val-T_INT(base, rep) = tok.token_node
 in
   emit_text (out, rep)
 end // end of [emit_PMVi0nt]
+
+(* ****** ****** *)
+
+implement
+emit_PMVf0loat
+  (out, tok) = let
+//
+val-T_FLOAT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVf0loat]
+
+(* ****** ****** *)
+
+implement
+emit_PMVfunlab
+  (out, flab) = let
+in
+  emit_label (out, flab)
+end // end of [emit_PMVfunlab]
 
 (* ****** ****** *)
 
@@ -100,7 +145,10 @@ d0e0.d0exp_node of
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
+| ATSPMVstring (str) => emit_PMVstring (out, str)
+//
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
+| ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 //

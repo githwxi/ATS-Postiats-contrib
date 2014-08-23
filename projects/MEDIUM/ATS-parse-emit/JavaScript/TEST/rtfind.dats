@@ -28,13 +28,13 @@ end // end of [rtfind]
 (* ****** ****** *)
 
 %{^
-import sys
-######
-from basics_cats import *
-from integer_cats import *
-######
-sys.setrecursionlimit(1000000)
-%}
+//
+// file inclusion
+//
+var fs = require('fs');
+eval(fs.readFileSync('./../prelude/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
+%} // end of [%{^]
 
 (* ****** ****** *)
 

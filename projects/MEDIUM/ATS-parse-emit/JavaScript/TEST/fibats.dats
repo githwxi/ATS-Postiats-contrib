@@ -46,7 +46,7 @@ end // end of [fibats]
 
 %{^
 //
-// file is included here:
+// file inclusion:
 //
 var fs = require('fs');
 eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());

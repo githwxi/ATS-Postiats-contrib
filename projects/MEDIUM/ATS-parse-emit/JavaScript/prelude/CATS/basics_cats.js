@@ -41,4 +41,9 @@ ATSCKpat_float(tmp, given) { return (tmp === given); }
 
 /* ****** ****** */
 
+function
+ats2jspre_print_newline() { process.stdout.write('\n'); return; }
+
+/* ****** ****** */
+
 /* end of [basics_cats.js] */

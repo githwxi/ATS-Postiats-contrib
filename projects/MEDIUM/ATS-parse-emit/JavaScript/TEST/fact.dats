@@ -20,7 +20,7 @@ fact (n) = if n > 0 then n * fact(n-1) else 1
 
 %{^
 //
-// file is included here:
+// file inclusion
 //
 var fs = require('fs');
 eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
