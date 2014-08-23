@@ -139,6 +139,16 @@ cleanall:: ; $(RMF) listmap_dats.js
 ######
 
 all:: \
+twice_dats.js
+twice_dats.js: twice.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+twice:: twice_dats.js ; $(NODEJS) twice_dats.js
+regress:: twice
+cleanall:: ; $(RMF) twice_dats.js
+
+######
+
+all:: \
 queens_dats.js
 queens_dats.js: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@

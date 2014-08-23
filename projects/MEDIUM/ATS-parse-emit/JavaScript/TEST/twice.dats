@@ -41,7 +41,7 @@
 (* ****** ****** *)
 
 staload
-"./../prelude/basics_py.sats"
+"./../prelude/basics_js.sats"
 staload
 "./../prelude/SATS/integer.sats"
 staload
@@ -67,10 +67,10 @@ typedef I3 = I(I2)
 //
 extern
 fun
-main_py (): void = "mac#main_py"
+main_js (): void = "mac#main_js"
 //
 implement
-main_py () =
+main_js () =
 {
 val Z = 0
 val S = lam (x: int): int =<cloref1> x + 1
@@ -87,24 +87,24 @@ val ((*void*)) = println! ("ans2(16) = ", ans2)
 val ans3 = twice<I3>(twice<I2>)(twice<I1>)(twice<I0>)(S)(Z)
 val ((*void*)) = println! ("ans3(65536) = ", ans3)
 //
-} (* end of [main_py] *)
+} (* end of [main_js] *)
 
 (* ****** ****** *)
 
 %{^
-import sys
-######
-from basics_cats import *
-from integer_cats import *
-from string_cats import *
-######
-sys.setrecursionlimit(1000000)
-%}
+//
+// file inclusion:
+//
+var fs = require('fs');
+eval(fs.readFileSync('./../prelude/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./../prelude/CATS/string_cats.js').toString());
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
-main_py()
+main_js()
 %} // end of [%{$]
 
 (* ****** ****** *)
