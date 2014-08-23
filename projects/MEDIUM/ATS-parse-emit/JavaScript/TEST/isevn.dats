@@ -20,8 +20,13 @@ and isodd_ (n: int): bool =
 extern
 fun isevn
   : (int) -> bool = "mac#isevn"
+extern
+fun isodd
+  : (int) -> bool = "mac#isodd"
 //
-implement isevn (x) = isevn_(x)
+implement isevn (n) = isevn_(n)
+implement isodd (n) =
+  if n > 0 then isevn_(n-1) else false
 //
 (* ****** ****** *)
 
@@ -37,7 +42,7 @@ eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
 
 %{$
 console.log("isevn(100) =", isevn(100))
-console.log("isevn(101) =", isevn(101))
+console.log("isodd(101) =", isodd(101))
 %} // end of [%{$]
 
 

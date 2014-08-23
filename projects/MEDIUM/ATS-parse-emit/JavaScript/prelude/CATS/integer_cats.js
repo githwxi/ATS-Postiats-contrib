@@ -2,7 +2,8 @@
 ******
 *
 * HX-2014-08:
-* for Python code translated from ATS
+* for JavaScript code
+* translated from ATS
 *
 ******
 */

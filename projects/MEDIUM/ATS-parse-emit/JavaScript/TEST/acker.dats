@@ -26,22 +26,18 @@ case+
 (* ****** ****** *)
 
 %{^
-import sys
-######
-from basics_cats import *
-from integer_cats import *
-######
-sys.setrecursionlimit(1000000)
+//
+// file is included here:
+//
+var fs = require('fs');
+eval(fs.readFileSync('./../prelude/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
 %}
 
 (* ****** ****** *)
 
 %{$
-if (len(sys.argv) >= 3):
-  print(acker(int(sys.argv[1]), int(sys.argv[2])))
-else:
-  print('Usage: acker <integer> <integer>')
-#endif
+console.log("acker(3, 3) =", acker(3, 3))
 %} // end of [%{$]
 
 (* ****** ****** *)

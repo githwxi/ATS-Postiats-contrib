@@ -844,8 +844,8 @@ instr_node =
   | ATSifthen of (d0exp, instrlst)
   | ATSifnthen of (d0exp, instrlst)
 //
-  | ATSbranchseq of instrlst
-  | ATScaseofseq of instrlst
+  | ATSbranchseq of (instrlst)
+  | ATScaseofseq of (instrlst(*branches*))
 //
   | ATSfunbodyseq of instrlst
 //

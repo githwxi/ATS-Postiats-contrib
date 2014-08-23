@@ -20,6 +20,7 @@ emit_type
 
 fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
+fun emit_COLON : FILEref -> void
 fun emit_SHARP : FILEref -> void
 
 (* ****** ****** *)

@@ -33,6 +33,11 @@ emit_ENDL (out) = emit_text (out, "\n")
 (* ****** ****** *)
 
 implement
+emit_COLON (out) = emit_text (out, ":")
+
+(* ****** ****** *)
+
+implement
 emit_SHARP (out) = emit_text (out, "#")
 
 (* ****** ****** *)

@@ -103,7 +103,10 @@ fun
 the_branchlablst_get (): labelist
 extern
 fun
-the_branchlablst_set (labs: labelist): void
+the_branchlablst_set (tls: labelist): void
+extern
+fun
+the_branchlablst_unset ((*void*)): void
 //
 (* ****** ****** *)
 
@@ -159,6 +162,20 @@ val xss = !the_branchlablstlst
 in
   !the_branchlablstlst := list_cons (xs, xss)
 end // end of [the_branchlablst_set]
+
+implement
+the_branchlablst_unset
+(
+) = let
+//
+val xss = !the_branchlablstlst
+//
+in
+//
+case- xss of
+| list_cons (_, xss) => !the_branchlablstlst := xss
+//
+end // end of [the_branchlablst_unset]
 
 end // end of [local]
 
@@ -262,6 +279,12 @@ fun emit2_ATSfunbodyseq
 //
 (* ****** ****** *)
 //
+extern
+fun emit2_branchseqlst
+  (out: FILEref, ind: int, inss: instrlst): void
+//
+(* ****** ****** *)
+//
 // HX-2014-08:
 // this one should not be used for
 // emitting multiple-line instructions
@@ -309,6 +332,73 @@ ins0.instr_node of
       } (* end of [Some] *)
   end // end of [ATSif]
 //
+| ATSifthen (d0e, inss) =>
+  {
+//
+    val-list_cons (ins, _) = inss
+//
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "if(")
+    val () = emit_d0exp (out, d0e)
+    val () = emit_text (out, ") ")
+    val () = emit_instr (out, ins)
+  }
+//
+| ATSifnthen (d0e, inss) =>
+  {
+//
+    val-list_cons (ins, _) = inss
+//
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "if(!")
+    val () = emit_d0exp (out, d0e)
+    val ((*closing*)) = emit_text (out, ") ")
+    val () = emit_instr (out, ins)
+  }
+//
+| ATSbranchseq (inss) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATSbranchseq(...)")
+  }
+//
+| ATScaseofseq (inss) =>
+  {
+//
+    val tls =
+      caseofseq_get_tmplablst (ins0)
+    // end of [val]
+    val () = the_branchlablst_set (tls)
+//
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATScaseofseq_beg")
+    val () = emit_ENDL (out)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "tmplab_js = 1\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "while(true) {\n")
+    val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "tmplab = tmplab_js; tmplab_js = 0;\n")
+    val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "switch(tmplab)\n")
+    val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "{\n")
+//
+    val () = emit2_branchseqlst (out, ind+4, inss)
+//
+    val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "} // end-of-switch\n")
+    val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "if (tmplab_js === 0) break;\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "} // endwhile\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATScaseofseq_end")
+//
+    val () = the_branchlablst_unset ((*void*))
+//
+  } (* end of [ATScaseofseq] *)
+//
 | ATSreturn (tmp) =>
   {
     val () = emit_nspc (out, ind)
@@ -324,9 +414,30 @@ ins0.instr_node of
 | ATSINSlab (lab) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ")
-    val () = emit_label (out, lab)
+    val () = emit_text (out, "case ")
+    val () =
+    (
+      emit_tmplab_index (out, lab); emit_COLON (out)
+    ) (* end of [val] *)
+    val () =
+    (
+      emit_text (out, " // "); emit_label (out, lab)
+    ) (* end of [val] *)
   } (* end of [ATSINSlab] *)
+//
+| ATSINSgoto (lab) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () =
+    (
+      emit_text (out, "{ tmplab_js = ")
+    ) (* end of [val] *)
+    val () = emit_tmplab_index (out, lab)
+    val () =
+    (
+      emit_text (out, "; break; } // "); emit_label (out, lab)
+    ) (* end of [val] *)
+  } (* end of [ATSINSgoto] *)
 //
 | ATSINSflab (flab) =>
   {
@@ -334,6 +445,7 @@ ins0.instr_node of
     val () = emit_text (out, "// ")
     val () = emit_label (out, flab)
   } (* end of [ATSINSflab] *)
+//
 | ATSINSfgoto (flab) =>
   {
     val () = emit_nspc (out, ind)
@@ -343,7 +455,7 @@ ins0.instr_node of
     (
       emit_text (out, " // "); emit_label (out, flab)
     ) (* end of [val] *)
-  }
+  } (* end of [ATSINSfgoto] *)
 //
 | ATSINSmove (tmp, d0e) =>
   {
@@ -435,6 +547,60 @@ val-ATSfunbodyseq (inss) = ins.instr_node
 in
   emit2_instrlst (out, ind, inss)
 end // end of [emit2_ATS2funbodyseq]
+
+(* ****** ****** *)
+
+implement
+emit2_branchseqlst
+  (out, ind, inss) = let
+//
+fun auxseq
+(
+  out: FILEref
+, ind: int, ins0: instr
+) : void = let
+//
+val-ATSbranchseq(inss) = ins0.instr_node
+//
+val () = emit2_instrlst (out, ind, inss)
+//
+in
+end // end of [auxseq]
+//
+fun auxseqlst
+(
+  out: FILEref
+, ind: int, inss: instrlst
+) : void =
+(
+case+ inss of
+| list_nil () => ()
+| list_cons
+    (ins, inss) => let
+//
+    val () = emit_nspc (out, ind)
+    val () =
+    emit_text
+      (out, "// ATSbranchseq_beg\n")
+    // end of [val]
+//
+    val () = auxseq (out, ind, ins)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "break;\n")
+//
+    val () = emit_nspc (out, ind)
+    val () =
+    emit_text
+      (out, "// ATSbranchseq_end\n")
+    // end of [val]
+  in
+    auxseqlst (out, ind, inss)
+  end (* end of [list_cons] *)
+) (* end of [auxseqlst] *)
+//
+in
+  auxseqlst (out, ind, inss)
+end // end of [emit2_branchseqlst]
 
 (* ****** ****** *)
 //
