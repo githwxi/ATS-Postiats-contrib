@@ -710,8 +710,21 @@ val () = the_funbodylst_set (inss_body)
 //
 val () = emit_text (out, "{\n")
 //
+val () = emit_text (out, "//\n")
+//
 val () =
   emit_tmpdeclst_initize (out, tmpdecs)
+//
+val () =
+if knd > 0 then
+{
+val () = emit_nspc (out, 2)
+val () = emit_text (out, "var funlab_js\n")
+val () = emit_nspc (out, 2)
+val () = emit_text (out, "var tmplab, tmplab_js\n")
+} (* end of [if] *) // end of [val]
+//
+val () = emit_text (out, "//\n")
 //
 val () = (
 //

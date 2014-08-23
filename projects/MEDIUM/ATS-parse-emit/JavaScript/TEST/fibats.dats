@@ -19,9 +19,8 @@ dataprop FIB (int, int) =
 (* ****** ****** *)
 //
 extern
-fun
-fibats 
-  : {n:nat} int(n) -> [r:int] (FIB(n,r) | int(r)) = "mac#"
+fun fibats{n:nat}
+  : int(n) -> [r:int] (FIB(n,r) | int(r)) = "mac#fibats"
 //
 implement
 fibats{n}(n) = let
