@@ -10,7 +10,7 @@
 
 /*
 ******
-* beg of [basics_cats.py]
+* beg of [basics_cats.js]
 ******
 */
 
@@ -24,9 +24,9 @@ ATSCKisneqz(x) { return (x !== 0); }
 /* ****** ****** */
 
 function
-ATSCKptrisnil(xs) { return (xs == null) ; }
+ATSCKptrisnil(xs) { return (xs === null) ; }
 function
-ATSCKptriscons(xs) { return (xs != null) ; }
+ATSCKptriscons(xs) { return (xs !== null) ; }
 
 /* ****** ****** */
 

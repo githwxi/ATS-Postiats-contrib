@@ -10,7 +10,7 @@
 
 /*
 ******
-* beg of [string_cats.py]
+* beg of [string_cats.js]
 ******
 */
 

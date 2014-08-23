@@ -10,7 +10,7 @@
 
 /*
 ******
-* beg of [integer_cats.py]
+* beg of [integer_cats.js]
 ******
 */
 
