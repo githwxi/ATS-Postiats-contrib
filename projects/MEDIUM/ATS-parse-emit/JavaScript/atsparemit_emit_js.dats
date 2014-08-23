@@ -467,15 +467,18 @@ val ((*opening*)) = emit_text (out, "{\n")
 val () = emit_nspc (out, 2)
 val () = emit_text (out, "return [")
 val () = emit_text (out, "function(")
+//
 val () = emit_text (out, "cenv")
 val () = aux0_arglst (out, s0es_arg, 1, 0)
 //
 val () = emit_text (out, ") { return ")
+//
 val () = emit_label (out, fl)
 val () = emit_LPAREN (out)
 val n0 = aux1_envlst (out, s0es_env, 0)
 val () = aux0_arglst (out, s0es_arg, n0, 0)
 val () = emit_RPAREN (out)
+//
 val ((*closing*)) = emit_text (out, " ; }")
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
