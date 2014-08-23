@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit
+// ATS-parse-emit-python
 //
 (* ****** ****** *)
 //
@@ -14,10 +14,11 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-STDIO = "{$PATSLIBC}/SATS/stdio.sats"
-
+STDIO = 
+"{$PATSLIBC}/SATS/stdio.sats"
+//
 (* ****** ****** *)
 
 staload "./atsparemit.sats"
@@ -317,18 +318,18 @@ case+ arglst of
     val nif = state.ninputfile
     val wait0 =
     (
-      if nif = 0
-        then isinwait (state) else false
-      // end of [if]
+      case+ 0 of
+      | _ when nif < 0 => true
+      | _ when nif = 0 => isinwait (state)
+      | _ (* nif > 0 *) => false
     ) : bool // end of [val]
 
   in
-    if wait0
-      then atscc2py_fileref (state, stdin_ref)
-      else (
-        if state.ncomarg = 0 then atscc2py_usage ("atscc2py")
-      ) (* end of [else] *)
-    // end of [if]
+    if wait0 then (
+      if state.ncomarg = 0
+        then atscc2py_usage ("atscc2py")
+        else atscc2py_fileref (state, stdin_ref)
+    ) (* end of [if] *)
   end // end of [list_nil]
 //
 | list_cons
@@ -401,8 +402,6 @@ process_cmdline2_COMARGkey1
   state: &cmdstate >> _, arglst: comarglst, key: string
 ) : void = let
 //
-val () = state.waitkind := WTKnone ()
-//
 val () = (
 //
 case+ key of
@@ -414,11 +413,12 @@ case+ key of
 //
 | "-o" => {
     val () = state.waitkind := WTKoutput ()
-  }
+  } (* end of [-o] *)
 //
 | "-h" => {
     val () = atscc2py_usage ("atscc2py")
     val () = state.waitkind := WTKnone(*void*)
+    val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [-h] *)
 //
 | _ (*unrecognized*) => comarg_warning (key)
@@ -444,16 +444,16 @@ case+ key of
 | "--input" => {
     val () = state.ninputfile := 0
     val () = state.waitkind := WTKinput()
-  } (* end of [-i] *)
+  } (* end of [--input] *)
 //
 | "--output" => {
     val () = state.waitkind := WTKoutput ()
-  }
+  } (* end of [--output] *)
 //
 | "--help" => {
     val () = atscc2py_usage ("atscc2py")
     val () = state.waitkind := WTKnone(*void*)
-  } (* end of [-h] *)
+  } (* end of [--help] *)
 //
 | _ (*unrecognized*) => comarg_warning (key)
 //
@@ -557,7 +557,7 @@ state = @{
 , ncomarg= 0 // counting from 0
 , waitkind= WTKnone ()
 // number of prcessed
-, ninputfile= 0 // input files
+, ninputfile= ~1 // input files
 , outchan= OUTCHANref (stdout_ref)
 , nerror= 0 // number of accumulated errors
 } : cmdstate // end of [var]

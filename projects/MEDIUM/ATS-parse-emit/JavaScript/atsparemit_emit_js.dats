@@ -1,10 +1,10 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit-python
+// ATS-parse-emit-js
 //
 (* ****** ****** *)
 //
-// HX-2014-08-04: start
+// HX-2014-08-20: start
 //
 (* ****** ****** *)
 //
@@ -54,6 +54,15 @@ end // end of [emit_PMVintrep]
 (* ****** ****** *)
 
 implement
+emit_PMVbool
+  (out, tfv) =
+(
+  emit_text (out, if tfv then "true" else "false")
+) (* end of [emit_PMVbool] *)
+
+(* ****** ****** *)
+
+implement
 emit_PMVi0nt
   (out, tok) = let
 //
@@ -88,6 +97,8 @@ d0e0.d0exp_node of
 //
 | ATSPMVint (int) => emit_PMVint (out, int)
 | ATSPMVintrep (int) => emit_PMVintrep (out, int)
+//
+| ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
 //
