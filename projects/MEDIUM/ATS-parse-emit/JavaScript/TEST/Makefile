@@ -29,16 +29,6 @@ RMRF=rm -rf
 ######
 
 all:: \
-f91_dats.js
-f91_dats.js: f91.dats ; \
-$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-f91:: f91_dats.js ; $(NODEJS) f91_dats.js
-regress:: f91
-cleanall:: ; $(RMF) f91_dats.js
-
-######
-
-all:: \
 fact_dats.js
 fact_dats.js: fact.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
@@ -55,6 +45,26 @@ $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
 fact2:: fact2_dats.js ; $(NODEJS) fact2_dats.js
 regress:: fact2
 cleanall:: ; $(RMF) fact2_dats.js
+
+######
+
+all:: \
+f91_dats.js
+f91_dats.js: f91.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+f91:: f91_dats.js ; $(NODEJS) f91_dats.js
+regress:: f91
+cleanall:: ; $(RMF) f91_dats.js
+
+######
+
+all:: \
+fib_dats.js
+fib_dats.js: fib.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+fib:: fib_dats.js ; $(NODEJS) fib_dats.js 100
+regress:: fib
+cleanall:: ; $(RMF) fib_dats.js
 
 ######
 
@@ -85,6 +95,16 @@ $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
 isevn:: isevn_dats.js ; $(NODEJS) isevn_dats.js
 regress:: isevn
 cleanall:: ; $(RMF) isevn_dats.js
+
+######
+
+all:: \
+listlen_dats.js
+listlen_dats.js: listlen.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+listlen:: listlen_dats.js ; $(NODEJS) listlen_dats.js
+regress:: listlen
+cleanall:: ; $(RMF) listlen_dats.js
 
 ######
 

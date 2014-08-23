@@ -4,17 +4,25 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
 "./../prelude/SATS/integer.sats"
-
+//
 (* ****** ****** *)
 //
 extern
-fun fact : int -> int = "mac#fact"
+fun
+fib : int -> int = "mac#fib"
 //
 implement
-fact (n) = if n > 0 then n * fact(n-1) else 1
+fib (n) = let
+//
+fun aux (ff: '(int, int), n: int): int =
+  if n > 0 then aux ( '(ff.1, ff.0 + ff.1), n-1 ) else ff.0
+//
+in
+  aux ( '(0, 1), n )
+end // end of [fib]
 //
 (* ****** ****** *)
 
@@ -24,14 +32,14 @@ fact (n) = if n > 0 then n * fact(n-1) else 1
 //
 var fs = require('fs');
 eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
-%} // end of [%{^]
+%}
 
 (* ****** ****** *)
 
 %{$
-console.log("fact(10) =", fact(10))
+console.log("fib(10) =", fib(10))
 %} // end of [%{$]
 
 (* ****** ****** *)
 
-(* end of [fact.dats] *)
+(* end of [fib.dats] *)

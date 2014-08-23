@@ -701,7 +701,7 @@ ins0.instr_node of
 | ATScaseofseq (inss) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATScaseof_beg")
+    val () = emit_text (out, "#ATScaseofseq_beg")
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "tmplab_py = 1\n")
@@ -714,7 +714,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "if (tmplab_py == 0): break\n")
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATScaseof_end")
+    val () = emit_text (out, "#ATScaseofseq_end")
   }
 //
 | ATSreturn (tmp) =>
@@ -814,11 +814,11 @@ ins0.instr_node of
 | ATStailcalseq (inss) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#tailcal_beg")
+    val () = emit_text (out, "#ATStailcalseq_beg")
     val () = emit_ENDL (out)
     val () = emit2_instrlst (out, ind, inss)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#tailcal_end")
+    val () = emit_text (out, "#ATStailcalseq_end")
   
   } (* end of [ATStailcalseq] *)
 //

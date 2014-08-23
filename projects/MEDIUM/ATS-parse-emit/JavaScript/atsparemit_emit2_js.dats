@@ -274,14 +274,21 @@ fun emit2_instrlst
 (* ****** ****** *)
 //
 extern
-fun emit2_ATSfunbodyseq
-  (out: FILEref, ind: int, ins: instr) : void
+fun emit2_branchseqlst
+  (out: FILEref, ind: int, inss: instrlst): void
 //
 (* ****** ****** *)
 //
 extern
-fun emit2_branchseqlst
-  (out: FILEref, ind: int, inss: instrlst): void
+fun emit2_ATSfunbodyseq
+  (out: FILEref, ind: int, ins: instr) : void
+//
+extern
+fun emit2_ATSINSmove_con1
+  (out: FILEref, ind: int, ins: instr) : void
+extern
+fun emit2_ATSINSmove_boxrec
+  (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
 //
@@ -473,14 +480,34 @@ ins0.instr_node of
     val () = emit_d0exp (out, d0e)
   }
 //
+| ATSINSmove_nil (tmp) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_i0de (out, tmp)
+    val () = emit_text (out, " = ")
+    val () = emit_text (out, "null")
+  }
+| ATSINSmove_con0 (tmp, tag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_i0de (out, tmp)
+    val () = emit_text (out, " = ")
+    val () = emit_PMVint (out, tag)
+  }
+//
+| ATSINSmove_con1 _ =>
+    emit2_ATSINSmove_con1 (out, ind, ins0)
+| ATSINSmove_boxrec _ =>
+    emit2_ATSINSmove_boxrec (out, ind, ins0)
+//
 | ATStailcalseq (inss) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// tailcal_beg")
+    val () = emit_text (out, "// ATStailcalseq_beg")
     val () = emit_ENDL (out)
     val () = emit2_instrlst (out, ind, inss)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// tailcal_end")
+    val () = emit_text (out, "// ATStailcalseq_end")
   
   } (* end of [ATStailcalseq] *)
 //
@@ -539,6 +566,66 @@ case+ inss of
 (* ****** ****** *)
 
 implement
+emit2_branchseqlst
+  (out, ind, inss) = let
+//
+fun auxseq
+(
+  out: FILEref
+, ind: int, ins0: instr
+) : void = let
+in
+//
+case-
+ins0.instr_node of
+//
+| ATSbranchseq
+    (inss) => emit2_instrlst (out, ind, inss)
+  // end of [ATSbranchseq]
+//
+end (* end of [auxseq] *)
+//
+fun auxseqlst
+(
+  out: FILEref
+, ind: int, inss: instrlst
+) : void = let
+in
+//
+case+ inss of
+| list_nil () => ()
+| list_cons
+    (ins, inss) => let
+//
+    val () = (
+      emit_nspc (out, ind);
+      emit_text (out, "// ATSbranchseq_beg\n")
+    ) (* end of [val] *)
+//
+    val () = auxseq (out, ind, ins)
+//
+    val () = (
+      emit_nspc (out, ind); emit_text (out, "break;\n")
+    ) (* end of [val] *)
+//
+    val () = (
+      emit_nspc (out, ind);
+      emit_text (out, "// ATSbranchseq_end\n")
+    ) (* end of [val] *)
+//
+  in
+    auxseqlst (out, ind, inss)
+  end (* end of [list_cons] *)
+//
+end (* end of [auxseqlst] *)
+//
+in
+  auxseqlst (out, ind, inss)
+end // end of [emit2_branchseqlst]
+
+(* ****** ****** *)
+
+implement
 emit2_ATSfunbodyseq
   (out, ind, ins) = let
 //
@@ -551,56 +638,110 @@ end // end of [emit2_ATS2funbodyseq]
 (* ****** ****** *)
 
 implement
-emit2_branchseqlst
-  (out, ind, inss) = let
+emit2_ATSINSmove_con1
+  (out, ind, ins0) = let
 //
-fun auxseq
+fun
+getarglst
 (
-  out: FILEref
-, ind: int, ins0: instr
-) : void = let
-//
-val-ATSbranchseq(inss) = ins0.instr_node
-//
-val () = emit2_instrlst (out, ind, inss)
-//
-in
-end // end of [auxseq]
-//
-fun auxseqlst
-(
-  out: FILEref
-, ind: int, inss: instrlst
-) : void =
+  inss: instrlst
+) : d0explst =
 (
 case+ inss of
-| list_nil () => ()
-| list_cons
-    (ins, inss) => let
-//
-    val () = emit_nspc (out, ind)
-    val () =
-    emit_text
-      (out, "// ATSbranchseq_beg\n")
-    // end of [val]
-//
-    val () = auxseq (out, ind, ins)
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "break;\n")
-//
-    val () = emit_nspc (out, ind)
-    val () =
-    emit_text
-      (out, "// ATSbranchseq_end\n")
-    // end of [val]
+| list_nil () => list_nil ()
+| list_cons (ins, inss) => let
+    val-ATSINSstore_con1_ofs (_, _, _, d0e) = ins.instr_node
+    val d0es = getarglst (inss)
   in
-    auxseqlst (out, ind, inss)
-  end (* end of [list_cons] *)
-) (* end of [auxseqlst] *)
+    list_cons (d0e, d0es)
+  end // end of [list_cons]
+)
+//
+val-ATSINSmove_con1 (inss) = ins0.instr_node
+//
+val-list_cons (ins, inss) = inss
+val-ATSINSmove_con1_new (tmp, _) = ins.instr_node  
+//
+var opt: tokenopt = None()
+//
+val inss =
+(
+case+ inss of
+| list_nil () => inss
+| list_cons (ins, inss2) =>
+  (
+    case+ ins.instr_node of
+    | ATSINSstore_con1_tag
+        (tmp, tag) => let
+        val () = opt := Some(tag) in inss2
+      end // end of [ATSINSstore_con1_tag]
+    | _ (*non-ATSINSstore_con1_tag*) => inss
+  )
+) : instrlst
+//
+val d0es = getarglst (inss)
+val () = emit_nspc (out, ind)
+val () = emit_i0de (out, tmp)
+val () = emit_text (out, " = ")
+val () = emit_LBRACKET (out)
+val () =
+(
+case+ opt of
+| None () => ()
+| Some (tag) => emit_PMVint (out, tag)
+) : void // end of [val]
+val () =
+(
+case+ opt of
+| None _ => emit_d0explst (out, d0es)
+| Some _ => emit_d0explst_1 (out, d0es)
+) : void // end of [val]
+//
+val () = emit_RBRACKET (out)
 //
 in
-  auxseqlst (out, ind, inss)
-end // end of [emit2_branchseqlst]
+  // nothing
+end // end of [emit2_ATSINSmove_con1]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_boxrec
+  (out, ind, ins0) = let
+//
+fun
+getarglst
+(
+  inss: instrlst
+) : d0explst =
+(
+case+ inss of
+| list_nil () => list_nil ()
+| list_cons (ins, inss) => let
+    val-ATSINSstore_boxrec_ofs (_, _, _, d0e) = ins.instr_node
+    val d0es = getarglst (inss)
+  in
+    list_cons (d0e, d0es)
+  end // end of [list_cons]
+)
+//
+val-ATSINSmove_boxrec (inss) = ins0.instr_node
+//
+val-list_cons (ins, inss) = inss
+val-ATSINSmove_boxrec_new (tmp, _) = ins.instr_node  
+//
+val d0es = getarglst (inss)
+//
+val () = emit_nspc (out, ind)
+val () = emit_i0de (out, tmp)
+val () = emit_text (out, " = ")
+val () = emit_LBRACKET (out)
+val () = emit_d0explst (out, d0es)
+val () = emit_RBRACKET (out)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_boxrec]
 
 (* ****** ****** *)
 //

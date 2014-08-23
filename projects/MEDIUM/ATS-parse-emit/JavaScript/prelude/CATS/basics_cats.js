@@ -24,13 +24,20 @@ ATSCKisneqz(x) { return (x !== 0); }
 /* ****** ****** */
 
 function
-ATSCKpat_int (tmp, given) { return (tmp === given); }
+ATSCKptrisnil(xs) { return (xs == null) ; }
 function
-ATSCKpat_bool (tmp, given) { return (tmp === given); }
+ATSCKptriscons(xs) { return (xs != null) ; }
+
+/* ****** ****** */
+
 function
-ATSCKpat_char (tmp, given) { return (tmp === given); }
+ATSCKpat_int(tmp, given) { return (tmp === given); }
 function
-ATSCKpat_float (tmp, given) { return (tmp === given); }
+ATSCKpat_bool(tmp, given) { return (tmp === given); }
+function
+ATSCKpat_char(tmp, given) { return (tmp === given); }
+function
+ATSCKpat_float(tmp, given) { return (tmp === given); }
 
 /* ****** ****** */
 
