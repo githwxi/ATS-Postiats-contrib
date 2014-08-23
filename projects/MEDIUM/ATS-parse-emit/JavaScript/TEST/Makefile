@@ -99,6 +99,26 @@ cleanall:: ; $(RMF) isevn_dats.js
 ######
 
 all:: \
+rtfind_dats.js
+rtfind_dats.js: rtfind.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+rtfind:: rtfind_dats.js ; $(NODEJS) rtfind_dats.js
+regress:: rtfind
+cleanall:: ; $(RMF) rtfind_dats.js
+
+######
+
+all:: \
+rtfind2_dats.js
+rtfind2_dats.js: rtfind2.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+rtfind2:: rtfind2_dats.js ; $(NODEJS) rtfind2_dats.js
+regress:: rtfind2
+cleanall:: ; $(RMF) rtfind2_dats.js
+
+######
+
+all:: \
 listlen_dats.js
 listlen_dats.js: listlen.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@

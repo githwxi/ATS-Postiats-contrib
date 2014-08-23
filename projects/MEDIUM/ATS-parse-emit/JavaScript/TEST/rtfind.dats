@@ -39,13 +39,13 @@ eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-#
-poly1 = lambda x: x*x - x - 6
-print('rtfind(lambda x: x*x - x - 6) =', rtfind(poly1))
-#
-poly2 = lambda x: x*x + 2*x - 99
-print('rtfind(lambda x: x*x - 2*x - 99) =', rtfind(poly2))
-#
+//
+poly1 = function(x) { return x*x - x - 6 ; }
+console.log('rtfind(lambda x: x*x - x - 6) = %d', rtfind(poly1))
+//
+poly2 = function(x) { return x*x + 2*x - 99 ; }
+console.log('rtfind(lambda x: x*x - 2*x - 99) = %d', rtfind(poly2))
+//
 %} // end of [%{$]
 
 (* ****** ****** *)

@@ -120,6 +120,24 @@ end // end of [emit_PMVfunlab]
 (* ****** ****** *)
 
 implement
+emit_PMVcfunlab
+  (out, fl, d0es) =
+{
+//
+val () =
+  emit_label (out, fl)
+val () =
+  emit_text (out, "__closurerize")
+//
+val () = emit_LPAREN (out)
+val () = emit_d0explst (out, d0es)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_PMVcfunlab] *)
+
+(* ****** ****** *)
+
+implement
 emit_d0exp
   (out, d0e0) = let
 in
@@ -139,6 +157,23 @@ d0e0.d0exp_node of
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
   }
+| D0Eappexp (d0e, d0es) =>
+  {
+    val () = emit_d0exp (out, d0e)
+    val () = emit_LPAREN (out)
+    val () = emit_d0explst (out, d0es)
+    val () = emit_RPAREN (out)
+  }
+//
+| D0Elist (d0es) =>
+  {
+    val () = emit_text (out, "D0Elist")
+    val () = emit_LPAREN (out)
+    val () = emit_d0explst (out, d0es)
+    val () = emit_RPAREN (out)
+  }
+//
+| ATSempty (x) => emit_text (out, "null")
 //
 | ATSPMVint (int) => emit_PMVint (out, int)
 | ATSPMVintrep (int) => emit_PMVintrep (out, int)
@@ -150,6 +185,11 @@ d0e0.d0exp_node of
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
 | ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
 //
+| ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
+| ATSPMVcfunlab
+    (_(*knd*), fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
+  // end of [ATSPMVcfunlab]
+//
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 //
 | ATSSELrecsin _ => emit_text (out, "ATSSELrecsin(...)")
@@ -158,7 +198,14 @@ d0e0.d0exp_node of
 //
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
-| _ (*rest-of-d0exp*) => fprint (out, d0e0)
+| ATSfunclo_fun
+    (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
+| ATSfunclo_clo
+    (d2e, _(*arg*), _(*res*)) =>
+  (
+    emit_d0exp (out, d2e);
+    emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
+  ) (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]
 

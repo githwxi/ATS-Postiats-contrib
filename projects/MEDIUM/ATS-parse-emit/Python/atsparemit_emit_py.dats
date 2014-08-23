@@ -167,7 +167,7 @@ d0e0.d0exp_node of
 //
 | D0Elist (d0es) =>
   {
-    val () = emit_text (out, "__D0Elist__")
+    val () = emit_text (out, "D0Elist")
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
@@ -205,6 +205,10 @@ d0e0.d0exp_node of
     emit_d0exp (out, d2e);
     emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
   ) (* end of [ATSfunclo_clo] *)
+//
+(*
+| _ (*rest-of-d0exp*) => fprint (out, d0e0)
+*)
 //
 end // end of [emit_d0exp]
 
