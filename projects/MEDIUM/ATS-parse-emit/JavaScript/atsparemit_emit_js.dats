@@ -372,16 +372,124 @@ emit_COMMENT_block (out) = ((*ignored*))
 //
 (* ****** ****** *)
 
+local
+
+fun
+aux0_arglst
+(
+  out: FILEref
+, s0es: s0explst
+, n0: int, i: int
+) : void =
+(
+case+ s0es of
+| list_nil () => ()
+| list_cons
+    (s0e, s0es) => let
+    val () =
+    if n0+i > 0 then emit_text (out, ", ")
+    val () =
+    (
+      emit_text (out, "arg"); emit_int (out, i)
+    ) (* end of [val] *)
+  in
+    aux0_arglst (out, s0es, n0, i+1)
+  end // end of [list_cons]
+) (* end of [aux0_arglst] *)
+
+fun
+aux0_envlst
+(
+  out: FILEref
+, s0es: s0explst
+, n0: int, i: int
+) : void =
+(
+case+ s0es of
+| list_nil () => ()
+| list_cons
+    (s0e, s0es) => let
+    val () =
+    if n0+i > 0 then emit_text (out, ", ")
+    val () =
+    (
+      emit_text (out, "env"); emit_int (out, i)
+    ) (* end of [val] *)
+  in
+    aux0_envlst (out, s0es, n0, i+1)
+  end // end of [list_cons]
+) (* end of [aux0_envlst] *)
+
+fun
+aux1_envlst
+(
+  out: FILEref
+, s0es: s0explst, i: int
+) : int =
+(
+case+ s0es of
+| list_nil () => (i)
+| list_cons
+    (s0e, s0es) => let
+    val () =
+    if i > 0 then emit_text (out, ", ")
+    val () =
+    (
+      emit_text (out, "cenv");
+      emit_LBRACKET (out); emit_int (out, i+1); emit_RBRACKET (out)
+    ) (* end of [val] *)
+  in
+    aux1_envlst (out, s0es, i+1)
+  end // end of [list_cons]
+) (* end of [aux1_envlst] *)
+
+in (* in-of-local *)
+
 implement
 emit_closurerize
 (
   out, fl, env, arg, res
-) =
-(
+) = let
 //
-emit_text (out, "emit_closurerize(...)")
+val-S0Elist(s0es_env) = env.s0exp_node
+val-S0Elist(s0es_arg) = arg.s0exp_node
 //
-) // end of [emit_closurerize]
+val () =
+emit_text (out, "function\n")
+val () = emit_label (out, fl)
+val () =
+emit_text (out, "__closurerize(")
+val () = aux0_envlst (out, s0es_env, 0, 0)
+val ((*closing*)) = emit_text (out, ")\n")
+//
+val ((*opening*)) = emit_text (out, "{\n")
+//
+val () = emit_nspc (out, 2)
+val () = emit_text (out, "return [")
+val () = emit_text (out, "function(")
+val () = emit_text (out, "cenv")
+val () = aux0_arglst (out, s0es_arg, 1, 0)
+//
+val () = emit_text (out, ") { return ")
+val () = emit_label (out, fl)
+val () = emit_LPAREN (out)
+val n0 = aux1_envlst (out, s0es_env, 0)
+val () = aux0_arglst (out, s0es_arg, n0, 0)
+val () = emit_RPAREN (out)
+val ((*closing*)) = emit_text (out, " ; }")
+//
+val () = aux0_envlst (out, s0es_env, 1, 0)
+val ((*closing*)) = emit_text (out, "]\n")
+//
+val ((*closing*)) = emit_text (out, "}\n")
+//
+val () = emit_newline (out)
+//
+in
+  // nothing
+end // end of [emit_closurerize]
+
+end // end of [local]
 
 (* ****** ****** *)
 

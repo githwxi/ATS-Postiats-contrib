@@ -6,7 +6,7 @@
 (* ****** ****** *)
 //
 staload
-"./../prelude/basics_py.sats"
+"./../prelude/basics_js.sats"
 //
 staload
 "./../prelude/SATS/integer.sats"
@@ -52,19 +52,20 @@ end // end of [test]
 (* ****** ****** *)
 
 %{^
-import sys
-######
-from basics_cats import *
-from integer_cats import *
-######
-sys.setrecursionlimit(1000000)
-%}
+//
+// file inclusion:
+//
+var fs = require('fs');
+eval(fs.readFileSync('./../prelude/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
 //
-print("test(5, 10) = ", test(5, 10), sep='')
+console.log("test(5, 10) =", test(5, 10))
+//
 %} // end of [%{$]
 
 (* ****** ****** *)

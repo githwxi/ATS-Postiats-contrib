@@ -129,6 +129,16 @@ cleanall:: ; $(RMF) listlen_dats.js
 ######
 
 all:: \
+listmap_dats.js
+listmap_dats.js: listmap.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+listmap:: listmap_dats.js ; $(NODEJS) listmap_dats.js
+regress:: listmap
+cleanall:: ; $(RMF) listmap_dats.js
+
+######
+
+all:: \
 queens_dats.js
 queens_dats.js: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
