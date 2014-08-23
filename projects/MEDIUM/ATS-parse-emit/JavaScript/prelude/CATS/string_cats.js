@@ -15,10 +15,18 @@
 */
 
 /* ****** ****** */
-
+//
 function
-ats2jspre_print_string(x) { process.stdout.write(x); return; }
-
+ats2jspre_print_string(x)
+{
+  process.stdout.write(x) ; return ;
+}
+function
+ats2jspre_prerr_string(x)
+{
+  process.stderr.write(x) ; return ;
+}
+//
 /* ****** ****** */
 
 /* end of [string_cats.js] */
