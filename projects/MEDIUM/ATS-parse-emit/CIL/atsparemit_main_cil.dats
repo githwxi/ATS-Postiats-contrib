@@ -52,7 +52,11 @@ dynload "./atsparemit_parsing_instr.dats"
 //
 (* ****** ****** *)
 
-dynload "./atsparemit_topenv.dats"
+dynload "./atsparemit_typedef.dats"
+
+(* ****** ****** *)
+
+dynload "./atsparemit_syntax_cil.dats"
 
 (* ****** ****** *)
 
@@ -64,13 +68,11 @@ implement
 main0 (argc, argv) =
 {
 //
-(*
 val () =
 println!
 (
   "Hello from ATS-parse-emit-cil!"
 ) (* end of [val] *)
-*)
 //
 val d0cs = parse_from_fileref (stdin_ref)
 (*

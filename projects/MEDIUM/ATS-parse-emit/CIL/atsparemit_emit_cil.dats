@@ -19,7 +19,9 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload "./atsparemit.sats"
+staload "./atsparemit_cil.sats"
 staload "./atsparemit_syntax.sats"
+staload "./atsparemit_syntax_cil.sats"
 //
 (* ****** ****** *)
 //
@@ -27,20 +29,8 @@ staload "./atsparemit_emit.sats"
 //
 (* ****** ****** *)
 //
-staload "./atsparemit_topenv.dats"
+staload "./atsparemit_typedef.dats"
 //
-(* ****** ****** *)
-
-fn
-symbol_is_arg (x: symbol) :<> bool = let
-  val name = g1ofg0_string (symbol_get_name (x))
-in
-  if strlen (name) >= 4 then
-   string_get_at (name, 0) = 'a' && string_get_at (name, 1) = 'r' && string_get_at (name, 2) = 'g'
-   && isdigit (string_get_at (name, 3))
-  else false
-end // end of [symbol_is_arg]
-
 (* ****** ****** *)
 
 implement
@@ -152,6 +142,77 @@ implement
 emit_label
   (out, lab) = emit_symbol (out, lab.i0de_sym)
 //
+(* ****** ****** *)
+
+implement
+emit_extcode
+  (out, toks) = let
+//
+fun
+auxtok
+(
+  out: FILEref, tok: token
+) : void =
+(
+case+
+tok.token_node of
+//
+| T_KWORD _ => ()
+//
+| T_ENDL () => emit_ENDL (out)
+| T_SPACES (cs) => emit_text (out, cs)
+//
+| T_COMMENT_line () =>
+    emit_text (out, "// COMMENT_line\n")
+| T_COMMENT_block () => ((*ignored*))
+//
+| T_INT (_, rep) => emit_text (out, rep)
+//
+| T_STRING (str) => emit_text (out, str)
+//
+| T_IDENT_alp (name) => emit_text (out, name)
+| T_IDENT_srp (name) => emit_text (out, name) // FIXME?
+//
+| T_IDENT_sym (name) => emit_text (out, name)
+//
+| T_LPAREN () => emit_LPAREN (out)
+| T_RPAREN () => emit_RPAREN (out)
+//
+| T_LBRACKET () => emit_LBRACKET (out)
+| T_RBRACKET () => emit_RBRACKET (out)
+//
+| T_LBRACE () => emit_LBRACE (out)
+| T_RBRACE () => emit_RBRACE (out)
+//
+| T_LT () => emit_text (out, "<")
+| T_GT () => emit_text (out, ">")
+//
+| T_MINUS () => emit_text (out, "-")
+//
+| T_COLON () => emit_text (out, ":")
+//
+| T_COMMA () => emit_text (out, ",")
+| T_SEMICOLON () => emit_text (out, ";")
+//
+| T_SLASH () => emit_text (out, "/")
+//
+| _ (*unrecognized*) =>
+  {
+    val () = fprint! (out, "TOKERR(", tok, ")")
+  }
+) (* end of [auxtok] *)
+//
+in
+//
+case+ toks of
+| list_nil () => ()
+| list_cons (tok, toks) =>
+  (
+    auxtok (out, tok); emit_extcode (out, toks)
+  ) (* end of [list_cons] *)
+//
+end // end of [emit_extcode]
+
 (* ****** ****** *)
 //
 extern
@@ -357,7 +418,7 @@ d0e.d0exp_node of
 | D0Eide (id) =>
   {
     val () =
-      if symbol_is_arg (id)
+      if tmpvar_is_arg (id)
         then emit_text (out, "ldarg")
         else emit_text (out, "ldloc")
     // end of [val]
@@ -632,7 +693,7 @@ ins0.instr_node of
     val () = emit_d0exp (out, d0e)
     val () = emit_newline (out)
     val () =
-      if symbol_is_arg (tmp.i0de_sym)
+      if tmpvar_is_arg (tmp.i0de_sym)
         then emit_text (out, "starg")
         else emit_text (out, "stloc")
     // end of [val]    
@@ -873,6 +934,13 @@ in
 end // end of [emit_SELboxrec]
 
 (* ****** ****** *)
+//
+#define
+ATSEXTCODE_BEG "/*\nATSextcode_beg()\n*/"
+#define
+ATSEXTCODE_END "/*\nATSextcode_end()\n*/"
+//
+(* ****** ****** *)
 
 implement
 emit_d0ecl
@@ -910,7 +978,12 @@ d0c.d0ecl_node of
 //
 | D0Cdyncst_mac i0de => ()
 | D0Cdyncst_extfun (i0de, s0explst, s0exp) => ()
-| D0Cextcode _ => ()
+| D0Cextcode (toks) =>
+  {
+    val () = emit_text (out, ATSEXTCODE_BEG)
+    val () = emit_extcode (out, toks)
+    val () = emit_text (out, ATSEXTCODE_END)
+  }
 | D0Cclosurerize (_, _, _, _) => ()
 //
 | D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
