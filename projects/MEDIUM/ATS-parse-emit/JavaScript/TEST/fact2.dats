@@ -1,12 +1,14 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
 staload
-"./../prelude/SATS/integer.sats"
+"{$LIBATSCC2JS}/SATS/integer.sats"
 //
 (* ****** ****** *)
 //
@@ -30,7 +32,7 @@ end // end of [fact]
 // file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
 %}
 
 (* ****** ****** *)

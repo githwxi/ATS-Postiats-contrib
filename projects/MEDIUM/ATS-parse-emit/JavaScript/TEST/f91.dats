@@ -1,13 +1,15 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/SATS/integer.sats"
-
+"{$LIBATSCC2JS}/SATS/integer.sats"
+//
 (* ****** ****** *)
 //
 extern fun f91 : int -> int = "mac#f91"
@@ -22,13 +24,32 @@ f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
 // file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
-%}
+eval(fs.readFileSync('./../libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
-console.log("f91(23) =", f91(23))
+//
+(
+function()
+{
+//
+var argc =
+  process.argv.length
+//
+if (argc <= 2)
+{
+  console.log("Usage: f91 <int>>"); return;
+}
+//
+var x = process.argv[2]
+//
+console.log("f91(%d) = %d", x, f91(x)); return;
+//
+} /* end of [main_js] */
+) () ;
 %} // end of [%{$]
 
 (* ****** ****** *)

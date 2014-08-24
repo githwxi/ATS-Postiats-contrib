@@ -36,17 +36,21 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/basics_js.sats"
+"{$LIBATSCC2JS}/basics_js.sats"
+//
 staload
-"./../prelude/SATS/integer.sats"
+"{$LIBATSCC2JS}/SATS/integer.sats"
+//
 staload
-"./../prelude/SATS/string.sats"
-
+"{$LIBATSCC2JS}/SATS/string.sats"
+//
 (* ****** ****** *)
 
 typedef I (a:t@ype) = a -<cloref1> a
@@ -93,18 +97,23 @@ val ((*void*)) = println! ("ans3(65536) = ", ans3)
 
 %{^
 //
-// file inclusion:
+// file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../prelude/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./../prelude/CATS/string_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/node/basics_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/node/integer_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/string_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/node/string_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
+//
 main_js()
+//
 %} // end of [%{$]
 
 (* ****** ****** *)

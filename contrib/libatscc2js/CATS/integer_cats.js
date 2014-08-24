@@ -68,18 +68,5 @@ function
 ats2jspre_neq_int1_int1(x, y) { return (x !== y) ; }
 
 /* ****** ****** */
-//
-function
-ats2jspre_print_int(x)
-{
-  process.stdout.write(x.toString()) ; return ;
-}
-function
-ats2jspre_prerr_int(x)
-{
-  process.stderr.write(x.toString()) ; return ;
-}
-//
-/* ****** ****** */
 
 /* end of [integer_cats.js] */

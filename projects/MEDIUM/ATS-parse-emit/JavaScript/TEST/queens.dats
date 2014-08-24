@@ -42,17 +42,21 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/basics_js.sats"
+"{$LIBATSCC2JS}/basics_js.sats"
+//
 staload
-"./../prelude/SATS/integer.sats"
+"{$LIBATSCC2JS}/SATS/integer.sats"
+//
 staload
-"./../prelude/SATS/string.sats"
-
+"{$LIBATSCC2JS}/SATS/string.sats"
+//
 (* ****** ****** *)
 
 #define N 8 // HX: this should not be changed!
@@ -194,7 +198,8 @@ fun search
 (* ****** ****** *)
 //
 extern 
-fun main_js (): void = "mac#"
+fun
+main_js (): void = "mac#"
 //
 implement
 main_js ((*void*)) =
@@ -206,12 +211,15 @@ main_js ((*void*)) =
 
 %{^
 //
-// file inclusion:
+// file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../prelude/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./../prelude/CATS/string_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/node/basics_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/node/integer_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/string_cats.js').toString());
+eval(fs.readFileSync('./../libatscc2js/CATS/node/string_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

@@ -41,21 +41,4 @@ ATSCKpat_float(tmp, given) { return (tmp===given) ; }
 
 /* ****** ****** */
 
-function
-ats2jspre_print_obj(obj)
-{
-  process.stdout.write(x.toString()) ; return ;
-}
-
-/* ****** ****** */
-//
-function
-ats2jspre_print_newline()
-  { process.stdout.write('\n') ; return ; }
-function
-ats2jspre_prerr_newline()
-  { process.stderr.write('\n') ; return ; }
-//
-/* ****** ****** */
-
 /* end of [basics_cats.js] */
