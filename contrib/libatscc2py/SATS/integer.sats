@@ -5,10 +5,16 @@
 
 (* ****** ****** *)
 //
-// HX: prefix for external names
+// HX-2014-08:
+// prefix for external names
 //
-#define ATS_EXTERN_PREFIX "ats2pypre_"
+#define
+ATS_EXTERN_PREFIX "ats2pypre_"
 //
+(* ****** ****** *)
+
+staload "./../basics_py.sats"  
+  
 (* ****** ****** *)
 
 fun abs_int0 : int -> int = "mac#%"
@@ -109,7 +115,7 @@ fun print_int : (int) -> void = "mac#%"
 fun prerr_int : (int) -> void = "mac#%"
 //
 fun
-fprint_int: (FILEref, int) -> void = "mac#%"
+fprint_int : (PYfile, int) -> void = "mac#%"
 //
 overload print with print_int of 100
 overload prerr with prerr_int of 100

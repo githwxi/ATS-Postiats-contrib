@@ -22,6 +22,14 @@ stadef cfun = cfun1
 stadef cfun = cfun2
 //
 (* ****** ****** *)
+
+abstype JSfile
+
+(* ****** ****** *)
+
+abstype JSarray (a:t@ype)
+
+(* ****** ****** *)
 //
 fun
 print_obj{a:t@ype}(obj: a): void = "mac#%"

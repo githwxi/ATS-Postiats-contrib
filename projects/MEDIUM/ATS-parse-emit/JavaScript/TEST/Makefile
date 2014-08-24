@@ -9,7 +9,7 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
-ATSPAREMIT=./../atsparemit_js
+ATSPAREMIT=./../atscc2js
 
 ######
 
@@ -72,7 +72,7 @@ all:: \
 fibats_dats.js
 fibats_dats.js: fibats.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-fibats:: fibats_dats.js ; $(NODEJS) fibats_dats.js
+fibats:: fibats_dats.js ; $(NODEJS) fibats_dats.js 20
 regress:: fibats
 cleanall:: ; $(RMF) fibats_dats.js
 
@@ -82,7 +82,7 @@ all:: \
 acker_dats.js
 acker_dats.js: acker.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-acker:: acker_dats.js ; $(NODEJS) acker_dats.js
+acker:: acker_dats.js ; $(NODEJS) acker_dats.js 3 3
 regress:: acker
 cleanall:: ; $(RMF) acker_dats.js
 

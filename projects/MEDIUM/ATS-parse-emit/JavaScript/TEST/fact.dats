@@ -29,7 +29,7 @@ eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-console.log("fact(10) =", fact(10))
+console.log("fact(10) = %d", fact(10))
 %} // end of [%{$]
 
 (* ****** ****** *)

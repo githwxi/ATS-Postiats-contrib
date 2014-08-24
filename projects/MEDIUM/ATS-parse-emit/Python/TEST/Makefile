@@ -9,7 +9,7 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
-ATSPAREMIT=./../atsparemit_py
+ATSPAREMIT=./../atscc2py
 
 ######
 

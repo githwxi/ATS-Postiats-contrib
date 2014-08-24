@@ -37,7 +37,28 @@ eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-console.log("acker(3, 3) =", acker(3, 3))
+//
+(
+function()
+{
+//
+var argc =
+  process.argv.length
+//
+if (argc <= 3)
+{
+  console.log("Usage: acker <int> <int>"); return;
+}
+//
+var m = process.argv[2]
+var n = process.argv[3]
+//
+console.log("acker(%d, %d) = %d", m, n, acker(m, n));
+//
+return;
+//
+} /* end of [main_js] */
+) () ;
 %} // end of [%{$]
 
 (* ****** ****** *)

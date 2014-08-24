@@ -55,7 +55,27 @@ eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-console.log("fibats(10) =", fibats(10))
+//
+(
+function()
+{
+//
+var argc =
+  process.argv.length
+//
+if (argc <= 2)
+{
+  console.log("Usage: fibats <int>>"); return;
+}
+//
+var x = process.argv[2]
+//
+console.log("fibats(%d) = %d", x, fibats(x));
+//
+return;
+//
+} /* end of [main_js] */
+) () ;
 %} // end of [%{$]
 
 (* ****** ****** *)
