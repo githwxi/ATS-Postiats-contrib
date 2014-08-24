@@ -1,12 +1,14 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 
 staload
-"./../prelude/SATS/integer.sats"
+"{$LIBATSCC2PY}/SATS/integer.sats"
 
 (* ****** ****** *)
 //
@@ -32,7 +34,7 @@ from basics_cats import *
 from integer_cats import *
 ######
 sys.setrecursionlimit(1000000)
-%}
+%} // end of [%{^]
 
 (* ****** ****** *)
 

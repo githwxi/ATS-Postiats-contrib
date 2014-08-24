@@ -1,13 +1,15 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/SATS/integer.sats"
-
+"{$LIBATSCC2PY}/SATS/integer.sats"
+//
 (* ****** ****** *)
 //
 extern fun f91 : int -> int = "mac#f91"
@@ -24,7 +26,7 @@ from basics_cats import *
 from integer_cats import *
 ######
 sys.setrecursionlimit(1000000)
-%}
+%} // end of [%{^]
 
 (* ****** ****** *)
 

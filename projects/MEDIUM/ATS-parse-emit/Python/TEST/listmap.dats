@@ -1,17 +1,18 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
 staload
-"./../prelude/basics_py.sats"
-//
+"{$LIBATSCC2PY}/basics_py.sats"
 staload
-"./../prelude/SATS/integer.sats"
-//
-staload "./../prelude/SATS/list.sats"
+"{$LIBATSCC2PY}/SATS/integer.sats"
+staload
+"{$LIBATSCC2PY}/SATS/list.sats"
 //
 (* ****** ****** *)
 //

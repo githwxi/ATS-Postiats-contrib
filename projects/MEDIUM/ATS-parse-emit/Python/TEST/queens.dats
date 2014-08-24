@@ -42,17 +42,19 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/basics_py.sats"
+"{$LIBATSCC2PY}/basics_py.sats"
 staload
-"./../prelude/SATS/integer.sats"
+"{$LIBATSCC2PY}/SATS/integer.sats"
 staload
-"./../prelude/SATS/string.sats"
-
+"{$LIBATSCC2PY}/SATS/string.sats"
+//
 (* ****** ****** *)
 
 #define N 8 // HX: this should not be changed!
@@ -212,7 +214,7 @@ from integer_cats import *
 from string_cats import *
 ######
 sys.setrecursionlimit(1000000)
-%}
+%} // end of [%{^]
 
 (* ****** ****** *)
 

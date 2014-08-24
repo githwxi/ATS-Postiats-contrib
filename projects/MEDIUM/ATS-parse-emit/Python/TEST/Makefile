@@ -159,12 +159,13 @@ cleanall:: ; $(RMF) queens_dats.py
 ######
 
 all:: \
-pylist_test_dats.py
-pylist_test_dats.py: pylist_test.dats ; \
+PYlist_test_dats.py
+PYlist_test_dats.py: PYlist_test.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@ -i
-pylist:: pylist_test_dats.py ; $(PYTHON) pylist_test_dats.py
-regress:: pylist
-cleanall:: ; $(RMF) pylist_test_dats.py
+PYlist_test:: \
+PYlist_test_dats.py ; $(PYTHON) PYlist_test_dats.py
+regress:: PYlist_test
+cleanall:: ; $(RMF) PYlist_test_dats.py
 
 ######
 
