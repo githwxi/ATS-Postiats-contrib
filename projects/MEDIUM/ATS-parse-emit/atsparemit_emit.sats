@@ -21,6 +21,7 @@ emit_type
 fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
 fun emit_SHARP : FILEref -> void
+fun emit_COLON : FILEref -> void
 
 (* ****** ****** *)
 //
@@ -80,6 +81,7 @@ fun emit_PMVcfunlab
 
 fun emit_i0de : emit_type (i0de)
 fun emit_label : emit_type (label)
+fun emit_label_mark : emit_type (label)
 
 (* ****** ****** *)
 

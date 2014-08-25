@@ -49,6 +49,11 @@ emit_SHARP (out) = emit_text (out, "#")
 (* ****** ****** *)
 
 implement
+emit_COLON (out) = emit_text (out, ":")
+
+(* ****** ****** *)
+
+implement
 emit_LPAREN (out) = emit_text (out, "(")
 implement
 emit_RPAREN (out) = emit_text (out, ")")
@@ -141,6 +146,14 @@ emit_i0de
 implement
 emit_label
   (out, lab) = emit_symbol (out, lab.i0de_sym)
+fun
+emit_label_mark
+  (out, lab) =
+  {
+    val () = emit_label (out, lab)
+    val () = emit_COLON (out)
+    val () = emit_ENDL (out)
+  }
 //
 (* ****** ****** *)
 
@@ -217,7 +230,7 @@ end // end of [emit_extcode]
 //
 extern
 fun emit_instrlst
-  (out: FILEref, inss: instrlst) : void
+  (out: FILEref, inss: instrlst, labbeg: label, labend: label) : void
 //
 extern
 fun
@@ -601,12 +614,46 @@ end // end of [emit_tmpdeclst_initize]
 (* ****** ****** *)
 //
 extern
+fun emit_instr_0
+  (out: FILEref, ins: instr): void
+//
+implement
+emit_instr_0
+  (out, ins0) = let
+in
+//
+case+
+ins0.instr_node of
+//
+| ATSreturn (tmp) =>
+  {
+    val () =
+      if tmpvar_is_arg (tmp.i0de_sym)
+        then emit_text (out, "ldarg")
+        else emit_text (out, "ldloc")
+    // end of [val]
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, tmp)
+    val () = emit_newline (out)
+    val () = emit_text (out, "ret")
+  }
+//
+| ATSreturn_void (tmp) =>
+  {
+    val () = emit_text (out, "ret")
+  }
+//
+| _ => emit_text (out, "**INSTR**")
+//
+end // end of [emit_instr_0]
+//
+extern
 fun emit_instr
-  (out: FILEref, ins: instr) : void
+  (out: FILEref, ins: instr, labthis: label, labnext: label) : void
 //
 implement
 emit_instr
-  (out, ins0) = let
+  (out, ins0, labthis, labnext) = let
 in
 //
 case+
@@ -616,36 +663,47 @@ ins0.instr_node of
   (
     d0e(*test*), inss(*then*), inssopt(*else*)
   ) =>
-  {
-    // TODO: labels must be assigned automatically... but how?
-    val () = emit_d0exp (out, d0e)
-    val () = emit_newline (out)
-    val () = emit_text (out, "brfalse L1")
-    val () = emit_newline (out)
-    val () = emit_instrlst (out, inss)
-    val () =
-    (
-      case+ inssopt of
-      | Some(inss) =>
-        {
-          val () = emit_text (out, "br L2")
-          val () = emit_newline (out)
-          val () = emit_text (out, "L1:")
-          val () = emit_newline (out)
-          val () = emit_instrlst (out, inss)
-        }
-      | None((*void*)) => ()
-    )
-    val () = emit_text (out, "L2:") // next instruction, whatever it may be
-    val () = emit_newline (out)
-  } (* end of [ATSif] *)
+  (
+    emit_d0exp (out, d0e);
+    emit_newline (out);
+    
+    case+ inssopt of
+    | Some (inss2) =>
+      {
+        val () = emit_text (out, "brfalse")
+        val () = emit_SPACE (out)
+        val L1 = label_for_instrlst (inss2)
+        val () = emit_label (out, L1)
+        val () = emit_ENDL (out)
+        val L0 = label_for_instrlst (inss)
+        val brlab = make_label (ins0.instr_loc)
+        val () = emit_instrlst (out, inss, L0, brlab)
+        val () = emit_label_mark (out, brlab)
+        val () = emit_text (out, "br")
+        val () = emit_SPACE (out)
+        val () = emit_label (out, labnext)
+        val () = emit_ENDL (out)
+        val () = emit_instrlst (out, inss2, L1, labnext)
+      }
+    | None () =>
+      {
+        val () = emit_text (out, "brfalse")
+        val () = emit_SPACE (out)
+        val () = emit_label (out, labnext)
+        val () = emit_ENDL (out)
+        val () = emit_instrlst (out, inss, labthis, labnext)
+      }
+  )
 // TODO: ATSifthen, ATSifnthen, ATScaseofseq, ATSbranchseq
 // TODO: ATSlinepragma
 //
 | ATSreturn (tmp) =>
   {
-    // FIXME: if tmp is actually funarg, we must use ldarg
-    val () = emit_text (out, "ldloc")
+    val () =
+      if tmpvar_is_arg (tmp.i0de_sym)
+        then emit_text (out, "ldarg")
+        else emit_text (out, "ldloc")
+    // end of [val]
     val () = emit_SPACE (out)
     val () = emit_i0de (out, tmp)
     val () = emit_newline (out)
@@ -659,13 +717,18 @@ ins0.instr_node of
 //
 | ATSlinepragma (line, file) =>
   {
-    // skip
+    val () = emit_text (out, ".line")
+    val () = emit_SPACE (out)
+    val-T_INT(_, lpos) = line.token_node
+    val () = emit_text (out, lpos)
+    val () = emit_SPACE (out)
+    val-T_STRING(filnam) = file.token_node
+    val () = emit_text (out, filnam)
   }
 //
 | ATSINSlab (lab) =>
   {
-    val () = emit_label (out, lab)
-    val () = emit_text (out, ":")
+    val () = emit_label_mark (out, lab)
   }
 //
 | ATSINSgoto (lab) =>
@@ -677,8 +740,7 @@ ins0.instr_node of
 //
 | ATSINSflab (flab) =>
   {
-    val () = emit_label (out, flab)
-    val () = emit_text (out, ":")
+    val () = emit_label_mark (out, flab)
   }
 //
 | ATSINSfgoto (flab) =>
@@ -717,17 +779,50 @@ end // end of [emit_instr]
 implement
 emit_instrlst
 (
-  out, inss
+  out, inss, labthis, lablast
 ) = (
 //
 case+ inss of
 | list_nil () => ()
-| list_cons (ins, inss) =>
-  {
-    val () = emit_instr (out, ins)
-    val () = emit_ENDL (out)
-    val () = emit_instrlst (out, inss)
-  }
+| list_cons (ins0, inss) => let
+    val labnext =
+    (
+      case+ inss of
+      | list_nil () => lablast
+      | _ => label_for_instrlst (inss)
+    ) (* end of [val] *)
+  in
+    case+ ins0.instr_node of
+    | ATSINSlab (label) =>
+      {
+        val- list_cons (ins1, inss) = inss
+        // invariant: label = labthis?
+        val () = emit_label_mark (out, label)
+        val () = emit_instr (out, ins1, label, labnext)
+        val () = emit_ENDL (out)
+        val () = emit_instrlst (out, inss, labnext, lablast)
+      }
+    | ATSINSflab (label) =>
+      {
+        val- list_cons (ins1, inss) = inss
+        // invariant: label = labthis?
+        val () = emit_label_mark (out, label)
+        val () = emit_instr (out, ins1, label, labnext)
+        val () = emit_ENDL (out)
+        val () = emit_instrlst (out, inss, labnext, lablast)
+      }
+    | ATSlinepragma (line, file) =>
+      (
+        emit_instrlst (out, inss, labthis, lablast)
+      )
+    | _(*other*) =>
+      {
+        val () = emit_label_mark (out, labthis)
+        val () = emit_instr (out, ins0, labthis, labnext)
+        val () = emit_ENDL (out)
+        val () = emit_instrlst (out, inss, labnext, lablast)
+      }
+  end // end of [let]
 //
 ) (* end of [emit_instrlst] *)
 
@@ -735,16 +830,17 @@ case+ inss of
 //
 extern
 fun emit_ATSfunbodyseq
-  (out: FILEref, ins: instr) : void
+  (out: FILEref, ins: instr, labnext: label) : void
 //
 implement
 emit_ATSfunbodyseq
-  (out, ins) = let
+  (out, ins, labnext) = let
 //
 val-ATSfunbodyseq (inss) = ins.instr_node
+val L1 = label_for_instrlst (inss)
 //
 in
-  emit_instrlst (out, inss)
+  emit_instrlst (out, inss, L1, labnext)
 end // end of [emit_ATSfunbodyseq]
 
 (* ****** ****** *)
@@ -767,8 +863,17 @@ case+ inss of
 | list_cons
     (ins0, inss1) => let
     val-list_cons (ins1, inss2) = inss1
-    val () = emit_ATSfunbodyseq (out, ins0)
-    val () = emit_instr (out, ins1)
+    val labnext = label_for_instrlst (inss1)
+    val () = emit_ATSfunbodyseq (out, ins0, labnext)
+    val () = emit_label_mark (out, labnext)
+    // FIXME: inss2 is EMPTY! what now?
+    val lablast =
+    (
+      case+ inss2 of
+      | list_nil () => i0de_make_string (location_dummy, "LASTLABEL")
+      | _ => label_for_instrlst (inss2)
+    )
+    val () = emit_instr (out, ins1, labnext, lablast)
   in
     auxlst (out, inss2)
   end // end of [list_cons]
@@ -779,7 +884,11 @@ in
 case+
 fbody.f0body_node of
 //
-| F0BODY (tds, inss) => auxlst (out, inss)
+| F0BODY (tds, inss) => let
+    val () = label_reset ()
+  in
+    auxlst (out, inss)
+  end // end of [auxlst]
 //
 end // end of [emit_f0body_0]
 
@@ -807,10 +916,7 @@ val () = emit_newline (out)
 val () = emit_tmpdeclst (out, tmpdecs)
 val () = emit_RPAREN (out)
 val () = emit_newline (out)
-// .locals init (
-//    class [Mono.Cecil]Mono.Cecil.AssemblyNameDefinition V_0,
-//    int32 V_1
-// )
+
 val () = emit_f0body_0 (out, fbody)
 val () = emit_newline (out)
 val () = emit_RBRACE (out)

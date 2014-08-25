@@ -28,6 +28,84 @@ staload "./atsparemit_cil.sats"
 staload "./atsparemit_syntax_cil.sats"
 
 (* ****** ****** *)
+(*
+fun
+instr2_make_node (
+  loc: loc_t, lab: label, node: instr2_node
+) : instr2 = '{ instr2_loc= loc, instr2_node= node, instr2_label= lab }
+
+implement
+  ATS2if_make (loc, lab, d0e, inss, inssopt) =
+  instr2_make_node (loc, lab, ATS2if (d0e, inss, inssopt))
+
+implement
+  ATS2ifthen_make (loc, lab, d0e, inss) =
+  instr2_make_node (loc, lab, ATS2ifthen (d0e, inss))
+
+implement
+  ATS2ifnthen_make (loc, lab, d0e, inss) =
+  instr2_make_node (loc, lab, ATS2ifnthen (d0e, inss))
+
+implement
+  ATS2branchseq_make (loc, lab, inss) =
+  instr2_make_node (loc, lab, ATS2branchseq (inss))
+
+implement
+  ATS2caseofseq_make (loc, lab, inss) =
+  instr2_make_node (loc, lab, ATS2caseofseq (inss))
+
+implement
+  ATS2funbodyseq_make (loc, lab, inss) =
+  instr2_make_node (loc, lab, ATS2funbodyseq (inss))
+
+implement
+  ATS2return_make (loc, lab, ide) =
+  instr2_make_node (loc, lab, ATS2return (ide))
+
+implement
+  ATS2return_void_make (loc, lab, ide) =
+  instr2_make_node (loc, lab, ATS2return_void (ide))
+
+implement
+  ATS2linepragma_make (loc, line, file) = let
+  val lab = i0de_make_string (location_dummy, "label_dummy")
+in
+  instr2_make_node (loc, lab, ATS2linepragma (line, file))
+end // end of [ATS2linepragma_make]
+
+implement
+ATSINS2goto_make (loc, lab, dstlab) =
+  instr2_make_node (loc, lab, ATSINS2goto dstlab)
+
+implement
+ATSINS2fgoto_make (loc, lab, dstlab) =
+  instr2_make_node (loc, lab, ATSINS2fgoto dstlab)
+
+implement
+ATSINS2move_make (loc, lab, ide, d0e) =
+  instr2_make_node (loc, lab, ATSINS2move (ide, d0e))
+
+implement
+ATSINS2move_void_make (loc, lab, ide, d0e) =
+  instr2_make_node (loc, lab, ATSINS2move_void (ide, d0e))
+
+implement
+ATSINS2deadcode_fail_make (loc, lab, tok) =
+  instr2_make_node (loc, lab, ATSINS2deadcode_fail (tok))
+
+implement
+ATSINS2dynload0 (loc, lab, ide) =
+  instr2_make_node (loc, lab, ATSINS2dynload0 (ide))
+
+implement
+ATSINS2dynload1 (loc, lab, ide) =
+  instr2_make_node (loc, lab, ATSINS2dynload1 (ide))
+
+implement
+ATSINS2dynloadset (loc, lab, ide) =
+  instr2_make_node (loc, lab, ATSINS2dynloadset (ide))
+*)
+(* ****** ****** *)
 
 infix ++
 overload ++ with location_combine
@@ -50,13 +128,8 @@ case+ inss of
 
 (* ****** ****** *)
 
-fun
-instr2_make_node (
-  loc: loc_t, node: instr2_node
-) : instr2 = '{ instr2_loc= loc, instr2_node= node }
-
 (* ****** ****** *)
-
+////
 implement
 ATS2brfalse_make
 (

@@ -10,7 +10,19 @@
 
 staload "./atsparemit.sats"
 staload "./atsparemit_cil.sats"
+staload "./atsparemit_syntax.sats"
 
+(* ****** ****** *)
+//
+fun label_reset () : void
+//
+fun make_label
+  (loc: loc_t) : label
+//
+fun
+label_for_instrlst
+  (inss: instrlst) : label
+//
 (* ****** ****** *)
 //
 // AS: for constructing instructions
@@ -19,8 +31,7 @@ staload "./atsparemit_cil.sats"
 //
 fun ATS2brfalse_make
 (
-  tok_if: token
-, _test: d0exp, _then: i0de
+ _test: d0exp, _then: label
 ) : instr2 // end of [ATS2brfalse_make]
 //
 fun ATS2brtrue_make
