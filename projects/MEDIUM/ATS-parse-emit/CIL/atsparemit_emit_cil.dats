@@ -803,9 +803,17 @@ case+ inss of
         emit_instrlst (out, inss, label, lablast)
       )
     | ATSlinepragma (line, file) =>
-      (
-        emit_instrlst (out, inss, labthis, lablast)
-      )
+      {
+        val () = emit_text (out, ".line")
+        val () = emit_SPACE (out)
+        val-T_INT(_, lpos) = line.token_node
+        val () = emit_text (out, lpos)
+        val () = emit_SPACE (out)
+        val-T_STRING(filnam) = file.token_node
+        val () = emit_text (out, filnam)
+        val () = emit_ENDL (out)
+        val () = emit_instrlst (out, inss, labthis, lablast)
+      }
     | _(*other*) =>
       {
         val () = emit_label_mark (out, labthis)
@@ -1059,20 +1067,25 @@ d0c.d0ecl_node of
   {
     val () = emit_text (out, "#include")
     val () = emit_SPACE (out)
-//    val () = emit_text (out, include)
+    val-T_STRING(filnam) = include.token_node
+    val () = emit_text (out, filnam)
     val () = emit_newline (out)
   }
 //
 | D0Cifdef (i0de, d0eclist) =>
   {
-(*    val () = emit_text (out, "#ifdef")
-    val () = emit_SPACE (out)*)
+    val () = emit_text (out, "#ifdef")
+    val () = emit_SPACE (out)
+    val () = emit_newline (out)
+    val () = emit_text (out, "#endif")
     val () = emit_newline (out)
   }
 | D0Cifndef (i0de, d0eclist) =>
   {
-(*    val () = emit_text (out, "#ifndef")
-    val () = emit_SPACE (out)*)
+    val () = emit_text (out, "#ifndef")
+    val () = emit_SPACE (out)
+    val () = emit_newline (out)
+    val () = emit_text (out, "#endif")
     val () = emit_newline (out)
   }
 //
@@ -1082,8 +1095,17 @@ d0c.d0ecl_node of
     // TODO: insert type (class) declaration
   } (* end of [D0Ctypedef] *)
 //
-| D0Cdyncst_mac i0de => ()
-| D0Cdyncst_extfun (i0de, s0explst, s0exp) => ()
+| D0Cdyncst_mac ide =>
+  {
+    val () = emit_text (out, "dyncst_mac")
+    val () = emit_SPACE (out)
+    val filnam = ide.i0de_sym
+    val () = emit_symbol (out, filnam)
+    val () = emit_ENDL (out)
+  }
+| D0Cdyncst_extfun (i0de, s0explst, s0exp) =>
+  {
+  }
 | D0Cextcode (toks) =>
   {
     val () = emit_text (out, ATSEXTCODE_BEG)
@@ -1120,6 +1142,11 @@ case+ d0cs of
 )
 //
 in
+  // TODO:
+  // - emit assembly references
+  // - emit .corflags, .subsystem
+  // - emit .module <filename>
+  //   - where <filename> is the name of the source file (e.g. foo.dats)
   loop (out, d0cs)
 end // end of [emit_toplevel]
 
