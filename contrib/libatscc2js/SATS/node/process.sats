@@ -32,12 +32,21 @@ val execArgv : JSarray(string) = "mac#%"
 
 (* ****** ****** *)
 
-fun cwd (): string = "mac#%"
-fun chdir (dir: string): void = "mac#%"
+val env : JSdict(string) = "mac#%"
 
 (* ****** ****** *)
 
-val pid : int = "mac#%"
+val pid : int = "mac#%" // of the node process
+
+(* ****** ****** *)
+
+val version : string = "mac#%"
+val versions : JSdict(string) = "mac#%"
+
+(* ****** ****** *)
+
+fun cwd (): string = "mac#%"
+fun chdir (dir: string): void = "mac#%"
 
 (* ****** ****** *)
 
@@ -51,9 +60,9 @@ fun setuid (id: int): void = "mac#%"
 
 (* ****** ****** *)
 
-val version : string = "mac#%"
-val versions : JSdict(string) = "mac#%"
-
+fun uptime (): int = "mac#%"  
+fun hrtime (): JSarray(int) = "mac#%"  
+  
 (* ****** ****** *)
 
 (* end of [process.sats] *)

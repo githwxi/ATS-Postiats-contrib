@@ -90,6 +90,9 @@ case+ x of
 | ATStmpdec () => pr "ATStmpdec"
 | ATStmpdec_void () => pr "ATStmpdec_void"
 //
+| ATSstatmpdec () => pr "ATSstatmpdec"
+| ATSstatmpdec_void () => pr "ATSstatmpdec_void"
+//
 | ATSif () => pr "ATSif"
 | ATSthen () => pr "ATSthen"
 | ATSelse () => pr "ATSelse"
@@ -606,6 +609,9 @@ x.d0ecl_node of
 //
 | D0Cextcode _ =>
     fprint! (out, "D0Cextcode(", "...", ")")
+//
+| D0Cstatmp (tmp, opt) =>
+    fprint! (out, "D0Cstatmp(", tmp, ": ", opt, ")")
 //
 | D0Cfundecl (knd, fdec) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")

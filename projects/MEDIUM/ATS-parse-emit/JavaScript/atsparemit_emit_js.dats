@@ -199,11 +199,11 @@ d0e0.d0exp_node of
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
 | ATSfunclo_fun
-    (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
+    (d0e, _(*arg*), _(*res*)) => emit_d0exp (out, d0e)
 | ATSfunclo_clo
-    (d2e, _(*arg*), _(*res*)) =>
+    (d0e, _(*arg*), _(*res*)) =>
   (
-    emit_d0exp (out, d2e);
+    emit_d0exp (out, d0e);
     emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
   ) (* end of [ATSfunclo_clo] *)
 //
@@ -344,15 +344,31 @@ d0c.d0ecl_node of
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
 //
-| D0Cfundecl
-    (fk, f0d) => emit_f0decl (out, f0d)
-//
 | D0Cextcode (toks) =>
   {
     val () = emit_text (out, ATSEXTCODE_BEG)
     val () = emit_extcode (out, toks)
     val () = emit_text (out, ATSEXTCODE_END)
   }
+//
+| D0Cstatmp
+    (tmp, opt) =>
+  {
+    val () = (
+      case+ opt of
+      | Some _ => () | None () => emit_text(out, "/*\n")
+    ) (* end of [val] *)
+    val () = (
+      emit_text (out, "var "); emit_i0de (out, tmp); emit_ENDL (out)
+    ) (* end of [val] *)
+    val () = (
+      case+ opt of
+      | Some _ => () | None () => emit_text(out, "*/\n")
+    ) (* end of [val] *)
+  } (* end of [D0Cstatmp] *)
+//
+| D0Cfundecl
+    (fk, f0d) => emit_f0decl (out, f0d)
 //
 | D0Cclosurerize
   (

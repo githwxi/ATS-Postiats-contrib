@@ -526,6 +526,25 @@ ins0.instr_node of
     val () = emit_i0de (out, tmp2)
   } (* end of [ATSINSargmove_tlcal] *)
 //
+| ATSdynload0 (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "var\n")
+    val () = emit_i0de (out, flag)
+    val () = emit_text (out, " = 0\n")
+  }
+| ATSdynload1 (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATSdynload1(...)\n")
+  }
+| ATSdynloadset (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_i0de (out, flag)
+    val () = emit_text (out, " = 1\n")
+  }
+//
 | _ (*rest*) =>
   {
     val () = emit_nspc (out, ind)

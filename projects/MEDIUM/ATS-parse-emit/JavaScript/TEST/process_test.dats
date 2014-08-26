@@ -7,6 +7,13 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "mydynload"
+//
+(* ****** ****** *)
+//
 staload
 "{$LIBATSCC2JS}/basics_js.sats"
 staload
@@ -21,17 +28,22 @@ staload
 //
 (* ****** ****** *)
 //
-extern
-fun
-test (): void = "mac#"
-implement
-test () =
-{
-  val () = print ("argv = ")
-  val () = print_obj (argv)
-  val () = print_newline ((*void*))
-}
+val () = print ("argv = ")
+val () = print_obj (argv)
+val () = print_newline ((*void*))
 //
+(* ****** ****** *)
+
+val () = print ("uptime = ")
+val () = print_obj (uptime())
+val () = print_newline ((*void*))
+
+(* ****** ****** *)
+
+val () = print ("version = ")
+val () = print_obj (version)
+val () = print_newline ((*void*))
+
 (* ****** ****** *)
 
 %{^
@@ -49,7 +61,7 @@ eval(fs.readFileSync('./libatscc2js/CATS/node/process_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-test()
+mydynload()
 %} // end of [%{$]
   
 (* ****** ****** *)

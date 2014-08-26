@@ -144,6 +144,16 @@ ATSSELboxrec_make
 (* ****** ****** *)
 
 fun
+ATSfcall_make
+(
+  tok_kwd: token
+, d0e_fun: d0exp, d0e_arg: d0exp
+, tok_end: token
+) : d0exp // end of [ATSfcall_make]
+
+(* ****** ****** *)
+
+fun
 ATSfunclo_fun_make
 (
   tok_kwd: token
@@ -486,6 +496,13 @@ d0ecl_dyncst_extfun
   tok_beg: token
 , name: i0de, arg: s0explst, res: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_dyncst_extfun]
+//
+(* ****** ****** *)
+//
+fun d0ecl_statmp_none
+  (tok_kwd: token, tmp: i0de, tok_end: token): d0ecl
+fun d0ecl_statmp_some
+  (tok_kwd: token, tmp: i0de, opt: s0exp, tok_end: token): d0ecl
 //
 (* ****** ****** *)
 //

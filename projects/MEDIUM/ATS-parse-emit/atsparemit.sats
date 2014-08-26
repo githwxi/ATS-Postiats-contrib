@@ -207,6 +207,9 @@ keyword =
   | ATStmpdec of ()
   | ATStmpdec_void of ()
 //
+  | ATSstatmpdec of ()
+  | ATSstatmpdec_void of ()
+//
   | ATSif of ()
   | ATSthen of ()
   | ATSelse of ()
@@ -955,6 +958,8 @@ d0ecl_node =
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
   | D0Cextcode of (tokenlst)
+//
+  | D0Cstatmp of (i0de, s0expopt)
 //
   | D0Cfundecl of (fkind, f0decl)
 //

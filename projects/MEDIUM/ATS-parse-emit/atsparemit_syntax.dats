@@ -1294,6 +1294,34 @@ end // end of [d0ecl_include]
 (* ****** ****** *)
 
 implement
+d0ecl_ifdef
+(
+  tok1, id, d0cs, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cifdef (id, d0cs))
+end // end of [d0ecl_ifdef]
+  
+(* ****** ****** *)
+
+implement
+d0ecl_ifndef
+(
+  tok1, id, d0cs, tok2
+) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cifdef (id, d0cs))
+end // end of [d0ecl_ifndef]
+  
+(* ****** ****** *)
+
+implement
 d0ecl_dyncst_mac
   (tok1, name, tok2) = let
 //
@@ -1330,46 +1358,6 @@ end // end of [d0ecl_typedef]
 (* ****** ****** *)
 
 implement
-d0ecl_fundecl
-  (fk, fdec) = let
-//
-val loc = fk.fkind_loc ++ fdec.f0decl_loc
-//
-in
-  d0ecl_make_node (loc, D0Cfundecl (fk, fdec))
-end // end of [d0ecl_fundecl]
-
-(* ****** ****** *)
-
-implement
-d0ecl_ifdef
-(
-  tok1, id, d0cs, tok2
-) = let
-//
-val loc = tok1.token_loc ++ tok2.token_loc
-//
-in
-  d0ecl_make_node (loc, D0Cifdef (id, d0cs))
-end // end of [d0ecl_ifdef]
-  
-(* ****** ****** *)
-
-implement
-d0ecl_ifndef
-(
-  tok1, id, d0cs, tok2
-) = let
-//
-val loc = tok1.token_loc ++ tok2.token_loc
-//
-in
-  d0ecl_make_node (loc, D0Cifdef (id, d0cs))
-end // end of [d0ecl_ifndef]
-  
-(* ****** ****** *)
-
-implement
 d0ecl_extcode
 (
   tok1, extcode, tok2
@@ -1380,6 +1368,40 @@ val loc = tok1.token_loc ++ tok2.token_loc
 in
   d0ecl_make_node (loc, D0Cextcode (extcode))
 end // end of [d0ecl_extcode]
+
+(* ****** ****** *)
+//
+implement
+d0ecl_statmp_none
+  (tok1, tmp, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cstatmp (tmp, None()))
+end // end of [d0ecl_statmp_none]
+//
+implement
+d0ecl_statmp_some
+  (tok1, tmp, s0e, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cstatmp (tmp, Some(s0e)))
+end // end of [d0ecl_statmp_some]
+//
+(* ****** ****** *)
+
+implement
+d0ecl_fundecl
+  (fk, fdec) = let
+//
+val loc = fk.fkind_loc ++ fdec.f0decl_loc
+//
+in
+  d0ecl_make_node (loc, D0Cfundecl (fk, fdec))
+end // end of [d0ecl_fundecl]
 
 (* ****** ****** *)
 
