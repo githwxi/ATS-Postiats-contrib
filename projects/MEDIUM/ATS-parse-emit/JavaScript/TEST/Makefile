@@ -158,6 +158,27 @@ cleanall:: ; $(RMF) queens_dats.js
 
 ######
 
+all:: \
+process_dats.js
+process_dats.c: \
+process.dats ; $(PATSOPT) -o $@ -d $<
+process_dats.js: \
+process_dats.c ; $(ATSPAREMIT) -o $@ -i $<
+process:: process_dats.js ; $(NODEJS) process_dats.js
+regress:: process
+cleanall:: ; $(RMF) process_dats.js
+
+######
+
+CPRF=cp -rf
+
+######
+
+libupdate: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS/* ./libatscc2js/CATS
+
+######
+
 clean:: ; $(RMF) *~
 
 ######

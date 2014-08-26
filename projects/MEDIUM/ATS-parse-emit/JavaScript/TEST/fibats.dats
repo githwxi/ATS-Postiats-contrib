@@ -51,7 +51,7 @@ end // end of [fibats]
 // file inclusion:
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
 %}
 
 (* ****** ****** *)

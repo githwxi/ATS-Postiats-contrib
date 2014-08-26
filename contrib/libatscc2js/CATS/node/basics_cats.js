@@ -17,7 +17,7 @@
 function
 ats2jspre_print_obj(obj)
 {
-  process.stdout.write(x.toString()) ; return ;
+  process.stdout.write(obj.toString()) ; return ;
 }
 
 /* ****** ****** */

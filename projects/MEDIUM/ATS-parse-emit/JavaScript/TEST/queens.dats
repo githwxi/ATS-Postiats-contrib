@@ -214,12 +214,12 @@ main_js ((*void*)) =
 // file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./../libatscc2js/CATS/node/basics_cats.js').toString());
-eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./../libatscc2js/CATS/node/integer_cats.js').toString());
-eval(fs.readFileSync('./../libatscc2js/CATS/string_cats.js').toString());
-eval(fs.readFileSync('./../libatscc2js/CATS/node/string_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/string_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

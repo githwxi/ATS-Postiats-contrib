@@ -26,9 +26,20 @@ stadef cfun = cfun2
 abstype JSfile
 
 (* ****** ****** *)
-
-abstype JSarray (a:t@ype)
-
+//
+symintr .length
+//
+abstype
+JSarray (a:t@ype)
+//
+(* ****** ****** *)
+//
+abstype JSdict (a:t@ype)
+//
+(* ****** ****** *)
+//
+fun typeof{a:t@ype}(a): string = "mac#%"
+//
 (* ****** ****** *)
 //
 fun

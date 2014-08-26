@@ -24,8 +24,8 @@ f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
 // file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./../libatscc2js/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

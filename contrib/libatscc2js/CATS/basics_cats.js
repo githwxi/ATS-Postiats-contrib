@@ -41,4 +41,9 @@ ATSCKpat_float(tmp, given) { return (tmp===given) ; }
 
 /* ****** ****** */
 
+function
+ats2jspre_typeof(obj) { return typeof(obj) ; }
+
+/* ****** ****** */
+
 /* end of [basics_cats.js] */

@@ -169,6 +169,15 @@ cleanall:: ; $(RMF) PYlist_test_dats.py
 
 ######
 
+CPRF=cp -rf
+
+######
+
+libupdate: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/CATS/* ./libatscc2py/CATS
+
+######
+
 clean:: ; $(RMF) *~
 
 ######
