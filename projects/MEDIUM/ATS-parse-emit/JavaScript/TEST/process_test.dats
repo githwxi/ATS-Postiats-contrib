@@ -10,7 +10,7 @@
 #define
 ATS_MAINATSFLAG 1
 #define
-ATS_DYNLOADNAME "mydynload"
+ATS_DYNLOADNAME "process_test_dynload"
 //
 (* ****** ****** *)
 //
@@ -61,7 +61,7 @@ eval(fs.readFileSync('./libatscc2js/CATS/node/process_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-mydynload()
+process_test_dynload()
 %} // end of [%{$]
   
 (* ****** ****** *)

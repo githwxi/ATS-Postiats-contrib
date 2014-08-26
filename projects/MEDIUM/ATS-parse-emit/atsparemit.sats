@@ -286,6 +286,7 @@ keyword =
 //
   | ATSINSdeadcode_fail of ()
 //
+  | ATSdynload of ()
   | ATSdynload0 of ()
   | ATSdynload1 of ()
   | ATSdynloadset of ()
@@ -887,6 +888,7 @@ instr_node =
 //
   | ATSINSdeadcode_fail of (token)
 //
+  | ATSdynload of int
   | ATSdynload0 of (i0de)
   | ATSdynload1 of (i0de)
   | ATSdynloadset of (i0de)

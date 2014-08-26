@@ -1100,6 +1100,19 @@ end // end of [ATSINSdeadcode_fail_make]
 (* ****** ****** *)
 
 implement
+ATSdynload_make
+  (tok1, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSdynload(0))
+end // end of [ATSdynload]
+
+(* ****** ****** *)
+
+implement
 ATSdynload0_make
   (tok1, id, tok2) = let
 //

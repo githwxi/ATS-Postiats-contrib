@@ -1,13 +1,26 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/SATS/integer.sats"
-
+"{$LIBATSCC2JS}/basics_js.sats"
+staload
+"{$LIBATSCC2JS}/SATS/integer.sats"
+staload
+"{$LIBATSCC2JS}/SATS/string.sats"
+//
+(* ****** ****** *)
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "fact_dynload"
+//
 (* ****** ****** *)
 //
 extern
@@ -17,19 +30,29 @@ implement
 fact (n) = if n > 0 then n * fact(n-1) else 1
 //
 (* ****** ****** *)
+//
+val N = 10
+val () = println! ("fact(", N, ") = ", fact(N))
+//
+(* ****** ****** *)
 
 %{^
 //
 // file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/integer_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/string_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
-console.log("fact(10) = %d", fact(10))
+fact_dynload()
 %} // end of [%{$]
 
 (* ****** ****** *)

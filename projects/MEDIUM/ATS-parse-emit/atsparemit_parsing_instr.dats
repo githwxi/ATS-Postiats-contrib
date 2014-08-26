@@ -532,21 +532,6 @@ tok.token_node of
     // end of [if]
   end // end of [ATSINSargmove_tlcal]
 //
-(*
-| T_KWORD(ATSINSfcall()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
-    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
-    val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
-    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
-    val ent6 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
-  in
-    // nothing
-  end // end of [ATSINSfcall()]
-*)
-//
 | T_KWORD(ATSINSdeadcode_fail()) => let
     val bt = 0
     val () = incby1 ()
@@ -558,6 +543,16 @@ tok.token_node of
       then ATSINSdeadcode_fail_make (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSINSdeadcode_fail]  
+//
+| T_KWORD(ATSdynload()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if (err = err0)
+      then ATSdynload_make (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynload]
 //
 | T_KWORD(ATSdynload0()) => let
     val bt = 0

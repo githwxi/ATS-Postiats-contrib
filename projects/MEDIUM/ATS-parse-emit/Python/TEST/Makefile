@@ -32,7 +32,7 @@ all:: \
 fact_dats.py
 fact_dats.py: fact.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-fact:: fact_dats.py ; $(PYTHON) fact_dats.py 10
+fact:: fact_dats.py ; $(PYTHON) fact_dats.py
 regress:: fact
 cleanall:: ; $(RMF) fact_dats.py
 

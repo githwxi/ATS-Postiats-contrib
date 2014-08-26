@@ -317,51 +317,6 @@ end // end of [emit_SELboxrec]
 
 (* ****** ****** *)
 //
-#define
-ATSEXTCODE_BEG "######\n#ATSextcode_beg()\n######"
-#define
-ATSEXTCODE_END "######\n#ATSextcode_end()\n######\n"
-//
-(* ****** ****** *)
-
-implement
-emit_d0ecl
-  (out, d0c) = let
-in
-//
-case+
-d0c.d0ecl_node of
-//
-| D0Cinclude _ => ()
-//
-| D0Cifdef _ => ()
-| D0Cifndef _ => ()
-//
-| D0Ctypedef (id, def) =>
-    typedef_insert (id.i0de_sym, def)
-//
-| D0Cdyncst_mac _ => ()
-| D0Cdyncst_extfun _ => ()
-//
-| D0Cfundecl
-    (fk, f0d) => emit_f0decl (out, f0d)
-//
-| D0Cextcode (toks) =>
-  {
-    val () = emit_text (out, ATSEXTCODE_BEG)
-    val () = emit_extcode (out, toks)
-    val () = emit_text (out, ATSEXTCODE_END)
-  }
-//
-| D0Cclosurerize
-  (
-    fl, env, arg, res
-  ) => emit_closurerize (out, fl, env, arg, res)
-//
-end // end of [emit_d0ecl]
-
-(* ****** ****** *)
-//
 implement
 emit_COMMENT_line (out) =
   emit_text (out, "#COMMENT_line\n")

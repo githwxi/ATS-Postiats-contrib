@@ -30,6 +30,74 @@ staload "./atsparemit_emit.sats"
 staload "./atsparemit_typedef.dats"
 //
 (* ****** ****** *)
+extern
+fun
+the_statmpdeclst_get (): d0eclist
+extern
+fun
+the_statmpdeclst_insert (d0ecl): void
+//
+(* ****** ****** *)
+
+local
+//
+val the_statmps =
+  ref<d0eclist> (list_nil(*void*))
+//
+in (* in-of-local *)
+//
+implement
+the_statmpdeclst_get () =
+  list_vt2t(list_reverse(!the_statmps))
+//
+implement
+the_statmpdeclst_insert (d0c) = let
+  val d0cs = !the_statmps in !the_statmps := list_cons (d0c, d0cs)
+end // end of [the_statmpdeclst_insert]
+//
+end // end of [local]
+
+(* ****** ****** *)
+//
+extern
+fun
+emit_the_statmpdeclst
+  (out: FILEref, ind: int): void
+//
+implement
+emit_the_statmpdeclst
+  (out, ind) = let
+//
+fun auxlst
+(
+  out: FILEref, xs: d0eclist
+) : void =
+(
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => let
+    val-D0Cstatmp (tmp, opt) = x.d0ecl_node
+  in
+    case+ opt of
+    | None _ => auxlst (out, xs)
+    | Some _ => let
+        val () = emit_ENDL (out)
+        val () = emit_nspc (out, ind)
+        val () =
+        (
+          emit_text (out, "global "); emit_i0de (out, tmp)
+        ) (* end of [val] *)
+      in
+        auxlst (out, xs)
+      end // end of [Some]
+  end // end of [list_cons]
+) (* end of [auxlst] *)
+//
+in
+  auxlst (out, the_statmpdeclst_get ())
+end // end of [emit_the_statmpdeclst]
+//
+(* ****** ****** *)
 //
 extern
 fun
@@ -842,6 +910,13 @@ ins0.instr_node of
     val () = emit_i0de (out, tmp2)
   } (* end of [ATSINSargmove_tlcal] *)
 //
+| ATSdynload (dummy) =>
+  {
+    val () = emit_nspc (out, ind)   
+    val () = emit_text (out, "#ATSdynload()")
+    val () = emit_the_statmpdeclst (out, ind)
+  }
+//
 | ATSdynload0 (flag) =>
   {
     val () = emit_nspc (out, ind)   
@@ -1026,6 +1101,64 @@ val () = emit_RPAREN (out)
 in
   // nothing
 end // end of [emit2_ATSINSmove_boxrec]
+
+(* ****** ****** *)
+//
+#define
+ATSEXTCODE_BEG "######\n#ATSextcode_beg()\n######"
+#define
+ATSEXTCODE_END "######\n#ATSextcode_end()\n######\n"
+//
+(* ****** ****** *)
+
+implement
+emit_d0ecl
+  (out, d0c0) = let
+in
+//
+case+
+d0c0.d0ecl_node of
+//
+| D0Cinclude _ => ()
+//
+| D0Cifdef _ => ()
+| D0Cifndef _ => ()
+//
+| D0Ctypedef (id, def) =>
+    typedef_insert (id.i0de_sym, def)
+//
+| D0Cdyncst_mac _ => ()
+| D0Cdyncst_extfun _ => ()
+//
+| D0Cstatmp
+    (tmp, opt) =>
+  {
+    val () = the_statmpdeclst_insert (d0c0)
+    val () = (
+      case+ opt of
+      | Some _ => () | None () => emit_text(out, "#")
+    ) (* end of [val] *)
+    val () = (
+      emit_i0de (out, tmp); emit_text (out, " = None\n")
+    ) (* end of [val] *)
+  } (* end of [D0Cstatmp] *)
+//
+| D0Cextcode (toks) =>
+  {
+    val () = emit_text (out, ATSEXTCODE_BEG)
+    val () = emit_extcode (out, toks) // HX: verbatim output
+    val () = emit_text (out, ATSEXTCODE_END)
+  }
+//
+| D0Cfundecl
+    (fk, f0d) => emit_f0decl (out, f0d)
+//
+| D0Cclosurerize
+  (
+    fl, env, arg, res
+  ) => emit_closurerize (out, fl, env, arg, res)
+//
+end // end of [emit_d0ecl]
 
 (* ****** ****** *)
 //
