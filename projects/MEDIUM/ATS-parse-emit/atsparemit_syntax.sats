@@ -48,7 +48,7 @@ fun s0exp_appid (id: i0de, s0e: s0exp): s0exp
 //
 (* ****** ****** *)
 //
-fun d0exp_ide (loc: loc_t, id: i0de): d0exp
+fun d0exp_ide (id: i0de): d0exp
 //
 fun d0exp_list (loc: loc_t, d0es: d0explst): d0exp
 //
@@ -197,6 +197,8 @@ f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 
 fun tmpvar_is_arg (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
+fun tmpvar_is_tmp (tmp: symbol): bool
+fun tmpvar_is_tmpret (tmp: symbol): bool
 
 (* ****** ****** *)
 //

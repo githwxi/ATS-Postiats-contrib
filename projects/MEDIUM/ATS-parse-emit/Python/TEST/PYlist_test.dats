@@ -1,18 +1,20 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
 staload
-"./../prelude/basics_py.sats"
-//
+"{$LIBATSCC2PY}/basics_py.sats"
 staload
-"./../prelude/SATS/integer.sats"
-//
-staload "./../prelude/SATS/list.sats"
-staload "./../prelude/SATS/pylist.sats"
+"{$LIBATSCC2PY}/SATS/integer.sats"
+staload
+"{$LIBATSCC2PY}/SATS/list.sats"
+staload
+"{$LIBATSCC2PY}/SATS/PYlist.sats"
 //
 (* ****** ****** *)
 
@@ -50,18 +52,18 @@ end // end of [list_reverse_append]
 //
 extern
 fun pylist2list
-  : {a:t0p} pylist(a) -> List0(a) = "mac#"
+  : {a:t0p} PYlist(a) -> List0(a) = "mac#"
 //
 implement
-pylist2list{a}(xs) = let
+PYlist2list{a}(xs) = let
 //
 val res =
-pylist_reduce{List0(a)}{a}
+PYlist_reduce{List0(a)}{a}
   (xs, nil(), lam (xs, x) => cons (x, xs))
 //
 in
   list_reverse(res)
-end // end of [pylist2list]
+end // end of [PYlist2list]
 //
 (* ****** ****** *)
 
@@ -73,11 +75,11 @@ from basics_cats import *
 #
 from integer_cats import *
 #
-from pylist_cats import *
+from PYlist_cats import *
 #
 ######
 sys.setrecursionlimit(1000000)
-%}
+%} // end of [%{^]
 
 (* ****** ****** *)
 
@@ -91,13 +93,13 @@ def fromto(m, n):
 
 xs = fromto(0, 10)
 print("xs =", xs)
-ys = pylist2list(xs)
+ys = PYlist2list(xs)
 print("ys =", ys)
-ys_rev = pylist2list_rev(xs)
+ys_rev = PYlist2list_rev(xs)
 print("ys_rev =", ys_rev)
 
 %} // end of [%{$]
 
 (* ****** ****** *)
 
-(* end of [pylist_test.dats] *)
+(* end of [PYlist_test.dats] *)

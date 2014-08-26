@@ -1,17 +1,17 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into Javascript
 *)
 
 (* ****** ****** *)
 //
 // HX: prefix for external names
 //
-#define ATS_EXTERN_PREFIX "ats2pypre_"
+#define ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
 
-staload "./../basics_py.sats"
+staload "./../basics_js.sats"
 
 (* ****** ****** *)
 //

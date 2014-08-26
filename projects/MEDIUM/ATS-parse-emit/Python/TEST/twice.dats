@@ -36,17 +36,19 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/basics_py.sats"
+"{$LIBATSCC2PY}/basics_py.sats"
 staload
-"./../prelude/SATS/integer.sats"
+"{$LIBATSCC2PY}/SATS/integer.sats"
 staload
-"./../prelude/SATS/string.sats"
-
+"{$LIBATSCC2PY}/SATS/string.sats"
+//
 (* ****** ****** *)
 
 typedef I (a:t@ype) = a -<cloref1> a
@@ -66,7 +68,8 @@ typedef I3 = I(I2)
 (* ****** ****** *)
 //
 extern
-fun main_py (): void = "mac#main_py"
+fun
+main_py (): void = "mac#main_py"
 //
 implement
 main_py () =
@@ -98,12 +101,14 @@ from integer_cats import *
 from string_cats import *
 ######
 sys.setrecursionlimit(1000000)
-%}
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
+######
 main_py()
+######
 %} // end of [%{$]
 
 (* ****** ****** *)

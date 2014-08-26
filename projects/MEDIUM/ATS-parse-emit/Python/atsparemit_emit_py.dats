@@ -32,17 +32,6 @@ staload "./atsparemit_typedef.dats"
 (* ****** ****** *)
 //
 implement
-emit_nspc (out, ind) =
-(
-//
-if ind > 0 then
-  (emit_text (out, " "); emit_nspc (out, ind-1))
-//
-) (* end of [emit_nspc] *)
-//
-(* ****** ****** *)
-//
-implement
 emit_PMVint
   (out, tok) = let
 //
@@ -158,7 +147,7 @@ d0e0.d0exp_node of
 //
 | D0Eide (id) =>
   {
-    val () = emit_symbol (out, id)
+    val () = emit_i0de (out, id)
   }
 //
 | D0Eappid (id, d0es) =>
@@ -178,7 +167,7 @@ d0e0.d0exp_node of
 //
 | D0Elist (d0es) =>
   {
-    val () = emit_text (out, "__D0Elist__")
+    val () = emit_text (out, "D0Elist")
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
@@ -372,6 +361,15 @@ d0c.d0ecl_node of
 end // end of [emit_d0ecl]
 
 (* ****** ****** *)
+//
+implement
+emit_COMMENT_line (out) =
+  emit_text (out, "#COMMENT_line\n")
+//
+implement
+emit_COMMENT_block (out) = ((*ignored*))
+//
+(* ****** ****** *)
 
 local
 
@@ -489,6 +487,7 @@ val ((*closing*)) = emit_text (out, ")\n")
 val () = emit_newline (out)
 //
 in
+  // nothing
 end // end of [emit_closurerize]
 
 end // end of [local]

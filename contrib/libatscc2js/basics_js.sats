@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into JavaScript
 *)
 
 (* ****** ****** *)
@@ -9,7 +9,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
+ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
 //
@@ -20,6 +20,25 @@ cfun2 (a1:t0p, a2:t0p, b:t0p) = (a1, a2) -<cloref1> b
 //
 stadef cfun = cfun1
 stadef cfun = cfun2
+//
+(* ****** ****** *)
+
+abstype JSfile
+
+(* ****** ****** *)
+//
+symintr .length
+//
+abstype
+JSarray (a:t@ype)
+//
+(* ****** ****** *)
+//
+abstype JSdict (a:t@ype)
+//
+(* ****** ****** *)
+//
+fun typeof{a:t@ype}(a): string = "mac#%"
 //
 (* ****** ****** *)
 //

@@ -1,12 +1,15 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "./../prelude/SATS/integer.sats"
-
+//
+staload
+"{$LIBATSCC2PY}/SATS/integer.sats"
+//
 (* ****** ****** *)
 //
 extern
@@ -34,7 +37,7 @@ from basics_cats import *
 from integer_cats import *
 ######
 sys.setrecursionlimit(1000000)
-%}
+%} // end of [%{^]
 
 (* ****** ****** *)
 
@@ -44,7 +47,9 @@ poly1 = lambda x: x*x - x - 6
 print('rtfind(lambda x: x*x - x - 6) =', rtfind(poly1))
 #
 poly2 = lambda x: x*x + 2*x - 99
-print('rtfind(lambda x: x*x - 2*x - 99) =', rtfind(poly2))
+print('rtfind(lambda x: x*x + 2*x - 99) =', rtfind(poly2))
+poly3 = lambda x: x*x - 2*x - 99
+print('rtfind(lambda x: x*x - 2*x - 99) =', rtfind(poly3))
 #
 %} // end of [%{$]
 

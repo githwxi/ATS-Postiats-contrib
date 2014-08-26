@@ -384,6 +384,98 @@ implement
 fprint_d0explst (out, xs) = fprint_list_sep (out, xs, ", ")
 
 (* ****** ****** *)
+//
+implement
+fprint_val<instr> = fprint_instr
+//
+implement
+fprint_instr
+  (out, ins0) = let
+in
+//
+case+
+ins0.instr_node of
+//
+| ATSif (d0e, inss, inssopt) =>
+  {
+    val () = fprint (out, "ATSif()\n")
+    val () = fprint_d0exp (out, d0e)
+    val () = fprint (out, "\nATSthen()\n")
+    val () = fprint_instrlst (out, inss)
+    val () =
+    (
+      case+ inssopt of
+      | None () => ()
+      | Some (inss) =>
+        {
+          val () = fprint (out, "\nATSelse()\n")
+          val () = fprint_instrlst (out, inss)
+        }
+    ) (* end of [val] *)
+    val () = fprint (out, "\nATSendif()\n")
+  }
+| ATSthen _ => fprint (out, "ATSthen(...)")
+| ATSelse _ => fprint (out, "ATSelse(...)")
+//
+| ATSifthen (d0e, inss) =>
+  {
+    val () =
+    fprint (out, "ATSifthen(")
+    val () = fprint_d0exp (out, d0e)
+    val () = fprint (out, ") ")
+    val () = fprint_instrlst (out, inss)
+  }
+| ATSifnthen (d0e, inss) =>
+  {
+    val () =
+    fprint (out, "ATSifnthen(")
+    val () = fprint_d0exp (out, d0e)
+    val () = fprint (out, ") ")
+    val () = fprint_instrlst (out, inss)
+  }
+//
+| ATSbranchseq _ => fprint (out, "ATSbranchseq(...)")
+| ATScaseofseq _ => fprint (out, "ATScaseofseq(...)")
+//
+| ATSfunbodyseq (inss) =>
+  {
+    val () = fprint (out, "ATSfunbody_beg()\n")
+    val () = fprint_instrlst (out, inss)
+    val () = fprint (out, "\nATSfunbody_end()")
+  }
+//
+| ATSreturn (id) => fprint! (out, "ATSreturn(", id, ")")
+| ATSreturn_void (id) => fprint! (out, "ATSreturn_void(", id, ")")
+//
+| ATSINSlab (lab) => fprint! (out, "ATSINSlab(", lab, ")")
+| ATSINSgoto (lab) => fprint! (out, "ATSINSgoto(", lab, ")")
+| ATSINSflab (lab) => fprint! (out, "ATSINSflab(", lab, ")")
+| ATSINSfgoto (lab) => fprint! (out, "ATSINSfgoto(", lab, ")")
+//
+| ATSINSmove (tmp, d0e) =>
+    fprint! (out, "ATSINSmove(", tmp, ", ", d0e, ")")
+| ATSINSmove_void (tmp, d0e) =>
+    fprint! (out, "ATSINSmove_void(", tmp, ", ", d0e, ")")
+//
+| ATSINSmove_nil (tmp) =>
+    fprint! (out, "ATSINSmove_nil(", tmp, ")")
+| ATSINSmove_con0 (tmp, tag(*token*)) =>
+    fprint! (out, "ATSINSmove_con0(", tmp, ", ", tag, ")")
+//
+| ATSdynload0 (tmp) => fprint! (out, "ATSdynload0(", tmp, ")")
+| ATSdynload1 (tmp) => fprint! (out, "ATSdynload1(", tmp, ")")
+| ATSdynloadset (tmp) => fprint! (out, "ATSdynloadset(", tmp, ")")
+//
+| _ (*rest*) => fprint (out, "fprint_instr(...)")
+//
+end // end of [fprint_instr]
+
+(* ****** ****** *)
+
+implement
+fprint_instrlst (out, xs) = fprint_list_sep (out, xs, "\n")
+
+(* ****** ****** *)
 
 implement
 fprint_fkind
@@ -451,10 +543,12 @@ fprint_val<tmpdec> = fprint_tmpdec
 implement
 fprint_tmpdec
   (out, x) = let
+//
+val node = x.tmpdec_node
+//
 in
 //
-case+
-x.tmpdec_node of
+case+ node of
 | TMPDECnone (tmp) =>
     fprint! (out, "TMPDECnone(", tmp, ")")
 | TMPDECsome (tmp, s0e) =>

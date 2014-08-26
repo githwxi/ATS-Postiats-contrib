@@ -1,13 +1,15 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-"./../prelude/SATS/integer.sats"
-
+"{$LIBATSCC2JS}/SATS/integer.sats"
+//
 (* ****** ****** *)
 //
 extern
@@ -26,22 +28,39 @@ case+
 (* ****** ****** *)
 
 %{^
-import sys
-######
-from basics_cats import *
-from integer_cats import *
-######
-sys.setrecursionlimit(1000000)
-%}
+//
+// file inclusion
+//
+var fs = require('fs');
+eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
-if (len(sys.argv) >= 3):
-  print(acker(int(sys.argv[1]), int(sys.argv[2])))
-else:
-  print('Usage: acker <integer> <integer>')
-#endif
+//
+(
+function()
+{
+//
+var argc =
+  process.argv.length
+//
+if (argc <= 3)
+{
+  console.log("Usage: acker <int> <int>"); return;
+}
+//
+var m = process.argv[2]
+var n = process.argv[3]
+//
+console.log("acker(%d, %d) = %d", m, n, acker(m, n));
+//
+return;
+//
+} /* end of [main_js] */
+) () ;
 %} // end of [%{$]
 
 (* ****** ****** *)

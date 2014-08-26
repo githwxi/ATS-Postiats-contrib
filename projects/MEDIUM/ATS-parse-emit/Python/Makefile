@@ -56,7 +56,7 @@ SOURCES_DATS += atsparemit_main_py.dats
 #
 ######
 
-MYTARGET=atsparemit_py
+MYTARGET=atscc2py
 
 ######
 

@@ -33,6 +33,11 @@ emit_ENDL (out) = emit_text (out, "\n")
 (* ****** ****** *)
 
 implement
+emit_COLON (out) = emit_text (out, ":")
+
+(* ****** ****** *)
+
+implement
 emit_SHARP (out) = emit_text (out, "#")
 
 (* ****** ****** *)
@@ -64,6 +69,17 @@ emit_flush (out) = fileref_flush (out)
 implement
 emit_newline (out) = fprint_newline (out)
 
+(* ****** ****** *)
+//
+implement
+emit_nspc (out, ind) =
+(
+//
+if ind > 0 then
+  (emit_text (out, " "); emit_nspc (out, ind-1))
+//
+) (* end of [emit_nspc] *)
+//
 (* ****** ****** *)
 //
 implement
@@ -107,9 +123,8 @@ tok.token_node of
 | T_ENDL () => emit_ENDL (out)
 | T_SPACES (cs) => emit_text (out, cs)
 //
-| T_COMMENT_line () =>
-    emit_text (out, "#COMMENT_line\n")
-| T_COMMENT_block () => ((*ignored*))
+| T_COMMENT_line () => emit_COMMENT_line (out)
+| T_COMMENT_block () => emit_COMMENT_block (out)
 //
 | T_INT (_, rep) => emit_text (out, rep)
 //

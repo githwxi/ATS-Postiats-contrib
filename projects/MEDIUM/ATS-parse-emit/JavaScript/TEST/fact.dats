@@ -19,12 +19,17 @@ fact (n) = if n > 0 then n * fact(n-1) else 1
 (* ****** ****** *)
 
 %{^
-%}
+//
+// file inclusion
+//
+var fs = require('fs');
+eval(fs.readFileSync('./../prelude/CATS/integer_cats.js').toString());
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
-console.log("fact(10) = ", fact(10))
+console.log("fact(10) = %d", fact(10))
 %} // end of [%{$]
 
 (* ****** ****** *)

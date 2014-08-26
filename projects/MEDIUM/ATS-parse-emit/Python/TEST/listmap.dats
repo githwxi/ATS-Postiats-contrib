@@ -1,18 +1,18 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
 staload
-"./../prelude/basics_py.sats"
-//
+"{$LIBATSCC2PY}/basics_py.sats"
 staload
-"./../prelude/SATS/integer.sats"
-//
-staload "./../prelude/SATS/list.sats"
-staload "./../prelude/SATS/pylist.sats"
+"{$LIBATSCC2PY}/SATS/integer.sats"
+staload
+"{$LIBATSCC2PY}/SATS/list.sats"
 //
 (* ****** ****** *)
 //
@@ -65,8 +65,7 @@ sys.setrecursionlimit(1000000)
 
 %{$
 //
-xs2 = test(5, 10)
-print("xs2 = ", xs2)
+print("test(5, 10) = ", test(5, 10), sep='')
 %} // end of [%{$]
 
 (* ****** ****** *)

@@ -294,7 +294,7 @@ fun
 the_branchlablst_get (): labelist
 extern
 fun
-the_branchlablst_set (labs: labelist): void
+the_branchlablst_set (tls: labelist): void
 //
 (* ****** ****** *)
 //
@@ -337,7 +337,7 @@ the_funbodylst_set (xs) = !the_funbodylst := xs
 implement
 the_branchlablst_get () = !the_branchlablst
 implement
-the_branchlablst_set (xs) = !the_branchlablst := xs
+the_branchlablst_set (tls) = !the_branchlablst := tls
 
 implement
 the_caseofseqlst_get () = !the_caseofseqlst
@@ -675,10 +675,10 @@ ins0.instr_node of
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if (")
+    val () = emit_text (out, "if(")
     val () = emit_d0exp (out, d0e)
     val ((*closing*)) = emit_text (out, "): ")
-    val ((*void*)) = emit_instr (out, ins)
+    val () = emit_instr (out, ins)
   }
 | ATSifnthen (d0e, inss) =>
   {
@@ -689,18 +689,24 @@ ins0.instr_node of
     val () = emit_text (out, "if not(")
     val () = emit_d0exp (out, d0e)
     val ((*closing*)) = emit_text (out, "): ")
-    val ((*void*)) = emit_instr (out, ins)
+    val () = emit_instr (out, ins)
+  }
+//
+| ATSbranchseq (inss) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#ATSbranch")
   }
 //
 | ATScaseofseq (inss) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATScaseof_beg")
+    val () = emit_text (out, "#ATScaseofseq_beg")
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "tmplab_py = 1\n")
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "while (1):\n")
+    val () = emit_text (out, "while(1):\n")
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "mbranch_")
     val () = emit_branchmap_index (out, ins0)
@@ -708,13 +714,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "if (tmplab_py == 0): break\n")
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATScaseof_end")
-  }
-//
-| ATSbranchseq (inss) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATSbranch")
+    val () = emit_text (out, "#ATScaseofseq_end")
   }
 //
 | ATSreturn (tmp) =>
@@ -784,10 +784,14 @@ ins0.instr_node of
 | ATSINSmove_void (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATSINSmove_void\n")
-    val () = emit_nspc (out, ind)
-    val () = emit_d0exp (out, d0e)
-  }
+    val () = (
+      case+ d0e.d0exp_node of
+      | ATSempty _ =>
+          emit_text (out, "None#ATSINSmove_void")
+        // end of [ATSempty]
+      | _ (*non-ATSempty*) => emit_d0exp (out, d0e)
+    ) : void // end of [val]
+  } (* end of [ATSINSmove_void] *)
 //
 | ATSINSmove_nil (tmp) =>
   {
@@ -814,11 +818,11 @@ ins0.instr_node of
 | ATStailcalseq (inss) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#tailcal_beg")
+    val () = emit_text (out, "#ATStailcalseq_beg")
     val () = emit_ENDL (out)
     val () = emit2_instrlst (out, ind, inss)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#tailcal_end")
+    val () = emit_text (out, "#ATStailcalseq_end")
   
   } (* end of [ATStailcalseq] *)
 //
@@ -1235,8 +1239,8 @@ emit_caseofseq
 //
 val-ATScaseofseq(inss) = ins0.instr_node
 //
-val labs = caseofseq_get_tmplablst (ins0)
-val ((*update*)) = the_branchlablst_set (labs)
+val tls = caseofseq_get_tmplablst (ins0)
+val ((*update*)) = the_branchlablst_set (tls)
 //
 in
   emit_branchseqlst (out, inss)
@@ -1451,7 +1455,7 @@ case+ inss of
 ) (* end of [auxlst] *)
 //
 val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "while (1):\n")
+val () = emit_text (out, "while(1):\n")
 val () = emit_nspc (out, 4(*ind*))
 val () = emit_text (out, "funlab_py = 0\n")
 //
@@ -1588,7 +1592,7 @@ val () = emit_the_funbodylst (out)
 val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, "funlab_py = 1\n")
 val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "while (1):\n")
+val () = emit_text (out, "while(1):\n")
 val () = emit_nspc (out, 4(*ind*))
 val () = emit_text (out, "tmpret_py = mfundef.get(funlab_py)()\n")
 val () = emit_nspc (out, 4(*ind*))

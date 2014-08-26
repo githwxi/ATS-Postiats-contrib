@@ -9,7 +9,7 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
-ATSPAREMIT=./../atsparemit_py
+ATSPAREMIT=./../atscc2py
 
 ######
 
@@ -159,12 +159,22 @@ cleanall:: ; $(RMF) queens_dats.py
 ######
 
 all:: \
-pylist_test_dats.py
-pylist_test_dats.py: pylist_test.dats ; \
+PYlist_test_dats.py
+PYlist_test_dats.py: PYlist_test.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@ -i
-pylist:: pylist_test_dats.py ; $(PYTHON) pylist_test_dats.py
-regress:: pylist
-cleanall:: ; $(RMF) pylist_test_dats.py
+PYlist_test:: \
+PYlist_test_dats.py ; $(PYTHON) PYlist_test_dats.py
+regress:: PYlist_test
+cleanall:: ; $(RMF) PYlist_test_dats.py
+
+######
+
+CPRF=cp -rf
+
+######
+
+libupdate: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/CATS/* ./libatscc2py/CATS
 
 ######
 

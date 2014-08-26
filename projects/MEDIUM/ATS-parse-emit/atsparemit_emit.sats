@@ -20,6 +20,7 @@ emit_type
 
 fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
+fun emit_COLON : FILEref -> void
 fun emit_SHARP : FILEref -> void
 fun emit_COLON : FILEref -> void
 
@@ -111,9 +112,14 @@ fun emit_tmpdec : emit_type (tmpdec)
 fun emit_f0decl : emit_type (f0decl)
 
 (* ****** ****** *)
-
+//
+fun
+emit_COMMENT_line (out: FILEref): void
+fun
+emit_COMMENT_block (out: FILEref): void
+//
 fun emit_extcode : emit_type (tokenlst)
-
+//
 (* ****** ****** *)
 
 fun

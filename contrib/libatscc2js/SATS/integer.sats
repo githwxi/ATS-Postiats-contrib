@@ -1,13 +1,13 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into JavaScript
 *)
 
 (* ****** ****** *)
 //
 // HX: prefix for external names
 //
-#define ATS_EXTERN_PREFIX "ats2pypre_"
+#define ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
 

@@ -52,7 +52,7 @@ tok.token_node of
     val opt = parse_d0expargopt (buf, bt, err)
   in
     case+ opt of
-    | None () => d0exp_ide (loc, id)
+    | None () => d0exp_ide (id)
     | Some (d0e) => d0exp_appid (id, d0e)
   end // end of [_ when ...]
 //

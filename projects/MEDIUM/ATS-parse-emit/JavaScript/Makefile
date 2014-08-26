@@ -56,7 +56,7 @@ SOURCES_DATS += atsparemit_main_js.dats
 #
 ######
 
-MYTARGET=atsparemit_js
+MYTARGET=atscc2js
 
 ######
 
