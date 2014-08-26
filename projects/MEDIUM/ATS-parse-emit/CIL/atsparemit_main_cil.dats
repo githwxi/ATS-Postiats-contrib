@@ -60,8 +60,6 @@ dynload "./atsparemit_syntax_cil.dats"
 
 (* ****** ****** *)
 
-dynload "./atsparemit_instr2.dats"
-
 dynload "./atsparemit_emit_cil.dats"
 
 (* ****** ****** *)

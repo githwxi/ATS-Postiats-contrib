@@ -19,7 +19,6 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload "./atsparemit.sats"
-staload "./atsparemit_cil.sats"
 staload "./atsparemit_syntax.sats"
 staload "./atsparemit_syntax_cil.sats"
 //
@@ -715,6 +714,7 @@ ins0.instr_node of
     val () = emit_text (out, "ret")
   }
 //
+(*
 | ATSlinepragma (line, file) =>
   {
     val () = emit_text (out, ".line")
@@ -725,11 +725,14 @@ ins0.instr_node of
     val-T_STRING(filnam) = file.token_node
     val () = emit_text (out, filnam)
   }
+*)
 //
+(*
 | ATSINSlab (lab) =>
   {
     val () = emit_label_mark (out, lab)
   }
+*)
 //
 | ATSINSgoto (lab) =>
   {
@@ -738,10 +741,12 @@ ins0.instr_node of
     val () = emit_label (out, lab)
   }
 //
+(*
 | ATSINSflab (flab) =>
   {
     val () = emit_label_mark (out, flab)
   }
+*)
 //
 | ATSINSfgoto (flab) =>
   {
@@ -785,32 +790,18 @@ emit_instrlst
 case+ inss of
 | list_nil () => ()
 | list_cons (ins0, inss) => let
-    val labnext =
-    (
-      case+ inss of
-      | list_nil () => lablast
-      | _ => label_for_instrlst (inss)
-    ) (* end of [val] *)
+  //
+  //
   in
     case+ ins0.instr_node of
     | ATSINSlab (label) =>
-      {
-        val- list_cons (ins1, inss) = inss
-        // invariant: label = labthis?
-        val () = emit_label_mark (out, label)
-        val () = emit_instr (out, ins1, label, labnext)
-        val () = emit_ENDL (out)
-        val () = emit_instrlst (out, inss, labnext, lablast)
-      }
+      (
+        emit_instrlst (out, inss, label, lablast)
+      )
     | ATSINSflab (label) =>
-      {
-        val- list_cons (ins1, inss) = inss
-        // invariant: label = labthis?
-        val () = emit_label_mark (out, label)
-        val () = emit_instr (out, ins1, label, labnext)
-        val () = emit_ENDL (out)
-        val () = emit_instrlst (out, inss, labnext, lablast)
-      }
+      (
+        emit_instrlst (out, inss, label, lablast)
+      )
     | ATSlinepragma (line, file) =>
       (
         emit_instrlst (out, inss, labthis, lablast)
@@ -818,6 +809,12 @@ case+ inss of
     | _(*other*) =>
       {
         val () = emit_label_mark (out, labthis)
+        val labnext =
+        (
+          case+ inss of
+          | list_nil () => lablast
+          | _ => label_for_instrlst (inss)
+        ) (* end of [val] *)
         val () = emit_instr (out, ins0, labthis, labnext)
         val () = emit_ENDL (out)
         val () = emit_instrlst (out, inss, labnext, lablast)
@@ -904,13 +901,15 @@ val () = the_tmpdeclst_set (tmpdecs)
 val () = emit_LBRACE (out)
 val () = emit_newline (out)
 // TODO: how to compute maxstack?
-val () = emit_text (out, ".maxstack 1")
+val () = emit_text (out, ".maxstack 16")
 val () = emit_newline (out)
 // emit locals
 val () = emit_text (out, ".locals")
 val () = emit_SPACE (out)
+(*
 val () = emit_text (out, "init")
 val () = emit_SPACE (out)
+*)
 val () = emit_LPAREN (out)
 val () = emit_newline (out)
 val () = emit_tmpdeclst (out, tmpdecs)
@@ -1066,20 +1065,21 @@ d0c.d0ecl_node of
 //
 | D0Cifdef (i0de, d0eclist) =>
   {
-    val () = emit_text (out, "#ifdef")
-    val () = emit_SPACE (out)
+(*    val () = emit_text (out, "#ifdef")
+    val () = emit_SPACE (out)*)
     val () = emit_newline (out)
   }
 | D0Cifndef (i0de, d0eclist) =>
   {
-    val () = emit_text (out, "#ifndef")
-    val () = emit_SPACE (out)
+(*    val () = emit_text (out, "#ifndef")
+    val () = emit_SPACE (out)*)
     val () = emit_newline (out)
   }
 //
 | D0Ctypedef (id, def) =>
   {
     val () = typedef_insert (id.i0de_sym, def)
+    // TODO: insert type (class) declaration
   } (* end of [D0Ctypedef] *)
 //
 | D0Cdyncst_mac i0de => ()
