@@ -430,12 +430,12 @@ d0e.d0exp_node of
 | D0Eide (id) =>
   {
     val () =
-      if tmpvar_is_arg (id)
+      if tmpvar_is_arg (id.i0de_sym)
         then emit_text (out, "ldarg")
         else emit_text (out, "ldloc")
     // end of [val]
     val () = emit_SPACE (out)
-    val () = emit_symbol (out, id)
+    val () = emit_i0de (out, id)
   }
 //
 | D0Eappid (id, d0es) =>
