@@ -199,11 +199,11 @@ d0e0.d0exp_node of
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
 | ATSfunclo_fun
-    (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
+    (d0e, _(*arg*), _(*res*)) => emit_d0exp (out, d0e)
 | ATSfunclo_clo
-    (d2e, _(*arg*), _(*res*)) =>
+    (d0e, _(*arg*), _(*res*)) =>
   (
-    emit_d0exp (out, d2e);
+    emit_d0exp (out, d0e);
     emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
   ) (* end of [ATSfunclo_clo] *)
 //
@@ -314,52 +314,6 @@ val () = emit_RBRACKET (out)
 in
   // nothing
 end // end of [emit_SELboxrec]
-
-(* ****** ****** *)
-
-#define
-ATSEXTCODE_BEG "/* ATSextcode_beg() */"
-#define
-ATSEXTCODE_END "/* ATSextcode_end() */\n"
-
-(* ****** ****** *)
-
-implement
-emit_d0ecl
-  (out, d0c) = let
-in
-//
-case+
-d0c.d0ecl_node of
-//
-| D0Cinclude _ => ()
-//
-| D0Cifdef _ => ()
-| D0Cifndef _ => ()
-//
-| D0Ctypedef (id, def) =>
-    typedef_insert (id.i0de_sym, def)
-  // end of [D0Ctypedef]
-//
-| D0Cdyncst_mac _ => ()
-| D0Cdyncst_extfun _ => ()
-//
-| D0Cfundecl
-    (fk, f0d) => emit_f0decl (out, f0d)
-//
-| D0Cextcode (toks) =>
-  {
-    val () = emit_text (out, ATSEXTCODE_BEG)
-    val () = emit_extcode (out, toks)
-    val () = emit_text (out, ATSEXTCODE_END)
-  }
-//
-| D0Cclosurerize
-  (
-    fl, env, arg, res
-  ) => emit_closurerize (out, fl, env, arg, res)
-//
-end // end of [emit_d0ecl]
 
 (* ****** ****** *)
 //

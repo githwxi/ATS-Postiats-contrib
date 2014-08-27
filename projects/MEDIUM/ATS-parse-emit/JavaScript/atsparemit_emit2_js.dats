@@ -526,6 +526,35 @@ ins0.instr_node of
     val () = emit_i0de (out, tmp2)
   } (* end of [ATSINSargmove_tlcal] *)
 //
+| ATSdynload (dummy) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATSdynload()")
+  }
+//
+| ATSdynload0 (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "var\n")
+    val () =
+    (
+      emit_i0de (out, flag); emit_text (out, " = 0")
+    )
+  }
+| ATSdynload1 (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATSdynload1(...)")
+  }
+| ATSdynloadset (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () =
+    (
+      emit_i0de (out, flag); emit_text (out, " = 1")
+    )
+  }
+//
 | _ (*rest*) =>
   {
     val () = emit_nspc (out, ind)
@@ -741,6 +770,68 @@ val () = emit_RBRACKET (out)
 in
   // nothing
 end // end of [emit2_ATSINSmove_boxrec]
+
+(* ****** ****** *)
+
+#define
+ATSEXTCODE_BEG "/* ATSextcode_beg() */"
+#define
+ATSEXTCODE_END "/* ATSextcode_end() */\n"
+
+(* ****** ****** *)
+
+implement
+emit_d0ecl
+  (out, d0c) = let
+in
+//
+case+
+d0c.d0ecl_node of
+//
+| D0Cinclude _ => ()
+//
+| D0Cifdef _ => ()
+| D0Cifndef _ => ()
+//
+| D0Ctypedef (id, def) =>
+    typedef_insert (id.i0de_sym, def)
+  // end of [D0Ctypedef]
+//
+| D0Cdyncst_mac _ => ()
+| D0Cdyncst_extfun _ => ()
+//
+| D0Cextcode (toks) =>
+  {
+    val () = emit_text (out, ATSEXTCODE_BEG)
+    val () = emit_extcode (out, toks)
+    val () = emit_text (out, ATSEXTCODE_END)
+  }
+//
+| D0Cstatmp
+    (tmp, opt) =>
+  {
+    val () = (
+      case+ opt of
+      | Some _ => () | None () => emit_text(out, "/*\n")
+    ) (* end of [val] *)
+    val () = (
+      emit_text (out, "var "); emit_i0de (out, tmp); emit_ENDL (out)
+    ) (* end of [val] *)
+    val () = (
+      case+ opt of
+      | Some _ => () | None () => emit_text(out, "*/\n")
+    ) (* end of [val] *)
+  } (* end of [D0Cstatmp] *)
+//
+| D0Cfundecl
+    (fk, f0d) => emit_f0decl (out, f0d)
+//
+| D0Cclosurerize
+  (
+    fl, env, arg, res
+  ) => emit_closurerize (out, fl, env, arg, res)
+//
+end // end of [emit_d0ecl]
 
 (* ****** ****** *)
 //

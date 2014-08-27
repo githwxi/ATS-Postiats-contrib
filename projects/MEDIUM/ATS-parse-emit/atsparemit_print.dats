@@ -90,6 +90,9 @@ case+ x of
 | ATStmpdec () => pr "ATStmpdec"
 | ATStmpdec_void () => pr "ATStmpdec_void"
 //
+| ATSstatmpdec () => pr "ATSstatmpdec"
+| ATSstatmpdec_void () => pr "ATSstatmpdec_void"
+//
 | ATSif () => pr "ATSif"
 | ATSthen () => pr "ATSthen"
 | ATSelse () => pr "ATSelse"
@@ -169,6 +172,7 @@ case+ x of
 //
 | ATSINSdeadcode_fail () => pr "ATSINSdeadcode_fail"
 //
+| ATSdynload () => pr "ATSdynload"
 | ATSdynload0 () => pr "ATSdynload0"
 | ATSdynload1 () => pr "ATSdynload1"
 | ATSdynloadset () => pr "ATSdynloadset"
@@ -261,7 +265,7 @@ fprint_token
   val () = fprint! (out, tok.token_loc, ": ")
 *)
   val () = fprint_tnode (out, tok.token_node)
-}
+} (* end of [fprint_token] *)
 //
 (* ****** ****** *)
 
@@ -462,9 +466,10 @@ ins0.instr_node of
 | ATSINSmove_con0 (tmp, tag(*token*)) =>
     fprint! (out, "ATSINSmove_con0(", tmp, ", ", tag, ")")
 //
-| ATSdynload0 (tmp) => fprint! (out, "ATSdynload0(", tmp, ")")
-| ATSdynload1 (tmp) => fprint! (out, "ATSdynload1(", tmp, ")")
-| ATSdynloadset (tmp) => fprint! (out, "ATSdynloadset(", tmp, ")")
+| ATSdynload (dummy) => fprint! (out, "ATSdynload0(", ")")
+| ATSdynload0 (flag) => fprint! (out, "ATSdynload0(", flag, ")")
+| ATSdynload1 (flag) => fprint! (out, "ATSdynload1(", flag, ")")
+| ATSdynloadset (flag) => fprint! (out, "ATSdynloadset(", flag, ")")
 //
 | _ (*rest*) => fprint (out, "fprint_instr(...)")
 //
@@ -606,6 +611,9 @@ x.d0ecl_node of
 //
 | D0Cextcode _ =>
     fprint! (out, "D0Cextcode(", "...", ")")
+//
+| D0Cstatmp (tmp, opt) =>
+    fprint! (out, "D0Cstatmp(", tmp, ": ", opt, ")")
 //
 | D0Cfundecl (knd, fdec) =>
     fprint! (out, "D0Cfundecl(", knd, "; ", "...", ")")

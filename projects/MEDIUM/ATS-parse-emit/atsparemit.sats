@@ -207,6 +207,9 @@ keyword =
   | ATStmpdec of ()
   | ATStmpdec_void of ()
 //
+  | ATSstatmpdec of ()
+  | ATSstatmpdec_void of ()
+//
   | ATSif of ()
   | ATSthen of ()
   | ATSelse of ()
@@ -283,6 +286,7 @@ keyword =
 //
   | ATSINSdeadcode_fail of ()
 //
+  | ATSdynload of ()
   | ATSdynload0 of ()
   | ATSdynload1 of ()
   | ATSdynloadset of ()
@@ -884,6 +888,7 @@ instr_node =
 //
   | ATSINSdeadcode_fail of (token)
 //
+  | ATSdynload of int
   | ATSdynload0 of (i0de)
   | ATSdynload1 of (i0de)
   | ATSdynloadset of (i0de)
@@ -955,6 +960,8 @@ d0ecl_node =
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
   | D0Cextcode of (tokenlst)
+//
+  | D0Cstatmp of (i0de, s0expopt)
 //
   | D0Cfundecl of (fkind, f0decl)
 //

@@ -4,16 +4,16 @@
 
 ######
 
+NODEJS=node
+
+######
+
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
 ATSPAREMIT=./../atscc2js
-
-######
-
-NODEJS=node
 
 ######
 
@@ -62,7 +62,7 @@ all:: \
 fib_dats.js
 fib_dats.js: fib.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-fib:: fib_dats.js ; $(NODEJS) fib_dats.js 100
+fib:: fib_dats.js ; $(NODEJS) fib_dats.js
 regress:: fib
 cleanall:: ; $(RMF) fib_dats.js
 
@@ -159,14 +159,14 @@ cleanall:: ; $(RMF) queens_dats.js
 ######
 
 all:: \
-process_dats.js
-process_dats.c: \
-process.dats ; $(PATSOPT) -o $@ -d $<
-process_dats.js: \
-process_dats.c ; $(ATSPAREMIT) -o $@ -i $<
-process:: process_dats.js ; $(NODEJS) process_dats.js
-regress:: process
-cleanall:: ; $(RMF) process_dats.js
+process_test_dats.js
+process_test_dats.c: \
+process_test.dats ; $(PATSOPT) -o $@ -d $<
+process_test_dats.js: \
+process_test_dats.c ; $(ATSPAREMIT) -o $@ -i $<
+process_test:: process_test_dats.js ; $(NODEJS) process_test_dats.js
+regress:: process_test
+cleanall:: ; $(RMF) process_test_dats.js
 
 ######
 

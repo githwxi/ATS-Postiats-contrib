@@ -1,9 +1,22 @@
 (* ****** ****** *)
 //
+// HX-2014-08:
+// A running example
+// from ATS2 to Node.js
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "process_test_dynload"
 //
 (* ****** ****** *)
 //
@@ -21,17 +34,22 @@ staload
 //
 (* ****** ****** *)
 //
-extern
-fun
-test (): void = "mac#"
-implement
-test () =
-{
-  val () = print ("argv = ")
-  val () = print_obj (argv)
-  val () = print_newline ((*void*))
-}
+val () = print ("argv = ")
+val () = print_obj (argv)
+val () = print_newline ((*void*))
 //
+(* ****** ****** *)
+
+val () = print ("uptime = ")
+val () = print_obj (uptime())
+val () = print_newline ((*void*))
+
+(* ****** ****** *)
+
+val () = print ("version = ")
+val () = print_obj (version)
+val () = print_newline ((*void*))
+
 (* ****** ****** *)
 
 %{^
@@ -49,7 +67,7 @@ eval(fs.readFileSync('./libatscc2js/CATS/node/process_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-test()
+process_test_dynload()
 %} // end of [%{$]
   
 (* ****** ****** *)

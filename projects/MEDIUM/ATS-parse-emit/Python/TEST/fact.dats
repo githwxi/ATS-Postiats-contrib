@@ -8,7 +8,18 @@
 (* ****** ****** *)
 //
 staload
+"{$LIBATSCC2PY}/basics_py.sats"
+staload
 "{$LIBATSCC2PY}/SATS/integer.sats"
+staload
+"{$LIBATSCC2PY}/SATS/string.sats"
+//
+(* ****** ****** *)
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "fact_dynload"
 //
 (* ****** ****** *)
 //
@@ -19,12 +30,18 @@ implement
 fact (n) = if n > 0 then n * fact(n-1) else 1
 //
 (* ****** ****** *)
+//
+val N = 10
+val () = println! ("fact(", N, ") = ", fact(N))
+//
+(* ****** ****** *)
 
 %{^
 import sys
 ######
 from basics_cats import *
 from integer_cats import *
+from string_cats import *
 ######
 sys.setrecursionlimit(1000000)
 %} // end of [%{^]
@@ -32,11 +49,7 @@ sys.setrecursionlimit(1000000)
 (* ****** ****** *)
 
 %{$
-if (len(sys.argv) >= 2):
-  print(fact(int(sys.argv[1])))
-else:
-  print('Usage: fact <integer>')
-#endif
+fact_dynload()
 %} // end of [%{$]
 
 (* ****** ****** *)

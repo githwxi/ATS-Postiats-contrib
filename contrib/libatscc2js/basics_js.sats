@@ -22,19 +22,16 @@ stadef cfun = cfun1
 stadef cfun = cfun2
 //
 (* ****** ****** *)
-
-abstype JSfile
-
-(* ****** ****** *)
 //
 symintr .length
 //
-abstype
-JSarray (a:t@ype)
-//
 (* ****** ****** *)
 //
-abstype JSdict (a:t@ype)
+abstype String
+//
+abstype Array(a:t@ype)
+//
+abstype Date // object
 //
 (* ****** ****** *)
 //

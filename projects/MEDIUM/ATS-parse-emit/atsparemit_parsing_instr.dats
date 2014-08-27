@@ -544,6 +544,16 @@ tok.token_node of
     // end of [if]
   end // end of [ATSINSdeadcode_fail]  
 //
+| T_KWORD(ATSdynload()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if (err = err0)
+      then ATSdynload_make (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynload]
+//
 | T_KWORD(ATSdynload0()) => let
     val bt = 0
     val () = incby1 ()
