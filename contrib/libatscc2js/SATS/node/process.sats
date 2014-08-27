@@ -23,26 +23,29 @@ staload "./../../basics_js.sats"
 //
 (* ****** ****** *)
 
-val argv : JSarray(string) = "mac#%"
+val argv : Array(string) = "mac#%"
 
 (* ****** ****** *)
 
 val execPath : string = "mac#%"
-val execArgv : JSarray(string) = "mac#%"
+val execArgv : Array(string) = "mac#%"
 
 (* ****** ****** *)
 
-val env : JSdict(string) = "mac#%"
+(*
+val env : Dictionary(string) = "mac#%"
+*)
 
 (* ****** ****** *)
 
-val pid : int = "mac#%" // of the node process
+val pid : int = "mac#%" // of the node
 
 (* ****** ****** *)
 
 val version : string = "mac#%"
-val versions : JSdict(string) = "mac#%"
-
+(*
+val versions : Dictionary(string) = "mac#%"
+*)
 (* ****** ****** *)
 
 fun cwd (): string = "mac#%"
@@ -61,7 +64,7 @@ fun setuid (id: int): void = "mac#%"
 (* ****** ****** *)
 
 fun uptime (): int = "mac#%"  
-fun hrtime (): JSarray(int) = "mac#%"  
+fun hrtime (): Array(int) = "mac#%"  
   
 (* ****** ****** *)
 

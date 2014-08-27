@@ -29,7 +29,7 @@ symintr .length
 //
 abstype String
 //
-abstype Aarray(a:t@ype)
+abstype Array(a:t@ype)
 //
 abstype Date // object
 //
