@@ -43,6 +43,8 @@ sys.setrecursionlimit(1000000)
 
 %{$
 #
+poly0 = lambda x: x*x + x - 6
+print('rtfind(lambda x: x*x + x - 6) =', rtfind(poly0))
 poly1 = lambda x: x*x - x - 6
 print('rtfind(lambda x: x*x - x - 6) =', rtfind(poly1))
 #

@@ -41,6 +41,10 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+
+#define ATS_DYNLOADFLAG 0
+
+(* ****** ****** *)
 //
 staload
 "{$LIBATSCC2PY}/basics_py.sats"
