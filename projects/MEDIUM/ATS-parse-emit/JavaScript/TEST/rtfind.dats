@@ -44,11 +44,13 @@ eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
 
 %{$
 //
-poly1 = function(x) { return x*x - x - 6 ; }
-console.log('rtfind(lambda x: x*x - x - 6) = %d', rtfind(poly1))
+var
+poly0 = function(x) { return x*x + x - 6 ; }
+console.log('rtfind(lambda x: x*x + x - 6) = %d', rtfind(poly0))
 //
-poly2 = function(x) { return x*x + 2*x - 99 ; }
-console.log('rtfind(lambda x: x*x - 2*x - 99) = %d', rtfind(poly2))
+var
+poly1 = function(x) { return x*x + 2*x - 99 ; }
+console.log('rtfind(lambda x: x*x - 2*x - 99) = %d', rtfind(poly1))
 //
 %} // end of [%{$]
 
