@@ -16,6 +16,9 @@
 
 /* ****** ****** */
 
+function
+string_length(str) { return str.length ; }
+
 /* ****** ****** */
 
 /* end of [string_cats.js] */

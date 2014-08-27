@@ -4,16 +4,16 @@
 
 ######
 
+NODEJS=node
+
+######
+
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
 ATSPAREMIT=./../atscc2js
-
-######
-
-NODEJS=node
 
 ######
 
@@ -62,7 +62,7 @@ all:: \
 fib_dats.js
 fib_dats.js: fib.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-fib:: fib_dats.js ; $(NODEJS) fib_dats.js 100
+fib:: fib_dats.js ; $(NODEJS) fib_dats.js
 regress:: fib
 cleanall:: ; $(RMF) fib_dats.js
 

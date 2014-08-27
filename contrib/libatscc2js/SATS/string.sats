@@ -18,28 +18,27 @@ staload "./../basics_js.sats"
 (* ****** ****** *)
 //
 fun
-string_get_at
-  {n:int}{i:nat | i < n}
-  (str: string(n), i: int(i)): charNZ = "mac#%"
+string_length (string): int = "mac#%"
 //
-overload [] with string_get_at of 100
+overload .length with string_length of 100
 //
 (* ****** ****** *)
-
+//
 fun
-string_isalnum : string -> bool = "mac#%"
-fun
-string_isalpha : string -> bool = "mac#%"
-fun
-string_isdecimal : string -> bool = "mac#%"
-
+string_charAt
+  (str: string, index: int): int = "mac#%"
+//
 (* ****** ****** *)
-
+//
 fun
-string_lower (str: string): string = "mac#%"
+string_charCodeAt
+  (str: string, index: int): int = "mac#%"
+//
+(* ****** ****** *)
+//
 fun
-string_upper (str: string): string = "mac#%"
-
+string_indexOf (str: string, c: char): int = "mac#%"
+//
 (* ****** ****** *)
 //
 fun
@@ -47,12 +46,10 @@ print_string (str: string): void = "mac#%"
 fun
 prerr_string (str: string): void = "mac#%"
 //
-fun
-fprint_string: (JSfile, string) -> void = "mac#%"
+(* ****** ****** *)
 //
 overload print with print_string of 100
 overload prerr with prerr_string of 100
-overload fprint with fprint_string of 100
 //
 (* ****** ****** *)
 
