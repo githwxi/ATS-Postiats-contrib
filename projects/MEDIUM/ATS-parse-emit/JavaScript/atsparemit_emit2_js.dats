@@ -776,7 +776,7 @@ end // end of [emit2_ATSINSmove_boxrec]
 #define
 ATSEXTCODE_BEG "/* ATSextcode_beg() */"
 #define
-ATSEXTCODE_END "/* ATSextcode_end() */\n"
+ATSEXTCODE_END "/* ATSextcode_end() */"
 
 (* ****** ****** *)
 
@@ -802,14 +802,19 @@ d0c.d0ecl_node of
 //
 | D0Cextcode (toks) =>
   {
-    val () = emit_text (out, ATSEXTCODE_BEG)
-    val () = emit_extcode (out, toks)
-    val () = emit_text (out, ATSEXTCODE_END)
-  }
+    val () = emit_ENDL (out)
+    val () =
+      emit_text (out, ATSEXTCODE_BEG)
+    val () = emit_extcode (out, toks) // HX: verbatim output
+    val () =
+      emit_text (out, ATSEXTCODE_END)
+    val ((*void*)) = emit_newline (out)
+  } (* end of [D0Cextcode] *)
 //
 | D0Cstatmp
     (tmp, opt) =>
   {
+    val () = emit_ENDL (out)
     val () = (
       case+ opt of
       | Some _ => () | None () => emit_text(out, "/*\n")
@@ -1174,14 +1179,12 @@ fdec.f0decl_node of
 | F0DECLnone (fhd) => () 
 | F0DECLsome (fhd, fbody) =>
   {
+    val () = emit_ENDL (out)
     val () =
-    emit_text
-      (out, "function\n")
-    // end of [val]
+    emit_text (out, "function\n")
     val () = emit_f0head (out, fhd)
     val () = emit_newline (out)
     val () = emit_f0body (out, fbody)
-    val () = emit_newline (out)
   } (* end of [F0DECLsome] *)
 //
 end // end of [emit_f0decl]
@@ -1203,8 +1206,11 @@ case+ d0cs of
 | list_nil () => ()
 | list_cons
     (d0c, d0cs) => let
+    val () =
+      emit_d0ecl (out, d0c)
+    // end of [val]
   in
-    emit_d0ecl (out, d0c); loop (out, d0cs)
+    loop (out, d0cs)
   end // end of [list_cons]
 //
 )

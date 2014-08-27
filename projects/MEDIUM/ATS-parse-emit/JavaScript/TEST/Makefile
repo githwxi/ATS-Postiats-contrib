@@ -39,6 +39,14 @@ cleanall:: ; $(RMF) fact_dats.js
 ######
 
 all:: \
+fact_html_dats.js
+fact_html_dats.js: \
+fact_html.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+cleanall:: ; $(RMF) fact_html_dats.js
+
+######
+
+all:: \
 fact2_dats.js
 fact2_dats.js: fact2.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
@@ -50,9 +58,9 @@ cleanall:: ; $(RMF) fact2_dats.js
 
 all:: \
 f91_dats.js
-f91_dats.js: f91.dats ; \
-$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-f91:: f91_dats.js ; $(NODEJS) f91_dats.js
+f91_dats.js: \
+f91.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+f91:: f91_dats.js ; $(NODEJS) f91_dats.js 23
 regress:: f91
 cleanall:: ; $(RMF) f91_dats.js
 
@@ -60,8 +68,8 @@ cleanall:: ; $(RMF) f91_dats.js
 
 all:: \
 fib_dats.js
-fib_dats.js: fib.dats ; \
-$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+fib_dats.js: \
+fib.dats ; $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
 fib:: fib_dats.js ; $(NODEJS) fib_dats.js
 regress:: fib
 cleanall:: ; $(RMF) fib_dats.js
