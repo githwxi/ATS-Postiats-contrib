@@ -1106,6 +1106,19 @@ d0c.d0ecl_node of
 | D0Cdyncst_extfun (i0de, s0explst, s0exp) =>
   {
   }
+//
+| D0Cstatmp
+    (tmp, opt) =>
+  {
+    val () = (
+      case+ opt of
+      | Some _ => () | None () => emit_text (out, "//")
+    ) (* end of [val] *)
+    val () = (
+      emit_i0de (out, tmp)
+    ) (* end of [val] *)
+  } (* end of [D0Cstatmp] *)
+//
 | D0Cextcode (toks) =>
   {
     val () = emit_text (out, ATSEXTCODE_BEG)
