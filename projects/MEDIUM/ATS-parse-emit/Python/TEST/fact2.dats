@@ -1,12 +1,21 @@
 (* ****** ****** *)
 //
+// HX-2014-08:
+// A running example
+// from ATS2 to Python3
+//
+(* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-//
 //
 staload
 "{$LIBATSCC2PY}/SATS/integer.sats"
