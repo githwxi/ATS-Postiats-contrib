@@ -77,15 +77,6 @@ end // end of [emit_tmpdeclst_initize]
 //
 extern
 fun
-the_f0arglst_get (): f0arglst
-extern
-fun
-the_f0arglst_set (f0as: f0arglst): void
-//
-(* ****** ****** *)
-//
-extern
-fun
 the_tmpdeclst_get (): tmpdeclst
 extern
 fun
@@ -116,7 +107,6 @@ the_branchlablst_unset ((*void*)): void
 
 local
 //
-val the_f0arglst = ref<f0arglst> (list_nil)
 val the_tmpdeclst = ref<tmpdeclst> (list_nil)
 //
 val the_funbodylst = ref<instrlst> (list_nil)
@@ -126,11 +116,6 @@ val the_funbodylst = ref<instrlst> (list_nil)
 val the_branchlablstlst = ref<List0(labelist)> (list_nil)
 //
 in (* in-of-local *)
-
-implement
-the_f0arglst_get () = !the_f0arglst
-implement
-the_f0arglst_set (xs) = !the_f0arglst := xs
 
 implement
 the_tmpdeclst_get () = !the_tmpdeclst
@@ -928,8 +913,6 @@ emit_f0head
 //
 val f0as =
   f0head_get_f0arglst (fhd)
-//
-val () = the_f0arglst_set (f0as)
 //
 in
 //
