@@ -33,8 +33,16 @@ emit_ENDL (out) = emit_text (out, "\n")
 (* ****** ****** *)
 
 implement
-emit_COLON (out) = emit_text (out, ":")
+emit_SPACE (out) = emit_text (out, " ")
 
+(* ****** ****** *)
+//
+implement
+emit_COLON (out) = emit_text (out, ":")
+//
+implement
+emit_SEMICOLON (out) = emit_text (out, ";")
+//
 (* ****** ****** *)
 
 implement
@@ -43,7 +51,7 @@ emit_SHARP (out) = emit_text (out, "#")
 (* ****** ****** *)
 
 implement
-emit_SPACE (out) = emit_text (out, " ")
+emit_DOLLAR (out) = emit_text (out, "$")
 
 (* ****** ****** *)
 //

@@ -10,23 +10,30 @@
 "share/atspre_define.hats"
 //
 (* ****** ****** *)
-//
+
 #define ATS_DYNLOADFLAG 0
-//
+
 (* ****** ****** *)
-staload
-"{$LIBATSCC2PHP}/basics_php.sats"
+//
 staload
 "{$LIBATSCC2PHP}/SATS/integer.sats"
 //
 (* ****** ****** *)
 //
 extern
-fun fact : int -> int = "mac#fact"
+fun acker
+  : (int, int) -> int = "mac#acker"
 //
 implement
-fact (n) = if n > 0 then n * fact(n-1) else 1
+acker (m, n) =
+(
+case+
+  (m, n) of 
+| (0, _) => n + 1
+| (_, 0) => acker(m-1, 1)
+| (_, _) => acker(m-1, acker(m, n-1)) 
+)
 //
 (* ****** ****** *)
 
-(* end of [fact.dats] *)
+(* end of [acker.dats] *)

@@ -192,6 +192,15 @@ val () = emit_RPAREN (out)
 } (* end of [emit_PMVcfunlab] *)
 
 (* ****** ****** *)
+//
+implement
+emit_tmpvar
+  (out, tmp) =
+(
+  emit_DOLLAR(out); emit_i0de (out, tmp)
+) (* end of [emit_tmpvar] *)
+//
+(* ****** ****** *)
 
 implement
 emit_d0exp
@@ -201,17 +210,19 @@ in
 case+
 d0e0.d0exp_node of
 //
-| D0Eide (id) => 
+| D0Eide (tmp) => 
   {
-    val () = emit_i0de (out, id)
+    val () = emit_tmpvar (out, tmp)
   }
 //
-| D0Eappid (id, d0es) =>
+| D0Eappid (fid, d0es) =>
   {
-    val () = emit_i0de (out, id)
+    val () = emit_i0de (out, fid)
+//
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
+//
   }
 | D0Eappexp (d0e, d0es) =>
   {

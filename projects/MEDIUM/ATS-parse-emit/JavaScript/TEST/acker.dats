@@ -11,6 +11,10 @@
 //
 (* ****** ****** *)
 //
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
+//
 staload
 "{$LIBATSCC2JS}/SATS/integer.sats"
 //

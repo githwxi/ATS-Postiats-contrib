@@ -39,14 +39,6 @@ cleanall:: ; $(RMF) fact_dats.js
 ######
 
 all:: \
-fact_html_dats.js
-fact_html_dats.js: \
-fact_html.dats ; $(PATSOPT) -d $< | $(ATSCC2JS) -o $@
-cleanall:: ; $(RMF) fact_html_dats.js
-
-######
-
-all:: \
 fact2_dats.js
 fact2_dats.js: fact2.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2JS) -o $@

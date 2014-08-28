@@ -1,7 +1,7 @@
 (* ****** ****** *)
 //
 // HX-2014-08:
-// A running example
+// A running example:
 // from ATS2 to PHP
 //
 (* ****** ****** *)
@@ -14,6 +14,7 @@
 #define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
+//
 staload
 "{$LIBATSCC2PHP}/basics_php.sats"
 staload
@@ -25,8 +26,15 @@ extern
 fun fact : int -> int = "mac#fact"
 //
 implement
-fact (n) = if n > 0 then n * fact(n-1) else 1
+fact (n) = let
 //
+fun loop (n: int, res: int): int =
+  if n > 0 then loop (n-1, n*res) else res
+//
+in
+  loop (n, 1)
+end // end of [fact]
+
 (* ****** ****** *)
 
-(* end of [fact.dats] *)
+(* end of [fact2.dats] *)

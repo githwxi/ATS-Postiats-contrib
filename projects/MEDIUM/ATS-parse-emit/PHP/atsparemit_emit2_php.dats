@@ -54,10 +54,11 @@ case+ tds of
         (tmp) => auxlst (out, tds)
     | TMPDECsome
         (tmp, _) => let
-        val () = emit_nspc (out, 2(*ind*))
         val () =
-        (
-          emit_text (out, "var "); emit_i0de (out, tmp); emit_ENDL (out)
+        emit_nspc (out, 2(*ind*))
+        val () = emit_ENDL (out)
+        val () = (
+          emit_text (out, "// "); emit_tmpvar (out, tmp);
         ) (* end of [val] *)
       in
         auxlst (out, tds)
@@ -89,37 +90,10 @@ the_tmpdeclst_set (tds: tmpdeclst): void
 //
 (* ****** ****** *)
 //
-extern
-fun
-the_funbodylst_get (): instrlst
-extern
-fun
-the_funbodylst_set (inss: instrlst): void
-//
-(* ****** ****** *)
-//
-extern
-fun
-the_branchlablst_get (): labelist
-extern
-fun
-the_branchlablst_set (tls: labelist): void
-extern
-fun
-the_branchlablst_unset ((*void*)): void
-//
-(* ****** ****** *)
-
 local
 //
 val the_f0arglst = ref<f0arglst> (list_nil)
 val the_tmpdeclst = ref<tmpdeclst> (list_nil)
-//
-val the_funbodylst = ref<instrlst> (list_nil)
-//
-// HX: this is a stack:
-//
-val the_branchlablstlst = ref<List0(labelist)> (list_nil)
 //
 in (* in-of-local *)
 
@@ -133,131 +107,8 @@ the_tmpdeclst_get () = !the_tmpdeclst
 implement
 the_tmpdeclst_set (xs) = !the_tmpdeclst := xs
 
-implement
-the_funbodylst_get () = !the_funbodylst
-implement
-the_funbodylst_set (xs) = !the_funbodylst := xs
-
-implement
-the_branchlablst_get
-(
-) = let
-//
-val xss = !the_branchlablstlst
-//
-in
-//
-case- xss of list_cons (xs, _) => xs
-//
-end // end of [the_branchlablst_get]
-
-implement
-the_branchlablst_set
-(
-  xs
-) = let
-//
-val xss = !the_branchlablstlst
-//
-in
-  !the_branchlablstlst := list_cons (xs, xss)
-end // end of [the_branchlablst_set]
-
-implement
-the_branchlablst_unset
-(
-) = let
-//
-val xss = !the_branchlablstlst
-//
-in
-//
-case- xss of
-| list_cons (_, xss) => !the_branchlablstlst := xss
-//
-end // end of [the_branchlablst_unset]
-
 end // end of [local]
 
-(* ****** ****** *)
-//
-extern
-fun
-funlab_get_index (fl: label): int
-extern
-fun
-tmplab_get_index (lab: label): int
-//
-(* ****** ****** *)
-
-implement
-funlab_get_index
-  (fl0) = let
-//
-val n0 = fl0.i0de_sym
-//
-fun
-auxlst
-(
-  xs: instrlst, i: int
-) : int = (
-//
-case+ xs of
-| list_nil () => ~1(*error*)
-| list_cons (x, xs) =>
-  (
-    case+ x.instr_node of
-    | ATSfunbodyseq _ => let
-        val fl = funbodyseq_get_funlab (x)
-      in
-        if n0 = fl.i0de_sym then i else auxlst (xs, i+1)
-      end // end of [ATSfunbodyseq]
-    | _ (*non-ATSfunbody*) => auxlst (xs, i)
-  ) (* end of [list_cons] *)
-//
-) (* end of [auxlst] *)
-//
-in
-  auxlst (the_funbodylst_get(), 1)
-end // end of [funlab_get_index]
-
-(* ****** ****** *)
-
-implement
-tmplab_get_index
-  (lab0) = let
-//
-val n0 = lab0.i0de_sym
-//
-fun
-auxlst
-(
-  xs: labelist, i: int
-) : int =
-(
-case+ xs of
-| list_nil () => ~1(*error*)
-| list_cons (x, xs) =>
-    if n0 = x.i0de_sym then i else auxlst (xs, i+1)
-  // end of [list_cons]
-)
-//
-in
-  auxlst (the_branchlablst_get(), 1)
-end // end of [tmplab_get_index]
-
-(* ****** ****** *)
-//
-fun
-emit_funlab_index
- (out: FILEref, fl: label): void =
- emit_int (out, funlab_get_index (fl))
-//
-fun
-emit_tmplab_index
- (out: FILEref, lab: label): void =
- emit_int (out, tmplab_get_index (lab))
-//
 (* ****** ****** *)
 //
 extern
@@ -270,12 +121,6 @@ fun emit2_instr_ln
 extern
 fun emit2_instrlst
   (out: FILEref, ind: int, inss: instrlst) : void
-//
-(* ****** ****** *)
-//
-extern
-fun emit2_branchseqlst
-  (out: FILEref, ind: int, inss: instrlst): void
 //
 (* ****** ****** *)
 //
@@ -319,21 +164,23 @@ ins0.instr_node of
     val () = emit_LPAREN (out)
     val () = emit_d0exp (out, d0e)
     val () = emit_RPAREN (out)
-    val () = emit_text (out, " {\n")
+    val () = emit_text (out, " {")
     val () = emit2_instrlst (out, ind+2, inss)
-    val () = emit_nspc (out, ind)
   in
     case+ inssopt of
     | None _ =>
       {
+        val () = emit_ENDL (out)
+        val () = emit_nspc (out, ind)
         val () = emit_text (out, "} // endif")
       } (* end of [None] *)
     | Some (inss) =>
       {
-        val () =
-          emit_text (out, "} else {\n")
-        val () =
-          emit2_instrlst (out, ind+2, inss)
+        val () = emit_ENDL (out)
+        val () = emit_nspc (out, ind)
+        val () = emit_text (out, "} else {")
+        val () = emit2_instrlst (out, ind+2, inss)
+        val () = emit_ENDL (out)
         val () = emit_nspc (out, ind)
         val ((*closing*)) = emit_text (out, "} // endif")
       } (* end of [Some] *)
@@ -365,44 +212,38 @@ ins0.instr_node of
 //
 | ATSbranchseq (inss) =>
   {
+//
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSbranchseq(...)")
-  }
+    val () = emit_text (out, "// ATSbranchseq_beg")
+//
+    val () = emit2_instrlst (out, ind, inss)
+//
+    val () = emit_ENDL (out)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "break;")
+    val () = emit_ENDL (out)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ATSbranchseq_end")
+//
+  } (* end of [ATSbranchseq] *)
 //
 | ATScaseofseq (inss) =>
   {
-//
-    val tls =
-      caseofseq_get_tmplablst (ins0)
-    // end of [val]
-    val () = the_branchlablst_set (tls)
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATScaseofseq_beg")
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "tmplab_php = 1\n")
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "while(true) {\n")
-    val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "tmplab = tmplab_php; tmplab_php = 0;\n")
-    val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "switch(tmplab)\n")
-    val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "{\n")
+    val () = emit_text (out, "do {")
 //
-    val () = emit2_branchseqlst (out, ind+4, inss)
+    val () = emit2_instrlst (out, ind+2, inss)
 //
-    val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "} // end-of-switch\n")
-    val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "if (tmplab_php === 0) break;\n")
+    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "} // endwhile\n")
+    val () = emit_text (out, "} while(0) ;")
+    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATScaseofseq_end")
-//
-    val () = the_branchlablst_unset ((*void*))
 //
   } (* end of [ATScaseofseq] *)
 //
@@ -410,25 +251,21 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "return ")
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
+    val () = emit_SEMICOLON (out)
   }
 | ATSreturn_void (tmp) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "return/*_void*/")
+    val () = emit_SEMICOLON (out)
   }
 //
 | ATSINSlab (lab) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "case ")
-    val () =
-    (
-      emit_tmplab_index (out, lab); emit_COLON (out)
-    ) (* end of [val] *)
-    val () =
-    (
-      emit_text (out, " // "); emit_label (out, lab)
+    val () = (
+      emit_label (out, lab); emit_COLON (out)
     ) (* end of [val] *)
   } (* end of [ATSINSlab] *)
 //
@@ -436,35 +273,35 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = (
-      emit_text (out, "{ tmplab_php = "); emit_tmplab_index (out, lab)
+      emit_text (out, "goto "); emit_label (out, lab)
     ) (* end of [val] *)
-    val () = emit_text (out, "; break; }")
+    val () = emit_SEMICOLON (out)
   } (* end of [ATSINSgoto] *)
 //
 | ATSINSflab (flab) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ")
-    val () = emit_label (out, flab)
+    val () = (
+      emit_label (out, flab); emit_COLON (out)
+    ) (* end of [val] *)
   } (* end of [ATSINSflab] *)
 //
 | ATSINSfgoto (flab) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "funlab_php = ")
-    val () = emit_funlab_index (out, flab)
-    val () =
-    (
-      emit_text (out, " // "); emit_label (out, flab)
+    val () = (
+      emit_text (out, "goto "); emit_label (out, flab)
     ) (* end of [val] *)
+    val () = emit_SEMICOLON (out)
   } (* end of [ATSINSfgoto] *)
 //
 | ATSINSmove (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_d0exp (out, d0e)
+    val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove] *)
 //
 | ATSINSmove_void (tmp, d0e) =>
@@ -477,21 +314,24 @@ ins0.instr_node of
         // end of [ATSempty]
       | _ (*non-ATSempty*) => emit_d0exp (out, d0e)
     ) : void // end of [val]
+    val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove_void] *)
 //
 | ATSINSmove_nil (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_text (out, "null")
+    val () = emit_SEMICOLON (out)
   }
 | ATSINSmove_con0 (tmp, tag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_PMVint (out, tag)
+    val () = emit_SEMICOLON (out)
   }
 //
 | ATSINSmove_con1 _ =>
@@ -503,27 +343,28 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATStailcalseq_beg")
-    val () = emit_ENDL (out)
     val () = emit2_instrlst (out, ind, inss)
+    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATStailcalseq_end")
-  
   } (* end of [ATStailcalseq] *)
 //
 | ATSINSmove_tlcal (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_d0exp (out, d0e)  
+    val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove_tlcal] *)
 //
 | ATSINSargmove_tlcal (tmp1, tmp2) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp1)
+    val () = emit_tmpvar (out, tmp1)
     val () = emit_text (out, " = ")
-    val () = emit_i0de (out, tmp2)
+    val () = emit_tmpvar (out, tmp2)
+    val () = emit_SEMICOLON (out)
   } (* end of [ATSINSargmove_tlcal] *)
 //
 | ATSdynload (dummy) =>
@@ -538,7 +379,7 @@ ins0.instr_node of
     val () = emit_text (out, "var\n")
     val () =
     (
-      emit_i0de (out, flag); emit_text (out, " = 0")
+      emit_tmpvar (out, flag); emit_text (out, " = 0 ;")
     )
   }
 | ATSdynload1 (flag) =>
@@ -551,7 +392,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () =
     (
-      emit_i0de (out, flag); emit_text (out, " = 1")
+      emit_tmpvar (out, flag); emit_text (out, " = 1 ; // flag is set")
     )
   }
 //
@@ -584,72 +425,12 @@ case+ inss of
 | list_nil () => ()
 | list_cons (ins, inss) =>
   {
-    val () = emit2_instr (out, ind, ins)
     val () = emit_ENDL (out)
+    val () = emit2_instr (out, ind, ins)
     val () = emit2_instrlst (out, ind, inss)
   }
 //
 ) (* end of [emit2_instrlst] *)
-
-(* ****** ****** *)
-
-implement
-emit2_branchseqlst
-  (out, ind, inss) = let
-//
-fun auxseq
-(
-  out: FILEref
-, ind: int, ins0: instr
-) : void = let
-in
-//
-case-
-ins0.instr_node of
-//
-| ATSbranchseq
-    (inss) => emit2_instrlst (out, ind, inss)
-  // end of [ATSbranchseq]
-//
-end (* end of [auxseq] *)
-//
-fun auxseqlst
-(
-  out: FILEref
-, ind: int, inss: instrlst
-) : void = let
-in
-//
-case+ inss of
-| list_nil () => ()
-| list_cons
-    (ins, inss) => let
-//
-    val () = (
-      emit_nspc (out, ind);
-      emit_text (out, "// ATSbranchseq_beg\n")
-    ) (* end of [val] *)
-//
-    val () = auxseq (out, ind, ins)
-//
-    val () = (
-      emit_nspc (out, ind); emit_text (out, "break;\n")
-    ) (* end of [val] *)
-//
-    val () = (
-      emit_nspc (out, ind);
-      emit_text (out, "// ATSbranchseq_end\n")
-    ) (* end of [val] *)
-//
-  in
-    auxseqlst (out, ind, inss)
-  end (* end of [list_cons] *)
-//
-end (* end of [auxseqlst] *)
-//
-in
-  auxseqlst (out, ind, inss)
-end // end of [emit2_branchseqlst]
 
 (* ****** ****** *)
 
@@ -709,7 +490,7 @@ case+ inss of
 //
 val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
-val () = emit_i0de (out, tmp)
+val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 val () = emit_LBRACKET (out)
 val () =
@@ -761,7 +542,7 @@ val-ATSINSmove_boxrec_new (tmp, _) = ins.instr_node
 val d0es = getarglst (inss)
 //
 val () = emit_nspc (out, ind)
-val () = emit_i0de (out, tmp)
+val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 val () = emit_LBRACKET (out)
 val () = emit_d0explst (out, d0es)
@@ -820,7 +601,7 @@ d0c.d0ecl_node of
       | Some _ => () | None () => emit_text(out, "/*\n")
     ) (* end of [val] *)
     val () = (
-      emit_text (out, "var "); emit_i0de (out, tmp); emit_ENDL (out)
+      emit_text (out, "// "); emit_tmpvar (out, tmp); emit_ENDL (out)
     ) (* end of [val] *)
     val () = (
       case+ opt of
@@ -851,10 +632,6 @@ extern
 fun emit_f0body : emit_type (f0body)
 extern
 fun emit_f0body_0 : emit_type (f0body)
-extern
-fun emit_f0body_tlcal : emit_type (f0body)
-extern
-fun emit_f0body_tlcal2 : emit_type (f0body)
 //
 (* ****** ****** *)
 
@@ -867,7 +644,7 @@ case+
 f0a.f0arg_node of
 //
 | F0ARGnone _ => emit_text (out, "__NONE__")
-| F0ARGsome (id, s0e) => emit_i0de (out, id)
+| F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
 //
 end // end of [emit_f0arg]
 
@@ -914,13 +691,16 @@ in
 case+
 fhd.f0head_node of
 | F0HEAD
-    (id, f0ma, res) =>
+    (fid, f0ma, res) =>
   {
-    val () = emit_i0de (out, id)
+//
+    val () = emit_i0de (out, fid)
+//
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)
     val () = emit_RPAREN (out)
-  }
+//
+  } (* end of [F0HEAD] *)
 //
 end // end of [emit_f0head]
 
@@ -930,48 +710,25 @@ implement
 emit_f0body
   (out, fbody) = let
 //
-val knd = f0body_classify (fbody)
-(*
-val () =
-println! ("emit_f0body: knd = ", knd)
-*)
-//
 val tmpdecs =
   f0body_get_tmpdeclst (fbody)
 val inss_body =
   f0body_get_bdinstrlst (fbody)
 //
 val () = the_tmpdeclst_set (tmpdecs)
-val () = the_funbodylst_set (inss_body)
 //
-val () = emit_text (out, "{\n")
+val () = emit_text (out, "{")
 //
-val () = emit_text (out, "//\n")
+val () = emit_text (out, "\n/*")
 //
 val () =
   emit_tmpdeclst_initize (out, tmpdecs)
 //
-val () =
-if knd > 0 then
-{
-val () = emit_nspc (out, 2)
-val () = emit_text (out, "var funlab_php\n")
-val () = emit_nspc (out, 2)
-val () = emit_text (out, "var tmplab, tmplab_php\n")
-} (* end of [if] *) // end of [val]
+val () = emit_text (out, "\n*/")
 //
-val () = emit_text (out, "//\n")
+val ((*main*)) = emit_f0body_0 (out, fbody)
 //
-val () = (
-//
-case+ knd of
-| 1 => emit_f0body_tlcal (out, fbody)
-| 2 => emit_f0body_tlcal2 (out, fbody)
-| _ (*0*) => emit_f0body_0 (out, fbody)
-//
-) : void // end of [val]
-//
-val () = emit_text (out, "} // end-of-function\n")
+val () = emit_text (out, "\n} // end-of-function\n")
 //
 in
   // nothing
@@ -996,7 +753,8 @@ case+ inss of
     val-list_cons (ins1, inss2) = inss1
     val () = if i > 0 then emit_ENDL (out)
     val () = emit2_ATSfunbodyseq (out, 2(*ind*), ins0)
-    val () = emit2_instr_ln (out, 2(*ind*), ins1)
+    val ((*newline*)) = emit_ENDL (out)
+    val ((*ATSreturn*)) = emit2_instr (out, 2(*ind*), ins1)
   in
     auxlst (out, inss2, i+1)
   end // end of [list_cons]
@@ -1014,158 +772,6 @@ fbody.f0body_node of
   }
 //
 end // end of [emit_f0body_0]
-
-(* ****** ****** *)
-
-implement
-emit_f0body_tlcal
-  (out, fbody) = let
-//
-fun
-auxlst
-(
-  out: FILEref, inss: instrlst
-) : void =
-(
-case+ inss of
-| list_nil () => ()
-| list_cons
-    (ins0, inss1) => let
-    val-list_cons (ins1, inss2) = inss1
-//
-    val () =
-      emit2_ATSfunbodyseq (out, 4(*ind*), ins0)
-    // end of [val]
-//
-    val () = emit_nspc (out, 4(*ind*))
-    val () =
-    emit_text
-    (
-      out, "if (funlab_php > 0) continue; else"
-    ) (* end of [val] *)
-    val () = emit2_instr (out, 1(*ind*), ins1)
-    val () = emit_text (out, ";\n")
-//
-    val () = emit_nspc (out, 2(*ind*))
-    val () = emit_text (out, "} // endwhile\n")
-  in
-    auxlst (out, inss2(*nil*))
-  end // end of [list_cons]
-//
-) (* end of [auxlst] *)
-//
-val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "while(true) {\n")
-val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, "funlab_php = 0\n")
-//
-val () =
-(
-case+
-fbody.f0body_node of
-//
-| F0BODY (tds, inss) => auxlst (out, inss)
-//
-) (* end of [val] *)
-//
-in
-  // nothing
-end // end of [emit_f0body_tlcal]
-
-(* ****** ****** *)
-//
-extern
-fun
-emit_the_funbodylst (out: FILEref): void
-//
-implement
-emit_the_funbodylst
-  (out) = let
-//
-fun auxfun
-(
-  out: FILEref
-, ins0: instr, ins1: instr, i: int
-) : void = let
-//
-val-ATSfunbodyseq(inss) = ins0.instr_node
-//
-val-list_cons (ins_fl, inss) = inss
-val-ATSINSflab (fl) = ins_fl.instr_node
-//
-val () = emit_nspc (out, 6)
-val () =
-(
-  emit_text (out, "case ");
-  emit_int (out, i); emit_text (out, ": {\n")
-)
-val () = emit_nspc (out, 8)
-val () = emit_text (out, "funlab_php = 0\n")
-val () = emit2_instrlst (out, 8(*ind*), inss)
-//
-val () = emit_nspc (out, 8)
-val () =
-emit_text
-(
-  out, "if (funlab_php > 0) continue; else"
-) (* end of [val] *)
-val () = emit2_instr (out, 1(*ind*), ins1)
-val () = emit_text (out, ";\n")
-//
-val () = emit_nspc (out, 6)
-val () = emit_text (out, "} // end-of-case\n")
-//
-in
-  // nothing
-end // end of [auxfun]
-//
-fun auxlst
-(
-  out: FILEref, inss: instrlst, i: int
-) : void =
-(
-case+ inss of
-| list_nil () => ()
-| list_cons _ => let
-    val-list_cons (ins0, inss) = inss
-    val-list_cons (ins1, inss) = inss
-    val () = auxfun (out, ins0, ins1, i)
-  in
-    auxlst (out, inss, i+1)
-  end // end of [auxlst]
-) (* end of [auxlst] *)
-//
-in
-  auxlst (out, the_funbodylst_get((*void*)), 1(*i*))
-end // end of [emit_the_funbodylst]
-//
-(* ****** ****** *)
-
-implement
-emit_f0body_tlcal2
-  (out, fbody) = let
-//
-val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "funlab_php = 1\n")
-//
-val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "while(true) {\n")
-//
-val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, "switch(funlab_php)\n")
-val () = emit_nspc (out, 4(*ind*))
-val ((*opening*)) = emit_text (out, "{\n")
-//
-val () = emit_the_funbodylst (out)
-//
-val () = emit_nspc (out, 4(*ind*))
-val ((*closing*)) = emit_text (out, "} // end-of-switch\n")
-val () = emit_nspc (out, 2(*ind*))
-val ((*closing*)) = emit_text (out, "} // endwhile\n")
-//
-in
-  // nothing
-end // end of [emit_f0body_tlcal2]
 
 (* ****** ****** *)
 
