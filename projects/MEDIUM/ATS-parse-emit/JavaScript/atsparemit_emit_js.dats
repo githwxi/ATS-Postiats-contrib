@@ -471,6 +471,8 @@ emit_closurerize
 val-S0Elist(s0es_env) = env.s0exp_node
 val-S0Elist(s0es_arg) = arg.s0exp_node
 //
+val () = emit_ENDL (out)
+//
 val () =
 emit_text (out, "function\n")
 val () = emit_label (out, fl)
@@ -499,11 +501,9 @@ val () = emit_RPAREN (out)
 val ((*closing*)) = emit_text (out, " ; }")
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, "]\n")
+val ((*closing*)) = emit_text (out, "]\n}\n")
 //
-val ((*closing*)) = emit_text (out, "}\n")
-//
-val () = emit_newline (out)
+val ((*flushing*)) = emit_newline (out)
 //
 in
   // nothing

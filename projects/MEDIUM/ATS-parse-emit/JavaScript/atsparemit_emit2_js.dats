@@ -650,16 +650,15 @@ case+ inss of
     (ins, inss) => let
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSbranchseq_beg")
+    val () = emit_text (out, "// ATSbranchseq_beg\n")
 //
-    val () = emit_ENDL (out)
     val () = auxseq (out, ind, ins)
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "break;\n")
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSbranchseq_end")
+    val () = emit_text (out, "// ATSbranchseq_end\n")
 //
   in
     auxseqlst (out, ind, inss)
@@ -852,13 +851,13 @@ d0c.d0ecl_node of
     ) (* end of [val] *)
   } (* end of [D0Cstatmp] *)
 //
-| D0Cfundecl
-    (fk, f0d) => emit_f0decl (out, f0d)
+| D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
 //
 | D0Cclosurerize
-  (
-    fl, env, arg, res
-  ) => emit_closurerize (out, fl, env, arg, res)
+    (fl, env, arg, res) =>
+  {
+    val () = emit_closurerize (out, fl, env, arg, res)
+  }
 //
 end // end of [emit_d0ecl]
 
@@ -1026,9 +1025,11 @@ case+ inss of
 | list_cons
     (ins0, inss1) => let
     val-list_cons (ins1, inss2) = inss1
+//
     val () = if i > 0 then emit_ENDL (out)
     val () = emit2_ATSfunbodyseq (out, 2(*ind*), ins0)
     val ((*return*)) = emit2_instr_ln (out, 2(*ind*), ins1)
+//
   in
     auxlst (out, inss2, i+1)
   end // end of [list_cons]
@@ -1066,8 +1067,7 @@ case+ inss of
     val-list_cons (ins1, inss2) = inss1
 //
     val () =
-      emit2_ATSfunbodyseq (out, 4(*ind*), ins0)
-    // end of [val]
+    emit2_ATSfunbodyseq (out, 4(*ind*), ins0)
 //
     val () = emit_nspc (out, 4(*ind*))
     val () =
@@ -1079,6 +1079,7 @@ case+ inss of
 //
     val () = emit_nspc (out, 2(*ind*))
     val () = emit_text (out, "} // endwhile-fun\n")
+//
   in
     auxlst (out, inss2(*nil*))
   end // end of [list_cons]
@@ -1215,11 +1216,12 @@ fdec.f0decl_node of
 | F0DECLsome (fhd, fbody) =>
   {
     val () = emit_ENDL (out)
-    val () =
-    emit_text (out, "function\n")
+    val () = emit_text (out, "function")
+    val () = emit_ENDL (out)
     val () = emit_f0head (out, fhd)
-    val () = emit_newline (out)
+    val () = emit_ENDL (out)
     val () = emit_f0body (out, fbody)
+    val () = emit_newline (out)
   } (* end of [F0DECLsome] *)
 //
 end // end of [emit_f0decl]

@@ -229,7 +229,8 @@ case+ tds of
     val () =
     emit_nspc (out, 4(*ind*))
     val () =
-    emit_text (out, "nonlocal ")
+    emit_text (out, "nonlocal")
+    val () = emit_SPACE (out)
     val () = auxlst (out, tds, 0)
     val () = emit_newline (out)
   } (* end of [list_cons] *)
@@ -1561,7 +1562,7 @@ case+ inss of
     (ins0, inss1) => let
     val-list_cons (ins1, inss2) = inss1
     val () = emit2_ATSfunbodyseq (out, 2(*ind*), ins0)
-    val () = emit2_instr_newline (out, 2(*ind*), ins1)
+    val () = emit2_instr_ln (out, 2(*ind*), ins1)
   in
     auxlst (out, inss2)
   end // end of [list_cons]
@@ -1597,7 +1598,7 @@ case+ inss of
     val () = emit2_ATSfunbodyseq (out, 4(*ind*), ins0)
     val () = emit_nspc (out, 4(*ind*))
     val () = emit_text (out, "if (funlab_py == 0): break\n")
-    val () = emit2_instr_newline (out, 2(*ind*), ins1)
+    val () = emit2_instr_ln (out, 2(*ind*), ins1)
   in
     auxlst (out, inss2)
   end // end of [list_cons]
@@ -1721,6 +1722,7 @@ case+ inss of
 ) (* end of [auxlst] *)
 //
 val inss_body = the_funbodylst_get()
+//
 val () = auxlst (out, inss_body)
 val () = emit_mfundef_initize (out, inss_body)
 //
