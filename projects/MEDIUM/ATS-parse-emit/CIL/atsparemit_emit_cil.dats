@@ -441,6 +441,11 @@ d0e.d0exp_node of
 | D0Eappid (id, d0es) =>
   {
     val () = emit_d0explst (out, d0es)
+
+    // need type for [id]
+    // what is [tyrec] type for?
+    // val-~Some_vt (s0rec) = typedef_search_opt (id.i0de_sym)
+    
     val () = emit_text (out, "call")
     val () = emit_SPACE (out)
     val () = emit_i0de (out, id) // FIXME: need also type of [id]!
@@ -810,7 +815,15 @@ case+ inss of
         val () = emit_text (out, lpos)
         val () = emit_SPACE (out)
         val-T_STRING(filnam) = file.token_node
-        val () = emit_text (out, filnam)
+        val filnam = g1ofg0 (filnam)
+        // double quotes -> single quotes
+        val () = emit_text (out, "'")
+        // FIXME: very involved
+        val-true = string_isnot_empty filnam
+        val len = pred (length filnam)
+        val-true = len > g1int2uint(0)
+        val () = fprint_substring (out, filnam, g1int2uint(1), pred (len))
+        val () = emit_text (out, "'")
         val () = emit_ENDL (out)
         val () = emit_instrlst (out, inss, labthis, lablast)
       }
@@ -1076,6 +1089,7 @@ d0c.d0ecl_node of
   {
     val () = emit_text (out, "#ifdef")
     val () = emit_SPACE (out)
+    val () = emit_i0de (out, i0de)
     val () = emit_newline (out)
     val () = emit_text (out, "#endif")
     val () = emit_newline (out)
@@ -1084,6 +1098,7 @@ d0c.d0ecl_node of
   {
     val () = emit_text (out, "#ifndef")
     val () = emit_SPACE (out)
+    val () = emit_i0de (out, i0de)
     val () = emit_newline (out)
     val () = emit_text (out, "#endif")
     val () = emit_newline (out)
@@ -1096,13 +1111,16 @@ d0c.d0ecl_node of
   } (* end of [D0Ctypedef] *)
 //
 | D0Cdyncst_mac ide =>
+  // [ide] is the identifier for a dynamic constant which is implemented as a macro
+  ()
+  (*
   {
     val () = emit_text (out, "dyncst_mac")
     val () = emit_SPACE (out)
     val filnam = ide.i0de_sym
     val () = emit_symbol (out, filnam)
     val () = emit_ENDL (out)
-  }
+  }*)
 | D0Cdyncst_extfun (i0de, s0explst, s0exp) =>
   {
   }
