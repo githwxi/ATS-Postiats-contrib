@@ -12,7 +12,7 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PHP}/basics_js.sats"
+"{$LIBATSCC2PHP}/basics_php.sats"
 staload
 "{$LIBATSCC2PHP}/SATS/integer.sats"
 staload
@@ -38,27 +38,6 @@ fact (n) = if n > 0 then n * fact(n-1) else 1
 val N = 10
 val () = println! ("fact(", N, ") = ", fact(N))
 //
-(* ****** ****** *)
-
-%{^
-//
-// file inclusion
-//
-var fs = require('fs');
-eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/integer_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/string_cats.js').toString());
-%} // end of [%{^]
-
-(* ****** ****** *)
-
-%{$
-fact_dynload()
-%} // end of [%{$]
-
 (* ****** ****** *)
 
 (* end of [fact.dats] *)
