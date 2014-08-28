@@ -34,7 +34,9 @@ staload "./atsparemit_typedef.dats"
 extern
 fun
 emit_tmpdeclst_initize
-  (out: FILEref, tds: tmpdeclst): void
+(
+  out: FILEref, tds: tmpdeclst
+) : void // end-of-fun
 //
 implement
 emit_tmpdeclst_initize
@@ -43,8 +45,9 @@ emit_tmpdeclst_initize
 fun auxlst
 (
   out: FILEref, tds: tmpdeclst
-) : void =
-(
+) : void = let
+in
+//
 case+ tds of
 | list_nil () => ()
 | list_cons (td, tds) =>
@@ -54,17 +57,17 @@ case+ tds of
         (tmp) => auxlst (out, tds)
     | TMPDECsome
         (tmp, _) => let
-        val () = emit_ENDL (out)
         val () = emit_nspc (out, 2(*ind*))
         val () =
         (
-          emit_text (out, "var "); emit_tmpvar (out, tmp)
+          emit_text (out, "var "); emit_tmpvar (out, tmp); emit_ENDL (out)
         ) (* end of [val] *)
       in
         auxlst (out, tds)
       end // end of [TMPDECsome]
   ) (* end of [list_cons] *)
-)
+//
+end // end of [auxlst]
 //
 in
   auxlst (out, tds)
@@ -264,6 +267,7 @@ emit_tmplab_index
 extern
 fun emit2_instr
   (out: FILEref, ind: int, ins: instr) : void
+//
 extern
 fun emit2_instr_ln
   (out: FILEref, ind: int, ins: instr) : void
@@ -316,27 +320,24 @@ ins0.instr_node of
     d0e, inss, inssopt
   ) => let
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if ")
+    val () = emit_text (out, "if")
     val () = emit_LPAREN (out)
     val () = emit_d0exp (out, d0e)
     val () = emit_RPAREN (out)
-    val () = emit_text (out, " {")
+    val () = emit_text (out, " {\n")
     val () = emit2_instrlst (out, ind+2, inss)
   in
     case+ inssopt of
     | None _ =>
       {
-        val () = emit_ENDL (out)
         val () = emit_nspc (out, ind)
         val () = emit_text (out, "} // endif")
       } (* end of [None] *)
     | Some (inss) =>
       {
-        val () = emit_ENDL (out)
         val () = emit_nspc (out, ind)
-        val () = emit_text (out, "} else {")
+        val () = emit_text (out, "} else {\n")
         val () = emit2_instrlst (out, ind+2, inss)
-        val () = emit_ENDL (out)
         val () = emit_nspc (out, ind)
         val ((*closing*)) = emit_text (out, "} // endif")
       } (* end of [Some] *)
@@ -406,7 +407,9 @@ ins0.instr_node of
 //
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "if (tmplab_js === 0) break;")
+    val () =
+      emit_text (out, "if (tmplab_js === 0) break;")
+    // end of [val]
 //
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
@@ -423,7 +426,8 @@ ins0.instr_node of
 | ATSreturn (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "return ")
+    val () =
+      emit_text (out, "return ")
     val () = emit_tmpvar (out, tmp)
     val () = emit_SEMICOLON (out)
   }
@@ -450,14 +454,12 @@ ins0.instr_node of
 //
 | ATSINSgoto (lab) =>
   {
-//
     val () = emit_nspc (out, ind)
     val () =
       emit_text (out, "{ tmplab_js = ")
     // end of [val]
     val () = emit_tmplab_index (out, lab)
     val ((*closing*)) = emit_text (out, "; break; }")
-//
   } (* end of [ATSINSgoto] *)
 //
 | ATSINSflab (flab) =>
@@ -480,9 +482,10 @@ ins0.instr_node of
 | ATSINSmove (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_d0exp (out, d0e)
+    val () = (
+      emit_tmpvar (out, tmp);
+      emit_text (out, " = "); emit_d0exp (out, d0e)
+    ) (* end of [val] *)
     val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove] *)
 //
@@ -524,8 +527,8 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATStailcalseq_beg")
-    val () = emit2_instrlst (out, ind, inss)
     val () = emit_ENDL (out)
+    val () = emit2_instrlst (out, ind, inss)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATStailcalseq_end")
   
@@ -559,29 +562,28 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "var\n")
-    val () =
-    (
+    val () = (
       emit_tmpvar (out, flag); emit_text (out, " = 0 ;")
-    )
+    ) (* end of [val] *)
   }
 | ATSdynload1 (flag) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATSdynload1(...)")
   }
+//
 | ATSdynloadset (flag) =>
   {
     val () = emit_nspc (out, ind)
-    val () =
-    (
+    val () = (
       emit_tmpvar (out, flag); emit_text (out, " = 1 ; // flag is set")
-    )
+    ) (* end of [val] *)
   }
 //
-| _ (*rest*) =>
+| _ (*rest-of-instr*) =>
   {
     val () = emit_nspc (out, ind)
-    val () = fprint_instr (out, ins0)
+    val ((*error*)) = fprint! (out, "UNRECOGNIZED-INSTRUCTION: ", ins0)
   }
 //
 end // end of [emit2_instr]
@@ -592,7 +594,7 @@ implement
 emit2_instr_ln
   (out, ind, ins) =
 (
-  emit2_instr (out, ind, ins); emit_newline (out)
+  emit2_instr (out, ind, ins); emit_ENDL (out)
 ) (* end of [emit2_instr_ln] *)
 
 (* ****** ****** *)
@@ -607,8 +609,7 @@ case+ inss of
 | list_nil () => ()
 | list_cons (ins, inss) =>
   {
-    val () = emit_ENDL (out)
-    val () = emit2_instr (out, ind, ins)
+    val () = emit2_instr_ln (out, ind, ins)
     val () = emit2_instrlst (out, ind, inss)
   }
 //
@@ -651,13 +652,12 @@ case+ inss of
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATSbranchseq_beg")
 //
+    val () = emit_ENDL (out)
     val () = auxseq (out, ind, ins)
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "break;")
+    val () = emit_text (out, "break;\n")
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATSbranchseq_end")
 //
@@ -971,9 +971,11 @@ val inss_body =
 val () = the_tmpdeclst_set (tmpdecs)
 val () = the_funbodylst_set (inss_body)
 //
-val () = emit_text (out, "{")
+val () = emit_text (out, "{\n")
 //
-val () = emit_text (out, "\n//")
+val () = emit_text (out, "//\n")
+val () = emit_text (out, "// knd = ")
+val () = (emit_int (out, knd); emit_ENDL (out))
 //
 val () =
   emit_tmpdeclst_initize (out, tmpdecs)
@@ -982,17 +984,15 @@ val () =
 if knd > 0 then
 {
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "var funlab_js")
+val () = emit_text (out, "var funlab_js\n")
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "var tmplab, tmplab_js")
+val () = emit_text (out, "var tmplab, tmplab_js\n")
 //
 } (* end of [if] *) // end of [val]
 //
-val () = emit_text (out, "\n//")
+val () = emit_text (out, "//\n")
 //
 val () = (
 //
@@ -1003,7 +1003,6 @@ case+ knd of
 //
 ) : void // end of [val]
 //
-val () = emit_ENDL (out)
 val () = emit_text (out, "} // end-of-function\n")
 //
 in
@@ -1029,8 +1028,7 @@ case+ inss of
     val-list_cons (ins1, inss2) = inss1
     val () = if i > 0 then emit_ENDL (out)
     val () = emit2_ATSfunbodyseq (out, 2(*ind*), ins0)
-    val ((*newline*)) = emit_ENDL (out)
-    val ((*ATSreturn*)) = emit2_instr (out, 2(*ind*), ins1)
+    val ((*return*)) = emit2_instr_ln (out, 2(*ind*), ins1)
   in
     auxlst (out, inss2, i+1)
   end // end of [list_cons]
@@ -1071,30 +1069,26 @@ case+ inss of
       emit2_ATSfunbodyseq (out, 4(*ind*), ins0)
     // end of [val]
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, 4(*ind*))
     val () =
     emit_text
     (
       out, "if (funlab_js > 0) continue; else"
     ) (* end of [val] *)
-    val () = emit2_instr (out, 1(*ind*), ins1)
+    val () = emit2_instr_ln (out, 1(*ind*), ins1)
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, 2(*ind*))
-    val () = emit_text (out, "} // endwhile\n")
+    val () = emit_text (out, "} // endwhile-fun\n")
   in
     auxlst (out, inss2(*nil*))
   end // end of [list_cons]
 //
 ) (* end of [auxlst] *)
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, "while(true) {")
-val () = emit_ENDL (out)
+val () = emit_text (out, "while(true) {\n")
 val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, "funlab_js = 0;")
+val () = emit_text (out, "funlab_js = 0;\n")
 //
 val () =
 (
@@ -1104,8 +1098,6 @@ fbody.f0body_node of
 | F0BODY (tds, inss) => auxlst (out, inss)
 //
 ) (* end of [val] *)
-//
-val () = emit_ENDL (out)
 //
 in
   // nothing
@@ -1141,19 +1133,17 @@ val () =
 )
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 8)
-val () = emit_text (out, "funlab_js = 0;")
+val () = emit_text (out, "funlab_js = 0;\n")
 val () = emit2_instrlst (out, 8(*ind*), inss)
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 8)
 val () =
 emit_text
 (
   out, "if (funlab_js > 0) continue; else"
 ) (* end of [val] *)
-val () = emit2_instr (out, 1(*ind*), ins1)
+val () = emit2_instr_ln (out, 1(*ind*), ins1)
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 6)
 val () = emit_text (out, "} // end-of-case")
 //
@@ -1187,7 +1177,6 @@ implement
 emit_f0body_tlcal2
   (out, fbody) = let
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, "funlab_js = 1;")
 //
@@ -1207,9 +1196,7 @@ val ((*closing*)) = emit_text (out, "} // end-of-switch")
 //
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 2(*ind*))
-val ((*closing*)) = emit_text (out, "} // endwhile")
-//
-val () = emit_ENDL (out)
+val ((*closing*)) = emit_text (out, "} // endwhile-fun\n")
 //
 in
   // nothing

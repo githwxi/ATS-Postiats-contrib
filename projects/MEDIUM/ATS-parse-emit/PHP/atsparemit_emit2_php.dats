@@ -43,8 +43,9 @@ emit_tmpdeclst_initize
 fun auxlst
 (
   out: FILEref, tds: tmpdeclst
-) : void =
-(
+) : void = let
+in
+//
 case+ tds of
 | list_nil () => ()
 | list_cons (td, tds) =>
@@ -64,7 +65,8 @@ case+ tds of
         auxlst (out, tds)
       end // end of [TMPDECsome]
   ) (* end of [list_cons] *)
-)
+//
+end // end of [auxlist]
 //
 in
   auxlst (out, tds)
@@ -113,9 +115,6 @@ end // end of [local]
 //
 extern
 fun emit2_instr
-  (out: FILEref, ind: int, ins: instr) : void
-extern
-fun emit2_instr_ln
   (out: FILEref, ind: int, ins: instr) : void
 //
 extern
@@ -172,7 +171,7 @@ ins0.instr_node of
       {
         val () = emit_ENDL (out)
         val () = emit_nspc (out, ind)
-        val () = emit_text (out, "} // endif")
+        val ((*closing*)) = emit_text (out, "} // endif")
       } (* end of [None] *)
     | Some (inss) =>
       {
@@ -396,22 +395,13 @@ ins0.instr_node of
     )
   }
 //
-| _ (*rest*) =>
+| _ (*rest-of-instr*) =>
   {
     val () = emit_nspc (out, ind)
-    val () = fprint_instr (out, ins0)
+    val ((*error*)) = fprint! (out, "UNRECOGNIZED-INSTRUCTION: ", ins0)
   }
 //
 end // end of [emit2_instr]
-
-(* ****** ****** *)
-
-implement
-emit2_instr_ln
-  (out, ind, ins) =
-(
-  emit2_instr (out, ind, ins); emit_newline (out)
-) (* end of [emit2_instr_ln] *)
 
 (* ****** ****** *)
 

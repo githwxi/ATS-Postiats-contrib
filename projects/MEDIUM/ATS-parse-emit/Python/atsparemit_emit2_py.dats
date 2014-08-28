@@ -675,6 +675,9 @@ extern
 fun emit2_instr_ln
   (out: FILEref, ind: int, ins: instr) : void
 extern
+fun emit2_instr_newline
+  (out: FILEref, ind: int, ins: instr) : void
+extern
 fun emit2_instrlst
   (out: FILEref, ind: int, inss: instrlst) : void
 //
@@ -946,10 +949,10 @@ ins0.instr_node of
     ) (* end of [val] *)
   }
 //
-| _ (*yet-to-be-done*) =>
+| _ (*rest-of-instr*) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "**INSTR**")
+    val ((*error*)) = fprint! (out, "UNRECOGNIZED-INSTRUCTION: ", ins0)
   }
 //
 end // end of [emit2_instr]
@@ -960,8 +963,17 @@ implement
 emit2_instr_ln
   (out, ind, ins) =
 (
-  emit2_instr (out, ind, ins); emit_newline (out)
+  emit2_instr (out, ind, ins); emit_ENDL (out)
 ) (* end of [emit2_instr_ln] *)
+
+(* ****** ****** *)
+
+implement
+emit2_instr_newline
+  (out, ind, ins) =
+(
+  emit2_instr (out, ind, ins); emit_newline (out)
+) (* end of [emit2_instr_newline] *)
 
 (* ****** ****** *)
 
@@ -973,12 +985,12 @@ emit2_instrlst
 //
 case+ inss of
 | list_nil () => ()
-| list_cons (ins, inss) =>
-  {
+| list_cons
+    (ins, inss) => let
     val () = emit2_instr (out, ind, ins)
-    val () = emit_ENDL (out)
-    val () = emit2_instrlst (out, ind, inss)
-  }
+  in
+    emit_ENDL (out); emit2_instrlst (out, ind, inss)
+  end // end of [list_cons]
 //
 ) (* end of [emit2_instrlst] *)
 
@@ -1549,7 +1561,7 @@ case+ inss of
     (ins0, inss1) => let
     val-list_cons (ins1, inss2) = inss1
     val () = emit2_ATSfunbodyseq (out, 2(*ind*), ins0)
-    val () = emit2_instr_ln (out, 2(*ind*), ins1)
+    val () = emit2_instr_newline (out, 2(*ind*), ins1)
   in
     auxlst (out, inss2)
   end // end of [list_cons]
@@ -1585,7 +1597,7 @@ case+ inss of
     val () = emit2_ATSfunbodyseq (out, 4(*ind*), ins0)
     val () = emit_nspc (out, 4(*ind*))
     val () = emit_text (out, "if (funlab_py == 0): break\n")
-    val () = emit2_instr_ln (out, 2(*ind*), ins1)
+    val () = emit2_instr_newline (out, 2(*ind*), ins1)
   in
     auxlst (out, inss2)
   end // end of [list_cons]
@@ -1702,7 +1714,7 @@ case+ inss of
     val-list_cons (ins0, inss) = inss
     val-list_cons (ins1, inss) = inss
     val () = auxfun (out, ins0)
-    val () = emit2_instr_ln (out, 4(*ind*), ins1)
+    val () = emit2_instr_newline (out, 4(*ind*), ins1)
   in
     auxlst (out, inss)
   end // end of [auxlst]
@@ -1788,7 +1800,7 @@ case+ d0cs of
     loop (out, d0cs)
   end // end of [list_cons]
 //
-)
+) (* end of [loop] *)
 //
 in
   loop (out, d0cs)
