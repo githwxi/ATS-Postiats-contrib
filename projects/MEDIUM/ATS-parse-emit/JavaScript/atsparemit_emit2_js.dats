@@ -379,27 +379,21 @@ ins0.instr_node of
     val () = emit_text (out, "tmplab = tmplab_js; tmplab_js = 0;")
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "switch(tmplab)")
-    val () = emit_ENDL (out)
-    val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "{")
+    val () = emit_text (out, "switch(tmplab) {\n")
 //
     val () = emit2_branchseqlst (out, ind+4, inss)
 //
     val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "} // end-of-switch")
+    val () = emit_text (out, "} // end-of-switch\n")
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind+2)
     val () =
-      emit_text (out, "if (tmplab_js === 0) break;")
+      emit_text (out, "if (tmplab_js === 0) break;\n")
     // end of [val]
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val ((*closing*)) = emit_text (out, "} // endwhile")
+    val ((*closing*)) = emit_text (out, "} // endwhile\n")
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATScaseofseq_end")
 //
@@ -1090,7 +1084,8 @@ end // end of [emit_f0body_tlcal]
 //
 extern
 fun
-emit_the_funbodylst (out: FILEref): void
+emit_the_funbodylst
+  (out: FILEref): void
 //
 implement
 emit_the_funbodylst
@@ -1107,7 +1102,6 @@ val-ATSfunbodyseq(inss) = ins0.instr_node
 val-list_cons (ins_fl, inss) = inss
 val-ATSINSflab (fl) = ins_fl.instr_node
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 6)
 val () =
 (
@@ -1128,7 +1122,7 @@ emit_text
 val () = emit2_instr_ln (out, 1(*ind*), ins1)
 //
 val () = emit_nspc (out, 6)
-val () = emit_text (out, "} // end-of-case")
+val () = emit_text (out, "} // end-of-case\n")
 //
 in
   // nothing
@@ -1169,7 +1163,7 @@ val () = emit_text (out, "while(true) {")
 //
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, "switch(funlab_js) {")
+val () = emit_text (out, "switch(funlab_js) {\n")
 //
 val () = emit_the_funbodylst (out)
 //
