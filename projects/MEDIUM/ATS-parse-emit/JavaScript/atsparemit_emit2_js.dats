@@ -401,7 +401,6 @@ ins0.instr_node of
 //
     val () = emit2_branchseqlst (out, ind+4, inss)
 //
-    val () = emit_ENDL (out)
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "} // end-of-switch")
 //
@@ -1191,11 +1190,9 @@ val () = emit_text (out, "switch(funlab_js) {")
 //
 val () = emit_the_funbodylst (out)
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 4(*ind*))
-val ((*closing*)) = emit_text (out, "} // end-of-switch")
+val ((*closing*)) = emit_text (out, "} // end-of-switch\n")
 //
-val () = emit_ENDL (out)
 val () = emit_nspc (out, 2(*ind*))
 val ((*closing*)) = emit_text (out, "} // endwhile-fun\n")
 //

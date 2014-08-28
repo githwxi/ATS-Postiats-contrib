@@ -4,7 +4,7 @@
 //
 (* ****** ****** *)
 //
-// HX-2014-08-20: start
+// HX-2014-08-28: start
 //
 (* ****** ****** *)
 //
@@ -815,10 +815,8 @@ case+ d0cs of
 | list_cons
     (d0c, d0cs) => let
     val () =
-      emit_d0ecl (out, d0c)
+      emit_d0ecl (out, d0c) in loop (out, d0cs)
     // end of [val]
-  in
-    loop (out, d0cs)
   end // end of [list_cons]
 //
 )
