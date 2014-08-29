@@ -66,6 +66,11 @@ ats2phppre_neq_int1_int1($x, $y) { return ($x !== $y) ; }
 
 /* ****** ****** */
 
+function
+ats2phppre_print_int($x) { printf ("%d", $x); return ; }
+
+/* ****** ****** */
+
 /* end of [integer_cats.php] */
 
 ?>

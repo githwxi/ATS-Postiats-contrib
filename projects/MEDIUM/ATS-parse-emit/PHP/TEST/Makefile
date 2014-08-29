@@ -60,6 +60,14 @@ cleanall:: ; $(RMF) isevn_dats.php
 
 ######
 
+all:: \
+twice_dats.php
+twice_dats.php: twice.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) twice_dats.php
+
+######
+
 all:: mytest
 mytest:: mytest.php; php -f mytest.php
 

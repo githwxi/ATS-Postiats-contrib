@@ -477,7 +477,7 @@ val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
-val () = emit_LBRACKET (out)
+val () = emit_text (out, "array(")
 val () =
 (
 case+ opt of
@@ -491,7 +491,7 @@ case+ opt of
 | Some _ => emit_d0explst_1 (out, d0es)
 ) : void // end of [val]
 //
-val () = emit_RBRACKET (out)
+val ((*closing*)) = emit_RPAREN (out)
 //
 in
   // nothing
@@ -529,9 +529,9 @@ val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
-val () = emit_LBRACKET (out)
+val () = emit_text (out, "array(")
 val () = emit_d0explst (out, d0es)
-val () = emit_RBRACKET (out)
+val ((*closing*)) = emit_RPAREN (out)
 //
 in
   // nothing

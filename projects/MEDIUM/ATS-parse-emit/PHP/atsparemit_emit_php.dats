@@ -412,7 +412,7 @@ case+ s0es of
     if n0+i > 0 then emit_text (out, ", ")
     val () =
     (
-      emit_text (out, "arg"); emit_int (out, i)
+      emit_text (out, "$arg"); emit_int (out, i)
     ) (* end of [val] *)
   in
     aux0_arglst (out, s0es, n0, i+1)
@@ -435,7 +435,7 @@ case+ s0es of
     if n0+i > 0 then emit_text (out, ", ")
     val () =
     (
-      emit_text (out, "env"); emit_int (out, i)
+      emit_text (out, "$env"); emit_int (out, i)
     ) (* end of [val] *)
   in
     aux0_envlst (out, s0es, n0, i+1)
@@ -457,7 +457,7 @@ case+ s0es of
     if i > 0 then emit_text (out, ", ")
     val () =
     (
-      emit_text (out, "cenv");
+      emit_text (out, "$cenv");
       emit_LBRACKET (out); emit_int (out, i+1); emit_RBRACKET (out)
     ) (* end of [val] *)
   in
@@ -487,10 +487,11 @@ val ((*closing*)) = emit_text (out, ")\n")
 val ((*opening*)) = emit_text (out, "{\n")
 //
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "return [")
+val () = emit_text (out, "return ")
+val () = emit_text (out, "array(")
 val () = emit_text (out, "function(")
 //
-val () = emit_text (out, "cenv")
+val () = emit_text (out, "$cenv")
 val () = aux0_arglst (out, s0es_arg, 1, 0)
 //
 val () = emit_text (out, ") { return ")
@@ -501,12 +502,10 @@ val n0 = aux1_envlst (out, s0es_env, 0)
 val () = aux0_arglst (out, s0es_arg, n0, 0)
 val () = emit_RPAREN (out)
 //
-val ((*closing*)) = emit_text (out, " ; }")
+val ((*closing*)) = emit_text (out, "; }")
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, "]\n")
-//
-val ((*closing*)) = emit_text (out, "}\n")
+val ((*closing*)) = emit_text (out, ");\n}\n")
 //
 val () = emit_newline (out)
 //

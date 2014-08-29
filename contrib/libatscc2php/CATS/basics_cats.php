@@ -43,6 +43,11 @@ ATSCKpat_float($tmp, $given) { return ($tmp==$given) ; }
 
 /* ****** ****** */
 
+function
+ats2phppre_print_newline() { print("\n"); flush(); return; }
+
+/* ****** ****** */
+
 /* end of [basics_cats.php] */
 
 ?>

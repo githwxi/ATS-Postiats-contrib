@@ -498,10 +498,10 @@ val n0 = aux1_envlst (out, s0es_env, 0)
 val () = aux0_arglst (out, s0es_arg, n0, 0)
 val () = emit_RPAREN (out)
 //
-val ((*closing*)) = emit_text (out, " ; }")
+val ((*closing*)) = emit_text (out, "; }")
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, "]\n}\n")
+val ((*closing*)) = emit_text (out, "];\n}\n")
 //
 val ((*flushing*)) = emit_newline (out)
 //
