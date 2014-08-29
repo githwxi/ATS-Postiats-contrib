@@ -178,6 +178,13 @@ libupdate: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS/* ./libatscc2js/CATS
 
 ######
+#
+upload_html: ; \
+  scp mytest.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/ATS-parse-emit/JavaScript/.
+upload_DATS_JS: ; \
+  scp DATS_JS/*.js ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/ATS-parse-emit/JavaScript/DATS_JS/.
+#
+######
 
 clean:: ; $(RMF) *~
 

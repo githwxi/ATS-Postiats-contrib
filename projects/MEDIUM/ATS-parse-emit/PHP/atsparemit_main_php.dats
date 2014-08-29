@@ -145,44 +145,44 @@ end // end of [cmdstate_set_outchan]
 //
 extern
 fun
-atscc2js_fileref
+atscc2php_fileref
   (state: &cmdstate >> _, filr: FILEref): void
 //
 implement
-atscc2js_fileref
+atscc2php_fileref
   (state, inp) = let
 //
 val out =
-  outchan_get_fileref (state.outchan)
+outchan_get_fileref (state.outchan)
 //
 val d0cs = parse_from_fileref (inp)
 //
+val () = emit_text (out, "<?php\n")
+//
 val () = emit_time_stamp (out)
-//
 val ((*void*)) = emit_toplevel (out, d0cs)
+val () = emit_text (out, "/* ****** ****** */\n\n")
+val () = emit_text (out, "/* end-of-compilation-unit */\n")
 //
-val () =
-emit_text (out, "\n/* ****** ****** */\n")
-val () =
-emit_text (out, "\n/* end-of-compilation-unit */")
+val ((*closing*)) = emit_text (out, "?>\n")
 //
-val ((*flusing*)) = emit_newline (out)
+val ((*flusing*)) = emit_flush (out)
 //
 in
   // nothing
-end // end of [atscc2js_fileref]
+end // end of [atscc2php_fileref]
 
 (* ****** ****** *)
 //
 extern
 fun
-atscc2js_basename
+atscc2php_basename
 (
   state: &cmdstate >> _, fname: string
 ) : void // end-of-fun
 //
 implement
-atscc2js_basename
+atscc2php_basename
   (state, fname) = let
 //
 val inp =
@@ -199,7 +199,7 @@ val inp =
 $UNSAFE.castvwtp0{FILEref}(inp)
 //
 in
-  atscc2js_fileref (state, inp)
+  atscc2php_fileref (state, inp)
 end // end of [then]
 else let
 //
@@ -213,7 +213,7 @@ in
   // nothing
 end // end of [else]
 //
-end // end of [atscc2js_basename]
+end // end of [atscc2php_basename]
 
 (* ****** ****** *)
 
@@ -283,7 +283,7 @@ comarg_warning (str) = {
 (* ****** ****** *)
   
 fun
-atscc2js_usage
+atscc2php_usage
   (cmd: string): void = {
 //
 val () =
@@ -312,7 +312,7 @@ println! ("  -h : for printing out this help usage")
 val () =
 println! ("  --help : for printing out this help usage")
 //
-} (* end of [atscc2js_usage] *)
+} (* end of [atscc2php_usage] *)
   
 (* ****** ****** *)
 
@@ -338,8 +338,8 @@ case+ arglst of
   in
     if wait0 then (
       if state.ncomarg = 0
-        then atscc2js_usage ("atscc2js")
-        else atscc2js_fileref (state, stdin_ref)
+        then atscc2php_usage ("atscc2php")
+        else atscc2php_fileref (state, stdin_ref)
     ) (* end of [if] *)
   end // end of [list_nil]
 //
@@ -374,7 +374,7 @@ case+ arg of
         process_cmdline2_COMARGkey2 (state, arglst, key)
     | COMARGkey (_, fname) => let
         val () = state.ninputfile := nif + 1
-        val () = atscc2js_basename (state, fname(*input*))
+        val () = atscc2php_basename (state, fname(*input*))
       in
         process_cmdline (state, arglst)
       end // end of [COMARGkey]
@@ -427,7 +427,7 @@ case+ key of
   } (* end of [-o] *)
 //
 | "-h" => {
-    val () = atscc2js_usage ("atscc2js")
+    val () = atscc2php_usage ("atscc2php")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [-h] *)
@@ -462,7 +462,7 @@ case+ key of
   } (* end of [--output] *)
 //
 | "--help" => {
-    val () = atscc2js_usage ("atscc2js")
+    val () = atscc2php_usage ("atscc2php")
     val () = state.waitkind := WTKnone(*void*)
   } (* end of [--help] *)
 //
@@ -553,7 +553,7 @@ main0 (argc, argv) =
 val () =
 prerrln!
 (
-  "Hello from atscc2js!"
+  "Hello from atscc2php!"
 ) (* end of [val] *)
 //
 //
@@ -579,14 +579,14 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = prerrln! ("atscc2js: there is a reported error.")
+  val () = prerrln! ("atscc2php: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = prerrln! ("atscc2js: there are mutiple reported errors.")
+  val () = prerrln! ("atscc2php: there are mutiple reported errors.")
 in
   // nothing
 end // end of [then]
@@ -594,7 +594,7 @@ else () // end of [else]
 //
 (*
 val () =
-prerrln! ("Good-bye from atscc2js!")
+prerrln! ("Good-bye from atscc2php!")
 *)
 //
 } (* end of [main0] *)

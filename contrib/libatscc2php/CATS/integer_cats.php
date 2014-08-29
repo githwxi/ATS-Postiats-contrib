@@ -1,8 +1,10 @@
+<?php
+
 /*
 ******
 *
 * HX-2014-08:
-* for JavaScript code
+* for PHP code
 * translated from ATS
 *
 ******
@@ -65,3 +67,5 @@ ats2phppre_neq_int1_int1($x, $y) { return ($x !== $y) ; }
 /* ****** ****** */
 
 /* end of [integer_cats.php] */
+
+?>

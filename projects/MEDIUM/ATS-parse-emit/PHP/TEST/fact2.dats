@@ -23,17 +23,17 @@ staload
 (* ****** ****** *)
 //
 extern
-fun fact : int -> int = "mac#fact"
+fun fact2 : int -> int = "mac#fact2"
 //
 implement
-fact (n) = let
+fact2 (n) = let
 //
 fun loop (n: int, res: int): int =
   if n > 0 then loop (n-1, n*res) else res
 //
 in
   loop (n, 1)
-end // end of [fact]
+end // end of [fact2]
 
 (* ****** ****** *)
 

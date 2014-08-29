@@ -628,7 +628,7 @@ in
 case+
 f0a.f0arg_node of
 //
-| F0ARGnone _ => emit_text (out, "__NONE__")
+| F0ARGnone _ => emit_text (out, "*ERROR**")
 | F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
 //
 end // end of [emit_f0arg]

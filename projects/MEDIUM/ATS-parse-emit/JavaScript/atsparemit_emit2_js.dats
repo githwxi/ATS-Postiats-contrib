@@ -1145,7 +1145,7 @@ case+ inss of
 ) (* end of [auxlst] *)
 //
 in
-  auxlst (out, the_funbodylst_get((*void*)), 1(*i*))
+  auxlst (out, the_funbodylst_get(), 1(*first*))
 end // end of [emit_the_funbodylst]
 //
 (* ****** ****** *)

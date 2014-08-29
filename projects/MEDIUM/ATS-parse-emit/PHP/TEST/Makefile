@@ -60,6 +60,20 @@ cleanall:: ; $(RMF) isevn_dats.php
 
 ######
 
+all:: mytest
+mytest:: mytest.php; php -f mytest.php
+
+######
+
+CPRF=cp -rf
+
+######
+
+libupdate: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS/* ./libatscc2php/CATS
+
+######
+
 clean:: ; $(RMF) *~
 
 ######
