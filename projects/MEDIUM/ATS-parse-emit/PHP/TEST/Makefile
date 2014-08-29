@@ -45,6 +45,14 @@ cleanall:: ; $(RMF) fact2_dats.php
 ######
 
 all:: \
+fibats_dats.php
+fibats_dats.php: fibats.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) fibats_dats.php
+
+######
+
+all:: \
 acker_dats.php
 acker_dats.php: acker.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2JS) -o $@
