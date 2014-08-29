@@ -24,6 +24,8 @@ staload
 ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME "fact_dynload"
+#define
+ATS_STATIC_PREFIX "fact__"
 //
 (* ****** ****** *)
 //

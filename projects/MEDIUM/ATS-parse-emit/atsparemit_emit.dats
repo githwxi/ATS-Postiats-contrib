@@ -54,6 +54,11 @@ implement
 emit_DOLLAR (out) = emit_text (out, "$")
 
 (* ****** ****** *)
+
+implement
+emit_SQUOTE (out) = emit_text (out, "'")
+
+(* ****** ****** *)
 //
 implement
 emit_LPAREN (out) = emit_text (out, "(")

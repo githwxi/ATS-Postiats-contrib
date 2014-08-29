@@ -76,6 +76,22 @@ cleanall:: ; $(RMF) twice_dats.php
 
 ######
 
+all:: \
+rtfind_dats.php
+rtfind_dats.php: rtfind.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) rtfind_dats.php
+
+######
+
+all:: \
+rtfind2_dats.php
+rtfind2_dats.php: rtfind2.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) rtfind2_dats.php
+
+######
+
 all:: mytest
 mytest:: mytest.php; php -f mytest.php
 

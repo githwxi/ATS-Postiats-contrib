@@ -48,6 +48,7 @@
 (* ****** ****** *)
 //
 #define ATS_DYNLOADFLAG 0
+#define ATS_STATIC_PREFIX "twice__"
 //
 (* ****** ****** *)
 //

@@ -24,6 +24,7 @@ fun emit_COLON : FILEref -> void
 fun emit_SEMICOLON : FILEref -> void
 fun emit_SHARP : FILEref -> void
 fun emit_DOLLAR : FILEref -> void
+fun emit_SQUOTE : FILEref -> void
 
 (* ****** ****** *)
 //

@@ -252,10 +252,18 @@ d0e0.d0exp_node of
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
 | ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
 //
-| ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
+| ATSPMVfunlab (fl) =>
+  {
+    val () = emit_SQUOTE (out)
+    val () = emit_PMVfunlab (out, fl)
+    val () = emit_SQUOTE (out)
+  } (* end of [ATSPMVfunlab] *)
+//
 | ATSPMVcfunlab
-    (_(*knd*), fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
-  // end of [ATSPMVcfunlab]
+    (_(*knd*), fl, d0es) =>
+  {
+    val () = emit_PMVcfunlab (out, fl, d0es)
+  } (* end of [ATSPMVcfunlab] *)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 //
@@ -267,11 +275,11 @@ d0e0.d0exp_node of
 //
 | ATSfunclo_fun
     (d0e, _(*arg*), _(*res*)) => emit_d0exp (out, d0e)
-| ATSfunclo_clo
+  | ATSfunclo_clo
     (d0e, _(*arg*), _(*res*)) =>
   (
     emit_d0exp (out, d0e);
-    emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
+    emit_LBRACKET (out); emit_int (out, 0(*fun*)); emit_RBRACKET (out)
   ) (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]

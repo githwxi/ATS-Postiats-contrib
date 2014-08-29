@@ -6,6 +6,8 @@ include './fibats_dats.php';
 include './acker_dats.php';
 include './isevn_dats.php';
 include './twice_dats.php';
+include './rtfind_dats.php';
+include './rtfind2_dats.php';
 require './libatscc2php/CATS/basics_cats.php';
 require './libatscc2php/CATS/integer_cats.php';
 require './libatscc2php/CATS/string_cats.php';
@@ -18,6 +20,7 @@ echo "isevn(1000) = "; echo isevn(1000); echo "\n"; flush();
 echo "isodd(1001) = "; echo isodd(1001); echo "\n"; flush();
 //
 twice_test();
+rtfind_test();
+rtfind2_test();
 //
-
 ?>

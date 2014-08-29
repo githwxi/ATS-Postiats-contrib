@@ -18,6 +18,8 @@ staload
 //
 #define ATS_DYNLOADFLAG 0
 //
+#define ATS_STATIC_PREFIX "fibats__"
+//
 (* ****** ****** *)
 //
 dataprop FIB (int, int) =
