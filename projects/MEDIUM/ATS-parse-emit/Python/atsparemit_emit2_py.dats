@@ -85,7 +85,7 @@ case+ xs of
         val () = emit_nspc (out, ind)
         val () =
         (
-          emit_text (out, "global "); emit_i0de (out, tmp)
+          emit_text (out, "global "); emit_tmpvar (out, tmp)
         ) (* end of [val] *)
       in
         auxlst (out, xs)
@@ -118,12 +118,12 @@ case+ f0as of
 | list_cons (f0a, f0as) =>
   (
     case- f0a.f0arg_node of
-    | F0ARGsome (id, _) => let
+    | F0ARGsome (arg, _) => let
         val () =
         if i > 0
           then emit_text (out, ", ")
         // end of [if]
-        val () = emit_i0de (out, id)
+        val () = emit_tmpvar (out, arg)
       in
         auxlst (out, f0as, i+1)
       end // end of [F0ARGsome]
@@ -172,7 +172,7 @@ case+ tds of
     | TMPDECsome
         (tmp, _) => let
         val () = emit_nspc (out, 2(*ind*))
-        val () = emit_i0de (out, tmp)
+        val () = emit_tmpvar (out, tmp)
         val () = emit_text (out, " = None\n")
       in
         auxlst (out, tds)
@@ -213,7 +213,7 @@ case+ tds of
         if i > 0 then
           emit_text (out, ", ")
         // end of [if]
-        val () = emit_i0de (out, tmp)
+        val () = emit_tmpvar (out, tmp)
       in
         auxlst (out, tds, i+1)
       end // end of [TMPDECsome]
@@ -229,7 +229,8 @@ case+ tds of
     val () =
     emit_nspc (out, 4(*ind*))
     val () =
-    emit_text (out, "nonlocal ")
+    emit_text (out, "nonlocal")
+    val () = emit_SPACE (out)
     val () = auxlst (out, tds, 0)
     val () = emit_newline (out)
   } (* end of [list_cons] *)
@@ -675,6 +676,9 @@ extern
 fun emit2_instr_ln
   (out: FILEref, ind: int, ins: instr) : void
 extern
+fun emit2_instr_newline
+  (out: FILEref, ind: int, ins: instr) : void
+extern
 fun emit2_instrlst
   (out: FILEref, ind: int, inss: instrlst) : void
 //
@@ -789,7 +793,7 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "return ")
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
   }
 | ATSreturn_void (tmp) =>
   {
@@ -844,7 +848,7 @@ ins0.instr_node of
 | ATSINSmove (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_d0exp (out, d0e)
   } (* end of [ATSINSmove] *)
@@ -864,7 +868,7 @@ ins0.instr_node of
 | ATSINSmove_nil (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_text (out, "None")
   }
@@ -872,7 +876,7 @@ ins0.instr_node of
 | ATSINSmove_con0 (tmp, tag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_PMVint (out, tag)
   }
@@ -897,7 +901,7 @@ ins0.instr_node of
 | ATSINSmove_tlcal (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_d0exp (out, d0e)  
   } (* end of [ATSINSmove_tlcal] *)
@@ -905,9 +909,9 @@ ins0.instr_node of
 | ATSINSargmove_tlcal (tmp1, tmp2) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_i0de (out, tmp1)
+    val () = emit_tmpvar (out, tmp1)
     val () = emit_text (out, " = ")
-    val () = emit_i0de (out, tmp2)
+    val () = emit_tmpvar (out, tmp2)
   } (* end of [ATSINSargmove_tlcal] *)
 //
 | ATSdynload (dummy) =>
@@ -923,7 +927,7 @@ ins0.instr_node of
     val () = emit_text (out, "#ATSdynload0\n")
     val () = emit_nspc (out, ind)   
     val () = (
-      emit_i0de (out, flag); emit_text (out, " = 0")
+      emit_tmpvar (out, flag); emit_text (out, " = 0")
     ) (* end of [val] *)
   }
 //
@@ -933,7 +937,7 @@ ins0.instr_node of
     val () = emit_text (out, "#ATSdynload1\n")
     val () = emit_nspc (out, ind)   
     val () = (
-      emit_text (out, "global "); emit_i0de (out, flag)
+      emit_text (out, "global "); emit_tmpvar (out, flag)
     ) (* end of [val] *)
   }
 | ATSdynloadset (flag) =>
@@ -942,14 +946,14 @@ ins0.instr_node of
     val () = emit_text (out, "#ATSdynloadset\n")
     val () = emit_nspc (out, ind)
     val () = (
-      emit_i0de (out, flag); emit_text (out, " = 0")
+      emit_tmpvar (out, flag); emit_text (out, " = 0")
     ) (* end of [val] *)
   }
 //
-| _ (*yet-to-be-done*) =>
+| _ (*rest-of-instr*) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "**INSTR**")
+    val ((*error*)) = fprint! (out, "UNRECOGNIZED-INSTRUCTION: ", ins0)
   }
 //
 end // end of [emit2_instr]
@@ -960,8 +964,17 @@ implement
 emit2_instr_ln
   (out, ind, ins) =
 (
-  emit2_instr (out, ind, ins); emit_newline (out)
+  emit2_instr (out, ind, ins); emit_ENDL (out)
 ) (* end of [emit2_instr_ln] *)
+
+(* ****** ****** *)
+
+implement
+emit2_instr_newline
+  (out, ind, ins) =
+(
+  emit2_instr (out, ind, ins); emit_newline (out)
+) (* end of [emit2_instr_newline] *)
 
 (* ****** ****** *)
 
@@ -973,12 +986,12 @@ emit2_instrlst
 //
 case+ inss of
 | list_nil () => ()
-| list_cons (ins, inss) =>
-  {
+| list_cons
+    (ins, inss) => let
     val () = emit2_instr (out, ind, ins)
-    val () = emit_ENDL (out)
-    val () = emit2_instrlst (out, ind, inss)
-  }
+  in
+    emit_ENDL (out); emit2_instrlst (out, ind, inss)
+  end // end of [list_cons]
 //
 ) (* end of [emit2_instrlst] *)
 
@@ -1040,7 +1053,7 @@ case+ inss of
 //
 val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
-val () = emit_i0de (out, tmp)
+val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 val () = emit_LPAREN (out)
 val () =
@@ -1092,7 +1105,7 @@ val-ATSINSmove_boxrec_new (tmp, _) = ins.instr_node
 val d0es = getarglst (inss)
 //
 val () = emit_nspc (out, ind)
-val () = emit_i0de (out, tmp)
+val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 val () = emit_LPAREN (out)
 val () = emit_d0explst (out, d0es)
@@ -1107,7 +1120,7 @@ end // end of [emit2_ATSINSmove_boxrec]
 #define
 ATSEXTCODE_BEG "######\n#ATSextcode_beg()\n######"
 #define
-ATSEXTCODE_END "######\n#ATSextcode_end()\n######\n"
+ATSEXTCODE_END "######\n#ATSextcode_end()\n######"
 //
 (* ****** ****** *)
 
@@ -1133,22 +1146,27 @@ d0c0.d0ecl_node of
 | D0Cstatmp
     (tmp, opt) =>
   {
+    val () = emit_ENDL (out)
     val () = the_statmpdeclst_insert (d0c0)
     val () = (
       case+ opt of
       | Some _ => () | None () => emit_text(out, "#")
     ) (* end of [val] *)
     val () = (
-      emit_i0de (out, tmp); emit_text (out, " = None\n")
+      emit_tmpvar (out, tmp); emit_text (out, " = None\n")
     ) (* end of [val] *)
   } (* end of [D0Cstatmp] *)
 //
 | D0Cextcode (toks) =>
   {
-    val () = emit_text (out, ATSEXTCODE_BEG)
+    val () = emit_ENDL (out)
+    val () =
+      emit_text (out, ATSEXTCODE_BEG)
     val () = emit_extcode (out, toks) // HX: verbatim output
-    val () = emit_text (out, ATSEXTCODE_END)
-  }
+    val () =
+      emit_text (out, ATSEXTCODE_END)
+    val ((*void*)) = emit_newline (out)
+  } (* end of [D0Cextcode] *)
 //
 | D0Cfundecl
     (fk, f0d) => emit_f0decl (out, f0d)
@@ -1183,15 +1201,15 @@ in
 case+
 td.tmpdec_node of
 //
-| TMPDECnone (id) =>
+| TMPDECnone (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = (emit_SHARP (out); emit_i0de (out, id))
+    val () = (emit_SHARP (out); emit_tmpvar (out, tmp))
   }
-| TMPDECsome (id, s0e) =>
+| TMPDECsome (tmp, s0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = (emit_i0de (out, id); emit_text (out, " = None"))
+    val () = (emit_tmpvar (out, tmp); emit_text (out, " = None"))
   }
 end // end of [emit2_tmpdec]
 //
@@ -1425,7 +1443,7 @@ case+
 f0a.f0arg_node of
 //
 | F0ARGnone _ => emit_text (out, "__NONE__")
-| F0ARGsome (id, s0e) => emit_i0de (out, id)
+| F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
 //
 end // end of [emit_f0arg]
 
@@ -1472,9 +1490,9 @@ in
 case+
 fhd.f0head_node of
 | F0HEAD
-    (id, f0ma, res) =>
+    (fid, f0ma, res) =>
   {
-    val () = emit_i0de (out, id)
+    val () = emit_tmpvar (out, fid)
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)
     val () = emit_RPAREN (out)
@@ -1697,13 +1715,14 @@ case+ inss of
     val-list_cons (ins0, inss) = inss
     val-list_cons (ins1, inss) = inss
     val () = auxfun (out, ins0)
-    val () = emit2_instr_ln (out, 4(*ind*), ins1)
+    val () = emit2_instr_newline (out, 4(*ind*), ins1)
   in
     auxlst (out, inss)
   end // end of [auxlst]
 ) (* end of [auxlst] *)
 //
 val inss_body = the_funbodylst_get()
+//
 val () = auxlst (out, inss_body)
 val () = emit_mfundef_initize (out, inss_body)
 //
@@ -1749,12 +1768,12 @@ fdec.f0decl_node of
 | F0DECLnone (fhd) => () 
 | F0DECLsome (fhd, fbody) =>
   {
+    val () = emit_ENDL (out)
     val () = emit_text (out, "def")
     val () = emit_SPACE (out)
     val () = emit_f0head (out, fhd)
-    val () = emit_newline (out)
+    val () = emit_ENDL (out)
     val () = emit_f0body (out, fbody)
-    val () = emit_newline (out)
   } (* end of [F0DECLsome] *)
 //
 end // end of [emit_f0decl]
@@ -1776,11 +1795,14 @@ case+ d0cs of
 | list_nil () => ()
 | list_cons
     (d0c, d0cs) => let
+    val () =
+      emit_d0ecl (out, d0c)
+    // end of [val]
   in
-    emit_d0ecl (out, d0c); loop (out, d0cs)
+    loop (out, d0cs)
   end // end of [list_cons]
 //
-)
+) (* end of [loop] *)
 //
 in
   loop (out, d0cs)

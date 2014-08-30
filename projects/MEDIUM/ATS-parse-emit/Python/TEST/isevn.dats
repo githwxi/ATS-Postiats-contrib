@@ -1,9 +1,13 @@
 (* ****** ****** *)
 //
+// HX-2014-08:
+// A running example
+// from ATS2 to Python3
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 
@@ -22,8 +26,12 @@ and isodd_ (n: int): bool =
 extern
 fun isevn
   : (int) -> bool = "mac#isevn"
+extern
+fun isodd
+  : (int) -> bool = "mac#isodd"
 //
 implement isevn (x) = isevn_(x)
+implement isodd (x) = if x > 0 then isevn_(x-1) else false
 //
 (* ****** ****** *)
 
@@ -41,6 +49,7 @@ sys.setrecursionlimit(1000000)
 %{$
 if (len(sys.argv) >= 2):
   print(isevn(int(sys.argv[1])))
+  print(isodd(int(sys.argv[1])))
 else:
   print('Usage: isevn <integer>')
 #endif

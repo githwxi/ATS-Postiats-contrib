@@ -21,8 +21,10 @@ emit_type
 fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
 fun emit_COLON : FILEref -> void
+fun emit_SEMICOLON : FILEref -> void
 fun emit_SHARP : FILEref -> void
-fun emit_COLON : FILEref -> void
+fun emit_DOLLAR : FILEref -> void
+fun emit_SQUOTE : FILEref -> void
 
 (* ****** ****** *)
 //
@@ -59,6 +61,10 @@ fun emit_text : emit_type (string)
 fun emit_symbol : emit_type (symbol)
 
 (* ****** ****** *)
+  
+fun emit_time_stamp (FILEref): void  
+  
+(* ****** ****** *)
 //
 fun emit_PMVint : emit_type (i0nt)
 fun emit_PMVintrep : emit_type (i0nt)
@@ -83,6 +89,10 @@ fun emit_PMVcfunlab
 fun emit_i0de : emit_type (i0de)
 fun emit_label : emit_type (label)
 fun emit_label_mark : emit_type (label)
+
+(* ****** ****** *)
+
+fun emit_tmpvar : emit_type (i0de)
 
 (* ****** ****** *)
 

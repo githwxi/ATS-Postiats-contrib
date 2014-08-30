@@ -1,3 +1,10 @@
+(* ****** ****** *)
+//
+// HX-2014-08:
+// A running example
+// from ATS2 to Python3
+//
+(* ****** ****** *)
 (*
 ** Copyright (C) 2011 Hongwei Xi, ATS Trustful Software, Inc.
 **
@@ -43,8 +50,6 @@
 //
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //

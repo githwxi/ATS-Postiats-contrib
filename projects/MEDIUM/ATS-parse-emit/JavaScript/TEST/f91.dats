@@ -8,8 +8,6 @@
 //
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
@@ -18,7 +16,8 @@ staload
 //
 (* ****** ****** *)
 //
-extern fun f91 : int -> int = "mac#f91"
+extern
+fun f91 : int -> int = "mac#f91"
 //
 implement
 f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
@@ -47,10 +46,11 @@ var argc =
 //
 if (argc <= 2)
 {
-  console.log("Usage: f91 <int>>"); return;
+  console.log("Usage: f91 <int>"); return;
 }
 //
 var x = process.argv[2]
+var x = parseInt (x, 10)
 //
 console.log("f91(%d) = %d", x, f91(x)); return;
 //

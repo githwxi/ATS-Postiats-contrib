@@ -8,8 +8,6 @@
 //
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
@@ -26,6 +24,8 @@ staload
 ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME "fact_dynload"
+#define
+ATS_STATIC_PREFIX "fact__"
 //
 (* ****** ****** *)
 //

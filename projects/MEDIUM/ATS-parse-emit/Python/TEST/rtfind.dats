@@ -1,9 +1,13 @@
 (* ****** ****** *)
 //
+// HX-2014-08:
+// A running example
+// from ATS2 to Python3
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
@@ -43,6 +47,8 @@ sys.setrecursionlimit(1000000)
 
 %{$
 #
+poly0 = lambda x: x*x + x - 6
+print('rtfind(lambda x: x*x + x - 6) =', rtfind(poly0))
 poly1 = lambda x: x*x - x - 6
 print('rtfind(lambda x: x*x - x - 6) =', rtfind(poly1))
 #

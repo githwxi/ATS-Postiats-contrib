@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script>
+//
+function
+fact_eval()
+{
+//
+  var form =
+    document.getElementById("factarg") ;
+//
+  var answer =
+    fact(parseInt(form.elements.namedItem("funarg").value, 10)) ;
+//
+  document.getElementById("fact_demo").innerHTML = answer.toString() ;
+//
+  return ;
+} /* end of [fact_eval] */
+//
+</script>
+<script>
+//
+function
+fibats_eval()
+{
+//
+  var form =
+    document.getElementById("fibatsarg") ;
+//
+  var answer =
+    fibats(parseInt(form.elements.namedItem("funarg").value, 10)) ;
+//
+  document.getElementById("fibats_demo").innerHTML = answer.toString() ;
+//
+  return ;
+} /* end of [fibats_eval] */
+//
+</script>
+<script>
+//
+function
+acker_eval()
+{
+//
+  var form =
+    document.getElementById("ackerarg") ;
+//
+  var arg1 = parseInt(form.elements.namedItem("funarg1").value, 10) ;
+  var arg2 = parseInt(form.elements.namedItem("funarg2").value, 10) ;
+  var demo = document.getElementById("acker_demo") ;
+  try {
+    demo.innerHTML =
+    acker(arg1, arg2).toString() ;
+  } catch(err) {
+    demo.innerHTML = err.message ;
+  } /* end-of-try */
+//
+  return ;
+} /* end of [acker_eval] */
+//
+</script>
+<script src="./DATS_JS/fact_dats.js"></script>
+<script src="./DATS_JS/fibats_dats.js"></script>
+<script src="./DATS_JS/acker_dats.js"></script>
+<script src="./libatscc2js/CATS/basics_cats.js"></script>
+<script src="./libatscc2js/CATS/integer_cats.js"></script>
+</head>
+
+<body>
+
+<h1>Some Famous Recursive Functions</h1>
+
+<h2>Factorial</h2>
+
+<form id="factarg">
+fact <input type="text" name="funarg" value="10"><br>
+</form> 
+
+<p id="fact_demo"></p>
+
+<button type="button" onclick="fact_eval()">Evaluate</button>
+
+<h2>Fibonacci</h2>
+
+<form id="fibatsarg">
+fibats <input type="text" name="funarg" value="10"><br>
+</form> 
+
+<p id="fibats_demo"></p>
+
+<button type="button" onclick="fibats_eval()">Evaluate</button>
+
+<h2>Ackermann</h2>
+
+<form id="ackerarg">
+acker
+<input type="text" name="funarg1" value="0">
+<input type="text" name="funarg2" value="0"> <br>
+</form> 
+
+<p id="acker_demo"></p>
+
+<button type="button" onclick="acker_eval()">Evaluate</button>
+
+</body>
+</html> 

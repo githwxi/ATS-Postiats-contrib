@@ -1,15 +1,13 @@
 (* ****** ****** *)
 //
 // HX-2014-08:
-// A running example
+// A running example:
 // from ATS2 to Node.js
 //
 (* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //

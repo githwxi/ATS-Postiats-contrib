@@ -157,7 +157,16 @@ val out =
 //
 val d0cs = parse_from_fileref (inp)
 //
+val () = emit_time_stamp (out)
+//
 val ((*void*)) = emit_toplevel (out, d0cs)
+//
+val () =
+emit_text (out, "\n/* ****** ****** */\n")
+val () =
+emit_text (out, "\n/* end-of-compilation-unit */")
+//
+val ((*flusing*)) = emit_newline (out)
 //
 in
   // nothing
@@ -168,7 +177,9 @@ end // end of [atscc2js_fileref]
 extern
 fun
 atscc2js_basename
-  (state: &cmdstate >> _, fname: string): void
+(
+  state: &cmdstate >> _, fname: string
+) : void // end-of-fun
 //
 implement
 atscc2js_basename
@@ -568,14 +579,14 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = println! ("atscc2js: there is a reported error.")
+  val () = prerrln! ("atscc2js: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = println! ("atscc2js: there are mutiple reported errors.")
+  val () = prerrln! ("atscc2js: there are mutiple reported errors.")
 in
   // nothing
 end // end of [then]
