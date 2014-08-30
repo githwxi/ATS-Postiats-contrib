@@ -76,6 +76,9 @@ in
   i0de_make_string (loc, str)
 end // end of [make_label]
 
+// special label that will never be emitted
+val label_nil = i0de_make_string (location_dummy, "NILLABEL")
+
 end // end of [local]
 
 (* ****** ****** *)
@@ -84,9 +87,7 @@ implement
 label_for_instrlst
   (inss) =
   case+ inss of
-  | list_nil () =>
-    (* create a special label that will never be emitted *)
-    i0de_make_string (location_dummy, "NILLABEL")
+  | list_nil () => label_nil
   | list_cons (ins, inss) =>
     (
       case+ ins.instr_node of

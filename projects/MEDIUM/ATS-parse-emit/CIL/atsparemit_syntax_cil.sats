@@ -23,3 +23,38 @@ label_for_instrlst
   (inss: instrlst) : label
 //
 (* ****** ****** *)
+
+(*
+datatype Type_base =
+  | TBbool
+  | TBchar
+  | TBfloat32
+  | TBfloat64
+  | TBint8
+  | TBint16
+  | TBint32
+  | TBint64
+  | TBstring
+  | TBuint8
+  | TBuint16
+  | TBuint32
+  | TBuint64
+  | TBvoid
+
+datatype CILType =
+  | CTbase of Type_base
+  | CTobject
+  | CTclass of CILTypeReference
+  | CTmptr of CILType
+  | CTuptr of CILType
+  | CTvaluetype of CILType
+
+and CILTypeReference =
+  CILTypeRef of (CILResolutionScope, CILDottedName)
+
+and CILResolutionScope =
+  | CILModuleResolution of FileName
+  | CILAssemblyResolution of FileName
+*)
+
+(* ****** ****** *)

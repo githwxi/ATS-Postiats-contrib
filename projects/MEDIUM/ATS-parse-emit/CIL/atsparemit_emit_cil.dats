@@ -250,16 +250,66 @@ in
 case+
 s0e.s0exp_node of
 //
-| S0Eide (id) => emit_symbol (out, id)
+| S0Eide (id) =>
+(
+  case+ symbol_get_name (id) of
+  | "atsvoid_t0ype" => emit_text (out, "void")
+  | "atstype_void" => emit_text (out, "void")
+  | _ => emit_symbol (out, id)
+) (* end of [S0Eide] *)
 | S0Elist (s0es) => () // shouldn't happen? marked as "temp"
 | S0Eappid (id, s0es) =>
     // FIXME: what about other types? e.g. array types? struct types?
-    () where {
+(
+  case+ symbol_get_name (id.i0de_sym) of
+  | "atstkind_t0ype" => let
+    // unboxed type, of sort t@ype in ATS
+    val-list_cons (s0e, list_nil ()) = s0es
+    val-S0Eide (id) = s0e.s0exp_node
+  in
+    case+ symbol_get_name (id) of
+    | "atstype_sint" => emit_text (out, "int16")
+    | "atstype_usint" =>
+      {
+        val () = emit_text (out, "unsigned")
+        val () = emit_SPACE (out)
+        val () = emit_text (out, "int16")
+      }
+    | "atstype_int" => emit_text (out, "int32")
+    | "atstype_uint" =>
+      {
+        val () = emit_text (out, "unsigned")
+        val () = emit_SPACE (out)
+        val () = emit_text (out, "int")
+      }
+    | "atstype_lint" => emit_text (out, "int64")
+    | "atstype_ulint" =>
+      {
+        val () = emit_text (out, "unsigned")
+        val () = emit_SPACE (out)
+        val () = emit_text (out, "int64")
+      }
+    | "atstype_bool" => emit_text (out, "bool")
+    | "atstype_byte" =>
+      {
+        val () = emit_text (out, "unsigned")
+        val () = emit_SPACE (out)
+        val () = emit_text (out, "int8")
+      }
+    // TODO: atstype_char, atstype_schar, atstype_uchar
+    | "atstype_string" => emit_text (out, "string")
+    | "atstype_stropt" => emit_text (out, "string")
+    | "atstype_strptr" => emit_text (out, "string")
+    | _ => emit_symbol (out, id)
+  end // end of [let]
+  | _ =>
+    {
       val () = emit_i0de (out, id)
       val () = emit_LPAREN (out)
       val () = emit_s0explst (out, s0es)
       val () = emit_RPAREN (out)
-    }
+    } // end of [_]
+)
 //
 end // end of [emit_s0exp]
 //
