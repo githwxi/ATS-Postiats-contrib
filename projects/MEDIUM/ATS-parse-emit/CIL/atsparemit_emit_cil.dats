@@ -468,6 +468,15 @@ emit_d0explst_1 (out, d0es) = loop (out, d0es, 1)
 end // end of [local]
 
 (* ******* ****** *)
+//
+extern
+fun emit_f0arg : emit_type (f0arg)
+extern
+fun emit_f0marg : emit_type (f0marg)
+extern
+fun emit_f0head : emit_type (f0head)
+//
+(* ****** ****** *)
 
 implement
 emit_d0exp
@@ -488,18 +497,29 @@ d0e.d0exp_node of
     val () = emit_i0de (out, id)
   }
 //
-| D0Eappid (id, d0es) =>
-  {
+| D0Eappid (id, d0es) => let
     val () = emit_d0explst (out, d0es)
 
     // need type for [id]
     // what is [tyrec] type for?
     // val-~Some_vt (s0rec) = typedef_search_opt (id.i0de_sym)
     
-    val () = emit_text (out, "call")
-    val () = emit_SPACE (out)
-    val () = emit_i0de (out, id) // FIXME: need also type of [id]!
-  }
+    val f0head_opt = f0head_search_opt (id.i0de_sym)
+  in
+    case+ f0head_opt of
+    | ~None_vt() =>
+      {
+        val () = emit_text (out, "call")
+        val () = emit_SPACE (out)
+        val () = emit_i0de (out, id) // FIXME: need also type of [id]!
+      }
+    | ~Some_vt(fhd) =>
+      {
+        val () = emit_text (out, "call")
+        val () = emit_SPACE (out)
+        val () = emit_f0head (out, fhd)
+      }
+  end // end of [D0Eappid]
 //
 //
 | ATSPMVint (tok) =>
@@ -538,13 +558,6 @@ end // end of [emit_d0exp]
 (* ****** ****** *)
 //
 extern
-fun emit_f0arg : emit_type (f0arg)
-extern
-fun emit_f0marg : emit_type (f0marg)
-extern
-fun emit_f0head : emit_type (f0head)
-//
-extern
 fun emit_f0body : emit_type (f0body)
 //
 (* ****** ****** *)
@@ -557,7 +570,7 @@ in
 case+
 f0a.f0arg_node of
 //
-| F0ARGnone s0e => emit_text (out, "__NONE__") // FIXME: how to emit type decl?
+| F0ARGnone s0e => emit_s0exp (out, s0e)
 | F0ARGsome (id, s0e) =>
   {
     val () = emit_s0exp (out, s0e)
@@ -1006,7 +1019,10 @@ case+
 fdec.f0decl_node of
 | F0DECLnone (fhd) =>
   // does this actually mean function declaration (e.g. forward function decl)?
-  ()
+  {
+    val-F0HEAD(id, _, _) = fhd.f0head_node
+    val () = f0head_insert (id.i0de_sym, fhd)
+  }
 | F0DECLsome (fhd, fbody) =>
   {
     val () = emit_text (out, ".method")
@@ -1017,8 +1033,8 @@ fdec.f0decl_node of
     val () = emit_SPACE (out)
     val () = emit_text (out, "public")
     val () = emit_SPACE (out)
-    // FIXME: where is the type of this function??
-    // TODO: use 
+    val-F0HEAD(id, _, _) = fhd.f0head_node
+    val () = f0head_insert (id.i0de_sym, fhd)
     val () = emit_f0head (out, fhd)
     val () = emit_SPACE (out)    
     val () = emit_text (out, "cil")

@@ -23,7 +23,14 @@ label_for_instrlst
   (inss: instrlst) : label
 //
 (* ****** ****** *)
-
+//
+fun
+f0head_insert
+  (name: symbol, def: f0head): void
+//
+fun
+f0head_search_opt (name: symbol): Option_vt (f0head)
+//
 (*
 datatype Type_base =
   | TBbool

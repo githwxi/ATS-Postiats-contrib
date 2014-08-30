@@ -98,3 +98,63 @@ label_for_instrlst
     ) (* end of [list_vt_cons] *)
 // end of [label_for_instrlst]
 
+(* ****** ****** *)
+
+staload F0HEADDEF =
+{
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+//
+typedef key = symbol and itm = f0head
+//
+implement
+gequal_val<key> (k1, k2) = (k1 = k2)
+//
+staload
+"libats/SATS/hashtbl_chain.sats"
+//
+implement
+hash_key<key> (sym) =
+//
+// HX: [gidentity] is called to avoid a bug
+//
+  gidentity(hash_key<string>(symbol_get_name(sym)))
+//
+implement hashtbl$recapacitize<> () = 1(*resizable*)
+//
+#define CAPACITY 1024
+//
+#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_chain.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+
+implement
+f0head_insert
+  (name, def) = let
+//
+val () =
+  println! ("f0head_insert: ", symbol_get_name(name))
+//
+in
+//
+$F0HEADDEF.insert_any (name, def)
+//
+end // end of [f0head_insert]
+
+(* ****** ****** *)
+//
+implement
+f0head_search_opt
+  (name) = $F0HEADDEF.search_opt (name)
+//
+(* ****** ****** *)
+
+(* end of [atsparemit_syntax_cil.dats] *)
+
+  
+
