@@ -13,9 +13,10 @@ staload "./GameOf24.sats"
 (* ****** ****** *)
 
 local
-
-assume cardset_type = arrszref (card)
-
+//
+assume
+cardset_type = arrszref (card)
+//
 in (* in of [local] *)
 
 implement

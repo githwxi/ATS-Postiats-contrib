@@ -16,21 +16,25 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
+"{$LIBATSCC2PY}/SATS/float.sats"
 //
 (* ****** ****** *)
 //
 extern
-fun fact : int -> int = "mac#fact"
+fun
+fact : double -> double = "mac#fact"
 //
 implement
 fact (n) = let
 //
-fun loop (n: int, res: int): int =
-  if n > 0 then loop (n-1, n*res) else res
+fun loop
+(
+  n: double, res: double
+) : double =
+  if n > 0.0 then loop (n-1.0, n*res) else res
 //
 in
-  loop (n, 1)
+  loop (n, 1.0)
 end // end of [fact]
 
 (* ****** ****** *)
@@ -40,6 +44,7 @@ import sys
 ######
 from basics_cats import *
 from integer_cats import *
+from float_cats import *
 ######
 sys.setrecursionlimit(1000000)
 %} // end of [%{^]
@@ -48,7 +53,7 @@ sys.setrecursionlimit(1000000)
 
 %{$
 if (len(sys.argv) >= 2):
-  print(fact(int(sys.argv[1])))
+  print(fact(float(sys.argv[1])))
 else:
   print('Usage: fact <integer>')
 #endif

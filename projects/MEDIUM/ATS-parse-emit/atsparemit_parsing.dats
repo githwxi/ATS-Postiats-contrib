@@ -274,6 +274,16 @@ p_ZERO_test (buf) = ptoken_test_fun (buf, is_ZERO)
 (* ****** ****** *)
 //
 implement
+is_FLOAT (x) = case+ x of
+  | T_FLOAT _ => true | _ => false
+//
+implement
+p_FLOAT (buf, bt, err) =
+  ptoken_fun (buf, bt, err, is_FLOAT, PARERR_FLOAT)
+//
+(* ****** ****** *)
+//
+implement
 is_STRING (x) = case+ x of
   | T_STRING _ => true | _ => false
 //

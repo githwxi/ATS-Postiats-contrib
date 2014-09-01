@@ -1,24 +1,34 @@
 //
 // Implementing Game-of-24
 //
+
 (* ****** ****** *)
 //
 #include
-"share/atspre_staload.hats"
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "GameOf24_py_dynload"
+//
+(* ****** ****** *)
+//
+staload
+"{$LIBATSCC2PY}/basics_py.sats"
+//
+staload
+"{$LIBATSCC2PY}/SATS/integer.sats"
+staload
+"{$LIBATSCC2PY}/SATS/float.sats"
+staload
+"{$LIBATSCC2PY}/SATS/string.sats"
+staload
+"{$LIBATSCC2PY}/SATS/filebas.sats"
 //
 (* ****** ****** *)
 
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload "libats/SATS/stringbuf.sats"
-staload _ = "libats/DATS/stringbuf.dats"
-
-(* ****** ****** *)
-
-staload "./GameOf24.sats"
+staload "./GameOf24_py.sats"
 
 (* ****** ****** *)
 
@@ -53,7 +63,7 @@ card_get_val (c) = c.card_val
 
 implement
 card_make_int (v) = '{
-  card_val= g0i2f (v), card_node= CARDint (v)
+  card_val= int2double (v), card_node= CARDint (v)
 } // end of [card_make_int]
 
 (* ****** ****** *)
@@ -149,68 +159,7 @@ end // end of [fpprint_card]
 
 (* ****** ****** *)
 
-implement
-stringize_card (c0) = let
-//
-fun aux
-(
-  sbf: !stringbuf, c0: card
-) : void = let
-//
-macdef ins (x) =
-  ignoret(stringbuf_insert (sbf, ,(x)))
-//
-in
-//
-case+ c0.card_node of
-| CARDint (v) => ins (v)
-| CARDadd (c1, c2) =>
-  (
-    ins "("; aux (sbf, c1); ins " + "; aux (sbf, c2); ins ")"
-  )
-| CARDsub (c1, c2) =>
-  (
-    ins "("; aux (sbf, c1); ins " - "; aux (sbf, c2); ins ")"
-  )
-| CARDmul (c1, c2) =>
-  (
-    ins "("; aux (sbf, c1); ins " * "; aux (sbf, c2); ins ")"
-  )
-| CARDdiv (c1, c2) =>
-  (
-    ins "("; aux (sbf, c1); ins " / "; aux (sbf, c2); ins ")"
-  )
-//
-end // end of [aux]
-//
-val sbf =
-  stringbuf_make_nil (i2sz(32))
-val ((*void*)) = aux (sbf, c0)
-//
-in
-  stringbuf_getfree_strptr (sbf)
-end // end of [stringize_card]
-
-(* ****** ****** *)
-
 end // end of [local]
-
-(* ****** ****** *)
-
-implement
-fprint_cardlst
-  (out, cs) = let
-//
-implement
-fprint_val<card> = fprint_card
-//
-implement
-fprint_list$sep<> (out) = fprint_newline (out)
-//
-val () = fprint_list (out, cs)
-//
-in
-end // end of [fprint_cardlst]
 
 (* ****** ****** *)
 
@@ -224,57 +173,74 @@ implement
 fpprint_cardlst
   (out, cs) = let
 //
-implement
-fprint_val<card>
-  (out, c) = let
+fun fprone
+(
+  out: PYfile, c: card
+) : void = let
   val v = card_get_val (c)
 in
   fpprint_card (out, c);
   fprint_string (out, " = ");
   fprint_int (out, g0f2i(v+EPSILON))
-end // end of [fprint_val]
-implement
-fprint_list$sep<> (out) = fprint_newline (out)
-//
-val () = fprint_list (out, cs)
+end // end of [fprone
 //
 in
+//
+case+ cs of
+| list_nil () => ()
+| list_cons (c, cs) =>
+  (
+    fprone (out, c); fpprint_cardlst (out, cs)
+  ) (* end of [list_cons] *)
+//
 end // end of [fpprint_cardlst]
 
 end // end of [local]
 
 (* ****** ****** *)
-
+//
+extern
+fun main0_py (): void = "mac#GameOf24_py_main0_py"
+//
 implement
-stringize_cardlst_save
-  (xs, psave, n) = let
+main0_py () =
+{
 //
-fun loop
-(
-  xs: List0(card)
-, psave: ptr, n: int, i: intGte(0)
-) : intGte(0) = let
-in
+val n1 = 3
+val n1 = 3
+and n2 = 3
+and n3 = 8
+and n4 = 8
+val out = stdout
+val res = play24 (n1, n2, n3, n4)
+val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = (fpprint_cardlst (out, res); fprint_newline (out))
 //
-if n > 0 then
-(
-case+ xs of
-| list_nil () => i
-| list_cons (x, xs) => let
-    val str = stringize_card (x)
-    val str = strptr2string (str)
-    val ((*void*)) = $UN.ptr0_set<string> (psave, str)
-  in
-    loop (xs, ptr_succ<string> (psave), n-1, i+1)
-  end // end of [list0_cons]
-) else (i) // end of [if]
+} (* end of [main0_py] *)
 //
-end // end of [loop]
-//
-in
-  loop (xs, psave, n, 0(*i*))
-end // end of [stringize_cardlst_save]
+(* ****** ****** *)
+
+%{^
+import sys
+######
+from basics_cats import *
+from integer_cats import *
+from float_cats import *
+from string_cats import *
+from filebas_cats import *
+######
+sys.setrecursionlimit(1000000)
+%} // end of [%{^]
 
 (* ****** ****** *)
 
-(* end of [GameOf24_card.dats] *)
+%{$
+######
+GameOf24_py_dynload();
+GameOf24_py_main0_py();
+######
+%} // end of [%{$]
+
+(* ****** ****** *)
+
+(* end of [GameOf24_py.dats] *)

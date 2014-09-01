@@ -190,6 +190,30 @@ val () = emit_RPAREN (out)
 } (* end of [emit_PMVcfunlab] *)
 
 (* ****** ****** *)
+
+implement
+emit_ATSCKpat_con0
+  (out, d0e, tag) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_con0(")
+  val () = (
+    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_con0] *)
+
+implement
+emit_ATSCKpat_con1
+  (out, d0e, tag) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_con1(")
+  val () = (
+    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_con1] *)
+
+(* ****** ****** *)
 //
 implement
 emit_tmpvar
@@ -248,6 +272,11 @@ d0e0.d0exp_node of
 | ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
 | ATSPMVcfunlab
     (_(*knd*), fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
+//
+| ATSCKpat_con0
+    (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
+| ATSCKpat_con1
+    (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 //

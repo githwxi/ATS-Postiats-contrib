@@ -31,13 +31,20 @@ ATSCKptriscons(xs) { return (xs !== null) ; }
 /* ****** ****** */
 
 function
-ATSCKpat_int(tmp, given) { return (tmp===given) ; }
+ATSCKpat_int(tmp, given) { return (tmp === given) ; }
 function
-ATSCKpat_bool(tmp, given) { return (tmp===given) ; }
+ATSCKpat_bool(tmp, given) { return (tmp === given) ; }
 function
-ATSCKpat_char(tmp, given) { return (tmp===given) ; }
+ATSCKpat_char(tmp, given) { return (tmp === given) ; }
 function
-ATSCKpat_float(tmp, given) { return (tmp===given) ; }
+ATSCKpat_float(tmp, given) { return (tmp === given) ; }
+
+/* ****** ****** */
+
+function
+ATSCKpat_con0 (con, tag) { return (con === tag) ; }
+function
+ATSCKpat_con1 (con, tag) { return (con[0] === tag) ; }
 
 /* ****** ****** */
 

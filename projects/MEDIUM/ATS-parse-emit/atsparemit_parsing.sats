@@ -36,6 +36,8 @@ parerr_node =
   | PARERR_ZERO of ()
   | PARERR_INT10 of ()
 //
+  | PARERR_FLOAT of ()
+//
   | PARERR_STRING of ()
 //
   | PARERR_SRPendif
@@ -169,17 +171,20 @@ fun is_RBRACE (x: tnode): bool
 fun p_INT : parser (token)
 fun is_INT (x: tnode): bool
 //
-fun p_INT10 : parser (token)
-fun is_INT10 (x: tnode): bool
-//
-fun p_STRING : parser (token)
-fun is_STRING (x: tnode): bool
-//
-(* ****** ****** *)
-//
 fun p_ZERO : parser (token)
 fun p_ZERO_test (buf: &tokbuf >> _): bool
 fun is_ZERO (x: tnode): bool
+//
+fun p_INT10 : parser (token)
+fun is_INT10 (x: tnode): bool
+//
+(* ****** ****** *)
+//
+fun p_FLOAT : parser (token)
+fun is_FLOAT (x: tnode): bool
+//
+fun p_STRING : parser (token)
+fun is_STRING (x: tnode): bool
 //
 (* ****** ****** *)
 

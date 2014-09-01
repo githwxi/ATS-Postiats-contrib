@@ -69,6 +69,8 @@ println_obj{a:t@ype}(obj: a): void = "mac#%"
 (* ****** ****** *)
 
 fun print_newline ((*void*)): void = "mac#%"
+fun prerr_newline ((*void*)): void = "mac#%"
+fun fprint_newline (out: PYfile): void = "mac#%"
 
 (* ****** ****** *)
 

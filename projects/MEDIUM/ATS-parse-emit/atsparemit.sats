@@ -201,6 +201,8 @@ keyword =
   | ATSextern of () // extern
   | ATSstatic of () // static
 //
+  | ATSassume of ()
+//
   | ATSdyncst_mac of ()
   | ATSdyncst_extfun of ()
 //
@@ -245,6 +247,9 @@ keyword =
 //
   | ATSPMVfunlab of ()
   | ATSPMVcfunlab of ()
+//
+  | ATSCKpat_con0 of ()
+  | ATSCKpat_con1 of ()
 //
   | ATSSELcon of ()
   | ATSSELboxrec of ()
@@ -327,8 +332,8 @@ token_node =
 //
 | T_INT of (int(*base*), string)
 | T_FLOAT of (int(*base*), string)
-| T_STRING of (string)
 //
+| T_STRING of (string)
 //
 | T_LPAREN of () // (
 | T_RPAREN of () // )
@@ -407,6 +412,7 @@ typedef s0tring = token
 //
 datatype
 lexerr_node =
+  | LEXERR_FEXPONENT_nil of ()
   | LEXERR_UNSUPPORTED_char of (char)
 //
 typedef lexerr = '{
@@ -724,6 +730,9 @@ d0exp_node =
   | ATSPMVfunlab of (label)
   | ATSPMVcfunlab of (int(*knd*), label, d0explst)
 //
+  | ATSCKpat_con0 of (d0exp, int(*tag*))
+  | ATSCKpat_con1 of (d0exp, int(*tag*))
+//
   | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELboxrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
@@ -955,6 +964,8 @@ d0ecl_node =
   | D0Cifndef of (i0de, d0eclist)
 //
   | D0Ctypedef of (i0de, tyrec)
+//
+  | D0Cassume of i0de // HX: assume ...
 //
   | D0Cdyncst_mac of i0de
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)

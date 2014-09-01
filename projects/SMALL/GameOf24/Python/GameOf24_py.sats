@@ -1,3 +1,9 @@
+(* ****** ****** *)
+//
+// HX-2014-08-31: for testing atscc2py
+//
+(* ****** ****** *)
+
 (*
 
 Given four natural numbers n1, n2, n3 and n4, one chooses two of them and
@@ -22,8 +28,17 @@ are a good quad.
 *)
 
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
 
-abstype card_type = ptr
+staload "{$LIBATSCC2PY}/basics_py.sats"
+
+(* ****** ****** *)
+
+abstype card_type
 typedef card = card_type
 
 (* ****** ****** *)
@@ -49,51 +64,28 @@ fun card_make_int (v: int): card
 (* ****** ****** *)
 //
 fun
-fprint_card (out: FILEref, x: card): void
+fprint_card (out: PYfile, x: card): void
 fun
-fprint_cardlst (out: FILEref, xs: List0(card)): void
+fprint_cardlst (out: PYfile, xs: List0(card)): void
 //
 overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10
 //
 (* ****** ****** *)
-
-fun fpprint_card (out: FILEref, x: card): void
-fun fpprint_cardlst (out: FILEref, xs: List0(card)): void
-
+//
+fun
+fpprint_card (out: PYfile, x: card): void
+fun
+fpprint_cardlst (out: PYfile, xs: List0(card)): void
+//
 (* ****** ****** *)
 
-fun stringize_card (x: card): Strptr1
-
-(* ****** ****** *)
-
-abstype cardset_type = ptr
+abstype cardset_type
 typedef cardset = cardset_type
 
 (* ****** ****** *)
 
 fun cardset_size (cardset): int
-
-(* ****** ****** *)
-//
-fun
-cardset_get_at
-  (cs: cardset, i: int): card
-//
-overload [] with cardset_get_at
-//
-(* ****** ****** *)
-
-fun cardset_tabulate
-  (size: int, f: int -<cloref1> card): cardset
-// end of [cardset_tabulate]
-
-(* ****** ****** *)
-
-fun cardset_remove2_add1
-(
-  cs: cardset, i:int, j:int, c: card
-) : cardset // endfun
 
 (* ****** ****** *)
 
@@ -103,12 +95,5 @@ fun play24
 ) : List0(card) // end of [play24]
 
 (* ****** ****** *)
-//
-// HX: this one is a bit hacky ...
-//
-fun stringize_cardlst_save
-  (xs: List0(card), psave: ptr, n: int): intGte(0)(*saved*)
-//
-(* ****** ****** *)
 
-(* end of [GameOf24.sats] *)
+(* end of [GameOf24_py.sats] *)
