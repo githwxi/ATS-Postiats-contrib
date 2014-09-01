@@ -175,6 +175,38 @@ tok.token_node of
     // end of [if]
   end // end of [ATSPMVfunlab]
 //
+| T_KWORD(ATSCKpat_con0()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_signed, err0)
+    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKpat_con0_make (tok, ent2, ent4, ent5)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKpat_con0]
+//
+| T_KWORD(ATSCKpat_con1()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_signed, err0)
+    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKpat_con1_make (tok, ent2, ent4, ent5)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKpat_con1]
+//
 | T_KWORD(ATSSELcon()) => let
     val bt = 0
     val () = incby1 ()

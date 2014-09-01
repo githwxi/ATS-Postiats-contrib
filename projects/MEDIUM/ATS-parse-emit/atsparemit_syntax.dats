@@ -264,6 +264,40 @@ end // end of [ATSPMVcfunlab]
 (* ****** ****** *)
 
 implement
+ATSCKpat_con0_make
+(
+  tok1, d0e, tag, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+val+SIGNED (_, tag) = tag
+//
+in
+  d0exp_make_node (loc, ATSCKpat_con0 (d0e, tag))
+end // end of [ATSCKpat_con0_make]
+
+(* ****** ****** *)
+
+implement
+ATSCKpat_con1_make
+(
+  tok1, d0e, tag, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+val+SIGNED (_, tag) = tag
+//
+in
+  d0exp_make_node (loc, ATSCKpat_con1 (d0e, tag))
+end // end of [ATSCKpat_con1_make]
+
+(* ****** ****** *)
+
+implement
 ATSSELcon_make
 (
   tok1, d0e, s0e, lab, tok2
@@ -1332,6 +1366,19 @@ in
   d0ecl_make_node (loc, D0Cifdef (id, d0cs))
 end // end of [d0ecl_ifndef]
   
+(* ****** ****** *)
+
+implement
+d0ecl_assume
+  (tok1, name, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cassume (name))
+end // end of [d0ecl_assume]
+
 (* ****** ****** *)
 
 implement

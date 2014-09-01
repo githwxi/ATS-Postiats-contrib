@@ -26,6 +26,9 @@ def ATSCKpat_bool(tmp, given): return (tmp == given)
 def ATSCKpat_char(tmp, given): return (tmp == given)
 def ATSCKpat_float(tmp, given): return (tmp == given)
 #
+def ATSCKpat_con0 (con, tag): return (con == tag)
+def ATSCKpat_con1 (con, tag): return (con[0] == tag)
+#
 ############################################
 #
 def ats2pypre_print_obj(x):

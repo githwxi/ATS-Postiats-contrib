@@ -116,6 +116,20 @@ ATSPMVcfunlab_make
 ) : d0exp // end-of-fun
 
 (* ****** ****** *)
+
+fun
+ATSCKpat_con0_make
+(
+  tok_kwd: token, d0e: d0exp, tag: signed, tok_end: token
+) : d0exp // end-of-fun
+
+fun
+ATSCKpat_con1_make
+(
+  tok_kwd: token, d0e: d0exp, tag: signed, tok_end: token
+) : d0exp // end-of-fun
+
+(* ****** ****** *)
 //
 fun
 ATSSELcon_make
@@ -488,6 +502,9 @@ fun d0ecl_include
 //
 fun d0ecl_typedef
   (tok_beg: token, tyrec: tyrec, id: i0de): d0ecl
+//
+fun d0ecl_assume
+  (tok_beg: token, name: i0de, tok_end: token): d0ecl
 //
 fun
 d0ecl_dyncst_mac

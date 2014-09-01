@@ -4,14 +4,14 @@
 
 (* ****** ****** *)
 
-staload "GameOf24.sats"
+staload "./GameOf24.sats"
 
 (* ****** ****** *)
 
-dynload "GameOf24.sats"
-dynload "GameOf24_card.dats"
-dynload "GameOf24_cardset.dats"
-dynload "GameOf24_solve.dats"
+dynload "./GameOf24.sats"
+dynload "./GameOf24_card.dats"
+dynload "./GameOf24_cardset.dats"
+dynload "./GameOf24_solve.dats"
 
 (* ****** ****** *)
 

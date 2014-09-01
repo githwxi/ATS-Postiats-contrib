@@ -119,6 +119,16 @@ cleanall:: ; $(RMF) rtfind2_dats.py
 ######
 
 all:: \
+weekday_dats.py
+weekday_dats.py: weekday.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+weekday:: weekday_dats.py ; $(PYTHON) weekday_dats.py
+regress:: weekday
+cleanall:: ; $(RMF) weekday_dats.py
+
+######
+
+all:: \
 listlen_dats.py
 listlen_dats.py: listlen.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@

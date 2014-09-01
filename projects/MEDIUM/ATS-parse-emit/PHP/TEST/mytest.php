@@ -1,5 +1,5 @@
 <?php
-
+//
 include './fact_dats.php';
 include './fact2_dats.php';
 include './fibats_dats.php';
@@ -11,7 +11,7 @@ include './rtfind2_dats.php';
 require './libatscc2php/CATS/basics_cats.php';
 require './libatscc2php/CATS/integer_cats.php';
 require './libatscc2php/CATS/string_cats.php';
-
+//
 echo "fact(10) = "; echo fact(10); echo "\n"; flush();
 echo "fact2(10) = "; echo fact2(10); echo "\n"; flush();
 echo "fibats(20) = "; echo fibats(20); echo "\n"; flush();

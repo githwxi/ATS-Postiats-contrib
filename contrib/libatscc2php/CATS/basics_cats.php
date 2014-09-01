@@ -19,27 +19,34 @@
 /* ****** ****** */
 
 function
-ATSCKiseqz($x) { return ($x == 0); }
+ATSCKiseqz($x) { return ($x === 0); }
 function
-ATSCKisneqz($x) { return ($x != 0); }
+ATSCKisneqz($x) { return ($x !== 0); }
 
 /* ****** ****** */
 
 function
-ATSCKptrisnil($xs) { return (xs == NULL) ; }
+ATSCKptrisnil($xs) { return (xs === NULL) ; }
 function
-ATSCKptriscons($xs) { return (xs != NULL) ; }
+ATSCKptriscons($xs) { return (xs !== NULL) ; }
 
 /* ****** ****** */
 
 function
-ATSCKpat_int($tmp, $given) { return ($tmp==$given) ; }
+ATSCKpat_int($tmp, $given) { return ($tmp === $given) ; }
 function
-ATSCKpat_bool($tmp, $given) { return ($tmp==$given) ; }
+ATSCKpat_bool($tmp, $given) { return ($tmp === $given) ; }
 function
-ATSCKpat_char($tmp, $given) { return ($tmp==$given) ; }
+ATSCKpat_char($tmp, $given) { return ($tmp === $given) ; }
 function
-ATSCKpat_float($tmp, $given) { return ($tmp==$given) ; }
+ATSCKpat_float($tmp, $given) { return ($tmp === $given) ; }
+
+/* ****** ****** */
+
+function
+ATSCKpat_con0($con, $tag) { return ($con === $tag) ; }
+function
+ATSCKpat_con1($con, $tag) { return ($con[0] === $tag) ; }
 
 /* ****** ****** */
 
