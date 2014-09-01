@@ -99,6 +99,16 @@ cleanall:: ; $(RMF) isevn_dats.py
 ######
 
 all:: \
+weekday_dats.py
+weekday_dats.py: weekday.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
+weekday:: weekday_dats.py ; $(PYTHON) weekday_dats.py
+regress:: weekday
+cleanall:: ; $(RMF) weekday_dats.py
+
+######
+
+all:: \
 rtfind_dats.py
 rtfind_dats.py: rtfind.dats ; \
 $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
@@ -115,16 +125,6 @@ $(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
 rtfind2:: rtfind2_dats.py ; $(PYTHON) rtfind2_dats.py
 regress:: rtfind2
 cleanall:: ; $(RMF) rtfind2_dats.py
-
-######
-
-all:: \
-weekday_dats.py
-weekday_dats.py: weekday.dats ; \
-$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@
-weekday:: weekday_dats.py ; $(PYTHON) weekday_dats.py
-regress:: weekday
-cleanall:: ; $(RMF) weekday_dats.py
 
 ######
 

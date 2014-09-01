@@ -16,6 +16,8 @@ staload
 staload
 "{$LIBATSCC2PY}/SATS/integer.sats"
 staload
+"{$LIBATSCC2PY}/SATS/bool.sats"
+staload
 "{$LIBATSCC2PY}/SATS/string.sats"
 //
 (* ****** ****** *)
@@ -52,6 +54,7 @@ implement
 main0_py () =
 {
   val () = println! ("isweekend(Monday) = ", isweekend(Monday))
+  val () = println! ("isweekend(Saturday) = ", isweekend(Saturday))
 }
 
 (* ****** ****** *)
@@ -61,6 +64,7 @@ import sys
 ######
 from basics_cats import *
 from integer_cats import *
+from bool_cats import *
 from string_cats import *
 ######
 sys.setrecursionlimit(1000000)

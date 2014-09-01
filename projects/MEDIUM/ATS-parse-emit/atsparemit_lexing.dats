@@ -128,7 +128,9 @@ end // end of [pP_test]
 //
 fun SIGN_test
   (c: int): bool = let
-  val c = int2char0(c) in if c = '+' then true else c = '-'
+//
+val c = int2char0(c) in (c = '+' || c = '-')
+//
 end // end of [SIGN_test]
 //
 (* ****** ****** *)
@@ -432,23 +434,26 @@ if
 eE_test(i)
 then let
 //
-  val k1 = ftesting_opt (buf, SIGN_test)
-  val k2 = testing_digitseq0 (buf) // err: k2 = 0
+val k1 =
+  ftesting_opt (buf, SIGN_test)
+val k2 = testing_digitseq0 (buf) // err: k2 = 0
 //
-  val () =
-  if k2 = 0 then
-  {
-    val loc =
-      lexbuf_getincby_location (buf, k1+1)
-    val err =
-      lexerr_make (loc, LEXERR_FEXPONENT_nil)
-    val ((*void*)) = the_lexerrlst_insert (err)
-  } (* end of [if] *) // end of [val]
+val () =
+if k2 = 0 then
+{
+  val loc =
+    lexbuf_getincby_location (buf, k1+1)
+  val err =
+    lexerr_make (loc, LEXERR_FEXPONENT_nil)
+  val ((*void*)) = the_lexerrlst_insert (err)
+} (* end of [if] *) // end of [val]
 //
 in
   k1+k2+1
 end // end of [then]
-else (0) // end of [else]
+else (
+  lexbuf_incby_nback (buf, 1); 0
+) (* end of [else] *)
 //
 end // end of [then]
 else (0) // end of [else]
@@ -486,7 +491,9 @@ then let
 in
   k12 + 1
 end // end of [then]
-else 0 // end of [else]
+else (
+  lexbuf_incby_nback (buf, 1); 0
+) (* end of [else] *)
 //
 end // end of [then]
 else 0 // end of [else]

@@ -21,12 +21,16 @@ staload
 (* ****** ****** *)
 //
 extern
-fun fact : double -> double = "mac#fact"
+fun
+fact : double -> double = "mac#fact"
 //
 implement
 fact (n) = let
 //
-fun loop (n: double, res: double): double =
+fun loop
+(
+  n: double, res: double
+) : double =
   if n > 0.0 then loop (n-1.0, n*res) else res
 //
 in
