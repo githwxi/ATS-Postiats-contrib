@@ -21,6 +21,14 @@ staload "./../SATS/list.sats"
 //
 (* ****** ****** *)
 
+%{^
+######
+from prelude_basics_cats import *
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
+
 implement
 list_append
   (xs, ys) = let

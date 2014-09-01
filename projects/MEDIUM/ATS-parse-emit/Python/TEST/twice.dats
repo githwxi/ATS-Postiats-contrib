@@ -105,9 +105,9 @@ val ((*void*)) = println! ("ans3(65536) = ", ans3)
 %{^
 import sys
 ######
-from basics_cats import *
-from integer_cats import *
-from string_cats import *
+from prelude_basics_cats import *
+from prelude_integer_cats import *
+from prelude_string_cats import *
 ######
 sys.setrecursionlimit(1000000)
 %} // end of [%{^]

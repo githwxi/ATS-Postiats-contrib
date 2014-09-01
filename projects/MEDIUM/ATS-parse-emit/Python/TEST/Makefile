@@ -182,19 +182,21 @@ cleanall:: ; $(RMF) PYlist_test_dats.py
 CPRF=cp -rf
 
 ######
-
-libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/CATS/* ./libatscc2py/CATS
-
+#
+libatscc2py:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/output/* libatscc2py/.
+#
 ######
 
 clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
 
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) *_?ats.c
-cleanall:: ; $(RMF) *_?ats.pyc
-cleanall:: ; $(RMRF) __pycache__
+cleanall:: ; $(RMF) *_?ats.py
+# cleanall:: ; $(RMRF) libatscc2py/*_cats.py
+# cleanall:: ; $(RMRF) libatscc2py/*_dats.py
+# cleanall:: ; $(RMRF) libatscc2py/__pycache__
 
 ###### end of [Makefile] ######

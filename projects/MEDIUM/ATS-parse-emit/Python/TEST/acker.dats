@@ -34,8 +34,8 @@ case+
 %{^
 import sys
 ######
-from basics_cats import *
-from integer_cats import *
+from prelude_basics_cats import *
+from prelude_integer_cats import *
 ######
 sys.setrecursionlimit(1000000)
 %} // end of [%{^]

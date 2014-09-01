@@ -38,8 +38,8 @@ implement isodd (x) = if x > 0 then isevn_(x-1) else false
 %{^
 import sys
 ######
-from basics_cats import *
-from integer_cats import *
+from prelude_basics_cats import *
+from prelude_integer_cats import *
 ######
 sys.setrecursionlimit(1000000)
 %} // end of [%{^]
