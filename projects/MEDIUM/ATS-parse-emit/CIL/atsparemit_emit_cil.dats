@@ -228,7 +228,44 @@ end // end of [emit_extcode]
 (* ****** ****** *)
 //
 extern
-fun emit_instrlst
+fun emit_tmpvar_ld (out: FILEref, tmp: i0de): void
+//
+extern
+fun emit_tmpvar_st (out: FILEref, tmp: i0de): void
+//
+implement
+  emit_tmpvar_ld (out, tmp) =
+  {
+    val () =
+      if tmpvar_is_arg (tmp.i0de_sym)
+        then emit_text (out, "ldarg")
+        else emit_text (out, "ldloc")
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, tmp)
+  } // end of [emit_tmpvar_ld]
+//
+implement
+  emit_tmpvar_st
+    (out, tmp) =
+  {
+    val () =
+      if tmpvar_is_arg (tmp.i0de_sym)
+        then emit_text (out, "starg")
+        else emit_text (out, "stloc")
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, tmp)
+  } // end of [emit_tmpvar_st]
+//
+(* ****** ****** *)
+//
+extern
+fun
+emit_branchseqlst
+  (out: FILEref, inss: instrlst, labthis: label, labnext: label): void
+//
+extern
+fun
+emit_instrlst
   (out: FILEref, inss: instrlst, labbeg: label, labend: label) : void
 //
 extern
@@ -488,13 +525,7 @@ d0e.d0exp_node of
 //
 | D0Eide (id) =>
   {
-    val () =
-      if tmpvar_is_arg (id.i0de_sym)
-        then emit_text (out, "ldarg")
-        else emit_text (out, "ldloc")
-    // end of [val]
-    val () = emit_SPACE (out)
-    val () = emit_i0de (out, id)
+    val () = emit_tmpvar_ld (out, id)
   }
 //
 | D0Eappid (id, d0es) => let
@@ -511,7 +542,14 @@ d0e.d0exp_node of
       {
         val () = emit_text (out, "call")
         val () = emit_SPACE (out)
-        val () = emit_i0de (out, id) // FIXME: need also type of [id]!
+        val () =
+        (
+          case+ symbol_get_name (id.i0de_sym) of
+          | "atspre_print_newline" => emit_text (out, "void [mscorlib]System.Console::WriteLine()")
+          | "atspre_print_string" => emit_text (out, "void [mscorlib]System.Console::WriteLine(string)")
+          | "atspre_print_int" => emit_text (out, "void [mscorlib]System.Console::Write(int32)")
+          | _ => emit_i0de (out, id) // FIXME: need also type of [id]!
+        ) (* end of [val] *)
       }
     | ~Some_vt(fhd) =>
       {
@@ -694,13 +732,7 @@ ins0.instr_node of
 //
 | ATSreturn (tmp) =>
   {
-    val () =
-      if tmpvar_is_arg (tmp.i0de_sym)
-        then emit_text (out, "ldarg")
-        else emit_text (out, "ldloc")
-    // end of [val]
-    val () = emit_SPACE (out)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar_ld (out, tmp)
     val () = emit_newline (out)
     val () = emit_text (out, "ret")
   }
@@ -761,7 +793,46 @@ ins0.instr_node of
         val () = emit_instrlst (out, inss, labthis, labnext)
       }
   )
-// TODO: ATSifthen, ATSifnthen, ATScaseofseq, ATSbranchseq
+//
+| ATSifthen (d0e, inss) =>
+  {
+//
+    val-list_cons (ins, _) = inss
+//
+    val () = emit_d0exp (out, d0e)
+    val () = emit_ENDL (out)
+    val () = emit_text (out, "brfalse")
+    val () = emit_SPACE (out)
+    val () = emit_label (out, labnext)
+    val () = emit_ENDL (out)
+    val () = emit_instr (out, ins, labthis, labnext)
+  }
+| ATSifnthen (d0e, inss) =>
+  {
+//
+    val-list_cons (ins, _) = inss
+//
+    val () = emit_d0exp (out, d0e)
+    val () = emit_ENDL (out)
+    val () = emit_text (out, "brtrue")
+    val () = emit_SPACE (out)
+    val () = emit_label (out, labnext)
+    val () = emit_ENDL (out)
+    val () = emit_instr (out, ins, labthis, labnext)
+  }
+//
+| ATSbranchseq (inss) =>
+  {
+    val () = emit_text (out, "/* ATSbranch */")
+  }
+//
+| ATScaseofseq (inss) =>
+  {
+    val () = emit_text (out, "/* ATScaseofseq_beg */\n")
+    val () = emit_branchseqlst (out, inss, labthis, labnext)
+    val () = emit_text (out, "/* ATScaseofseq_end */\n")
+  }
+//
 // TODO: ATSlinepragma
 //
 | ATSreturn (tmp) =>
@@ -827,13 +898,7 @@ ins0.instr_node of
   {
     val () = emit_d0exp (out, d0e)
     val () = emit_newline (out)
-    val () =
-      if tmpvar_is_arg (tmp.i0de_sym)
-        then emit_text (out, "starg")
-        else emit_text (out, "stloc")
-    // end of [val]    
-    val () = emit_SPACE (out)
-    val () = emit_i0de (out, tmp)
+    val () = emit_tmpvar_st (out, tmp)
   } (* end of [ATSINSmove] *)
 | ATSINSmove_void (_, d0e) =>
   {
@@ -841,14 +906,110 @@ ins0.instr_node of
   } (* end of [ATSINSmove_void] *)
 // TODO: ATSdynload0, ATSdynload1, ATSdynloadset
 //
+| ATStailcalseq (inss) =>
+  {
+    val () = emit_text (out, "// ATStailcalseq_beg")
+    val () = emit_ENDL (out)
+    val () = emit_instrlst (out, inss, labthis, labnext)
+    val () = emit_text (out, "// ATStailcalseq_end")
+  } (* end of [ATStailcalseq] *)
+//
+| ATSINSmove_tlcal (tmp, d0e) =>
+  {
+    val () = emit_d0exp (out, d0e)
+    val () = emit_ENDL (out)
+    val () = emit_tmpvar_st (out, tmp)
+  } (* end of [ATSINSmove_tlcal] *)
+//
+| ATSINSargmove_tlcal (tmp1, tmp2) =>
+  {
+    val () = emit_tmpvar_ld (out, tmp2)
+    val () = emit_ENDL (out)
+    val () = emit_tmpvar_st (out, tmp1)    
+  } (* end of [ATSINSargmove_tlcal] *)
+//
 | _ =>
   {
-    val () = emit_text (out, "**INSTR**")
+    val ((*error*)) = fprint! (out, "UNRECOGNIZED-INSTRUCTION: ", ins0)
   }
 //
 end // end of [emit_instr]
 
 (* ****** ****** *)
+
+implement
+emit_branchseqlst
+  (out, inss, labthis, lablast) = let
+//
+fun auxseq
+(
+  out: FILEref
+, ins0: instr
+, labthis: label
+, labnext: label
+) : void = let
+in
+//
+case-
+ins0.instr_node of
+//
+| ATSbranchseq
+    (inss) =>
+  {
+    val () = emit_text (out, "/* ATSbranch_beg */\n")
+    val () = emit_instrlst (out, inss, labthis, labnext)
+    val () = emit_text (out, "/* ATSbranch_end */\n")
+  } // end of [ATSbranchseq]
+//
+end (* end of [auxseq] *)
+//
+fun auxseqlst
+(
+  out: FILEref
+, inss: instrlst
+, labnext: label
+, lablast: label
+) : void = let
+in
+//
+case+ inss of
+| list_nil () => ()
+| list_cons
+    (ins, inss) => let
+//
+    val labnext =
+    (
+      case+ inss of
+      | list_nil () => lablast
+      | _ => label_for_instrlst (inss)
+    ) (* end of [val] *)
+//
+    val () = auxseq (out, ins, labnext, lablast)
+//
+    val () = emit_text (out, "br")
+    val () = emit_SPACE (out)
+    val () = emit_label (out, lablast)
+    val () = emit_ENDL (out)
+//
+  in
+    auxseqlst (out, inss, labnext, lablast)
+  end (* end of [list_cons] *)
+//
+end (* end of [auxseqlst] *)
+//
+  val labthis =
+  (
+    case+ inss of
+    | list_nil () => lablast
+    | _ => label_for_instrlst (inss)
+  ) (* end of [val] *)
+//
+in
+  auxseqlst (out, inss, labthis, lablast);
+end // end of [emit_branchseqlst]
+
+(* ****** ****** *)
+
 implement
 emit_instrlst
 (

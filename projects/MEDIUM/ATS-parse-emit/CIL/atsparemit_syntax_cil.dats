@@ -136,10 +136,12 @@ implement hashtbl$recapacitize<> () = 1(*resizable*)
 implement
 f0head_insert
   (name, def) = let
+(*
 //
 val () =
   println! ("f0head_insert: ", symbol_get_name(name))
 //
+*)
 in
 //
 $F0HEADDEF.insert_any (name, def)
