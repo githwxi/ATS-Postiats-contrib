@@ -6,7 +6,7 @@
 ######
 
 ######
-#beg of [basics_cats.py]
+#beg of [atscc2py_basics.py]
 ######
 
 ######
@@ -18,7 +18,7 @@ import sys
 def ATSCKiseqz(x): return (x == 0)
 def ATSCKisneqz(x): return (x != 0)
 #
-def ATSCKptrisnil(xs): return (xs == None)
+def ATSCKptrisnull(xs): return (xs == None)
 def ATSCKptriscons(xs): return (xs != None)
 #
 def ATSCKpat_int(tmp, given): return (tmp == given)
@@ -68,5 +68,23 @@ def ats2pypre_list_nil(): return None
 def ats2pypre_list_cons(x, xs): return (x, xs)
 #
 ############################################
+#
+def ats2pypre_assert_bool0(tfv, errmsg):
+  if not(tfv): sys.exit(1)
+  return
+def ats2pypre_assert_bool1(tfv, errmsg):
+  if not(tfv): sys.exit(1)
+  return
+#
+def ats2pypre_assert_errmsg_bool0(tfv, errmsg):
+  if not(tfv):
+    print(errmsg, file=sys.__stderr__); sys.exit(1);
+  return
+def ats2pypre_assert_errmsg_bool1(tfv, errmsg):
+  if not(tfv):
+    print(errmsg, file=sys.__stderr__); sys.exit(1);
+  return
+#
+############################################
 
-###### end of [basics_cats.py] ######
+###### end of [atscc2py_basics.py] ######

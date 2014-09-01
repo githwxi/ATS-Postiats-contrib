@@ -5,7 +5,13 @@
 #
 ######
 
-###### beg of [float_cats.py] ######
+######
+#beg of [float_cats.py]
+######
+
+######
+from basics_cats import *
+######
 
 ############################################
 #
@@ -17,10 +23,18 @@ def ats2pypre_double_of_int(x): return float(x)
 #
 ############################################
 #
+def ats2pypre_abs_double(x): return abs(x)
+def ats2pypre_neg_double(x): return ( -x )
+#
+def ats2pypre_succ_double(x): return (x + 1)
+def ats2pypre_pred_double(x): return (x + 1)
+#
+############################################
+#
 def ats2pypre_add_double_double(x, y): return (x + y)
 def ats2pypre_sub_double_double(x, y): return (x - y)
 def ats2pypre_mul_double_double(x, y): return (x * y)
-def ats2pypre_div_double_double(x, y): return (x // y)
+def ats2pypre_div_double_double(x, y): return (x / y)
 #
 ############################################
 #
@@ -31,6 +45,15 @@ def ats2pypre_gte_double_double(x, y): return (x >= y)
 #
 def ats2pypre_eq_double_double(x, y): return (x == y)
 def ats2pypre_neq_double_double(x, y): return (x != y)
+#
+############################################
+#
+def ats2pypre_print_double(i):
+  return ats2pypre_fprint_double(sys.__stdout__, i)
+def ats2pypre_prerr_double(i):
+  return ats2pypre_fprint_double(sys.__stderr__, i)
+#
+def ats2pypre_fprint_double(out, i): return ats2pypre_fprint_obj(out, i)
 #
 ############################################
 

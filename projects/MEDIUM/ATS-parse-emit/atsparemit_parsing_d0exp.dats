@@ -117,6 +117,19 @@ tok.token_node of
     // end of [if]
   end // end of [ATSPMVbool_false]
 //
+| T_KWORD(ATSPMVfloat()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_FLOAT, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSPMVfloat_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVfloat]
+//
 | T_KWORD(ATSPMVstring()) => let
     val bt = 0
     val () = incby1 ()
@@ -187,6 +200,36 @@ tok.token_node of
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSPMVfunlab]
+//
+| T_KWORD(ATSPMVcastfn()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent6 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent7 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSPMVcastfn_make (tok, ent2, ent4, ent6, ent7)
+      ) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSPMVcastfn]
+//
+| T_KWORD(ATSCSTSPmyloc()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_STRING, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSCSTSPmyloc_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCSTSPmyloc]
 //
 | T_KWORD(ATSCKpat_con0()) => let
     val bt = 0

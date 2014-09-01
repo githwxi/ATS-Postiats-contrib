@@ -1784,6 +1784,7 @@ fdec.f0decl_node of
     val () = emit_f0head (out, fhd)
     val () = emit_ENDL (out)
     val () = emit_f0body (out, fbody)
+    val () = emit_newline (out)
   } (* end of [F0DECLsome] *)
 //
 end // end of [emit_f0decl]

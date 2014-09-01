@@ -93,7 +93,7 @@ fun cardset_tabulate
 fun cardset_remove2_add1
 (
   cs: cardset, i:int, j:int, c: card
-) : cardset // endfun
+) : cardset // end-of-fun
 
 (* ****** ****** *)
 

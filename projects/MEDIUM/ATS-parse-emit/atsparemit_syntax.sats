@@ -74,11 +74,24 @@ ATSPMVintrep_make
   tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
 //
+(* ****** ****** *)
+//
 fun
 ATSPMVbool_make
 (
   tok_kwd: token, tfv: bool, tok_end: token
 ) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+ATSPMVfloat_make
+(
+  tok_kwd: token, tok: f0loat, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
 fun
 ATSPMVstring_make
 (
@@ -92,6 +105,7 @@ ATSPMVi0nt_make
 (
   tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
+//
 fun
 ATSPMVf0loat_make
 (
@@ -115,6 +129,23 @@ ATSPMVcfunlab_make
 , knd: signed, flab: label, arg: d0exp, tok_end: token
 ) : d0exp // end-of-fun
 
+(* ****** ****** *)
+//
+fun
+ATSPMVcastfn_make
+(
+  tok_kwd: token
+, fid: i0de, s0e_res: s0exp, arg: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+ATSCSTSPmyloc_make
+(
+  tok_kwd: token, tok: s0tring, tok_end: token
+) : d0exp // end-of-fun
+//
 (* ****** ****** *)
 
 fun

@@ -78,6 +78,8 @@ fun emit_PMVfloat : emit_type (f0loat)
 fun emit_PMVi0nt : emit_type (i0nt)
 fun emit_PMVf0loat : emit_type (f0loat)
 //
+fun emit_CSTSPmyloc : emit_type (s0tring)
+//
 (* ****** ****** *)
 //
 fun emit_PMVfunlab : emit_type (label)

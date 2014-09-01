@@ -24,7 +24,7 @@ CPRF=cp -rf
 ######
 
 libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/CATS/* ./libatscc2py/CATS
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/CATS/* ./libatscc2py/.
 
 ######
 

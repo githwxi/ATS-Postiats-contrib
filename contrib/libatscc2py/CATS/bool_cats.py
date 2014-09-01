@@ -10,7 +10,7 @@
 ######
 
 ######
-from basics_cats import *
+from atscc2py_basics_cats import *
 ######
 
 ############################################

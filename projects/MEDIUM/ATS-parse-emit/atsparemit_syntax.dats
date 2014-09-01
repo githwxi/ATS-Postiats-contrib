@@ -201,6 +201,21 @@ end // end of [ATSPMVbool]
 (* ****** ****** *)
 
 implement
+ATSPMVfloat_make
+(
+  tok1, float, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVfloat (float))
+end // end of [ATSPMVfloat]
+
+(* ****** ****** *)
+
+implement
 ATSPMVstring_make
 (
   tok1, str, tok2
@@ -211,7 +226,7 @@ val loc =
 //
 in
   d0exp_make_node (loc, ATSPMVstring (str))
-end // end of [ATSPMVint]
+end // end of [ATSPMVstring]
 
 (* ****** ****** *)
 
@@ -273,8 +288,38 @@ val+SIGNED (_, knd) = knd
 val-D0Elist (d0es) = arg.d0exp_node
 //
 in
-  d0exp_make_node (loc, ATSPMVcfunlab (knd, fl, d0es))
+  d0exp_make_node (loc, ATSPMVcfunlab(knd, fl, d0es))
 end // end of [ATSPMVcfunlab]
+
+(* ****** ****** *)
+
+implement
+ATSPMVcastfn_make
+(
+  tok1, fid, s0e_res, arg, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVcastfn(fid, s0e_res, arg))
+end // end of [ATSPMVcastfn_make]
+
+(* ****** ****** *)
+
+implement
+ATSCSTSPmyloc_make
+(
+  tok1, str, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCSTSPmyloc (str))
+end // end of [ATSCSTSPmyloc_make]
 
 (* ****** ****** *)
 

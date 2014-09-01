@@ -125,6 +125,8 @@ case+ x of
 | ATSPMVbool_true () => pr "ATSPMVbool_true"
 | ATSPMVbool_false () => pr "ATSPMVbool_false"
 //
+| ATSPMVfloat () => pr "ATSPMVfloat"
+//
 | ATSPMVstring () => pr "ATSPMVstring"
 //
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
@@ -132,6 +134,10 @@ case+ x of
 //
 | ATSPMVfunlab () => pr "ATSPMVfunlab"
 | ATSPMVcfunlab () => pr "ATSPMVcfunlab"
+//
+| ATSPMVcastfn () => pr "ATSPMVcastfn"
+//
+| ATSCSTSPmyloc () => pr "ATSCSTSPmyloc"
 //
 | ATSINSlab () => pr "ATSINSlab"
 | ATSINSgoto () => pr "ATSINSgoto"
@@ -359,18 +365,22 @@ d0e.d0exp_node of
 //
 | ATSPMVbool (tfv) => fprint! (out, "ATSPMVbool(", tfv, ")")
 //
+| ATSPMVfloat (tok) => fprint! (out, "ATSPMVfloat(", tok, ")")
+//
 | ATSPMVstring (tok) => fprint! (out, "ATSPMVstring(", tok, ")")
 //
 | ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")
 | ATSPMVf0loat (tok) => fprint! (out, "ATSPMVf0loat(", tok, ")")
-(*
-| ATSPMVs0tring (tok) => fprint! (out, "ATSPMVs0tring(", tok, ")")
-*)
 //
 | ATSPMVfunlab (fl) =>
     fprint! (out, "ATSPMVfunlab(", fl, ")")
 | ATSPMVcfunlab (knd, fl, d0es) =>
-    fprint! (out, "ATSPMVcfunlab(", knd, "; ", fl, ";", d0es, ")")
+    fprint! (out, "ATSPMVcfunlab(", knd, ";", fl, ";", d0es, ")")
+//
+| ATSPMVcastfn (fid, s0e, arg) =>
+    fprint! (out, "ATSPMVcastfn(", fid, "; ", s0e, ";", arg, ")")
+//
+| ATSCSTSPmyloc (tok) => fprint! (out, "ATSCSTSPmyloc(", tok, ")")
 //
 | ATSCKpat_con0 (d0e, tag) =>
     fprint! (out, "ATSCKpat_con0(", d0e, tag, ")")

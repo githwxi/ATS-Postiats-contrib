@@ -192,6 +192,18 @@ val () = emit_RPAREN (out)
 (* ****** ****** *)
 
 implement
+emit_CSTSPmyloc
+  (out, tok) = let
+//
+val-T_STRING(rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_CSTSPmyloc]
+
+(* ****** ****** *)
+
+implement
 emit_ATSCKpat_con0
   (out, d0e, tag) =
 {
@@ -264,6 +276,8 @@ d0e0.d0exp_node of
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
+| ATSPMVfloat (tok) => emit_PMVfloat (out, tok)
+//
 | ATSPMVstring (tok) => emit_PMVstring (out, tok)
 //
 | ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
@@ -271,7 +285,12 @@ d0e0.d0exp_node of
 //
 | ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
 | ATSPMVcfunlab
-    (_(*knd*), fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
+    (knd, fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
+//
+| ATSPMVcastfn
+    (_(*fid*), _(*s0e*), arg) => emit_d0exp (out, arg)
+//
+| ATSCSTSPmyloc (tok) => emit_CSTSPmyloc (out, tok)
 //
 | ATSCKpat_con0
     (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)

@@ -24,8 +24,23 @@ def PYlist_isnot_nil(xs): return True if xs else False
 
 ############################################
 
+def PYlist_length(xs): return xs.__len__()
+
+############################################
+
+def PYlist_get_at(xs, ind): return xs[ind]
+
+############################################
+
+def PYlist_copy(xs):
+  res = []
+  for x in iter(xs): res.append(x)
+  return res
+
+############################################
+
 def PYlist_append(xs, x): xs.append(x); return
-def PYlist_extend(xs1, xs2): xs1.append(xs2); return
+def PYlist_extend(xs1, xs2): xs1.extend(xs2); return
 
 ############################################
 

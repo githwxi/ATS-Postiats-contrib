@@ -240,6 +240,7 @@ keyword =
   | ATSPMVintrep of ()
   | ATSPMVbool_true of ()
   | ATSPMVbool_false of ()
+  | ATSPMVfloat of ()
   | ATSPMVstring of ()
 //
   | ATSPMVi0nt of ()
@@ -247,6 +248,10 @@ keyword =
 //
   | ATSPMVfunlab of ()
   | ATSPMVcfunlab of ()
+//
+  | ATSPMVcastfn of ()
+//
+  | ATSCSTSPmyloc of ()
 //
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
@@ -722,6 +727,7 @@ d0exp_node =
   | ATSPMVint of i0nt
   | ATSPMVintrep of i0nt
   | ATSPMVbool of bool
+  | ATSPMVfloat of f0loat
   | ATSPMVstring of s0tring
 //
   | ATSPMVi0nt of i0nt
@@ -729,6 +735,10 @@ d0exp_node =
 //
   | ATSPMVfunlab of (label)
   | ATSPMVcfunlab of (int(*knd*), label, d0explst)
+//
+  | ATSPMVcastfn of (i0de(*fun*), s0exp, d0exp(*arg*))
+//
+  | ATSCSTSPmyloc of s0tring
 //
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))

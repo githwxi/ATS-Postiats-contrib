@@ -62,11 +62,15 @@ fun card_get_val (card): double
 fun card_make_int (v: int): card
 
 (* ****** ****** *)
+
+typedef cardlst = List0 (card)
+
+(* ****** ****** *)
 //
 fun
 fprint_card (out: PYfile, x: card): void
 fun
-fprint_cardlst (out: PYfile, xs: List0(card)): void
+fprint_cardlst (out: PYfile, xs: cardlst): void
 //
 overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10
@@ -76,7 +80,7 @@ overload fprint with fprint_cardlst of 10
 fun
 fpprint_card (out: PYfile, x: card): void
 fun
-fpprint_cardlst (out: PYfile, xs: List0(card)): void
+fpprint_cardlst (out: PYfile, xs: cardlst): void
 //
 (* ****** ****** *)
 
@@ -86,6 +90,29 @@ typedef cardset = cardset_type
 (* ****** ****** *)
 
 fun cardset_size (cardset): int
+
+(* ****** ****** *)
+//
+fun
+cardset_get_at
+  (cs: cardset, i: int): card
+//
+overload [] with cardset_get_at
+//
+(* ****** ****** *)
+//
+fun
+cardset_make_nil (): cardset
+fun
+cardset_make_list (cardlst): cardset
+//
+(* ****** ****** *)
+
+fun
+cardset_remove2_add1
+(
+  cs: cardset, i:int, j:int, c: card
+) : cardset // end-of-fun
 
 (* ****** ****** *)
 
