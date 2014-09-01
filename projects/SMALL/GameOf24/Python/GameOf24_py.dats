@@ -162,6 +162,42 @@ end // end of [fpprint_card]
 end // end of [local]
 
 (* ****** ****** *)
+
+local
+
+#define EPSILON 0.1
+
+in (* in-of-local *)
+
+implement
+fpprint_cardlst
+  (out, cs) = let
+//
+fun fprone
+(
+  out: PYfile, c: card
+) : void = let
+  val v = card_get_val (c)
+in
+  fpprint_card (out, c);
+  fprint_string (out, " = ");
+  fprint_int (out, g0f2i(v+EPSILON))
+end // end of [fprone
+//
+in
+//
+case+ cs of
+| list_nil () => ()
+| list_cons (c, cs) =>
+  (
+    fprone (out, c); fpprint_cardlst (out, cs)
+  ) (* end of [list_cons] *)
+//
+end // end of [fpprint_cardlst]
+
+end // end of [local]
+
+(* ****** ****** *)
 //
 extern
 fun main0_py (): void = "mac#GameOf24_py_main0_py"
@@ -171,16 +207,14 @@ main0_py () =
 {
 //
 val n1 = 3
+val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-//
 val out = stdout
-//
+val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-//
-val c1 = card_make_int (n1)
-val () = fprintln! (out, "c1 = ", c1)
+val () = (fpprint_cardlst (out, res); fprint_newline (out))
 //
 } (* end of [main0_py] *)
 //

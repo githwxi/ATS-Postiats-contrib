@@ -89,4 +89,11 @@ fun cardset_size (cardset): int
 
 (* ****** ****** *)
 
+fun play24
+(
+  n1: int, n2: int, n3: int, n4: int
+) : List0(card) // end of [play24]
+
+(* ****** ****** *)
+
 (* end of [GameOf24_py.sats] *)

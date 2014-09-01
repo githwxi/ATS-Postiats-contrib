@@ -214,7 +214,11 @@ end // end of [fprint_cardlst]
 
 (* ****** ****** *)
 
+local
+
 #define EPSILON 0.1
+
+in (* in-of-local *)
 
 implement
 fpprint_cardlst
@@ -236,6 +240,8 @@ val () = fprint_list (out, cs)
 //
 in
 end // end of [fpprint_cardlst]
+
+end // end of [local]
 
 (* ****** ****** *)
 

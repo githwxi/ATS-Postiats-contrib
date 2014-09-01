@@ -231,6 +231,21 @@ end // end of [ATSPMVi0nt]
 (* ****** ****** *)
 
 implement
+ATSPMVf0loat_make
+(
+  tok1, float, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVf0loat (float))
+end // end of [ATSPMVf0loat]
+
+(* ****** ****** *)
+
+implement
 ATSPMVfunlab_make
 (
   tok1, flab, tok2

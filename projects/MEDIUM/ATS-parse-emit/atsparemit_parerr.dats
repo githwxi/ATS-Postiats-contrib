@@ -113,6 +113,8 @@ x.parerr_node of
 | PARERR_ZERO () => SN (x, "ZERO")
 | PARERR_INT10 () => SN (x, "INT10")
 //
+| PARERR_FLOAT () => SN (x, "FLOAT")
+//
 | PARERR_STRING () => SN (x, "STRING")
 //
 | PARERR_SRPendif () => SN (x, "#endif")

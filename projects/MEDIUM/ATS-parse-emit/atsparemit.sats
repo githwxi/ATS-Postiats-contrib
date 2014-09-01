@@ -332,8 +332,8 @@ token_node =
 //
 | T_INT of (int(*base*), string)
 | T_FLOAT of (int(*base*), string)
-| T_STRING of (string)
 //
+| T_STRING of (string)
 //
 | T_LPAREN of () // (
 | T_RPAREN of () // )
@@ -412,6 +412,7 @@ typedef s0tring = token
 //
 datatype
 lexerr_node =
+  | LEXERR_FEXPONENT_nil of ()
   | LEXERR_UNSUPPORTED_char of (char)
 //
 typedef lexerr = '{

@@ -126,6 +126,13 @@ end // end of [pP_test]
 //
 (* ****** ****** *)
 //
+fun SIGN_test
+  (c: int): bool = let
+  val c = int2char0(c) in if c = '+' then true else c = '-'
+end // end of [SIGN_test]
+//
+(* ****** ****** *)
+//
 fun ZERO_test
   (i: int): bool = (i = char2int0('0'))
 //
@@ -155,10 +162,6 @@ end // end of [FLOATSP_test]
 //
 (* ****** ****** *)
 //
-fun SIGN_test (c: char): bool = (c = '-' || c = '+')
-//
-(* ****** ****** *)
-//
 extern
 fun
 ftesting_one
@@ -181,6 +184,31 @@ i > 0
 ) else (0)
 //
 end // end of [ftesting_one]
+//
+(* ****** ****** *)
+//
+extern
+fun
+ftesting_opt
+(
+  buf: &lexbuf >> _, f: int -> bool
+) : intGte(0) // end of [ftesting_opt]
+//
+implement
+ftesting_opt
+  (buf, f) = let
+//
+val i = lexbuf_get_char (buf)
+//
+in
+//
+if (
+i > 0
+) then (
+  if f(i) then 1 else (lexbuf_incby_nback (buf, 1); 0)
+) else (0)
+//
+end // end of [ftesting_opt]
 //
 (* ****** ****** *)
 //
@@ -381,15 +409,118 @@ testing_intspseq0
   ftesting_seq0 (buf, INTSP_test)
 //
 (* ****** ****** *)
+
+fun
+testing_fexponent
+(
+  buf: &lexbuf
+) : intGte(0) = let
+//
+val i = lexbuf_get_char (buf)
+//
+in
+//
+if
+i > 0
+then let
+//
+val c = int2char0(i)
+//
+in
+//
+if
+eE_test(i)
+then let
+//
+  val k1 = ftesting_opt (buf, SIGN_test)
+  val k2 = testing_digitseq0 (buf) // err: k2 = 0
+//
+  val () =
+  if k2 = 0 then
+  {
+    val loc =
+      lexbuf_getincby_location (buf, k1+1)
+    val err =
+      lexerr_make (loc, LEXERR_FEXPONENT_nil)
+    val ((*void*)) = the_lexerrlst_insert (err)
+  } (* end of [if] *) // end of [val]
+//
+in
+  k1+k2+1
+end // end of [then]
+else (0) // end of [else]
+//
+end // end of [then]
+else (0) // end of [else]
+//
+end // end of [testing_fexponent]
+
+(* ****** ****** *)
+
+fun
+testing_deciexp
+(
+  buf: &lexbuf
+) : intGte(0) = let  
+//
+val i = lexbuf_get_char (buf)
+//
+in
+//
+if
+i > 0
+then let
+//
+val c = int2char0(i)
+//
+in
+//
+if
+c = '.'
+then let
+//
+  val k1 = testing_digitseq0 (buf)
+  val k2 = testing_fexponent (buf)
+  val k12 = k1 + k2
+//
+in
+  k12 + 1
+end // end of [then]
+else 0 // end of [else]
+//
+end // end of [then]
+else 0 // end of [else]
+//
+end // end of [testing_deciexp]
+
+(* ****** ****** *)
 //
 extern
 fun
 lexing_INT_oct (buf: &lexbuf): token
 //
+extern
+fun
+lexing_INT_dec (buf: &lexbuf): token
+//
+extern
+fun
+lexing_FLOAT_deciexp (buf: &lexbuf): token
+//
+(* ****** ****** *)
+//
 implement
 lexing_INT_oct
   (buf) = let
+//
 val k0 = testing_octalseq0 (buf)
+//
+in
+//
+if
+k0 >= 2
+then let
+//
 val k1 = testing_intspseq0 (buf)
 val nchr = succ(k0 + k1)
 val intrep = lexbuf_takeout (buf, nchr)
@@ -402,28 +533,71 @@ val base =
 //
 in
   token_make (loc, T_INT(base, intrep))
+end // end of [then]
+else lexing_INT_dec (buf)
+//
 end // end of [lexing_INT_oct]
 
 (* ****** ****** *)
-
-extern
-fun
-lexing_INT_dec (buf: &lexbuf): token
 //
 implement
-lexing_INT_dec
-  (buf) = let
+lexing_INT_dec (buf) = let
 //
-val k0 = testing_digitseq0 (buf)
-val k1 = testing_intspseq0 (buf)
-val nchr = succ(k0 + k1)
-val intrep = lexbuf_takeout (buf, nchr)
-val intrep = strptr2string (intrep)
+val k0 =
+  testing_digitseq0 (buf)
 //
-val loc = lexbuf_getincby_location (buf, nchr)
+val k1 = testing_deciexp (buf)
+//
+in
+//
+if
+k1 > 0
+then let
+//
+  val nchr = succ(k0 + k1)
+  val float = lexbuf_takeout (buf, nchr)
+  val float = strptr2string (float)
+//
+  val loc = lexbuf_getincby_location (buf, nchr)
+//
+in
+  token_make (loc, T_FLOAT(10(*base*), float))
+end // end of [then]
+else let
+//
+val k1 = testing_fexponent (buf)
+//
+in
+//
+if
+k1 > 0
+then let
+//
+  val nchr = succ(k0 + k1)
+  val float = lexbuf_takeout (buf, nchr)
+  val float = strptr2string (float)
+//
+  val loc = lexbuf_getincby_location (buf, nchr)
+//
+in
+  token_make (loc, T_FLOAT(10(*base*), float))
+end // end of [then]
+else let
+//
+  val k1 = testing_intspseq0 (buf)
+//
+  val nchr = succ(k0 + k1)
+  val intrep = lexbuf_takeout (buf, nchr)
+  val intrep = strptr2string (intrep)
+//
+  val loc = lexbuf_getincby_location (buf, nchr)
 //
 in
   token_make (loc, T_INT(10(*base*), intrep))
+end // end of [else]
+//
+end // end of [else]
+//
 end // end of [lexing_INT_dec]
 
 (* ****** ****** *)

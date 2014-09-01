@@ -46,6 +46,10 @@ in
 //
 case+
 x.lexerr_node of
+| LEXERR_FEXPONENT_nil () =>
+  {
+    val () = fprintln! (out, "Floating number exponent is nil")
+  }
 | LEXERR_UNSUPPORTED_char (c) =>
   {
     val i = char2int0(c)
