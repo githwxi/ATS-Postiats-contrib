@@ -1337,6 +1337,13 @@ d0c.d0ecl_node of
     // TODO: insert type (class) declaration
   } (* end of [D0Ctypedef] *)
 //
+| D0Cassume (id) =>
+  {
+    val () = emit_text (out, "/* ATSassume(")
+    val () = emit_i0de (out, id)
+    val () = emit_text (out, ") */\n")
+  }
+//
 | D0Cdyncst_mac ide =>
   // [ide] is the identifier for a dynamic constant which is implemented as a macro
   ()
