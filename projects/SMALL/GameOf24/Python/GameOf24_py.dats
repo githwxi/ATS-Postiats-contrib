@@ -1,7 +1,13 @@
 //
-// Implementing Game-of-24
+// Game-of-24:
+// An example of combining
+// ATS2 and Python3
 //
-
+(* ****** ****** *)
+//
+// Author: Hongwei Xi
+// Start time: the last day of August, 2014
+//
 (* ****** ****** *)
 //
 #include
@@ -47,6 +53,8 @@ card_node =
   | CARDsub of (card, card)
   | CARDmul of (card, card)
   | CARDdiv of (card, card)
+// end of [card_node]
+
 where
 card = '{
 //
