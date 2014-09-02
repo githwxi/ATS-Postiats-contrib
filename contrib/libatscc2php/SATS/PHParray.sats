@@ -66,5 +66,10 @@ fun
 PHParray_copy{a:t0p}(PHParray(a)): PHParray(a) = "mac#"
 //
 (* ****** ****** *)
+//
+fun
+PHParray_values{a:t0p}(PHParray(a)): PHParray(a) = "mac#"
+//
+(* ****** ****** *)
 
 (* end of [PHParray.sats] *)
