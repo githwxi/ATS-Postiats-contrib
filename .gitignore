@@ -46,4 +46,7 @@ contrib/SDL2/SDL2_image-2.0.0
 
 contrib/zlog/zlog-latest-stable/
 
+contrib/libatscc2py/output/*_cats.py
+contrib/libatscc2py/output/*_dats.py
+
 ###### end of [.gitignore] ######

@@ -4,12 +4,17 @@
 
 ######
 
+PYTHON=python3
+export PYTHONPATH=libatscc2py/.
+
+######
+
 PATSCC=${PATSHOME}/bin/patscc
 ATSCC2PY=${PATSHOME}/bin/atscc2py
 
 ######
 
-all: GameOf24_py_dats.py
+all: GameOf24_py_dats.py; $(PYTHON) $<
 
 ######
 

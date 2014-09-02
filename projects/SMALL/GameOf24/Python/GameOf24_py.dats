@@ -494,8 +494,8 @@ val () = fpprint_cardlst (out, res)
 (* ****** ****** *)
 
 %{^
+######
 import sys
-sys.setrecursionlimit(1000000)
 ######
 #
 from prelude_basics_cats import *
@@ -511,6 +511,8 @@ from prelude_PYlist_cats import *
 #
 from prelude_list_dats import *
 #
+######
+sys.setrecursionlimit(1000000)
 ######
 %} // end of [%{^]
 

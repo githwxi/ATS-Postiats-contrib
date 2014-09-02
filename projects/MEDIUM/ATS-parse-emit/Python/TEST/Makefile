@@ -4,16 +4,17 @@
 
 ######
 
+PYTHON=python3
+export PYTHONPATH=libatscc2py/.
+
+######
+
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
 ATSPAREMIT=./../atscc2py
-
-######
-
-PYTHON=python3
 
 ######
 
