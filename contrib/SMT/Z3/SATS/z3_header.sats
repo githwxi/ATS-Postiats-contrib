@@ -50,6 +50,10 @@ typedef Z3_string = string
 
 (* ****** ****** *)
 
+typedef Z3_lbool = int
+
+(* ****** ****** *)
+
 absvtype
 Z3_config_vtype (l:addr) = ptr
 stadef Z3_config = Z3_config_vtype
@@ -57,10 +61,10 @@ vtypedef Z3_config = [l:addr] Z3_config (l)
 
 (* ****** ****** *)
 
-absvtype
-Z3_context_vtype (l:addr) = ptr
-stadef Z3_context = Z3_context_vtype
-vtypedef Z3_context = [l:addr] Z3_context (l)
+abstype
+Z3_context_type (l:addr) = ptr
+stadef Z3_context = Z3_context_type
+typedef Z3_context = [l:addr] Z3_context (l)
 
 (* ****** ****** *)
 
@@ -88,7 +92,7 @@ stadef Z3_func_decl = Z3_func_decl_vtype
 vtypedef
 Z3_func_decl = [l:addr] Z3_func_decl (l)
 
-absvtype
+absvt@ype
 Z3_app_vtype (l:addr) = ptr
 stadef Z3_app = Z3_app_vtype
 vtypedef

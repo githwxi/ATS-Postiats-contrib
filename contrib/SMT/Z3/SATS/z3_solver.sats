@@ -42,7 +42,7 @@
 #ifndef
 ATSCNTRB_SML_Z3_Z3_HEADER
 #include "./z3_header.sats"
-#endif // end of [#ifndef]
+#endif
 //
 (* ****** ****** *)
 
@@ -52,7 +52,7 @@ Create a new (incremental) solver. This solver also uses a set of builtin
 tactics for handling the first check-sat command, and check-sat commands
 that take more than a given number of milliseconds to be solved.
 *)
-fun Z3_mk_solver (ctx: !Z3_context): Z3_solver
+fun Z3_mk_solver (ctx: Z3_context): Z3_solver = "mac#%"
 
 (* ****** ****** *)
 
@@ -75,9 +75,13 @@ solve each Z3_solver_check from scratch.
 *)
 fun Z3_mk_solver_from_tactic (ctx: !Z3_context, tactic: !Z3_tactic): Z3_solver
 
-(* ****** ****** *)
 
-fun Z3_mk_solver_get_help (ctx: !Z3_context, solver: !Z3_solver): vStrptr1
+fun Z3_mk_solver_from_tactic
+(
+  ctx: !Z3_context, t: !Z3_tactic
+): Z3_solver = "mac#%" // end of [Z3_mk_solver_from_tactic]
+
+fun Z3_mk_solver_get_help (ctx: !Z3_context, solver: !Z3_solver): string
 
 (* ****** ****** *)
 
@@ -85,7 +89,9 @@ fun Z3_solver_inc_ref
   (ctx: !Z3_context, p: !Z3_solver): Z3_solver = "mac#%"
 // end of [Z3_solver_inc_ref]
 
-fun Z3_solver_dec_ref (ctx: !Z3_context, p: Z3_solver): void = "mac#%"
+fun Z3_solver_dec_ref (
+  ctx: !Z3_context, p: Z3_solver
+): void = "mac#atscntrb_Z3_solver_dec_ref"
 
 (* ****** ****** *)
 
@@ -97,7 +103,47 @@ Z3_solver_get_model
 ) : [l2:addr]
 (
   minus (Z3_solver l, Z3_model l2) | Z3_model l2
-) // end of [Z3_solver_get_model]
+) = "mac#%" // end of [Z3_solver_get_model]
+
+fun Z3_mk_tactic
+(
+  ctx: !Z3_context, name: Z3_string
+): Z3_tactic = "mac#%" //end of [Z3_mk_tactic]
+
+fun Z3_tactic_dec_ref
+(
+  ctx: !Z3_context, t: Z3_tactic
+): void = "mac#%" // end of [Z3_tactic_decref]
+
+(* ****** ****** *)
+
+fun Z3_solver_assert
+(
+  ctx: !Z3_context, s: !Z3_solver, f: !Z3_ast
+): void = "mac#" // end of [Z3_solver_assert]
+
+fun Z3_solver_check 
+(
+  ctx: !Z3_context, s: !Z3_solver
+): Z3_lbool = "mac#" // end of [Z3_solver_check]
+
+(* ****** ****** *)
+
+fun Z3_solver_push
+(
+  ctx: !Z3_context, s: !Z3_solver
+): void = "mac#" // end of [Z3_solver_push]
+
+fun Z3_solver_pop 
+(
+  ctx: !Z3_context, s: !Z3_solver, depth: uint
+): void = "mac#" // end of [Z3_solver_pop]
+
+(* ****** ****** *)
+
+fun Z3_solver_get_num_scopes (
+  _: !Z3_context, _: !Z3_solver
+): uint = "mac#"
 
 (* ****** ****** *)
 

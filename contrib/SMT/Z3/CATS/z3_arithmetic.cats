@@ -34,30 +34,65 @@
 
 ATSinline()
 Z3_ast
-atscntrb_Z3_mk_add2
-  (Z3_context ctx, Z3_ast a0, Z3_ast a1)
-{
-  Z3_ast a01[2] ;
-  a01[0] = a0 ; a01[1] = a1 ;
-  return atscntrb_Z3_inc_ref(Z3_mk_add(ctx, 2, a01)) ;
-} // end of [atscntrb_Z3_mk_add2]
-
-/* ****** ****** */
+atscntrb_Z3_mk_mul2 (Z3_context ctx, Z3_ast l, Z3_ast r) {
+  Z3_ast args[2] = {l, r};
+  Z3_BODY_MK_AST(Z3_mk_mul, 2, args)
+}
 
 ATSinline()
 Z3_ast
-atscntrb_Z3_mk_mul2
-  (Z3_context ctx, Z3_ast a0, Z3_ast a1)
-{
-  Z3_ast a01[2] ;
-  a01[0] = a0 ; a01[1] = a1 ;
-  return atscntrb_Z3_inc_ref(Z3_mk_mul(ctx, 2, a01)) ;
-} // end of [atscntrb_Z3_mk_mul2]
+atscntrb_Z3_mk_add2 (Z3_context ctx, Z3_ast l, Z3_ast r) {
+  Z3_ast args[2] = {l, r};
+  Z3_BODY_MK_AST(Z3_mk_add, 2, args)
+}
+
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_sub2 (Z3_context ctx, Z3_ast l, Z3_ast r) {
+  Z3_ast args[2] = {l, r};
+  Z3_BODY_MK_AST(Z3_mk_sub, 2, args)
+}
+
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_div (Z3_context ctx, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_div, l, r)
+}
 
 /* ****** ****** */
 
-#endif // end of [Z3_Z3_ARITHMETIC_CATS]
+Z3_DECLARE_MK_AST(Z3_mk_lt, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_lt, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_le, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_le, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_gt, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_gt, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_ge, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_ge, l, r)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_unary_minus, Z3_ast num) {
+  Z3_BODY_MK_AST(Z3_mk_unary_minus, num)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_is_int, Z3_ast num) {
+  Z3_BODY_MK_AST(Z3_mk_is_int, num)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_int2real, Z3_ast num) {
+  Z3_BODY_MK_AST(Z3_mk_int2real, num)
+}
 
 /* ****** ****** */
 
 /* end of [z3_airthmetic.cats] */
+
+#endif

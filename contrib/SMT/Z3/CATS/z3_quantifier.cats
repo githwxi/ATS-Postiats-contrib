@@ -27,62 +27,18 @@
 
 /* ****** ****** */
 
-#ifndef Z3_Z3_CONSTAPP_CATS
-#define Z3_Z3_CONSTAPP_CATS
+#ifndef Z3_Z3_QUANTIFIER_CATS
+#define Z3_Z3_QUANTIFIER_CATS
 
 /* ****** ****** */
 
-Z3_DECLARE_MK_AST(Z3_mk_const, Z3_symbol sym, Z3_sort ty) {
-  Z3_BODY_MK_AST(Z3_mk_const, sym, ty)
+Z3_DECLARE_MK_AST(Z3_mk_forall_const, unsigned weight, unsigned num_bound, void ** bound, unsigned num_patterns,  void ** patterns, Z3_ast body) {
+  Z3_BODY_MK_AST(Z3_mk_forall_const, weight, num_bound, (Z3_app const *)bound, num_patterns, (Z3_pattern const *) patterns, body)
 }
 
-/* ****** ****** */
-
-Z3_DECLARE_MK_AST(Z3_mk_fresh_const, Z3_string prefix, Z3_sort ty) {
-  Z3_BODY_MK_AST(Z3_mk_fresh_const, prefix, ty)
-}
 
 /* ****** ****** */
 
-ATSinline()
-Z3_func_decl
-atscntrb_Z3_mk_func_decl (Z3_context ctx, Z3_symbol s, uint n, void **domain, Z3_sort range) {
-  Z3_func_decl dec = Z3_mk_func_decl(ctx, s, n, (Z3_sort *)domain, range);
-  
-  Z3_error_code e = Z3_get_error_code(ctx);
-  if (e != Z3_OK) {
-    Z3_string msg = Z3_get_error_msg_ex(ctx, e);
-    fprintf(stderr, "Z3 Error: %s\n", msg);
-  }
-  Z3_inc_ref(ctx, Z3_func_decl_to_ast(ctx, dec));
-  return dec;
-}
+#endif
 
-/* ****** ****** */
-
-ATSinline()
-Z3_func_decl
-atscntrb_Z3_func_decl_inc_ref (Z3_context ctx, Z3_func_decl d) {
-  Z3_inc_ref(ctx, Z3_func_decl_to_ast(ctx, d));
-  return d;
-}
-
-ATSinline()
-void
-atscntrb_Z3_func_decl_dec_ref (Z3_context ctx, Z3_func_decl d) {
-  Z3_dec_ref(ctx, Z3_func_decl_to_ast(ctx, d));
-}
-
-/* ****** ****** */
-
-Z3_DECLARE_MK_AST(Z3_mk_app, Z3_func_decl f, uint n, void **args) {
-  Z3_BODY_MK_AST(Z3_mk_app, f, n, (Z3_ast const *)args)
-}
-
-/* ****** ****** */
-
-#endif // end of [Z3_Z3_CONSTAPP_CATS]
-
-/* ****** ****** */
-
-/* end of [z3_constapp.cats] */
+/* end of [z3_quantifier.cats] */
