@@ -30,6 +30,7 @@ def PYlist_make_elt(n, x):
 ############################################
 
 def PYlist_is_nil(xs): return not(xs)
+def PYlist_is_cons(xs): return True if xs else False
 def PYlist_isnot_nil(xs): return True if xs else False
 
 ############################################

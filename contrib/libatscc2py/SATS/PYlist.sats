@@ -44,6 +44,10 @@ PYlist_is_nil
   {a:t0p} (xs: PYlist(a)): bool = "mac#"
 //
 fun
+PYlist_is_cons
+  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+//
+fun
 PYlist_isnot_nil
   {a:t0p} (xs: PYlist(a)): bool = "mac#"
 //

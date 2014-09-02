@@ -22,4 +22,9 @@ $(CPF) ./CATS/string_cats.php ./output/prelude_string_cats.php
 
 #######
 
+all:: ; \
+$(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/prelude_list_dats.php -i
+
+#######
+
 ###### end of [Makefile] ######
