@@ -16,6 +16,8 @@ from prelude_basics_cats import *
 ############################################
 
 def PYlist_nil(): return []
+def PYlist_sing(x): return [x]
+def PYlist_pair(x1, x2): return [x1, x2]
 
 ############################################
 
@@ -29,6 +31,7 @@ def PYlist_length(xs): return xs.__len__()
 ############################################
 
 def PYlist_get_at(xs, ind): return xs[ind]
+def PYlist_set_at(xs, ind, x): xs[ind] = x; return
 
 ############################################
 

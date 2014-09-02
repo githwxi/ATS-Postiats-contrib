@@ -4,10 +4,6 @@
 
 ######
 
-NODEJS=node
-
-######
-
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
@@ -18,7 +14,6 @@ ATSCC2JS=./../atscc2php
 ######
 
 all::
-regress::
 cleanall::
 
 ######

@@ -180,6 +180,17 @@ cleanall:: ; $(RMF) PYlist_test_dats.py
 
 ######
 
+all:: \
+refcount_dats.py
+refcount_dats.py: refcount.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@ -i
+refcount:: \
+refcount_dats.py ; $(PYTHON) refcount_dats.py
+regress:: refcount
+cleanall:: ; $(RMF) refcount_dats.py
+
+######
+
 CPRF=cp -rf
 
 ######

@@ -21,7 +21,15 @@ staload "./../basics_py.sats"
 //
 fun
 PYlist_nil
-  {a:t0p} ((*void*)): PYlist(a) = "mac#"
+  {a:t0p} (): PYlist(a) = "mac#"
+//
+fun
+PYlist_sing
+  {a:t0p} (x: a): PYlist(a) = "mac#"
+//
+fun
+PYlist_pair
+  {a:t0p} (x1: a, x2: a): PYlist(a) = "mac#"
 //
 (* ****** ****** *)
 //
@@ -42,6 +50,9 @@ PYlist_length{a:t0p}(PYlist(a)): int = "mac#"
 //
 fun
 PYlist_get_at{a:t0p}(PYlist(a), int): a = "mac#"
+//
+fun
+PYlist_set_at{a:t0p}(PYlist(a), int, a): void = "mac#"
 //
 (* ****** ****** *)
 //

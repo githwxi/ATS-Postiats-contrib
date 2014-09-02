@@ -563,6 +563,16 @@ d0c.d0ecl_node of
     typedef_insert (id.i0de_sym, def)
   // end of [D0Ctypedef]
 //
+| D0Cassume (id) =>
+  {
+    val () = emit_ENDL (out)
+    val () =
+      emit_text (out, "// ATSassume(")
+    val () = (
+      emit_i0de (out, id); emit_text (out, ")\n")
+    ) (* end of [val] *)
+  }
+//
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
 //

@@ -71,9 +71,9 @@ fun emit_PMVintrep : emit_type (i0nt)
 //
 fun emit_PMVbool : emit_type (bool)
 //
-fun emit_PMVstring : emit_type (s0tring)
-//
 fun emit_PMVfloat : emit_type (f0loat)
+//
+fun emit_PMVstring : emit_type (s0tring)
 //
 fun emit_PMVi0nt : emit_type (i0nt)
 fun emit_PMVf0loat : emit_type (f0loat)

@@ -117,18 +117,6 @@ emit_PMVbool
 (* ****** ****** *)
 
 implement
-emit_PMVstring
-  (out, tok) = let
-//
-val-T_STRING(rep) = tok.token_node
-//
-in
-  emit_text (out, rep)
-end // end of [emit_PMVstring]
-
-(* ****** ****** *)
-
-implement
 emit_PMVfloat
   (out, tok) = let
 //
@@ -137,6 +125,18 @@ val-T_FLOAT(base, rep) = tok.token_node
 in
   emit_text (out, rep)
 end // end of [emit_PMVfloat]
+
+(* ****** ****** *)
+
+implement
+emit_PMVstring
+  (out, tok) = let
+//
+val-T_STRING(rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVstring]
 
 (* ****** ****** *)
 
