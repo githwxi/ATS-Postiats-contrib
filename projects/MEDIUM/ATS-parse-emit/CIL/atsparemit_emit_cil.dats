@@ -540,15 +540,55 @@ d0e.d0exp_node of
     case+ f0head_opt of
     | ~None_vt() =>
       {
-        val () = emit_text (out, "call")
-        val () = emit_SPACE (out)
         val () =
         (
           case+ symbol_get_name (id.i0de_sym) of
-          | "atspre_print_newline" => emit_text (out, "void [mscorlib]System.Console::WriteLine()")
-          | "atspre_print_string" => emit_text (out, "void [mscorlib]System.Console::WriteLine(string)")
-          | "atspre_print_int" => emit_text (out, "void [mscorlib]System.Console::Write(int32)")
-          | _ => emit_i0de (out, id) // FIXME: need also type of [id]!
+          // many more functions
+          // atspre_g1int_add_int
+          // atspre_g0int_sub_int
+          // atspre_g0int_mul_int
+          // atspre_g0int2int_int_int
+          // atspre_g0int_lte_int
+          // atspre_g0int_sub_int
+          // - some of these are just macros (map to other functions)
+          // - we still have to figure out the type signatures
+          | "atspre_print_newline" =>
+            {
+              val () = emit_text (out, "call")
+              val () = emit_SPACE (out)
+              val () = emit_text (out, "void [mscorlib]System.Console::WriteLine()")
+            }
+          | "atspre_print_string" =>
+            {
+              val () = emit_text (out, "call")
+              val () = emit_SPACE (out)
+              val () = emit_text (out, "void [mscorlib]System.Console::WriteLine(string)")
+            }
+          | "atspre_print_int" =>
+            {
+              val () = emit_text (out, "call")
+              val () = emit_SPACE (out)
+              val () = emit_text (out, "void [mscorlib]System.Console::Write(int32)")
+            }
+          //
+          | "ATSCKpat_int" => emit_text (out, "ceq")
+          | "ATSCKpat_bool" => emit_text (out, "ceq")
+          | "ATSCKpat_char" => emit_text (out, "ceq")
+          | "ATSCKpat_float" => emit_text (out, "ceq")
+          | "ATSCKpat_string" =>
+            {
+              val () = emit_text (out, "call")
+              val () = emit_SPACE (out)
+              val () = emit_text (out, "bool [mscorlib]System.String::Equals(string,string)")
+            }
+          // TODO: ATSCKpat_(con*|exn*)
+          //
+          | _ =>
+            {
+              val () = emit_text (out, "call")
+              val () = emit_SPACE (out)
+              val () = emit_i0de (out, id) // FIXME: need also type of [id]!
+            }
         ) (* end of [val] *)
       }
     | ~Some_vt(fhd) =>
@@ -559,6 +599,9 @@ d0e.d0exp_node of
       }
   end // end of [D0Eappid]
 //
+// TODO: D0Elist
+//
+| ATSempty (x) => emit_text (out, "ldnull")
 //
 | ATSPMVint (tok) =>
   {
@@ -568,9 +611,10 @@ d0e.d0exp_node of
   } (* end of [ATSPMVint] *)
 | ATSPMVi0nt (tok) =>
   {
+    val-T_INT(base, rep) = tok.token_node
     val () = emit_text (out, "ldc.i4")
     val () = emit_SPACE (out)
-    val () = emit_PMVi0nt (out, tok)
+    val () = emit_text (out, rep)
   } (* end of [ATSPMVi0nt] *)
 //
 | ATSPMVbool (tfv) =>
@@ -587,9 +631,13 @@ d0e.d0exp_node of
     val () = emit_PMVstring (out, tok)
   } (* end of [ATSPMVstring] *)
 //
-| ATSPMVf0loat (tok) => emit_text (out, "ATSPMVf0loat(...)")
+| ATSPMVf0loat (tok) =>
+  {
+    val-T_FLOAT(base, rep) = tok.token_node
+    val () = emit_text (out, rep)
+  }
 //
-| _ => ()
+| _ => emit_text (out, "**D0EXP**")
 //
 end // end of [emit_d0exp]
 
