@@ -34,6 +34,12 @@ PYlist_pair
 (* ****** ****** *)
 //
 fun
+PYlist_make_elt
+  {a:t0p}{n:nat}(n: int(n), x0: a): PYlist(a) = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 PYlist_is_nil
   {a:t0p} (xs: PYlist(a)): bool = "mac#"
 //

@@ -24,36 +24,34 @@ staload UN =
 //
 staload "./../basics_py.sats"
 staload "./../SATS/PYlist.sats"
-staload "./../SATS/reference.sats"
+staload "./../SATS/array.sats"
 //
 (* ****** ****** *)
 //
 (*
-assume
-ref_vt0ype_type(a:t@ype) = PYlist(a)
+assume array(a, n) = PYlist(a)
 *)
 //
 (* ****** ****** *)
 //
 implement
-ref (x) = ref_make_elt (x)
-//
-implement
-ref_make_elt{a}(x) = $UN.cast{ref(a)}(PYlist_sing(x))
+array_make_elt
+  {a}{n}(asz, x0) =
+  $UN.cast{array(a,n)}(PYlist_make_elt (asz, x0))
 //
 (* ****** ****** *)
 
 implement
-ref_get_elt{a}(r) = let
-  val r = $UN.cast{PYlist(a)}(r) in PYlist_get_at(r, 0)
-end // end of [ref_get_elt]
+array_get_at{a}(A, i) = let
+  val A = $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
+end // end of [array_get_at]
 
 (* ****** ****** *)
 
 implement
-ref_set_elt{a}(r, x) = let
-  val r = $UN.cast{PYlist(a)}(r) in PYlist_set_at(r, 0, x)
-end // end of [ref_set_elt]
+array_set_at{a}(A, i, x) = let
+  val A = $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
+end // end of [array_set_at]
 
 (* ****** ****** *)
 
@@ -68,4 +66,4 @@ from prelude_PYlist_cats import *
 
 (* ****** ****** *)
 
-(* end of [reference.dats] *)
+(* end of [array.dats] *)

@@ -36,5 +36,7 @@ all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/prelude_list_dats.py -i
 all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/prelude_reference_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/array.dats | $(ATSCC2PY) -o ./output/prelude_array_dats.py -i
 
 ###### end of [Makefile] ######

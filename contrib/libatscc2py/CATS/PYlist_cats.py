@@ -21,6 +21,14 @@ def PYlist_pair(x1, x2): return [x1, x2]
 
 ############################################
 
+def PYlist_make_elt(n, x):
+  res = []
+  while(n > 0):
+    n -= 1; res = res.append (res, x)
+  return res
+
+############################################
+
 def PYlist_is_nil(xs): return not(xs)
 def PYlist_isnot_nil(xs): return True if xs else False
 
