@@ -26,9 +26,9 @@ ATSCKisneqz($x) { return ($x !== 0); }
 /* ****** ****** */
 
 function
-ATSCKptrisnil($xs) { return (xs === NULL) ; }
+ATSCKptrisnull($xs) { return ($xs === NULL) ; }
 function
-ATSCKptriscons($xs) { return (xs !== NULL) ; }
+ATSCKptriscons($xs) { return ($xs !== NULL) ; }
 
 /* ****** ****** */
 
@@ -53,8 +53,28 @@ ATSCKpat_con1($con, $tag) { return ($con[0] === $tag) ; }
 function
 ats2phppre_print_newline() { print("\n"); flush(); return; }
 function
-ats2phppre_fprint_newline($out) { fprintf(out, "\n"); fflush($out); return; }
+ats2phppre_fprint_newline($out) { fprintf($out, "\n"); fflush($out); return; }
 
+/* ****** ****** */
+//
+function
+ats2phppre_assert_bool0($tfv, $errmsg) { if (!$tfv) exit(1); return; }
+function
+ats2phppre_assert_bool1($tfv, $errmsg) { if (!$tfv) exit(1); return; }
+//
+/* ****** ****** */
+//
+function
+ats2phppre_assert_errmsg_bool0($tfv, $errmsg)
+{
+  if (!$tfv) { fprintf(STDERR, "%s", $errmsg); sys.exit(1); }; return;
+}
+function
+ats2phppre_assert_errmsg_bool1($tfv, $errmsg)
+{
+  if (!$tfv) { fprintf(STDERR, "%s", $errmsg); sys.exit(1); }; return;
+}
+//
 /* ****** ****** */
 
 /* end of [basics_cats.php] */

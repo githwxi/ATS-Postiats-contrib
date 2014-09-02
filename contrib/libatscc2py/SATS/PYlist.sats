@@ -59,10 +59,12 @@ PYlist_length{a:t0p}(PYlist(a)): int = "mac#"
 (* ****** ****** *)
 //
 fun
-PYlist_get_at{a:t0p}(PYlist(a), int): a = "mac#"
+PYlist_get_at
+  {a:t0p}(xs: PYlist(a), i: int): a = "mac#"
 //
 fun
-PYlist_set_at{a:t0p}(PYlist(a), int, a): void = "mac#"
+PYlist_set_at
+  {a:t0p}(xs: PYlist(a), i: int, x: a): void = "mac#"
 //
 (* ****** ****** *)
 //

@@ -982,6 +982,62 @@ end // end of [parse_f0head]
 (* ****** ****** *)
 
 implement
+parse_extval
+  (buf, bt, err) = let
+//
+vtypedef res = List0_vt(token)
+//
+fun loop
+(
+  buf: &tokbuf, level: intGt(0), res: res
+) : res = let
+//
+val tok = tokbuf_get_token_any (buf)
+//
+in
+case+
+tok.token_node of
+//
+| T_EOF () => res
+//
+| T_LPAREN () => let
+    val () = tokbuf_incby1 (buf)
+    val res =
+      list_vt_cons (tok, res) in loop (buf, level+1, res)
+    // end of [val]
+  end // end of [T_LPAREN]
+//
+| T_RPAREN () => let
+    val level1 = level - 1
+  in
+    if level1 > 0
+      then let
+        val () = tokbuf_incby1 (buf)
+        val res =
+          list_vt_cons (tok, res) in loop (buf, level1, res)
+        // end of [val]
+      end // end of [then]
+      else res // end of [else]
+    // end of [if]
+  end // end of [T_RPAREN]
+//
+| _ (*rest*) => let
+    val () = tokbuf_incby1 (buf)
+    val res = list_vt_cons (tok, res) in loop (buf, level, res)
+  end // end of [_]
+//
+end // end of [loop]
+//
+val res =
+  loop (buf, 1, list_vt_nil())
+//
+in
+  list_vt2t(list_vt_reverse(res))
+end // end of [parse_extval]
+
+(* ****** ****** *)
+
+implement
 parse_extcode
   (buf, bt, err) = let
 //

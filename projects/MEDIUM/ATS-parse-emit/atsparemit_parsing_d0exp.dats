@@ -68,6 +68,18 @@ tok.token_node of
     // end of [if]
   end // end of [ATSempty]
 //
+| T_KWORD(ATSextval()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_extval, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSextval_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSextval]
+//
 | T_KWORD(ATSPMVint()) => let
     val bt = 0
     val () = incby1 ()

@@ -31,11 +31,8 @@ abstype PHPfile
 
 (* ****** ****** *)
 //
-abstype PHParray(a:t@ype)
-//
-(* ****** ****** *)
-
-abstype PHPdate // object
+abstype PHParray(a:t@ype) // risk on your own!!!
+abstype PHParref(a:t@ype) // reference to PHParray
 //
 (* ****** ****** *)
 //
@@ -49,6 +46,20 @@ println_obj{a:t@ype}(obj: a): void = "mac#%"
 fun print_newline ((*void*)): void = "mac#%"
 fun fprint_newline (out: PHPfile): void = "mac#%"
 
+(* ****** ****** *)
+//
+fun assert_errmsg_bool0
+  (x: bool, msg: string): void = "mac#%"
+fun assert_errmsg_bool1
+  {b:bool} (x: bool b, msg: string): [b] void = "mac#%"
+//
+overload assert_errmsg with assert_errmsg_bool0 of 100
+overload assert_errmsg with assert_errmsg_bool1 of 110
+//
+(* ****** ****** *)
+//
+macdef assertloc (x) = assert_errmsg (,(x), $mylocation)
+//
 (* ****** ****** *)
 
 (* end of [basics_php.sats] *)

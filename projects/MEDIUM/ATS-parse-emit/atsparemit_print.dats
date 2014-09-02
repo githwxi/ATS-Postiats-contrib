@@ -118,6 +118,7 @@ case+ x of
 | ATSreturn_void () => pr "ATSreturn_void"
 //
 | ATSempty () => pr "ATSempty"
+| ATSextval () => pr "ATSextval"
 //
 | ATSPMVint () => pr "ATSPMVint"
 | ATSPMVintrep () => pr "ATSPMVintrep"
@@ -359,6 +360,7 @@ d0e.d0exp_node of
     fprint! (out, "D0Eappexp(", d0e, "; ", d0es, ")")
 //
 | ATSempty (dummy) => fprint! (out, "ATSempty(", ")")
+| ATSextval (toklst) => fprint! (out, "ATSextval(", "...", ")")
 //
 | ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
 | ATSPMVintrep (tok) => fprint! (out, "ATSPMVintrep(", tok, ")")

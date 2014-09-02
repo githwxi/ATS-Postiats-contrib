@@ -129,6 +129,7 @@ val-~None_vt() = kwordins ("ATSreturn", ATSreturn)
 val-~None_vt() = kwordins ("ATSreturn_void", ATSreturn_void)
 //
 val-~None_vt() = kwordins ("ATSempty", ATSempty)
+val-~None_vt() = kwordins ("ATSextval", ATSextval)
 //
 val-~None_vt() = kwordins ("ATSPMVint", ATSPMVint)
 val-~None_vt() = kwordins ("ATSPMVintrep", ATSPMVintrep)

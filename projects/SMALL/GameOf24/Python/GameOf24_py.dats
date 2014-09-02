@@ -227,7 +227,7 @@ val c_j = PYlist_pop_1 (cs, j)
 val c_i = PYlist_pop_1 (cs, i)
 val () = PYlist_append (cs, c)
 //
-} // end of [cardset_remove2_add2]
+} // end of [cardset_remove2_add1]
 
 end // end of [local]
 

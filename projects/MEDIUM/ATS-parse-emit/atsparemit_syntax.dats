@@ -152,9 +152,24 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  d0exp_make_node (loc, ATSempty (0))
+  d0exp_make_node (loc, ATSempty(0))
 end // end of [ATSempty]
 //
+(* ****** ****** *)
+
+implement
+ATSextval_make
+(
+  tok1, toks, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSextval(toks))
+end // end of [ATSextval]
+
 (* ****** ****** *)
 //
 implement

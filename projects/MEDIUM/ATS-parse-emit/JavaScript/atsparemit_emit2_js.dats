@@ -540,6 +540,7 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "var\n")
+    val () = emit_nspc (out, ind)
     val () = (
       emit_tmpvar (out, flag); emit_text (out, " = 0 ;")
     ) (* end of [val] *)

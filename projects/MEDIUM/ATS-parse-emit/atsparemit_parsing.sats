@@ -351,6 +351,7 @@ fun parse_instrseq : parser (instrlst)
 
 (* ****** ****** *)
 
+fun parse_extval : parser (tokenlst)
 fun parse_extcode : parser (tokenlst)
 
 (* ****** ****** *)

@@ -36,7 +36,7 @@ staload
 "{$LIBATSCC2PHP}/SATS/list.sats"
 //
 staload
-"{$LIBATSCC2PHP}/SATS/PHParray.sats"
+"{$LIBATSCC2PHP}/SATS/PHParref.sats"
 //
 (* ****** ****** *)
 
@@ -180,38 +180,39 @@ end // end of [local]
 local
 //
 assume
-cardset_type = PYlist(card)
+cardset_type = PHParref(card)
 //
 in (* in-of-local *)
 //
 implement
 cardset_size
-  (xs) = PYlist_length (xs)
+  (xs) = PHParref_length (xs)
 //
 implement
 cardset_make_list
   (cs) = let
 //
-typedef res = PYlist(card)
+typedef
+  res = PHParref(card)
 //
 fun loop
 (
-  res: res, cs: cardlst
-) : res =
+  cs: cardlst, res: res
+) : cardset =
 (
   case+ cs of
   | list_nil () => res
   | list_cons (c, cs) => let
-      val () = PYlist_append (res, c) in loop (res, cs)
+      val () = PHParref_extend (res, c) in loop (cs, res)
     end // end of [list_cons]
 ) (* end of [loop] *)
 //
 in
-  loop (PYlist_nil (), cs)
+  loop (cs, PHParref_nil())
 end // end of [cardset_make_list]
 
 implement
-cardset_get_at (cs, i) = PYlist_get_at (cs, i)
+cardset_get_at (cs, i) = PHParref_get_at (cs, i)
 
 implement
 cardset_remove2_add1
@@ -221,13 +222,14 @@ cardset_remove2_add1
 val i = g1ofg0 (i)
 val j = g1ofg0 (j)
 val () = assertloc (i >= 0)
-val () = assertloc (j >= i)
-val cs = PYlist_copy (cs)
-val c_j = PYlist_pop_1 (cs, j)
-val c_i = PYlist_pop_1 (cs, i)
-val () = PYlist_append (cs, c)
+val () = assertloc (j >= 0)
+val cs = PHParref_copy (cs)
+val () = PHParref_unset (cs, i)
+val () = PHParref_unset (cs, j)
+val cs = PHParref_values (cs)
+val () = PHParref_extend (cs, c)
 //
-} // end of [cardset_remove2_add2]
+} // end of [cardset_remove2_add1]
 
 end // end of [local]
 
@@ -245,7 +247,7 @@ fpprint_cardlst
 //
 fun fprone
 (
-  out: PYfile, c: card
+  out: PHPfile, c: card
 ) : void = let
   val v = card_get_val (c)
 in
@@ -366,7 +368,7 @@ else loop1 (x, n, i+1, res)
 end // end of [loop2]
 //
 in
-  loop1 (x, cardset_size (x), 0, res)
+  loop1 (x, cardset_size(x), 0(*i*), res)
 end // end of [task_reduce]
 
 (* ****** ****** *)
@@ -390,12 +392,13 @@ end // end of [tasklst_reduce]
 (* ****** ****** *)
 
 implement
-play24 (n1, n2, n3, n4) = let
+GameOf24_play
+  (n1, n2, n3, n4) = let
 //
 val c1 = card_make_int (n1)
-val c2 = card_make_int (n2)
-val c3 = card_make_int (n3)
-val c4 = card_make_int (n4)
+and c2 = card_make_int (n2)
+and c3 = card_make_int (n3)
+and c4 = card_make_int (n4)
 //
 fun f (i:int):<cloref1> card =
 (
@@ -411,6 +414,8 @@ val cs =
 )
 //
 val x0 = cardset_make_list (cs)
+//
+val n0 = cardset_size(x0)
 //
 val xs1 = list_cons{cardset}(x0, list_nil)
 //
@@ -450,7 +455,7 @@ val res_sol =
 //
 in
   list_reverse (res_sol)
-end // end of [play24]
+end // end of [GameOf24_play]
 
 (* ****** ****** *)
 //
@@ -465,74 +470,40 @@ val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-val out = stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val out = STDOUT
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
-val out = stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val out = STDOUT
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
-val out = stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val out = STDOUT
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
-val out = stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val out = STDOUT
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 } (* end of [main0_php] *)
 //
-(* ****** ****** *)
-
-%{^
-######
-import sys
-######
-#
-from prelude_basics_cats import *
-#
-from prelude_integer_cats import *
-#
-from prelude_float_cats import *
-from prelude_string_cats import *
-#
-from prelude_filebas_cats import *
-#
-from prelude_PYlist_cats import *
-#
-from prelude_list_dats import *
-#
-######
-sys.setrecursionlimit(1000000)
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
-
-%{$
-######
-GameOf24_php_dynload();
-GameOf24_php_main0_php();
-######
-%} // end of [%{$]
-
 (* ****** ****** *)
 
 (* end of [GameOf24_php.dats] *)

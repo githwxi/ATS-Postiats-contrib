@@ -119,7 +119,7 @@ emit_label
 (* ****** ****** *)
 
 implement
-emit_extcode
+emit_tokenlst
   (out, toks) = let
 //
 fun
@@ -187,8 +187,17 @@ case+ toks of
     auxtok (out, tok); emit_extcode (out, toks)
   ) (* end of [list_cons] *)
 //
-end // end of [emit_extcode]
+end // end of [emit_tokenlst]
 
+(* ****** ****** *)
+//
+implement
+emit_extval
+  (out, toks) = emit_tokenlst (out, toks)
+implement
+emit_extcode
+  (out, toks) = emit_tokenlst (out, toks)
+//
 (* ****** ****** *)
 
 (* end of [atsparemit_emit.dats] *)

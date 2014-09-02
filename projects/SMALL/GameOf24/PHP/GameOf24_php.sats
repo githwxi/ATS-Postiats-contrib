@@ -29,6 +29,11 @@ are a good quad.
 
 (* ****** ****** *)
 //
+#define
+ATS_PACKNAME "GameOf24_php"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 //
@@ -117,7 +122,7 @@ cardset_remove2_add1
 
 (* ****** ****** *)
 
-fun play24
+fun GameOf24_play
 (
   n1: int, n2: int, n3: int, n4: int
 ) : List0(card) // end of [play24]

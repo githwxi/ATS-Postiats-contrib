@@ -18,6 +18,14 @@ staload "./../basics_php.sats"
 (* ****** ****** *)
 //
 fun
+list_length
+  {a:t0p}{n:int}(xs: list(a, n)): int(n) = "mac#%"
+//
+overload length with list_length of 100
+//
+(* ****** ****** *)
+//
+fun
 list_append
   {a:t0p}{i,j:int}
   (xs: list(a, i), ys: list(a, j)): list(a, i+j)= "mac#%"

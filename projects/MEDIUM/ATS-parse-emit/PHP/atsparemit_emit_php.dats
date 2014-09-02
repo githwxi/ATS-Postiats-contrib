@@ -122,10 +122,8 @@ implement
 emit_PMVfloat
   (out, tok) = let
 //
-val-T_FLOAT(base, rep) = tok.token_node
-//
-in
-  emit_text (out, rep)
+val-
+T_FLOAT(_, rep) = tok.token_node in emit_text (out, rep)
 end // end of [emit_PMVfloat]
 
 (* ****** ****** *)
@@ -134,10 +132,8 @@ implement
 emit_PMVstring
   (out, tok) = let
 //
-val-T_STRING(rep) = tok.token_node
+val-T_STRING(rep) = tok.token_node in emit_text (out, rep)
 //
-in
-  emit_text (out, rep)
 end // end of [emit_PMVstring]
 
 (* ****** ****** *)
@@ -277,13 +273,14 @@ d0e0.d0exp_node of
   }
 //
 | ATSempty (x) => emit_text (out, "null")
+| ATSextval (toks) => emit_extval (out, toks)
 //
 | ATSPMVint (int) => emit_PMVint (out, int)
 | ATSPMVintrep (int) => emit_PMVintrep (out, int)
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
-| ATSPMVfloat (flt) => emit_PMVstring (out, flt)
+| ATSPMVfloat (flt) => emit_PMVfloat (out, flt)
 //
 | ATSPMVstring (str) => emit_PMVstring (out, str)
 //

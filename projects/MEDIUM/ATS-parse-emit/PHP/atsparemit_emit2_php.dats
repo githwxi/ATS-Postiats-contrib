@@ -362,7 +362,6 @@ ins0.instr_node of
 | ATSdynload0 (flag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "var\n")
     val () =
     (
       emit_tmpvar (out, flag); emit_text (out, " = 0 ;")
@@ -491,7 +490,7 @@ case+ opt of
 | Some _ => emit_d0explst_1 (out, d0es)
 ) : void // end of [val]
 //
-val ((*closing*)) = emit_RPAREN (out)
+val ((*closing*)) = emit_text (out, ");")
 //
 in
   // nothing
@@ -531,7 +530,7 @@ val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 val () = emit_text (out, "array(")
 val () = emit_d0explst (out, d0es)
-val ((*closing*)) = emit_RPAREN (out)
+val ((*closing*)) = emit_text (out, ");")
 //
 in
   // nothing

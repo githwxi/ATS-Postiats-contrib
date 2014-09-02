@@ -66,6 +66,12 @@ fun emit_time_stamp (FILEref): void
   
 (* ****** ****** *)
 //
+fun emit_extval : emit_type (tokenlst)
+fun emit_extcode : emit_type (tokenlst)
+fun emit_tokenlst : emit_type (tokenlst)
+//
+(* ****** ****** *)
+//
 fun emit_PMVint : emit_type (i0nt)
 fun emit_PMVintrep : emit_type (i0nt)
 //
@@ -135,8 +141,6 @@ fun
 emit_COMMENT_line (out: FILEref): void
 fun
 emit_COMMENT_block (out: FILEref): void
-//
-fun emit_extcode : emit_type (tokenlst)
 //
 (* ****** ****** *)
 

@@ -64,6 +64,12 @@ ATSempty_make
 (* ****** ****** *)
 //
 fun
+ATSextval_make
+  (tok_kwd: token, toks: tokenlst, tok_end: token): d0exp
+//
+(* ****** ****** *)
+//
+fun
 ATSPMVint_make
 (
   tok_kwd: token, tok: i0nt, tok_end: token

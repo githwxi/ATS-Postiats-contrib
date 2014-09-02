@@ -235,6 +235,7 @@ keyword =
   | ATSreturn_void of ()
 //
   | ATSempty of ()
+  | ATSextval of ()
 //
   | ATSPMVint of ()
   | ATSPMVintrep of ()
@@ -722,7 +723,8 @@ d0exp_node =
   | D0Eappid of (i0de, d0explst)
   | D0Eappexp of (d0exp, d0explst)
 //
-  | ATSempty of (int)
+  | ATSempty of (int) // void-value
+  | ATSextval of (tokenlst) // external values
 //
   | ATSPMVint of i0nt
   | ATSPMVintrep of i0nt
@@ -750,6 +752,7 @@ d0exp_node =
 //
   | ATSfunclo_fun of (d0exp, s0exp(*arg*), s0exp(*res*))
   | ATSfunclo_clo of (d0exp, s0exp(*arg*), s0exp(*res*))
+//
 // end of [d0exp_node]
 
 where

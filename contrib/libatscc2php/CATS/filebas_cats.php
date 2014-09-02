@@ -17,11 +17,13 @@
 */
 
 /* ****** ****** */
-
-$ats2phppre_stdin = STDIN
-$ats2phppre_stdout = STDOUT
-$ats2phppre_stderr = STDERR
-
+//
+/*
+$ats2phppre_stdin = STDIN;
+$ats2phppre_stdout = STDOUT;
+$ats2phppre_stderr = STDERR;
+*/
+//
 /* ****** ****** */
 
 /* end of [filebas_cats.php] */

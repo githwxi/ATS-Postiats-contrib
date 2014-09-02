@@ -18,8 +18,15 @@ $(CPF) ./CATS/basics_cats.php ./output/prelude_basics_cats.php
 all:: ; \
 $(CPF) ./CATS/integer_cats.php ./output/prelude_integer_cats.php
 all:: ; \
+$(CPF) ./CATS/float_cats.php ./output/prelude_float_cats.php
+all:: ; \
 $(CPF) ./CATS/string_cats.php ./output/prelude_string_cats.php
-
+all:: ; \
+$(CPF) ./CATS/filebas_cats.php ./output/prelude_filebas_cats.php
+#
+all:: ; \
+$(CPF) ./CATS/PHParref_cats.php ./output/prelude_PHParref_cats.php
+#
 #######
 
 all:: ; \
