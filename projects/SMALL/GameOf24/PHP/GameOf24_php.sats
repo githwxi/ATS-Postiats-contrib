@@ -83,6 +83,11 @@ overload fprint with fprint_cardlst of 10
 //
 (* ****** ****** *)
 //
+fun echo_card (x: card): void
+fun echo_cardlst (xs: cardlst): void
+//
+(* ****** ****** *)
+//
 fun
 fpprint_card (out: PHPfile, x: card): void
 fun

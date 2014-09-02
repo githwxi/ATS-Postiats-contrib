@@ -36,10 +36,61 @@ abstype PHParref(a:t@ype) // reference to PHParray
 //
 (* ****** ****** *)
 //
+fun{
+a:t0p
+} echo_tmp(obj: a): void
+//
 fun
-print_obj{a:t@ype}(obj: a): void = "mac#%"
+echo_obj{a:t0p}(obj: a): void
+//
+(* ****** ****** *)
+//
+symintr echo
+//
+fun{
+} echo0(): void
+fun{
+a1:t0p
+} echo1 (INV(a1)): void
+fun{
+a1,a2:t0p
+} echo2 (INV(a1), INV(a2)): void
+fun{
+a1,a2,a3:t0p
+} echo3 (INV(a1), INV(a2), INV(a3)): void
+fun{
+a1,a2,a3,a4:t0p
+} echo4 (INV(a1), INV(a2), INV(a3), INV(a4)): void
+fun{
+a1,a2,a3,a4,a5:t0p
+} echo5 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5)): void
+fun{
+a1,a2,a3,a4,a5,a6:t0p
+} echo6 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6)): void
+fun{
+a1,a2,a3,a4,a5,a6,a7:t0p
+} echo7 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7)): void
+fun{
+a1,a2,a3,a4,a5,a6,a7,a8:t0p
+} echo8 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7), INV(a8)): void
+//
+overload echo with echo0
+overload echo with echo1
+overload echo with echo2
+overload echo with echo3
+overload echo with echo4
+overload echo with echo5
+overload echo with echo6
+overload echo with echo7
+overload echo with echo8
+//
+(* ****** ****** *)
+//
 fun
-println_obj{a:t@ype}(obj: a): void = "mac#%"
+print_obj{a:t0p}(obj: a): void = "mac#%"
+//
+fun
+print_r_obj{a:t0p}(obj: a): void = "mac#%"
 //
 (* ****** ****** *)
 

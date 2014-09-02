@@ -15,8 +15,7 @@
 //
 (* ****** ****** *)
 //
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "GameOf24_php_dynload"
+#define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
 //
@@ -39,8 +38,18 @@ staload
 "{$LIBATSCC2PHP}/SATS/PHParref.sats"
 //
 (* ****** ****** *)
+//
+staload
+"{$LIBATSCC2PHP}/DATS/basics.dats"
+//
+(* ****** ****** *)
 
 staload "./GameOf24_php.sats"
+
+(* ****** ****** *)
+
+implement
+echo_tmp<card> = echo_card
 
 (* ****** ****** *)
 
@@ -155,6 +164,25 @@ end // end of [fprint_card]
 (* ****** ****** *)
 
 implement
+echo_card (c0) = let
+//
+implement
+echo_tmp<card> = echo_card
+//
+in
+//
+case+ c0.card_node of
+| CARDint (v) => echo (v)
+| CARDadd (c1, c2) => echo ("(", c1, " + ", c2, ")")
+| CARDsub (c1, c2) => echo ("(", c1, " - ", c2, ")")
+| CARDmul (c1, c2) => echo ("(", c1, " * ", c2, ")")
+| CARDdiv (c1, c2) => echo ("(", c1, " / ", c2, ")")
+//
+end (* end of [echo_card] *)
+
+(* ****** ****** *)
+
+implement
 fpprint_card
   (out, c0) = let
 //
@@ -239,7 +267,29 @@ local
 
 #define EPSILON 0.1
 
+overload echo with echo_card
+
 in (* in-of-local *)
+
+implement
+echo_cardlst
+  (cs) = let
+//
+fun auxone
+  (c: card): void = let
+  val v = card_get_val (c)
+  val () = echo_tmp<card> (c)
+in
+  echo (" = ", double2int(v+EPSILON), "\n")
+end // end of [auxone]
+//
+in
+//
+case+ cs of
+| list_nil () => ()
+| list_cons (c, cs) => (auxone (c); echo_cardlst (cs))
+//
+end // end of [echo_cardlst]
 
 implement
 fpprint_cardlst
@@ -253,7 +303,7 @@ fun fprone
 in
   fpprint_card (out, c);
   fprintln! (out, " = ", double2int(v+EPSILON))
-end // end of [fprone
+end // end of [fprone]
 //
 in
 //
@@ -470,37 +520,49 @@ val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = echo ("play(")
+val () = echo (n1, ", ")
+val () = echo (n2, ", ")
+val () = echo (n3, ", ")
+val () = echo (n4, "):\n")
+val () = echo_cardlst (res)
 //
 val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
-val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = echo ("play(")
+val () = echo (n1, ", ")
+val () = echo (n2, ", ")
+val () = echo (n3, ", ")
+val () = echo (n4, "):\n")
+val () = echo_cardlst (res)
 //
 val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
-val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = echo ("play(")
+val () = echo (n1, ", ")
+val () = echo (n2, ", ")
+val () = echo (n3, ", ")
+val () = echo (n4, "):\n")
+val () = echo_cardlst (res)
 //
 val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
-val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = fprintln! (out, "GameOf24_play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = echo ("play(")
+val () = echo (n1, ", ")
+val () = echo (n2, ", ")
+val () = echo (n3, ", ")
+val () = echo (n4, "):\n")
+val () = echo_cardlst (res)
 //
 } (* end of [main0_php] *)
 //
