@@ -52,6 +52,8 @@ ATSCKpat_con1($con, $tag) { return ($con[0] === $tag) ; }
 
 function
 ats2phppre_print_newline() { print("\n"); flush(); return; }
+function
+ats2phppre_fprint_newline($out) { fprintf(out, "\n"); fflush($out); return; }
 
 /* ****** ****** */
 

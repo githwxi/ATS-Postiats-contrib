@@ -8,9 +8,9 @@ include './isevn_dats.php';
 include './twice_dats.php';
 include './rtfind_dats.php';
 include './rtfind2_dats.php';
-require './libatscc2php/CATS/basics_cats.php';
-require './libatscc2php/CATS/integer_cats.php';
-require './libatscc2php/CATS/string_cats.php';
+require './libatscc2php/prelude_basics_cats.php';
+require './libatscc2php/prelude_integer_cats.php';
+require './libatscc2php/prelude_string_cats.php';
 //
 echo "fact(10) = "; echo fact(10); echo "\n"; flush();
 echo "fact2(10) = "; echo fact2(10); echo "\n"; flush();

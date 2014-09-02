@@ -48,5 +48,7 @@ contrib/zlog/zlog-latest-stable/
 
 contrib/libatscc2py/output/*_cats.py
 contrib/libatscc2py/output/*_dats.py
+contrib/libatscc2php/output/*_cats.php
+contrib/libatscc2php/output/*_dats.php
 
 ###### end of [.gitignore] ######

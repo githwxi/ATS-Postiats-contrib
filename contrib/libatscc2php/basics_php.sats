@@ -26,10 +26,16 @@ stadef cfun = cfun2
 symintr .length
 //
 (* ****** ****** *)
+
+abstype PHPfile
+
+(* ****** ****** *)
 //
-abstype Array(a:t@ype)
+abstype PHParray(a:t@ype)
 //
-abstype Date // object
+(* ****** ****** *)
+
+abstype PHPdate // object
 //
 (* ****** ****** *)
 //
@@ -41,6 +47,7 @@ println_obj{a:t@ype}(obj: a): void = "mac#%"
 (* ****** ****** *)
 
 fun print_newline ((*void*)): void = "mac#%"
+fun fprint_newline (out: PHPfile): void = "mac#%"
 
 (* ****** ****** *)
 

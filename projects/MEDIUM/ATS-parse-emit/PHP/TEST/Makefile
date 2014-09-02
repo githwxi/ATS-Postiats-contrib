@@ -92,12 +92,12 @@ mytest:: mytest.php; php -f mytest.php
 
 ######
 
-CPRF=cp -rf
+CPF=cp -rf
 
 ######
 
-libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS/* ./libatscc2php/CATS
+libatscc2php:: ; \
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc2php/output/* libatscc2php/.
 
 ######
 
