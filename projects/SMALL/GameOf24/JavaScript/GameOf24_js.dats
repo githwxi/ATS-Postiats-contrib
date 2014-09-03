@@ -1,7 +1,7 @@
 //
 // Game-of-24:
 // An example of combining
-// ATS2 and Python3
+// ATS2 and JavaScript
 //
 (* ****** ****** *)
 //
@@ -15,32 +15,33 @@
 //
 (* ****** ****** *)
 //
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "GameOf24_py_dynload"
+#define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PY}/basics_py.sats"
+"{$LIBATSCC2JS}/basics_js.sats"
 //
 staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
+"{$LIBATSCC2JS}/SATS/integer.sats"
 staload
-"{$LIBATSCC2PY}/SATS/float.sats"
+"{$LIBATSCC2JS}/SATS/float.sats"
 staload
-"{$LIBATSCC2PY}/SATS/string.sats"
-staload
-"{$LIBATSCC2PY}/SATS/filebas.sats"
+"{$LIBATSCC2JS}/SATS/string.sats"
 //
 staload
-"{$LIBATSCC2PY}/SATS/list.sats"
+"{$LIBATSCC2JS}/SATS/list.sats"
+staload
+"{$LIBATSCC2JS}/SATS/JSarray.sats"
 //
 staload
-"{$LIBATSCC2PY}/SATS/PYlist.sats"
+"{$LIBATSCC2JS}/SATS/node/basics.sats"
+staload
+"{$LIBATSCC2JS}/SATS/node/process.sats"
 //
 (* ****** ****** *)
 
-staload "./GameOf24_py.sats"
+staload "./GameOf24_js.sats"
 
 (* ****** ****** *)
 
@@ -180,19 +181,22 @@ end // end of [local]
 local
 //
 assume
-cardset_type = PYlist(card)
+cardset_type = JSarray(card)
 //
 in (* in-of-local *)
 //
 implement
 cardset_size
-  (xs) = PYlist_length (xs)
+  (xs) =
+(
+  JSarray_length (xs)
+)
 //
 implement
 cardset_make_list
   (cs) = let
 //
-typedef res = PYlist(card)
+typedef res = JSarray(card)
 //
 fun loop
 (
@@ -202,16 +206,16 @@ fun loop
   case+ cs of
   | list_nil () => res
   | list_cons (c, cs) => let
-      val () = PYlist_append (res, c) in loop (res, cs)
+      val () = JSarray_push (res, c) in loop (res, cs)
     end // end of [list_cons]
 ) (* end of [loop] *)
 //
 in
-  loop (PYlist_nil (), cs)
+  loop (JSarray_nil (), cs)
 end // end of [cardset_make_list]
 
 implement
-cardset_get_at (cs, i) = PYlist_get_at (cs, i)
+cardset_get_at (cs, i) = JSarray_get_at (cs, i)
 
 implement
 cardset_remove2_add1
@@ -222,10 +226,10 @@ val i = g1ofg0 (i)
 val j = g1ofg0 (j)
 val () = assertloc (i >= 0)
 val () = assertloc (j >= i)
-val cs = PYlist_copy (cs)
-val c_j = PYlist_pop_1 (cs, j)
-val c_i = PYlist_pop_1 (cs, i)
-val () = PYlist_append (cs, c)
+val cs = JSarray_copy (cs)
+val () = JSarray_remove_at (cs, j)
+val () = JSarray_remove_at (cs, i)
+val () = JSarray_push (cs, c)
 //
 } // end of [cardset_remove2_add1]
 
@@ -245,7 +249,7 @@ fpprint_cardlst
 //
 fun fprone
 (
-  out: PYfile, c: card
+  out: NJSstream, c: card
 ) : void = let
   val v = card_get_val (c)
 in
@@ -455,17 +459,17 @@ end // end of [play24]
 (* ****** ****** *)
 //
 extern
-fun main0_py (): void = "mac#GameOf24_py_main0_py"
+fun main0_js (): void = "mac#GameOf24_js_main0_js"
 //
 implement
-main0_py () =
+main0_js () =
 {
 //
 val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-val out = stdout
+val out = process_stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -474,7 +478,7 @@ val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
-val out = stdout
+val out = process_stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -483,7 +487,7 @@ val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
-val out = stdout
+val out = process_stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -492,47 +496,13 @@ val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
-val out = stdout
+val out = process_stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
-} (* end of [main0_py] *)
+} (* end of [main0_js] *)
 //
 (* ****** ****** *)
 
-%{^
-######
-import sys
-######
-#
-from ats2pypre_basics_cats import *
-#
-from ats2pypre_integer_cats import *
-#
-from ats2pypre_float_cats import *
-from ats2pypre_string_cats import *
-#
-from ats2pypre_filebas_cats import *
-#
-from ats2pypre_PYlist_cats import *
-#
-from ats2pypre_list_dats import *
-#
-######
-sys.setrecursionlimit(1000000)
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
-
-%{$
-######
-GameOf24_py_dynload();
-GameOf24_py_main0_py();
-######
-%} // end of [%{$]
-
-(* ****** ****** *)
-
-(* end of [GameOf24_py.dats] *)
+(* end of [GameOf24_js.dats] *)

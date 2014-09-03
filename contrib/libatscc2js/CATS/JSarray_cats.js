@@ -24,9 +24,7 @@ ats2jspre_JSarray_set_at(A, i, x) { A[i] = x; return; }
 /* ****** ****** */
 //
 function
-ats2jspre_JSarray_get_length(A) { return A.length; }
-function
-ats2jspre_JSarray_set_length(A, n) { A.length = n; return; }
+ats2jspre_JSarray_length(A) { return A.length; }
 //
 /* ****** ****** */
 

@@ -19,8 +19,15 @@ ATS_EXTERN_PREFIX "ats2js_node_"
 //
 (* ****** ****** *)
 //
+staload "./basics.sats"
 staload "./../../basics_js.sats"
 //
+(* ****** ****** *)
+
+val process_stdin : NJSstream = "mac#%"
+val process_stdout : NJSstream = "mac#%"
+val process_stderr : NJSstream = "mac#%"
+
 (* ****** ****** *)
 
 val process_argv : JSarray(string) = "mac#%"

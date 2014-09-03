@@ -26,6 +26,7 @@ cleanall::
 
 RMF=rm -f
 RMRF=rm -rf
+CPRF=cp -rf
 
 ######
 
@@ -190,10 +191,6 @@ regress:: refcount
 cleanall:: ; $(RMF) refcount_dats.py
 
 ######
-
-CPRF=cp -rf
-
-######
 #
 libatscc2py:: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/output/* libatscc2py/.
@@ -207,8 +204,8 @@ clean:: ; $(RMF) *_?ats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.py
-cleanall:: ; $(RMRF) libatscc2py/__pycache__
-# cleanall:: ; $(RMRF) libatscc2py/*_cats.py
-# cleanall:: ; $(RMRF) libatscc2py/*_dats.py
+# cleanall:: ; $(RMF) libatscc2py/*_cats.py
+# cleanall:: ; $(RMF) libatscc2py/*_dats.py
+# cleanall:: ; $(RMRF) libatscc2py/__pycache__
 
 ###### end of [Makefile] ######

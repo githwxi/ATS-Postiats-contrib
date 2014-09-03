@@ -18,6 +18,15 @@ staload "./../basics_js.sats"
 (* ****** ****** *)
 //
 fun
+JSarray_nil{a:t0p}(): JSarray(a) = "mac#%"
+fun
+JSarray_sing{a:t0p}(a): JSarray(a) = "mac#%"
+fun
+JSarray_pair{a:t0p}(a, a): JSarray(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 JSarray_get_at
   {a:t@ype}(JSarray(a), int): a = "mac#%"
 fun
@@ -27,11 +36,7 @@ JSarray_set_at
 (* ****** ****** *)
 //
 fun
-JSarray_get_length
-  {a:t@ype} (A: JSarray(a)): int = "mac#%"
-fun
-JSarray_set_length
-  {a:t@ype} (A: JSarray(a), i: int): void = "mac#%"
+JSarray_length{a:t@ype}(JSarray(a)): int = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -44,11 +49,18 @@ JSarray_push{a:t@ype}(A: JSarray(a), x: a): void = "mac#%"
 //
 fun
 JSarray_shift{a:t@ype}(A: JSarray(a)): a = "mac#%"
+fun
+JSarray_unshift{a:t@ype}(A: JSarray(a), x: a): int = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 JSarray_reverse{a:t@ype}(A: JSarray(a)): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+JSarray_copy{a:t@ype}(JSarray(a)): JSarray(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -62,10 +74,11 @@ JSarray_concat{a:t@ype}
 //
 fun
 JSarray_insert_at
-  {a:t@ype}(A: JSarray(a), inserted: a): void = "mac#%"
+  {a:t@ype}(A: JSarray(a), ins: a): void = "mac#%"
 //
 fun
-JSarray_remove_at{a:t@ype}(A: JSarray(a)): void = "mac#%"
+JSarray_remove_at
+  {a:t@ype}(A: JSarray(a), removed: int): void = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -76,8 +89,8 @@ JSarray_remove_at{a:t@ype}(A: JSarray(a)): void = "mac#%"
 overload [] with JSarray_get_at
 overload [] with JSarray_set_at
 //
-overload .length with JSarray_get_length
-overload .length with JSarray_set_length
+overload  length with JSarray_length
+overload .length with JSarray_length
 //
 (* ****** ****** *)
 
