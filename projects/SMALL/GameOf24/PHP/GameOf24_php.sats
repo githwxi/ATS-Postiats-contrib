@@ -126,12 +126,17 @@ cardset_remove2_add1
 ) : cardset // end-of-fun
 
 (* ****** ****** *)
-
+//
 fun GameOf24_play
 (
   n1: int, n2: int, n3: int, n4: int
-) : List0(card) // end of [play24]
-
+) : List0(card) // end-of-function
+//
+(* ****** ****** *)
+//
+fun GameOf24_play2
+  (n1: int, n2: int, n3: int, n4: int): void = "mac#"
+//
 (* ****** ****** *)
 
 (* end of [GameOf24_php.sats] *)

@@ -41,7 +41,7 @@ a:t0p
 } echo_tmp(obj: a): void
 //
 fun
-echo_obj{a:t0p}(obj: a): void
+echo_obj{a:t0p}(obj: a): void = "mac#%"
 //
 (* ****** ****** *)
 //

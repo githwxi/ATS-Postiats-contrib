@@ -1,7 +1,6 @@
 //
 // Game-of-24:
-// An example of combining
-// ATS2 and Python3
+// An example of combining ATS2 and PHP5
 //
 (* ****** ****** *)
 //
@@ -280,7 +279,7 @@ fun auxone
   val v = card_get_val (c)
   val () = echo_tmp<card> (c)
 in
-  echo (" = ", double2int(v+EPSILON), "\n")
+  echo (" = ", double2int(v+EPSILON), "<br>\n")
 end // end of [auxone]
 //
 in
@@ -508,6 +507,24 @@ in
 end // end of [GameOf24_play]
 
 (* ****** ****** *)
+
+implement
+GameOf24_play2
+  (n1, n2, n3, n4) = let
+//
+val res = GameOf24_play (n1, n2, n3, n4)
+//
+in
+//
+case+ res of
+//
+| list_cons _ => echo_cardlst (res)
+//
+| list_nil () => echo "No solution is found."
+//
+end // end of [GameOf24_play2]
+
+(* ****** ****** *)
 //
 extern
 fun main0_php (): void = "mac#GameOf24_php_main0_php"
@@ -520,49 +537,49 @@ val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
+//
+val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = echo ("play(")
-val () = echo (n1, ", ")
-val () = echo (n2, ", ")
-val () = echo (n3, ", ")
-val () = echo (n4, "):\n")
-val () = echo_cardlst (res)
+//
+val () =
+fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = fpprint_cardlst (out, res)
 //
 val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
+//
+val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = echo ("play(")
-val () = echo (n1, ", ")
-val () = echo (n2, ", ")
-val () = echo (n3, ", ")
-val () = echo (n4, "):\n")
-val () = echo_cardlst (res)
+//
+val () =
+fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = fpprint_cardlst (out, res)
 //
 val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
+//
+val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = echo ("play(")
-val () = echo (n1, ", ")
-val () = echo (n2, ", ")
-val () = echo (n3, ", ")
-val () = echo (n4, "):\n")
-val () = echo_cardlst (res)
+//
+val () =
+fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = fpprint_cardlst (out, res)
 //
 val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
+//
+val out = STDOUT
 val res = GameOf24_play (n1, n2, n3, n4)
-val () = echo ("play(")
-val () = echo (n1, ", ")
-val () = echo (n2, ", ")
-val () = echo (n3, ", ")
-val () = echo (n4, "):\n")
-val () = echo_cardlst (res)
+//
+val () =
+fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = fpprint_cardlst (out, res)
 //
 } (* end of [main0_php] *)
 //

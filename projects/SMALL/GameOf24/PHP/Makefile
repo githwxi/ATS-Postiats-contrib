@@ -13,7 +13,7 @@ ATSCC2PHP=${PATSHOME}/bin/atscc2php
 
 ######
 
-all: GameOf24_php_dats.php; $(PHP) -f $<
+all:: GameOf24_php_dats.php; $(PHP) -f mytest.php
 
 ######
 
