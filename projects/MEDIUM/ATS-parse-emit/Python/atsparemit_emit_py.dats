@@ -269,7 +269,8 @@ d0e0.d0exp_node of
     val () = emit_RPAREN (out)
   }
 //
-| ATSempty (x) => emit_text (out, "None")
+| ATSempty (dummy) => emit_text (out, "None")
+| ATSextval (toklst) => emit_extval (out, toklst)
 //
 | ATSPMVint (tok) => emit_PMVint (out, tok)
 | ATSPMVintrep (tok) => emit_PMVintrep (out, tok)
