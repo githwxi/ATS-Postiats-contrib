@@ -33,9 +33,10 @@ are a good quad.
 "share/atspre_define.hats"
 //
 (* ****** ****** *)
-
-staload "{$LIBATSCC2PY}/basics_py.sats"
-
+//
+staload
+"{$LIBATSCC2PY}/basics_py.sats"
+//
 (* ****** ****** *)
 
 abstype card_type

@@ -56,6 +56,9 @@ staload
 staload
 "{$LIBATSCC2JS}/SATS/string.sats"
 //
+staload
+"{$LIBATSCC2JS}/SATS/node/basics.sats"
+//
 (* ****** ****** *)
 
 typedef I (a:t@ype) = a -<cloref1> a
@@ -106,11 +109,9 @@ val ((*void*)) = println! ("ans3(65536) = ", ans3)
 //
 var fs = require('fs');
 eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/integer_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/string_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

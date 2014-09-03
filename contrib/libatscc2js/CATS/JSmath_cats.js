@@ -36,63 +36,63 @@ ats2jspre_JSmath_LOG10E = Math.LOG10E
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_abs(x) { return Math.abs(x) ; }
+ats2jspre_JSmath_abs(x) { return Math.abs(x); }
 //
 function
-ats2jspre_JSmath_max(x, y) { return Math.max(x, y) ; }
+ats2jspre_JSmath_max(x, y) { return Math.max(x, y); }
 //
 function
-ats2jspre_JSmath_min(x, y) { return Math.min(x, y) ; }
-//
-/* ****** ****** */
-//
-function
-ats2jspre_JSmath_sqrt(x) { return Math.sqrt(x) ; }
+ats2jspre_JSmath_min(x, y) { return Math.min(x, y); }
 //
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_exp(x) { return Math.exp(x) ; }
-//
-function
-ats2jspre_JSmath_pow(x, y) { return Math.pow(x, y) ; }
-//
-function
-ats2jspre_JSmath_log(x) { return Math.log(x) ; }
+ats2jspre_JSmath_sqrt(x) { return Math.sqrt(x); }
 //
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_ceil() { return Math.ceil() ; }
+ats2jspre_JSmath_exp(x) { return Math.exp(x); }
+//
 function
-ats2jspre_JSmath_floor() { return Math.floor() ; }
+ats2jspre_JSmath_pow(x, y) { return Math.pow(x, y); }
+//
 function
-ats2jspre_JSmath_round() { return Math.round() ; }
+ats2jspre_JSmath_log(x) { return Math.log(x); }
 //
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_sin(x) { return Math.sin(x) ; }
+ats2jspre_JSmath_ceil() { return Math.ceil(); }
 function
-ats2jspre_JSmath_cos(x) { return Math.cos(x) ; }
+ats2jspre_JSmath_floor() { return Math.floor(); }
 function
-ats2jspre_JSmath_tan(x) { return Math.tan(x) ; }
+ats2jspre_JSmath_round() { return Math.round(); }
 //
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_asin(x) { return Math.asin(x) ; }
+ats2jspre_JSmath_sin(x) { return Math.sin(x); }
 function
-ats2jspre_JSmath_acos(x) { return Math.acos(x) ; }
+ats2jspre_JSmath_cos(x) { return Math.cos(x); }
 function
-ats2jspre_JSmath_atan(x) { return Math.atan(x) ; }
-function
-ats2jspre_JSmath_atan2(y, x) { return Math.atan2(y, x) ; }
+ats2jspre_JSmath_tan(x) { return Math.tan(x); }
 //
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_random() { return Math.random() ; }
+ats2jspre_JSmath_asin(x) { return Math.asin(x); }
+function
+ats2jspre_JSmath_acos(x) { return Math.acos(x); }
+function
+ats2jspre_JSmath_atan(x) { return Math.atan(x); }
+function
+ats2jspre_JSmath_atan2(y, x) { return Math.atan2(y, x); }
+//
+/* ****** ****** */
+//
+function
+ats2jspre_JSmath_random() { return Math.random(); }
 //
 /* ****** ****** */
 

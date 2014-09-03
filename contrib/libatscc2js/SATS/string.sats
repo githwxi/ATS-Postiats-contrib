@@ -40,17 +40,5 @@ fun
 string_indexOf (str: string, c: char): int = "mac#%"
 //
 (* ****** ****** *)
-//
-fun
-print_string (str: string): void = "mac#%"
-fun
-prerr_string (str: string): void = "mac#%"
-//
-(* ****** ****** *)
-//
-overload print with print_string of 100
-overload prerr with prerr_string of 100
-//
-(* ****** ****** *)
 
 (* end of [string.sats] *)

@@ -13,21 +13,49 @@
 */
 
 /* ****** ****** */
+//
+function
+ats2js_node_print_newline()
+  { process.stdout.write('\n'); return; }
+function
+ats2js_node_prerr_newline()
+  { process.stderr.write('\n'); return; }
+//
+function
+ats2js_node_fprint_newline(out) { out.write('\n'); return; }
+//
+/* ****** ****** */
 
 function
-ats2jspre_print_obj(obj)
+ats2js_node_print_obj(x)
 {
-  process.stdout.write(obj.toString()) ; return ;
+  process.stdout.write(x.toString()); return;
+}
+function
+ats2js_node_prerr_obj(x)
+{
+  process.stderr.write(x.toString()); return;
 }
 
 /* ****** ****** */
 //
 function
-ats2jspre_print_newline()
-  { process.stdout.write('\n') ; return ; }
+ats2js_node_print_int(x)
+{
+  process.stdout.write(x.toString()); return;
+}
 function
-ats2jspre_prerr_newline()
-  { process.stderr.write('\n') ; return ; }
+ats2js_node_prerr_int(x)
+{
+  process.stderr.write(x.toString()); return;
+}
+//
+/* ****** ****** */
+//
+function
+ats2js_node_print_string(x) { process.stdout.write(x); return; }
+function
+ats2js_node_prerr_string(x) { process.stderr.write(x); return; }
 //
 /* ****** ****** */
 

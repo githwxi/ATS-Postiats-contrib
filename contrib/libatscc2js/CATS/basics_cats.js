@@ -24,32 +24,37 @@ ATSCKisneqz(x) { return (x !== 0); }
 /* ****** ****** */
 
 function
-ATSCKptrisnil(xs) { return (xs === null) ; }
+ATSCKptrisnull(xs) { return (xs === null); }
 function
-ATSCKptriscons(xs) { return (xs !== null) ; }
+ATSCKptriscons(xs) { return (xs !== null); }
 
 /* ****** ****** */
 
 function
-ATSCKpat_int(tmp, given) { return (tmp === given) ; }
+ATSCKpat_int(tmp, given) { return (tmp === given); }
 function
-ATSCKpat_bool(tmp, given) { return (tmp === given) ; }
+ATSCKpat_bool(tmp, given) { return (tmp === given); }
 function
-ATSCKpat_char(tmp, given) { return (tmp === given) ; }
+ATSCKpat_char(tmp, given) { return (tmp === given); }
 function
-ATSCKpat_float(tmp, given) { return (tmp === given) ; }
+ATSCKpat_float(tmp, given) { return (tmp === given); }
 
 /* ****** ****** */
 
 function
-ATSCKpat_con0 (con, tag) { return (con === tag) ; }
+ATSCKpat_con0 (con, tag) { return (con === tag); }
 function
-ATSCKpat_con1 (con, tag) { return (con[0] === tag) ; }
+ATSCKpat_con1 (con, tag) { return (con[0] === tag); }
 
 /* ****** ****** */
 
 function
-ats2jspre_typeof(obj) { return typeof(obj) ; }
+ats2jspre_alert(obj) { alert(obj); return; }
+
+/* ****** ****** */
+
+function
+ats2jspre_typeof(obj) { return typeof(obj); }
 
 /* ****** ****** */
 

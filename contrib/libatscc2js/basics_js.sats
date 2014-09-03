@@ -27,26 +27,17 @@ symintr .length
 //
 (* ****** ****** *)
 //
-abstype String
+abstype JSstring // obj
 //
-abstype Array(a:t@ype)
-//
-abstype Date // object
+abstype JSarray(a:t@ype)
 //
 (* ****** ****** *)
 //
 fun typeof{a:t@ype}(a): string = "mac#%"
 //
 (* ****** ****** *)
-//
-fun
-print_obj{a:t@ype}(obj: a): void = "mac#%"
-fun
-println_obj{a:t@ype}(obj: a): void = "mac#%"
-//
-(* ****** ****** *)
 
-fun print_newline ((*void*)): void = "mac#%"
+fun alert{a:t@ype}(obj: a): void = "mac#%"
 
 (* ****** ****** *)
 

@@ -15,7 +15,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2js_node_process_"
+ATS_EXTERN_PREFIX "ats2js_node_"
 //
 (* ****** ****** *)
 //
@@ -23,48 +23,48 @@ staload "./../../basics_js.sats"
 //
 (* ****** ****** *)
 
-val argv : Array(string) = "mac#%"
+val process_argv : JSarray(string) = "mac#%"
 
 (* ****** ****** *)
 
-val execPath : string = "mac#%"
-val execArgv : Array(string) = "mac#%"
+val process_execPath : string = "mac#%"
+val process_execArgv : JSarray(string) = "mac#%"
 
 (* ****** ****** *)
 
 (*
-val env : Dictionary(string) = "mac#%"
+val process_env : Dictionary(string) = "mac#%"
 *)
 
 (* ****** ****** *)
 
-val pid : int = "mac#%" // of the node
+val process_pid : int = "mac#%" // of the node
 
 (* ****** ****** *)
 
-val version : string = "mac#%"
+val process_version : string = "mac#%"
 (*
-val versions : Dictionary(string) = "mac#%"
+val process_versions : Dictionary(string) = "mac#%"
 *)
 (* ****** ****** *)
 
-fun cwd (): string = "mac#%"
-fun chdir (dir: string): void = "mac#%"
+fun process_cwd (): string = "mac#%"
+fun process_chdir (dir: string): void = "mac#%"
 
 (* ****** ****** *)
 
-fun getgid (): int = "mac#%"
-fun setgid (id: int): void = "mac#%"
+fun process_getgid (): int = "mac#%"
+fun process_setgid (id: int): void = "mac#%"
 
 (* ****** ****** *)
 
-fun getuid (): int = "mac#%"
-fun setuid (id: int): void = "mac#%"
+fun process_getuid (): int = "mac#%"
+fun process_setuid (id: int): void = "mac#%"
 
 (* ****** ****** *)
 
-fun uptime (): int = "mac#%"  
-fun hrtime (): Array(int) = "mac#%"  
+fun process_uptime (): int = "mac#%"  
+fun process_hrtime (): JSarray(int) = "mac#%"  
   
 (* ****** ****** *)
 

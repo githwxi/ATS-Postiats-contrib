@@ -61,13 +61,13 @@ main0_py () =
 
 %{^
 import sys
-######
-from prelude_basics_cats import *
-from prelude_integer_cats import *
-from prelude_bool_cats import *
-from prelude_string_cats import *
-######
 sys.setrecursionlimit(1000000)
+######
+from ats2pypre_basics_cats import *
+from ats2pypre_integer_cats import *
+from ats2pypre_bool_cats import *
+from ats2pypre_string_cats import *
+######
 %} // end of [%{^]
 
 (* ****** ****** *)

@@ -31,7 +31,45 @@ JSarray_get_length
   {a:t@ype} (A: JSarray(a)): int = "mac#%"
 fun
 JSarray_set_length
-  {a:t@ype} (A: JSarray(a), n: intGte(0)): void = "mac#%"
+  {a:t@ype} (A: JSarray(a), i: int): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+JSarray_pop{a:t@ype}(A: JSarray(a)): a = "mac#%"
+fun
+JSarray_push{a:t@ype}(A: JSarray(a), x: a): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+JSarray_shift{a:t@ype}(A: JSarray(a)): a = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+JSarray_reverse{a:t@ype}(A: JSarray(a)): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+JSarray_concat{a:t@ype}
+  (A1: JSarray(a), A2: JSarray(a)): JSarray(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+// HX: these are based on [splice]
+//
+fun
+JSarray_insert_at
+  {a:t@ype}(A: JSarray(a), inserted: a): void = "mac#%"
+//
+fun
+JSarray_remove_at{a:t@ype}(A: JSarray(a)): void = "mac#%"
+//
+(* ****** ****** *)
+//
+// Some function overloading
 //
 (* ****** ****** *)
 //

@@ -14,6 +14,8 @@
 //
 #define
 ATS_EXTERN_PREFIX "ats2pypre_"
+#define
+ATS_STATIC_PREFIX "_ats2pypre_array_"
 //
 (* ****** ****** *)
 //
@@ -57,9 +59,10 @@ end // end of [array_set_at]
 
 %{^
 ######
-from prelude_basics_cats import *
 #
-from prelude_PYlist_cats import *
+from ats2pypre_basics_cats import *
+#
+from ats2pypre_PYlist_cats import *
 #
 ######
 %} // end of [%{^]

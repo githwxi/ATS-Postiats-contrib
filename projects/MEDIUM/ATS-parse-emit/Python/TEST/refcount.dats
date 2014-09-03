@@ -58,19 +58,19 @@ val () = println! ("refcount() = ", refcount())
 
 %{^
 import sys
-######
-#
-from prelude_basics_cats import *
-#
-from prelude_integer_cats import *
-from prelude_string_cats import *
-#
-from prelude_PYlist_cats import *
-#
-from prelude_reference_dats import *
-#
-######
 sys.setrecursionlimit(1000000)
+######
+#
+from ats2pypre_basics_cats import *
+#
+from ats2pypre_integer_cats import *
+from ats2pypre_string_cats import *
+#
+from ats2pypre_PYlist_cats import *
+#
+from ats2pypre_reference_dats import *
+#
+######
 %} // end of [%{^]
 
 (* ****** ****** *)

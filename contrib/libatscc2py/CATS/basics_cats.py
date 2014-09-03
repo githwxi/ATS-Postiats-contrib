@@ -6,7 +6,7 @@
 ######
 
 ######
-#beg of [atscc2py_basics.py]
+#beg of [basics_cats.py]
 ######
 
 ######
