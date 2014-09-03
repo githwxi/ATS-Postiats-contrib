@@ -173,10 +173,10 @@ cleanall:: ; $(RMF) process_test_dats.js
 CPRF=cp -rf
 
 ######
-
-libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS/* ./libatscc2js/CATS
-
+#
+libatscc2js:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/output/* libatscc2js/.
+#
 ######
 #
 upload_html: ; \

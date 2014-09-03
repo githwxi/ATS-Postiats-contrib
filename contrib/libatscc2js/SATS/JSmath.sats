@@ -17,8 +17,8 @@ staload "./../basics_js.sats"
 
 (* ****** ****** *)
 
-fun Math_random () = "mac#%"
+fun JSmath_random () = "mac#%"
 
 (* ****** ****** *)
 
-(* end of [Math.sats] *)
+(* end of [JSmath.sats] *)
