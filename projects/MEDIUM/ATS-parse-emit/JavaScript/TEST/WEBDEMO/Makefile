@@ -4,6 +4,9 @@
 
 ######
 
+all:: upload_html
+
+######
 #
 upload_html: ; \
   scp mytest.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/ATS-parse-emit/JavaScript/.

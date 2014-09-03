@@ -41,25 +41,6 @@ echo "<p>\n";
 echo "Solutions for the quad";
 echo "(", $n1, ", ", $n2, ", ", $n3, ", ", $n4, ")";
 echo " are listed as follows:";
-echo "<br>";
-echo "<br>";
-//
-GameOf24_play2($n1, $n2, $n3, $n4);
-//
-echo "</p>\n";
-?>
-
-<?php
-//
-$n1 = intval($_REQUEST["card1_val"]);
-$n2 = intval($_REQUEST["card2_val"]);
-$n3 = intval($_REQUEST["card3_val"]);
-$n4 = intval($_REQUEST["card4_val"]);
-//
-echo "<p>\n";
-echo "Solutions for the quad";
-echo "(", $n1, ", ", $n2, ", ", $n3, ", ", $n4, ")";
-echo " are listed as follows:";
 echo "<br>\n";
 echo "<br>\n";
 //
@@ -69,6 +50,8 @@ echo "</pre>\n";
 //
 echo "</p>\n";
 ?>
+
+<hr>
 
 <?php
 echo "<p>\n";
