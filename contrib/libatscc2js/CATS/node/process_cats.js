@@ -11,6 +11,15 @@
 /* ****** ****** */
 //
 var
+ats2js_node_process_stdin = process.stdin
+var
+ats2js_node_process_stdout = process.stdout
+var
+ats2js_node_process_stderr = process.stderr
+//
+/* ****** ****** */
+//
+var
 ats2js_node_process_argv = process.argv
 var
 ats2js_node_process_execArgv = process.execArgv

@@ -159,6 +159,18 @@ cleanall:: ; $(RMF) queens_dats.js
 ######
 
 all:: \
+hello_dats.js
+hello_dats.c: \
+hello.dats ; $(PATSOPT) -o $@ -d $<
+hello_dats.js: \
+hello_dats.c ; $(ATSCC2JS) -o $@ -i $<
+hello:: hello_dats.js ; $(NODEJS) hello_dats.js
+regress:: hello
+cleanall:: ; $(RMF) hello_dats.js
+
+######
+
+all:: \
 process_test_dats.js
 process_test_dats.c: \
 process_test.dats ; $(PATSOPT) -o $@ -d $<

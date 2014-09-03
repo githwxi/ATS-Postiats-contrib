@@ -49,13 +49,19 @@ ats2js_node_prerr_int(x)
 {
   process.stderr.write(x.toString()); return;
 }
+function
+ats2js_node_fprint_int(out, x) { out.write(x.toString()); return; }
 //
 /* ****** ****** */
 //
 function
-ats2js_node_print_string(x) { process.stdout.write(x); return; }
+ats2js_node_print_string(x)
+  { process.stdout.write(x); return; }
 function
-ats2js_node_prerr_string(x) { process.stderr.write(x); return; }
+ats2js_node_prerr_string(x)
+  { process.stderr.write(x); return; }
+function
+ats2js_node_fprint_string(out, x) { out.write(x); return; }
 //
 /* ****** ****** */
 
