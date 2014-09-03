@@ -272,14 +272,14 @@ d0e0.d0exp_node of
 | ATSempty (dummy) => emit_text (out, "None")
 | ATSextval (toklst) => emit_extval (out, toklst)
 //
-| ATSPMVint (tok) => emit_PMVint (out, tok)
-| ATSPMVintrep (tok) => emit_PMVintrep (out, tok)
+| ATSPMVint (int) => emit_PMVint (out, int)
+| ATSPMVintrep (int) => emit_PMVintrep (out, int)
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
-| ATSPMVfloat (tok) => emit_PMVfloat (out, tok)
+| ATSPMVfloat (flt) => emit_PMVfloat (out, flt)
 //
-| ATSPMVstring (tok) => emit_PMVstring (out, tok)
+| ATSPMVstring (str) => emit_PMVstring (out, str)
 //
 | ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
 | ATSPMVf0loat (tok) => emit_PMVfloat (out, tok)
