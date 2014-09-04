@@ -49,22 +49,27 @@ ATSCKpat_con1 (con, tag) { return (con[0] === tag); }
 /* ****** ****** */
 
 function
-ats2jspre_typeof(x) { return typeof(x); }
-
-/* ****** ****** */
-
-function
 ats2jspre_alert(msg) { alert(msg); return; }
 
 /* ****** ****** */
 
+function
+ats2jspre_typeof(obj) { return typeof(obj); }
+
+/* ****** ****** */
+
+function
+ats2jspre_toString(obj) { return obj.toString(); }
+
+/* ****** ****** */
+//
 function
 ats2jspre_assert_bool0(tfv)
   { if (!tfv) throw new Error("Assert"); return; }
 function
 ats2jspre_assert_bool1(tfv)
   { if (!tfv) throw new Error("Assert"); return; }
-
+//
 /* ****** ****** */
 //
 function

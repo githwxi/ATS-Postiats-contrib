@@ -1,6 +1,6 @@
 (*
 //
-A Wall Clock: ATS->Javascript
+A Wall Clock: ATS->C->Javascript
 //
 Author: Will Blair
 Authoremail: wdblairATcsDOTbuDOTedu
@@ -18,8 +18,6 @@ Start Time: October 2013
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
-//
-(* ****** ****** *)
 //
 #define
 HTML_targetloc
@@ -161,7 +159,8 @@ end // end of [render_frame]
 (* ****** ***** *)
 //
 extern
-fun request_animation_frame // JS-function
+fun
+request_animation_frame // JS-function
   {a:vtype}
   (callback: (double, a) -> void, ctx: a): void = "ext#JS_request_animation_frame"
 //

@@ -16,8 +16,14 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 staload "./../basics_js.sats"
 
 (* ****** ****** *)
+//
+fun JSmath_sin : double -> double = "mac#%"
+fun JSmath_cos : double -> double = "mac#%"
+fun JSmath_tan : double -> double = "mac#%"
+//
+(* ****** ****** *)
 
-fun JSmath_random () = "mac#%"
+fun JSmath_random ((*void*)): double = "mac#%"
 
 (* ****** ****** *)
 

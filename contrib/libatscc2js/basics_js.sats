@@ -33,11 +33,15 @@ abstype JSarray(a:t@ype)
 //
 (* ****** ****** *)
 //
-fun typeof{a:t@ype}(a): string = "mac#%"
-//
+fun alert (msg: string): void = "mac#%"
+
 (* ****** ****** *)
 
-fun alert{a:t@ype}(obj: a): void = "mac#%"
+fun typeof{a:t@ype}(a): string = "mac#%"
+
+(* ****** ****** *)
+
+fun toString{a:t@ype}(obj: a): string = "mac#%"
 
 (* ****** ****** *)
 //

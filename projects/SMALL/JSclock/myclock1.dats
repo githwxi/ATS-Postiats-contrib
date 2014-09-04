@@ -1,6 +1,6 @@
 (*
 //
-A Wall Clock: ATS->Javascript
+A Wall Clock: ATS->C->Javascript
 //
 Author: Hongwei Xi
 Authoremail: hwxi AT cs DOT bu DOT edu
@@ -20,6 +20,13 @@ http://www.neilwallis.com/projects/html5/clock/
 #include
 "share/atspre_staload.hats"
 //
+#define
+HTML_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten"
+#define
+HTML5canvas2d_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
+//
 (* ****** ****** *)
 //
 #define
@@ -31,13 +38,6 @@ macdef _2PI = 2 * PI
 staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-//
-#define
-HTML_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten"
-#define
-HTML5canvas2d_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
 //
 staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
 //
@@ -118,14 +118,14 @@ draw_clock
 //
 val () = canvas2d_clearRect (ctx, 0.0, 0.0, 300.0, 300.0)
 //
-// Define gradients for 3D / shadow effect
+// Define gradients for 3D-shadow effect
 //
 val grad1 =
   canvas2d_createLinearGradient (ctx, 0.0, 0.0, 300.0, 300.0)
 val () = canvas2d_gradient_addColorStop(grad1, 0.0, "#D83040")
 val () = canvas2d_gradient_addColorStop(grad1, 1.0, "#801020")
 //
-val grad2=
+val grad2 =
   canvas2d_createLinearGradient (ctx, 0.0, 0.0, 300.0, 300.0)
 val () = canvas2d_gradient_addColorStop(grad2, 0.0, "#801020")
 val () = canvas2d_gradient_addColorStop(grad2, 1.0, "#D83040")
@@ -268,7 +268,8 @@ end // end of [render_frame]
 (* ****** ***** *)
 //
 extern
-fun request_animation_frame // JS-function
+fun
+request_animation_frame // JS-function
   {a:vtype}
   (callback: (double, a) -> void, ctx: a): void = "ext#JS_request_animation_frame"
 //

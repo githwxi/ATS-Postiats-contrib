@@ -17,5 +17,15 @@ all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2JS) -o ./output/DATS/list_dats.js -i
 
 #######
+#
+upload_source:: ; \
+scp -r basics_js.sats CATS SATS DATS \
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/.
+#
+upload_DATS_JS:: ; \
+scp output/DATS/*_dats.js \
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/DATS/.
+#
+#######
 
 ###### end of [Makefile] ######
