@@ -52,15 +52,18 @@ implement
 {a}(*tmp*)
 qsort (A, st, len) =
 (
-if len >= 2 then let
+if
+len >= 2
+then let
   val len_f = qsort_partition<a> (A, st, len)
   val ((*void*)) = qsort<a> (A, st, len_f)
   val len_r = len - len_f
   val ((*void*)) = qsort<a> (A, succ(st+len_f), pred(len_r))
 in
   // nothing
-end else () // end of [if]
-)
+end // end of [then]
+else () // end of [else]
+) (* qsort *)
 
 (* ****** ****** *)
 
@@ -263,10 +266,12 @@ in
 end // end of [intqsort]
 
 (* ****** ****** *)
-
-staload "{$HTML}/SATS/document.sats"
-staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
-
+//
+staload
+"./../../SATS/document.sats"
+staload
+"./../../canvas-2d/SATS/canvas2d.sats"
+//
 (* ****** ****** *)
 
 fun

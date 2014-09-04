@@ -175,4 +175,4 @@ canvas2d_restore{l:agz}
 //
 (* ****** ****** *)
 
-(* end of [mydraw_html5_canvas2d.sats] *)
+(* end of [mydraw_HTML5_canvas2d.sats] *)

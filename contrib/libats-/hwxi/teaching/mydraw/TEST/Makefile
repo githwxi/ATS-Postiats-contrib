@@ -23,11 +23,12 @@ XRCFLAGS=`pkg-config cairo --cflags`
 
 ######
 
-.PHONY: all
+.PHONY: all all_js
 
 ######
 
-all:: test01-cairo
+all:: \
+test01-cairo
 test01-cairo: \
   test01-cairo.dats test01.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
@@ -35,6 +36,8 @@ cleanall:: ; $(RMF) test01-cairo test01.png
 
 ######
 
+all_js:: \
+test01-canvas2d.js
 test01-canvas2d.js: \
   test01-canvas2d.dats test01.dats ; \
   $(PATSCC) -atsccomp "$(PATSCCOMP2)" --js-library ../JS/mydraw_HTML5_canvas2d.js -o $@ $<
@@ -45,13 +48,16 @@ upload_test01:: ; scp test01.html test01-canvas2d.js \
 
 ######
 
-all:: test02-cairo
+all:: \
+test02-cairo
 test02-cairo: test02-cairo.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 cleanall:: ; $(RMF) test02-cairo test02.png
 
 ######
 
+all_js:: \
+test02-canvas2d.js
 test02-canvas2d.js: \
   test02-canvas2d.dats test02.dats ; \
   $(PATSCC) -atsccomp "$(PATSCCOMP2)" --js-library ../JS/mydraw_HTML5_canvas2d.js -o $@ $<
@@ -62,7 +68,8 @@ upload_test02:: ; scp test02.html test02-canvas2d.js \
 
 ######
 
-all:: test03-cairo
+all:: \
+test03-cairo
 test03-cairo: \
   test03-cairo.dats test03.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
@@ -70,6 +77,8 @@ cleanall:: ; $(RMF) test03-cairo test03.png
 
 ######
 
+all_js:: \
+test03-canvas2d.js
 test03-canvas2d.js: \
   test03-canvas2d.dats test03.dats ; \
   $(PATSCC) -atsccomp "$(PATSCCOMP2)" --js-library ../JS/mydraw_HTML5_canvas2d.js -o $@ $<
@@ -80,7 +89,8 @@ upload_test03:: ; scp test03.html test03-canvas2d.js \
 
 ######
 
-all:: test04-cairo
+all:: \
+test04-cairo
 test04-cairo: \
   test04-cairo.dats test04.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
@@ -88,6 +98,8 @@ cleanall:: ; $(RMF) test04-cairo test04.png
 
 ######
 
+all_js:: \
+test04-canvas2d.js
 test04-canvas2d.js: \
   test04-canvas2d.dats test04.dats ; \
   $(PATSCC) -atsccomp "$(PATSCCOMP2)" --js-library ../JS/mydraw_HTML5_canvas2d.js -o $@ $<
