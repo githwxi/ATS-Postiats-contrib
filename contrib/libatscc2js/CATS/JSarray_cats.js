@@ -78,5 +78,12 @@ function
 ats2jspre_JSarray_remove_at(A, i) { A.splice(i, 1); return; }
 //
 /* ****** ****** */
+//
+function
+ats2jspre_JSarray_join(A) { return A.join(""); }
+function
+ats2jspre_JSarray_join_sep(A, sep) { return A.join(sep); }
+//
+/* ****** ****** */
 
 /* end of [JSarray_cats.js] */

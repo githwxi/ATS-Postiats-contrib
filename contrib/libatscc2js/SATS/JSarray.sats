@@ -85,6 +85,15 @@ JSarray_remove_at
 //
 (* ****** ****** *)
 //
+fun
+JSarray_join
+  {a:t@ype}(A: JSarray(a)): string = "mac#%"
+fun
+JSarray_join_sep
+  {a:t@ype}(A: JSarray(a), sep: string): string = "mac#%"
+//
+(* ****** ****** *)
+//
 // Some function overloading
 //
 (* ****** ****** *)

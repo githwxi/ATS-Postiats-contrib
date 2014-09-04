@@ -13,7 +13,7 @@ ATSCC2JS=${PATSHOME}/bin/atscc2js
 
 ######
 
-all: GameOf24_js_dats.js; $(NODEJS) $<
+all: GameOf24_js_dats.js; $(NODEJS) mytest.js
 
 ######
 
@@ -44,7 +44,7 @@ clean:: ; $(RMF) GameOf24_js_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) GameOf24_js_dats.js
-cleanall:: ; $(RMF) libatscc2js/*_cats.js
-cleanall:: ; $(RMF) libatscc2js/*_dats.js
+cleanall:: ; $(RMF) libatscc2js/CATS/*_cats.js
+cleanall:: ; $(RMF) libatscc2js/DATS/*_dats.js
 
 ###### end of [Makefile] ######

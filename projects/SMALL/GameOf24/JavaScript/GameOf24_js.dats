@@ -40,9 +40,12 @@ staload
 "{$LIBATSCC2JS}/SATS/node/process.sats"
 //
 (* ****** ****** *)
-
+//
 staload "./GameOf24_js.sats"
-
+//
+staload
+"{$LIBATSCC2JS}/DATS/basics.dats"
+//
 (* ****** ****** *)
 
 local
@@ -156,6 +159,26 @@ end // end of [fprint_card]
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
+logats_card (c0) = let
+//
+implement
+logats_tmp<card> = logats_card
+//
+in
+//
+case+ c0.card_node of
+| CARDint (v) => logats (v)
+| CARDadd (c1, c2) => logats ("(", c1, " + ", c2, ")")
+| CARDsub (c1, c2) => logats ("(", c1, " - ", c2, ")")
+| CARDmul (c1, c2) => logats ("(", c1, " * ", c2, ")")
+| CARDdiv (c1, c2) => logats ("(", c1, " / ", c2, ")")
+//
+end (* end of [logats_card] *)
+
+(* ****** ****** *)
+
+implement
 fpprint_card
   (out, c0) = let
 //
@@ -242,6 +265,28 @@ local
 #define EPSILON 0.1
 
 in (* in-of-local *)
+
+implement
+{}(*tmp*)
+logats_cardlst
+  (cs) = let
+//
+fun auxone
+  (c: card): void = let
+  val v = card_get_val (c)
+in
+  logats (c, " = ", double2int(v+EPSILON), "\n")
+end // end of [auxone]
+//
+in
+//
+case+ cs of
+| list_nil () => ()
+| list_cons (c, cs) => (auxone (c); logats_cardlst<> (cs))
+//
+end // end of [echo_cardlst]
+
+(* ****** ****** *)
 
 implement
 fpprint_cardlst
@@ -394,7 +439,8 @@ end // end of [tasklst_reduce]
 (* ****** ****** *)
 
 implement
-play24 (n1, n2, n3, n4) = let
+GameOf24_play
+  (n1, n2, n3, n4) = let
 //
 val c1 = card_make_int (n1)
 val c2 = card_make_int (n2)
@@ -454,7 +500,36 @@ val res_sol =
 //
 in
   list_reverse (res_sol)
-end // end of [play24]
+end // end of [GameOf24_play]
+
+(* ****** ****** *)
+
+implement
+GameOf24_play2
+  (n1, n2, n3, n4) = let
+//
+val A = JSarray_nil ()
+//
+implement
+{a}(*tmp*)
+logats_tmp (x) = JSarray_push(A, x)
+//
+implement
+logats_tmp<card> (x) = logats_card (x)
+//
+val res = GameOf24_play (n1, n2, n3, n4)
+//
+in
+//
+case+ res of
+//
+| list_nil () => "No solution is found."
+//
+| list_cons _ => let
+    val () = logats_cardlst<> (res) in JSarray_join_sep(A, "")
+  end // end of [list_cons]
+//
+end // end of [GameOf24_play2]
 
 (* ****** ****** *)
 //
@@ -471,8 +546,8 @@ and n2 = 3
 and n3 = 8
 and n4 = 8
 val out = process_stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 val n1 = 4
@@ -480,8 +555,8 @@ and n2 = 4
 and n3 = 10
 and n4 = 10
 val out = process_stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 val n1 = 5
@@ -489,8 +564,8 @@ and n2 = 5
 and n3 = 7
 and n4 = 11
 val out = process_stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 val n1 = 3
@@ -498,8 +573,8 @@ and n2 = 5
 and n3 = 7
 and n4 = 13
 val out = process_stdout
-val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val res = GameOf24_play (n1, n2, n3, n4)
+val () = fprintln! (out, "play(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 } (* end of [main0_js] *)

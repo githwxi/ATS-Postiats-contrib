@@ -45,7 +45,7 @@ clean:: ; $(RMF) GameOf24_php_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) GameOf24_php_dats.php
-cleanall:: ; $(RMF) libatscc2php/*_cats.php
-cleanall:: ; $(RMF) libatscc2php/*_dats.php
+cleanall:: ; $(RMF) libatscc2php/CATS/*_cats.php
+cleanall:: ; $(RMF) libatscc2php/DATS/*_dats.php
 
 ###### end of [Makefile] ######

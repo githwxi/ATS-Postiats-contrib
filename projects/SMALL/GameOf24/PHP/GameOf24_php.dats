@@ -266,8 +266,6 @@ local
 
 #define EPSILON 0.1
 
-overload echo with echo_card
-
 in (* in-of-local *)
 
 implement
@@ -277,9 +275,8 @@ echo_cardlst
 fun auxone
   (c: card): void = let
   val v = card_get_val (c)
-  val () = echo_tmp<card> (c)
 in
-  echo (" = ", double2int(v+EPSILON), "<br>\n")
+  echo (c, " = ", double2int(v+EPSILON), "<br>\n")
 end // end of [auxone]
 //
 in
@@ -289,6 +286,8 @@ case+ cs of
 | list_cons (c, cs) => (auxone (c); echo_cardlst (cs))
 //
 end // end of [echo_cardlst]
+
+(* ****** ****** *)
 
 implement
 fpprint_cardlst

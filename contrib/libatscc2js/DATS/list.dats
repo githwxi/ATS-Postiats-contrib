@@ -19,6 +19,7 @@ ATS_STATIC_PREFIX "_ats2jspre_list_"
 //
 (* ****** ****** *)
 //
+staload "./../basics_js.sats"
 staload "./../SATS/list.sats"
 //
 (* ****** ****** *)

@@ -79,6 +79,11 @@ overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10
 //
 (* ****** ****** *)
+
+fun{} logats_card (card): void
+fun{} logats_cardlst (cardlst): void
+
+(* ****** ****** *)
 //
 fun
 fpprint_card (out: NJSstream, x: card): void
@@ -119,11 +124,16 @@ cardset_remove2_add1
 
 (* ****** ****** *)
 
-fun play24
+fun GameOf24_play
 (
   n1: int, n2: int, n3: int, n4: int
-) : List0(card) // end of [play24]
+) : List0(card) // end-of-function
 
+(* ****** ****** *)
+//
+fun GameOf24_play2
+  (n1: int, n2: int, n3: int, n4: int): string = "mac#GameOf24_play2"
+//
 (* ****** ****** *)
 
 (* end of [GameOf24_js.sats] *)

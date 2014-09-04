@@ -8,7 +8,7 @@
 //
 var fs = require('fs');
 //
-eval(fs.readFileSync('./DATS_JS/GameOf24_js_dats.js').toString());
+eval(fs.readFileSync('./GameOf24_js_dats.js').toString());
 //
 eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
