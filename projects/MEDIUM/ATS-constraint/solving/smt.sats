@@ -169,9 +169,23 @@ fun make_bv_sub2 (formula, formula): formula
 
 fun make_bv_add2 (formula, formula): formula
 
-fun make_bv_land2 (formula, formula): formula
+fun make_bv_land (formula, formula): formula
 
-fun make_bv_eq (formula, formula): formula
+fun make_bv_lor (formula, formula): formula
+
+fun make_bv_lxor (formula, formula): formula
+
+fun make_bv_lnot (formula, formula): formula
+
+fun make_bv_lt (formula,  formula): formula
+fun make_bv_le (formula,  formula): formula
+fun make_bv_gt (formula,  formula): formula
+fun make_bv_ge (formula,  formula): formula
+
+fun make_bv_ult (formula,  formula): formula
+fun make_bv_ule (formula,  formula): formula
+fun make_bv_ugt (formula,  formula): formula
+fun make_bv_uge (formula,  formula): formula
 
 (* ****** ****** *)
 

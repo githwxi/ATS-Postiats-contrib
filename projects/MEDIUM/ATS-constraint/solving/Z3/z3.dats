@@ -415,9 +415,6 @@ in
 end
 
 implement
-make_bv_eq (l, r) = make_eq (l, r)
-
-implement
 make_bv_from_int (n, i) = let
   val bv = Z3_mk_int2bv (!the_context, n, i)
   val () = begin

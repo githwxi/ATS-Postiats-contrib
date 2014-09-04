@@ -46,6 +46,8 @@ ATSCNTRB_SML_Z3_Z3_HEADER
 //
 (* ****** ****** *)
 
+// Constructors
+
 fun Z3_mk_int2bv (
   !Z3_context, int, !Z3_ast
 ): Z3_ast = "mac#%"
@@ -56,7 +58,7 @@ fun Z3_mk_bv_sort (
 
 (* ****** ****** *)
 
-// Logical Operators
+// Bitwise Operators
 
 fun Z3_mk_bvnot (
   !Z3_context, !Z3_ast
@@ -116,9 +118,21 @@ fun Z3_mk_bvsmod (
   !Z3_context, !Z3_ast, !Z3_ast
 ): Z3_ast = "mac#%"
 
+fun Z3_mk_bvshl (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bvlshr (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bvashr (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
 (* ****** ****** *)
 
-// Boolean Operators 
+// Boolean Operators
 
 fun Z3_mk_bvult (
   !Z3_context, !Z3_ast, !Z3_ast
@@ -141,30 +155,6 @@ fun Z3_mk_bvuge (
 ): Z3_ast = "mac#%"
 
 fun Z3_mk_bvsge (
-  !Z3_context, !Z3_ast, !Z3_ast
-): Z3_ast = "mac#%"
-
-fun Z3_mk_sign_ext (
-  !Z3_context, !Z3_ast
-): Z3_ast = "mac#%"
-
-fun Z3_mk_zero_ext (
-  !Z3_context, !Z3_ast
-): Z3_ast = "mac#%"
-
-fun Z3_mk_repeat (
-  !Z3_context, !Z3_ast
-): Z3_ast = "mac#%"
-
-fun Z3_mk_bvshl (
-  !Z3_context, !Z3_ast, !Z3_ast
-): Z3_ast = "mac#%"
-
-fun Z3_mk_bvlshr (
-  !Z3_context, !Z3_ast, !Z3_ast
-): Z3_ast = "mac#%"
-
-fun Z3_mk_bvashr (
   !Z3_context, !Z3_ast, !Z3_ast
 ): Z3_ast = "mac#%"
 

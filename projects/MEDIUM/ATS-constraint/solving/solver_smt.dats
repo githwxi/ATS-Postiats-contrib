@@ -688,7 +688,7 @@ in
     val l = formula_make (env, s2e1)
     val r = formula_make (env, s2e2)
   in
-    $SMT.make_bv_land2 (l, r)
+    $SMT.make_bv_land (l, r)
   end
   
   implement
@@ -697,9 +697,9 @@ in
     val l = formula_make (env, s2e1)
     val r = formula_make (env, s2e2)
   in
-    $SMT.make_bv_eq (l, r)
+    $SMT.make_eq (l, r)
   end
-
+  
   implement
   f_array_select (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
@@ -708,7 +708,7 @@ in
   in
     Select (a, i)
   end
-
+  
   implement
   f_array_store (env, s2es) = let
     val- s2e1 :: s2e2 :: s2e3 :: _ = s2es
@@ -777,7 +777,6 @@ in
           (Select (^a, i) <= Select (a, j))
         )
     end
-    
   in
   
   implement

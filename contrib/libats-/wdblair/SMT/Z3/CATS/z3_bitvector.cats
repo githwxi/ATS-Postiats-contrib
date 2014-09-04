@@ -52,6 +52,36 @@ atscntrb_Z3_mk_bv_sort(Z3_context ctx, unsigned int n) {
 
 /* ****** ****** */
 
+Z3_DECLARE_MK_AST(Z3_mk_bvnot, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvnot, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvredand, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvredand, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_redor, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_redor, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvand, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvand, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvor, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvor, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvxor, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvxor, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvneg, Z3_ast l) {
+  Z3_BODY_MK_AST(Z3_mk_bvneg, l)
+}
+
+/* ****** ****** */
+
 Z3_DECLARE_MK_AST(Z3_mk_bvadd, Z3_ast l, Z3_ast r) {
   Z3_BODY_MK_AST(Z3_mk_bvadd, l, r)
 }
@@ -60,8 +90,60 @@ Z3_DECLARE_MK_AST(Z3_mk_bvsub, Z3_ast l, Z3_ast r) {
   Z3_BODY_MK_AST(Z3_mk_bvsub, l, r)
 }
 
-Z3_DECLARE_MK_AST(Z3_mk_bvand, Z3_ast l, Z3_ast r) {
-  Z3_BODY_MK_AST(Z3_mk_bvand, l, r)
+Z3_DECLARE_MK_AST(Z3_mk_bvmul, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvmul, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvudiv, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvudiv, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvurem, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvurem, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvudiv, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvudiv, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvsrem, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvsrem, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvsmod, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvsmod, l, r)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_bvult, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvult, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvslt, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvslt, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvule, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvule, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvsle, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvsle, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvuge, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvuge, l, r)
+}
+
+Z3_DECLARE_MK_AST(Z3_mk_bvsge, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_bvsge, l, r)
+}
+
+/* ****** ****** */
+
+Z3_DECLARE_MK_AST(Z3_mk_sign_ext, Z3_ast l) {
+  Z3_BODY_MK_AST(Z3_mk_bvsge, l, r)
 }
 
 /* ****** ****** */
