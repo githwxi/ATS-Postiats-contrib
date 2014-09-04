@@ -66,9 +66,9 @@ ats2js_node_fprint_string(out, x) { out.write(x); return; }
 /* ****** ****** */
 //
 function
-ats2jspre_assert_bool0(tfv) { if (!tfv) process.exit(1); return; }
+ats2js_node_assert_bool0(tfv) { if (!tfv) process.exit(1); return; }
 function
-ats2jspre_assert_bool1(tfv) { if (!tfv) process.exit(1); return; }
+ats2js_node_assert_bool1(tfv) { if (!tfv) process.exit(1); return; }
 //
 /* ****** ****** */
 //

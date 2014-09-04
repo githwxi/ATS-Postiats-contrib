@@ -67,8 +67,8 @@ fun assert_errmsg_bool0
 fun assert_errmsg_bool1
   {b:bool} (x: bool b, msg: string): [b] void = "mac#%"
 //
-overload assert_errmsg with assert_errmsg_bool0 of 100
-overload assert_errmsg with assert_errmsg_bool1 of 110
+overload assert_errmsg with assert_errmsg_bool0 of 120
+overload assert_errmsg with assert_errmsg_bool1 of 130
 //
 (* ****** ****** *)
 //
