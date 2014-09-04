@@ -1,5 +1,8 @@
 <?php
 //
+// HX-2014-09-02:
+// testing code for GameOf24_php
+//
 include './GameOf24_php_dats.php';
 //
 require './libatscc2php/CATS/basics_cats.php';

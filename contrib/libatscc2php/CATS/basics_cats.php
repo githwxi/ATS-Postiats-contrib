@@ -104,21 +104,21 @@ ats2phppre_fprint_newline($out) { fprintf($out, "\n"); fflush($out); return; }
 /* ****** ****** */
 //
 function
-ats2phppre_assert_bool0($tfv, $errmsg) { if (!$tfv) exit(1); return; }
+ats2phppre_assert_bool0($tfv) { if (!$tfv) exit("**EXIT**"); return; }
 function
-ats2phppre_assert_bool1($tfv, $errmsg) { if (!$tfv) exit(1); return; }
+ats2phppre_assert_bool1($tfv) { if (!$tfv) exit("**EXIT**"); return; }
 //
 /* ****** ****** */
 //
 function
 ats2phppre_assert_errmsg_bool0($tfv, $errmsg)
 {
-  if (!$tfv) { fprintf(STDERR, "%s", $errmsg); sys.exit(1); }; return;
+  if (!$tfv) { fprintf(STDERR, "%s", $errmsg); exit(errmsg); }; return;
 }
 function
 ats2phppre_assert_errmsg_bool1($tfv, $errmsg)
 {
-  if (!$tfv) { fprintf(STDERR, "%s", $errmsg); sys.exit(1); }; return;
+  if (!$tfv) { fprintf(STDERR, "%s", $errmsg); exit(errmsg); }; return;
 }
 //
 /* ****** ****** */

@@ -527,7 +527,8 @@ end // end of [GameOf24_play2]
 (* ****** ****** *)
 //
 extern
-fun main0_php (): void = "mac#GameOf24_php_main0_php"
+fun
+main0_php (): void = "mac#GameOf24_php_main0_php"
 //
 implement
 main0_php () =

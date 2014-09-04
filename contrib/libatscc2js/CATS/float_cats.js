@@ -1,0 +1,73 @@
+/*
+******
+*
+* HX-2014-08:
+* for JavaScript code
+* translated from ATS
+*
+******
+*/
+
+/*
+******
+* beg of [float_cats.js]
+******
+*/
+
+/* ****** ****** */
+//
+function
+ats2jspre_int2double(x) { return x; }
+function
+ats2jspre_double_of_int(x) { return x; }
+//
+function
+ats2jspre_double2int(x)
+{
+  return (x >= 0 ? Math.floor(x) : Math.ceil(x));
+}
+function
+ats2jspre_int_of_double(x)
+{
+  return (x >= 0 ? Math.floor(x) : Math.ceil(x));
+}
+//
+/* ****** ****** */
+
+function
+ats2jspre_neg_double(x) { return ( -x ); }
+
+/* ****** ****** */
+
+function
+ats2jspre_abs_double(x) { return Math.abs(x); }
+
+/* ****** ****** */
+
+function
+ats2jspre_add_double_double(x, y) { return (x + y); }
+function
+ats2jspre_sub_double_double(x, y) { return (x - y); }
+function
+ats2jspre_mul_double_double(x, y) { return (x * y); }
+function
+ats2jspre_div_double_double(x, y) { return (x / y); }
+
+/* ****** ****** */
+
+function
+ats2jspre_lt_double_double(x, y) { return (x < y); }
+function
+ats2jspre_lte_double_double(x, y) { return (x <= y); }
+function
+ats2jspre_gt_double_double(x, y) { return (x > y); }
+function
+ats2jspre_gte_double_double(x, y) { return (x >= y); }
+function
+ats2jspre_eq_double_double(x, y) { return (x === y); }
+function
+ats2jspre_neq_double_double(x, y) { return (x !== y); }
+
+/* ****** ****** */
+
+/* end of [float_cats.js] */

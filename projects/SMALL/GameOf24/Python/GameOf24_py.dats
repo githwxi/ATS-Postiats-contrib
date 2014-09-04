@@ -455,7 +455,8 @@ end // end of [play24]
 (* ****** ****** *)
 //
 extern
-fun main0_py (): void = "mac#GameOf24_py_main0_py"
+fun
+main0_py (): void = "mac#GameOf24_py_main0_py"
 //
 implement
 main0_py () =

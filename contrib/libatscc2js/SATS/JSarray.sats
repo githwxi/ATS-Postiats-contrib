@@ -74,11 +74,14 @@ JSarray_concat{a:t@ype}
 //
 fun
 JSarray_insert_at
-  {a:t@ype}(A: JSarray(a), ins: a): void = "mac#%"
+  {a:t@ype}(JSarray(a), int, a): void = "mac#%"
 //
 fun
+JSarray_takeout_at
+  {a:t@ype}(A: JSarray(a), ofs: int): (a) = "mac#%"
+fun
 JSarray_remove_at
-  {a:t@ype}(A: JSarray(a), removed: int): void = "mac#%"
+  {a:t@ype}(A: JSarray(a), ofs: int): void = "mac#%"
 //
 (* ****** ****** *)
 //

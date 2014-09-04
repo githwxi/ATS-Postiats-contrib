@@ -64,5 +64,25 @@ function
 ats2js_node_fprint_string(out, x) { out.write(x); return; }
 //
 /* ****** ****** */
+//
+function
+ats2jspre_assert_bool0(tfv) { if (!tfv) process.exit(1); return; }
+function
+ats2jspre_assert_bool1(tfv) { if (!tfv) process.exit(1); return; }
+//
+/* ****** ****** */
+//
+function
+ats2js_node_assert_errmsg_bool0(tfv, errmsg)
+{
+  if (!tfv) { process.stderr.write(errmsg); process.exit(1); }; return;
+}
+function
+ats2js_node_assert_errmsg_bool1(tfv, errmsg)
+{
+  if (!tfv) { process.stderr.write(errmsg); process.exit(1); }; return;
+}
+//
+/* ****** ****** */
 
 /* end of [basics_cats.js] */

@@ -459,7 +459,8 @@ end // end of [play24]
 (* ****** ****** *)
 //
 extern
-fun main0_js (): void = "mac#GameOf24_js_main0_js"
+fun
+main0_js (): void = "mac#GameOf24_js_main0_js"
 //
 implement
 main0_js () =
