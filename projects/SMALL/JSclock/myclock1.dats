@@ -31,9 +31,16 @@ macdef _2PI = 2 * PI
 staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
+//
+#define
+HTML_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten"
+#define
+HTML5canvas2d_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
+//
 staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
-
+//
 (* ****** ****** *)
 
 extern
