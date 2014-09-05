@@ -58,7 +58,9 @@ vtypedef canvas2d1 = [l:addr | l > null] canvas2d (l)
 (* ****** ****** *)
 //
 castfn
-canvas2d2ptr{l:addr} (can: !canvas2d(l)):<> ptr(l)
+canvas2d2ptr
+  {l:addr}(!canvas2d(l)):<> ptr(l)
+//
 overload ptrcast with canvas2d2ptr
 //
 (* ****** ****** *)

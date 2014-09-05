@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<title>ATS-HTML5canvas2d-Clock</title>
+<style>
+#clock-container
+{
+  margin: 0 auto; width: 920px; height: auto;
+}
+</style>
+<script
+ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/basics_cats.js">
+</script>
+<script
+ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/integer_cats.js">
+</script>
+<script
+ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/float_cats.js">
+</script>
+<script
+ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/string_cats.js">
+</script>
+<script
+ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSmath_cats.js">
+</script>
+<script
+ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/HTML/canvas-2d/canvas2d_cats.js">
+</script>
+<script src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/DATS/list_dats.js">
+</script>
+</head>
+<body>
+  <h1>ATS->C->JS via atscc2js</h1>
+  <div id="clock-container">
+    <canvas id="MyClock1-2"
+            width="920px" height="600px"
+            oncontextmenu="event.preventDefault()">
+    </canvas>
+  </div>
+<!--
+HX-2014-09: it must be the last one!
+-->
+<script src="myclock1-2_dats.js"></script>
+<script>
+//
+var canvas =
+  ats2js_html5_canvas2d_make("MyClock1-2");
+//
+var w = 920.0
+var h = 600.0
+var mn = Math.min (w, h)
+var xc = w / 2
+var yc = h / 2
+var alpha = mn / 300
+//
+function
+draw2_clock()
+{
+var date = new Date() ;
+var secs = date.getSeconds()
+var mins = date.getMinutes()
+var mins = mins + secs / 60.0
+var hours = date.getHours()
+var hours = hours + mins / 60.0
+//
+canvas.save();
+canvas.translate(xc-mn/2, yc-mn/2);
+canvas.scale (alpha, alpha);
+draw_clock(canvas, hours, mins, secs);
+canvas.restore();
+//
+setTimeout(draw2_clock, 500);
+//
+return;
+//
+} // end of [draw2_clock]
+//
+draw2_clock(/*initiating*/);
+//
+</script>
+</body>
+</html>

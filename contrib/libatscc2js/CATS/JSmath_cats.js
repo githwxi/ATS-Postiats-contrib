@@ -10,7 +10,7 @@
 
 /*
 ******
-* beg of [Math_cats.js]
+* beg of [JSmath_cats.js]
 ******
 */
 
@@ -96,4 +96,4 @@ ats2jspre_JSmath_random() { return Math.random(); }
 //
 /* ****** ****** */
 
-/* end of [Math_cats.js] */
+/* end of [JSmath_cats.js] */

@@ -43,6 +43,28 @@ function
 ats2jspre_abs_double(x) { return Math.abs(x); }
 
 /* ****** ****** */
+//
+function
+ats2jspre_add_int_double(x, y) { return (x + y); }
+function
+ats2jspre_add_double_int(x, y) { return (x + y); }
+//
+function
+ats2jspre_sub_int_double(x, y) { return (x - y); }
+function
+ats2jspre_sub_double_int(x, y) { return (x - y); }
+//
+function
+ats2jspre_mul_int_double(x, y) { return (x * y); }
+function
+ats2jspre_mul_double_int(x, y) { return (x * y); }
+//
+function
+ats2jspre_div_int_double(x, y) { return (x / y); }
+function
+ats2jspre_div_double_int(x, y) { return (x / y); }
+//
+/* ****** ****** */
 
 function
 ats2jspre_add_double_double(x, y) { return (x + y); }
@@ -53,6 +75,28 @@ ats2jspre_mul_double_double(x, y) { return (x * y); }
 function
 ats2jspre_div_double_double(x, y) { return (x / y); }
 
+/* ****** ****** */
+//
+function
+ats2jspre_lt_int_double(x, y) { return (x < y); }
+function
+ats2jspre_lt_double_int(x, y) { return (x < y); }
+//
+function
+ats2jspre_lte_int_double(x, y) { return (x <= y); }
+function
+ats2jspre_lte_double_int(x, y) { return (x <= y); }
+//
+function
+ats2jspre_gt_int_double(x, y) { return (x > y); }
+function
+ats2jspre_gt_double_int(x, y) { return (x > y); }
+//
+function
+ats2jspre_gte_int_double(x, y) { return (x >= y); }
+function
+ats2jspre_gte_double_int(x, y) { return (x >= y); }
+//
 /* ****** ****** */
 
 function

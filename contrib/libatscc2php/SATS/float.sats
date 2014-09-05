@@ -25,12 +25,16 @@ fun double_of_int (x: int): double = "mac#%"
 //
 (* ****** ****** *)
 
-fun abs_double : (double) -> double = "mac#%"
-fun neg_double : (double) -> double = "mac#%"
+fun
+abs_double
+  : (double) -> double = "mac#%"
+overload abs with abs_double of 100
 
 (* ****** ****** *)
 
-overload abs with abs_double of 100
+fun neg_double
+  : (double) -> double = "mac#%"
+overload ~ with neg_double of 100
 overload neg with neg_double of 100
 
 (* ****** ****** *)
