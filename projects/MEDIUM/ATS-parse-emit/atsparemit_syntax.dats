@@ -591,6 +591,10 @@ implement
 tmpvar_is_arg (tmp) = (
   $STRING.strncmp (symbol_get_name(tmp), "arg", i2sz(3)) = 0
 ) (* end of [tmpvar_is_arg] *)
+implement
+tmpvar_is_apy (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "apy", i2sz(3)) = 0
+) (* end of [tmpvar_is_apy] *)
 //  
 implement
 tmpvar_is_env (tmp) = (
@@ -605,6 +609,29 @@ implement
 tmpvar_is_tmpret (tmp) = (
   $STRING.strncmp (symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
 ) (* end of [tmpvar_is_tmpret] *)
+//
+implement
+tmpvar_is_a2rg (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "a2rg", i2sz(4)) = 0
+) (* end of [tmpvar_is_a2rg] *)
+implement
+tmpvar_is_a2py (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "a2py", i2sz(4)) = 0
+) (* end of [tmpvar_is_a2py] *)
+//
+//
+(* ****** ****** *)
+//
+implement
+tmpvar_is_local (tmp) =
+(
+  if tmpvar_is_tmp(tmp) then true
+  else if tmpvar_is_arg(tmp) then true
+  else if tmpvar_is_apy(tmp) then true
+  else if tmpvar_is_env(tmp) then true
+  else if tmpvar_is_a2rg(tmp) then true
+  else if tmpvar_is_a2py(tmp) then true else false
+) (* end of [tmpvar_is_local] *)
 //
 (* ****** ****** *)
 
@@ -1217,33 +1244,33 @@ val loc =
 //
 in
   instr_make_node (loc, ATSdynload(0))
-end // end of [ATSdynload]
+end // end of [ATSdynload_make]
 
 (* ****** ****** *)
 
 implement
-ATSdynload0_make
+ATSdynloadflag_sta_make
   (tok1, id, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSdynload0(id))
-end // end of [ATSdynload0]
+  instr_make_node (loc, ATSdynloadflag_sta(id))
+end // end of [ATSdynloadflag_sta_make]
 
 (* ****** ****** *)
 
 implement
-ATSdynload1_make
+ATSdynloadflag_ext_make
   (tok1, id, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSdynload1(id))
-end // end of [ATSdynload1]
+  instr_make_node (loc, ATSdynloadflag_ext(id))
+end // end of [ATSdynloadflag_ext_make]
 
 (* ****** ****** *)
 
@@ -1551,6 +1578,18 @@ val loc = tok1.token_loc ++ tok2.token_loc
 in
   d0ecl_make_node (loc, D0Cclosurerize (fl, env, arg, res))
 end // end of [d0ecl_closurerize]
+
+(* ****** ****** *)
+
+implement
+d0ecl_dynloadflag_init
+  (tok1, flag, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynloadflag_init (flag))
+end // end of [d0ecl_dynloadflag_init]
 
 (* ****** ****** *)
 

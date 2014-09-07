@@ -21,7 +21,7 @@
 class
 PHParref {
   public $array ; // this is a PHParray
-}  
+} /* end of [class] */
 
 /* ****** ****** */
 //

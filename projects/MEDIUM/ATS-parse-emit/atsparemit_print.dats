@@ -185,9 +185,10 @@ case+ x of
 | ATSINSdeadcode_fail () => pr "ATSINSdeadcode_fail"
 //
 | ATSdynload () => pr "ATSdynload"
-| ATSdynload0 () => pr "ATSdynload0"
-| ATSdynload1 () => pr "ATSdynload1"
 | ATSdynloadset () => pr "ATSdynloadset"
+| ATSdynloadflag_sta () => pr "ATSdynloadflag_sta"
+| ATSdynloadflag_ext () => pr "ATSdynloadflag_ext"
+| ATSdynloadflag_init () => pr "ATSdynloadflag_init"
 //
 | ATSclosurerize_beg () => pr "ATSclosurerize_beg"
 | ATSclosurerize_end () => pr "ATSclosurerize_end"
@@ -489,10 +490,11 @@ ins0.instr_node of
 | ATSINSmove_con0 (tmp, tag(*token*)) =>
     fprint! (out, "ATSINSmove_con0(", tmp, ", ", tag, ")")
 //
-| ATSdynload (dummy) => fprint! (out, "ATSdynload0(", ")")
-| ATSdynload0 (flag) => fprint! (out, "ATSdynload0(", flag, ")")
-| ATSdynload1 (flag) => fprint! (out, "ATSdynload1(", flag, ")")
+| ATSdynload (dummy) => fprint! (out, "ATSdynload(", ")")
 | ATSdynloadset (flag) => fprint! (out, "ATSdynloadset(", flag, ")")
+| ATSdynloadflag_sta (flag) => fprint! (out, "ATSdynloadflag_sta(", flag, ")")
+| ATSdynloadflag_ext (flag) => fprint! (out, "ATSdynloadflag_ext(", flag, ")")
+| ATSdynloadflag_init (flag) => fprint! (out, "ATSdynloadflag_init(", flag, ")")
 //
 | _ (*rest*) => fprint (out, "fprint_instr(...)")
 //
@@ -646,6 +648,9 @@ x.d0ecl_node of
 //
 | D0Cclosurerize (flab, _, _, _) =>
     fprint! (out, "D0Cclosurerize(", flab, "; ", "...", ")")
+//
+| D0Cdynloadflag_init (flag) =>
+    fprint! (out, "D0Cdynloadflag_init(", flag, ")")
 //
 end // end of [fprint_d0ecl]
 //

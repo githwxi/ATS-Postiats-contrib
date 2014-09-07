@@ -33,6 +33,29 @@ staload "./atsparemit_typedef.dats"
 //
 extern
 fun
+emit_local : emit_type (i0de)
+//
+implement
+emit_local
+  (out, name) = (
+  emit_DOLLAR (out); emit_i0de (out, name)
+) (* end of [emit_local] *)
+//
+extern
+fun
+emit_global : emit_type (i0de)
+//
+implement
+emit_global
+  (out, name) = (
+  emit_text (out, "$GLOBALS['");
+  emit_i0de (out, name); emit_text (out, "']")
+) (* end of [emit_global] *)
+//
+(* ****** ****** *)
+//
+extern
+fun
 emit_tmpdeclst_initize
 (
   out: FILEref, tds: tmpdeclst
@@ -359,26 +382,24 @@ ins0.instr_node of
     val () = emit_text (out, "// ATSdynload()")
   }
 //
-| ATSdynload0 (flag) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () =
-    (
-      emit_tmpvar (out, flag); emit_text (out, " = 0 ;")
-    )
-  }
-| ATSdynload1 (flag) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSdynload1(...)")
-  }
 | ATSdynloadset (flag) =>
   {
     val () = emit_nspc (out, ind)
     val () =
     (
-      emit_tmpvar (out, flag); emit_text (out, " = 1 ; // flag is set")
+      emit_global (out, flag); emit_text (out, " = 1 ; // dynflag is set")
     )
+  }
+//
+| ATSdynloadflag_sta (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = fprint! (out, "// ATSdynloadflag_sta(", flag, ")")
+  }
+| ATSdynloadflag_ext (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = fprint! (out, "// ATSdynloadflag_ext(", flag, ")")
   }
 //
 | _ (*rest-of-instr*) =>
@@ -610,6 +631,12 @@ d0c.d0ecl_node of
   (
     fl, env, arg, res
   ) => emit_closurerize (out, fl, env, arg, res)
+//
+| D0Cdynloadflag_init (flag) =>
+  (
+    emit_text (out, "// dynloadflag_init\n");
+    emit_global (out, flag); emit_text (out, " = 0;\n")
+  )
 //
 end // end of [emit_d0ecl]
 

@@ -298,9 +298,10 @@ keyword =
   | ATSINSdeadcode_fail of ()
 //
   | ATSdynload of ()
-  | ATSdynload0 of ()
-  | ATSdynload1 of ()
   | ATSdynloadset of ()
+  | ATSdynloadflag_sta of ()
+  | ATSdynloadflag_ext of ()
+  | ATSdynloadflag_init of ()
 //
   | ATSclosurerize_beg of ()
   | ATSclosurerize_end of ()
@@ -911,9 +912,10 @@ instr_node =
   | ATSINSdeadcode_fail of (token)
 //
   | ATSdynload of int
-  | ATSdynload0 of (i0de)
-  | ATSdynload1 of (i0de)
   | ATSdynloadset of (i0de)
+  | ATSdynloadflag_sta of (i0de)
+  | ATSdynloadflag_ext of (i0de)
+  | ATSdynloadflag_init of (i0de)
 //
 // end of [instr_node]
 //
@@ -992,6 +994,8 @@ d0ecl_node =
   | D0Cclosurerize of (
       i0de, s0exp(*env*), s0exp(*arg*), s0exp(*res*)
     ) (* end of [D0Cclosurerize] *)
+//
+  | D0Cdynloadflag_init of (i0de)
 //
 // end of [d0ecl_node]
 

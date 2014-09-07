@@ -31,6 +31,8 @@ abstype PHPfile
 
 (* ****** ****** *)
 //
+abstype PHPref(a:t@ype) // reference
+//
 abstype PHParray(a:t@ype) // risk on your own!!!
 abstype PHParref(a:t@ype) // reference to PHParray
 //

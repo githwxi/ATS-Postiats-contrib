@@ -385,6 +385,18 @@ tok.token_node of
       ) else tokbuf_set_ntok_null (buf, n0)
   end // end of [ATSclosurerize_beg]
 //
+| T_KWORD(ATSdynloadflag_init()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then d0ecl_dynloadflag_init (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynloadflag_init]
+//
 | _ (*error*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_d0ecl)

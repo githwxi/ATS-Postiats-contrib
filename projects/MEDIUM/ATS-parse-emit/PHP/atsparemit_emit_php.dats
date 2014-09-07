@@ -227,10 +227,23 @@ emit_ATSCKpat_con1
 //
 implement
 emit_tmpvar
-  (out, tmp) =
-(
+  (out, tmp) = let
+//
+val isloc =
+  tmpvar_is_local (tmp.i0de_sym)
+//
+in
+//
+if (
+isloc
+) then (
   emit_DOLLAR(out); emit_i0de (out, tmp)
-) (* end of [emit_tmpvar] *)
+) else (
+  emit_text (out, "$GLOBALS['");
+  emit_i0de (out, tmp); emit_text (out, "']")
+) (* end of [if] *)
+//
+end (* end of [emit_tmpvar] *)
 //
 (* ****** ****** *)
 

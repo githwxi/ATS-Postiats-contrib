@@ -255,12 +255,17 @@ fun
 f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
 (* ****** ****** *)
-
+//
 fun tmpvar_is_arg (tmp: symbol): bool
+fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
 fun tmpvar_is_tmp (tmp: symbol): bool
 fun tmpvar_is_tmpret (tmp: symbol): bool
-
+fun tmpvar_is_a2rg (tmp: symbol): bool
+fun tmpvar_is_a2py (tmp: symbol): bool
+//
+fun tmpvar_is_local (tmp: symbol): bool
+//
 (* ****** ****** *)
 //
 fun
@@ -502,11 +507,11 @@ ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
 fun
 ATSdynload_make (tok_kwd: token, tok_end: token): instr
 fun
-ATSdynload0_make (tok_kwd: token, id: i0de, tok_end: token): instr
-fun
-ATSdynload1_make (tok_kwd: token, id: i0de, tok_end: token): instr
-fun
 ATSdynloadset_make (tok_kwd: token, id: i0de, tok_end: token): instr
+fun
+ATSdynloadflag_sta_make (tok_kwd: token, id: i0de, tok_end: token): instr
+fun
+ATSdynloadflag_ext_make (tok_kwd: token, id: i0de, tok_end: token): instr
 
 (* ****** ****** *)
 //
@@ -593,6 +598,12 @@ d0ecl_closurerize
 , fl: label, env: s0exp, arg: s0exp, res: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_closurerize]
 
+(* ****** ****** *)
+//
+fun
+d0ecl_dynloadflag_init
+  (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
+//
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.sats] *)

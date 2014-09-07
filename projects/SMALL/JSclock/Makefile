@@ -83,5 +83,6 @@ clean:: ; $(RMF) myclock1-2_dats.c
 cleanall:: clean
 cleanall:: ; $(RMF) myclock0.js myclock0.js.map
 cleanall:: ; $(RMF) myclock1.js myclock1.js.map
+cleanall:: ; $(RMF) myclock1-2_dats.js
 
 ###### end of [Makefile] ######

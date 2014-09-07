@@ -102,7 +102,6 @@ overload [] with JSarray_get_at
 overload [] with JSarray_set_at
 //
 overload  length with JSarray_length
-overload .length with JSarray_length
 //
 (* ****** ****** *)
 

@@ -921,32 +921,32 @@ ins0.instr_node of
     val () = emit_the_statmpdeclst (out, ind)
   }
 //
-| ATSdynload0 (flag) =>
+| ATSdynloadset (flag) =>
   {
-    val () = emit_nspc (out, ind)   
-    val () = emit_text (out, "#ATSdynload0\n")
-    val () = emit_nspc (out, ind)   
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#ATSdynloadset\n")
     val () = (
-      emit_tmpvar (out, flag); emit_text (out, " = 0")
+      emit_nspc (out, ind); emit_tmpvar (out, flag); emit_text (out, " = 1")
     ) (* end of [val] *)
   }
 //
-| ATSdynload1 (flag) =>
+| ATSdynloadflag_sta (flag) =>
   {
     val () = emit_nspc (out, ind)   
-    val () = emit_text (out, "#ATSdynload1\n")
+    val () = emit_text (out, "#ATSdynloadflag_sta\n")
     val () = emit_nspc (out, ind)   
     val () = (
       emit_text (out, "global "); emit_tmpvar (out, flag)
     ) (* end of [val] *)
   }
-| ATSdynloadset (flag) =>
+//
+| ATSdynloadflag_ext (flag) =>
   {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "#ATSdynloadset\n")
-    val () = emit_nspc (out, ind)
+    val () = emit_nspc (out, ind)   
+    val () = emit_text (out, "#ATSdynloadflag_ext\n")
+    val () = emit_nspc (out, ind)   
     val () = (
-      emit_tmpvar (out, flag); emit_text (out, " = 0")
+      emit_text (out, "global "); emit_tmpvar (out, flag)
     ) (* end of [val] *)
   }
 //
@@ -1185,6 +1185,14 @@ d0c0.d0ecl_node of
   (
     fl, env, arg, res
   ) => emit_closurerize (out, fl, env, arg, res)
+//
+| D0Cdynloadflag_init (flag) =>
+  {
+    val () = emit_ENDL (out)
+    val () = (
+      emit_tmpvar (out, flag); emit_text (out, " = 0\n")
+    ) (* end of [val] *)
+  }
 //
 end // end of [emit_d0ecl]
 

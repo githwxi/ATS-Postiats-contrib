@@ -87,6 +87,14 @@ cleanall:: ; $(RMF) rtfind2_dats.php
 
 ######
 
+all:: \
+refcount_dats.php
+refcount_dats.php: refcount.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) refcount_dats.php
+
+######
+
 all:: mytest
 mytest:: mytest.php; php -f mytest.php
 

@@ -196,9 +196,10 @@ val-~None_vt() = kwordins ("ATSINSargmove_tlcal", ATSINSargmove_tlcal)
 val-~None_vt() = kwordins ("ATSINSdeadcode_fail", ATSINSdeadcode_fail)
 //
 val-~None_vt() = kwordins ("ATSdynload", ATSdynload)
-val-~None_vt() = kwordins ("ATSdynload0", ATSdynload0)
-val-~None_vt() = kwordins ("ATSdynload1", ATSdynload1)
 val-~None_vt() = kwordins ("ATSdynloadset", ATSdynloadset)
+val-~None_vt() = kwordins ("ATSdynloadflag_sta", ATSdynloadflag_sta)
+val-~None_vt() = kwordins ("ATSdynloadflag_ext", ATSdynloadflag_ext)
+val-~None_vt() = kwordins ("ATSdynloadflag_init", ATSdynloadflag_init)
 //
 val-~None_vt() = kwordins ("ATSclosurerize_beg", ATSclosurerize_beg)
 val-~None_vt() = kwordins ("ATSclosurerize_end", ATSclosurerize_end)

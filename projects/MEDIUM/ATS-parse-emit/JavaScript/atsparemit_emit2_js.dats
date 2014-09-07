@@ -536,27 +536,23 @@ ins0.instr_node of
     val () = emit_text (out, "// ATSdynload()")
   }
 //
-| ATSdynload0 (flag) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "var\n")
-    val () = emit_nspc (out, ind)
-    val () = (
-      emit_tmpvar (out, flag); emit_text (out, " = 0 ;")
-    ) (* end of [val] *)
-  }
-| ATSdynload1 (flag) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSdynload1(...)")
-  }
-//
 | ATSdynloadset (flag) =>
   {
     val () = emit_nspc (out, ind)
     val () = (
       emit_tmpvar (out, flag); emit_text (out, " = 1 ; // flag is set")
     ) (* end of [val] *)
+  }
+//
+| ATSdynloadflag_sta (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = fprint! (out, "// ATSdynloadflag_sta(", flag, ")")
+  }
+| ATSdynloadflag_ext (flag) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = fprint! (out, "// ATSdynloadflag_ext(", flag, ")")
   }
 //
 | _ (*rest-of-instr*) =>
@@ -847,6 +843,12 @@ d0c.d0ecl_node of
   {
     val () = emit_closurerize (out, fl, env, arg, res)
   }
+//
+| D0Cdynloadflag_init (flag) =>
+  (
+    emit_text (out, "// dynloadflag_init\n");
+    emit_text (out, "var "); emit_tmpvar (out, flag); emit_text (out, " = 0;\n")
+  )
 //
 end // end of [emit_d0ecl]
 
