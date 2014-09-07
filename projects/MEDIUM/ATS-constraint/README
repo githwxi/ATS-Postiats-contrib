@@ -1,0 +1,32 @@
+ATS External Constraint Solver
+==============================
+
+This is a constraint solver for ATS2 written in ATS2. Included in this project
+are several constraint solvers with various SMT solvers doing the heavy 
+lifting of typechecking.
+
+The goal of this project is to take typechecking out of the ATS2
+compiler in order to incorporate industrial strength decision tools into the
+role of typechecking. The statics of ATS are, by nature, very extendable.
+Indeed, every static function that enables us to verify things like correct
+implementation of data structures and the absence of overflows is defined
+in ATS files outside of the compiler. The power of the statics (what may
+be solved by the typechecker) is then dictated by which of these static
+functions the typechecker can comprehend. Our default typechecker uses
+a custom Fourier-Motzkin implementation to decide constraints involving
+Presburger Arithmetic. 
+
+While this is  certainly useful, we want to provide a platform from which
+someone could extend the statics beyond basic arithmetic in any direction
+comprehended by an automated deduction system. For example, providing a
+static interface for arithmetic over fixed width integers could give us
+the power to verify properties of embedded systems that make heavy use
+of bitwise operators. To support formulas involving a completely new sort
+(bitvectors) as opposed to our integers and booleans would take considerable
+effort. Instead, we elect to export constraints in a text format so that we
+may leverage state of the art formal methods tools. For example, SMT solvers
+provide a rich theory for bitvectors in addition to the linear integer
+arithmetic our system currently supports. This project is a demonstration
+of how we may use the statics of ATS alongside an external theorem prover
+to verify properties of programs. The strength of what may be verified
+is then only limited by the power of the external solver.
