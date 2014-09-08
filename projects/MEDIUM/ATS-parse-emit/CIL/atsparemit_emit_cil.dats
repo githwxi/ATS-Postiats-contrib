@@ -19,6 +19,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload "./atsparemit.sats"
+staload "./atsparemit_cil.sats"
 staload "./atsparemit_syntax.sats"
 staload "./atsparemit_syntax_cil.sats"
 //
@@ -255,6 +256,19 @@ implement
     val () = emit_SPACE (out)
     val () = emit_i0de (out, tmp)
   } // end of [emit_tmpvar_st]
+//
+(* ****** ****** *)
+//
+extern
+fun emit_MODCLSNAME (out: FILEref, fname: string): void
+//
+implement
+  emit_MODCLSNAME (out, fname) = {
+  val () = emit_text (out, "\'")
+  // TODO: sanitize?
+  val () = emit_text (out, fname)
+  val () = emit_text (out, "\'")
+} (* end of [emit_MODCLSNAME] *)
 //
 (* ****** ****** *)
 //
@@ -1434,8 +1448,8 @@ end // end of [emit_d0ecl]
 (* ****** ****** *)
 
 implement
-emit_toplevel
-  (out, d0cs) = let
+emit2_toplevel
+  (out, d0cs, fname, namespace) = let
 //
 fun
 loop
@@ -1454,14 +1468,41 @@ case+ d0cs of
 //
 )
 //
+// TODO: for the main file, emit assembly manifest (assembly references, etc.)
+// TODO: for all modules, emit .module extern for other modules?
+// TODO: handle entry point
+//
+val () = emit_text (out, ".module")
+val () = emit_SPACE (out)
+val () = emit_text (out, "'")
+val () = emit_text (out, fname)
+val () = emit_text (out, "'")
+val () = emit_ENDL (out)
+//
+val () = emit_text (out, ".namespace")
+val () = emit_SPACE (out)
+val () = emit_text (out, namespace)
+val () = emit_SPACE (out)
+val () = emit_LBRACE (out)
+val () = emit_ENDL (out)
+//
+val () = emit_text (out, ".class")
+val () = emit_SPACE (out)
+val () = emit_MODCLSNAME (out, fname)
+val () = emit_SPACE (out)
+val () = emit_LBRACE (out)
+val () = emit_ENDL (out)
+val () = loop (out, d0cs)
+val () = emit_RBRACE (out) (* end of [class] definition *)
+val () = emit_text (out, "/* end of class */")
+//
+val () = emit_ENDL (out)
+val () = emit_RBRACE (out) (* end of [namespace] definition *)
+val () = emit_text (out, "/* end of namespace */")
+//
 in
-  // TODO:
-  // - emit assembly references
-  // - emit .corflags, .subsystem
-  // - emit .module <filename>
-  //   - where <filename> is the name of the source file (e.g. foo.dats)
-  loop (out, d0cs)
-end // end of [emit_toplevel]
+  (*empty*)
+end // end of [emit2_toplevel]
 
 (* ****** ****** *)
 

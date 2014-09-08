@@ -22,6 +22,7 @@ STDIO =
 (* ****** ****** *)
 
 staload "./atsparemit.sats"
+staload "./atsparemit_cil.sats"
 staload "./atsparemit_parsing.sats"
 staload "./atsparemit_emit.sats"
 
@@ -89,7 +90,8 @@ datatype
 waitkind =
   | WTKnone of ()
   | WTKinput of ()
-  | WTKoutput of () // -o / --outpu
+  | WTKoutput of () // -o / --output
+  | WTKnamesp of () // -n / --namespace
 // end of [waitkind]
 
 (* ****** ****** *)
@@ -115,6 +117,7 @@ cmdstate = @{
   comarg0= comarg
 , ncomarg= int // number of command-line arguments
 , waitkind= waitkind
+, namesp= string // CLI namespace for generated code
 // number of processed input files
 , ninputfile= int // waiting for STDIN if it is 0
 , outchan= OUTCHAN // current output channel
@@ -148,18 +151,20 @@ end // end of [cmdstate_set_outchan]
 extern
 fun
 atscc2cil_fileref
-  (state: &cmdstate >> _, filr: FILEref): void
+  (state: &cmdstate >> _, filr: FILEref, fname: string): void
 //
 implement
 atscc2cil_fileref
-  (state, inp) = let
+  (state, inp, fname) = let
 //
 val out =
   outchan_get_fileref (state.outchan)
 //
 val d0cs = parse_from_fileref (inp)
 //
-val ((*void*)) = emit_toplevel (out, d0cs)
+val namesp = state.namesp
+//
+val ((*void*)) = emit2_toplevel (out, d0cs, fname, namesp)
 //
 in
   // nothing
@@ -190,7 +195,7 @@ val inp =
 $UNSAFE.castvwtp0{FILEref}(inp)
 //
 in
-  atscc2cil_fileref (state, inp)
+  atscc2cil_fileref (state, inp, fname)
 end // end of [then]
 else let
 //
@@ -244,6 +249,14 @@ end // end of [cmdstate_set_outchan_basename]
 
 (* ****** ****** *)
 
+fun
+cmdstate_set_namesp
+(
+  state: &cmdstate >> _, namespace: string
+) : void = {
+  val () = state.namesp := namespace
+} (* end of [cmdstate_set_namesp] *)
+
 (* ****** ****** *)
 //
 fn isinwait
@@ -258,6 +271,12 @@ fn isoutwait
   case+ state.waitkind of WTKoutput () => true | _ => false
 ) (* end of [isoutwait] *)
 //
+fn isnspwait
+  (state: cmdstate): bool =
+(
+  case+ state.waitkind of WTKnamesp () => true | _ => false
+) (* end of [isnspwait] *)
+//
 (* ****** ****** *)
 //
 extern
@@ -266,7 +285,7 @@ comarg_warning (string): void
 //
 implement
 comarg_warning (str) = {
-  val () = prerr ("waring(ATS)")
+  val () = prerr ("warning(ATS)")
   val () = prerr (": unrecognized command line argument [")
   val () = prerr (str)
   val () = prerr ("] is ignored.")
@@ -332,7 +351,7 @@ case+ arglst of
     if wait0 then (
       if state.ncomarg = 0
         then atscc2cil_usage ("atscc2cil")
-        else atscc2cil_fileref (state, stdin_ref)
+        else atscc2cil_fileref (state, stdin_ref, "STDIN")
     ) (* end of [if] *)
   end // end of [list_nil]
 //
@@ -386,6 +405,19 @@ case+ arg of
     process_cmdline (state, arglst)
   end // end of [_ when isoutwait]
 //
+| _ when
+    isnspwait(state) => let
+//
+    val COMARGkey (_, namesp) = arg
+//
+    val () = cmdstate_set_namesp (state, namesp)
+//
+    val () = state.waitkind := WTKnone ()
+//
+  in
+    process_cmdline (state, arglst)
+  end // end of [_ when isnspwait]
+//
 | COMARGkey (1, key) =>
     process_cmdline2_COMARGkey1 (state, arglst, key)
 | COMARGkey (2, key) =>
@@ -419,8 +451,12 @@ case+ key of
     val () = state.waitkind := WTKoutput ()
   } (* end of [-o] *)
 //
+| "-n" => {
+    val () = state.waitkind := WTKnamesp ()
+  } (* end of [-n] *)
+//
 | "-h" => {
-    val () = atscc2cil_usage ("atscc2py")
+    val () = atscc2cil_usage ("atscc2cil")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [-h] *)
@@ -453,6 +489,10 @@ case+ key of
 | "--output" => {
     val () = state.waitkind := WTKoutput ()
   } (* end of [--output] *)
+//
+| "--namespace" => {
+    val () = state.waitkind := WTKnamesp ()
+  } (* end of [--namespace] *)
 //
 | "--help" => {
     val () = atscc2cil_usage ("atscc2cil")
@@ -560,6 +600,7 @@ state = @{
   comarg0= arg0
 , ncomarg= 0 // counting from 0
 , waitkind= WTKnone ()
+, namesp= "Postiats"
 // number processed
 , ninputfile= ~1 // input files
 , outchan= OUTCHANref (stdout_ref)
