@@ -247,6 +247,9 @@ keyword =
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
+  | ATSPMVrefarg0 of ()
+  | ATSPMVrefarg1 of ()
+//
   | ATSPMVfunlab of ()
   | ATSPMVcfunlab of ()
 //
@@ -735,6 +738,9 @@ d0exp_node =
 //
   | ATSPMVi0nt of i0nt
   | ATSPMVf0loat of f0loat
+//
+  | ATSPMVrefarg0 of (d0exp)
+  | ATSPMVrefarg1 of (d0exp)
 //
   | ATSPMVfunlab of (label)
   | ATSPMVcfunlab of (int(*knd*), label, d0explst)

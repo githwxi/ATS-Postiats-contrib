@@ -97,7 +97,7 @@ fun print_double : (double) -> void = "mac#%"
 fun prerr_double : (double) -> void = "mac#%"
 //
 fun
-fprint_double : (PHPfile, double) -> void = "mac#%"
+fprint_double : (PHPfilr, double) -> void = "mac#%"
 //
 overload print with print_double of 100
 overload prerr with prerr_double of 100

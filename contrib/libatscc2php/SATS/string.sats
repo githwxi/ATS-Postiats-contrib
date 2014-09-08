@@ -30,7 +30,7 @@ fun
 prerr_string (str: string): void = "mac#%"
 //
 fun
-fprint_string: (PHPfile, string) -> void = "mac#%"
+fprint_string: (PHPfilr, string) -> void = "mac#%"
 //
 (* ****** ****** *)
 //

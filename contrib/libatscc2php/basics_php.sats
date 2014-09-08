@@ -27,8 +27,26 @@ symintr .length
 //
 (* ****** ****** *)
 
-abstype PHPfile
+abstype PHPfilr
 
+(* ****** ****** *)
+
+absvtype PHPfilp(l:addr)
+vtypedef PHPfilp0 = [l:addr] PHPfilp(l)
+vtypedef PHPfilp1 = [l:addr | l > null] PHPfilp(l)
+
+(* ****** ****** *)
+//
+fun
+PHPfilp_is_null
+  {l:addr}(!PHPfilp(l)): bool(l==null) = "mac#%"
+fun
+PHPfilp_isnot_null
+  {l:addr}(!PHPfilp(l)): bool(l > null) = "mac#%"
+//
+overload iseqz with PHPfilp_is_null
+overload isneqz with PHPfilp_isnot_null
+//
 (* ****** ****** *)
 //
 abstype PHPref(a:t@ype) // reference
@@ -97,7 +115,7 @@ print_r_obj{a:t0p}(obj: a): void = "mac#%"
 (* ****** ****** *)
 
 fun print_newline ((*void*)): void = "mac#%"
-fun fprint_newline (out: PHPfile): void = "mac#%"
+fun fprint_newline (out: PHPfilr): void = "mac#%"
 
 (* ****** ****** *)
 //

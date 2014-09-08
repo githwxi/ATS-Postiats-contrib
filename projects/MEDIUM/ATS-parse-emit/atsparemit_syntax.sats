@@ -119,6 +119,20 @@ ATSPMVf0loat_make
 ) : d0exp // end-of-fun
 //
 (* ****** ****** *)
+//
+fun
+ATSPMVrefarg0_make
+(
+  tok_kwd: token, d0e: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
+ATSPMVrefarg1_make
+(
+  tok_kwd: token, d0e: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
 
 fun
 ATSPMVfunlab_make

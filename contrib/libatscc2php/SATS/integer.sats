@@ -116,7 +116,7 @@ fun print_int : (int) -> void = "mac#%"
 fun prerr_int : (int) -> void = "mac#%"
 //
 fun
-fprint_int: (PHPfile, int) -> void = "mac#%"
+fprint_int: (PHPfilr, int) -> void = "mac#%"
 //
 overload print with print_int of 100
 overload prerr with prerr_int of 100

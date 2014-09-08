@@ -300,6 +300,9 @@ d0e0.d0exp_node of
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
 | ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
 //
+| ATSPMVrefarg0 (d0e) => emit_d0exp (out, d0e)
+| ATSPMVrefarg1 (d0e) => emit_d0exp (out, d0e)
+//
 | ATSPMVfunlab (fl) =>
   {
     val () = emit_SQUOTE (out)

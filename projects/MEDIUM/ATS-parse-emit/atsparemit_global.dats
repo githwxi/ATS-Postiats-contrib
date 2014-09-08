@@ -144,6 +144,9 @@ val-~None_vt() = kwordins ("ATSPMVstring", ATSPMVstring)
 val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)
 val-~None_vt() = kwordins ("ATSPMVf0loat", ATSPMVf0loat)
 //
+val-~None_vt() = kwordins ("ATSPMVrefarg0", ATSPMVrefarg0)
+val-~None_vt() = kwordins ("ATSPMVrefarg1", ATSPMVrefarg1)
+//
 val-~None_vt() = kwordins ("ATSPMVfunlab", ATSPMVfunlab)
 val-~None_vt() = kwordins ("ATSPMVcfunlab", ATSPMVcfunlab)
 //

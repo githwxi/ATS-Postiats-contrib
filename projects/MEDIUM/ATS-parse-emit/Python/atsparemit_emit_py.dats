@@ -284,6 +284,9 @@ d0e0.d0exp_node of
 | ATSPMVi0nt (tok) => emit_PMVi0nt (out, tok)
 | ATSPMVf0loat (tok) => emit_PMVfloat (out, tok)
 //
+| ATSPMVrefarg0 (d0e) => emit_d0exp (out, d0e)
+| ATSPMVrefarg1 (d0e) => emit_d0exp (out, d0e)
+//
 | ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
 | ATSPMVcfunlab
     (knd, fl, d0es) => emit_PMVcfunlab (out, fl, d0es)

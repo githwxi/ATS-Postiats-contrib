@@ -276,6 +276,36 @@ end // end of [ATSPMVf0loat]
 (* ****** ****** *)
 
 implement
+ATSPMVrefarg0_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVrefarg0 (d0e))
+end // end of [ATSPMVrefarg0]
+
+(* ****** ****** *)
+
+implement
+ATSPMVrefarg1_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVrefarg1 (d0e))
+end // end of [ATSPMVrefarg1]
+
+(* ****** ****** *)
+
+implement
 ATSPMVfunlab_make
 (
   tok1, flab, tok2

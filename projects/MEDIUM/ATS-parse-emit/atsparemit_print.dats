@@ -133,6 +133,9 @@ case+ x of
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
 | ATSPMVf0loat () => pr "ATSPMVf0loat"
 //
+| ATSPMVrefarg0 () => pr "ATSPMVrefarg0"
+| ATSPMVrefarg1 () => pr "ATSPMVrefarg1"
+//
 | ATSPMVfunlab () => pr "ATSPMVfunlab"
 | ATSPMVcfunlab () => pr "ATSPMVcfunlab"
 //
@@ -374,6 +377,9 @@ d0e.d0exp_node of
 //
 | ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")
 | ATSPMVf0loat (tok) => fprint! (out, "ATSPMVf0loat(", tok, ")")
+//
+| ATSPMVrefarg0 (d0e) => fprint! (out, "ATSPMVrefarg0(", d0e, ")")
+| ATSPMVrefarg1 (d0e) => fprint! (out, "ATSPMVrefarg1(", d0e, ")")
 //
 | ATSPMVfunlab (fl) =>
     fprint! (out, "ATSPMVfunlab(", fl, ")")
