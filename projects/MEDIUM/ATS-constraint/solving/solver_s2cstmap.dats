@@ -116,15 +116,17 @@ constraint3_initialize () = {
           val (decpf, decfpf | declp) = $UN.ref_vtake (the_s2cdeclmap)
           val _args = s2rt_fun_get_args (srt)
           //
-          implement list_map$fopr<s2rt><sort> (srt) = sort_make (srt)
+          implement 
+          list_map$fopr<s2rt><sort> (srt) = sort_make (srt)
           //
           val domain = list_map<s2rt><sort> (_args)
           //
           val _ret = s2rt_fun_get_ret (srt)
           val range  = sort_make (_ret)
           //
+          val sym = symbol_get_string (name)
           val decl =
-            make_func_decl (symbol_get_string (name), domain, range)
+            make_func_decl (sym, domain, range)
           //
           var res: func_decl
           val replaced =
@@ -305,14 +307,30 @@ constraint3_initialize_map (map) = {
     ins (map, "lte_cls_cls", f_lte_cls_cls);
     //
     ins (map, "bit8_of_int", f_bv8_of_int);
+    ins (map, "add_bit8_bit8", f_add_bv_bv);
     ins (map, "sub_bit8_bit8", f_sub_bv_bv);
+    ins (map, "mul_bit8_bit8", f_mul_bv_bv);
+    ins (map, "div_bit8_bit8", f_div_bv_bv);
+    ins (map, "udiv_bit8_bit8", f_udiv_bv_bv);
+    ins (map, "neg_bit8", f_neg_bv);
+    //
     ins (map, "and_bit8_bit8", f_land_bv_bv);
+    ins (map, "or_bit8_bit8", f_lor_bv_bv);
+    ins (map, "xor_bit8_bit8", f_lxor_bv_bv);
+    ins (map, "not_bit8", f_lnot_bv);
+    //
     ins (map, "eq_bit8_bit8", f_eq_bv_bv);
+    ins (map, "lt_bit8_bit8", f_lt_bv_bv);
+    ins (map, "lte_bit8_bit8", f_lte_bv_bv);
+    ins (map, "gte_bit8_bit8", f_gte_bv_bv);
+    ins (map, "gt_bit8_bit8", f_gt_bv_bv);
+    ins (map, "ult_bit8_bit8", f_ult_bv_bv);
+    ins (map, "ulte_bit8_bit8", f_ulte_bv_bv);
+    ins (map, "ugte_bit8_bit8", f_ugte_bv_bv);
+    ins (map, "ugt_bit8_bit8", f_ugt_bv_bv);
     //
     ins (map, "partitioned_array", f_partitioned_array);
     ins (map, "sorted_array", f_sorted_array);
-    ins (map, "sorted_split_array", f_sorted_split_array);
-    ins (map, "merged_array", f_merged_array);
     //
     ins (map, "array_select", f_array_select);
     ins (map, "array_store", f_array_store);

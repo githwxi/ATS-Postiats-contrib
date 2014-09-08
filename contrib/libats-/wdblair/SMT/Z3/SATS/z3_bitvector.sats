@@ -110,6 +110,10 @@ fun Z3_mk_bvurem (
   !Z3_context, !Z3_ast, !Z3_ast
 ): Z3_ast = "mac#%"
 
+fun Z3_mk_bvsdiv (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
 fun Z3_mk_bvsrem (
   !Z3_context, !Z3_ast, !Z3_ast
 ): Z3_ast = "mac#%"
@@ -155,6 +159,14 @@ fun Z3_mk_bvuge (
 ): Z3_ast = "mac#%"
 
 fun Z3_mk_bvsge (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bvugt (
+  !Z3_context, !Z3_ast, !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_bvsgt (
   !Z3_context, !Z3_ast, !Z3_ast
 ): Z3_ast = "mac#%"
 

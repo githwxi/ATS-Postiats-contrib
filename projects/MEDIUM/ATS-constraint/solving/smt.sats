@@ -165,9 +165,17 @@ fun make_eq (formula,  formula): formula
 
 fun make_bv_from_int (width: int, i: formula): formula
 
-fun make_bv_sub2 (formula, formula): formula
+fun make_bv_sub (formula, formula): formula
 
-fun make_bv_add2 (formula, formula): formula
+fun make_bv_add (formula, formula): formula
+
+fun make_bv_mul (formula, formula): formula
+
+fun make_bv_div (formula, formula): formula
+
+fun make_bv_udiv (formula, formula): formula
+
+fun make_bv_neg (formula): formula
 
 fun make_bv_land (formula, formula): formula
 
@@ -175,7 +183,7 @@ fun make_bv_lor (formula, formula): formula
 
 fun make_bv_lxor (formula, formula): formula
 
-fun make_bv_lnot (formula, formula): formula
+fun make_bv_lnot (formula): formula
 
 fun make_bv_lt (formula,  formula): formula
 fun make_bv_le (formula,  formula): formula

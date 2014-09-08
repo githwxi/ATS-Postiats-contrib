@@ -662,16 +662,7 @@ in
     val i = formula_make (env, s2e1)
   in
     $SMT.make_bv_from_int (8, i)
-  end
-
-  implement
-  f_sub_bv_bv (env, s2es) = let
-    val- s2e1 :: s2e2 :: _ = s2es
-    val l = formula_make (env, s2e1)
-    val r = formula_make (env, s2e2)
-  in
-    $SMT.make_bv_sub2 (l, r)
-  end
+  end // end of [f_bv8_of_int]
 
   implement
   f_add_bv_bv (env, s2es) = let
@@ -679,9 +670,53 @@ in
     val l = formula_make (env, s2e1)
     val r = formula_make (env, s2e2)
   in
-    $SMT.make_bv_add2 (l, r)
-  end
+    $SMT.make_bv_add (l, r)
+  end // end of [f_add_bv_bv]
+  
+  implement
+  f_sub_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_sub (l, r)
+  end // end of [f_sub_bv_bv]
+  
+  implement
+  f_mul_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_mul (l, r)
+  end // end of [f_mul_bv_bv]
+  
+  implement
+  f_div_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_div (l, r)
+  end // end of [f_div_bv_bv]
 
+  implement
+  f_udiv_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_udiv (l, r)
+  end // end of [f_udiv_bv_bv]
+
+  implement
+  f_neg_bv (env, s2es) = let
+    val- s2e1 :: _ = s2es
+    val l = formula_make (env, s2e1)
+  in
+    $SMT.make_bv_neg (l)
+  end // end of [f_neg_bv]
+  
   implement
   f_land_bv_bv (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
@@ -689,7 +724,33 @@ in
     val r = formula_make (env, s2e2)
   in
     $SMT.make_bv_land (l, r)
-  end
+  end // end of [f_land_bv_bv]
+  
+  implement
+  f_lor_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_lor (l, r)
+  end // end of [f_lor_bv_bv]
+
+  implement
+  f_lxor_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_lxor (l, r)
+  end // end of [f_lxr_bv_bv]
+  
+  implement
+  f_lnot_bv (env, s2es) = let
+    val- s2e1 :: _ = s2es
+    val l = formula_make (env, s2e1)
+  in
+    $SMT.make_bv_lnot (l)
+  end // end of [f_neg_bv]
   
   implement
   f_eq_bv_bv (env, s2es) = let
@@ -698,8 +759,80 @@ in
     val r = formula_make (env, s2e2)
   in
     $SMT.make_eq (l, r)
-  end
+  end // end of [f_eq_bv_bv]
   
+  implement
+  f_gt_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_gt (l, r)
+  end // end of [f_gt_bv_bv]
+
+  implement
+  f_gte_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_ge (l, r)
+  end // end of [f_gte_bv_bv]
+
+  implement
+  f_lte_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_le (l, r)
+  end // end of [f_lte_bv_bv]
+
+  implement
+  f_lt_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_lt (l, r)
+  end // end of [f_lt_bv_bv]
+
+  implement
+  f_ugt_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_ugt (l, r)
+  end // end of [f_ugt_bv_bv]
+
+  implement
+  f_ugte_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_uge (l, r)
+  end // end of [f_ugte_bv_bv]
+
+  implement
+  f_ulte_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_ule (l, r)
+  end // end of [f_ulte_bv_bv]
+
+  implement
+  f_ult_bv_bv (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val l = formula_make (env, s2e1)
+    val r = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_ult (l, r)
+  end // end of [f_ult_bv_bv]
+
   implement
   f_array_select (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
@@ -707,7 +840,7 @@ in
     val i = formula_make (env, s2e2)
   in
     Select (a, i)
-  end
+  end // end of [f_array_select]
   
   implement
   f_array_store (env, s2es) = let
@@ -717,7 +850,7 @@ in
     val v = formula_make (env, s2e3)
   in
     Store (a, i, v)
-  end
+  end // end of [f_array_store]
   
   implement
   f_partitioned_left_array (env, s2es) = let
@@ -766,14 +899,14 @@ in
   end
 
   local
-  
+    
     fun
     Sorted (a: formula, start: formula, stop: formula): formula = let
       val i = Int ("i")
       val j = Int("j")
     in
       ForAll (^i, ^j,
-        ((start <= ^i) And (^i <= ^j) And (^j <= stop)) ==> 
+        ((start <= ^i) And (^i <= ^j) And (^j <= stop)) ==>
           (Select (^a, i) <= Select (a, j))
         )
     end
@@ -807,25 +940,6 @@ in
   end
   
   end // end of [local]
-  
-  implement
-  f_merged_array (env, s2es) = let
-    val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: s2e5 :: _ = s2es
-    val a     = formula_make (env, s2e1)
-    val left  = formula_make (env, s2e2)
-    val right = formula_make (env, s2e3)
-    val pivot = formula_make (env, s2e4)
-    val n     = formula_make (env, s2e5)
-    //
-    val i = Int ("i"); val j = Int("j")
-  in
-    ForAll (^i,
-      ((Int(0) <= ^i) And (^i <= (^pivot - Int(1)))) ==> 
-        (Select (^a, ^i) = Select (left, i)))
-    And ForAll (^j,
-      (((^pivot + Int(1)) <= ^j) And (^j <= n)) ==>
-        (Select (a, ^j) = Select (right, j - (pivot + Int(1)))))
-  end
     
   implement
   f_array_swap (env, s2es) = let
@@ -869,7 +983,7 @@ in
   f_lte_cls_cls (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
   in
-    case+ (s2e1.s2exp_node, s2e2.s2exp_node) of 
+    case+ (s2e1.s2exp_node, s2e2.s2exp_node) of
       | (S2Ecst (s2c1), S2Ecst (s2c2)) =>
         Bool(s2cst_lte_cls_cls (s2c1, s2c2))
       | (_, _) => Bool(false)

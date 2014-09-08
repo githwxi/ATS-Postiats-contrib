@@ -133,6 +133,12 @@ typedef s2cstmap_ftype = (&smtenv, s2explst) -> formula
 
 (* ****** ****** *)
 
+(**
+  These functions transform arguments to static
+  functions into formulas understood by the SMT
+  solver.
+*)
+
 fun f_identity : s2cstmap_ftype
 
 fun f_neg_bool : s2cstmap_ftype
@@ -203,11 +209,41 @@ fun f_lte_cls_cls : s2cstmap_ftype
 
 fun f_bv8_of_int : s2cstmap_ftype
 
-fun f_sub_bv_bv : s2cstmap_ftype
-
 fun f_add_bv_bv : s2cstmap_ftype
 
+fun f_sub_bv_bv : s2cstmap_ftype
+
+fun f_mul_bv_bv : s2cstmap_ftype
+
+fun f_div_bv_bv : s2cstmap_ftype
+
+fun f_udiv_bv_bv : s2cstmap_ftype
+
+fun f_neg_bv : s2cstmap_ftype
+
 fun f_land_bv_bv : s2cstmap_ftype
+
+fun f_lor_bv_bv : s2cstmap_ftype
+
+fun f_lxor_bv_bv : s2cstmap_ftype
+
+fun f_lnot_bv : s2cstmap_ftype
+
+fun f_gt_bv_bv : s2cstmap_ftype
+
+fun f_gte_bv_bv : s2cstmap_ftype
+
+fun f_lte_bv_bv : s2cstmap_ftype
+
+fun f_lt_bv_bv : s2cstmap_ftype
+
+fun f_ugt_bv_bv : s2cstmap_ftype
+
+fun f_ugte_bv_bv : s2cstmap_ftype
+
+fun f_ulte_bv_bv : s2cstmap_ftype
+
+fun f_ult_bv_bv : s2cstmap_ftype
 
 fun f_eq_bv_bv : s2cstmap_ftype
 

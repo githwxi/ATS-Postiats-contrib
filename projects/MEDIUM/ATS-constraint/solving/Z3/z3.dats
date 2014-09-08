@@ -257,7 +257,7 @@ in
   phi
 end
 
-implement 
+implement
 make_numeral_int (num, srt) =
   Z3_mk_int (!the_context, num, srt)
   
@@ -382,7 +382,7 @@ end
 (* ****** ****** *)
 
 implement
-make_bv_sub2 (l, r) = let
+make_bv_sub (l, r) = let
   val dif = Z3_mk_bvsub (!the_context, l, r)
   val () = begin
     Z3_dec_ref (!the_context, l);
@@ -393,7 +393,7 @@ in
 end
 
 implement
-make_bv_add2 (l, r) = let
+make_bv_add (l, r) = let
   val sum = Z3_mk_bvadd (!the_context, l, r)
   val () = begin
     Z3_dec_ref (!the_context, l);
@@ -404,7 +404,50 @@ in
 end
 
 implement
-make_bv_land2 (l, r) = let
+make_bv_mul (l, r) = let
+  val product = Z3_mk_bvmul (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  product
+end
+
+implement
+make_bv_div (l, r) = let
+  val ratio = Z3_mk_bvsdiv (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  ratio
+end
+
+implement
+make_bv_udiv (l, r) = let
+  val ratio = Z3_mk_bvudiv (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  ratio
+end
+
+implement
+make_bv_neg (l) = let
+  val negation = Z3_mk_bvneg (!the_context, l)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+  end
+in
+  negation
+end
+
+implement
+make_bv_land (l, r) = let
   val masked = Z3_mk_bvand (!the_context, l, r)
   val () = begin
     Z3_dec_ref (!the_context, l);
@@ -412,6 +455,126 @@ make_bv_land2 (l, r) = let
   end
 in
   masked
+end
+
+implement
+make_bv_lor (l, r) = let
+  val set = Z3_mk_bvor (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  set
+end
+
+implement
+make_bv_lxor (l, r) = let
+  val xored = Z3_mk_bvxor (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);    
+  end
+in
+  xored
+end
+
+implement
+make_bv_lnot (phi) = let
+  val not = Z3_mk_bvnot (!the_context, phi)
+  val () = begin
+    Z3_dec_ref (!the_context, phi)
+  end
+in
+  not
+end
+
+implement
+make_bv_lt (l, r) = let
+  val lt = Z3_mk_bvslt (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  lt
+end
+
+implement
+make_bv_le (l, r) = let
+  val lte = Z3_mk_bvsle (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  lte
+end
+
+implement
+make_bv_gt (l, r) = let
+  val gt = Z3_mk_bvsgt (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  gt
+end
+
+implement
+make_bv_ge (l, r) = let
+  val ge = Z3_mk_bvsge (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  ge
+end
+
+implement
+make_bv_ult (l, r) = let
+  val lt = Z3_mk_bvult (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  lt
+end
+
+implement
+make_bv_ule (l, r) = let
+  val lte = Z3_mk_bvule (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  lte
+end
+
+implement
+make_bv_ugt (l, r) = let
+  val gt = Z3_mk_bvugt (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  gt
+end
+
+implement
+make_bv_uge (l, r) = let
+  val ge = Z3_mk_bvuge (!the_context, l, r)
+  val () = begin
+    Z3_dec_ref (!the_context, l);
+    Z3_dec_ref (!the_context, r);
+  end
+in
+  ge
 end
 
 implement
@@ -444,7 +607,7 @@ assert (solve, formula) = {
   val _ = Z3_dec_ref (!the_context, formula)
 }
 
-implement 
+implement
 push (solve) = Z3_solver_push (!the_context, solve)
 
 implement 
