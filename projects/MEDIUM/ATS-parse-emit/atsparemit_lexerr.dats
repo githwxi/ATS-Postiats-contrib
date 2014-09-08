@@ -36,6 +36,13 @@ the_lexerrlst_clear () =
 (* ****** ****** *)
 
 implement
+print_lexerr (x) = fprint (stdout_ref, x)  
+implement
+prerr_lexerr (x) = fprint (stderr_ref, x)  
+  
+(* ****** ****** *)
+
+implement
 fprint_lexerr
   (out, x) = let
 //
@@ -82,7 +89,11 @@ the_lexerrlst_print_free
   () = nerr where
 {
 //
-  val xs = the_lexerrlst_pop_all ()
+  val xs =
+    the_lexerrlst_pop_all ()
+  // end of [val]
+  val xs = list_vt_reverse (xs)
+  val () = fprint (stderr_ref, "LexingErrors:\n")
   val () = fprint_lexerrlst (stderr_ref, $UN.list_vt2t(xs))
   val nerr = list_vt_length (xs)
   val ((*freed*)) = list_vt_free (xs)

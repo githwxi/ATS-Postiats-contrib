@@ -19,15 +19,6 @@ ATS_STATIC_PREFIX "_ats2phppre_reference_"
 //
 (* ****** ****** *)
 //
-staload "./../basics_php.sats"
-staload "./../SATS/integer.sats"
-//
-(* ****** ****** *)
-
-staload "./../SATS/list.sats"
-
-(* ****** ****** *)
-//
 staload UN =
   "prelude/SATS/unsafe.sats"
 //

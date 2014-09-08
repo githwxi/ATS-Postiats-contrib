@@ -73,7 +73,7 @@ cleanats:: ; $(RMF) *_?ats.c
 
 ######
 
-cleanall:: ; $(RMF) atsparemit
+cleanall:: ; $(RMF) atscc2php
 
 ######
 

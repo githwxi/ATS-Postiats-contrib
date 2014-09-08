@@ -167,7 +167,11 @@ the_parerrlst_print_free
   () = nerr where
 {
 //
-  val xs = the_parerrlst_pop_all ()
+  val xs =
+    the_parerrlst_pop_all ()
+  // end of [val]
+  val xs = list_vt_reverse (xs)
+  val () = fprint (stderr_ref, "ParsingErrors:\n")
   val () = fprint_parerrlst (stderr_ref, $UN.list_vt2t(xs))
   val nerr = list_vt_length (xs)
   val ((*freed*)) = list_vt_free (xs)

@@ -432,10 +432,17 @@ typedef lexerr = '{
 typedef lexerrlst = List0 (lexerr)
 //
 (* ****** ****** *)
-
+//
+fun print_lexerr (lexerr): void
+fun prerr_lexerr (lexerr): void
+//
 fun fprint_lexerr : fprint_type (lexerr)
 fun fprint_lexerrlst : fprint_type (lexerrlst)
-
+//
+overload print with print_lexerr
+overload prerr with prerr_lexerr
+overload fprint with fprint_lexerr
+//
 (* ****** ****** *)
 //
 fun
