@@ -1,5 +1,6 @@
 #
-# For generating libatscc2php
+# A simple Makefile
+# for generating libtutorats0
 #
 
 ######
@@ -10,12 +11,9 @@ ATSCC2PHP=$(PATSHOME)/bin/atscc2php
 ######
 
 CPF=cp -f
+RMF=rm -f
+RMRF=rm -rf
 
 ######
-
-all:: ; \
-$(PATSOPT) -d ./PHP/DATS/patsopt.dats | $(ATSCC2PHP) -o ./output/PHP/DATS/patsopt_dats.php -i
-
-#######
 
 ###### end of [Makefile] ######

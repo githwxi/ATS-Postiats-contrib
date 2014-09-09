@@ -16,7 +16,6 @@ require './libatscc2php/DATS/list_dats.php';
 require './libatscc2php/DATS/reference_dats.php';
 //
 require './libtutorats0/PHP/CATS/basics_cats.php';
-require './libtutorats0/output/PHP/DATS/patsopt_dats.php';
 //
 require './DATS_PHP/inputform_process_dats.php';
 //
