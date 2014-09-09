@@ -295,7 +295,7 @@ fpprint_cardlst
 //
 fun fprone
 (
-  out: PHPfile, c: card
+  out: PHPfilr, c: card
 ) : void = let
   val v = card_get_val (c)
 in

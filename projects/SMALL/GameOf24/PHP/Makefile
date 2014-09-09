@@ -17,7 +17,8 @@ all:: GameOf24_php_dats.php; $(PHP) -f mytest.php
 
 ######
 
-GameOf24_php_dats.c: GameOf24_php.dats; ${PATSCC} -ccats $<
+GameOf24_php_dats.c: \
+GameOf24_php.dats GameOf24_php.sats; ${PATSCC} -ccats $<
 GameOf24_php_dats.php: GameOf24_php_dats.c; ${ATSCC2PHP} -o $@ -i $<
 
 ######
@@ -32,9 +33,9 @@ CPRF=cp -rf
 ######
 #
 libatscc2php:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS/* libatscc2php/CATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS libatscc2php/.
 libatscc2php:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/output/DATS/* libatscc2php/DATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/output/DATS libatscc2php/.
 #
 ######
 
@@ -45,7 +46,7 @@ clean:: ; $(RMF) GameOf24_php_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) GameOf24_php_dats.php
-cleanall:: ; $(RMF) libatscc2php/CATS/*_cats.php
-cleanall:: ; $(RMF) libatscc2php/DATS/*_dats.php
+cleanall:: ; $(RMRF) libatscc2php/CATS
+cleanall:: ; $(RMRF) libatscc2php/DATS
 
 ###### end of [Makefile] ######

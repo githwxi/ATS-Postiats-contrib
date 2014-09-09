@@ -32,9 +32,9 @@ CPRF=cp -rf
 ######
 #
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS/* libatscc2js/CATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS libatscc2js/.
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/output/DATS/* libatscc2js/DATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/output/DATS libatscc2js/.
 #
 ######
 
@@ -44,7 +44,7 @@ clean:: ; $(RMF) GameOf24_js_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) GameOf24_js_dats.js
-cleanall:: ; $(RMF) libatscc2js/CATS/*_cats.js
-cleanall:: ; $(RMF) libatscc2js/DATS/*_dats.js
+cleanall:: ; $(RMRF) libatscc2js/CATS
+cleanall:: ; $(RMRF) libatscc2js/DATS
 
 ###### end of [Makefile] ######

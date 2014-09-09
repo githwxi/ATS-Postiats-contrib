@@ -74,9 +74,9 @@ typedef cardlst = List0 (card)
 (* ****** ****** *)
 //
 fun
-fprint_card (out: PHPfile, x: card): void
+fprint_card (out: PHPfilr, x: card): void
 fun
-fprint_cardlst (out: PHPfile, xs: cardlst): void
+fprint_cardlst (out: PHPfilr, xs: cardlst): void
 //
 overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10
@@ -89,9 +89,9 @@ fun echo_cardlst (xs: cardlst): void
 (* ****** ****** *)
 //
 fun
-fpprint_card (out: PHPfile, x: card): void
+fpprint_card (out: PHPfilr, x: card): void
 fun
-fpprint_cardlst (out: PHPfile, xs: cardlst): void
+fpprint_cardlst (out: PHPfilr, xs: cardlst): void
 //
 (* ****** ****** *)
 
