@@ -53,15 +53,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/basics_js.sats"
-//
-staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
-//
-staload
-"{$LIBATSCC2JS}/SATS/string.sats"
-//
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 staload
 "{$LIBATSCC2JS}/SATS/node/basics.sats"
 //

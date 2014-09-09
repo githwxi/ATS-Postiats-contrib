@@ -28,7 +28,7 @@ putenv("PATSHOMERELOC=/home/project-web/ats-lang/ATS-Postiats-contrib");
 /*
 $mycode = 'implement main0 () = ()';
 */
-$mycode = $_REQUEST["program_content"];
+$mycode = $_REQUEST["program_input"];
 $mycode_res = patsopt_code_0_($mycode);
 $mycode_res = json_encode ($mycode_res);
 $mycode_res2 = preg_replace("!\\\\!", "\\\\\\\\", $mycode_res);
@@ -59,9 +59,9 @@ alert(mycode_arr2.toSource());
 $mycode_arr = json_decode ($mycode_res);
 //
 $i = 0;
-foreach ($mycode_arr as $file)
+foreach ($mycode_arr as $element)
 {
-  if ($i > 0) echo "\n\n"; $i += 1; echo $file;
+  if ($i > 0) echo "\n\n"; $i += 1; echo $element;
 }
 //
 ?>
