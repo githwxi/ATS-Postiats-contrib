@@ -306,28 +306,28 @@ constraint3_initialize_map (map) = {
     //
     ins (map, "lte_cls_cls", f_lte_cls_cls);
     //
-    ins (map, "bit8_of_int", f_bv8_of_int);
-    ins (map, "add_bit8_bit8", f_add_bv_bv);
-    ins (map, "sub_bit8_bit8", f_sub_bv_bv);
-    ins (map, "mul_bit8_bit8", f_mul_bv_bv);
-    ins (map, "div_bit8_bit8", f_div_bv_bv);
-    ins (map, "udiv_bit8_bit8", f_udiv_bv_bv);
-    ins (map, "neg_bit8", f_neg_bv);
+    ins (map, "bv8_of_int", f_bv8_of_int);
+    ins (map, "add_bv8_bv8", f_add_bv_bv);
+    ins (map, "sub_bv8_bv8", f_sub_bv_bv);
+    ins (map, "mul_bv8_bv8", f_mul_bv_bv);
+    ins (map, "div_bv8_bv8", f_div_bv_bv);
+    ins (map, "udiv_bv8_bv8", f_udiv_bv_bv);
+    ins (map, "neg_bv8", f_neg_bv);
     //
-    ins (map, "and_bit8_bit8", f_land_bv_bv);
-    ins (map, "or_bit8_bit8", f_lor_bv_bv);
-    ins (map, "xor_bit8_bit8", f_lxor_bv_bv);
-    ins (map, "not_bit8", f_lnot_bv);
+    ins (map, "and_bv8_bv8", f_land_bv_bv);
+    ins (map, "or_bv8_bv8", f_lor_bv_bv);
+    ins (map, "xor_bv8_bv8", f_lxor_bv_bv);
+    ins (map, "not_bv8", f_lnot_bv);
     //
-    ins (map, "eq_bit8_bit8", f_eq_bv_bv);
-    ins (map, "lt_bit8_bit8", f_lt_bv_bv);
-    ins (map, "lte_bit8_bit8", f_lte_bv_bv);
-    ins (map, "gte_bit8_bit8", f_gte_bv_bv);
-    ins (map, "gt_bit8_bit8", f_gt_bv_bv);
-    ins (map, "ult_bit8_bit8", f_ult_bv_bv);
-    ins (map, "ulte_bit8_bit8", f_ulte_bv_bv);
-    ins (map, "ugte_bit8_bit8", f_ugte_bv_bv);
-    ins (map, "ugt_bit8_bit8", f_ugt_bv_bv);
+    ins (map, "eq_bv8_bv8", f_eq_bv_bv);
+    ins (map, "lt_bv8_bv8", f_lt_bv_bv);
+    ins (map, "lte_bv8_bv8", f_lte_bv_bv);
+    ins (map, "gte_bv8_bv8", f_gte_bv_bv);
+    ins (map, "gt_bv8_bv8", f_gt_bv_bv);
+    ins (map, "ult_bv8_bv8", f_ult_bv_bv);
+    ins (map, "ulte_bv8_bv8", f_ulte_bv_bv);
+    ins (map, "ugte_bv8_bv8", f_ugte_bv_bv);
+    ins (map, "ugt_bv8_bv8", f_ugt_bv_bv);
     //
     ins (map, "partitioned_array", f_partitioned_array);
     ins (map, "sorted_array", f_sorted_array);
@@ -347,6 +347,7 @@ constraint3_initialize_map (map) = {
     //
     ins (map, "lte_stamp_stampseq", f_lte_stamp_stampseq);
     ins (map, "lte_stampseq_stamp", f_lte_stampseq_stamp);
+    ins (map, "lte_stamp_stampseq_range", f_lte_stamp_stampseq_range);
   end
 }
 

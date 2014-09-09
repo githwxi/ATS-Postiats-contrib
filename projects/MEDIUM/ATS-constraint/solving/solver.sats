@@ -264,6 +264,8 @@ fun f_array_select : s2cstmap_ftype
 fun f_array_swap : s2cstmap_ftype
 
 fun f_lte_stamp_stampseq : s2cstmap_ftype
+fun f_lte_stamp_stampseq_range : s2cstmap_ftype
 fun f_lte_stampseq_stamp : s2cstmap_ftype
+
 
 (* ****** ****** *)

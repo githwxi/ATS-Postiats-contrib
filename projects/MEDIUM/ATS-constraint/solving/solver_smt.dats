@@ -851,36 +851,7 @@ in
   in
     Store (a, i, v)
   end // end of [f_array_store]
-  
-  implement
-  f_partitioned_left_array (env, s2es) = let
-    val- s2e1 :: s2e2 :: s2e3 :: _ = s2es
-  val a      = formula_make (env, s2e1)
-  val pindex = formula_make (env, s2e2)
-  val n      = formula_make (env, s2e3) // pivot is stored in last spot.
-  //
-  val i = Int ("i")
-  in
-    ForAll (^i,
-     ((Int(0) <= ^i) And (^i < pindex))
-        ==> (Select (^a, i) <= Select (a, n)))
-  end
-  
-  implement
-  f_partitioned_right_array (env, s2es) = let
-    val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: _ = s2es
-    val a      = formula_make (env, s2e1)
-    val i      = formula_make (env, s2e2)
-    val pindex = formula_make (env, s2e3)
-    val n      = formula_make (env, s2e4) //pivot is stored in last spot
-    //
-    val j = Int("j")
-  in
-    ForAll (^j, 
-      ((pindex <= ^j) And (^j < i))
-        ==> (Select (^a, n) <= Select (a, j)))
-  end
-  
+      
   implement
   f_partitioned_array (env, s2es) = let
     val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: _ = s2es
@@ -921,24 +892,7 @@ in
   in
     Sorted (a, Int(0), len - Int(1))
   end
-  
-  implement
-  f_sorted_split_array (env, s2es) = let
-    val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: _ = s2es
-    val a = formula_make (env, s2e1)
-    val l = formula_make (env, s2e2)
-    val p = formula_make (env, s2e3)
-    val r = formula_make (env, s2e4)
-    //
-    val i = Int("i")
-    val j = Int("j")
-  in
-    Sorted (^a, ^l, (^p - Int(1))) And Sorted (^a, ^p, ^r) And
-    ForAll (^i, ^j, ((l <= ^i) And (^i <= (^p - Int(1))) And (^p < ^j) And (^j <= r))
-      ==> ((Select (^a, p) <= Select (^a, ^j))
-            And (Select (^a, i) <= Select (a, j))))
-  end
-  
+    
   end // end of [local]
     
   implement
@@ -965,6 +919,21 @@ in
         (stmp <= Select (seq, i)))
   end
 
+  implement
+  f_lte_stamp_stampseq_range (env, s2es) = let
+    val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: _ = s2es
+    val stmp = formula_make (env, s2e1)
+    val seq = formula_make (env, s2e2)
+    val i = formula_make (env, s2e3)
+    val n = formula_make (env, s2e4)
+    //
+    val j = Int("j")
+  in
+    ForAll(^j,
+      ((i <= ^j) And (^j < n)) ==>
+        (stmp <= Select (seq, j)))
+  end
+    
   implement 
   f_lte_stampseq_stamp (env, s2es) = let
     val- s2e1 :: s2e2 :: s2e3 :: _ = s2es
@@ -988,4 +957,5 @@ in
         Bool(s2cst_lte_cls_cls (s2c1, s2c2))
       | (_, _) => Bool(false)
   end
+  
 end // end of [local]
