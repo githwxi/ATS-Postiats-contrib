@@ -93,9 +93,13 @@ the_lexerrlst_print_free
     the_lexerrlst_pop_all ()
   // end of [val]
   val xs = list_vt_reverse (xs)
-  val () = fprint (stderr_ref, "LexingErrors:\n")
-  val () = fprint_lexerrlst (stderr_ref, $UN.list_vt2t(xs))
   val nerr = list_vt_length (xs)
+  val () =
+  if nerr > 0 then
+  {
+    val () = fprint (stderr_ref, "LexingErrors:\n")
+    val () = fprint_lexerrlst (stderr_ref, $UN.list_vt2t(xs))
+  } (* end of [if] *)
   val ((*freed*)) = list_vt_free (xs)
 //
 } (* end of [the_lexerrlst_print_free] *)

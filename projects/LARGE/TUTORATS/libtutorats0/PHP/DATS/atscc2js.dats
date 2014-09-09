@@ -30,6 +30,9 @@ staload
 staload
 "{$LIBATSCC2PHP}/SATS/filebas.sats"
 //
+staload
+"{$LIBATSCC2PHP}/SATS/PHParray.sats"
+//
 (* ****** ****** *)
 //
 staload "./../SATS/basics.sats"
@@ -72,7 +75,7 @@ end // end of [atscc2js_format_command]
 
 implement
 {}(*tmp*)
-atscc2js_file2string
+atscc2js_file
   (fname_dats_c) = atscc2js_res where
 {
 //
@@ -97,20 +100,30 @@ val
 atscc2js_res = (
 //
 if exec_ret = 0
-  then file_get_contents (fname_dats_js)
-  else let
-    val str1 = file_get_contents (fname_dats_c)
-    val str2 = file_get_contents (fname_dats_js_log)
+  then let
+    val str =
+      file_get_contents (fname_dats_js)
+    // end of [val]
   in
-    $extfcall (string, "sprintf", "%s\n/*\n\n%s\n*/\n", str1, str2)
+    COMPRES1 (str)
+  end // end of [then]
+  else let
+    val str1 =
+      file_get_contents (fname_dats_c)
+    // end of [val]
+    val str2 =
+      file_get_contents (fname_dats_js_log)
+    // end of [val]
+  in
+    COMPRES2 (str1, str2)
   end (* end of [else] *)
 // end of [if]
-) : string // end of [val]
+) : compres // end of [val]
 //
 val unlink_ret = unlink (fname_dats_js)
 val unlink_ret = unlink (fname_dats_js_log)
 //
-} (* end of [atscc2js_file2string] *)
+} (* end of [atscc2js_file] *)
 
 (* ****** ****** *)
 

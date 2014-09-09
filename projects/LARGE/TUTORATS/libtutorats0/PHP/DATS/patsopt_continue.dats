@@ -30,6 +30,9 @@ staload
 staload
 "{$LIBATSCC2PHP}/SATS/filebas.sats"
 //
+staload
+"{$LIBATSCC2PHP}/SATS/PHParray.sats"
+//
 (* ****** ****** *)
 //
 staload "./../SATS/basics.sats"
@@ -46,7 +49,7 @@ file_get_contents (fname: string): string = "mac#"
 //
 implement
 {}(*tmp*)
-patsopt_continue_file2string
+patsopt_continue_file
   (fname_dats) = patsopt_res where
 {
 //
@@ -77,33 +80,33 @@ if exec_ret = 0
     val str1 = file_get_contents (fname_dats)
     val str2 = file_get_contents (fname_dats_c_log)
   in
-    $extfcall (string, "sprintf", "%s\n/*\n\n%s\n*/\n", str1, str2)
+    COMPRES2 (str1, str2)
   end (* end of [else] *)
 // end of [if]
-) : string // end of [val]
+) : compres // end of [val]
 //
 val unlink_ret = unlink (fname_dats_c)
 val unlink_ret = unlink (fname_dats_c_log)
 //
-} (* end of [patsopt_continue_file2string] *)
+} (* end of [patsopt_continue_file] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-patsopt_atscc2js_string2string
+patsopt_atscc2js_code
   (code) = patsopt_atscc2js_res where
 {
 //
 implement
-patsopt_continue<> = atscc2js_file2string
+patsopt_continue<> = atscc2js_file
 //
 val fname_dats =
-  $PATSOPT.string2file(code)
-val patsopt_atscc2js_res = patsopt_continue_file2string (fname_dats)
+  $PATSOPT.file_of_string(code)
+val patsopt_atscc2js_res = patsopt_continue_file (fname_dats)
 val unlink_ret = unlink (fname_dats)
 //
-} (* end of [patsopt_atscc2js_string2string] *)
+} (* end of [patsopt_atscc2js_code] *)
 
 (* ****** ****** *)
 

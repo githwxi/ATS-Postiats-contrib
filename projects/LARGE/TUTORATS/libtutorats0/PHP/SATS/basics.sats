@@ -28,6 +28,16 @@ fun exec_retval (command: string): int(*ret*) = "mac#%"
 //
 (* ****** ****** *)
 //
+datatype compres =
+//
+// HX-2014-09:
+// the order must be maintained!!!
+//
+  | COMPRES1 of (string(*target*)) // success
+  | COMPRES2 of (string(*source*), string(*errmsg*)) // failue
+//
+(* ****** ****** *)
+//
 fun{}
 patsopt_get (): string
 //
@@ -38,9 +48,9 @@ patsopt_format_command
 (* ****** ****** *)
 //
 fun{}
-patsopt_file2string (fname: string): string
+patsopt_file (fname: string): compres
 fun{}
-patsopt_string2string (code: string): string
+patsopt_code (ptext: string): compres
 //
 (* ****** ****** *)
 //
@@ -52,21 +62,21 @@ atscc2js_format_command
   (string, string, string): string
 //
 fun{}
-atscc2js_file2string (fname: string): string
+atscc2js_file (fname: string): compres
 //
 (* ****** ****** *)
 //
 fun{}
-patsopt_continue (fname: string): string
+patsopt_continue (fname: string): compres
 fun{}
-patsopt_continue_file2string (code: string): string
+patsopt_continue_file (fname: string): compres
 fun{}
-patsopt_continue_string2string (code: string): string
+patsopt_continue_code (ptext: string): compres
 //
 (* ****** ****** *)
 //
 fun{}
-patsopt_atscc2js_string2string (code: string): string
+patsopt_atscc2js_code (ptext: string): compres
 //
 (* ****** ****** *)
 

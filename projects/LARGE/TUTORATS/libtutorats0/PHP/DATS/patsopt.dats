@@ -30,6 +30,9 @@ staload
 staload
 "{$LIBATSCC2PHP}/SATS/filebas.sats"
 //
+staload
+"{$LIBATSCC2PHP}/SATS/PHParray.sats"
+//
 (* ****** ****** *)
 //
 staload "./../SATS/basics.sats"
@@ -44,12 +47,12 @@ patsopt_get () = "patsopt"
 //
 extern
 fun{}
-string2file
+file_of_string
   (inp: string): string(*fname*)
 //
 implement
 {}(*tmp*)
-string2file
+file_of_string
   (inp) = fname where
 {
 //
@@ -72,7 +75,7 @@ val closed = fclose (fhandle)
 val ((*void*)) = fclose_checkret (closed)
 *)
 //
-} (* end of [string2file] *)
+} (* end of [file_of_string] *)
 //
 (* ****** ****** *)
 //
@@ -106,7 +109,7 @@ end // end of [patsopt_format_command]
 
 implement
 {}(*tmp*)
-patsopt_file2string
+patsopt_file
   (fname_dats) = patsopt_res where
 {
 //
@@ -131,34 +134,47 @@ val
 patsopt_res = (
 //
 if exec_ret = 0
-  then file_get_contents (fname_dats_c)
-  else let
-    val str1 = file_get_contents (fname_dats)
-    val str2 = file_get_contents (fname_dats_c_log)
+  then let
+    val str =
+      file_get_contents (fname_dats_c)
+    // end of [val]
   in
-    $extfcall (string, "sprintf", "%s\n/*\n\n%s\n*/\n", str1, str2)
+    COMPRES1 (str)
+  end // end of [then]
+  else let
+    val str1 =
+      file_get_contents (fname_dats)
+    // end of [val]
+    val str2 =
+      file_get_contents (fname_dats_c_log)
+    // end of [val]
+  in
+    COMPRES2 (str1, str2)
   end (* end of [else] *)
 // end of [if]
-) : string // end of [val]
+) : compres // end of [val]
 //
 val unlink_ret = unlink (fname_dats_c)
 val unlink_ret = unlink (fname_dats_c_log)
 //
-} (* end of [patsopt_file2string] *)
+} (* end of [patsopt_file] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-patsopt_string2string
-  (code) = patsopt_res where
+patsopt_code
+  (ptext) = patsopt_res where
 {
 //
-val fname_dats = string2file(code)
-val patsopt_res = patsopt_file2string (fname_dats)
+val
+fname_dats = file_of_string(ptext)
+//
+val patsopt_res = patsopt_file (fname_dats)
+//
 val unlink_ret = unlink (fname_dats)
 //
-} (* end of [patsopt_string2string] *)
+} (* end of [patsopt_code] *)
 
 (* ****** ****** *)
 
