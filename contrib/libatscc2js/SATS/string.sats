@@ -66,7 +66,6 @@ symintr string_concat
 overload string_concat with string_concat_2 of 100
 overload string_concat with string_concat_3 of 100
 //
-
 (* ****** ****** *)
 
 (* end of [string.sats] *)

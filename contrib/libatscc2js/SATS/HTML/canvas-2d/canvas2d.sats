@@ -20,14 +20,6 @@
 *)
 
 (* ****** ****** *)
-//
-// HX-2014-08:
-// prefix for external names
-//
-#define
-ATS_EXTERN_PREFIX "ats2js_HTML5_"
-//
-(* ****** ****** *)
 
 (*
 ** API in ATS for HTML5/canvas-2d
@@ -48,14 +40,10 @@ ATS_EXTERN_PREFIX "ats2js_HTML5_"
 
 (* ****** ****** *)
 
-#define ATS_PACKNAME "ATSCNTRB.HTML5"
-
-(* ****** ****** *)
-
 #define
 ATS_STALOADFLAG 0 // no staloading at run-time
 #define
-ATS_EXTERN_PREFIX "ats2js_html5_" // prefix for external names
+ATS_EXTERN_PREFIX "ats2js_HTML5_" // prefix for external names
 
 (* ****** ****** *)
 //

@@ -44,6 +44,8 @@ $(PATSCC) -atsccomp $(PATSCCOMP2) -DATS_MEMALLOC_LIBC -I${PATSHOME}/contrib \
 
 ######
 
+all:: \
+myclock1-2_dats.js
 myclock1-2_dats.c: myclock1-2.dats; $(PATSOPT) -o $@ -d $<
 myclock1-2_dats.js: myclock1-2_dats.c; $(ATSCC2JS) -o $@ -i $<
 

@@ -10,7 +10,7 @@
 
 /* ****** ****** */
 
-var atscntrb_html5_canvas2d =
+var atscntrb_HTML5_canvas2d =
 {
 //
     $MyCanvas: {
@@ -23,7 +23,7 @@ var atscntrb_html5_canvas2d =
 	}
     },
 //
-    atscntrb_html5_canvas2d_make:
+    atscntrb_HTML5_canvas2d_make:
     function (id) {
 	var idx = 0;
 	var id2 = Pointer_stringify(id);
@@ -35,164 +35,164 @@ var atscntrb_html5_canvas2d =
 	{
 	    idx = MyCanvas.objadd(canvas.getContext("2d"));
         } else {
-            throw "atscntrb_html5_canvas2d: 2D-canvas is not supported";
+            throw "atscntrb_HTML5_canvas2d: 2D-canvas is not supported";
         }
 
         return idx ; 
     },
 //
-    atscntrb_html5_canvas2d_free:
+    atscntrb_HTML5_canvas2d_free:
     function (idx) { delete MyCanvas.contexts[idx]; },
 //
-    atscntrb_html5_canvas2d_beginPath:
+    atscntrb_HTML5_canvas2d_beginPath:
     function (idx) { MyCanvas.contexts[idx].beginPath(); },
-    atscntrb_html5_canvas2d_closePath:
+    atscntrb_HTML5_canvas2d_closePath:
     function (idx) { MyCanvas.contexts[idx].closePath(); },
 //
-    atscntrb_html5_canvas2d_moveTo:
+    atscntrb_HTML5_canvas2d_moveTo:
     function (idx, x, y) { MyCanvas.contexts[idx].moveTo(x, y); },
-    atscntrb_html5_canvas2d_lineTo:
+    atscntrb_HTML5_canvas2d_lineTo:
     function (idx, x, y) { MyCanvas.contexts[idx].lineTo(x, y); },
 //
-    atscntrb_html5_canvas2d_scale:
+    atscntrb_HTML5_canvas2d_scale:
     function (idx, sx, sy) {
         MyCanvas.contexts[idx].scale(sx, sy);
     },
-    atscntrb_html5_canvas2d_rotate:
+    atscntrb_HTML5_canvas2d_rotate:
     function (idx, angle) {
         MyCanvas.contexts[idx].rotate(angle);
     },
-    atscntrb_html5_canvas2d_translate:
+    atscntrb_HTML5_canvas2d_translate:
     function (idx, x, y) {
         MyCanvas.contexts[idx].translate(x, y);
     },
 //
-    atscntrb_html5_canvas2d_arc:
+    atscntrb_HTML5_canvas2d_arc:
     function
     (
       idx, xc, yc, rad, angle_beg, angle_end, CCW
     ) {
         MyCanvas.contexts[idx].arc(xc, yc, rad, angle_beg, angle_end, CCW);
     },
-    atscntrb_html5_canvas2d_rect:
+    atscntrb_HTML5_canvas2d_rect:
     function (idx, xul, yul, width, height) {
         MyCanvas.contexts[idx].rect(xul, yul, width, height);
     },
 //
-    atscntrb_html5_canvas2d_clearRect:
+    atscntrb_HTML5_canvas2d_clearRect:
     function (idx, xul, yul, width, height) {
         MyCanvas.contexts[idx].clearRect(xul, yul, width, height);
     },
 //
-    atscntrb_html5_canvas2d_fill:
+    atscntrb_HTML5_canvas2d_fill:
     function (idx) { MyCanvas.contexts[idx].fill(); },
-    atscntrb_html5_canvas2d_stroke:
+    atscntrb_HTML5_canvas2d_stroke:
     function (idx) { MyCanvas.contexts[idx].stroke(); },
 //
-    atscntrb_html5_canvas2d_fillRect:
+    atscntrb_HTML5_canvas2d_fillRect:
     function (idx, xul, yul, width, height) {
         MyCanvas.contexts[idx].fillRect(xul, yul, width, height);
     },
-    atscntrb_html5_canvas2d_strokeRect:
+    atscntrb_HTML5_canvas2d_strokeRect:
     function (idx, xul, yul, width, height) {
         MyCanvas.contexts[idx].strokeRect(xul, yul, width, height);
     },
 //
-    atscntrb_html5_canvas2d_fillText:
+    atscntrb_HTML5_canvas2d_fillText:
     function (idx, text, x, y) {
         MyCanvas.contexts[idx].fillText(Pointer_stringify(text), x, y);
     },
-    atscntrb_html5_canvas2d_fillText2:
+    atscntrb_HTML5_canvas2d_fillText2:
     function (idx, text, x, y, maxWidth) {
         MyCanvas.contexts[idx].fillText2(Pointer_stringify(text), x, y, maxWidth);
     },
 //
-    atscntrb_html5_canvas2d_save:
+    atscntrb_HTML5_canvas2d_save:
     function (idx) { MyCanvas.contexts[idx].save(); },
-    atscntrb_html5_canvas2d_restore:
+    atscntrb_HTML5_canvas2d_restore:
     function (idx) { MyCanvas.contexts[idx].restore(); },
 //
-    atscntrb_html5_canvas2d_set_lineWidth_int:
+    atscntrb_HTML5_canvas2d_set_lineWidth_int:
     function (idx, width) {
         MyCanvas.contexts[idx].lineWidth = width ;
     },
-    atscntrb_html5_canvas2d_set_lineWidth_double:
+    atscntrb_HTML5_canvas2d_set_lineWidth_double:
     function (idx, width) {
         MyCanvas.contexts[idx].lineWidth = width ;
     },
 //
-    atscntrb_html5_canvas2d_set_font_string:
+    atscntrb_HTML5_canvas2d_set_font_string:
     function (idx, font) {
         MyCanvas.contexts[idx].font = Pointer_stringify(font);
     },
-    atscntrb_html5_canvas2d_set_textAlign_string:
+    atscntrb_HTML5_canvas2d_set_textAlign_string:
     function (idx, value) {
         MyCanvas.contexts[idx].textAlign = Pointer_stringify(value);
     },
-    atscntrb_html5_canvas2d_set_textBaseline_string:
+    atscntrb_HTML5_canvas2d_set_textBaseline_string:
     function (idx, value) {
         MyCanvas.contexts[idx].textBaseline = Pointer_stringify(value);
     },
 //
-    atscntrb_html5_canvas2d_set_fillStyle_string:
+    atscntrb_HTML5_canvas2d_set_fillStyle_string:
     function (idx, style) {
         MyCanvas.contexts[idx].fillStyle = Pointer_stringify(style);
     },
-    atscntrb_html5_canvas2d_set_strokeStyle_string:
+    atscntrb_HTML5_canvas2d_set_strokeStyle_string:
     function (idx, style) {
         MyCanvas.contexts[idx].strokeStyle = Pointer_stringify(style);
     },
 //
-    atscntrb_html5_canvas2d_set_shadowColor:
+    atscntrb_HTML5_canvas2d_set_shadowColor:
     function (idx, color) {
 	MyCanvas.contexts[idx].shadowColor = Pointer_stringify(color);
     },
 //
-    atscntrb_html5_canvas2d_set_shadowBlur_int:
+    atscntrb_HTML5_canvas2d_set_shadowBlur_int:
     function (idx, value) { MyCanvas.contexts[idx].shadowBlur = value; },
-    atscntrb_html5_canvas2d_set_shadowBlur_double:
+    atscntrb_HTML5_canvas2d_set_shadowBlur_double:
     function (idx, value) { MyCanvas.contexts[idx].shadowBlur = value; },
 //
-    atscntrb_html5_canvas2d_set_shadowOffsetX_int:
+    atscntrb_HTML5_canvas2d_set_shadowOffsetX_int:
     function (idx, value) { MyCanvas.contexts[idx].shadowOffsetX = value; },
-    atscntrb_html5_canvas2d_set_shadowOffsetX_double:
+    atscntrb_HTML5_canvas2d_set_shadowOffsetX_double:
     function (idx, value) { MyCanvas.contexts[idx].shadowOffsetX = value; },
-    atscntrb_html5_canvas2d_set_shadowOffsetY_int:
+    atscntrb_HTML5_canvas2d_set_shadowOffsetY_int:
     function (idx, value) { MyCanvas.contexts[idx].shadowOffsetY = value; },
-    atscntrb_html5_canvas2d_set_shadowOffsetY_double:
+    atscntrb_HTML5_canvas2d_set_shadowOffsetY_double:
     function (idx, value) { MyCanvas.contexts[idx].shadowOffsetY = value; },
 //
-    atscntrb_html5_canvas2d_createLinearGradient:
+    atscntrb_HTML5_canvas2d_createLinearGradient:
     function (idx, x0, y0, x1, y1) {
 	var grad =
 	    MyCanvas.contexts[idx].createLinearGradient(x0, y0, x1, y1);
 	return MyCanvas.objadd(grad);
     },
-    atscntrb_html5_canvas2d_gradient_free:
+    atscntrb_HTML5_canvas2d_gradient_free:
     function (idx) { delete MyCanvas.contexts[idx] ; },
-    atscntrb_html5_canvas2d_gradient_addColorStop:
+    atscntrb_HTML5_canvas2d_gradient_addColorStop:
     function (idx, stop, color) {
 	MyCanvas.contexts[idx].addColorStop(stop, Pointer_stringify(color));
     },
 //
-    atscntrb_html5_canvas2d_set_fillStyle_gradient:
+    atscntrb_HTML5_canvas2d_set_fillStyle_gradient:
     function (idx, idx2) {
         MyCanvas.contexts[idx].fillStyle = MyCanvas.contexts[idx2] ;
     },
-    atscntrb_html5_canvas2d_set_strokeStyle_gradient:
+    atscntrb_HTML5_canvas2d_set_strokeStyle_gradient:
     function (idx, idx2) {
         MyCanvas.contexts[idx].strokeStyle = MyCanvas.contexts[idx2] ;
     },
 //
-} ; // end of [atscntrb_html5_canvas2d]
+} ; // end of [atscntrb_HTML5_canvas2d]
 
 /* ****** ****** */
 
-autoAddDeps(atscntrb_html5_canvas2d, '$MyCanvas');
+autoAddDeps(atscntrb_HTML5_canvas2d, '$MyCanvas');
 
 /* ****** ****** */
 
-mergeInto(LibraryManager.library, atscntrb_html5_canvas2d);
+mergeInto(LibraryManager.library, atscntrb_HTML5_canvas2d);
 
 /* ****** ****** */
 
