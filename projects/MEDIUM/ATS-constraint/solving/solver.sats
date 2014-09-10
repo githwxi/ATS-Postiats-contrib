@@ -251,12 +251,6 @@ fun f_eq_bv_bv : s2cstmap_ftype
 
 fun f_partitioned_array : s2cstmap_ftype
 fun f_sorted_array : s2cstmap_ftype
-fun f_sorted_split_array : s2cstmap_ftype
-
-fun f_partitioned_left_array  : s2cstmap_ftype
-fun f_partitioned_right_array : s2cstmap_ftype
-
-fun f_merged_array : s2cstmap_ftype
 
 fun f_array_store : s2cstmap_ftype
 fun f_array_select : s2cstmap_ftype
@@ -266,6 +260,5 @@ fun f_array_swap : s2cstmap_ftype
 fun f_lte_stamp_stampseq : s2cstmap_ftype
 fun f_lte_stamp_stampseq_range : s2cstmap_ftype
 fun f_lte_stampseq_stamp : s2cstmap_ftype
-
 
 (* ****** ****** *)
