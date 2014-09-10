@@ -18,7 +18,9 @@ staload "./SATS/list.sats"
 staload "./SATS/reference.sats"
 //
 staload "./SATS/JSmath.sats"
+staload "./SATS/JSdate.sats"
 staload "./SATS/JSarray.sats"
+staload "./SATS/JSglobal.sats"
 //
 (* ****** ****** *)
 

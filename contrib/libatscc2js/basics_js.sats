@@ -27,27 +27,42 @@ symintr .length
 //
 (* ****** ****** *)
 //
-abstype JSstring // obj
+(*
+abstype JSnumber
+abstype JSboolean
+abstype JSstring
+*)
+//
+abstype JSobj // generic
+//
+abstype JSdate // new Date()
 //
 abstype JSarray(a:t@ype)
 //
+abstype JSregexp // new RegExp()
+//
 (* ****** ****** *)
 //
-fun alert (msg: string): void = "mac#%"
-
+fun alert(msg: string): void = "mac#%"
+//
 (* ****** ****** *)
 
 fun typeof{a:t@ype}(a): string = "mac#%"
 
 (* ****** ****** *)
-
+//
+// HX-2014-09:
+// it returns obj.toString()
+//
 fun toString{a:t@ype}(obj: a): string = "mac#%"
-
+//
 (* ****** ****** *)
 //
-fun assert_errmsg_bool0
+fun
+assert_errmsg_bool0
   (x: bool, msg: string): void = "mac#%"
-fun assert_errmsg_bool1
+fun
+assert_errmsg_bool1
   {b:bool} (x: bool b, msg: string): [b] void = "mac#%"
 //
 overload assert_errmsg with assert_errmsg_bool0 of 100

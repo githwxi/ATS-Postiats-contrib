@@ -84,7 +84,7 @@ echo "<param id=\"compres\" value=\"$compres\">\n";
 <tr bgcolor="#cccccc">
 <td>
 <br>
-The code generated from the given ATS source:
+The JS code generated from the given ATS source:
 <br>
 <br>
 <TEXTAREA ID="program_output" ROWS="24" COLS="80">
