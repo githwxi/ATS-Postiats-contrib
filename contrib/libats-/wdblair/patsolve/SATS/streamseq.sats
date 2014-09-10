@@ -1,4 +1,0 @@
-(**
-  Static streams
-*)
-
