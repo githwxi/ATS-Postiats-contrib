@@ -206,6 +206,9 @@ keyword =
   | ATSdyncst_mac of ()
   | ATSdyncst_extfun of ()
 //
+  | ATSdyncst_valimp of ()
+  | ATSdyncst_valdec of ()
+//
   | ATStmpdec of ()
   | ATStmpdec_void of ()
 //
@@ -297,6 +300,9 @@ keyword =
   | ATStailcal_end of ()
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
+//
+  | ATSINSextvar_assign of ()
+  | ATSINSdyncst_valbind of ()
 //
   | ATSINSdeadcode_fail of ()
 //
@@ -921,6 +927,9 @@ instr_node =
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)
   | ATSINSargmove_tlcal of (i0de, i0de)
+//
+  | ATSINSextvar_assign of (d0exp, d0exp)
+  | ATSINSdyncst_valbind of (i0de, d0exp)
 //
   | ATSINSdeadcode_fail of (token)
 //

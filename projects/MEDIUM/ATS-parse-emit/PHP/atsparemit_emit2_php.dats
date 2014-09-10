@@ -376,6 +376,23 @@ ins0.instr_node of
     val () = emit_SEMICOLON (out)
   } (* end of [ATSINSargmove_tlcal] *)
 //
+| ATSINSextvar_assign (ext, d0e_r) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_d0exp (out, ext)
+    val () = emit_text (out, " = ")
+    val () = emit_d0exp (out, d0e_r)
+    val () = emit_SEMICOLON (out)
+  }
+| ATSINSdyncst_valbind (d2c, d0e_r) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_i0de (out, d2c)
+    val () = emit_text (out, " = ")
+    val () = emit_d0exp (out, d0e_r)
+    val () = emit_SEMICOLON (out)
+  }
+//
 | ATSdynload (dummy) =>
   {
     val () = emit_nspc (out, ind)

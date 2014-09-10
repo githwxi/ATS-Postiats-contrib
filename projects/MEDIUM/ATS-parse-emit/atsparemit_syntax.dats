@@ -1253,6 +1253,36 @@ end // end of [ATSINSargmove_tlcal_make]
 (* ****** ****** *)
 
 implement
+ATSINSextvar_assign_make
+(
+  tok1, ext, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSextvar_assign (ext, d0e_r))
+end // end of [ATSINSextvar_assign_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSdyncst_valbind_make
+(
+  tok1, d2c, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSdyncst_valbind (d2c, d0e_r))
+end // end of [ATSINSdyncst_valbind_make]
+
+(* ****** ****** *)
+
+implement
 ATSINSdeadcode_fail_make
   (tok1, tok2) = let
 //

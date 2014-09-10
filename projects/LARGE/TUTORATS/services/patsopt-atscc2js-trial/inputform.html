@@ -29,19 +29,24 @@ Please type in your code in ATS:
 //
 #define ATS_DYNLOADFLAG 0
 //
-staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
 //
 extern
-fun fact{n:nat} : int(n) -> int = "mac#"
+fun
+fact{n:nat} : int(n) -> int = "mac#"
 //
 implement
 fact(n) = if n > 0 then n * fact(n-1) else 1
 //
-%{$
+(* ****** ****** *)
 //
+%{$
+/*
+External JS code for testing:
+*/
 alert("fact(12) = " + fact(12));
 //
 %} // end of [%{$]

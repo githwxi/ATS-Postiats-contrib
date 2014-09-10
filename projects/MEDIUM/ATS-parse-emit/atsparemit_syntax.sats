@@ -514,8 +514,21 @@ ATSINSargmove_tlcal_make
 (* ****** ****** *)
 
 fun
-ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
+ATSINSextvar_assign_make
+(
+  tok_kwd: token, ext: d0exp, d0e_r: d0exp, tok_end: token
+) : instr // end of [ATSINSextvar_assign_make]
+fun
+ATSINSdyncst_valbind_make
+(
+  tok_kwd: token, d2cst: i0de, d0e_r: d0exp, tok_end: token
+) : instr // end of [ATSINSdyncst_valbind_make]
 
+(* ****** ****** *)
+//
+fun
+ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
+//
 (* ****** ****** *)
 
 fun

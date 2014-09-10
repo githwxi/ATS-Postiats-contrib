@@ -85,6 +85,9 @@ case+ x of
 | ATSdyncst_mac () => pr "ATSdyncst_mac"
 | ATSdyncst_extfun () => pr "ATSdyncst_extfun"
 //
+| ATSdyncst_valimp () => pr "ATSdyncst_valimp"
+| ATSdyncst_valdec () => pr "ATSdyncst_valdec"
+//
 | TYPEDEF () => pr "typedef"
 //
 | ATSstruct () => pr "ATSstruct"
@@ -184,6 +187,9 @@ case+ x of
 | ATStailcal_end () => pr "ATStailcal_end"
 | ATSINSmove_tlcal () => pr "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => pr "ATSINSargmove_tlcal"
+//
+| ATSINSextvar_assign () => pr "ATSINSextvar_assign"
+| ATSINSdyncst_valbind () => pr "ATSINSdyncst_valbind"
 //
 | ATSINSdeadcode_fail () => pr "ATSINSdeadcode_fail"
 //
