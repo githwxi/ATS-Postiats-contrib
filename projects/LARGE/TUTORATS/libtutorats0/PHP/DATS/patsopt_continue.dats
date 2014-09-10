@@ -77,10 +77,11 @@ patsopt_res =
 if exec_ret = 0
   then patsopt_continue<> (fname_dats_c)
   else let
-    val str1 = file_get_contents (fname_dats)
-    val str2 = file_get_contents (fname_dats_c_log)
+    val str =
+      file_get_contents (fname_dats_c_log)
+    // end of [val]
   in
-    COMPRES2 (str1, str2)
+    COMPRES1 (str)
   end (* end of [else] *)
 // end of [if]
 ) : compres // end of [val]
@@ -99,7 +100,8 @@ patsopt_atscc2js_code
 {
 //
 implement
-patsopt_continue<> = atscc2js_file
+patsopt_continue<>
+  (fname) = atscc2js_file (1(*flag*), fname)
 //
 val fname_dats =
   $PATSOPT.file_of_string(code)

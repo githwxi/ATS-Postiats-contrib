@@ -139,17 +139,14 @@ if exec_ret = 0
       file_get_contents (fname_dats_c)
     // end of [val]
   in
-    COMPRES1 (str)
+    COMPRES0 (str)
   end // end of [then]
   else let
-    val str1 =
-      file_get_contents (fname_dats)
-    // end of [val]
-    val str2 =
+    val str =
       file_get_contents (fname_dats_c_log)
     // end of [val]
   in
-    COMPRES2 (str1, str2)
+    COMPRES1 (str)
   end (* end of [else] *)
 // end of [if]
 ) : compres // end of [val]

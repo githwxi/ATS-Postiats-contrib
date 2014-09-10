@@ -33,8 +33,9 @@ datatype compres =
 // HX-2014-09:
 // the order must be maintained!!!
 //
-  | COMPRES1 of (string(*target*)) // success
-  | COMPRES2 of (string(*source*), string(*errmsg*)) // failue
+  | COMPRES0 of (string(*target*)) // success
+  | COMPRES1 of (string(*target*)) // failure1
+  | COMPRES2 of (string(*source*), string(*errmsg*)) // failure2
 //
 (* ****** ****** *)
 //
@@ -62,7 +63,8 @@ atscc2js_format_command
   (string, string, string): string
 //
 fun{}
-atscc2js_file (fname: string): compres
+atscc2js_file
+  (flag: int, fname: string): compres
 //
 (* ****** ****** *)
 //

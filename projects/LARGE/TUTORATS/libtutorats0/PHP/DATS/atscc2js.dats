@@ -76,7 +76,7 @@ end // end of [atscc2js_format_command]
 implement
 {}(*tmp*)
 atscc2js_file
-  (fname_dats_c) = atscc2js_res where
+  (flag, fname_dats_c) = atscc2js_res where
 {
 //
 val dir =
@@ -97,7 +97,8 @@ val
 exec_ret = exec_retval (command)
 //
 val
-atscc2js_res = (
+atscc2js_res =
+(
 //
 if exec_ret = 0
   then let
@@ -105,18 +106,29 @@ if exec_ret = 0
       file_get_contents (fname_dats_js)
     // end of [val]
   in
-    COMPRES1 (str)
+    COMPRES0 (str)
   end // end of [then]
-  else let
-    val str1 =
-      file_get_contents (fname_dats_c)
-    // end of [val]
-    val str2 =
-      file_get_contents (fname_dats_js_log)
-    // end of [val]
-  in
-    COMPRES2 (str1, str2)
-  end (* end of [else] *)
+  else (
+    if flag = 0
+      then let
+        val str2 =
+          file_get_contents (fname_dats_js_log)
+        // end of [val]
+      in
+        COMPRES1 (str2)
+      end // end of [then]
+      else let
+        val str1 =
+          file_get_contents (fname_dats_c)
+        // end of [val]
+        val str2 =
+          file_get_contents (fname_dats_js_log)
+        // end of [val]
+      in
+        COMPRES2 (str1, str2)
+      end // end of [else]
+    // end of [if]
+  ) (* end of [else] *)
 // end of [if]
 ) : compres // end of [val]
 //
