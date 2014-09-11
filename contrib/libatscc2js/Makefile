@@ -21,7 +21,7 @@ $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2JS) -o ./output/DATS/reference_dat
 #######
 #
 upload_source:: ; \
-scp -r basics_js.sats CATS SATS DATS \
+scp -r basics_js.sats staloadall.hats CATS SATS DATS \
   ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/.
 #
 upload_DATS_JS:: ; \

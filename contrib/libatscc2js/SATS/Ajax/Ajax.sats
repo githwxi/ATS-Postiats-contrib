@@ -37,6 +37,11 @@ ATS_EXTERN_PREFIX "ats2js_Ajax_" // prefix for external names
 (* ****** ****** *)
 //
 staload
+"./../../basics_js.sats"
+//
+(* ****** ****** *)
+//
+staload
 XMLDOM =
 "./../XMLDOM/XMLDOM.sats"
 //
@@ -114,9 +119,21 @@ overload .readyState with XMLHttpRequest_get_readyState
 //
 fun
 XMLHttpRequest_set_onreadystatechange
-  (xmlhttpreq: XMLHttpRequest, f_action: () -> void): void = "mac#%"
+  (xmlhttpreq: XMLHttpRequest, f_action: cfun(void)): void = "mac#%"
 //
 overload .onreadystatechange with XMLHttpRequest_set_onreadystatechange
+//
+(* ****** ****** *)
+//
+// HX-2014-09: Some convenience functions
+//
+(* ****** ****** *)
+//
+fun
+XMLHttpRequest_is_ready_okay
+  (xmlhttpreq: XMLHttpRequest): bool = "mac#%"
+//
+overload .is_ready_okay with XMLHttpRequest_is_ready_okay
 //
 (* ****** ****** *)
 

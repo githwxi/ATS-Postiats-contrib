@@ -17,13 +17,16 @@
 /* ****** ****** */
 //
 function
-ats2jspre_Date_0() { return new Date(); }
+ats2jspre_Date_new_0
+  () { return new Date(); }
 function
-ats2jspre_Date_1_int(msec) { return new Date(msec); }
+ats2jspre_Date_new_1_int
+  (msec) { return new Date(msec); }
 function
-ats2jspre_Date_1_string(date) { return new Date(date); }
+ats2jspre_Date_new_1_string
+  (date) { return new Date(date); }
 function
-ats2jspre_Date_7_date
+ats2jspre_Date_new_7
   (year, mon, day, hour, min, sec, ms)
 {
   return new Date(year, mon, day, hour, min, sec, ms);

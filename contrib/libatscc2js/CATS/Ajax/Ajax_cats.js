@@ -19,15 +19,18 @@
 function
 ats2js_Ajax_XMLHttpRequest_new
 (
-// argumentless
-) { return new XMLHttpRequest(); }
+  // argumentless
+)
+{ 
+  var res = new XMLHttpRequest(); return res;
+}
 
 /* ****** ****** */
 //
 function
 ats2js_Ajax_XMLHttpRequest_open
   (xmlhttp, method, URL, async)
-  { xmlhttp.open (method, URL, async); return; }
+  { xmlhttp.open(method, URL, async); return; }
 //
 /* ****** ****** */
 //
@@ -66,7 +69,20 @@ ats2js_Ajax_XMLHttpRequest_get_readyState
 //
 function
 ats2js_Ajax_XMLHttpRequest_set_onreadystatechange
-  (xmlhttp, f_action) { xmlhttp.onreadystatechange = f_action; return; }
+  (xmlhttp, f_action)
+{
+  xmlhttp.onreadystatechange = function() { f_action[0](f_action); };
+}
+//
+/* ****** ****** */
+//
+// HX-2014-09: Convenience functions
+//
+/* ****** ****** */
+//
+function
+ats2js_Ajax_XMLHttpRequest_is_ready_okay
+  (xmlhttp) { return xmlhttp.readyState===4 && xmlhttp.status===200; }
 //
 /* ****** ****** */
 

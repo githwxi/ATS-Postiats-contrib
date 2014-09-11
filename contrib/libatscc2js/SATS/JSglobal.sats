@@ -72,8 +72,8 @@ fun decodeURI (uri: string): string = "mac#%"
 
 (* ****** ****** *)
 
-fun encodeURIComponent (uri: string): string = "mac#"
-fun decodeURIComponent (uri: string): string = "mac#"
+fun encodeURIComponent (uri: string): string = "mac#%"
+fun decodeURIComponent (uri: string): string = "mac#%"
 
 (* ****** ****** *)
 
