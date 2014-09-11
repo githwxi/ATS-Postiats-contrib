@@ -35,5 +35,89 @@ ATS_STALOADFLAG 0 // no staloading at run-time
 ATS_EXTERN_PREFIX "ats2js_Ajax_" // prefix for external names
 
 (* ****** ****** *)
+//
+staload
+XMLDOM =
+"./../XMLDOM/XMLDOM.sats"
+//
+typedef
+XMLDOM = $XMLDOM.XMLDOM_type
+//
+(* ****** ****** *)
+//
+abstype
+XMLHttpRequest_type
+typedef
+XMLHttpRequest = XMLHttpRequest_type
+//
+(* ****** ****** *)
+//
+fun
+XMLHttpRequest_new
+  ((*void*)): XMLHttpRequest = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+XMLHttpRequest_open
+(
+  XMLHttpRequest
+, method: string, URL: string, async: bool
+) : void = "mac#%" // end-of-fun
+//
+fun
+XMLHttpRequest_send_0
+  (XMLHttpRequest): void = "mac#%"
+fun
+XMLHttpRequest_send_1
+  (XMLHttpRequest, msg: string): void = "mac#%"
+//
+overload .open with XMLHttpRequest_open
+overload .send with XMLHttpRequest_send_0
+overload .send with XMLHttpRequest_send_1
+//
+(* ****** ****** *)
+//
+fun
+XMLHttpRequest_setRequestHeader
+  (XMLHttpRequest, header: string, value: string): void = "mac#%"
+//
+overload .setRequestHeader with XMLHttpRequest_setRequestHeader
+//
+(* ****** ****** *)
+//
+fun
+XMLHttpRequest_get_responseXML
+  (xmlhttpreq: XMLHttpRequest): XMLDOM = "mac#%"
+//
+overload .responseXML with XMLHttpRequest_get_responseXML
+//
+fun
+XMLHttpRequest_get_responseText
+  (xmlhttpreq: XMLHttpRequest): string = "mac#%"
+//
+overload .responseText with XMLHttpRequest_get_responseText
+//
+(* ****** ****** *)
+//
+fun
+XMLHttpRequest_get_status
+  (xmlhttpreq: XMLHttpRequest): int = "mac#%"
+//
+overload .status with XMLHttpRequest_get_status
+//
+fun
+XMLHttpRequest_get_readyState
+  (xmlhttpreq: XMLHttpRequest): int = "mac#%"
+//
+overload .readyState with XMLHttpRequest_get_readyState
+//
+fun
+XMLHttpRequest_set_onreadystatechange
+  (xmlhttpreq: XMLHttpRequest, f_action: () -> void): void = "mac#%"
+//
+overload .onreadystatechange with XMLHttpRequest_set_onreadystatechange
+//
+(* ****** ****** *)
 
 (* end of [Ajax.sats] *)
