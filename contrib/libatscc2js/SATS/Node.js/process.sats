@@ -15,7 +15,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2js_node_"
+ATS_EXTERN_PREFIX "ats2nodejs_"
 //
 (* ****** ****** *)
 //

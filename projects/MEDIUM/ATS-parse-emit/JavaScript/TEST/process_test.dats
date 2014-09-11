@@ -18,19 +18,13 @@ ATS_DYNLOADNAME "process_test_dynload"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/basics_js.sats"
-staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
-staload
-"{$LIBATSCC2JS}/SATS/string.sats"
-staload
-"{$LIBATSCC2JS}/SATS/node/basics.sats"
-//
-(* ****** ****** *)
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 staload
-"{$LIBATSCC2JS}/SATS/node/process.sats"
+"{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
+staload
+"{$LIBATSCC2JS}/SATS/Node.js/process.sats"
 //
 (* ****** ****** *)
 //
@@ -58,8 +52,8 @@ val () = print_newline ((*void*))
 //
 var fs = require('fs');
 eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/process_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/process_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

@@ -15,24 +15,24 @@
 /* ****** ****** */
 //
 function
-ats2js_node_print_newline()
+ats2nodejs_print_newline()
   { process.stdout.write('\n'); return; }
 function
-ats2js_node_prerr_newline()
+ats2nodejs_prerr_newline()
   { process.stderr.write('\n'); return; }
 //
 function
-ats2js_node_fprint_newline(out) { out.write('\n'); return; }
+ats2nodejs_fprint_newline(out) { out.write('\n'); return; }
 //
 /* ****** ****** */
 
 function
-ats2js_node_print_obj(x)
+ats2nodejs_print_obj(x)
 {
   process.stdout.write(x.toString()); return;
 }
 function
-ats2js_node_prerr_obj(x)
+ats2nodejs_prerr_obj(x)
 {
   process.stderr.write(x.toString()); return;
 }
@@ -40,45 +40,45 @@ ats2js_node_prerr_obj(x)
 /* ****** ****** */
 //
 function
-ats2js_node_print_int(x)
+ats2nodejs_print_int(x)
 {
   process.stdout.write(x.toString()); return;
 }
 function
-ats2js_node_prerr_int(x)
+ats2nodejs_prerr_int(x)
 {
   process.stderr.write(x.toString()); return;
 }
 function
-ats2js_node_fprint_int(out, x) { out.write(x.toString()); return; }
+ats2nodejs_fprint_int(out, x) { out.write(x.toString()); return; }
 //
 /* ****** ****** */
 //
 function
-ats2js_node_print_string(x)
+ats2nodejs_print_string(x)
   { process.stdout.write(x); return; }
 function
-ats2js_node_prerr_string(x)
+ats2nodejs_prerr_string(x)
   { process.stderr.write(x); return; }
 function
-ats2js_node_fprint_string(out, x) { out.write(x); return; }
+ats2nodejs_fprint_string(out, x) { out.write(x); return; }
 //
 /* ****** ****** */
 //
 function
-ats2js_node_assert_bool0(tfv) { if (!tfv) process.exit(1); return; }
+ats2nodejs_assert_bool0(tfv)
+  { if (!tfv) process.exit(1); return; }
 function
-ats2js_node_assert_bool1(tfv) { if (!tfv) process.exit(1); return; }
-//
-/* ****** ****** */
+ats2nodejs_assert_bool1(tfv)
+  { if (!tfv) process.exit(1); return; }
 //
 function
-ats2js_node_assert_errmsg_bool0(tfv, errmsg)
+ats2nodejs_assert_errmsg_bool0(tfv, errmsg)
 {
   if (!tfv) { process.stderr.write(errmsg); process.exit(1); }; return;
 }
 function
-ats2js_node_assert_errmsg_bool1(tfv, errmsg)
+ats2nodejs_assert_errmsg_bool1(tfv, errmsg)
 {
   if (!tfv) { process.stderr.write(errmsg); process.exit(1); }; return;
 }
