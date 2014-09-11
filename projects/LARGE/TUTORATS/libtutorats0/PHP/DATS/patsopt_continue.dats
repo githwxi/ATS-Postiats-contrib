@@ -81,7 +81,7 @@ if exec_ret = 0
       file_get_contents (fname_dats_c_log)
     // end of [val]
   in
-    COMPRES1 (str)
+    COMPRES1_fail (str)
   end (* end of [else] *)
 // end of [if]
 ) : compres // end of [val]
