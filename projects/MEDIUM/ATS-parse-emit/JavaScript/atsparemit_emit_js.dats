@@ -305,11 +305,8 @@ d0e0.d0exp_node of
     (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
-//
-| ATSSELrecsin _ => emit_text (out, "ATSSELrecsin(...)")
-//
+| ATSSELrecsin _ => emit_SELrecsin (out, d0e0)
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e0)
-//
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
 | ATSfunclo_fun
@@ -405,6 +402,19 @@ val () = emit_RBRACKET (out)
 in
   // nothing
 end // end of [emit_SELcon]
+
+(* ****** ****** *)
+
+implement
+emit_SELrecsin
+  (out, d0e) = let
+//
+val-ATSSELrecsin
+  (d0rec, s0e, id) = d0e.d0exp_node
+//
+in
+  emit_d0exp (out, d0rec)
+end // end of [emit_SELrecsin]
 
 (* ****** ****** *)
 

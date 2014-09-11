@@ -264,6 +264,7 @@ keyword =
   | ATSCKpat_con1 of ()
 //
   | ATSSELcon of ()
+  | ATSSELrecsin of ()
   | ATSSELboxrec of ()
   | ATSSELfltrec of ()
 //

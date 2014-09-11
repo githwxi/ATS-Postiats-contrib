@@ -161,8 +161,9 @@ val-~None_vt() = kwordins ("ATSCKpat_con0", ATSCKpat_con0)
 val-~None_vt() = kwordins ("ATSCKpat_con1", ATSCKpat_con1)
 //
 val-~None_vt() = kwordins ("ATSSELcon", ATSSELcon)
-val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
+val-~None_vt() = kwordins ("ATSSELrecsin", ATSSELrecsin)
 val-~None_vt() = kwordins ("ATSSELboxrec", ATSSELboxrec)
+val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
 //
 val-~None_vt() = kwordins ("ATSfunclo_fun", ATSfunclo_fun)
 val-~None_vt() = kwordins ("ATSfunclo_clo", ATSfunclo_clo)
@@ -185,14 +186,14 @@ val-~None_vt() = kwordins ("ATSINSmove_con1_new", ATSINSmove_con1_new)
 val-~None_vt() = kwordins ("ATSINSstore_con1_tag", ATSINSstore_con1_tag)
 val-~None_vt() = kwordins ("ATSINSstore_con1_ofs", ATSINSstore_con1_ofs)
 //
-val-~None_vt() = kwordins ("ATSINSmove_fltrec_beg", ATSINSmove_fltrec_beg)
-val-~None_vt() = kwordins ("ATSINSmove_fltrec_end", ATSINSmove_fltrec_end)
-val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
-//
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_beg", ATSINSmove_boxrec_beg)
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_end", ATSINSmove_boxrec_end)
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_new", ATSINSmove_boxrec_new)
 val-~None_vt() = kwordins ("ATSINSstore_boxrec_ofs", ATSINSstore_boxrec_ofs)
+//
+val-~None_vt() = kwordins ("ATSINSmove_fltrec_beg", ATSINSmove_fltrec_beg)
+val-~None_vt() = kwordins ("ATSINSmove_fltrec_end", ATSINSmove_fltrec_end)
+val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
 //
 val-~None_vt() = kwordins ("ATStailcal_beg", ATStailcal_beg)
 val-~None_vt() = kwordins ("ATStailcal_end", ATStailcal_end)

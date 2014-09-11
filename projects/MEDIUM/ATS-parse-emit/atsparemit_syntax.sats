@@ -191,12 +191,12 @@ ATSSELcon_make
 ) : d0exp // end of [ATSSELcon_make]
 //
 fun
-ATSSELfltrec_make
+ATSSELrecsin_make
 (
   tok_kwd: token
 , d0e: d0exp, s0e: s0exp, lab: label
 , tok_end: token
-) : d0exp // end of [ATSSELfltrec_make]
+) : d0exp // end of [ATSSELrecsin_make]
 //
 fun
 ATSSELboxrec_make
@@ -205,6 +205,14 @@ ATSSELboxrec_make
 , d0e: d0exp, s0e: s0exp, lab: label
 , tok_end: token
 ) : d0exp // end of [ATSSELboxrec_make]
+//
+fun
+ATSSELfltrec_make
+(
+  tok_kwd: token
+, d0e: d0exp, s0e: s0exp, lab: label
+, tok_end: token
+) : d0exp // end of [ATSSELfltrec_make]
 //
 (* ****** ****** *)
 

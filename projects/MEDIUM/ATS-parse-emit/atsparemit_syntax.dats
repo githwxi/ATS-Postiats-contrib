@@ -418,6 +418,21 @@ end // end of [ATSSELcon_make]
 (* ****** ****** *)
 
 implement
+ATSSELrecsin_make
+(
+  tok1, d0e, s0e, lab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSSELrecsin (d0e, s0e, lab))
+end // end of [ATSSELrecsin_make]
+
+(* ****** ****** *)
+
+implement
 ATSSELboxrec_make
 (
   tok1, d0e, s0e, lab, tok2

@@ -156,8 +156,9 @@ case+ x of
 | ATSCKpat_con1 () => pr "ATSCKpat_con1"
 //
 | ATSSELcon () => pr "ATSSELcon"
-| ATSSELfltrec () => pr "ATSSELfltrec"
+| ATSSELrecsin () => pr "ATSSELrecsin"
 | ATSSELboxrec () => pr "ATSSELboxrec"
+| ATSSELfltrec () => pr "ATSSELfltrec"
 //
 | ATSfunclo_fun () => pr "ATSfunclo_fun"
 | ATSfunclo_clo () => pr "ATSfunclo_clo"
