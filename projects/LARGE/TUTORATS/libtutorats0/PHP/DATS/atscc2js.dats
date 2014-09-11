@@ -106,7 +106,7 @@ if exec_ret = 0
       file_get_contents (fname_dats_js)
     // end of [val]
   in
-    COMPRES0 (str)
+    COMPRES0_succ (str)
   end // end of [then]
   else (
     if flag = 0
@@ -115,7 +115,7 @@ if exec_ret = 0
           file_get_contents (fname_dats_js_log)
         // end of [val]
       in
-        COMPRES1 (str2)
+        COMPRES1_fail (str2)
       end // end of [then]
       else let
         val str1 =
@@ -125,7 +125,7 @@ if exec_ret = 0
           file_get_contents (fname_dats_js_log)
         // end of [val]
       in
-        COMPRES2 (str1, str2)
+        COMPRES2_fail (str1, str2)
       end // end of [else]
     // end of [if]
   ) (* end of [else] *)
