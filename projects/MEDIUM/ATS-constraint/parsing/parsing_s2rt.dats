@@ -51,7 +51,10 @@ in
       | "array" => S2RTarray ()
       | "stampseq" => S2RTarray ()
       | "infseq" => S2RTarray ()
-      | "bit8" => S2RTbitvec (8)
+      | "bv8" => S2RTbitvec (8)
+      | "bv16" => S2RTbitvec (16)
+      | "bv32" => S2RTbitvec (32)
+      | "bv64" => S2RTbitvec (64)
       //
       (** 
          As far as the constraint solver is concerned, there

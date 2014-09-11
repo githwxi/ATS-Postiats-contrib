@@ -185,6 +185,10 @@ fun make_bv_lxor (formula, formula): formula
 
 fun make_bv_lnot (formula): formula
 
+fun make_bv_lshl (formula, formula): formula
+fun make_bv_ashr (formula, formula): formula
+fun make_bv_lshr (formula, formula): formula
+
 fun make_bv_lt (formula,  formula): formula
 fun make_bv_le (formula,  formula): formula
 fun make_bv_gt (formula,  formula): formula

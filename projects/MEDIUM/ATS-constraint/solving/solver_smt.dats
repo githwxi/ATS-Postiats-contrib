@@ -665,6 +665,15 @@ in
   end // end of [f_bv8_of_int]
 
   implement
+  f_bv16_of_int (env, s2es) = let
+    val- s2e1 :: _ = s2es
+    //
+    val i = formula_make (env, s2e1)
+  in
+    $SMT.make_bv_from_int (16, i)
+  end // end of [f_bv16_of_int]
+
+  implement
   f_add_bv_bv (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
     val l = formula_make (env, s2e1)
@@ -751,6 +760,33 @@ in
   in
     $SMT.make_bv_lnot (l)
   end // end of [f_neg_bv]
+
+  implement
+  f_lshl_bv_int (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val bv = formula_make (env, s2e1)
+    val i = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_lshl (bv, i)
+  end
+
+  implement
+  f_lshr_bv_int (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val bv = formula_make (env, s2e1)
+    val i = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_lshr (bv, i)
+  end
+
+  implement
+  f_ashr_bv_int (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val bv = formula_make (env, s2e1)
+    val i = formula_make (env, s2e2)
+  in
+    $SMT.make_bv_ashr (bv, i)
+  end
   
   implement
   f_eq_bv_bv (env, s2es) = let

@@ -1,5 +1,5 @@
 (*
-  Implementing the map that translates applying static functions
+  Implementing the map that translates static functions
   into formulas understood by the underlying SMT solver.
 *)
 
@@ -240,7 +240,7 @@ end
 
 (* ****** ****** *)
 
-implement 
+implement
 constraint3_initialize_map (map) = {
   typedef tfun = s2cst_ftype
   fun ins (
@@ -318,6 +318,9 @@ constraint3_initialize_map (map) = {
     ins (map, "or_bv8_bv8", f_lor_bv_bv);
     ins (map, "xor_bv8_bv8", f_lxor_bv_bv);
     ins (map, "not_bv8", f_lnot_bv);
+    ins (map, "lshl_bv8_int", f_lshl_bv_int);
+    ins (map, "lshr_bv8_int", f_lshr_bv_int);
+    ins (map, "ashr_bv8_int", f_ashr_bv_int);
     //
     ins (map, "eq_bv8_bv8", f_eq_bv_bv);
     ins (map, "lt_bv8_bv8", f_lt_bv_bv);
@@ -328,6 +331,60 @@ constraint3_initialize_map (map) = {
     ins (map, "ulte_bv8_bv8", f_ulte_bv_bv);
     ins (map, "ugte_bv8_bv8", f_ugte_bv_bv);
     ins (map, "ugt_bv8_bv8", f_ugt_bv_bv);
+    //
+    ins (map, "and_bv16_bv16", f_land_bv_bv);
+    ins (map, "or_bv16_bv16", f_lor_bv_bv);
+    ins (map, "xor_bv16_bv16", f_lxor_bv_bv);
+    ins (map, "not_bv16", f_lnot_bv);
+    ins (map, "lshl_bv16_int", f_lshl_bv_int);
+    ins (map, "lshr_bv16_int", f_lshr_bv_int);
+    ins (map, "ashr_bv16_int", f_ashr_bv_int);
+    //
+    ins (map, "eq_bv16_bv16", f_eq_bv_bv);
+    ins (map, "lt_bv16_bv16", f_lt_bv_bv);
+    ins (map, "lte_bv16_bv16", f_lte_bv_bv);
+    ins (map, "gte_bv16_bv16", f_gte_bv_bv);
+    ins (map, "gt_bv16_bv16", f_gt_bv_bv);
+    ins (map, "ult_bv16_bv16", f_ult_bv_bv);
+    ins (map, "ulte_bv16_bv16", f_ulte_bv_bv);
+    ins (map, "ugte_bv16_bv16", f_ugte_bv_bv);
+    ins (map, "ugt_bv16_bv16", f_ugt_bv_bv);
+    //
+    ins (map, "and_bv32_bv32", f_land_bv_bv);
+    ins (map, "or_bv32_bv32", f_lor_bv_bv);
+    ins (map, "xor_bv32_bv32", f_lxor_bv_bv);
+    ins (map, "not_bv32", f_lnot_bv);
+    ins (map, "lshl_bv32_int", f_lshl_bv_int);
+    ins (map, "lshr_bv32_int", f_lshr_bv_int);
+    ins (map, "ashr_bv32_int", f_ashr_bv_int);
+    //
+    ins (map, "eq_bv32_bv32", f_eq_bv_bv);
+    ins (map, "lt_bv32_bv32", f_lt_bv_bv);
+    ins (map, "lte_bv32_bv32", f_lte_bv_bv);
+    ins (map, "gte_bv32_bv32", f_gte_bv_bv);
+    ins (map, "gt_bv32_bv32", f_gt_bv_bv);
+    ins (map, "ult_bv32_bv32", f_ult_bv_bv);
+    ins (map, "ulte_bv32_bv32", f_ulte_bv_bv);
+    ins (map, "ugte_bv32_bv32", f_ugte_bv_bv);
+    ins (map, "ugt_bv32_bv32", f_ugt_bv_bv);
+    //
+    ins (map, "and_bv64_bv64", f_land_bv_bv);
+    ins (map, "or_bv64_bv64", f_lor_bv_bv);
+    ins (map, "xor_bv64_bv64", f_lxor_bv_bv);
+    ins (map, "not_bv64", f_lnot_bv);
+    ins (map, "lshl_bv64_int", f_lshl_bv_int);
+    ins (map, "lshr_bv64_int", f_lshr_bv_int);
+    ins (map, "ashr_bv64_int", f_ashr_bv_int);
+    //
+    ins (map, "eq_bv64_bv64", f_eq_bv_bv);
+    ins (map, "lt_bv64_bv64", f_lt_bv_bv);
+    ins (map, "lte_bv64_bv64", f_lte_bv_bv);
+    ins (map, "gte_bv64_bv64", f_gte_bv_bv);
+    ins (map, "gt_bv64_bv64", f_gt_bv_bv);
+    ins (map, "ult_bv64_bv64", f_ult_bv_bv);
+    ins (map, "ulte_bv64_bv64", f_ulte_bv_bv);
+    ins (map, "ugte_bv64_bv64", f_ugte_bv_bv);
+    ins (map, "ugt_bv64_bv64", f_ugt_bv_bv);
     //
     ins (map, "partitioned_array", f_partitioned_array);
     ins (map, "sorted_array", f_sorted_array);

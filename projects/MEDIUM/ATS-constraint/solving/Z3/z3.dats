@@ -483,10 +483,43 @@ implement
 make_bv_lnot (phi) = let
   val not = Z3_mk_bvnot (!the_context, phi)
   val () = begin
-    Z3_dec_ref (!the_context, phi)
+    Z3_dec_ref (!the_context, phi);
   end
 in
   not
+end
+
+implement
+make_bv_lshl (bv, i) = let
+  val shifted = Z3_mk_bvshl (!the_context, bv, i)
+  val () = begin
+    Z3_dec_ref (!the_context, bv);
+    Z3_dec_ref (!the_context, i);
+  end
+in
+  shifted
+end
+
+implement
+make_bv_ashr (bv, i) = let
+  val shifted = Z3_mk_bvashr (!the_context, bv, i)
+  val () = begin
+    Z3_dec_ref (!the_context, bv);
+    Z3_dec_ref (!the_context, i);
+  end
+in
+  shifted
+end
+
+implement
+make_bv_lshr (bv, i) = let
+  val shifted = Z3_mk_bvashr (!the_context, bv, i)
+  val () = begin
+    Z3_dec_ref (!the_context, bv);
+    Z3_dec_ref (!the_context, i);
+  end
+in
+  shifted
 end
 
 implement
