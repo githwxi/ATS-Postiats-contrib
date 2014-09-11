@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TUTORATS-patsopt-atscc2js-trial</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+
+<script
+src="http://cdn.jsdelivr.net/ace/1.1.6/min/ace.js"></script>
+
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/basics_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/integer_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/float_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/string_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSmath_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSdate_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSarray_cats.js"></script>
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSglobal_cats.js"></script>
+
+<script src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/DATS/list_dats.js"></script>
+<script src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/DATS/reference_dats.js"></script>
+
+<script
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/Ajax/Ajax_cats.js"></script>
+
+<script>
+//
+function
+program_input_compile()
+{
+/*
+  alert("program_input_compile: enter");
+*/
+  var E = ace.edit("program_input");
+  patsopt_atscc2js(E.getSession().getValue());
+/*
+  alert("program_input_compile: leave");
+*/
+  return;
+}
+//
+function
+patsopt_atscc2js_do_response(resp)
+{
+  var comparr =
+    JSON.parse(decodeURIComponent(resp));
+  // end of [var]
+  document.getElementById("compres").value=comparr[0];
+  var E = ace.edit("program_output"); E.getSession().setValue(comparr[1]);
+  return;
+}
+//
+</script>
+
+<script src="./DATS_JS/inputform_process_js_dats.js"></script>
+
+<script>
+function
+program_output_evaluate()
+{
+  var compres = 
+    parseInt(document.getElementById("compres").value);
+  if(compres > 0)
+  {
+    alert("The generated code cannot be evaluated!");
+  }
+  if(compres===0)
+  {
+    eval(ace.edit("program_output").getSession().getValue());
+  }
+  return;
+} /* end of [program_output_evaluate] */
+</script>
+
+<body>
+
+<h1>
+Patsopt/Atscc2js as a service
+</h1>
+
+<h2>Input/Output Forms</h2>
+<form>
+<param id="compres" value="-1">
+<table border=0>
+
+<tr bgcolor="#cccccc">
+  <td width=0>Input of ATS code</td>
+  <td width=0>Output from ATS source</td>
+</tr>
+
+<tr bgcolor="#cccccc">
+<td>
+<DIV ID="program_input">//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
+(* ****** ****** *)
+//
+extern
+fun
+fact{n:nat} : int(n) -> int = "mac#"
+//
+implement
+fact(n) = if n > 0 then n * fact(n-1) else 1
+//
+(* ****** ****** *)
+//
+%{$
+/*
+External JS code for testing:
+*/
+alert("fact(12) = " + fact(12));
+//
+%} // end of [%{$]
+</DIV>
+</td>
+
+<td>
+<DIV ID="program_output">
+There is no output yet.
+</DIV>
+</td>
+</tr>
+
+<tr>
+  <td align=left>
+    <button type="button" onclick="program_input_compile()">Submit-for-Compilation(JS)</button>
+  </td>
+  <td align=left>
+    <button type="button" onclick="program_output_evaluate()">Submit-for-Evaluation(JS)</button>
+  </td>
+</tr>
+</table>
+</form>
+
+<hr>
+
+<table>
+<tr>
+<td style="width: 100%;">
+This page is created with
+<a href="http://www.ats-lang.org">ATS</a>
+by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>
+and also maintained by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>.
+</td>
+<td style="width: 0%;"><!--pushed to the right-->
+<a href="http://sourceforge.net">
+<img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=205722&amp;type=2"
+width="120"
+height="36"
+alt="SourceForge.net Logo"
+/>
+</a>
+</td>
+</tr>
+</table>
+
+<script>
+(
+function()
+{
+  var id = 'program_input'
+  var editor = ace.edit(id);
+  var id2 = 'program_output'
+  var editor2 = ace.edit(id2);
+/*
+** There are lots of other themes available
+*/
+  editor.setFontSize("18px");
+  editor.setTheme("ace/theme/monokai");
+  editor2.setFontSize("18px");
+  editor2.setTheme("ace/theme/xcode");
+/*
+** Sets the editor to be half the window height and fills
+   the window width. You can adjust as needed.
+*/
+  var elm = document.getElementById(id);
+  elm.style.width = (document.documentElement.clientWidth/2-12) + "px";
+  elm.style.height = 6*document.documentElement.clientHeight/10 + "px";
+
+  var elm2 = document.getElementById(id2);
+  elm2.style.width = (document.documentElement.clientWidth/2-12) + "px";
+  elm2.style.height = 6*document.documentElement.clientHeight/10 + "px";
+}
+)();
+</script>
+
+</body>
+</html>
