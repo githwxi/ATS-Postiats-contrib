@@ -1,6 +1,6 @@
 (*
 //
-A Wall Clock: ATS->Javascript
+A Wall Clock: ATS->C->Javascript
 //
 Author: Hongwei Xi
 Authoremail: hwxi AT cs DOT bu DOT edu
@@ -20,6 +20,13 @@ http://www.neilwallis.com/projects/html5/clock/
 #include
 "share/atspre_staload.hats"
 //
+#define
+HTML_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten"
+#define
+HTML5canvas2d_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
+//
 (* ****** ****** *)
 //
 #define
@@ -31,9 +38,9 @@ macdef _2PI = 2 * PI
 staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
+//
 staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
-
+//
 (* ****** ****** *)
 
 extern
@@ -51,8 +58,8 @@ staload _(*anon*) = "libc/DATS/math.dats"
 
 fun
 draw_mark
- {l:agz} (
-  ctx: !canvas2d(l), i: int
+(
+  ctx: !canvas2d1, i: int
 ) : void = {
 //
 val a = PI/30*i
@@ -73,8 +80,8 @@ val () = canvas2d_stroke (ctx)
 
 fun
 draw_mark2
- {l:agz} (
-  ctx: !canvas2d(l), i: int
+(
+  ctx: !canvas2d1, i: int
 ) : void = {
 //
 val a = PI/30*i
@@ -101,36 +108,44 @@ val () = canvas2d_stroke (ctx)
 } (* end of [draw_mark2] *)
 
 (* ****** ****** *)
-
+//
+extern
 fun
 draw_clock
- {l:agz} (
+  {l:agz}
+(
   ctx: !canvas2d(l)
 , nhr: double, nmin: double, nsec: double
-) : void = {
+) : void // end of [draw_clock]
+//
+implement
+draw_clock{l}
+  (ctx, nhr, nmin, nsec) = () where
+{
 //
 val () = canvas2d_clearRect (ctx, 0.0, 0.0, 300.0, 300.0)
 //
-// Define gradients for 3D / shadow effect
+// Define gradients for 3D-shadow effect
 //
-val grad1 =
+val g1 =
   canvas2d_createLinearGradient (ctx, 0.0, 0.0, 300.0, 300.0)
-val () = canvas2d_gradient_addColorStop(grad1, 0.0, "#D83040")
-val () = canvas2d_gradient_addColorStop(grad1, 1.0, "#801020")
+val () = canvas2d_gradient_addColorStop(g1, 0.0, "#D83040")
+val () = canvas2d_gradient_addColorStop(g1, 1.0, "#801020")
 //
-val grad2=
+val g2 =
   canvas2d_createLinearGradient (ctx, 0.0, 0.0, 300.0, 300.0)
-val () = canvas2d_gradient_addColorStop(grad2, 0.0, "#801020")
-val () = canvas2d_gradient_addColorStop(grad2, 1.0, "#D83040")
+val () = canvas2d_gradient_addColorStop(g2, 0.0, "#801020")
+val () = canvas2d_gradient_addColorStop(g2, 1.0, "#D83040")
 //
 val () = canvas2d_set_font_string (ctx, "bold 20px arial")
 val () = canvas2d_set_textAlign_string (ctx, "center")
 val () = canvas2d_set_textBaseline_string (ctx, "middle")
 val () = canvas2d_set_lineWidth (ctx, 1)
 //
-val () = canvas2d_set_strokeStyle_gradient (ctx, grad1)
+val () = canvas2d_set_strokeStyle_gradient (ctx, g1)
 val () = canvas2d_set_lineWidth (ctx, 10)
-val (pf | ()) = canvas2d_save (ctx)
+//
+val pf = canvas2d_save (ctx)
 val () = canvas2d_beginPath (ctx)
 val () = canvas2d_arc(ctx, 150.0, 150.0, 138.0, 0.0, _2PI, true)
 val () = canvas2d_closePath (ctx)
@@ -139,38 +154,48 @@ val () = canvas2d_set_shadowOffsetX (ctx, 4)
 val () = canvas2d_set_shadowOffsetY (ctx, 4)
 val () = canvas2d_set_shadowColor (ctx, "rgba(0,0,0,0.6)")
 val () = canvas2d_stroke (ctx)
-val ((*void*)) = canvas2d_restore (pf | ctx)
-val () = canvas2d_gradient_free (grad1)
+val () = canvas2d_restore (pf.0 | ctx)
 //
-val () = canvas2d_set_strokeStyle_gradient (ctx, grad2)
+val () = canvas2d_gradient_free (g1)
+//
+val () = canvas2d_set_strokeStyle_gradient (ctx, g2)
 val () = canvas2d_set_lineWidth (ctx, 10)
-val (pf | ()) = canvas2d_save (ctx)
+//
+val pf = canvas2d_save (ctx)
 val () = canvas2d_beginPath (ctx)
 val () = canvas2d_arc (ctx, 150.0, 150.0, 129.0, 0.0, _2PI, true);
 val () = canvas2d_closePath (ctx)
 val () = canvas2d_stroke (ctx)
-val ((*void*)) = canvas2d_restore (pf | ctx)
-val () = canvas2d_gradient_free (grad2)
+val () = canvas2d_restore (pf.0 | ctx)
+//
+val () = canvas2d_gradient_free (g2)
 //
 val () = canvas2d_set_strokeStyle_string (ctx, "#222")
 //
-val (pf | ()) = canvas2d_save (ctx)
+val pf = canvas2d_save (ctx)
 val () = canvas2d_translate (ctx, 150.0, 150.0)
 //
-val () = loop (ctx, 1) where
+val () =
+loop (ctx, 1) where
 {
+//
 fun loop
 (
   ctx: !canvas2d(l), i: int
 ) : void =
-  if i <= 60 then let
+(
+if i <= 60
+  then let
     val () =  (
       if i mod 5 != 0 then draw_mark (ctx, i) else draw_mark2 (ctx, i)
     ) : void // end of [val]
   in
     loop (ctx, i+1)
-  end else () // end of [if]
-}
+  end // end of [then]
+  else () // end of [else]
+//
+) (* end of [loop] *)
+} (* end of [where] *) // end of [val]
 //
 val ampm =
   (if (nhr < 12.0) then "AM" else "PM"): string
@@ -181,47 +206,61 @@ val () = canvas2d_fillText (ctx, ampm, 43.0, 0.0)
 //
 val () = canvas2d_set_lineWidth (ctx, 6)
 //
-val (pf2 | ()) = canvas2d_save (ctx)
-val () = canvas2d_rotate (ctx, nhr*PI/6)
-val () = canvas2d_beginPath (ctx)
-val () = canvas2d_moveTo (ctx, 0.0, 10.0)
-val () = canvas2d_lineTo (ctx, 0.0, ~60.0)
-val () = canvas2d_closePath (ctx)
-val () = canvas2d_stroke (ctx)
-val ((*void*)) = canvas2d_restore (pf2 | ctx)
+val () =
+{
+  val pf = canvas2d_save (ctx)
+  val () = canvas2d_rotate (ctx, nhr*PI/6)
+  val () = canvas2d_beginPath (ctx)
+  val () = canvas2d_moveTo (ctx, 0.0, 10.0)
+  val () = canvas2d_lineTo (ctx, 0.0, ~60.0)
+  val () = canvas2d_closePath (ctx)
+  val () = canvas2d_stroke (ctx)
+  val () = canvas2d_restore (pf.0 | ctx)
+} (* end of [val] *)
 //
-val (pf2 | ()) = canvas2d_save (ctx)
-val () = canvas2d_rotate (ctx, nmin*PI/30)
-val () = canvas2d_beginPath (ctx)
-val () = canvas2d_moveTo (ctx, 0.0, 20.0)
-val () = canvas2d_lineTo (ctx, 0.0, ~110.0)
-val () = canvas2d_closePath (ctx)
-val () = canvas2d_stroke (ctx)
-val ((*void*)) = canvas2d_restore (pf2 | ctx)
+val () =
+{
+  val pf = canvas2d_save (ctx)
+  val () = canvas2d_rotate (ctx, nmin*PI/30)
+  val () = canvas2d_beginPath (ctx)
+  val () = canvas2d_moveTo (ctx, 0.0, 20.0)
+  val () = canvas2d_lineTo (ctx, 0.0, ~110.0)
+  val () = canvas2d_closePath (ctx)
+  val () = canvas2d_stroke (ctx)
+  val ((*void*)) = canvas2d_restore (pf.0 | ctx)
+} (* end of [val] *)
 //
 val () = canvas2d_set_lineWidth (ctx, 3)
 val () = canvas2d_set_strokeStyle_string (ctx, "#E33")
-val (pf2 | ()) = canvas2d_save (ctx)
-val () = canvas2d_rotate (ctx, nsec*PI/30)
-val () = canvas2d_beginPath (ctx)
-val () = canvas2d_moveTo (ctx, 0.0, 20.0)
-val () = canvas2d_lineTo (ctx, 0.0, ~110.0)
-val () = canvas2d_closePath (ctx)
-val () = canvas2d_stroke (ctx)
-val ((*void*)) = canvas2d_restore (pf2 | ctx)
+//
+val () =
+{
+  val pf = canvas2d_save (ctx)
+  val () = canvas2d_rotate (ctx, nsec*PI/30)
+  val () = canvas2d_beginPath (ctx)
+  val () = canvas2d_moveTo (ctx, 0.0, 20.0)
+  val () = canvas2d_lineTo (ctx, 0.0, ~110.0)
+  val () = canvas2d_closePath (ctx)
+  val () = canvas2d_stroke (ctx)
+  val () = canvas2d_restore (pf.0 | ctx)
+} (* end of [val] *)
 //
 val () = canvas2d_set_fillStyle_string (ctx, "#000")
-val (pf2 | ()) = canvas2d_save (ctx)
-val () = canvas2d_beginPath (ctx)
-val () = canvas2d_arc(ctx, 0.0, 0.0, 6.5, 0.0, _2PI, true)
-val () = canvas2d_closePath (ctx)
-val () = canvas2d_fill (ctx)
-val ((*void*)) = canvas2d_restore (pf2 | ctx)
 //
-val ((*void*)) = canvas2d_restore (pf | ctx)
+val () =
+{
+  val pf = canvas2d_save (ctx)
+  val () = canvas2d_beginPath (ctx)
+  val () = canvas2d_arc(ctx, 0.0, 0.0, 6.5, 0.0, _2PI, true)
+  val () = canvas2d_closePath (ctx)
+  val () = canvas2d_fill (ctx)
+  val () = canvas2d_restore (pf.0 | ctx)
+} (* end of [val] *)
 //
-} (* end of [draw_clock] *)
-
+val () = canvas2d_restore (pf.0 | ctx)
+//
+} (* end of [where] *) // end of [draw_clock]
+//
 (* ****** ****** *)
 
 val w = 920.0
@@ -261,7 +300,8 @@ end // end of [render_frame]
 (* ****** ***** *)
 //
 extern
-fun request_animation_frame // JS-function
+fun
+request_animation_frame // JS-function
   {a:vtype}
   (callback: (double, a) -> void, ctx: a): void = "ext#JS_request_animation_frame"
 //

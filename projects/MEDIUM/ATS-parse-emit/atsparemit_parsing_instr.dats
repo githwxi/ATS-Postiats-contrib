@@ -527,10 +527,44 @@ tok.token_node of
     val ent6 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
     if err = err0
-      then ATSINSargmove_tlcal_make (tok, ent2, ent4, ent5)
-      else tokbuf_set_ntok_null (buf, n0)
+      then (
+        ATSINSargmove_tlcal_make (tok, ent2, ent4, ent5)
+      ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSINSargmove_tlcal]
+//
+| T_KWORD(ATSINSextvar_assign()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent6 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if (err = err0)
+      then (
+        ATSINSextvar_assign_make (tok, ent2, ent4, ent5)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSINSextvar_assign]  
+| T_KWORD(ATSINSdyncst_valbind()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent6 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if (err = err0)
+      then (
+        ATSINSdyncst_valbind_make (tok, ent2, ent4, ent5)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSINSdyncst_valbind]  
 //
 | T_KWORD(ATSINSdeadcode_fail()) => let
     val bt = 0
@@ -554,30 +588,6 @@ tok.token_node of
       then ATSdynload_make (tok, ent2) else tokbuf_set_ntok_null (buf, n0)
   end // end of [ATSdynload]
 //
-| T_KWORD(ATSdynload0()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
-    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
-    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
-  in
-    if (err = err0)
-      then ATSdynload0_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
-  end // end of [ATSdynload0]    
-//
-| T_KWORD(ATSdynload1()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
-    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
-    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
-  in
-    if (err = err0)
-      then ATSdynload1_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
-  end // end of [ATSdynload1]
-//
 | T_KWORD(ATSdynloadset()) => let
     val bt = 0
     val () = incby1 ()
@@ -589,6 +599,30 @@ tok.token_node of
     if (err = err0)
       then ATSdynloadset_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
   end // end of [ATSdynloadset]
+//
+| T_KWORD(ATSdynloadflag_sta()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if (err = err0)
+      then ATSdynloadflag_sta_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynloadflag_sta]    
+//
+| T_KWORD(ATSdynloadflag_ext()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if (err = err0)
+      then ATSdynloadflag_ext_make (tok, ent2, ent3) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSdynloadflag_ext]
 //
 | _ (*error*) => let
     val () = err := err + 1

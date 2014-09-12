@@ -119,26 +119,22 @@ emit_PMVbool
 (* ****** ****** *)
 
 implement
-emit_PMVstring
+emit_PMVfloat
   (out, tok) = let
 //
-val-T_STRING(rep) = tok.token_node
-//
-in
-  emit_text (out, rep)
-end // end of [emit_PMVstring]
+val-
+T_FLOAT(_, rep) = tok.token_node in emit_text (out, rep)
+end // end of [emit_PMVfloat]
 
 (* ****** ****** *)
 
 implement
-emit_PMVfloat
+emit_PMVstring
   (out, tok) = let
 //
-val-T_FLOAT(base, rep) = tok.token_node
+val-T_STRING(rep) = tok.token_node in emit_text (out, rep)
 //
-in
-  emit_text (out, rep)
-end // end of [emit_PMVfloat]
+end // end of [emit_PMVstring]
 
 (* ****** ****** *)
 
@@ -192,13 +188,62 @@ val () = emit_RPAREN (out)
 } (* end of [emit_PMVcfunlab] *)
 
 (* ****** ****** *)
+
+implement
+emit_CSTSPmyloc
+  (out, tok) = let
+//
+val-T_STRING(rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_CSTSPmyloc]
+
+(* ****** ****** *)
+
+implement
+emit_ATSCKpat_con0
+  (out, d0e, tag) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_con0(")
+  val () = (
+    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_con0] *)
+
+implement
+emit_ATSCKpat_con1
+  (out, d0e, tag) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_con1(")
+  val () = (
+    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_con1] *)
+
+(* ****** ****** *)
 //
 implement
 emit_tmpvar
-  (out, tmp) =
-(
+  (out, tmp) = let
+//
+val isloc =
+  tmpvar_is_local (tmp.i0de_sym)
+//
+in
+//
+if (
+isloc
+) then (
   emit_DOLLAR(out); emit_i0de (out, tmp)
-) (* end of [emit_tmpvar] *)
+) else (
+  emit_text (out, "$GLOBALS['");
+  emit_i0de (out, tmp); emit_text (out, "']")
+) (* end of [if] *)
+//
+end (* end of [emit_tmpvar] *)
 //
 (* ****** ****** *)
 
@@ -241,16 +286,22 @@ d0e0.d0exp_node of
   }
 //
 | ATSempty (x) => emit_text (out, "null")
+| ATSextval (toks) => emit_extval (out, toks)
 //
 | ATSPMVint (int) => emit_PMVint (out, int)
 | ATSPMVintrep (int) => emit_PMVintrep (out, int)
 //
 | ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
 //
+| ATSPMVfloat (flt) => emit_PMVfloat (out, flt)
+//
 | ATSPMVstring (str) => emit_PMVstring (out, str)
 //
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
 | ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
+//
+| ATSPMVrefarg0 (d0e) => emit_d0exp (out, d0e)
+| ATSPMVrefarg1 (d0e) => emit_d0exp (out, d0e)
 //
 | ATSPMVfunlab (fl) =>
   {
@@ -265,12 +316,19 @@ d0e0.d0exp_node of
     val () = emit_PMVcfunlab (out, fl, d0es)
   } (* end of [ATSPMVcfunlab] *)
 //
+| ATSPMVcastfn
+    (_(*fid*), _(*s0e*), arg) => emit_d0exp (out, arg)
+//
+| ATSCSTSPmyloc (tok) => emit_CSTSPmyloc (out, tok)
+//
+| ATSCKpat_con0
+    (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
+| ATSCKpat_con1
+    (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
+//
 | ATSSELcon _ => emit_SELcon (out, d0e0)
-//
-| ATSSELrecsin _ => emit_text (out, "ATSSELrecsin(...)")
-//
+| ATSSELrecsin _ => emit_SELrecsin (out, d0e0)
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e0)
-//
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
 | ATSfunclo_fun
@@ -366,6 +424,19 @@ val () = emit_RBRACKET (out)
 in
   // nothing
 end // end of [emit_SELcon]
+
+(* ****** ****** *)
+
+implement
+emit_SELrecsin
+  (out, d0e) = let
+//
+val-ATSSELrecsin
+  (d0rec, s0e, id) = d0e.d0exp_node
+//
+in
+  emit_d0exp (out, d0rec)
+end // end of [emit_SELrecsin]
 
 (* ****** ****** *)
 

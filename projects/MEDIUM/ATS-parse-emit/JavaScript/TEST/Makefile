@@ -8,12 +8,12 @@ NODEJS=node
 
 ######
 
-PATSCC=$(PATSHOME)/bin/patscc
-PATSOPT=$(PATSHOME)/bin/patsopt
+ATSCC2JS=./../atscc2js
 
 ######
 
-ATSCC2JS=./../atscc2js
+PATSCC=$(PATSHOME)/bin/patscc
+PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
@@ -159,6 +159,18 @@ cleanall:: ; $(RMF) queens_dats.js
 ######
 
 all:: \
+hello_dats.js
+hello_dats.c: \
+hello.dats ; $(PATSOPT) -o $@ -d $<
+hello_dats.js: \
+hello_dats.c ; $(ATSCC2JS) -o $@ -i $<
+hello:: hello_dats.js ; $(NODEJS) hello_dats.js
+regress:: hello
+cleanall:: ; $(RMF) hello_dats.js
+
+######
+
+all:: \
 process_test_dats.js
 process_test_dats.c: \
 process_test.dats ; $(PATSOPT) -o $@ -d $<
@@ -173,16 +185,11 @@ cleanall:: ; $(RMF) process_test_dats.js
 CPRF=cp -rf
 
 ######
-
-libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS/* ./libatscc2js/CATS
-
-######
 #
-upload_html: ; \
-  scp mytest.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/ATS-parse-emit/JavaScript/.
-upload_DATS_JS: ; \
-  scp DATS_JS/*.js ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/ATS-parse-emit/JavaScript/DATS_JS/.
+libatscc2js:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS libatscc2js/.
+libatscc2js:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/output/DATS libatscc2js/DATS/.
 #
 ######
 

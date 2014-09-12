@@ -10,9 +10,7 @@
 ######
 
 ######
-import sys
-######
-from basics_cats import *
+from ats2pypre_basics_cats import *
 ######
 
 ############################################

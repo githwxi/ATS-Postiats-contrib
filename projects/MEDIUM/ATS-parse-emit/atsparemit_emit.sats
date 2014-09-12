@@ -66,17 +66,25 @@ fun emit_time_stamp (FILEref): void
   
 (* ****** ****** *)
 //
+fun emit_extval : emit_type (tokenlst)
+fun emit_extcode : emit_type (tokenlst)
+fun emit_tokenlst : emit_type (tokenlst)
+//
+(* ****** ****** *)
+//
 fun emit_PMVint : emit_type (i0nt)
 fun emit_PMVintrep : emit_type (i0nt)
 //
 fun emit_PMVbool : emit_type (bool)
 //
-fun emit_PMVstring : emit_type (s0tring)
-//
 fun emit_PMVfloat : emit_type (f0loat)
+//
+fun emit_PMVstring : emit_type (s0tring)
 //
 fun emit_PMVi0nt : emit_type (i0nt)
 fun emit_PMVf0loat : emit_type (f0loat)
+//
+fun emit_CSTSPmyloc : emit_type (s0tring)
 //
 (* ****** ****** *)
 //
@@ -110,6 +118,7 @@ fun emit_d0explst_1 : emit_type (d0explst)
 (* ****** ****** *)
 
 fun emit_SELcon : emit_type (d0exp)
+fun emit_SELrecsin : emit_type (d0exp)
 fun emit_SELboxrec : emit_type (d0exp)
 
 (* ****** ****** *)
@@ -134,8 +143,6 @@ fun
 emit_COMMENT_line (out: FILEref): void
 fun
 emit_COMMENT_block (out: FILEref): void
-//
-fun emit_extcode : emit_type (tokenlst)
 //
 (* ****** ****** *)
 

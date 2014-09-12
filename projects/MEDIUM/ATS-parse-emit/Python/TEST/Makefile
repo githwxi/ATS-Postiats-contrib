@@ -4,16 +4,17 @@
 
 ######
 
+PYTHON=python3
+export PYTHONPATH=libatscc2py/.
+
+######
+
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
 ATSPAREMIT=./../atscc2py
-
-######
-
-PYTHON=python3
 
 ######
 
@@ -25,6 +26,7 @@ cleanall::
 
 RMF=rm -f
 RMRF=rm -rf
+CPRF=cp -rf
 
 ######
 
@@ -179,22 +181,31 @@ cleanall:: ; $(RMF) PYlist_test_dats.py
 
 ######
 
-CPRF=cp -rf
+all:: \
+refcount_dats.py
+refcount_dats.py: refcount.dats ; \
+$(PATSOPT) -d $< | $(ATSPAREMIT) -o $@ -i
+refcount:: \
+refcount_dats.py ; $(PYTHON) refcount_dats.py
+regress:: refcount
+cleanall:: ; $(RMF) refcount_dats.py
 
 ######
-
-libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/CATS/* ./libatscc2py/CATS
-
+#
+libatscc2py:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/output/* libatscc2py/.
+#
 ######
 
 clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
 
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) *_?ats.c
-cleanall:: ; $(RMF) *_?ats.pyc
-cleanall:: ; $(RMRF) __pycache__
+cleanall:: ; $(RMF) *_?ats.py
+# cleanall:: ; $(RMF) libatscc2py/*_cats.py
+# cleanall:: ; $(RMF) libatscc2py/*_dats.py
+# cleanall:: ; $(RMRF) libatscc2py/__pycache__
 
 ###### end of [Makefile] ######

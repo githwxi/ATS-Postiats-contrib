@@ -73,16 +73,15 @@ end // end of [PYlist2list]
 
 %{^
 import sys
-######
-#
-from basics_cats import *
-#
-from integer_cats import *
-#
-from PYlist_cats import *
-#
-######
 sys.setrecursionlimit(1000000)
+######
+#
+from ats2pypre_basics_cats import *
+from ats2pypre_integer_cats import *
+#
+from ats2pypre_PYlist_cats import *
+#
+######
 %} // end of [%{^]
 
 (* ****** ****** *)

@@ -14,6 +14,7 @@
 #define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
+//
 staload
 "{$LIBATSCC2PHP}/basics_php.sats"
 staload

@@ -64,6 +64,12 @@ ATSempty_make
 (* ****** ****** *)
 //
 fun
+ATSextval_make
+  (tok_kwd: token, toks: tokenlst, tok_end: token): d0exp
+//
+(* ****** ****** *)
+//
+fun
 ATSPMVint_make
 (
   tok_kwd: token, tok: i0nt, tok_end: token
@@ -74,11 +80,24 @@ ATSPMVintrep_make
   tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
 //
+(* ****** ****** *)
+//
 fun
 ATSPMVbool_make
 (
   tok_kwd: token, tfv: bool, tok_end: token
 ) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+ATSPMVfloat_make
+(
+  tok_kwd: token, tok: f0loat, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
 fun
 ATSPMVstring_make
 (
@@ -92,10 +111,25 @@ ATSPMVi0nt_make
 (
   tok_kwd: token, tok: i0nt, tok_end: token
 ) : d0exp // end-of-fun
+//
 fun
 ATSPMVf0loat_make
 (
   tok_kwd: token, tok: f0loat, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+ATSPMVrefarg0_make
+(
+  tok_kwd: token, d0e: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
+ATSPMVrefarg1_make
+(
+  tok_kwd: token, d0e: d0exp, tok_end: token
 ) : d0exp // end-of-fun
 //
 (* ****** ****** *)
@@ -115,6 +149,23 @@ ATSPMVcfunlab_make
 , knd: signed, flab: label, arg: d0exp, tok_end: token
 ) : d0exp // end-of-fun
 
+(* ****** ****** *)
+//
+fun
+ATSPMVcastfn_make
+(
+  tok_kwd: token
+, fid: i0de, s0e_res: s0exp, arg: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+ATSCSTSPmyloc_make
+(
+  tok_kwd: token, tok: s0tring, tok_end: token
+) : d0exp // end-of-fun
+//
 (* ****** ****** *)
 
 fun
@@ -140,12 +191,12 @@ ATSSELcon_make
 ) : d0exp // end of [ATSSELcon_make]
 //
 fun
-ATSSELfltrec_make
+ATSSELrecsin_make
 (
   tok_kwd: token
 , d0e: d0exp, s0e: s0exp, lab: label
 , tok_end: token
-) : d0exp // end of [ATSSELfltrec_make]
+) : d0exp // end of [ATSSELrecsin_make]
 //
 fun
 ATSSELboxrec_make
@@ -154,6 +205,14 @@ ATSSELboxrec_make
 , d0e: d0exp, s0e: s0exp, lab: label
 , tok_end: token
 ) : d0exp // end of [ATSSELboxrec_make]
+//
+fun
+ATSSELfltrec_make
+(
+  tok_kwd: token
+, d0e: d0exp, s0e: s0exp, lab: label
+, tok_end: token
+) : d0exp // end of [ATSSELfltrec_make]
 //
 (* ****** ****** *)
 
@@ -218,12 +277,17 @@ fun
 f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
 (* ****** ****** *)
-
+//
 fun tmpvar_is_arg (tmp: symbol): bool
+fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
 fun tmpvar_is_tmp (tmp: symbol): bool
 fun tmpvar_is_tmpret (tmp: symbol): bool
-
+fun tmpvar_is_a2rg (tmp: symbol): bool
+fun tmpvar_is_a2py (tmp: symbol): bool
+//
+fun tmpvar_is_local (tmp: symbol): bool
+//
 (* ****** ****** *)
 //
 fun
@@ -458,18 +522,31 @@ ATSINSargmove_tlcal_make
 (* ****** ****** *)
 
 fun
-ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
+ATSINSextvar_assign_make
+(
+  tok_kwd: token, ext: d0exp, d0e_r: d0exp, tok_end: token
+) : instr // end of [ATSINSextvar_assign_make]
+fun
+ATSINSdyncst_valbind_make
+(
+  tok_kwd: token, d2cst: i0de, d0e_r: d0exp, tok_end: token
+) : instr // end of [ATSINSdyncst_valbind_make]
 
+(* ****** ****** *)
+//
+fun
+ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
+//
 (* ****** ****** *)
 
 fun
 ATSdynload_make (tok_kwd: token, tok_end: token): instr
 fun
-ATSdynload0_make (tok_kwd: token, id: i0de, tok_end: token): instr
-fun
-ATSdynload1_make (tok_kwd: token, id: i0de, tok_end: token): instr
-fun
 ATSdynloadset_make (tok_kwd: token, id: i0de, tok_end: token): instr
+fun
+ATSdynloadflag_sta_make (tok_kwd: token, id: i0de, tok_end: token): instr
+fun
+ATSdynloadflag_ext_make (tok_kwd: token, id: i0de, tok_end: token): instr
 
 (* ****** ****** *)
 //
@@ -556,6 +633,12 @@ d0ecl_closurerize
 , fl: label, env: s0exp, arg: s0exp, res: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_closurerize]
 
+(* ****** ****** *)
+//
+fun
+d0ecl_dynloadflag_init
+  (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
+//
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax.sats] *)

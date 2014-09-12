@@ -1069,11 +1069,14 @@ case+ 0 of
 // HX: skipping the unrecognized char
 //
     val () = lexbuf_remove_all (buf)
-    val loc = lexbuf_getincby_location (buf, 1)
 //
-    val err =
-    lexerr_make (loc, LEXERR_UNSUPPORTED_char (c0))
+    val loc = lexbuf_getincby_location (buf, 1)
+    val err = lexerr_make (loc, LEXERR_UNSUPPORTED_char (c0))
+    val ((*void*)) = prerrln! ("Warning(lex): ", err)
+(*
     val ((*inserted*)) = the_lexerrlst_insert (err)
+*)
+//
   in
     lexbuf_get_token_any (buf)
   end // end of [rest-of-char]

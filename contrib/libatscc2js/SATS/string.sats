@@ -26,7 +26,7 @@ overload .length with string_length of 100
 //
 fun
 string_charAt
-  (str: string, index: int): int = "mac#%"
+  (str: string, index: int): char = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -42,14 +42,29 @@ string_indexOf (str: string, c: char): int = "mac#%"
 (* ****** ****** *)
 //
 fun
-print_string (str: string): void = "mac#%"
-fun
-prerr_string (str: string): void = "mac#%"
+string_append
+(
+  str1: string, str2: string
+) : string = "mac#%"
+//
+overload + with string_append of 100
 //
 (* ****** ****** *)
 //
-overload print with print_string of 100
-overload prerr with prerr_string of 100
+fun
+string_concat_2
+(
+  str1: string, str2: string
+) : string = "mac#%"
+fun
+string_concat_3
+(
+  str1: string, str2: string, str3: string
+) : string = "mac#%"
+//
+symintr string_concat
+overload string_concat with string_concat_2 of 100
+overload string_concat with string_concat_3 of 100
 //
 (* ****** ****** *)
 

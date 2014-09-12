@@ -11,6 +11,13 @@
 staload "./GameOf24.sats"
 
 (* ****** ****** *)
+//
+#define EPSILON 1E-8
+fun iseqz (v: double): bool = abs(v) < EPSILON
+fun isneqz (v: double): bool = abs(v) >= EPSILON
+fun iseq24 (v: double): bool = abs(v - 24.0) < EPSILON
+//
+(* ****** ****** *)
 
 extern
 fun task_reduce
@@ -34,18 +41,28 @@ val ci = x[i] and cj = x[j]
 //
 typedef cs = cardset
 //
-val y = cardset_remove2_add1 (x, i, j, ci+cj)
-val ((*void*)) = res := list_cons{cs}(y, res)
-val y = cardset_remove2_add1 (x, i, j, ci-cj)
-val ((*void*)) = res := list_cons{cs}(y, res)
-val y = cardset_remove2_add1 (x, i, j, cj-ci)
-val ((*void*)) = res := list_cons{cs}(y, res)
-val y = cardset_remove2_add1 (x, i, j, ci*cj)
-val ((*void*)) = res := list_cons{cs}(y, res)
-val y = cardset_remove2_add1 (x, i, j, ci/cj)
-val ((*void*)) = res := list_cons{cs}(y, res)
-val y = cardset_remove2_add1 (x, i, j, cj/ci)
-val ((*void*)) = res := list_cons{cs}(y, res)
+val ((*void*)) = (
+  res := list_cons{cs}(cardset_remove2_add1 (x, i, j, ci+cj), res)
+) (* end of [val] *)
+//
+val ((*void*)) = (
+  res := list_cons{cs}(cardset_remove2_add1 (x, i, j, ci-cj), res)
+) (* end of [val] *)
+val ((*void*)) = (
+  res := list_cons{cs}(cardset_remove2_add1 (x, i, j, cj-ci), res)
+) (* end of [val] *)
+//
+val ((*void*)) = (
+  res := list_cons{cs}(cardset_remove2_add1 (x, i, j, ci*cj), res)
+) (* end of [val] *)
+//
+val ((*void*)) =
+if isneqz (card_get_val(cj)) then
+  res := list_cons{cs}(cardset_remove2_add1 (x, i, j, ci/cj), res)
+//
+val ((*void*)) =
+if isneqz (card_get_val(ci)) then
+  res := list_cons{cs}(cardset_remove2_add1 (x, i, j, cj/ci), res)
 //
 in
   // nothing
@@ -64,17 +81,17 @@ and loop2
 ) : void = let
 in
 //
-if j < n then let
+if
+j < n
+then let
 //
 val (
 ) = auxdo (x, i, j, res)
 //
 in
   loop2 (x, n, i, j+1, res)
-end else
-(
-  loop1 (x, n, i+1, res)
-) // end of [if]
+end // end of [then]
+else loop1 (x, n, i+1, res)
 //
 end // end of [loop2]
 //
@@ -107,11 +124,6 @@ case+ xs of
 | list_nil () => ()
 //
 end // end of [tasklst_reduce]
-
-(* ****** ****** *)
-
-#define EPSILON 1E-8
-fun is24 (v: double): bool = abs(v - 24.0) < EPSILON
 
 (* ****** ****** *)
 
@@ -150,7 +162,7 @@ implement
 list_mapopt$fopr<cardset><card> (x) =
 (
 let val c = x[0] in
-  if is24 (card_get_val (c)) then Some_vt{card}(c) else None_vt()
+  if iseq24 (card_get_val (c)) then Some_vt{card}(c) else None_vt()
 end // end of [let]
 )
 //

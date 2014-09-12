@@ -47,14 +47,11 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/basics_js.sats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
-//
-staload
-"{$LIBATSCC2JS}/SATS/string.sats"
+"{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
 //
 (* ****** ****** *)
 
@@ -106,11 +103,9 @@ val ((*void*)) = println! ("ans3(65536) = ", ans3)
 //
 var fs = require('fs');
 eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/integer_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/string_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/basics_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

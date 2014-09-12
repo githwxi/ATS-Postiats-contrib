@@ -100,6 +100,9 @@ val-~None_vt() = kwordins ("ATSassume", ATSassume)
 val-~None_vt() = kwordins ("ATSdyncst_mac", ATSdyncst_mac)
 val-~None_vt() = kwordins ("ATSdyncst_extfun", ATSdyncst_extfun)
 //
+val-~None_vt() = kwordins ("ATSdyncst_valimp", ATSdyncst_valimp)
+val-~None_vt() = kwordins ("ATSdyncst_valdec", ATSdyncst_valdec)
+//
 val-~None_vt() = kwordins ("ATStmpdec", ATStmpdec)
 val-~None_vt() = kwordins ("ATStmpdec_void", ATStmpdec_void)
 //
@@ -129,6 +132,7 @@ val-~None_vt() = kwordins ("ATSreturn", ATSreturn)
 val-~None_vt() = kwordins ("ATSreturn_void", ATSreturn_void)
 //
 val-~None_vt() = kwordins ("ATSempty", ATSempty)
+val-~None_vt() = kwordins ("ATSextval", ATSextval)
 //
 val-~None_vt() = kwordins ("ATSPMVint", ATSPMVint)
 val-~None_vt() = kwordins ("ATSPMVintrep", ATSPMVintrep)
@@ -136,20 +140,30 @@ val-~None_vt() = kwordins ("ATSPMVintrep", ATSPMVintrep)
 val-~None_vt() = kwordins ("ATSPMVbool_true", ATSPMVbool_true)
 val-~None_vt() = kwordins ("ATSPMVbool_false", ATSPMVbool_false)
 //
+val-~None_vt() = kwordins ("ATSPMVfloat", ATSPMVfloat)
+//
 val-~None_vt() = kwordins ("ATSPMVstring", ATSPMVstring)
 //
 val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)
 val-~None_vt() = kwordins ("ATSPMVf0loat", ATSPMVf0loat)
 //
+val-~None_vt() = kwordins ("ATSPMVrefarg0", ATSPMVrefarg0)
+val-~None_vt() = kwordins ("ATSPMVrefarg1", ATSPMVrefarg1)
+//
 val-~None_vt() = kwordins ("ATSPMVfunlab", ATSPMVfunlab)
 val-~None_vt() = kwordins ("ATSPMVcfunlab", ATSPMVcfunlab)
+//
+val-~None_vt() = kwordins ("ATSPMVcastfn", ATSPMVcastfn)
+//
+val-~None_vt() = kwordins ("ATSCSTSPmyloc", ATSCSTSPmyloc)
 //
 val-~None_vt() = kwordins ("ATSCKpat_con0", ATSCKpat_con0)
 val-~None_vt() = kwordins ("ATSCKpat_con1", ATSCKpat_con1)
 //
 val-~None_vt() = kwordins ("ATSSELcon", ATSSELcon)
-val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
+val-~None_vt() = kwordins ("ATSSELrecsin", ATSSELrecsin)
 val-~None_vt() = kwordins ("ATSSELboxrec", ATSSELboxrec)
+val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
 //
 val-~None_vt() = kwordins ("ATSfunclo_fun", ATSfunclo_fun)
 val-~None_vt() = kwordins ("ATSfunclo_clo", ATSfunclo_clo)
@@ -172,26 +186,30 @@ val-~None_vt() = kwordins ("ATSINSmove_con1_new", ATSINSmove_con1_new)
 val-~None_vt() = kwordins ("ATSINSstore_con1_tag", ATSINSstore_con1_tag)
 val-~None_vt() = kwordins ("ATSINSstore_con1_ofs", ATSINSstore_con1_ofs)
 //
-val-~None_vt() = kwordins ("ATSINSmove_fltrec_beg", ATSINSmove_fltrec_beg)
-val-~None_vt() = kwordins ("ATSINSmove_fltrec_end", ATSINSmove_fltrec_end)
-val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
-//
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_beg", ATSINSmove_boxrec_beg)
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_end", ATSINSmove_boxrec_end)
 val-~None_vt() = kwordins ("ATSINSmove_boxrec_new", ATSINSmove_boxrec_new)
 val-~None_vt() = kwordins ("ATSINSstore_boxrec_ofs", ATSINSstore_boxrec_ofs)
+//
+val-~None_vt() = kwordins ("ATSINSmove_fltrec_beg", ATSINSmove_fltrec_beg)
+val-~None_vt() = kwordins ("ATSINSmove_fltrec_end", ATSINSmove_fltrec_end)
+val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
 //
 val-~None_vt() = kwordins ("ATStailcal_beg", ATStailcal_beg)
 val-~None_vt() = kwordins ("ATStailcal_end", ATStailcal_end)
 val-~None_vt() = kwordins ("ATSINSmove_tlcal", ATSINSmove_tlcal)
 val-~None_vt() = kwordins ("ATSINSargmove_tlcal", ATSINSargmove_tlcal)
 //
+val-~None_vt() = kwordins ("ATSINSextvar_assign", ATSINSextvar_assign)
+val-~None_vt() = kwordins ("ATSINSdyncst_valbind", ATSINSdyncst_valbind)
+//
 val-~None_vt() = kwordins ("ATSINSdeadcode_fail", ATSINSdeadcode_fail)
 //
 val-~None_vt() = kwordins ("ATSdynload", ATSdynload)
-val-~None_vt() = kwordins ("ATSdynload0", ATSdynload0)
-val-~None_vt() = kwordins ("ATSdynload1", ATSdynload1)
 val-~None_vt() = kwordins ("ATSdynloadset", ATSdynloadset)
+val-~None_vt() = kwordins ("ATSdynloadflag_sta", ATSdynloadflag_sta)
+val-~None_vt() = kwordins ("ATSdynloadflag_ext", ATSdynloadflag_ext)
+val-~None_vt() = kwordins ("ATSdynloadflag_init", ATSdynloadflag_init)
 //
 val-~None_vt() = kwordins ("ATSclosurerize_beg", ATSclosurerize_beg)
 val-~None_vt() = kwordins ("ATSclosurerize_end", ATSclosurerize_end)

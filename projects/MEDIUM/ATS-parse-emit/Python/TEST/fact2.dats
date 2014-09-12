@@ -41,12 +41,13 @@ end // end of [fact]
 
 %{^
 import sys
-######
-from basics_cats import *
-from integer_cats import *
-from float_cats import *
-######
 sys.setrecursionlimit(1000000)
+######
+from ats2pypre_basics_cats import *
+from ats2pypre_integer_cats import *
+from ats2pypre_float_cats import *
+from ats2pypre_string_cats import *
+######
 %} // end of [%{^]
 
 (* ****** ****** *)

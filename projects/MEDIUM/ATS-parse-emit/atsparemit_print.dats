@@ -85,6 +85,9 @@ case+ x of
 | ATSdyncst_mac () => pr "ATSdyncst_mac"
 | ATSdyncst_extfun () => pr "ATSdyncst_extfun"
 //
+| ATSdyncst_valimp () => pr "ATSdyncst_valimp"
+| ATSdyncst_valdec () => pr "ATSdyncst_valdec"
+//
 | TYPEDEF () => pr "typedef"
 //
 | ATSstruct () => pr "ATSstruct"
@@ -118,6 +121,7 @@ case+ x of
 | ATSreturn_void () => pr "ATSreturn_void"
 //
 | ATSempty () => pr "ATSempty"
+| ATSextval () => pr "ATSextval"
 //
 | ATSPMVint () => pr "ATSPMVint"
 | ATSPMVintrep () => pr "ATSPMVintrep"
@@ -125,13 +129,22 @@ case+ x of
 | ATSPMVbool_true () => pr "ATSPMVbool_true"
 | ATSPMVbool_false () => pr "ATSPMVbool_false"
 //
+| ATSPMVfloat () => pr "ATSPMVfloat"
+//
 | ATSPMVstring () => pr "ATSPMVstring"
 //
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
 | ATSPMVf0loat () => pr "ATSPMVf0loat"
 //
+| ATSPMVrefarg0 () => pr "ATSPMVrefarg0"
+| ATSPMVrefarg1 () => pr "ATSPMVrefarg1"
+//
 | ATSPMVfunlab () => pr "ATSPMVfunlab"
 | ATSPMVcfunlab () => pr "ATSPMVcfunlab"
+//
+| ATSPMVcastfn () => pr "ATSPMVcastfn"
+//
+| ATSCSTSPmyloc () => pr "ATSCSTSPmyloc"
 //
 | ATSINSlab () => pr "ATSINSlab"
 | ATSINSgoto () => pr "ATSINSgoto"
@@ -143,8 +156,9 @@ case+ x of
 | ATSCKpat_con1 () => pr "ATSCKpat_con1"
 //
 | ATSSELcon () => pr "ATSSELcon"
-| ATSSELfltrec () => pr "ATSSELfltrec"
+| ATSSELrecsin () => pr "ATSSELrecsin"
 | ATSSELboxrec () => pr "ATSSELboxrec"
+| ATSSELfltrec () => pr "ATSSELfltrec"
 //
 | ATSfunclo_fun () => pr "ATSfunclo_fun"
 | ATSfunclo_clo () => pr "ATSfunclo_clo"
@@ -175,12 +189,16 @@ case+ x of
 | ATSINSmove_tlcal () => pr "ATSINSmove_tlcal"
 | ATSINSargmove_tlcal () => pr "ATSINSargmove_tlcal"
 //
+| ATSINSextvar_assign () => pr "ATSINSextvar_assign"
+| ATSINSdyncst_valbind () => pr "ATSINSdyncst_valbind"
+//
 | ATSINSdeadcode_fail () => pr "ATSINSdeadcode_fail"
 //
 | ATSdynload () => pr "ATSdynload"
-| ATSdynload0 () => pr "ATSdynload0"
-| ATSdynload1 () => pr "ATSdynload1"
 | ATSdynloadset () => pr "ATSdynloadset"
+| ATSdynloadflag_sta () => pr "ATSdynloadflag_sta"
+| ATSdynloadflag_ext () => pr "ATSdynloadflag_ext"
+| ATSdynloadflag_init () => pr "ATSdynloadflag_init"
 //
 | ATSclosurerize_beg () => pr "ATSclosurerize_beg"
 | ATSclosurerize_end () => pr "ATSclosurerize_end"
@@ -353,24 +371,32 @@ d0e.d0exp_node of
     fprint! (out, "D0Eappexp(", d0e, "; ", d0es, ")")
 //
 | ATSempty (dummy) => fprint! (out, "ATSempty(", ")")
+| ATSextval (toklst) => fprint! (out, "ATSextval(", "...", ")")
 //
 | ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
 | ATSPMVintrep (tok) => fprint! (out, "ATSPMVintrep(", tok, ")")
 //
 | ATSPMVbool (tfv) => fprint! (out, "ATSPMVbool(", tfv, ")")
 //
+| ATSPMVfloat (tok) => fprint! (out, "ATSPMVfloat(", tok, ")")
+//
 | ATSPMVstring (tok) => fprint! (out, "ATSPMVstring(", tok, ")")
 //
 | ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")
 | ATSPMVf0loat (tok) => fprint! (out, "ATSPMVf0loat(", tok, ")")
-(*
-| ATSPMVs0tring (tok) => fprint! (out, "ATSPMVs0tring(", tok, ")")
-*)
+//
+| ATSPMVrefarg0 (d0e) => fprint! (out, "ATSPMVrefarg0(", d0e, ")")
+| ATSPMVrefarg1 (d0e) => fprint! (out, "ATSPMVrefarg1(", d0e, ")")
 //
 | ATSPMVfunlab (fl) =>
     fprint! (out, "ATSPMVfunlab(", fl, ")")
 | ATSPMVcfunlab (knd, fl, d0es) =>
-    fprint! (out, "ATSPMVcfunlab(", knd, "; ", fl, ";", d0es, ")")
+    fprint! (out, "ATSPMVcfunlab(", knd, ";", fl, ";", d0es, ")")
+//
+| ATSPMVcastfn (fid, s0e, arg) =>
+    fprint! (out, "ATSPMVcastfn(", fid, "; ", s0e, ";", arg, ")")
+//
+| ATSCSTSPmyloc (tok) => fprint! (out, "ATSCSTSPmyloc(", tok, ")")
 //
 | ATSCKpat_con0 (d0e, tag) =>
     fprint! (out, "ATSCKpat_con0(", d0e, tag, ")")
@@ -477,10 +503,11 @@ ins0.instr_node of
 | ATSINSmove_con0 (tmp, tag(*token*)) =>
     fprint! (out, "ATSINSmove_con0(", tmp, ", ", tag, ")")
 //
-| ATSdynload (dummy) => fprint! (out, "ATSdynload0(", ")")
-| ATSdynload0 (flag) => fprint! (out, "ATSdynload0(", flag, ")")
-| ATSdynload1 (flag) => fprint! (out, "ATSdynload1(", flag, ")")
+| ATSdynload (dummy) => fprint! (out, "ATSdynload(", ")")
 | ATSdynloadset (flag) => fprint! (out, "ATSdynloadset(", flag, ")")
+| ATSdynloadflag_sta (flag) => fprint! (out, "ATSdynloadflag_sta(", flag, ")")
+| ATSdynloadflag_ext (flag) => fprint! (out, "ATSdynloadflag_ext(", flag, ")")
+| ATSdynloadflag_init (flag) => fprint! (out, "ATSdynloadflag_init(", flag, ")")
 //
 | _ (*rest*) => fprint (out, "fprint_instr(...)")
 //
@@ -634,6 +661,9 @@ x.d0ecl_node of
 //
 | D0Cclosurerize (flab, _, _, _) =>
     fprint! (out, "D0Cclosurerize(", flab, "; ", "...", ")")
+//
+| D0Cdynloadflag_init (flag) =>
+    fprint! (out, "D0Cdynloadflag_init(", flag, ")")
 //
 end // end of [fprint_d0ecl]
 //

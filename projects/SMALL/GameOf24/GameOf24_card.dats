@@ -31,6 +31,8 @@ card_node =
   | CARDsub of (card, card)
   | CARDmul of (card, card)
   | CARDdiv of (card, card)
+// end of [card_node]
+
 where
 card = '{
 //

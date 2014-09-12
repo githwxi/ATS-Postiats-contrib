@@ -18,17 +18,59 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 staload "./../basics_py.sats"
 //
 (* ****** ****** *)
-
+//
 fun
-PYlist_nil{a:t0p} (): PYlist(a) = "mac#"
-
+PYlist_nil
+  {a:t0p} (): PYlist(a) = "mac#"
+//
+fun
+PYlist_sing
+  {a:t0p} (x: a): PYlist(a) = "mac#"
+//
+fun
+PYlist_pair
+  {a:t0p} (x1: a, x2: a): PYlist(a) = "mac#"
+//
 (* ****** ****** *)
-
+//
 fun
-PYlist_is_nil{a:t0p} (xs: PYlist(a)): bool = "mac#"
+PYlist_make_elt
+  {a:t0p}{n:nat}(n: int(n), x0: a): PYlist(a) = "mac#"
+//
+(* ****** ****** *)
+//
 fun
-PYlist_isnot_nil{a:t0p} (xs: PYlist(a)): bool = "mac#"
-
+PYlist_is_nil
+  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+//
+fun
+PYlist_is_cons
+  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+//
+fun
+PYlist_isnot_nil
+  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+PYlist_length{a:t0p}(PYlist(a)): int = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+PYlist_get_at
+  {a:t0p}(xs: PYlist(a), i: int): a = "mac#"
+//
+fun
+PYlist_set_at
+  {a:t0p}(xs: PYlist(a), i: int, x: a): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+PYlist_copy{a:t0p}(PYlist(a)): PYlist(a) = "mac#"
+//
 (* ****** ****** *)
 //
 fun
@@ -44,9 +86,9 @@ PYlist_extend{a:t0p}
 (* ****** ****** *)
 //
 fun
-PYlist_pop_0{a:t0p} (xs: PYlist(a)): (a)
+PYlist_pop_0{a:t0p} (xs: PYlist(a)): (a) = "mac#"
 fun
-PYlist_pop_1{a:t0p} (xs: PYlist(a), i: intGte(0)): (a)
+PYlist_pop_1{a:t0p} (xs: PYlist(a), i: intGte(0)): (a) = "mac#"
 //
 symintr PYlist_pop
 overload PYlist_pop with PYlist_pop_0

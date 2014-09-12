@@ -4,10 +4,6 @@
 
 ######
 
-NODEJS=node
-
-######
-
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
@@ -18,7 +14,6 @@ ATSCC2JS=./../atscc2php
 ######
 
 all::
-regress::
 cleanall::
 
 ######
@@ -92,17 +87,27 @@ cleanall:: ; $(RMF) rtfind2_dats.php
 
 ######
 
+all:: \
+refcount_dats.php
+refcount_dats.php: refcount.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) refcount_dats.php
+
+######
+
 all:: mytest
 mytest:: mytest.php; php -f mytest.php
 
 ######
 
-CPRF=cp -rf
+CPF=cp -rf
 
 ######
 
-libupdate: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS/* ./libatscc2php/CATS
+libatscc2php:: ; \
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
+libatscc2php:: ; \
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
 
 ######
 

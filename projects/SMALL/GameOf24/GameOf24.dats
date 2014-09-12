@@ -1,7 +1,13 @@
 //
 // Implementing Game-of-24
 //
-
+(* ****** ****** *)
+//
+// Author: Hongwei Xi
+(*
+// The code was largely translated from ATS1 
+*)
+//
 (* ****** ****** *)
 
 staload "./GameOf24.sats"

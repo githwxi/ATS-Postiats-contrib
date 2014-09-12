@@ -1,3 +1,12 @@
+//
+// Author: Hongwei Xi
+(*
+// The code was largely translated from ATS1 
+*)
+//
+
+(* ****** ****** *)
+
 (*
 
 Given four natural numbers n1, n2, n3 and n4, one chooses two of them and
@@ -93,7 +102,7 @@ fun cardset_tabulate
 fun cardset_remove2_add1
 (
   cs: cardset, i:int, j:int, c: card
-) : cardset // endfun
+) : cardset // end-of-fun
 
 (* ****** ****** *)
 

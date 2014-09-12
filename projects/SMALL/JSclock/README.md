@@ -119,7 +119,7 @@ following to it
 
     /* Our library object. */
     var LibaryUpdate = {
-      update_display: function () {
+      update_display: function() {
         var display = document.getElementById("user-display");
         display.innerHTML("Display Updated!");
       };
@@ -161,7 +161,7 @@ as an id for the context.
       contexts: {},
     },
 
-    canvas2d_make: function (ptr) {
+    canvas2d_make: function(ptr) {
         var id = Pointer_stringify(ptr);
         var canvas = document.getElementById(id);
 
@@ -180,7 +180,7 @@ rotating rotating the orientation of our canvas.
 
     fun rotate (!canvas2d, angle: double): void = "ext#"
 
-    rotate: function (ptr, angle) { Canvas.contexts[ptr].rotate(angle); }
+    rotate: function(ptr, angle) { Canvas.contexts[ptr].rotate(angle); }
 
 When it comes time to free our context, which is required for every linear
 type in ATS, we just set the context refered to by the key to null. If
@@ -189,7 +189,7 @@ garbage collection.
 
     fun canvas2d_free (canvas2d): void = "ext#"
 
-    canvas2d_free: function (ptr) { Canvas.contexts[ptr] = null; }
+    canvas2d_free: function(ptr) { Canvas.contexts[ptr] = null; }
 
 This gives you a simple example of how to wrap Javascript objects through
 abstract types in ATS.
@@ -210,7 +210,7 @@ While we can certainly implement such a function in C, implementing it in JS
 seems more convenient (though it may be much less efficient):
 
     wallclock_now:
-    function (nhr, nmin, nsec) {
+    function(nhr, nmin, nsec) {
         var now = new Date();
         var mils = now.getMilliseconds();
         var secs = now.getSeconds() + mils / 1000.0;

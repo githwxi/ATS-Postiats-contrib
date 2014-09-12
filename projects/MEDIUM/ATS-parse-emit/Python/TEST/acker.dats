@@ -33,11 +33,11 @@ case+
 
 %{^
 import sys
-######
-from basics_cats import *
-from integer_cats import *
-######
 sys.setrecursionlimit(1000000)
+######
+from ats2pypre_basics_cats import *
+from ats2pypre_integer_cats import *
+######
 %} // end of [%{^]
 
 (* ****** ****** *)

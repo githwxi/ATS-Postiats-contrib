@@ -10,11 +10,16 @@
 #define ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
-
-fun abs_int0 : int -> int = "mac#%"
-fun neg_int0 : int -> int = "mac#%"
 //
+fun
+abs_int0 : int -> int = "mac#%"
 overload abs with abs_int0 of 100
+//
+(* ****** ****** *)
+//
+fun
+neg_int0 : int -> int = "mac#%"
+overload ~ with neg_int0 of 100
 overload neg with neg_int0 of 100
 //
 (* ****** ****** *)
@@ -39,6 +44,7 @@ fun add_int0_int0: (int, int) -> int = "mac#%"
 fun sub_int0_int0 : (int, int) -> int = "mac#%"
 fun mul_int0_int0 : (int, int) -> int = "mac#%"
 fun div_int0_int0 : (int, int) -> int = "mac#%"
+fun mod_int0_int0 : (int, int) -> int = "mac#%"
 //
 fun add_int1_int1
   : {i,j:int} (int(i), int(j)) -> int(i+j) = "mac#%"
@@ -55,6 +61,8 @@ overload + with add_int0_int0 of 100
 overload - with sub_int0_int0 of 100
 overload * with mul_int0_int0 of 100
 overload / with div_int0_int0 of 100
+overload % with mod_int0_int0 of 100
+overload mod with mod_int0_int0 of 100
 //
 overload + with add_int1_int1 of 120
 overload - with sub_int1_int1 of 120
@@ -102,18 +110,6 @@ overload >= with gte_int1_int1 of 120
 overload = with eq_int1_int1 of 120
 overload != with neq_int1_int1 of 120
 overload <> with neq_int1_int1 of 120
-//
-(* ****** ****** *)
-//
-fun print_int : (int) -> void = "mac#%"
-fun prerr_int : (int) -> void = "mac#%"
-//
-fun
-fprint_int: (FILEref, int) -> void = "mac#%"
-//
-overload print with print_int of 100
-overload prerr with prerr_int of 100
-overload fprint with fprint_int of 100
 //
 (* ****** ****** *)
 

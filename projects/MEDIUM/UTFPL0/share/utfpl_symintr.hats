@@ -42,4 +42,4 @@ symintr fgetc fputc
 //
 (* ****** ****** *)
 
-(* end of [utfpleval_symintr.dats] *)
+(* end of [utfpl_symintr.dats] *)

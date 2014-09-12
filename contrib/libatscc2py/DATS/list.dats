@@ -14,11 +14,21 @@
 //
 #define
 ATS_EXTERN_PREFIX "ats2pypre_"
+#define
+ATS_STATIC_PREFIX "_ats2pypre_list_"
 //
 (* ****** ****** *)
 //
 staload "./../SATS/list.sats"
 //
+(* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+%} // end of [%{^]
+
 (* ****** ****** *)
 
 implement

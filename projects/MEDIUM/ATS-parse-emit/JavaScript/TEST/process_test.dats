@@ -18,34 +18,30 @@ ATS_DYNLOADNAME "process_test_dynload"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/basics_js.sats"
-staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
-staload
-"{$LIBATSCC2JS}/SATS/string.sats"
-//
-(* ****** ****** *)
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 staload
-"{$LIBATSCC2JS}/SATS/node/process.sats"
+"{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
+staload
+"{$LIBATSCC2JS}/SATS/Node.js/process.sats"
 //
 (* ****** ****** *)
 //
 val () = print ("argv = ")
-val () = print_obj (argv)
+val () = print_obj (process_argv)
 val () = print_newline ((*void*))
 //
 (* ****** ****** *)
 
 val () = print ("uptime = ")
-val () = print_obj (uptime())
+val () = print_obj (process_uptime())
 val () = print_newline ((*void*))
 
 (* ****** ****** *)
 
 val () = print ("version = ")
-val () = print_obj (version)
+val () = print_obj (process_version)
 val () = print_newline ((*void*))
 
 (* ****** ****** *)
@@ -56,10 +52,8 @@ val () = print_newline ((*void*))
 //
 var fs = require('fs');
 eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/integer_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/string_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/node/process_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/process_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)

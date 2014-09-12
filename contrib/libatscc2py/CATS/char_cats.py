@@ -9,6 +9,10 @@
 #beg of [char_cats.py]
 ######
 
+######
+from ats2pypre_basics_cats import *
+######
+
 ############################################
 #
 def ats2pypre_print_char(c):

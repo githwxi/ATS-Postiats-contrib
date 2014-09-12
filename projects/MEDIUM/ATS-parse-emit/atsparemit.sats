@@ -206,6 +206,9 @@ keyword =
   | ATSdyncst_mac of ()
   | ATSdyncst_extfun of ()
 //
+  | ATSdyncst_valimp of ()
+  | ATSdyncst_valdec of ()
+//
   | ATStmpdec of ()
   | ATStmpdec_void of ()
 //
@@ -235,23 +238,33 @@ keyword =
   | ATSreturn_void of ()
 //
   | ATSempty of ()
+  | ATSextval of ()
 //
   | ATSPMVint of ()
   | ATSPMVintrep of ()
   | ATSPMVbool_true of ()
   | ATSPMVbool_false of ()
+  | ATSPMVfloat of ()
   | ATSPMVstring of ()
 //
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
 //
+  | ATSPMVrefarg0 of ()
+  | ATSPMVrefarg1 of ()
+//
   | ATSPMVfunlab of ()
   | ATSPMVcfunlab of ()
+//
+  | ATSPMVcastfn of ()
+//
+  | ATSCSTSPmyloc of ()
 //
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
 //
   | ATSSELcon of ()
+  | ATSSELrecsin of ()
   | ATSSELboxrec of ()
   | ATSSELfltrec of ()
 //
@@ -289,12 +302,16 @@ keyword =
   | ATSINSmove_tlcal of ()
   | ATSINSargmove_tlcal of ()
 //
+  | ATSINSextvar_assign of ()
+  | ATSINSdyncst_valbind of ()
+//
   | ATSINSdeadcode_fail of ()
 //
   | ATSdynload of ()
-  | ATSdynload0 of ()
-  | ATSdynload1 of ()
   | ATSdynloadset of ()
+  | ATSdynloadflag_sta of ()
+  | ATSdynloadflag_ext of ()
+  | ATSdynloadflag_init of ()
 //
   | ATSclosurerize_beg of ()
   | ATSclosurerize_end of ()
@@ -422,10 +439,17 @@ typedef lexerr = '{
 typedef lexerrlst = List0 (lexerr)
 //
 (* ****** ****** *)
-
+//
+fun print_lexerr (lexerr): void
+fun prerr_lexerr (lexerr): void
+//
 fun fprint_lexerr : fprint_type (lexerr)
 fun fprint_lexerrlst : fprint_type (lexerrlst)
-
+//
+overload print with print_lexerr
+overload prerr with prerr_lexerr
+overload fprint with fprint_lexerr
+//
 (* ****** ****** *)
 //
 fun
@@ -717,18 +741,27 @@ d0exp_node =
   | D0Eappid of (i0de, d0explst)
   | D0Eappexp of (d0exp, d0explst)
 //
-  | ATSempty of (int)
+  | ATSempty of (int) // void-value
+  | ATSextval of (tokenlst) // external values
 //
   | ATSPMVint of i0nt
   | ATSPMVintrep of i0nt
   | ATSPMVbool of bool
+  | ATSPMVfloat of f0loat
   | ATSPMVstring of s0tring
 //
   | ATSPMVi0nt of i0nt
   | ATSPMVf0loat of f0loat
 //
+  | ATSPMVrefarg0 of (d0exp)
+  | ATSPMVrefarg1 of (d0exp)
+//
   | ATSPMVfunlab of (label)
   | ATSPMVcfunlab of (int(*knd*), label, d0explst)
+//
+  | ATSPMVcastfn of (i0de(*fun*), s0exp, d0exp(*arg*))
+//
+  | ATSCSTSPmyloc of s0tring
 //
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))
@@ -740,6 +773,7 @@ d0exp_node =
 //
   | ATSfunclo_fun of (d0exp, s0exp(*arg*), s0exp(*res*))
   | ATSfunclo_clo of (d0exp, s0exp(*arg*), s0exp(*res*))
+//
 // end of [d0exp_node]
 
 where
@@ -895,12 +929,16 @@ instr_node =
   | ATSINSmove_tlcal of (i0de, d0exp)
   | ATSINSargmove_tlcal of (i0de, i0de)
 //
+  | ATSINSextvar_assign of (d0exp, d0exp)
+  | ATSINSdyncst_valbind of (i0de, d0exp)
+//
   | ATSINSdeadcode_fail of (token)
 //
   | ATSdynload of int
-  | ATSdynload0 of (i0de)
-  | ATSdynload1 of (i0de)
   | ATSdynloadset of (i0de)
+  | ATSdynloadflag_sta of (i0de)
+  | ATSdynloadflag_ext of (i0de)
+  | ATSdynloadflag_init of (i0de)
 //
 // end of [instr_node]
 //
@@ -979,6 +1017,8 @@ d0ecl_node =
   | D0Cclosurerize of (
       i0de, s0exp(*env*), s0exp(*arg*), s0exp(*res*)
     ) (* end of [D0Cclosurerize] *)
+//
+  | D0Cdynloadflag_init of (i0de)
 //
 // end of [d0ecl_node]
 

@@ -11,10 +11,17 @@
 //
 (* ****** ****** *)
 
-fun abs_int0 : int -> int = "mac#%"
-fun neg_int0 : int -> int = "mac#%"
+staload "./../basics_php.sats"
+
+(* ****** ****** *)
 //
+fun
+abs_int0 : int -> int = "mac#%"
 overload abs with abs_int0 of 100
+//
+fun
+neg_int0 : int -> int = "mac#%"
+overload ~ with neg_int0 of 100
 overload neg with neg_int0 of 100
 //
 (* ****** ****** *)
@@ -109,7 +116,7 @@ fun print_int : (int) -> void = "mac#%"
 fun prerr_int : (int) -> void = "mac#%"
 //
 fun
-fprint_int: (FILEref, int) -> void = "mac#%"
+fprint_int: (PHPfilr, int) -> void = "mac#%"
 //
 overload print with print_int of 100
 overload prerr with prerr_int of 100

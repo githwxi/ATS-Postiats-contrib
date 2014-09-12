@@ -152,9 +152,24 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  d0exp_make_node (loc, ATSempty (0))
+  d0exp_make_node (loc, ATSempty(0))
 end // end of [ATSempty]
 //
+(* ****** ****** *)
+
+implement
+ATSextval_make
+(
+  tok1, toks, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSextval(toks))
+end // end of [ATSextval]
+
 (* ****** ****** *)
 //
 implement
@@ -201,6 +216,21 @@ end // end of [ATSPMVbool]
 (* ****** ****** *)
 
 implement
+ATSPMVfloat_make
+(
+  tok1, float, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVfloat (float))
+end // end of [ATSPMVfloat]
+
+(* ****** ****** *)
+
+implement
 ATSPMVstring_make
 (
   tok1, str, tok2
@@ -211,7 +241,7 @@ val loc =
 //
 in
   d0exp_make_node (loc, ATSPMVstring (str))
-end // end of [ATSPMVint]
+end // end of [ATSPMVstring]
 
 (* ****** ****** *)
 
@@ -246,6 +276,36 @@ end // end of [ATSPMVf0loat]
 (* ****** ****** *)
 
 implement
+ATSPMVrefarg0_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVrefarg0 (d0e))
+end // end of [ATSPMVrefarg0]
+
+(* ****** ****** *)
+
+implement
+ATSPMVrefarg1_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVrefarg1 (d0e))
+end // end of [ATSPMVrefarg1]
+
+(* ****** ****** *)
+
+implement
 ATSPMVfunlab_make
 (
   tok1, flab, tok2
@@ -273,8 +333,38 @@ val+SIGNED (_, knd) = knd
 val-D0Elist (d0es) = arg.d0exp_node
 //
 in
-  d0exp_make_node (loc, ATSPMVcfunlab (knd, fl, d0es))
+  d0exp_make_node (loc, ATSPMVcfunlab(knd, fl, d0es))
 end // end of [ATSPMVcfunlab]
+
+(* ****** ****** *)
+
+implement
+ATSPMVcastfn_make
+(
+  tok1, fid, s0e_res, arg, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVcastfn(fid, s0e_res, arg))
+end // end of [ATSPMVcastfn_make]
+
+(* ****** ****** *)
+
+implement
+ATSCSTSPmyloc_make
+(
+  tok1, str, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCSTSPmyloc (str))
+end // end of [ATSCSTSPmyloc_make]
 
 (* ****** ****** *)
 
@@ -324,6 +414,21 @@ val loc =
 in
   d0exp_make_node (loc, ATSSELcon (d0e, s0e, lab))
 end // end of [ATSSELcon_make]
+
+(* ****** ****** *)
+
+implement
+ATSSELrecsin_make
+(
+  tok1, d0e, s0e, lab, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSSELrecsin (d0e, s0e, lab))
+end // end of [ATSSELrecsin_make]
 
 (* ****** ****** *)
 
@@ -531,6 +636,10 @@ implement
 tmpvar_is_arg (tmp) = (
   $STRING.strncmp (symbol_get_name(tmp), "arg", i2sz(3)) = 0
 ) (* end of [tmpvar_is_arg] *)
+implement
+tmpvar_is_apy (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "apy", i2sz(3)) = 0
+) (* end of [tmpvar_is_apy] *)
 //  
 implement
 tmpvar_is_env (tmp) = (
@@ -545,6 +654,29 @@ implement
 tmpvar_is_tmpret (tmp) = (
   $STRING.strncmp (symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
 ) (* end of [tmpvar_is_tmpret] *)
+//
+implement
+tmpvar_is_a2rg (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "a2rg", i2sz(4)) = 0
+) (* end of [tmpvar_is_a2rg] *)
+implement
+tmpvar_is_a2py (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "a2py", i2sz(4)) = 0
+) (* end of [tmpvar_is_a2py] *)
+//
+//
+(* ****** ****** *)
+//
+implement
+tmpvar_is_local (tmp) =
+(
+  if tmpvar_is_tmp(tmp) then true
+  else if tmpvar_is_arg(tmp) then true
+  else if tmpvar_is_apy(tmp) then true
+  else if tmpvar_is_env(tmp) then true
+  else if tmpvar_is_a2rg(tmp) then true
+  else if tmpvar_is_a2py(tmp) then true else false
+) (* end of [tmpvar_is_local] *)
 //
 (* ****** ****** *)
 
@@ -1136,6 +1268,36 @@ end // end of [ATSINSargmove_tlcal_make]
 (* ****** ****** *)
 
 implement
+ATSINSextvar_assign_make
+(
+  tok1, ext, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSextvar_assign (ext, d0e_r))
+end // end of [ATSINSextvar_assign_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSdyncst_valbind_make
+(
+  tok1, d2c, d0e_r, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSdyncst_valbind (d2c, d0e_r))
+end // end of [ATSINSdyncst_valbind_make]
+
+(* ****** ****** *)
+
+implement
 ATSINSdeadcode_fail_make
   (tok1, tok2) = let
 //
@@ -1157,33 +1319,33 @@ val loc =
 //
 in
   instr_make_node (loc, ATSdynload(0))
-end // end of [ATSdynload]
+end // end of [ATSdynload_make]
 
 (* ****** ****** *)
 
 implement
-ATSdynload0_make
+ATSdynloadflag_sta_make
   (tok1, id, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSdynload0(id))
-end // end of [ATSdynload0]
+  instr_make_node (loc, ATSdynloadflag_sta(id))
+end // end of [ATSdynloadflag_sta_make]
 
 (* ****** ****** *)
 
 implement
-ATSdynload1_make
+ATSdynloadflag_ext_make
   (tok1, id, tok2) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSdynload1(id))
-end // end of [ATSdynload1]
+  instr_make_node (loc, ATSdynloadflag_ext(id))
+end // end of [ATSdynloadflag_ext_make]
 
 (* ****** ****** *)
 
@@ -1491,6 +1653,18 @@ val loc = tok1.token_loc ++ tok2.token_loc
 in
   d0ecl_make_node (loc, D0Cclosurerize (fl, env, arg, res))
 end // end of [d0ecl_closurerize]
+
+(* ****** ****** *)
+
+implement
+d0ecl_dynloadflag_init
+  (tok1, flag, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynloadflag_init (flag))
+end // end of [d0ecl_dynloadflag_init]
 
 (* ****** ****** *)
 
