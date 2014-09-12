@@ -1443,6 +1443,14 @@ d0c.d0ecl_node of
 //
 | D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
 //
+| D0Cdynloadflag_init (flag) =>
+  (
+    emit_text (out, "// dynloadflag_init\n");
+    (* TODO
+    emit_global (out, flag); emit_text (out, " = 0;\n")
+    *)
+  )
+//
 end // end of [emit_d0ecl]
 
 (* ****** ****** *)
