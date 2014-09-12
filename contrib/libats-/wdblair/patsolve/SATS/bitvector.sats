@@ -73,6 +73,9 @@ datasort bv16 = (* abstract *)
 stacst bv16_of_int: (int) -> bv16
 stadef bv16 = bv16_of_int
 
+stacst is_power_of_2_bv16: (bv16) -> bool
+stadef is_power_of_2 = is_power_of_2_bv16
+
 stacst and_bv16_bv16: (bv16, bv16) -> bv16
 stadef land = and_bv16_bv16
 

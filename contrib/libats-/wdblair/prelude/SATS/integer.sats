@@ -1,11 +1,14 @@
 (**
-  Integers indexed by static bit vectors.
+  Integers indexed by fixed width bit vectors.
 *)
 
 staload "contrib/libats-/wdblair/patsolve/SATS/bitvector.sats"
 
 abst@ype int_bv16 (bv:bv16) = int
 typedef int (bv:bv16) = int_bv16 (bv)
+
+castfn
+bv16_of_int {n:nat}(int n): int (bv16(n))
 
 fun 
 add_int_int_bv16 {x,y:bv16} 
@@ -17,7 +20,13 @@ fun
 sub_int_int_bv16 {x,y:bv16} 
   (x:int (x), y: int (y)): int (x - y) = "mac#%"
 
-overload + with sub_int_int_bv16
+overload - with sub_int_int_bv16
+
+fun
+sub_int_bv16_int_int {x:bv16} {y:int}
+  (x:int (x), y: int (y)): int (x - bv16(y)) = "mac#%"
+
+overload - with sub_int_bv16_int_int
 
 fun 
 mul_int_int_bv16 {x,y:bv16}
@@ -35,12 +44,18 @@ fun
 eq_int_int_bv16 {x,y:bv16}
   (x:int (x), y: int (y)): bool (x == y) = "mac#%"
   
-overload == with eq_int_int_bv16
+overload = with eq_int_int_bv16  
+  
+fun
+eq_int_bv16_int_int {x:bv16} {y:int}
+  (x: int(x), y: int(y)): bool (x == bv16(y)) = "mac#%"
+
+overload = with eq_int_bv16_int_int
 
 fun
 lt_int_int_bv16 {x,y:bv16}
   (x:int (x), y: int (y)): bool (x < y) = "mac#%"
-
+  
 overload < with lt_int_int_bv16
 
 fun
@@ -94,6 +109,9 @@ overload << with lshl_int_bv16_int
   is signed, then shifting right incurs an arithmetic
   shift. Therefore, a logical shift is unavailable for
   signed integers.
+  
+  I'm basing this off of information I read about gcc's
+  behavior for this case.
 *)
 fun
 ashr_int_bv16_int {x:bv16} {i:nat}

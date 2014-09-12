@@ -332,6 +332,15 @@ constraint3_initialize_map (map) = {
     ins (map, "ugte_bv8_bv8", f_ugte_bv_bv);
     ins (map, "ugt_bv8_bv8", f_ugt_bv_bv);
     //
+    ins (map, "bv16_of_int", f_bv16_of_int);
+    ins (map, "is_power_of_2_bv16", f_is_power_of_two_bv16);
+    ins (map, "add_bv16_bv16", f_add_bv_bv);
+    ins (map, "sub_bv16_bv16", f_sub_bv_bv);
+    ins (map, "mul_bv16_bv16", f_mul_bv_bv);
+    ins (map, "div_bv16_bv16", f_div_bv_bv);
+    ins (map, "udiv_bv16_bv16", f_udiv_bv_bv);
+    ins (map, "neg_bv16", f_neg_bv);
+    //
     ins (map, "and_bv16_bv16", f_land_bv_bv);
     ins (map, "or_bv16_bv16", f_lor_bv_bv);
     ins (map, "xor_bv16_bv16", f_lxor_bv_bv);

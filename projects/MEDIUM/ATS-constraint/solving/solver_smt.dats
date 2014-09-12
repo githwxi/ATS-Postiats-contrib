@@ -75,6 +75,21 @@ val log_smt = false
 
 (* ****** ****** *)
 
+extern fun {a:vt0p}{b:vt0p} list_vt_reduce$init (): b
+extern fun {a:vt0p}{b:vt0p} list_vt_reduce$foper (x: a, res: b): b
+//
+fun {a:vt0p}{b:vt0p} list_vt_reduce {n:int} (xs: list_vt (a, n)): b = let
+  fun loop {m:int} (xs: list_vt(a, m), res: b): b = 
+    case+ xs of
+      | ~list_vt_cons (x, xss) =>
+        loop (xss, list_vt_reduce$foper (x, res))
+      | ~list_vt_nil () => res
+    in
+      loop (xs, list_vt_reduce$init<a>())
+    end
+//
+(* ****** ****** *)
+
 local
 
   implement 
@@ -106,8 +121,7 @@ in
   implement smtenv_free (env) = begin
       s2varmap_delete (env.variables.statics);
       $SMT.delete_solver (env.smt);
-   end
-
+  end
 
   implement smtenv_push (env) = (pf | ()) where {
     val _ = if log_smt then println! ("(push 1)")
@@ -300,19 +314,6 @@ in
         val assertions =
           list_map<(s2exp,s2exp)><formula> (pairs)
         //
-        extern fun {a:vt0p}{b:vt0p} list_vt_reduce$init (): b
-        extern fun {a:vt0p}{b:vt0p} list_vt_reduce$foper (x: a, res: b): b
-        //
-        fun {a:vt0p}{b:vt0p} list_vt_reduce {n:int} (xs: list_vt (a, n)): b = let
-          fun loop {m:int} (xs: list_vt(a, m), res: b): b = 
-            case+ xs of
-              | ~list_vt_cons (x, xss) =>
-                loop (xss, list_vt_reduce$foper(x, res))
-              | ~list_vt_nil () => res
-        in
-          loop (xs, list_vt_reduce$init<a>())
-        end
-        //
         implement list_vt_reduce$init<formula><formula> () = $SMT.make_false ()
         implement list_vt_reduce$foper<formula><formula> (x, res) =
           $SMT.make_or2 (x, res)
@@ -401,7 +402,7 @@ staload "solving/smt_ML.sats"
 (**
   Define some convenient fixity rules.
 *)
-prefix 62 ^ //copy or duplicate
+postfix 62 ^ // copy or duplicate
 infixl ( && ) And
 infixl ( || ) Or
 infix 30 ==>
@@ -616,14 +617,14 @@ in
     val- s2e1 :: _ = s2es
     val i = formula_make (env, s2e1)
   in
-    If (^i < Int(0), ~(^i), i)
+    If (i^ < Int(0), ~(i^), i)
   end
 
   implement f_sgn_int (env, s2es) = let
     val- s2e1 :: _ = s2es
     val i = formula_make (env, s2e1)
   in
-    If (^i < Int (0), Int (~1),
+    If (i^ < Int (0), Int (~1),
       If ( i = Int (0), Int (0), Int (1)))
   end // end of [f_sgn_int]
 
@@ -632,7 +633,7 @@ in
     val i = formula_make (env, s2e1)
     val j  = formula_make (env, s2e2)
   in
-    If (^i >= ^j, i, j)
+    If (i^ >= j^, i, j)
   end // end of [f_max_int_int]
 
   implement f_min_int_int (env, s2es) = let
@@ -641,7 +642,7 @@ in
     val i = formula_make (env, s2e1)
     val j = formula_make (env, s2e2)
   in
-    If (^i <= ^j, i, j)
+    If (i^ <= j^, i, j)
   end // end of [f_min_int_int]
 
   implement f_ifint_bool_int_int (env, s2es) = let
@@ -672,6 +673,28 @@ in
   in
     $SMT.make_bv_from_int (16, i)
   end // end of [f_bv16_of_int]
+
+  implement
+  f_is_power_of_two_bv16 (env, s2es) = let
+    val- s2e1 :: _ = s2es
+    val x = formula_make (env, s2e1)
+    //
+    fun loop {i:nat | i <= 16}
+      (x: formula, i:int i, res: formula): formula =
+      if i = 16 then let
+        val () = $SMT.formula_free (x)
+      in
+        res
+      end
+      else let
+        val clause = x^ = BitVec (1u << i, 16)
+      in
+        loop (x, succ (i), clause Or res)
+      end
+    //
+  in
+    loop (x, 0, Bool(false))
+  end // end of [f_is_power_of_two_bv16]
 
   implement
   f_add_bv_bv (env, s2es) = let
@@ -898,13 +921,13 @@ in
     //
     val i = Int ("i"); val j = Int ("j")
   in
-    ForAll (^i, ^j,
-      ((start <= ^i) And (^i <= ^p) And (^p <= ^j) 
-        And (^j <= stop)) ==>
-          (((Select(^a, i)) <= (Select(^a, ^p))) 
-            And ((Select(^a, p)) <= (Select(a, j)))))
-  end
-
+    ForAll (i^, j^,
+      ((start <= i^) And (i^ <= p^) And (p^ <= j^) 
+        And (j^ <= stop)) ==>
+          (((Select(a^, i)) <= (Select(a^, p^)))
+            And ((Select(a^, p)) <= (Select(a, j)))))
+  end // end of [f_partitioned_array]
+  
   local
     
     fun
@@ -912,11 +935,12 @@ in
       val i = Int ("i")
       val j = Int("j")
     in
-      ForAll (^i, ^j,
-        ((start <= ^i) And (^i <= ^j) And (^j <= stop)) ==>
-          (Select (^a, i) <= Select (a, j))
+      ForAll (i^, j^,
+        ((start <= i^) And (i^ <= j^) And (j^ <= stop)) ==>
+          (Select (a^, i) <= Select (a, j))
         )
-    end
+    end // end of [Sorted]
+    
   in
   
   implement
@@ -927,10 +951,10 @@ in
     //
   in
     Sorted (a, Int(0), len - Int(1))
-  end
+  end // End of [f_sorted_array]
     
   end // end of [local]
-    
+  
   implement
   f_array_swap (env, s2es) = let
     val- s2e1 :: s2e2 :: s2e3 :: _ = s2es
@@ -938,7 +962,7 @@ in
     val i = formula_make (env, s2e2)
     val j = formula_make (env, s2e3)
   in
-    Store (Store (^a, ^j, Select(^a, ^i)), i, Select (a, j))
+    Store (Store (a^, j^, Select(a^, i^)), i, Select (a, j))
   end
 
   implement 
@@ -950,8 +974,8 @@ in
     //
     val i = Int("i")
   in
-    ForAll (^i,
-      ((Int(0) <= ^i) And (^i < n)) ==>
+    ForAll (i^,
+      ((Int(0) <= i^) And (i^ < n)) ==>
         (stmp <= Select (seq, i)))
   end
 
@@ -965,8 +989,8 @@ in
     //
     val j = Int("j")
   in
-    ForAll(^j,
-      ((i <= ^j) And (^j < n)) ==>
+    ForAll(j^,
+      ((i <= j^) And (j^ < n)) ==>
         (stmp <= Select (seq, j)))
   end
     
@@ -979,8 +1003,8 @@ in
     //
     val i = Int("i")
   in
-    ForAll (^i,
-      ((Int(0) <= ^i) And (^i < n)) ==>
+    ForAll (i^,
+      ((Int(0) <= i^) And (i^ < n)) ==>
         (Select (seq, i) <= stmp))
   end
 

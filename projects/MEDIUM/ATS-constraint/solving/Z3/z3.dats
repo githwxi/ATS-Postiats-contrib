@@ -717,6 +717,24 @@ in
 end
 
 implement
+bitvec_numeral_int (n, width) = let
+  val ty = Z3_mk_bv_sort (!the_context, g0int2uint(width))
+  val n = Z3_mk_int (!the_context, n, ty)
+in
+  Z3_sort_dec_ref (!the_context, ty);
+  n
+end
+
+implement
+bitvec_numeral_uint (n, width) = let
+  val ty = Z3_mk_bv_sort (!the_context, g0int2uint(width))
+  val n = Z3_mk_unsigned_int (!the_context, n, ty)
+in
+  Z3_sort_dec_ref (!the_context, ty);
+  n
+end
+
+implement
 bool_constant_name (b) = let
   val sym = Z3_mk_string_symbol (!the_context, b)
   val ty = Z3_mk_bool_sort (!the_context)

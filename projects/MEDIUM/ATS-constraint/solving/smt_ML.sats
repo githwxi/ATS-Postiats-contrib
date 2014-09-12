@@ -68,6 +68,18 @@ int_numeral (int): formula
 
 overload Int with int_numeral
 
+symintr BitVec
+
+fun
+bitvec_numeral_int (int, int): formula
+
+overload BitVec with bitvec_numeral_int
+
+fun
+bitvec_numeral_uint (uint, int): formula
+
+overload BitVec with bitvec_numeral_uint
+
 symintr Bool
 
 fun
