@@ -8,12 +8,12 @@ NODEJS=node
 
 ######
 
-PATSCC=$(PATSHOME)/bin/patscc
-PATSOPT=$(PATSHOME)/bin/patsopt
+ATSCC2JS=./../atscc2js
 
 ######
 
-ATSCC2JS=./../atscc2js
+PATSCC=$(PATSHOME)/bin/patscc
+PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 

@@ -6,7 +6,9 @@
 </head>
 
 <script
-src="http://cdn.jsdelivr.net/ace/1.1.6/min/ace.js"></script>
+src="//cdn.jsdelivr.net/ace/1.1.6/min/ace.js"></script>
+<script
+src="//cdn.jsdelivr.net/filesaver.js/0.2/FileSaver.min.js"></script>
 
 <script
 src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/basics_cats.js"></script>
@@ -32,6 +34,142 @@ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSglobal_cats.js">
 src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/Ajax/Ajax_cats.js"></script>
 
 <script>
+var fact = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+#define ATS_DYNLOADFLAG 0\n\
+//\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+extern\n\
+fun\n\
+fact{n:nat} : int(n) -> int = \"mac#\"\n\
+//\n\
+implement\n\
+fact(n) = if n > 0 then n * fact(n-1) else 1\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+%{$\n\
+/*\n\
+External JS code for testing:\n\
+*/\n\
+alert(\"fact(12) = \" + fact(12));\n\
+//\n\
+%} // end of [%{$]\n\
+" ; // end of [var fact]
+
+var fibats = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+#define ATS_DYNLOADFLAG 0\n\
+//\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+dataprop FIB (int, int) =\n\
+  | FIB0 (0, 0) | FIB1 (1, 1)\n\
+  | {n:nat} {r0,r1:int}\n\
+    FIB2 (n+2, r0+r1) of (FIB (n, r0), FIB (n+1, r1))\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+extern\n\
+fun fibats{n:nat}\n\
+  : int(n) -> [r:int] (FIB(n,r) | int(r)) = \"mac#fibats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+implement\n\
+fibats{n}(n) = let\n\
+//\n\
+fun loop\n\
+  {i:nat | i <= n}{r0,r1:int} .<n-i>.\n\
+(\n\
+  pf0: FIB (i, r0)\n\
+, pf1: FIB (i+1, r1)\n\
+| ni: int (n-i), r0: int r0, r1: int r1\n\
+) : [r:int] (FIB (n, r) | int r) =\n\
+(\n\
+  if ni > 0 then\n\
+    loop {i+1} (pf1, FIB2 (pf0, pf1) | ni - 1, r1, r0 + r1)\n\
+  else (pf0 | r0)\n\
+) (* end of [loop] *)\n\
+//\n\
+in\n\
+  loop {0} (FIB0 (), FIB1 () | n, 0, 1)\n\
+end // end of [fibats]\n\
+//\n\
+%{$\n\
+/*\n\
+External JS code for testing:\n\
+*/\n\
+alert(\"fibats(20) = \" + fibats(20));\n\
+//\n\
+%} // end of [%{$]\n\
+" ; // end of [var fibats]
+
+var thePreselected = [fact, fibats];
+
+function
+program_input_choose()
+{
+  var n, E;
+  n = thePreselected.length;
+  if (n===0) return; // there is nothing to be done
+  E = ace.edit('program_input');
+  E.getSession().setValue(thePreselected[Math.floor(n*0.999999*Math.random())]);
+  return;
+} // end of [program_input_choose]
+
+</script>
+
+<script>
+//
+function
+program_input_saveAs()
+{
+  var E, code, blob, fname;
+/*
+  alert('program_input_saveAs()!');
+*/
+  E = ace.edit('program_input');
+  code = E.getSession().getValue();
+  blob = new Blob([code], {type: 'text/plain'});
+  fname = document.getElementById('saveAs_fname').value;
+  if (!fname) fname = 'scratch.dats';
+  saveAs(blob, fname);
+  return;
+}
+//
+function
+program_output_saveAs()
+{
+  var E, code, blob, fname;
+/*
+  alert('program_output_saveAs()!');
+*/
+  E = ace.edit('program_output');
+  code = E.getSession().getValue();
+  blob = new Blob([code], {type: 'text/plain'});
+  fname = document.getElementById('saveAs_fname2').value;
+  if (!fname) fname = 'scratch_dats.js';
+  saveAs(blob, fname);
+  return;
+}
 //
 function
 program_input_compile()
@@ -98,35 +236,12 @@ Patsopt/Atscc2js as a service
 
 <tr bgcolor="#cccccc">
 <td>
-<DIV ID="program_input">//
-#include
-"share/atspre_define.hats"
+<DIV ID="program_input">
+(*
 //
-(* ****** ****** *)
+Please input code directly or choose from a pre-selected set of examples.
 //
-#define ATS_DYNLOADFLAG 0
-//
-#include
-"{$LIBATSCC2JS}/staloadall.hats"
-//
-(* ****** ****** *)
-//
-extern
-fun
-fact{n:nat} : int(n) -> int = "mac#"
-//
-implement
-fact(n) = if n > 0 then n * fact(n-1) else 1
-//
-(* ****** ****** *)
-//
-%{$
-/*
-External JS code for testing:
-*/
-alert("fact(12) = " + fact(12));
-//
-%} // end of [%{$]
+*)
 </DIV>
 </td>
 
@@ -139,10 +254,15 @@ There is no output yet.
 
 <tr>
   <td align=left>
+    <button type="button" onclick="program_input_choose()">Choose-in-Random</button>
     <button type="button" onclick="program_input_compile()">Submit-for-Compilation(Ajax)</button>
+    <button type="button" onclick="program_input_saveAs()">SaveAs</button>
+      <input type="text" id="saveAs_fname" placeholder="scratch.dats" size=12 maxlength=32>
   </td>
   <td align=left>
     <button type="button" onclick="program_output_evaluate()">Submit-for-Evaluation(JS)</button>
+    <button type="button" onclick="program_output_saveAs()">SaveAs</button>
+      <input type="text" id="saveAs_fname2" placeholder="scratch_dats.js" size=12 maxlength=32>
   </td>
 </tr>
 </table>
