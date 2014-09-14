@@ -238,9 +238,21 @@ implement
   emit_tmpvar_ld (out, tmp) =
   {
     val () =
-      if tmpvar_is_arg (tmp.i0de_sym)
-        then emit_text (out, "ldarg")
-        else emit_text (out, "ldloc")
+      case+ 0 of
+      | _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
+        {
+          val () = emit_text (out, "ldsfld int32 ")
+          val () = emit_text (out, the_clsname_get ())
+        }
+      | _ when tmpvar_is_arg (tmp.i0de_sym) =>
+        {
+          val () = emit_text (out, "ldarg")
+        }
+      | _ (*otherwise*) =>
+        {
+          val () =  emit_text (out, "ldloc")
+        }
+    // end of [val]
     val () = emit_SPACE (out)
     val () = emit_i0de (out, tmp)
   } // end of [emit_tmpvar_ld]
@@ -250,9 +262,22 @@ implement
     (out, tmp) =
   {
     val () =
-      if tmpvar_is_arg (tmp.i0de_sym)
-        then emit_text (out, "starg")
-        else emit_text (out, "stloc")
+      case+ 0 of
+      | _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
+        {
+          val () = emit_text (out, "stsfld int32 ")
+          val () = emit_text (out, the_clsname_get ())
+          val () = println!("the_clsname_get() = ", the_clsname_get())
+        }
+      | _ when tmpvar_is_arg (tmp.i0de_sym) =>
+        {
+          val () = emit_text (out, "starg")
+        }
+      | _(*otherwise*) =>
+        {
+          val () = emit_text (out, "stloc")
+        }
+    // end of [val]
     val () = emit_SPACE (out)
     val () = emit_i0de (out, tmp)
   } // end of [emit_tmpvar_st]
@@ -280,7 +305,7 @@ emit_branchseqlst
 extern
 fun
 emit_instrlst
-  (out: FILEref, inss: instrlst, labbeg: label, labend: label) : void
+  (out: FILEref, inss: instrlst, labbeg: label, labend: label, marklab: bool) : void
 //
 extern
 fun
@@ -301,58 +326,19 @@ in
 case+
 s0e.s0exp_node of
 //
-| S0Eide (id) =>
-(
-  case+ symbol_get_name (id) of
-  | "atsvoid_t0ype" => emit_text (out, "void")
-  | "atstype_void" => emit_text (out, "void")
-  | _ => emit_symbol (out, id)
-) (* end of [S0Eide] *)
+| S0Eide (id) => emit_symbol (out, id)
 | S0Elist (s0es) => () // shouldn't happen? marked as "temp"
 | S0Eappid (id, s0es) =>
     // FIXME: what about other types? e.g. array types? struct types?
 (
   case+ symbol_get_name (id.i0de_sym) of
-  | "atstkind_t0ype" => let
-    // unboxed type, of sort t@ype in ATS
-    val-list_cons (s0e, list_nil ()) = s0es
-    val-S0Eide (id) = s0e.s0exp_node
-  in
-    case+ symbol_get_name (id) of
-    | "atstype_sint" => emit_text (out, "int16")
-    | "atstype_usint" =>
-      {
-        val () = emit_text (out, "unsigned")
-        val () = emit_SPACE (out)
-        val () = emit_text (out, "int16")
-      }
-    | "atstype_int" => emit_text (out, "int32")
-    | "atstype_uint" =>
-      {
-        val () = emit_text (out, "unsigned")
-        val () = emit_SPACE (out)
-        val () = emit_text (out, "int")
-      }
-    | "atstype_lint" => emit_text (out, "int64")
-    | "atstype_ulint" =>
-      {
-        val () = emit_text (out, "unsigned")
-        val () = emit_SPACE (out)
-        val () = emit_text (out, "int64")
-      }
-    | "atstype_bool" => emit_text (out, "bool")
-    | "atstype_byte" =>
-      {
-        val () = emit_text (out, "unsigned")
-        val () = emit_SPACE (out)
-        val () = emit_text (out, "int8")
-      }
-    // TODO: atstype_char, atstype_schar, atstype_uchar
-    | "atstype_string" => emit_text (out, "string")
-    | "atstype_stropt" => emit_text (out, "string")
-    | "atstype_strptr" => emit_text (out, "string")
-    | _ => emit_symbol (out, id)
-  end // end of [let]
+  | "atstkind_t0ype" =>
+    {
+      // unboxed type, of sort t@ype in ATS
+      val-list_cons (s0e, list_nil ()) = s0es
+      val-S0Eide (id) = s0e.s0exp_node
+      val () = emit_symbol (out, id)
+    } (* end of [atstkind_t0ype] *)
   | _ =>
     {
       val () = emit_i0de (out, id)
@@ -525,7 +511,8 @@ fun emit_f0arg : emit_type (f0arg)
 extern
 fun emit_f0marg : emit_type (f0marg)
 extern
-fun emit_f0head : emit_type (f0head)
+fun emit_f0head (out: FILEref, f0h: f0head, full: bool): void
+
 //
 (* ****** ****** *)
 
@@ -557,51 +544,45 @@ d0e.d0exp_node of
         val () =
         (
           case+ symbol_get_name (id.i0de_sym) of
-          // many more functions
-          // atspre_g1int_add_int
-          // atspre_g0int_sub_int
-          // atspre_g0int_mul_int
-          // atspre_g0int2int_int_int
-          // atspre_g0int_lte_int
-          // atspre_g0int_sub_int
-          // - some of these are just macros (map to other functions)
-          // - we still have to figure out the type signatures
-          | "atspre_print_newline" =>
-            {
-              val () = emit_text (out, "call")
-              val () = emit_SPACE (out)
-              val () = emit_text (out, "void [mscorlib]System.Console::WriteLine()")
-            }
-          | "atspre_print_string" =>
-            {
-              val () = emit_text (out, "call")
-              val () = emit_SPACE (out)
-              val () = emit_text (out, "void [mscorlib]System.Console::WriteLine(string)")
-            }
-          | "atspre_print_int" =>
-            {
-              val () = emit_text (out, "call")
-              val () = emit_SPACE (out)
-              val () = emit_text (out, "void [mscorlib]System.Console::Write(int32)")
-            }
           //
-          | "ATSCKpat_int" => emit_text (out, "ceq")
-          | "ATSCKpat_bool" => emit_text (out, "ceq")
-          | "ATSCKpat_char" => emit_text (out, "ceq")
-          | "ATSCKpat_float" => emit_text (out, "ceq")
-          | "ATSCKpat_string" =>
+          | "ATSCKnot" =>
             {
-              val () = emit_text (out, "call")
-              val () = emit_SPACE (out)
-              val () = emit_text (out, "bool [mscorlib]System.String::Equals(string,string)")
+              val () = emit_text (out, "not")
             }
+          | "ATSCKiseqz" =>
+            {
+              val () = emit_text (out, "ldc.i4.0")
+              val () = emit_ENDL (out)
+              val () = emit_text (out, "ceq")
+            }
+          | "ATSCKisneqz" =>
+            {
+              val () = emit_text (out, "ldc.i4.0")
+              val () = emit_ENDL (out)
+              val () = emit_text (out, "ceq")
+              val () = emit_ENDL (out)
+              val () = emit_text (out, "not")
+            }
+          (*
+          // TODO:
+          | "ATSCKptriscons"
+          | "ATSCKptrisnull"
+          *)
           // TODO: ATSCKpat_(con*|exn*)
           //
+          | _ when strstr(g1ofg0(symbol_get_name(id.i0de_sym)), "__dynload") >= 0 =>
+            {
+              val () = emit_text (out, "call void ")
+              val () = emit_text (out, the_clsname_get ())
+              val () = emit_i0de (out, id)
+              val () = emit_text (out, "()")
+            } // end of [dynload]
           | _ =>
             {
               val () = emit_text (out, "call")
               val () = emit_SPACE (out)
-              val () = emit_i0de (out, id) // FIXME: need also type of [id]!
+              // leave the identifier as-is, to be resolved manually by the programmer
+              val () = emit_i0de (out, id)
             }
         ) (* end of [val] *)
       }
@@ -609,7 +590,7 @@ d0e.d0exp_node of
       {
         val () = emit_text (out, "call")
         val () = emit_SPACE (out)
-        val () = emit_f0head (out, fhd)
+        val () = emit_f0head (out, fhd, true)
       }
   end // end of [D0Eappid]
 //
@@ -648,6 +629,8 @@ d0e.d0exp_node of
 | ATSPMVf0loat (tok) =>
   {
     val-T_FLOAT(base, rep) = tok.token_node
+    val () = emit_text (out, "ldc.r4")
+    val () = emit_SPACE (out)
     val () = emit_text (out, rep)
   }
 //
@@ -711,7 +694,7 @@ end // end of [emit_f0marg]
 
 implement
 emit_f0head
-  (out, fhd) = let
+  (out, fhd, full) = let
 //
 val f0as =
   f0head_get_f0arglst (fhd)
@@ -727,6 +710,9 @@ fhd.f0head_node of
   {
     val () = emit_s0exp (out, res)
     val () = emit_SPACE (out)
+    val () =
+      if full then emit_text (out, the_clsname_get ())
+    // end of [val]
     val () = emit_i0de (out, id)
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)
@@ -838,13 +824,13 @@ ins0.instr_node of
         val () = emit_ENDL (out)
         val L0 = label_for_instrlst (inss)
         val brlab = make_label (ins0.instr_loc)
-        val () = emit_instrlst (out, inss, L0, brlab)
+        val () = emit_instrlst (out, inss, L0, brlab, true)
         val () = emit_label_mark (out, brlab)
         val () = emit_text (out, "br")
         val () = emit_SPACE (out)
         val () = emit_label (out, labnext)
         val () = emit_ENDL (out)
-        val () = emit_instrlst (out, inss2, L1, labnext)
+        val () = emit_instrlst (out, inss2, L1, labnext, true)
       }
     | None () =>
       {
@@ -852,7 +838,8 @@ ins0.instr_node of
         val () = emit_SPACE (out)
         val () = emit_label (out, labnext)
         val () = emit_ENDL (out)
-        val () = emit_instrlst (out, inss, labthis, labnext)
+        val brlab = make_label (ins0.instr_loc)
+        val () = emit_instrlst (out, inss, brlab, labnext, true)
       }
   )
 //
@@ -867,7 +854,8 @@ ins0.instr_node of
     val () = emit_SPACE (out)
     val () = emit_label (out, labnext)
     val () = emit_ENDL (out)
-    val () = emit_instr (out, ins, labthis, labnext)
+    val brlab = make_label (ins.instr_loc)
+    val () = emit_instr (out, ins, brlab, labnext)
   }
 | ATSifnthen (d0e, inss) =>
   {
@@ -880,7 +868,8 @@ ins0.instr_node of
     val () = emit_SPACE (out)
     val () = emit_label (out, labnext)
     val () = emit_ENDL (out)
-    val () = emit_instr (out, ins, labthis, labnext)
+    val brlab = make_label (ins.instr_loc)
+    val () = emit_instr (out, ins, brlab, labnext)
   }
 //
 | ATSbranchseq (inss) =>
@@ -966,13 +955,38 @@ ins0.instr_node of
   {
     val () = emit_d0exp (out, d0e)
   } (* end of [ATSINSmove_void] *)
-// TODO: ATSdynload0, ATSdynload1, ATSdynloadset
+//
+| ATSdynload (dummy) =>
+  {
+    // TODO: map to static constructor?
+    val () = emit_text (out, "/* ATSdynload() */\n")
+  }
+//
+| ATSdynloadset (flag) =>
+  {
+    val () = emit_text (out, "/* ATSdynloadset */\n")
+    val () = emit_text (out, "ldc.i4.1")
+    val () = emit_ENDL (out)
+    val () = emit_text (out, "stsfld int32 ")
+    val () = emit_text (out, the_clsname_get ())
+    val () = emit_i0de (out, flag)
+  }
+//
+| ATSdynloadflag_sta (flag) =>
+  {
+    val () = emit_text (out, "/* ATSdynloadflag_sta */\n")
+  }
+//
+| ATSdynloadflag_ext (flag) =>
+  {
+    val () = emit_text (out, "/* ATSdynloadflag_ext */\n")
+  }
 //
 | ATStailcalseq (inss) =>
   {
     val () = emit_text (out, "// ATStailcalseq_beg")
     val () = emit_ENDL (out)
-    val () = emit_instrlst (out, inss, labthis, labnext)
+    val () = emit_instrlst (out, inss, labthis, labnext, false)
     val () = emit_text (out, "// ATStailcalseq_end")
   } (* end of [ATStailcalseq] *)
 //
@@ -1019,7 +1033,7 @@ ins0.instr_node of
     (inss) =>
   {
     val () = emit_text (out, "/* ATSbranch_beg */\n")
-    val () = emit_instrlst (out, inss, labthis, labnext)
+    val () = emit_instrlst (out, inss, labthis, labnext, true)
     val () = emit_text (out, "/* ATSbranch_end */\n")
   } // end of [ATSbranchseq]
 //
@@ -1075,7 +1089,7 @@ end // end of [emit_branchseqlst]
 implement
 emit_instrlst
 (
-  out, inss, labthis, lablast
+  out, inss, labthis, lablast, marklab
 ) = (
 //
 case+ inss of
@@ -1087,14 +1101,15 @@ case+ inss of
     case+ ins0.instr_node of
     | ATSINSlab (label) =>
       (
-        emit_instrlst (out, inss, label, lablast)
+        emit_instrlst (out, inss, label, lablast, marklab)
       )
     | ATSINSflab (label) =>
       (
-        emit_instrlst (out, inss, label, lablast)
+        emit_instrlst (out, inss, label, lablast, marklab)
       )
     | ATSlinepragma (line, file) =>
       {
+        val () = emit_ENDL (out)
         val () = emit_text (out, ".line")
         val () = emit_SPACE (out)
         val-T_INT(_, lpos) = line.token_node
@@ -1111,11 +1126,11 @@ case+ inss of
         val () = fprint_substring (out, filnam, g1int2uint(1), pred (len))
         val () = emit_text (out, "'")
         val () = emit_ENDL (out)
-        val () = emit_instrlst (out, inss, labthis, lablast)
+        val () = emit_instrlst (out, inss, labthis, lablast, marklab)
       }
     | _(*other*) =>
       {
-        val () = emit_label_mark (out, labthis)
+        val () = (if marklab then emit_label_mark (out, labthis))
         val labnext =
         (
           case+ inss of
@@ -1124,7 +1139,7 @@ case+ inss of
         ) (* end of [val] *)
         val () = emit_instr (out, ins0, labthis, labnext)
         val () = emit_ENDL (out)
-        val () = emit_instrlst (out, inss, labnext, lablast)
+        val () = emit_instrlst (out, inss, labnext, lablast, true(*mark the next instruction*))
       }
   end // end of [let]
 //
@@ -1144,7 +1159,8 @@ val-ATSfunbodyseq (inss) = ins.instr_node
 val L1 = label_for_instrlst (inss)
 //
 in
-  emit_instrlst (out, inss, L1, labnext)
+  emit_instrlst (out, inss, L1, labnext, true);
+  emit_ENDL (out)
 end // end of [emit_ATSfunbodyseq]
 
 (* ****** ****** *)
@@ -1170,7 +1186,6 @@ case+ inss of
     val labnext = label_for_instrlst (inss1)
     val () = emit_ATSfunbodyseq (out, ins0, labnext)
     val () = emit_label_mark (out, labnext)
-    // FIXME: inss2 is EMPTY! what now?
     val lablast =
     (
       case+ inss2 of
@@ -1211,18 +1226,23 @@ val () = emit_newline (out)
 val () = emit_text (out, ".maxstack 16")
 val () = emit_newline (out)
 // emit locals
-val () = emit_text (out, ".locals")
-val () = emit_SPACE (out)
-(*
-val () = emit_text (out, "init")
-val () = emit_SPACE (out)
-*)
-val () = emit_LPAREN (out)
-val () = emit_newline (out)
-val () = emit_tmpdeclst (out, tmpdecs)
-val () = emit_RPAREN (out)
-val () = emit_newline (out)
-
+val () =
+  case+ tmpdecs of
+  | list_nil() => ()
+  | _ => {
+    val () = emit_text (out, ".locals")
+    val () = emit_SPACE (out)
+    (*
+    val () = emit_text (out, "init")
+    val () = emit_SPACE (out)
+    *)
+    val () = emit_LPAREN (out)
+    val () = emit_newline (out)
+    val () = emit_tmpdeclst (out, tmpdecs)
+    val () = emit_RPAREN (out)
+    val () = emit_newline (out)
+  }
+// end of [val]
 val () = emit_f0body_0 (out, fbody)
 val () = emit_newline (out)
 val () = emit_RBRACE (out)
@@ -1258,7 +1278,7 @@ fdec.f0decl_node of
     val () = emit_SPACE (out)
     val-F0HEAD(id, _, _) = fhd.f0head_node
     val () = f0head_insert (id.i0de_sym, fhd)
-    val () = emit_f0head (out, fhd)
+    val () = emit_f0head (out, fhd, false)
     val () = emit_SPACE (out)    
     val () = emit_text (out, "cil")
     val () = emit_SPACE (out)
@@ -1396,7 +1416,16 @@ d0c.d0ecl_node of
 | D0Ctypedef (id, def) =>
   {
     val () = typedef_insert (id.i0de_sym, def)
-    // TODO: insert type (class) declaration
+    (*
+    val clsname = the_classname_get ()
+    // map ATS external names to CIL names
+    // - locally-defined (within a class in the current module)
+    // - [AssemblyRef]NameSpace.Class::Method
+    //   - namespace is a dotted name
+    // - [AssemblyRef]NameSpace.Type
+    // - [mscorlib]System.Void
+    val () = qual_insert_local (id.i0de_sym, clsname)
+    *)
   } (* end of [D0Ctypedef] *)
 //
 | D0Cassume (id) =>
@@ -1428,6 +1457,7 @@ d0c.d0ecl_node of
       case+ opt of
       | Some _ => () | None () => emit_text (out, "//")
     ) (* end of [val] *)
+    val () = emit_text (out, ".field static int32 ")
     val () = (
       emit_i0de (out, tmp)
     ) (* end of [val] *)
@@ -1446,9 +1476,9 @@ d0c.d0ecl_node of
 | D0Cdynloadflag_init (flag) =>
   (
     emit_text (out, "// dynloadflag_init\n");
-    (* TODO
-    emit_global (out, flag); emit_text (out, " = 0;\n")
-    *)
+    emit_text (out, ".field static int32 ");
+    emit_i0de (out, flag);
+    emit_ENDL (out)
   )
 //
 end // end of [emit_d0ecl]
@@ -1480,6 +1510,14 @@ case+ d0cs of
 // TODO: for all modules, emit .module extern for other modules?
 // TODO: handle entry point
 //
+val () = emit_text (out, ".assembly extern mscorlib { .ver 2:0:0:0 }\n")
+val () = emit_text (out, ".assembly ")
+val () = emit_text (out, "'")
+val () = emit_text (out, fname)
+val () = emit_text (out, "'")
+val () = emit_text (out, "{ .ver 1:0:0:0 }")
+val () = emit_ENDL (out)
+
 val () = emit_text (out, ".module")
 val () = emit_SPACE (out)
 val () = emit_text (out, "'")
@@ -1494,6 +1532,8 @@ val () = emit_SPACE (out)
 val () = emit_LBRACE (out)
 val () = emit_ENDL (out)
 //
+val () = the_clsname_push (namespace, fname)
+//
 val () = emit_text (out, ".class")
 val () = emit_SPACE (out)
 val () = emit_MODCLSNAME (out, fname)
@@ -1507,6 +1547,8 @@ val () = emit_text (out, "/* end of class */")
 val () = emit_ENDL (out)
 val () = emit_RBRACE (out) (* end of [namespace] definition *)
 val () = emit_text (out, "/* end of namespace */")
+//
+val _ = the_clsname_pop ()
 //
 in
   (*empty*)

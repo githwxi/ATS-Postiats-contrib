@@ -46,6 +46,7 @@ SOURCES_DATS += atsparemit_parsing_d0ecl.dats
 SOURCES_DATS += atsparemit_parsing_instr.dats
 #
 SOURCES_DATS += atsparemit_typedef.dats
+SOURCES_DATS += atsparemit_typedef_cil.dats
 SOURCES_DATS += atsparemit_syntax_cil.dats
 SOURCES_DATS += atsparemit_emit_cil.dats
 #

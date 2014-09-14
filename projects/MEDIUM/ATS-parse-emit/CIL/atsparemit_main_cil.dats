@@ -67,6 +67,7 @@ dynload "./atsparemit_parsing_instr.dats"
 (* ****** ****** *)
 
 dynload "./atsparemit_typedef.dats"
+dynload "./atsparemit_typedef_cil.dats"
 
 (* ****** ****** *)
 
