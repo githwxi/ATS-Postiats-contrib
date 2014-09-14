@@ -306,6 +306,22 @@ d0e0.d0exp_node of
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e0)
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
+| ATSextfcall
+    (_fun, _arg) => {
+    val () = emit_i0de (out, _fun)
+    val () = emit_d0exparg (out, _arg)
+  } (* end of [ATSextfcall] *)
+| ATSextmcall
+    (_obj, _mtd, _arg) => {
+//
+    val () = emit_d0exp (out, _obj)
+    val () = emit_DOT (out)
+    val () = emit_d0exp (out, _mtd)
+//
+    val () = emit_d0exparg (out, _arg)
+//
+  } (* end of [ATSextmcall] *)
+//
 | ATSfunclo_fun
     (d2e, _(*arg*), _(*res*)) => emit_d0exp (out, d2e)
 | ATSfunclo_clo
@@ -346,6 +362,19 @@ implement
 emit_d0explst_1 (out, d0es) = loop (out, d0es, 1)
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+emit_d0exparg
+  (out, d0es) = 
+{
+//
+val () = emit_LPAREN (out)
+val () = emit_d0explst (out, d0es)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_d0exparg] *)
 
 (* ****** ****** *)
 //

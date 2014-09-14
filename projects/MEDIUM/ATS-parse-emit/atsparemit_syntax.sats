@@ -217,12 +217,23 @@ ATSSELfltrec_make
 (* ****** ****** *)
 
 fun
-ATSfcall_make
+ATSextfcall_make
 (
   tok_kwd: token
-, d0e_fun: d0exp, d0e_arg: d0exp
+, d0e_fun: i0de, d0e_arg: d0exp
 , tok_end: token
-) : d0exp // end of [ATSfcall_make]
+) : d0exp // end of [ATSextfcall_make]
+
+(* ****** ****** *)
+
+fun
+ATSextmcall_make
+(
+  tok_kwd: token
+, d0e_obj: d0exp
+, d0e_mtd: d0exp, d0e_arg: d0exp
+, tok_end: token
+) : d0exp // end of [ATSextmcall_make]
 
 (* ****** ****** *)
 

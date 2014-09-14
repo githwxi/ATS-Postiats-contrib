@@ -268,6 +268,9 @@ keyword =
   | ATSSELboxrec of ()
   | ATSSELfltrec of ()
 //
+  | ATSextfcall of ()
+  | ATSextmcall of ()
+//
   | ATSfunclo_fun of ()
   | ATSfunclo_clo of ()
 //
@@ -770,6 +773,13 @@ d0exp_node =
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELboxrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
   | ATSSELfltrec of (d0exp, s0exp(*tyrec*), i0de(*lab*))
+//
+  | ATSextfcall of
+      (i0de(*fun*), d0explst(*arg*))
+    // end of [ATSextfcall]
+  | ATSextmcall of
+      (d0exp(*obj*), d0exp(*method*), d0explst(*arg*))
+    // end of [ATSextmcall]
 //
   | ATSfunclo_fun of (d0exp, s0exp(*arg*), s0exp(*res*))
   | ATSfunclo_clo of (d0exp, s0exp(*arg*), s0exp(*res*))

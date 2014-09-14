@@ -48,6 +48,7 @@ clean:: ; $(RMF) *_dats.c
 #######
 
 cleanall:: clean
+cleanall:: ; $(RMF) DATS_JS/*.js
 cleanall:: ; $(RMF) DATS_PHP/*.php
 
 #######

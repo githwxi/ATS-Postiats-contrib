@@ -19,25 +19,13 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/basics_js.sats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
+"{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
 staload
-"{$LIBATSCC2JS}/SATS/float.sats"
-staload
-"{$LIBATSCC2JS}/SATS/string.sats"
-//
-staload
-"{$LIBATSCC2JS}/SATS/list.sats"
-staload
-"{$LIBATSCC2JS}/SATS/JSarray.sats"
-//
-staload
-"{$LIBATSCC2JS}/SATS/node/basics.sats"
-staload
-"{$LIBATSCC2JS}/SATS/node/process.sats"
+"{$LIBATSCC2JS}/SATS/Node.js/process.sats"
 //
 (* ****** ****** *)
 //

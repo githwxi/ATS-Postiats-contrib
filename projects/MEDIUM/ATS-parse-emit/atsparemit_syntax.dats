@@ -463,6 +463,40 @@ end // end of [ATSSELfltrec_make]
 (* ****** ****** *)
 
 implement
+ATSextfcall_make
+(
+  tok1, _fun, _arg, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+val-D0Elist(d0es_arg) = _arg.d0exp_node
+//
+in
+  d0exp_make_node (loc, ATSextfcall (_fun, d0es_arg))
+end // end of [ATSextfcall_make]
+
+(* ****** ****** *)
+
+implement
+ATSextmcall_make
+(
+  tok1, _obj, _mtd, _arg, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+val-D0Elist(d0es_arg) = _arg.d0exp_node
+//
+in
+  d0exp_make_node (loc, ATSextmcall (_obj, _mtd, d0es_arg))
+end // end of [ATSextmcall_make]
+
+(* ****** ****** *)
+
+implement
 ATSfunclo_fun_make
 (
   tok1, d0e, arg, res, tok2, opt

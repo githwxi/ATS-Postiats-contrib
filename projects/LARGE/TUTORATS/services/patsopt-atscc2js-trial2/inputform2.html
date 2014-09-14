@@ -122,7 +122,53 @@ alert(\"fibats(20) = \" + fibats(20));\n\
 %} // end of [%{$]\n\
 " ; // end of [var fibats]
 
-var thePreselected = [fact, fibats];
+var rtfind = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+\n\
+#define ATS_MAINATSFLAG 1\n\
+#define ATS_DYNLOADNAME \"my_dynload\"\n\
+\n\
+(* ****** ****** *)\n\
+//\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+extern\n\
+fun\n\
+rtfind (f: int -> int): int = \"mac#\"\n\
+//\n\
+implement\n\
+rtfind (f) = let\n\
+//\n\
+fun loop\n\
+  (i: int): int =\n\
+  if f (i) = 0 then i else loop (i+1)\n\
+//\n\
+in\n\
+  loop (0(*i*))\n\
+end // end of [rtfind]\n\
+//\n\
+val () = alert\n\
+(\n\
+  \"The polynomial(x*x+2*x-99) has a root \" + String(rtfind(lam(x)=>x*x+2*x-99))\n\
+) (* end of [val] *)\n\
+//\n\
+%{$\n\
+/*\n\
+External JS code for testing:\n\
+*/\n\
+my_dynload();\n\
+//\n\
+%} // end of [%{$]\n\
+" // end of [var]
+
+var thePreselected = [fact, fibats, rtfind];
 
 function
 program_input_choose()
