@@ -11,10 +11,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/SATS/integer.sats"
-//
-staload "{$LIBATSCC2JS}/SATS/list.sats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -23,7 +21,8 @@ list_map (xs, f) =
 (
 case+ xs of
 | list_nil () => list_nil ()
-| list_cons (x, xs) => list_cons (f(x), list_map (xs, f))
+| list_cons (x, xs) =>
+    list_cons (f(x), list_map (xs, f))
 ) (* end of [list_map] *)
 //
 (* ****** ****** *)

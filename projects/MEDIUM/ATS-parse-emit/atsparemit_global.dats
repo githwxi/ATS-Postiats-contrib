@@ -165,6 +165,9 @@ val-~None_vt() = kwordins ("ATSSELrecsin", ATSSELrecsin)
 val-~None_vt() = kwordins ("ATSSELboxrec", ATSSELboxrec)
 val-~None_vt() = kwordins ("ATSSELfltrec", ATSSELfltrec)
 //
+val-~None_vt() = kwordins ("ATSextfcall", ATSextfcall) // fun-call
+val-~None_vt() = kwordins ("ATSextmcall", ATSextmcall) // method-call
+//
 val-~None_vt() = kwordins ("ATSfunclo_fun", ATSfunclo_fun)
 val-~None_vt() = kwordins ("ATSfunclo_clo", ATSfunclo_clo)
 //

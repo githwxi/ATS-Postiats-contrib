@@ -160,6 +160,9 @@ case+ x of
 | ATSSELboxrec () => pr "ATSSELboxrec"
 | ATSSELfltrec () => pr "ATSSELfltrec"
 //
+| ATSextfcall () => pr "ATSextfcall"
+| ATSextmcall () => pr "ATSextmcall"
+//
 | ATSfunclo_fun () => pr "ATSfunclo_fun"
 | ATSfunclo_clo () => pr "ATSfunclo_clo"
 //
@@ -411,6 +414,11 @@ d0e.d0exp_node of
     fprint! (out, "ATSSELboxrec(", d0e, ";", s0e, ";", lab, ")")
 | ATSSELfltrec (d0e, s0e, lab) =>
     fprint! (out, "ATSSELfltrec(", d0e, ";", s0e, ";", lab, ")")
+//
+| ATSextfcall (_fun, _arg) =>
+    fprint! (out, "ATSextfcall(", _fun, "; ", _arg, ")")
+| ATSextmcall (_obj, _mtd, _arg) =>
+    fprint! (out, "ATSextmcall(", _obj, "; ", _mtd, "; ", _arg, ")")
 //
 | ATSfunclo_fun (d0e, arg, res) => 
     fprint! (out, "ATSfunclo_fun(", d0e, ";", arg, ";", res, ")")

@@ -17,15 +17,21 @@ emit_type
   (a:t@ype) = (FILEref, a) -> void
 //
 (* ****** ****** *)
-
+//
 fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
+//
 fun emit_COLON : FILEref -> void
 fun emit_SEMICOLON : FILEref -> void
+//
 fun emit_SHARP : FILEref -> void
 fun emit_DOLLAR : FILEref -> void
+//
+fun emit_DOT : FILEref -> void
+//
 fun emit_SQUOTE : FILEref -> void
-
+fun emit_DQUOTE : FILEref -> void
+//
 (* ****** ****** *)
 //
 fun emit_LPAREN : FILEref -> void
@@ -110,11 +116,14 @@ fun emit_label_mark : emit_type (label)
 fun emit_tmpvar : emit_type (i0de)
 
 (* ****** ****** *)
-
+//
 fun emit_d0exp : emit_type (d0exp)
+//
 fun emit_d0explst : emit_type (d0explst)
 fun emit_d0explst_1 : emit_type (d0explst)
-
+//
+fun emit_d0exparg : emit_type (d0explst)
+//
 (* ****** ****** *)
 
 fun emit_SELcon : emit_type (d0exp)

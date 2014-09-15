@@ -56,7 +56,14 @@ emit_DOLLAR (out) = emit_text (out, "$")
 (* ****** ****** *)
 
 implement
+emit_DOT (out) = emit_text (out, ".")
+
+(* ****** ****** *)
+
+implement
 emit_SQUOTE (out) = emit_text (out, "'")
+implement
+emit_DQUOTE (out) = emit_text (out, "\"")
 
 (* ****** ****** *)
 //

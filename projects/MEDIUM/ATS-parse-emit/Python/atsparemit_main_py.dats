@@ -27,13 +27,6 @@ staload "./atsparemit_emit.sats"
 
 (* ****** ****** *)
 //
-dynload "./atsparemit.sats"
-dynload "./atsparemit_syntax.sats"
-dynload "./atsparemit_parsing.sats"
-dynload "./atsparemit_emit.sats"
-//
-(* ****** ****** *)
-//
 dynload "./atsparemit_mylib.dats"
 //
 (* ****** ****** *)
