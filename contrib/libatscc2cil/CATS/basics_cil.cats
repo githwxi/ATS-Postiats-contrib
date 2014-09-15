@@ -72,6 +72,7 @@
 #define ats2cilpre_add_int0_int0 int32 ats2cilpre::add_int0_int0(int32, int32)
 #define ats2cilpre_gt_int0_int0 int32 ats2cilpre::gt_int0_int0(int32, int32)
 #define ats2cilpre_lte_int0_int0 int32 ats2cilpre::lte_int0_int0(int32, int32)
+#define ats2cilpre_gte_int0_int0 int32 ats2cilpre::gte_int0_int0(int32, int32)
 #define ats2cilpre_sub_int0_int0 int32 ats2cilpre::sub_int0_int0(int32, int32)
 #define ats2cilpre_mul_int0_int0 int32 ats2cilpre::mul_int0_int0(int32, int32)
 #define ats2cilpre_eq_int0_int0 int32 ats2cilpre::eq_int0_int0(int32, int32)
@@ -137,6 +138,16 @@
     ldarg x
     ldarg y
     ble IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
+  .method static public int32 gte_int0_int0(int32 x, int32 y) {
+    ldarg x
+    ldarg y
+    bge IL1
     ldc.i4.0
     ret
     IL1:

@@ -1502,6 +1502,12 @@ d0c.d0ecl_node of
   }*)
 | D0Cdyncst_extfun (i0de, s0explst, s0exp) =>
   {
+    // type of external function
+    // TODO: make use of this
+    // i0de: identifier
+    // s0explst: types of arguments
+    // s0exp: return type
+    // how to obtain fully-qualified CIL name? probably by prefix? e.g. ats2cilpre_ -> ats2cilpre.
   }
 //
 | D0Cstatmp
