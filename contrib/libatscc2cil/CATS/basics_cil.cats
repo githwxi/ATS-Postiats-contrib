@@ -67,14 +67,22 @@
 #define ATSCKpat_string int32 ats2cilpre::atsckpat_string(string, string)
 
 /* ****** ****** */
-// integer
 
+// integer
 #define ats2cilpre_add_int0_int0 int32 ats2cilpre::add_int0_int0(int32, int32)
 #define ats2cilpre_gt_int0_int0 int32 ats2cilpre::gt_int0_int0(int32, int32)
 #define ats2cilpre_lte_int0_int0 int32 ats2cilpre::lte_int0_int0(int32, int32)
 #define ats2cilpre_sub_int0_int0 int32 ats2cilpre::sub_int0_int0(int32, int32)
 #define ats2cilpre_mul_int0_int0 int32 ats2cilpre::mul_int0_int0(int32, int32)
 #define ats2cilpre_eq_int0_int0 int32 ats2cilpre::eq_int0_int0(int32, int32)
+
+// float
+#define ats2cilpre_add_double0_double0 float64 ats2cilpre::add_double0_double0(float64, float64)
+#define ats2cilpre_gt_double0_double0 int32 ats2cilpre::gt_double0_double0(float64, float64)
+#define ats2cilpre_lte_double0_double0 int32 ats2cilpre::lte_double0_double0(float64, float64)
+#define ats2cilpre_sub_double0_double0 float64 ats2cilpre::sub_double0_double0(float64, float64)
+#define ats2cilpre_mul_double0_double0 float64 ats2cilpre::mul_double0_double0(float64, float64)
+#define ats2cilpre_eq_double0_double0 int32 ats2cilpre::eq_double0_double0(float64, float64)
 
 .class ats2cilpre {
   .method static public int32 atsckpat_int(int32 x, int32 y) {
@@ -150,6 +158,55 @@
     ret
   }
   .method static public int32 eq_int0_int0(int32 x, int32 y) {
+    .maxstack 2
+    ldarg x
+    ldarg y
+    ceq
+    ret
+  }
+
+  // float
+  .method static public float64 add_double0_double0(float64 x, float64 y) {
+    ldarg x
+    ldarg y
+    add
+    ret
+  }
+  .method static public int32 gt_double0_double0(float64 x, float64 y) {
+    ldarg x
+    ldarg y
+    bgt IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
+  .method static public int32 lte_double0_double0(float64 x, float64 y) {
+    ldarg x
+    ldarg y
+    ble IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
+  .method static public float64 sub_double0_double0(float64 x, float64 y) {
+    .maxstack 2
+    ldarg x
+    ldarg y
+    sub
+    ret
+  }
+  .method static public float64 mul_double0_double0(float64 x, float64 y) {
+    .maxstack 2
+    ldarg x
+    ldarg y
+    mul
+    ret
+  }
+  .method static public int32 eq_double0_double0(float64 x, float64 y) {
     .maxstack 2
     ldarg x
     ldarg y
