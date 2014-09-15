@@ -243,69 +243,88 @@ fun emit_tmpvar_st (out: FILEref, tmp: i0de): void
 //
 implement
   emit_tmpvar_ld (out, tmp) =
+(
+//
+case+ 0 of
+//
+| _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
   {
-    val () =
-      case+ 0 of
-      | _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
-        {
-          val () = emit_text (out, "ldsfld int32 ")
-          val () = emit_text (out, the_clsname_get ())
-        }
-      | _ when tmpvar_is_sta (tmp.i0de_sym) =>
-        {
-          val () = emit_text (out, "ldsfld")
-          val-~Some_vt(s0e) = statmps0exp_search_opt (tmp.i0de_sym)
-          val () = emit_SPACE (out)
-          val () = emit_s0exp (out, s0e)
-          val () = emit_SPACE (out)
-          val () = emit_text (out, the_clsname_get ())
-        }
-      | _ when tmpvar_is_arg (tmp.i0de_sym) =>
-        {
-          val () = emit_text (out, "ldarg")
-        }
-      | _ (*otherwise*) =>
-        {
-          val () =  emit_text (out, "ldloc")
-        }
-    // end of [val]
-    val () = emit_SPACE (out)
+    val () = emit_text (out, "ldsfld int32 ")
+    val () = emit_text (out, the_clsname_get ())
     val () = emit_i0de (out, tmp)
-  } // end of [emit_tmpvar_ld]
+  }
+//
+| _ when tmpvar_is_sta (tmp.i0de_sym) =>
+{
+  val () = emit_text (out, "ldsfld")
+  val-~Some_vt(s0e) = statmps0exp_search_opt (tmp.i0de_sym)
+  val () = emit_SPACE (out)
+  val () = emit_s0exp (out, s0e)
+  val () = emit_SPACE (out)
+  val () = emit_text (out, the_clsname_get ())
+  val () = emit_i0de (out, tmp)
+}
+//
+| _ when tmpvar_is_arg (tmp.i0de_sym) =>
+{
+  val () = emit_text (out, "ldarg")
+  val () = emit_SPACE (out)
+  val () = emit_i0de (out, tmp)
+}
+//
+| _ (*otherwise*) =>
+{
+  val () =  emit_text (out, "ldloc")
+  val () = emit_SPACE (out)
+  val () = emit_i0de (out, tmp)
+}
+//
+) (* end of [emit_tmpvar_ld] *)
 //
 implement
   emit_tmpvar_st
     (out, tmp) =
-  {
-    val () =
-      case+ 0 of
-      | _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
-        {
-          val () = emit_text (out, "stsfld int32 ")
-          val () = emit_text (out, the_clsname_get ())
-          val () = println!("the_clsname_get() = ", the_clsname_get())
-        }
-      | _ when tmpvar_is_sta (tmp.i0de_sym) =>
-        {
-          val () = emit_text (out, "stsfld")
-          val-~Some_vt(s0e) = statmps0exp_search_opt (tmp.i0de_sym)
-          val () = emit_SPACE (out)
-          val () = emit_s0exp (out, s0e)
-          val () = emit_SPACE (out)
-          val () = emit_text (out, the_clsname_get ())
-        }
-      | _ when tmpvar_is_arg (tmp.i0de_sym) =>
-        {
-          val () = emit_text (out, "starg")
-        }
-      | _(*otherwise*) =>
-        {
-          val () = emit_text (out, "stloc")
-        }
-    // end of [val]
-    val () = emit_SPACE (out)
-    val () = emit_i0de (out, tmp)
-  } // end of [emit_tmpvar_st]
+(
+//
+case+ 0 of
+//
+| _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
+//
+{
+  val () = emit_text (out, "stsfld int32 ")
+  val () = emit_text (out, the_clsname_get ())
+  val () = emit_i0de (out, tmp)
+}
+//
+| _ when tmpvar_is_sta (tmp.i0de_sym) =>
+//
+{
+  val () = emit_text (out, "stsfld")
+  val-~Some_vt(s0e) = statmps0exp_search_opt (tmp.i0de_sym)
+  val () = emit_SPACE (out)
+  val () = emit_s0exp (out, s0e)
+  val () = emit_SPACE (out)
+  val () = emit_text (out, the_clsname_get ())
+  val () = emit_i0de (out, tmp)
+}
+//
+| _ when tmpvar_is_arg (tmp.i0de_sym) =>
+//
+{
+  val () = emit_text (out, "starg")
+  val () = emit_SPACE (out)
+  val () = emit_i0de (out, tmp)
+}
+//
+| _(*otherwise*) =>
+//
+{
+  val () = emit_text (out, "stloc")
+  val () = emit_SPACE (out)
+  val () = emit_i0de (out, tmp)
+}
+//
+) (* end of [emit_tmpvar_st] *)
 //
 (* ****** ****** *)
 //
