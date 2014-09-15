@@ -156,6 +156,60 @@ f0head_search_opt
 //
 (* ****** ****** *)
 
+staload STATMPS0EXP =
+{
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+//
+typedef key = symbol and itm = s0exp
+//
+implement
+gequal_val<key> (k1, k2) = (k1 = k2)
+//
+staload
+"libats/SATS/hashtbl_chain.sats"
+//
+implement
+hash_key<key> (sym) =
+//
+// HX: [gidentity] is called to avoid a bug
+//
+  gidentity(hash_key<string>(symbol_get_name(sym)))
+//
+implement hashtbl$recapacitize<> () = 1(*resizable*)
+//
+#define CAPACITY 1024
+//
+#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_chain.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+//
+implement
+statmps0exp_insert
+  (name, def) = let
+(*
+//
+val () =
+  println! ("statmps0exp_insert: ", symbol_get_name(name))
+//
+*)
+in
+//
+$STATMPS0EXP.insert_any (name, def)
+//
+end // end of [statmps0exp_insert]
+//
+implement
+statmps0exp_search_opt
+  (name) = $STATMPS0EXP.search_opt (name)
+//
+(* ****** ****** *)
+
 (* end of [atsparemit_syntax_cil.dats] *)
 
   

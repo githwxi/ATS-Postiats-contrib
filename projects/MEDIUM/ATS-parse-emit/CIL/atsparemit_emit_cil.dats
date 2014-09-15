@@ -229,6 +229,13 @@ end // end of [emit_extcode]
 (* ****** ****** *)
 //
 extern
+fun
+emit_s0exp : emit_type (s0exp)
+extern
+fun
+emit_s0explst : emit_type (s0explst)
+//
+extern
 fun emit_tmpvar_ld (out: FILEref, tmp: i0de): void
 //
 extern
@@ -242,6 +249,15 @@ implement
       | _ when strstr(g1ofg0(symbol_get_name(tmp.i0de_sym)), "__dynloadflag") >= 0 =>
         {
           val () = emit_text (out, "ldsfld int32 ")
+          val () = emit_text (out, the_clsname_get ())
+        }
+      | _ when tmpvar_is_sta (tmp.i0de_sym) =>
+        {
+          val () = emit_text (out, "ldsfld")
+          val-~Some_vt(s0e) = statmps0exp_search_opt (tmp.i0de_sym)
+          val () = emit_SPACE (out)
+          val () = emit_s0exp (out, s0e)
+          val () = emit_SPACE (out)
           val () = emit_text (out, the_clsname_get ())
         }
       | _ when tmpvar_is_arg (tmp.i0de_sym) =>
@@ -268,6 +284,15 @@ implement
           val () = emit_text (out, "stsfld int32 ")
           val () = emit_text (out, the_clsname_get ())
           val () = println!("the_clsname_get() = ", the_clsname_get())
+        }
+      | _ when tmpvar_is_sta (tmp.i0de_sym) =>
+        {
+          val () = emit_text (out, "stsfld")
+          val-~Some_vt(s0e) = statmps0exp_search_opt (tmp.i0de_sym)
+          val () = emit_SPACE (out)
+          val () = emit_s0exp (out, s0e)
+          val () = emit_SPACE (out)
+          val () = emit_text (out, the_clsname_get ())
         }
       | _ when tmpvar_is_arg (tmp.i0de_sym) =>
         {
@@ -306,13 +331,6 @@ extern
 fun
 emit_instrlst
   (out: FILEref, inss: instrlst, labbeg: label, labend: label, marklab: bool) : void
-//
-extern
-fun
-emit_s0exp : emit_type (s0exp)
-extern
-fun
-emit_s0explst : emit_type (s0explst)
 //
 (* ****** ****** *)
 //
@@ -1452,16 +1470,25 @@ d0c.d0ecl_node of
 //
 | D0Cstatmp
     (tmp, opt) =>
-  {
-    val () = (
-      case+ opt of
-      | Some _ => () | None () => emit_text (out, "//")
-    ) (* end of [val] *)
-    val () = emit_text (out, ".field static int32 ")
-    val () = (
-      emit_i0de (out, tmp)
-    ) (* end of [val] *)
-  } (* end of [D0Cstatmp] *)
+  (
+    case+ opt of
+    | Some s0e =>
+      (
+        statmps0exp_insert (tmp.i0de_sym, s0e);
+        emit_text (out, ".field static private ");
+        emit_s0exp (out, s0e);
+        emit_SPACE (out);
+        emit_i0de (out, tmp);
+        emit_ENDL (out)
+      ) (* end of [Some] *)
+    | None () =>
+      (
+        emit_text (out, "//");
+        emit_text (out, ".field static void ");
+        emit_i0de (out, tmp);
+        emit_ENDL (out)
+      ) (* end of [None] *)
+  ) (* end of [D0Cstatmp] *)
 //
 | D0Cextcode (toks) =>
   {
@@ -1510,12 +1537,42 @@ case+ d0cs of
 // TODO: for all modules, emit .module extern for other modules?
 // TODO: handle entry point
 //
+//
+fun{}
+string_skip
+{n,ofs:int | ofs >= 0; ofs <= n}
+(str: string(n), ofs: size_t (ofs)): string = let
+  prval () = lemma_string_param (str)
+in
+  if string_is_atend (str, ofs) then ""
+  else if ofs > 0 then string_skip (string_tail (str), ofs-1)
+  else g0ofg1(str)
+end // end of [string_skip]
+//
+fun strip_suffix {n1,n2:int} (s: string (n1), suf: string (n2)): string = let
+  val l1 = strlen(s)
+  val l2 = strlen(suf)
+  prval () = lemma_string_param (s) and () = lemma_string_param (suf)    
+in
+  if l1 >= l2 then let
+    val ofs = l1 - l2
+    val s1 = string_skip (s, ofs)
+  in
+    if s1 <> suf then g0ofg1(s)
+    else let
+      val subs = string_make_substring (s, i2sz(0), ofs)
+    in
+      strnptr2string (subs)
+    end // end of [let]
+  end else g0ofg1(s)
+end // end of [fun]
+//
+val clsname = strip_suffix (g1ofg0(fname), g1ofg0("_dats.c"))
+
 val () = emit_text (out, ".assembly extern mscorlib { .ver 2:0:0:0 }\n")
 val () = emit_text (out, ".assembly ")
-val () = emit_text (out, "'")
-val () = emit_text (out, fname)
-val () = emit_text (out, "'")
-val () = emit_text (out, "{ .ver 1:0:0:0 }")
+val () = emit_text (out, clsname)
+val () = emit_text (out, " { .ver 1:0:0:0 }")
 val () = emit_ENDL (out)
 
 val () = emit_text (out, ".module")
@@ -1532,11 +1589,11 @@ val () = emit_SPACE (out)
 val () = emit_LBRACE (out)
 val () = emit_ENDL (out)
 //
-val () = the_clsname_push (namespace, fname)
+val () = the_clsname_push (namespace, clsname)
 //
 val () = emit_text (out, ".class")
 val () = emit_SPACE (out)
-val () = emit_MODCLSNAME (out, fname)
+val () = emit_text (out, clsname)
 val () = emit_SPACE (out)
 val () = emit_LBRACE (out)
 val () = emit_ENDL (out)

@@ -278,6 +278,7 @@ f0head_make (res: s0exp, id: i0de, marg: f0marg): f0head
 //
 (* ****** ****** *)
 //
+fun tmpvar_is_sta (tmp: symbol): bool
 fun tmpvar_is_arg (tmp: symbol): bool
 fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool

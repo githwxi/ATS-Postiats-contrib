@@ -54,7 +54,7 @@ SOURCES_DATS += atsparemit_main_cil.dats
 #
 ######
 
-MYTARGET=atsparemit-cil
+MYTARGET=atscc2cil
 
 ######
 
@@ -71,7 +71,7 @@ cleanats:: ; $(RMF) *_?ats.c
 
 ######
 
-cleanall:: ; $(RMF) atsparemit-cil
+cleanall:: ; $(RMF) atscc2cil
 
 ######
 

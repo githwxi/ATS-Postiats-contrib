@@ -41,7 +41,6 @@ fun the_clsname_pop (): string
 fun the_clsname_push (namesp: string, cls: string): void
 fun the_clsname_get (): string
 
-
 fun emit2_toplevel (out : FILEref, d0ecls: d0eclist, fname: string, namespace: string) : void
 
 (* ****** ****** *)

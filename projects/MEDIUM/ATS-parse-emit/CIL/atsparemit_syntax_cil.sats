@@ -31,6 +31,15 @@ f0head_insert
 fun
 f0head_search_opt (name: symbol): Option_vt (f0head)
 //
+(* ******* ****** *)
+//
+fun
+statmps0exp_insert
+  (name: symbol, s0e: s0exp): void
+//
+fun
+statmps0exp_search_opt (name: symbol): Option_vt (s0exp)
+//
 (*
 datatype Type_base =
   | TBbool
