@@ -1394,7 +1394,14 @@ ATSEXTCODE_BEG "/*\nATSextcode_beg()\n*/"
 ATSEXTCODE_END "/*\nATSextcode_end()\n*/"
 //
 (* ****** ****** *)
-
+//
+extern
+fun
+emit_d0eclist
+(
+  out: FILEref, d0cs: d0eclist
+) : void
+//
 implement
 emit_d0ecl
   (out, d0c) = let
@@ -1407,8 +1414,12 @@ d0c.d0ecl_node of
   {
     val () = emit_text (out, "#include")
     val () = emit_SPACE (out)
-    val-T_STRING(filnam) = include.token_node
-    val () = emit_text (out, filnam)
+    val () =
+    (
+      case- include.token_node of
+      | T_STRING(filnam) => emit_text (out, filnam)
+      | T_IDENT_alp(filnam) => emit_text (out, filnam)
+    ) (* end of [val] *)
     val () = emit_newline (out)
   }
 //
@@ -1418,7 +1429,13 @@ d0c.d0ecl_node of
     val () = emit_SPACE (out)
     val () = emit_i0de (out, i0de)
     val () = emit_newline (out)
+
+    val () = emit_d0eclist (out, d0eclist)
+
     val () = emit_text (out, "#endif")
+    val () = emit_text (out, " /* end of [")
+    val () = emit_i0de (out, i0de)
+    val () = emit_text (out, "] */")
     val () = emit_newline (out)
   }
 | D0Cifndef (i0de, d0eclist) =>
@@ -1495,6 +1512,7 @@ d0c.d0ecl_node of
     val () = emit_text (out, ATSEXTCODE_BEG)
     val () = emit_extcode (out, toks)
     val () = emit_text (out, ATSEXTCODE_END)
+    val () = emit_ENDL (out)
   }
 | D0Cclosurerize (_, _, _, _) => ()
 //
@@ -1513,14 +1531,10 @@ end // end of [emit_d0ecl]
 (* ****** ****** *)
 
 implement
-emit2_toplevel
-  (out, d0cs, fname, namespace) = let
-//
-fun
-loop
+emit_d0eclist
 (
-  out: FILEref, d0cs: d0eclist
-) : void =
+  out, d0cs
+) =
 (
 //
 case+ d0cs of
@@ -1528,9 +1542,35 @@ case+ d0cs of
 | list_cons
     (d0c, d0cs) => let
   in
-    emit_d0ecl (out, d0c); loop (out, d0cs)
+    emit_d0ecl (out, d0c); emit_d0eclist (out, d0cs)
   end // end of [list_cons]
 //
+) (* end of [emit_d0eclist] *)
+
+(* ****** ****** *)
+
+implement
+emit2_toplevel
+  (out, d0cs, fname, namespace) = let
+//
+fun
+loop0
+(
+  out: FILEref, d0cs: d0eclist
+) : d0eclist =
+(
+case+ d0cs of
+| list_nil () => d0cs
+| list_cons
+    (d0c, d0cs1) =>
+  (
+    case+
+    d0c.d0ecl_node of
+    | D0Cinclude _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
+    | D0Cifdef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
+    | D0Cifndef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
+    | _ => d0cs
+  ) // end of [list_cons]
 )
 //
 // TODO: for the main file, emit assembly manifest (assembly references, etc.)
@@ -1571,7 +1611,7 @@ val clsname = strip_suffix (g1ofg0(fname), g1ofg0("_dats.c"))
 
 val () = emit_text (out, ".assembly extern mscorlib { .ver 2:0:0:0 }\n")
 val () = emit_text (out, ".assembly ")
-val () = emit_text (out, clsname)
+val () = emit_text (out, clsname) // TODO: should it be the same as the output file name?
 val () = emit_text (out, " { .ver 1:0:0:0 }")
 val () = emit_ENDL (out)
 
@@ -1581,6 +1621,8 @@ val () = emit_text (out, "'")
 val () = emit_text (out, fname)
 val () = emit_text (out, "'")
 val () = emit_ENDL (out)
+//
+val d0cs = loop0 (out, d0cs) // all preprocessor definitions
 //
 val () = emit_text (out, ".namespace")
 val () = emit_SPACE (out)
@@ -1597,13 +1639,14 @@ val () = emit_text (out, clsname)
 val () = emit_SPACE (out)
 val () = emit_LBRACE (out)
 val () = emit_ENDL (out)
-val () = loop (out, d0cs)
+val () = emit_d0eclist (out, d0cs)
 val () = emit_RBRACE (out) (* end of [class] definition *)
 val () = emit_text (out, "/* end of class */")
 //
 val () = emit_ENDL (out)
 val () = emit_RBRACE (out) (* end of [namespace] definition *)
 val () = emit_text (out, "/* end of namespace */")
+val () = emit_ENDL (out)
 //
 val _ = the_clsname_pop ()
 //
