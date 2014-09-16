@@ -28,6 +28,13 @@ staload _ = "{$LIBATSHWXI}/cstream/DATS/cstream.dats"
 //
 (* ****** ****** *)
 
+%{^
+#define \
+atstyarr_field_undef(fname) fname[]
+%} // end of [%{]
+
+(* ****** ****** *)
+
 assume lexbuf_vt0ype = _lexbuf_vt0ype
 
 (* ****** ****** *)

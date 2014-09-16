@@ -187,9 +187,9 @@ CPRF=cp -rf
 ######
 #
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/CATS libatscc2js/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/CATS libatscc2js/.
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2js/output/DATS libatscc2js/DATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/DATS libatscc2js/DATS/.
 #
 ######
 
