@@ -47,7 +47,10 @@ abst@ype bytes32 = $extype"bytes32"
 (* ****** ****** *)
 
 %{^
-#define mystrftime(bufp, m, fmt, ptm) strftime((char*)bufp, m, fmt, ptm)
+#undef ATSextfcall
+#define ATSextfcall(fun, args) fun args
+#define \
+mystrftime(bufp, m, fmt, ptm) strftime((char*)bufp, m, fmt, ptm)
 %} // end of [%{^]
 
 (* ****** ****** *)
