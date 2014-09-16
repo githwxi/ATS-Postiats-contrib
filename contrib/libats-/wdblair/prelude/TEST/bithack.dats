@@ -13,3 +13,6 @@ fun power_of_two {x:bv16}
       false
     else
       (x land (x - 1)) = 0
+      
+fun has_null_byte {x:bv16}
+  (x: int(x)): bool (has_null_byte(x)) = false

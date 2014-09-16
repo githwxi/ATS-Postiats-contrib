@@ -36,6 +36,8 @@
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
+#include
+"constraint.hats"
 
 (* ****** ****** *)
 
@@ -46,7 +48,10 @@ staload UN = "prelude/SATS/unsafe.sats"
 staload "constraint.sats"
 staload "solving/error.sats"
 staload "solving/solver.sats"
-staload SMT = "solving/smt.sats"
+
+(* ****** ****** *)
+
+staload SMT = "{$LIBATSWDBLAIR}/SMT/smt.sats"
 
 (* ****** ****** *)
 
@@ -232,7 +237,7 @@ in
           variable. If we pull it out, it could be to our advantage.
         *)
         val szexp = s2Var_get_szexp (s2V)
-       in
+      in
         case+ szexp of
           | S2ZEvar (s2v) => let
               val srt = s2var_get_srt (s2v)
@@ -687,7 +692,8 @@ in
         res
       end
       else let
-        val clause = x^ = BitVec (1u << i, 16)
+        val clause = 
+          x = BitVec (1u << i, 16)
       in
         loop (x, succ (i), clause Or res)
       end
@@ -695,7 +701,16 @@ in
   in
     loop (x, 0, Bool(false))
   end // end of [f_is_power_of_two_bv16]
-
+  
+  implement
+  f_has_null_byte_bv16 (env, s2es) = let
+    val- s2e1 :: _ = s2es
+    val x = formula_make (env, s2e1)
+  in
+    $SMT.formula_free (x);
+    Bool(false)
+  end // end of [f_has_null_byte_bv16]
+  
   implement
   f_add_bv_bv (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
@@ -908,7 +923,7 @@ in
     val i = formula_make (env, s2e2)
     val v = formula_make (env, s2e3)
   in
-    Store (a, i, v)
+    a[i] = v
   end // end of [f_array_store]
       
   implement
@@ -921,15 +936,14 @@ in
     //
     val i = Int ("i"); val j = Int ("j")
   in
-    ForAll (i^, j^,
-      ((start <= i^) And (i^ <= p^) And (p^ <= j^) 
-        And (j^ <= stop)) ==>
-          (((Select(a^, i)) <= (Select(a^, p^)))
-            And ((Select(a^, p)) <= (Select(a, j)))))
+    ForAll (i, j,
+      ((start <= i) And (i <= p) And (p <= j)
+        And (j <= stop)) ==>
+          ((a[i] <= a[p]) And (a[p] <= a[j])))
   end // end of [f_partitioned_array]
   
   local
-    
+  
     fun
     Sorted (a: formula, start: formula, stop: formula): formula = let
       val i = Int ("i")
@@ -961,10 +975,13 @@ in
     val a = formula_make (env, s2e1)
     val i = formula_make (env, s2e2)
     val j = formula_make (env, s2e3)
+    //
+    val b = a[j] = a[i]
+    
   in
-    Store (Store (a^, j^, Select(a^, i^)), i, Select (a, j))
+    b[i] = a[j]
   end
-
+  
   implement 
   f_lte_stamp_stampseq (env, s2es) = let
     val- s2e1 :: s2e2 :: s2e3 :: _ = s2es
@@ -976,9 +993,9 @@ in
   in
     ForAll (i^,
       ((Int(0) <= i^) And (i^ < n)) ==>
-        (stmp <= Select (seq, i)))
+        (stmp <= seq[i]))
   end
-
+  
   implement
   f_lte_stamp_stampseq_range (env, s2es) = let
     val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: _ = s2es
@@ -991,7 +1008,7 @@ in
   in
     ForAll(j^,
       ((i <= j^) And (j^ < n)) ==>
-        (stmp <= Select (seq, j)))
+        (stmp <= seq[j]))
   end
     
   implement 
@@ -1005,7 +1022,7 @@ in
   in
     ForAll (i^,
       ((Int(0) <= i^) And (i^ < n)) ==>
-        (Select (seq, i) <= stmp))
+        (seq[i] <= stmp))
   end
 
   implement

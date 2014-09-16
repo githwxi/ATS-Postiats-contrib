@@ -42,12 +42,13 @@ staload "solving/smt.sats"
 
 (*
   Since formulas are linear, we only allow you to use one once. If a term
-  appears multiple times in an expression, just up its reference count.
+  appears multiple times in an expression, just increment its reference count.
   
-  ^ is a prefix operator to increment the reference count of a linear term,
+  ^ is a postfix operator to increment the reference count of a linear term,
   and to obtain a new reference to it.
   
-  In actual code, this looks a little messy.
+  In actual code, this looks a little messy. I'm not sure how we can improve
+  it.
 *)
 
 symintr ^

@@ -8,7 +8,7 @@ abst@ype int_bv16 (bv:bv16) = int
 typedef int (bv:bv16) = int_bv16 (bv)
 
 castfn
-bv16_of_int {n:nat}(int n): int (bv16(n))
+bv16_of_int {n:nat} (int n): int (bv16(n))
 
 fun 
 add_int_int_bv16 {x,y:bv16} 

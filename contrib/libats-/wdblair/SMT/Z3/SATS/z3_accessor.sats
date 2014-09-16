@@ -46,6 +46,20 @@ ATSCNTRB_SML_Z3_Z3_HEADER
 //
 (* ****** ****** *)
 
+fun
+Z3_is_eq_ast (
+  !Z3_context, !Z3_ast, !Z3_ast
+): bool = "mac#%"
+
+fun
+Z3_is_eq_sort (
+  !Z3_context, !Z3_sort, !Z3_sort
+): bool = "mac#%"
+
+fun
+Z3_is_eq_func_decl (
+  !Z3_context, !Z3_func_decl, !Z3_func_decl
+): bool = "mac#%"
 
 (* ****** ****** *)
 
