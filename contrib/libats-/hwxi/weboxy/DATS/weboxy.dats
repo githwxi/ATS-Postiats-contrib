@@ -622,6 +622,20 @@ val ((*void*)) =
 
 implement
 {}(*tmp*)
+webox_make_name_pwidth
+  (name, pwidth) = wbx where
+{
+//
+val wbx = webox_make_name(name)
+val ((*void*)) = 
+  hashtbl_insert_any (wbx, PWIDTH, GVint(pwidth))
+//
+} (* end of [webox_make_name_pwidth] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 fprint_webox_width
   (out, wbx) = let
 //
@@ -637,7 +651,7 @@ val ph = wbx.pwidth
 //
 in
   if ph >= 0
-    then fprintln! (out, "width: ", h, "% ;\n")
+    then fprintln! (out, "width: ", ph, "% ;\n")
   // end of [if]
 end // end of [else]
 //

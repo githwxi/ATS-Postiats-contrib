@@ -215,6 +215,8 @@ fun{}
 webox_make_name (name: string): webox
 fun{}
 webox_make_name_width (name: string, width: int): webox
+fun{}
+webox_make_name_pwidth (name: string, pwidth: int): webox
 //
 (* ****** ****** *)
 
