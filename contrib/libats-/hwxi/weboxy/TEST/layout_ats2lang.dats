@@ -46,82 +46,101 @@ val () =
 //
 val thePage =
   webox_make_name ("thePage")
-// end of [thePage]
-
-(* ****** ****** *)
-//
-val thePageHeader =
-  webox_make_name ("thePageHeader")
-val thePageHeaderTop =
-  webox_make_name ("thePageHeaderTop")
-val thePageHeaderSep =
-  webox_make_name ("thePageHeaderSep")
-//
-val () =
-  thePageHeader.children (thePageHeaderTop, thePageHeaderSep)
 //
 (* ****** ****** *)
+//
+val thePageLeft =
+  webox_make_name ("thePageLeft")
+val thePageRight =
+  webox_make_name ("thePageRight")
+val () =
+  thePage.tabstyle(TShbox)
+val () =
+  thePage.percentlst ($list(15, ~1))
+val () =
+  thePage.children (thePageLeft, thePageRight)
+//
+(* ****** ****** *)
+//
+val thePageRHeader =
+  webox_make_name ("thePageRHeader")
+val thePageRHeaderTop =
+  webox_make_name ("thePageRHeaderTop")
+val thePageRHeaderSep =
+  webox_make_name ("thePageRHeaderSep")
+//
+val () =
+  thePageRHeader.children (thePageRHeaderTop, thePageRHeaderSep)
+//
+(* ****** ****** *)
 
 val () =
-thePageHeaderTop.content
+thePageRHeaderTop.content
 ("\
-<theHeaderLine1>BU CAS CS320</theHeaderLine1><br>
-<theHeaderLine1>Concepts of Programming Languages</theHeaderLine1><br>
-<theHeaderLine2>Semester</theHeaderLine2><br>
+<theHeaderLine1>The ATS Programming Language</theHeaderLine1><br>
+<theHeaderLine2>Unleashing the Potentials of Types and Templates</theHeaderLine2><br>
 ") (* end of [val] *)
 
 (* ****** ****** *)
 
-val thePageBody =
-  webox_make_name ("thePagebody")
-val thePageBodyL =
-  webox_make_name ("thePagebodyL")
-val thePageBodyR =
-  webox_make_name ("thePagebodyR")
+val thePageRBody =
+  webox_make_name ("thePageRBody")
+val thePageRBodyLeft =
+  webox_make_name ("thePageRBodyLeft")
+val thePageRBodyRight =
+  webox_make_name ("thePageRBodyRight")
 //
 val () =
-  thePageBodyL.height (600)
+  thePageRBodyLeft.height (600)
 val () =
-  thePageBodyR.height (600)
+  thePageRBodyRight.height (600)
 //
 val () =
-  thePageBody.tabstyle (TShbox)
+  thePageRBody.tabstyle (TShbox)
 val () =
-  thePageBody.percentlst ($list(80, 20))
+  thePageRBody.percentlst ($list(75, 25))
 val () =
-  thePageBody.children (thePageBodyL, thePageBodyR)
+  thePageRBody.children (thePageRBodyLeft, thePageRBodyRight)
 //
 (* ****** ****** *)
 //
-val thePageFooter =
-  webox_make_name ("thePageFooter")
-val thePageFooterSep =
-  webox_make_name ("thePageFooterSep")
-val thePageFooterRest =
-  webox_make_name ("thePageFooterRest")
+val thePageRBodyLHeader =
+ webox_make_name ("thePageRBodyLHeader")
+val thePageRBodyLContent =
+ webox_make_name ("thePageRBodyLContent")
+val () =
+  thePageRBodyLeft.children (thePageRBodyLHeader, thePageRBodyLContent)
+//
+(* ****** ****** *)
+//
+val thePageRFooter =
+  webox_make_name ("thePageRFooter")
+val thePageRFooterSep =
+  webox_make_name ("thePageRFooterSep")
+val thePageRFooterRest =
+  webox_make_name ("thePageRFooterRest")
 //
 val () =
-thePageFooterRest.content
+thePageRFooterRest.content
   ("This page is created with help from ATS/weboxy")
 //
 val () =
-  thePageFooter.children (thePageFooterSep, thePageFooterRest)
+  thePageRFooter.children (thePageRFooterSep, thePageRFooterRest)
 //      
 (* ****** ****** *)
 //
-val thePage =
-  webox_make_name ("thePage")
 val () =
-  thePage.children (thePageHeader, thePageBody, thePageFooter)
+  thePageRight.children (thePageRHeader, thePageRBody, thePageRFooter)
 //
 (* ****** ****** *)
-    
+//
 val theBodyProp =
   webox_make_name ("theBodyProp")
-// end of [theBodyProp]
-      
+//
+val () = theBodyProp.bgcolor("")
+//
 val () = theBodyProp.children(thePage)
-      
+//
 (* ****** ****** *)
 
 implement
@@ -157,7 +176,7 @@ background-color: #213449; /* dark blue */
 val () =
 fprint (out, "\
 #thePage {\n\
-  width: 72%;\n\
+  width: 85%;\n\
   margin-left: auto;\n\
   margin-right: auto;\n\
 }\n\
@@ -165,15 +184,23 @@ fprint (out, "\
 //
 val () =
 fprint (out, "\
-#thePageHeader {\n\
+#thePageRHeader {\n\
   text-align: center;
 }\n\
 ") (* end of [fprint] *)
 //
 val () =
 fprint (out, "\
-#thePageFooter {\n\
-  text-align: center;
+#thePageRBodyLHeader\n\
+{\n\
+  text-align: center;\n\
+}\n\
+") (* end of [fprint] *)
+//
+val () =
+fprint (out, "\
+#thePageRFooter {\n\
+  text-align: center;\n\
 }\n\
 ") (* end of [fprint] *)
 //
