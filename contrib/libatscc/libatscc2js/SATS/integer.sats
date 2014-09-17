@@ -13,12 +13,14 @@
 //
 fun
 abs_int0 : int -> int = "mac#%"
+//
 overload abs with abs_int0 of 100
 //
 (* ****** ****** *)
 //
 fun
 neg_int0 : int -> int = "mac#%"
+//
 overload ~ with neg_int0 of 100
 overload neg with neg_int0 of 100
 //

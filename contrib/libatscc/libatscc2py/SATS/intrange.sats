@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into Python
 *)
 
 (* ****** ****** *)
@@ -9,15 +9,15 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 //
 (* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
 //
-#include "{$LIBATSCC}/SATS/list.sats"
+#include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)
 
-(* end of [list.sats] *)
+(* end of [intrange.sats] *)

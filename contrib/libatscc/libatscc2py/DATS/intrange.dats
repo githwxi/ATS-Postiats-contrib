@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Javascript
+** that translates into Python
 *)
 
 (* ****** ****** *)
@@ -13,26 +13,29 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_list_"
-//
-(* ****** ****** *)
-//
-staload
-UN = "prelude/SATS/unsafe.sats"
+ATS_STATIC_PREFIX "_ats2pypre_intrange_"
 //
 (* ****** ****** *)
 //
 #include "./../staloadall.hats"
 //
 (* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
 //
-#include "{$LIBATSCC}/DATS/list.dats"
+#include "{$LIBATSCC}/DATS/intrange.dats"
 //
 (* ****** ****** *)
 
-(* end of [list.dats] *)
+(* end of [intrange.dats] *)

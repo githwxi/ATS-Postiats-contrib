@@ -16,8 +16,8 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 #include
 "share/atspre_define.hats"
 //
-#include "{$LIBATSCC}/SATS/list.sats"
+#include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)
 
-(* end of [list.sats] *)
+(* end of [intrange.sats] *)
