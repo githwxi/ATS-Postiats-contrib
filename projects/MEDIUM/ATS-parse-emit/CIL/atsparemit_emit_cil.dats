@@ -671,6 +671,8 @@ d0e.d0exp_node of
     val () = emit_text (out, rep)
   }
 //
+| ATSSELboxrec _ => emit_SELboxrec (out, d0e)
+//
 | _ => emit_text (out, "**D0EXP**")
 //
 end // end of [emit_d0exp]
@@ -801,6 +803,79 @@ in
   auxlst (out, tds, 0)
 end // end of [emit_tmpdeclst_initize]
 //
+(* ****** ****** *)
+//
+extern
+fun emit_ATSINSmove_boxrec
+  (out: FILEref, ins0: instr): void
+//
+implement
+emit_ATSINSmove_boxrec
+  (out, ins0) = let
+//
+fun
+pushargs
+(
+  inss: instrlst
+) : void =
+(
+case+ inss of
+| list_nil () => ()
+| list_cons (ins, inss) => let
+    val-ATSINSstore_boxrec_ofs (_(*tmp*), _(*s0exp*), _(*lab*), d0e) = ins.instr_node
+    val () = emit_d0exp (out, d0e)
+    val () = emit_ENDL (out)
+  in
+    pushargs (inss)
+  end // end of [list_cons]
+) (* end of [pushargs] *)
+//
+fun loop_sig
+(
+  xs: tyfldlst, i: int
+) : void =
+(
+case+ xs of
+| list_cons (x, xs) => let
+    val TYFLD (id, s0e) = x.tyfld_node
+    val () =
+      if i > 0 then (emit_text (out, ", "))
+    // end of [val]
+    val () = emit_s0exp (out, s0e)
+  in
+    loop_sig (xs, i+1)
+  end // end of [list_cons]
+| list_nil ((*void*)) => ()
+) (* end of [loop_sig] *)
+//
+val-ATSINSmove_boxrec (inss) = ins0.instr_node
+//
+val-list_cons (ins, inss) = inss
+val-ATSINSmove_boxrec_new (tmp, s0e) = ins.instr_node
+val-S0Eide(name) = s0e.s0exp_node
+val-~Some_vt (s0rec) = typedef_search_opt (name)
+val () = the_clsname_push (the_namesp_get (), symbol_get_name(name))
+//
+val () = pushargs (inss)
+//
+val () = emit_text (out, "newobj instance void class ")
+val () = emit_text (out, the_clsname_get ())
+val () = emit_text (out, "'.ctor'")
+val () = emit_LPAREN (out)
+val () = loop_sig (s0rec.tyrec_node, 0)
+val () = emit_RPAREN (out)
+val () = emit_ENDL (out)
+//
+val () = emit_text (out, "stloc ")
+val () = emit_i0de (out, tmp)
+val () = emit_ENDL (out)
+//
+val _ = the_clsname_pop ()
+//
+in
+  // nothing
+end (* end of [emit_ATSINSmove_boxrec] *)
+
 (* ****** ****** *)
 //
 extern
@@ -1018,6 +1093,9 @@ ins0.instr_node of
   {
     val () = emit_text (out, "/* ATSdynloadflag_ext */\n")
   }
+//
+| ATSINSmove_boxrec _ =>
+    emit_ATSINSmove_boxrec (out, ins0)
 //
 | ATStailcalseq (inss) =>
   {
@@ -1332,33 +1410,154 @@ end // end of [emit_f0decl]
 //
 extern
 fun
-tyrec_labsel
-  (tyrec: tyrec, lab: symbol): int
+emit_typedef
+  (out: FILEref, id: i0de, tr: tyrec): void
 //
 implement
-tyrec_labsel
+emit_typedef
+  (out, id, tyrec) = {
+//
+fun loop_fld
+(
+  xs: tyfldlst, i: int
+) : void =
+(
+case+ xs of
+| list_cons (x, xs) => let
+    val TYFLD (id, s0e) = x.tyfld_node
+    val () = emit_text (out, ".field public")
+    val () = emit_SPACE (out)
+    val () = emit_s0exp (out, s0e)
+    val () = emit_SPACE (out)
+    val () = emit_i0de (out, id)
+    val () = emit_ENDL (out)
+  in
+    loop_fld (xs, i+1)
+  end // end of [list_cons]
+| list_nil ((*void*)) => ()
+) (* end of [loop_fld] *)
+//
+fun loop_sig
+(
+  xs: tyfldlst, i: int
+) : void =
+(
+case+ xs of
+| list_cons (x, xs) => let
+    val TYFLD (id, s0e) = x.tyfld_node
+    val () =
+      if i > 0 then (emit_text (out, ", "))
+    // end of [val]
+    val () = emit_s0exp (out, s0e)
+  in
+    loop_sig (xs, i+1)
+  end // end of [list_cons]
+| list_nil ((*void*)) => ()
+) (* end of [loop_sig] *)
+//
+fun loop_stfld
+(
+  xs: tyfldlst, i: int
+) : void =
+(
+case+ xs of
+| list_cons (x, xs) => let
+    val TYFLD (lab, s0e) = x.tyfld_node
+    val () = emit_text (out, "ldarg.0\n")
+    val () = emit_text (out, "ldarg")
+    val () = emit_SPACE (out)
+    val () = emit_int (out, i+1(*0 is the 'this' ptr*))
+    val () = emit_ENDL (out)
+    val () = emit_text (out, "stfld")
+    val () = emit_SPACE (out)
+    val () = emit_s0exp (out, s0e)
+    val () = emit_SPACE (out)
+    val () = emit_text (out, the_clsname_get ())
+    val () = emit_i0de (out, lab)
+    val () = emit_ENDL (out)
+  in
+    loop_stfld (xs, i+1)
+  end // end of [list_cons]
+| list_nil ((*void*)) =>
+  {
+    // object initialization
+    val () = emit_text (out, "ldarg.0\n")
+    val () = emit_text (out, "call instance void object::'.ctor'()\n")
+    val () = emit_text (out, "ret\n")
+  } (* end of [list_nil] *)
+) (* end of [loop_stfld] *)
+//
+  val namesp = the_namesp_get ()
+  val () = the_clsname_push (namesp, symbol_get_name(id.i0de_sym))
+//
+  val () = emit_text (out, ".namespace ")
+  val () = emit_text (out, namesp)
+  val () = emit_LBRACE (out)
+  val () = emit_ENDL (out)
+//
+  val () = emit_text (out, ".class")
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "public auto ansi") // TODO: figure out what [auto] and [ansi] mean
+  val () = emit_SPACE (out)
+  val () = emit_i0de (out, id)
+  val () = emit_SPACE (out)
+  val () = emit_LBRACE (out)
+  val () = emit_ENDL (out)
+  // fields
+  val () = loop_fld (tyrec.tyrec_node, 0)
+  val () = emit_ENDL (out)
+  // constructor
+  val () = emit_text (out, ".method public hidebysig specialname rtspecialname instance default void '.ctor'")
+  val () = emit_LPAREN (out)
+  val () = loop_sig (tyrec.tyrec_node, 0)
+  val () = emit_RPAREN (out)
+  val () = emit_text (out, " cil managed ")
+  val () = emit_LBRACE (out) // beg of constructor
+  val () = emit_ENDL (out)
+  val () = loop_stfld (tyrec.tyrec_node, 0)
+  val () = emit_RBRACE (out) // end of constructor
+  val () = emit_ENDL (out)
+  val () = emit_RBRACE (out) // end of class
+  val () = emit_ENDL (out)
+//
+  val () = emit_RBRACE (out) // end of [namespace]
+  val () = emit_ENDL (out)
+//
+  val _ = the_clsname_pop ()
+} (* end of [emit_typedef] *)
+
+(* ****** ****** *)
+
+//
+extern
+fun
+tyrec_labs0exp
+  (tyrec: tyrec, lab: symbol): s0exp
+//
+implement
+tyrec_labs0exp
   (tyrec, lab) = let
 //
 fun loop
 (
   xs: tyfldlst, i: int
-) : int =
+) : s0exp =
 (
 case+ xs of
 | list_cons (x, xs) => let
     val TYFLD (id, s0e) = x.tyfld_node
   in
-    if lab = id.i0de_sym then i else loop (xs, i+1)
+    if lab = id.i0de_sym then s0e else loop (xs, i+1)
   end // end of [list_cons
-| list_nil ((*void*)) => ~1(*error*)
+| list_nil ((*void*)) => exit(1)
 )
 //
 in
   loop (tyrec.tyrec_node, 0)
-end // end of [tyrec_labsel]
+end // end of [tyrec_labs0exp]
 //
 (* ****** ****** *)
-
+(*
 implement
 emit_SELcon
   (out, d0e) = let
@@ -1380,7 +1579,7 @@ val () = emit_RBRACKET (out)
 in
   // nothing
 end // end of [emit_SELcon]
-
+*)
 (* ****** ****** *)
 
 implement
@@ -1392,14 +1591,21 @@ val-ATSSELboxrec
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //
-val index = tyrec_labsel (s0rec, id.i0de_sym)
+val lab_s0exp = tyrec_labs0exp (s0rec, id.i0de_sym)
 //
 val () =
   emit_d0exp (out, d0rec)
 //
-val () = emit_LBRACKET (out)
-val () = emit_int (out, index)
-val () = emit_RBRACKET (out)
+val () = emit_ENDL (out)
+val () = emit_text (out, "ldfld")
+val () = emit_SPACE (out)
+val () = emit_s0exp (out, lab_s0exp)
+val () = emit_SPACE (out)
+val () = emit_text (out, the_namesp_get ())
+val () = emit_text (out, ".")
+val () = emit_symbol (out, name)
+val () = emit_text (out, "::")
+val () = emit_i0de (out, id)
 //
 in
   // nothing
@@ -1470,16 +1676,8 @@ d0c.d0ecl_node of
 | D0Ctypedef (id, def) =>
   {
     val () = typedef_insert (id.i0de_sym, def)
-    (*
-    val clsname = the_classname_get ()
-    // map ATS external names to CIL names
-    // - locally-defined (within a class in the current module)
-    // - [AssemblyRef]NameSpace.Class::Method
-    //   - namespace is a dotted name
-    // - [AssemblyRef]NameSpace.Type
-    // - [mscorlib]System.Void
-    val () = qual_insert_local (id.i0de_sym, clsname)
-    *)
+    val () = println!("emitting typedef")
+    val () = emit_typedef (out, id, def)
   } (* end of [D0Ctypedef] *)
 //
 | D0Cassume (id) =>
@@ -1594,6 +1792,7 @@ case+ d0cs of
     | D0Cinclude _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
     | D0Cifdef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
     | D0Cifndef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
+    | D0Ctypedef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
     | _ => d0cs
   ) // end of [list_cons]
 )
@@ -1647,7 +1846,8 @@ val () = emit_text (out, fname)
 val () = emit_text (out, "'")
 val () = emit_ENDL (out)
 //
-val d0cs = loop0 (out, d0cs) // all preprocessor definitions
+val () = the_namesp_push (namespace)
+val d0cs = loop0 (out, d0cs) // all preprocessor definitions, types
 //
 val () = emit_text (out, ".namespace")
 val () = emit_SPACE (out)
@@ -1674,6 +1874,7 @@ val () = emit_text (out, "/* end of namespace */")
 val () = emit_ENDL (out)
 //
 val _ = the_clsname_pop ()
+val _ = the_namesp_pop ()
 //
 in
   (*empty*)

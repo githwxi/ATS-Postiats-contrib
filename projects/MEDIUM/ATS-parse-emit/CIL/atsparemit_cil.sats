@@ -37,6 +37,10 @@ cilname_make_local
 (* ****** ****** *)
 *)
 
+fun the_namesp_pop (): string
+fun the_namesp_push (namesp: string): void
+fun the_namesp_get (): string
+
 fun the_clsname_pop (): string
 fun the_clsname_push (namesp: string, cls: string): void
 fun the_clsname_get (): string

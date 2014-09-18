@@ -39,7 +39,7 @@
 //
 // atstype_ptr, atstype_ptrk
 // atstype_ref
-// atstype_boxed
+#define atstype_boxed object
 // atstype_datconptr
 // atstype_datcontyp
 // atstype_exncon
