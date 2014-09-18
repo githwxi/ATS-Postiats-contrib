@@ -6,7 +6,6 @@
 
 staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
 
-
 (* ****** ****** *)
 
 staload "contrib/libats-/wdblair/prelude/SATS/list.sats"
