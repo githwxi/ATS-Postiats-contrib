@@ -102,6 +102,11 @@ function
 ats2phppre_fprint_newline($out) { fprintf($out, "\n"); fflush($out); return; }
 
 /* ****** ****** */
+
+function
+ats2phppre_lazy2cloref($lazyval) { return $lazyval[1]; }
+
+/* ****** ****** */
 //
 function
 ats2phppre_assert_bool0($tfv) { if (!$tfv) exit("**EXIT**"); return; }

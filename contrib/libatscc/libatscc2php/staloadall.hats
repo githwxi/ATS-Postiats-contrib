@@ -17,6 +17,7 @@ staload "./SATS/string.sats"
 staload "./SATS/filebas.sats"
 //
 staload "./SATS/list.sats"
+staload "./SATS/intrange.sats"
 staload "./SATS/reference.sats"
 //
 staload "./SATS/PHPref.sats"
