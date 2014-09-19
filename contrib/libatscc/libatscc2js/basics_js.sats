@@ -52,6 +52,12 @@ fun toString{a:t@ype}(obj: a): string = "mac#%"
 (* ****** ****** *)
 //
 fun
+lazy2cloref
+  {a:t0p}(lazy(a)): ((*void*)) -<cloref1> (a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 assert_errmsg_bool0
   (x: bool, msg: string): void = "mac#%"
 fun

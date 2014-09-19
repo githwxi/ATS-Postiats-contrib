@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_list_"
+ATS_STATIC_PREFIX "_ats2jspre_intrange_"
 //
 (* ****** ****** *)
 //

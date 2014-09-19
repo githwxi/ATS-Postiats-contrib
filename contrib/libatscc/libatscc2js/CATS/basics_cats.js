@@ -48,6 +48,13 @@ ATSCKpat_con1 (con, tag) { return (con[0] === tag); }
 
 /* ****** ****** */
 
+/*
+fun
+ATSPMVlazyval_make (thunk) { return [0, thunk]; }
+*/
+
+/* ****** ****** */
+
 function
 ats2jspre_alert(msg) { alert(msg); return; }
 
@@ -60,6 +67,11 @@ ats2jspre_typeof(obj) { return typeof(obj); }
 
 function
 ats2jspre_toString(obj) { return obj.toString(); }
+
+/* ****** ****** */
+
+function
+ats2jspre_lazy2cloref(lazyval) { return lazyval[1]; }
 
 /* ****** ****** */
 //
