@@ -9,16 +9,27 @@
 
 (* ****** ****** *)
 
-abstype webox_type
+%{#
+typedef char *charptr ;
+%} ;
+abstype charptr = $extype"charptr"
+
+(* ****** ****** *)
+
+abstype webox_type = ptr
 typedef webox = webox_type
 typedef weboxlst = List (webox)
 typedef weboxopt = Option (webox)
 
 (* ****** ****** *)
 
-abstype color_type
-typedef color = color_type
+typedef color = string
 
+(* ****** ****** *)
+
+fun randcolor ((*void*)): color
+fun randcolor_initize ((*void*)): void
+  
 (* ****** ****** *)
 
 datatype
@@ -28,56 +39,112 @@ tabstyle =
 
 (* ****** ****** *)
 //
+fun tabstyle_isbox (ts: tabstyle): bool
+fun tabstyle_ishbox (ts: tabstyle): bool
+fun tabstyle_isvbox (ts: tabstyle): bool
+//
+overload .isbox with tabstyle_isbox
+overload .ishbox with tabstyle_ishbox
+overload .isvbox with tabstyle_isvbox
+//
+(* ****** ****** *)
+//
+#define UID "uid"
+#define NAME "name"
+//
+#define WIDTH "width"
+#define PWIDTH "pwidth"
+//
+#define HEIGHT "height"
+//
+#define COLOR "color"
+#define BGCOLOR "bgcolor"
+//
+#define PARENT "parent"
+#define CHILDREN "children"
+//
+#define TABSTYLE "tabstyle"
+#define PERCENTLST "percentlst"
+//
+#define CONTENT "content"
+//
+(* ****** ****** *)
+//
 // HX-2014-09-13:
 // uid: unique indentification
 //
-fun webox_get_uid (webox): int
+fun{}
+webox_get_uid (webox): int
 //
 // HX-2014-09-13:
 // name: name given by the user
 //
-fun webox_get_name (webox): string
+fun{}
+webox_get_name (webox): string
 //
 overload .uid with webox_get_uid
 overload .name with webox_get_name
 //
 (* ****** ****** *)
 //
-fun webox_get_width (webox): int
-fun webox_set_width (webox, width: int): void
+fun{}
+webox_get_width (webox): int
+fun{}
+webox_set_width (webox, width: int): void
 //
 overload .width with webox_get_width
 overload .width with webox_set_width
 //
 (* ****** ****** *)
 //
-fun webox_get_height (webox): int
-fun webox_set_height (webox, height: int): void
+// HX: p...: percentage
+//
+fun{}
+webox_get_pwidth (webox): int
+fun{}
+webox_set_pwidth (webox, pwidth: int): void
+//
+overload .pwidth with webox_get_pwidth
+overload .pwidth with webox_set_pwidth
+//
+(* ****** ****** *)
+//
+fun{}
+webox_get_height (webox): int
+fun{}
+webox_set_height (webox, height: int): void
 //
 overload .height with webox_get_height
 overload .height with webox_set_height
 //
 (* ****** ****** *)
 //
-fun webox_get_color (webox): int
-fun webox_set_color (webox, color: int): void
+fun{}
+webox_get_color (webox): color
+fun{}
+webox_set_color (webox, c: color): void
 //
 overload .color with webox_get_color
 overload .color with webox_set_color
 //
 (* ****** ****** *)
 //
-fun webox_get_bgcolor (webox): int
-fun webox_set_bgcolor (webox, bgcolor: int): void
+fun{}
+webox_get_bgcolor (webox): color
+fun{}
+webox_set_bgcolor (webox, c: color): void
 //
 overload .bgcolor with webox_get_bgcolor
 overload .bgcolor with webox_set_bgcolor
 //
 (* ****** ****** *)
 //
-fun webox_isrt (x: webox): bool
-fun webox_get_parent (webox): weboxopt
-fun webox_set_parent (webox, opt: weboxopt): void
+fun{}
+webox_isrt (x: webox): bool
+fun{}
+webox_get_parent (webox): weboxopt
+fun{}
+webox_set_parent (webox, opt: weboxopt): void
 //
 overload .isrt with webox_isrt
 overload .parent with webox_get_parent
@@ -85,24 +152,109 @@ overload .parent with webox_set_parent
 //
 (* ****** ****** *)
 //
-fun webox_get_children (webox): weboxlst
-fun webox_set_children (webox, xs: weboxlst): void
+fun{}
+webox_get_children (webox): weboxlst
+fun{}
+webox_set_children (webox, xs: weboxlst): void
+fun{}
+webox_set_children_1 (webox, x: webox): void
+fun{}
+webox_set_children_2 (webox, x1: webox, x2: webox): void
+fun{}
+webox_set_children_3 (webox, x1: webox, x2: webox, x3: webox): void
 //
 overload .children with webox_get_children
 overload .children with webox_set_children
+overload .children with webox_set_children_1
+overload .children with webox_set_children_3
+overload .children with webox_set_children_2
 //
 (* ****** ****** *)
 //
-fun webox_get_tabstyle (webox): weboxlst
-fun webox_set_tabstyle (webox, sty: tabstyle): void
+fun{}
+webox_get_tabstyle (webox): tabstyle
+fun{}
+webox_set_tabstyle (webox, sty: tabstyle): void
 //
 overload .tabstyle with webox_get_tabstyle
 overload .tabstyle with webox_set_tabstyle
 //
 (* ****** ****** *)
+//
+fun{}
+webox_get_percentlst (webox): List0(int)
+fun{}
+webox_set_percentlst (webox, pcs: List(int)): void
+//
+overload .percentlst with webox_get_percentlst
+overload .percentlst with webox_set_percentlst
+//
+(* ****** ****** *)
+//
+fun{}
+percentlst_get_at (pcs: List0(int), i: intGte(0)): int
+//
+(* ****** ****** *)
+//
+fun{}
+webox_get_content (webox): string
+fun{}
+webox_set_content (webox, content: string): void
+//
+overload .content with webox_get_content
+overload .content with webox_set_content
+//
+(* ****** ****** *)
+//
+fun
+webox0_make ((*void*)): webox
+//
+fun{}
+webox_make ((*void*)): webox
+fun{}
+webox_make_name (name: string): webox
+fun{}
+webox_make_name_width (name: string, width: int): webox
+fun{}
+webox_make_name_pwidth (name: string, pwidth: int): webox
+//
+(* ****** ****** *)
 
-fun webox_make_name (name: string): webox
-fun webox_make_name_width (name: string, width: int): webox
+fun{}
+fprint_webox_width (out: FILEref, wbx: webox): void
+
+(* ****** ****** *)
+
+fun{}
+fprint_webox_height (out: FILEref, wbx: webox): void
+
+(* ****** ****** *)
+
+fun{}
+fprint_webox_color (out: FILEref, wbx: webox): void
+fun{}
+fprint_webox_bgcolor (out: FILEref, wbx: webox): void
+
+(* ****** ****** *)
+
+fun{}
+fprint_css_preamble (out: FILEref): void
+fun{}
+fprint_css_postamble (out: FILEref): void
+
+(* ****** ****** *)
+
+fun{}
+fprint_webox_css_one (out: FILEref, webox): void
+fun{}
+fprint_webox_css_all (out: FILEref, webox): void
+fun{}
+fprint_weboxlst_css_all (out: FILEref, weboxlst): void
+
+(* ****** ****** *)
+
+fun{}
+fprint_webox_html_all (out: FILEref, webox): void
 
 (* ****** ****** *)
 

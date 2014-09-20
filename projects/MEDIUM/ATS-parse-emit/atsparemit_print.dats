@@ -187,6 +187,8 @@ case+ x of
 | ATSINSmove_boxrec_new () => pr "ATSINSmove_boxrec_new"
 | ATSINSstore_boxrec_ofs () => pr "ATSINSstore_boxrec_ofs"
 //
+| ATSINSmove_delay () => pr "ATSINSmove_delay"
+//
 | ATStailcal_beg () => pr "ATStailcal_beg"
 | ATStailcal_end () => pr "ATStailcal_end"
 | ATSINSmove_tlcal () => pr "ATSINSmove_tlcal"

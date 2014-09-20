@@ -25,6 +25,9 @@ patsopt_atscc2js
 //
 extern
 fun
+patsopt_waiting(msg: string): void = "mac#"
+extern
+fun
 patsopt_atscc2js_do_response(resp: string): void = "mac#"
 //
 /* ****** ****** */
@@ -33,7 +36,10 @@ implement
 patsopt_atscc2js
   (code) = let
 //
-val xmlhttp = XMLHttpRequest_new()
+val () = patsopt_waiting("Waiting for the server ...")
+//
+val xmlhttp =
+  XMLHttpRequest_new()
 val ((*void*)) =
 xmlhttp.onreadystatechange
 (

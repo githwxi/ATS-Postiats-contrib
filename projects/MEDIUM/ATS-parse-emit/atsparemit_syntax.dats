@@ -1187,36 +1187,6 @@ end // end of [ATSINSstore_con1_ofs_make]
 (* ****** ****** *)
 
 implement
-ATSINSmove_fltrec_make
-(
-  tok1, inss, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATSINSmove_fltrec (inss))
-end // end of [ATSINSmove_fltrec_make]
-
-(* ****** ****** *)
-
-implement
-ATSINSstore_fltrec_ofs_make
-(
-  tok1, tmp, s0e, lab, d0e, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATSINSstore_fltrec_ofs (tmp, s0e, lab, d0e))
-end // end of [ATSINSstore_fltrec_ofs_make]
-
-(* ****** ****** *)
-
-implement
 ATSINSmove_boxrec_make
 (
   tok1, inss, tok2
@@ -1256,8 +1226,59 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSstore_boxrec_ofs (tmp, s0e, lab, d0e))
+//
+instr_make_node
+  (loc, ATSINSstore_boxrec_ofs (tmp, s0e, lab, d0e))
+//
 end // end of [ATSINSstore_boxrec_ofs_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_fltrec_make
+(
+  tok1, inss, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_fltrec (inss))
+end // end of [ATSINSmove_fltrec_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSstore_fltrec_ofs_make
+(
+  tok1, tmp, s0e, lab, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+//
+instr_make_node
+  (loc, ATSINSstore_fltrec_ofs (tmp, s0e, lab, d0e))
+//
+end // end of [ATSINSstore_fltrec_ofs_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_delay_make
+(
+  tok1, tmp, s0e_res, thunk, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_delay (tmp, s0e_res, thunk))
+end // end of [ATSINSstore_fltrec_ofs_make]
 
 (* ****** ****** *)
 

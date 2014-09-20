@@ -34,6 +34,34 @@ src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSglobal_cats.js">
 src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/Ajax/Ajax_cats.js"></script>
 
 <script>
+
+var hello = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+/* ****** ****** */\n\
+//\n\
+#define ATS_MAINATSFLAG 1\n\
+#define ATS_DYNLOADNAME \"my_dynload\"\n\
+//\n\
+/* ****** ****** */\n\
+//\n\
+val () = alert (\"Hello, world!\")\n\
+//\n\
+/* ****** ****** */\n\
+\n\
+%{$\n\
+my_dynload();\n\
+%}\n\
+\n\
+/* ****** ****** */\n\
+\n\
+/* end of [hello.dats] */\n\
+" ; // end of [hello]
+
 var fact = "\
 //\n\
 #include\n\
@@ -168,7 +196,8 @@ my_dynload();\n\
 %} // end of [%{$]\n\
 " // end of [var]
 
-var thePreselected = [fact, fibats, rtfind];
+var thePreselected =
+  [hello, fact, fibats, rtfind];
 
 function
 program_input_choose()
@@ -228,6 +257,13 @@ program_input_compile()
 /*
   alert("program_input_compile: leave");
 */
+  return;
+}
+//
+function
+patsopt_waiting(msg)
+{
+  var E = ace.edit("program_output"); E.getSession().setValue(msg);
   return;
 }
 //

@@ -48,14 +48,14 @@ contrib/zlog/zlog-latest-stable/
 
 ######
 #
-contrib/libatscc2py/output/*_cats.py
-contrib/libatscc2py/output/*_dats.py
+contrib/libatscc/libatscc2py/output/*_cats.py
+contrib/libatscc/libatscc2py/output/*_dats.py
 #
-contrib/libatscc2js/output/CATS/*_cats.js
-contrib/libatscc2js/output/DATS/*_dats.js
+contrib/libatscc/libatscc2js/output/CATS/*_cats.js
+contrib/libatscc/libatscc2js/output/DATS/*_dats.js
 #
-contrib/libatscc2php/output/CATS/*_cats.php
-contrib/libatscc2php/output/DATS/*_dats.php
+contrib/libatscc/libatscc2php/output/CATS/*_cats.php
+contrib/libatscc/libatscc2php/output/DATS/*_dats.php
 #
 ######
 

@@ -499,6 +499,24 @@ tok.token_node of
     // end of [if]
   end // end of [ATSINSstore_fltrec_ofs]
 //
+| T_KWORD(ATSINSmove_delay()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent6 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent7 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent8 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then (
+        ATSINSmove_delay_make (tok, ent2, ent4, ent6, ent7)
+      ) else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSINSmove_delay]
+//
 | T_KWORD(ATSINSmove_tlcal()) => let
     val bt = 0
     val () = incby1 ()

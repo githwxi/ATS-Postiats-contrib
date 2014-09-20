@@ -105,6 +105,7 @@ implement{
   val () = the_timer_finish ()
   val () = button_off ($BUTTONfinish.get ())
   val () = button_off ($BUTTONpause.get ())
+  val () = button_off ($BUTTONresume.get ())
 }
 
 (* ****** ****** *)

@@ -276,8 +276,13 @@ fun emit2_ATSfunbodyseq
 extern
 fun emit2_ATSINSmove_con1
   (out: FILEref, ind: int, ins: instr) : void
+//
 extern
 fun emit2_ATSINSmove_boxrec
+  (out: FILEref, ind: int, ins: instr) : void
+//
+extern
+fun emit2_ATSINSmove_delay
   (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
@@ -498,8 +503,12 @@ ins0.instr_node of
 //
 | ATSINSmove_con1 _ =>
     emit2_ATSINSmove_con1 (out, ind, ins0)
+//
 | ATSINSmove_boxrec _ =>
     emit2_ATSINSmove_boxrec (out, ind, ins0)
+//
+| ATSINSmove_delay _ =>
+    emit2_ATSINSmove_delay (out, ind, ins0)
 //
 | ATStailcalseq (inss) =>
   {
@@ -696,7 +705,7 @@ case+ inss of
   end // end of [list_cons]
 )
 //
-val-ATSINSmove_con1 (inss) = ins0.instr_node
+val-ATSINSmove_con1(inss) = ins0.instr_node
 //
 val-list_cons (ins, inss) = inss
 val-ATSINSmove_con1_new (tmp, _) = ins.instr_node  
@@ -766,7 +775,7 @@ case+ inss of
   end // end of [list_cons]
 )
 //
-val-ATSINSmove_boxrec (inss) = ins0.instr_node
+val-ATSINSmove_boxrec(inss) = ins0.instr_node
 //
 val-list_cons (ins, inss) = inss
 val-ATSINSmove_boxrec_new (tmp, _) = ins.instr_node  
@@ -785,6 +794,27 @@ val () = emit_SEMICOLON (out)
 in
   // nothing
 end // end of [emit2_ATSINSmove_boxrec]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_delay
+  (out, ind, ins0) = let
+//
+val-ATSINSmove_delay(tmp, s0e, thunk) = ins0.instr_node
+//
+val () = emit_nspc (out, ind)
+val () = emit_tmpvar (out, tmp)
+val () = emit_text (out, " = ")
+val () = emit_LBRACKET (out)
+val () = emit_int (out, 0)
+val () = emit_text (out, ", ")
+val () = emit_d0exp (out, thunk)
+val () = emit_RBRACKET (out)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_delay]
 
 (* ****** ****** *)
 
