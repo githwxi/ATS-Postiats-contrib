@@ -15,7 +15,7 @@ ATSPAREMIT=./../atscc2cil
 
 MONO=mono
 ILASM=ilasm
-ILPP=cpp -P -B $(PATSHOMERELOC)/contrib
+ILPP=cpp -P -iquote $(PATSHOMERELOC)/contrib
 
 ######
 
@@ -57,7 +57,7 @@ fact2_dats.il: fact2_dats.ilpp ; \
 $(ILPP) $< $@
 fact2_dats.exe: fact2_dats.il ; \
 $(ILASM) /output:$@ $<
-fact2:: fact2_dats.exe ; $(MONO) fact2_dats.exe
+fact2:: fact2_dats.exe ; $(MONO) fact2_dats.exe 10
 regress:: fact2
 cleanall:: ; $(RMF) fact2_dats.exe fact2_dats.il fact2_dats.ilpp fact2_dats.c
 
@@ -73,7 +73,7 @@ f91_dats.il: f91_dats.ilpp ; \
 $(ILPP) $< $@
 f91_dats.exe: f91_dats.il ; \
 $(ILASM) /output:$@ $<
-f91:: f91_dats.exe ; $(MONO) f91_dats.exe
+f91:: f91_dats.exe ; $(MONO) f91_dats.exe 23
 regress:: f91
 cleanall:: ; $(RMF) f91_dats.exe f91_dats.il f91_dats.ilpp f91_dats.c
 
@@ -89,6 +89,73 @@ fib_dats.il: fib_dats.ilpp ; \
 $(ILPP) $< $@
 fib_dats.exe: fib_dats.il ; \
 $(ILASM) /output:$@ $<
-fib:: fib_dats.exe ; $(MONO) fib_dats.exe
+fib:: fib_dats.exe ; $(MONO) fib_dats.exe 100
 regress:: fib
 cleanall:: ; $(RMF) fib_dats.exe fib_dats.il fib_dats.ilpp fib_dats.c
+
+######
+
+all:: \
+fibats_dats.exe
+fibats_dats.c: fibats.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+fibats_dats.ilpp: fibats_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+fibats_dats.il: fibats_dats.ilpp ; \
+$(ILPP) $< $@
+fibats_dats.exe: fibats_dats.il ; \
+$(ILASM) /output:$@ $<
+fibats:: fibats_dats.exe ; $(MONO) fibats_dats.exe 100
+regress:: fib
+cleanall:: ; $(RMF) fibats_dats.exe fibats_dats.il fibats_dats.ilpp fibats_dats.c
+
+######
+
+all:: \
+acker_dats.exe
+acker_dats.c: acker.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+acker_dats.ilpp: acker_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+acker_dats.il: acker_dats.ilpp ; \
+$(ILPP) $< $@
+acker_dats.exe: acker_dats.il ; \
+$(ILASM) /output:$@ $<
+acker:: acker_dats.exe ; $(MONO) acker_dats.exe 3 3
+regress:: acker
+cleanall:: ; $(RMF) acker_dats.exe acker_dats.il acker_dats.ilpp acker_dats.c
+
+######
+
+all:: \
+isevn_dats.exe
+isevn_dats.c: isevn.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+isevn_dats.ilpp: isevn_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+isevn_dats.il: isevn_dats.ilpp ; \
+$(ILPP) $< $@
+isevn_dats.exe: isevn_dats.il ; \
+$(ILASM) /output:$@ $<
+isevn:: isevn_dats.exe ; $(MONO) isevn_dats.exe 100
+regress:: isevn
+cleanall:: ; $(RMF) isevn_dats.exe isevn_dats.il isevn_dats.ilpp isevn_dats.c
+
+######
+
+all:: \
+weekday_dats.exe
+weekday_dats.c: weekday.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+weekday_dats.ilpp: weekday_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+weekday_dats.il: weekday_dats.ilpp ; \
+$(ILPP) $< $@
+weekday_dats.exe: weekday_dats.il ; \
+$(ILASM) /output:$@ $<
+weekday:: weekday_dats.exe ; $(MONO) weekday_dats.exe
+regress:: weekday
+cleanall:: ; $(RMF) weekday_dats.exe weekday_dats.il weekday_dats.ilpp weekday_dats.c
+
+######
+

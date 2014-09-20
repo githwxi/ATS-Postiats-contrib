@@ -65,17 +65,37 @@
 #define ATSCKpat_char int32 ats2cilpre::atsckpat_char(char, char)
 #define ATSCKpat_float int32 ats2cilpre::atsckpat_float(float32, float32)
 #define ATSCKpat_string int32 ats2cilpre::atsckpat_string(string, string)
+#define ATSCKpat_con0 int32 ats2cilpre::atsckpat_con0(object, int32)
+
+/* ****** ****** */
+// boolean
+
+#define ats2cilpre_print_bool void [mscorlib]System.Console::Write(bool)
 
 /* ****** ****** */
 
 // integer
 #define ats2cilpre_add_int0_int0 int32 ats2cilpre::add_int0_int0(int32, int32)
-#define ats2cilpre_gt_int0_int0 int32 ats2cilpre::gt_int0_int0(int32, int32)
-#define ats2cilpre_lte_int0_int0 int32 ats2cilpre::lte_int0_int0(int32, int32)
 #define ats2cilpre_gte_int0_int0 int32 ats2cilpre::gte_int0_int0(int32, int32)
 #define ats2cilpre_sub_int0_int0 int32 ats2cilpre::sub_int0_int0(int32, int32)
 #define ats2cilpre_mul_int0_int0 int32 ats2cilpre::mul_int0_int0(int32, int32)
+#define ats2cilpre_lt_int0_int0 int32 ats2cilpre::lt_int0_int0(int32, int32)
+#define ats2cilpre_lte_int0_int0 int32 ats2cilpre::lte_int0_int0(int32, int32)
+#define ats2cilpre_gt_int0_int0 int32 ats2cilpre::gt_int0_int0(int32, int32)
+#define ats2cilpre_gte_int0_int0 int32 ats2cilpre::gte_int0_int0(int32, int32)
 #define ats2cilpre_eq_int0_int0 int32 ats2cilpre::eq_int0_int0(int32, int32)
+#define ats2cilpre_neq_int0_int0 int32 ats2cilpre::neq_int0_int0(int32, int32)
+
+#define ats2cilpre_add_int1_int1 int32 ats2cilpre::add_int0_int0(int32, int32)
+#define ats2cilpre_gte_int1_int1 int32 ats2cilpre::gte_int0_int0(int32, int32)
+#define ats2cilpre_sub_int1_int1 int32 ats2cilpre::sub_int0_int0(int32, int32)
+#define ats2cilpre_mul_int1_int1 int32 ats2cilpre::mul_int0_int0(int32, int32)
+#define ats2cilpre_lt_int1_int1 int32 ats2cilpre::lt_int0_int0(int32, int32)
+#define ats2cilpre_lte_int1_int1 int32 ats2cilpre::lte_int0_int0(int32, int32)
+#define ats2cilpre_gt_int1_int1 int32 ats2cilpre::gt_int0_int0(int32, int32)
+#define ats2cilpre_gte_int1_int1 int32 ats2cilpre::gte_int0_int0(int32, int32)
+#define ats2cilpre_eq_int1_int1 int32 ats2cilpre::eq_int0_int0(int32, int32)
+#define ats2cilpre_neq_int1_int1 int32 ats2cilpre::neq_int0_int0(int32, int32)
 
 // float
 #define ats2cilpre_add_double0_double0 float64 ats2cilpre::add_double0_double0(float64, float64)
@@ -84,6 +104,14 @@
 #define ats2cilpre_sub_double0_double0 float64 ats2cilpre::sub_double0_double0(float64, float64)
 #define ats2cilpre_mul_double0_double0 float64 ats2cilpre::mul_double0_double0(float64, float64)
 #define ats2cilpre_eq_double0_double0 int32 ats2cilpre::eq_double0_double0(float64, float64)
+
+/* ****** ****** */
+
+.class public auto ansi sealed ats2enum extends [mscorlib]System.Enum {
+  .field public specialname rtspecialname int32 value__
+}
+
+/* ****** ****** */
 
 .class ats2cilpre {
   .method static public int32 atsckpat_int(int32 x, int32 y) {
@@ -116,42 +144,20 @@
     call int32 [mscorlib]System.String::Equals(string, string)
     ret
   }
+  .method static public int32 atsckpat_con0(object x, int32 y) {
+    ldarg x
+    unbox ats2enum
+    ldfld int32 ats2enum::value__
+    ldarg y
+    ceq
+    ret
+  }
 
   // integer
   .method static public int32 add_int0_int0(int32 x, int32 y) {
     ldarg x
     ldarg y
     add
-    ret
-  }
-  .method static public int32 gt_int0_int0(int32 x, int32 y) {
-    ldarg x
-    ldarg y
-    bgt IL1
-    ldc.i4.0
-    ret
-    IL1:
-    ldc.i4.1
-    ret
-  }
-  .method static public int32 lte_int0_int0(int32 x, int32 y) {
-    ldarg x
-    ldarg y
-    ble IL1
-    ldc.i4.0
-    ret
-    IL1:
-    ldc.i4.1
-    ret
-  }
-  .method static public int32 gte_int0_int0(int32 x, int32 y) {
-    ldarg x
-    ldarg y
-    bge IL1
-    ldc.i4.0
-    ret
-    IL1:
-    ldc.i4.1
     ret
   }
   .method static public int32 sub_int0_int0(int32 x, int32 y) {
@@ -168,11 +174,69 @@
     mul
     ret
   }
+  .method static public int32 div_int0_int0(int32 x, int32 y) {
+    .maxstack 2
+    ldarg.0
+    ldarg.1
+    div
+    ret
+  }
+  .method static public int32 lt_int0_int0(int32 x, int32 y) {
+    ldarg x
+    ldarg y
+    blt IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
+  .method static public int32 lte_int0_int0(int32 x, int32 y) {
+    ldarg x
+    ldarg y
+    ble IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
+  .method static public int32 gt_int0_int0(int32 x, int32 y) {
+    ldarg x
+    ldarg y
+    bgt IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
+  .method static public int32 gte_int0_int0(int32 x, int32 y) {
+    ldarg x
+    ldarg y
+    bge IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
+    ret
+  }
   .method static public int32 eq_int0_int0(int32 x, int32 y) {
     .maxstack 2
     ldarg x
     ldarg y
     ceq
+    ret
+  }
+  .method static public int32 neq_int0_int0(int32 x, int32 y) {
+    .maxstack 2
+    ldarg.0
+    ldarg.1
+    bne.un IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
     ret
   }
 
@@ -229,8 +293,8 @@
 /* ****** ****** */
 // string
 
-#define atspre_print_bool void [mscorlib]System.Console::Write(int32)
-#define atspre_print_string void [mscorlib]System.Console::Write(string)
+#define ats2cilpre_print_bool void [mscorlib]System.Console::Write(int32)
+#define ats2cilpre_print_string void [mscorlib]System.Console::Write(string)
 #define ats2cilpre_print_newline void [mscorlib]System.Console::WriteLine()
 #define ats2cilpre_print_int void [mscorlib]System.Console::Write(int32)
 

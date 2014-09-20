@@ -139,6 +139,21 @@ in
 end // end of [emit_PMVstring]
 
 (* ****** ****** *)
+
+implement
+  emit_ATSCKpat_con0
+    (out, d0e, tag) =
+{
+  val () = emit_d0exp (out, d0e)
+  val () = emit_ENDL (out)
+  val () = emit_text (out, "ldc.i4")
+  val () = emit_SPACE (out)
+  val () = emit_int (out, tag)
+  val () = emit_ENDL (out)
+  val () = emit_text (out, "call ATSCKpat_con0")
+} (* end of [emit_ATSCKpat_con0] *)
+
+(* ****** ****** *)
 //
 implement
 emit_i0de
@@ -568,11 +583,6 @@ d0e.d0exp_node of
 //
 | D0Eappid (id, d0es) => let
     val () = emit_d0explst (out, d0es)
-
-    // need type for [id]
-    // what is [tyrec] type for?
-    // val-~Some_vt (s0rec) = typedef_search_opt (id.i0de_sym)
-    
     val f0head_opt = f0head_search_opt (id.i0de_sym)
   in
     case+ f0head_opt of
@@ -670,6 +680,9 @@ d0e.d0exp_node of
     val () = emit_SPACE (out)
     val () = emit_text (out, rep)
   }
+//
+| ATSCKpat_con0
+    (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
 //
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e)
 //
@@ -894,12 +907,12 @@ ins0.instr_node of
   {
     val () = emit_tmpvar_ld (out, tmp)
     val () = emit_newline (out)
-    val () = emit_text (out, "ret")
+    val () = emit_text (out, "ret\n")
   }
 //
 | ATSreturn_void (tmp) =>
   {
-    val () = emit_text (out, "ret")
+    val () = emit_text (out, "ret\n")
   }
 //
 | _ => emit_text (out, "**INSTR**")
@@ -1008,12 +1021,12 @@ ins0.instr_node of
     val () = emit_SPACE (out)
     val () = emit_i0de (out, tmp)
     val () = emit_newline (out)
-    val () = emit_text (out, "ret")
+    val () = emit_text (out, "ret\n")
   }
 //
 | ATSreturn_void (tmp) =>
   {
-    val () = emit_text (out, "ret")
+    val () = emit_text (out, "ret\n")
   }
 //
 (*
@@ -1063,10 +1076,22 @@ ins0.instr_node of
     val () = emit_newline (out)
     val () = emit_tmpvar_st (out, tmp)
   } (* end of [ATSINSmove] *)
+//
 | ATSINSmove_void (_, d0e) =>
   {
     val () = emit_d0exp (out, d0e)
   } (* end of [ATSINSmove_void] *)
+//
+| ATSINSmove_con0 (tmp, tag) =>
+  {
+    val () = emit_text (out, "ldc.i4")
+    val () = emit_SPACE (out)
+    val () = emit_PMVint (out, tag)
+    val () = emit_ENDL (out)
+    val () = emit_text (out, "box ats2enum")
+    val () = emit_ENDL (out)
+    val () = emit_tmpvar_st (out, tmp)
+  }
 //
 | ATSdynload (dummy) =>
   {
