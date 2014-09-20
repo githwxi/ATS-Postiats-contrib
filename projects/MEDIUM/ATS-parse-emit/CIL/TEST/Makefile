@@ -15,7 +15,7 @@ ATSPAREMIT=./../atscc2cil
 
 MONO=mono
 ILASM=ilasm
-ILPP=cpp -P -iquote $(PATSHOMERELOC)/contrib
+ILPP=cpp -P -iquote $(PATSHOMERELOC)/contrib/libatscc
 
 ######
 
