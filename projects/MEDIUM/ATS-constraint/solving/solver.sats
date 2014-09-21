@@ -6,7 +6,7 @@
 "constraint.hats"
 
 staload "constraint.sats"
-staload "{$LIBATSWDBLAIR}/SMT/smt.sats"
+staload "solving/smt.sats"
 
 absviewt@ype smtenv_viewtype = @{
   smt= ptr,
@@ -98,10 +98,6 @@ fun formula_make_s2cst_s2explst
 (* ****** ****** *)
 
 fun sort_make (s2rt): sort
-
-(* ****** ****** *)
-
-fun smtlib2_assert_file (file: string): void
 
 (* ****** ****** *)
 

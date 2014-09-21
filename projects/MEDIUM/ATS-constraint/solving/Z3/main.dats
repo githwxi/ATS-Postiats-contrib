@@ -24,10 +24,6 @@ dynload "solving/Z3/z3_dynload.dats"
 implement main0 (argc, argv) = let
   val c3t = parse_c3nstr_from_stdin ()
   val ()  = constraint3_initialize ()
-  val ()  =
-    (* The user has some assertions in a file *)
-    if argc >= 2 then
-      smtlib2_assert_file (argv[1])
 in
   c3nstr_solve (c3t)
 end

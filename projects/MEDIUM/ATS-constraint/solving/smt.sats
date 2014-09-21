@@ -35,12 +35,30 @@
 absvtype solver = ptr
 
 absvtype formula = ptr
+
+vtypedef formulalst = List0_vt (formula)
+
 absvtype func_decl = ptr
 absvtype sort = ptr
 
 (* ****** ****** *)
 
-fun the_solver_get (): solver
+(**
+  Utilizing an External Script Interface
+*)
+
+fun load_user_scripts (
+  slv: !solver, path: string, scan: bool
+): void
+
+(**
+  Users can provide macro definitions
+  for static functions. We need a way to
+  evaluate them.
+*)
+fun evaluate_macro_opt (
+  string, !formulalst
+): Option_vt (formula)
 
 (* ****** ****** *)
 
@@ -86,12 +104,6 @@ make_app (
   f: func_decl, args: List0_vt (formula)
 ): formula
 
-(* ****** ****** *)
-
-fun 
-parse_smtlib2_file
-  (file:string, decl: List0_vt(@(string, func_decl))): formula
-  
 (* ****** ****** *)
 
 // Prop Logic and Equality

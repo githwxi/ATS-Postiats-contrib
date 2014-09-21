@@ -2,8 +2,11 @@
   An interface to manage symbols.
 *)
 
+#define ATS_STALOADFLAG 0
+#define ATS_DYNLOADFLAG 0
+
 %{#
-#include "contrib/libats-/wdblair/binutils/CATS/library.cats"
+#include "contrib/libats-/wdblair/binutil/CATS/library.cats"
 %}
 
 abstype symbol = ptr

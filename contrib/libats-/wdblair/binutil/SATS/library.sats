@@ -5,15 +5,18 @@
   to provide a basic interface.
 *)
 
+#define ATS_STALOADFLAG 0
+#define ATS_DYNLOADFLAG 0
+
 staload "contrib/libats-/wdblair/prelude/SATS/error.sats"
 
 %{#
-#include "contrib/libats-/wdblair/binutils/CATS/library.cats"
+#include "contrib/libats-/wdblair/binutil/CATS/library.cats"
 %}
 
 staload "contrib/libats-/wdblair/binutil/SATS/symbol.sats"
 
-abstype library
+abstype library = ptr
 
 fun
 library_open_lazy (string): ErrorString (library)

@@ -48,7 +48,7 @@ $LinMap.equal_key_key<symbol> (s0, s1) =
 implement
 $LinMap.compare_key_key<symbol> (s0, s1) =
   compare_symbol_symbol (s0, s1)
-
+  
 (*
   This map keeps track of static constants that map to function macros.
   For example, if someone gives a static instance of ~1, this is represented
@@ -223,7 +223,7 @@ the_s2cdeclmap_listize () = let
   //
   implement 
   $LinMap.linmap_foreach$fwork<symbol,func_decl><void> (k, v, vv) = {
-    val (lpf, lfpf | l) = $UN.ptr1_vtake{List0_vt(keyval)} (addr@ xss)
+    val (lpf, lfpf | l) = $UN.ptr1_vtake {List0_vt(keyval)} (addr@ xss)
     //
     val dec = func_decl_dup (v)
     val key = symbol_get_string (k)

@@ -1,3 +1,14 @@
+(**
+  Implementing routines that act on binary libraries.
+*)
+
+#define ATS_DYNLOADFLAG 0
+
+#include
+"share/atspre_staload.hats"
+
+(* ****** ****** *)
+
 staload "contrib/libats-/wdblair/prelude/SATS/error.sats"
 
 staload "contrib/libats-/wdblair/binutil/SATS/symbol.sats"
@@ -10,8 +21,16 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 typedef so = ptr
-typedef bfd = ptr
+
+abstype bfd = ptr
+assume bfd = $extype "bfd*"
+
 typedef asymbol = ptr
+
+extern
+fun elt_type_is_null {a:type} (a): bool = "mac#"
+
+overload iseqz with elt_type_is_null of 50
 
 (* ****** ****** *)
 
@@ -38,7 +57,7 @@ local
   extern
   fun dlsym (
     so, string
-  ): ptr
+  ): ptr = "mac#"
   
   extern
   fun dlclose (
@@ -87,7 +106,7 @@ local
   fun bfd_asymbol_get_name (
     asymbol
   ): string = "mac#"
-  
+    
 in
 
   implement 
@@ -123,25 +142,30 @@ in
       val (pfat, pfmf | p) = memory$alloc (storage_needed)
       val (pfsym | n) = bfd_canonicalize_symtab (pfat | file, p)
       //
+      var rs : symbollst = list_nil ()
+      //
       implement
-      array_foreach$fwork<asymbol><symbollst> (x, rs) = {
+      array_foreach$fwork<asymbol><void> (x, v) = {
         val name = bfd_asymbol_get_name (x)
         val newname = strptr2string (copy (name))
         val sym = symbol_make (name)
-        val () = rs := list_cons (sym, rs)
+        val (pfat, pfree | prs) = $UN.ptr1_vtake{symbollst} (addr@ rs)
+        val () =  !prs := list_cons (sym, !prs)
+        //
+        prval () = pfree (pfat)
       }
       //
-      var rs : symbollst = list_nil ()
+
       //
-      val _ = array_foreach_env<asymbol><symbollst> (
-        !p, n, rs
+      val _ = array_foreach<asymbol> (
+        !p, n
       )
       //
       prval () = pfree (pf)
       prval pfat = b0ytes_of_array_lemma (pfsym)
       //
       val () = memory$free (pfat, pfmf | p)
-      in
+    in
         Ok (rs)
     end
   end // end of [library_get_symbols]
@@ -169,4 +193,5 @@ in
     val _ = bfd_close (p->file)
     prval () = pfree (pfat)
   } // end of [library_close]
-end
+  
+end // end of [local]

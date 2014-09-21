@@ -1,6 +1,5 @@
 (* ****** ****** *)
 //
-dynload "./constraint.sats"
 dynload "./constraint_stamp.dats"
 dynload "./constraint_symbol.dats"
 dynload "./constraint_location.dats"

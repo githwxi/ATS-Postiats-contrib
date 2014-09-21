@@ -5,5 +5,6 @@
 #include <bfd.h>
 
 #define bfd_asymbol_get_name(sym) (((asymbol *)sym)->name)
+#define elt_type_is_null(a) ((void *)a == NULL)
 
 #endif

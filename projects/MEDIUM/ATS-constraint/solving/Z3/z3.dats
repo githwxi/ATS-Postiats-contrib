@@ -42,16 +42,21 @@
 (* ****** ****** *)
 
 staload "constraint.sats"
-staload "{$LIBATSWDBLAIR}/SMT/smt.sats"
+staload "solving/smt.sats"
 staload "solving/smt_ML.sats"
 
 (* ****** ****** *)
 
+staload "{$LIBATSWDBLAIR}/python/SATS/Python.sats"
 staload "{$LIBATSWDBLAIR}/SMT/Z3/SATS/z3.sats"
 
 (* ****** ****** *)
 
 staload UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
+staload "libc/SATS/stdio.sats"
 
 (* ****** ****** *)
 
@@ -75,27 +80,83 @@ end
 (* ****** ****** *)
 
 local
-  var slv: solver
+
+  (**
+    The overall goal of this solver is to be a drop in replacement for
+    the default solver. Therefore, we should try not to fire up Python
+    if we don't need to.
+  *)
+  var python_started : bool = false
   
-  val () = slv := Z3_mk_solver (!the_context)
 in
-  val the_solver = ref_make_viewptr{solver} (view@ slv | addr@ slv)
+  val the_python_started = ref_make_viewptr{bool} (
+    view@ python_started | addr@ python_started
+  )
 end
 
-(* ****** ****** *)
+extern
+fun fopen (string, string): FILEref = "mac#"
+
+extern
+fun fclose (FILEref): int = "mac#"
 
 implement
-the_solver_get () = let
-  val (pf, fpf | p ) = $UN.ref_vtake{solver} (the_solver)
-  val new = Z3_solver_inc_ref (!the_context, !p)
-  prval () = fpf (pf)
+load_user_scripts (slv, path, scan) = let
+  (**
+    Prepare the Python environment with our current
+    context and solver. Execute any file that the user
+    gives us.
+  *)
+  val () = !the_python_started := true
+  val () = Py_InitializeEx (0)
+  val patsolve = Py_InitModule ("patsolve", the_null_ptr)
+  val patsolve_global_dict = PyModule_GetDict (patsolve)
+  //
+  val _ = PyRun_SimpleString ("from z3 import *\nmain_ctx()")
+  //
+  val z3 = PyImport_AddModule ("z3")
+  val z3_global_dict = PyModule_GetDict (z3)
+  //
+  val main_ctx = PyDict_GetItemString (z3_global_dict, "_main_ctx")
+  val ctx = PyObject_GetAttrString (main_ctx, "ctx")
+  //
+  val pctx = PyLong_FromVoidPtr ($UN.cast{ptr} (!the_context))
+  val _ = PyObject_SetAttrString (ctx, "value", pctx)
+  //
+  val Solver_Class = PyDict_GetItemString (z3_global_dict, "Solver")
+  val Solv = PyObject_CallObject (Solver_Class, $UN.cast{PyObject}(the_null_ptr))
+  val solver = PyObject_GetAttrString (Solv, "solver")
+  //
+  val psolv = PyLong_FromVoidPtr ($UN.castvwtp1{ptr}(slv))
+  val _ = PyObject_SetAttrString (solver, "value", psolv)
+  //
+  val file = fopen (path, "r")
 in
-  new
-end // end of [the_solver_get]
+  if iseqz ($UN.cast{ptr}(file)) then
+    ()
+  else let
+    val main_module = PyImport_AddModule ("__main__")
+    val main_dict = PyModule_GetDict (main_module)
+    val _ = PyRun_File (file, path, Py_file_input,
+                        main_dict, main_dict)
+    val _ = fclose (file)
+  in
+    ()
+  end
+end
+
+implement
+evaluate_macro_opt (str, fs) =
+  if ~(!the_python_started) then
+    None_vt ()
+  else 
+    None_vt ()
+    
+(* ****** ****** *)
 
 implement 
 make_solver () = let
-  val solve = the_solver_get ()
+  val solve = Z3_mk_solver (!the_context)
 in
   solve
 end // end of [make_solver]
@@ -694,50 +755,6 @@ string_of_formula (wff) =
   Z3_ast_to_string (!the_context, wff)
   
 (* ****** ****** *)
-
-implement
-parse_smtlib2_file (file, ds) = let
-  vtypedef keyval = @(string, func_decl)
-  val n = g1int2uint (length (ds))
-  //
-  implement 
-  list_vt_map$fopr<keyval><Z3_symbol> (x) = let
-    val sym = Z3_mk_string_symbol (!the_context, x.0)
-  in
-    sym
-  end
-  //
-  val names = list_vt_map<keyval><Z3_symbol> (ds)
-  //
-  implement
-  list_vt_mapfree$fopr<keyval><func_decl> (x) = x.1
-  //
-  val decls = list_vt_mapfree<keyval><func_decl> (ds)
-  //
-  val (nm_pf, nm_gc | nm) = array_ptr_alloc<Z3_symbol> (u2sz (n))
-  val (de_pf, de_gc | de) = array_ptr_alloc<func_decl> (u2sz (n))
-  //
-  val () = array_copy_from_list_vt (!nm, names)
-  val () = array_copy_from_list_vt (!de, decls)
-  //
-  val null = the_null_ptr
-  val conj = Z3_parse_smtlib2_file
-    (!the_context, file, 0u, null, null, n, !nm, !de)
-  //
-  implement
-  array_uninitize$clear<func_decl> (i, dec) =
-    Z3_func_decl_dec_ref (!the_context, dec)
-  //
-in
-  array_uninitize<func_decl> (!de, u2sz (n));
-  array_ptr_free (nm_pf, nm_gc | nm);
-  array_ptr_free (de_pf, de_gc | de);
-  conj
-end
-
-(* ****** ****** *)
-
-////
 
 implement
 int_constant_name (label) = let

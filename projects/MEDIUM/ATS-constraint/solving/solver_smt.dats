@@ -51,7 +51,7 @@ staload "solving/solver.sats"
 
 (* ****** ****** *)
 
-staload SMT = "{$LIBATSWDBLAIR}/SMT/smt.sats"
+staload SMT = "solving/smt.sats"
 
 (* ****** ****** *)
 
@@ -180,9 +180,7 @@ in
         val () = smtenv_add_svar (env, s2v)
       in
         smtenv_get_var_exn (env, s2v)
-      end where {
-        val () = fprintln! (stderr_ref, "adding s2var: ", s2v)
-      }
+      end
       | ~Some_vt (f) => f
   end
   
@@ -374,18 +372,6 @@ in
   end
   
 end // end of [local]
-
-(* ****** ******  *)
-
-implement
-smtlib2_assert_file (file) = let
-  val decl = the_s2cdeclmap_listize ()
-  val conj = $SMT.parse_smtlib2_file (file, decl)
-  val solv = $SMT.the_solver_get ()
-in
-  $SMT.assert (solv, conj);
-  $SMT.delete_solver (solv)
-end
 
 (* ****** ******  *)
 
@@ -693,7 +679,7 @@ in
       end
       else let
         val clause = 
-          x = BitVec (1u << i, 16)
+          x^ = BitVec (1u << i, 16)
       in
         loop (x, succ (i), clause Or res)
       end
@@ -936,10 +922,10 @@ in
     //
     val i = Int ("i"); val j = Int ("j")
   in
-    ForAll (i, j,
-      ((start <= i) And (i <= p) And (p <= j)
-        And (j <= stop)) ==>
-          ((a[i] <= a[p]) And (a[p] <= a[j])))
+    ForAll (i^, j^,
+      ((start <= i^) And (i^ <= p^) And (p^ <= j^)
+        And (j^ <= stop)) ==>
+          ((Select(a^,i) <= Select(a^,p^)) And (Select(a^, p) <= Select(a,j))))
   end // end of [f_partitioned_array]
   
   local
@@ -976,10 +962,10 @@ in
     val i = formula_make (env, s2e2)
     val j = formula_make (env, s2e3)
     //
-    val b = a[j] = a[i]
+    val b = Store(a^,j^, Select(a^, i^))
     
   in
-    b[i] = a[j]
+    Store(b, i, Select(a, j))
   end
   
   implement 
