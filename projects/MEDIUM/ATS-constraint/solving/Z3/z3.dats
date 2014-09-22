@@ -108,6 +108,7 @@ load_user_scripts (slv, path, scan) = let
     gives us.
   *)
   val () = !the_python_started := true
+  val () = Py_SetProgramName ("patsolve.py")
   val () = Py_InitializeEx (0)
   val patsolve = Py_InitModule ("patsolve", the_null_ptr)
   val patsolve_global_dict = PyModule_GetDict (patsolve)
@@ -124,25 +125,30 @@ load_user_scripts (slv, path, scan) = let
   val _ = PyObject_SetAttrString (ctx, "value", pctx)
   //
   val Solver_Class = PyDict_GetItemString (z3_global_dict, "Solver")
-  val Solv = PyObject_CallObject (Solver_Class, $UN.cast{PyObject}(the_null_ptr))
+  val Solv = PyObject_CallObject (
+    Solver_Class, $UN.cast{PyObject}(the_null_ptr)
+  )
   val solver = PyObject_GetAttrString (Solv, "solver")
   //
   val psolv = PyLong_FromVoidPtr ($UN.castvwtp1{ptr}(slv))
   val _ = PyObject_SetAttrString (solver, "value", psolv)
   //
+  val _ = PyDict_SetItemString (patsolve_global_dict, "solver", Solv)
+  //
   val file = fopen (path, "r")
 in
-  if iseqz ($UN.cast{ptr}(file)) then
-    ()
-  else let
+  if iseqz ($UN.cast{ptr}(file)) then begin
+    prerrln! ("Could not open file: ", path);
+    exit (1);
+  end
+  else {
     val main_module = PyImport_AddModule ("__main__")
     val main_dict = PyModule_GetDict (main_module)
     val _ = PyRun_File (file, path, Py_file_input,
                         main_dict, main_dict)
+    val _ = Py_Finalize ()
     val _ = fclose (file)
-  in
-    ()
-  end
+  }
 end
 
 implement

@@ -217,7 +217,6 @@ case+ s3iss of
 //
 end // end of [c3nstr_solve_itmlst_disj]
 
-
 implement
 c3nstr_solve_main
   (env, c3t, unsolved, err) = let
@@ -248,9 +247,10 @@ in
   status (* 0: unsolved; ~1: solved *)
 end // end of [c3nstr_solve_main]
 
-implement c3nstr_solve (c3t) = let
+implement c3nstr_solve (c3t, scripts) = let
   var env : smtenv
   val _ = smtenv_nil (env)
+  val () = smtenv_load_scripts (env, scripts)
   var unsolved: uint = 0u and err: int = 0
   val _(*status*) = c3nstr_solve_main (env, c3t, unsolved, err)
   val () = smtenv_free (env)

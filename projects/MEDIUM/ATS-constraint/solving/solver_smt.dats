@@ -117,18 +117,21 @@ local
 
 in
 
-  implement smtenv_nil (env) = begin
+  implement 
+  smtenv_nil (env) = begin
     env.smt := $SMT.make_solver ();
     s2varmap_nil (env.variables.statics);
     env.err := 0;
   end
 
-  implement smtenv_free (env) = begin
+  implement 
+  smtenv_free (env) = begin
       s2varmap_delete (env.variables.statics);
       $SMT.delete_solver (env.smt);
   end
 
-  implement smtenv_push (env) = (pf | ()) where {
+  implement 
+  smtenv_push (env) = (pf | ()) where {
     val _ = if log_smt then println! ("(push 1)")
     val _ = $SMT.push (env.smt)
     val _ = s2varmap_push (env.variables.statics)
@@ -137,7 +140,8 @@ in
     }
   }
   
-  implement smtenv_pop (pf | env) = {
+  implement 
+  smtenv_pop (pf | env) = {
     val _ = if log_smt then println! ("(pop 1)")
     val _ = $SMT.pop (env.smt)
     val _ = s2varmap_pop (env.variables.statics)
@@ -146,7 +150,8 @@ in
     }
   }
   
-  implement smtenv_add_svar (env, s2v) = let
+  implement 
+  smtenv_add_svar (env, s2v) = let
     val type = s2var_get_srt (s2v)
     val () = if log_smt then
       fprintln! (stdout_ref, "Adding svar: ", s2v, " type: ", type)
@@ -172,7 +177,8 @@ in
       | ~None_vt () => ()
   end
 
-  implement smtenv_get_var_exn (env, s2v) = let
+  implement 
+  smtenv_get_var_exn (env, s2v) = let
     val opt = s2varmap_find (env.variables.statics, s2v)
   in
     case+ opt of
@@ -183,8 +189,19 @@ in
       end
       | ~Some_vt (f) => f
   end
-  
-  implement sort_make (type) =
+
+  implement
+  smtenv_load_scripts (env, scripts) =
+    case+ scripts of
+      | list_nil () => ()
+      | list_cons (sc, _) => 
+        (**
+          Load just the first script for now.
+        *)
+        $SMT.load_user_scripts (env.smt, sc, false)
+        
+  implement 
+  sort_make (type) =
     if s2rt_is_int (type) || s2rt_is_addr (type) then
       $SMT.make_int_sort ()
     else if s2rt_is_rat (type) then
@@ -208,7 +225,8 @@ in
       $SMT.make_bool_sort ()
     end
     
-  implement formula_make (env, s2e) = let
+  implement 
+  formula_make (env, s2e) = let
     val err = stderr_ref
   in    
     case+ s2e.s2exp_node of
@@ -372,17 +390,6 @@ in
   end
   
 end // end of [local]
-
-(* ****** ******  *)
-
-(*
-  If someone wants to add a function macro, it will be implemented here.
-  TODO: put these functions in their own file.
-  
-  TODO: use an SMT Lib 2 parser to collect the more complicated functions (like sorted)
-  from an SMT-Lib 2 file so the user doesn't have to recompile their constraint solver
-  in order to refine their statics.
-*)
 
 (* ****** ******  *)
 

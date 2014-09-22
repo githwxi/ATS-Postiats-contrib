@@ -34,6 +34,8 @@ fun smtenv_formula_is_valid (env: &smtenv, fm: formula): bool
 
 fun smtenv_assert_formula (env: &smtenv, fm: formula): void
 
+fun smtenv_load_scripts (env: &smtenv, scripts: List0(string)): void
+
 fun formula_cst (s2c: s2cst): formula
 
 (* ****** ****** *)
@@ -101,7 +103,7 @@ fun sort_make (s2rt): sort
 
 (* ****** ****** *)
 
-fun c3nstr_solve (c3t: c3nstr): void
+fun c3nstr_solve (c3t: c3nstr, paths: List0(string)): void
 
 (* ****** ****** *)
 

@@ -12,6 +12,8 @@ macdef Py_file_input = $extval(int, "Py_file_input")
 
 (* ****** ****** *)
 
+fun Py_Initialize (): void = "mac#"
+
 (**
   1 - load signal handlers
   0 - don't
@@ -49,6 +51,13 @@ fun PyRun_File (
 fun PyDict_GetItemString (PyObject, string): PyObject = "mac#"
 fun PyDict_SetItemString (PyObject, string, PyObject): PyObject = "mac#"
 
+fun PyDict_Keys (PyObject): PyObject = "mac#"
+
+(* ****** ****** *)
+
+fun PyList_Size (PyObject): ssize_t = "mac#"
+fun PyList_GetItem (PyObject, ssize_t): PyObject = "mac#"
+
 (* ****** ****** *)
 
 fun PyObject_GetAttrString (PyObject, string): PyObject = "mac#"
@@ -60,5 +69,9 @@ fun PyObject_CallObject (PyObject, PyObject): PyObject = "mac#"
 
 fun PyLong_FromVoidPtr (ptr): PyObject = "mac#"
 fun PyLong_AsVoidPtr (PyObject): ptr = "mac#"
+
+(* ****** ****** *)
+
+fun PyString_AsString (ptr): string = "mac#"
 
 (* ****** ****** *)
