@@ -67,4 +67,4 @@ s.add (
                                 Select (append (A, m, B, n), i) == If(i < m, Select(A, i), Select (B, i - m))))
 )
 
-print "array assertions loaded loaded"
+print "StampSeq assertions loaded!"
