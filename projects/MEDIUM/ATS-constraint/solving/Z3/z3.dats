@@ -104,8 +104,10 @@ implement
 load_user_scripts (slv, path, scan) = let
   (**
     Prepare the Python environment with our current
-    context and solver. Execute any file that the user
+    context and solver. Execute any files that the user
     gives us.
+    
+    Store all namespaces
   *)
   val () = !the_python_started := true
   val () = Py_SetProgramName ("patsolve.py")
