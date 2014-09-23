@@ -55,10 +55,7 @@ take = Function ('stampseq_take', StampSeqSort(), IntSort(),
                  StampSeqSort())
 
 s.add (
-    ForAll ([A, i, j],
-            Implies (j >= 0,
-                     take(A, i)[j] == If(j < i, A[j], 0))
-    )
+    ForAll ([A, i, j], take(A, i)[j] == If(j < i, A[j], 0))
 )
 
 # Drop
