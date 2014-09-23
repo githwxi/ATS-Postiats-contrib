@@ -17,7 +17,7 @@ s.add (
     ForAll ([A, i], Implies (i < 0, A[i] == 0))
 )
 
-# The "nil" array
+# The "nil" sequence
 
 nil = Function ('stampseq_nil', StampSeqSort())
 
@@ -43,10 +43,7 @@ s.add (
 )
 
 s.add (
-    ForAll ([A, i, x],
-            Implies (i > 0,
-                     cons(x, A)[i] == A[i-1])
-    )
+    ForAll ([A, i, x], Implies (i > 0, cons(x, A)[i] == A[i-1]))
 )
 
 # Take
@@ -64,9 +61,7 @@ drop = Function ('stampseq_drop', StampSeqSort(), IntSort(),
                  StampSeqSort())
 
 s.add (
-    ForAll ([A, i, j], 
-            Implies (And (0 <= i, 0 <= j),
-                     drop(A, i)[j] == A[i+j]))
+    ForAll ([A, i, j], drop(A, i)[j] == A[i+j])
 )
 
 # Insert
@@ -75,9 +70,8 @@ insert = Function ('stampseq_insert', StampSeqSort(), IntSort(),
                    IntSort(), StampSeqSort())
 
 s.add (
-    ForAll ([A, x, i, j],
-            insert(A, i, x)[j] == If(j < i, A[j],
-                                     If(j == i, x, A[j-1]))
+    ForAll ([A, x, i, j], insert(A, i, x)[j] == If(j < i, A[j],
+                                                   If(j == i, x, A[j-1]))
     )
 )
 
@@ -91,9 +85,7 @@ B = Array("B", IntSort(), IntSort())
 m, n = Int("m"), Int("n")
 
 s.add (
-    ForAll([A, B, m, n , i],
-           Implies(i >= 0,
-                   append(A,m,B,n)[i] == If(i < m, A[i], B[i - m])))
+    ForAll([A, B, m, n , i], append(A,m,B,n)[i] == If(i < m, A[i], B[i - m]))
 )
 
 # Permutation
