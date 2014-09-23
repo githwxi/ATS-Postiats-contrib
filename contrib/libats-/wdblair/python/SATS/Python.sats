@@ -32,6 +32,7 @@ fun Py_InitModule (string, ptr): PyObject = "mac#"
 
 (* ****** ****** *)
 
+fun PyImport_Import (PyObject): PyObject = "mac#"
 fun PyImport_AddModule (string): PyObject = "mac#"
 
 (* ****** ****** *)
@@ -53,10 +54,17 @@ fun PyDict_SetItemString (PyObject, string, PyObject): PyObject = "mac#"
 
 fun PyDict_Keys (PyObject): PyObject = "mac#"
 
+fun PyDict_Copy (PyObject): PyObject = "mac#"
+
 (* ****** ****** *)
 
 fun PyList_Size (PyObject): ssize_t = "mac#"
 fun PyList_GetItem (PyObject, ssize_t): PyObject = "mac#"
+
+(* ****** ****** *)
+
+fun PyTuple_New (ssize_t): PyObject = "mac#"
+fun PyTuple_SetItem (PyObject, ssize_t, PyObject): int = "mac#"
 
 (* ****** ****** *)
 
@@ -65,6 +73,8 @@ fun PyObject_SetAttrString (PyObject, string, PyObject): int = "mac#"
 
 fun PyObject_CallObject (PyObject, PyObject): PyObject = "mac#"
 
+fun PyObject_Str (PyObject): PyObject = "mac#"
+
 (* ****** ****** *)
 
 fun PyLong_FromVoidPtr (ptr): PyObject = "mac#"
@@ -72,6 +82,30 @@ fun PyLong_AsVoidPtr (PyObject): ptr = "mac#"
 
 (* ****** ****** *)
 
-fun PyString_AsString (ptr): string = "mac#"
+fun PyString_FromString (string): PyObject = "mac#"
+fun PyString_AsString (PyObject): string = "mac#"
+
+(* ****** ****** *)
+
+fun PyErr_Fetch (
+  &PyObject? >> PyObject, 
+  &PyObject? >> PyObject, 
+  &PyObject? >> PyObject
+): void = "mac#"
+
+fun PyErr_NormalizeException (
+  &PyObject >> _,
+  &PyObject >> _,
+  &PyObject >> _
+): void = "mac#"
+
+(* ****** ****** *)
+
+macdef Py_None = $extval (PyObject, "Py_None")
+
+(* ****** ****** *)
+
+fun Py_INCREF (PyObject): void = "mac#"
+fun Py_DECREF (PyObject): void = "mac#"
 
 (* ****** ****** *)

@@ -13,6 +13,7 @@ PATSCC := $(PATSCC) -IATS ../../
 
 ######
 
+CFLAGS += -g
 CFLAGS += $(shell pkg-config --cflags json-c)
 CFLAGS += $(shell python-config --include --cflags)
 

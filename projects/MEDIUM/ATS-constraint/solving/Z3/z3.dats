@@ -83,7 +83,7 @@ local
 
   (**
     The overall goal of this solver is to be a drop in replacement for
-    the default solver. Therefore, we should try not to fire up Python
+    the default solver. Therefore, we should try not to start Python
     if we don't need to.
   *)
   var python_started : bool = false
@@ -92,7 +92,7 @@ in
   val the_python_started = ref_make_viewptr{bool} (
     view@ python_started | addr@ python_started
   )
-end
+end // end of [local]
 
 extern
 fun fopen (string, string): FILEref = "mac#"
@@ -100,6 +100,107 @@ fun fopen (string, string): FILEref = "mac#"
 extern
 fun fclose (FILEref): int = "mac#"
 
+local
+
+macdef castptr = $UN.cast{ptr}
+
+fun
+handle_python_exception (): void = let
+  (**
+    Fetch the exception and render it using the
+    traceback module.
+  *)
+  var ptype: PyObject
+  var pvalue: PyObject
+  var ptraceback: PyObject
+  //
+  val () = PyErr_Fetch (ptype, pvalue, ptraceback)
+  val () = PyErr_NormalizeException (ptype, pvalue, ptraceback)
+  //
+  val traceback_name = PyString_FromString ("traceback")
+  val traceback = PyImport_Import (traceback_name)
+in
+  if iseqz ($UN.cast{ptr}(traceback)) then begin
+    prerrln! "Could not load Python library.";
+    exit (1);
+  end
+  else let
+    val format =
+      PyObject_GetAttrString (traceback, "format_exception")
+    macdef ssize = g0int2int_int_ssize
+    val args = PyTuple_New (ssize(3))
+    //
+    val () = assertloc (isneqz(castptr(ptype)))
+    val () = assertloc (isneqz(castptr(pvalue)))
+    //
+    val _ = PyTuple_SetItem (args, ssize(0), ptype)
+    val _ = PyTuple_SetItem (args, ssize(1), pvalue)
+    //
+    val _ = 
+      if iseqz (castptr(ptraceback)) then let
+        val () = Py_INCREF (Py_None)
+      in  
+        PyTuple_SetItem (args, ssize(2), Py_None)
+      end
+      else
+        PyTuple_SetItem (args, ssize(2), ptraceback)
+    //
+    val errors = PyObject_CallObject (format, args)
+    val n = PyList_Size (errors)
+    //          
+    fun display_errors (
+      i: ssize_t
+    ): void =
+      if i = n then
+        ()
+      else let
+        val x = PyList_GetItem (errors, i)
+        val msg = PyString_AsString (x)
+      in
+        prerrln! msg;
+        display_errors (succ(i))
+      end
+    //
+  in
+    display_errors (ssize(0))
+  end
+end // end of [handle_python_exception]
+
+fun 
+load_script (
+  path: string
+): PyObject = let
+  (**
+    Run the code contained in the file. Present
+    any errors to the user.
+  *)
+  val file = fopen (path, "r")
+in
+  if iseqz ($UN.cast{ptr}(file)) then begin
+    prerrln! ("Could not open file: ", path);
+    exit (1);
+  end
+  else let
+    //
+    val main_module = PyImport_AddModule ("__main__")
+    val main_dict = PyModule_GetDict (main_module)
+    val file_dict = PyDict_Copy (main_dict)
+    val ok = PyRun_File (file, path, Py_file_input,
+                         file_dict, file_dict)
+    val _ = fclose (file)
+  in
+     if iseqz (castptr(ok)) then begin
+       handle_python_exception ();
+       exit (1)
+     end
+     //
+     else
+       file_dict
+  end
+end // end of [load_script]
+
+in
+  
 implement
 load_user_scripts (slv, path, scan) = let
   (**
@@ -107,7 +208,8 @@ load_user_scripts (slv, path, scan) = let
     context and solver. Execute any files that the user
     gives us.
     
-    Store all namespaces
+    Store all module dictionaries so we can retrieve functions
+    in order to resolve macros.
   *)
   val () = !the_python_started := true
   val () = Py_SetProgramName ("patsolve.py")
@@ -137,21 +239,13 @@ load_user_scripts (slv, path, scan) = let
   //
   val _ = PyDict_SetItemString (patsolve_global_dict, "solver", Solv)
   //
-  val file = fopen (path, "r")
+  val namespace = load_script (path)
 in
-  if iseqz ($UN.cast{ptr}(file)) then begin
-    prerrln! ("Could not open file: ", path);
-    exit (1);
-  end
-  else {
-    val main_module = PyImport_AddModule ("__main__")
-    val main_dict = PyModule_GetDict (main_module)
-    val _ = PyRun_File (file, path, Py_file_input,
-                        main_dict, main_dict)
-    val _ = Py_Finalize ()
-    val _ = fclose (file)
-  }
-end
+end // end of [load_user_scripts]
+
+end // end of [local]
+
+(* ****** ****** *)
 
 implement
 evaluate_macro_opt (str, fs) =
