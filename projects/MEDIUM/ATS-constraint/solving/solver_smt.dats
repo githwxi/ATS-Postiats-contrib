@@ -191,15 +191,22 @@ in
   end
 
   implement
-  smtenv_load_scripts (env, scripts) =
-    case+ scripts of
-      | list_nil () => ()
-      | list_cons (sc, _) => 
-        (**
-          Load just the first script for now.
-        *)
-        $SMT.load_user_scripts (env.smt, sc, false)
-        
+  smtenv_load_scripts (env, scripts) = let
+    val () = $SMT.init_scripting (env.smt)
+    //
+    fun loop (env: !smtenv, scs: List0(string)): void =
+      case+ scripts of
+        | list_nil () => ()
+        | list_cons (sc, scss) => let
+          val () = $SMT.load_user_script (env.smt, sc)
+        in
+          loop (env, scss)
+        end
+    //
+  in
+    loop (env, scripts)
+  end
+  
   implement 
   sort_make (type) =
     if s2rt_is_int (type) || s2rt_is_addr (type) then

@@ -47,18 +47,26 @@ absvtype sort = ptr
   Utilizing an External Script Interface
 *)
 
-fun load_user_scripts (
-  slv: !solver, path: string, scan: bool
+fun init_scripting (
+  slv: !solver
 ): void
+  
+fun load_user_script (
+  slv: !solver, path: string
+): void
+
+fun macro_exists (
+  !solver, string
+): bool
 
 (**
   Users can provide macro definitions
   for static functions. We need a way to
   evaluate them.
 *)
-fun evaluate_macro_opt (
-  string, !formulalst
-): Option_vt (formula)
+fun evaluate_macro_exn (
+  !solver, string, !formulalst
+): formula
 
 (* ****** ****** *)
 

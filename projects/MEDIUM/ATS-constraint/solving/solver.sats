@@ -8,7 +8,7 @@
 staload "constraint.sats"
 staload "solving/smt.sats"
 
-absviewt@ype smtenv_viewtype = @{
+absviewt@ype smtenv_viewt0ype = @{
   smt= ptr,
   variables= @{
     statics= ptr
@@ -16,7 +16,7 @@ absviewt@ype smtenv_viewtype = @{
   err= int
 }
 
-viewtypedef smtenv = smtenv_viewtype
+viewtypedef smtenv = smtenv_viewt0ype
 
 fun smtenv_nil (env: &smtenv? >> smtenv): void
 fun smtenv_free (env: &smtenv >> smtenv?): void
@@ -35,6 +35,8 @@ fun smtenv_formula_is_valid (env: &smtenv, fm: formula): bool
 fun smtenv_assert_formula (env: &smtenv, fm: formula): void
 
 fun smtenv_load_scripts (env: &smtenv, scripts: List0(string)): void
+
+fun smtenv_get_solver (env: &smtenv): solver
 
 fun formula_cst (s2c: s2cst): formula
 

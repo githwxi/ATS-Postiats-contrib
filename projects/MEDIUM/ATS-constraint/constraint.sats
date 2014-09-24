@@ -71,6 +71,8 @@ fun symbol_make (string): symbol
 
 fun symbol_get_string (symbol): string
 
+overload .string with symbol_get_string
+
 (* ****** ****** *)
 //
 fun

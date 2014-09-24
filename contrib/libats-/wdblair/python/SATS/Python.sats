@@ -105,6 +105,10 @@ macdef Py_None = $extval (PyObject, "Py_None")
 
 (* ****** ****** *)
 
+fun PyFunction_Check (PyObject): bool = "mac#"
+
+(* ****** ****** *)
+
 fun Py_INCREF (PyObject): void = "mac#"
 fun Py_DECREF (PyObject): void = "mac#"
 

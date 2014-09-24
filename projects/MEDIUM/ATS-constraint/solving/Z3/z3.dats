@@ -43,6 +43,7 @@
 
 staload "constraint.sats"
 staload "solving/smt.sats"
+staload "solving/error.sats"
 staload "solving/smt_ML.sats"
 
 (* ****** ****** *)
@@ -79,18 +80,38 @@ end
 
 (* ****** ****** *)
 
+staload FunSet = "libats/SATS/funset_avltree.sats"
+vtypedef set (a:t@ype+) = $FunSet.set (a)
+macdef set_is_member = $FunSet.funset_is_member
+
+staload _ = "libats/DATS/funset_avltree.dats"
+
 local
 
   (**
     The overall goal of this solver is to be a drop in replacement for
     the default solver. Therefore, we should try not to start Python
     if we don't need to.
+    
+    TODO: Figure out a way to move these into the smtenv type in order
+    to avoid more global variables.
   *)
   var python_started : bool = false
   
+  var python_funcs : set (string) = $FunSet.funset_nil ()
+  var python_modules : List0 (PyObject) = list_nil ()
 in
-  val the_python_started = ref_make_viewptr{bool} (
+
+  val the_python_started = ref_make_viewptr {bool} (
     view@ python_started | addr@ python_started
+  )
+  
+  val the_python_funcs = ref_make_viewptr {set(string)} (
+    view@ python_funcs | addr@ python_funcs
+  )
+  
+  val the_python_modules = ref_make_viewptr {List0 (PyObject)} (
+    view@ python_modules | addr@ python_modules
   )
 end // end of [local]
 
@@ -120,8 +141,8 @@ handle_python_exception (): void = let
   val traceback_name = PyString_FromString ("traceback")
   val traceback = PyImport_Import (traceback_name)
 in
-  if iseqz ($UN.cast{ptr}(traceback)) then begin
-    prerrln! "Could not load Python library.";
+  if iseqz (castptr (traceback)) then begin
+    prerrln! "Could not load the traceback library.";
     exit (1);
   end
   else let
@@ -200,16 +221,18 @@ in
 end // end of [load_script]
 
 in
-  
+
+(**
+  Shorthand for lists.
+*)
+#define :: list_cons
+#define nil list_nil
+
 implement
-load_user_scripts (slv, path, scan) = let
+init_scripting (slv) = {
   (**
     Prepare the Python environment with our current
-    context and solver. Execute any files that the user
-    gives us.
-    
-    Store all module dictionaries so we can retrieve functions
-    in order to resolve macros.
+    context and solver.    
   *)
   val () = !the_python_started := true
   val () = Py_SetProgramName ("patsolve.py")
@@ -238,22 +261,77 @@ load_user_scripts (slv, path, scan) = let
   val _ = PyObject_SetAttrString (solver, "value", psolv)
   //
   val _ = PyDict_SetItemString (patsolve_global_dict, "solver", Solv)
+}
+
+implement
+load_user_script (slv, path) =
+  (**
+    Run a script given to us by the user.
+    
+    Store all module dictionaries so we can retrieve functions
+    in order to resolve macros.
+  *)
+  if ~(!the_python_started) then
+    ()
+  else let
+    val namespace = load_script (path)
+  in
+    !the_python_modules := namespace :: !the_python_modules
+  end // end of [load_user_scripts]
+  
+
+implement
+macro_exists (slv, str) =
+  if ~(!the_python_started) then
+    false
+  else
+    set_is_member (!the_python_funcs, str)
+
+implement
+evaluate_macro_exn (slv, str, fs) = let
+  val modules = !the_python_modules
   //
-  val namespace = load_script (path)
+  fun loop (ds: List0(PyObject)): Option(PyObject) =
+    case+ ds of
+      | nil () => None
+      | dict :: dss => let
+        val func = PyDict_GetItemString (dict, str)
+      in
+        if isneqz (castptr(func)) andalso PyFunction_Check (func) then
+          Some (func)
+        else
+          loop (dss)
+      end
+  //
+  val opt = loop (modules)
 in
-end // end of [load_user_scripts]
+  case+ opt of
+    | None () => abort ()
+    | Some func => let
+      val z3 = PyImport_AddModule ("z3")
+      val z3_global_dict = PyModule_GetDict (z3)
+      (**
+        We need to do some type checking on the formulas so we
+        create the appropriate Python object for each formula.
+        
+        BoolRef - bool
+        ArithRef - int, real
+        ArrayRef - Array
+        BitVecRef - bitvector
+        DataTypeRef - we don't support datatypes right now...
+        
+        Use Z3_get_sort_kind and then look up the Z3_sort_kind
+        enumerated type. That should handle all of the cases we
+        need to worry about.
+      *)
+      val Ast = PyDict_GetItemString (z3_global_dict, "Ast")
+    in
+      make_true ()
+    end
+end // end of [evaluate_macro_exn]
 
 end // end of [local]
 
-(* ****** ****** *)
-
-implement
-evaluate_macro_opt (str, fs) =
-  if ~(!the_python_started) then
-    None_vt ()
-  else 
-    None_vt ()
-    
 (* ****** ****** *)
 
 implement 
@@ -946,8 +1024,6 @@ end
 end // end of [local]
 
 (* ****** ****** *)
-
-(* I think I'd like to get rid of the make_* functions... *)
 
 implement And (f0, f1) = make_and2 (f0, f1)
 implement Or (f0, f1) = make_or2 (f0, f1)

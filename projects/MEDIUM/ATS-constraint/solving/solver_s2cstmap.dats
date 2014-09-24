@@ -12,8 +12,8 @@
 
 staload "constraint.sats"
 staload "parsing/parsing.sats"
-staload "solving/smt.sats"
 staload "solving/solver.sats"
+staload "solving/smt.sats"
 
 staload Error = "solving/error.sats"
 
@@ -190,26 +190,58 @@ in
 implement
 formula_make_s2cst_s2explst
   (env, s2c, s2es) = let
-  val (vbox pf | p) = ref_get_viewptr (the_s2cfunmap)
+  val (pf, fpf | p) = $UN.ref_vtake (the_s2cfunmap)
   val sym = s2c.name
-  val opt = $effmask_ref funmap_search_opt (!p, sym)
+  val opt = funmap_search_opt (!p, sym)
   //
   in
     case+ opt of
-      | ~Some_vt f => $effmask_ref f (env, s2es)
+      | ~Some_vt f => f (env, s2es) where {
+        prval () = fpf (pf)
+      }
       | ~None_vt _ => let
-        val opt = $effmask_ref (formula_make_uninterp_opt (env, s2c, s2es))
+        val slv = smtenv_get_solver (env)
+        val ssym = sym.string
       in
-        case+ opt of 
-          | ~Some_vt app => app
-          (** 
-            Instead of failing, we should just make an uninterpreted
-            function in the underlying SMT solver.
-          *)
-          | ~None_vt _ => $raise $Error.FatalErrorException () where {
-            val _ = $effmask_ref
-              fprintln! (stderr_ref, "Function definition not found!")
-          }
+        if macro_exists (slv, ssym) then let
+          //
+          implement 
+          list_map$fopr<s2exp><formula> (x) = let
+            val (pf, fpf | p) = $UN.ptr_vtake{smtenv}(addr@ env)
+            val f = formula_make (env, x)
+            prval () = fpf (pf)
+          in
+            f
+          end
+          //
+          val fs = list_map<s2exp><formula> (s2es)
+          val ret = evaluate_macro_exn (slv, ssym, fs)
+          //
+          implement
+          list_vt_freelin$clear<formula> (x) =  $effmask_all (formula_free (x))
+          //
+          prval () = fpf (pf)
+         in
+          delete_solver (slv);
+          list_vt_freelin (fs);
+          //
+          ret
+         end
+         //
+         else let
+            val () = delete_solver (slv)
+            val opt = formula_make_uninterp_opt (env, s2c, s2es)
+         in
+           case+ opt of
+            | ~Some_vt app => app where {
+              prval () = fpf (pf)
+            }
+            | ~None_vt _ => $raise $Error.FatalErrorException () where {
+              val _ = $effmask_ref
+                fprintln! (stderr_ref, "Function definition not found!")
+              prval () = fpf (pf)
+            }
+        end
       end
   end // end of [formula_make_s2cst_s2explst]
 
