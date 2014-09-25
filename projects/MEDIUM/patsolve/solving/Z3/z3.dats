@@ -187,6 +187,50 @@ in
   end
 end // end of [handle_python_exception]
 
+fun load_functions (
+  module_dict: PyObject
+): void = let
+  val keys = PyDict_Items (module_dict)
+  val n = PyList_Size (keys)
+  //  
+  fun loop (
+    ls: PyObject, i: ssize_t
+  ): void =
+    (**
+      Go through ls and add each function
+      to the_python_funcs set.
+    *)
+    if i = n then 
+      ()
+    else let
+      val pair = PyList_GetItem (ls, i)
+      //
+      val key = PyTuple_GetItem (pair, g0int2int_int_ssize(0))
+      val func = PyTuple_GetItem (pair, g0int2int_int_ssize(1))
+      //      
+      val p = copy(PyString_AsString(key))
+      val label = strptr2string (p)
+      val () = println! ("Considering function: ", label)
+      //
+    in
+      if isneqz (castptr(func))
+          andalso PyFunction_Check (func) then let
+        val () = println! ("Adding functiong:", label)
+        val (vbox _ | p) = ref_get_viewptr (the_python_funcs)
+        val _ = $effmask_ref (
+          $FunSet.funset_insert (!p, label);
+        )
+      in $effmask_ref (
+        loop (ls, succ(i))
+      )
+      end
+      else 
+        loop (ls, succ(i))
+    end    
+in
+  loop (keys, g0int2int_int_ssize (0))
+end // end of [load_functions]
+
 fun
 load_script (
   path: string
@@ -206,17 +250,21 @@ in
     val main_module = PyImport_AddModule ("__main__")
     val main_dict = PyModule_GetDict (main_module)
     val file_dict = PyDict_Copy (main_dict)
+    val local_dict = PyDict_New ()
     val ok = PyRun_File (file, path, Py_file_input,
-                         file_dict, file_dict)
+                         file_dict, local_dict)
     val _ = fclose (file)
   in
      if iseqz (castptr(ok)) then begin
        handle_python_exception ();
-       exit (1)
+       abort ()
      end
      //
-     else
-       file_dict
+     else let
+       val () = load_functions (local_dict)
+     in
+       local_dict
+     end
   end
 end // end of [load_script]
 
@@ -289,6 +337,17 @@ macro_exists (slv, str) =
 
 implement
 evaluate_macro_exn (slv, str, fs) = let
+   fun tuple_sing (x: PyObject): PyObject = let
+    (**
+      Make a tuple containing one element
+    *)
+     val tup = PyTuple_New (g0int2int_int_ssize (1))
+     val _ = PyTuple_SetItem (tup, g0int2int_int_ssize (0), x)
+   in
+    tup
+   end
+  //
+  val () = println! ("Evaluating a macro: ", str)
   //
   implement
   list_vt_freelin$clear<formula> (x) = $effmask_all (
@@ -320,14 +379,18 @@ in
       in
         abort ()
       end
-    | Some func => let
+    | Some func => let    
       val z3 = PyImport_AddModule ("z3")
       val z3_global_dict = PyModule_GetDict (z3)
       val Ast = PyDict_GetItemString (z3_global_dict, "Ast")
+      val () = assertloc (isneqz (castptr(Ast)))
       //
       implement
       list_vt_map$fopr<formula><PyObject> (x) = let
-        val term = PyObject_CallObject (Ast, $UN.cast{PyObject}(the_null_ptr))
+        val x' = formula_dup (x)
+        val long = PyLong_FromVoidPtr($UN.castvwtp0{ptr}(x'))
+        val term = PyObject_CallObject (Ast, tuple_sing(long))
+        val () = assertloc (isneqz (castptr(term)))
         //
         val x' = formula_dup (x)
         val ptr = PyLong_FromVoidPtr ($UN.castvwtp0{ptr}(x'))
@@ -335,16 +398,6 @@ in
         //
         val srt = Z3_get_sort (!the_context, x)
         val kind = Z3_get_sort_kind (!the_context, srt)
-        //
-        fun tuple_sing (x: PyObject): PyObject = let
-          (**
-            Make a tuple containing one element
-          *)
-            val tup = PyTuple_New (g0int2int_int_ssize (1))
-            val _ = PyTuple_SetItem (tup, g0int2int_int_ssize (0), x)
-          in
-            tup
-          end
         //
         fun create_object (
           class: PyObject, ast: PyObject
@@ -436,7 +489,8 @@ in
           end
           | _ => let
             val ast = PyObject_GetAttrString (result, "ast")
-            val astlong = PyObject_GetAttrString (result, "value")
+            val astlong = PyObject_GetAttrString (ast, "value")
+            //
             val xp = PyLong_AsVoidPtr (astlong)
             //
             val x = $UN.castvwtp0{formula} (xp)

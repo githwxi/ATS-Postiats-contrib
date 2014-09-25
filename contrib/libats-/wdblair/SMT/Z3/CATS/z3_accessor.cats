@@ -42,14 +42,15 @@
 
 ATSinline()
 Z3_sort
-atscntrb_Z3_get_sort (Z3_context ctx, Z3_sort srt) {
+atscntrb_Z3_get_sort (Z3_context ctx, Z3_ast x) {
+  Z3_sort srt = Z3_get_sort (ctx, x);
   Z3_error_code e = Z3_get_error_code(ctx);
   if (e != Z3_OK) {
     Z3_string msg = Z3_get_error_msg_ex(ctx, e);
     fprintf(stderr, "Z3 Error: %s\n", msg);
   }
   Z3_inc_ref(ctx, Z3_sort_to_ast(ctx, srt));
-  
+
   return srt;
 }
 

@@ -49,10 +49,15 @@ fun PyRun_File (
 
 (* ****** ****** *)
 
+fun PyDict_New (): PyObject = "mac#"
+
+fun PyDict_GetItem (PyObject, PyObject): PyObject = "mac#"
+
 fun PyDict_GetItemString (PyObject, string): PyObject = "mac#"
 fun PyDict_SetItemString (PyObject, string, PyObject): PyObject = "mac#"
 
 fun PyDict_Keys (PyObject): PyObject = "mac#"
+fun PyDict_Items (PyObject): PyObject = "mac#"
 
 fun PyDict_Copy (PyObject): PyObject = "mac#"
 
@@ -65,6 +70,7 @@ fun PyList_GetItem (PyObject, ssize_t): PyObject = "mac#"
 
 fun PyTuple_New (ssize_t): PyObject = "mac#"
 fun PyTuple_SetItem (PyObject, ssize_t, PyObject): int = "mac#"
+fun PyTuple_GetItem (PyObject, ssize_t): PyObject = "mac#"
 
 (* ****** ****** *)
 

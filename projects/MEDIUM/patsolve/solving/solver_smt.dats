@@ -686,39 +686,7 @@ in
   in
     $SMT.make_bv_from_int (16, i)
   end // end of [f_bv16_of_int]
-
-  implement
-  f_is_power_of_two_bv16 (env, s2es) = let
-    val- s2e1 :: _ = s2es
-    val x = formula_make (env, s2e1)
-    //
-    fun loop {i:nat | i <= 16}
-      (x: formula, i:int i, res: formula): formula =
-      if i = 16 then let
-        val () = $SMT.formula_free (x)
-      in
-        res
-      end
-      else let
-        val clause = 
-          x^ = BitVec (1u << i, 16)
-      in
-        loop (x, succ (i), clause Or res)
-      end
-    //
-  in
-    loop (x, 0, Bool(false))
-  end // end of [f_is_power_of_two_bv16]
-  
-  implement
-  f_has_null_byte_bv16 (env, s2es) = let
-    val- s2e1 :: _ = s2es
-    val x = formula_make (env, s2e1)
-  in
-    $SMT.formula_free (x);
-    Bool(false)
-  end // end of [f_has_null_byte_bv16]
-  
+    
   implement
   f_add_bv_bv (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es

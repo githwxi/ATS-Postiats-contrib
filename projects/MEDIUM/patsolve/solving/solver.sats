@@ -214,10 +214,6 @@ fun f_bv8_of_int : s2cstmap_ftype
 
 fun f_bv16_of_int : s2cstmap_ftype
 
-fun f_is_power_of_two_bv16 : s2cstmap_ftype
-
-fun f_has_null_byte_bv16 : s2cstmap_ftype
-
 fun f_add_bv_bv : s2cstmap_ftype
 
 fun f_sub_bv_bv : s2cstmap_ftype
