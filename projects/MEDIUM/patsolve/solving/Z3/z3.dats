@@ -210,12 +210,10 @@ fun load_functions (
       //      
       val p = copy(PyString_AsString(key))
       val label = strptr2string (p)
-      val () = println! ("Considering function: ", label)
       //
     in
       if isneqz (castptr(func))
           andalso PyFunction_Check (func) then let
-        val () = println! ("Adding functiong:", label)
         val (vbox _ | p) = ref_get_viewptr (the_python_funcs)
         val _ = $effmask_ref (
           $FunSet.funset_insert (!p, label);
