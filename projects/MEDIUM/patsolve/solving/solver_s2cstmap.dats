@@ -217,13 +217,9 @@ formula_make_s2cst_s2explst
           val fs = list_map<s2exp><formula> (s2es)
           val ret = evaluate_macro_exn (slv, ssym, fs)
           //
-          implement
-          list_vt_freelin$clear<formula> (x) =  $effmask_all (formula_free (x))
-          //
           prval () = fpf (pf)
          in
           delete_solver (slv);
-          list_vt_freelin (fs);
           //
           ret
          end

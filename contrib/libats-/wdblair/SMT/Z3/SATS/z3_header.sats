@@ -204,4 +204,39 @@ abst@ype Z3_ast_print_mode = int
 
 (* ****** ****** *)
 
+abst@ype Z3_sort_kind = $extype "Z3_sort_kind"
+
+macdef Z3_UNINTERPRETED_SORT =
+  $extval (Z3_sort_kind, "Z3_UNINTERPRETED_SORT")
+  
+macdef Z3_BOOL_SORT =
+  $extval (Z3_sort_kind, "Z3_BOOL_SORT")
+  
+macdef Z3_INT_SORT =
+  $extval (Z3_sort_kind, "Z3_INT_SORT")
+  
+macdef Z3_REAL_SORT =
+  $extval (Z3_sort_kind, "Z3_REAL_SORT")
+  
+macdef Z3_BV_SORT =
+  $extval (Z3_sort_kind, "Z3_BV_SORT")
+ 
+macdef Z3_ARRAY_SORT =
+  $extval (Z3_sort_kind, "Z3_ARRAY_SORT")
+  
+macdef Z3_DATATYPE_SORT =
+  $extval (Z3_sort_kind, "Z3_DATATYPE_SORT")
+  
+macdef Z3_RELATION_SORT =
+  $extval (Z3_sort_kind, "Z3_RELATION_SORT")
+  
+macdef Z3_UNKNOWN_SORT =
+  $extval (Z3_sort_kind, "Z3_UNKNOWN_SORT")
+  
+fun Z3_sort_kind_eq_eq (Z3_sort_kind, Z3_sort_kind): bool = "mac#%"
+
+overload = with Z3_sort_kind_eq_eq
+
+(* ****** ****** *)
+
 (* end of [z3_header.sats] *)

@@ -187,7 +187,7 @@ in
   end
 end // end of [handle_python_exception]
 
-fun 
+fun
 load_script (
   path: string
 ): PyObject = let
@@ -232,9 +232,10 @@ implement
 init_scripting (slv) = {
   (**
     Prepare the Python environment with our current
-    context and solver.    
+    context and solver.
   *)
   val () = !the_python_started := true
+  //
   val () = Py_SetProgramName ("patsolve.py")
   val () = Py_InitializeEx (0)
   val patsolve = Py_InitModule ("patsolve", the_null_ptr)
@@ -253,7 +254,7 @@ init_scripting (slv) = {
   //
   val Solver_Class = PyDict_GetItemString (z3_global_dict, "Solver")
   val Solv = PyObject_CallObject (
-    Solver_Class, $UN.cast{PyObject}(the_null_ptr)
+    Solver_Class, $UN.cast{PyObject} (the_null_ptr)
   )
   val solver = PyObject_GetAttrString (Solv, "solver")
   //
@@ -278,7 +279,6 @@ load_user_script (slv, path) =
   in
     !the_python_modules := namespace :: !the_python_modules
   end // end of [load_user_scripts]
-  
 
 implement
 macro_exists (slv, str) =
@@ -289,9 +289,18 @@ macro_exists (slv, str) =
 
 implement
 evaluate_macro_exn (slv, str, fs) = let
+  //
+  implement
+  list_vt_freelin$clear<formula> (x) = $effmask_all (
+    formula_free (x)
+  )
+  //
   val modules = !the_python_modules
   //
   fun loop (ds: List0(PyObject)): Option(PyObject) =
+    (**
+      Fetch the function from our modules.
+    *)
     case+ ds of
       | nil () => None
       | dict :: dss => let
@@ -306,27 +315,137 @@ evaluate_macro_exn (slv, str, fs) = let
   val opt = loop (modules)
 in
   case+ opt of
-    | None () => abort ()
+    | None () => let
+        val () = list_vt_freelin (fs)
+      in
+        abort ()
+      end
     | Some func => let
       val z3 = PyImport_AddModule ("z3")
       val z3_global_dict = PyModule_GetDict (z3)
-      (**
-        We need to do some type checking on the formulas so we
-        create the appropriate Python object for each formula.
-        
-        BoolRef - bool
-        ArithRef - int, real
-        ArrayRef - Array
-        BitVecRef - bitvector
-        DataTypeRef - we don't support datatypes right now...
-        
-        Use Z3_get_sort_kind and then look up the Z3_sort_kind
-        enumerated type. That should handle all of the cases we
-        need to worry about.
-      *)
       val Ast = PyDict_GetItemString (z3_global_dict, "Ast")
+      //
+      implement
+      list_vt_map$fopr<formula><PyObject> (x) = let
+        val term = PyObject_CallObject (Ast, $UN.cast{PyObject}(the_null_ptr))
+        //
+        val x' = formula_dup (x)
+        val ptr = PyLong_FromVoidPtr ($UN.castvwtp0{ptr}(x'))
+        val _ = PyObject_SetAttrString (term, "value", ptr)
+        //
+        val srt = Z3_get_sort (!the_context, x)
+        val kind = Z3_get_sort_kind (!the_context, srt)
+        //
+        fun tuple_sing (x: PyObject): PyObject = let
+          (**
+            Make a tuple containing one element
+          *)
+            val tup = PyTuple_New (g0int2int_int_ssize (1))
+            val _ = PyTuple_SetItem (tup, g0int2int_int_ssize (0), x)
+          in
+            tup
+          end
+        //
+        fun create_object (
+          class: PyObject, ast: PyObject
+        ): PyObject = let
+          val args = tuple_sing (ast)
+        in
+          PyObject_CallObject (class, args)
+        end
+        //
+      in
+        Z3_sort_dec_ref (!the_context, srt);
+        //
+        case+ 0 of
+          | _ when kind = Z3_BOOL_SORT => let
+            val BoolRef = PyDict_GetItemString (z3_global_dict, "BoolRef")
+          in
+            create_object (BoolRef, term)
+          end
+          | _ when kind = Z3_INT_SORT orelse 
+                   kind = Z3_REAL_SORT => let
+            val ArithRef = PyDict_GetItemString (z3_global_dict, "ArithRef")
+          in
+            create_object (ArithRef, term)
+          end
+          | _ when kind = Z3_BV_SORT => let
+            val BitVecRef = PyDict_GetItemString (z3_global_dict, "BitVecRef")
+          in
+            create_object (BitVecRef, term)
+          end
+          | _ when kind = Z3_ARRAY_SORT => let
+            val ArrayRef = PyDict_GetItemString (z3_global_dict, "ArrayRef")
+          in
+            create_object (ArrayRef, term)
+          end
+          | _ => let
+            (**
+              Default to just Expr Ref
+            *)
+            val ExprRef = PyDict_GetItemString (z3_global_dict, "ExprRef")
+          in
+            create_object (ExprRef, term)
+          end
+      end // end of [list_vt_map$fopr]
+      //
+      val lst = list_vt_map<formula><PyObject> (fs)
+      val m = g0int2int_int_ssize (length (lst))
+      //
+      val () = list_vt_freelin (fs)
+      //
+      fun loop (
+        ps: List0_vt (PyObject), i: ssize_t, tuple: PyObject
+      ): PyObject =
+        (**
+          Put a list of PyObjects into a tuple.
+        *)
+        case+ ps of 
+          | ~list_vt_nil () => tuple
+          | ~list_vt_cons (p, pss) => let
+            val _ = PyTuple_SetItem (tuple, i, p)
+          in
+            loop (pss, succ(i), tuple)
+          end
+      //
+      val args = loop (lst, g0int2int_int_ssize (0), PyTuple_New(m))
+      //
+      val opt = PyObject_CallObject (func, args)
+    //
     in
-      make_true ()
+      if iseqz(castptr(opt)) then let
+        val () = handle_python_exception ();
+      in
+        abort ()
+      end
+      else let
+        val result = opt
+        val AstRef = PyDict_GetItemString (z3_global_dict, "AstRef")
+        val is_expr = PyObject_IsInstance (result, AstRef)
+      in
+        case+ is_expr of
+          | _ when is_expr = ~1 => let
+            val () = handle_python_exception ()
+          in
+            abort ()
+          end
+          | 0 => let
+            val () = prerrln! ("The function ", str, " did not return a Z3 expression.")
+          in
+            abort ()
+          end
+          | _ => let
+            val ast = PyObject_GetAttrString (result, "ast")
+            val astlong = PyObject_GetAttrString (result, "value")
+            val xp = PyLong_AsVoidPtr (astlong)
+            //
+            val x = $UN.castvwtp0{formula} (xp)
+            val x' = formula_dup (x)
+            val _ = $UN.castvwtp0{ptr} (x)
+          in
+            x'
+          end
+      end
     end
 end // end of [evaluate_macro_exn]
 
@@ -340,6 +459,13 @@ make_solver () = let
 in
   solve
 end // end of [make_solver]
+
+implement
+solver_dup (slv) = let
+  val slv1 = Z3_solver_inc_ref (!the_context, slv)
+in
+  slv1
+end // end of [solver_dup]
 
 implement 
 delete_solver (solve) = {

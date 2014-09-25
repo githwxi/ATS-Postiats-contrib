@@ -75,6 +75,8 @@ fun PyObject_CallObject (PyObject, PyObject): PyObject = "mac#"
 
 fun PyObject_Str (PyObject): PyObject = "mac#"
 
+fun PyObject_IsInstance (PyObject, PyObject): int = "mac#"
+
 (* ****** ****** *)
 
 fun PyLong_FromVoidPtr (ptr): PyObject = "mac#"

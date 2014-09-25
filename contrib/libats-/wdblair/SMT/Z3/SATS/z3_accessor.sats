@@ -61,6 +61,16 @@ Z3_is_eq_func_decl (
   !Z3_context, !Z3_func_decl, !Z3_func_decl
 ): bool = "mac#%"
 
+fun
+Z3_get_sort_kind (
+  !Z3_context, !Z3_sort
+): Z3_sort_kind = "mac#%"
+
+fun
+Z3_get_sort (
+  !Z3_context, !Z3_ast
+): Z3_sort = "mac#%"
+
 (* ****** ****** *)
 
 (* end of [z3_accessor.sats] *)

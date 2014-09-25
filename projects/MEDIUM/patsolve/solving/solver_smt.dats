@@ -113,8 +113,8 @@ local
     err= int 
   }
   
-  assume smtenv_viewtype = smtenv_struct
-
+  assume smtenv_viewt0ype = smtenv_struct
+  
 in
 
   implement 
@@ -149,6 +149,13 @@ in
       extern praxi __pop (pf: smtenv_push_v): void
     }
   }
+  
+  implement
+  smtenv_get_solver (env)= let
+    val slv = $SMT.solver_dup (env.smt)
+  in
+    slv
+  end // end of [smtenv_get_solver]
   
   implement 
   smtenv_add_svar (env, s2v) = let
@@ -194,11 +201,12 @@ in
   smtenv_load_scripts (env, scripts) = let
     val () = $SMT.init_scripting (env.smt)
     //
-    fun loop (env: !smtenv, scs: List0(string)): void =
-      case+ scripts of
+    fun loop (env: &smtenv, scs: List0(string)): void =
+      case+ scs of
         | list_nil () => ()
         | list_cons (sc, scss) => let
           val () = $SMT.load_user_script (env.smt, sc)
+          val () = println! ("Loading script!", sc)
         in
           loop (env, scss)
         end

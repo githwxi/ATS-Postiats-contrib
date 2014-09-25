@@ -65,7 +65,7 @@ fun macro_exists (
   evaluate them.
 *)
 fun evaluate_macro_exn (
-  !solver, string, !formulalst
+  !solver, string, formulalst
 ): formula
 
 (* ****** ****** *)
@@ -73,6 +73,8 @@ fun evaluate_macro_exn (
 // Building Terms and Formulas
 
 fun make_solver (): solver
+
+fun solver_dup (!solver): solver
 
 fun delete_solver (solver): void
 
