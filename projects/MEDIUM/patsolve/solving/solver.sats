@@ -214,6 +214,8 @@ fun f_bv8_of_int : s2cstmap_ftype
 
 fun f_bv16_of_int : s2cstmap_ftype
 
+fun f_bv32_of_int : s2cstmap_ftype
+
 fun f_add_bv_bv : s2cstmap_ftype
 
 fun f_sub_bv_bv : s2cstmap_ftype

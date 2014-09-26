@@ -76,6 +76,9 @@ stadef bv16 = bv16_of_int
 stacst is_power_of_2_bv16: (bv16) -> bool
 stadef is_power_of_2 = is_power_of_2_bv16
 
+stacst has_zero_byte_bv16: (bv16) -> bool
+stadef has_zero_byte = has_zero_byte_bv16
+
 stacst and_bv16_bv16: (bv16, bv16) -> bv16
 stadef land = and_bv16_bv16
 
@@ -140,6 +143,12 @@ datasort bv32 = (* abstract *)
 
 stacst bv32_of_int: (int) -> bv32
 stadef bv32 = bv32_of_int
+
+stacst is_power_of_2_bv32: (bv32) -> bool
+stadef is_power_of_2 = is_power_of_2_bv32
+
+stacst has_zero_byte_bv32: (bv32) -> bool
+stadef has_zero_byte = has_zero_byte_bv32
 
 stacst and_bv32_bv32: (bv32, bv32) -> bv32
 stadef land = and_bv32_bv32

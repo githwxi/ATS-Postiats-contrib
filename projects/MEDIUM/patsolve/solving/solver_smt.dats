@@ -686,6 +686,16 @@ in
   in
     $SMT.make_bv_from_int (16, i)
   end // end of [f_bv16_of_int]
+
+
+  implement
+  f_bv32_of_int (env, s2es) = let
+    val- s2e1 :: _ = s2es
+    //
+    val i = formula_make (env, s2e1)
+  in
+    $SMT.make_bv_from_int (32, i)
+  end // end of [f_bv32_of_int]
     
   implement
   f_add_bv_bv (env, s2es) = let
