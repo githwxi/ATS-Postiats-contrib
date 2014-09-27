@@ -300,7 +300,7 @@ case+ 0 of
   val () = emit_i0de (out, tmp)
 }
 //
-| _ when tmpvar_is_arg (tmp.i0de_sym) =>
+| _ when tmpvar_is_arg (tmp.i0de_sym) || tmpvar_is_env (tmp.i0de_sym) =>
 {
   val () = emit_text (out, "ldarg")
   val () = emit_SPACE (out)
@@ -343,7 +343,7 @@ case+ 0 of
   val () = emit_i0de (out, tmp)
 }
 //
-| _ when tmpvar_is_arg (tmp.i0de_sym) =>
+| _ when tmpvar_is_arg (tmp.i0de_sym) || tmpvar_is_env (tmp.i0de_sym) =>
 //
 {
   val () = emit_text (out, "starg")

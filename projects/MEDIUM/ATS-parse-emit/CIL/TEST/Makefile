@@ -173,3 +173,19 @@ rtfind:: rtfind_dats.exe ; $(MONO) rtfind_dats.exe
 regress:: rtfind
 cleanall:: ; $(RMF) rtfind_dats.exe rtfind_dats.il rtfind_dats.ilpp rtfind_dats.c
 
+######
+
+all:: \
+rtfind2_dats.exe
+rtfind2_dats.c: rtfind2.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+rtfind2_dats.ilpp: rtfind2_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+rtfind2_dats.il: rtfind2_dats.ilpp ; \
+$(ILPP) $< $@
+rtfind2_dats.exe: rtfind2_dats.il ; \
+$(ILASM) /output:$@ $<
+rtfind2:: rtfind2_dats.exe ; $(MONO) rtfind2_dats.exe
+regress:: rtfind2
+cleanall:: ; $(RMF) rtfind2_dats.exe rtfind2_dats.il rtfind2_dats.ilpp rtfind2_dats.c
+
