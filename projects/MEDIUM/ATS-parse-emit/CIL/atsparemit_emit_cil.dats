@@ -139,7 +139,27 @@ in
 end // end of [emit_PMVstring]
 
 (* ****** ****** *)
-
+//
+extern
+fun emit_ATSPMVfunlab : emit_type (label)
+//
+extern
+fun
+emit_ATSfunclo_fun
+(
+  out: FILEref,
+  d0e: d0exp,
+  d0es: d0explst,
+  arg: s0exp,
+  res: s0exp
+): void
+//
+fun s0exp_is_void (s: s0exp): bool =
+  case+ s.s0exp_node of
+  | S0Eide(sym) => symbol_get_name(sym) = "atstype_void" || symbol_get_name(sym) = "atsvoid_t0ype"
+  | _ => false
+// end of [s0exp_is_void]
+//
 implement
   emit_ATSCKpat_con0
     (out, d0e, tag) =
@@ -340,6 +360,221 @@ case+ 0 of
 }
 //
 ) (* end of [emit_tmpvar_st] *)
+//
+(* ****** ****** *)
+//
+extern
+fun emit_f0arg : emit_type (f0arg)
+extern
+fun emit_f0marg : emit_type (f0marg)
+extern
+fun emit_f0head (out: FILEref, f0h: f0head, full: bool): void
+//
+(* ****** ****** *)
+//
+implement
+  emit_ATSfunclo_fun (out, tmp, d0es, arg, res) = let
+//
+fun loop0
+(
+  s0exps: s0explst,
+  i: int
+) : void =
+(
+case+ s0exps of
+| list_nil () => ()
+| list_cons (_, s0exps) =>
+  (
+    if i > 0 then emit_text (out, ",");
+    emit_text (out, "!");
+    emit_int (out, i);
+    loop0 (s0exps, i+1)
+  ) (* end of [list_cons] *)
+) (* end of [loop0] *)
+//
+fun loop1
+(
+  s0exps: s0explst,
+  i: int
+) : void =
+(
+case+ s0exps of
+| list_nil () => ()
+| list_cons (s0e, s0exps) =>
+  (
+    if i > 0 then emit_text (out, ",");
+    emit_s0exp (out, s0e);
+    loop0 (s0exps, i+1)
+  ) (* end of [list_cons] *)
+) (* end of [loop1] *)
+//
+in
+//
+case+
+s0exp_is_void (res) of
+| true =>
+{
+//
+  val () = emit_d0exp (out, tmp)
+  val () = emit_ENDL (out)
+  val () = emit_d0explst (out, d0es)
+  val () = emit_ENDL (out)
+  val () = emit_text (out, "callvirt")
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "instance")
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "void")
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "class [mscorlib]System.Action")
+  val-S0Elist(args) = arg.s0exp_node
+  val arity = list_length (args)
+  val () =
+    if arity > 0 then
+    (
+      emit_text (out, "`");
+      emit_int (out, arity);
+      emit_text (out, "<");
+      loop1 (args, 0);
+      emit_text (out, ">")
+    ) // end of [val]
+  val () = emit_text (out, "::Invoke")
+  val () = emit_LPAREN (out)
+  val () = loop0 (args, 0)
+  val () = emit_RPAREN (out)
+}
+//
+| false =>
+{
+  val-S0Elist(args) = arg.s0exp_node
+  val arity = list_length (args)
+  val () = emit_d0exp (out, tmp)
+  val () = emit_ENDL (out)
+  val () = emit_d0explst (out, d0es)
+  val () = emit_ENDL (out)
+  val () = emit_text (out, "callvirt")
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "instance")
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "!")
+  val () = emit_int (out, arity)
+  val () = emit_SPACE (out)
+  val () = emit_text (out, "class [mscorlib]System.Func")
+  val () = emit_text (out, "`")
+  val () = emit_int (out, arity+1)
+  val () = emit_text (out, "<")
+  val () = loop1 (args, 0)
+  val () =
+    if arity > 0 then emit_text (out, ",")
+  // end of [val]
+  val () = emit_s0exp (out, res)
+  val () = emit_text (out, ">")
+  val () = emit_text (out, "::Invoke")
+  val () = emit_LPAREN (out)
+  val () = loop0 (args, 0)
+  val () = emit_RPAREN (out)
+}
+//
+end (* end of [emit_ATSfunclo_fun] *)
+//
+(* ****** ****** *)
+//
+implement
+  emit_ATSPMVfunlab (out, fnlab) = {
+//
+fun loop
+(
+  f0as: f0arglst,
+  i: int
+) : void =
+(
+case+ f0as of
+| list_nil () => ()
+| list_cons (f0a, f0as) => let
+    val () =
+      if i > 0 then emit_text (out, ",")
+    // end of [val]
+    val s0e =
+      case+
+      f0a.f0arg_node of
+      | F0ARGnone s0e => s0e
+      | F0ARGsome (_, s0e) => s0e
+    // end of [val]    
+  in
+    emit_s0exp (out, s0e);
+    loop (f0as, i+1)
+  end // end of [let]
+) (* end of [loop] *)
+//
+fun aux (args: f0marg, rt: s0exp): void = let
+//
+val arity = list_length (args.f0marg_node)
+//
+in
+//
+case+ s0exp_is_void (rt) of
+//
+| true =>
+  {
+    // action
+    val () = emit_text (out, "void class [mscorlib]System.Action")
+    val () =
+      if arity > 0 then (
+        emit_text (out, "`");
+        emit_int (out, arity);
+        emit_text (out, "<");
+        loop (args.f0marg_node, 0);
+        emit_text (out, ">")
+      )
+    // end of [val]
+    val () = emit_text (out, "::.ctor(object, native int)")
+  }
+//
+| false =>
+  {
+    // function
+    val () = emit_text (out, "void class [mscorlib]System.Func")
+    val () = emit_text (out, "`")
+    val () = emit_int (out, arity+1)
+    val () = emit_text (out, "<")
+    val () =
+      if arity > 0 then
+        (loop (args.f0marg_node, 0); emit_text (out, ","))
+    // end of [val]
+    val () = emit_s0exp (out, rt)
+    val () = emit_text (out, ">")
+    val () = emit_text (out, "::.ctor(object, native int)")
+  } (* end of [if] *)
+//
+end // end of [aux]
+val () = emit_text (out, "ldnull")
+val () = emit_ENDL (out)
+val f0head_opt = f0head_search_opt (fnlab.i0de_sym)
+val () =
+(
+case+ f0head_opt of
+//
+| ~None_vt() =>
+  {
+    val () = emit_text (out, "ldftn")
+    val () = emit_SPACE (out)
+    // leave the identifier as-is, to be resolved manually by the programmer
+    val () = emit_symbol (out, fnlab.i0de_sym)
+    val () = emit_text (out, "**DELEGATE**") // FIXME
+  }
+//
+| ~Some_vt(fhd) =>
+  {
+    val () = emit_text (out, "ldftn")
+    val () = emit_SPACE (out)
+    val () = emit_f0head (out, fhd, true)
+    val () = emit_ENDL (out)
+    val+F0HEAD(id,f0ma,res) = fhd.f0head_node
+    val () = aux (f0ma, res)
+  }
+//
+) (* end of [val] *)
+//
+} // end of [ATSPMVfunlab]
 //
 (* ****** ****** *)
 //
@@ -556,16 +791,6 @@ emit_d0explst_1 (out, d0es) = loop (out, d0es, 1)
 
 end // end of [local]
 
-(* ******* ****** *)
-//
-extern
-fun emit_f0arg : emit_type (f0arg)
-extern
-fun emit_f0marg : emit_type (f0marg)
-extern
-fun emit_f0head (out: FILEref, f0h: f0head, full: bool): void
-
-//
 (* ****** ****** *)
 
 implement
@@ -641,6 +866,12 @@ d0e.d0exp_node of
       }
   end // end of [D0Eappid]
 //
+| D0Eappexp (d0e, d0es) =>
+  {
+    val-ATSfunclo_fun (d0e, args, res) = d0e.d0exp_node
+    val () = emit_ATSfunclo_fun (out, d0e, d0es, args, res)
+  }
+//
 // TODO: D0Elist
 //
 | ATSempty (x) => emit_text (out, "ldnull")
@@ -681,10 +912,14 @@ d0e.d0exp_node of
     val () = emit_text (out, rep)
   }
 //
+| ATSPMVfunlab (fnlab) => emit_ATSPMVfunlab (out, fnlab)
+//
 | ATSCKpat_con0
     (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
 //
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e)
+//
+//| ATSfunclo_fun (d0e, args, res) => emit_ATSfunclo_fun (out, d0e, args, res)
 //
 | _ => emit_text (out, "**D0EXP**")
 //

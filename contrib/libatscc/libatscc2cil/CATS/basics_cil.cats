@@ -46,7 +46,7 @@
 // atstype_exnconptr
 // atstype_arrptr
 // atstype_arrpsz
-// atstype_funptr
+#define atstype_funptr [mscorlib]System.Delegate
 // atstype_cloptr
 // atstype_var
 // atstyvar_type
@@ -293,7 +293,6 @@
 /* ****** ****** */
 // string
 
-#define ats2cilpre_print_bool void [mscorlib]System.Console::Write(int32)
 #define ats2cilpre_print_string void [mscorlib]System.Console::Write(string)
 #define ats2cilpre_print_newline void [mscorlib]System.Console::WriteLine()
 #define ats2cilpre_print_int void [mscorlib]System.Console::Write(int32)

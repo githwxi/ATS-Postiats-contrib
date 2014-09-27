@@ -159,3 +159,17 @@ cleanall:: ; $(RMF) weekday_dats.exe weekday_dats.il weekday_dats.ilpp weekday_d
 
 ######
 
+all:: \
+rtfind_dats.exe
+rtfind_dats.c: rtfind.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+rtfind_dats.ilpp: rtfind_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+rtfind_dats.il: rtfind_dats.ilpp ; \
+$(ILPP) $< $@
+rtfind_dats.exe: rtfind_dats.il ; \
+$(ILASM) /output:$@ $<
+rtfind:: rtfind_dats.exe ; $(MONO) rtfind_dats.exe
+regress:: rtfind
+cleanall:: ; $(RMF) rtfind_dats.exe rtfind_dats.il rtfind_dats.ilpp rtfind_dats.c
+
