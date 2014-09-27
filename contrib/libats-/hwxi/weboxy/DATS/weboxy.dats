@@ -227,6 +227,46 @@ end // end of [webox_set_height]
 
 implement
 {}(*tmp*)
+webox_get_pheight
+  (wbx) = let
+//
+val opt =
+  hashtbl_search (wbx, PHEIGHT)
+//
+in
+//
+case+ opt of
+| ~Some_vt (gv) =>
+    let val-GVint(ph) = gv in ph end
+  // end of [Some_vt]
+| ~None_vt ((*void*)) => ~1 (* erroneous *)
+//
+end // end of [webox_get_pheight]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+webox_set_pheight
+  (wbx, pheight) = let
+//
+val ph = GVint(pheight)
+//
+val cp =
+  hashtbl_search_ref (wbx, PHEIGHT)
+//
+in
+//
+if isneqz(cp)
+  then $UN.cptr_set(cp, ph)
+  else hashtbl_insert_any (wbx, PHEIGHT, ph)
+//
+end // end of [webox_set_pheight]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 webox_get_color
   (wbx) = let
 //
@@ -639,23 +679,23 @@ implement
 fprint_webox_width
   (out, wbx) = let
 //
-val h = wbx.width
+val w = wbx.width
 //
 in
 //
-if h >= 0
-then fprintln! (out, "width: ", h, "px ;")
+if w >= 0
+then fprintln! (out, "width: ", w, "px ;")
 else let
 //
-val ph = wbx.pwidth
+val pw = wbx.pwidth
 //
 in
-  if ph >= 0
-    then fprintln! (out, "width: ", ph, "% ;\n")
+  if pw >= 0
+    then fprintln! (out, "width: ", pw, "% ;")
   // end of [if]
 end // end of [else]
 //
-end // end of [fprint_webox_height]
+end // end of [fprint_webox_width]
   
 (* ****** ****** *)
 
@@ -669,7 +709,16 @@ val h = wbx.height
 in
 //
 if h >= 0
-  then fprintln! (out, "height: ", h, "px ;")
+then fprintln! (out, "height: ", h, "px ;")
+else let
+//
+val ph = wbx.pheight
+//
+in
+  if ph >= 0
+    then fprintln! (out, "height: ", ph, "% ;")
+  // end of [if]
+end // end of [else]
 //
 end // end of [fprint_webox_height]
   
@@ -809,6 +858,15 @@ end // end of [fprint_weboxlst_css_all]
 
 (* ****** ****** *)
 
+implement
+{}(*tmp*)
+fprint_webox_head_end (out) = ()
+implement
+{}(*tmp*)
+fprint_webox_body_end (out) = ()
+
+(* ****** ****** *)
+
 extern
 fun{}
 fprint_webox_html
@@ -831,7 +889,10 @@ fprint_webox_html
 val name = wbx0.name
 //
 val () =
-fprint! (out, "<div id=\"", name, "\">\n")
+fprint!
+(
+  out, "<div id=\"", name, "\">\n"
+) (* end of [val] *)
 //
 val wbxs = wbx0.children
 //
@@ -843,6 +904,7 @@ then let
   val ts = wbx0.tabstyle
   val pcs = webox_get_percentlst (wbx0)
 in
+  fprint (out, wbx0.content);
   fprint_weboxlst_html (out, ts, pcs, wbxs)
 end // end of [then]
 else let
@@ -893,12 +955,9 @@ case+ wbxs of
     if ishbox then let
       val pc = percentlst_get_at (pcs, i)
     in
-      if pc >= 0
-        then
-        fprint! (out
-        , "<td style=\"vertical-align: top; width: ", pc, "%;\">\n"
-        ) (* end of [fprint!] *)
-        else fprint! (out, "<td style=\"vertical-align: top;\">\n")
+      if pc < 0
+        then fprint! (out, "<td style=\"vertical-align:top;\">\n")
+        else fprint! (out, "<td style=\"vertical-align:top;width:", pc, "%;\">\n")
       // end of [if]
     end // end of [then] // end of [if]
 //
@@ -919,18 +978,21 @@ isbox
 then (
 //
 fprint (out
-, "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n"
+, "<table width=\"100%\" height=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n"
 ) (* end of [val] *)
 //
 ) (* end of [then] *) // end of [if]
 //
 val () =
-if ishbox then fprint (out, "<tr>\n")
+if ishbox
+  then fprint (out, "<tr height=\"100%\">\n")
+// end of [if]
+//
 val () = loop (wbxs, 0)
-val () =
-if ishbox then fprint (out, "</tr>\n")
+val () = if ishbox then fprint (out, "</tr>\n")
 //
 val () = if isbox then fprint (out, "</table>\n")
+//
 in
   // nothing
 end // end of [fprint_weboxlst_html]
@@ -947,6 +1009,7 @@ fprint! (out, "\
 <!DOCTYPE html>\n\
 <html>\n\
 <head>\n\
+<meta charset=\"utf-8\">\n
 <style>\n\
 ") (* end of [val] *)
 //
@@ -957,21 +1020,21 @@ val () =
 val () =
   fprint_css_postamble (out)
 //
-val () =
-fprint! (out, "\
-</style>\n\
-</head>\n\
-") (* end of [val] *)
+val () = fprint! (out, "</style>\n")
+//
+val () = fprint_webox_head_end (out)
+//
+val () = fprint! (out, "</head>\n")
 //
 val () =
 fprint! (out, "<body>\n")
 //
 val () = fprint_webox_html (out, wbx0)
 //
-val () =
-fprint! (out, "</body>\n")
-val () =
-fprint! (out, "</html>\n")
+val () = fprint_webox_body_end (out)
+//
+val () = fprint (out, "</body>\n")
+val () = fprint (out, "</html>\n")
 //
 val ((*flushing*)) = fileref_flush (out)
 //

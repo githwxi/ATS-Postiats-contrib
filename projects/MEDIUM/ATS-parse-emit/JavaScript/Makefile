@@ -13,11 +13,13 @@ $(PATSHOME)/share/atsmake-pre.mk
 CFLAGS += -O2
 #
 ######
-
+#
+LDFLAGS :=
 LDFLAGS += -lm
-LDFLAGS += -lgc
-MALLOCFLAG = -DATS_MEMALLOC_GCBDW
-
+#
+# LDFLAGS += -lgc
+# MALLOCFLAG := -DATS_MEMALLOC_GCBDW
+#
 ######
 
 SOURCES_SATS += atsparemit.sats

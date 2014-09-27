@@ -118,6 +118,7 @@ print_r_obj{a:t0p}(obj: a): void = "mac#%"
 (* ****** ****** *)
 
 fun print_newline ((*void*)): void = "mac#%"
+fun prerr_newline ((*void*)): void = "mac#%"
 fun fprint_newline (out: PHPfilr): void = "mac#%"
 
 (* ****** ****** *)

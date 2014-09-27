@@ -34,6 +34,8 @@ CATS/JSmath_cats.js \
 CATS/JSdate_cats.js \
 CATS/JSarray_cats.js \
 CATS/JSglobal_cats.js \
+CATS/Ajax/Ajax_cats.js \
+CATS/HTML/canvas-2d/canvas2d_cats.js \
 output/DATS/list_dats.js \
 output/DATS/intrange_dats.js \
 output/DATS/reference_dats.js \

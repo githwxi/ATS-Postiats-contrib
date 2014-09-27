@@ -457,6 +457,7 @@ case+ key of
 | "--help" => {
     val () = atscc2php_usage ("atscc2php")
     val () = state.waitkind := WTKnone(*void*)
+    val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [--help] *)
 //
 | _ (*unrecognized*) => comarg_warning (key)
