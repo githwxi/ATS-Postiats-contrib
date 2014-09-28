@@ -5,6 +5,7 @@
 ######
 
 all:: upload_html
+all:: upload_rest
 
 ######
 #
