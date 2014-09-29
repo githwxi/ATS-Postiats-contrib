@@ -18,7 +18,6 @@ def min_bv32_bv32 (x, y):
     """
     return If (x < y, x, y)
 
-
 def is_power_of_2_bv32 (x):
     """
     A 32 bitvector x is a power of two.
