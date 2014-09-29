@@ -393,7 +393,7 @@ constraint3_initialize_map (map) = {
     ins (map, "div_bv32_bv32", f_div_bv_bv);
     ins (map, "udiv_bv32_bv32", f_udiv_bv_bv);
     ins (map, "neg_bv32", f_neg_bv);
-    //    
+    //
     ins (map, "and_bv32_bv32", f_land_bv_bv);
     ins (map, "or_bv32_bv32", f_lor_bv_bv);
     ins (map, "xor_bv32_bv32", f_lxor_bv_bv);

@@ -10,6 +10,15 @@ typedef int (bv:bv32) = int_bv32 (bv)
 castfn
 bv32_of_int {n:nat} (int n): int (bv32(n))
 
+castfn
+bv32_of_bool {b:bool} (bool b): int (bv32(b))
+
+fun
+neg_int_bv32 {x:bv32}
+  (x: int(x)): int (~x) = "mac#%"
+
+overload ~ with neg_int_bv32
+
 fun 
 add_int_int_bv32 {x,y:bv32} 
   (x:int (x), y: int (y)): int (x + y) = "mac#%"
@@ -32,7 +41,7 @@ fun
 mul_int_int_bv32 {x,y:bv32}
   (x:int (x), y: int (y)): int (x * y) = "mac#%"
 
-overload + with mul_int_int_bv32
+overload * with mul_int_int_bv32
 
 fun 
 div_int_int_bv32 {x,y:bv32}
@@ -40,6 +49,12 @@ div_int_int_bv32 {x,y:bv32}
   
 overload / with div_int_int_bv32
 
+fun
+udiv_int_int_bv32 {x,y:bv32}
+  (x: int (x), y: int (y)): int (udiv (x, y)) = "mac#%"
+
+overload udiv with udiv_int_int_bv32
+  
 fun 
 eq_int_int_bv32 {x,y:bv32}
   (x:int (x), y: int (y)): bool (x == y) = "mac#%"
@@ -105,6 +120,8 @@ fun
 lxor_int_int_bv32 {x,y:bv32}
   (x:int (x), y: int (y)): int (x lxor y) = "mac#%"
 
+overload lxor with lxor_int_int_bv32
+
 fun
 lnot_int_bv32 {x:bv32}
   (x:int (x)): int (lnot x) = "mac#%"
@@ -112,7 +129,7 @@ lnot_int_bv32 {x:bv32}
 overload lnot with lnot_int_bv32
   
 fun
-lshl_int_bv32_int {x:bv32} {i:nat}
+lshl_int_bv32_int {x,i:bv32}
   (x: int (x), i: int (i)): int (x << i) = "mac#%"
 
 overload << with lshl_int_bv32_int
@@ -127,7 +144,7 @@ overload << with lshl_int_bv32_int
   behavior for this case.
 *)
 fun
-ashr_int_bv32_int {x:bv32} {i:nat}
-  (x: int (x), i: int (i)): int (ashr (x, i)) = "mac#%"
+ashr_int_bv32_int {x,i:bv32}
+  (x: int (x), i: int (i)): int (ashr(x, i)) = "mac#%"
   
 overload >> with ashr_int_bv32_int

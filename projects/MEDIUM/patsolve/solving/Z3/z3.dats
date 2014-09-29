@@ -932,7 +932,7 @@ end
 
 implement
 make_bv_lshr (bv, i) = let
-  val shifted = Z3_mk_bvashr (!the_context, bv, i)
+  val shifted = Z3_mk_bvlshr (!the_context, bv, i)
   val () = begin
     Z3_dec_ref (!the_context, bv);
     Z3_dec_ref (!the_context, i);

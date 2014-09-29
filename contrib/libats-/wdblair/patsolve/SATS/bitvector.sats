@@ -144,11 +144,26 @@ datasort bv32 = (* abstract *)
 stacst bv32_of_int: (int) -> bv32
 stadef bv32 = bv32_of_int
 
+stacst bv32_of_bool: (bool) -> bv32
+stadef bv32 = bv32_of_bool
+
 stacst is_power_of_2_bv32: (bv32) -> bool
 stadef is_power_of_2 = is_power_of_2_bv32
 
 stacst has_zero_byte_bv32: (bv32) -> bool
 stadef has_zero_byte = has_zero_byte_bv32
+
+stacst swap_bits_bv32: (bv32, bv32, bv32, bv32) -> bv32
+stadef swap = swap_bits_bv32
+
+stacst has_byte_bv32: (bv32, bv32) -> bool
+stadef has_byte = has_byte_bv32
+
+stacst min_bv32_bv32: (bv32, bv32) -> bv32
+stadef min = min_bv32_bv32
+
+stacst max_bv32_bv32: (bv32, bv32) -> bv32
+stadef max = max_bv32_bv32
 
 stacst and_bv32_bv32: (bv32, bv32) -> bv32
 stadef land = and_bv32_bv32
@@ -162,14 +177,17 @@ stadef lxor = xor_bv32_bv32
 stacst not_bv32: (bv32) -> bv32
 stadef lnot = not_bv32
 
-stacst lshl_bv32_int: (bv32, int) -> bv32
+stacst lshl_bv32_int: (bv32, bv32) -> bv32
 stadef << = lshl_bv32_int
 
-stacst lshr_bv32_int: (bv32, int) -> bv32
-stadef >> = lshr_bv32_int
+stacst lshr_bv32_bv32: (bv32, bv32) -> bv32
+stadef lshr = lshr_bv32_bv32
 
-stacst ashr_bv32_int: (bv32, int) -> bv32
+stacst ashr_bv32_int: (bv32, bv32) -> bv32
 stadef ashr = ashr_bv32_int
+
+stacst neg_bv32: (bv32) -> bv32
+stadef ~ = neg_bv32
 
 stacst sub_bv32_bv32: (bv32, bv32) -> bv32
 stadef - = sub_bv32_bv32
@@ -182,6 +200,9 @@ stadef * = mul_bv32_bv32
 
 stacst div_bv32_bv32: (bv32, bv32) -> bv32
 stadef / = div_bv32_bv32
+
+stacst udiv_bv32_bv32: (bv32, bv32) -> bv32
+stadef udiv = udiv_bv32_bv32
 
 stacst eq_bv32_bv32: (bv32, bv32) -> bool
 stadef == = eq_bv32_bv32
@@ -209,68 +230,3 @@ stadef uge = ugte_bv32_bv32
 
 stacst ugt_bv32_bv32: (bv32, bv32) -> bool
 stadef ugt = ugt_bv32_bv32
-
-datasort bv64 = (* abstract *)
-
-stacst bv64_of_int: (int) -> bv64
-stadef bv64 = bv64_of_int
-
-stacst and_bv64_bv64: (bv64, bv64) -> bv64
-stadef land = and_bv64_bv64
-
-stacst or_bv64_bv64: (bv64, bv64) -> bv64
-stadef lor = or_bv64_bv64
-
-stacst xor_bv64_bv64: (bv64, bv64) -> bv64
-stadef lxor = xor_bv64_bv64
-
-stacst not_bv64: (bv64) -> bv64
-stadef lnot = not_bv64
-
-stacst lshl_bv64_int: (bv64, int) -> bv64
-stadef << = lshl_bv64_int
-
-stacst lshr_bv64_int: (bv64, int) -> bv64
-stadef >> = lshr_bv64_int
-
-stacst ashr_bv64_int: (bv64, int) -> bv64
-stadef ashr = ashr_bv64_int
-
-stacst sub_bv64_bv64: (bv64, bv64) -> bv64
-stadef - = sub_bv64_bv64
-
-stacst add_bv64_bv64: (bv64, bv64) -> bv64
-stadef + = add_bv64_bv64
-
-stacst mul_bv64_bv64: (bv64, bv64) -> bv64
-stadef * = mul_bv64_bv64
-
-stacst div_bv64_bv64: (bv64, bv64) -> bv64
-stadef / = div_bv64_bv64
-
-stacst eq_bv64_bv64: (bv64, bv64) -> bool
-stadef == = eq_bv64_bv64
-
-stacst lt_bv64_bv64: (bv64, bv64) -> bool
-stadef < = lt_bv64_bv64
-
-stacst lte_bv64_bv64: (bv64, bv64) -> bool
-stadef <= = lte_bv64_bv64
-
-stacst gte_bv64_bv64: (bv64, bv64) -> bool
-stadef >= = gte_bv64_bv64
-
-stacst gt_bv64_bv64: (bv64, bv64) -> bool
-stadef > = gt_bv64_bv64
-
-stacst ult_bv64_bv64: (bv64, bv64) -> bool
-stadef ult = ult_bv64_bv64
-
-stacst ulte_bv64_bv64: (bv64, bv64) -> bool
-stadef ule = ulte_bv64_bv64
-
-stacst ugte_bv64_bv64: (bv64, bv64) -> bool
-stadef uge = ugte_bv64_bv64
-
-stacst ugt_bv64_bv64: (bv64, bv64) -> bool
-stadef ugt = ugt_bv64_bv64
