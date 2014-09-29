@@ -47,3 +47,9 @@ def has_byte_bv32 (b, n):
     """
     return reduce(Or, (((b >> (8*i)) & 0xFF) == (n & 0xFF) for i in range(4)))
 
+
+def cond_set_or_clear_bv32 (f, w, m):
+    """
+    Conditionally set or clear bits.
+    """
+    return If (f == BitVecVal(1, 32), w | m, w & ~m)

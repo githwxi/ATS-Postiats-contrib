@@ -24,8 +24,17 @@ fun
 max {x,y:bv32} (
   x: int (x), y: int (y)
 ): int (max(x, y)) =
-  x lxor ((x lxor y) land ~bool2bv(x < y))
-  
+ x lxor ((x lxor y) land ~bool2bv(x < y))
+
+fun
+cond_set_or_clear {f:bool} {w,m:bv32} (
+  f: bool (f), 
+  w: &int (w) >> int (cond_set_or_clear(bv32(f), w, m)), 
+  m: int (m)
+): void = {
+  val () = w := w lxor ((~bool2bv(f) lxor w) land m)
+}
+
 fun
 swap {x,y:bv32} (
   x: &int (x) >> int (y), y: &int (y) >> int (x)

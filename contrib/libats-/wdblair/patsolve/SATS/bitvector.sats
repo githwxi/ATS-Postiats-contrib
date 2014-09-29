@@ -165,6 +165,9 @@ stadef min = min_bv32_bv32
 stacst max_bv32_bv32: (bv32, bv32) -> bv32
 stadef max = max_bv32_bv32
 
+stacst cond_set_or_clear_bv32: (bv32, bv32, bv32) -> bv32
+stadef cond_set_or_clear = cond_set_or_clear_bv32
+
 stacst and_bv32_bv32: (bv32, bv32) -> bv32
 stadef land = and_bv32_bv32
 
