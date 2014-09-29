@@ -71,7 +71,7 @@ fun
 has_byte {x,n:bv32} (
   x: int (x), n: int (n)
 ): bool (has_byte(x, n)) = let
-  val test = x lxor (~int2bv(0)/int2bv(255) * (n land int2bv(0xFF)))
+  val test = x lxor (int2bv(0x01010101) * (n land int2bv(0xFF)))
 in
   has_zero_byte (test)
 end
