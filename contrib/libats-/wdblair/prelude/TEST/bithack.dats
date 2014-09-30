@@ -88,7 +88,6 @@ end
 
 (**
   Encoding Brian Kernighan's Bit Counting Routine in ATS.
-  
 *)
 stacst bits_set_bv32: bv32 -> int
 stadef bits_set = bits_set_bv32
@@ -116,11 +115,8 @@ bits_set {b:bv32} (
     in
       c
     end
-    else let
-      prval pff = Succ (pf)
-    in
-      loop (pff | x land (x - 1), succ(c))
-    end
+    else
+      loop (Succ (pf) | x land (x - 1), succ(c))
   //
 in
   loop (Nil() | b, 0)
