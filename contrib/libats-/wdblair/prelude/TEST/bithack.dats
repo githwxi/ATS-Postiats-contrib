@@ -12,6 +12,7 @@ staload "contrib/libats-/wdblair/prelude/SATS/integer.sats"
   Assume we're only working with 32 bit numbers in this file.
 *)
 macdef int2bv = bv32_of_int
+macdef uint2bv = ubv32_of_uint
 macdef bool2bv = bv32_of_bool
 
 fun 
@@ -86,30 +87,91 @@ in
   has_zero_byte (test)
 end
 
+
 (**
-  Encoding Brian Kernighan's Bit Counting Routine in ATS.
+  Encoding different ways to count set bits.
 *)
+
 stacst bits_set_bv32: bv32 -> int
 stadef bits_set = bits_set_bv32
 
-dataprop BitCount (b:bv32, bv32, int) =
-  | Nil (b, b, 0) of ()
-  | {x:bv32 | ugt(x, bv32(0))} {n:int}
-    Succ (b, x land (x - bv32(1)), n + 1) of BitCount (b, x, n)
-    
-extern praxi
+(**
+  Naive approach
+  
+  Takes up to 32 iterations.
+*)
+absprop BitCount (b:bv32, bv32, int)
+
+extern
+praxi
 bitcount_elim_lemma {b:bv32} {n:int} (
   BitCount (b, bv32(0), n)
 ): [bits_set (b) == n] void
 
+extern 
+praxi 
+bitcount_nil {b:bv32} (): BitCount (b, b, 0)
+
+overload Nil with bitcount_nil
+
+local
+
+extern
+praxi 
+bitcount_naive_succ {b,x:bv32 | ugt(x, bv32(0))} {n:int} (
+  BitCount (b, x, n)
+): BitCount (b, lshr (x, bv32(1)), n + int_of_bv32(x land bv32(1)))
+
+overload Succ with bitcount_naive_succ
+
+in
+
+fun 
+bits_set_naive {b:bv32} (
+  b: uint b
+): uint (bits_set(b)) = let
+  //
+  fun loop {x:bv32} {n:int}  (
+    pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
+  ): uint (bits_set (b)) =
+    if x = 0u then let
+      val () = bitcount_elim_lemma (pf)
+    in
+      c
+    end
+    else
+      loop (Succ (pf) | x >> uint2bv(1u), c + uint_of_bv32((x land uint2bv(1u))))
+in
+  loop (Nil () | b, 0u)
+end
+
+end // end of [local] 
+
+(**
+  Encoding Brian Kernighan's counting set bits routine in ATS.
+  
+  Runs as many iterations as there are bits set.
+*)
+local
+
+extern
+praxi
+bitcount_kernighan_succ {b,x:bv32 | ugt(x, bv32(0))} {n:int} (
+  BitCount (b, x, n)
+): BitCount (b, x land (x - bv32(1)), n + 1)
+
+overload Succ with bitcount_kernighan_succ
+
+in
+
 fun
-bits_set {b:bv32} (
+bits_set_kernighan {b:bv32} (
   b: int b
 ): int (bits_set(b)) = let
   //
   fun loop {x:bv32} {n:int} (
     pf: BitCount (b, x, n) | x: int (x), c: int (n)
-  ): int (bits_set(b)) =
+  ): int (bits_set (b)) =
     if x = 0 then let
       prval () = bitcount_elim_lemma (pf)
     in
@@ -121,3 +183,5 @@ bits_set {b:bv32} (
 in
   loop (Nil() | b, 0)
 end
+
+end // end of [local]

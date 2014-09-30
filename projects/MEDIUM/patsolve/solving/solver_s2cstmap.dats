@@ -387,6 +387,8 @@ constraint3_initialize_map (map) = {
     ins (map, "ugt_bv16_bv16", f_ugt_bv_bv);
     //
     ins (map, "bv32_of_int", f_bv32_of_int);
+    ins (map, "int_of_bv32", f_int_of_bv32);
+    ins (map, "signed_int_of_bv32", f_signed_int_of_bv32);
     ins (map, "add_bv32_bv32", f_add_bv_bv);
     ins (map, "sub_bv32_bv32", f_sub_bv_bv);
     ins (map, "mul_bv32_bv32", f_mul_bv_bv);

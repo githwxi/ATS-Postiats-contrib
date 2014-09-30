@@ -187,6 +187,10 @@ fun make_eq (formula,  formula): formula
 
 fun make_bv_from_int (width: int, i: formula): formula
 
+fun make_int_from_bv (i: formula): formula
+
+fun make_signed_int_from_bv (i: formula): formula
+
 fun make_bv_sub (formula, formula): formula
 
 fun make_bv_add (formula, formula): formula

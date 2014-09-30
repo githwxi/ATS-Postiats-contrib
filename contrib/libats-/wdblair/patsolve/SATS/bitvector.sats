@@ -147,6 +147,11 @@ stadef bv32 = bv32_of_int
 stacst bv32_of_bool: (bool) -> bv32
 stadef bv32 = bv32_of_bool
 
+stacst int_of_bv32: bv32 -> int
+stadef int = int_of_bv32
+
+stacst signed_int_of_bv32: bv32 -> int
+
 stacst is_power_of_2_bv32: (bv32) -> bool
 stadef is_power_of_2 = is_power_of_2_bv32
 

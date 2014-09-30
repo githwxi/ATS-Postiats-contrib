@@ -36,6 +36,10 @@ Z3_DECLARE_MK_AST (Z3_mk_int2bv, int n, Z3_ast num) {
   Z3_BODY_MK_AST(Z3_mk_int2bv, n, num)
 }
 
+Z3_DECLARE_MK_AST (Z3_mk_bv2int, Z3_ast num, Z3_bool is_signed) {
+  Z3_BODY_MK_AST(Z3_mk_bv2int, num, is_signed)
+}
+
 ATSinline()
 Z3_sort
 atscntrb_Z3_mk_bv_sort(Z3_context ctx, unsigned int n) {

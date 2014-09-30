@@ -52,6 +52,10 @@ fun Z3_mk_int2bv (
   !Z3_context, int, !Z3_ast
 ): Z3_ast = "mac#%"
 
+fun Z3_mk_bv2int (
+  !Z3_context, !Z3_ast, is_signed: bool
+): Z3_ast = "mac#%"
+
 fun Z3_mk_bv_sort (
   !Z3_context, uint
 ): Z3_sort = "mac#%"

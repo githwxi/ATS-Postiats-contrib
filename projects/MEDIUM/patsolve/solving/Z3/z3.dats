@@ -1039,6 +1039,26 @@ in
   bv
 end
 
+implement
+make_int_from_bv (i) = let
+  val n = Z3_mk_bv2int (!the_context, i, false)
+  val () = begin
+    Z3_dec_ref (!the_context, i)
+  end
+in
+  n
+end
+
+implement
+make_signed_int_from_bv (i) = let
+  val n = Z3_mk_bv2int (!the_context, i, true)
+  val () = begin
+    Z3_dec_ref (!the_context, i)
+  end
+in
+  n
+end
+
 (* ****** ****** *)
 
 implement
