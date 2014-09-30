@@ -18,7 +18,7 @@ fun
 min {x,y:bv32} (
   x: int (x), y: int (y)
 ): int (min(x, y)) =
-  y lxor ((x lxor y) land ~bool2bv(x < y))
+  y lxor ((x lxor y) land ~bool2bv (x < y))
 
 fun
 max {x,y:bv32} (
@@ -45,7 +45,7 @@ swap {x,y:bv32} (
 }
 
 fun
-swap_bits {b:bv32} {i,j,n:nat | i + n < 32; j + n < 32; abs(i - j) >  n} (
+swap_bits {b:bv32} {i,j,n:nat | abs(i - j) >  n} (
   b: int (b), i: int i, j: int j, n: int n
 ): int (swap (b, bv32(i), bv32(j), bv32(n))) = let
   val i = int2bv (i)
@@ -75,12 +75,53 @@ has_zero_byte {x:bv32} (
   x: int (x)
 ): bool (has_zero_byte(x)) =
   ~(((x - 0x01010101) land (lnot(x) land 0x80808080)) = 0)
-
+  
 fun
-has_byte {x,n:bv32} (
+has_byte {x,n:bv32 | ule (n, bv32(0xff))} (
   x: int (x), n: int (n)
 ): bool (has_byte(x, n)) = let
-  val test = x lxor (int2bv(0x01010101) * (n land int2bv(0xFF)))
+  val mask = udiv(lnot (0), 0xff) // 0x01010101
+  val test = x lxor (mask * n)
 in
   has_zero_byte (test)
+end
+
+(**
+  Encoding Brian Kernighan's Bit Counting Routine in ATS.
+  
+*)
+stacst bits_set_bv32: bv32 -> int
+stadef bits_set = bits_set_bv32
+
+dataprop BitCount (b:bv32, bv32, int) =
+  | Nil (b, b, 0) of ()
+  | {x:bv32 | ugt(x, bv32(0))} {n:int}
+    Succ (b, x land (x - bv32(1)), n + 1) of BitCount (b, x, n)
+    
+extern praxi
+bitcount_elim_lemma {b:bv32} {n:int} (
+  BitCount (b, bv32(0), n)
+): [bits_set (b) == n] void
+
+fun
+bits_set {b:bv32} (
+  b: int b
+): int (bits_set(b)) = let
+  //
+  fun loop {x:bv32} {n:int} (
+    pf: BitCount (b, x, n) | x: int (x), c: int (n)
+  ): int (bits_set(b)) =
+    if x = 0 then let
+      prval () = bitcount_elim_lemma (pf)
+    in
+      c
+    end
+    else let
+      prval pff = Succ (pf)
+    in
+      loop (pff | x land (x - 1), succ(c))
+    end
+  //
+in
+  loop (Nil() | b, 0)
 end

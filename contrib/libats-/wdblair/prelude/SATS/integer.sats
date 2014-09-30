@@ -54,6 +54,12 @@ udiv_int_int_bv32 {x,y:bv32}
   (x: int (x), y: int (y)): int (udiv (x, y)) = "mac#%"
 
 overload udiv with udiv_int_int_bv32
+
+fun
+udiv_int_bv32_int_int {x:bv32}{y:int}
+  (x: int (x), y: int (y)): int (udiv (x, bv32(y))) = "mac#%"
+  
+overload udiv with udiv_int_bv32_int_int
   
 fun 
 eq_int_int_bv32 {x,y:bv32}
@@ -127,7 +133,13 @@ lnot_int_bv32 {x:bv32}
   (x:int (x)): int (lnot x) = "mac#%"
 
 overload lnot with lnot_int_bv32
-  
+
+fun
+lnot_int_int {x:int}
+  (x: int (x)): int (lnot (bv32(x))) = "mac#%"
+
+overload lnot with lnot_int_int
+
 fun
 lshl_int_bv32_int {x,i:bv32}
   (x: int (x), i: int (i)): int (x << i) = "mac#%"

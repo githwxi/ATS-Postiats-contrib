@@ -44,8 +44,8 @@ def has_byte_bv32 (b, n):
     """
     Check whether b contains a byte of value n.
     """
-    return reduce(Or, (((b >> (8*i)) & 0xFF) == (n & 0xFF) for i in range(4)))
-
+    return Implies (ULE(n, 0xff), 
+                    reduce(Or, (((b >> (8*i)) & 0xff) == n for i in range(4))))
 
 def cond_set_or_clear_bv32 (f, w, m):
     """
