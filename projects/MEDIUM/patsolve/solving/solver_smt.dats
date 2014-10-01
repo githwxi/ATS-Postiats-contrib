@@ -76,10 +76,6 @@ staload "solving/error.sats"
 
 (* ****** ****** *)
 
-val log_smt = false
-
-(* ****** ****** *)
-
 extern fun {a:vt0p}{b:vt0p} list_vt_reduce$init (): b
 extern fun {a:vt0p}{b:vt0p} list_vt_reduce$foper (x: a, res: b): b
 //
@@ -110,7 +106,8 @@ local
     variables= @{
       statics= s2varmap (formula)
     },
-    err= int 
+    err= int,
+    verbose= bool
   }
   
   assume smtenv_viewt0ype = smtenv_struct
@@ -122,6 +119,7 @@ in
     env.smt := $SMT.make_solver ();
     s2varmap_nil (env.variables.statics);
     env.err := 0;
+    env.verbose := false
   end
 
   implement 
@@ -132,23 +130,23 @@ in
 
   implement 
   smtenv_push (env) = (pf | ()) where {
-    val _ = if log_smt then println! ("(push 1)")
+    val _ = if env.verbose then println! ("(push 1)")
     val _ = $SMT.push (env.smt)
     val _ = s2varmap_push (env.variables.statics)
     prval pf = __push () where {
       extern praxi __push (): smtenv_push_v
     }
-  }
+  } // end of [smtenv_push]
   
   implement 
   smtenv_pop (pf | env) = {
-    val _ = if log_smt then println! ("(pop 1)")
+    val _ = if env.verbose then println! ("(pop 1)")
     val _ = $SMT.pop (env.smt)
     val _ = s2varmap_pop (env.variables.statics)
     prval _ = __pop (pf) where {
       extern praxi __pop (pf: smtenv_push_v): void
     }
-  }
+  } // end of [smtenv_pop]
   
   implement
   smtenv_get_solver (env)= let
@@ -156,18 +154,23 @@ in
   in
     slv
   end // end of [smtenv_get_solver]
+
+  implement
+  smtenv_set_verbose (env, verbose) = {
+    val () = env.verbose := verbose
+  }
   
   implement 
   smtenv_add_svar (env, s2v) = let
     val type = s2var_get_srt (s2v)
-    val () = if log_smt then
+    val () = if env.verbose then
       fprintln! (stdout_ref, "Adding svar: ", s2v, " type: ", type)
     //
     val smt_type = sort_make (type)
     //
     val stamp = s2var_get_stamp (s2v)
     val id = stamp_get_int (stamp)
-    val () = if log_smt then
+    val () = if env.verbose then
       println! ("Variables: ",
         s2varmap_size (env.variables.statics)
     )
@@ -234,8 +237,9 @@ in
     else if s2rt_is_bool (type) then
       $SMT.make_bool_sort ()
     else let
-      val () = if log_smt then
+      (**
         fprintln! (stderr_ref, "Could not handle sort: ", type)
+      *)
     in
       $SMT.make_bool_sort ()
     end
@@ -395,7 +399,7 @@ in
 
   implement smtenv_assert_sbexp (env, prop) = let
     val assumption = formula_make (env, prop)
-    val _ = if log_smt then println! (
+    val _ = if env.verbose then println! (
       "(assert ", $SMT.string_of_formula (assumption) ,")"
     )
   in 
@@ -403,7 +407,7 @@ in
   end
   
   implement smtenv_formula_is_valid (env, wff) = let
-    val () = if log_smt then
+    val () = if env.verbose then
       println! ("(is-valid", $SMT.string_of_formula (wff), ")")
   in
     $SMT.is_valid (env.smt, wff)

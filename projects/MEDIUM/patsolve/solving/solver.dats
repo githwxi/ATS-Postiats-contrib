@@ -250,6 +250,7 @@ end // end of [c3nstr_solve_main]
 implement c3nstr_solve (c3t, scripts) = let
   var env : smtenv
   val _ = smtenv_nil (env)
+  val () = env.verbose (false)
   val () = smtenv_load_scripts (env, scripts)
   var unsolved: uint = 0u and err: int = 0
   val _(*status*) = c3nstr_solve_main (env, c3t, unsolved, err)
