@@ -400,9 +400,9 @@ constraint3_initialize_map (map) = {
     ins (map, "or_bv32_bv32", f_lor_bv_bv);
     ins (map, "xor_bv32_bv32", f_lxor_bv_bv);
     ins (map, "not_bv32", f_lnot_bv);
-    ins (map, "lshl_bv32_int", f_lshl_bv_int);
-    ins (map, "lshr_bv32_int", f_lshr_bv_int);
-    ins (map, "ashr_bv32_int", f_ashr_bv_int);
+    ins (map, "lshl_bv32_bv32", f_lshl_bv_int);
+    ins (map, "lshr_bv32_bv32", f_lshr_bv_int);
+    ins (map, "ashr_bv32_bv32", f_ashr_bv_int);
     //
     ins (map, "eq_bv32_bv32", f_eq_bv_bv);
     ins (map, "lt_bv32_bv32", f_lt_bv_bv);

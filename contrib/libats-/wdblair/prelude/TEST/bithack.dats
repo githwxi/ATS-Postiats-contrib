@@ -20,7 +20,7 @@ min {x,y:bv32} (
   x: int (x), y: int (y)
 ): int (min(x, y)) =
   y lxor ((x lxor y) land ~bool2bv (x < y))
-
+  
 fun
 max {x,y:bv32} (
   x: int (x), y: int (y)
@@ -64,24 +64,24 @@ end
 
 fun
 is_power_of_two {x:bv32} (
-  x: int(x)
+  x: uint (x)
 ): bool (is_power_of_2 (x)) =
-  if x = 0 then
+  if x = 0u then
     false
   else
-    ((x land (x - 1)) = 0)
+    ((x land (x - 1u)) = 0u)
     
 fun
 has_zero_byte {x:bv32} (
-  x: int (x)
+  x: uint (x)
 ): bool (has_zero_byte(x)) =
-  ~(((x - 0x01010101) land (lnot(x) land 0x80808080)) = 0)
+  ~(((x - 0x01010101u) land (lnot(x) land 0x80808080u)) = 0u)
   
 fun
 has_byte {x,n:bv32 | ule (n, bv32(0xff))} (
-  x: int (x), n: int (n)
+  x: uint (x), n: uint (n)
 ): bool (has_byte(x, n)) = let
-  val mask = udiv(lnot (0), 0xff) // 0x01010101
+  val mask = udiv(lnot (0u), 0xffu) // 0x01010101
   val test = x lxor (mask * n)
 in
   has_zero_byte (test)
@@ -130,7 +130,7 @@ bits_set_naive {b:bv32} (
   b: uint b
 ): uint (bits_set(b)) = let
   //
-  fun loop {x:bv32} {n:int}  (
+  fun loop {x:bv32 | ule (x, b)} {n:int} .<x>. (
     pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
   ): uint (bits_set (b)) =
     if x = 0u then let
@@ -165,22 +165,22 @@ in
 
 fun
 bits_set_kernighan {b:bv32} (
-  b: int b
-): int (bits_set(b)) = let
+  b: uint b
+): uint (bits_set(b)) = let
   //
-  fun loop {x:bv32} {n:int} (
-    pf: BitCount (b, x, n) | x: int (x), c: int (n)
-  ): int (bits_set (b)) =
-    if x = 0 then let
+  fun loop {x:bv32} {n:int} .<x>. (
+    pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
+  ): uint (bits_set (b)) =
+    if x = 0u then let
       prval () = bitcount_elim_lemma (pf)
     in
       c
     end
     else
-      loop (Succ (pf) | x land (x - 1), succ(c))
+      loop (Succ(pf) | x land (x - 1u), succ(c))
   //
 in
-  loop (Nil() | b, 0)
+  loop (Nil() | b, 0u)
 end
 
 end // end of [local]

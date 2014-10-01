@@ -243,7 +243,7 @@ in
   implement 
   formula_make (env, s2e) = let
     val err = stderr_ref
-  in    
+  in
     case+ s2e.s2exp_node of
       | S2Eint i => let
         val type = $SMT.make_int_sort ()
@@ -342,15 +342,20 @@ in
           val (pf, fpf | Env) = $UN.ptr1_vtake{smtenv}(addr@ env)
           val met = formula_make (!Env, x.0)
           val bound = formula_make (!Env, x.1)
-          prval () =  fpf(pf)
+          prval () =  fpf (pf)
+          val srt = x.0.s2exp_srt
         in
-          $SMT.make_lt (met, bound)
+          if s2rt_is_bitvec (srt) then
+            $SMT.make_bv_ult (met, bound)
+          else
+            $SMT.make_lt (met, bound)
         end
         //
         val assertions =
           list_map<(s2exp,s2exp)><formula> (pairs)
         //
-        implement list_vt_reduce$init<formula><formula> () = $SMT.make_false ()
+        implement list_vt_reduce$init<formula><formula> () = 
+          $SMT.make_false ()
         implement list_vt_reduce$foper<formula><formula> (x, res) =
           $SMT.make_or2 (x, res)
       in

@@ -234,7 +234,7 @@ udiv_uint_uint_bv32 {x,y:bv32}
 overload udiv with udiv_uint_uint_bv32
 
 fun
-udiv_uint_bv32_uint_uint {x:bv32}{y:int}
+udiv_uint_bv32_uint_uint {x:bv32} {y:int}
   (x: uint (x), y: uint (y)): uint (udiv (x, bv32(y))) = "mac#%"
   
 overload udiv with udiv_uint_bv32_uint_uint
@@ -310,13 +310,13 @@ fun
 lnot_uint_bv32 {x:bv32}
   (x:uint (x)): uint (lnot x) = "mac#%"
 
-overload lnot with lnot_uint_bv32
+overload lnot with lnot_uint_bv32 of 100
 
 fun
 lnot_uint_uint {x:int}
   (x: uint (x)): uint (lnot (bv32(x))) = "mac#%"
 
-overload lnot with lnot_uint_uint
+overload lnot with lnot_uint_uint of 100
 
 fun
 lshl_uint_bv32_uint {x,i:bv32}
