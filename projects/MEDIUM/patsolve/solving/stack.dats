@@ -1,4 +1,3 @@
-
 staload "solving/stack.sats"
 
 assume stack (a) = List0_vt (a)
