@@ -76,18 +76,24 @@ staload "solving/error.sats"
 
 (* ****** ****** *)
 
-extern fun {a:vt0p}{b:vt0p} list_vt_reduce$init (): b
-extern fun {a:vt0p}{b:vt0p} list_vt_reduce$foper (x: a, res: b): b
-//
-fun {a:vt0p}{b:vt0p} list_vt_reduce {n:int} (xs: list_vt (a, n)): b = let
+extern fun {a:vt0p}{b:vt0p}
+list_vt_fold$init (a): b
+
+extern fun {a:vt0p}{b:vt0p}
+list_vt_fold$foper (x: a, res: b): b
+
+fun {a:vt0p}{b:vt0p}
+list_vt_fold {n:pos} (xs: list_vt (a, n)): b = let
+  val ~list_vt_cons (x, xss) = xs
   fun loop {m:int} (xs: list_vt(a, m), res: b): b = 
     case+ xs of
       | ~list_vt_cons (x, xss) =>
-        loop (xss, list_vt_reduce$foper (x, res))
+        loop (xss, list_vt_fold$foper (x, res))
       | ~list_vt_nil () => res
-    in
-      loop (xs, list_vt_reduce$init<a>())
-    end
+in
+  loop (xss, list_vt_fold$init(x))
+end
+
 //
 (* ****** ****** *)
 
@@ -338,11 +344,11 @@ in
               }
           ) // end of [S2Eapp]
       | S2Emetdec (met, bound) => let
-        val pairs = list_of_list_vt (
-          list_zip (met, bound)
-        )
+        val pairs = list_zip (met, bound)
         //
-        implement list_map$fopr<@(s2exp,s2exp)><formula>(x) = let
+        val () = assertloc (length(pairs) > 0)
+        //
+        implement list_vt_map$fopr<@(s2exp,s2exp)><formula>(x) = let
           val (pf, fpf | Env) = $UN.ptr1_vtake{smtenv}(addr@ env)
           val met = formula_make (!Env, x.0)
           val bound = formula_make (!Env, x.1)
@@ -356,14 +362,16 @@ in
         end
         //
         val assertions =
-          list_map<(s2exp,s2exp)><formula> (pairs)
+          list_vt_mapfree<(s2exp,s2exp)><formula> (pairs)
         //
-        implement list_vt_reduce$init<formula><formula> () = 
-          $SMT.make_false ()
-        implement list_vt_reduce$foper<formula><formula> (x, res) =
+        implement 
+        list_vt_fold$init<formula><formula> (x) = x
+
+        implement 
+        list_vt_fold$foper<formula><formula> (x, res) =
           $SMT.make_or2 (x, res)
       in
-        list_vt_reduce<formula><formula> (assertions)
+        list_vt_fold<formula><formula> (assertions)
       end // end of [S2Emetdec]
       | S2Esizeof (s2exp) => let
         #define :: list_vt_cons
