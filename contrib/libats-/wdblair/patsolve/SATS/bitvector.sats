@@ -148,7 +148,7 @@ stacst bv32_of_bool: (bool) -> bv32
 stadef bv32 = bv32_of_bool
 
 stacst int_of_bv32: bv32 -> int
-stadef int = int_of_bv32
+stadef bv32toint = int_of_bv32
 
 stacst signed_int_of_bv32: bv32 -> int
 

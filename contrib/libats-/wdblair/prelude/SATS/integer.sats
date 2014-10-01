@@ -186,6 +186,12 @@ lshr_int_bv32_int {x,i:bv32}
 overload >> with lshr_int_bv32_int
 
 fun
+lshr_int_bv32_int_int {x:bv32}{i:int}
+  (x: uint (x), i: uint (i)): uint (lshr(x, bv32(i))) = "mac#%"
+
+overload >> with lshr_int_bv32_int_int
+
+fun
 neg_uint_bv32 {x:bv32}
   (x: uint(x)): uint (~x) = "mac#%"
 

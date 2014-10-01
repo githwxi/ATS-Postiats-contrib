@@ -335,7 +335,7 @@ in
           ) // end of [S2Eapp]
       | S2Emetdec (met, bound) => let
         val pairs = list_of_list_vt (
-          list_zip(met, bound)
+          list_zip (met, bound)
         )
         //
         implement list_map$fopr<@(s2exp,s2exp)><formula>(x) = let

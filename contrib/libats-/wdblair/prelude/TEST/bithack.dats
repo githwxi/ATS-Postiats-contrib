@@ -87,20 +87,14 @@ in
   has_zero_byte (test)
 end
 
-
 (**
-  Encoding different ways to count set bits.
+  Encode different ways to count set bits.
 *)
 
 stacst bits_set_bv32: bv32 -> int
 stadef bits_set = bits_set_bv32
 
-(**
-  Naive approach
-  
-  Takes up to 32 iterations.
-*)
-absprop BitCount (b:bv32, bv32, int)
+absprop BitCount (bv32, bv32, int)
 
 extern
 praxi
@@ -114,24 +108,29 @@ bitcount_nil {b:bv32} (): BitCount (b, b, 0)
 
 overload Nil with bitcount_nil
 
+(**
+  Naive approach
+  
+  Takes up to 32 iterations.
+*)
 local
 
 extern
 praxi 
 bitcount_naive_succ {b,x:bv32 | ugt(x, bv32(0))} {n:int} (
   BitCount (b, x, n)
-): BitCount (b, lshr (x, bv32(1)), n + int_of_bv32(x land bv32(1)))
+): BitCount (b, lshr (x, bv32(1)), n + bv32toint(x land bv32(1)))
 
 overload Succ with bitcount_naive_succ
 
 in
 
-fun 
+fun
 bits_set_naive {b:bv32} (
   b: uint b
 ): uint (bits_set(b)) = let
   //
-  fun loop {x:bv32} {n:int}  (
+  fun loop {x:bv32} {n:int} (
     pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
   ): uint (bits_set (b)) =
     if x = 0u then let
@@ -140,12 +139,12 @@ bits_set_naive {b:bv32} (
       c
     end
     else
-      loop (Succ (pf) | x >> uint2bv(1u), c + uint_of_bv32((x land uint2bv(1u))))
+      loop (Succ (pf) | x >> 1u, c + uint_of_bv32((x land 1u)))
 in
   loop (Nil () | b, 0u)
 end
 
-end // end of [local] 
+end // end of [local]
 
 (**
   Encoding Brian Kernighan's counting set bits routine in ATS.
