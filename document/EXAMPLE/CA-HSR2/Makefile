@@ -33,48 +33,42 @@ all:: program-1-3
 program-1-3: program-1-3.exe
 program-1-3.exe: program-1-3_dats.c ;   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -o $@ $<
 program-1-3_dats.c: program-1-3.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output program-1-3_dats.c --dynamic program-1-3.dats
-clean:: ; $(RMF) program-1-3_dats.o
-clean:: ; $(RMF) program-1-3_dats.c
+regress:: program-1-3.exe ; ./$<
 cleanall:: ; $(RMF) program-1-3.exe
 
 all:: program-1-4
 program-1-4: program-1-4.exe
 program-1-4.exe: program-1-4_dats.c ;   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
 program-1-4_dats.c: program-1-4.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output program-1-4_dats.c --dynamic program-1-4.dats
-clean:: ; $(RMF) program-1-4_dats.o
-clean:: ; $(RMF) program-1-4_dats.c
+regress:: program-1-4.exe ; ./$<
 cleanall:: ; $(RMF) program-1-4.exe
 
 all:: program-1-5
 program-1-5: program-1-5.exe
 program-1-5.exe: program-1-5_dats.c ;   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -o $@ $<
 program-1-5_dats.c: program-1-5.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output program-1-5_dats.c --dynamic program-1-5.dats
-clean:: ; $(RMF) program-1-5_dats.o
-clean:: ; $(RMF) program-1-5_dats.c
+regress:: program-1-5.exe ; ./$<
 cleanall:: ; $(RMF) program-1-5.exe
 
 all:: program-1-6
 program-1-6: program-1-6.exe
 program-1-6.exe: program-1-6_dats.c ;   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
 program-1-6_dats.c: program-1-6.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output program-1-6_dats.c --dynamic program-1-6.dats
-clean:: ; $(RMF) program-1-6_dats.o
-clean:: ; $(RMF) program-1-6_dats.c
+regress:: program-1-6.exe ; ./$<
 cleanall:: ; $(RMF) program-1-6.exe
 
 all:: program-1-7
 program-1-7: program-1-7.exe
 program-1-7.exe: program-1-7_dats.c ;   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
 program-1-7_dats.c: program-1-7.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output program-1-7_dats.c --dynamic program-1-7.dats
-clean:: ; $(RMF) program-1-7_dats.o
-clean:: ; $(RMF) program-1-7_dats.c
+regress:: program-1-7.exe ; ./$<
 cleanall:: ; $(RMF) program-1-7.exe
 
 all:: program-1-14
 program-1-14: program-1-14.exe
 program-1-14.exe: program-1-14_dats.c ;   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -o $@ $<
 program-1-14_dats.c: program-1-14.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output program-1-14_dats.c --dynamic program-1-14.dats
-clean:: ; $(RMF) program-1-14_dats.o
-clean:: ; $(RMF) program-1-14_dats.c
+regress:: program-1-14.exe ; ./$<
 cleanall:: ; $(RMF) program-1-14.exe
 
 

@@ -11,12 +11,11 @@
 
 <?php
 //
+require './libatscc2php_all.php';
+//
 include './DATS_PHP/fact_dats.php';
 include './DATS_PHP/fibats_dats.php';
 include './DATS_PHP/acker_dats.php';
-require './libatscc2php/prelude_basics_cats.php';
-require './libatscc2php/prelude_integer_cats.php';
-require './libatscc2php/prelude_string_cats.php';
 //
 ?>
 

@@ -25,10 +25,9 @@ all:: %s\n\
   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -o $@ $<\n\
 %s_dats.c: %s.dats ; \
   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output %s_dats.c --dynamic %s.dats\n\
-clean:: ; $(RMF) %s_dats.o\n\
-clean:: ; $(RMF) %s_dats.c\n\
+regress:: %s.exe ; ./$<\n\
 cleanall:: ; $(RMF) %s.exe\n\
-", @(nm, nm, nm, nm, nm, nm, nm, nm, nm, nm, nm, nm)
+", @(nm, nm, nm, nm, nm, nm, nm, nm, nm, nm, nm)
 ) // end of [val]
 //
 val ent = string_of_strptr (ent)
@@ -39,17 +38,18 @@ end // end of [make_entry]
 fun make2_entry
   (nm: string, cflgs: string, libs: string): atext = let
 //
-val ent = sprintf ("\
+val
+ent =
+sprintf ("\
 all:: %s\n\
 %s: %s.exe\n\
 %s.exe: %s_dats.c ; \
   $(CCOPT) -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime %s -o $@ $< %s\n\
 %s_dats.c: %s.dats ; \
   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output %s_dats.c --dynamic %s.dats\n\
-clean:: ; $(RMF) %s_dats.o\n\
-clean:: ; $(RMF) %s_dats.c\n\
+regress:: %s.exe ; ./$<\n\
 cleanall:: ; $(RMF) %s.exe\n\
-", @(nm, nm, nm, nm, nm, cflgs, libs, nm, nm, nm, nm, nm, nm, nm)
+", @(nm, nm, nm, nm, nm, cflgs, libs, nm, nm, nm, nm, nm, nm)
 ) // end of [val]
 //
 val ent = string_of_strptr (ent)

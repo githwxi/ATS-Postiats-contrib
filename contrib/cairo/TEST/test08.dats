@@ -1,9 +1,12 @@
 (*
 **
-** A simple CAIRO example: an illusion of circular motion
-** see Kitaoka's page: http://www.ritsumei.ac.jp/~akitaoka/
+** A simple CAIRO example:
+** an illusion of circular motion
+** see Kitaoka's page:
+** http://www.ritsumei.ac.jp/~akitaoka/
 **
-** Author: Hongwei Xi (hwxi AT cs DOT bu DOT edu)
+** Author: Hongwei Xi
+** Authoremail: hwxiATcsDOTbuDOTedu
 ** Time: December, 2009
 **
 *)

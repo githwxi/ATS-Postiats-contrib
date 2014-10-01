@@ -64,6 +64,14 @@ cleanall:: ; $(RMF) isevn_dats.php
 ######
 
 all:: \
+multable_dats.php
+multable_dats.php: multable.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+cleanall:: ; $(RMF) multable_dats.php
+
+######
+
+all:: \
 twice_dats.php
 twice_dats.php: twice.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2JS) -o $@
