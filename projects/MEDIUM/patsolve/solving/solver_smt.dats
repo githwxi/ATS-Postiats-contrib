@@ -703,7 +703,7 @@ in
     //
     val i = formula_make (env, s2e1)
   in
-    $SMT.make_signed_int_from_bv (i)
+    $SMT.make_int_from_bv (i)
   end // end of [f_int_of_bv32]
   
   implement

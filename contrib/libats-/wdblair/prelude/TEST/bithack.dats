@@ -130,7 +130,7 @@ bits_set_naive {b:bv32} (
   b: uint b
 ): uint (bits_set(b)) = let
   //
-  fun loop {x:bv32} {n:int} (
+  fun loop {x:bv32} {n:int}  (
     pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
   ): uint (bits_set (b)) =
     if x = 0u then let
