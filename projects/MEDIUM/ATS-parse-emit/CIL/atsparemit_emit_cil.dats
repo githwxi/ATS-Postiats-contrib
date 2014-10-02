@@ -821,12 +821,14 @@ d0e.d0exp_node of
             {
               val () = emit_text (out, "not")
             }
+          //
           | "ATSCKiseqz" =>
             {
               val () = emit_text (out, "ldc.i4.0")
               val () = emit_ENDL (out)
               val () = emit_text (out, "ceq")
             }
+          //
           | "ATSCKisneqz" =>
             {
               val () = emit_text (out, "ldc.i4.0")
@@ -835,11 +837,51 @@ d0e.d0exp_node of
               val () = emit_ENDL (out)
               val () = emit_text (out, "not")
             }
-          (*
-          // TODO:
-          | "ATSCKptriscons"
-          | "ATSCKptrisnull"
-          *)
+          //
+          | "ATSCKptriscons" =>
+            {
+              val L0 = make_label (id.i0de_loc)
+              val L1 = make_label (id.i0de_loc)
+              val () = emit_text (out, "brtrue")
+              val () = emit_SPACE (out)
+              val () = emit_label (out, L0)
+              val () = emit_ENDL (out)
+              
+              val () = emit_text (out, "ldc.i4.0")
+              val () = emit_ENDL (out)
+              val () = emit_text (out, "br")
+              val () = emit_SPACE (out)
+              val () = emit_label (out, L1)
+              val () = emit_ENDL (out)
+              
+              val () = emit_label_mark (out, L0)
+              val () = emit_text (out, "ldc.i4.1")
+              val () = emit_ENDL (out)
+              val () = emit_label_mark (out, L1)
+            }
+          //
+          | "ATSCKptrisnull" =>
+            {
+              val L0 = make_label (id.i0de_loc)
+              val L1 = make_label (id.i0de_loc)
+              val () = emit_text (out, "brfalse")
+              val () = emit_SPACE (out)
+              val () = emit_label (out, L0)
+              val () = emit_ENDL (out)
+              
+              val () = emit_text (out, "ldc.i4.0")
+              val () = emit_ENDL (out)
+              val () = emit_text (out, "br")
+              val () = emit_SPACE (out)
+              val () = emit_label (out, L1)
+              val () = emit_ENDL (out)
+              
+              val () = emit_label_mark (out, L0)
+              val () = emit_text (out, "ldc.i4.1")
+              val () = emit_ENDL (out)
+              val () = emit_label_mark (out, L1)
+            }
+          //
           // TODO: ATSCKpat_(con*|exn*)
           //
           | _ when strstr(g1ofg0(symbol_get_name(id.i0de_sym)), "__dynload") >= 0 =>
@@ -916,6 +958,8 @@ d0e.d0exp_node of
 //
 | ATSCKpat_con0
     (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
+//
+| ATSSELcon _ => emit_SELcon (out, d0e)
 //
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e)
 //
@@ -1125,6 +1169,101 @@ in
 end (* end of [emit_ATSINSmove_boxrec] *)
 
 (* ****** ****** *)
+
+//
+extern
+fun emit_ATSINSmove_con1
+  (out: FILEref, ins0: instr): void
+//
+implement
+emit_ATSINSmove_con1
+  (out, ins0) = let
+//
+fun
+pushargs
+(
+  inss: instrlst
+) : void =
+(
+case+ inss of
+| list_nil () => ()
+| list_cons (ins, inss) => let
+    val-ATSINSstore_con1_ofs (_(*tmp*), _(*s0exp*), _(*lab*), d0e) = ins.instr_node
+    val () = emit_d0exp (out, d0e)
+    val () = emit_ENDL (out)
+  in
+    pushargs (inss)
+  end // end of [list_cons]
+) (* end of [pushargs] *)
+//
+fun loop_sig
+(
+  xs: tyfldlst, i: int
+) : void =
+(
+case+ xs of
+| list_cons (x, xs) => let
+    val TYFLD (id, s0e) = x.tyfld_node
+    val () =
+      if i > 0 then (emit_text (out, ", "))
+    // end of [val]
+    val () = emit_s0exp (out, s0e)
+  in
+    loop_sig (xs, i+1)
+  end // end of [list_cons]
+| list_nil ((*void*)) => ()
+) (* end of [loop_sig] *)
+//
+fun extract_tag
+(
+  inss: instrlst
+): instrlst =
+(
+//
+case+
+inss of
+| list_cons (ins0, inss1) =>
+  (
+    case+
+    ins0.instr_node of
+    | ATSINSstore_con1_tag (_, tok) => inss1
+    | _ => inss
+  )
+| list_nil () => inss
+//
+) (* end of [extract_tag] *)
+//
+val-ATSINSmove_con1 (inss) = ins0.instr_node
+//
+val-list_cons (ins, inss) = inss
+val-ATSINSmove_con1_new (tmp, s0e) = ins.instr_node
+//
+val inss = extract_tag (inss)
+val-S0Eide(name) = s0e.s0exp_node
+val-~Some_vt (s0rec) = typedef_search_opt (name)
+val () = the_clsname_push (the_namesp_get (), symbol_get_name(name))
+//
+val () = pushargs (inss)
+//
+val () = emit_text (out, "newobj instance void class ")
+val () = emit_text (out, the_clsname_get ())
+val () = emit_text (out, "'.ctor'")
+val () = emit_LPAREN (out)
+val () = loop_sig (s0rec.tyrec_node, 0)
+val () = emit_RPAREN (out)
+val () = emit_ENDL (out)
+//
+val () = emit_text (out, "stloc ")
+val () = emit_i0de (out, tmp)
+val () = emit_ENDL (out)
+//
+val _ = the_clsname_pop ()
+//
+in
+// nothing
+end (* end of [emit_ATSINSmove_con1] *)
+
+(* ****** ****** *)
 //
 extern
 fun emit_instr_0
@@ -1203,10 +1342,10 @@ ins0.instr_node of
       }
   )
 //
-| ATSifthen (d0e, inss) =>
+| ATSifthen (d0e, inss2) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val L1 = label_for_instrlst (inss2)
 //
     val () = emit_d0exp (out, d0e)
     val () = emit_ENDL (out)
@@ -1214,13 +1353,12 @@ ins0.instr_node of
     val () = emit_SPACE (out)
     val () = emit_label (out, labnext)
     val () = emit_ENDL (out)
-    val brlab = make_label (ins.instr_loc)
-    val () = emit_instr (out, ins, brlab, labnext)
+    val () = emit_instrlst (out, inss2, L1, labnext, true)
   }
-| ATSifnthen (d0e, inss) =>
+| ATSifnthen (d0e, inss2) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val L1 = label_for_instrlst (inss2)
 //
     val () = emit_d0exp (out, d0e)
     val () = emit_ENDL (out)
@@ -1228,8 +1366,7 @@ ins0.instr_node of
     val () = emit_SPACE (out)
     val () = emit_label (out, labnext)
     val () = emit_ENDL (out)
-    val brlab = make_label (ins.instr_loc)
-    val () = emit_instr (out, ins, brlab, labnext)
+    val () = emit_instrlst (out, inss2, L1, labnext, true)
   }
 //
 | ATSbranchseq (inss) =>
@@ -1317,6 +1454,13 @@ ins0.instr_node of
     val () = emit_d0exp (out, d0e)
   } (* end of [ATSINSmove_void] *)
 //
+| ATSINSmove_nil (tmp) =>
+  {
+    val () = emit_text (out, "ldnull")
+    val () = emit_ENDL (out)
+    val () = emit_tmpvar_st (out, tmp)
+  }
+//
 | ATSINSmove_con0 (tmp, tag) =>
   {
     val () = emit_text (out, "ldc.i4")
@@ -1326,6 +1470,11 @@ ins0.instr_node of
     val () = emit_text (out, "box ats2enum")
     val () = emit_ENDL (out)
     val () = emit_tmpvar_st (out, tmp)
+  }
+//
+| ATSINSmove_con1 _ =>
+  {
+    val () = emit_ATSINSmove_con1 (out, ins0)
   }
 //
 | ATSdynload (dummy) =>
@@ -1418,7 +1567,7 @@ fun auxseqlst
 (
   out: FILEref
 , inss: instrlst
-, labnext: label
+, labthis: label
 , lablast: label
 ) : void = let
 in
@@ -1435,7 +1584,7 @@ case+ inss of
       | _ => label_for_instrlst (inss)
     ) (* end of [val] *)
 //
-    val () = auxseq (out, ins, labnext, lablast)
+    val () = auxseq (out, ins, labthis, labnext)
 //
     val () = emit_text (out, "br")
     val () = emit_SPACE (out)
@@ -1817,29 +1966,37 @@ in
 end // end of [tyrec_labs0exp]
 //
 (* ****** ****** *)
-(*
+
 implement
 emit_SELcon
   (out, d0e) = let
 //
 val-ATSSELcon
   (d0rec, s0e, id) = d0e.d0exp_node
+//
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //
-val index = tyrec_labsel (s0rec, id.i0de_sym)
+val lab_s0exp = tyrec_labs0exp (s0rec, id.i0de_sym)
 //
 val () =
   emit_d0exp (out, d0rec)
 //
-val () = emit_LBRACKET (out)
-val () = emit_int (out, index)
-val () = emit_RBRACKET (out)
+val () = emit_ENDL (out)
+val () = emit_text (out, "ldfld")
+val () = emit_SPACE (out)
+val () = emit_s0exp (out, lab_s0exp)
+val () = emit_SPACE (out)
+val () = emit_text (out, the_namesp_get ())
+val () = emit_text (out, ".")
+val () = emit_symbol (out, name)
+val () = emit_text (out, "::")
+val () = emit_i0de (out, id)
 //
 in
   // nothing
 end // end of [emit_SELcon]
-*)
+
 (* ****** ****** *)
 
 implement
@@ -1935,6 +2092,7 @@ d0c.d0ecl_node of
 //
 | D0Ctypedef (id, def) =>
   {
+    // check to see if [def] contains any field with type atstyvar_type(X)
     val () = typedef_insert (id.i0de_sym, def)
     val () = println!("emitting typedef")
     val () = emit_typedef (out, id, def)

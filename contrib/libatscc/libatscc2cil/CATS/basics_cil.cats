@@ -49,7 +49,7 @@
 #define atstype_funptr [mscorlib]System.Delegate
 // atstype_cloptr
 // atstype_var
-// atstyvar_type
+#define atstyvar_type(a) object // a type variable for type of undeterminate size
 // atstybox_type(hit)
 // atstyclo_top, atstyclo_type(flab)
 // atsrefarg0_type(hit), atsrefarg1_type(hit)
