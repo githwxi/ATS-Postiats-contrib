@@ -17,7 +17,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload
-"./../constraint.sats"
+"constraint/constraint.sats"
 //
 (* ****** ****** *)
 
@@ -31,7 +31,7 @@ staload "{$JSONC}/SATS/json_ML.sats"
 (* ****** ****** *)
 //
 dynload
-"./../constraint_dynload.dats"
+"constraint/constraint_dynload.dats"
 //
 dynload "./parsing_dynload.dats"
 //

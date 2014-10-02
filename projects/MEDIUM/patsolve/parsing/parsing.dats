@@ -16,7 +16,7 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-staload "./../constraint.sats"
+staload "constraint/constraint.sats"
 //
 (* ****** ****** *)
 

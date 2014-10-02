@@ -3,9 +3,9 @@
 *)
 
 #include 
-"constraint.hats"
+"patsolve.hats"
 
-staload "constraint.sats"
+staload "constraint/constraint.sats"
 staload "solving/smt.sats"
 
 absviewt@ype smtenv_viewt0ype = @{

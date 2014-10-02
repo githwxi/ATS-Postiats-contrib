@@ -37,11 +37,10 @@
 #include
 "share/atspre_staload.hats"
 #include
-"constraint.hats"
+"patsolve.hats"
 
 (* ****** ****** *)
 
-staload "constraint.sats"
 staload "solving/smt.sats"
 staload "solving/error.sats"
 staload "solving/smt_ML.sats"

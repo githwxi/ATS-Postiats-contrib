@@ -33,7 +33,7 @@ SOURCES_SATS += \
   smt.sats \
   smt_ML.sats \
   error.sats \
-  stack.sats \
+  stack.sats
 
 SOURCES_DATS += \
   solver.dats \

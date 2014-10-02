@@ -5,7 +5,7 @@
 
 (* ****** ****** *)
 
-staload "constraint.sats"
+staload "constraint/constraint.sats"
 staload "solving/solver.sats"
 
 staload ERR = "solving/error.sats"

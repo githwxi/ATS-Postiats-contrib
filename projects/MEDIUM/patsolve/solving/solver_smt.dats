@@ -37,7 +37,7 @@
 #include
 "share/atspre_staload.hats"
 #include
-"constraint.hats"
+"patsolve.hats"
 
 (* ****** ****** *)
 
@@ -45,7 +45,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "constraint.sats"
+staload "constraint/constraint.sats"
 staload "solving/error.sats"
 staload "solving/solver.sats"
 

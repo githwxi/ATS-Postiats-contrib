@@ -39,7 +39,7 @@
 
 (* ****** ****** *)
 
-staload "constraint.sats"
+staload "constraint/constraint.sats"
 staload "solving/solver.sats"
 
 (* ****** ****** *)

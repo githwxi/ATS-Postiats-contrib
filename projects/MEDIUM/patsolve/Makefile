@@ -23,22 +23,8 @@ LDFLAGS += $(shell pkg-config --libs json-c)
 
 ######
 
-SOURCES_SATS += \
-  constraint.sats \
-
 SOURCES_DATS += \
-  constraint_stamp.dats \
-  constraint_symbol.dats \
-  constraint_location.dats \
-  constraint_s2rt.dats \
-  constraint_s2cst.dats \
-  constraint_s2var.dats \
-  constraint_s2vvar.dats \
-  constraint_s2exp.dats \
-  constraint_s3itm.dats \
-  constraint_h3ypo.dats \
-  constraint_c3nstr.dats \
-  constraint_dynload.dats \
+  main.dats
 
 ######
 
@@ -60,19 +46,18 @@ DATSMEMALLOC=-DATS_MEMALLOC_LIBC
 ######
 
 PATSOLVE_OBJECTS :=
-PATSOLVE_OBJECTS += $(MAINTARGET_DATS_O)
-PATSOLVE_OBJECTS += constraint.o
+PATSOLVE_OBJECTS += $(MYTARGET_DATS_O)
+PATSOLVE_OBJECTS += constraint/constraint.o
 PATSOLVE_OBJECTS += parsing/parsing.o
 PATSOLVE_OBJECTS += solving/solving.o
 
 ######
 
-######
-
 all:: setup patsolve
-cleanall:: ; $(RMF) patsolve constraint.o
+cleanall:: ; $(RMF) patsolve 
 
 setup::
+	make -C constraint
 	make -C parsing
 	make -C solving
 
@@ -83,12 +68,7 @@ include solving/Z3/atsmake-z3.mk
 
 ######
 
-constraint.o: $(OBJECTS) ; ld -r -o $@ $^
-
-main_dats.o: main.dats
-	$(PATSCC2) main.dats $(DATSMEMALLOC) -c -o $@ $(CFLAGS)
-
-patsolve: $(PATSOLVE_OBJECTS) main_dats.o
+patsolve: $(PATSOLVE_OBJECTS)
 	$(PATSCC) -o $@ $^ $(LDFLAGS)
 
 ######

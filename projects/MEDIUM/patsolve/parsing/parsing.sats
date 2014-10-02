@@ -9,7 +9,7 @@
 //
 (* ****** ****** *)
 
-staload "./../constraint.sats"
+staload "constraint/constraint.sats"
 
 (* ****** ****** *)
 

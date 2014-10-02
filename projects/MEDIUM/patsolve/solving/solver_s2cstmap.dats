@@ -10,7 +10,7 @@
 
 (* ****** ****** *)
 
-staload "constraint.sats"
+staload "constraint/constraint.sats"
 staload "parsing/parsing.sats"
 staload "solving/solver.sats"
 staload "solving/smt.sats"

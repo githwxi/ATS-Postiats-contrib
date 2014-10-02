@@ -9,6 +9,10 @@ $(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
+PATSCC := $(PATSCC) -IATS ../
+
+######
+
 CFLAGS += $(shell pkg-config --cflags json-c)
 
 ######
@@ -21,13 +25,13 @@ LDFLAGS += $(shell pkg-config --libs json-c)
 
 ######
 
-all:: main
+all:: parsing.o
 
 ######
 
 main:: constraint
 main:: main_dats.o parsing.o ; \
-  $(PATSCC) $(CFLAGS) -O2 -o $@ ../constraint.o $^ $(LDFLAGS)
+  $(PATSCC) $(CFLAGS) -O2 -o $@ ../constraint/constraint.o $^ $(LDFLAGS)
 
 ######
 
@@ -72,7 +76,7 @@ parsing.o: $(OBJECTS) ; ld -r -o $@ $^
 
 ######
 
-constraint: ; make -C .. constraint.o
+constraint: ; make -C ../constraint constraint.o
 
 ######
 
