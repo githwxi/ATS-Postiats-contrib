@@ -348,7 +348,7 @@ in
         //
         val () = assertloc (length(pairs) > 0)
         //
-        implement list_vt_map$fopr<@(s2exp,s2exp)><formula>(x) = let
+        implement list_vt_mapfree$fopr<@(s2exp,s2exp)><formula>(x) = let
           val (pf, fpf | Env) = $UN.ptr1_vtake{smtenv}(addr@ env)
           val met = formula_make (!Env, x.0)
           val bound = formula_make (!Env, x.1)

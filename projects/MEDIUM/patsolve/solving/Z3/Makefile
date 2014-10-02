@@ -14,26 +14,15 @@ PATSCC := $(PATSCC) -IATS ../../
 ######
 
 # CFLAGS += -g
-CFLAGS += $(shell pkg-config --cflags json-c)
 CFLAGS += $(shell python-config --include --cflags)
 
 ######
 
-LDFLAGS :=
-LDFLAGS += -L$(PATSHOMEQ)/ccomp/atslib/lib
-LDFLAGS += -latslib
-LDFLAGS += $(shell pkg-config --libs json-c)
-LDFLAGS += $(shell python-config --libs --ldflags)
-LDFLAGS += -lz3
-
-######
-
-all:: patsolve
+all:: z3.o
 
 ######
 
 SOURCES_DATS += \
-  main.dats \
   z3.dats \
   z3_dynload.dats
 
@@ -55,17 +44,9 @@ OBJECTS :=
 OBJECTS += $(MYTARGET_SATS_O)
 OBJECTS += $(MYTARGET_DATS_O)
 
-OBJECTS += ../../constraint.o
-OBJECTS += ../../parsing/parsing.o
-OBJECTS += ../solving.o
-
 ######
 
-patsolve: $(OBJECTS); $(CC) -o $@ $^ $(LDFLAGS)
-
-######
-
-cleanall:: ; $(RMF) patsolve
+z3.o: $(OBJECTS) ; ld -r -o $@ $^
 
 ###### end of [Makefile] ######
 
