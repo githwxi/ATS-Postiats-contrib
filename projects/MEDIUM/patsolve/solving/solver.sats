@@ -114,7 +114,11 @@ fun sort_make (s2rt): sort
 
 (* ****** ****** *)
 
-fun c3nstr_solve (c3t: c3nstr, paths: List0(string)): void
+fun c3nstr_solve (
+  c3t: c3nstr, 
+  scripts: List0(string), 
+  verbose: bool
+): void
 
 (* ****** ****** *)
 

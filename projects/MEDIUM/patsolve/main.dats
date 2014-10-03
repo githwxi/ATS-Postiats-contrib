@@ -8,6 +8,7 @@
 
 (* ****** ****** *)
 
+staload "patsolve.sats"
 staload "constraint/constraint.sats"
 staload "parsing/parsing.sats"
 staload "solving/solver.sats"
@@ -24,6 +25,10 @@ dynload "solving/Z3/z3_dynload.dats"
 
 (* ****** ****** *)
 
+dynload "commarg.dats"
+
+(* ****** ****** *)
+
 #define :: list_cons
 #define nil list_nil
 
@@ -32,17 +37,34 @@ dynload "solving/Z3/z3_dynload.dats"
 implement main0 (argc, argv) = let
   val c3t = parse_c3nstr_from_stdin ()
   val () = constraint3_initialize ()
-  val scripts = (if argc >= 2 then let
-    (**
-      Allow a user to supply just one file for now.
-    *)
-    val filename = argv[1]
-  in
-    filename :: nil
-  end
-  else
-    nil
-  ): List0 (string)
+  val args = parse_argv (argc, argv)
+  //
+  macdef nonlinear = list_of_list_vt  
+  //  
+  implement
+  list_filter$pred<commarg> (x) = 
+    case+ x of 
+      | Script (s) => true
+      | _ =>> false
+  implement
+  list_map$fopr<commarg><string> (x) = 
+    case- x of 
+      | Script (s) => s
+  val scripts = nonlinear (list_map<commarg><string> (nonlinear (
+    list_filter(args)
+  )))
+  //
+  implement
+  list_find$pred<commarg> (x) =
+    case+ x of 
+      | Verbose () => true
+      | _ =>> false
+  val opt = list_find_opt (args)
+  val verbose = (
+    case+ opt of
+      | ~Some_vt _ => true
+      | ~None_vt () => false
+  ): bool
 in
-  c3nstr_solve (c3t, scripts)
+  c3nstr_solve (c3t, scripts, verbose)
 end

@@ -23,8 +23,12 @@ LDFLAGS += $(shell pkg-config --libs json-c)
 
 ######
 
+SOURCES_SATS += \
+  patsolve.sats
+
 SOURCES_DATS += \
-  main.dats
+  main.dats \
+  commarg.dats
 
 ######
 
