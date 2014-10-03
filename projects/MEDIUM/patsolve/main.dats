@@ -65,6 +65,7 @@ implement main0 (argc, argv) = let
       | ~Some_vt _ => true
       | ~None_vt () => false
   ): bool
+  //
 in
   c3nstr_solve (c3t, scripts, verbose)
 end

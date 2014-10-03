@@ -22,9 +22,7 @@ fail {n:int | n >=1}  (
   argv: !argv(n)
 ): commarglst = let
   val () = prerrln! 
-    ("Usage: ", argv[0], 
-    " [<constraint-file>] [-l <library-directory>]",
-    " [-s <script>] [-v --verbose]")
+    ("Usage: ", argv[0], " [-s <script>] [-v --verbose]")
 in
   exit (1)
 end
@@ -42,19 +40,8 @@ parse_argv {n} (argc, argv) = let
       val cmd = argv[i]
     in
       case+ 0 of
-        | _ when cmd = "-v" => 
+        | _ when cmd = "-v" orelse cmd = "--verbose" =>
           loop (succ(i), argv, Verbose() :: res)
-        | _ when cmd = "-l" => let
-          val i = succ (i)
-        in
-          if i < argc then let
-            val dir = argv[i]
-          in
-            loop (i, argv, ScriptDirectory (dir) :: res)
-          end
-          else
-            fail (argv)
-        end
         | _ when cmd = "-s" => let
           val i = succ (i)
         in
@@ -66,11 +53,8 @@ parse_argv {n} (argc, argv) = let
           else
             fail (argv)
         end
-        | _ => let
-          val file = argv[i]
-        in
-          loop (succ (i), argv, JsonFile (file) :: res)
-        end
+        | _ => 
+          fail (argv)
     end
 in
   loop (1, argv, nil())

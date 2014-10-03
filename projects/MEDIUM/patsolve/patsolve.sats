@@ -2,10 +2,8 @@
   Collect input from the user.
 *)
 
-datatype commarg = 
-  | JsonFile of (string)
+datatype commarg =
   | Verbose of ()
-  | ScriptDirectory of (string)
   | Script of (string)
   
 typedef commarglst = List0 (commarg)
