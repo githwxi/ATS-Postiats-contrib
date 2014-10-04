@@ -47,7 +47,8 @@
 // atstype_arrptr
 // atstype_arrpsz
 #define atstype_funptr [mscorlib]System.Delegate
-// atstype_cloptr
+#define atstype_cloptr [mscorlib]System.Delegate
+// TODO: type variables need to be taken care of
 // atstype_var
 #define atstyvar_type(a) object // a type variable for type of undeterminate size
 // atstybox_type(hit)

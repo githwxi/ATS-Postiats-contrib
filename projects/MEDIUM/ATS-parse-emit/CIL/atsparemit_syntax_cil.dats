@@ -47,6 +47,49 @@ assign labels to instructions that we haven't visited yet!
 *)
 
 (* ****** ****** *)
+//
+implement{}
+  string_skip {n,ofs} (str, ofs) = let
+  prval () = lemma_string_param (str)
+in
+  if string_is_atend (str, ofs) then ""
+  else if ofs > 0 then string_skip (string_tail (str), ofs-1)
+  else g0ofg1(str)
+end // end of [string_skip]
+//
+implement
+  strip_suffix {n1,n2} (s, suf) = let
+  val l1 = strlen(s)
+  val l2 = strlen(suf)
+  prval () = lemma_string_param (s) and () = lemma_string_param (suf)    
+in
+  if l1 >= l2 then let
+    val ofs = l1 - l2
+    val s1 = string_skip (s, ofs)
+  in
+    if s1 <> suf then g0ofg1(s)
+    else let
+      val subs = string_make_substring (s, i2sz(0), ofs)
+    in
+      strnptr2string (subs)
+    end // end of [let]
+  end else g0ofg1(s)
+end // end of [strip_suffix]
+//
+implement
+  strip_prefix {n1,n2} (s, pre) = let
+  val l1 = strlen (s)
+  val l2 = strlen (pre)
+  prval () = lemma_string_param (s) and () = lemma_string_param (pre)
+in
+  if l1 >= l2 (*&& $STRING.strncmp (s, pre, l2) = 0*) then let
+    val ofs = l1 - l2
+  in
+    string_skip (s, ofs)
+  end else g0ofg1(s)
+end // end of [strip_prefix]
+//
+(* ****** ****** *)
 
 local
 
@@ -207,6 +250,68 @@ end // end of [statmps0exp_insert]
 implement
 statmps0exp_search_opt
   (name) = $STATMPS0EXP.search_opt (name)
+//
+(* ****** ****** *)
+
+staload F0DECL_CLO =
+{
+//
+#include
+"share/atspre_define.hats"
+//
+staload "./atsparemit.sats"
+//
+typedef key = symbol and itm = s0exp
+//
+implement
+gequal_val<key> (k1, k2) = (k1 = k2)
+//
+staload
+"libats/SATS/hashtbl_chain.sats"
+//
+implement
+hash_key<key> (sym) =
+//
+// HX: [gidentity] is called to avoid a bug
+//
+  gidentity(hash_key<string>(symbol_get_name(sym)))
+//
+implement hashtbl$recapacitize<> () = 1(*resizable*)
+//
+#define CAPACITY 1024
+//
+#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_chain.hats"
+//
+} (* end of [staload] *)
+
+(* ****** ****** *)
+//
+implement
+f0decl_clo_insert
+  (name, env) = let
+(*
+//
+val () =
+  println! ("f0decl_is_clo_insert: ", symbol_get_name(name))
+//
+*)
+in
+//
+$F0DECL_CLO.insert_any (name, env)
+//
+end // end of [_insert]
+//
+implement
+f0decl_clo_get
+  (name) =
+  case+
+  $F0DECL_CLO.search_opt (name) of
+  | ~None_vt () => false
+  | ~Some_vt _ => true
+//
+implement
+f0decl_clo_get_env
+  (name) = $F0DECL_CLO.search_opt (name)
 //
 (* ****** ****** *)
 

@@ -204,3 +204,19 @@ $(ILASM) /output:$@ $<
 listlen:: listlen_dats.exe ; $(MONO) listlen_dats.exe
 regress:: listlen
 cleanall:: ; $(RMF) listlen_dats.exe listlen_dats.il listlen_dats.ilpp listlen_dats.c
+
+###### ######
+
+all:: \
+listmap_dats.exe
+listmap_dats.c: listmap.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+listmap_dats.ilpp: listmap_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+listmap_dats.il: listmap_dats.ilpp ; \
+$(ILPP) $< $@
+listmap_dats.exe: listmap_dats.il ; \
+$(ILASM) /output:$@ $<
+listmap:: listmap_dats.exe ; $(MONO) listmap_dats.exe
+regress:: listmap
+cleanall:: ; $(RMF) listmap_dats.exe listmap_dats.il listmap_dats.ilpp listmap_dats.c

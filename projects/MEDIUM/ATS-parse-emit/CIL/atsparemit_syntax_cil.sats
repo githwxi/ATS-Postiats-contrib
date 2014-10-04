@@ -13,6 +13,18 @@ staload "./atsparemit_syntax.sats"
 
 (* ****** ****** *)
 //
+fun{}
+string_skip
+{n,ofs:int | ofs >= 0; ofs <= n}
+(str: string(n), ofs: size_t (ofs)): string
+//
+fun strip_suffix {n1,n2:int} (s: string (n1), suf: string (n2)): string
+//
+fun
+strip_prefix {n1,n2:int} (s: string(n1), pre: string(n2)): string
+//
+(* ****** ****** *)
+//
 fun label_reset () : void
 //
 fun make_label
@@ -40,37 +52,16 @@ statmps0exp_insert
 fun
 statmps0exp_search_opt (name: symbol): Option_vt (s0exp)
 //
-(*
-datatype Type_base =
-  | TBbool
-  | TBchar
-  | TBfloat32
-  | TBfloat64
-  | TBint8
-  | TBint16
-  | TBint32
-  | TBint64
-  | TBstring
-  | TBuint8
-  | TBuint16
-  | TBuint32
-  | TBuint64
-  | TBvoid
-
-datatype CILType =
-  | CTbase of Type_base
-  | CTobject
-  | CTclass of CILTypeReference
-  | CTmptr of CILType
-  | CTuptr of CILType
-  | CTvaluetype of CILType
-
-and CILTypeReference =
-  CILTypeRef of (CILResolutionScope, CILDottedName)
-
-and CILResolutionScope =
-  | CILModuleResolution of FileName
-  | CILAssemblyResolution of FileName
-*)
-
+(* ****** ****** *)
+//
+fun
+f0decl_clo_insert
+  (name: symbol, env: s0exp): void
+//
+fun
+f0decl_clo_get (name: symbol): bool
+//
+fun
+f0decl_clo_get_env (name: symbol): Option_vt(s0exp)
+//
 (* ****** ****** *)
