@@ -117,10 +117,11 @@ implement
 mydraw_get0_cairo<> () = let
 //
 extern
-castfn __cast {l:addr} (ptr(l)): vttakeout (void, cairo_ref(l))
+castfn
+__takeout{l:addr}(ptr(l)): vttakeout (void, cairo_ref(l))
 //
 in
-  __cast (p_cr)
+  __takeout (p_cr)
 end // end of [mydraw_get0_cairo]
 //
 implement

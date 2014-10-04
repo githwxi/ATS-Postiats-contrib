@@ -1,8 +1,9 @@
 (*
 **
-** A simple CAIRO example: a clock@home
+** Clock@HOME
 **
-** Author: Hongwei Xi (hwxi AT cs DOT bu DOT edu)
+** Author: Hongwei Xi
+** Authoremail: hwxiATcsDOTbuDOTedu
 ** Time: December, 2009
 **
 *)
@@ -42,7 +43,9 @@ stadef cr (l:addr) = cairo_ref l
 
 (* ****** ****** *)
 
-fn draw_hand {l:agz}
+fun
+draw_hand
+  {l:agz}
 (
   cr: !cr l, bot: dbl, top: dbl, len: dbl
 ) : void = let
@@ -50,7 +53,7 @@ fn draw_hand {l:agz}
   val () = cairo_line_to (cr, len, top/2)
   val () = cairo_line_to (cr, len, ~top/2)
   val () = cairo_line_to (cr, 0.0, ~bot/2)
-  val () = cairo_close_path (cr)
+  val ((*closed*)) = cairo_close_path (cr)
 in
   cairo_fill (cr)
 end // end of [draw_hand]

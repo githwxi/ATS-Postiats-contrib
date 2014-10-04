@@ -33,9 +33,9 @@ CPRF=cp -rf
 ######
 #
 libatscc2php:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/CATS libatscc2php/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS libatscc2php/.
 libatscc2php:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2php/output/DATS libatscc2php/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS libatscc2php/.
 #
 ######
 

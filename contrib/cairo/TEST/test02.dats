@@ -23,10 +23,11 @@
 *)
 
 (* ****** ****** *)
-
+//
 staload
-_ = "prelude/DATS/float.dats"
-
+_(*anon*) =
+  "prelude/DATS/float.dats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/cairo.sats"
@@ -61,28 +62,39 @@ implement
 main () = (0) where {
 //
 val sf =
-  cairo_image_surface_create (CAIRO_FORMAT_ARGB32, 200, 200)
+cairo_image_surface_create
+  (CAIRO_FORMAT_ARGB32, 200, 200)
+//
 val xr = cairo_create (sf)
 //
-val x = 50.0 and y = 50.0
-val w = 100.0 and h = 100.0
+val x = 50.0
+and y = 50.0
+val w = 100.0
+and h = 100.0
 val r = 10.0
 //  
-val () = draw_rounded_rectangle (xr, x, y, w, h, r)
+val () =
+draw_rounded_rectangle (xr, x, y, w, h, r)
 //
-val status = cairo_surface_write_to_png (sf, "test02.png")
-val () = cairo_surface_destroy (sf)
+val status =
+cairo_surface_write_to_png (sf, "test02.png")
+//
 val () = cairo_destroy (xr)
+val () = cairo_surface_destroy (sf)
 //
 val () =
 (
-  if status = CAIRO_STATUS_SUCCESS then (
+if (
+status =
+CAIRO_STATUS_SUCCESS
+) then (
   println! "The image is written to the file [test02.png]."
 ) else (
   println! "exit(ATS): [cairo_surface_write_to_png] failed";
-) // end of [if]
+) (* end of [if] *)
 ) : void // end of [val]
-} // end of [main]
+//
+} (* end of [main] *)
 
 (* ****** ****** *)
 

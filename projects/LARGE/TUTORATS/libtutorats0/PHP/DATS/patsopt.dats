@@ -23,20 +23,13 @@ ATS_STATIC_PREFIX "_tutorats_patsopt_"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PHP}/basics_php.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/filebas.sats"
-//
-staload
-"{$LIBATSCC2PHP}/SATS/PHParray.sats"
+#include
+"{$LIBATSCC2PHP}/staloadall.hats"
 //
 (* ****** ****** *)
-//
+
 staload "./../SATS/basics.sats"
-//
+
 (* ****** ****** *)
 //
 implement

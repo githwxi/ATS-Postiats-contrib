@@ -18,23 +18,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PHP}/basics_php.sats"
-//
-staload
-"{$LIBATSCC2PHP}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/float.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/string.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/filebas.sats"
-//
-staload
-"{$LIBATSCC2PHP}/SATS/list.sats"
-//
-staload
-"{$LIBATSCC2PHP}/SATS/PHParref.sats"
+#include
+"{$LIBATSCC2PHP}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -47,8 +32,7 @@ staload "./GameOf24_php.sats"
 
 (* ****** ****** *)
 
-implement
-echo_tmp<card> = echo_card
+implement echo_tmp<card> = echo_card
 
 (* ****** ****** *)
 

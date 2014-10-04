@@ -38,6 +38,20 @@ all:: test09
 
 ######
 
+regress:: test00; ./$<
+regress:: test01; ./$<
+regress:: test02; ./$<
+regress:: test03; ./$<
+regress:: test04; ./$<
+regress:: test05-1; ./$<
+regress:: test05-2; ./$<
+regress:: test06; ./$<
+regress:: test07; ./$<
+regress:: test08; ./$<
+regress:: test09; ./$<
+
+######
+
 cleanall:: ; $(RMF) test00
 cleanall:: ; $(RMF) test01
 cleanall:: ; $(RMF) test02
@@ -77,16 +91,22 @@ test09: test09.dats ; \
 
 ######
 
-all:: cairo-multable
-cairo-multable: cairo-multable.dats ; \
+all:: \
+cairo-multable
+cairo-multable: \
+cairo-multable.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+regress:: cairo-multable; ./$<
 cleanall:: ; $(RMF) cairo-multable
 
 ######
 
-all:: cairo-Bulge02c
-cairo-Bulge02c: cairo-Bulge02c.dats ; \
+all:: \
+cairo-Bulge02c
+cairo-Bulge02c: \
+cairo-Bulge02c.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+regress:: cairo-Bulge02c; ./$<
 cleanall:: ; $(RMF) cairo-Bulge02c
 
 ######

@@ -56,6 +56,7 @@ overload .isvbox with tabstyle_isvbox
 #define PWIDTH "pwidth"
 //
 #define HEIGHT "height"
+#define PHEIGHT "pheight"
 //
 #define COLOR "color"
 #define BGCOLOR "bgcolor"
@@ -116,6 +117,18 @@ webox_set_height (webox, height: int): void
 //
 overload .height with webox_get_height
 overload .height with webox_set_height
+//
+(* ****** ****** *)
+//
+// HX: p...: percentage
+//
+fun{}
+webox_get_pheight (webox): int
+fun{}
+webox_set_pheight (webox, pheight: int): void
+//
+overload .pheight with webox_get_pheight
+overload .pheight with webox_set_pheight
 //
 (* ****** ****** *)
 //
@@ -250,6 +263,13 @@ fun{}
 fprint_webox_css_all (out: FILEref, webox): void
 fun{}
 fprint_weboxlst_css_all (out: FILEref, weboxlst): void
+
+(* ****** ****** *)
+
+fun{}
+fprint_webox_head_end (out: FILEref): void
+fun{}
+fprint_webox_body_end (out: FILEref): void
 
 (* ****** ****** *)
 

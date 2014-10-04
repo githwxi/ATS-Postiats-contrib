@@ -454,6 +454,7 @@ case+ key of
 | "--help" => {
     val () = atscc2py_usage ("atscc2py")
     val () = state.waitkind := WTKnone(*void*)
+    val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [--help] *)
 //
 | _ (*unrecognized*) => comarg_warning (key)

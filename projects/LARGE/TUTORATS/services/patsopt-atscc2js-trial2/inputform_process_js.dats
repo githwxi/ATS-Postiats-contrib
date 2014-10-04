@@ -36,7 +36,7 @@ implement
 patsopt_atscc2js
   (code) = let
 //
-val () = patsopt_waiting("Waiting for the server ...")
+val () = patsopt_waiting("Waiting for the server...")
 //
 val xmlhttp =
   XMLHttpRequest_new()
