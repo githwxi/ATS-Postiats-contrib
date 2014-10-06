@@ -220,3 +220,19 @@ $(ILASM) /output:$@ $<
 listmap:: listmap_dats.exe ; $(MONO) listmap_dats.exe
 regress:: listmap
 cleanall:: ; $(RMF) listmap_dats.exe listmap_dats.il listmap_dats.ilpp listmap_dats.c
+
+###### ######
+
+all:: \
+twice_dats.exe
+twice_dats.c: twice.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+twice_dats.ilpp: twice_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+twice_dats.il: twice_dats.ilpp ; \
+$(ILPP) $< $@
+twice_dats.exe: twice_dats.il ; \
+$(ILASM) /output:$@ $<
+twice:: twice_dats.exe ; $(MONO) twice_dats.exe
+regress:: twice
+cleanall:: ; $(RMF) twice_dats.exe twice_dats.il twice_dats.ilpp twice_dats.c

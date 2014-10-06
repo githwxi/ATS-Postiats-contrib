@@ -261,7 +261,7 @@ staload F0DECL_CLO =
 //
 staload "./atsparemit.sats"
 //
-typedef key = symbol and itm = s0exp
+typedef key = symbol and itm = '(s0exp(*env*), s0exp(*arg*), s0exp(*res*))
 //
 implement
 gequal_val<key> (k1, k2) = (k1 = k2)
@@ -310,7 +310,7 @@ f0decl_clo_get
   | ~Some_vt _ => true
 //
 implement
-f0decl_clo_get_env
+f0decl_clo_get_sig
   (name) = $F0DECL_CLO.search_opt (name)
 //
 (* ****** ****** *)

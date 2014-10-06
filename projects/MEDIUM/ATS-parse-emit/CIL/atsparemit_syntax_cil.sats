@@ -56,12 +56,12 @@ statmps0exp_search_opt (name: symbol): Option_vt (s0exp)
 //
 fun
 f0decl_clo_insert
-  (name: symbol, env: s0exp): void
+  (name: symbol, env: '(s0exp,s0exp,s0exp)): void
 //
 fun
 f0decl_clo_get (name: symbol): bool
 //
 fun
-f0decl_clo_get_env (name: symbol): Option_vt(s0exp)
+f0decl_clo_get_sig (name: symbol): Option_vt('(s0exp,s0exp,s0exp))
 //
 (* ****** ****** *)

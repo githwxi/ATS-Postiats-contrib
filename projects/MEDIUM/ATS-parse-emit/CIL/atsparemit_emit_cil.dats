@@ -44,23 +44,11 @@ CLOSURE_TYPE "__closure_type"
 //
 extern
 fun
-the_emit_clo_get (): bool
+the_module_name_set : string -> void
 //
 extern
 fun
-the_emit_clo_set: bool -> void
-//
-extern
-fun
-the_flab_get (): Option(i0de)
-//
-extern
-fun
-the_flab_set : i0de -> void
-//
-extern
-fun
-the_flab_unset : () -> void
+the_module_name_get (): string
 //
 (* ****** ****** *)
 
@@ -354,24 +342,10 @@ case+ 0 of
   val () = emit_i0de (out, tmp)
 }
 //
-| _ when tmpvar_is_arg (tmp.i0de_sym) || tmpvar_is_env (tmp.i0de_sym) && ~the_emit_clo_get () =>
+| _ when tmpvar_is_arg (tmp.i0de_sym) || tmpvar_is_env (tmp.i0de_sym) =>
 {
   val () = emit_text (out, "ldarg")
   val () = emit_SPACE (out)
-  val () = emit_i0de (out, tmp)
-}
-//
-| _ when tmpvar_is_env (tmp.i0de_sym) && the_emit_clo_get () =>
-{
-  val () = emit_text (out, "ldarg.0") // 'this' is hard-coded to be arg 0
-  val () = emit_ENDL (out)
-  val () = emit_text (out, "ldfld")
-  val () = emit_SPACE (out)
-  val-Some(fnlab) = the_flab_get ()
-  val s0e = env_get_s0exp (fnlab, tmp.i0de_sym)
-  val () = emit_s0exp (out, s0e)
-  val () = emit_SPACE (out)
-  val () = emit_text (out, the_clsname_get ())
   val () = emit_i0de (out, tmp)
 }
 //
@@ -411,29 +385,11 @@ case+ 0 of
   val () = emit_i0de (out, tmp)
 }
 //
-| _ when tmpvar_is_arg (tmp.i0de_sym) || tmpvar_is_env (tmp.i0de_sym) && ~the_emit_clo_get () =>
+| _ when tmpvar_is_arg (tmp.i0de_sym) || tmpvar_is_env (tmp.i0de_sym) =>
 //
 {
   val () = emit_text (out, "starg")
   val () = emit_SPACE (out)
-  val () = emit_i0de (out, tmp)
-}
-//
-| _ when tmpvar_is_env (tmp.i0de_sym) && the_emit_clo_get () =>
-{
-  // FIXME: the sequence for storing something at env0 is:
-  // ldarg.0 <- load 'this' ptr
-  // ldarg.1 <- anything that puts a value on stack
-  // stfld ...
-  val () = emit_text (out, "ldarg.0") // FIXME: at wrong position...
-  val () = emit_ENDL (out)
-  val () = emit_text (out, "stfld")
-  val () = emit_SPACE (out)
-  val-Some(fnlab) = the_flab_get ()
-  val s0e = env_get_s0exp (fnlab, tmp.i0de_sym)
-  val () = emit_s0exp (out, s0e)
-  val () = emit_SPACE (out)
-  val () = emit_text (out, the_clsname_get ())
   val () = emit_i0de (out, tmp)
 }
 //
@@ -461,7 +417,7 @@ fun emit_f0head (out: FILEref, f0h: f0head, full: bool): void
 implement
   env_get_s0exp (fnlab, env) = let
 //
-val-~Some_vt(s0e) = f0decl_clo_get_env (fnlab.i0de_sym)
+val-~Some_vt('(s0e,_,_)) = f0decl_clo_get_sig (fnlab.i0de_sym)
 val-S0Elist(s0es) = s0e.s0exp_node
 //
 val l0 = list_length (s0es)
@@ -724,6 +680,76 @@ case+ f0head_opt of
 //
 } // end of [ATSPMVfunlab]
 //
+end // end of [local]
+//
+local
+//
+fun loop
+//
+(
+  out: FILEref,
+  f0as: s0explst,
+  i: int
+) : void =
+(
+case+ f0as of
+| list_nil () => ()
+| list_cons (s0e, f0as) => let
+    val () =
+      if i > 0 then emit_text (out, ",")
+    // end of [val]    
+  in
+    emit_s0exp (out, s0e);
+    loop (out, f0as, i+1)
+  end // end of [let]
+) (* end of [loop] *)
+//
+fun aux (out: FILEref, args: s0explst, rt: s0exp): void = let
+//
+val () = emit_text (out, "newobj ")
+//
+val arity = list_length (args)
+//
+in
+//
+case+ s0exp_is_void (rt) of
+//
+| true =>
+  {
+    // action
+    val () = emit_text (out, "void class [mscorlib]System.Action")
+    val () =
+      if arity > 0 then (
+        emit_text (out, "`");
+        emit_int (out, arity);
+        emit_text (out, "<");
+        loop (out, args, 0);
+        emit_text (out, ">")
+      )
+    // end of [val]
+    val () = emit_text (out, "::.ctor(object, native int)")
+  }
+//
+| false =>
+  {
+    // function
+    val () = emit_text (out, "void class [mscorlib]System.Func")
+    val () = emit_text (out, "`")
+    val () = emit_int (out, arity+1)
+    val () = emit_text (out, "<")
+    val () =
+      if arity > 0 then
+        (loop (out, args, 0); emit_text (out, ","))
+    // end of [val]
+    val () = emit_s0exp (out, rt)
+    val () = emit_text (out, ">")
+    val () = emit_text (out, "::.ctor(object, native int)")
+  } (* end of [if] *)
+//
+end // end of [aux]
+//
+in // of [local]
+//
 implement
   emit_ATSPMVcfunlab (out, knd, fnlab, d0es) =
 {
@@ -742,7 +768,23 @@ implement
       } (* end of [list_cons] *)
   ) (* end of [loop_fldenv] *)
 //
-  val-~Some_vt(env) = f0decl_clo_get_env (fnlab.i0de_sym)
+fun loop1
+(
+  s0exps: s0explst,
+  i: int
+) : void =
+(
+case+ s0exps of
+| list_nil () => ()
+| list_cons (s0e, s0exps) =>
+  (
+    if i > 0 then emit_text (out, ",");
+    emit_s0exp (out, s0e);
+    loop1 (s0exps, i+1)
+  ) (* end of [list_cons] *)
+) (* end of [loop1] *)
+//
+  val-~Some_vt('(env,arg,res)) = f0decl_clo_get_sig (fnlab.i0de_sym)
 //
   val () = emit_d0explst (out, d0es)
 //
@@ -769,10 +811,19 @@ implement
     {
       val () = emit_text (out, "ldftn")
       val () = emit_SPACE (out)
-      val () = emit_f0head (out, fhd, true)
+      //
+      val () = emit_SPACE (out)
+      val () = emit_s0exp (out, res)
+      val () = emit_SPACE (out)
+      val () = emit_text (out, the_clsname_get ())
+      val () = emit_text (out, ATS_CLO_MTH)
+      val () = emit_LPAREN (out)
+      val-S0Elist(env) = env.s0exp_node
+      val-S0Elist(args) = arg.s0exp_node
+      val () = loop1 (args, 0)
+      val () = emit_RPAREN (out)
       val () = emit_ENDL (out)
-      val+F0HEAD(id,f0ma,res) = fhd.f0head_node
-      val () = aux (out, f0ma, res)
+      val () = aux (out, args, res)
     }
   //
   ) (* end of [val] *)
@@ -927,8 +978,7 @@ the_caseofseqlst_set (inss: instrlst): void
 
 local
 //
-val the_emit_clo = ref<bool> (false)
-val the_flab = ref<Option(i0de)> (None())
+val the_module_name = ref<string> ("MODULE")
 //
 val the_f0arglst = ref<f0arglst> (list_nil)
 val the_tmpdeclst = ref<tmpdeclst> (list_nil)
@@ -941,16 +991,9 @@ val the_caseofseqlst = ref<instrlst> (list_nil)
 in (* in-of-local *)
 
 implement
-the_emit_clo_get () = !the_emit_clo
+the_module_name_set (clsname) = !the_module_name := clsname
 implement
-the_emit_clo_set (f) = !the_emit_clo := f
-
-implement
-the_flab_get () = !the_flab
-implement
-the_flab_set (id) = !the_flab := Some(id)
-implement
-the_flab_unset () = !the_flab := None()
+the_module_name_get () = !the_module_name
 
 implement
 the_f0arglst_get () = !the_f0arglst
@@ -1263,15 +1306,12 @@ fhd.f0head_node of
 | F0HEAD
     (id(*name of function*), f0ma(*list of arguments*), res(*result type*)) =>
   {
-    val is_clo = f0decl_clo_get (id.i0de_sym)
     val () = emit_s0exp (out, res)
     val () = emit_SPACE (out)
     val () =
       if full then emit_text (out, the_clsname_get ())
     // end of [val]
-    val () =
-      if is_clo then emit_text (out, ATS_CLO_MTH)
-      else emit_i0de (out, id)
+    val () = emit_i0de (out, id)
     // end of [val]
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)
@@ -2018,37 +2058,24 @@ fdec.f0decl_node of
   // does this actually mean function declaration (e.g. forward function decl)?
   {
     val-F0HEAD(id, _, _) = fhd.f0head_node
-    val is_clo = f0decl_clo_get (id.i0de_sym)    
-    val () =
-      if ~is_clo then f0head_insert (id.i0de_sym, fhd)
-    // end of [val]
+    val () = f0head_insert (id.i0de_sym, fhd)
   }
 | F0DECLsome (fhd, fbody) => let
   //
     val-F0HEAD(id, _, _) = fhd.f0head_node
-    val is_clo = f0decl_clo_get (id.i0de_sym)
   //
   in
-    if (is_clo && the_emit_clo_get ()) || ~is_clo then
     {
       val () = emit_text (out, ".method")
       val () = emit_SPACE (out)
-      val () =
-        if is_clo then ()
-        else emit_text (out, "static")
-      // end of [val]
+      val () = emit_text (out, "static")
       // TODO: public/private?
       // static -> private
       val () = emit_SPACE (out)
-      val access =
-        if is_clo then "assembly"
-        else "public"
-      // end of [val]
+      val access = "public"
       val () = emit_text (out, access)
       val () = emit_SPACE (out)
-      val () =
-        if ~is_clo then f0head_insert (id.i0de_sym, fhd)
-      // end of [val]
+      val () = f0head_insert (id.i0de_sym, fhd)
       val () = emit_f0head (out, fhd, false)
       val () = emit_SPACE (out)    
       val () = emit_text (out, "cil")
@@ -2301,13 +2328,13 @@ emit_closurerize
   env: s0exp,
   arg: s0exp,
   res: s0exp,
-  fdecl: f0decl
+  fdecl: f0head
 ) : void
 //
 (* ****** ****** *)
 
 implement
-  emit_closurerize (out, id(*name*), env(*env type*), arg(*argument type*), res(*result type*), fdecl) = let
+  emit_closurerize (out, id(*name*), env(*env type*), arg(*argument type*), res(*result type*), fhd) = let
 //
   val clsname = strptr2string (string0_append (symbol_get_name (id.i0de_sym), CLOSURE_TYPE))
   val namesp = the_namesp_get ()
@@ -2407,12 +2434,92 @@ implement
   val () = emit_text (out, " /* end of [.ctor] */")
   val () = emit_ENDL (out)
 //
-  // emit execute method
-  val () = the_flab_set (id)
-  val () = emit_f0decl (out, fdecl)
-  val () = the_flab_unset ()
+  val-S0Elist(args) = arg.s0exp_node
 //
-  val () = emit_RBRACE (out)
+  val () = emit_text (out, ".method assembly instance ")
+  val () = emit_s0exp (out, res)
+  val () = emit_SPACE (out)
+  val () = emit_text (out, ATS_CLO_MTH)
+//
+fun loop1
+(
+  s0exps: s0explst,
+  i: int
+) : void =
+(
+case+ s0exps of
+| list_nil () => ()
+| list_cons (s0e, s0exps) =>
+  (
+    if i > 0 then emit_text (out, ",");
+    emit_s0exp (out, s0e);
+    loop1 (s0exps, i+1)
+  ) (* end of [list_cons] *)
+) (* end of [loop1] *)
+//
+  val () = emit_LPAREN (out)
+  val () = loop1 (args, 0)
+  val () = emit_RPAREN (out)
+  val () = emit_text (out, " cil managed")
+  val () = emit_ENDL (out)
+  val () = emit_LBRACE (out)
+  val () = emit_ENDL (out)
+//
+  fun loop_loadenv (flds: s0explst, i: int): void =
+  (
+  case+ flds of
+  | list_cons (s0e, flds) => let
+      val () = emit_text (out, "ldarg.0\n")
+      val () = emit_text (out, "ldfld")
+      val () = emit_SPACE (out)
+      val () = emit_s0exp (out, s0e)
+      val () = emit_SPACE (out)
+      val () = emit_text (out, the_clsname_get ())
+      val () = emit_text (out, "env")
+      val () = emit_int (out, i)
+      val () = emit_ENDL (out)
+    in
+      loop_loadenv (flds, i+1)
+    end // end of [list_cons]
+  | list_nil () => ()
+  ) (* end of [loop_loadenv] *)
+//
+  fun loop_loadarg (flds: s0explst, i: int): void =
+  (
+  case+ flds of
+  | list_cons (s0e, flds) => let
+      val () = emit_text (out, "ldarg")
+      val () = emit_SPACE (out)
+      val () = emit_int (out, i)
+      val () = emit_ENDL (out)
+    in
+      loop_loadarg (flds, i+1)
+    end // end of [list_cons]
+  | list_nil () => ()
+  ) (* end of [loop_loadarg] *)
+//
+  val () = loop_loadenv (flds, 0)
+  val () = loop_loadarg (args, 1)
+  //
+  val () = the_clsname_push (the_namesp_get (), the_module_name_get ())
+  val () = emit_text (out, "call") // call id // fully qualified
+  val () = emit_SPACE (out)
+  val () = emit_s0exp (out, res)
+  val () = emit_SPACE (out)
+  val () = emit_text (out, the_clsname_get ())
+  val () = emit_i0de (out, id)
+  val _ = the_clsname_pop ()
+  val () = emit_LPAREN (out)
+  val () = loop1 (flds, 0)
+  val () = loop1 (args, if list_is_cons(flds) then 1 else 0)
+  val () = emit_RPAREN (out)
+  val () = emit_ENDL (out)
+  //
+  val () = emit_text (out, "ret\n")
+  val () = emit_RBRACE (out) // end of method
+  val () = emit_ENDL (out)
+//
+  val () = emit_RBRACE (out) // end of class
   val () = emit_text (out, "/* end of [")
   val () = emit_text (out, clsname)
   val () = emit_text (out, "] */")
@@ -2423,25 +2530,6 @@ implement
 //
   val _ = the_clsname_pop ()
 //
-  // then, when creating a delegate, just instantiate the class
-  // and finally, take the delegate for the method "execute" of that  class
-    
-  // e.g.
-  // D0Cclosurerize(__patsfun_4, S0Elist(int,int), int)
-  // it maps to a delegate type called __patsfun_4 which
-  // - has fields env0:int, env1:int
-  // - returns int
-  // used like (d0e):
-  // ATSPMVcfunlab(-1(*what is this?*), __patsfun_4(*name of the closure-constructing function*), (arg0,arg1)(*dyn args*))
-  // - construct a closure for __patsfun_4, initializing its environment with arg0, arg1
-  //
-  // body of the closure is a function __patsfun_4(int env0, int env1, arg0)
-  // it is defined elsewhere in the file
-  //
-  // and called like (d0e):
-  // ATSfunclo_clo (arg1, (atstype_cloptr, int), int)(arg1, tmp1__1)
-  // - call [arg1], supplying tmp1__1 as its argument (arg1 is the environment struct)
-  // - easiest to tackle
 in
   //
 end // end of [emit_closurerize]
@@ -2598,7 +2686,7 @@ case+ d0cs of
 implement
 emit2_toplevel
   (out, d0cs, fname, namespace) = let
-//
+(*
 fun
 loop0_closurerize
 (id: i0de, d0cs: d0eclist) : f0decl = let
@@ -2650,6 +2738,14 @@ case- d0cs of
 )
 //
 end // end of [loop0_closurerize]
+*)
+//
+fun f0decl_is_none (fd: f0decl): bool =
+(
+  case+ fd.f0decl_node of
+  | F0DECLnone _ => true
+  | F0DECLsome _ => false
+) (* end of [f0decl_is_none] *)
 //
 fun
 loop0
@@ -2668,13 +2764,13 @@ case+ d0cs of
     | D0Cifdef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
     | D0Cifndef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
     | D0Ctypedef _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
-    | D0Cdyncst_mac _ => (list_cons (d0c, loop0 (out, d0cs1))) // FIXME: not tail-recursive
-    | D0Cdyncst_extfun _ => (list_cons (d0c, loop0 (out, d0cs1))) // FIXME: not tail-recursive
-    | D0Cfundecl _ => (list_cons (d0c, loop0 (out, d0cs1))) // FIXME: not tail-recursive
+    | D0Cdyncst_mac _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
+    | D0Cdyncst_extfun _ => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
+    | D0Cfundecl (fk, fd) when f0decl_is_none (fd) => (emit_d0ecl (out, d0c); loop0 (out, d0cs1))
     | D0Cclosurerize (i0de, env, arg, res) => let
-        val fdecl = loop0_closurerize (i0de, d0cs1)
-        val () = f0decl_clo_insert (i0de.i0de_sym, env)
-        val () = emit_closurerize (out, i0de, env, arg, res, fdecl)
+        val () = f0decl_clo_insert (i0de.i0de_sym, '(env, arg, res))
+        val-~Some_vt(fhead) = f0head_search_opt (i0de.i0de_sym)
+        val () = emit_closurerize (out, i0de, env, arg, res, fhead)
       in
         loop0 (out, d0cs1)
       end // end of [let]
@@ -2703,9 +2799,8 @@ val () = emit_text (out, "'")
 val () = emit_ENDL (out)
 //
 val () = the_namesp_push (namespace)
-val () = the_emit_clo_set (true)
+val () = the_module_name_set (clsname)
 val d0cs = loop0 (out, d0cs) // all preprocessor definitions, types
-val () = the_emit_clo_set (false)
 //
 val () = emit_text (out, ".namespace")
 val () = emit_SPACE (out)
