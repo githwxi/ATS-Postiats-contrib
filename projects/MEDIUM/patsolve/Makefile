@@ -60,6 +60,8 @@ PATSOLVE_OBJECTS += solving/solving.o
 all:: setup patsolve
 cleanall:: ; $(RMF) patsolve 
 
+.phony: setup
+
 setup::
 	make -C constraint
 	make -C parsing

@@ -6,7 +6,7 @@ datatype commarg =
   | Verbose of ()
   | Script of (string)
   
-typedef commarglst = List0 (commarg)
+vtypedef commarglst = List0_vt (commarg)
 
 fun
 parse_argv

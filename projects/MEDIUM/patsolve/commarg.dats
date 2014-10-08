@@ -12,10 +12,14 @@ staload "patsolve.sats"
 
 (* ****** ****** *)
 
+staload UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
 local
 
-#define :: list_cons
-#define nil list_nil
+#define :: list_vt_cons
+#define nil list_vt_nil
 
 fun
 fail {n:int | n >=1}  (
@@ -24,7 +28,7 @@ fail {n:int | n >=1}  (
   val () = prerrln! 
     ("Usage: ", argv[0], " [-s <script>] [-v --verbose]")
 in
-  exit (1)
+  $raise AssertExn ()
 end
 
 in
@@ -50,11 +54,17 @@ parse_argv {n} (argc, argv) = let
           in
             loop (succ (i), argv, Script (s) :: res)
           end
-          else
+          else let
+            val () = list_vt_free (res)
+          in
             fail (argv)
+          end
         end
-        | _ =>>
+        | _ =>> let
+          val () = list_vt_free (res)
+        in
           fail (argv)
+        end
     end
 in
   loop (1, argv, nil())
