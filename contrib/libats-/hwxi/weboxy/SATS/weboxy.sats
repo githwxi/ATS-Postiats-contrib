@@ -268,8 +268,13 @@ fprint_weboxlst_css_all (out: FILEref, weboxlst): void
 
 fun{}
 fprint_webox_head_end (out: FILEref): void
+
+(* ****** ****** *)
+
 fun{}
 fprint_webox_body_end (out: FILEref): void
+fun{}
+fprint_webox_body_after (out: FILEref): void
 
 (* ****** ****** *)
 

@@ -229,7 +229,7 @@ val () = position_byrow (pos) // by-1-row
 val loc = lexbufpos_get_location (buf, pos)
 val () = lexbuf_set_position (buf, pos)
 //
-} (* end of [lexbuf_getincby_location] *)
+} (* end of [lexbuf_getbyrow_location] *)
 
 (* ****** ****** *)
 

@@ -943,9 +943,13 @@ if i <= 0
   in
     if c != lit.head
       then let
-        val np = sz2i(n0 - n)
-        val () = position_decby (pos, np)
-        val () = lexbuf_incby_nback (buf, np)
+        val () =
+        if (c != ENDL) then
+        {
+          val np = sz2i(n0 - n)
+          val () = position_decby (pos, np)
+          val () = lexbuf_incby_nback (buf, np)
+        } (* end of [if] *)
       in
         loop (buf, pos, lit0, n0, succ(nchr))
       end // end of [then]
@@ -992,10 +996,17 @@ implement
 lexing_SLASHSLASH
   (buf) = let
 //
-val nchr =
-ftesting_seq0 (buf, lam i => i != ENDL)
-val () = lexbuf_remove_all (buf)
-val loc = lexbuf_getincby_location (buf, nchr + 3)
+val
+nchr =
+ftesting_seq0
+(
+  buf, lam i => i != ENDL
+) (* end of [val] *)
+//
+// HX: Note that ENDL is not included
+//
+val () = lexbuf_remove (buf, nchr + 2)
+val loc = lexbuf_getincby_location (buf, nchr + 2)
 //
 in
   token_make (loc, T_COMMENT_line)
