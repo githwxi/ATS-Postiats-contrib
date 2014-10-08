@@ -48,12 +48,12 @@ parse_argv {n} (argc, argv) = let
           if i < argc then let
             val s = argv[i]
           in
-            loop (i, argv, Script (s) :: res)
+            loop (succ (i), argv, Script (s) :: res)
           end
           else
             fail (argv)
         end
-        | _ => 
+        | _ =>>
           fail (argv)
     end
 in
