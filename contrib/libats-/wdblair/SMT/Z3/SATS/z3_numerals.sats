@@ -47,11 +47,20 @@ ATSCNTRB_SML_Z3_Z3_HEADER
 (* ****** ****** *)
 
 fun Z3_mk_numeral
-  (ctx: !Z3_context, numeral: Z3_string, ty: !Z3_sort): Z3_ast = "mac#%"
+(
+  ctx: !Z3_context, numeral: Z3_string, ty: !Z3_sort
+): Z3_ast = "mac#%" // end of [Z3_mk_numeral]
 
 fun Z3_mk_int 
-  (ctx: !Z3_context, numeral: int, ty: !Z3_sort): Z3_ast = "mac#%"
-  
+(
+  ctx: !Z3_context, numeral: int, ty: !Z3_sort
+): Z3_ast = "mac#%" // end of [Z3_mk_int]
+
+fun Z3_mk_unsigned_int
+(
+  ctx: !Z3_context, numeral: uint, ty: !Z3_sort
+) : Z3_ast = "mac#%" // end of [Z3_mk_unsigned_int]
+
 (* ****** ****** *)
 
 (* end of [z3_numeral.sats] *)

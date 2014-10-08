@@ -136,7 +136,7 @@ was created using Z3_mk_context.
 fun Z3_dec_ref (ctx: !Z3_context, a: Z3_ast): void = "mac#%"
 
 (* ****** ****** *)
- 
+
 (*
 Z3_bool
 Z3_get_param_value
@@ -168,6 +168,10 @@ Interrupt the execution of a Z3 procedure. This procedure can be used to
 interrupt: solvers, simplifiers and tactics.
 *) 
 fun Z3_interrupt (ctx: !Z3_context): void = "mac#%"
+
+(* ****** ****** *)
+
+#include "./z3_accessor.sats"
 
 (* ****** ****** *)
 

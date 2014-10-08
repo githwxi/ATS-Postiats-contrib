@@ -2,7 +2,12 @@
   Some basic tests for the ATS Z3 bindings
 *)
 
-staload "contrib/SMT/Z3/SATS/z3.sats"
+#include
+"share/atspre_define.hats"
+#include
+"share/atspre_staload.hats"
+
+staload "contrib/libats-/wdblair/SMT/Z3/SATS/z3.sats"
 
 implement main () = 0 where {
   val conf = Z3_mk_config ()
