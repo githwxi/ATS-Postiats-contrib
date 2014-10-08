@@ -1,5 +1,5 @@
-patsolve - an external constraint solver for ATS2
-=================================================
+ATS-extsolve: External Constraint-Solving for ATS2
+==================================================
 
 This is an alternative constraint solver for ATS2. The goal of this
 project is to move type checking out of the ATS2 compiler so that we
@@ -95,9 +95,9 @@ typechecking.
 As an example, let's say we want to right a function that determines
 whether a 32 bit unsigned integer is a power of two. Using bitwise
 arithmetic, we can determine this fairly easily, but we want to verify
-that the computation does, in fact, determine if a number is a power
-of two. Let's say we have a an unsigned integer type indexed by a
-static bitvector of length 32.
+that the computation does, in fact, determine if a number is a power of
+two. Let's say we have an unsigned integer type indexed by a static
+bitvector of length 32.
 
   abst@ype uint (b:bv32) = uint
 
