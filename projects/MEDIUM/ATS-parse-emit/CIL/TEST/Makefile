@@ -236,3 +236,19 @@ $(ILASM) /output:$@ $<
 twice:: twice_dats.exe ; $(MONO) twice_dats.exe
 regress:: twice
 cleanall:: ; $(RMF) twice_dats.exe twice_dats.il twice_dats.ilpp twice_dats.c
+
+###### ######
+
+all:: \
+queens_dats.exe
+queens_dats.c: queens.dats ; \
+$(PATSOPT) --output $@ --dynamic $<
+queens_dats.ilpp: queens_dats.c ; \
+$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+queens_dats.il: queens_dats.ilpp ; \
+$(ILPP) $< $@
+queens_dats.exe: queens_dats.il ; \
+$(ILASM) /output:$@ $<
+queens:: queens_dats.exe ; $(MONO) queens_dats.exe
+regress:: queens
+cleanall:: ; $(RMF) queens_dats.exe queens_dats.il queens_dats.ilpp queens_dats.c

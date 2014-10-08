@@ -20,6 +20,8 @@ fun sub_int0_int0 : (int, int) -> int = "ext#%"
 fun mul_int0_int0 : (int, int) -> int = "ext#%"
 fun div_int0_int0 : (int, int) -> int = "ext#%"
 //
+fun abs_int0 : int -> int = "ext#%"
+//
 fun add_int1_int1
   : {i,j:int} (int(i), int(j)) -> int(i+j) = "ext#%"
 fun sub_int1_int1
@@ -29,16 +31,21 @@ fun mul_int1_int1
 fun div_int1_int1
   : {i,j:int} (int(i), int(j)) -> int(i/j) = "ext#%"
 //
+fun abs_int1
+  : {i:int} (int i) -> int (abs(i)) = "ext#%"
+//
 
 overload + with add_int0_int0 of 100
 overload - with sub_int0_int0 of 100
 overload * with mul_int0_int0 of 100
 overload / with div_int0_int0 of 100
+overload abs with abs_int0 of 100
 //
 overload + with add_int1_int1 of 120
 overload - with sub_int1_int1 of 120
 overload * with mul_int1_int1 of 120
 overload / with div_int1_int1 of 120
+overload abs with abs_int1 of 120
 //
 
 fun lt_int0_int0 : (int, int) -> bool = "ext#%"

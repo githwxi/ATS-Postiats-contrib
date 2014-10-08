@@ -133,6 +133,18 @@ end // end of [emit_PMVint]
 (* ****** ****** *)
 
 implement
+emit_PMVintrep
+  (out, tok) = let
+//
+val-T_INT(base, rep) = tok.token_node
+//
+in
+  emit_text (out, rep)
+end // end of [emit_PMVintrep]
+
+(* ****** ****** *)
+
+implement
 emit_PMVi0nt
   (out, tok) = let
 //
@@ -1196,6 +1208,13 @@ d0e.d0exp_node of
     val () = emit_SPACE (out)
     val () = emit_text (out, rep)
   } (* end of [ATSPMVi0nt] *)
+//
+| ATSPMVintrep (int) =>
+  {
+    val () = emit_text (out, "ldc.i4")
+    val () = emit_SPACE (out)
+    val () = emit_PMVintrep (out, int)
+  }
 //
 | ATSPMVbool (tfv) =>
   {

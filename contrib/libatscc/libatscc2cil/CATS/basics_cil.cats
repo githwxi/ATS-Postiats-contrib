@@ -86,6 +86,7 @@
 #define ats2cilpre_gte_int0_int0 int32 ats2cilpre::gte_int0_int0(int32, int32)
 #define ats2cilpre_eq_int0_int0 int32 ats2cilpre::eq_int0_int0(int32, int32)
 #define ats2cilpre_neq_int0_int0 int32 ats2cilpre::neq_int0_int0(int32, int32)
+#define ats2cilpre_abs_int0 int32 ats2cilpre::abs_int0(int32)
 
 #define ats2cilpre_add_int1_int1 int32 ats2cilpre::add_int0_int0(int32, int32)
 #define ats2cilpre_gte_int1_int1 int32 ats2cilpre::gte_int0_int0(int32, int32)
@@ -97,6 +98,7 @@
 #define ats2cilpre_gte_int1_int1 int32 ats2cilpre::gte_int0_int0(int32, int32)
 #define ats2cilpre_eq_int1_int1 int32 ats2cilpre::eq_int0_int0(int32, int32)
 #define ats2cilpre_neq_int1_int1 int32 ats2cilpre::neq_int0_int0(int32, int32)
+#define ats2cilpre_abs_int1 int32 ats2cilpre::abs_int0(int32)
 
 // float
 #define ats2cilpre_add_double0_double0 float64 ats2cilpre::add_double0_double0(float64, float64)
@@ -238,6 +240,17 @@
     ret
     IL1:
     ldc.i4.1
+    ret
+  }
+  .method static public int32 abs_int0(int32 x) {
+    ldarg x
+    ldc.i4.0
+    bgt L1
+    ldarg x
+    neg
+    ret
+  L1:
+    ldarg x
     ret
   }
 
