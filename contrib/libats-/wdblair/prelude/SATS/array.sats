@@ -106,24 +106,28 @@ array_v_unsplit
 
 fun {a:t@ype} array_ptrget
   {l:addr}{xs:stmsq}
-  {n:int}{i:nat | i < n}
-  (pf: !array_v(a, l, xs, n) | p: ptr(l+i*sizeof(a))) : T(a, select(xs, i))
-// end of [array_ptrget]
+  {n:int}{i:nat | i < n} (
+  pf: !array_v(a, l, xs, n) | 
+    p: ptr(l+i*sizeof(a))
+) : T(a, select(xs, i)) // end of [array_ptrget]
 
 fun {a:t@ype} array_ptrset
   {l:addr}
   {xs:stmsq}{x:stamp}
   {n:int}{i:nat | i < n}
 (
-  pf: !array_v(a, l, xs, n) >> array_v (a, l, update (xs, i, x), n) | p: ptr(l+sizeof(a)*i), x: T(a, x)
+  pf: !array_v(a, l, xs, n) >> array_v (a, l, update (xs, i, x), n) |
+    p: ptr(l+sizeof(a)*i), x: T(a, x)
 ) : void // end of [array_ptrset]
 
 (* ****** ****** *)
 //
 fun {a:t@ype} array_get_at
   {l:addr}{xs:stmsq}
-  {n:int}{i:nat | i < n}
-  (pf: !array_v(a, l, xs, n) | p: ptr(l), i: size_t (i)) : T(a, select(xs, i))
+  {n:int}{i:nat | i < n} (
+  pf: !array_v(a, l, xs, n) | 
+    p: ptr(l), i: size_t (i)
+) : T(a, select(xs, i))
 // end of [array_get_at]
 //
 fun {a:t@ype} array_set_at
@@ -131,7 +135,8 @@ fun {a:t@ype} array_set_at
   {xs:stmsq}{x:stamp}
   {n:int}{i:nat | i < n}
 (
-  pf: !array_v(a, l, xs, n) >> array_v (a, l, update(xs, i, x), n) | p: ptr(l), i: size_t (i), x: T(a, x)
+  pf: !array_v(a, l, xs, n) >> array_v (a, l, update(xs, i, x), n) | 
+    p: ptr(l), i: size_t (i), x: T(a, x)
 ) : void // end of [array_set_at]
 //
 (* ****** ****** *)
