@@ -19,6 +19,20 @@ overload list_make_intrange with list_make_intrange_3
 //
 (* ****** ****** *)
 //
+fun{}
+print_list
+  {a:t0p}(xs: List(a)): void = "mac#%"
+//
+fun{}
+print_list$sep ((*void*)): void = "mac#%"
+//
+fun{}
+print_list_sep{a:t0p}(xs: List(a), sep: string): void = "mac#%"
+//
+overload print with print_list of 100
+//
+(* ****** ****** *)
+//
 fun
 list_append
   {a:t0p}{i,j:int}

@@ -73,6 +73,20 @@ overload / with div_int1_int1 of 120
 //
 (* ****** ****** *)
 //
+fun
+asl_int0_int1
+  : (int, intGte(0)) -> int = "mac#%"
+fun
+asr_int0_int1
+  : (int, intGte(0)) -> int = "mac#%"
+//
+(* ****** ****** *)
+//
+overload << with asl_int0_int1 of 110
+overload >> with asr_int0_int1 of 110
+//
+(* ****** ****** *)
+//
 fun lt_int0_int0: (int, int) -> bool = "mac#%"
 fun lte_int0_int0: (int, int) -> bool = "mac#%"
 fun gt_int0_int0: (int, int) -> bool = "mac#%"

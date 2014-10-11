@@ -62,6 +62,42 @@ end // end of [list_make_intrange_3]
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
+print_list
+  {a}(xs) = let
+//
+fun
+loop
+(
+  xs: List(a), i: int
+) : void =
+(
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) =>
+  (
+    if i > 0
+      then print_list$sep<> ();
+    // end of [if]
+    print_val<a> (x); print_list<a> (xs, i+1)
+  ) (* end of [list_cons] *)
+//
+) (* end of [loop] *)
+//
+in
+  loop (xs, 0)
+end // end of [print_list]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+print_list$sep () = print_string (", ")
+
+(* ****** ****** *)
+
+implement
 list_append
   (xs, ys) = let
 //
