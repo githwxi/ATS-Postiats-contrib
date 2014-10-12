@@ -197,6 +197,7 @@ case+ x of
 | ATSINSextvar_assign () => pr "ATSINSextvar_assign"
 | ATSINSdyncst_valbind () => pr "ATSINSdyncst_valbind"
 //
+| ATSINScaseof_fail () => pr "ATSINScaseof_fail"
 | ATSINSdeadcode_fail () => pr "ATSINSdeadcode_fail"
 //
 | ATSdynload () => pr "ATSdynload"
@@ -512,6 +513,9 @@ ins0.instr_node of
     fprint! (out, "ATSINSmove_nil(", tmp, ")")
 | ATSINSmove_con0 (tmp, tag(*token*)) =>
     fprint! (out, "ATSINSmove_con0(", tmp, ", ", tag, ")")
+//
+| ATSINScaseof_fail _ => fprint! (out, "ATSINScaseof_fail(...)")
+| ATSINSdeadcode_fail _ => fprint! (out, "ATSINSdeadcode_fail(...)")
 //
 | ATSdynload (dummy) => fprint! (out, "ATSdynload(", ")")
 | ATSdynloadset (flag) => fprint! (out, "ATSdynloadset(", flag, ")")

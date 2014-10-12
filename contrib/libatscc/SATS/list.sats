@@ -34,6 +34,12 @@ overload print with print_list of 100
 (* ****** ****** *)
 //
 fun
+list_length
+  {a:t0p}{n:int}(list(a, n)): int(n) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_append
   {a:t0p}{i,j:int}
   (list(INV(a), i), list(a, j)): list(a, i+j)= "mac#%"

@@ -97,6 +97,26 @@ print_list$sep () = print_string (", ")
 (* ****** ****** *)
 
 implement
+list_length
+  {a}(xs) = let
+//
+fun
+loop{i,j:int}
+(
+  xs: list(a, i), j: int(j)
+) : int(i+j) =
+(
+case+ xs of
+| list_nil () => j | list_cons (_, xs) => loop (xs, j+1)
+)
+//
+in
+  loop (xs, 0)
+end // end of [list_length]
+
+(* ****** ****** *)
+
+implement
 list_append
   (xs, ys) = let
 //

@@ -556,6 +556,22 @@ ins0.instr_node of
     val () = emit_SEMICOLON (out)
   }
 //
+| ATSINScaseof_fail (errmsg) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "ATSINScaseof_fail")
+    val () = emit_LPAREN (out)
+    val () = emit_PMVstring (out, errmsg)
+    val () = emit_RPAREN (out)
+    val () = emit_SEMICOLON (out)
+  }
+| ATSINSdeadcode_fail (__tok__) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "ATSINSdeadcode_fail()")
+    val () = emit_SEMICOLON (out)
+  }
+//
 | ATSdynload (dummy) =>
   {
     val () = emit_nspc (out, ind)

@@ -12,7 +12,7 @@
 (* ****** ****** *)
 
 fun print_int : int -> void = "mac#%"
-fun print_bool : double -> void = "mac#%"
+fun print_bool : bool -> void = "mac#%"
 fun print_double : double -> void = "mac#%"
 fun print_string : string -> void = "mac#%"
 

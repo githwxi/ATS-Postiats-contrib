@@ -562,6 +562,10 @@ ATSINSdyncst_valbind_make
 (* ****** ****** *)
 //
 fun
+ATSINScaseof_fail_make
+  (tok_kwd: token, errmsg: token, tok_end: token): instr
+//
+fun
 ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
 //
 (* ****** ****** *)

@@ -159,6 +159,16 @@ cleanall:: ; $(RMF) queens_dats.js
 ######
 
 all:: \
+mergesort_dats.js
+mergesort_dats.js: mergesort.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+mergesort:: mergesort_dats.js ; $(NODEJS) mergesort_dats.js
+regress:: mergesort
+cleanall:: ; $(RMF) mergesort_dats.js
+
+######
+
+all:: \
 hello_dats.js
 hello_dats.c: \
 hello.dats ; $(PATSOPT) -o $@ -d $<
@@ -187,9 +197,9 @@ CPRF=cp -rf
 ######
 #
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/CATS libatscc2js/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/CATS/* libatscc2js/.
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/DATS libatscc2js/DATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/DATS/* libatscc2js/DATS/.
 #
 ######
 

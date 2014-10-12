@@ -1353,6 +1353,19 @@ end // end of [ATSINSdyncst_valbind_make]
 (* ****** ****** *)
 
 implement
+ATSINScaseof_fail_make
+  (tok1, errmsg, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINScaseof_fail(errmsg))
+end // end of [ATSINScaseof_fail_make]
+
+(* ****** ****** *)
+
+implement
 ATSINSdeadcode_fail_make
   (tok1, tok2) = let
 //

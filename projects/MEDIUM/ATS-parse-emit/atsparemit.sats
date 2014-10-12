@@ -310,6 +310,7 @@ keyword =
   | ATSINSextvar_assign of ()
   | ATSINSdyncst_valbind of ()
 //
+  | ATSINScaseof_fail of ()
   | ATSINSdeadcode_fail of ()
 //
   | ATSdynload of ()
@@ -946,6 +947,7 @@ instr_node =
   | ATSINSextvar_assign of (d0exp, d0exp)
   | ATSINSdyncst_valbind of (i0de, d0exp)
 //
+  | ATSINScaseof_fail of (token)
   | ATSINSdeadcode_fail of (token)
 //
   | ATSdynload of int
