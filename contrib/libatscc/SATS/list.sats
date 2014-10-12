@@ -19,15 +19,15 @@ overload list_make_intrange with list_make_intrange_3
 //
 (* ****** ****** *)
 //
-fun{}
-print_list
-  {a:t0p}(xs: List(a)): void = "mac#%"
+fun{a:t0p}
+print_list(List(INV(a))): void = "mac#%"
 //
 fun{}
 print_list$sep ((*void*)): void = "mac#%"
 //
-fun{}
-print_list_sep{a:t0p}(xs: List(a), sep: string): void = "mac#%"
+fun{a:t0p}
+print_list_sep
+  (List(INV(a)), sep: string): void = "mac#%"
 //
 overload print with print_list of 100
 //
@@ -36,33 +36,36 @@ overload print with print_list of 100
 fun
 list_append
   {a:t0p}{i,j:int}
-  (list(a, i), list(a, j)): list(a, i+j)= "mac#%"
+  (list(INV(a), i), list(a, j)): list(a, i+j)= "mac#%"
+//
+overload + with list_append of 100
 //
 (* ****** ****** *)
 //
 fun
 list_reverse
-  {a:t0p}{n:int}(xs: list(a, n)): list(a, n) = "mac#%"
+  {a:t0p}{n:int}
+  (xs: list(INV(a), n)): list(a, n) = "mac#%"
 fun
 list_reverse_append
   {a:t0p}{i,j:int}
-  (xs: list(a, i), ys: list(a, j)): list(a, i+j) = "mac#%"
+  (xs: list(a, i), ys: list(INV(a), j)): list(a, i+j) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 list_app
-  {a:t0p}(xs: List(a), f: cfun(a, void)): void = "mac#%"
+  {a:t0p}(xs: List(INV(a)), f: cfun(a, void)): void = "mac#%"
 fun
 list_foreach
-  {a:t0p}(xs: List(a), f: cfun(a, void)): void = "mac#%"
+  {a:t0p}(xs: List(INV(a)), f: cfun(a, void)): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 list_map
   {a:t0p}{b:t0p}{n:int}
-  (xs: list(a, n), f: cfun(a, b)): list (b, n) = "mac#%"
+  (xs: list(INV(a), n), f: cfun(a, b)): list (b, n) = "mac#%"
 //
 (* ****** ****** *)
 

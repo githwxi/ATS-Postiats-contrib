@@ -19,12 +19,17 @@ ATS_STATIC_PREFIX "_ats2jspre_print_"
 //
 (* ****** ****** *)
 //
-#include "./../staloadall.hats"
+#include
+"./../staloadall.hats"
+//
+staload "./../SATS/print.sats"
 //
 (* ****** ****** *)
 //
 implement
 print_val<int> = print_int
+implement
+print_val<bool> = print_bool
 implement
 print_val<double> = print_double
 implement

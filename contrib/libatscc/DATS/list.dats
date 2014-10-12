@@ -62,9 +62,8 @@ end // end of [list_make_intrange_3]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
-print_list
-  {a}(xs) = let
+{a}(*tmp*)
+print_list(xs) = let
 //
 fun
 loop
@@ -80,7 +79,7 @@ case+ xs of
     if i > 0
       then print_list$sep<> ();
     // end of [if]
-    print_val<a> (x); print_list<a> (xs, i+1)
+    print_val<a> (x); loop (xs, i+1)
   ) (* end of [list_cons] *)
 //
 ) (* end of [loop] *)

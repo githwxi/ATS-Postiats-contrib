@@ -11,17 +11,33 @@ staload "./../SATS/print.sats"
 //
 (* ****** ****** *)
 //
+staload _ = "./../DATS/list.dats"
+staload _ = "./../DATS/print.dats"
+//
+(* ****** ****** *)
+//
 #define
 ATS_MAINATSFLAG 1
 #define
-ATS_DYNLOADNAME "test01_dynload"
+ATS_DYNLOADNAME "test02_dynload"
 #define
-ATS_STATIC_PREFIX "test01__"
+ATS_STATIC_PREFIX "test02__"
 //
 (* ****** ****** *)
 
-val () = repeat(3, $delay(println!("Hello, world!")))
-val () = foreach(3, lam(i) =<cloref1> println!(i, ": Hello, world!"))
+#define :: list_cons
+
+(* ****** ****** *)
+
+val xs =
+(
+  0 :: 1 :: 2 :: 3 :: 4 :: 5 :: 6 :: 7 :: 8 :: 9 :: nil()
+) : List0 (int)
+
+(* ****** ****** *)
+
+val () = println! ("xs = ", xs)
+val () = println! ("xs + xs = ", xs + xs)
 
 (* ****** ****** *)
 
@@ -37,10 +53,10 @@ eval(fs.readFileSync('./../CATS/PRINT/print_store_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-test01_dynload();
+test02_dynload();
 process.stdout.write(ats2jspre_the_print_store_join());
 %} // end of [%{$]
 
 (* ****** ****** *)
 
-(* end of [test01.dats] *)
+(* end of [test02.dats] *)
