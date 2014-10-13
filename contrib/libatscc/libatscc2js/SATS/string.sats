@@ -17,6 +17,40 @@ staload "./../basics_js.sats"
 
 (* ****** ****** *)
 //
+fun lt_string_string
+  : (string, string) -> bool = "mac#%"
+fun lte_string_string
+  : (string, string) -> bool = "mac#%"
+fun gt_string_string
+  : (string, string) -> bool = "mac#%"
+fun gte_string_string
+  : (string, string) -> bool = "mac#%"
+//
+fun eq_string_string
+  : (string, string) -> bool = "mac#%"
+fun neq_string_string
+  : (string, string) -> bool = "mac#%"
+//
+(* ****** ****** *)
+//
+overload < with lt_string_string of 100
+overload <= with lte_string_string of 100
+overload > with gt_string_string of 100
+overload >= with gte_string_string of 100
+//
+overload = with eq_string_string of 100
+overload != with neq_string_string of 100
+overload <> with neq_string_string of 100
+//
+(* ****** ****** *)
+//
+fun compare_string_string
+  : (string, string) -> intBtwe(~1, 1) = "mac#%"
+//
+overload compare with compare_string_string of 100
+//
+(* ****** ****** *)
+//
 fun
 string_length (string): int = "mac#%"
 //

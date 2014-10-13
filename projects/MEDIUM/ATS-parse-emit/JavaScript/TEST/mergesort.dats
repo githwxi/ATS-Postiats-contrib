@@ -66,6 +66,11 @@ staload _(*anon*) =
 "{$LIBATSCC2JS}/DATS/print.dats"
 //
 (* ****** ****** *)
+
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "my_dynload"
+
+(* ****** ****** *)
 //
 #define nil0 list_nil
 #define cons0 list_cons
@@ -91,17 +96,17 @@ a:t@ype
 ) : list0 a =
 (
   case+ xs of
+  | nil0 () => ys
   | cons0 (x, xs1) => (
     case+ ys of
+    | nil0 () => xs
     | cons0 (y, ys1) =>
         if x \lte y then
           cons0{a}(x, merge<a> (xs1, ys, lte))
         else
           cons0{a}(y, merge<a> (xs, ys1, lte))
         // end of [if]
-    | nil0 () => xs
     ) // end of [cons0]
-  | nil0 () => ys
 ) (* end of [merge] *)
 
 (* ****** ****** *)
@@ -150,7 +155,10 @@ end // end of [mergesort]
 //
 extern 
 fun
-main_js (): void = "mac#"
+main_js
+(
+// argumentless
+) : void = "mac#"
 //
 implement
 main_js ((*void*)) =
@@ -158,11 +166,44 @@ main_js ((*void*)) =
 //
 val xs =
 (
-  cons0 (5, cons0 (3, cons0 (4, cons0 (6, cons0 (8, cons0 (0, cons0 (7, cons0 (1, cons0 (9, cons0 (2, nil0))))))))))
+cons0 (5,
+cons0 (3,
+cons0 (4,
+cons0 (6,
+cons0 (8,
+cons0 (0,
+cons0 (7,
+cons0 (1,
+cons0 (9,
+cons0 (2,
+nil0()))))))))))
 ) : list0 (int)
 //
 val () = println! ("xs = ", xs)
 val () = println! ("mergesort(xs) = ", mergesort<int> (xs, lam (x, y) => x <= y))
+//
+(* ****** ****** *)
+//
+val xs =
+(
+cons0 ("5",
+cons0 ("3",
+cons0 ("4",
+cons0 ("6",
+cons0 ("8",
+cons0 ("0",
+cons0 ("7",
+cons0 ("1",
+cons0 ("9",
+cons0 ("2",
+nil0()))))))))))
+) : list0 (string)
+//
+implement
+print_val<string> (x) = print! ("\"", x, "\"")
+//
+val () = println! ("xs = ", xs)
+val () = println! ("mergesort(xs) = ", mergesort<string> (xs, lam (x, y) => x <= y))
 //
 } (* end of [main_js] *)
 //
