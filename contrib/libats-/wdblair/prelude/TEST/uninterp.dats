@@ -31,3 +31,33 @@ fun fact1 {n:nat} (
 in
   loop (0, 1)
 end
+
+// Fibonacci
+
+stacst fib_int: (int) -> int
+stadef fib = fib_int
+
+fun fib {n:nat} (
+  n: int n
+): int (fib(n)) = 
+  if n < 2 then
+    n
+  else
+    fib (n-1) + fib (n-1)
+    
+fun fib1 {n:nat} (
+  n: int n
+): int (fib (n)) = let
+  //
+  fun loop {i:nat} (
+      i: int i, 
+      r: int (fib (i)), s: int (fib (i-1))
+  ): int (fib (n)) =
+    if i = n then
+      r
+    else
+      loop (succ (i), r + s, r)
+  //
+in
+  loop (1, 1, 0)
+end

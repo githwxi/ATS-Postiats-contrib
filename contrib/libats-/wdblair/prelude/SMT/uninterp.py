@@ -6,23 +6,44 @@ import patsolve
 
 s = patsolve.solver
 
-fact = Function ("fact_int", IntSort(), IntSort())
-
 n = Int ("n")
-undef = Int ("n")
+undef = Int ("undef")
+
+fact = Function ("fact_int", IntSort(), IntSort())
 
 s.add (
     ForAll ([n], Implies (n < 0, fact(n) == undef))
 )
 
 s.add (
-    fact(0) == 1
+    ForAll ([n], Implies (n >= 0, fact(n) >= 1))
 )
 
 s.add (
-    ForAll ([n], Implies (n > 0, fact(n+1) == (n+1) * fact(n)))
+    ForAll ([n], Implies (n == 0, fact(n) == 1))
 )
 
 s.add (
-    ForAll ([n], Implies (n > 0, fact(n) == n * fact(n-1)))
+    ForAll ([n], Implies (n > 0, fact (n) == n * fact(n-1)))
+)
+
+fib = Function ("fib_int", IntSort(), IntSort())
+
+s.add (
+    ForAll([n], Implies (n < 0, fib(n) == undef))
+)
+
+s.add (
+    ForAll([n],
+           Implies (n >= 0, fib(n) >= 0)
+    )
+)
+
+s.add (
+    ForAll([n], 
+           If (And (0 <= n, n < 2), 
+               fib(n) == n,
+               fib(n) == fib(n-1) + fib(n-2)
+           )
+    )
 )
