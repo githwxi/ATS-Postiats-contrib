@@ -11,7 +11,7 @@ s = patsolve.solver
 A = Array ("A", IntSort(), IntSort())
 B = Array ("B", IntSort(), IntSort())
 
-i, j, x = Int("i"), Int("j"), Int("x")
+i, j, x, y = Int("i"), Int("j"), Int("x"), Int("y")
 
 StampSeq = lambda name: Array (name, IntSort(), IntSort())
 StampSeqSort = lambda : ArraySort (IntSort(), IntSort())
@@ -43,11 +43,9 @@ s.add (
 cons = Function ('stampseq_cons', IntSort(), StampSeqSort(), 
                  StampSeqSort())
 
-
 s.add (
     ForAll ([A, x], cons(x, A)[0] == x)
 )
-
 
 s.add (
     ForAll ([A, i, x], Implies (i > 0, cons(x, A)[i] == A[i-1]))
@@ -118,4 +116,37 @@ def stampseq_sorted (xs, n):
         xs[i] <= xs[j])
     )
 
-sorted = stampseq_sorted
+# The entire sequence is ordered.
+
+ordered = Function ('stampseq_ordered', StampSeqSort(), BoolSort())
+
+s.add (
+    ForAll(x, ordered(cons(x, nil())))
+)
+
+s.add (
+    ForAll(x, ordered(insert(nil(), 0, x)))
+)
+
+s.add (
+    ForAll([A, x], Implies(And (x <= A[0], ordered(A)),
+                           ordered(insert(A,0,x)))
+    )
+)
+
+s.add (
+    ForAll([A, B, x, y, i], Implies(And (ordered(A), 
+                                         ordered(insert(B, i, y)),
+                                         A == cons (x, B)
+                                     ),
+                                    ordered (insert(A, i+1, y))
+                            )
+    )
+)
+
+s.add (
+    ForAll([A,B,x], Implies (And (ordered(A), A == cons(x, B)),
+                             ordered (B)
+                    )
+    )
+)

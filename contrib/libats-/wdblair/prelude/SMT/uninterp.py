@@ -1,4 +1,6 @@
-# Playing with uninterpreted functions
+# 
+# Representing Recursive Functions using 
+#
 
 from z3 import *
 
@@ -8,6 +10,8 @@ s = patsolve.solver
 
 n, m = Ints ("n m")
 undef = Int ("undef")
+
+# Factorial
 
 fact = Function ("fact_int", IntSort(), IntSort())
 
@@ -26,6 +30,8 @@ s.add (
 s.add (
     ForAll ([n], Implies (n > 0, fact (n) == n * fact(n-1)))
 )
+
+# Fibonacci
 
 fib = Function ("fib_int", IntSort(), IntSort())
 
@@ -46,6 +52,8 @@ s.add (
 s.add (
     ForAll([n], Implies (n > 1, fib(n) == fib(n-1) + fib(n-2)))
 )
+
+# Euclid's Algorithm
 
 gcd = Function ("gcd_int", IntSort(), IntSort(), IntSort())
 

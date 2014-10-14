@@ -72,14 +72,14 @@ stacst gcd_int: (int, int) -> int
 stadef gcd = gcd_int
 
 (**
-  mod1 isn't included in the prelude
-  anymore.
+  Something like mod1 isn't included
+  in the prelude.
 *)
 
 infix mod1
 
 %{^
-#define mod1_int(a,b) (a % b)
+#define mod1_int(a, b) (a % b)
 %}
 
 extern
@@ -89,7 +89,7 @@ fun mod1_int {a,b:nat | b > 0} (
 
 overload mod1 with mod1_int
 
-fun 
+fun
 gcd {a,b:nat | a > 0} (
   a: int a, b: int b
 ): int (gcd (a, b)) =

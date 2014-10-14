@@ -4,7 +4,7 @@ staload _ = "prelude/DATS/integer.dats"
   Check the orderedness of a list
 *)
 fun
-ordered (xs: List0(int)): bool = let
+list_is_ordered (xs: List0(int)): bool = let
   fun loop (y: int, ys: List0(int)): bool =
     case+ ys of
       | list_nil () => true
@@ -17,7 +17,7 @@ in
     case+ xs of 
       | list_nil () => true
       | list_cons (x, xss) => loop (x, xss)
-end // end of [ordered]
+end // end of [list_is_ordered]
 
 (* ****** ****** *)
 
@@ -178,39 +178,46 @@ case+ xs of
 
 extern
 fun {a:t@ype} insord1
-  {x0:stamp}
-  {n:nat} {xs:stmsq | sorted (xs, n)}
+  {x0:stamp} {n:nat}
+  {xs:stmsq | ordered (xs)}
 (
   x: T(a, x0), xs: list (a, xs, n)
-) : [i:nat | sorted (insert (xs, i, x0), n+1)]
+) : [i:nat | ordered (insert(xs, i, x0))]
 (
   list (a, insert(xs, i, x0), n+1)
 )
 
 (* ****** ****** *)
 
+(**
+  This is an interesting example where we don't
+  even need proof terms to prove that the end
+  result is sorted.
+*)
+
+#define :: list_cons
+#define nil list_nil
+
 implement {a}
 insord1 (x0, xs) =
 case+ xs of 
-  | list_nil () =>
-    #[0 | list_cons {a} (x0, list_nil())]
-  | list_cons (x, xss) =>
-    (
-      if x0 <= x then
-        #[0 | list_cons (x0, xs)]
-      else let
-        val [i:int] ys1 = insord1 (x0, xss)
-      in
-        #[i+1 | list_cons (x, ys1)]
-      end
-    )
+  | nil () =>
+    #[0 | x0 :: nil()]
+  | x :: xss =>
+    if x0 <= x then
+      #[0 | x0 :: xs]
+    else let
+      val [i:int] ys1 = insord1 (x0, xss)
+    in
+      #[i+1 | x :: ys1]
+    end
     
 (* ****** ****** *)
 
 implement main0 () = let
   val xs = $list{int} (10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
   val xs = list_stampseq_of_list (xs)
-  (** 
+  (**
     Need to implement a comparison operator
   *)
   extern
@@ -230,7 +237,7 @@ implement main0 () = let
 
   val xs = list_of_list_stampseq{int} (xs)
 in
-  assert(ordered (xs));
+  assert(list_is_ordered (xs));
   println! ("sort test passes!")
 end // end of [main0]
 
