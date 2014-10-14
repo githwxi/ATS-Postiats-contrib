@@ -264,12 +264,12 @@ canvas =
 document.getElementById("Patsoptaas-Evaluate-Canvas");
 var context = canvas.getContext( '2d' );
 //
-var w = 920.0
-var h = 600.0
-var mn = Math.min (w, h)
+var w = canvas.w
+var h = canvas.h
 var xc = w / 2
 var yc = h / 2
-var alpha = mn / 300
+var wh = Math.min (w, h)
+var alpha = wh / 300
 //
 function
 draw2_clock()
@@ -282,7 +282,7 @@ var hours = date.getHours()
 var hours = hours + mins / 60.0
 //
 context.save();
-context.translate(xc-mn/2, yc-mn/2);
+context.translate(xc-wh/2, yc-wh/2);
 context.scale (alpha, alpha);
 draw_clock(context, hours, mins, secs);
 context.restore();
