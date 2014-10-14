@@ -40,10 +40,9 @@ s.add (
 )
 
 s.add (
-    ForAll([n], 
-           If (And (0 <= n, n < 2), 
-               fib(n) == n,
-               fib(n) == fib(n-1) + fib(n-2)
-           )
-    )
+    ForAll([n], Implies (And (0 <= n, n < 2), fib(n) == n))
+)
+
+s.add (
+    ForAll([n], Implies (n > 1, fib(n) == fib(n-1) + fib(n-2)))
 )

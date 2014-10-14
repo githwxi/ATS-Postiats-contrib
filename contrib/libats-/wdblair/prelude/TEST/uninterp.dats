@@ -43,14 +43,14 @@ fun fib {n:nat} (
   if n < 2 then
     n
   else
-    fib (n-1) + fib (n-1)
+    fib (n-1) + fib (n-2)
     
 fun fib1 {n:nat} (
   n: int n
 ): int (fib (n)) = let
   //
-  fun loop {i:nat} (
-      i: int i, 
+  fun loop {i:nat | i > 0} (
+      i: int i,
       r: int (fib (i)), s: int (fib (i-1))
   ): int (fib (n)) =
     if i = n then
