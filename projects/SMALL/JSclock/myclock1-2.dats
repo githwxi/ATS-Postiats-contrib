@@ -25,9 +25,10 @@ http://www.neilwallis.com/projects/html5/clock/
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
 #include

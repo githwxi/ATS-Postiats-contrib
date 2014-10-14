@@ -17,15 +17,37 @@
 /* ****** ****** */
 
 function
-ats2js_HTML5_canvas2d_make
+ats2js_HTML5_canvas_getById
   (id)
 {
-  var canvas =
-    document.getElementById(id);
-  // end of [var]
-  if(!canvas) return canvas;
-  if(!canvas.getContext) throw "ats2js_HTML5_canvas2d_make: 2D-canvas is not supported";
-  return canvas.getContext("2d")
+  var
+  canvas =
+  document.getElementById(id);
+  if(!canvas)
+  {
+    throw "ats2js_HTML5_canvas_getById: canvas is not found";
+  }
+  return canvas;
+}
+
+/* ****** ****** */
+
+function
+ats2js_HTML5_canvas2d_getById
+  (id)
+{
+  var
+  canvas =
+  document.getElementById(id);
+  if(!canvas)
+  {
+    throw "ats2js_HTML5_canvas_getById: canvas is not found";
+  }
+  if(!canvas.getContext)
+  {
+    throw "ats2js_HTML5_canvas2d_getById: canvas-2d is not supported";
+  }
+  return canvas.getContext("2d");
 }
 
 /* ****** ****** */
