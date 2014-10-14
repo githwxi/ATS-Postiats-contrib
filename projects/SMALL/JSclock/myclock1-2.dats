@@ -264,8 +264,8 @@ canvas =
 document.getElementById("Patsoptaas-Evaluate-Canvas");
 var context = canvas.getContext( '2d' );
 //
-var w = canvas.w
-var h = canvas.h
+var w = canvas.width
+var h = canvas.height
 var xc = w / 2
 var yc = h / 2
 var wh = Math.min (w, h)
