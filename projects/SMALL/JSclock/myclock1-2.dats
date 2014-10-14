@@ -257,4 +257,46 @@ val () = ctx.restore (pf.0 | (*none*))
 //
 (* ****** ****** *)
 
+%{$
+//
+var
+canvas =
+document.getElementById("MyClock1-2");
+var context = canvas.getContext( '2d' );
+//
+var w = 920.0
+var h = 600.0
+var mn = Math.min (w, h)
+var xc = w / 2
+var yc = h / 2
+var alpha = mn / 300
+//
+function
+draw2_clock()
+{
+var date = new Date() ;
+var secs = date.getSeconds()
+var mins = date.getMinutes()
+var mins = mins + secs / 60.0
+var hours = date.getHours()
+var hours = hours + mins / 60.0
+//
+context.save();
+context.translate(xc-mn/2, yc-mn/2);
+context.scale (alpha, alpha);
+draw_clock(context, hours, mins, secs);
+context.restore();
+//
+setTimeout(draw2_clock, 500);
+//
+return;
+//
+} // end of [draw2_clock]
+//
+jQuery(document).ready(function(){draw2_clock();});
+//
+%} // end of [%{$]
+
+(* ****** ****** *)
+
 (* end of [myclock1-2.dats] *)
