@@ -264,6 +264,10 @@ canvas =
 document.getElementById("Patsoptaas-Evaluate-canvas");
 var context = canvas.getContext( '2d' );
 //
+function
+draw2_clock()
+{
+//
 var w = canvas.width
 var h = canvas.height
 var xc = w / 2
@@ -271,9 +275,6 @@ var yc = h / 2
 var wh = Math.min (w, h)
 var alpha = wh / 300
 //
-function
-draw2_clock()
-{
 var date = new Date() ;
 var secs = date.getSeconds()
 var mins = date.getMinutes()
