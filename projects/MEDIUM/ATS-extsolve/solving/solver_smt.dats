@@ -533,6 +533,15 @@ in
     n / d
   end // end of [f_idiv_int_int]
 
+
+  implement f_mod_int_int (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val n = formula_make (env, s2e1) 
+    val d = formula_make (env, s2e2)
+  in
+    $SMT.make_mod (n, d)
+  end // end of [f_mod_int_int]
+  
   implement f_rat_int (env, s2es) = let
     val- s2e1 :: _ = s2es
     val n = formula_make (env, s2e1)

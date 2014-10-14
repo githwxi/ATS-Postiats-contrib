@@ -292,6 +292,7 @@ constraint3_initialize_map (map) = {
     ins (map, "div_int_int", f_idiv_int_int);
     ins (map, "ndiv_int_int", f_ndiv_int_int);
     ins (map, "idiv_int_int", f_idiv_int_int);
+    ins (map, "mod_int_int", f_mod_int_int);
     //
     ins (map, "lt_int_int", f_lt_int_int);
     ins (map, "lte_int_int", f_lte_int_int);

@@ -1,4 +1,4 @@
-# Playing with uninterpreted functiosn
+# Playing with uninterpreted functions
 
 from z3 import *
 
@@ -6,7 +6,7 @@ import patsolve
 
 s = patsolve.solver
 
-n = Int ("n")
+n, m = Ints ("n m")
 undef = Int ("undef")
 
 fact = Function ("fact_int", IntSort(), IntSort())
@@ -45,4 +45,18 @@ s.add (
 
 s.add (
     ForAll([n], Implies (n > 1, fib(n) == fib(n-1) + fib(n-2)))
+)
+
+gcd = Function ("gcd_int", IntSort(), IntSort(), IntSort())
+
+s.add (
+    ForAll([n,m], Implies (Or (n < 0, m < 0), gcd(n, m) == undef))
+)
+
+s.add (
+    ForAll([n], Implies (n > 0, gcd(n, 0) == n))
+)
+
+s.add (
+    ForAll([n,m], Implies (And (n > 0, m > 0), gcd (n, m) == gcd (m, n % m)))
 )

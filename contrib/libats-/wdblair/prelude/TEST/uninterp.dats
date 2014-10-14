@@ -7,7 +7,8 @@
 stacst fact_int: (int) -> int
 stadef fact = fact_int
 
-fun fact {n:nat} (
+fun 
+fact {n:nat} (
   n: int n
 ): int (fact (n)) = 
   if n = 0 then
@@ -15,7 +16,8 @@ fun fact {n:nat} (
   else
     n * fact (pred (n))
     
-fun fact1 {n:nat} (
+fun 
+fact1 {n:nat} (
   n: int n
 ): int (fact (n)) = let
   fun loop {i:nat} (
@@ -37,7 +39,8 @@ end
 stacst fib_int: (int) -> int
 stadef fib = fib_int
 
-fun fib {n:nat} (
+fun 
+fib {n:nat} (
   n: int n
 ): int (fib(n)) = 
   if n < 2 then
@@ -45,7 +48,8 @@ fun fib {n:nat} (
   else
     fib (n-1) + fib (n-2)
     
-fun fib1 {n:nat} (
+fun 
+fib1 {n:nat} (
   n: int n
 ): int (fib (n)) = let
   //
@@ -61,3 +65,35 @@ fun fib1 {n:nat} (
 in
   loop (1, 1, 0)
 end
+
+// Euclid's Algorithm
+
+stacst gcd_int: (int, int) -> int
+stadef gcd = gcd_int
+
+(**
+  mod1 isn't included in the prelude
+  anymore.
+*)
+
+infix mod1
+
+%{^
+#define mod1_int(a,b) (a % b)
+%}
+
+extern
+fun mod1_int {a,b:nat | b > 0} (
+  a: int (a), b: int (b)
+): int (a % b) = "mac#"
+
+overload mod1 with mod1_int
+
+fun 
+gcd {a,b:nat | a > 0} (
+  a: int a, b: int b
+): int (gcd (a, b)) =
+  if b = 0 then
+    a
+  else
+    gcd (b, a mod1 b)

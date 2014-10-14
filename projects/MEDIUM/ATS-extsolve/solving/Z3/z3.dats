@@ -788,6 +788,17 @@ in
 end
 
 implement
+make_mod (num, den) = let
+  val phi = Z3_mk_mod (!the_context, num, den)
+  val () = begin
+    Z3_dec_ref(!the_context, num);
+    Z3_dec_ref(!the_context, den);
+  end
+in
+  phi
+end
+
+implement
 is_int (num) = let
   val phi = Z3_mk_is_int (!the_context, num)
   val () = begin

@@ -175,6 +175,8 @@ fun make_mul2 (formula, formula): formula
 
 fun make_div (formula,  formula): formula
 
+fun make_mod (formula, formula): formula
+
 fun make_lt (formula,  formula): formula
 fun make_le (formula,  formula): formula
 fun make_gt (formula,  formula): formula
