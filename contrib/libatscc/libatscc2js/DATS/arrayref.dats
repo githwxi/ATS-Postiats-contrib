@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_reference_"
+ATS_STATIC_PREFIX "_ats2jspre_arrayref_"
 //
 (* ****** ****** *)
 //
@@ -29,37 +29,45 @@ staload "./../SATS/JSarray.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/reference.sats"
+staload "./../SATS/arrayref.sats"
 //
 (* ****** ****** *)
 //
 (*
 assume
-ref_vt0ype_type(a:t@ype) = JSarray(a)
+arrayref_vt0ype_type(a, n) = JSarray(a)
 *)
 //
 (* ****** ****** *)
+
+%{^
 //
-implement
-ref (x) = ref_make_elt (x)
+function
+ats2jspre_arrayref_make_elt
+  (n, x)
+{
+  var A, i;
+  A = new Array(n);
+  for (i = 0; i < n; i += 1) A[i] = x;
+  return A;
+}
 //
-implement
-ref_make_elt{a}(x) = $UN.cast{ref(a)}(JSarray_sing(x))
-//
+%} // end of [%{^]
+
 (* ****** ****** *)
 
 implement
-ref_get_elt{a}(r) = let
-  val r = $UN.cast{JSarray(a)}(r) in JSarray_get_at(r, 0)
-end // end of [ref_get_elt]
+arrayref_get_at{a}(A, i) = let
+  val A = $UN.cast{JSarray(a)}(A) in JSarray_get_at(A, i)
+end // end of [arrayref_get_at]
 
 (* ****** ****** *)
 
 implement
-ref_set_elt{a}(r, x) = let
-  val r = $UN.cast{JSarray(a)}(r) in JSarray_set_at(r, 0, x)
-end // end of [ref_set_elt]
+arrayref_set_at{a}(A, i, x) = let
+  val A = $UN.cast{JSarray(a)}(A) in JSarray_set_at(A, i, x)
+end // end of [arrayref_set_at]
 
 (* ****** ****** *)
 
-(* end of [reference.dats] *)
+(* end of [arrayref.dats] *)

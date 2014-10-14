@@ -77,20 +77,20 @@ JSarray_insert_at
   {a:t@ype}(JSarray(a), int, a): void = "mac#%"
 //
 fun
-JSarray_takeout_at
-  {a:t@ype}(A: JSarray(a), ofs: int): (a) = "mac#%"
-fun
 JSarray_remove_at
-  {a:t@ype}(A: JSarray(a), ofs: int): void = "mac#%"
+  {a:t@ype}(JSarray(a), ofs: int): void = "mac#%"
+fun
+JSarray_takeout_at
+  {a:t@ype}(JSarray(a), ofs: int): ( a ) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 JSarray_join
-  {a:t@ype}(A: JSarray(a)): string = "mac#%"
+  {a:t@ype}(JSarray(a)): string = "mac#%"
 fun
 JSarray_join_sep
-  {a:t@ype}(A: JSarray(a), sep: string): string = "mac#%"
+  {a:t@ype}(JSarray(a), sep: string): string = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -101,7 +101,7 @@ JSarray_join_sep
 overload [] with JSarray_get_at
 overload [] with JSarray_set_at
 //
-overload  length with JSarray_length
+overload length with JSarray_length
 //
 (* ****** ****** *)
 
