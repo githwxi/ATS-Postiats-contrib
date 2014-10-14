@@ -261,7 +261,7 @@ val () = ctx.restore (pf.0 | (*none*))
 //
 var
 canvas =
-document.getElementById("Patsoptaas-Evaluate-Canvas");
+document.getElementById("Patsoptaas-Evaluate-canvas");
 var context = canvas.getContext( '2d' );
 //
 var w = canvas.width
