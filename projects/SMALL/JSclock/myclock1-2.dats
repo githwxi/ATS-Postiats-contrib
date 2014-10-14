@@ -261,7 +261,7 @@ val () = ctx.restore (pf.0 | (*none*))
 //
 var
 canvas =
-document.getElementById("MyClock1-2");
+document.getElementById("Patsoptaas-Evaluate-Canvas");
 var context = canvas.getContext( '2d' );
 //
 var w = 920.0
