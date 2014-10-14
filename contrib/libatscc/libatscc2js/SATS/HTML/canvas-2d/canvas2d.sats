@@ -47,13 +47,18 @@ ATS_EXTERN_PREFIX "ats2js_HTML5_" // prefix for external names
 
 (* ****** ****** *)
 //
+abstype canvas_type
+typedef canvas = canvas_type
+//
 abstype canvas2d_type
 typedef canvas2d = canvas2d_type
 //
 (* ****** ****** *)
 //
 fun
-canvas2d_make (id: string): canvas2d = "mac#%"
+canvas_getById (id: string): canvas = "mac#%"
+fun
+canvas2d_getById (id: string): canvas2d = "mac#%"
 //
 (* ****** ****** *)
 

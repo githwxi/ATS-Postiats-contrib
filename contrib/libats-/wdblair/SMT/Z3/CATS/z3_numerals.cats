@@ -40,6 +40,10 @@ Z3_DECLARE_MK_AST(Z3_mk_int, int numeral, Z3_sort ty) {
   Z3_BODY_MK_AST(Z3_mk_int, numeral, ty)
 }
 
+Z3_DECLARE_MK_AST(Z3_mk_unsigned_int, int numeral, Z3_sort ty) {
+  Z3_BODY_MK_AST(Z3_mk_unsigned_int, numeral, ty)
+}
+
 /* ****** ****** */
 
 #endif

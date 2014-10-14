@@ -55,7 +55,7 @@ randcolor() = let
   val (pf, pfgc | p) = malloc_gc (i2sz(bsz))
   val () = $extfcall
   (
-    void, "snprintf", p, bsz, "#%x%x%x", (i2u)r, (i2u)b, (i2u)g
+    void, "snprintf", p, bsz, "#%02x%02x%02x", (i2u)r, (i2u)b, (i2u)g
   ) (* end of [$extfcall] *)
 //
 in
@@ -684,14 +684,14 @@ val w = wbx.width
 in
 //
 if w >= 0
-then fprintln! (out, "width: ", w, "px ;")
+then fprintln! (out, "width: ", w, "px;")
 else let
 //
 val pw = wbx.pwidth
 //
 in
   if pw >= 0
-    then fprintln! (out, "width: ", pw, "% ;")
+    then fprintln! (out, "width: ", pw, "%;")
   // end of [if]
 end // end of [else]
 //
@@ -709,14 +709,14 @@ val h = wbx.height
 in
 //
 if h >= 0
-then fprintln! (out, "height: ", h, "px ;")
+then fprintln! (out, "height: ", h, "px;")
 else let
 //
 val ph = wbx.pheight
 //
 in
   if ph >= 0
-    then fprintln! (out, "height: ", ph, "% ;")
+    then fprintln! (out, "height: ", ph, "%;")
   // end of [if]
 end // end of [else]
 //
@@ -857,14 +857,20 @@ in
 end // end of [fprint_weboxlst_css_all]
 
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
 fprint_webox_head_end (out) = ()
+//
+(* ****** ****** *)
+//
 implement
 {}(*tmp*)
 fprint_webox_body_end (out) = ()
-
+implement
+{}(*tmp*)
+fprint_webox_body_after (out) = ()
+//
 (* ****** ****** *)
 
 extern
@@ -949,7 +955,14 @@ case+ wbxs of
     val () =
     if i > 0 then fprint (out, "\n")
     val () =
-    if isvbox then fprint (out, "<tr>\n")
+    if isvbox then let
+      val pc = percentlst_get_at (pcs, i)
+    in
+      if pc < 0
+        then fprint! (out, "<tr>\n")
+        else fprint! (out, "<tr height=\"", pc, "%\">\n")
+      // end of [if]
+    end // end of [then] // end of [if]
 //
     val () =
     if ishbox then let
@@ -1034,6 +1047,9 @@ val () = fprint_webox_html (out, wbx0)
 val () = fprint_webox_body_end (out)
 //
 val () = fprint (out, "</body>\n")
+//
+val () = fprint_webox_body_after (out)
+//
 val () = fprint (out, "</html>\n")
 //
 val ((*flushing*)) = fileref_flush (out)

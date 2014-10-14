@@ -59,12 +59,16 @@
 ATSinline()
 Z3_ast
 atscntrb_Z3_inc_ref
-  (Z3_context ctx, Z3_ast a) { Z3_inc_ref (ctx, a); return a ; }
+(Z3_context ctx, Z3_ast a) { Z3_inc_ref (ctx, a); return a ; }
 // end of [atscntrb_Z3_inc_ref]
 
 /* ****** ****** */
 
 #define atscntrb_Z3_dec_ref Z3_dec_ref
+
+/* ****** ****** */
+
+#define atscntrb_Z3_sort_kind_eq_eq(x, y) (x == y)
 
 /* ****** ****** */
 
@@ -89,7 +93,11 @@ atscntrb_Z3_inc_ref
   atscntrb_##type##_dec_ref                     \
   (Z3_context ctx, type a) {                    \
     Z3_dec_ref(ctx, type##_to_ast(ctx, a));     \
-  }                                             \
+    }                                           \
+
+/* ****** ****** */
+
+#include "z3_accessor.cats"
 
 /* ****** ****** */
 

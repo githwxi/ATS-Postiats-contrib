@@ -7,10 +7,8 @@
 #include
 "./../staloadall.hats"
 //
-(* ****** ****** *)
-
 staload "./../SATS/print.sats"
-
+//
 (* ****** ****** *)
 //
 #define

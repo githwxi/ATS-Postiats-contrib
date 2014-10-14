@@ -100,9 +100,12 @@ fun emit_PMVcfunlab
 //
 (* ****** ****** *)
 //
-fun emit_ATSCKpat_con0
+fun
+emit_ATSCKpat_con0
   (out: FILEref, d0e: d0exp, tag: int): void
-fun emit_ATSCKpat_con1
+//
+fun
+emit_ATSCKpat_con1
   (out: FILEref, d0e: d0exp, tag: int): void
 //
 (* ****** ****** *)

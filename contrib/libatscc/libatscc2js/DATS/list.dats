@@ -19,17 +19,26 @@ ATS_STATIC_PREFIX "_ats2jspre_list_"
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-#include "./../staloadall.hats"
+staload
+"./../SATS/integer.sats"
+//
+staload "./../SATS/print.sats"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+staload "./../SATS/list.sats"
+//
+(* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
 //

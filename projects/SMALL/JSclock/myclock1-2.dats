@@ -25,23 +25,23 @@ http://www.neilwallis.com/projects/html5/clock/
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
-staload "{$LIBATSCC2JS}/basics_js.sats"
-staload "{$LIBATSCC2JS}/SATS/integer.sats"
-staload "{$LIBATSCC2JS}/SATS/float.sats"
-staload "{$LIBATSCC2JS}/SATS/string.sats"
-staload "{$LIBATSCC2JS}/SATS/JSmath.sats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
-staload "{$LIBATSCC2JS}/SATS/HTML/canvas-2d/canvas2d.sats"
+(* ****** ****** *)
+//
+staload
+"{$LIBATSCC2JS}/SATS/HTML/canvas-2d/canvas2d.sats"
 //
 (* ****** ****** *)
 
 macdef PI = JSmath_PI
-
 macdef sin = JSmath_sin and cos = JSmath_cos
 
 (* ****** ****** *)

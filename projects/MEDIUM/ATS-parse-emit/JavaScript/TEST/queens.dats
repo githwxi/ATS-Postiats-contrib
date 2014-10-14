@@ -50,13 +50,13 @@
 //
 #include
 "share/atspre_define.hats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
 //
-#include
-"{$LIBATSCC2JS}/staloadall.hats"
 staload
-"{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
+"{$LIBATSCC2JS}/SATS/print.sats"
 //
 (* ****** ****** *)
 
@@ -219,6 +219,8 @@ eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/Node.js/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/fprint_cats.js').toString());
+//
 %} // end of [%{^]
 
 (* ****** ****** *)

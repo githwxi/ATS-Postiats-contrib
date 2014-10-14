@@ -208,6 +208,7 @@ val-~None_vt() = kwordins ("ATSINSargmove_tlcal", ATSINSargmove_tlcal)
 val-~None_vt() = kwordins ("ATSINSextvar_assign", ATSINSextvar_assign)
 val-~None_vt() = kwordins ("ATSINSdyncst_valbind", ATSINSdyncst_valbind)
 //
+val-~None_vt() = kwordins ("ATSINScaseof_fail", ATSINScaseof_fail)
 val-~None_vt() = kwordins ("ATSINSdeadcode_fail", ATSINSdeadcode_fail)
 //
 val-~None_vt() = kwordins ("ATSdynload", ATSdynload)

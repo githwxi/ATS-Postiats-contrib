@@ -26,13 +26,16 @@ staload UN =
 //
 staload "./../basics_js.sats"
 staload "./../SATS/JSarray.sats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/reference.sats"
 //
 (* ****** ****** *)
 //
 (*
 assume
-ref_vt0ype_type(a:t@ype) = PYlist(a)
+ref_vt0ype_type(a:t@ype) = JSarray(a)
 *)
 //
 (* ****** ****** *)

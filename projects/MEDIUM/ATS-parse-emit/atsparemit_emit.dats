@@ -147,6 +147,7 @@ tok.token_node of
 | T_COMMENT_block () => emit_COMMENT_block (out)
 //
 | T_INT (_, rep) => emit_text (out, rep)
+| T_FLOAT (_, rep) => emit_text (out, rep)
 //
 | T_STRING (str) => emit_text (out, str)
 //

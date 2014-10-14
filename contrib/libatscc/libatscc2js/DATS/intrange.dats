@@ -19,12 +19,24 @@ ATS_STATIC_PREFIX "_ats2jspre_intrange_"
 //
 (* ****** ****** *)
 //
-#include "./../staloadall.hats"
+#include
+"share/atspre_define.hats"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+staload
+  "./../basics_js.sats"
+//
+staload
+  "./../SATS/integer.sats"
+//
+staload "./../SATS/list.sats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/intrange.sats"
+//
+(* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/intrange.dats"
 //
