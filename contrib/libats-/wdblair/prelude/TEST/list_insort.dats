@@ -90,26 +90,31 @@ praxi
 SORTED_elim
   {xs:stmsq}{n:int}
   (pf: SORTED(xs, n)): [sorted(xs, n)] void
-//
+  
 extern
 praxi
 SORTED_nil(): SORTED (nil, 0)
+
 extern
 praxi
-SORTED_sing{x:stamp}(): SORTED (sing(x), 1)
+SORTED_sing{a:t@ype}{x:stamp}
+  (x: T(a,x)): SORTED (sing(x), 1)
+
 extern
 praxi
 SORTED_cons
-  {x:stamp}
+  {a:t@ype} {x:stamp}
   {xs:stmsq}{n:pos}
   {x <= select(xs,0)}
-  (pf: SORTED (xs, n)): SORTED (cons(x, xs), n+1)
+  (pf: SORTED (xs, n), x: T(a, x)): SORTED (cons(x, xs), n+1)
+  
 extern
 praxi
 SORTED_uncons
+  {a:t@ype}
   {x:stamp}
   {xs:stmsq}{n:pos}
-  (pf: SORTED (cons(x, xs), n)): [x <= select(xs,0)] SORTED (xs, n-1)
+  (pf: SORTED (cons(x, xs), n), x: T(a,x)): [x <= select(xs,0)] SORTED (xs, n-1)
 //
 (* ****** ****** *)
 
@@ -135,17 +140,17 @@ insord {x0}{xs}{n} (pf | x0, xs) =
 (
 case+ xs of
 | list_nil () =>
-    #[0 | (SORTED_sing{x0}() | list_cons {a} (x0, list_nil))]
-| list_cons {..} {xs1}{x} (x, xs1) =>
+    #[0 | (SORTED_sing (x0) | list_cons {a} (x0, list_nil))]
+| list_cons (x, xs1) =>
   (
     if x0 <= x
       then
-        #[0 | (SORTED_cons{x0}{xs} (pf) | list_cons (x0, xs))]
+        #[0 | (SORTED_cons (pf, x0) | list_cons (x0, xs))]
       else let
-        prval (pfs) = SORTED_uncons {x}{xs1} (pf)
-        val [i:int] (pfres | ys1) = insord {x0} (pfs | x0, xs1)
+        prval (pfs) = SORTED_uncons (pf, x)
+        val [i:int] (pfres | ys1) = insord  (pfs | x0, xs1)
       in
-        #[i+1 | (SORTED_cons{x} (pfres) | list_cons (x, ys1))]
+        #[i+1 | (SORTED_cons (pfres, x) | list_cons (x, ys1))]
       end // end of [if]
     // end of [if]
   )
@@ -169,6 +174,37 @@ case+ xs of
   end // end of [list_cons]
 ) (* end of [sort] *)
 
+(* ****** ****** *)
+
+extern
+fun {a:t@ype} insord1
+  {x0:stamp}
+  {n:nat} {xs:stmsq | sorted (xs, n)}
+(
+  x: T(a, x0), xs: list (a, xs, n)
+) : [i:nat | sorted (insert (xs, i, x0), n+1)]
+(
+  list (a, insert(xs, i, x0), n+1)
+)
+
+(* ****** ****** *)
+
+implement {a}
+insord1 (x0, xs) =
+case+ xs of 
+  | list_nil () =>
+    #[0 | list_cons {a} (x0, list_nil())]
+  | list_cons (x, xss) =>
+    (
+      if x0 <= x then
+        #[0 | list_cons (x0, xs)]
+      else let
+        val [i:int] ys1 = insord1 (x0, xss)
+      in
+        #[i+1 | list_cons (x, ys1)]
+      end
+    )
+    
 (* ****** ****** *)
 
 implement main0 () = let

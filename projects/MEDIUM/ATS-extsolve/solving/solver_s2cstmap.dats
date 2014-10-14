@@ -432,19 +432,14 @@ constraint3_initialize_map (map) = {
     ins (map, "ugte_bv64_bv64", f_ugte_bv_bv);
     ins (map, "ugt_bv64_bv64", f_ugt_bv_bv);
     //
-    ins (map, "partitioned_array", f_partitioned_array);
-    ins (map, "sorted_array", f_sorted_array);
-    //
-    ins (map, "array_select", f_array_select);
-    ins (map, "array_store", f_array_store);
-    ins (map, "array_swap", f_array_swap);
     ins (map, "stampseq_swap_at", f_array_swap);
     //
     ins (map, "stampseq_get_at", f_array_select);
     ins (map, "stampseq_set_at", f_array_store);
     //
-    ins (map, "stampseq_sorted", f_sorted_array);
-    ins (map, "stampseq_partitioned", f_partitioned_array);
+    // WB: These should not be needed (put them in scripts)
+    // ins (map, "stampseq_sorted", f_sorted_array);
+    // ins (map, "stampseq_partitioned", f_partitioned_array);
     //
     ins (map, "lte_stamp_stampseq", f_lte_stamp_stampseq);
     ins (map, "lte_stampseq_stamp", f_lte_stampseq_stamp);

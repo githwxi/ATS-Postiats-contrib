@@ -3,12 +3,17 @@
 
 import patsolve
 
+from z3 import *
+
 # Get our solver
 s = patsolve.solver
 
-A = Array("A", IntSort(), IntSort())
+A = Array ("A", IntSort(), IntSort())
+B = Array ("B", IntSort(), IntSort())
+
 i, j, x = Int("i"), Int("j"), Int("x")
 
+StampSeq = lambda name: Array (name, IntSort(), IntSort())
 StampSeqSort = lambda : ArraySort (IntSort(), IntSort())
 
 # Undefined Section of an Array
@@ -38,9 +43,11 @@ s.add (
 cons = Function ('stampseq_cons', IntSort(), StampSeqSort(), 
                  StampSeqSort())
 
+
 s.add (
-    ForAll ([A, i, x], cons(x, A)[0] == x)
+    ForAll ([A, x], cons(x, A)[0] == x)
 )
+
 
 s.add (
     ForAll ([A, i, x], Implies (i > 0, cons(x, A)[i] == A[i-1]))
@@ -97,3 +104,18 @@ permutation = Function ('stampseq_permutation',
 s.add (
     ForAll([A, n], permutation(A, A, n) == True)
 )
+
+# Sorting
+
+def stampseq_sorted (xs, n):
+    """
+    The first n elements of xs are sorted.
+    """
+    i, j = Ints ("i j")
+
+    return ForAll([i, j], Implies (
+        And (0 <= i, i <= j, j < n),
+        xs[i] <= xs[j])
+    )
+
+sorted = stampseq_sorted

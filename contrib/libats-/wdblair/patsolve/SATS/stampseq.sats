@@ -123,9 +123,12 @@ stadef permutation = stampseq_permutation
 
 (* ****** ****** *)
 
-stacst stampseq_partitioned : (stampseq, int, int, int) -> bool
-stadef partitioned 
-  (xs:stampseq, p: int, n:int) =  stampseq_partitioned (xs, 0, p, n-1)
+//stacst stampseq_partitioned : (stampseq, int, int) -> bool
+stadef partitioned
+  (xs:stampseq, p: int, n:int) = lte (xs, p, select (xs, p)) && lte (select (xs, p), xs, p, n)
+  
+// stadef partitioned 
+//  (xs:stampseq, p: int, n:int) =  stampseq_partitioned (xs, 0, p, n-1)
   
 (* ****** ****** *)
 
