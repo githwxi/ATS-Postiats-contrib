@@ -54,19 +54,7 @@ program_output_eval()
 if(compres > 0) echo "<!--\n";
 ?>
 <script
-src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/basics_cats.js"></script>
-<script
-src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/integer_cats.js"></script>
-<script
-src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/float_cats.js"></script>
-<script
-src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/string_cats.js"></script>
-<script
-src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSmath_cats.js"></script>
-<script
-src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/CATS/JSarray_cats.js"></script>
-<script src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/DATS/list_dats.js"></script>
-<script src="http://www.ats-lang.org/LIBRARY/contrib/libatscc2js/DATS/reference_dats.js"></script>
+src="http://www.ats-lang.org/LIBRARY/contrib/libatscc/libatscc2js/libatscc2js_all.js"></script>
 <?php if(compres > 0) echo "-->\n"; ?>
 </head>
 <body>
