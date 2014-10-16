@@ -8,7 +8,7 @@ import patsolve
 
 s = patsolve.solver
 
-n, m = Ints ("n m")
+n, m, p = Ints ("n m p")
 undef = Int ("undef")
 
 # Factorial
@@ -68,3 +68,16 @@ s.add (
 s.add (
     ForAll([n,m], Implies (And (n > 0, m > 0), gcd (n, m) == gcd (m, n % m)))
 )
+
+# Power
+
+power = Function ("power_int_int", IntSort(), IntSort(), IntSort())
+
+s.add (
+    ForAll([n], power (n, 0) == 1)
+)
+
+s.add (
+    ForAll([n,p], Implies (p > 0, power (n,p) == n * power(n, p-1)))
+)
+

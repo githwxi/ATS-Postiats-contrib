@@ -1,5 +1,15 @@
 (**
   Some examples of playing with uninterpreted functions.
+  
+  If you wanted to write these with the default constraint
+  solver, we would need to define props and use them in our
+  function definition.
+  
+  These examples demonstrate a different system where you 
+  can describe the meaning of static functions (with axioms) 
+  to an SMT solver and then the constraint solver will use 
+  said axioms to determine if your code implements the
+  appropriate function.
 *)
 
 // Factorial
@@ -97,3 +107,36 @@ gcd {a,b:nat | a > 0} (
     a
   else
     gcd (b, a mod1 b)
+    
+// Power (for positive integers)
+
+stacst power_int_int : (int, int) -> int
+stadef power = power_int_int
+
+fun 
+power {n,p:nat} (
+  n: int n, p: int p
+): int (power(n, p)) =
+  if p = 0 then
+    1
+  else
+    n * power (n, pred (p))
+    
+fun
+power1 {n,p:nat} (
+  n: int n, p: int p
+): int (power(n, p)) = let
+  //
+  fun loop {i:nat | i <= p} (
+    i: int i, r: int(power(n, i))
+  ): int (power (n, p)) =
+    if i = p then
+      r
+    else
+      loop (succ (i), n * r)
+  //
+in
+  loop (0, 1)
+end
+  
+
