@@ -5,6 +5,7 @@ staload _ = "prelude/DATS/integer.dats"
 *)
 fun
 list_is_ordered (xs: List0(int)): bool = let
+  //    
   fun loop (y: int, ys: List0(int)): bool =
     case+ ys of
       | list_nil () => true
@@ -14,7 +15,7 @@ list_is_ordered (xs: List0(int)): bool = let
         else
           loop (z, zss)
 in
-    case+ xs of 
+    case+ xs of
       | list_nil () => true
       | list_cons (x, xss) => loop (x, xss)
 end // end of [list_is_ordered]
@@ -23,8 +24,6 @@ end // end of [list_is_ordered]
 
 staload "contrib/libats-/wdblair/prelude/SATS/list.sats"
 staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
-
-(* ****** ****** *)
 
 // 
 (* ****** ****** *)
@@ -182,17 +181,27 @@ fun {a:t@ype} insord1
   {xs:stmsq | ordered (xs)}
 (
   x: T(a, x0), xs: list (a, xs, n)
-) : [i:nat | ordered (insert(xs, i, x0))]
+) : [i:nat | i <= n; ordered (insert(xs, i, x0))]
 (
   list (a, insert(xs, i, x0), n+1)
+)
+
+extern
+fun {a:t@ype} sort1 
+  {n:nat} {xs: stmsq} 
+(
+  xs: list (a, xs, n) 
+) : [ys:stmsq | ordered (ys)]
+(
+  list (a, ys, n)
 )
 
 (* ****** ****** *)
 
 (**
-  This is an interesting example where we don't
-  even need proof terms to prove that the end
-  result is sorted.
+  This is an interesting example where we don't even need proof terms.
+  The SMT solver can take the axioms we have given it and prove that
+  this implementation matches our specification.
 *)
 
 #define :: list_cons
@@ -211,6 +220,13 @@ case+ xs of
     in
       #[i+1 | x :: ys1]
     end
+    
+implement {a}
+sort1 (xs) =
+case+ xs of
+  | nil () => nil ()
+  | x :: xss =>
+    insord1 (x, sort1 (xss))
     
 (* ****** ****** *)
 

@@ -99,8 +99,18 @@ permutation = Function ('stampseq_permutation',
                         StampSeqSort(), StampSeqSort(),
                         IntSort(), BoolSort())
 
+C = Array("C", IntSort(), IntSort())
+
 s.add (
     ForAll([A, n], permutation(A, A, n) == True)
+)
+
+s.add (
+    ForAll([A, B, C, n], Implies (And(permutation(A, B, n), permutation(B, C, n)), permutation(A, C, n)))
+)
+
+s.add (
+    ForAll([A, B, x, i, n], Implies (And(A == cons (x, B), 0 <= i, i <= n), permutation (A, insert(B, i, x), n)))
 )
 
 # Sorting
@@ -116,9 +126,14 @@ def stampseq_sorted (xs, n):
         xs[i] <= xs[j])
     )
 
-# The entire sequence is ordered.
+# for any sequence xs, ordered(xs) means that the entire sequence
+# is ordered.
 
 ordered = Function ('stampseq_ordered', StampSeqSort(), BoolSort())
+
+s.add (
+    ordered(nil())
+)
 
 s.add (
     ForAll(x, ordered(cons(x, nil())))
@@ -135,18 +150,19 @@ s.add (
 )
 
 s.add (
-    ForAll([A, B, x, y, i], Implies(And (ordered(A), 
-                                         ordered(insert(B, i, y)),
-                                         A == cons (x, B)
-                                     ),
-                                    ordered (insert(A, i+1, y))
-                            )
+    ForAll([A,B,x], Implies (And (ordered(A), A == cons(x, B)),
+                             ordered (B)
+                    )
     )
 )
 
 s.add (
-    ForAll([A,B,x], Implies (And (ordered(A), A == cons(x, B)),
-                             ordered (B)
-                    )
+    ForAll([A, B, x, y, i], Implies(And (ordered(A),
+                                         ordered(insert(B, i, y)),
+                                         A == cons (x, B),
+                                         x <= y
+                                    ),
+                                    ordered (insert(A, i+1, y))
+                            )
     )
 )
