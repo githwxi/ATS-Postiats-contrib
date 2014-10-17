@@ -37,8 +37,19 @@ mpi_hello_dats.c : mpi_hello.dats; $(PATSCC) -ccats $<
 
 ######
 
+all:: \
+mpi_hello2
+mpi_hello2: \
+mpi_hello2_dats.c ; \
+$(MPICC) $(INCLUDE) -o $@ $<
+mpi_hello2_dats.c : mpi_hello2.dats; $(PATSCC) -ccats $<
+
+######
+
 regress:: \
 mpi_hello; mpirun -n 4 ./mpi_hello
+regress:: \
+mpi_hello2; mpirun -n 4 ./mpi_hello2
 
 ######
 
@@ -48,5 +59,6 @@ clean:: ; rm -f *_dats.c
 
 cleanall:: clean
 cleanall:: ; rm -f mpi_hello
+cleanall:: ; rm -f mpi_hello2
 
 ###### end of [Makefile] ######

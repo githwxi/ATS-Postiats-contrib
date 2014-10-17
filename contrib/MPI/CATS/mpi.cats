@@ -31,6 +31,11 @@ atscntrb_mpi_MPI_Get_processor_name MPI_Get_processor_name
 
 /* ****** ****** */
 
+#define atscntrb_mpi_MPI_Send MPI_Send
+#define atscntrb_mpi_MPI_Recv MPI_Recv
+
+/* ****** ****** */
+
 #endif // ifndef MPI_MPI_CATS
 
 /* ****** ****** */

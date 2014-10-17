@@ -300,4 +300,27 @@ MPI_Get_processor_name
 
 (* ****** ****** *)
 
+abst@ype
+MPI_Status = $extype"MPI_Status"  
+  
+(* ****** ****** *)
+
+fun
+MPI_Send
+  {a:t0p}{m:nat}
+(
+  msg: arrayref(a, m), len: natLte(m)
+, MPI_Datatype, dest: int, tag: int, MPI_Comm
+) : interr = "mac#%" // end of [MPI_Send]
+
+fun
+MPI_Recv
+  {a:t0p}{m:nat}
+(
+  msg: arrayref(a, m), len: natLte(m)
+, MPI_Datatype, dest: int, tag: int, MPI_Comm, &MPI_Status? >> _
+) : interr = "mac#%" // end of [MPI_Recv]
+
+(* ****** ****** *)
+
 (* end of [mpi.sats] *)
