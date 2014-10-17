@@ -231,19 +231,73 @@ MPI_OP_NULL = $extval(MPI_Op, "MPI_OP_NULL")
 //
 (* ****** ****** *)
 //
+stacst
+MPI_MAX_ERROR_STRING: int
 macdef
 MPI_MAX_ERROR_STRING =
-  $extval(intGt(0), "MPI_MAX_ERROR_STRING")
+  $extval(int(MPI_MAX_ERROR_STRING), "MPI_MAX_ERROR_STRING")
 //
+stacst
+MPI_MAX_PROCESSOR_NAME: int
 macdef
 MPI_MAX_PROCESSOR_NAME =
-  $extval(intGt(0), "MPI_MAX_PROCESSOR_NAME")
+  $extval(int(MPI_MAX_PROCESSOR_NAME), "MPI_MAX_PROCESSOR_NAME")
 //
+stacst
+MPI_MAX_PORT_NAME: int
 macdef
-MPI_MAX_PORT_NAME = $extval(intGt(0), "MPI_MAX_PORT_NAME")
+MPI_MAX_PORT_NAME =
+  $extval(int(MPI_MAX_PORT_NAME), "MPI_MAX_PORT_NAME")
+stacst
+MPI_MAX_OBJECT_NAME: int
 macdef
-MPI_MAX_OBJECT_NAME = $extval(intGt(0), "MPI_MAX_OBJECT_NAME")
+MPI_MAX_OBJECT_NAME =
+  $extval(int(MPI_MAX_OBJECT_NAME), "MPI_MAX_OBJECT_NAME")
 //
+(* ****** ****** *)
+//
+typedef interr = int
+//
+(* ****** ****** *)
+//
+fun
+MPI_Comm_size
+  (MPI_Comm, size: &int? >> _) : interr = "mac#%"
+//
+fun
+MPI_Comm_rank
+  (MPI_Comm, rank: &int? >> _) : interr = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+MPI_Group_size
+  (MPI_Group, size: &int? >> _) : interr = "mac#%"
+//
+fun
+MPI_Group_rank
+  (MPI_Group, rank: &int? >> _) : interr = "mac#%"
+//
+(* ****** ****** *)
+//
+/*
+int MPI_Get_version(int *, int *);
+*/
+fun
+MPI_Get_version
+  (version: &int? >> _, subversion: &int? >> _): interr = "mac#%"
+//
+(* ****** ****** *)
+
+/*
+int MPI_Get_processor_name(char *, int *);
+*/
+fun
+MPI_Get_processor_name
+(
+  name: arrayref(char, MPI_MAX_PROCESSOR_NAME), namelen: &int? >> _
+) : interr = "mac#%" // end of [MPI_Get_processor_name]
+
 (* ****** ****** *)
 
 (* end of [mpi.sats] *)
