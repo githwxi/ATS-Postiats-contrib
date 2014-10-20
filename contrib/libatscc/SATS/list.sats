@@ -9,9 +9,11 @@ staload "./../basics.sats"
 (* ****** ****** *)
 //
 fun
-list_make_intrange_2(l: int, r: int): List0(int)
+list_make_intrange_2
+  (l: int, r: int): List0(int) = "mac#%"
 fun
-list_make_intrange_3(l: int, r: int, d: int): List0(int)
+list_make_intrange_3
+  (l: int, r: int, d: int): List0(int) = "mac#%"
 //
 symintr list_make_intrange
 overload list_make_intrange with list_make_intrange_2

@@ -517,7 +517,7 @@ ATSINSstore_fltrec_ofs_make
 ) : instr // end-of-function
 //
 (* ****** ****** *)
-
+//
 fun
 ATSINSmove_delay_make
 (
@@ -525,7 +525,15 @@ ATSINSmove_delay_make
 , tmp: i0de, s0e_res: s0exp, d0e: d0exp (*thunk*)
 , tok_end: token
 ) : instr // end-of-function
-
+//
+fun
+ATSINSmove_lazyeval_make
+(
+  tok_kwd: token
+, tmp: i0de, s0e_res: s0exp, d0e: d0exp (*lazyval*)
+, tok_end: token
+) : instr // end-of-function
+//
 (* ****** ****** *)
 //
 fun

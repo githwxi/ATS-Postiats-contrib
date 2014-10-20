@@ -1273,8 +1273,23 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSmove_delay (tmp, s0e_res, thunk))
-end // end of [ATSINSstore_fltrec_ofs_make]
+  instr_make_node (loc, ATSINSmove_delay(tmp, s0e_res, thunk))
+end // end of [ATSINSmove_delay_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_lazyeval_make
+(
+  tok1, tmp, s0e_res, lazyval, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_lazyeval(tmp, s0e_res, lazyval))
+end // end of [ATSINSmove_lazyeval_make]
 
 (* ****** ****** *)
 
