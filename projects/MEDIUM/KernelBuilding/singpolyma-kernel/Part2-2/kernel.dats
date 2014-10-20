@@ -89,10 +89,13 @@ first ((*void*)) =
 //
 extern
 fun
-ATS__main (): void = "ext#"
+kernel_main
+(
+// argumentless
+) : void = "ext#"
 //
 implement
-ATS__main ((*void*)) =
+kernel_main ((*void*)) =
 {
 //
 var first_stack = @[uint][256]()
@@ -109,7 +112,7 @@ val ((*void*)) = activate($UNSAFE.cast{cPtr1(uint)}(first_stack_start0))
 //
 val ((*void*)) = while (true) ((*void*))
 //
-} (* end of [ATS__main] *)
+} (* end of [kernel_main] *)
 
 (* ****** ****** *)
 

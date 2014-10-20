@@ -57,10 +57,13 @@ void output (char c)
 //
 extern
 fun
-ATS__main (): void = "ext#"
+kernel_main
+(
+// argumentless
+) : void = "ext#"
 //
 implement
-ATS__main ((*void*)) =
+kernel_main ((*void*)) =
 {
 //
 val message = "Hello, world!\n"
@@ -74,7 +77,7 @@ end // end of [local]
 //
 val () = loop () where { fun loop (): void = loop () }
 //
-} (* end of [ATS__main] *)
+} (* end of [kernel_main] *)
 
 (* ****** ****** *)
 

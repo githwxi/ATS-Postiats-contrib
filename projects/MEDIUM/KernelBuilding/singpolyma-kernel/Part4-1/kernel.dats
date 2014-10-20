@@ -31,7 +31,10 @@ end // end of [kernel_loop]
 //
 extern
 fun
-kernel_main (): void = "mac#"
+kernel_main
+(
+// argumentless
+) : void = "mac#"
 //
 implement
 kernel_main () =

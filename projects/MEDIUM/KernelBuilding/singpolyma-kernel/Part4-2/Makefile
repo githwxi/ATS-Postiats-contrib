@@ -48,10 +48,12 @@ kernel_dats.elf: \
   kernel_bwputs_dats.o \
 
 ######
-
+#
+# for quitting: ^Ax
+#
 testing: kernel_dats.elf ; \
 qemu-system-arm -M versatilepb -cpu arm1176 -nographic -kernel kernel_dats.elf
-
+#
 ######
 
 RMF=rm -f

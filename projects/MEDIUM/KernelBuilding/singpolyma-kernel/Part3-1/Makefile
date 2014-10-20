@@ -43,10 +43,12 @@ kernel.elf: bootstrap.o context_switch.o syscall.o kernel.o
 kernel_dats.elf: bootstrap.o context_switch.o syscall.o kernel_dats.o
 
 ######
-
+#
+# for quitting: ^Ax
+#
 testing: kernel_dats.elf ; \
 qemu-system-arm -M versatilepb -cpu arm1176 -nographic -kernel kernel_dats.elf
-
+#
 ######
 
 RMF=rm -f
