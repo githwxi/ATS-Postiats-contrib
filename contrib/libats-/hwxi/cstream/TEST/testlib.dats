@@ -13,6 +13,13 @@
 //
 (* ****** ****** *)
 
+%{^
+#define \
+atstyarr_field_undef(fname) fname[]
+%} // end of [%{]
+
+(* ****** ****** *)
+
 local
 #include"./../DATS/cstream.dats"
 in (*in-of-local *)
