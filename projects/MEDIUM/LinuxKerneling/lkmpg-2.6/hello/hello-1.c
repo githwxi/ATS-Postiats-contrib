@@ -4,12 +4,12 @@
 */
 /* Needed by all */
 #include <linux/module.h>
-/* Needed for KERN_INFO */
+/* Needed for KERN_ALERT */
 #include <linux/kernel.h>
 
 int init_module(void)
 {
-  printk(KERN_INFO "Hello world 1.\n");
+  printk(KERN_ALERT "Hello world 1.\n");
 
 /* 
 ** A non-zero return means init_module failed;
@@ -20,7 +20,7 @@ int init_module(void)
 
 void cleanup_module(void)
 {
-  printk(KERN_INFO "Goodbye world 1.\n");
+  printk(KERN_ALERT "Goodbye world 1.\n");
 }
 
 /* end of [hello-2.c] */
