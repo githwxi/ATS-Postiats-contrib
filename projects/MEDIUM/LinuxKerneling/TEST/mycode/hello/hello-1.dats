@@ -22,33 +22,19 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LINUX}/SATS/kernel.sats"
-staload $PRINTK // opening NS
-//
-(* ****** ****** *)
-
 %{^
 #include <linux/init.h>
 #include <linux/module.h>
 %} // end of [%{^]
-
+//
+staload
+"{$LINUX}/SATS/kernel.sats"
+staload $PRINTK // HX: opening NS
+//
 (* ****** ****** *)
 
 %{^
 MODULE_LICENSE("Dual BSD/GPL") ;
-%} // end of [%{^]
-
-(* ****** ****** *)
-
-%{^
-//
-#ifdef ATSPMVstring
-#undef ATSPMVstring
-#endif // ATSPMVstring
-//
-#define ATSPMVstring(x) x
-//
 %} // end of [%{^]
 
 (* ****** ****** *)

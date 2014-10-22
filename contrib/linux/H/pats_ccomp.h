@@ -149,19 +149,25 @@ ATSloop_close(init, fini, cont) \
 #define ATSfunbody_end()
 
 /* ****** ****** */
-
+//
 #define ATSPMVint(i) i
 #define ATSPMVintrep(rep) (rep)
-
+//
 #define ATSPMVbool_true() atsbool_true
 #define ATSPMVbool_false() atsbool_false
+//
 #define ATSPMVchar(c) (c)
+//
 #define ATSPMVfloat(rep) (rep)
+//
+/*
 #define ATSPMVstring(str) (str)
-
+*/
+#define ATSPMVstring(strcst) strcst
+//
 #define ATSPMVi0nt(tok) (tok)
 #define ATSPMVf0loat(tok) (tok)
-
+//
 /* ****** ****** */
 
 #define ATSCSTSPmyfil(info) info
