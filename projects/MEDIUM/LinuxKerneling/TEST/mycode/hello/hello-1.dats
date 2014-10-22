@@ -72,7 +72,7 @@ init_module
 val () =
 $extfcall
 (
-  void, "printk", KERN_ALERT_"Hello world 1.\n"
+  void, "printk", KERN_ALERT_"Hello(1) from ATS!\n"
 ) (* end of [val] *)
 //
 } (* end of [init_module] *)
@@ -87,7 +87,7 @@ cleanup_module
 val () =
 $extfcall
 (
-  void, "printk", KERN_ALERT_"Goodbye world 1.\n"
+  void, "printk", KERN_ALERT_"Goodbye(1) from ATS!\n"
 ) (* end of [val] *)
 } (* end of [cleanup_module] *)
 
