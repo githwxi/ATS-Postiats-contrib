@@ -7,7 +7,7 @@
 /* Needed for KERN_INFO */
 #include <linux/kernel.h>
 
-int init_module(void)
+int hello_2_init(void)
 {
   printk(KERN_INFO "Hello world 2.\n");
 
@@ -18,9 +18,16 @@ int init_module(void)
   return 0;
 }
 
-void cleanup_module(void)
+void hello_2_exit(void)
 {
   printk(KERN_INFO "Goodbye world 2.\n");
 }
+
+/* ****** ****** */
+
+module_init(hello_2_init);
+module_exit(hello_2_exit);
+
+/* ****** ****** */
 
 /* end of [hello-2.c] */
