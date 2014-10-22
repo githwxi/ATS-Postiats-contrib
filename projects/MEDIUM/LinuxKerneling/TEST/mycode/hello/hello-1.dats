@@ -16,11 +16,21 @@
 #define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload
+"{$LINUX}/SATS/kernel.sats"
+staload $PRINTK // opening NS
+//
+(* ****** ****** *)
 
 %{^
 #include <linux/init.h>
 #include <linux/module.h>
-#include <linux/kernel.h>
 %} // end of [%{^]
 
 (* ****** ****** *)
@@ -39,8 +49,6 @@ MODULE_LICENSE("Dual BSD/GPL") ;
 //
 #define ATSPMVstring(x) x
 //
-#define KERN_INFO_(x) (KERN_INFO x)
-#define KERN_ALERT_(x) (KERN_ALERT x)
 %} // end of [%{^]
 
 (* ****** ****** *)
@@ -53,13 +61,6 @@ static
 fun init_module(): interr = "mac#"
 static
 fun cleanup_module(): void = "mac#"
-
-(* ****** ****** *)
-
-extern
-fun KERN_INFO_(x: string): string = "mac#"
-extern
-fun KERN_ALERT_(x: string): string = "mac#"
 
 (* ****** ****** *)
 
