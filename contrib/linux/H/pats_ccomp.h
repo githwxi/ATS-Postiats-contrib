@@ -82,6 +82,8 @@ typedef void *atstype_ptrk ;
 #define atsbool_true 1
 #define atsbool_false 0
 //
+#define atsptr_null ((void*)0)
+//
 /* ****** ****** */
 
 #define ATStysum() struct{ int contag; }
@@ -172,6 +174,45 @@ ATSloop_close(init, fini, cont) \
 
 #define ATSCSTSPmyfil(info) info
 #define ATSCSTSPmyloc(info) info
+
+/* ****** ****** */
+//
+#define ATSPMVtop() atserror_top
+//
+#define ATSPMVempty() /*empty*/
+#define ATSPMVextval(name) (name)
+//
+/* ****** ****** */
+
+#define ATSPMVfunlab(flab) (flab)
+
+/* ****** ****** */
+
+#define ATSPMVcfunlab(knd, flab, env) (flab##__closurerize)env
+
+/* ****** ****** */
+
+#define ATSPMVptrof(lval) (&(lval))
+#define ATSPMVptrof_void(lval) ((void*)0)
+
+/* ****** ****** */
+
+#define ATSPMVrefarg0(val) (val)
+#define ATSPMVrefarg1(ref) (ref)
+
+/* ****** ****** */
+
+#define ATSPMVsizeof(hit) (sizeof(hit))
+
+/* ****** ****** */
+//
+// HX: castfn application
+//
+#define ATSPMVcastfn(d2c, hit, arg) ((hit)arg)
+//
+/* ****** ****** */
+
+#define ATSfuncall(fun, funarg) (fun)funarg
 
 /* ****** ****** */
 //

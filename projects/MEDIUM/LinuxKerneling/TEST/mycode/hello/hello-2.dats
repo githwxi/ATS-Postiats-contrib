@@ -39,12 +39,8 @@ MODULE_LICENSE("Dual BSD/GPL") ;
 
 (* ****** ****** *)
 
-typedef interr = int
-
-(* ****** ****** *)
-
 static
-fun hello_2_init(): interr = "mac#"
+fun hello_2_init(): int = "mac#"
 static
 fun hello_2_exit(): void = "mac#"
 
@@ -84,6 +80,15 @@ $extfcall
 //
 module_init(hello_2_init);
 module_exit(hello_2_exit);
+//
+%} // end of [%{$]
+
+(* ****** ****** *)
+
+%{$
+//
+MODULE_AUTHOR("HX-2014-10-22");
+MODULE_DESCRIPTION("A simple module for learning");
 //
 %} // end of [%{$]
 
