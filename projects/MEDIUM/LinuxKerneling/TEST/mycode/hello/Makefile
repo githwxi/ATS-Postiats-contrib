@@ -14,6 +14,7 @@ PATSOPT=${PATSHOME}/bin/patsopt
 ######
 
 obj-m += hello-1_dats.o
+obj-m += hello-2_dats.o
 
 ######
 
@@ -39,6 +40,13 @@ hello-1.dats; $(PATSOPT) -o $@ --dynamic $<
 
 ######
 
+all:: \
+hello-2_dats.c
+hello-2_dats.c: \
+hello-2.dats; $(PATSOPT) -o $@ --dynamic $<
+
+######
+
 all:: ; $(MAKE) -C $(BUILD) M=$(PWD) modules
 
 ######
@@ -53,6 +61,7 @@ clean:: ; $(RMF) *~
 
 cleanall:: clean
 cleanall:: ; $(RMF) hello-1_dats.c
+cleanall:: ; $(RMF) hello-2_dats.c
 cleanall:: ; $(MAKE) -C $(BUILD) M=$(PWD) clean
 
 ###### end of [Makefile] ######
