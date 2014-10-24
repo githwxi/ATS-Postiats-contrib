@@ -17,4 +17,4 @@ typedef uptr1 = [l:addr | l > null] uptr_type(l)
 //
 (* ****** ****** *)
 
-(* end of [basics.sats] *)
+(* end of [mybasis.sats] *)

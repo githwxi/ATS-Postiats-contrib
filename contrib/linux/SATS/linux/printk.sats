@@ -6,7 +6,10 @@
 (* ****** ****** *)
 
 %{#
-#include "linux/CATS/printk.cats"
+//
+#include \
+"linux/CATS/linux/printk.cats"
+//
 %} // end of [%{#]
 
 (* ****** ****** *)

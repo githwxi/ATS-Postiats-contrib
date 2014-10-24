@@ -6,7 +6,10 @@
 (* ****** ****** *)
 
 %{#
-#include "linux/CATS/kernel.cats"
+//
+#include \
+"linux/CATS/linux/kernel.cats"
+//
 %} // end of [%{#]
 
 (* ****** ****** *)

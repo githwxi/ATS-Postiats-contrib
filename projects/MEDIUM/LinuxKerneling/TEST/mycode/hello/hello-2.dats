@@ -28,7 +28,7 @@
 %} // end of [%{^]
 //
 staload
-"{$LINUX}/SATS/kernel.sats"
+"{$LINUX}/SATS/linux/kernel.sats"
 staload $PRINTK // HX: opening NS
 //
 (* ****** ****** *)
