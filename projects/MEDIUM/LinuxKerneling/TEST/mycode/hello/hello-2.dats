@@ -22,11 +22,10 @@
 //
 (* ****** ****** *)
 //
-%{^
-#include <linux/init.h>
-#include <linux/module.h>
-%} // end of [%{^]
-//
+staload
+"{$LINUX}/SATS/linux/init.sats"
+staload
+"{$LINUX}/SATS/linux/module.sats"
 staload
 "{$LINUX}/SATS/linux/kernel.sats"
 staload $PRINTK // HX: opening NS
