@@ -81,6 +81,9 @@ staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
   creates a more convenient experience and allows us to utilize the
   decision power offered by todays advanced tools in the Formal
   methods community.
+  
+  
+  This is really all about trade-offs.
 *)
 absprop SORTED (xs:stmsq, n:int)
 
@@ -198,6 +201,7 @@ fun {a:t@ype} sort1
 
 (* ****** ****** *)
 
+
 (**
   This is an interesting example where we don't even need proof terms.
   The SMT solver can take the axioms we have given it and prove that
@@ -227,7 +231,58 @@ case+ xs of
   | nil () => nil ()
   | x :: xss =>
     insord1 (x, sort1 (xss))
-    
+
+(* ****** ****** *)
+
+(**
+  This example is more for comparing ATS to a similar Liquid Haskell
+  example. To prove that this would yield a list that is an ordered
+  permutation of the input list, they introduce "Inductive Abstract
+  Refinements". I do not believe that ATS can support these forms of
+  refinements.
+*)
+
+local
+
+datatype 
+list (a:t@ype, stmsq) =
+  | list_nil (a, stampseq_nil) of ()
+  | {xs:stmsq} {x:stamp}
+    list_cons (a, cons (x, xs)) of (T (a, x), list (a, xs))
+
+in
+
+typedef ordered_list(a:t@ype) =
+  [xs:stmsq | ordered(xs)] list (a, xs)
+
+extern
+fun {a:t@ype} insord2
+  {x0:stamp}
+(
+  x: T(a, x0), xs: ordered_list (a)
+) :
+(
+  ordered_list (a)
+)
+
+extern
+fun {a:t@ype} sort2 {xs:stmsq} (
+  xs: list(a, xs)
+): ordered_list (a)
+
+extern
+fun foldr {a:t@ype}{b:t@ype} {xs:stmsq} (
+  func: {i:int}(T(a,i), b) -> b,
+  y: b,
+  xs: list (a, xs)
+): b
+       
+implement {a}
+sort2 (xs) =
+  foldr (insord2, nil (), xs)
+
+end // end of [local]
+
 (* ****** ****** *)
 
 implement main0 () = let
