@@ -33,6 +33,14 @@ EXTRA_CFLAGS += -I${PATSHOMERELOC}/contrib
 BUILD=/lib/modules/$(shell uname -r)/build
 
 ######
+#
+# FYI:
+# To insert a module:
+# sudo insmod ./hello-1_dats.ko
+# To remove an inserted module:
+# sudo rmmod hello-1_dats
+#
+######
 
 all:: \
 hello-1_dats.c

@@ -1,7 +1,7 @@
 /* ****** ****** */
 //
 // HX-2014-10-22:
-// For C code generate from ATS source
+// For C code generated from ATS source
 //
 /* ****** ****** */
 
