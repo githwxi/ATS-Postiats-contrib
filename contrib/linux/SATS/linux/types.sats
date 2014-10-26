@@ -14,4 +14,8 @@
 
 (* ****** ****** *)
 
+abst@ype dev_t = $extype"dev_t"
+
+(* ****** ****** *)
+
 (* end of [types.sats] *)

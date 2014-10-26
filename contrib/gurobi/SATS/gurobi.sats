@@ -45,8 +45,10 @@
 
 (* ****** ****** *)
 
-#define ATS_PACKNAME "ATSCNTRB.gurobi" // package name
-#define ATS_EXTERN_PREFIX "atscntrb_gurobi_" // prefix for external names"
+#define
+ATS_PACKNAME "ATSCNTRB.gurobi" // package name
+#define
+ATS_EXTERN_PREFIX "atscntrb_gurobi_" // prefix for external names
 
 (* ****** ****** *)
 

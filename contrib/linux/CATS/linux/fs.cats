@@ -13,6 +13,11 @@
 
 /* ****** ****** */
 
+#define \
+atslxkrnl_register_chrdev_region register_chrdev_region
+
+/* ****** ****** */
+
 #endif // end of [LINUX_CATS_FS]
 
 /* ****** ****** */
