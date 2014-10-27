@@ -8,7 +8,7 @@
 %{#
 //
 #include \
-"linux/CATS/linux/types.cats"
+"linux/CATS/types.cats"
 //
 %} // end of [%{#]
 
@@ -34,6 +34,20 @@ abst@ype uid16_t = $extype"uid16_t"
 abst@ype gid16_t = $extype"gid16_t"
 //
 abst@ype loff_t = $extype"loff_t"
+//
+(* ****** ****** *)
+//
+absview
+kfree_v(l:addr)
+//
+dataview kmalloc_v
+  (n: int, l: addr) =
+| {l==null}
+  kmalloc_v_none (n, l) of ()
+| {l > null}
+  kmalloc_v_some (n, l) of (b0ytes(n)@l, kfree_v(l) | ptr(l))
+//
+praxi kfree_null_elim (pf: kfree_v(null)): void
 //
 (* ****** ****** *)
 

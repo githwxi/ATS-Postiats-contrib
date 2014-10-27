@@ -8,7 +8,7 @@
 %{#
 //
 #include \
-"linux/CATS/linux/module.cats"
+"linux/CATS/module.cats"
 //
 %} // end of [%{#]
 

@@ -8,7 +8,7 @@
 %{#
 //
 #include \
-"linux/CATS/linux/printk.cats"
+"linux/CATS/printk.cats"
 //
 %} // end of [%{#]
 

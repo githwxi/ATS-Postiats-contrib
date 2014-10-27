@@ -8,7 +8,7 @@
 %{#
 //
 #include \
-"linux/CATS/linux/kdev_t.cats"
+"linux/CATS/kdev_t.cats"
 //
 %} // end of [%{#]
 

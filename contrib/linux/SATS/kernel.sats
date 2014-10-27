@@ -8,10 +8,14 @@
 %{#
 //
 #include \
-"linux/CATS/linux/init.cats"
+"linux/CATS/kernel.cats"
 //
 %} // end of [%{#]
 
 (* ****** ****** *)
+//
+staload PRINTK = "./printk.sats"
+//
+(* ****** ****** *)
 
-(* end of [init.sats] *)
+(* end of [kernel.sats] *)
