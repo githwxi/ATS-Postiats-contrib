@@ -13,6 +13,11 @@
 
 /* ****** ****** */
 
+typedef
+struct module module_struct;
+
+/* ****** ****** */
+
 #endif // end of [LINUX_CATS_MODULE]
 
 /* ****** ****** */
