@@ -23,11 +23,11 @@
 (* ****** ****** *)
 //
 staload
-"{$LINUX}/SATS/linux/init.sats"
+"{$LINUX}/SATS/init.sats"
 staload
-"{$LINUX}/SATS/linux/module.sats"
+"{$LINUX}/SATS/module.sats"
 staload
-"{$LINUX}/SATS/linux/kernel.sats"
+"{$LINUX}/SATS/kernel.sats"
 staload $PRINTK // HX: opening NS
 //
 (* ****** ****** *)
