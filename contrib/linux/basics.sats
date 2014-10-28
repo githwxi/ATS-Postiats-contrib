@@ -11,10 +11,15 @@
 abstype
 uptr_type (l:addr) // user space pointers
 //
+typedef uptr = [l:addr] uptr_type(l)
 typedef uPtr = [l:addr] uptr_type(l)
 typedef uPtr0 = [l:agez] uptr_type(l)
 typedef uPtr1 = [l:addr | l > null] uptr_type(l)
 //
+(* ****** ****** *)
+
+abst@ype ubytes(n:int) // bytes in user-space
+
 (* ****** ****** *)
 //
 absview

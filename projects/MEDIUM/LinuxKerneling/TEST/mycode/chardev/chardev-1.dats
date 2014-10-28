@@ -26,7 +26,14 @@
 (* ****** ****** *)
 //
 staload
+"{$LINUX}/basics.sats"
+//
+(* ****** ****** *)
+//
+staload
 "{$LINUX}/SATS/errno.sats"
+staload
+"{$LINUX}/SATS/types.sats"
 //
 (* ****** ****** *)
 //
@@ -40,6 +47,10 @@ staload $PRINTK // HX: opening NS
 //
 staload "{$LINUX}/SATS/fs.sats"
 //
+(* ****** ****** *)
+
+staload UN = "prelude/SATS/unsafe.sats"
+
 (* ****** ****** *)
 
 static
@@ -72,7 +83,7 @@ typedef
 char *charptr ;
 char Message[BUFLEN];
 charptr Message0_ptr = &Message[0];
-charptr Message1_ptr = Message0_ptr;
+charptr Message1_ptr = &Message[0];
 //
 %} // end of [%{^]
 
@@ -254,6 +265,70 @@ device_release
 (
 struct inode *p0, struct file *p1
 ) { return device_release_(p0, p1) ; }
+//
+%} // end of [%{$]
+
+(* ****** ****** *)
+//
+static
+fun
+device_read_{n:int}
+(
+  file_ptr1, buf: &ubytes(n), size_t(n), ofs: &loff_t
+) : ssize_t = "mac#" // end-of-function
+static
+fun
+device_write_{n:int}
+(
+  file_ptr1, buf: &ubytes(n), size_t(n), ofs: &loff_t
+) : ssize_t = "mac#" // end-of-function
+//
+(* ****** ****** *)
+
+implement
+device_read_
+  (filp, buf, n, ofs) = let
+in
+  g0i2i(0)
+end // end of [device_read_]
+
+(* ****** ****** *)
+
+implement
+device_write_
+  (filp, buf, n, ofs) = let
+//
+val () =
+$extfcall
+(
+  void
+, "printk"
+, KERN_ALERT_"Sorry, this operation isn't supported.\n"
+) (* end of [val] *)
+//
+in
+  $UN.cast{ssize_t}(~(EINVAL))
+end // end of [device_write_]
+
+(* ****** ****** *)
+
+%{$
+//
+static
+inline
+ssize_t
+device_read
+(
+struct file *p0, char *buf, size_t n, loff_t *ofs
+) { return device_read_(p0, buf, n, ofs) ; }
+//
+static
+inline
+ssize_t
+device_write
+(
+struct file *p0, const char *buf, size_t n, loff_t *ofs
+) { return device_write_(p0, (void*)buf, n, ofs) ; }
 //
 %} // end of [%{$]
 

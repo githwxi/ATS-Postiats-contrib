@@ -13,8 +13,8 @@
 
 /* ****** ****** */
 
-#define atslxkrnl_copy_to_user copy_to_user
-#define atslxkrnl_copy_from_user copy_from_user
+#define atslxkrnl_copy_to_user_unsafe copy_to_user
+#define atslxkrnl_copy_from_user_unsafe copy_from_user
 
 /* ****** ****** */
 

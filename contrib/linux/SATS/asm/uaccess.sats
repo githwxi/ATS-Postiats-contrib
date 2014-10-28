@@ -30,9 +30,9 @@ typedef interr = intLte(0)
 
 (* ****** ****** *)
 //
-fun copy_to_user
+fun copy_to_user_unsafe
   (to: uPtr1, from: Ptr1, count: ulint): ulint = "mac#%"
-fun copy_from_user
+fun copy_from_user_unsafe
   (to: uPtr1, from: Ptr1, count: ulint): ulint = "mac#%"
 //
 (* ****** ****** *)
