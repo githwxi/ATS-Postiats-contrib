@@ -249,7 +249,7 @@ device_release_
   (inx, filp) = let
 //
 extvar
-"Device_open_count" = Device_open_count - 1
+"Device_open" = Device_open - 1
 //
 in
   0(*SUCCESS*)
