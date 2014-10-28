@@ -49,7 +49,14 @@ staload "{$LINUX}/SATS/fs.sats"
 //
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
+%{^
+MODULE_LICENSE("Dual BSD/GPL") ;
+%} // end of [%{^]
 
 (* ****** ****** *)
 
