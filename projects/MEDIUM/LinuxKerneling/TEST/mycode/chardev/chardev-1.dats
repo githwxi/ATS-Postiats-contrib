@@ -47,6 +47,8 @@ staload $PRINTK // HX: opening NS
 //
 staload "{$LINUX}/SATS/fs.sats"
 //
+staload "{$LINUX}/SATS/asm/uaccess.sats"
+//
 (* ****** ****** *)
 
 staload
