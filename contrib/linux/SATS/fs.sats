@@ -105,7 +105,7 @@ register_chrdev
 ) : interr = "mac#%" // endfun
 fun
 unregister_chrdev
-  (major: uint, name: NSH(string)): interr = "mac#%"
+  (major: uint, name: NSH(string)): void = "mac#%"
 //
 (* ****** ****** *)
 
