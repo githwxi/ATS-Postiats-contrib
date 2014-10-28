@@ -317,12 +317,12 @@ add_ptr_bsz ($UN.cast{ptr}(Message1_ptr), nread)
 val () =
 $extfcall
 (
-  void, "printk", "device_read_: n2 = %ld", n2
+  void, "printk", KERN_INFO_"device_read_: n2 = %ld", n2
 )
 val () =
 $extfcall
 (
-  void, "printk", "device_read_: nread = %ld", nread
+  void, "printk", KERN_INFO_"device_read_: nread = %ld", nread
 )
 //
 in
