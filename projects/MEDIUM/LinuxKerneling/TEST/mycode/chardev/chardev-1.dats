@@ -302,7 +302,8 @@ val n2 =
 string_nlength<>
   ($UN.cast{string}(Message1_ptr), n)
 //
-val nread =
+val
+nread =
 $extfcall
 (
   size_t
@@ -312,6 +313,17 @@ $extfcall
 extvar
 "Message1_ptr" =
 add_ptr_bsz ($UN.cast{ptr}(Message1_ptr), nread)
+//
+val () =
+$extfcall
+(
+  void, "printk", "device_read_: n2 = %ld", n2
+)
+val () =
+$extfcall
+(
+  void, "printk", "device_read_: nread = %ld", nread
+)
 //
 in
   $UN.cast{ssize_t}(nread)
