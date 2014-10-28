@@ -61,21 +61,32 @@ fun imajor (inode_ptr1): uint = "mac#%"
 fun iminor (inode_ptr1): uint = "mac#%"
 
 (* ****** ****** *)
+//
+abstype
+fops_ptr(l:addr) = ptr(l)
+abst@ype
+fops_struct = $extype"fops_struct"
+//
+typedef fops_ptr0 = [l:agez] fops_ptr(l)
+typedef fops_ptr1 = [l:addr | l > null] fops_ptr(l)
+//
+(* ****** ****** *)
 
 fun
 alloc_chrdev_region
 (
   dev: &dev_t? >> _
-, firstminor: uint, count: uint, name: string
-) : interr = "mac#%" // end-of-function
+, firstminor: uint
+, count: uint, name: NSH(string)
+) : interr = "mac#%" // endfun
 
 (* ****** ****** *)
 
 fun
 register_chrdev_region
 (
-  first: dev_t, count: uint, name: string
-) : interr = "mac#%" // end-of-function
+  first: dev_t, count: uint, name: NSH(string)
+) : interr = "mac#%" // endfun
 
 (* ****** ****** *)
 
@@ -84,6 +95,18 @@ unregister_chrdev_region
   (first: dev_t, count: uint): void = "mac#%"
 // end of [unregister_chrdev_region]
 
+(* ****** ****** *)
+//
+fun
+register_chrdev
+(
+  major: uint
+, name: NSH(string), fops: fops_ptr1
+) : interr = "mac#%" // endfun
+fun
+unregister_chrdev
+  (major: uint, name: NSH(string)): interr = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [fs.sats] *)

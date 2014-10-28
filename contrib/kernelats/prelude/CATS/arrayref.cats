@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_ARRAYREF_CATS
-#define ATSLIB_PRELUDE_ARRAYREF_CATS
+#ifndef ATSLIB_PRELUDE_CATS_ARRAYREF
+#define ATSLIB_PRELUDE_CATS_ARRAYREF
 
 /* ****** ****** */
 

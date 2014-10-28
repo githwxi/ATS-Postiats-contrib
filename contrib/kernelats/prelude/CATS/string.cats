@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_STRING_CATS
-#define ATSLIB_PRELUDE_STRING_CATS
+#ifndef ATSLIB_PRELUDE_CATS_STRING
+#define ATSLIB_PRELUDE_CATS_STRING
 
 /* ****** ****** */
 
@@ -123,7 +123,7 @@ atspre_compare_string_string
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_STRING_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_STRING
 
 /* ****** ****** */
 

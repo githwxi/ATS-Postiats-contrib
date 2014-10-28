@@ -1,10 +1,12 @@
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
 (* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
-
-(* ****** ****** *)
-
-#include "./kernel_staload.hats"
 
 (* ****** ****** *)
 

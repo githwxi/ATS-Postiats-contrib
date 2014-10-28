@@ -18,9 +18,14 @@
 ATS_EXTERN_PREFIX "atslxkrnl_"
 
 (* ****** ****** *)
-
+//
+staload
+"./../basics.sats"
+//
+(* ****** ****** *)
+//
 staload "./types.sats"
-
+//
 (* ****** ****** *)
 
 typedef interr = intLte(0)

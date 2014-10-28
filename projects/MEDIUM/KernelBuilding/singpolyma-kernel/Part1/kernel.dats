@@ -1,28 +1,13 @@
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
+(* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
-
-(* ****** ****** *)
-
-(*
-#include
-"share/atspre_staload.hats"
-*)
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/integer.dats"
-staload _ = "prelude/DATS/pointer.dats"
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/bool.dats"
-staload _ = "prelude/DATS/char.dats"
-staload _ = "prelude/DATS/string.dats"
-
-(* ****** ****** *)
-
-staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 
 (* ****** ****** *)
 

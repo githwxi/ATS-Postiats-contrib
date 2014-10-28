@@ -27,9 +27,19 @@ typedef
 struct inode inode_struct;
 
 /* ****** ****** */
+
+typedef
+struct file_operations fops_struct;
+
+/* ****** ****** */
 //
 #define atslxkrnl_imajor(inx) imajor(inx)
 #define atslxkrnl_iminor(inx) iminor(inx)
+//
+/* ****** ****** */
+//
+#define atslxkrnl_register_chrdev register_chrdev
+#define atslxkrnl_unregister_chrdev unregister_chrdev
 //
 /* ****** ****** */
 //

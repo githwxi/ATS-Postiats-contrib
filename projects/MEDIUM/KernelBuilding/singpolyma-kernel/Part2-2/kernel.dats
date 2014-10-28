@@ -1,22 +1,13 @@
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
+(* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/integer.dats"
-staload _ = "prelude/DATS/pointer.dats"
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/bool.dats"
-staload _ = "prelude/DATS/char.dats"
-staload _ = "prelude/DATS/string.dats"
-
-(* ****** ****** *)
-
-staload UNSAFE = "prelude/SATS/unsafe.sats"
-staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 
 (* ****** ****** *)
 
@@ -25,7 +16,7 @@ staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 %} // end of [%{^]
 
 (* ****** ****** *)
-  
+
 extern
 fun
 activate (stack: cPtr1(uint)): void = "mac#"

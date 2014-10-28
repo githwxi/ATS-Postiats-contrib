@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_ARRAYPTR_CATS
-#define ATSLIB_PRELUDE_ARRAYPTR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_ARRAYPTR
+#define ATSLIB_PRELUDE_CATS_ARRAYPTR
 
 /* ****** ****** */
 
@@ -54,16 +54,18 @@ atspre_arrpsz_get_ptrsize
 (
   atstype_arrpsz psz, atstype_ref asz
 ) {
-  *(size_t*)asz = psz.size ; return (psz.ptr) ;
+  *(atstype_size*)asz = psz.size ; return (psz.ptr) ;
 } // en of [atspre_arrpsz_get_ptrsize]
 
 /* ****** ****** */
 
+#if(0)
 ATSinline()
 atsvoid_t0ype
 atspre_arrayptr_free
   (atstype_arrptr p0) { ATS_MFREE (p0) ; return ; }
 // end of [atspre_arrayptr_free]
+#endif
 
 /* ****** ****** */
 
@@ -75,7 +77,7 @@ atspre_arrayptr_make_arrpsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_ARRAYPTR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAYPTR
 
 /* ****** ****** */
 
