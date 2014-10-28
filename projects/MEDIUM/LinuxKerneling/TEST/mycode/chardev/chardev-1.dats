@@ -295,8 +295,24 @@ device_write_{n:int}
 implement
 device_read_
   (filp, buf, n, ofs) = let
+//
+val n2 =
+string_nlength<>
+  ($UN.cast{string}(Message1_ptr), n)
+//
+val nread =
+$extfcall
+(
+  size_t
+, "copy_to_user", addr@buf, Message1_ptr, n2
+) (* end of [val] *)
+//
+extvar
+"Message1_ptr" =
+add_ptr_bsz ($UN.cast{ptr}(Message1_ptr), nread)
+//
 in
-  g0i2i(0)
+  $UN.cast{ssize_t}(nread)
 end // end of [device_read_]
 
 (* ****** ****** *)
