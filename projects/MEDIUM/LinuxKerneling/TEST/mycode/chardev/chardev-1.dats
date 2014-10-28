@@ -303,27 +303,18 @@ string_nlength<>
   ($UN.cast{string}(Message1_ptr), n)
 //
 val
-nread =
+n2_ =
 $extfcall
 (
   size_t
 , "copy_to_user", addr@buf, Message1_ptr, n2
 ) (* end of [val] *)
 //
+val nread = n2 - n2_
+//
 extvar
 "Message1_ptr" =
 add_ptr_bsz ($UN.cast{ptr}(Message1_ptr), nread)
-//
-val () =
-$extfcall
-(
-  void, "printk", KERN_INFO_"device_read_: n2 = %ld", n2
-)
-val () =
-$extfcall
-(
-  void, "printk", KERN_INFO_"device_read_: nread = %ld", nread
-)
 //
 in
   $UN.cast{ssize_t}(nread)
