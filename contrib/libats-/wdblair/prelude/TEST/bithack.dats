@@ -161,7 +161,7 @@ bits_set_naive1 {b:bv32} (
     if x = 0u then
       c
     else
-      loop (x >> 1u, c+ uint_of_bv32((x land 1u)))  
+      loop (x >> 1u, c + uint_of_bv32((x land 1u)))  
 in
   loop (b, 0u)
 end
