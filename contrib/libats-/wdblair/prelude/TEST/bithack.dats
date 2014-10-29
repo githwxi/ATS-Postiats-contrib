@@ -144,6 +144,30 @@ in
   loop (Nil () | b, 0u)
 end
 
+(**
+  Interestingly, this one doesn't work. Z3 gets hung up
+  trying to prove that 
+    
+    x = 0
+    bitset (b - x) = bitset (b)
+    
+fun
+bits_set_naive1 {b:bv32} (
+  b: uint b
+): uint (bits_set(b)) = let
+  fun loop {x:bv32} {n:int} (
+    x: uint (x), c: uint (bits_set(b-x))
+  ): uint (bits_set (b)) =
+    if x = 0u then
+      c
+    else
+      loop (x >> 1u, c+ uint_of_bv32((x land 1u)))  
+in
+  loop (b, 0u)
+end
+
+*)
+
 end // end of [local]
 
 (**

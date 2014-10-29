@@ -6,6 +6,7 @@
 (* ****** ****** *)
 
 staload "contrib/libats-/wdblair/prelude/SATS/array.sats"
+staload "contrib/libats-/wdblair/prelude/SATS/integer.sats"
 
 (* ****** ****** *)
 
@@ -13,14 +14,16 @@ staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
 
 (* ****** ****** *)
 
-implement {a} ptr_get0 (pf | p) = !p
+implement {}
+ptr_offset (p, pi, sz) = let
+  val d = pi - p
+in
+  g1int2uint_ssize_size (d) / sz
+end
 
-(**
-  TODO: Incorporate this lemma to the SMT solver, this is true for all
-  flat types (except void).
-*)
-extern
-praxi sizeof_lemma_gtz {a:t@ype}(): [sizeof(a) > 0] void
+(* ****** ****** *)
+
+implement {a} ptr_get0 (pf | p) = !p
 
 extern
 fun array_ptrswap_size {a:t@ype} {l:addr}
@@ -29,7 +32,32 @@ fun array_ptrswap_size {a:t@ype} {l:addr}
     p1: ptr(l+i*sizeof(a)), p2: ptr(l+j*sizeof(a)), sz: size_t (sizeof(a))
 ): void = "mac#"
 
-implement {} array_ptrswap {a}{l}{n}{i,j}{xs} (pf | p, q, sz) = 
+(**
+  Here is a precise type for memcpy. I wonder if this could be used to
+  swap regions of arrays.
+*)
+extern
+fun memcpy {l,p:addr} {num,n,m:nat | num <= n; num <= m} {xs,ys:stmsq} (
+  pfd: !array_v (byte, l, xs, n) >>
+    array_v (byte, l, append(take(ys, num), num, drop(xs, num), n-num), n),
+  pfs: !array_v (byte, p, ys, m) | pd: ptr l, ps: ptr p, num: size_t num
+): ptr l = "mac#"
+
+(**
+
+  Z3 can't figure this one out.
+fun
+copy {l,p:addr} {n:nat} {xs,ys:stmsq} (
+  pfd: !array_v (byte, l, xs, n) >> array_v (byte, l, ys, n),
+  pfs: !array_v (byte, p, ys, n)
+    | pd: ptr l, ps: ptr p, n: size_t n
+): void = {
+  val _ = memcpy (pfd, pfs | pd, ps, n)
+}
+*)
+
+implement {}
+array_ptrswap {a}{l}{n}{i,j}{xs} (pf | p, q, sz) =
   array_ptrswap_size {a}{l}{n}{i,j}{xs} (pf | p, q, sz)
 
 local
@@ -112,6 +140,25 @@ prval ((*void*)) =
   pf := array_v_unsplit (pf1, array_v_cons (pf21, pf22))
 //
 } (* end of [array_get_at] *)
+
+(**
+
+Z3 cannot solve this one.
+
+implement {a}
+array_set_at
+  (pf | p, i, x) = {
+//
+prval (pf1, pf2) = array_v_split (pf, i)
+prval array_v_cons (pf21, pf22) = pf2
+//
+val pi = ptr_add<a> (p, i)
+val () = ptr_set0<a> (pf21 | pi, x)
+//
+prval ((*void*)) = pf := array_v_unsplit (pf1, array_v_cons (pf21, pf22))
+//
+} (* end of [array_set_at] *)
+*)
 
 (* ****** ****** *)
 

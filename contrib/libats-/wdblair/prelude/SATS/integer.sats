@@ -4,6 +4,22 @@
 
 staload "contrib/libats-/wdblair/patsolve/SATS/bitvector.sats"
 
+(**
+  The div function provided in the prelude is not very precise.
+*)
+typedef
+g1uint_div_type
+  (tk:tk) =
+   {i,j:int | j > 0}
+   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk, i / j)
+// end of [g1uint_div_type]
+
+fun
+{tk:tk}
+g1uint_div : g1uint_div_type(tk)
+
+overload / with g1uint_div of 100
+
 abst@ype int_bv32 (bv:bv32) = int
 typedef int (bv:bv32) = int_bv32 (bv)
 

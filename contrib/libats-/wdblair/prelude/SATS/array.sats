@@ -55,11 +55,15 @@ ptr_get0{l:addr}{x:stamp}
   (pf: !INV(T(a,x)) @ l | p: ptr l):<> T(a,x)
 // end of [ptr_get0]
 
-fun ptr_offset
+fun {a:t@ype}
+ptr_set0{l:addr}{x,y:stamp}
+  (pf: !T(a,x) @ l >> T(a, y) @ l | p: ptr l, y: T(a, y)):<> void
+  
+fun{} ptr_offset
   {a:t@ype}{l:addr}{i:nat} (
     ptr l, ptr (l+i*sizeof(a)), size_t(sizeof(a))
-):<> size_t (i) = "mac#"
-// end of [ptr_offset
+):<> size_t (i)
+// end of [ptr_offset]
 
 (* ****** ****** *)
 
@@ -135,7 +139,7 @@ fun {a:t@ype} array_set_at
   {xs:stmsq}{x:stamp}
   {n:int}{i:nat | i < n}
 (
-  pf: !array_v(a, l, xs, n) >> array_v (a, l, update(xs, i, x), n) | 
+  pf: !array_v(a, l, xs, n) >> array_v (a, l, update(xs, i, x), n) |
     p: ptr(l), i: size_t (i), x: T(a, x)
 ) : void // end of [array_set_at]
 //

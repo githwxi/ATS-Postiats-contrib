@@ -716,11 +716,25 @@ in
 
   implement
   f_bv32_of_int (env, s2es) = let
+    (**
+      If we are passed a constant, we can avoid using 
+      an uninterpreted function.
+    *)
     val- s2e1 :: _ = s2es
-    //
-    val i = formula_make (env, s2e1)
   in
-    $SMT.make_bv_from_int (32, i)
+    case+ s2e1.s2exp_node of
+      | S2Eintinf n => let
+        val srt = $SMT.make_bitvec_sort (32)
+        val n' = $SMT.make_numeral (n, srt)
+      in
+        $SMT.sort_free (srt);
+        n'
+      end
+      | _ => let
+        val i = formula_make (env, s2e1)
+      in
+        $SMT.make_bv_from_int (32, i)
+      end
   end // end of [f_bv32_of_int]
 
   implement
@@ -953,7 +967,7 @@ in
     val i = formula_make (env, s2e2)
     val v = formula_make (env, s2e3)
   in
-    a[i] = v
+    Store (a, i, v)
   end // end of [f_array_store]
   
   implement

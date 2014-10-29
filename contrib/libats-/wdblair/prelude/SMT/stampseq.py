@@ -1,4 +1,4 @@
-# Interpretations for static stamp seqeunce operations.
+# Interpretations for static stamp sequence operations.
 # Will Blair - wdblair@cs.bu.edu
 
 import patsolve
@@ -11,10 +11,27 @@ s = patsolve.solver
 A = Array ("A", IntSort(), IntSort())
 B = Array ("B", IntSort(), IntSort())
 
-i, j, x, y = Int("i"), Int("j"), Int("x"), Int("y")
+i, j, x, y = Ints("i j x y")
 
 StampSeq = lambda name: Array (name, IntSort(), IntSort())
 StampSeqSort = lambda : ArraySort (IntSort(), IntSort())
+
+T0ype = DeclareSort ("t@ype")
+
+# Some knowledge about sizeof
+sizeof = Function ("sizeof", T0ype, IntSort())
+
+a = Const ("a", T0ype)
+
+s.add (
+    ForAll (a, sizeof (a) > 0)
+)
+
+l, sz = Ints ("l sz")
+
+s.add (
+    ForAll ([l, i, sz], Implies (sz != 0, l + i * sz - l / sz == i))
+)
 
 # Undefined Section of an Array
 

@@ -80,6 +80,7 @@ end
 (* ****** ****** *)
 
 staload FunSet = "libats/SATS/funset_avltree.sats"
+
 vtypedef set (a:t@ype+) = $FunSet.set (a)
 macdef set_is_member = $FunSet.funset_is_member
 
