@@ -158,8 +158,8 @@ then let
 val () =
 $extfcall
 (
-  void
-, "printk", KERN_INFO_"The assigned major number is: %d\n", Major
+  void, "printk"
+, KERN_INFO_"chardev-1: assigned major number = %d\n", Major
 ) (* end of [val] *)
 //
 in
@@ -170,8 +170,8 @@ else let
 val () =
 $extfcall
 (
-  void
-, "printk", KERN_ALERT_"Registering chardev failed with %d\n", Major
+  void, "printk"
+, KERN_ALERT_"chardev-1: registering failed with %d\n", Major
 ) (* end of [val] *)
 //
 in
@@ -198,6 +198,14 @@ if Major > 0
 ) : uint // end of [val]
 //
 val () = unregister_chrdev(Major, DEVICE_NAME)
+//
+val () =
+$extfcall
+(
+  void, "printk"
+, KERN_ALERT_"chardev-1: it has been opened for %d times\n"
+, Device_open_count
+) (* end of [val] *)
 //
 } (* end of [cleanup_module] *)
 
@@ -329,9 +337,8 @@ device_write_
 val () =
 $extfcall
 (
-  void
-, "printk"
-, KERN_ALERT_"Sorry, this operation isn't supported.\n"
+  void, "printk"
+, KERN_ALERT_"chardev-1: this operation isn't supported.\n"
 ) (* end of [val] *)
 //
 in
