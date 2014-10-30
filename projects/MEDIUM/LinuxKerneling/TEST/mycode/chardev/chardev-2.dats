@@ -111,6 +111,21 @@ Message1_ptr = $extval(charptr, "Message1_ptr")
 
 %{^
 //
+static
+void
+Message_init()
+{
+  int i;
+  for (i = 0; i < BUFLEN; i += 1) Message[i] = 0;
+  return;
+}
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
+
+%{^
+//
 static int device_open(struct inode *, struct file *);
 static int device_release(struct inode *, struct file *);
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
@@ -161,7 +176,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_INFO_"chardev-2: assigned major number = %d\n", Major
+, KERN_INFO_"chardev-2: open: major number = %d\n", Major
 ) (* end of [val] *)
 //
 in
@@ -205,7 +220,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_ALERT_"chardev-2: it has been opened for %d times\n"
+, KERN_INFO_"chardev-2: release: opened for %d times\n"
 , Device_open_count
 ) (* end of [val] *)
 //
@@ -318,8 +333,10 @@ extvar
 "Message1_ptr" =
 add_ptr_bsz ($UN.cast{ptr}(Message1_ptr), nread)
 //
+val nread = $UN.cast{int}(nread)
+//
 in
-  $UN.cast{ssize_t}(nread)
+  $UN.cast{ssize_t}(if n2_ = 0 then nread else ~(EFAULT))
 end // end of [device_read_]
 
 (* ****** ****** *)
@@ -335,13 +352,17 @@ n2_ =
 $extfcall
 (
   size_t
-, "copy_from_user", addr@buf, Message0_ptr, n2
+, "copy_from_user", Message0_ptr, addr@buf, n2
 ) (* end of [val] *)
+//
+val nwrit = n2 - n2_
 //
 extvar "Message1_ptr" = Message0_ptr
 //
+val nwrit = $UN.cast{int}(nwrit)
+//
 in
-  $UN.cast{ssize_t}(if n2_ = 0 then 0 else ~(EFAULT))
+  $UN.cast{ssize_t}(if n2_ = 0 then nwrit else ~(EFAULT))
 end // end of [device_write_]
 
 (* ****** ****** *)
@@ -353,16 +374,23 @@ inline
 ssize_t
 device_read
 (
-struct file *p0, char *buf, size_t n, loff_t *ofs
-) { return device_read_(p0, buf, n, ofs) ; }
+struct file *p0,
+char *buf, size_t n, loff_t *ofs
+) {
+  return device_read_(p0, buf, n, ofs);
+}
 //
 static
 inline
 ssize_t
 device_write
 (
-struct file *p0, const char *buf, size_t n, loff_t *ofs
-) { return device_write_(p0, (void*)buf, n, ofs) ; }
+struct file *p0,
+const char *buf, size_t n, loff_t *ofs
+) {
+  Message_init();
+  return device_write_(p0, (void*)buf, n, ofs);
+}
 //
 %} // end of [%{$]
 

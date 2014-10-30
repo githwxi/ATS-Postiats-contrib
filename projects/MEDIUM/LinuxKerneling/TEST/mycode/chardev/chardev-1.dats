@@ -159,7 +159,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_INFO_"chardev-1: assigned major number = %d\n", Major
+, KERN_INFO_"chardev-1: open: major number = %d\n", Major
 ) (* end of [val] *)
 //
 in
@@ -203,7 +203,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_INFO_"chardev-1: it has been opened for %d times\n"
+, KERN_INFO_"chardev-1: release: opened for %d times\n"
 , Device_open_count
 ) (* end of [val] *)
 //
