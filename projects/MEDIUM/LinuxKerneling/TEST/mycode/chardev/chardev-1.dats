@@ -123,9 +123,9 @@ static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 struct
 file_operations
 fops = {
+  .open = device_open,
   .read = device_read,
   .write = device_write,
-  .open = device_open,
   .release = device_release
 } ;
 
@@ -203,7 +203,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_ALERT_"chardev-1: it has been opened for %d times\n"
+, KERN_INFO_"chardev-1: it has been opened for %d times\n"
 , Device_open_count
 ) (* end of [val] *)
 //
