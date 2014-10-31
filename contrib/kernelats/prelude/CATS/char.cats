@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CHAR_CATS
-#define ATSLIB_PRELUDE_CHAR_CATS
+#ifndef ATSLIB_PRELUDE_CATS_CHAR
+#define ATSLIB_PRELUDE_CATS_CHAR
 
 /* ****** ****** */
 
@@ -301,7 +301,7 @@ atspre_int2xxdigit
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CHAR_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_CHAR
 
 /* ****** ****** */
 

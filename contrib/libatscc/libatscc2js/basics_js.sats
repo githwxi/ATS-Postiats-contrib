@@ -39,6 +39,27 @@ abstype JSregexp // new RegExp()
 fun alert(msg: string): void = "mac#%"
 //
 (* ****** ****** *)
+//
+fun confirm(msg: string): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+prompt_none
+(
+  prompt: string
+) : string = "mac#%"
+fun
+prompt_some
+(
+  prompt: string, default: string
+) : string = "mac#%"
+//
+symintr prompt
+overload prompt with prompt_none
+overload prompt with prompt_some
+//
+(* ****** ****** *)
 
 fun typeof{a:t@ype}(a): string = "mac#%"
 

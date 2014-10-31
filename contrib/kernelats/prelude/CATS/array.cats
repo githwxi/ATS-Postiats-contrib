@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_ARRAY_CATS
-#define ATSLIB_PRELUDE_ARRAY_CATS
+#ifndef ATSLIB_PRELUDE_CATS_ARRAY
+#define ATSLIB_PRELUDE_CATS_ARRAY
 
 /* ****** ****** */
 
@@ -59,7 +59,7 @@ atspre_array_foreach_funenv_tsz
 , atstype_boxed env
 ) {
   char *p ;
-  size_t i ;
+  atstype_size i ;
   p = (char*)A ;
   for (i = 0 ; i < n ; i += 1)
   {
@@ -70,7 +70,7 @@ atspre_array_foreach_funenv_tsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_ARRAY_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAY
 
 /* ****** ****** */
 

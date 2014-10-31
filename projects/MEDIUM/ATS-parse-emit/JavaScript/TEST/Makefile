@@ -169,6 +169,16 @@ cleanall:: ; $(RMF) mergesort_dats.js
 ######
 
 all:: \
+sieve_lazy_dats.js
+sieve_lazy_dats.js: sieve_lazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+sieve_lazy:: sieve_lazy_dats.js ; $(NODEJS) sieve_lazy_dats.js
+regress:: sieve_lazy
+cleanall:: ; $(RMF) sieve_lazy_dats.js
+
+######
+
+all:: \
 hello_dats.js
 hello_dats.c: \
 hello.dats ; $(PATSOPT) -o $@ -d $<

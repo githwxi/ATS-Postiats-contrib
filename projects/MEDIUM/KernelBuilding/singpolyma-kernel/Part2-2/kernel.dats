@@ -1,22 +1,13 @@
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
+(* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/integer.dats"
-staload _ = "prelude/DATS/pointer.dats"
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/bool.dats"
-staload _ = "prelude/DATS/char.dats"
-staload _ = "prelude/DATS/string.dats"
-
-(* ****** ****** *)
-
-staload UNSAFE = "prelude/SATS/unsafe.sats"
-staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 
 (* ****** ****** *)
 
@@ -25,7 +16,7 @@ staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 %} // end of [%{^]
 
 (* ****** ****** *)
-  
+
 extern
 fun
 activate (stack: cPtr1(uint)): void = "mac#"
@@ -89,10 +80,13 @@ first ((*void*)) =
 //
 extern
 fun
-ATS__main (): void = "ext#"
+kernel_main
+(
+// argumentless
+) : void = "ext#"
 //
 implement
-ATS__main ((*void*)) =
+kernel_main ((*void*)) =
 {
 //
 var first_stack = @[uint][256]()
@@ -109,7 +103,7 @@ val ((*void*)) = activate($UNSAFE.cast{cPtr1(uint)}(first_stack_start0))
 //
 val ((*void*)) = while (true) ((*void*))
 //
-} (* end of [ATS__main] *)
+} (* end of [kernel_main] *)
 
 (* ****** ****** *)
 

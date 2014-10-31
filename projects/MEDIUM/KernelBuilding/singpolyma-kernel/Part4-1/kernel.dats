@@ -1,10 +1,13 @@
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
 (* ****** ****** *)
 
-#include "kernel_staload.hats"
+#define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
 
@@ -31,7 +34,10 @@ end // end of [kernel_loop]
 //
 extern
 fun
-kernel_main (): void = "mac#"
+kernel_main
+(
+// argumentless
+) : void = "mac#"
 //
 implement
 kernel_main () =

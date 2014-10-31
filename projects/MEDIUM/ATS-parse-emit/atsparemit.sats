@@ -301,6 +301,7 @@ keyword =
   | ATSINSstore_fltrec_ofs of ()
 //
   | ATSINSmove_delay of ()
+  | ATSINSmove_lazyeval of ()
 //
   | ATStailcal_beg of ()
   | ATStailcal_end of ()
@@ -939,6 +940,7 @@ instr_node =
   | ATSINSstore_fltrec_ofs of (i0de, s0exp, i0de, d0exp)
 //
   | ATSINSmove_delay of (i0de, s0exp, d0exp)
+  | ATSINSmove_lazyeval of (i0de, s0exp, d0exp)
 //
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)

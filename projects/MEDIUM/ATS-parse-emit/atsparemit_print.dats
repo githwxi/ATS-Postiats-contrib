@@ -188,6 +188,7 @@ case+ x of
 | ATSINSstore_boxrec_ofs () => pr "ATSINSstore_boxrec_ofs"
 //
 | ATSINSmove_delay () => pr "ATSINSmove_delay"
+| ATSINSmove_lazyeval () => pr "ATSINSmove_lazyeval"
 //
 | ATStailcal_beg () => pr "ATStailcal_beg"
 | ATStailcal_end () => pr "ATStailcal_end"

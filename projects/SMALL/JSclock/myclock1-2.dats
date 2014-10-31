@@ -257,4 +257,47 @@ val () = ctx.restore (pf.0 | (*none*))
 //
 (* ****** ****** *)
 
+%{$
+//
+var
+canvas =
+document.getElementById("Patsoptaas-Evaluate-canvas");
+var context = canvas.getContext( '2d' );
+//
+function
+draw2_clock()
+{
+//
+var w = canvas.width
+var h = canvas.height
+var xc = w / 2
+var yc = h / 2
+var wh = Math.min (w, h)
+var alpha = wh / 300
+//
+var date = new Date() ;
+var secs = date.getSeconds()
+var mins = date.getMinutes()
+var mins = mins + secs / 60.0
+var hours = date.getHours()
+var hours = hours + mins / 60.0
+//
+context.save();
+context.translate(xc-wh/2, yc-wh/2);
+context.scale (alpha, alpha);
+draw_clock(context, hours, mins, secs);
+context.restore();
+//
+setTimeout(draw2_clock, 500);
+//
+return;
+//
+} // end of [draw2_clock]
+//
+jQuery(document).ready(function(){draw2_clock();});
+//
+%} // end of [%{$]
+
+(* ****** ****** *)
+
 (* end of [myclock1-2.dats] *)

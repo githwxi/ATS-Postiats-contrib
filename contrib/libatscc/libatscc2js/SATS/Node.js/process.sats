@@ -19,8 +19,11 @@ ATS_EXTERN_PREFIX "ats2nodejs_"
 //
 (* ****** ****** *)
 //
-staload "./basics.sats"
-staload "./../../basics_js.sats"
+staload
+"./../../basics_js.sats"
+//
+staload "./basics.sats";
+staload "./fprint.sats";
 //
 (* ****** ****** *)
 

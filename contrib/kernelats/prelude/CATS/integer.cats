@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_INTEGER_CATS
-#define ATSLIB_PRELUDE_INTEGER_CATS
+#ifndef ATSLIB_PRELUDE_CATS_INTEGER
+#define ATSLIB_PRELUDE_CATS_INTEGER
 
 /* ****** ****** */
 //
@@ -1684,7 +1684,7 @@ atspre_g0uint_min_size
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_INTEGER_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER
 
 /* ****** ****** */
 

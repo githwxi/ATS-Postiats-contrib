@@ -1,4 +1,11 @@
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
+(* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
 
@@ -7,10 +14,6 @@
 %{^
 #include "./versatilepb.cats"
 %} // end of [%{^]
-
-(* ****** ****** *)
-
-#include "./kernel_staload.hats"
 
 (* ****** ****** *)
 //
@@ -86,10 +89,13 @@ val ((*void*)) = syscall ((*void*))
 //
 extern
 fun
-ATS__main (): void = "ext#"
+kernel_main
+(
+// argumentless
+) : void = "ext#"
 //
 implement
-ATS__main ((*void*)) =
+kernel_main ((*void*)) =
 {
 //
 var first_stack = @[uint][256]()
@@ -108,7 +114,7 @@ val ((*void*)) = bwputs ("kernel:finished\n")
 //
 val ((*void*)) = while (true) ((*void*))
 //
-} (* end of [ATS__main] *)
+} (* end of [kernel_main] *)
 
 (* ****** ****** *)
 

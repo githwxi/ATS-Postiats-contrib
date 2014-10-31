@@ -9,6 +9,9 @@
 }
 </style>
 <script
+ src="//cdn.jsdelivr.net/jquery/2.1.1/jquery.min.js">
+</script>
+<script
  src="http://www.ats-lang.org/LIBRARY/contrib/libatscc/libatscc2js/libatscc2js_all.js">
 </script>
 <script
@@ -16,56 +19,18 @@
 </script>
 </head>
 <body>
-  <h1>ATS->C->JS via atscc2js</h1>
-  <div id="clock-container">
-    <canvas id="MyClock1-2"
-            width="920px" height="600px"
-            oncontextmenu="event.preventDefault()">
-    It seems that canvas is not supported by your browser!
-    </canvas>
-  </div>
+<h1>ATS->C->JS via atscc2js</h1>
+<div id="clock-container">
+<canvas
+ id="Patsoptaas-Evaluate-canvas"
+ width="920px" height="600px"
+ oncontextmenu="event.preventDefault()">
+It seems that canvas is not supported by your browser!
+</canvas>
+</div>
 <!--
 HX-2014-09: it must be the last one!
 -->
 <script src="myclock1-2_dats.js"></script>
-<script>
-//
-var
-canvas =
-document.getElementById("MyClock1-2");
-var context = canvas.getContext( '2d' );
-//
-var w = 920.0
-var h = 600.0
-var mn = Math.min (w, h)
-var xc = w / 2
-var yc = h / 2
-var alpha = mn / 300
-//
-function
-draw2_clock()
-{
-var date = new Date() ;
-var secs = date.getSeconds()
-var mins = date.getMinutes()
-var mins = mins + secs / 60.0
-var hours = date.getHours()
-var hours = hours + mins / 60.0
-//
-context.save();
-context.translate(xc-mn/2, yc-mn/2);
-context.scale (alpha, alpha);
-draw_clock(context, hours, mins, secs);
-context.restore();
-//
-setTimeout(draw2_clock, 500);
-//
-return;
-//
-} // end of [draw2_clock]
-//
-draw2_clock(/*initiating*/);
-//
-</script>
 </body>
 </html>

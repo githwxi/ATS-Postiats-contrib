@@ -9,6 +9,13 @@
 //
 (* ****** ****** *)
 
+%{^
+#define \
+atstyarr_field_undef(fname) fname[]
+%} // end of [%{]
+
+(* ****** ****** *)
+
 staload
 STDLIB = "libc/SATS/stdio.sats"
 

@@ -16,4 +16,4 @@ stadef cfun = cfun2
 //
 (* ****** ****** *)
 
-(* end of [basics.dats] *)
+(* end of [basics.sats] *)

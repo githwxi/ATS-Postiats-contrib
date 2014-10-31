@@ -6,16 +6,15 @@ PATSCC=patscc
 
 INCLUDE_ATS :=
 INCLUDE_ATS += -I${PATSHOME}
-INCLUDE_ATS += -I${PATSHOME}/ccomp/runtime 
 INCLUDE_ATS += -I${PATSHOMERELOC}/contrib
 
 ######
 
 CFLAGS_ATS :=
+CFLAGS_ATS += -D_ATS_CCOMP_HEADER_NONE
 CFLAGS_ATS += -D_ATS_CCOMP_PRELUDE_NONE
-CFLAGS_ATS += -D_ATS_CCOMP_PRELUDE_USER=\"kernel_prelude.cats\"
+CFLAGS_ATS += -D_ATS_CCOMP_PRELUDE_USER=\"kernelats/pats_ccomp.h\"
 CFLAGS_ATS += -D_ATS_CCOMP_EXCEPTION_NONE
-CFLAGS_ATS += -D_ATS_CCOMP_RUNTIME_NONE
 
 ######
 
@@ -47,10 +46,12 @@ kernel_dats.elf: \
   kernel_bwputs_dats.o \
 
 ######
-
+#
+# for quitting: ^Ax
+#
 testing: kernel_dats.elf ; \
 qemu-system-arm -M versatilepb -cpu arm1176 -nographic -kernel kernel_dats.elf
-
+#
 ######
 
 RMF=rm -f

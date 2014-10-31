@@ -18,6 +18,10 @@ fun print_string : string -> void = "mac#%"
 
 (* ****** ****** *)
 
+fun print_obj{a:t0p}(obj: a): void = "mac#%"
+
+(* ****** ****** *)
+
 fun print_newline : ((*void*)) -> void = "mac#%"
 
 (* ****** ****** *)

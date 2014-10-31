@@ -1,0 +1,42 @@
+###### beg of [README] ######
+
+Assume that you are in THIS directory
+(containing the README file).
+
+Please issuing the following command-lines
+to test chardev-1. Testing other chardev-?
+is more or less the same.
+
+######
+
+# for building kernel modules
+make
+
+# for inserting module
+sudo insmod ./chardev-1_dats.ko
+
+# for the assigned major number:
+sudo fgrep -i chardev /var/log/messages
+
+# assume the major number is xyz
+# create a char device for testing
+sudo mknod /dev/chardev-1 c xyz 0
+
+# so device is writable for anyone
+sudo chmod 666 /dev/chardev-1
+
+# read from device
+cat /dev/chardev-1
+
+# write to device
+# (chardev-1 not supporting write)
+# (but chardev-2 does support write)
+echo "Hello" > /dev/chardev-1
+
+# for removing device
+sudo rm -f /dev/chardev-1
+
+# for removing module
+sudo rmmod chardev-1_dats
+
+###### end of [README] ######

@@ -26,4 +26,4 @@ staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 
 (* ****** ****** *)
 
-(* end of [kernel_staload.hats] *)
+(* end of [staloadall.hats] *)

@@ -9,6 +9,13 @@
 //
 (* ****** ****** *)
 
+%{^
+#define \
+atstyarr_field_undef(fname) fname[]
+%} // end of [%{]
+
+(* ****** ****** *)
+
 staload "./../SATS/cstream.sats"
 staload _ = "./../DATS/cstream.dats"
 

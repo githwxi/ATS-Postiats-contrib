@@ -1,21 +1,13 @@
 (* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$KERNELATS}/prelude/staloadall.hats"
+//
+(* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/integer.dats"
-staload _ = "prelude/DATS/pointer.dats"
-
-(* ****** ****** *)
-
-staload _ = "prelude/DATS/bool.dats"
-staload _ = "prelude/DATS/char.dats"
-staload _ = "prelude/DATS/string.dats"
-
-(* ****** ****** *)
-
-staload _(*UNSAFE*) = "prelude/DATS/unsafe.dats"
 
 (* ****** ****** *)
 
@@ -88,10 +80,13 @@ first ((*void*)) =
 //
 extern
 fun
-ATS__main (): void = "ext#"
+kernel_main
+(
+// argumentless
+) : void = "ext#"
 //
 implement
-ATS__main ((*void*)) =
+kernel_main ((*void*)) =
 {
 //
 val message = "Starting!\n"
@@ -100,7 +95,7 @@ val ((*void*)) = bwputs (message)
 val ((*void*)) = activate ((*void*))
 val ((*void*)) = while (true) ((*void*))
 //
-} (* end of [ATS__main] *)
+} (* end of [kernel_main] *)
 
 (* ****** ****** *)
 

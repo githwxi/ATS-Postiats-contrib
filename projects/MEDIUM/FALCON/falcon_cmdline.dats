@@ -21,7 +21,11 @@ staload "./falcon_cnfize_ifnot.dats"
 
 (* ****** ****** *)
 
+(*
+// HX-2014-10-20:
+// no longer needed
 dynload "./falcon.sats"
+*)
 dynload "./falcon_symbol.dats"
 dynload "./falcon_position.dats"
 dynload "./falcon_tokener.dats"

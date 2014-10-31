@@ -860,6 +860,10 @@ end // end of [fprint_weboxlst_css_all]
 //
 implement
 {}(*tmp*)
+fprint_webox_head_beg (out) = ()
+//
+implement
+{}(*tmp*)
 fprint_webox_head_end (out) = ()
 //
 (* ****** ****** *)
@@ -1023,8 +1027,12 @@ fprint! (out, "\
 <html>\n\
 <head>\n\
 <meta charset=\"utf-8\">\n
-<style>\n\
 ") (* end of [val] *)
+//
+val () =
+  fprint_webox_head_beg (out)
+//
+val () = fprint! (out, "<style>\n")
 //
 val () =
   fprint_css_preamble (out)
