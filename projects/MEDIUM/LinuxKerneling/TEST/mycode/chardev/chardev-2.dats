@@ -86,7 +86,7 @@ Device_open_count = $extval(int, "Device_open_count")
 
 %{^
 #define BUFLEN 80 // Max length of the message from the device
-#define DEVICE_NAME "chardev-1" /* Dev name as it appears in /proc/devices */
+#define DEVICE_NAME "chardev-2" /* Dev name as it appears in /proc/devices */
 //
 typedef
 char *charptr ;
@@ -159,7 +159,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_INFO_"chardev-1: assigned major number = %d\n", Major
+, KERN_INFO_"chardev-2: assigned major number = %d\n", Major
 ) (* end of [val] *)
 //
 in
@@ -171,7 +171,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_ALERT_"chardev-1: registering failed with %d\n", Major
+, KERN_ALERT_"chardev-2: registering failed with %d\n", Major
 ) (* end of [val] *)
 //
 in
@@ -203,7 +203,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_ALERT_"chardev-1: it has been opened for %d times\n"
+, KERN_ALERT_"chardev-2: it has been opened for %d times\n"
 , Device_open_count
 ) (* end of [val] *)
 //
@@ -231,15 +231,6 @@ extvar
 "Device_open" = Device_open + 1
 extvar
 "Device_open_count" = Device_open_count + 1
-//
-val () =
-$extfcall
-(
-  void
-, "sprintf"
-, Message0_ptr
-, "Hello(%d) from chardev-1!\n", Device_open_count
-) : void // end of [val]
 //
 extvar
 "Message1_ptr" = Message0_ptr
@@ -339,7 +330,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_ALERT_"chardev-1: this operation isn't supported.\n"
+, KERN_ALERT_"chardev-2: this operation isn't supported.\n"
 ) (* end of [val] *)
 //
 in
@@ -370,4 +361,4 @@ struct file *p0, const char *buf, size_t n, loff_t *ofs
 
 (* ****** ****** *)
 
-(* end of [chardev-1.dats] *)
+(* end of [chardev-2.dats] *)

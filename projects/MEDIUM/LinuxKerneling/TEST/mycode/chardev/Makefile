@@ -14,6 +14,7 @@ PATSOPT=${PATSHOME}/bin/patsopt
 ######
 
 obj-m += chardev-1_dats.o
+obj-m += chardev-2_dats.o
 
 ######
 
@@ -32,20 +33,18 @@ EXTRA_CFLAGS += -I${PATSHOMERELOC}/contrib
 BUILD=/lib/modules/$(shell uname -r)/build
 
 ######
-#
-# FYI:
-# To insert a module:
-# sudo \
-# insmod ./chardev-1_dats.ko
-# To remove an inserted module:
-# sudo rmmod chardev-1_dats
-#
-######
 
 all:: \
 chardev-1_dats.c
 chardev-1_dats.c: \
 chardev-1.dats; $(PATSOPT) -o $@ --dynamic $<
+
+######
+
+all:: \
+chardev-2_dats.c
+chardev-2_dats.c: \
+chardev-2.dats; $(PATSOPT) -o $@ --dynamic $<
 
 ######
 
@@ -63,6 +62,7 @@ clean:: ; $(RMF) *~
 
 cleanall:: clean
 cleanall:: ; $(RMF) chardev-1_dats.c
+cleanall:: ; $(RMF) chardev-2_dats.c
 cleanall:: ; $(MAKE) -C $(BUILD) M=$(PWD) clean
 
 ###### end of [Makefile] ######
