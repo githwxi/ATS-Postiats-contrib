@@ -1159,6 +1159,7 @@ d0e.d0exp_node of
           //
           // TODO: ATSCKpat_(con*|exn*)
           //
+          | "ATSPMVempty" => ((*nothing*))
           | _ when strstr(g1ofg0(symbol_get_name(id.i0de_sym)), "__dynload") >= 0 =>
             {
               val () = emit_text (out, "call void ")

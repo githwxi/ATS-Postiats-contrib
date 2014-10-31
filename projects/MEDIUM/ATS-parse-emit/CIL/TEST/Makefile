@@ -255,16 +255,16 @@ cleanall:: ; $(RMF) queens_dats.exe queens_dats.il queens_dats.ilpp queens_dats.
 
 ###### ######
 
-all:: \
-refcount_dats.exe
-refcount_dats.c: refcount.dats ; \
-$(PATSOPT) --output $@ --dynamic $<
-refcount_dats.ilpp: refcount_dats.c ; \
-$(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
-refcount_dats.il: refcount_dats.ilpp ; \
-$(ILPP) $< $@
-refcount_dats.exe: refcount_dats.il ; \
-$(ILASM) /output:$@ $<
-refcount:: refcount_dats.exe ; $(MONO) refcount_dats.exe
-regress:: refcount
-cleanall:: ; $(RMF) refcount_dats.exe refcount_dats.il refcount_dats.ilpp refcount_dats.c
+# all:: \
+# refcount_dats.exe
+# refcount_dats.c: refcount.dats ; \
+# $(PATSOPT) --output $@ --dynamic $<
+# refcount_dats.ilpp: refcount_dats.c ; \
+# $(ATSPAREMIT) -n 'Postiats' -o $@ -i $<
+# refcount_dats.il: refcount_dats.ilpp ; \
+# $(ILPP) $< $@
+# refcount_dats.exe: refcount_dats.il ; \
+# $(ILASM) /output:$@ $<
+# refcount:: refcount_dats.exe ; $(MONO) refcount_dats.exe
+# regress:: refcount
+# cleanall:: ; $(RMF) refcount_dats.exe refcount_dats.il refcount_dats.ilpp refcount_dats.c
