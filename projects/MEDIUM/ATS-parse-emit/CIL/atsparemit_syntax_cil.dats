@@ -48,45 +48,64 @@ assign labels to instructions that we haven't visited yet!
 
 (* ****** ****** *)
 //
-implement{}
-  string_skip {n,ofs} (str, ofs) = let
-  prval () = lemma_string_param (str)
+implement
+{}(*tmp*)
+string_skip
+  (str, ofs) = let
+//
+val p0 = string2ptr(str)
+//
 in
-  if string_is_atend (str, ofs) then ""
-  else if ofs > 0 then string_skip (string_tail (str), ofs-1)
-  else g0ofg1(str)
-end // end of [string_skip]
+  $UNSAFE.cast{string}(ptr_add<char>(p0, ofs))
+end (* end of [string_skip] *)
+//
+(* ****** ****** *)
 //
 implement
-  strip_suffix {n1,n2} (s, suf) = let
-  val l1 = strlen(s)
+strip_suffix
+  {n1,n2}
+  (str, suf) = let
+  val l1 = strlen(str)
   val l2 = strlen(suf)
-  prval () = lemma_string_param (s) and () = lemma_string_param (suf)    
+  prval () = lemma_string_param (str)
+  prval () = lemma_string_param (suf)    
 in
-  if l1 >= l2 then let
-    val ofs = l1 - l2
-    val s1 = string_skip (s, ofs)
-  in
-    if s1 <> suf then g0ofg1(s)
+//
+if
+l1 >= l2
+then let
+  val ofs = l1 - l2
+  val str1 = string_skip (str, ofs)
+in
+  if str1 != suf
+    then g0ofg1(str)
     else let
-      val subs = string_make_substring (s, i2sz(0), ofs)
+      val subs = string_make_substring (str, i2sz(0), ofs)
     in
       strnptr2string (subs)
-    end // end of [let]
-  end else g0ofg1(s)
+    end // end of [else]
+  // end of [if]
+end // end of [then]
+else g0ofg1(str) // end of [else]
+//
 end // end of [strip_suffix]
 //
+(* ****** ****** *)
+//
 implement
-  strip_prefix {n1,n2} (s, pre) = let
-  val l1 = strlen (s)
+strip_prefix
+  {n1,n2}
+  (str, pre) = let
+  val l1 = strlen (str)
   val l2 = strlen (pre)
-  prval () = lemma_string_param (s) and () = lemma_string_param (pre)
+  prval () = lemma_string_param (str)
+  prval () = lemma_string_param (pre)
 in
   if l1 >= l2 (*&& $STRING.strncmp (s, pre, l2) = 0*) then let
     val ofs = l1 - l2
   in
-    string_skip (s, ofs)
-  end else g0ofg1(s)
+    string_skip (str, ofs)
+  end else g0ofg1(str)
 end // end of [strip_prefix]
 //
 (* ****** ****** *)
@@ -316,6 +335,3 @@ f0decl_clo_get_sig
 (* ****** ****** *)
 
 (* end of [atsparemit_syntax_cil.dats] *)
-
-  
-
