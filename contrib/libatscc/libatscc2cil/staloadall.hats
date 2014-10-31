@@ -1,15 +1,18 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into CIL
 *)
 
 (* ****** ****** *)
 //
-// AS-2014-09-12
+// AS-2014-10-31
 //
 (* ****** ****** *)
 //
-staload "./basics_il.sats"
+staload "./basics_cil.sats"
+staload "./SATS/integer.sats"
+staload "./SATS/float.sats"
+staload "./SATS/string.sats"
 //
 (* ****** ****** *)
 

@@ -11,8 +11,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2CIL}/SATS/basics_cil.sats"
+#include
+"{$LIBATSCC2CIL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -137,7 +137,7 @@ end // end of [rtfind]
 .method static public void Main(string[] args) cil managed {
 .entrypoint
 //
-ldstr "rtfind(lam x => x*x + x - 6) ="
+ldstr "rtfind(lam x => x*x + x - 6) = "
 call void [mscorlib]System.Console::Write(string)
 ldnull
 ldftn int32 Postiats.rtfind::poly0(int32)
@@ -146,7 +146,7 @@ call int32 Postiats.rtfind::rtfindf([mscorlib]System.Delegate)
 call void [mscorlib]System.Console::Write(int32)
 call void [mscorlib]System.Console::WriteLine()
 //
-ldstr "rtfind(lam x => x*x - x - 6) ="
+ldstr "rtfind(lam x => x*x - x - 6) = "
 call void [mscorlib]System.Console::Write(string)
 ldnull
 ldftn int32 Postiats.rtfind::poly1(int32)
@@ -155,7 +155,7 @@ call int32 Postiats.rtfind::rtfindf([mscorlib]System.Delegate)
 call void [mscorlib]System.Console::Write(int32)
 call void [mscorlib]System.Console::WriteLine()
 //
-ldstr "rtfind(lam x => x*x + 2*x - 99) ="
+ldstr "rtfind(lam x => x*x + 2*x - 99) = "
 call void [mscorlib]System.Console::Write(string)
 ldnull
 ldftn int32 Postiats.rtfind::poly2(int32)
@@ -164,7 +164,7 @@ call int32 Postiats.rtfind::rtfindf([mscorlib]System.Delegate)
 call void [mscorlib]System.Console::Write(int32)
 call void [mscorlib]System.Console::WriteLine()
 //
-ldstr "rtfind(lam x => x*x - 2*x - 99) ="
+ldstr "rtfind(lam x => x*x - 2*x - 99) = "
 call void [mscorlib]System.Console::Write(string)
 ldnull
 ldftn int32 Postiats.rtfind::poly3(int32)

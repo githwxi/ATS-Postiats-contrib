@@ -11,15 +11,17 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2CIL}/SATS/basics_cil.sats"
+#include
+"{$LIBATSCC2CIL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
 typedef cfun (a:t0p, b:t0p) = a -<cloref1> b
 //
 extern
-fun{a:t0p}{b:t0p}
+fun
+{a:t0p}
+{b:t0p}
 list_map{n:int}
   (xs: list(a, n), f: cfun(a, b)): list (b, n) = "ext#%"
 //
@@ -54,7 +56,7 @@ implement
 test (m, n) = let
   val xs = fromto (m, n)
 in
-  list_map (xs, lam x => m * n * x)
+  list_map<int><int> (xs, lam x => m * n * x)
 end // end of [test]
 //
 (* ****** ****** *)
