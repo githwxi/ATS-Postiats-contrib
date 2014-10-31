@@ -88,7 +88,7 @@ ldstr "listlen("
 call void [mscorlib]System.Console::Write(string)
 ldloc xs
 call void [mscorlib]System.Console::Write(object)
-ldstr ") ="
+ldstr ") = "
 call void [mscorlib]System.Console::Write(string)
 
 ldloc xs
