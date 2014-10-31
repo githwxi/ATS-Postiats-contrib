@@ -339,7 +339,7 @@ val () =
 $extfcall
 (
   void, "printk"
-, KERN_ALERT_"chardev-1: this operation isn't supported.\n"
+, KERN_ALERT_"chardev-1: write operation isn't supported.\n"
 ) (* end of [val] *)
 //
 in

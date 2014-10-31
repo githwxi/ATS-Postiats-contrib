@@ -99,6 +99,8 @@ charptr Message1_ptr = &Message[0];
 typedef charptr = $extype"charptr"
 
 macdef
+BUFLEN = $extval(size_t, "BUFLEN")
+macdef
 DEVICE_NAME = $extval(string, "DEVICE_NAME")
 macdef
 Message0_ptr = $extval(charptr, "Message0_ptr")
@@ -326,15 +328,20 @@ implement
 device_write_
   (filp, buf, n, ofs) = let
 //
-val () =
+val n2 = min(n, BUFLEN)
+//
+val
+n2_ =
 $extfcall
 (
-  void, "printk"
-, KERN_ALERT_"chardev-2: this operation isn't supported.\n"
+  size_t
+, "copy_from_user", addr@buf, Message0_ptr, n2
 ) (* end of [val] *)
 //
+extvar "Message1_ptr" = Message0_ptr
+//
 in
-  $UN.cast{ssize_t}(~(EINVAL))
+  $UN.cast{ssize_t}(if n2_ = 0 then 0 else ~(EFAULT))
 end // end of [device_write_]
 
 (* ****** ****** *)
