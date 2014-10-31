@@ -667,6 +667,10 @@ in '{
 (* ****** ****** *)
 //
 implement
+tmpvar_is_sta (tmp) = (
+  $STRING.strncmp (symbol_get_name(tmp), "sta", i2sz(3)) = 0
+) (* end of [tmpvar_is_sta] *)
+implement
 tmpvar_is_arg (tmp) = (
   $STRING.strncmp (symbol_get_name(tmp), "arg", i2sz(3)) = 0
 ) (* end of [tmpvar_is_arg] *)

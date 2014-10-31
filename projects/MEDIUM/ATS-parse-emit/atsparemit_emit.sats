@@ -112,6 +112,7 @@ emit_ATSCKpat_con1
 
 fun emit_i0de : emit_type (i0de)
 fun emit_label : emit_type (label)
+fun emit_label_mark : emit_type (label)
 
 (* ****** ****** *)
 
