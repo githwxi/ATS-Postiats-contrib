@@ -17,8 +17,8 @@
 
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2CIL}/SATS/basics_cil.sats"
+#include
+"{$LIBATSCC2CIL}/staloadall.hats"
 //
 (* ****** ****** *)
 
