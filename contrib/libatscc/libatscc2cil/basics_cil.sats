@@ -12,6 +12,8 @@ ATS_EXTERN_PREFIX "ats2cilpre_"
 
 %{#
 #include "libatscc2cil/CATS/basics_cil.cats"
+#include "libatscc2cil/CATS/integer_cil.cats"
+#include "libatscc2cil/CATS/float_cil.cats"
 %} // end of [%{#]
 
 (* ****** ****** *)
