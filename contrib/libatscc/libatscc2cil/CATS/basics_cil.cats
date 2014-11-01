@@ -10,12 +10,15 @@
 
 /*
 ******
-* beg of [basics_cats.il]
+* beg of [basics_cil.cats]
 ******
 */
 
 /* ****** ****** */
+
 // typedefs (see $ATSHOME/ccomp/runtime/pats_ccomp_typedefs.h)
+
+/* ****** ****** */
 
 #define atstype_void void
 #define atsvoid_t0ype void
@@ -56,7 +59,10 @@
 // atsrefarg0_type(hit), atsrefarg1_type(hit)
 
 /* ****** ****** */
+//
 // instrset (see $ATSHOME/ccomp/runtime/pats_ccomp_instrset.h
+//
+/* ****** ****** */
 
 #define atsbool_true 1
 #define atsbool_false 0
@@ -69,54 +75,24 @@
 #define ATSCKpat_con0 int32 ats2cilpre::atsckpat_con0(object, int32)
 
 /* ****** ****** */
-// boolean
 
-#define ats2cilpre_print_bool void [mscorlib]System.Console::Write(bool)
-
-/* ****** ****** */
-
-// integer
-#define ats2cilpre_add_int0_int0 int32 ats2cilpre::add_int0_int0(int32, int32)
-#define ats2cilpre_gte_int0_int0 int32 ats2cilpre::gte_int0_int0(int32, int32)
-#define ats2cilpre_sub_int0_int0 int32 ats2cilpre::sub_int0_int0(int32, int32)
-#define ats2cilpre_mul_int0_int0 int32 ats2cilpre::mul_int0_int0(int32, int32)
-#define ats2cilpre_lt_int0_int0 int32 ats2cilpre::lt_int0_int0(int32, int32)
-#define ats2cilpre_lte_int0_int0 int32 ats2cilpre::lte_int0_int0(int32, int32)
-#define ats2cilpre_gt_int0_int0 int32 ats2cilpre::gt_int0_int0(int32, int32)
-#define ats2cilpre_gte_int0_int0 int32 ats2cilpre::gte_int0_int0(int32, int32)
-#define ats2cilpre_eq_int0_int0 int32 ats2cilpre::eq_int0_int0(int32, int32)
-#define ats2cilpre_neq_int0_int0 int32 ats2cilpre::neq_int0_int0(int32, int32)
-#define ats2cilpre_abs_int0 int32 ats2cilpre::abs_int0(int32)
-
-#define ats2cilpre_add_int1_int1 int32 ats2cilpre::add_int0_int0(int32, int32)
-#define ats2cilpre_gte_int1_int1 int32 ats2cilpre::gte_int0_int0(int32, int32)
-#define ats2cilpre_sub_int1_int1 int32 ats2cilpre::sub_int0_int0(int32, int32)
-#define ats2cilpre_mul_int1_int1 int32 ats2cilpre::mul_int0_int0(int32, int32)
-#define ats2cilpre_lt_int1_int1 int32 ats2cilpre::lt_int0_int0(int32, int32)
-#define ats2cilpre_lte_int1_int1 int32 ats2cilpre::lte_int0_int0(int32, int32)
-#define ats2cilpre_gt_int1_int1 int32 ats2cilpre::gt_int0_int0(int32, int32)
-#define ats2cilpre_gte_int1_int1 int32 ats2cilpre::gte_int0_int0(int32, int32)
-#define ats2cilpre_eq_int1_int1 int32 ats2cilpre::eq_int0_int0(int32, int32)
-#define ats2cilpre_neq_int1_int1 int32 ats2cilpre::neq_int0_int0(int32, int32)
-#define ats2cilpre_abs_int1 int32 ats2cilpre::abs_int0(int32)
-
-// float
-#define ats2cilpre_add_double0_double0 float64 ats2cilpre::add_double0_double0(float64, float64)
-#define ats2cilpre_gt_double0_double0 int32 ats2cilpre::gt_double0_double0(float64, float64)
-#define ats2cilpre_lte_double0_double0 int32 ats2cilpre::lte_double0_double0(float64, float64)
-#define ats2cilpre_sub_double0_double0 float64 ats2cilpre::sub_double0_double0(float64, float64)
-#define ats2cilpre_mul_double0_double0 float64 ats2cilpre::mul_double0_double0(float64, float64)
-#define ats2cilpre_eq_double0_double0 int32 ats2cilpre::eq_double0_double0(float64, float64)
-
-/* ****** ****** */
-
-.class public auto ansi sealed ats2enum extends [mscorlib]System.Enum {
+.class
+public
+auto
+ansi
+sealed
+ats2enum
+extends [mscorlib]System.Enum {
   .field public specialname rtspecialname int32 value__
 }
 
 /* ****** ****** */
 
-.class ats2cilpre {
+.class
+ats2cilpre {
+//
+// basics
+//
   .method static public int32 atsckpat_int(int32 x, int32 y) {
     ldarg x
     ldarg y
@@ -155,8 +131,20 @@
     ceq
     ret
   }
-
-  // integer
+//
+// integer
+//
+  .method static public int32 abs_int0(int32 x) {
+    ldarg x
+    ldc.i4.0
+    bgt L1
+    ldarg x
+    neg
+    ret
+  L1:
+    ldarg x
+    ret
+  }
   .method static public int32 add_int0_int0(int32 x, int32 y) {
     ldarg x
     ldarg y
@@ -242,36 +230,40 @@
     ldc.i4.1
     ret
   }
-  .method static public int32 abs_int0(int32 x) {
-    ldarg x
-    ldc.i4.0
-    bgt L1
-    ldarg x
-    neg
-    ret
-  L1:
-    ldarg x
-    ret
-  }
-
-  // float
-  .method static public float64 add_double0_double0(float64 x, float64 y) {
+//
+// float
+//
+  .method static public float64 add_double_double(float64 x, float64 y) {
     ldarg x
     ldarg y
     add
     ret
   }
-  .method static public int32 gt_double0_double0(float64 x, float64 y) {
+  .method static public float64 sub_double_double(float64 x, float64 y) {
+    .maxstack 2
     ldarg x
     ldarg y
-    bgt IL1
+    sub
+    ret
+  }
+  .method static public float64 mul_double_double(float64 x, float64 y) {
+    .maxstack 2
+    ldarg x
+    ldarg y
+    mul
+    ret
+  }
+  .method static public int32 lt_double_double(float64 x, float64 y) {
+    ldarg x
+    ldarg y
+    blt IL1
     ldc.i4.0
     ret
     IL1:
     ldc.i4.1
     ret
   }
-  .method static public int32 lte_double0_double0(float64 x, float64 y) {
+  .method static public int32 lte_double_double(float64 x, float64 y) {
     ldarg x
     ldarg y
     ble IL1
@@ -281,21 +273,27 @@
     ldc.i4.1
     ret
   }
-  .method static public float64 sub_double0_double0(float64 x, float64 y) {
-    .maxstack 2
+  .method static public int32 gt_double_double(float64 x, float64 y) {
     ldarg x
     ldarg y
-    sub
+    bgt IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
     ret
   }
-  .method static public float64 mul_double0_double0(float64 x, float64 y) {
-    .maxstack 2
+  .method static public int32 gte_double_double(float64 x, float64 y) {
     ldarg x
     ldarg y
-    mul
+    bge IL1
+    ldc.i4.0
+    ret
+    IL1:
+    ldc.i4.1
     ret
   }
-  .method static public int32 eq_double0_double0(float64 x, float64 y) {
+  .method static public int32 eq_double_double(float64 x, float64 y) {
     .maxstack 2
     ldarg x
     ldarg y
@@ -305,12 +303,12 @@
 }
 
 /* ****** ****** */
-// string
 
+#define ats2cilpre_print_int void [mscorlib]System.Console::Write(int32)
+#define ats2cilpre_print_bool void [mscorlib]System.Console::Write(bool)
 #define ats2cilpre_print_string void [mscorlib]System.Console::Write(string)
 #define ats2cilpre_print_newline void [mscorlib]System.Console::WriteLine()
-#define ats2cilpre_print_int void [mscorlib]System.Console::Write(int32)
 
 /* ****** ****** */
 
-/* end of [basics_cats.il] */
+/* end of [basics_cil.cats] */
