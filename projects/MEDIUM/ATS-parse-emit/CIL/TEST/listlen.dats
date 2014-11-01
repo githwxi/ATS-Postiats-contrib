@@ -11,8 +11,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2CIL}/SATS/basics_cil.sats"
+#include
+"{$LIBATSCC2CIL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -88,7 +88,7 @@ ldstr "listlen("
 call void [mscorlib]System.Console::Write(string)
 ldloc xs
 call void [mscorlib]System.Console::Write(object)
-ldstr ") ="
+ldstr ") = "
 call void [mscorlib]System.Console::Write(string)
 
 ldloc xs

@@ -14,14 +14,13 @@ staload "./atsparemit_syntax.sats"
 (* ****** ****** *)
 //
 fun{}
-string_skip
-{n,ofs:int | ofs >= 0; ofs <= n}
-(str: string(n), ofs: size_t (ofs)): string
-//
-fun strip_suffix {n1,n2:int} (s: string (n1), suf: string (n2)): string
+string_skip{n:int}(str: string(n), ofs: sizeLte(n)): string
 //
 fun
-strip_prefix {n1,n2:int} (s: string(n1), pre: string(n2)): string
+strip_suffix{n1,n2:int}(str: string (n1), suf: string (n2)): string
+//
+fun
+strip_prefix{n1,n2:int}(str: string(n1), pre: string(n2)): string
 //
 (* ****** ****** *)
 //
@@ -65,3 +64,5 @@ fun
 f0decl_clo_get_sig (name: symbol): Option_vt('(s0exp,s0exp,s0exp))
 //
 (* ****** ****** *)
+
+(* end of [atsparemit_syntax_cil.sats] *)

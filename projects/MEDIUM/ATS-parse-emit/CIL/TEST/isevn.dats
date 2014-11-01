@@ -10,10 +10,10 @@
 "share/atspre_define.hats"
 //
 (* ****** ****** *)
-
-staload
-"{$LIBATSCC2CIL}/SATS/basics_cil.sats"
-
+//
+#include
+"{$LIBATSCC2CIL}/staloadall.hats"
+//
 (* ****** ****** *)
 //
 fnx isevn_ (n: int): bool =
