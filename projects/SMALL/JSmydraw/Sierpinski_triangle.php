@@ -28,6 +28,7 @@ staload
 //
 (* ****** ****** *)
 //
+(* beg-of-php *)
 <?php
 //
 include './mydraw.dats'

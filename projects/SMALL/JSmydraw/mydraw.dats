@@ -1,6 +1,7 @@
 (* ****** ****** *)
 //
-// A simple drawing API for demo 
+// mydraw:
+// A simple drawing API
 //
 (* ****** ****** *)
 
