@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Drawing Sierpinski Triangle
+// Drawing Sierpinski triangle
 //
 (* ****** ****** *)
 //
