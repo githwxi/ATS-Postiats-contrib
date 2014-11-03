@@ -17,8 +17,6 @@ http://www.neilwallis.com/projects/html5/clock/
 //
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 

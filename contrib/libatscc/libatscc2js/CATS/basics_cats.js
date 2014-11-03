@@ -61,8 +61,13 @@ ATSINSdeadcode_fail()
 //
 /* ****** ****** */
 
+function
+ATSPMVempty() { return; }
+
+/* ****** ****** */
+
 /*
-fun
+function
 ATSPMVlazyval_make (thunk) { return [0, thunk]; }
 */
 
