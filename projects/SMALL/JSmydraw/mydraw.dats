@@ -189,7 +189,7 @@ end // end of [local]
 extern
 fun{}
 draw3p
-  (p1: point, p2: point, p3: point, color): void
+  (p1: point, p2: point, p3: point): void
 // end of [draw3p]
   
 (* ****** ****** *)
@@ -197,7 +197,7 @@ draw3p
 extern  
 fun{}
 draw4p
-  (p1: point, p2: point, p3: point, p4: point, color): void
+  (p1: point, p2: point, p3: point, p4: point): void
 // end of [draw4p]
 
 (* ****** ****** *)

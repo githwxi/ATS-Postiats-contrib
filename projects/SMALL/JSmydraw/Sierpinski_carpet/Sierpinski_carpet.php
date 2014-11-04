@@ -41,7 +41,7 @@ extern
 fun{}
 draw_Sierpinski
 (
-  p1: point, p2: point, p3: point, p4: point, clr: color, n: int
+  p1: point, p2: point, p3: point, p4: point, n: int
 ) : void // end of [draw_Sierpinski]
 
 (* ****** ****** *)
@@ -54,7 +54,7 @@ macdef C2 = 2.0 / 3
 implement
 {}(*tmp*)
 draw_Sierpinski
-  (p1, p2, p3, p4, clr, n) = let
+  (p1, p2, p3, p4, n) = let
 //
 macdef draw = draw_Sierpinski
 //
@@ -83,15 +83,15 @@ if n >= 1 then let
   val p3_ = p34_1 + C1 * v41
   val p4_ = p34_2 + C1 * v41
 //
-  val () = draw4p (p1_, p2_, p3_, p4_, clr)
-  val () = draw_Sierpinski (p1, p12_1, p1_, p41_2, clr, n-1)
-  val () = draw_Sierpinski (p12_1, p12_2, p2_, p1_, clr, n-1)
-  val () = draw_Sierpinski (p12_2, p2, p23_1, p2_, clr, n-1)
-  val () = draw_Sierpinski (p2_, p23_1, p23_2, p3_, clr, n-1)
-  val () = draw_Sierpinski (p3_, p23_2, p3, p34_1, clr, n-1)
-  val () = draw_Sierpinski (p4_, p3_, p34_1, p34_2, clr, n-1)
-  val () = draw_Sierpinski (p41_1, p4_, p34_2, p4, clr, n-1)
-  val () = draw_Sierpinski (p41_2, p1_, p4_, p41_1, clr, n-1)
+  val () = draw4p (p1_, p2_, p3_, p4_)
+  val () = draw_Sierpinski (p1, p12_1, p1_, p41_2, n-1)
+  val () = draw_Sierpinski (p12_1, p12_2, p2_, p1_, n-1)
+  val () = draw_Sierpinski (p12_2, p2, p23_1, p2_, n-1)
+  val () = draw_Sierpinski (p2_, p23_1, p23_2, p3_, n-1)
+  val () = draw_Sierpinski (p3_, p23_2, p3, p34_1, n-1)
+  val () = draw_Sierpinski (p4_, p3_, p34_1, p34_2, n-1)
+  val () = draw_Sierpinski (p41_1, p4_, p34_2, p4, n-1)
+  val () = draw_Sierpinski (p41_2, p1_, p4_, p41_1, n-1)
 //
 in
   // nothing
@@ -125,7 +125,7 @@ draw_Sierpinski_canvas
 implement
 draw4p<>
 (
-  p1, p2, p3, p4, clr
+  p1, p2, p3, p4
 ) = let
 //
 val pf = ctx.save()
@@ -165,7 +165,7 @@ val ((*void*)) =
 ctx.fillStyle("rgb("+r1+","+g1+","+b1+")")
 //
 in
-  draw_Sierpinski (p1, p2, p3, p4, clr, depth)
+  draw_Sierpinski (p1, p2, p3, p4, depth)
 end // end of [draw_Sierpinski_canvas]
 
 (* ****** ****** *)

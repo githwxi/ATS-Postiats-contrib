@@ -48,7 +48,7 @@ extern
 fun{}
 draw_Sierpinski
 (
-  p1: point, p2: point, p3: point, clr: color, n: int
+  p1: point, p2: point, p3: point, n: int
 ) : void = "mac#" // end of [draw_Sierpinski]
 
 (* ****** ****** *)
@@ -57,7 +57,7 @@ implement
 {}(*tmp*)
 draw_Sierpinski
 (
-  p1, p2, p3, clr, n
+  p1, p2, p3, n
 ) = let
 //
 macdef mid = mid_ppp
@@ -70,10 +70,10 @@ then let
   val p12 = (p1 \mid p2)
   val p23 = (p2 \mid p3)
   val p31 = (p3 \mid p1)
-  val () = draw3p (p12, p23, p31, clr)
-  val () = draw_Sierpinski (p1, p12, p31, clr, n-1)
-  val () = draw_Sierpinski (p12, p2, p23, clr, n-1)
-  val () = draw_Sierpinski (p31, p23, p3, clr, n-1)
+  val () = draw3p (p12, p23, p31)
+  val () = draw_Sierpinski (p1, p12, p31, n-1)
+  val () = draw_Sierpinski (p12, p2, p23, n-1)
+  val () = draw_Sierpinski (p31, p23, p3, n-1)
 in
   // nothing
 end // end of [then]
@@ -105,7 +105,7 @@ draw_Sierpinski_canvas
 implement
 draw3p<>
 (
-  p1, p2, p3, clr
+  p1, p2, p3
 ) = let
 //
 val pf = ctx.save()
@@ -124,7 +124,6 @@ end // end of [draw3p]
 val p1 = point_make_xy (x1, y1)
 val p2 = point_make_xy (x2, y2)
 val p3 = point_make_xy (x3, y3)
-val clr = color_make_rgb (r0, g0, b0)
 //
 macdef
 floor(x) = JSmath_floor(,(x))
@@ -143,7 +142,7 @@ val ((*void*)) =
 ctx.fillStyle("rgb("+r1+","+g1+","+b1+")")
 //
 in
-  draw_Sierpinski (p1, p2, p3, clr, depth)
+  draw_Sierpinski (p1, p2, p3, depth)
 end // end of [draw_Sierpinski_canvas]
 
 (* ****** ****** *)
