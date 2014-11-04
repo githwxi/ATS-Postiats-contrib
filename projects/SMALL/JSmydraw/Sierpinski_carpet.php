@@ -210,7 +210,7 @@ draw_Sierpinski_canvas
 //
 ctx2d.restore();
 //
-setTimeout(draw_anim, 1000);
+setTimeout(draw_anim, 2000);
 //
 return;
 //
