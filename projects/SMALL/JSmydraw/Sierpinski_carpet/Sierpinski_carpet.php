@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Drawing Sierpinski triangle
+// Drawing Sierpinski carpet
 //
 (* ****** ****** *)
 //
@@ -31,52 +31,71 @@ staload
 (* beg-of-php *)
 <?php
 //
-include './mydraw.dats'
+include './../mydraw.dats'
 //
 ?>(* end-of-php *)
 //
-(* ****** ****** *)
-
-fun
-mid_ppp (
-  p1: point, p2: point
-) : point = p1 + (p2 - p1)/2.0
-  
 (* ****** ****** *)
 
 extern
 fun{}
 draw_Sierpinski
 (
-  p1: point, p2: point, p3: point, clr: color, n: int
-) : void = "mac#" // end of [draw_Sierpinski]
+  p1: point, p2: point, p3: point, p4: point, clr: color, n: int
+) : void // end of [draw_Sierpinski]
+
+(* ****** ****** *)
+
+macdef C1 = 1.0 / 3
+macdef C2 = 2.0 / 3
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
 draw_Sierpinski
-(
-  p1, p2, p3, clr, n
-) = let
+  (p1, p2, p3, p4, clr, n) = let
 //
-macdef mid = mid_ppp
+macdef draw = draw_Sierpinski
 //
 in
 //
-if
-n >= 1
-then let
-  val p12 = (p1 \mid p2)
-  val p23 = (p2 \mid p3)
-  val p31 = (p3 \mid p1)
-  val () = draw3p (p12, p23, p31, clr)
-  val () = draw_Sierpinski (p1, p12, p31, clr, n-1)
-  val () = draw_Sierpinski (p12, p2, p23, clr, n-1)
-  val () = draw_Sierpinski (p31, p23, p3, clr, n-1)
+if n >= 1 then let
+//
+  val v12 = p2 - p1
+  val p12_1 = p1 + C1 * v12
+  val p12_2 = p1 + C2 * v12
+//
+  val v23 = p3 - p2
+  val p23_1 = p2 + C1 * v23
+  val p23_2 = p2 + C2 * v23
+//
+  val v34 = p4 - p3
+  val p34_1 = p3 + C1 * v34
+  val p34_2 = p3 + C2 * v34
+//
+  val v41 = p1 - p4
+  val p41_1 = p4 + C1 * v41
+  val p41_2 = p4 + C2 * v41
+//
+  val p1_ = p12_1 + C1 * v23
+  val p2_ = p12_2 + C1 * v23
+  val p3_ = p34_1 + C1 * v41
+  val p4_ = p34_2 + C1 * v41
+//
+  val () = draw4p (p1_, p2_, p3_, p4_, clr)
+  val () = draw_Sierpinski (p1, p12_1, p1_, p41_2, clr, n-1)
+  val () = draw_Sierpinski (p12_1, p12_2, p2_, p1_, clr, n-1)
+  val () = draw_Sierpinski (p12_2, p2, p23_1, p2_, clr, n-1)
+  val () = draw_Sierpinski (p2_, p23_1, p23_2, p3_, clr, n-1)
+  val () = draw_Sierpinski (p3_, p23_2, p3, p34_1, clr, n-1)
+  val () = draw_Sierpinski (p4_, p3_, p34_1, p34_2, clr, n-1)
+  val () = draw_Sierpinski (p41_1, p4_, p34_2, p4, clr, n-1)
+  val () = draw_Sierpinski (p41_2, p1_, p4_, p41_1, clr, n-1)
+//
 in
   // nothing
-end // end of [then]
+end // end of [if]
 //
 end // end of [draw_Sierpinski]
 
@@ -90,6 +109,7 @@ draw_Sierpinski_canvas
 , x1: double, y1: double
 , x2: double, y2: double
 , x3: double, y3: double
+, x4: double, y4: double
 , r0: double, g0: double, b0: double
 , depth: int
 ) : void = "mac#" // end-of-function
@@ -99,13 +119,13 @@ draw_Sierpinski_canvas
 implement
 draw_Sierpinski_canvas
 (
-  ctx, x1, y1, x2, y2, x3, y3, r0, g0, b0, depth
+  ctx, x1, y1, x2, y2, x3, y3, x4, y4, r0, g0, b0, depth
 ) = let
 //
 implement
-draw3p<>
+draw4p<>
 (
-  p1, p2, p3, clr
+  p1, p2, p3, p4, clr
 ) = let
 //
 val pf = ctx.save()
@@ -113,6 +133,7 @@ val () = ctx.beginPath()
 val () = ctx.moveTo (p1.x, p1.y)
 val () = ctx.lineTo (p2.x, p2.y)
 val () = ctx.lineTo (p3.x, p3.y)
+val () = ctx.lineTo (p4.x, p4.y)
 val () = ctx.closePath()
 val () = ctx.fill()
 val () = ctx.restore (pf.0 | (*none*))
@@ -124,6 +145,7 @@ end // end of [draw3p]
 val p1 = point_make_xy (x1, y1)
 val p2 = point_make_xy (x2, y2)
 val p3 = point_make_xy (x3, y3)
+val p4 = point_make_xy (x4, y4)
 val clr = color_make_rgb (r0, g0, b0)
 //
 macdef
@@ -143,7 +165,7 @@ val ((*void*)) =
 ctx.fillStyle("rgb("+r1+","+g1+","+b1+")")
 //
 in
-  draw_Sierpinski (p1, p2, p3, clr, depth)
+  draw_Sierpinski (p1, p2, p3, p4, clr, depth)
 end // end of [draw_Sierpinski_canvas]
 
 (* ****** ****** *)
@@ -173,16 +195,17 @@ ctx2d.save();
 ctx2d.translate((w-wh2)/2, (h-wh2)/2);
 //
 ctx2d.beginPath();
-ctx2d.moveTo(0, wh2);
+ctx2d.moveTo(0, 0);
+ctx2d.lineTo(0, wh2);
 ctx2d.lineTo(wh2, wh2);
-ctx2d.lineTo(wh2/2, 0);
+ctx2d.lineTo(wh2, 0);
 ctx2d.closePath();
 ctx2d.fillStyle = "#0000ff";
 ctx2d.fill(/*void*/);
 //
 draw_Sierpinski_canvas
 (
-  ctx2d, 0, wh2, wh2, wh2, wh2/2, 0, 1.0, 1.0, 0.0, depth
+  ctx2d, 0, 0, 0, wh2, wh2, wh2, wh2, 0, 1.0, 1.0, 0.0, depth
 ); theDepth = depth % N;
 //
 ctx2d.restore();
@@ -199,4 +222,4 @@ jQuery(document).ready(function(){draw_anim();});
 
 (* ****** ****** *)
 
-(* end of [Sierpinski_3angle.dats] *)
+(* end of [Sierpinski_carpet.dats] *)
