@@ -56,30 +56,6 @@ tok.token_node of
     | Some (d0e) => d0exp_appid (id, d0e)
   end // end of [_ when ...]
 //
-| T_KWORD(ATSempty()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
-  in
-    if err = err0
-      then ATSempty_make (tok, ent2)
-      else tokbuf_set_ntok_null (buf, n0)
-    // end of [if]
-  end // end of [ATSempty]
-//
-| T_KWORD(ATSextval()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_extval, err0)
-    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
-  in
-    if err = err0
-      then ATSextval_make (tok, ent2, ent3)
-      else tokbuf_set_ntok_null (buf, n0)
-  end // end of [ATSextval]
-//
 | T_KWORD(ATSPMVint()) => let
     val bt = 0
     val () = incby1 ()
@@ -181,6 +157,30 @@ tok.token_node of
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSPMVf0loat]
+//
+| T_KWORD(ATSPMVempty()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSPMVempty_make (tok, ent2)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSPMVempty]
+//
+| T_KWORD(ATSPMVextval()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_extval, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then ATSPMVextval_make (tok, ent2, ent3)
+      else tokbuf_set_ntok_null (buf, n0)
+  end // end of [ATSPMVextval]
 //
 | T_KWORD(ATSPMVrefarg0()) => let
     val bt = 0

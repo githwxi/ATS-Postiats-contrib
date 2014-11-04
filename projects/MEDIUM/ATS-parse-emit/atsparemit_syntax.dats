@@ -143,36 +143,6 @@ end // end of [d0exp_appexp]
 (* ****** ****** *)
 //
 implement
-ATSempty_make
-(
-  tok1, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  d0exp_make_node (loc, ATSempty(0))
-end // end of [ATSempty]
-//
-(* ****** ****** *)
-
-implement
-ATSextval_make
-(
-  tok1, toks, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  d0exp_make_node (loc, ATSextval(toks))
-end // end of [ATSextval]
-
-(* ****** ****** *)
-//
-implement
 ATSPMVint_make
 (
   tok1, int, tok2
@@ -273,6 +243,34 @@ in
   d0exp_make_node (loc, ATSPMVf0loat (float))
 end // end of [ATSPMVf0loat]
 
+(* ****** ****** *)
+//
+implement
+ATSPMVempty_make
+(
+  tok1, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVempty(0))
+end // end of [ATSPMVempty]
+//
+implement
+ATSPMVextval_make
+(
+  tok1, toks, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSPMVextval(toks))
+end // end of [ATSPMVextval]
+//
 (* ****** ****** *)
 
 implement

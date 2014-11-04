@@ -237,9 +237,6 @@ keyword =
   | ATSreturn of ()
   | ATSreturn_void of ()
 //
-  | ATSempty of ()
-  | ATSextval of ()
-//
   | ATSPMVint of ()
   | ATSPMVintrep of ()
   | ATSPMVbool_true of ()
@@ -249,6 +246,9 @@ keyword =
 //
   | ATSPMVi0nt of ()
   | ATSPMVf0loat of ()
+//
+  | ATSPMVempty of ()
+  | ATSPMVextval of ()
 //
   | ATSPMVrefarg0 of ()
   | ATSPMVrefarg1 of ()
@@ -748,9 +748,6 @@ d0exp_node =
   | D0Eappid of (i0de, d0explst)
   | D0Eappexp of (d0exp, d0explst)
 //
-  | ATSempty of (int) // void-value
-  | ATSextval of (tokenlst) // external values
-//
   | ATSPMVint of i0nt
   | ATSPMVintrep of i0nt
   | ATSPMVbool of bool
@@ -759,6 +756,9 @@ d0exp_node =
 //
   | ATSPMVi0nt of i0nt
   | ATSPMVf0loat of f0loat
+//
+  | ATSPMVempty of (int) // void-value
+  | ATSPMVextval of (tokenlst) // external values
 //
   | ATSPMVrefarg0 of (d0exp)
   | ATSPMVrefarg1 of (d0exp)

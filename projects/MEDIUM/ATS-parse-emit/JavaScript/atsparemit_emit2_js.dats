@@ -482,11 +482,12 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
   in
     case+ d0e.d0exp_node of
-    | ATSempty _ =>
+    | ATSPMVempty _ =>
         emit_text (out, "// ATSINSmove_void")
       // end of [ATSempty]
-    | _ (*non-ATSempty*) =>
+    | _ (*non-ATSPMVempty*) =>
         (emit_d0exp (out, d0e); emit_SEMICOLON (out))
+      // end of [non-ATSPMVempty]
   end (* end of [ATSINSmove_void] *)
 //
 | ATSINSmove_nil (tmp) =>

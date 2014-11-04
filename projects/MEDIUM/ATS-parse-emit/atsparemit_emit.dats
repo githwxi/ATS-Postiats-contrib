@@ -200,9 +200,6 @@ end // end of [emit_tokenlst]
 (* ****** ****** *)
 //
 implement
-emit_extval
-  (out, toks) = emit_tokenlst (out, toks)
-implement
 emit_extcode
   (out, toks) = emit_tokenlst (out, toks)
 //
