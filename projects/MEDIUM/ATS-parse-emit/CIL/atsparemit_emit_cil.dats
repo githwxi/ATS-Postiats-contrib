@@ -1194,8 +1194,6 @@ d0e.d0exp_node of
 //
 // TODO: D0Elist
 //
-| ATSempty (x) => () (* value of type [void] in ATS *)
-//
 | ATSPMVint (tok) =>
   {
     val () = emit_text (out, "ldc.i4")
@@ -1239,6 +1237,8 @@ d0e.d0exp_node of
     val () = emit_text (out, rep)
   }
 //
+| ATSPMVempty (x) => () (* of type [void] in ATS *)
+//
 | ATSPMVfunlab (fnlab) => emit_ATSPMVfunlab (out, fnlab)
 //
 | ATSPMVcfunlab (knd, fnlab, d0es) => emit_ATSPMVcfunlab (out, knd, fnlab, d0es)
@@ -1250,7 +1250,9 @@ d0e.d0exp_node of
 //
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e)
 //
-//| ATSfunclo_fun (d0e, args, res) => emit_ATSfunclo_fun (out, d0e, args, res)
+(*
+| ATSfunclo_fun (d0e, args, res) => emit_ATSfunclo_fun (out, d0e, args, res)
+*)
 //
 | _ => emit_text (out, "**D0EXP**")
 //
