@@ -328,7 +328,7 @@ val p3 = point_make_xy (x3, y3)
 val clr = color_make_rgb (r0, g0, b0)
 //
 macdef
-floor(x) = $extfcall(double, "Math.floor", x)
+floor(x) = JSmath_floor(,(x))
 //
 val r1 =
   floor(255 * r0)
@@ -340,8 +340,8 @@ val r1 = String(r1)
 and g1 = String(g1)
 and b1 = String(b1)
 //
-val clr1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")"
-val ((*void*)) = ctx.fillStyle (clr1)
+val ((*void*)) =
+ctx.fillStyle("rgb("+r1+","+g1+","+b1+")")
 //
 in
   draw_Sierpinski (p1, p2, p3, clr, depth)
@@ -388,7 +388,7 @@ draw_Sierpinski_canvas
 //
 ctx2d.restore();
 //
-setTimeout(draw_anim, 1000);
+setTimeout(draw_anim, 4000);
 //
 return;
 //
