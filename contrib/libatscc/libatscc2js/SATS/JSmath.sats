@@ -27,10 +27,44 @@ val JSmath_LOG2E : double = "mac#%"
 val JSmath_LOG10E : double = "mac#%"
 
 (* ****** ****** *)
+
+fun JSmath_abs : double -> double = "mac#%"
+
+(* ****** ****** *)
+//
+fun JSmath_max
+  : (double, double) -> double = "mac#%"
+fun JSmath_min
+  : (double, double) -> double = "mac#%"
+//
+(* ****** ****** *)
+
+fun JSmath_sqrt : double -> double = "mac#%"
+
+(* ****** ****** *)
+
+fun JSmath_exp : double -> double = "mac#%"
+fun JSmath_pow : (double, double) -> double = "mac#%"
+fun JSmath_log : double -> double = "mac#%"
+
+(* ****** ****** *)
+  
+fun JSmath_ceil : double -> double = "mac#%"
+fun JSmath_floor : double -> double = "mac#%"
+fun JSmath_round : double -> double = "mac#%"
+  
+(* ****** ****** *)
 //
 fun JSmath_sin : double -> double = "mac#%"
 fun JSmath_cos : double -> double = "mac#%"
 fun JSmath_tan : double -> double = "mac#%"
+//
+(* ****** ****** *)
+//
+fun JSmath_asin : double -> double = "mac#%"
+fun JSmath_acos : double -> double = "mac#%"
+fun JSmath_atan : double -> double = "mac#%"
+fun JSmath_atan2 (y: double, x: double): double = "mac#%"
 //
 (* ****** ****** *)
 

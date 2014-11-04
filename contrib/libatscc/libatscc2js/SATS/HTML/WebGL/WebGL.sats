@@ -20,19 +20,37 @@
 *)
 
 (* ****** ****** *)
-//
-// HX-2014-08:
-// prefix for external names
-//
-#define
-ATS_EXTERN_PREFIX "ats2js_HTML5_"
-//
-(* ****** ****** *)
-
 (*
-** API in ATS for HTML5/canvas-3d
+** API in ATS for HTML5/WebGL
 *)
-
+(* ****** ****** *)
+(*
+** Author: Hongwei Xi
+** Authoremail: gmhwxi AT gmail DOT com
+** Start Time: November, 2014
+*)
 (* ****** ****** *)
 
-(* end of [canvas3d.sats] *)
+#define
+ATS_STALOADFLAG 0 // no staloading at run-time
+#define
+ATS_EXTERN_PREFIX "ats2js_HTML5_" // prefix for external names
+
+(* ****** ****** *)
+//
+abstype canvas_type
+typedef canvas = canvas_type
+//
+abstype canvasgl_type
+typedef canvasgl = canvasgl_type
+//
+(* ****** ****** *)
+//
+fun
+canvas_getById (id: string): canvas = "mac#%"
+fun
+canvasgl_getById (id: string): canvasgl = "mac#%"
+//
+(* ****** ****** *)
+
+(* end of [WebGL.sats] *)

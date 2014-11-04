@@ -126,12 +126,19 @@ val p2 = point_make_xy (x2, y2)
 val p3 = point_make_xy (x3, y3)
 val clr = color_make_rgb (r0, g0, b0)
 //
-val r1 = 255 * r0
-and g1 = 255 * g0
-and b1 = 255 * b0
+macdef
+floor(x) = $extfcall(double, "Math.floor", x)
+//
+val r1 =
+  floor(255 * r0)
+and g1 =
+  floor(255 * g0)
+and b1 =
+  floor(255 * b0)
 val r1 = String(r1)
 and g1 = String(g1)
 and b1 = String(b1)
+//
 val clr1 = "rgb(" + r1 + "," + g1 + "," + b1 + ")"
 val ((*void*)) = ctx.fillStyle (clr1)
 //
