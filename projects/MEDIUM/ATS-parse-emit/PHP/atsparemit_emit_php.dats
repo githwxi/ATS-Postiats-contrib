@@ -171,14 +171,11 @@ emit_PMVextval
   (out, toks) = emit_tokenlst (out, toks)
 //
 (* ****** ****** *)
-
+//
 implement
 emit_PMVfunlab
-  (out, flab) = let
-in
-  emit_label (out, flab)
-end // end of [emit_PMVfunlab]
-
+  (out, flab) = emit_label (out, flab)
+//
 (* ****** ****** *)
 
 implement

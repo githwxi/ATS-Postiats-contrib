@@ -146,7 +146,7 @@ end // end of [draw_Sierpinski_canvas]
 var
 canvas =
 document.getElementById("Patsoptaas-Evaluate-canvas");
-var context = canvas.getContext( '2d' );
+var ctx2d = canvas.getContext( '2d' );
 //
 var N = 6;
 var theDepth = 0;
@@ -162,23 +162,23 @@ var wh2 = 0.88 * wh
 //
 var depth = theDepth+1
 //
-context.save();
-context.translate((w-wh2)/2, (h-wh2)/2);
+ctx2d.save();
+ctx2d.translate((w-wh2)/2, (h-wh2)/2);
 //
-context.beginPath();
-context.moveTo(0, wh2);
-context.lineTo(wh2, wh2);
-context.lineTo(wh2/2, 0);
-context.closePath();
-context.fillStyle = "#0000ff";
-context.fill(/*void*/);
+ctx2d.beginPath();
+ctx2d.moveTo(0, wh2);
+ctx2d.lineTo(wh2, wh2);
+ctx2d.lineTo(wh2/2, 0);
+ctx2d.closePath();
+ctx2d.fillStyle = "#0000ff";
+ctx2d.fill(/*void*/);
 //
 draw_Sierpinski_canvas
 (
-  context, 0, wh2, wh2, wh2, wh2/2, 0, 1.0, 1.0, 0.0, depth
+  ctx2d, 0, wh2, wh2, wh2, wh2/2, 0, 1.0, 1.0, 0.0, depth
 ); theDepth = depth % N;
 //
-context.restore();
+ctx2d.restore();
 //
 setTimeout(draw_anim, 1000);
 //
@@ -192,4 +192,4 @@ jQuery(document).ready(function(){draw_anim();});
 
 (* ****** ****** *)
 
-(* end of [Sierpinski_triangle.dats] *)
+(* end of [Sierpinski_3angle.dats] *)
