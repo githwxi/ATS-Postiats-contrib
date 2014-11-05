@@ -619,31 +619,36 @@ function
 theCtx2d_get() { return ctx2d; }
 //
 function
+initize()
+{
+//
+var w = canvas.width
+var h = canvas.height
+var wh = 0.88 * Math.min (w, h)
+//
+theP1_set(0, 0); theP2_set(0, wh); theP3_set(wh, wh); theP4_set(wh, 0);
+//
+ctx2d.save();
+ctx2d.translate((w-wh)/2, (h-wh)/2);
+//
+return;
+}
+//
+function
 configSearch_(i)
 {
-  setTimeout(function(){return configSearch(i);}, 250);
+  setTimeout(function(){initize();configSearch(i);ctx2d.restore();return;}, 400);
 }
 //
 function
 draw_main()
 {
 //
-var w = canvas.width
-var h = canvas.height
-var wh = Math.min (w, h)
-var wh2 = 0.88 * wh
+initize();
+draw_theBoard(ctx2d);
+ctx2d.restore();
 //
-theP1_set(0, 0);
-theP2_set(0, wh2);
-theP3_set(wh2, wh2);
-theP4_set(wh2, 0);
-//
-ctx2d.translate
-(
-  (w-wh2)/2, (h-wh2)/2
-) ;
-//
-draw_theBoard(ctx2d); configSearch_(0);
+configSearch_(0);
 //
 return;
 //
