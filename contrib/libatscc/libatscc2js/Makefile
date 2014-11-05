@@ -54,11 +54,15 @@ output/DATS/reference_dats.js \
 #
 upload_source:: ; \
 scp -r basics_js.sats staloadall.hats CATS SATS DATS \
-  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/.
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
+#
+upload_all_in_one:: ; \
+scp libatscc2js_all.js \
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
 #
 upload_DATS_JS:: ; \
 scp output/DATS/*_dats.js \
-  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/DATS/.
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/DATS/.
 #
 #######
 

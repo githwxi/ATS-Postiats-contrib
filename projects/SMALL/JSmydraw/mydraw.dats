@@ -5,6 +5,13 @@
 //
 (* ****** ****** *)
 
+(*
+#ifndef JSMYDRAW_MYDRAW_DATS
+#define JSMYDRAW_MYDRAW_DATS 1
+*)
+
+(* ****** ****** *)
+
 abstype point_type = ptr
 typedef point = point_type
 abstype vector_type = ptr
@@ -199,6 +206,12 @@ fun{}
 draw4p
   (p1: point, p2: point, p3: point, p4: point): void
 // end of [draw4p]
+
+(* ****** ****** *)
+
+(*
+#endif // #ifndef(JSMYDRAW_MYDRAW_DATS)
+*)
 
 (* ****** ****** *)
 

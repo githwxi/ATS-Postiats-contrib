@@ -8,7 +8,7 @@ PATSCC=patscc
 ATSCC2JS=atscc2js
 
 ######
-
+#
 all:: \
 Sierpinski_carpet_php.dats
 Sierpinski_carpet_php.dats: Sierpinski_carpet.php ; $(PHP) -f $< > $@

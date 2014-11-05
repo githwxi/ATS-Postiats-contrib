@@ -8,7 +8,7 @@ PATSCC=patscc
 ATSCC2JS=atscc2js
 
 ######
-
+#
 all:: \
 Sierpinski_3angle_php.dats
 Sierpinski_3angle_php.dats: Sierpinski_3angle.php ; $(PHP) -f $< > $@

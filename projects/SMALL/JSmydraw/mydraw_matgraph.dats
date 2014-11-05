@@ -10,10 +10,6 @@
 // previous code made for teaching
 //
 (* ****** ****** *)
-
-staload "./mydraw.dats"
-
-(* ****** ****** *)
 //
 // HX-2014-11-04:
 // p1, p2, p3 and p4 are positioned CCW
@@ -53,7 +49,7 @@ fun loop
   i: intGte(0)
 ) : void = let
 //
-val fi = g0i2f(i)
+val fi = int2double(i)
 val p1 = p1 + fi * v12
 val p2 = p1 + v12
 val p4 = p4 + fi * v43
@@ -66,13 +62,13 @@ fun loop2
   j: intGte(0)
 ) : void = let
 //
-val fj = g0i2f(j)
+val fj = int2double(j)
 val p1 = p1 + fj * v14
 val p4 = p1 + v14
 val p2 = p2 + fj * v23
 val p3 = p2 + v23
 val () =
-mydraw_matgraph$fcell (i, j, p1, p2, p3, p4)
+mydraw_matgraph$fcell<> (i, j, p1, p2, p3, p4)
 //
 in
 //
@@ -80,7 +76,7 @@ if j + 1 < n then loop2 (j + 1) else ((*void*))
 //
 end // end of [loop2]
 //
-val () = loop2 (0)
+val ((*void*)) = loop2 (0)
 //
 in
 //

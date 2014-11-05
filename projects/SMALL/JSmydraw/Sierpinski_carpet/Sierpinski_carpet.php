@@ -31,7 +31,7 @@ staload
 (* beg-of-php *)
 <?php
 //
-include './../mydraw.dats'
+include './../mydraw.dats';
 //
 ?>(* end-of-php *)
 //

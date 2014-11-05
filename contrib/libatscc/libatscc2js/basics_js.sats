@@ -40,7 +40,7 @@ fun alert(msg: string): void = "mac#%"
 //
 (* ****** ****** *)
 //
-fun confirm(msg: string): void = "mac#%"
+fun confirm(msg: string): bool = "mac#%"
 //
 (* ****** ****** *)
 //

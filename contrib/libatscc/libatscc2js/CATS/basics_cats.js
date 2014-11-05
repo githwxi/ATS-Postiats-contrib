@@ -101,7 +101,7 @@ ats2jspre_alert(msg) { alert(msg); return; }
 /* ****** ****** */
 
 function
-ats2jspre_confirm(msg) { confirm(msg); return; }
+ats2jspre_confirm(msg) { return confirm(msg); }
 
 /* ****** ****** */
 //
