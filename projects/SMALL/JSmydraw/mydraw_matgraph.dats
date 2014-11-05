@@ -1,31 +1,26 @@
-(*
-** Displaying bar graphs
-*)
 (* ****** ****** *)
 //
-// Author: Hongwei Xi
-// Authoremail: gmhwxiATgmailDOTcom
-// Start time: February, 2014
+// mydraw_matgraph:
+// For drawing matrices
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
+// HX-2014-11-04:
+// it is adapted from
+// previous code made for teaching
 //
 (* ****** ****** *)
 
-staload "./../SATS/mydraw.sats"
+staload "./mydraw.dats"
 
 (* ****** ****** *)
 //
-// HX:
-// p1,p2,p3,p4 are CCW-positioned
+// HX-2014-11-04:
+// p1, p2, p3 and p4 are positioned CCW
 //
 extern
-fun{
-} mydraw_matgraph
+fun{}
+mydraw_matgraph
 (
   m: intGte(1), n: intGte(1)
 , p1: point, p2: point, p3: point, p4: point
@@ -33,12 +28,7 @@ fun{
 //
 extern
 fun{}
-mydraw_matgraph$color
-  (i: intGte(0), j: intGte(0)): color
-//
-extern
-fun{}
-mydraw_matgraph$draw_cell
+mydraw_matgraph$fcell
 (
   i: intGte(0), j: intGte(0)
 , p1: point, p2: point, p3: point, p4: point
@@ -81,33 +71,26 @@ val p1 = p1 + fj * v14
 val p4 = p1 + v14
 val p2 = p2 + fj * v23
 val p3 = p2 + v23
-val () = mydraw_matgraph$draw_cell (i, j, p1, p2, p3, p4)
+val () =
+mydraw_matgraph$fcell (i, j, p1, p2, p3, p4)
 //
 in
-  if j + 1 < n then loop2 (j + 1) else ()
+//
+if j + 1 < n then loop2 (j + 1) else ((*void*))
+//
 end // end of [loop2]
 //
 val () = loop2 (0)
 //
 in
-  if succ(i) < m then loop (succ(i)) else ()
+//
+if succ(i) < m then loop (succ(i)) else ((*void*))
+//
 end // end of [loop]
 //
 in
   loop (0)
 end // end of [mydraw_matgraph]
-
-(* ****** ****** *)
-
-implement{}
-mydraw_matgraph$draw_cell
-  (i, j, p1, p2, p3, p4) = () where
-{
-  val c = mydraw_matgraph$color (i, j)
-  val () = mydraw_quadrilateral (p1, p2, p3, p4)
-  val ((*void*)) = mydraw_fill_set_rgb (c.r, c.g, c.b)
-  val ((*void*)) = mydraw_fill ((*void*))
-} (* end of [mydraw_matgraph$draw_cell] *)
 
 (* ****** ****** *)
 
