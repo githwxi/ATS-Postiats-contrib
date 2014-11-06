@@ -64,8 +64,7 @@ draw_theBoard (canvas2d): void = "mac#"
 extern
 fun
 configSearch (i: natLte(N)): void = "mac#"
-extern
-fun
+and
 configSearch_ (i: natLte(N)): void = "mac#"
 //
 (* ****** ****** *)

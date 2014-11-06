@@ -260,6 +260,13 @@ draw4p
 // previous code made for teaching
 //
 (* ****** ****** *)
+
+(*
+#include "./mydraw.dats"
+extern fun int2double : int -> double  
+*)
+
+(* ****** ****** *)
 //
 // HX-2014-11-04:
 // p1, p2, p3 and p4 are positioned CCW
@@ -370,8 +377,7 @@ draw_theBoard (canvas2d): void = "mac#"
 extern
 fun
 configSearch (i: natLte(N)): void = "mac#"
-extern
-fun
+and
 configSearch_ (i: natLte(N)): void = "mac#"
 //
 (* ****** ****** *)

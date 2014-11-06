@@ -18,6 +18,13 @@ Sierpinski_3angle_php_dats.js: Sierpinski_3angle_php_dats.c; $(ATSCC2JS) -o $@ -
 # cleanall:: ; $(RMF) Sierpinski_3angle_php.dats
 #
 ######
+#
+upload_demo:: \
+Sierpinski_3angle.html \
+Sierpinski_3angle_php_dats.js ; \
+scp $^ ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSmydraw/.
+#
+######
 
 RMF=rm -f
 

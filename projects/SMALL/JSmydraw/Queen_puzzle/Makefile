@@ -18,6 +18,13 @@ Queen_puzzle_php_dats.js: Queen_puzzle_php_dats.c; $(ATSCC2JS) -o $@ -i $<
 # cleanall:: ; $(RMF) Queen_puzzle_php.dats
 #
 ######
+#
+upload_demo:: \
+Queen_puzzle.html \
+Queen_puzzle_php_dats.js ; \
+scp $^ ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSmydraw/.
+#
+######
 
 RMF=rm -f
 

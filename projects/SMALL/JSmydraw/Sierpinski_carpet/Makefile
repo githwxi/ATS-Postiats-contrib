@@ -18,6 +18,13 @@ Sierpinski_carpet_php_dats.js: Sierpinski_carpet_php_dats.c; $(ATSCC2JS) -o $@ -
 # cleanall:: ; $(RMF) Sierpinski_carpet_php.dats
 #
 ######
+#
+upload_demo:: \
+Sierpinski_carpet.html \
+Sierpinski_carpet_php_dats.js ; \
+scp $^ ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSmydraw/.
+#
+######
 
 RMF=rm -f
 
