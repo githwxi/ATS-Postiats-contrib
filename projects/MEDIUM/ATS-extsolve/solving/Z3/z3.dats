@@ -345,7 +345,7 @@ evaluate_macro_exn (slv, str, fs) = let
     tup
    end
   //
-  val () = println! ("Evaluating a macro: ", str)
+  // val () = println! ("Evaluating a macro: ", str)
   //
   implement
   list_vt_freelin$clear<formula> (x) = $effmask_all (

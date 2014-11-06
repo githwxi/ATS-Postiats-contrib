@@ -39,7 +39,7 @@ s.add (
     ForAll ([A, i], Implies (i < 0, A[i] == 0))
 )
 
-# The "nil" sequence
+# The "nil" sequenc
 
 nil = Function ('stampseq_nil', StampSeqSort())
 
@@ -123,11 +123,22 @@ s.add (
 )
 
 s.add (
-    ForAll([A, B, C, n], Implies (And(permutation(A, B, n), permutation(B, C, n)), permutation(A, C, n)))
+    ForAll([A, B, C, n], 
+                Implies (
+                               And(permutation(A, B, n), permutation(B, C, n)), permutation(A, C, n)
+                 )
+     )
 )
 
-s.add (
-    ForAll([A, B, x, i, n], Implies (And(A == cons (x, B), 0 <= i, i <= n), permutation (A, insert(B, i, x), n)))
+s.add(
+     ForAll([A, B, C, x, i, n], 
+                 Implies (
+                                And(0 <= i, i < n-1, A == cons (x, B),
+                                        permutation (B, C, n-1)
+                                ),
+                                permutation (A, insert (C, i, x), n)
+                  )
+     )
 )
 
 # Sorting

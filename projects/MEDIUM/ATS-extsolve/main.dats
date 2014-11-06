@@ -44,7 +44,7 @@ implement main0 (argc, argv) = let
   val () = constraint3_initialize ()
   val args = parse_argv (argc, argv)
   //
-  macdef nonlinear = list_of_list_vt  
+  macdef nonlinear = list_of_list_vt
   //
   implement
   list_vt_freelin$clear<commarg> (x) = {

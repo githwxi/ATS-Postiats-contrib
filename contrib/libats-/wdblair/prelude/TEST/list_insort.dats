@@ -32,17 +32,13 @@ staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
   A good question is why do we need these props and axioms? Wasn't the
   point of using an external solver to eliminate the need for these?
   If I have to use props anyways, why should I use an external solver?
- 
-  In answering this question, I hope to reveal some motivation behind
-  why I am working on this project and why I think it is important (or
-  could be eventually).
-  
+
   Consider a simple example of doing pattern matching on a list xs.
   The value xs is concrete in that it occupies memory in our process
   that we can examine. In order to precisely reason about our
-  program's behavior with respect to the value xs, we have a static
-  sequence of stamps sxs that represents the exact contents of xs.
-  
+  program's behavior with respect to xs, we have a static sequence of
+  stamps sxs that represents the exact contents of xs.
+
   Assume xs is a sorted list. That is, we can apply a static relation
   sorted to sxs to assert this statically.
   
@@ -76,14 +72,8 @@ staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
   properties of our programs in which we are interested.
   
   The advantage of having a more advanced constraint solver in the
-  first place is that you need not express _all_ relations over static
-  high level datastructures like sequences using ATS proofs. This
-  creates a more convenient experience and allows us to utilize the
-  decision power offered by todays advanced tools in the Formal
-  methods community.
-  
-  
-  This is really all about trade-offs.
+  first place is that it allows you to balance automated and interactive
+  verification as you see fit.
 *)
 absprop SORTED (xs:stmsq, n:int)
 
@@ -184,7 +174,7 @@ fun {a:t@ype} insord1
   {xs:stmsq | ordered (xs)}
 (
   x: T(a, x0), xs: list (a, xs, n)
-) : [i:nat | i <= n; ordered (insert(xs, i, x0))]
+) : [i:nat | i < n; ordered (insert(xs, i, x0))]
 (
   list (a, insert(xs, i, x0), n+1)
 )
@@ -193,8 +183,8 @@ extern
 fun {a:t@ype} sort1 
   {n:nat} {xs: stmsq} 
 (
-  xs: list (a, xs, n) 
-) : [ys:stmsq | ordered (ys)]
+  xs: list (a, xs, n)
+) : [ys:stmsq | ordered (ys); permutation(xs, ys, n)]
 (
   list (a, ys, n)
 )
@@ -228,7 +218,7 @@ case+ xs of
 implement {a}
 sort1 (xs) =
 case+ xs of
-  | nil () => nil ()
+  | nil ()  => nil ()
   | x :: xss =>
     insord1 (x, sort1 (xss))
 
