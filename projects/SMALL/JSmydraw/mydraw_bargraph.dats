@@ -61,7 +61,7 @@ val p1_new = p1 + v12
 val p4_new = p4 + v43
 //
 val () =
-mydraw_bargraph$fcell (i, p1, p1_new, p3, p4_new)
+mydraw_bargraph$fcell (i, p1, p1_new, p4_new, p4)
 //
 val i1 = i + 1
 //

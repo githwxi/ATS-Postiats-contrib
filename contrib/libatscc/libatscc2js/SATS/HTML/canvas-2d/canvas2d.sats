@@ -66,10 +66,7 @@ fun
 canvas2d_clearRect
 (
   canvas2d
-, x: double
-, y: double
-, wd: double
-, ht: double
+, x: int, y: int, wd: int, ht: int
 ) : void = "mac#%" // endfun
 
 overload .clearRect with canvas2d_clearRect

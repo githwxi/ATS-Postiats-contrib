@@ -25,6 +25,9 @@ staload UN =
 (* ****** ****** *)
 //
 staload "./../basics_js.sats"
+//
+staload "./../SATS/integer.sats"
+//
 staload "./../SATS/JSarray.sats"
 //
 (* ****** ****** *)
