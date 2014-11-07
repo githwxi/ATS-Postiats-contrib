@@ -1,6 +1,8 @@
 (* ****** ****** *)
 //
-// Insertion-sort
+// HX-2014-11-05:
+//
+// Animating insert-sort
 //
 (* ****** ****** *)
 //
