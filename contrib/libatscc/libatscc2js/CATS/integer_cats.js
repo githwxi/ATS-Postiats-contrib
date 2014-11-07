@@ -34,9 +34,22 @@ ats2jspre_pred_int0(x) { return (x - 1); }
 /* ****** ****** */
 
 function
+ats2jspre_half_int0(x)
+{
+  return (x >= 0) ? Math.floor(x/2) : Math.ceil(x/2);
+}
+
+/* ****** ****** */
+
+function
 ats2jspre_succ_int1(x) { return (x + 1); }
 function
 ats2jspre_pred_int1(x) { return (x - 1); }
+
+/* ****** ****** */
+
+function
+ats2jspre_half_int1(x) { return ats2jspre_half_int0(x); }
 
 /* ****** ****** */
 

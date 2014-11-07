@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Insertion-sort
+// Quick-sort
 //
 (* ****** ****** *)
 //
@@ -29,12 +29,17 @@ staload
 //
 (* ****** ****** *)
 //
-#include "./../mydraw.dats";
-#include "./../mydraw_bargraph.dats";
+(* beg-of-php *)
+<?php
+//
+include "./../mydraw.dats";
+include "./../mydraw_bargraph.dats";
+//
+?>(* end-of-php *)
 //
 (* ****** ****** *)
 
-#define N 16
+#define N 64
 
 (* ****** ****** *)
 //
@@ -58,31 +63,19 @@ sort_theArray (): void = "mac#"
 (* ****** ****** *)
 //
 extern
-fun theW_get (): int = "mac#"
-and theH_get (): int = "mac#"
+fun
+theCtx2d_get(): canvas2d = "mac#"
 //
 extern
 fun
-theCtx2d_get (): canvas2d = "mac#"
-//
-extern
-fun
-draw_theArray (canvas2d): void = "mac#"
+draw_theArray(ctx: canvas2d): void = "mac#"
 //
 (* ****** ****** *)
 //
 extern
 fun
-sort_rest (i: natLte(N)): void
-//
-implement
-sort_theArray () = sort_rest (0)
-//
-(* ****** ****** *)
-//
-extern
-fun
-interchange (natLt(N), natLt(N)): void
+interchange
+  (natLt(N), natLt(N)): void
 //
 implement
 interchange
@@ -92,67 +85,127 @@ interchange
 end // end of [interchange]
 //
 (* ****** ****** *)
+
+fun
+sort_final
+(
+// argumentless
+) : void = alert ("Sorting is completed.")
+
+(* ****** ****** *)
+//
+typedef
+interval = '(
+  natLte(N), natLte(N)
+) (* end of-typedef *)
+//
+typedef
+intervalist = List0(interval)
 //
 extern
 fun
-sort_rest2
-{i:nat | i < N}
-  (i: int(i), j: natLte(i)) : void = "mac#"
+sort_aux1 (intervalist): void = "mac#"
 and
-sort_rest2_
-{i:nat | i < N}
-  (i: int(i), j: natLte(i)) : void = "mac#"
+sort_aux1_ (intervalist): void = "mac#"
+//
+extern
+fun
+sort_aux2
+{i,j:int |
+ 0 <= i; i+2 <= j; j <= N
+} (int(i), int(j), intervalist): void = "mac#"
+//
+extern
+fun
+sort_aux3
+{i,j,i1,j1:int |
+ 0 <= i; i+2 <= j; j <= N;
+ 0 <= i1; i1 <= j1; j1 <= j-1
+} (int(i), int(j), int(i1), int(j1), intervalist): void = "mac#"
+and
+sort_aux3_
+{i,j,i1,j1:int |
+ 0 <= i; i+2 <= j; j <= N;
+ 0 <= i1; i1 <= j1; j1 <= j-1
+} (int(i), int(j), int(i1), int(j1), intervalist): void = "mac#"
+//
+(* ****** ****** *)
+//
+implement
+sort_theArray () =
+  sort_aux1 (list_cons{interval}( '(0,N), list_nil ))
 //
 (* ****** ****** *)
 
 implement
-sort_rest2
-  (i, j) = let
+sort_aux1 (xs) =
+(
+case+ xs of
+| list_nil () =>
+    sort_final ()
+| list_cons (x, xs) => let
+    val i = x.0 and j = x.1
+  in
+    if i + 2 <= j
+      then sort_aux2 (i, j, xs) else sort_aux1 (xs)
+    // end of [if]
+  end // end of [list_cons]
+) (* end of [sort_aux1] *)
+
+(* ****** ****** *)
+
+implement
+sort_aux2
+  (i, j, xs) = let
 //
-val A = theArray
+val k = i+half(j-i)
 //
+val () =
+  interchange (k, j-1)
+val () =
+  draw_theArray(theCtx2d_get())
+//
+in
+  sort_aux3_ (i, j, i, i, xs)
+end // end of [sort_aux2]
+
+(* ****** ****** *)
+
+implement
+sort_aux3
+(
+  i, j, i1, j1, xs
+) = let
+  val A = theArray
 in
 //
 if
-j > 0
-then let
-  val j1 = j - 1
-in
-//
+j1 < j-1
+then
+(
 if
-A[j] >= A[j1]
-then sort_rest (i+1)
+A[j1] < A[j-1]
+then (
+  if i1 < j1
+    then let
+      val () = interchange (i1, j1)
+      val () = draw_theArray(theCtx2d_get())
+    in
+      sort_aux3_ (i, j, i1+1, j1+1, xs)
+    end // end of [then]
+    else sort_aux3 (i, j, i1+1, j1+1, xs)
+  // end of [if]
+) else sort_aux3 (i, j, i1, j1+1, xs)
+// end of [if]
+) (* end of [then] *)
 else let
-//
-val () = interchange (j, j1)
-val () = draw_theArray (theCtx2d_get())
-//
+  val () = interchange (i1, j1)
+  val () = draw_theArray(theCtx2d_get())
 in
-  sort_rest2_ (i, j1)
+  sort_aux1_ (list_cons ( '(i, i1), list_cons ( '(i1+1, j), xs ) ))
 end // end of [else]
 //
-end // end of [then]
-else sort_rest (i+1)
-//
-end (* end of [sort_rest2] *)
-
-(* ****** ****** *)
-
-fun
-sort_final (): void =
-(
-  alert ("Sorting is completed.")
-) (* end of [sort_final] *)
-
-(* ****** ****** *)
-
-implement
-sort_rest (i) =
-(
-if i < N
-  then sort_rest2(i, i) else sort_final()
-// end of [if]
-)
+end // end of [sort_aux3]
 
 (* ****** ****** *)
 
@@ -248,9 +301,7 @@ in
   // nothing
 end // end of [mydraw_bargraph$fcell]
 //
-val W = theW_get ()
-and H = theH_get ()
-val () = ctx.clearRect (0, 0, W, H)
+val () = $extfcall(void, "theCtx2d_clear")
 val () = mydraw_bargraph<> (N, p1, p2, p3, p4)
 //
 in
@@ -270,16 +321,17 @@ document.getElementById
   "Patsoptaas-Evaluate-canvas"
 );
 //
-function
-theW_get() { return canvas.width; }
-function
-theH_get() { return canvas.height; }
-//
 var
 ctx2d = canvas.getContext('2d');
 //
 function
 theCtx2d_get() { return ctx2d; }
+//
+function
+theCtx2d_clear ()
+{
+  return ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+}
 //
 function
 initize()
@@ -299,9 +351,14 @@ return;
 }
 //
 function
-sort_rest2_(i,j)
+sort_aux1_(xs)
 {
-  setTimeout(function(){initize();sort_rest2(i,j);ctx2d.restore();return;}, 400);
+  setTimeout(function(){initize();sort_aux1(xs);ctx2d.restore();return;}, 200);
+}
+function
+sort_aux3_(i,j,i1,j1,xs)
+{
+  setTimeout(function(){initize();sort_aux3(i,j,i1,j1,xs);ctx2d.restore();return;}, 200);
 }
 //
 function
@@ -323,4 +380,4 @@ jQuery(document).ready(function(){draw_main();});
 
 (* ****** ****** *)
 
-(* end of [Sorting_insert.dats] *)
+(* end of [Sorting_quick.dats] *)

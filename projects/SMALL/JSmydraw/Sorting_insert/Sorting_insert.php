@@ -63,10 +63,6 @@ sort_theArray (): void = "mac#"
 (* ****** ****** *)
 //
 extern
-fun theW_get (): int = "mac#"
-and theH_get (): int = "mac#"
-//
-extern
 fun
 theCtx2d_get (): canvas2d = "mac#"
 //
@@ -79,6 +75,18 @@ draw_theArray (canvas2d): void = "mac#"
 extern
 fun
 sort_rest (i: natLte(N)): void
+//
+extern
+fun
+sort_rest2
+{i:nat | i < N}
+  (i: int(i), j: natLte(i)) : void = "mac#"
+and
+sort_rest2_
+{i:nat | i < N}
+  (i: int(i), j: natLte(i)) : void = "mac#"
+//
+(* ****** ****** *)
 //
 implement
 sort_theArray () = sort_rest (0)
@@ -98,15 +106,8 @@ end // end of [interchange]
 //
 (* ****** ****** *)
 //
-extern
 fun
-sort_rest2
-{i:nat | i < N}
-  (i: int(i), j: natLte(i)) : void = "mac#"
-and
-sort_rest2_
-{i:nat | i < N}
-  (i: int(i), j: natLte(i)) : void = "mac#"
+sort_final (): void = alert ("Sorting is completed.")
 //
 (* ****** ****** *)
 
@@ -140,14 +141,6 @@ end // end of [then]
 else sort_rest (i+1)
 //
 end (* end of [sort_rest2] *)
-
-(* ****** ****** *)
-
-fun
-sort_final (): void =
-(
-  alert ("Sorting is completed.")
-) (* end of [sort_final] *)
 
 (* ****** ****** *)
 
@@ -253,9 +246,7 @@ in
   // nothing
 end // end of [mydraw_bargraph$fcell]
 //
-val W = theW_get ()
-and H = theH_get ()
-val () = ctx.clearRect (0, 0, W, H)
+val () = $extfcall(void, "theCtx2d_clear")
 val () = mydraw_bargraph<> (N, p1, p2, p3, p4)
 //
 in
@@ -275,16 +266,17 @@ document.getElementById
   "Patsoptaas-Evaluate-canvas"
 );
 //
-function
-theW_get() { return canvas.width; }
-function
-theH_get() { return canvas.height; }
-//
 var
 ctx2d = canvas.getContext('2d');
 //
 function
 theCtx2d_get() { return ctx2d; }
+//
+function
+theCtx2d_clear ()
+{
+  return ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+}
 //
 function
 initize()
