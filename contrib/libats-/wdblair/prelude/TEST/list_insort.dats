@@ -229,7 +229,7 @@ case+ xs of
   example. To prove that this would yield a list that is an ordered
   permutation of the input list, they introduce "Inductive Abstract
   Refinements". I do not believe that ATS can support these forms of
-  refinements.
+  refinements (without using proof terms of course).
 *)
 
 local

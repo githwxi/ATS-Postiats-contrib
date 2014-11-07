@@ -50,7 +50,7 @@ fun {}
 quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
   pf: array_v (a, l, xs, n) | 
     p: ptr l, n: size_t (n), sz: size_t (sizeof(a))
-): [ys:stmsq | sorted (ys, n); permutation (xs, ys, n)] (
+): [ys:stmsq | sorted (ys, n)] (
   array_v (a, l, ys, n) | void
 ) =
   if n <= 1 then
@@ -62,8 +62,8 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
     //
     val pivot = rand_int (n)
     //
-    val (perm, pf | i) = partition (pf | p, pivot, n, sz)
-    prval parted = Parted_make (perm, pf, i)
+    val (pf | i) = partition (pf | p, pivot, n, sz)
+    prval parted = Parted_make (pf, i)
     //
     prval (ls, rs) = split (pf, i)
     prval pfr :: rss = rs
@@ -79,83 +79,44 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
   end
   //
   where {
-    absprop Perm (xs: stmsq, ys: stmsq, n:int) // ys is a permutation of xs
-
-    extern
-    praxi Perm_sing {a:t@ype}{l:addr}{xs:stmsq}{n:nat} (
-      !array_v(a, l, xs, n)
-    ): Perm(xs, xs, n)
-
-    extern
-    praxi Perm_cons {a:t@ype}{l:addr}{n:nat}{i,j:nat | i < n; j < n}
-      {xs,ys:stmsq} (
-      Perm (xs, ys, n), !array_v(a, l, swap_at(ys, i, j), n) | size_t (n)
-    ): Perm (xs, swap_at(ys, i, j), n)
-
-    extern
-    praxi Perm_elim {xs,ys:stmsq} {n:nat} (
-      Perm(xs, ys, n) | size_t n
-    ): [permutation(xs,ys,n)] void
-
-    absprop Parted (a:t@ype, l:addr, xs: stmsq, ps: stmsq, p:int, n:int)
+    absprop Parted (a:t@ype, l:addr,  ps: stmsq, p:int, n:int)
 
     extern
     praxi 
     Parted_make 
       {l:addr}{a:t@ype}
       {n,p:nat | p < n}
-      {xs, ps:stmsq | partitioned (ps, p, n)} (
-        Perm (xs, ps, n), !array_v (a, l, ps, n), size_t (p)
-      ): Parted (a, l, xs, ps, p, n)
+      {ps:stmsq | partitioned (ps, p, n)} (
+          !array_v (a, l, ps, n), size_t (p)
+      ): Parted (a, l, ps, p, n)
 
-    (**
-      I'm cheating a bit here in saying the appending of the two
-      arrays yields a permutation, a pre condition needs to be
-      given saying that ls,rs are permutations of sub arrays of
-      xs.
-    *)
     extern
     praxi partitioned_lemma
       {l:addr}{a:t@ype}
-      {xs,ps:stmsq} {p,n:nat | p < n}
+      {ps:stmsq} {p,n:nat | p < n}
       {ls,rs:stmsq} (
-      Parted(a, l, xs, ps, p, n),
+      Parted(a, l, ps, p, n),
       !array_v (a, l, ls, p),
       !T(a, select(ps, p)) @ l+p*sizeof(a),
       !array_v (a, l+((p+1)*sizeof(a)), rs, n - p - 1)
     ): [
-      lte (ls, p, select(ps, p)); lte (select(ps, p), rs, n - p - 1);
-      permutation(xs, append(ls, p, cons(select(ps,p), rs), n-p), n)
+      lte (ls, p, select(ps, p)); lte (select(ps, p), rs, n - p - 1)
     ] void
 
     (**
       Partition an array by a pivot chosen by the user. The static types
       provide the following guarantees:
+      
         - The resulting array at pointer l is of length n
         - The array is partitioned by a pivot
         - The pivot in the resulting array is the element xs[piv]
           which the user gave as the desired pivot.
-        - The result is a permutation of the original array.
 
       We first swap the desired pivot to the last spot in the array. Then we
       start at i=0  and maintain a partition index. Any  element to the left
       of this index  is <= a[n-1] (the  pivot). Any element to  the right of
       this index,  up until the current  element i, must be  greater than or
       equal to the pivot.
-
-      part_left and part_right are two predicates defined
-      to enforce these invariance.
-
-      (define-fun part-left ((a (Array Int Int)) (pindex Int) (last Int))
-        (forall ((i Int))
-          (=> ( and (<= 0 i) (< i pindex) )
-            (<= (select a i) (select a last)))))
-            
-      (define-fun part-left ((a (Array Int Int)) (i Int) (pindex Int) 
-                            (last Int))
-        (forall ((j Int))
-          (=> ( and (<= pindex j) (j < i))
-            ((select a last) <= (select a j)))))
 
       If we encounter an element less than the pivot, we swap it with the
       current pindex and increment pindex by one.
@@ -174,13 +135,11 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
     ): [p:nat | p < n]
        [ys: stmsq | partitioned (ys, p, n);
                     select(xs, pivot) == select (ys, p)] (
-        Perm(xs, ys, n), array_v (a, l, ys, n) | size_t (p)
+        array_v (a, l, ys, n) | size_t (p)
     ) = let
       //
       macdef + (p, i) = add_ptr_bsz(,(p), ,(i)*sz)
       macdef succ (p) = add_ptr_bsz(,(p), sz)
-      //
-      prval perm = Perm_sing (pf)
       //
       val pi = p + pivot
       val pn = p + (n-1)
@@ -192,20 +151,19 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
         lte (select(ps, n-1), ps, pind, i);
         select (ps, n-1) == select (xs, pivot)
       } .<n-i>. (
-        perm: Perm(xs, ps, n), pf: array_v (a, l, ps, n) |
+          pf: array_v (a, l, ps, n) |
           pi: ptr (l+i*sizeof(a)), pind: ptr (l+pind*sizeof(a))
       ): [ys:stmsq]
          [p:nat | p < n;
           partitioned(ys, p, n); select (ys, p) == select (xs, pivot)] (
-        Perm(xs, ys, n), array_v (a, l, ys, n) | size_t (p)
+              array_v (a, l, ys, n) | size_t (p)
       ) =
         if pi = pn then let
           prval () = equal_ptr_lemma{a}{l}{i,n-1} (pi, pn)
           //
           val () = swap{a}{l}{n}{pind, n-1} (pf | pind, pn, sz)
-          prval perm = Perm_cons{a}{l}{n}{pind, n-1} (perm, pf | n)
         in 
-          (perm, pf | offset{a}{l}{pind}(p, pind, sz))
+          (pf | offset{a}{l}{pind}(p, pind, sz))
         end
         else let
           //
@@ -223,19 +181,17 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
         in
           if sgn < 0 then let
               val () = swap{a}{l}{n}{i, pind} (pf | pi, pind, sz)
-              prval perm = Perm_cons {a}{l}{n}{i,pind}(perm, pf | n)
             in
               loop {swap_at(ps,i,pind)}{i+1, pind+1} (
-                perm, pf | succ (pi), succ (pind)
+                  pf | succ (pi), succ (pind)
               )
             end
           else
-            loop {ps} {i+1,pind} (perm, pf | succ (pi), pind)
+            loop {ps} {i+1,pind} (pf | succ (pi), pind)
         end
       // end of [loop]
-      prval perm = Perm_cons{a}{l}{n}{pivot, n-1} (perm, pf | n)
     in 
-      loop {swap_at(xs,pivot,n-1)} {0,0} (perm, pf | p, p)
+      loop {swap_at(xs,pivot,n-1)} {0,0} (pf | p, p)
     end // end of [partition]
     
   } // end of [quicksort]
