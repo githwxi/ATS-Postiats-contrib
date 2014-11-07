@@ -4,6 +4,9 @@
 //
 // Animating quick-sort
 //
+// Note that the partitioning approach
+// is adapted from the one used in K&R
+//
 (* ****** ****** *)
 //
 #include

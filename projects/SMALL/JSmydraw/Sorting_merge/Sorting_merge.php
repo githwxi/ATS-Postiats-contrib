@@ -2,7 +2,11 @@
 //
 // HX-2014-11-06:
 //
-// Animating quick-sort
+// Animating merge-sort
+//
+// What is implemented is list-merge-sort
+// However, a list is represented as an array
+// in this code for the purpose of animation
 //
 (* ****** ****** *)
 //
@@ -398,4 +402,4 @@ jQuery(document).ready(function(){draw_main();});
 
 (* ****** ****** *)
 
-(* end of [Sorting_quick.dats] *)
+(* end of [Sorting_merge.dats] *)

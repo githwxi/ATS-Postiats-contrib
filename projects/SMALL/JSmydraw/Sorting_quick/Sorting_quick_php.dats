@@ -1,6 +1,11 @@
 (* ****** ****** *)
 //
-// Quick-sort
+// HX-2014-11-06:
+//
+// Animating quick-sort
+//
+// Note that the partitioning approach
+// is adapted from the one used in K&R
 //
 (* ****** ****** *)
 //
