@@ -83,4 +83,3 @@ val () = delay (1000)
 (* ****** ****** *)
 
 (* end of [BlinkTalk.dats] *)
-
