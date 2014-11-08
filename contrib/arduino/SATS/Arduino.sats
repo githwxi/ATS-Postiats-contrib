@@ -3,6 +3,12 @@
 *)
 
 (* ****** ****** *)
+
+%{#
+#include "arduino/CATS/Arduino.cats"
+%} // end of [%{#]
+
+(* ****** ****** *)
 //
 #define LOW 0x0
 #define HIGH 0x1
@@ -60,9 +66,40 @@ void analogReference(uint8_t mode);
 *)
 
 (* ****** ****** *)
-
-fun delay (ms: intGte(0)): void = "mac#"
-
+//
+(*
+unsigned long millis(void);
+unsigned long micros(void);
+*)
+fun millis (): ulint = "mac#"
+fun micros (): ulint = "mac#"
+//
+(* ****** ****** *)
+//
+(*
+void delay(unsigned long);
+*)
+fun
+delay_int (intGte(0)): void = "mac#"
+fun
+delay_ulint (ms: ulint): void = "mac#"
+//
+symintr delay
+overload delay with delay_int
+overload delay with delay_ulint
+//
+(*
+void delayMicroseconds(unsigned int us);
+*)
+fun
+delayMicroseconds_int (intGte(0)): void = "mac#"
+fun
+delayMicroseconds_uint (ms: uint): void = "mac#"
+//
+symintr delayMicroseconds
+overload delayMicroseconds with delayMicroseconds_int
+overload delayMicroseconds with delayMicroseconds_uint
+//
 (* ****** ****** *)
 
 (* end of [Arduion.sats] *)
