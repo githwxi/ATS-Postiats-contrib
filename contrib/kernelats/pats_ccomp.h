@@ -49,7 +49,9 @@
 //
 /* ****** ****** */
 //
+#ifndef NULL
 #define NULL ((void*)0)
+#endif // ifndef(NULL)
 #define atsptr_null ((void*)0)
 //
 /* ****** ****** */
