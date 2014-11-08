@@ -14,8 +14,8 @@
 
 (* ****** ****** *)
 
-fun _delay_ms (ms: double) = "mac#"
-fun _delay_us (us: double) = "mac#"
+fun _delay_ms (ms: double): void = "mac#"
+fun _delay_us (us: double): void = "mac#"
 
 (* ****** ****** *)
 
