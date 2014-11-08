@@ -3,9 +3,9 @@ MAKE=make
 PATSOPT=$(PATSHOME)/bin/patsopt
 #
 all:: \
-Blink_dats.ino
-Blink_dats.ino: \
-Blink.dats; $(PATSOPT) -o $@ --dynamic $<
+BlinkTalk_dats.ino
+BlinkTalk_dats.ino: \
+BlinkTalk.dats; $(PATSOPT) -o $@ --dynamic $<
 #
 all:: ; $(MAKE) -f Makefile_ino
 #
