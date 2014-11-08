@@ -87,6 +87,7 @@ myloop0
 ) : void = let
   val n2 = n + fadeAmount
   val () = theBrightness_set (n)
+  val () = delay (30)
 in
   if n2 >= 256
     then myloop1 (n - fadeAmount) else myloop0 (n2)
@@ -100,6 +101,7 @@ myloop1
 ) : void = let
   val n2 = n - fadeAmount
   val () = theBrightness_set (n)
+  val () = delay (30)
 in
   if n2 >= 0 then myloop1 (n2) else myloop0 (n + fadeAmount)
 end // end of [myloop1]
