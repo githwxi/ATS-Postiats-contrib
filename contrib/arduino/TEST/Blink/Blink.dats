@@ -34,10 +34,10 @@ void loop() {
 
 (* ****** ****** *)
 //
-macdef
-OUTPUT = $extval(int, "OUTPUT")
-//
-macdef HIGH = $extval(int, "HIGH") and LOW = $extval(int, "LOW")
+#include
+"share/atspre_define.hats"
+#include
+"{$ARDUINO}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -48,21 +48,29 @@ setup (): void = "mac#"
 implement
 setup () =
 {
-  val () = $extfcall(void, "pinMode", 13, OUTPUT)
+  val () = pinMode(13, OUTPUT)
 }
+//
+(* ****** ****** *)
 //
 extern
 fun loop (): void = "mac#"
+//
 implement loop () =
 {
-  val () =
-    $extfcall (void, "digitalWrite", 13, HIGH)
-  // end of [val]
-  val () = $extfcall (void, "delay", 1000)
-  val () = $extfcall (void, "digitalWrite", 13, LOW)
-  val () = $extfcall (void, "delay", 1000)
-}
-
+//
+val () =
+(
+  digitalWrite (13, HIGH) ; delay (1000)
+) (* end of [val] *)
+//
+val () =
+(
+  digitalWrite (13, LOW ) ; delay (1000)
+) (* end of [val] *)
+//
+} (* end of [loop] *)
+//
 (* ****** ****** *)
 
 (* end of [Blink.dats] *)
