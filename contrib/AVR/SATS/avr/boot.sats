@@ -7,7 +7,7 @@
 
 %{#
 //
-#include "AVR/CATS/AVR/boot.cats"
+#include "AVR/CATS/avr/boot.cats"
 //
 %} // end of [%{#]
 

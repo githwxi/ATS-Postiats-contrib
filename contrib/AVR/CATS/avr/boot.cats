@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/boot.h] */
+/* end of [avr/boot.cats] */

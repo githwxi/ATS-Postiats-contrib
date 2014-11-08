@@ -8,7 +8,7 @@
 %{#
 //
 #include \
-"AVR/CATS/AVR/iom328p.cats"
+"AVR/CATS/avr/iom328p.cats"
 //
 %} // end of [%{#]
 

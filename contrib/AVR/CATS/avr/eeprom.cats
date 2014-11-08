@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/eeprom.h] */
+/* end of [avr/eeprom.cats] */

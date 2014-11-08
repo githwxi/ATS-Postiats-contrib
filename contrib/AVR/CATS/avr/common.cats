@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/common.h] */
+/* end of [avr/common.cats] */

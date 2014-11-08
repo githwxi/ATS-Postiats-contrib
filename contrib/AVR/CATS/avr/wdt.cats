@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/wdt.h] */
+/* end of [avr/wdt.cats] */

@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/version.h] */
+/* end of [avr/version.cats] */

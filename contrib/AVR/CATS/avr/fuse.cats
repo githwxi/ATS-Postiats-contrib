@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/fuse.h] */
+/* end of [avr/fuse.cats] */

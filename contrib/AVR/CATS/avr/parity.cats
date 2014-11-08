@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/parity.h] */
+/* end of [avr/parity.cats] */

@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/signature.h] */
+/* end of [avr/signature.cats] */

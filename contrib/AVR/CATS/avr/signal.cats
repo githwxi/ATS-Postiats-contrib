@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/signal.h] */
+/* end of [avr/signal.cats] */

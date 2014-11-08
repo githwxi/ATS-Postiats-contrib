@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/power.h] */
+/* end of [avr/power.cats] */

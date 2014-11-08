@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/pgmspace.h] */
+/* end of [avr/pgmspace.cats] */

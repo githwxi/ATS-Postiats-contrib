@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/crc16.h] */
+/* end of [avr/crc16.cats] */

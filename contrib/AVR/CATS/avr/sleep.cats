@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/sleep.h] */
+/* end of [avr/sleep.cats] */

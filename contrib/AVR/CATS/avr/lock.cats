@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/lock.h] */
+/* end of [avr/lock.cats] */

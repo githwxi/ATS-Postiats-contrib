@@ -17,4 +17,4 @@
 
 /* ****** ****** */
 
-/* end of [avr/cpufunc.h] */
+/* end of [avr/cpufunc.cats] */

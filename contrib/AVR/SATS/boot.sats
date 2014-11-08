@@ -7,10 +7,10 @@
 
 %{#
 //
-#include "AVR/CATS/avr/io.cats"
+#include "AVR/CATS/boot.cats"
 //
 %} // end of [%{#]
 
 (* ****** ****** *)
 
-(* end of [io.sats] *)
+(* end of [boot.sats] *)

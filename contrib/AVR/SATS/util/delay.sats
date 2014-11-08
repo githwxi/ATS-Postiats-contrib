@@ -8,7 +8,7 @@
 %{#
 //
 #include \
-"AVR/CATS/UTIL/delay.cats"
+"AVR/CATS/util/delay.cats"
 //
 %} // end of [%{#]
 

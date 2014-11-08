@@ -7,10 +7,10 @@
 
 %{#
 //
-#include "AVR/CATS/avr/io.cats"
+#include "AVR/CATS/string.cats"
 //
 %} // end of [%{#]
 
 (* ****** ****** *)
 
-(* end of [io.sats] *)
+(* end of [string.sats] *)
