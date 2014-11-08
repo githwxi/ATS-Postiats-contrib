@@ -6,6 +6,16 @@
 
 (* ****** ****** *)
 //
+%{^
+typedef
+void
+*voilatile_voidptr;
+%}
+//
+#define ATS_DYNLOADFLAG 0  
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 //
@@ -22,8 +32,13 @@ staload "{$AVR}/SATS/util/delay.sats"
 
 (* ****** ****** *)
 
+extern
+fun main (): int = "main"
+
+(* ****** ****** *)
+
 implement
-main0 () =
+main () = 0 where
 {
 //
 val () = DDRB[DDB3] := 1

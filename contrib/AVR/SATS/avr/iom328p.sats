@@ -20,9 +20,19 @@ staload
 (* ****** ****** *)
 //
 fun
-reg8_get_at(reg8, i: natLt(8)): natLt(2)
+reg8_get_at
+(
+  reg8, i: natLt(8)
+) : natLt(2) = "mac#"
 fun
-reg8_set_at(reg8, i: natLt(8), b: natLt(2)): void
+reg8_set_at
+(
+  reg8, i: natLt(8), b: natLt(2)
+) : void = "mac#" // end-of-fun
+fun
+reg8_set0_at(reg8, i: natLt(8)): void = "mac#"
+fun
+reg8_set1_at(reg8, i: natLt(8)): void = "mac#"
 //
 overload [] with reg8_get_at
 overload [] with reg8_set_at

@@ -31,7 +31,7 @@ avr-gcc $(INCLUDE) $(CFLAGS)
 
 all: \
 blinkey
-blinkey: blinkey.dats ; $(PATSCC) -o $@ $<
+blinkey: blinkey.dats ; $(PATSCC) -verbose -o $@ $<
 
 ######
 
@@ -39,6 +39,7 @@ RMF=rm -f
 
 ######
 
+clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.c
 
 ######
