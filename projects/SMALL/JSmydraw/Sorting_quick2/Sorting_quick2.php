@@ -1,11 +1,12 @@
 (* ****** ****** *)
 //
-// HX-2014-11-06:
+// HX-2014-11-09:
 //
 // Animating quick-sort
 //
 // Note that the partitioning approach
-// is adapted from the one used in K&R
+// is bi-directional, which is different
+// from the uni-directional one in K&R
 //
 (* ****** ****** *)
 //
@@ -134,6 +135,12 @@ sort_aux3_
  0 <= i; i+2 <= j; j <= N;
  0 <= i1; i1 <= j1; j1 <= j-1
 } (int(i), int(j), int(i1), int(j1), intervalist): void = "mac#"
+and
+sort_aux4
+{i,j,i1,j1:int |
+ 0 <= i; i+2 <= j; j <= N;
+ 0 <= i1; i1 <= j1; j1 <= j-1
+} (int(i), int(j), int(i1), int(j1), intervalist): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -168,11 +175,12 @@ val k = i+half(j-i)
 //
 val () =
   interchange (k, j-1)
+val ctx2d = theCtx2d_get()
 val () =
-  draw_theArray(theCtx2d_get())
+  draw_theArray(ctx2d)
 //
 in
-  sort_aux3_ (i, j, i, i, xs)
+  sort_aux3_ (i, j, i, j-1, xs)
 end // end of [sort_aux2]
 
 (* ****** ****** *)
@@ -183,35 +191,65 @@ sort_aux3
   i, j, i1, j1, xs
 ) = let
   val A = theArray
+  val i2 = i1 + 1
 in
 //
 if
-j1 < j-1
+i2 <= j1
 then
 (
 if
-A[j1] < A[j-1]
-then (
-  if i1 < j1
-    then let
-      val () = interchange (i1, j1)
-      val () = draw_theArray(theCtx2d_get())
-    in
-      sort_aux3_ (i, j, i1+1, j1+1, xs)
-    end // end of [then]
-    else sort_aux3 (i, j, i1+1, j1+1, xs)
-  // end of [if]
-) else sort_aux3 (i, j, i1, j1+1, xs)
-// end of [if]
+A[i1] < A[j-1]
+then sort_aux3 (i, j, i2, j1, xs)
+else sort_aux4 (i, j, i1, j1, xs)
 ) (* end of [then] *)
 else let
-  val () = interchange (i1, j1)
+  val () = interchange (i1, j-1)
   val () = draw_theArray(theCtx2d_get())
 in
   sort_aux1_ (list_cons ( '(i, i1), list_cons ( '(i1+1, j), xs ) ))
 end // end of [else]
 //
 end // end of [sort_aux3]
+
+(* ****** ****** *)
+
+implement
+sort_aux4
+(
+  i, j, i1, j1, xs
+) = let
+  val A = theArray
+in
+//
+if
+i1 < j1
+then
+(
+if
+A[j1-1] >= A[j-1]
+then sort_aux4 (i, j, i1, j1-1, xs)
+else let
+  val () = interchange (i1, j1-1)
+  val () = draw_theArray(theCtx2d_get())
+  prval () =
+  __assert (i1, j1) where
+  {
+    extern
+    praxi __assert{x,y:int}(int(x), int(y)):<> [x != y-1] void
+  } (* end of [where] *) // end of [prval]
+in
+  sort_aux3_ (i, j, i1+1, j1-1, xs)
+end // end of [else]
+)
+else let
+  val () = interchange (i1, j-1)
+  val () = draw_theArray(theCtx2d_get())
+in
+  sort_aux1_ (list_cons ( '(i, i1), list_cons ( '(i1+1, j), xs ) ))
+end // end of [else]
+//
+end // end of [sort_aux4]
 
 (* ****** ****** *)
 
@@ -386,4 +424,4 @@ jQuery(document).ready(function(){draw_main();});
 
 (* ****** ****** *)
 
-(* end of [Sorting_quick.php] *)
+(* end of [Sorting_quick2.php] *)

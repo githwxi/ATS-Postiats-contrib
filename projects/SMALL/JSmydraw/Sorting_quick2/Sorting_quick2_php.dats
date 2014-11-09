@@ -1,11 +1,12 @@
 (* ****** ****** *)
 //
-// HX-2014-11-06:
+// HX-2014-11-09:
 //
 // Animating quick-sort
 //
 // Note that the partitioning approach
-// is adapted from the one used in K&R
+// is bi-directional, which is different
+// from the uni-directional one in K&R
 //
 (* ****** ****** *)
 //
@@ -35,12 +36,303 @@ staload
 (* ****** ****** *)
 //
 (* beg-of-php *)
-<?php
+(* ****** ****** *)
 //
-include "./../mydraw.dats";
-include "./../mydraw_bargraph.dats";
+// mydraw:
+// A simple drawing API
 //
-?>(* end-of-php *)
+(* ****** ****** *)
+
+(*
+#ifndef JSMYDRAW_MYDRAW_DATS
+#define JSMYDRAW_MYDRAW_DATS 1
+*)
+
+(* ****** ****** *)
+
+abstype point_type = ptr
+typedef point = point_type
+abstype vector_type = ptr
+typedef vector = vector_type
+
+(* ****** ****** *)
+//
+extern
+fun
+point_make_xy
+  (x: double, y: double) : point
+//
+(* ****** ****** *)
+//
+extern
+fun
+point_get_x (point): double
+and
+point_get_y (point): double
+//
+overload .x with point_get_x
+overload .y with point_get_y
+//  
+(* ****** ****** *)
+
+local
+//
+assume
+point_type =
+  $tup(double, double)
+//
+in (*in-of-local*)
+//
+implement
+point_make_xy (x, y) = $tup(x, y)
+//
+implement point_get_x (p) = p.0
+implement point_get_y (p) = p.1
+//
+end // end of [local]
+
+(* ****** ****** *)
+//
+extern
+fun
+vector_make_xy
+  (vx: double, vy: double): vector
+//
+(* ****** ****** *)
+//    
+extern
+fun
+vector_get_x (vector): double
+and
+vector_get_y (vector): double
+//
+overload .x with vector_get_x
+overload .y with vector_get_y
+//    
+(* ****** ****** *)
+
+local
+//
+assume
+vector_type =
+  $tup(double, double)
+//
+in (*in-of-local*)
+//
+implement
+vector_make_xy (x, y) = $tup(x, y)
+//
+implement vector_get_x (v) = v.0
+implement vector_get_y (v) = v.1
+//
+end // end of [local]
+
+(* ****** ****** *)
+//
+extern
+fun
+add_pvp (point, vector): point
+extern
+fun
+sub_ppv (p1: point, p2: point): vector
+//
+overload + with add_pvp
+overload - with sub_ppv
+//
+(* ****** ****** *)
+//
+implement
+add_pvp (p, v) =
+  point_make_xy (p.x + v.x, p.y + v.y)
+implement
+sub_ppv (p1, p2) =
+  vector_make_xy (p1.x - p2.x, p1.y - p2.y)
+//
+(* ****** ****** *)
+//
+extern
+fun
+add_vvv (v1: vector, v2: vector): vector
+and
+sub_vvv (v1: vector, v2: vector): vector
+//
+(* ****** ****** *)
+//
+implement
+add_vvv (v1, v2) =
+  vector_make_xy (v1.x + v2.x, v1.y + v2.y)
+implement
+sub_vvv (v1, v2) =
+  vector_make_xy (v1.x - v2.x, v1.y - v2.y)
+//
+(* ****** ****** *)
+//
+extern
+fun
+mul_kvv (k: double, v: vector): vector
+and
+div_vkv (v: vector, k: double): vector
+//
+overload + with add_vvv
+overload - with sub_vvv
+overload * with mul_kvv
+overload / with div_vkv
+//
+(* ****** ****** *)
+//
+implement
+mul_kvv (k, v) = vector_make_xy (k * v.x, k * v.y)
+implement
+div_vkv (v, k) = vector_make_xy (v.x / k, v.y / k)
+//
+(* ****** ****** *)
+
+abstype color_type = ptr
+typedef color = color_type
+
+(* ****** ****** *)
+//
+extern
+fun
+color_make_rgb
+(
+  r: double, g: double, b: double
+) : color // end-of-function
+//
+(* ****** ****** *)
+//
+extern
+fun color_get_r : color -> double
+and color_get_g : color -> double
+and color_get_b : color -> double
+//  
+overload .r with color_get_r
+overload .g with color_get_g
+overload .b with color_get_b
+//
+(* ****** ****** *)
+
+local
+//
+assume
+color_type =
+  $tup(double, double, double)
+//
+in (*in-of-local*)
+//
+implement
+color_make_rgb (r, g, b) = $tup(r, g, b)
+//
+implement color_get_r (c) = c.0
+implement color_get_g (c) = c.1
+implement color_get_b (c) = c.2
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+extern
+fun{}
+draw3p
+  (p1: point, p2: point, p3: point): void
+// end of [draw3p]
+  
+(* ****** ****** *)
+
+extern  
+fun{}
+draw4p
+  (p1: point, p2: point, p3: point, p4: point): void
+// end of [draw4p]
+
+(* ****** ****** *)
+
+(*
+#endif // #ifndef(JSMYDRAW_MYDRAW_DATS)
+*)
+
+(* ****** ****** *)
+
+(* end of [mydraw.dats] *)
+(* ****** ****** *)
+//
+// mydraw_matgraph:
+// For drawing matrices
+//
+(* ****** ****** *)
+//
+// HX-2014-11-05:
+// it is adapted from
+// previous code made for teaching
+//
+(* ****** ****** *)
+
+(*
+#include "./mydraw.dats"
+*)
+
+(* ****** ****** *)
+//
+// HX-2014-11-05:
+// p1, p2, p3 and p4 are positioned CCW
+//
+extern
+fun{
+} mydraw_bargraph
+(
+  n: intGte(1)
+, p1: point, p2: point, p3: point, p4: point
+) : void // end of [mydraw_bargraph]
+//
+extern
+fun{}
+mydraw_bargraph$fcell
+(
+  i: intGte(0)
+, p1: point, p2: point, p3: point, p4: point
+) : void // end-of-function
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+mydraw_bargraph
+  (n, p1, p2, p3, p4) = let
+//
+val a = 1.0 / n
+val v12 = a * (p2 - p1)
+val v43 = a * (p3 - p4)
+//
+prval
+[n:int]
+EQINT() = eqint_make_gint (n)
+//
+fun loop
+  {i:nat | i < n}
+(
+  i: int (i), p1: point, p4: point
+) : void = let
+//
+val p1_new = p1 + v12
+val p4_new = p4 + v43
+//
+val () =
+mydraw_bargraph$fcell (i, p1, p1_new, p4_new, p4)
+//
+val i1 = i + 1
+//
+in
+  if i1 < n then loop (i1, p1_new, p4_new) else ()
+end // end of [loop]
+//
+in
+  loop (0, p1, p4)
+end // end of [mydraw_bargraph]
+
+(* ****** ****** *)
+
+(* end of [mydraw_bargraph.dats] *)
+(* end-of-php *)
 //
 (* ****** ****** *)
 
@@ -134,6 +426,12 @@ sort_aux3_
  0 <= i; i+2 <= j; j <= N;
  0 <= i1; i1 <= j1; j1 <= j-1
 } (int(i), int(j), int(i1), int(j1), intervalist): void = "mac#"
+and
+sort_aux4
+{i,j,i1,j1:int |
+ 0 <= i; i+2 <= j; j <= N;
+ 0 <= i1; i1 <= j1; j1 <= j-1
+} (int(i), int(j), int(i1), int(j1), intervalist): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -168,11 +466,12 @@ val k = i+half(j-i)
 //
 val () =
   interchange (k, j-1)
+val ctx2d = theCtx2d_get()
 val () =
-  draw_theArray(theCtx2d_get())
+  draw_theArray(ctx2d)
 //
 in
-  sort_aux3_ (i, j, i, i, xs)
+  sort_aux3_ (i, j, i, j-1, xs)
 end // end of [sort_aux2]
 
 (* ****** ****** *)
@@ -183,35 +482,65 @@ sort_aux3
   i, j, i1, j1, xs
 ) = let
   val A = theArray
+  val i2 = i1 + 1
 in
 //
 if
-j1 < j-1
+i2 <= j1
 then
 (
 if
-A[j1] < A[j-1]
-then (
-  if i1 < j1
-    then let
-      val () = interchange (i1, j1)
-      val () = draw_theArray(theCtx2d_get())
-    in
-      sort_aux3_ (i, j, i1+1, j1+1, xs)
-    end // end of [then]
-    else sort_aux3 (i, j, i1+1, j1+1, xs)
-  // end of [if]
-) else sort_aux3 (i, j, i1, j1+1, xs)
-// end of [if]
+A[i1] < A[j-1]
+then sort_aux3 (i, j, i2, j1, xs)
+else sort_aux4 (i, j, i1, j1, xs)
 ) (* end of [then] *)
 else let
-  val () = interchange (i1, j1)
+  val () = interchange (i1, j-1)
   val () = draw_theArray(theCtx2d_get())
 in
   sort_aux1_ (list_cons ( '(i, i1), list_cons ( '(i1+1, j), xs ) ))
 end // end of [else]
 //
 end // end of [sort_aux3]
+
+(* ****** ****** *)
+
+implement
+sort_aux4
+(
+  i, j, i1, j1, xs
+) = let
+  val A = theArray
+in
+//
+if
+i1 < j1
+then
+(
+if
+A[j1-1] >= A[j-1]
+then sort_aux4 (i, j, i1, j1-1, xs)
+else let
+  val () = interchange (i1, j1-1)
+  val () = draw_theArray(theCtx2d_get())
+  prval () =
+  __assert (i1, j1) where
+  {
+    extern
+    praxi __assert{x,y:int}(int(x), int(y)):<> [x != y-1] void
+  } (* end of [where] *) // end of [prval]
+in
+  sort_aux3_ (i, j, i1+1, j1-1, xs)
+end // end of [else]
+)
+else let
+  val () = interchange (i1, j-1)
+  val () = draw_theArray(theCtx2d_get())
+in
+  sort_aux1_ (list_cons ( '(i, i1), list_cons ( '(i1+1, j), xs ) ))
+end // end of [else]
+//
+end // end of [sort_aux4]
 
 (* ****** ****** *)
 
@@ -386,4 +715,4 @@ jQuery(document).ready(function(){draw_main();});
 
 (* ****** ****** *)
 
-(* end of [Sorting_quick.php] *)
+(* end of [Sorting_quick2.php] *)
