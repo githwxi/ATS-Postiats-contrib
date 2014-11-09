@@ -107,5 +107,16 @@ overload delayMicroseconds with delayMicroseconds_int
 overload delayMicroseconds with delayMicroseconds_uint
 //
 (* ****** ****** *)
+//
+(*
+unsigned
+long
+pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
+*)
+fun
+pulseIn
+  (pin: pin, state: natLt(256), timeout: ulint): ulint = "mac#"
+//
+(* ****** ****** *)
 
 (* end of [Arduion.sats] *)
