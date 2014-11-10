@@ -122,6 +122,13 @@ atspre_compare_string_string
 #endif // end of [#if(0)]
 
 /* ****** ****** */
+//
+// HX-2014-11-10:
+// obviating [string.h]
+//
+#define atspre_strlen(x) strlen(x)
+//
+/* ****** ****** */
 
 #endif // ifndef ATSLIB_PRELUDE_CATS_STRING
 
