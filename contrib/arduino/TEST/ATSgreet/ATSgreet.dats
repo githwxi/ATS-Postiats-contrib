@@ -186,7 +186,9 @@ and loop2 (lcd, pos: intGte(0)): void = "mac#"
 void
 loop ()
 {
-  LiquidCrystal lcd(8, 13, 9, 4, 5, 6, 7); loop2(&lcd, 0); return;
+  LiquidCrystal
+  lcd(8, 13, 9, 4, 5, 6, 7);
+  lcd.begin(16, 2); loop2(&lcd, 0); return;
 }
 %} // end of [%{$]
 //
