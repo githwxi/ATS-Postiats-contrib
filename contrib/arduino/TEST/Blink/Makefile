@@ -24,4 +24,4 @@ cleanall:: ; $(MAKE) -f Makefile_ats cleanall
 
 ######
 #
-###### end of [Makefile_ino] ######
+###### end of [Makefile] ######

@@ -22,12 +22,11 @@ reg8_set0_at(r, i) (r &= ~(1 << i))
 #define \
 reg8_set1_at(r, i) (r |=  (1 << i))
 //
-ATSinline()
-atstype_void
-reg8_set_at(r, i, b)
-{
-  if (b) reg8_set1_at(r, i); else reg8_set0_at(r, i); return;
-} // end of [reg8_set_at]
+#define \
+reg8_set_at(r, i, b) \
+do { \
+  if (b) reg8_set1_at(r, i); else reg8_set0_at(r, i); \
+} while(0) // end of [reg8_set_at]
 //
 /* ****** ****** */
 

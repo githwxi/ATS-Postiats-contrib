@@ -9,6 +9,17 @@ Blink.dats; $(PATSOPT) -o $@ --dynamic $<
 #
 all:: ; $(MAKE) -f Makefile
 #
+######
+#
+all2:: \
+Blink2_dats.ino
+Blink2_dats.ino: \
+Blink2.dats; $(PATSOPT) -o $@ --dynamic $<
+#
+all2:: ; $(MAKE) -f Makefile
+#
+######
+#
 RMF=rm -f
 #
 ######
