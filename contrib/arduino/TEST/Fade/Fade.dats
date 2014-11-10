@@ -13,8 +13,7 @@
  using the analogWrite() function.
  
  This example code is in the public domain.
- 
- */
+*/
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 
@@ -55,7 +54,8 @@ void loop()  {
 //
 (* ****** ****** *)
 //
-#define fadeAmount 5
+#define LEDPIN 9
+#define FADE_AMOUNT 5
 //
 (* ****** ****** *)
 //
@@ -66,7 +66,7 @@ setup (): void = "mac#"
 implement
 setup () =
 {
-  val () = pinMode(9, OUTPUT)
+  val () = pinMode(LEDPIN, OUTPUT)
 }
 //
 (* ****** ****** *)
@@ -76,7 +76,7 @@ fun
 theBrightness_set (n: natLt(256)): void
 //
 implement
-theBrightness_set (n) = analogWrite (9, n)
+theBrightness_set (n) = analogWrite (LEDPIN, n)
 //
 (* ****** ****** *)
 
@@ -85,12 +85,12 @@ myloop0
 (
   n: natLt(256)
 ) : void = let
-  val n2 = n + fadeAmount
+  val n2 = n + FADE_AMOUNT
   val () = theBrightness_set (n)
   val () = delay (30)
 in
   if n2 >= 256
-    then myloop1 (n - fadeAmount) else myloop0 (n2)
+    then myloop1 (n - FADE_AMOUNT) else myloop0 (n2)
   // end of [if]
 end // end of [myloop0]
 
@@ -99,11 +99,11 @@ myloop1
 (
   n: natLt(256)
 ) : void = let
-  val n2 = n - fadeAmount
+  val n2 = n - FADE_AMOUNT
   val () = theBrightness_set (n)
   val () = delay (30)
 in
-  if n2 >= 0 then myloop1 (n2) else myloop0 (n + fadeAmount)
+  if n2 >= 0 then myloop1 (n2) else myloop0 (n + FADE_AMOUNT)
 end // end of [myloop1]
 
 (* ****** ****** *)
