@@ -165,11 +165,6 @@ end // end of [lcd_print_row1]
 //
 (* ****** ****** *)
 
-extern
-fun lcd_create (): lcd
-
-(* ****** ****** *)
-
 #define NDELAY 250
 
 (* ****** ****** *)
