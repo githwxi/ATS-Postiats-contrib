@@ -17,6 +17,16 @@
 #define delay_ulint(ms) delay(ms)
 
 /* ****** ****** */
+//
+#define random_int_1(x) random(x)
+#define random_int_2(x, y) random(x, y)
+#define random_lint_1(x) random(x)
+#define random_lint_2(x, y) random(x, y)
+//
+#define randomSeed_int(x) randomSeed(x)
+#define randomSeed_uint(x) randomSeed(x)
+//
+/* ****** ****** */
 
 #endif // #ifndef(ARDUINO_CATS_ARDUINO)
 

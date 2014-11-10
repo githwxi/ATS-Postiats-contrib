@@ -17,6 +17,16 @@
 #define OUTPUT 0x1
 //
 (* ****** ****** *)
+  
+#define SERIAL 0x0
+#define DISPLAY 0x1
+
+(* ****** ****** *)
+
+#define LSBFIRST 0
+#define MSBFIRST 1
+  
+(* ****** ****** *)
 //
 (*
 #define PI 3.1415926535897932384626433832795
@@ -116,6 +126,56 @@ pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
 fun
 pulseIn
   (pin: pin, state: natLt(256), timeout: ulint): ulint = "mac#"
+//
+(* ****** ****** *)
+
+(*
+uint8_t
+shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
+*)
+fun
+shiftIn
+(
+  dataPin: natLt(256), clockPin: natLt(256), bitOrder: natLt(2)
+) : uint8 = "mac#" // end of [shiftIn]
+
+(* ****** ****** *)
+
+(*
+void
+shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
+*)
+fun
+shiftOut
+(
+  dataPin: natLt(256), clockPin: natLt(256), bitOrder: natLt(2), value: uint8
+) : void = "mac#" (* end of [shiftOut] *)
+
+(* ****** ****** *)
+
+(*
+long random(long);
+long random(long, long);
+void randomSeed(unsigned int);
+*)
+//
+fun random_int_1 (int): int = "mac#"
+fun random_lint_1 (lint): lint = "mac#"
+fun random_int_2 (int, int): int = "mac#"
+fun random_lint_2 (lint, lint): lint = "mac#"
+//
+symintr random
+overload random with random_int_1
+overload random with random_lint_1
+overload random with random_int_2
+overload random with random_lint_2
+//
+fun randomSeed_int (seed: int): void
+fun randomSeed_uint (seed: uint): void
+//
+symintr randomSeed
+overload randomSeed with randomSeed_int
+overload randomSeed with randomSeed_uint
 //
 (* ****** ****** *)
 
