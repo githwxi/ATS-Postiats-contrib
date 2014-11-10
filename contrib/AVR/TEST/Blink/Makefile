@@ -30,8 +30,8 @@ avr-gcc $(INCLUDE) $(CFLAGS)
 ######
 
 all: \
-blinkey
-blinkey: blinkey.dats ; $(PATSCC) -verbose -o $@ $<
+main
+main: main.dats ; $(PATSCC) -verbose -o $@ $<
 
 ######
 
@@ -45,6 +45,6 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) blinkey
+cleanall:: ; $(RMF) main
 
 ###### end of [Makefile] ######
