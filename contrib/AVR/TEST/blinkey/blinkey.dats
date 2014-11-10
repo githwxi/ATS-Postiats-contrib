@@ -52,7 +52,7 @@ while(true)
   val () = _delay_ms (NDELAY)
 }
 //
-} (* end of [main0] *)
+} (* end of [main] *)
 
 (* ****** ****** *)
 

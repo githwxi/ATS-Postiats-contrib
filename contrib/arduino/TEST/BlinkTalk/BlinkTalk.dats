@@ -43,6 +43,10 @@ macdef LEDPIN = 8
 macdef BAUD_RATE = 9600
 //
 (* ****** ****** *)
+
+macdef Serial = $extval(HardwareSerial_ptr, "&Serial")
+
+(* ****** ****** *)
 //
 extern
 fun
