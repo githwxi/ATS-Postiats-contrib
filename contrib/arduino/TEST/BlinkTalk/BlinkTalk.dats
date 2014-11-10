@@ -38,13 +38,25 @@ void loop() {
 "{$ARDUINO}/staloadall.hats"
 //
 (* ****** ****** *)
+
+%{^
+//
+#define \
+ATSextmcall(obj, mtd, funarg) obj.mtd funarg
+//
+%} // end of [%{^]
+  
+(* ****** ****** *)
 //
 macdef LEDPIN = 8
 macdef BAUD_RATE = 9600
 //
 (* ****** ****** *)
 
-macdef Serial = $extval(HardwareSerial_ptr, "&Serial")
+macdef
+Serial = $extval(HardwareSerial, "Serial")
+macdef
+SerialPtr = $extval(HardwareSerial_ptr, "&Serial")
 
 (* ****** ****** *)
 //
@@ -58,8 +70,15 @@ implement
 setup () =
 {
   val () = pinMode(LEDPIN, OUTPUT)
-  val () = Serial._begin(BAUD_RATE)
+  val () = $extmcall(void, Serial, "begin", BAUD_RATE)
 }
+
+(* ****** ****** *)
+
+macdef
+Serial_print(x) = $extmcall(void, Serial, "print", ,(x))
+macdef
+Serial_println(x) = $extmcall(void, Serial, "println", ,(x))
 
 (* ****** ****** *)
 
@@ -72,13 +91,13 @@ implement loop () =
 val () = digitalWrite(LEDPIN, HIGH)
 val () =
 (
-  Serial.print("the pin "); Serial.print(LEDPIN); Serial.println(" is on");
+  Serial_print("the pin "); Serial_print(LEDPIN); Serial_println(" is on");
 )
 val () = delay (250)
 val () = digitalWrite(LEDPIN, LOW )
 val () =
 (
-  Serial.print("the pin "); Serial.print(LEDPIN); Serial.println(" is off");
+  Serial_print("the pin "); Serial_print(LEDPIN); Serial_println(" is off");
 )
 val () = delay (1000)
 //

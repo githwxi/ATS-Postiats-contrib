@@ -202,7 +202,7 @@ val n1 = lcd_print_row1 (lcd, 0)
 val () = delay (NDELAY)
 //
 in
-  if n1 > 0 then loop2 (lcd, pos + 1) else loop2 (lcd, 0)
+  if n1 > 0 then loop2 (lcd, succ(pos)) else loop2 (lcd, 0)
 end // end of [loop2]
 
 (* ****** ****** *)

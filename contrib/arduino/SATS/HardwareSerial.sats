@@ -9,20 +9,25 @@
 %} // end of [%{#]
 
 (* ****** ****** *)
-
+//
 (*
 class HardwareSerial
 *)
+//
+abst@ype
+HardwareSerial =
+$extype"HardwareSerial"
+//
 abstype HardwareSerial_ptr = ptr
-
+//
 (* ****** ****** *)
 
 (*
-macdef Serial = $extval(HardwareSerial_ptr, "&Serial")
-macdef Serial_ = $extval(HardwareSerial_ptr, "&Serial_")
-macdef Serial1 = $extval(HardwareSerial_ptr, "&Serial1")
-macdef Serial2 = $extval(HardwareSerial_ptr, "&Serial2")
-macdef Serial3 = $extval(HardwareSerial_ptr, "&Serial3")
+macdef Serial = $extval(HardwareSerial, "Serial")
+macdef Serial_ = $extval(HardwareSerial, "Serial_")
+macdef Serial1 = $extval(HardwareSerial, "Serial1")
+macdef Serial2 = $extval(HardwareSerial, "Serial2")
+macdef Serial3 = $extval(HardwareSerial, "Serial3")
 *)
 
 (* ****** ****** *)

@@ -10,12 +10,15 @@
 %} // end of [%{#]
 
 (* ****** ****** *)
-
+//
 (*
 class LiquidCrystal
 *)
+abst@ype
+LiquidCrystal =
+$extype"LiquidCrystal"
 abstype LiquidCrystal_ptr = ptr
-
+//
 (* ****** ****** *)
 //
 fun
