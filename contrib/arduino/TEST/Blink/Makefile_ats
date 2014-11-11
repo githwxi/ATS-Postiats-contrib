@@ -20,6 +20,15 @@ all2:: ; $(MAKE) -f Makefile
 #
 ######
 #
+all3:: \
+Blink3_dats.ino
+Blink3_dats.ino: \
+Blink3.dats; $(PATSOPT) -o $@ --dynamic $<
+#
+all3:: ; $(MAKE) -f Makefile
+#
+######
+#
 RMF=rm -f
 #
 ######

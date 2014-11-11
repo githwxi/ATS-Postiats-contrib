@@ -28,44 +28,37 @@ staload "{$AVR}/SATS/util/delay.sats"
 //
 (* ****** ****** *)
 
-#define NDELAY 1000.0
+#define NDELAY1 1000.0
+#define NDELAY2 1000.0
 
 (* ****** ****** *)
-
+//
 extern
 fun
-myloop (): void = "myloop"
-
-(* ****** ****** *)
-
+loop (): void = "mac#"
+//
 implement
-myloop () = () where
+loop () = () where
+{
+  val () = PORTB[PORTB5] := 1
+  val () = _delay_ms (NDELAY1)
+  val () = PORTB[PORTB5] := 0
+  val () = _delay_ms (NDELAY2)
+}
+//
+(* ****** ****** *)
+//
+extern
+fun
+setup (): void = "mac#"
+implement
+setup () = () where
 {
 //
 val () = DDRB[DDB5] := 1
 //
-val () =
-while(true)
-{
-  val () = PORTB[PORTB5] := 1
-  val () = _delay_ms (NDELAY)
-  val () = PORTB[PORTB5] := 0
-  val () = _delay_ms (NDELAY)
-}
+} (* end of [setup] *)
 //
-} (* end of [myloop] *)
-
-(* ****** ****** *)
-
-%{$
-//
-void
-setup () { return; }
-//
-void loop () { myloop(); return; }
-//
-%} // end of [%{$]
-
 (* ****** ****** *)
 
 (* end of [Blink2.dats] *)

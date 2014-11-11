@@ -61,7 +61,7 @@ implement loop () =
 //
 val () =
 (
-  digitalWrite (13, HIGH) ; delay (250)
+  digitalWrite (13, HIGH) ; delay (1000)
 ) (* end of [val] *)
 //
 val () =
