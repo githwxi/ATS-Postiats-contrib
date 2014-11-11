@@ -21,8 +21,8 @@
 
 /* ****** ****** */
 
-#ifndef LINUX_PATS_CCOMP_H
-#define LINUX_PATS_CCOMP_H
+#ifndef KERNELATS_PATS_CCOMP_H
+#define KERNELATS_PATS_CCOMP_H
 
 /* ****** ****** */
 
@@ -427,7 +427,7 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 //
 /* ****** ****** */
 
-#endif // end of [LINUX_PATS_CCOMP_H]
+#endif // end of [KERNELATS_PATS_CCOMP_H]
 
 /* ****** ****** */
 
