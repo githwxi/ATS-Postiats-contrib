@@ -96,8 +96,14 @@ fprint_val<int>
 //
 (* ****** ****** *)
 //
+(*
 implement
 fprint_string (out, x) = Serial_ptr.print(x)
+*)
+(* ****** ****** *)
+//
+implement
+fprint_list_vt$sep<> (out) = ()
 //
 (* ****** ****** *)
 //
@@ -158,7 +164,9 @@ myloop
 val
 out = $extval (FILEref, "0")
 //
-val () = randomSeed($UN.cast{uint}(micros()))
+(*
+val () = randomSeed($UN.cast{uint}(millis()))
+*)
 //
 val xs = theList_get()
 val () = fprint_list_vt (out, xs)
