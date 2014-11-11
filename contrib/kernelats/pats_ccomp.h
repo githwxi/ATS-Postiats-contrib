@@ -414,6 +414,9 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 #include \
 "kernelats/prelude/CATS/pointer.cats"
 //
+#include \
+"kernelats/prelude/CATS/integer_fixed.cats"
+//
 #include "kernelats/prelude/CATS/bool.cats"
 #include "kernelats/prelude/CATS/char.cats"
 #include "kernelats/prelude/CATS/string.cats"

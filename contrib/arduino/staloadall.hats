@@ -24,6 +24,7 @@ staload "./SATS/Arduino.sats"
 
 (* ****** ****** *)
 
+staload "./SATS/Print.sats"
 staload "./SATS/HardwareSerial.sats"
 
 (* ****** ****** *)

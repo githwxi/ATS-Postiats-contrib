@@ -44,7 +44,7 @@ macdef RAD_TO_DEG = $extval(double, "RAD_TO_DEG") // 180/PI
 //
 (* ****** ****** *)
 
-typedef pin = natLt(256)
+typedef pin_t = natLt(256)
 
 (* ****** ****** *)
 //
@@ -53,7 +53,7 @@ void pinMode(uint8_t, uint8_t);
 *)
 fun
 pinMode
-  (pin: pin, mode: natLt(2)): void = "mac#"
+  (pin: pin_t, mode: natLt(2)): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -62,10 +62,10 @@ int digitalRead(uint8_t);
 void digitalWrite(uint8_t, uint8_t);
 *)
 fun
-digitalRead (pin: pin): natLt(2) = "mac#"
+digitalRead (pin: pin_t): natLt(2) = "mac#"
 fun
 digitalWrite
-  (pin: natLt(256), mode: natLt(2)): void = "mac#"
+  (pin: pin_t, mode: natLt(2)): void = "mac#"
 //
 (* ****** ****** *)
 
@@ -75,11 +75,11 @@ void analogWrite(uint8_t, int);
 void analogReference(uint8_t mode);
 *)
 fun
-analogRead (pin: pin): int = "mac#"
+analogRead (pin: pin_t): int = "mac#"
 fun
-analogWrite (pin: pin, int: int): void = "mac#"
+analogWrite (pin: pin_t, int: int): void = "mac#"
 fun
-analogReference (mode: natLt(256)): void = "mac#"
+analogReference (mode: uint8): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -121,34 +121,46 @@ overload delayMicroseconds with delayMicroseconds_uint
 (*
 unsigned
 long
-pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
+pulseIn
+(
+  uint8_t pin
+, uint8_t state, unsigned long timeout
+); // end of [pulseIn]
 *)
 fun
 pulseIn
-  (pin: pin, state: natLt(256), timeout: ulint): ulint = "mac#"
+(
+  pin: pin_t, state: natLt(256), timeout: ulint
+) : ulint = "mac#"
 //
 (* ****** ****** *)
 
 (*
 uint8_t
-shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
+shiftIn
+(
+  uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder
+) ; // end of [shiftIn]
 *)
 fun
 shiftIn
 (
-  dataPin: natLt(256), clockPin: natLt(256), bitOrder: natLt(2)
+  dataPin: pin_t, clockPin: pin_t, bitOrder: natLt(2)
 ) : uint8 = "mac#" // end of [shiftIn]
 
 (* ****** ****** *)
 
 (*
 void
-shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
+shiftOut
+(
+  uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val
+) ; // end of [shiftOut]
 *)
 fun
 shiftOut
 (
-  dataPin: natLt(256), clockPin: natLt(256), bitOrder: natLt(2), value: uint8
+  dataPin: pin_t, clockPin: pin_t, bitOrder: natLt(2), value: uint8
 ) : void = "mac#" (* end of [shiftOut] *)
 
 (* ****** ****** *)

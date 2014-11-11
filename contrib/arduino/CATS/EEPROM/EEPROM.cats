@@ -15,10 +15,10 @@
 //
 #define \
 EEPROM_read(p0, a) \
-  (static_cast<EEPROMclass*>(p0))->read(a)
+  (static_cast<EEPROMClass*>(p0))->read(a)
 #define \
 EEPROM_write(p0, a, x) \
-  (static_cast<EEPROMclass*>(p0))->write(a, x)
+  (static_cast<EEPROMClass*>(p0))->write(a, x)
 //
 /* ****** ****** */
 

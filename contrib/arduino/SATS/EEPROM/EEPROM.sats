@@ -12,23 +12,30 @@
 (* ****** ****** *)
 //
 (*
-class EEPROMclass
+class EEPROMClass
 *)
 abst@ype
-EEPROMclass =
-$extype"EEPROMclass"
-abstype EEPROMclass_ptr = ptr
+EEPROMClass =
+$extype"EEPROMClass"
+abstype EEPROMClass_ptr = ptr
 //
 (* ****** ****** *)
 //
 macdef
-EEPROM = $extval (EEPROMclass, "EEPROM")
+EEPROM = $extval(EEPROMClass, "EEPROM")
 //
 (* ****** ****** *)
-
-fun EEPROM_read (address: int): uint8 = "mac#"
-fun EEPROM_write (address: int, uint8): void = "mac#"
-
+//
+fun
+EEPROM_read
+  (EEPROMClass_ptr, address: intGte(0)): uint8 = "mac#"
+fun
+EEPROM_write
+  (EEPROMClass_ptr, address: intGte(0), uint8): void = "mac#"
+//
+overload .read with EEPROM_read
+overload .write with EEPROM_write
+//
 (* ****** ****** *)
 
 (* end of [EEPROM.sats] *)

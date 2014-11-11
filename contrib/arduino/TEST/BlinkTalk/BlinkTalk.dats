@@ -12,6 +12,8 @@
 // "C Programming for Arduino" by Julien Bayle
 //
 int LEDPIN = 8;
+int BAUD_RATE = 9600;
+//
 void setup() {
   pinMode(LEDPIN, OUTPUT); Serial.begin(BAUD_RATE);
 }
