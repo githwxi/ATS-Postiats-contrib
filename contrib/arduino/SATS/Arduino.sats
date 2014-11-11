@@ -182,8 +182,8 @@ overload random with random_lint_1
 overload random with random_int_2
 overload random with random_lint_2
 //
-fun randomSeed_int (seed: int): void
-fun randomSeed_uint (seed: uint): void
+fun randomSeed_int (seed: int): void = "mac#"
+fun randomSeed_uint (seed: uint): void = "mac#"
 //
 symintr randomSeed
 overload randomSeed with randomSeed_int

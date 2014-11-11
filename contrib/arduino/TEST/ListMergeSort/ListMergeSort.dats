@@ -1,6 +1,6 @@
 (*
 #
-# ListOps
+# ListMergeSort
 #
 *)
 (* ****** ****** *)
@@ -22,6 +22,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 staload _ = "prelude/DATS/list.dats"
 staload _ = "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/list_vt_mergesort.dats"
 
 (* ****** ****** *)
 
@@ -104,45 +105,65 @@ fun loop (): void = "mac#"
 //
 implement
 loop () =
-myloop() where
+myloop(0) where
 {
 //
 fun
-{a:t0p}
-lrotate{n:int}
+mysort{n:int}
 (
-  xs: list_vt(INV(a), n)
-) : list_vt(a, n) =
-(
-case+ xs of
-| list_vt_nil () => xs
-| list_vt_cons _ => let
-    val (hd, tl) = list_vt_split_at (xs, 1)
-  in
-    list_vt_append (tl, hd)
-  end // end of [list_vt_cons]
-)
+  xs: list_vt(int, n)
+) : list_vt(int, n) = list_vt_mergesort (xs)
 //
 fun
-myloop(): void = let
+myrand{n:int}
+(
+  xs: list_vt(int, n)
+) : list_vt(int, n) = let
+//
+fun
+aux{n:nat}
+(
+  xs: list_vt(int, n), n: int(n)
+) : list_vt(int, n) =
+(
+if
+n > 0
+then let
+//
+val i =
+$UN.cast{natLt(n)}(random(n))
+val (xs1, xs2) = list_vt_split_at (xs, i)
+val (xs21, xs22) = list_vt_split_at (xs2, 1)
+val xs1_xs22 = list_vt_append (xs1, xs22)
+//
+in
+  list_vt_append (xs21, aux(xs1_xs22, n-1))
+end // end of [then]
+else xs // end of [else]
+) (* end of [aux] *)
+//
+prval () = lemma_list_vt_param (xs)
+//
+in
+  aux (xs, list_vt_length(xs))
+end // end of [myrand]
+//
+fun
+myloop
+(
+  bit: int
+) : void = let
 //
 val
 out = $extval (FILEref, "0")
 //
-(*
-val () =
-Serial_ptr.println("myloop(bef)")
-*)
+val () = randomSeed($UN.cast{uint}(micros()))
 //
 val xs = theList_get()
 val () = fprint_list_vt (out, xs)
 val () = Serial_ptr.println()
-extvar "theList" = lrotate(xs)
-//
-(*
-val () =
-Serial_ptr.println("myloop(aft)")
-*)
+extvar "theList" =
+  (if bit = 0 then myrand(xs) else mysort(xs)): List0_vt(int)
 //
 val () = digitalWrite(LEDPIN, 1)
 val () = delay(250)
@@ -150,11 +171,11 @@ val () = digitalWrite(LEDPIN, 0)
 val () = delay(1000)
 //
 in
-  // nothing
+  myloop (1-bit)
 end // end of [myloop]
 //
 } (* end of [loop] *)
 //
 (* ****** ****** *)
 
-(* end of [ListOps.dats] *)
+(* end of [ListMergeSort.dats] *)

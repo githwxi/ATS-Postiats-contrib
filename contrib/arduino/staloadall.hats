@@ -22,6 +22,13 @@ staload _ =
 //
 (* ****** ****** *)
 //
+staload _ =
+"prelude/DATS/gorder.dats"
+staload _ =
+"prelude/DATS/gnumber.dats"
+//
+(* ****** ****** *)
+//
 staload _(*UN*) = "prelude/DATS/unsafe.dats"
 //
 (* ****** ****** *)
