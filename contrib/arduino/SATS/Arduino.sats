@@ -191,4 +191,4 @@ overload randomSeed with randomSeed_uint
 //
 (* ****** ****** *)
 
-(* end of [Arduion.sats] *)
+(* end of [Arduino.sats] *)

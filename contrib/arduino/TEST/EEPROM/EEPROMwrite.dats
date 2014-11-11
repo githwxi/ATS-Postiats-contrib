@@ -38,6 +38,11 @@ ATSextmcall(obj, mtd, funarg) obj.mtd funarg
 macdef BAUD_RATE = 9600
 //
 macdef
+DEFAULT = $extval(uint8, "DEFAULT")
+macdef
+INTERNAL = $extval(uint8, "INTERNAL")
+//
+macdef
 EEPROM = $extval(EEPROMClass, "EEPROM")
 macdef
 EEPROM_ptr = $extval(EEPROMClass_ptr, "&EEPROM")
@@ -49,7 +54,12 @@ fun
 setup (): void = "mac#"
 //
 implement
-setup () = ()
+setup () =
+{
+//
+val () = analogReference(DEFAULT)
+//
+} (* end of [setup] *)
 //
 (* ****** ****** *)
 //

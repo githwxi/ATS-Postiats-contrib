@@ -10,6 +10,9 @@ staload _ =
 "prelude/DATS/pointer.dats"
 //
 staload _ =
+"prelude/DATS/integer_fixed.dats"
+//
+staload _ =
 "prelude/DATS/char.dats"
 staload _ =
 "prelude/DATS/string.dats"
