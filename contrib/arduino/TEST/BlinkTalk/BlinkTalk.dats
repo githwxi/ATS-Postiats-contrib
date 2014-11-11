@@ -8,10 +8,10 @@
 (*
 //
 // HX-2014-11-08:
-// The code is taken from the book on
+// The code is adapted from the book on
 // "C Programming for Arduino" by Julien Bayle
 //
-int LEDPIN = 8;
+int LEDPIN = 13;
 int BAUD_RATE = 9600;
 //
 void setup() {
@@ -50,7 +50,7 @@ ATSextmcall(obj, mtd, funarg) obj.mtd funarg
   
 (* ****** ****** *)
 //
-macdef LEDPIN = 8
+macdef LEDPIN = 13
 macdef BAUD_RATE = 9600
 //
 (* ****** ****** *)

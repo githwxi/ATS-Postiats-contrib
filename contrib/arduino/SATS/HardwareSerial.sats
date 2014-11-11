@@ -21,15 +21,15 @@ $extype"HardwareSerial"
 abstype HardwareSerial_ptr = ptr
 //
 (* ****** ****** *)
-
-(*
+//
 macdef Serial = $extval(HardwareSerial, "Serial")
+macdef Serial_ptr = $extval(HardwareSerial_ptr, "Serial_ptr")
+//
 macdef Serial_ = $extval(HardwareSerial, "Serial_")
 macdef Serial1 = $extval(HardwareSerial, "Serial1")
 macdef Serial2 = $extval(HardwareSerial, "Serial2")
 macdef Serial3 = $extval(HardwareSerial, "Serial3")
-*)
-
+//
 (* ****** ****** *)
 //
 fun

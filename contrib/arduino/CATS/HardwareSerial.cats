@@ -12,6 +12,10 @@
 #include <HardwareSerial.h>
 
 /* ****** ****** */
+
+#define Serial_ptr (&Serial)
+
+/* ****** ****** */
 //
 #define \
 HardwareSerial_begin_int(p0, baud) \

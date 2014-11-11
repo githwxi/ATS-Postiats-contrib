@@ -25,6 +25,11 @@
 #define KERNELATS_PATS_CCOMP2_H
 
 /* ****** ****** */
+/*
+#define ATS_MFREE atsruntime_mfree
+#define ATS_MALLOC atsruntime_malloc
+*/
+/* ****** ****** */
 //
 #define \
 ATSINSmove_nil(tmp) (tmp = ((void*)0))
@@ -37,6 +42,21 @@ ATSINSmove_con0(tmp, tag) (tmp = ((void*)tag))
 #define ATSINSmove_con1_new(tmp, tysum) (tmp = ATS_MALLOC(sizeof(tysum)))
 #define ATSINSstore_con1_tag(tmp, val) (((ATStysum()*)(tmp))->contag = val)
 #define ATSINSstore_con1_ofs(tmp, tysum, lab, val) (((tysum*)(tmp))->lab = val)
+//
+/* ****** ****** */
+//
+#define ATSINSmove_boxrec_beg()
+#define ATSINSmove_boxrec_end()
+#define ATSINSmove_boxrec_new(tmp, tyrec) (tmp = ATS_MALLOC(sizeof(tyrec)))
+#define ATSINSstore_boxrec_ofs(tmp, tyrec, lab, val) (((tyrec*)(tmp))->lab = val)
+//
+/* ****** ****** */
+//
+#define ATSINSmove_list_nil(tmp) (tmp = (void*)0)
+#define ATSINSmove_list_phead(tmp1, tmp2, tyelt) (tmp1 = &(((ATStylist(tyelt)*)(*(void**)tmp2))->head))
+#define ATSINSmove_list_ptail(tmp1, tmp2, tyelt) (tmp1 = &(((ATStylist(tyelt)*)(*(void**)tmp2))->tail))
+#define ATSINSpmove_list_nil(tmp) (*(void**)tmp = (void*)0)
+#define ATSINSpmove_list_cons(tmp, tyelt) (*(void**)tmp = ATS_MALLOC(sizeof(ATStylist(tyelt))))
 //
 /* ****** ****** */
 

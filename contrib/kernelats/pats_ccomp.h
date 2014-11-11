@@ -25,6 +25,13 @@
 #define KERNELATS_PATS_CCOMP_H
 
 /* ****** ****** */
+//
+#define ATSstruct struct
+/*
+#define ATStypedef typedef
+*/
+//
+/* ****** ****** */
 
 #define ATSextern() extern
 #define ATSstatic() static
@@ -207,6 +214,18 @@ ATSloop_close(init, fini, cont) \
 
 /* ****** ****** */
 //
+// HX: [ATSSELcon] is the same as [ATSSELboxrec]
+//
+#define ATSSELcon(pmv, tysum, lab) (((tysum*)pmv)->lab)
+//
+#define ATSSELrecsin(pmv, tyrec, lab) (pmv)
+#define ATSSELfltrec(pmv, tyrec, lab) ((pmv).lab)
+#define ATSSELboxrec(pmv, tyrec, lab) (((tyrec*)pmv)->lab)
+#define ATSSELarrind(pmv, tyarr, lab) (((tyarr)pmv).lab)
+#define ATSSELarrptrind(pmv, tyelt, lab) (((tyelt*)pmv)lab)
+//
+/* ****** ****** */
+//
 #define ATSCKnot(x) ((x)==0)
 #define ATSCKiseqz(x) ((x)==0)
 #define ATSCKisneqz(x) ((x)!=0)
@@ -250,6 +269,12 @@ ATSloop_close(init, fini, cont) \
 #define ATSINSmove_tlcal(apy, tmp) (apy = tmp)
 #define ATSINSargmove_tlcal(arg, apy) (arg = apy)
 //
+/* ****** ****** */
+
+#define ATSINSmove_fltrec_beg()
+#define ATSINSmove_fltrec_end()
+#define ATSINSstore_fltrec_ofs(tmp, tyrec, lab, val) ((tmp).lab = val)
+
 /* ****** ****** */
 
 #define ATSINSload(tmp, pmv) (tmp = pmv)
