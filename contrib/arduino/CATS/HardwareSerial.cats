@@ -43,7 +43,7 @@ HardwareSerial_print_uchar(p0, x) (static_cast<HardwareSerial*>(p0))->print(x)
 #define \
 HardwareSerial_print_double(p0, x) (static_cast<HardwareSerial*>(p0))->print(x)
 #define \
-HardwareSerial_print_string(p0, x) (static_cast<HardwareSerial*>(p0))->print(x)
+HardwareSerial_print_string(p0, x) (static_cast<HardwareSerial*>(p0))->print((char*)x)
 //
 #define \
 HardwareSerial_println(p0) (static_cast<HardwareSerial*>(p0))->println()
@@ -62,7 +62,7 @@ HardwareSerial_println_uchar(p0, x) (static_cast<HardwareSerial*>(p0))->println(
 #define \
 HardwareSerial_println_double(p0, x) (static_cast<HardwareSerial*>(p0))->println(x)
 #define \
-HardwareSerial_println_string(p0, x) (static_cast<HardwareSerial*>(p0))->println(x)
+HardwareSerial_println_string(p0, x) (static_cast<HardwareSerial*>(p0))->println((char*)x)
 //
 /* ****** ****** */
 

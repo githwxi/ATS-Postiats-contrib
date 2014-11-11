@@ -91,12 +91,13 @@ extvar "theList" = from(0, 10)
 //
 implement
 fprint_val<int>
-  (out, x) = $extmcall(void, Serial, "print", x)
+  (out, x) =
+  $extmcall(void, Serial, "print", x)
 //
 (* ****** ****** *)
 //
 implement
-fprint_string (out, x) = ()
+fprint_string (out, x) = Serial_ptr.print(x)
 //
 (* ****** ****** *)
 //
