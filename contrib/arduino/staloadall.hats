@@ -28,6 +28,12 @@ staload _ =
 "prelude/DATS/gnumber.dats"
 //
 (* ****** ****** *)
+
+staload _ = "prelude/DATS/array.dats"
+staload _ = "prelude/DATS/arrayptr.dats"
+staload _ = "prelude/DATS/arrayref.dats"
+
+(* ****** ****** *)
 //
 staload _(*UN*) = "prelude/DATS/unsafe.dats"
 //
