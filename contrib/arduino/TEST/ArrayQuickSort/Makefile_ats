@@ -3,9 +3,9 @@ MAKE=make
 PATSOPT=$(PATSHOME)/bin/patsopt
 #
 all:: \
-ListQuickSort_dats.ino
-ListQuickSort_dats.ino: \
-ListQuickSort.dats; $(PATSOPT) -o $@ --dynamic $<
+ArrayQuickSort_dats.ino
+ArrayQuickSort_dats.ino: \
+ArrayQuickSort.dats; $(PATSOPT) -o $@ --dynamic $<
 #
 all:: ; $(MAKE) -f Makefile
 #

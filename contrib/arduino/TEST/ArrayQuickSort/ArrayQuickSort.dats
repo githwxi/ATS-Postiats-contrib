@@ -1,6 +1,6 @@
 (*
 #
-# ListQuickSort
+# ArrayQuickSort
 #
 *)
 (* ****** ****** *)
@@ -180,4 +180,4 @@ end // end of [myloop]
 //
 (* ****** ****** *)
 
-(* end of [ListQuickSort.dats] *)
+(* end of [ArrayQuickSort.dats] *)
