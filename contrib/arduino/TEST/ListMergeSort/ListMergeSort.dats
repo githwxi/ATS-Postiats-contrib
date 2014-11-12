@@ -108,7 +108,8 @@ fprint_list_vt$sep<> (out) = ()
 (* ****** ****** *)
 //
 extern
-fun loop (): void = "mac#"
+fun
+loop (): void = "mac#"
 //
 implement
 loop () =

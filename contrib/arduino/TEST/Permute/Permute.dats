@@ -1,6 +1,6 @@
 (*
 #
-# ArrayQuickSort
+# Permute
 #
 *)
 (* ****** ****** *)
@@ -13,11 +13,6 @@
 "share/atspre_define.hats"
 #include
 "{$ARDUINO}/staloadall.hats"
-//
-(* ****** ****** *)
-//
-staload _ =
-  "prelude/DATS/array_quicksort.dats"
 //
 (* ****** ****** *)
 
@@ -43,6 +38,60 @@ int theArray[N] =
 #define N 10
 macdef theArray =
   $extval(arrayref(int,N),"theArray")
+//
+(* ****** ****** *)
+//
+extern
+fun
+permute_next
+  {n:pos}
+  (A: arrayref(int, n), asz: int(n)): void
+//
+implement
+permute_next
+  {n}(A, asz) = let
+//
+fun
+loop
+(
+  i: natLt(n)
+) : natLt(n) =
+(
+if
+i > 0
+then
+  if A[i] < A[i-1] then loop (i-1) else i
+else 0
+) (* end of [loop] *)
+//
+val n0 = asz
+val i0 = loop (n0-1)
+//
+val () = let
+  val (vbox pf | p) =
+    arrayref_get_viewptr (A)
+in
+  array_subreverse (!p, i2sz(i0), i2sz(n0))
+end // end of [val]
+//
+in
+//
+if
+i0 > 0
+then let
+  val i1 = i0 - 1
+  fun loop2
+    (i: natLt(n), x1: int): void =
+    if x1 < A[i]
+      then (A[i1] := A[i]; A[i] := x1)
+      else loop2 ($UN.cast{natLt(n)}(i+1), x1)
+    // end of [if]
+in
+  loop2 (i0, A[i1])
+end // end of [then]
+else () // end of [else]
+//
+end // end of [permute_next]
 //
 (* ****** ****** *)
 
@@ -88,55 +137,10 @@ fun loop (): void = "mac#"
 //
 implement
 loop () =
-myloop(0) where
+myloop() where
 {
-//
 fun
-mysort{n:nat}
-(
-  A: arrayref(int, n)
-, n: int(n)
-) : void = let
-//
-val
-(
-  vbox pf | p
-) =
-  arrayref_get_viewptr(A)
-in
-  array_quicksort (!p, i2sz(n))
-end // end of [mysort]
-//
-fun
-myrand{n:int}
-(
-  A: arrayref(int, n), n: int(n)
-) : void = let
-//
-val
-(
-  vbox pf | p
-) =
-  arrayref_get_viewptr(A)
-//
-prval () = lemma_arrayref_param(A)
-//
-implement
-array_permute$randint<>
-  {n}(n) =
-(
-  $UN.cast{sizeLt(n)}(random(sz2i(n)))
-) (* end of [array_permute$randint] *)
-//
-in
-  $effmask_ref(array_permute (!p, i2sz(n)))
-end // end of [myrand]
-//
-fun
-myloop
-(
-  bit: int
-) : void = let
+myloop(): void = let
 //
 val
 out = $extval (FILEref, "0")
@@ -150,10 +154,7 @@ val A = theArray
 val () = fprint_arrayref (out, A, i2sz(N))
 val () = Serial_ptr.println()
 //
-val () =
-(
-  if bit = 0 then myrand(A, N) else mysort(A, N)
-) : void // end of [val]
+val () = permute_next (A, N)
 //
 val () = digitalWrite(LEDPIN, 1)
 val () = delay(250)
@@ -161,11 +162,11 @@ val () = digitalWrite(LEDPIN, 0)
 val () = delay(1000)
 //
 in
-  myloop (1-bit)
+  myloop ()
 end // end of [myloop]
 //
 } (* end of [loop] *)
 //
 (* ****** ****** *)
 
-(* end of [ArrayQuickSort.dats] *)
+(* end of [Permute.dats] *)
