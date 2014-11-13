@@ -20,7 +20,7 @@ g1uint_div : g1uint_div_type(tk)
 
 overload / with g1uint_div of 100
 
-abst@ype int_bv32 (bv:bv32) = int
+abst@ype int_bv32 (bv:bv32) = $extype "int32_t"
 typedef int (bv:bv32) = int_bv32 (bv)
 
 castfn
@@ -183,7 +183,7 @@ overload >> with ashr_int_bv32_int
 (**
   Unsigned ints.
 *)
-abst@ype uint_bv32 (bv:bv32) = uint
+abst@ype uint_bv32 (bv:bv32) = $extype "uint32_t"
 typedef uint (bv:bv32) = uint_bv32 (bv)
 
 castfn
