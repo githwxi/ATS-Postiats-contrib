@@ -208,3 +208,40 @@ in
 end
 
 end // end of [local]
+
+typedef Uintbv = [b:bv32] uint (b)
+
+abst@ype filesystem = ptr
+abst@ype block = ptr
+
+extern
+fun filesystem_get_block (fs: filesystem, i: uint): block
+
+overload .get_block with filesystem_get_block
+
+(**
+    Suppose we have a large array of unsigned integers. Each bit of these
+    integers represents a block in our filesystem. If a bit is set, then the block
+    corresponding to that bit is claimed. Otherwise, it is available.
+*)
+fun 
+find_free_block (
+    fs: filesystem
+): uint = let
+    fun loop (
+        i: uint
+    ): uint = 
+        if i > 261u then
+             ~1u
+        else let
+           val block = fs.get_block (i)
+           (**
+               For every word in the block, check if a zero exists. If so, return its
+               index in the whole bitmap.
+           *)
+        in
+           loop (succ (i))
+        end
+in
+    loop (257u)
+end
