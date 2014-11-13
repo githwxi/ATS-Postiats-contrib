@@ -27,6 +27,22 @@ Firmata_begin_lint(p0, speed) \
 /* ****** ****** */
 //
 #define \
+Firmata_blinkVersion(p0) \
+  (static_cast<FirmataClass*>(p0))->blinkVersion()
+#define \
+Firmata_printFirmwareVersion(p0) \
+  (static_cast<FirmataClass*>(p0))->printFirmwareVersion()
+//
+#define \
+Firmata_setFirmwareVersion(p0, major, minor) \
+  (static_cast<FirmataClass*>(p0))->setFirmwareVersion(major, minor)
+#define \
+Firmata_setFirmwareNameAndVersion(p0, name, major, minor) \
+  (static_cast<FirmataClass*>(p0))->setFirmwareVersion((char*)name, major, minor)
+//
+/* ****** ****** */
+//
+#define \
 Firmata_available(p0) \
   (static_cast<FirmataClass*>(p0))->available()
 #define \

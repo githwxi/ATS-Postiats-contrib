@@ -61,14 +61,22 @@ overload ._begin with Firmata_begin
 overload ._begin with Firmata_begin_lint
 
 (* ****** ****** *)
-
+//
 (*
 void blinkVersion(void);
 void printFirmwareVersion(void);
 void setFirmwareVersion(byte major, byte minor);  // see macro below
 void setFirmwareNameAndVersion(const char *name, byte major, byte minor);
 *)
-
+fun Firmata_blinkVersion (FirmataClass_ptr): void = "mac#"
+fun Firmata_printFirmwareVersion (FirmataClass_ptr): void = "mac#"
+fun
+Firmata_setFirmwareVersion
+  (FirmataClass_ptr, natLt(256), natLt(256)): void = "mac#"
+fun
+Firmata_setFirmwareNameAndVersion
+  (FirmataClass_ptr, string, natLt(256), natLt(256)): void = "mac#"
+//
 (* ****** ****** *)
 
 fun Firmata_available (FirmataClass_ptr): int = "mac#"
