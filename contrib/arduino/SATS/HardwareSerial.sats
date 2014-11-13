@@ -62,6 +62,14 @@ fun HardwareSerial_flush (HardwareSerial_ptr): void = "mac#"
 fun HardwareSerial_available (HardwareSerial_ptr): int = "mac#"
 //
 (* ****** ****** *)
+
+overload .peek with HardwareSerial_peek
+overload .read with HardwareSerial_read
+overload .write with HardwareSerial_write
+overload .flush with HardwareSerial_flush
+overload .available with HardwareSerial_available
+
+(* ****** ****** *)
 //
 fun
 HardwareSerial_print_int
