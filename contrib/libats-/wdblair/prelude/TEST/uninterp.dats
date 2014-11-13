@@ -12,6 +12,27 @@
   appropriate function.
 *)
 
+// Multiplication
+
+absvt@ype matrix (a:t@ype, m:int, n:int) = ptr
+
+assume matrix (a, m, n) = arrayptr (a, m * n)
+
+(**
+
+Even if we assume that i *n + j < m * n in the SMT
+script, the SMT solver cannot decide this entirely
+on its own.
+
+*)
+
+fun {a:t@ype}
+matrix_get {m,n:nat} {i,j:nat | i < m; j < n} (
+    mat: !matrix(a, m, n), i: int i, n: int n, j: int j
+): a = mat[i*n + j]
+
+*)
+
 // Factorial
 
 stacst fact_int: (int) -> int

@@ -8,8 +8,21 @@ import patsolve
 
 s = patsolve.solver
 
-n, m, p = Ints ("n m p")
+i, j, n, m, p = Ints ("i j n m p")
 undef = Int ("undef")
+
+# Simplify some constraints
+
+def Nat (n):
+    return 0 <= n
+
+def Pos (n):
+    return 0 < n
+    
+    
+s.add (
+    ForAll([m,n,i,j], Implies(And(0 <= m, 0 <= n, 0 <= i, 0 <= j, i < m, j < n), ((i * n) + j) < (m *n)))
+)
 
 # Factorial
 
