@@ -57,7 +57,8 @@ stadef jobject (l:addr) = $JNI.jobject(l)
 // [play24] is declared in Java class [GameOf24]
 //
 extern
-fun JNI_play24
+fun
+JNI_play24
   {l:addr}
 (
   env: !JNIEnvPtr

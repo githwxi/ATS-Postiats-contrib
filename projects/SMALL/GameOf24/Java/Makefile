@@ -38,9 +38,18 @@ GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPI
 libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -latslib
 #
 # HX-2013: Causing a crash:
+# GameOf24.class: GameOf24.java ; javac $<
 # GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_GCBDW -fPIC -c $<
 # libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -lgc -latslib
 #
+#
+# HX-2014-11-13: not working yet
+#
+# GameOf24_gcj: \
+# GameOf24.class GameOf24_dats.o ; \
+# gcj -o $@ GameOf24.class GameOf24_dats.o -L$(PATSLIB) -lgc -latslib
+# GameOf24.class: GameOf24.java ; gcj -C $<
+# GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_GCBDW -fPIC -c $<
 #
 ######
 
