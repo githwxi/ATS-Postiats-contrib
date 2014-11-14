@@ -140,8 +140,21 @@ val () = Serial_ptr._begin(BAUD_RATE)
 //
 implement
 fprint_val<int>
-  (out, x) = Serial_ptr.print(x)
+  (out, x) = let
 //
+fun
+ndot (n: int): void =
+  if n > 0 then (Serial_ptr.print(". "); ndot(n-1))
+//
+val () = ndot(x-1)
+val () = Serial_ptr.print("Q ")
+val () = ndot(N-x)
+val () = Serial_ptr.println()
+//
+in
+  // nothing
+end // end of [fprint_val]
+
 (* ****** ****** *)
 //
 implement
@@ -150,7 +163,7 @@ fprint_string (out, x) = Serial_ptr.print(x)
 (* ****** ****** *)
 //
 implement
-fprint_array$sep<> (out) = Serial_ptr.print(" ")
+fprint_array$sep<> (out) = ()
 //
 (* ****** ****** *)
 //
