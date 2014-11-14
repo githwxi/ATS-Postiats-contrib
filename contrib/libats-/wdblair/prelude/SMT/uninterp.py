@@ -1,5 +1,5 @@
 # 
-# Representing Recursive Functions using 
+# Representing Recursive Functions using Uninterpreted Functions
 #
 
 from z3 import *
@@ -18,8 +18,7 @@ def Nat (n):
 
 def Pos (n):
     return 0 < n
-    
-    
+
 s.add (
     ForAll([m,n,i,j], Implies(And(0 <= m, 0 <= n, 0 <= i, 0 <= j, i < m, j < n), ((i * n) + j) < (m *n)))
 )
@@ -54,7 +53,7 @@ s.add (
 
 s.add (
     ForAll([n],
-           Implies (n >= 0, fib(n) >= 0)
+           Implies (0 <= n, fib(n) >= 0)
     )
 )
 

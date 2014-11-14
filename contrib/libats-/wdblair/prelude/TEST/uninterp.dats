@@ -83,7 +83,7 @@ fun
 fib1 {n:nat} (
   n: int n
 ): int (fib (n)) = let
-  //
+
   fun loop {i:nat | i > 0} (
       i: int i,
       r: int (fib (i)), s: int (fib (i-1))
@@ -92,7 +92,7 @@ fib1 {n:nat} (
       r
     else
       loop (succ (i), r + s, r)
-  //
+
 in
   loop (1, 1, 0)
 end
