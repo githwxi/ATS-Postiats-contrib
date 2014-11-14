@@ -33,9 +33,9 @@ GameOf24.h: GameOf24.class ; javah GameOf24
 
 ######
 #
-GameOf24.class: GameOf24.java ; javac $<
-GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c $<
-libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -latslib
+# GameOf24.class: GameOf24.java ; javac $<
+# GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c $<
+# libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -latslib
 #
 # HX-2013: Causing a crash:
 # GameOf24.class: GameOf24.java ; javac $<
@@ -45,11 +45,14 @@ libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl 
 #
 # HX-2014-11-13: not working yet
 #
-# GameOf24_gcj: \
-# GameOf24.class GameOf24_dats.o ; \
-# gcj -o $@ GameOf24.class GameOf24_dats.o -L$(PATSLIB) -lgc -latslib
-# GameOf24.class: GameOf24.java ; gcj -C $<
-# GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_GCBDW -fPIC -c $<
+GameOf24_gcj:: \
+GameOf24.class GameOf24_dats.o ; \
+gcj -fjni -o $@ GameOf24.class GameOf24_dats.o --main=GameOf24 -L$(PATSLIB) -latslib
+GameOf24.class: GameOf24.java ; gcj -C $<
+GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c $<
+GameOf24_gcj:: \
+libGameOf24_dats.so
+libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -latslib
 #
 ######
 
@@ -61,6 +64,7 @@ cleanall:: clean
 cleanall:: ; $(RMF) GameOf24.h
 cleanall:: ; $(RMF) GameOf24.class
 cleanall:: ; $(RMF) libGameOf24_dats.so
+cleanall:: ; $(RMF) GameOf24_gcj
 
 ######
 
