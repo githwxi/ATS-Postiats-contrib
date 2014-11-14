@@ -32,11 +32,16 @@ GameOf24:: libGameOf24_dats.so
 GameOf24.h: GameOf24.class ; javah GameOf24
 
 ######
-
+#
 GameOf24.class: GameOf24.java ; javac $<
 GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c $<
 libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -latslib
-
+#
+# HX-2013: Causing a crash:
+# GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_GCBDW -fPIC -c $<
+# libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -lgc -latslib
+#
+#
 ######
 
 RMF=rm -f
