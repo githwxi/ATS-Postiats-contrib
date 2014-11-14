@@ -91,8 +91,16 @@ test
   A: arrayref(int, n), i: natLt(n), j: intGte(0)
 ) : bool =
 (
-if j >= i then true else
-  (if A[i] = A[j] then false else if (i-j=abs(A[i]-A[j])) then false else test (A, i, j+1))
+if
+j >= i
+then true
+else
+(
+if
+A[i] = A[j]
+then false
+else (if (i-j=abs(A[i]-A[j])) then false else test(A, i, j+1))
+) (* end of [else] *)
 ) (* end of [test] *)
 //
 in
@@ -102,10 +110,13 @@ A[i] <= n
 then let
 in
 //
-if test(A, i, 0)
-  then
-  (if i+1=n then true else find_next(A, n))
-  else (A[i] := A[i]+1; find2_next(A, n, i))
+if
+test(A, i, 0)
+then
+(
+  if i+1=n then true else find_next(A, n)
+) (* end of [then] *)
+else (A[i] := A[i]+1; find2_next(A, n, i))
 //
 end // end of [then]
 else let
