@@ -143,13 +143,16 @@ fprint_val<int>
   (out, x) = let
 //
 fun
-ndot (n: int): void =
-  if n > 0 then (Serial_ptr.print(". "); ndot(n-1))
+ndot(n: int): void =
+if n > 0 then
+(
+  Serial_ptr.print(". "); ndot(n-1)
+) (* end of [if] *)
 //
 val () = ndot(x-1)
 val () = Serial_ptr.print("Q ")
 val () = ndot(N-x)
-val () = Serial_ptr.println()
+val () = Serial_ptr.println((*void*))
 //
 in
   // nothing
