@@ -31,7 +31,20 @@ praxi array_ordered_lemma
 
 (* ****** ****** *)
 
+(**
+    Shorthand to make the example more readable
+*)
+
 #define :: array_v_cons
+#define nil array_v_nil
+
+macdef offset = ptr_offset
+macdef swap = array_ptrswap
+macdef split = array_v_split
+macdef join = array_v_unsplit
+
+
+(* ****** ****** *)
 
 fn
 sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
@@ -40,7 +53,14 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
 ): [ys:stmsq | ordered(ys)] (
   array_v (a, l, ys, n) | void
 )  = let
-
+   
+   (**
+       Short hand to abstract sz, which stays the same for the whole
+       function.
+   *)
+  macdef ptrsucc(p) = add_ptr_bsz(,(p), sz)
+  macdef ptrpred(p) = sub_ptr_bsz(,(p), sz)
+   
   fun 
   loop {m:nat | m <= n}
            {ys:stmsq | ordered(ys)} .<n-m>. (
@@ -51,7 +71,7 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
     array_v (a, l, zs, n) | void
   ) =
     if m = n then let
-        prval array_v_nil () = pfrem
+        prval nil () = pfrem
     in 
          (pfsorted | ())
     end
@@ -71,41 +91,40 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
               fun
               loop {i:nat | i <= n} {x:stamp}
                        {xs:stmsq | sorted(xs, n) ; lte(x, xs, i, n)} .<i>. (
-                  pf: array_v (a, l, insert(xs, i, x), n+1) | pi: ptr (l+i*sizeof(a))
+                  pf: array_v (a, l, insert(xs, i, x), n+1) | px: ptr (l+i*sizeof(a))
               ): [j:nat | sorted(insert(xs, j, x), n+1)] (
                   array_v (a, l, insert(xs, j, x), n+1) | void
               ) = 
-                  if p = pi then let
-                      prval  () = equal_ptr_lemma {a} {l} {0,i} (p, pi)
+                  if p = px then let
+                      prval  () = equal_ptr_lemma {a} {l} {0,i} (p, px)
                   in
                       #[0 | (pf | ())]
                   end
                   else let 
-                      val q = sub_ptr_bsz(pi, sz)
+                      val py = ptrpred(px)
                       
-                      prval (front, last) = array_v_split (pf, ptr_offset{a}{l}{i}(p, pi, sz))
+                      prval (front, last) = split (pf, offset{a}{l}{i}(p, px, sz))
                       prval pfx :: pfxs = last
-                      prval (pff, pfis) = 
-                          array_v_split (front, ptr_offset{a}{l}{i-1}(p, q, sz))
-                      prval pfi1 :: pfiss = pfis
+                      prval (sortedfront, pfys) = split (front, offset{a}{l}{i-1}(p, py, sz))
+                      prval pfy :: pfyss = pfys
 
-                      val sgn = cmp (pfi1, pfx | q, pi)
+                      val sgn = cmp (pfy, pfx | py, px)
                       
-                      prval front = array_v_unsplit (pff, pfi1 :: pfiss)
+                      prval front = join (sortedfront, pfy :: pfyss)
                       prval last = pfx :: pfxs
-                      prval () = pf := array_v_unsplit (front, last)
+                      prval () = pf := join (front, last)
                   in
-                      if sgn < 0 then
+                      if sgn <= 0 then
                           (** 
                               Found our final position
                           *) 
                           #[i | (pf | ())]
                       else let
                           (**
-                              pi-1 > pi, swap and try again
+                              py > px, swap and try again
                           *)
-                          val () = array_ptrswap {a}{l}{n+1}{i-1, i} (pf | q, pi, sz)
-                          val [i':int] (pfins | ()) = loop {i-1} {x} {xs} (pf | q)
+                          val () = swap {a}{l}{n+1}{i-1, i} (pf | py, px, sz)
+                          val [i':int] (pfins | ()) = loop {i-1} {x} {xs} (pf | py)
                        in
                            #[i' | (pfins | ())]
                        end
@@ -122,7 +141,7 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
           
           val (pfinserted | ()) = insert (pfsorted, pfr | ps, pr, m)
      in
-         loop (pfinserted, pfrss | ps, add_ptr_bsz(pr, sz), succ(m))
+         loop (pfinserted, pfrss | ps, ptrsucc(pr), succ(m))
      end
         
 in
