@@ -29,6 +29,7 @@ s.add (
 
 l, sz = Ints ("l sz")
 
+
 #s.add (
 #  ForAll ([l, i, sz], Implies (And(sz > 0, i >= 0, l >= 0), (((l + i * sz) - l) / sz == i)))
 #)

@@ -113,7 +113,7 @@ array_v_extend:
   {l:addr}
   {n:int} {xs:stmsq} {x:stamp} (
   array_v (INV(a), l, xs, n) , T(a,x) @ l+n*sizeof(a)
-) -<prf> array_v (a, l, update(xs, n, x), n+1) // end of [array_v_extend]
+) -<prf> array_v (a, l, insert(xs, n, x), n+1) // end of [array_v_extend]
 
 (* ****** ****** *)
 
