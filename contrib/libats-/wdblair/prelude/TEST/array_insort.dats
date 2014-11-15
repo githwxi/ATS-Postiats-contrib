@@ -18,6 +18,20 @@ typedef cmp_fn(a:t@ype) = {l1,l2:addr} {x1,x2:stamp} (
 (* ****** ****** *)
 
 extern
+praxi array_sorted_len_lemma 
+                 {a:t@ype} {l:addr} {xs:stmsq | ordered(xs)} {n:nat} (
+    pf: array_v (a, l, xs, n)
+): [sorted(xs, n)] void
+
+extern
+praxi array_ordered_lemma
+                 {a:t@ype} {l:addr} {xs:stmsq | sorted(xs, n)} {n:nat} (
+    pf: array_v (a, l, xs, n)
+): [ordered(xs)] void
+
+(* ****** ****** *)
+
+extern
 fun
 sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat | n != 0} (
   pf: array_v (a, l, xs, n) | 
@@ -46,14 +60,28 @@ sort {a}{l}{xs}{n}
     end
     else let
     
-          extern fun
+           fun
           insert {n:nat}  {l:addr}
                       {x:stamp} {xs:stmsq | ordered(xs)} (
               pfxs: array_v (a, l, xs, n), pfx: T(a, x) @ l + n*sizeof(a) |  
                   p: ptr l,  px: ptr (l + n *sizeof(a)), n: size_t n
           ): [ys:stmsq | ordered(ys)] (
                   array_v (a, l, ys, n+1) | void
-          )
+          ) = let
+              prval () = array_sorted_len_lemma (pfxs)
+              
+              fun
+              loop {i:nat | i < n} {x:stamp} {xs:stmsq | sorted(xs, n)} (
+                  pf: array (a, l, insert(xs, i, x), n+1) | pi: ptr (l+i*sizeof(a))
+              ): [j:nat | sorted(insert(xs, j, x), n+1)] (
+                  array_v (a, l, insert(xs, j, x), n+1)
+              ) =
+                  if ps = pi then let
+                      prval () = equal_ptr_lemma {..}{l}{0,i} ()
+                   
+           in
+          
+          end
             
           prval array_v_cons (pfr, pfrss) = pfrem
           val (pfinserted | ()) = insert (pfsorted, pfr | ps, pr, m)

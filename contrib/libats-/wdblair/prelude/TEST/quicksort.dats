@@ -159,7 +159,7 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
               array_v (a, l, ys, n) | size_t (p)
       ) =
         if pi = pn then let
-          prval () = equal_ptr_lemma{a}{l}{i,n-1} (pi, pn)
+          //prval () = equal_ptr_lemma{a}{l}{i,n-1} (pi, pn)
           //
           val () = swap{a}{l}{n}{pind, n-1} (pf | pind, pn, sz)
         in 
