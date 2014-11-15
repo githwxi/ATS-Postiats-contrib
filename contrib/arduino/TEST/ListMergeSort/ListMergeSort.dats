@@ -22,7 +22,6 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 staload _ = "prelude/DATS/list.dats"
 staload _ = "prelude/DATS/list_vt.dats"
-staload _ = "prelude/DATS/list_vt_mergesort.dats"
 
 (* ****** ****** *)
 
@@ -106,6 +105,10 @@ implement
 fprint_list_vt$sep<> (out) = ()
 //
 (* ****** ****** *)
+
+staload MS = "./list_vt_mergesort.dats"
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -120,7 +123,15 @@ fun
 mysort{n:int}
 (
   xs: list_vt(int, n)
-) : list_vt(int, n) = list_vt_mergesort (xs)
+) : list_vt(int, n) = let
+//
+implement
+$MS.list_vt_mergesort$cmp<int>
+  (x1, x2, n1, n2) = compare (x1, x2)
+//
+in
+  list_vt_mergesort (xs)
+end // end of [mysort]
 //
 fun
 myrand{n:int}
@@ -128,32 +139,15 @@ myrand{n:int}
   xs: list_vt(int, n)
 ) : list_vt(int, n) = let
 //
-fun
-aux{n:nat}
+implement
+$MS.list_vt_mergesort$cmp<int>
+  (x1, x2, n1, n2) =
 (
-  xs: list_vt(int, n), n: int(n)
-) : list_vt(int, n) =
-(
-if
-n > 0
-then let
-//
-val i =
-$UN.cast{natLt(n)}(random(n))
-val (xs1, xs2) = list_vt_split_at (xs, i)
-val (xs21, xs22) = list_vt_split_at (xs2, 1)
-val xs1_xs22 = list_vt_append (xs1, xs22)
+  $effmask_all(if random(n1+n2) < n1 then 0 else 1)
+)
 //
 in
-  list_vt_append (xs21, aux(xs1_xs22, n-1))
-end // end of [then]
-else xs // end of [else]
-) (* end of [aux] *)
-//
-prval () = lemma_list_vt_param (xs)
-//
-in
-  aux (xs, list_vt_length(xs))
+  list_vt_mergesort (xs)
 end // end of [myrand]
 //
 fun
