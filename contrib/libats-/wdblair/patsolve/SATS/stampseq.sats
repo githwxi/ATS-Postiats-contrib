@@ -21,6 +21,7 @@ sortdef stmsq = stampseq
 stacst stampseq_nil : () -> stampseq
 stacst stampseq_sing : (stamp) -> stampseq
 stacst stampseq_cons : (stamp, stampseq) -> stampseq
+stacst stampseq_snoc : (stampseq, stamp) -> stampseq
 stacst stampseq_head : stampseq -> stamp
 stacst stampseq_tail : stampseq -> stampseq
 
@@ -29,6 +30,7 @@ stacst stampseq_tail : stampseq -> stampseq
 stadef nil = stampseq_nil
 stadef sing = stampseq_sing
 stadef cons = stampseq_cons
+stadef snoc = stampseq_snoc
 stadef tail = stampseq_tail
 stadef head = stampseq_head
 

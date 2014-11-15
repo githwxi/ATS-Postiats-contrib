@@ -134,9 +134,9 @@ bits_set_naive {b:bv32} (
     pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
   ): uint (bits_set (b)) =
     if x = 0u then let
-      val () = bitcount_elim_lemma (pf)
+        val () = bitcount_elim_lemma (pf)
     in
-      c
+        c
     end
     else
       loop (Succ (pf) | x >> 1u, c + uint_of_bv32((x land 1u)))
@@ -146,7 +146,7 @@ end
 
 (**
   Interestingly, this one doesn't work. Z3 gets hung up
-  trying to prove that 
+  trying to prove the following
     
     x = 0
     bitset (b - x) = bitset (b)
@@ -155,13 +155,15 @@ fun
 bits_set_naive1 {b:bv32} (
   b: uint b
 ): uint (bits_set(b)) = let
+
   fun loop {x:bv32} {n:int} (
     x: uint (x), c: uint (bits_set(b-x))
   ): uint (bits_set (b)) =
     if x = 0u then
       c
     else
-      loop (x >> 1u, c + uint_of_bv32((x land 1u)))  
+      loop (x >> 1u, c + uint_of_bv32((x land 1u)))
+      
 in
   loop (b, 0u)
 end
@@ -191,7 +193,7 @@ fun
 bits_set_kernighan {b:bv32} (
   b: uint b
 ): uint (bits_set(b)) = let
-  //
+
   fun loop {x:bv32} {n:int} .<x>. (
     pf: BitCount (b, x, n) | x: uint (x), c: uint (n)
   ): uint (bits_set (b)) =
@@ -202,7 +204,7 @@ bits_set_kernighan {b:bv32} (
     end
     else
       loop (Succ(pf) | x land (x - 1u), succ(c))
-  //
+
 in
   loop (Nil() | b, 0u)
 end
@@ -213,6 +215,8 @@ typedef Uintbv = [b:bv32] uint (b)
 
 abst@ype filesystem = ptr
 abst@ype block = ptr
+
+absvt@ype bitmap (n:int) = ptr
 
 extern
 fun filesystem_get_block (fs: filesystem, i: uint): block
@@ -228,6 +232,7 @@ fun
 find_free_block (
     fs: filesystem
 ): uint = let
+
     fun loop (
         i: uint
     ): uint = 
@@ -242,6 +247,33 @@ find_free_block (
         in
            loop (succ (i))
         end
+        
 in
     loop (257u)
 end
+
+(**
+    Can I enforce invariants on memory mapped registers? I don't think
+    so, all memory mapped registers would have to be left values, but
+    they are global which makes things difficult.
+*)
+
+abst@ype register(b:bv32) = ptr
+
+typedef InputOnly = 
+    [b:bv32 | (b land (bv32(0x1) <<  bv32(0x1))) == bv32(0x0)] 
+        register (b)
+
+extern
+fun
+setbit {b:bv32} {i:nat | i < 32} (
+    register(b), i: uint i
+): void
+
+extern
+fun 
+DDRB (): InputOnly
+
+val d = DDRB()
+val _ = setbit(d, 2u)
+val d = setbit(d, 3u)

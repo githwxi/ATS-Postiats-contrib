@@ -11,7 +11,7 @@ s = patsolve.solver
 A = Array ("A", IntSort(), IntSort())
 B = Array ("B", IntSort(), IntSort())
 
-i, j, x, y = Ints("i j x y")
+i, j, x, y, m, n = Ints("i j x y m n")
 
 StampSeq = lambda name: Array (name, IntSort(), IntSort())
 StampSeqSort = lambda : ArraySort (IntSort(), IntSort())
@@ -29,9 +29,11 @@ s.add (
 
 l, sz = Ints ("l sz")
 
-s.add (
-    ForAll ([l, i, sz], Implies (sz != 0, l + i * sz - l / sz == i))
-)
+
+#s.add (
+#  ForAll ([l, i, sz], Implies (And(sz > 0, i >= 0, l >= 0), (((l + i * sz) - l) / sz == i)))
+#)
+
 
 # Undefined Section of an Array
 
@@ -68,6 +70,11 @@ s.add (
     ForAll ([A, i, x], Implies (i > 0, cons(x, A)[i] == A[i-1]))
 )
 
+# Snoc
+
+snoc = Function ('stampseq_snoc', StampSeqSort(), IntSort(), 
+                 StampSeqSort())               
+
 # Take
 
 take = Function ('stampseq_take', StampSeqSort(), IntSort(), 
@@ -86,6 +93,10 @@ s.add (
     ForAll ([A, i, j], drop(A, i)[j] == A[i+j])
 )
 
+s.add (
+    ForAll ([A,B,x,m], Implies(cons(x, B) == drop(A, m), B == drop(A, m+1)))
+)
+
 # Insert
 
 insert = Function ('stampseq_insert', StampSeqSort(), IntSort(),
@@ -101,8 +112,6 @@ s.add (
 
 append = Function ('stampseq_append', StampSeqSort(), IntSort(),
                    StampSeqSort(), IntSort(), StampSeqSort())
-
-B = Array("B", IntSort(), IntSort())
 
 m, n = Int("m"), Int("n")
 

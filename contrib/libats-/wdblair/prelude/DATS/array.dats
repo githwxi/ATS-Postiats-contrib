@@ -14,12 +14,14 @@ staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
 
 (* ****** ****** *)
 
+(**
 implement {}
 ptr_offset (p, pi, sz) = let
   val d = pi - p
 in
-  g1int2uint_ssize_size (d) / sz
+   g1int2uint_ssize_size(d) / sz
 end
+*)
 
 (* ****** ****** *)
 

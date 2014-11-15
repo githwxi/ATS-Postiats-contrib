@@ -88,11 +88,10 @@ array_v_split
   pf: array_v(a, l, xs, n), i: size_t (i)
 ) : (
   array_v (a, l, take(xs, i), i)
-, array_v (a, l + sizeof(a)*i, drop(xs, i), n-i)
+, array_v (a, l+sizeof(a)*i, drop(xs, i), n-i)
 ) (* end of [array_v_split] *)
 
 (* ****** ****** *)
-
 prfun
 array_v_unsplit
   {a:t@ype}{l:addr}
@@ -105,6 +104,16 @@ array_v_unsplit
 (
   array_v (a, l, append (xs1, n1, xs2, n2), n1+n2)
 ) (* end of [array_v_unsplit] *)
+
+(* ****** ****** *)
+
+prfun
+array_v_extend:
+  {a:t@ype}
+  {l:addr}
+  {n:int} {xs:stmsq} {x:stamp} (
+  array_v (INV(a), l, xs, n) , T(a,x) @ l+n*sizeof(a)
+) -<prf> array_v (a, l, update(xs, n, x), n+1) // end of [array_v_extend]
 
 (* ****** ****** *)
 
