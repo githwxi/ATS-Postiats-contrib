@@ -150,16 +150,15 @@ outchan_get_fileref (state.outchan)
 //
 val d0cs = parse_from_fileref (inp)
 //
-val () = emit_text (out, "<?php\n")
-//
 val () = emit_time_stamp (out)
+//
 val ((*void*)) = emit_toplevel (out, d0cs)
-val () = emit_text (out, "/* ****** ****** */\n\n")
-val () = emit_text (out, "/* end-of-compilation-unit */\n")
 //
-val ((*closing*)) = emit_text (out, "?>\n")
+val () = emit_text (out, "######\n")
+val () = emit_text (out, "## end-of-compilation-unit")
+val () = emit_text (out, "\n######")
 //
-val ((*flusing*)) = emit_flush (out)
+val ((*flusing*)) = emit_newline (out)
 //
 in
   // nothing

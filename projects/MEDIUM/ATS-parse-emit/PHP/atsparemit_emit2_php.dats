@@ -749,10 +749,6 @@ end // end of [emit_f0marg]
 implement
 emit_f0head
   (out, fhd) = let
-//
-val f0as =
-  f0head_get_f0arglst (fhd)
-//
 in
 //
 case+

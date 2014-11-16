@@ -2,7 +2,7 @@
 //
 // HX-2014-08:
 // A running example
-// from ATS2 to PHP
+// from ATS2 to Perl
 //
 (* ****** ****** *)
 //
@@ -16,9 +16,9 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PHP}/basics_php.sats"
+"{$LIBATSCC2PL}/basics_pl.sats"
 staload
-"{$LIBATSCC2PHP}/SATS/integer.sats"
+"{$LIBATSCC2PL}/SATS/integer.sats"
 //
 (* ****** ****** *)
 //

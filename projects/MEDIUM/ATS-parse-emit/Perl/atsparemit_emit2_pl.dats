@@ -83,7 +83,8 @@ case+ tds of
         val () =
         emit_nspc (out, 2(*ind*))
         val () = (
-          emit_text (out, "// "); emit_tmpvar (out, tmp); emit_ENDL (out)
+          emit_text (out, "my ");
+          emit_tmpvar (out, tmp); emit_text (out, ";\n")
         ) (* end of [val] *)
       in
         auxlst (out, tds)
@@ -189,7 +190,7 @@ ins0.instr_node of
     | None _ =>
       {
         val () = emit_nspc (out, ind)
-        val ((*closing*)) = emit_text (out, "} // endif")
+        val ((*closing*)) = emit_text (out, "} #endif")
       } (* end of [None] *)
     | Some (inss) =>
       {
@@ -197,7 +198,7 @@ ins0.instr_node of
         val () = emit_text (out, "} else {\n")
         val () = emit2_instrlst (out, ind+2, inss)
         val () = emit_nspc (out, ind)
-        val ((*closing*)) = emit_text (out, "} // endif")
+        val ((*closing*)) = emit_text (out, "} #endif")
       } (* end of [Some] *)
   end // end of [ATSif]
 //
@@ -694,11 +695,17 @@ extern
 fun emit_f0arg : emit_type (f0arg)
 extern
 fun emit_f0marg : emit_type (f0marg)
+//
+(*
 extern
 fun emit_f0head : emit_type (f0head)
-//
 extern
 fun emit_f0body : emit_type (f0body)
+*)
+extern
+fun emit_f0headbody
+  : (FILEref, f0head, f0body) -> void
+//
 extern
 fun emit_f0body_0 : emit_type (f0body)
 //
@@ -747,12 +754,8 @@ end // end of [emit_f0marg]
 (* ****** ****** *)
 
 implement
-emit_f0head
-  (out, fhd) = let
-//
-val f0as =
-  f0head_get_f0arglst (fhd)
-//
+emit_f0headbody
+  (out, fhd, fbody) = let
 in
 //
 case+
@@ -763,44 +766,46 @@ fhd.f0head_node of
 //
     val () = emit_i0de (out, fid)
 //
+(*
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)
     val () = emit_RPAREN (out)
+*)
 //
+    val tmpdecs =
+      f0body_get_tmpdeclst (fbody)
+    val inss_body =
+      f0body_get_bdinstrlst (fbody)
+//
+    val () = the_tmpdeclst_set (tmpdecs)
+//
+    val () = emit_text (out, "{\n")
+//
+    val () = emit_text (out, "##\n")
+//
+    val () = emit_nspc (out, 2)
+    val () = emit_text (out, "my(")
+    val () = emit_f0marg (out, f0ma)
+    val () = emit_text (out, ") = @_;\n")
+//
+    val () = emit_text (out, "##\n")
+//
+    val () =
+      emit_tmpdeclst_initize (out, tmpdecs)
+    // end of [val]
+//
+    val () = emit_text (out, "##\n")
+//
+    val ((*main*)) = emit_f0body_0 (out, fbody)
+//
+    val ((*closing*)) =
+      emit_text (out, "} #end-of-function\n")
+    // end of [val]
   } (* end of [F0HEAD] *)
 //
-end // end of [emit_f0head]
+end // end of [emit_f0headbody]
 
 (* ****** ****** *)
-
-implement
-emit_f0body
-  (out, fbody) = let
-//
-val tmpdecs =
-  f0body_get_tmpdeclst (fbody)
-val inss_body =
-  f0body_get_bdinstrlst (fbody)
-//
-val () = the_tmpdeclst_set (tmpdecs)
-//
-val () = emit_text (out, "{\n")
-//
-val () = emit_text (out, "/*\n")
-//
-val () =
-  emit_tmpdeclst_initize (out, tmpdecs)
-//
-val () = emit_text (out, "*/\n")
-//
-val ((*main*)) = emit_f0body_0 (out, fbody)
-//
-val ((*closing*)) =
-  emit_text (out, "} // end-of-function\n")
-//
-in
-  // nothing
-end (* end of [emit_f0body] *)
 
 (* ****** ****** *)
 
@@ -821,7 +826,7 @@ case+ inss of
 | list_cons
     (ins0, inss1) => let
     val-list_cons(ins1, inss2) = inss1
-    val () = if i > 0 then emit_text (out, "//\n")
+    val () = if i > 0 then emit_text (out, "##\n")
     val () = emit2_ATSfunbodyseq (out, 2(*ind*), ins0)
     val ((*return*)) = emit2_instr_ln (out, 2(*ind*), ins1)
   in
@@ -855,11 +860,9 @@ fdec.f0decl_node of
 | F0DECLsome (fhd, fbody) =>
   {
     val () = emit_ENDL (out)
-    val () = emit_text (out, "function")
+    val () = emit_text (out, "sub")
     val () = emit_ENDL (out)
-    val () = emit_f0head (out, fhd)
-    val () = emit_ENDL (out)
-    val () = emit_f0body (out, fbody)
+    val () = emit_f0headbody (out, fhd, fbody)
     val () = emit_newline (out)
   } (* end of [F0DECLsome] *)
 //
