@@ -45,7 +45,11 @@ digitalWriteCallback
   port, value
 ) = () where
 {
-  val () = digitalWrite (13, if(value=0)then(0)else(1))
+//
+val () =
+if ($UN.cast{int}(port) = 1)
+  then digitalWrite(13, if(value=0)then(0)else(1))
+// end of [if]
 }
 //
 (* ****** ****** *)
