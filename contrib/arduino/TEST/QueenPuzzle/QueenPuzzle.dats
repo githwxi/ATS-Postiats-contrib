@@ -86,10 +86,7 @@ find2_next
 ) : bool = let
 //
 fun
-test
-(
-  A: arrayref(int, n), i: natLt(n), j: intGte(0)
-) : bool =
+test (j: intGte(0)) : bool =
 (
 if
 j >= i
@@ -99,7 +96,7 @@ else
 if
 A[i] = A[j]
 then false
-else (if (i-j=abs(A[i]-A[j])) then false else test(A, i, j+1))
+else (if (i-j=abs(A[i]-A[j])) then false else test(j+1))
 ) (* end of [else] *)
 ) (* end of [test] *)
 //
@@ -111,7 +108,7 @@ then let
 in
 //
 if
-test(A, i, 0)
+test(0)
 then
 (
   if i+1=n then true else find_next(A, n)
