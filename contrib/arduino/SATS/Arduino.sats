@@ -5,7 +5,9 @@
 (* ****** ****** *)
 
 %{#
+//
 #include "arduino/CATS/Arduino.cats"
+//
 %} // end of [%{#]
 
 (* ****** ****** *)
@@ -41,6 +43,10 @@ macdef TWO_PI = $extval(double, "TWO_PI") // 2*PI
 macdef HALF_PI = $extval(double, "HALF_PI") // PI/2
 macdef DEG_TO_RAD = $extval(double, "DEG_TO_RAD") // PI/180
 macdef RAD_TO_DEG = $extval(double, "RAD_TO_DEG") // 180/PI
+//
+(* ****** ****** *)
+//
+typedef byte = $extype"byte"
 //
 (* ****** ****** *)
 
