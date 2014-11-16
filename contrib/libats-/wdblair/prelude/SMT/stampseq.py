@@ -69,11 +69,6 @@ s.add (
     ForAll ([A, i, x], Implies (i > 0, cons(x, A)[i] == A[i-1]))
 )
 
-# Snoc
-
-snoc = Function ('stampseq_snoc', StampSeqSort(), IntSort(), 
-                 StampSeqSort())               
-
 # Take
 
 take = Function ('stampseq_take', StampSeqSort(), IntSort(), 
