@@ -82,6 +82,26 @@ cleanall:: ; $(RMF) weekday_dats.pl
 
 ######
 
+all:: \
+rtfind_dats.pl
+rtfind_dats.pl: rtfind.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+rtfind:: rtfind_dats.pl ; $(PERL) rtfind_dats.pl
+regress:: rtfind
+cleanall:: ; $(RMF) rtfind_dats.pl
+
+######
+
+all:: \
+rtfind2_dats.pl
+rtfind2_dats.pl: rtfind2.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+rtfind2:: rtfind2_dats.pl ; $(PERL) rtfind2_dats.pl
+regress:: rtfind2
+cleanall:: ; $(RMF) rtfind2_dats.pl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f

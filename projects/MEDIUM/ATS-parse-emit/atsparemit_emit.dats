@@ -46,6 +46,11 @@ emit_SEMICOLON (out) = emit_text (out, ";")
 (* ****** ****** *)
 
 implement
+emit_AMPER (out) = emit_text (out, "&")
+
+(* ****** ****** *)
+
+implement
 emit_SHARP (out) = emit_text (out, "#")
 
 (* ****** ****** *)

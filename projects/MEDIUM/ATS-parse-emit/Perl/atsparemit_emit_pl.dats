@@ -277,6 +277,7 @@ d0e0.d0exp_node of
   }
 | D0Eappexp (d0e, d0es) =>
   {
+    val () = emit_AMPER (out)
     val () = emit_d0exp (out, d0e)
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
