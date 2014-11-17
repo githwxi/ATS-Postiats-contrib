@@ -89,11 +89,16 @@ overload <> with neq_double_double of 100
 //
 (* ****** ****** *)
 //
-fun print_double : (double) -> void = "mac#%"
-fun prerr_double : (double) -> void = "mac#%"
+fun
+print_double : (double) -> void = "mac#%"
+fun
+prerr_double : (double) -> void = "mac#%"
+fun
+fprint_double : (PLfile, double) -> void = "mac#%"
 //
 overload print with print_double of 100
 overload prerr with prerr_double of 100
+overload fprint with fprint_double of 100
 //
 (* ****** ****** *)
 

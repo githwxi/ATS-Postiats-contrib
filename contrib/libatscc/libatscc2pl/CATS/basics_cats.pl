@@ -60,6 +60,34 @@ ats2plpre_fprint_newline($)
 }
 #
 ############################################
+#
+sub
+ats2pypre_assert_bool0($)
+{
+  my($tfv) = @_;
+  if (!$tfv) { exit(1); }
+  return;
+}
+sub
+ats2pypre_assert_bool1($$)
+{
+  ats2pypre_assert_bool0($_[0]); return;
+}
+#
+sub
+ats2pypre_assert_errmsg_bool0($$)
+{
+  my($tfv, $errmsg) = @_;
+  if (!$tfv) { STDERR->printflush($errmsg); exit(1); }
+  return;
+}
+sub
+ats2pypre_assert_errmsg_bool1($$)
+{
+  ats2pypre_assert_errmsg_bool0($_[0], $_[1]); return;
+}
+#
+############################################
 
 ######
 1; #note that it is needed by 'use' or 'require'

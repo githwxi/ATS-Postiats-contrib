@@ -63,9 +63,18 @@ ats2plpre_neq_double_double($$) { return ($_[0] != $_[1]); }
 ############################################
 #
 sub
-ats2plpre_print_double($) { print STDOUT $_[0]; return; }
+ats2plpre_print_double($)
+{
+  ats2plpre_fprint_double(STDOUT, $_[0]); return;
+}
 sub
-ats2plpre_prerr_double($) { print STDERR $_[0]; return; }
+ats2plpre_prerr_double($)
+{
+  ats2plpre_fprint_double(STDERR, $_[0]); return;
+}
+#
+sub
+ats2plpre_fprint_double($$) { print {$_[0]} $_[1]; return; }
 #
 ############################################
 

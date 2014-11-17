@@ -69,10 +69,10 @@ def ats2pypre_list_cons(x, xs): return (x, xs)
 #
 ############################################
 #
-def ats2pypre_assert_bool0(tfv, errmsg):
+def ats2pypre_assert_bool0(tfv):
   if not(tfv): sys.exit(1)
   return
-def ats2pypre_assert_bool1(tfv, errmsg):
+def ats2pypre_assert_bool1(tfv):
   if not(tfv): sys.exit(1)
   return
 #
