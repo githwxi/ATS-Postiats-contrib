@@ -53,6 +53,11 @@ ats2plpre_prerr_newline()
 {
   STDERR->printflush("\n"); return;
 }
+sub
+ats2plpre_fprint_newline($)
+{
+  $_[0]->printflush("\n"); return;
+}
 #
 ############################################
 

@@ -12,9 +12,18 @@
 ############################################
 #
 sub
-ats2plpre_print_string($) { print STDOUT "$_[0]"; return; }
+ats2plpre_print_string($)
+{
+  ats2plpre_fprint_string(STDOUT, $_[0]); return;
+}
 sub
-ats2plpre_print_string($) { print STDERR "$_[0]"; return; }
+ats2plpre_prerr_string($)
+{
+  ats2plpre_fprint_string(STDERR, $_[0]); return;
+}
+#
+sub
+ats2plpre_fprint_string($$) { print {$_[0]} "$_[1]"; return; }
 #
 ############################################
 

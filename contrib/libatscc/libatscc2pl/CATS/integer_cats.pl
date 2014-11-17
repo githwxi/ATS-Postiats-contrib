@@ -74,9 +74,18 @@ ats2plpre_neq_int1_int1($$) { return ($_[0] != $_[1]); }
 ############################################
 #
 sub
-ats2plpre_print_int($) { print STDOUT $_[0]; return; }
+ats2plpre_print_int($)
+{
+  ats2plpre_fprint_int(STDOUT, $_[0]); return;
+}
 sub
-ats2plpre_prerr_int($) { print STDERR $_[0]; return; }
+ats2plpre_prerr_int($)
+{
+  ats2plpre_fprint_int(STDERR, $_[0]); return;
+}
+#
+sub
+ats2plpre_fprint_int($$) { print {$_[0]} $_[1]; return; }
 #
 ############################################
 

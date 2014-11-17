@@ -46,9 +46,12 @@ fun
 print_string (str: string): void = "mac#%"
 fun
 prerr_string (str: string): void = "mac#%"
+fun
+fprint_string (PLfile, string): void = "mac#%"
 //
 overload print with print_string of 100
 overload prerr with prerr_string of 100
+overload fprint with fprint_string of 100
 //
 (* ****** ****** *)
 

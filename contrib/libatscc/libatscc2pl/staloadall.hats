@@ -18,4 +18,8 @@ staload "./SATS/string.sats"
 //
 (* ****** ****** *)
 
+staload "./SATS/PLarray.sats"
+
+(* ****** ****** *)
+
 (* end of [staloadall.hats] *)
