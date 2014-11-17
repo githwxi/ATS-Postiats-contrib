@@ -53,6 +53,16 @@ cleanall:: ; $(RMF) acker_dats.pl
 ######
 
 all:: \
+isevn_dats.pl
+isevn_dats.pl: isevn.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+isevn:: isevn_dats.pl ; $(PERL) isevn_dats.pl
+regress:: isevn
+cleanall:: ; $(RMF) isevn_dats.pl
+
+######
+
+all:: \
 queens_dats.pl
 queens_dats.pl: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PL) -o $@

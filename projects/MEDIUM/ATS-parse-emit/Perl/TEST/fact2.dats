@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// HX-2014-11:
+// HX-2014-08:
 // A running example
 // from ATS2 to Perl5
 //
