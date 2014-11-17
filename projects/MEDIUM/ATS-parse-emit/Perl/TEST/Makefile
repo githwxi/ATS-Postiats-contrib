@@ -62,6 +62,16 @@ cleanall:: ; $(RMF) queens_dats.pl
 
 ######
 
+all:: \
+weekday_dats.pl
+weekday_dats.pl: weekday.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+weekday:: weekday_dats.pl ; $(PERL) weekday_dats.pl
+regress:: weekday
+cleanall:: ; $(RMF) weekday_dats.pl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f

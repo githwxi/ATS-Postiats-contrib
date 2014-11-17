@@ -205,13 +205,14 @@ search
 (* ****** ****** *)
 //
 extern 
-fun main_pl (): void = "mac#"
+fun
+main0_pl (): void = "mac#"
 //
 implement
-main_pl () =
+main0_pl () =
 {
   val nsol = search ($tup(0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
-} (* end of [main_pl] *)
+} (* end of [main0_pl] *)
 //
 (* ****** ****** *)
 
@@ -223,7 +224,7 @@ require "./libatscc2pl/libatscc2pl_all.pl";
 
 %{$
 //
-main_pl();
+main0_pl();
 //
 %} // end of [%{$]
 

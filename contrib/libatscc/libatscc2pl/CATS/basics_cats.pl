@@ -12,37 +12,44 @@
 ############################################
 
 sub
-ATSCKiseqz { return ($_[0] == 0); }
+ATSCKiseqz($) { return ($_[0] == 0); }
 sub
-ATSCKisneqz { return ($_[0] != 0); }
+ATSCKisneqz($) { return ($_[0] != 0); }
 
 ############################################
 
 sub
-ATSCKptrisnull { return ($_[0] == 0); }
+ATSCKptrisnull($) { return ($_[0] == 0); }
 sub
-ATSCKptriscons { return ($_[0] != 0); }
+ATSCKptriscons($) { return ($_[0] != 0); }
 
 ############################################
 
 sub
-ATSCKpat_int { return ($_[0] == $_[1]); }
+ATSCKpat_int($$) { return ($_[0] == $_[1]); }
 sub
-ATSCKpat_bool { return ($_[0] == $_[1]); }
+ATSCKpat_bool($$) { return ($_[0] == $_[1]); }
 sub
-ATSCKpat_char { return ($_[0] == $_[1]); }
+ATSCKpat_char($$) { return ($_[0] == $_[1]); }
 sub
-ATSCKpat_float { return ($_[0] == $_[1]); }
+ATSCKpat_float($$) { return ($_[0] == $_[1]); }
+
+############################################
+
+sub
+ATSCKpat_con0($$) { return ($_[0] == $_[1]); }
+sub
+ATSCKpat_con1($$) { my $con = $_[0]; return ($con->[0] == $_[1]); }
 
 ############################################
 #
 sub
-ats2plpre_print_newline
+ats2plpre_print_newline()
 {
   STDOUT->printflush("\n"); return;
 }
 sub
-ats2plpre_prerr_newline
+ats2plpre_prerr_newline()
 {
   STDERR->printflush("\n"); return;
 }

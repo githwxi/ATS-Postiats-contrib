@@ -19,6 +19,7 @@ all_in_one:: ; \
 $(CAT) >libatscc2pl_all.pl \
 CATS/basics_cats.pl \
 CATS/integer_cats.pl \
+CATS/bool_cats.pl \
 CATS/float_cats.pl \
 CATS/string_cats.pl \
 

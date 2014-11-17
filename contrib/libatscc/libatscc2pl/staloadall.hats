@@ -12,6 +12,7 @@
 staload "./basics_pl.sats"
 //
 staload "./SATS/integer.sats"
+staload "./SATS/bool.sats"
 staload "./SATS/float.sats"
 staload "./SATS/string.sats"
 //
