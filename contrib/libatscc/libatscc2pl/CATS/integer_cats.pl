@@ -74,6 +74,10 @@ ats2plpre_neq_int1_int1 { return ($_[0] != $_[1]); }
 ############################################
 
 ######
+1; #note that it is needed by 'use' or 'require'
+######
+
+######
 #end of [integer_cats.pl]
 ######
 

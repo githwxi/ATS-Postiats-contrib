@@ -37,5 +37,9 @@ ATSCKpat_float { return ($_[0] == $_[1]); }
 ############################################
 
 ######
+1; #note that it is needed by 'use' or 'require'
+######
+
+######
 #end of [basics_cats.js]
 ######

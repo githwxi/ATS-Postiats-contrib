@@ -209,7 +209,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ") ")
+    val ((*closing*)) = emit_text (out, ") ")
     val () = emit_instr (out, ins)
   }
 //

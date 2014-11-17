@@ -244,10 +244,9 @@ in
 if (
 isloc
 ) then (
-  emit_DOLLAR(out); emit_i0de (out, tmp)
+  emit_DOLLAR (out); emit_i0de (out, tmp)
 ) else (
-  emit_text (out, "$GLOBALS['");
-  emit_i0de (out, tmp); emit_text (out, "']")
+  emit_DOLLAR (out); emit_i0de (out, tmp)
 ) (* end of [if] *)
 //
 end (* end of [emit_tmpvar] *)

@@ -113,5 +113,10 @@ overload != with neq_int1_int1 of 120
 overload <> with neq_int1_int1 of 120
 //
 (* ****** ****** *)
+//
+fun print_double : (int) -> void = "mac#%"
+fun prerr_double : (int) -> void = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [integer.sats] *)

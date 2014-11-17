@@ -2,7 +2,7 @@
 //
 // HX-2014-08:
 // A running example
-// from ATS2 to Perl
+// from ATS2 to Python3
 //
 (* ****** ****** *)
 //
@@ -12,21 +12,27 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PL}/basics_pl.sats"
-staload
 "{$LIBATSCC2PL}/SATS/integer.sats"
 //
 (* ****** ****** *)
-//
+
 #define ATS_DYNLOADFLAG 0
-//
+
 (* ****** ****** *)
 //
 extern
-fun fact : int -> int = "mac#fact"
+fun acker 
+  : (int, int) -> int = "mac#acker"
 //
 implement
-fact (n) = if n > 0 then n * fact(n-1) else 1
+acker (m, n) =
+(
+case+
+  (m, n) of 
+| (0, _) => n + 1
+| (_, 0) => acker(m-1, 1)
+| (_, _) => acker(m-1, acker(m, n-1)) 
+)
 //
 (* ****** ****** *)
 
@@ -38,10 +44,10 @@ require "./libatscc2pl/libatscc2pl_all.pl";
 
 %{$
 //
-$fact10 = fact(10); print "fact(10) = $fact10\n";
+$acker33 = acker(3, 3); print "acker(3, 3) = $acker33\n";
 //
 %} // end of [%{$]
 
 (* ****** ****** *)
 
-(* end of [fact.dats] *)
+(* end of [acker.dats] *)

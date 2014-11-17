@@ -48,8 +48,7 @@ emit_global : emit_type (i0de)
 implement
 emit_global
   (out, name) = (
-  emit_text (out, "$GLOBALS['");
-  emit_i0de (out, name); emit_text (out, "']")
+  emit_DOLLAR (out); emit_i0de (out, name)
 ) (* end of [emit_global] *)
 //
 (* ****** ****** *)
@@ -211,7 +210,9 @@ ins0.instr_node of
     val () = emit_text (out, "if(")
     val () = emit_d0exp (out, d0e)
     val () = emit_text (out, ") ")
+    val () = emit_text (out, "{ ")
     val () = emit_instr (out, ins)
+    val () = emit_text (out, " }")
   }
 //
 | ATSifnthen (d0e, inss) =>
@@ -222,24 +223,26 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(!")
     val () = emit_d0exp (out, d0e)
-    val ((*closing*)) = emit_text (out, ") ")
+    val () = emit_text (out, ") ")
+    val () = emit_text (out, "{ ")
     val () = emit_instr (out, ins)
+    val () = emit_text (out, " }")
   }
 //
 | ATSbranchseq (inss) =>
   {
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSbranchseq_beg")
+    val () = emit_text (out, "#ATSbranchseq_beg")
 //
     val () = emit_ENDL (out)
     val () = emit2_instrlst (out, ind, inss)
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "break;\n")
+    val () = emit_text (out, "last;\n")
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSbranchseq_end")
+    val () = emit_text (out, "#ATSbranchseq_end")
 //
   } (* end of [ATSbranchseq] *)
 //
@@ -247,17 +250,19 @@ ins0.instr_node of
   {
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATScaseofseq_beg")
+    val () = emit_text (out, "#ATScaseofseq_beg")
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "do {\n")
+    val () = emit_text (out, "while(1)\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "{\n")
 //
     val () = emit2_instrlst (out, ind+2, inss)
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "} while(0);\n")
+    val () = emit_text (out, "} #end-of-while-loop;\n")
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATScaseofseq_end")
+    val () = emit_text (out, "#ATScaseofseq_end")
 //
   } (* end of [ATScaseofseq] *)
 //
@@ -325,7 +330,7 @@ ins0.instr_node of
     val () = (
       case+ d0e.d0exp_node of
       | ATSPMVempty _ =>
-          emit_text (out, "// ATSINSmove_void")
+          emit_text (out, "#ATSINSmove_void")
         // end of [ATSPMVempty]
       | _ (*non-ATSPMVempty*) => emit_d0exp (out, d0e)
     ) : void // end of [val]
@@ -361,11 +366,11 @@ ins0.instr_node of
 | ATStailcalseq (inss) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATStailcalseq_beg")
+    val () = emit_text (out, "#ATStailcalseq_beg")
     val () = emit_ENDL (out)
     val () = emit2_instrlst (out, ind, inss)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATStailcalseq_end")
+    val () = emit_text (out, "#ATStailcalseq_end")
   } (* end of [ATStailcalseq] *)
 //
 | ATSINSmove_tlcal (tmp, d0e) =>
@@ -406,7 +411,7 @@ ins0.instr_node of
 | ATSdynload (dummy) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ATSdynload()")
+    val () = emit_text (out, "#ATSdynload()")
   }
 //
 | ATSdynloadset (flag) =>
@@ -421,12 +426,12 @@ ins0.instr_node of
 | ATSdynloadflag_sta (flag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = fprint! (out, "// ATSdynloadflag_sta(", flag, ")")
+    val () = fprint! (out, "#ATSdynloadflag_sta(", flag, ")")
   }
 | ATSdynloadflag_ext (flag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = fprint! (out, "// ATSdynloadflag_ext(", flag, ")")
+    val () = fprint! (out, "#ATSdynloadflag_ext(", flag, ")")
   }
 //
 | _ (*rest-of-instr*) =>
@@ -609,9 +614,9 @@ end // end of [emit2_ATSINSmove_delay]
 (* ****** ****** *)
 
 #define
-ATSEXTCODE_BEG "/* ATSextcode_beg() */"
+ATSEXTCODE_BEG "######\n#ATSextcode_beg()\n######"
 #define
-ATSEXTCODE_END "/* ATSextcode_end() */"
+ATSEXTCODE_END "######\n#ATSextcode_end()\n######"
 
 (* ****** ****** *)
 
@@ -636,7 +641,7 @@ d0c.d0ecl_node of
   {
     val () = emit_ENDL (out)
     val () =
-      emit_text (out, "// ATSassume(")
+      emit_text (out, "#ATSassume(")
     val () = (
       emit_i0de (out, id); emit_text (out, ")\n")
     ) (* end of [val] *)
