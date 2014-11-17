@@ -5,12 +5,12 @@
 
 PATSCC=${PATSHOME}/bin/patscc
 PATSOPT=${PATSHOME}/bin/patsopt
-ATSCC2PHP=${PATSHOME}/bin/atscc2php
+ATSCC2PL=${PATSHOME}/bin/atscc2pl
 
 ######
 
 test01_dats.c: test01.dats; $(PATSOPT) -o $@ -d $<
-test01_dats.php: test01_dats.c; $(ATSCC2PHP) -o $@ -i $<
+test01_dats.pl: test01_dats.c; $(ATSCC2PL) -o $@ -i $<
 
 ######
 
@@ -24,7 +24,7 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) *_?ats.php
+cleanall:: ; $(RMF) *_?ats.pl
 
 ######
 

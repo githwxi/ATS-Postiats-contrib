@@ -4,11 +4,7 @@
 //
 (* ****** ****** *)
 //
-#include
-"./../staloadall.hats"
-//
-staload "./../SATS/print.sats"
-staload _ = "./../DATS/print.dats"
+#include "./../staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -39,18 +35,14 @@ val () = println! ("xs + xs = ", xs + xs)
 
 %{^
 //
-// file inclusion
+require "./../libatscc2pl_all.pl";
 //
-var fs = require('fs');
-eval(fs.readFileSync('./../libatscc2js_all.js').toString());
-eval(fs.readFileSync('./../CATS/PRINT/print_store_cats.js').toString());
 %} // end of [%{^]
 
 (* ****** ****** *)
 
 %{$
 test02_dynload();
-process.stdout.write(ats2jspre_the_print_store_join());
 %} // end of [%{$]
 
 (* ****** ****** *)

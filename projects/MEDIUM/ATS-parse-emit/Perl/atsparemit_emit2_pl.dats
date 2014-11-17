@@ -665,14 +665,11 @@ d0c.d0ecl_node of
     val () = emit_ENDL (out)
     val () = (
       case+ opt of
-      | Some _ => () | None () => emit_text(out, "/*\n")
+      | Some _ => ()
+      | None () => emit_text(out, "#")
     ) (* end of [val] *)
     val () = (
-      emit_text (out, "// "); emit_tmpvar (out, tmp); emit_ENDL (out)
-    ) (* end of [val] *)
-    val () = (
-      case+ opt of
-      | Some _ => () | None () => emit_text(out, "*/\n")
+      emit_tmpvar (out, tmp); emit_text(out, ";\n\n")
     ) (* end of [val] *)
   } (* end of [D0Cstatmp] *)
 //
@@ -686,7 +683,7 @@ d0c.d0ecl_node of
 //
 | D0Cdynloadflag_init (flag) =>
   (
-    emit_text (out, "// dynloadflag_init\n");
+    emit_text (out, "#dynloadflag_init\n");
     emit_global (out, flag); emit_text (out, " = 0;\n")
   )
 //

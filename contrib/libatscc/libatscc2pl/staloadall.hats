@@ -18,6 +18,14 @@ staload "./SATS/string.sats"
 //
 (* ****** ****** *)
 
+staload "./SATS/print.sats"
+
+(* ****** ****** *)
+
+staload "./SATS/intrange.sats"
+
+(* ****** ****** *)
+
 staload "./SATS/PLarray.sats"
 
 (* ****** ****** *)

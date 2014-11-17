@@ -1,23 +1,23 @@
 (*
 ** For writing ATS code
-** that translates into PHP
+** that translates into Perl
 *)
 
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11:
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2phppre_"
+ATS_EXTERN_PREFIX "ats2plpre_"
 //
 (* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
 //
-#include "{$LIBATSCC}/SATS/list.sats"
+#include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)
 
-(* end of [list.sats] *)
+(* end of [intrange.sats] *)

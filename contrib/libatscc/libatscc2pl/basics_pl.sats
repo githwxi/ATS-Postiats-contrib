@@ -34,6 +34,12 @@ fun fprint_newline (out: PLfile): void = "mac#%"
 
 (* ****** ****** *)
 //
+fun
+lazy2cloref
+  {a:t0p}(lazy(a)): ((*void*)) -<cloref1> (a) = "mac#%"
+//
+(* ****** ****** *)
+//
 fun assert_errmsg_bool0
   (x: bool, msg: string): void = "mac#%"
 fun assert_errmsg_bool1

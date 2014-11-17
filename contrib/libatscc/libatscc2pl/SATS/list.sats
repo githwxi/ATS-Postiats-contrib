@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into PHP
+** that translates into Perl
 *)
 
 (* ****** ****** *)
@@ -9,7 +9,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2phppre_"
+ATS_EXTERN_PREFIX "ats2plpre_"
 //
 (* ****** ****** *)
 //

@@ -60,6 +60,11 @@ ats2plpre_fprint_newline($)
 }
 #
 ############################################
+
+sub
+ats2plpre_lazy2cloref($) { return $_[0]->[1]; }
+
+############################################
 #
 sub
 ats2pypre_assert_bool0($)
