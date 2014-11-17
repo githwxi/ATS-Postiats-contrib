@@ -420,7 +420,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () =
     (
-      emit_global (out, flag); emit_text (out, " = 1 ; // dynflag is set")
+      emit_global (out, flag); emit_text (out, " = 1 ; #dynflag is set")
     )
   }
 //
