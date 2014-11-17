@@ -278,7 +278,9 @@ d0e0.d0exp_node of
 | D0Eappexp (d0e, d0es) =>
   {
     val () = emit_AMPER (out)
+    val () = emit_LBRACE (out)
     val () = emit_d0exp (out, d0e)
+    val () = emit_RBRACE (out)
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
@@ -597,24 +599,36 @@ val-S0Elist(s0es_env) = env.s0exp_node
 val-S0Elist(s0es_arg) = arg.s0exp_node
 //
 val () =
-emit_text (out, "function\n")
+emit_text (out, "sub\n")
 val () = emit_label (out, fl)
+//
 val () =
 emit_text (out, "__closurerize(")
-val () = aux0_envlst (out, s0es_env, 0, 0)
+val nenv = list_length (s0es_env)
+val () = (
+fix f(n:int): void =<cloref1>
+if n > 0
+  then (emit_DOLLAR(out); f(n-1)) else ()
+) (nenv) // end of [val]
 val ((*closing*)) = emit_text (out, ")\n")
 //
 val ((*opening*)) = emit_text (out, "{\n")
 //
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "return ")
-val () = emit_text (out, "array(")
-val () = emit_text (out, "function(")
+val () = (
+if nenv > 0
+  then emit_text (out, "my(")
+  else emit_text (out, "#my(")
+) (* end of [val] *)
+val () = aux0_envlst (out, s0es_env, 0, 0)
+val () = emit_text (out, ") = @_;\n")
 //
-val () = emit_text (out, "$cenv")
+val () = emit_nspc (out, 2)
+val () = emit_text (out, "return [")
+val () = emit_text (out, "sub{ ")
+val () = emit_text (out, "my($cenv")
 val () = aux0_arglst (out, s0es_arg, 1, 0)
-//
-val () = emit_text (out, ") { return ")
+val () = emit_text (out, ") = @_; return ")
 //
 val () = emit_label (out, fl)
 val () = emit_LPAREN (out)
@@ -625,7 +639,8 @@ val () = emit_RPAREN (out)
 val ((*closing*)) = emit_text (out, "; }")
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, ");\n}\n")
+//
+val ((*closing*)) = emit_text (out, "];\n}\n")
 //
 val () = emit_newline (out)
 //

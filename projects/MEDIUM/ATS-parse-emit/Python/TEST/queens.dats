@@ -201,13 +201,17 @@ fun search
 (* ****** ****** *)
 //
 extern 
-fun main_py (): void = "mac#"
+fun
+main0_py
+(
+// argless
+) : void = "mac#main0_py"
 //
 implement
-main_py () =
+main0_py () =
 {
   val nsol = search ($tup(0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
-} (* end of [main_py] *)
+} (* end of [main0_py] *)
 //
 (* ****** ****** *)
 
@@ -225,7 +229,7 @@ from ats2pypre_string_cats import *
 
 %{$
 ######
-main_py()
+main0_py()
 ######
 %} // end of [%{$]
 

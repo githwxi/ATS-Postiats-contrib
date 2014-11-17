@@ -43,6 +43,16 @@ cleanall:: ; $(RMF) fact2_dats.pl
 ######
 
 all:: \
+f91_dats.pl
+f91_dats.pl: f91.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+f91:: f91_dats.pl ; $(PERL) f91_dats.pl 23
+regress:: f91
+cleanall:: ; $(RMF) f91_dats.pl
+
+######
+
+all:: \
 acker_dats.pl
 acker_dats.pl: acker.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PL) -o $@
@@ -99,6 +109,16 @@ $(PATSOPT) -d $< | $(ATSCC2PL) -o $@
 rtfind2:: rtfind2_dats.pl ; $(PERL) rtfind2_dats.pl
 regress:: rtfind2
 cleanall:: ; $(RMF) rtfind2_dats.pl
+
+######
+
+all:: \
+twice_dats.pl
+twice_dats.pl: twice.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+twice:: twice_dats.pl ; $(PERL) twice_dats.pl
+regress:: twice
+cleanall:: ; $(RMF) twice_dats.pl
 
 ######
 
