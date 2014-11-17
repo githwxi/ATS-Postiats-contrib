@@ -1,8 +1,8 @@
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11:
 // A running example
-// from ATS2 to Python3
+// from ATS2 to Perl5
 //
 (* ****** ****** *)
 //
