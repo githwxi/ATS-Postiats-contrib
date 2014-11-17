@@ -23,4 +23,16 @@ val () = foreach(3, lam(i) =<cloref1> println!(i, ": Hello, world!"))
 
 (* ****** ****** *)
 
+%{$
+include "./../libatscc2php_all.php";
+%} // end of [%{$]
+
+(* ****** ****** *)
+
+%{$
+test01_dynload();
+%} // end of [%{$]
+
+(* ****** ****** *)
+
 (* end of [test01.dats] *)

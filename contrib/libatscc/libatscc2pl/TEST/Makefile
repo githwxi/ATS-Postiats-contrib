@@ -3,17 +3,25 @@
 #
 ######
 
+PERL=perl
+
+######
+
 PATSCC=${PATSHOME}/bin/patscc
 PATSOPT=${PATSHOME}/bin/patsopt
 ATSCC2PL=${PATSHOME}/bin/atscc2pl
 
 ######
 
+test01: \
+test01_dats.pl; $(PERL) $<
 test01_dats.c: test01.dats; $(PATSOPT) -o $@ -d $<
 test01_dats.pl: test01_dats.c; $(ATSCC2PL) -o $@ -i $<
 
 ######
 
+test02: \
+test02_dats.pl; $(PERL) $<
 test02_dats.c: test02.dats; $(PATSOPT) -o $@ -d $<
 test02_dats.pl: test02_dats.c; $(ATSCC2PL) -o $@ -i $<
 
