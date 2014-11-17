@@ -12,10 +12,6 @@
 ATS_EXTERN_PREFIX "ats2phppre_"
 //
 (* ****** ****** *)
-
-staload "./../basics_php.sats"
-
-(* ****** ****** *)
 //
 fun double2int (x: double): int = "mac#%"
 fun int_of_double (x: double): int = "mac#%"
@@ -90,18 +86,6 @@ overload >= with gte_double_double of 100
 overload = with eq_double_double of 100
 overload != with neq_double_double of 100
 overload <> with neq_double_double of 100
-//
-(* ****** ****** *)
-//
-fun print_double : (double) -> void = "mac#%"
-fun prerr_double : (double) -> void = "mac#%"
-//
-fun
-fprint_double : (PHPfilr, double) -> void = "mac#%"
-//
-overload print with print_double of 100
-overload prerr with prerr_double of 100
-overload fprint with fprint_double of 100
 //
 (* ****** ****** *)
 

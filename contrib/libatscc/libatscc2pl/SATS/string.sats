@@ -12,10 +12,6 @@
 ATS_EXTERN_PREFIX "ats2plpre_"
 //
 (* ****** ****** *)
-
-staload "./../basics_pl.sats"
-
-(* ****** ****** *)
 //
 fun
 string_get_at
@@ -40,19 +36,6 @@ string_lower (str: string): string = "mac#%"
 fun
 string_upper (str: string): string = "mac#%"
 
-(* ****** ****** *)
-//
-fun
-print_string (str: string): void = "mac#%"
-fun
-prerr_string (str: string): void = "mac#%"
-fun
-fprint_string (PLfile, string): void = "mac#%"
-//
-overload print with print_string of 100
-overload prerr with prerr_string of 100
-overload fprint with fprint_string of 100
-//
 (* ****** ****** *)
 
 (* end of [string.sats] *)

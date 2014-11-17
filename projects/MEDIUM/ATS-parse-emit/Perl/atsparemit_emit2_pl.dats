@@ -343,7 +343,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
-    val () = emit_text (out, "null")
+    val () = emit_text (out, "0")
     val () = emit_SEMICOLON (out)
   }
 | ATSINSmove_con0 (tmp, tag) =>

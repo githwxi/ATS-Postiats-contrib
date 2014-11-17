@@ -14,6 +14,11 @@ test01_dats.pl: test01_dats.c; $(ATSCC2PL) -o $@ -i $<
 
 ######
 
+test02_dats.c: test02.dats; $(PATSOPT) -o $@ -d $<
+test02_dats.pl: test02_dats.c; $(ATSCC2PL) -o $@ -i $<
+
+######
+
 RMF=rm -f
 
 ######

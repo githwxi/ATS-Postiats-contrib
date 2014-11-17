@@ -10,10 +10,6 @@
 #define ATS_EXTERN_PREFIX "ats2phppre_"
 //
 (* ****** ****** *)
-
-staload "./../basics_php.sats"
-
-(* ****** ****** *)
 //
 fun
 abs_int0 : int -> int = "mac#%"
@@ -109,18 +105,6 @@ overload >= with gte_int1_int1 of 120
 overload = with eq_int1_int1 of 120
 overload != with neq_int1_int1 of 120
 overload <> with neq_int1_int1 of 120
-//
-(* ****** ****** *)
-//
-fun print_int : (int) -> void = "mac#%"
-fun prerr_int : (int) -> void = "mac#%"
-//
-fun
-fprint_int: (PHPfilr, int) -> void = "mac#%"
-//
-overload print with print_int of 100
-overload prerr with prerr_int of 100
-overload fprint with fprint_int of 100
 //
 (* ****** ****** *)
 

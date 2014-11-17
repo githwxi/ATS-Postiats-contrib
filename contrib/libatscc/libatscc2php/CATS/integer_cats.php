@@ -80,15 +80,6 @@ ats2phppre_neq_int1_int1($x, $y) { return ($x !== $y); }
 
 /* ****** ****** */
 
-function
-ats2phppre_print_int($x) { fprintf(STDOUT, "%d", $x); return; }
-function
-ats2phppre_prerr_int($x) { fprintf(STDERR, "%d", $x); return; }
-function
-ats2phppre_fprint_int($out, $x) { fprintf($out, "%d", $x); return; }
-
-/* ****** ****** */
-
 /* end of [integer_cats.php] */
 
 ?>

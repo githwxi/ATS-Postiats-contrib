@@ -108,14 +108,6 @@ overload echo with echo7
 overload echo with echo8
 //
 (* ****** ****** *)
-//
-fun
-print_obj{a:t0p}(obj: a): void = "mac#%"
-//
-fun
-print_r_obj{a:t0p}(obj: a): void = "mac#%"
-//
-(* ****** ****** *)
 
 fun print_newline ((*void*)): void = "mac#%"
 fun prerr_newline ((*void*)): void = "mac#%"

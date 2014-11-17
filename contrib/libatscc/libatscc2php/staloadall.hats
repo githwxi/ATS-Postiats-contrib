@@ -10,16 +10,29 @@
 (* ****** ****** *)
 //
 staload "./basics_php.sats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/integer.sats"
 staload "./SATS/float.sats"
 staload "./SATS/string.sats"
 //
+(* ****** ****** *)
+//
 staload "./SATS/print.sats"
 staload "./SATS/filebas.sats"
 //
+(* ****** ****** *)
+//
 staload "./SATS/list.sats"
+staload _ = "./DATS/list.dats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/intrange.sats"
 staload "./SATS/reference.sats"
+//
+(* ****** ****** *)
 //
 staload "./SATS/PHPref.sats"
 staload "./SATS/PHParray.sats"

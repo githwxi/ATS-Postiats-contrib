@@ -87,14 +87,6 @@ ats2phppre_echo8_obj
 //
 */
 /* ****** ****** */
-//
-function
-ats2phppre_print_obj($x) { print($x); return; }
-//
-function
-ats2phppre_print_r_obj($x) { print_r($x); return; }
-//
-/* ****** ****** */
 
 function
 ats2phppre_print_newline() { ats2phppre_fprint_newline(STDOUT); }

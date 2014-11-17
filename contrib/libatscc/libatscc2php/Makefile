@@ -30,6 +30,7 @@ CATS/basics_cats.php \
 CATS/integer_cats.php \
 CATS/float_cats.php \
 CATS/string_cats.php \
+CATS/print_cats.php \
 CATS/filebas_cats.php \
 CATS/PHPref_cats.php \
 CATS/PHParray_cats.php \

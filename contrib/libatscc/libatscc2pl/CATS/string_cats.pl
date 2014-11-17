@@ -10,21 +10,20 @@
 ######
 
 ############################################
-#
+
 sub
-ats2plpre_print_string($)
-{
-  ats2plpre_fprint_string(STDOUT, $_[0]); return;
-}
+ats2plpre_lt_string_string($$) { return ($_[0] < $_[1]); }
 sub
-ats2plpre_prerr_string($)
-{
-  ats2plpre_fprint_string(STDERR, $_[0]); return;
-}
-#
+ats2plpre_lte_string_string($$) { return ($_[0] <= $_[1]); }
 sub
-ats2plpre_fprint_string($$) { print {$_[0]} "$_[1]"; return; }
-#
+ats2plpre_gt_string_string($$) { return ($_[0] > $_[1]); }
+sub
+ats2plpre_gte_string_string($$) { return ($_[0] >= $_[1]); }
+sub
+ats2plpre_eq_string_string($$) { return ($_[0] == $_[1]); }
+sub
+ats2plpre_neq_string_string($$) { return ($_[0] != $_[1]); }
+
 ############################################
 
 ######
