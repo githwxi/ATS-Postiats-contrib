@@ -114,8 +114,11 @@ overload <> with neq_int1_int1 of 120
 //
 (* ****** ****** *)
 //
-fun print_double : (int) -> void = "mac#%"
-fun prerr_double : (int) -> void = "mac#%"
+fun print_int : (int) -> void = "mac#%"
+fun prerr_int : (int) -> void = "mac#%"
+//
+overload print with print_int of 100
+overload prerr with prerr_int of 100
 //
 (* ****** ****** *)
 

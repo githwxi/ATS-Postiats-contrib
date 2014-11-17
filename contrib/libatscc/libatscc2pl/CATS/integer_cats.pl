@@ -14,7 +14,7 @@
 sub
 ats2plpre_abs_int0 { return abs($_[0]); }
 sub
-ats2plpre_neg_int0 { return ( -$_[0] ); }
+ats2plpre_neg_int0 { return ( -($_[0]) ); }
 
 ############################################
 
@@ -71,6 +71,11 @@ ats2plpre_eq_int1_int1 { return ($_[0] == $_[1]); }
 sub
 ats2plpre_neq_int1_int1 { return ($_[0] != $_[1]); }
 
+############################################
+#
+sub
+ats2plpre_print_int { print $_[0]; return; }
+#
 ############################################
 
 ######

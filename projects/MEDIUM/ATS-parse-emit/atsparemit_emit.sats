@@ -45,6 +45,10 @@ fun emit_RBRACE : FILEref -> void
 //
 (* ****** ****** *)
 
+fun emit_MINUSGT : FILEref -> void
+
+(* ****** ****** *)
+
 fun emit_flush : FILEref -> void
 fun emit_newline : FILEref -> void
 

@@ -35,6 +35,19 @@ sub
 ATSCKpat_float { return ($_[0] == $_[1]); }
 
 ############################################
+#
+sub
+ats2plpre_print_newline
+{
+  STDOUT->printflush("\n"); return;
+}
+sub
+ats2plpre_prerr_newline
+{
+  STDERR->printflush("\n"); return;
+}
+#
+############################################
 
 ######
 1; #note that it is needed by 'use' or 'require'

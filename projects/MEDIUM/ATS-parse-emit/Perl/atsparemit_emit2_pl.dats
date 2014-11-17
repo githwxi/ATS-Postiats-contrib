@@ -185,7 +185,8 @@ ins0.instr_node of
     val () = emit_text (out, " {\n")
     val () = emit2_instrlst (out, ind+2, inss)
   in
-    case+ inssopt of
+    case+
+    inssopt of
     | None _ =>
       {
         val () = emit_nspc (out, ind)
@@ -277,7 +278,7 @@ ins0.instr_node of
 | ATSreturn_void (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "return/*_void*/")
+    val () = emit_text (out, "return#_void")
     val () = emit_SEMICOLON (out)
   }
 //
@@ -528,8 +529,7 @@ case+ inss of
 val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = ")
-val () = emit_text (out, "array(")
+val () = emit_text (out, " = [")
 val () =
 (
 case+ opt of
@@ -543,7 +543,7 @@ case+ opt of
 | Some _ => emit_d0explst_1 (out, d0es)
 ) : void // end of [val]
 //
-val ((*closing*)) = emit_text (out, ");")
+val ((*closing*)) = emit_text (out, "];")
 //
 in
   // nothing
@@ -580,10 +580,9 @@ val d0es = getarglst (inss)
 //
 val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = ")
-val () = emit_text (out, "array(")
+val () = emit_text (out, " = [")
 val () = emit_d0explst (out, d0es)
-val ((*closing*)) = emit_text (out, ");")
+val ((*closing*)) = emit_text (out, "];")
 //
 in
   // nothing
@@ -599,13 +598,12 @@ val-ATSINSmove_delay(tmp, s0e, thunk) = ins0.instr_node
 //
 val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = ")
-val () = emit_text (out, "array(")
+val () = emit_text (out, " = [")
 val () =
 (
   emit_int (out, 0); emit_text (out, ", "); emit_d0exp (out, thunk)
 ) (* end of [val] *)
-val ((*closing*)) = emit_text (out, ");")
+val ((*closing*)) = emit_text (out, "];")
 //
 in
   // nothing
@@ -784,16 +782,23 @@ fhd.f0head_node of
 //
     val () = the_tmpdeclst_set (tmpdecs)
 //
-    val () = emit_text (out, "{\n")
+    val () = emit_text (out, "\n{")
 //
-    val () = emit_text (out, "##\n")
+    val () = emit_text (out, "\n##\n")
 //
-    val () = emit_nspc (out, 2)
-    val () = emit_text (out, "my(")
-    val () = emit_f0marg (out, f0ma)
-    val () = emit_text (out, ") = @_;\n")
+    val () =
+    if (isneqz(f0ma)) then
+    {
+      val () = emit_nspc (out, 2)
+      val () = emit_text (out, "my(")
+      val () = emit_f0marg (out, f0ma)
+      val () = emit_text (out, ") = @_;")
+    } else {
+      val () = emit_nspc (out, 2)
+      val () = emit_text (out, "#argless")
+    } (* end of [if] *) // end of [val]
 //
-    val () = emit_text (out, "##\n")
+    val () = emit_text (out, "\n##\n")
 //
     val () =
       emit_tmpdeclst_initize (out, tmpdecs)

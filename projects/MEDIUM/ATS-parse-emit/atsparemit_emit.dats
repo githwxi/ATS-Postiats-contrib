@@ -85,6 +85,11 @@ emit_RBRACE (out) = emit_text (out, "}")
 (* ****** ****** *)
 
 implement
+emit_MINUSGT (out) = emit_text (out, "->")
+
+(* ****** ****** *)
+
+implement
 emit_flush (out) = fileref_flush (out)
 implement
 emit_newline (out) = fprint_newline (out)

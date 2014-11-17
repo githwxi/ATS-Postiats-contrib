@@ -113,7 +113,7 @@ implement
 emit_PMVbool
   (out, tfv) =
 (
-  emit_text (out, if tfv then "true" else "false")
+  emit_text (out, if tfv then "1" else "0")
 ) (* end of [emit_PMVbool] *)
 
 (* ****** ****** *)
@@ -354,12 +354,14 @@ d0e0.d0exp_node of
   } (* end of [ATSextmcall] *)
 //
 | ATSfunclo_fun
-    (d0e, _(*arg*), _(*res*)) => emit_d0exp (out, d0e)
+    (d0e, _(*a*), _(*r*)) =>
+    emit_d0exp (out, d0e)
   | ATSfunclo_clo
-    (d0e, _(*arg*), _(*res*)) =>
+    (d0e, _(*a*), _(*r*)) =>
   (
     emit_d0exp (out, d0e);
-    emit_LBRACKET (out); emit_int (out, 0(*fun*)); emit_RBRACKET (out)
+    emit_MINUSGT (out); emit_LBRACKET (out);
+    emit_int (out, 0(*fun*)); emit_RBRACKET (out)
   ) (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]
@@ -452,6 +454,7 @@ val index = tyrec_labsel (s0rec, id.i0de_sym)
 val () =
   emit_d0exp (out, d0rec)
 //
+val () = emit_MINUSGT (out)
 val () = emit_LBRACKET (out)
 val () = emit_int (out, index)
 val () = emit_RBRACKET (out)
@@ -489,6 +492,7 @@ val index = tyrec_labsel (s0rec, id.i0de_sym)
 val () =
   emit_d0exp (out, d0rec)
 //
+val () = emit_MINUSGT (out)
 val () = emit_LBRACKET (out)
 val () = emit_int (out, index)
 val () = emit_RBRACKET (out)
@@ -572,7 +576,8 @@ case+ s0es of
     val () =
     (
       emit_text (out, "$cenv");
-      emit_LBRACKET (out); emit_int (out, i+1); emit_RBRACKET (out)
+      emit_MINUSGT (out); emit_LBRACKET (out);
+      emit_int (out, i+1); emit_RBRACKET (out)
     ) (* end of [val] *)
   in
     aux1_envlst (out, s0es, i+1)

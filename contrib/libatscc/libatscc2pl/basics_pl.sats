@@ -20,4 +20,9 @@ ATS_EXTERN_PREFIX "ats2plpre_"
 //
 (* ****** ****** *)
 
+fun print_newline ((*void*)): void = "mac#%"
+fun prerr_newline ((*void*)): void = "mac#%"
+
+(* ****** ****** *)
+
 (* end of [basics_pl.sats] *)

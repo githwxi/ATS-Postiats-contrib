@@ -61,7 +61,11 @@ sub
 ats2plpre_neq_double_double { return ($_[0] != $_[1]); }
 #
 ############################################
-
+#
+sub
+ats2plpre_print_double { print $_[0]; return; }
+#
+############################################
 
 ######
 1; #note that it is needed by 'use' or 'require'

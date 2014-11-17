@@ -868,6 +868,12 @@ overload fprint with fprint_f0head
 //
 (* ****** ****** *)
 //
+fun
+f0marg_isneqz (f0ma: f0marg): bool
+overload isneqz with f0marg_isneqz
+//
+(* ****** ****** *)
+//
 datatype
 tmpdec_node =
 | TMPDECnone of (i0de)

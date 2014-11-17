@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into Perl
 *)
 
 (* ****** ****** *)
@@ -91,6 +91,9 @@ overload <> with neq_double_double of 100
 //
 fun print_double : (double) -> void = "mac#%"
 fun prerr_double : (double) -> void = "mac#%"
+//
+overload print with print_double of 100
+overload prerr with prerr_double of 100
 //
 (* ****** ****** *)
 

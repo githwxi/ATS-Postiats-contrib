@@ -41,7 +41,7 @@ all:: \
 fact2_dats.pl
 fact2_dats.pl: fact2.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PL) -o $@
-fact2:: fact2_dats.pl ; $(PERL) fact2_dats.pl 10
+fact2:: fact2_dats.pl ; $(PERL) fact2_dats.pl
 regress:: fact2
 cleanall:: ; $(RMF) fact2_dats.pl
 
@@ -51,9 +51,19 @@ all:: \
 acker_dats.pl
 acker_dats.pl: acker.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PL) -o $@
-acker:: acker_dats.pl ; $(PERL) acker_dats.pl 3 3
+acker:: acker_dats.pl ; $(PERL) acker_dats.pl
 regress:: acker
 cleanall:: ; $(RMF) acker_dats.pl
+
+######
+
+all:: \
+queens_dats.pl
+queens_dats.pl: queens.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+queens:: queens_dats.pl ; $(PERL) queens_dats.pl
+regress:: queens
+cleanall:: ; $(RMF) queens_dats.pl
 
 ######
 

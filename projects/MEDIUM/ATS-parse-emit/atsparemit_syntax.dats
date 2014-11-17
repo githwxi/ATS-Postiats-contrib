@@ -597,6 +597,12 @@ in '{
 } end // end of [f0arg_some]
 //
 (* ****** ****** *)
+//
+implement
+f0marg_isneqz
+  (f0ma) = isneqz (f0ma.f0marg_node)
+//
+(* ****** ****** *)
 
 implement
 f0marg_make
