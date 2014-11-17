@@ -698,6 +698,8 @@ extern
 fun emit_f0arg : emit_type (f0arg)
 extern
 fun emit_f0marg : emit_type (f0marg)
+extern
+fun emit_prototype : emit_type (f0marg)
 //
 (*
 extern
@@ -757,6 +759,30 @@ end // end of [emit_f0marg]
 (* ****** ****** *)
 
 implement
+emit_prototype
+  (out, f0ma) = let
+//
+fun
+loop
+(
+  out: FILEref, f0as: f0arglst, i: int
+) : void =
+(
+case+ f0as of
+| list_nil () => ()
+| list_cons
+    (f0a, f0as) => (
+    emit_DOLLAR (out); loop (out, f0as, i+1)
+  ) (* end of [list_cons] *)
+)
+//
+in
+  loop (out, f0ma.f0marg_node, 0)
+end // end of [emit_prototype]
+
+(* ****** ****** *)
+
+implement
 emit_f0headbody
   (out, fhd, fbody) = let
 in
@@ -769,11 +795,9 @@ fhd.f0head_node of
 //
     val () = emit_i0de (out, fid)
 //
-(*
     val () = emit_LPAREN (out)
-    val () = emit_f0marg (out, f0ma)
+    val () = emit_prototype (out, f0ma)
     val () = emit_RPAREN (out)
-*)
 //
     val tmpdecs =
       f0body_get_tmpdeclst (fbody)

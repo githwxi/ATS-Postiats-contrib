@@ -22,11 +22,6 @@ cleanall::
 
 ######
 
-RMF=rm -f
-RMRF=rm -rf
-
-######
-
 all:: \
 fact_dats.pl
 fact_dats.pl: fact.dats ; \
@@ -67,7 +62,10 @@ cleanall:: ; $(RMF) queens_dats.pl
 
 ######
 
-CPF=cp -rf
+CPF=cp -f
+CPRF=cp -rf
+RMF=rm -f
+RMRF=rm -rf
 
 ######
 
@@ -82,5 +80,6 @@ clean:: ; $(RMF) *~
 
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.c
+cleanall:: ; $(RMRF) libatscc2pl/*
 
 ###### end of [Makefile] ######
