@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// For testing libatscc2js
+// For testing libatscc2pl
 //
 (* ****** ****** *)
 //

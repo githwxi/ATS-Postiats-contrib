@@ -30,6 +30,7 @@ CATS/bool_cats.pl \
 CATS/float_cats.pl \
 CATS/string_cats.pl \
 CATS/print_cats.pl \
+CATS/PLarray_cats.pl \
 output/DATS/list_dats.pl \
 output/DATS/intrange_dats.pl \
 

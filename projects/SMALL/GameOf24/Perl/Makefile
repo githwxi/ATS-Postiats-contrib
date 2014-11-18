@@ -33,7 +33,7 @@ CPRF=cp -rf
 ######
 #
 libatscc2pl:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2pl/libatscc2pl_all.pl libatscc2pl/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2pl/libatscc2pl_all.pl libatscc2pl/.
 #
 ######
 

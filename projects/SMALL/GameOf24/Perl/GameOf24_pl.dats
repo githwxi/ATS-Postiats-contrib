@@ -187,7 +187,7 @@ fun loop
   case+ cs of
   | list_nil () => res
   | list_cons (c, cs) => let
-      val () = PLarray_append (res, c) in loop (res, cs)
+      val () = PLarray_extend (res, c) in loop (res, cs)
     end // end of [list_cons]
 ) (* end of [loop] *)
 //
@@ -210,7 +210,7 @@ val () = assertloc (j >= i)
 val cs = PLarray_copy (cs)
 val c_j = PLarray_pop_1 (cs, j)
 val c_i = PLarray_pop_1 (cs, i)
-val () = PLarray_append (cs, c)
+val () = PLarray_extend (cs, c)
 //
 } // end of [cardset_remove2_add1]
 
@@ -230,7 +230,7 @@ fpprint_cardlst
 //
 fun fprone
 (
-  out: PLfile, c: card
+  out: PLfilr, c: card
 ) : void = let
   val v = card_get_val (c)
 in
@@ -451,7 +451,7 @@ val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-val out = stdout
+val out = STDOUT
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -460,7 +460,7 @@ val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
-val out = stdout
+val out = STDOUT
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -469,7 +469,7 @@ val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
-val out = stdout
+val out = STDOUT
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -478,13 +478,21 @@ val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
-val out = stdout
+val out = STDOUT
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
 //
 } (* end of [main0_pl] *)
 //
+(* ****** ****** *)
+
+%{^
+######
+require "./libatscc2pl/libatscc2pl_all.pl";
+######
+%} // end of [%{^]
+
 (* ****** ****** *)
 
 %{$

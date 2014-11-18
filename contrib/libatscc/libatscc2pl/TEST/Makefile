@@ -27,6 +27,13 @@ test02_dats.pl: test02_dats.c; $(ATSCC2PL) -o $@ -i $<
 
 ######
 
+test03: \
+test03_dats.pl; $(PERL) $<
+test03_dats.c: test03.dats; $(PATSOPT) -o $@ -d $<
+test03_dats.pl: test03_dats.c; $(ATSCC2PL) -o $@ -i $<
+
+######
+
 RMF=rm -f
 
 ######

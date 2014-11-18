@@ -69,9 +69,9 @@ typedef cardlst = List0 (card)
 (* ****** ****** *)
 //
 fun
-fprint_card (out: PLfile, x: card): void
+fprint_card (out: PLfilr, x: card): void
 fun
-fprint_cardlst (out: PLfile, xs: cardlst): void
+fprint_cardlst (out: PLfilr, xs: cardlst): void
 //
 overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10
@@ -79,9 +79,9 @@ overload fprint with fprint_cardlst of 10
 (* ****** ****** *)
 //
 fun
-fpprint_card (out: PLfile, x: card): void
+fpprint_card (out: PLfilr, x: card): void
 fun
-fpprint_cardlst (out: PLfile, xs: cardlst): void
+fpprint_cardlst (out: PLfilr, xs: cardlst): void
 //
 (* ****** ****** *)
 

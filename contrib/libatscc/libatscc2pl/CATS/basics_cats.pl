@@ -67,29 +67,29 @@ ats2plpre_lazy2cloref($) { return $_[0]->[1]; }
 ############################################
 #
 sub
-ats2pypre_assert_bool0($)
+ats2plpre_assert_bool0($)
 {
   my($tfv) = @_;
   if (!$tfv) { exit(1); }
   return;
 }
 sub
-ats2pypre_assert_bool1($$)
+ats2plpre_assert_bool1($$)
 {
-  ats2pypre_assert_bool0($_[0]); return;
+  ats2plpre_assert_bool0($_[0]); return;
 }
 #
 sub
-ats2pypre_assert_errmsg_bool0($$)
+ats2plpre_assert_errmsg_bool0($$)
 {
   my($tfv, $errmsg) = @_;
   if (!$tfv) { STDERR->printflush($errmsg); exit(1); }
   return;
 }
 sub
-ats2pypre_assert_errmsg_bool1($$)
+ats2plpre_assert_errmsg_bool1($$)
 {
-  ats2pypre_assert_errmsg_bool0($_[0], $_[1]); return;
+  ats2plpre_assert_errmsg_bool0($_[0], $_[1]); return;
 }
 #
 ############################################
