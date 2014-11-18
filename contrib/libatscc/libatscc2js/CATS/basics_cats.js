@@ -51,13 +51,13 @@ ATSCKpat_con1 (con, tag) { return (con[0] === tag); }
 function
 ATSINScaseof_fail(errmsg)
 {
-  new Error("ATSINScaseof_fail:"+errmsg);
+  throw new Error("ATSINScaseof_fail:"+errmsg);
   return;
 }
 //
 function
 ATSINSdeadcode_fail()
-  { new Error("ATSINSdeadcode_fail"); return; }
+  { throw new Error("ATSINSdeadcode_fail"); return; }
 //
 /* ****** ****** */
 

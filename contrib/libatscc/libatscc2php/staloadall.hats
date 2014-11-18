@@ -29,6 +29,11 @@ staload _ = "./DATS/list.dats"
 //
 (* ****** ****** *)
 //
+staload "./SATS/stream.sats"
+staload _ = "./DATS/stream.dats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/intrange.sats"
 staload "./SATS/reference.sats"
 //

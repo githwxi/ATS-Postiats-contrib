@@ -103,6 +103,14 @@ cleanall:: ; $(RMF) refcount_dats.php
 
 ######
 
+all:: \
+sieve_lazy_dats.php
+sieve_lazy_dats.php: sieve_lazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
+cleanall:: ; $(RMF) sieve_lazy_dats.php
+
+######
+
 all:: mytest
 mytest:: mytest.php; php -f mytest.php
 

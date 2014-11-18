@@ -38,6 +38,10 @@ function
 ats2phppre_sub_int0_int0($x, $y) { return ($x - $y); }
 function
 ats2phppre_mul_int0_int0($x, $y) { return ($x * $y); }
+function
+ats2phppre_div_int0_int0($x, $y) { return intval($x / $y); }
+function
+ats2phppre_mod_int0_int0($x, $y) { return ($x % $y); }
 
 /* ****** ****** */
 
@@ -47,6 +51,8 @@ function
 ats2phppre_sub_int1_int1($x, $y) { return ($x - $y); }
 function
 ats2phppre_mul_int1_int1($x, $y) { return ($x * $y); }
+function
+ats2phppre_div_int1_int1($x, $y) { return intval($x / $y); }
 
 /* ****** ****** */
 

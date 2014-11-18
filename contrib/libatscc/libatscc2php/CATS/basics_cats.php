@@ -49,6 +49,52 @@ function
 ATSCKpat_con1($con, $tag) { return ($con[0] === $tag) ; }
 
 /* ****** ****** */
+//
+function
+ATSINScaseof_fail($errmsg)
+{
+  fprintf(STDERR, "ATSINScaseof_fail:%s", $errmsg); exit(1);
+  return;
+}
+//
+function
+ATSINSdeadcode_fail()
+  { fprintf(STDERR, "ATSINSdeadcode_fail"); exit(1); return; }
+//
+/* ****** ****** */
+
+function ATSPMVempty() { return; }
+
+/* ****** ****** */
+
+/*
+function
+ATSPMVlazyval_make (thunk) { return [0, thunk]; }
+*/
+
+/* ****** ****** */
+
+function
+ATSPMVlazyval_eval
+  (&$lazyval)
+{
+//
+  $flag = $lazyval[0];
+//
+  if($flag===0)
+  {
+    $lazyval[0] = 1;
+    $thunk = $lazyval[1];
+    $lazyval[1] = $thunk[0]($thunk);
+  } else {
+    $lazyval[0] = $flag + 1;
+  } // end of [if]
+//
+  return;
+//
+} // end of [ATSPMVlazyval_eval]
+
+/* ****** ****** */
 
 function
 ats2phppre_echo_obj($x) { echo($x); return; }
