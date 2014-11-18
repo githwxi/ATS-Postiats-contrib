@@ -48,6 +48,7 @@ fun add_int0_int0: (int, int) -> int = "mac#%"
 fun sub_int0_int0 : (int, int) -> int = "mac#%"
 fun mul_int0_int0 : (int, int) -> int = "mac#%"
 fun div_int0_int0 : (int, int) -> int = "mac#%"
+fun mod_int0_int0 : (int, int) -> int = "mac#%"
 //
 fun add_int1_int1
   : {i,j:int} (int(i), int(j)) -> int(i+j) = "mac#%"
@@ -64,6 +65,8 @@ overload + with add_int0_int0 of 100
 overload - with sub_int0_int0 of 100
 overload * with mul_int0_int0 of 100
 overload / with div_int0_int0 of 100
+overload % with mod_int0_int0 of 100
+overload mod with mod_int0_int0 of 100
 //
 overload + with add_int1_int1 of 120
 overload - with sub_int1_int1 of 120

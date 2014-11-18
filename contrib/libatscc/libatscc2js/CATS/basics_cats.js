@@ -91,6 +91,8 @@ ATSPMVlazyval_eval(lazyval)
     lazyval[0] = flag + 1;
   } // end of [if]
 //
+  return;
+//
 } // end of [ATSPMVlazyval_eval]
 
 /* ****** ****** */

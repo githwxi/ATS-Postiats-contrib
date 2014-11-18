@@ -35,11 +35,61 @@ sub
 ATSCKpat_float($$) { return ($_[0] == $_[1]); }
 
 ############################################
+#
+sub
+ATSCKpat_con0($$)
+  { return ($_[0] == $_[1]); }
+sub
+ATSCKpat_con1($$)
+  { my $con = $_[0]; return ($con->[0] == $_[1]); }
+#
+############################################
+#
+sub
+ATSINScaseof_fail($)
+{
+STDERR->printflush("ATSINScaseof_fail:$_[0]"); exit(1); return;
+}
+#
+sub
+ATSINSdeadcode_fail()
+  { STDERR->printflush("ATSINSdeadcode_fail"); exit(1); return; }
+#
+############################################
+#
+sub
+ATSPMVempty() { return; }
+#
+############################################
+
+=for comment
+sub
+ATSPMVlazyval_make($) { return [0, $_[0]]; }
+=cut
+
+############################################
 
 sub
-ATSCKpat_con0($$) { return ($_[0] == $_[1]); }
-sub
-ATSCKpat_con1($$) { my $con = $_[0]; return ($con->[0] == $_[1]); }
+ATSPMVlazyval_eval($)
+{
+#
+  my($lazyval) = @_;
+  my $flag;
+  my $thunk;
+#
+  $flag = $lazyval->[0];
+#
+  if($flag==0)
+  {
+    $lazyval->[0] = 1;
+    $thunk = $lazyval->[1];
+    $lazyval->[1] = &{$thunk->[0]}($thunk);
+  } else {
+    $lazyval->[0] = $flag + 1;
+  } #end-of-[if]
+  return;
+#
+} #end-of-[ATSPMVlazyval_eval]
 
 ############################################
 

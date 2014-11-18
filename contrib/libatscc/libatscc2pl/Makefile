@@ -18,6 +18,8 @@ RMF=rm -f
 all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PL) -o ./output/DATS/list_dats.pl -i
 all:: ; \
+$(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PL) -o ./output/DATS/stream_dats.pl -i
+all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PL) -o ./output/DATS/intrange_dats.pl -i
 
 ######
@@ -32,6 +34,7 @@ CATS/string_cats.pl \
 CATS/print_cats.pl \
 CATS/PLarray_cats.pl \
 output/DATS/list_dats.pl \
+output/DATS/stream_dats.pl \
 output/DATS/intrange_dats.pl \
 
 #######

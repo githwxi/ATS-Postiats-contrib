@@ -211,15 +211,16 @@ main0_pl (): void = "mac#"
 implement
 main0_pl () =
 {
-  val nsol = search ($tup(0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
+//
+val
+nsol =
+search
+(
+  $tup(0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0
+) (* end of [val] *)
+//
 } (* end of [main0_pl] *)
 //
-(* ****** ****** *)
-
-%{^
-require "./libatscc2pl/libatscc2pl_all.pl";
-%} // end of [%{^]
-
 (* ****** ****** *)
 
 %{$
@@ -227,6 +228,14 @@ require "./libatscc2pl/libatscc2pl_all.pl";
 main0_pl();
 //
 %} // end of [%{$]
+
+(* ****** ****** *)
+
+%{^
+//
+require "./libatscc2pl/libatscc2pl_all.pl";
+//
+%} // end of [%{^]
 
 (* ****** ****** *)
 

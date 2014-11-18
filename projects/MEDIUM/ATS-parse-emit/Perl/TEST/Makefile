@@ -142,6 +142,16 @@ cleanall:: ; $(RMF) twice_dats.pl
 
 ######
 
+all:: \
+sieve_lazy_dats.pl
+sieve_lazy_dats.pl: sieve_lazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+sieve_lazy:: sieve_lazy_dats.pl ; $(PERL) sieve_lazy_dats.pl
+regress:: sieve_lazy
+cleanall:: ; $(RMF) sieve_lazy_dats.pl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f

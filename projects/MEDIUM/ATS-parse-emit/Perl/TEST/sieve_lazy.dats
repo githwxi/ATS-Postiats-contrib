@@ -18,13 +18,11 @@
 //
 #include
 "share/atspre_define.hats"
-#include
-"{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/SATS/print.sats"
+#include
+"{$LIBATSCC2PL}/staloadall.hats"
 //
 (* ****** ****** *)
 
@@ -74,10 +72,10 @@ end // end of [nth]
 //
 extern 
 fun
-main0_js (): void = "mac#"
+main0_pl (): void = "mac#"
 //
 implement
-main0_js ((*void*)) =
+main0_pl ((*void*)) =
 {
 //
 val ps = sieve (from(2))
@@ -96,34 +94,23 @@ val () = println! ("primes[9] = ", nth(ps, 9))
 val () = println! ("primes[100] = ", nth(ps, 100))
 val () = println! ("primes[1000] = ", nth(ps, 1000))
 //
-} (* end of [main0_js] *)
+} (* end of [main0_pl] *)
 //
-(* ****** ****** *)
-
-%{^
-//
-// file inclusion
-//
-var fs = require('fs');
-//
-eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/string_cats.js').toString());
-//
-eval(fs.readFileSync('./libatscc2js/CATS/Node.js/basics_cats.js').toString());
-eval(fs.readFileSync('./libatscc2js/CATS/Node.js/fprint_cats.js').toString());
-//
-eval(fs.readFileSync('./libatscc2js/DATS/stream_dats.js').toString());
-//
-%} // end of [%{^]
-
 (* ****** ****** *)
 
 %{$
 //
-main0_js()
+main0_pl();
 //
 %} // end of [%{$]
+
+(* ****** ****** *)
+
+%{^
+//
+require "./libatscc2pl/libatscc2pl_all.pl";
+//
+%} // end of [%{^]
 
 (* ****** ****** *)
 
