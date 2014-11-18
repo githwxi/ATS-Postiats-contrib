@@ -1,8 +1,8 @@
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11:
 // A running example
-// from ATS2 to Python3
+// from ATS2 to Perl5
 //
 (* ****** ****** *)
 //
@@ -11,12 +11,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PY}/basics_py.sats"
-staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PY}/SATS/list.sats"
+#include
+"{$LIBATSCC2PL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -56,21 +52,27 @@ end // end of [test]
 //
 (* ****** ****** *)
 
+extern
+fun
+main0_pl : () -> void = "mac#"
+implement
+main0_pl () =
+{
+//
+val () = println! ("test(5, 10) = ", test(5, 10))
+//
+} (* end of [main0_pl] *)
+
+(* ****** ****** *)
+
 %{^
-import sys
-sys.setrecursionlimit(1000000)
-######
-from ats2pypre_basics_cats import *
-from ats2pypre_integer_cats import *
-######
+require "./libatscc2pl/libatscc2pl_all.pl";
 %}
 
 (* ****** ****** *)
 
 %{$
-//
-print("test(5, 10) = ", test(5, 10), sep='')
-//
+main0_pl();
 %} // end of [%{$]
 
 (* ****** ****** *)

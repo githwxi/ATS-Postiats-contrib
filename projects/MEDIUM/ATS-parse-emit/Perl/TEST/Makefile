@@ -113,6 +113,26 @@ cleanall:: ; $(RMF) rtfind2_dats.pl
 ######
 
 all:: \
+listlen_dats.pl
+listlen_dats.pl: listlen.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+listlen:: listlen_dats.pl ; $(PERL) listlen_dats.pl
+regress:: listlen
+cleanall:: ; $(RMF) listlen_dats.pl
+
+######
+
+all:: \
+listmap_dats.pl
+listmap_dats.pl: listmap.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+listmap:: listmap_dats.pl ; $(PERL) listmap_dats.pl
+regress:: listmap
+cleanall:: ; $(RMF) listmap_dats.pl
+
+######
+
+all:: \
 twice_dats.pl
 twice_dats.pl: twice.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PL) -o $@
