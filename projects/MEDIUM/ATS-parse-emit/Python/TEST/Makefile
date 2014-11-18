@@ -191,6 +191,17 @@ regress:: refcount
 cleanall:: ; $(RMF) refcount_dats.py
 
 ######
+
+all:: \
+sieve_lazy_dats.py
+sieve_lazy_dats.py: sieve_lazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PY) -o $@ -i
+sieve_lazy:: \
+sieve_lazy_dats.py ; $(PYTHON) sieve_lazy_dats.py
+regress:: sieve_lazy
+cleanall:: ; $(RMF) sieve_lazy_dats.py
+
+######
 #
 libatscc2py:: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py/output/* libatscc2py/.
