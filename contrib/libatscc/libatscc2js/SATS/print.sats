@@ -11,11 +11,27 @@
 //
 (* ****** ****** *)
 
-fun print_int : int -> void = "mac#%"
-fun print_bool : bool -> void = "mac#%"
-fun print_double : double -> void = "mac#%"
-fun print_string : string -> void = "mac#%"
+staload "./../basics_js.sats"
 
+(* ****** ****** *)
+
+fun print_int : int -> void = "mac#%"
+
+(* ****** ****** *)
+
+fun print_bool : bool -> void = "mac#%"
+
+(* ****** ****** *)
+
+fun print_double : double -> void = "mac#%"
+
+(* ****** ****** *)
+//
+fun
+print_string : string -> void = "mac#%"
+fun
+fprint_string (JSfile, string): void = "mac#%"
+//
 (* ****** ****** *)
 
 fun print_obj{a:t0p}(obj: a): void = "mac#%"
@@ -33,7 +49,10 @@ overload print with print_string of 100
 
 (* ****** ****** *)
   
-fun{a:t0p} print_val (x: a): void = "mac#%"
+fun{a:t0p}
+print_val (x: a): void = "mac#%"
+fun{a:t0p}
+fprint_val (JSfile, x: a): void = "mac#%"
   
 (* ****** ****** *)
 //
