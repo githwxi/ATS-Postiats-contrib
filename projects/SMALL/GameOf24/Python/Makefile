@@ -33,7 +33,7 @@ CPRF=cp -rf
 ######
 #
 libatscc2py:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc2py/output/* libatscc2py/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py/output/* libatscc2py/.
 #
 ######
 

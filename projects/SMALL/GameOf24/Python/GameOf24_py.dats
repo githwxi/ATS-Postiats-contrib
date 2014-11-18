@@ -15,28 +15,15 @@
 //
 (* ****** ****** *)
 //
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "GameOf24_py_dynload"
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "GameOf24_py_dynload"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PY}/basics_py.sats"
-//
-staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PY}/SATS/float.sats"
-staload
-"{$LIBATSCC2PY}/SATS/string.sats"
-staload
-"{$LIBATSCC2PY}/SATS/filebas.sats"
-//
-staload
-"{$LIBATSCC2PY}/SATS/list.sats"
-//
-staload
-"{$LIBATSCC2PY}/SATS/PYlist.sats"
+#include
+"{$LIBATSCC2PY}/staloadall.hats"
 //
 (* ****** ****** *)
 
@@ -511,9 +498,11 @@ from ats2pypre_basics_cats import *
 #
 from ats2pypre_integer_cats import *
 #
+from ats2pypre_bool_cats import *
 from ats2pypre_float_cats import *
 from ats2pypre_string_cats import *
 #
+from ats2pypre_print_cats import *
 from ats2pypre_filebas_cats import *
 #
 from ats2pypre_PYlist_cats import *
