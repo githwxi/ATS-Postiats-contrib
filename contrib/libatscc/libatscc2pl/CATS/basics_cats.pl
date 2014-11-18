@@ -42,24 +42,6 @@ sub
 ATSCKpat_con1($$) { my $con = $_[0]; return ($con->[0] == $_[1]); }
 
 ############################################
-#
-sub
-ats2plpre_print_newline()
-{
-  STDOUT->printflush("\n"); return;
-}
-sub
-ats2plpre_prerr_newline()
-{
-  STDERR->printflush("\n"); return;
-}
-sub
-ats2plpre_fprint_newline($)
-{
-  $_[0]->printflush("\n"); return;
-}
-#
-############################################
 
 sub
 ats2plpre_lazy2cloref($) { return $_[0]->[1]; }

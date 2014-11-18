@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into PHP
+** that translates into Python
 *)
 
 (* ****** ****** *)
@@ -9,13 +9,13 @@
 
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2014-11:
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2phppre_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 #define
-ATS_STATIC_PREFIX "_ats2phppre_print_"
+ATS_STATIC_PREFIX "_ats2pypre_print_"
 //
 (* ****** ****** *)
 //
@@ -30,7 +30,7 @@ staload "./../SATS/filebas.sats"
 (* ****** ****** *)
 
 implement
-print_val<int> (x) = fprint_val<int> (STDOUT, x)
+print_val<int> (x) = fprint_val<int> (stdout, x)
 
 (* ****** ****** *)
 

@@ -108,12 +108,6 @@ overload echo with echo7
 overload echo with echo8
 //
 (* ****** ****** *)
-
-fun print_newline ((*void*)): void = "mac#%"
-fun prerr_newline ((*void*)): void = "mac#%"
-fun fprint_newline (out: PHPfilr): void = "mac#%"
-
-(* ****** ****** *)
 //
 fun
 lazy2cloref

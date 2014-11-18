@@ -27,12 +27,6 @@ abstype PLfilr
 abstype PLarray(a:t@ype)
 
 (* ****** ****** *)
-
-fun print_newline ((*void*)): void = "mac#%"
-fun prerr_newline ((*void*)): void = "mac#%"
-fun fprint_newline (out: PLfilr): void = "mac#%"
-
-(* ****** ****** *)
 //
 fun
 lazy2cloref

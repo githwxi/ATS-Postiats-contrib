@@ -56,9 +56,9 @@ overload fprint with fprint_double of 100
 (* ****** ****** *)
 //
 fun
-print_string (str: string): void = "mac#%"
+print_string : (string) -> void = "mac#%"
 fun
-prerr_string (str: string): void = "mac#%"
+prerr_string : (string) -> void = "mac#%"
 fun
 fprint_string (PLfilr, string): void = "mac#%"
 //
@@ -73,8 +73,17 @@ print_obj{a:t0p}(obj: a): void = "mac#%"
 
 (* ****** ****** *)
 
-fun{a:t0p} print_val (x: a): void = "mac#%"
+fun{a:t0p}
+print_val (x: a): void = "mac#%"
+fun{a:t0p}
+fprint_val (out: PLfilr, x: a): void = "mac#%"
   
+(* ****** ****** *)
+
+fun print_newline ((*void*)): void = "mac#%"
+fun prerr_newline ((*void*)): void = "mac#%"
+fun fprint_newline (out: PLfilr): void = "mac#%"
+
 (* ****** ****** *)
 
 (* end of [print.sats] *)
