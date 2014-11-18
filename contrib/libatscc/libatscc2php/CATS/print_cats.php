@@ -45,9 +45,9 @@ ats2phppre_fprint_bool
   ($out, $x)
 {
   if($x) {
-    fprintf($out, "true"); return
+    fprintf($out, "true"); return;
   } else {
-    fprintf($out, "false"); return
+    fprintf($out, "false"); return;
   } // end of [if]
 }
 //

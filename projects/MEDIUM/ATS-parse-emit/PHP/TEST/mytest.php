@@ -13,7 +13,10 @@ include './refcount_dats.php';
 //
 require './libatscc2php/CATS/basics_cats.php';
 require './libatscc2php/CATS/integer_cats.php';
+require './libatscc2php/CATS/bool_cats.php';
+require './libatscc2php/CATS/float_cats.php';
 require './libatscc2php/CATS/string_cats.php';
+require './libatscc2php/CATS/print_cats.php';
 //
 require './libatscc2php/CATS/PHPref_cats.php';
 require './libatscc2php/CATS/PHParref_cats.php';
