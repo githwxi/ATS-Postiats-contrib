@@ -1,6 +1,6 @@
 /* ****** ****** */
 //
-// HX-2014-11-18:
+// HX-2014-10-22:
 // For C code generated from ATS source
 //
 /* ****** ****** */
@@ -21,38 +21,17 @@
 
 /* ****** ****** */
 
-#ifndef LINUX_H_PATS_CCOMP_H
-#define LINUX_H_PATS_CCOMP_H
+#ifndef LINUX_H_PATS_CCOMP2_H
+#define LINUX_H_PATS_CCOMP2_H
 
 /* ****** ****** */
 
-#include "kernelats/pats_ccomp.h"
-
-/* ****** ****** */
-//
-#include \
-"kernelats/prelude/CATS/integer.cats"
-#include \
-"kernelats/prelude/CATS/pointer.cats"
-//
-#include "kernelats/prelude/CATS/bool.cats"
-#include "kernelats/prelude/CATS/char.cats"
-#include "kernelats/prelude/CATS/string.cats"
-//
-#include "kernelats/prelude/CATS/array.cats"
-#include "kernelats/prelude/CATS/arrayptr.cats"
-#include "kernelats/prelude/CATS/arrayref.cats"
-//
-/* ****** ****** */
-//
-#include <linux/types.h>
-#include \
-"kernelats/prelude/CATS/integer_fixed.cats"
-//
-/* ****** ****** */
-
-#endif // end of [LINUX_H_PATS_CCOMP_H]
+#include "kernelats/pats_ccomp2.h"
 
 /* ****** ****** */
 
-/* end of [pats_ccomp.h] */
+#endif // end of [LINUX_H_PATS_CCOMP2_H]
+
+/* ****** ****** */
+
+/* end of [pats_ccomp2.h] */

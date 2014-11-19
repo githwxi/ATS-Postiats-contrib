@@ -21,8 +21,8 @@
 
 /* ****** ****** */
 
-#ifndef LINUX_H_PATS_CCOMP_H
-#define LINUX_H_PATS_CCOMP_H
+#ifndef ARDUINO_PATS_CCOMP_H
+#define ARDUINO_PATS_CCOMP_H
 
 /* ****** ****** */
 
@@ -45,13 +45,13 @@
 //
 /* ****** ****** */
 //
-#include <linux/types.h>
+#include <stdint.h>
 #include \
 "kernelats/prelude/CATS/integer_fixed.cats"
 //
 /* ****** ****** */
 
-#endif // end of [LINUX_H_PATS_CCOMP_H]
+#endif // end of [ARDUINO_PATS_CCOMP_H]
 
 /* ****** ****** */
 

@@ -434,6 +434,8 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 
 /* ****** ****** */
 //
+#if(0)
+//
 #include \
 "kernelats/prelude/CATS/integer.cats"
 #include \
@@ -449,6 +451,8 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 #include "kernelats/prelude/CATS/array.cats"
 #include "kernelats/prelude/CATS/arrayptr.cats"
 #include "kernelats/prelude/CATS/arrayref.cats"
+//
+#endif // if(0)
 //
 /* ****** ****** */
 

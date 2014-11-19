@@ -21,8 +21,8 @@
 
 /* ****** ****** */
 
-#ifndef LINUX_H_PATS_CCOMP_H
-#define LINUX_H_PATS_CCOMP_H
+#ifndef SINGPOLYMA_PATS_CCOMP_H
+#define SINGPOLYMA_PATS_CCOMP_H
 
 /* ****** ****** */
 
@@ -45,13 +45,14 @@
 //
 /* ****** ****** */
 //
-#include <linux/types.h>
-#include \
-"kernelats/prelude/CATS/integer_fixed.cats"
+/*
+#include <stdint.h>
+#include "kernelats/prelude/CATS/integer_fixed.cats"
+*/
 //
 /* ****** ****** */
 
-#endif // end of [LINUX_H_PATS_CCOMP_H]
+#endif // end of [SINGPOLYMA_PATS_CCOMP_H]
 
 /* ****** ****** */
 

@@ -47,9 +47,10 @@
 #define ATSLIB_PRELUDE_CATS_INTEGER_FIXED
 
 /* ****** ****** */
-
+/*
 #include <stdint.h>
-
+#include <linux/types.h>
+*/
 /* ****** ****** */
 
 typedef int8_t atstype_int8 ;
