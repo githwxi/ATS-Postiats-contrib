@@ -1,6 +1,8 @@
 (* ****** ****** *)
 //
+(*
 dynload "./parsing.sats"
+*)
 dynload "./parsing.dats"
 dynload "./parsing_d2cst.dats"
 dynload "./parsing_d2var.dats"

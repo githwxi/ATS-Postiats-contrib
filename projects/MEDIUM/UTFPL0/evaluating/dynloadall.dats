@@ -1,6 +1,8 @@
 (* ****** ****** *)
 //
+(*
 dynload "./eval.sats"
+*)
 dynload "./print.dats"
 dynload "./cloenv.dats"
 dynload "./eval_d2cst.dats"
