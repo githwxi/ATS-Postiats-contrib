@@ -1,4 +1,4 @@
-// staload _ = "prelude/DATS/integer.dats"
+staload _ = "prelude/DATS/integer.dats"
 
 (* ****** ****** *)
 
