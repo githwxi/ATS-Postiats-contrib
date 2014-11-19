@@ -436,6 +436,8 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 //
 #if(0)
 //
+// HX-2014-11-19: for example
+//
 #include \
 "kernelats/prelude/CATS/integer.cats"
 #include \
