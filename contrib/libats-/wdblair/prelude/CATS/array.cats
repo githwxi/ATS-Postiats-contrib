@@ -1,3 +1,6 @@
+#ifndef PATSOLVE_PRELUDE_ARRAY
+#define PATSOLVE_PRELUDE_ARRAY
+
 /**
    These are useful functions that may take too much time to prove.
 */
@@ -11,3 +14,5 @@ inline void array_ptrswap_size (void *p, void *q, size_t sz) {
   }
   return;
 }
+
+#endif

@@ -1,9 +1,17 @@
-staload _ = "prelude/DATS/integer.dats"
+staload "contrib/libats-/wdblair/prelude/SATS/array.sats"
+staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
 
 (* ****** ****** *)
 
-staload "contrib/libats-/wdblair/prelude/SATS/array.sats"
-staload "contrib/libats-/wdblair/patsolve/SATS/stampseq.sats"
+staload _ = "prelude/DATS/integer.dats"
+staload _ = "prelude/DATS/pointer.dats"
+
+staload _ = "contrib/libats-/wdblair/prelude/DATS/array.dats"
+
+(* ****** ****** *)
+
+#define ATS_DYNLOADFLAG 0
+#define ATS_STALOADFLAG 0
 
 (* ****** ****** *)
 
@@ -46,15 +54,19 @@ macdef join = array_v_unsplit
 
 (* ****** ****** *)
 
-fn
-sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
+extern
+fn patslibc_qsort {a:t@ype} {l:addr} {xs:stmsq} {n:nat}  (
   pf: array_v (a, l, xs, n) | 
     p: ptr l, n: size_t n, sz: size_t (sizeof(a)), cmp: cmp_fn(a)
 ): [ys:stmsq | ordered(ys)] (
   array_v (a, l, ys, n) | void
-)  = let
-   
-   (**
+) = "ext#"
+
+implement
+patslibc_qsort {a} {l} {xs} {n} (
+    pf | p, n, sz, cmp
+) = let
+   (*
        Short hand to abstract sz, which stays the same for the whole
        function.
    *)
@@ -66,8 +78,8 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
            {ys:stmsq | ordered(ys)} .<n-m>. (
     pfsorted: array_v (a, l, ys, m), 
     pfrem: array_v (a, l+m*sizeof(a), drop(xs, m), n-m) |
-      ps: ptr l, pr: ptr (l+m*sizeof(a)), m: size_t (m)
-  ): [zs:stmsq | ordered(zs)] (
+      ps: ptr l, pr: ptr (l+m*sizeof(a)), m: size_t (m), cmp: cmp_fn(a)
+  ):[zs:stmsq | ordered(zs)] (
     array_v (a, l, zs, n) | void
   ) =
     if m = n then let
@@ -81,8 +93,8 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
           insert {n:nat} {l:addr}
                       {x:stamp} {xs:stmsq | ordered(xs)} .<n>. (
               pfxs: array_v (a, l, xs, n), pfx: T(a, x) @ l + n*sizeof(a) |  
-                  p: ptr l,  px: ptr (l + n *sizeof(a)), n: size_t n
-          ): [ys:stmsq | ordered(ys)] (
+                  p: ptr l,  px: ptr (l + n *sizeof(a)), n: size_t n, cmp: cmp_fn(a)
+          ):[ys:stmsq | ordered(ys)] (
                   array_v (a, l, ys, n+1) | void
           ) = let
               prval () = array_sorted_len_lemma (pfxs)
@@ -91,7 +103,7 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
               fun
               loop {i:nat | i <= n} {x:stamp}
                        {xs:stmsq | sorted(xs, n) ; lte(x, xs, i, n)} .<i>. (
-                  pf: array_v (a, l, insert(xs, i, x), n+1) | px: ptr (l+i*sizeof(a))
+                  pf: array_v (a, l, insert(xs, i, x), n+1) | px: ptr (l+i*sizeof(a)), cmp: cmp_fn(a)
               ): [j:nat | sorted(insert(xs, j, x), n+1)] (
                   array_v (a, l, insert(xs, j, x), n+1) | void
               ) = 
@@ -124,13 +136,13 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
                               py > px, swap and try again
                           *)
                           val () = swap {a}{l}{n+1}{i-1, i} (pf | py, px, sz)
-                          val [i':int] (pfins | ()) = loop {i-1} {x} {xs} (pf | py)
+                          val [i':int] (pfins | ()) = loop {i-1} {x} {xs} (pf | py, cmp)
                        in
                            #[i' | (pfins | ())]
                        end
                   end
           
-              val (pfins | ()) = loop {n}{x}{xs} (pfxsx | px)
+              val (pfins | ()) = loop {n}{x}{xs} (pfxsx | px, cmp)
               
               prval () = array_ordered_lemma (pfins)
            in
@@ -139,13 +151,13 @@ sort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
             
           prval array_v_cons (pfr, pfrss) = pfrem
           
-          val (pfinserted | ()) = insert (pfsorted, pfr | ps, pr, m)
+          val (pfinserted | ()) = insert (pfsorted, pfr | ps, pr, m, cmp)
      in
-         loop (pfinserted, pfrss | ps, ptrsucc(pr), succ(m))
+         loop (pfinserted, pfrss | ps, ptrsucc(pr), succ(m), cmp)
      end
         
 in
-    loop (array_v_nil(), pf | p, p, u2sz(0u))
+    loop (array_v_nil(), pf | p, p, u2sz(0u), cmp)
 end
 
 
