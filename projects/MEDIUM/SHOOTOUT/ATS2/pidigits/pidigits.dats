@@ -201,7 +201,7 @@ in
         end // end of [else]
     end // end of [else]
 end // end of [then]
-else () // end of [if]
+else () // end of [else]
 //
 end // end of [pidigits_loop]
 

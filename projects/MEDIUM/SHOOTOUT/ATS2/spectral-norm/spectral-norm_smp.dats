@@ -41,6 +41,13 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
 
 (* ****** ****** *)
 
+%{^
+#undef ATSextfcall
+#define ATSextfcall(f, args) f args
+%} // end of [%{^]
+
+(* ****** ****** *)
+
 staload
 UN = "prelude/SATS/unsafe.sats"
 
