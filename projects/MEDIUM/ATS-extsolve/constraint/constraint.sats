@@ -113,6 +113,7 @@ datatype s2rt =
 | S2RTfun of (s2rts (*args*), s2rt (*return*))
 | S2RTtup of ((*void*))
 | S2RTt0ype of ((*void*))
+| S2RTuninterp of (string)
 | S2RTerr of ((*void*))
 | S2RTignored of ((*void*))
 

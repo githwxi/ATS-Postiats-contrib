@@ -62,6 +62,10 @@ fun Z3_mk_div (
   ctx: !Z3_context, num: !Z3_ast, den: !Z3_ast
 ): Z3_ast = "mac#%"
 
+fun Z3_mk_mod (
+  ctx: !Z3_context, num: !Z3_ast, den: !Z3_ast
+): Z3_ast = "mac#%"
+
 (* ****** ****** *)
 
 fun Z3_mk_lt (

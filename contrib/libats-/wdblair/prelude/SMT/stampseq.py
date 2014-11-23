@@ -1,15 +1,38 @@
-# Interpretations for static stamp seqeunce operations.
+# Interpretations for static stamp sequence operations.
 # Will Blair - wdblair@cs.bu.edu
 
 import patsolve
 
+from z3 import *
+
 # Get our solver
 s = patsolve.solver
 
-A = Array("A", IntSort(), IntSort())
-i, j, x = Int("i"), Int("j"), Int("x")
+A = Array ("A", IntSort(), IntSort())
+B = Array ("B", IntSort(), IntSort())
 
+i, j, x, y, m, n = Ints("i j x y m n")
+
+StampSeq = lambda name: Array (name, IntSort(), IntSort())
 StampSeqSort = lambda : ArraySort (IntSort(), IntSort())
+
+T0ype = DeclareSort ("t@ype")
+
+# Some knowledge about sizeof
+sizeof = Function ("sizeof", T0ype, IntSort())
+
+a = Const ("a", T0ype)
+
+s.add (
+    ForAll (a, sizeof (a) > 0)
+)
+
+l, sz = Ints ("l sz")
+
+
+#s.add (
+#  ForAll ([l, i, sz], Implies (And(sz > 0, i >= 0, l >= 0), (((l + i * sz) - l) / sz == i)))
+#)
 
 # Undefined Section of an Array
 
@@ -17,7 +40,7 @@ s.add (
     ForAll ([A, i], Implies (i < 0, A[i] == 0))
 )
 
-# The "nil" sequence
+# The "nil" sequenc
 
 nil = Function ('stampseq_nil', StampSeqSort())
 
@@ -39,7 +62,7 @@ cons = Function ('stampseq_cons', IntSort(), StampSeqSort(),
                  StampSeqSort())
 
 s.add (
-    ForAll ([A, i, x], cons(x, A)[0] == x)
+    ForAll ([A, x], cons(x, A)[0] == x)
 )
 
 s.add (
@@ -64,6 +87,10 @@ s.add (
     ForAll ([A, i, j], drop(A, i)[j] == A[i+j])
 )
 
+s.add (
+    ForAll ([A,B,x,m], Implies(cons(x, B) == drop(A, m), B == drop(A, m+1)))
+)
+
 # Insert
 
 insert = Function ('stampseq_insert', StampSeqSort(), IntSort(),
@@ -80,8 +107,6 @@ s.add (
 append = Function ('stampseq_append', StampSeqSort(), IntSort(),
                    StampSeqSort(), IntSort(), StampSeqSort())
 
-B = Array("B", IntSort(), IntSort())
-
 m, n = Int("m"), Int("n")
 
 s.add (
@@ -94,6 +119,81 @@ permutation = Function ('stampseq_permutation',
                         StampSeqSort(), StampSeqSort(),
                         IntSort(), BoolSort())
 
+C = Array("C", IntSort(), IntSort())
+
 s.add (
     ForAll([A, n], permutation(A, A, n) == True)
+)
+
+s.add (
+    ForAll([A, B, C, n], 
+                Implies (
+                               And(permutation(A, B, n), permutation(B, C, n)), permutation(A, C, n)
+                 )
+     )
+)
+
+s.add(
+     ForAll([A, B, C, x, i, n], 
+                 Implies (
+                                And(0 <= i, i < n-1, A == cons (x, B),
+                                        permutation (B, C, n-1)
+                                ),
+                                permutation (A, insert (C, i, x), n)
+                  )
+     )
+)
+
+# Sorting
+
+def stampseq_sorted (xs, n):
+    """
+    The first n elements of xs are sorted.
+    """
+    i, j = Ints ("i j")
+
+    return ForAll([i, j], Implies (
+        And (0 <= i, i <= j, j < n),
+        xs[i] <= xs[j])
+    )
+
+# for any sequence xs, ordered(xs) means that the entire sequence
+# is ordered.
+
+ordered = Function ('stampseq_ordered', StampSeqSort(), BoolSort())
+
+s.add (
+    ordered(nil())
+)
+
+s.add (
+    ForAll(x, ordered(cons(x, nil())))
+)
+
+s.add (
+    ForAll(x, ordered(insert(nil(), 0, x)))
+)
+
+s.add (
+    ForAll([A, x], Implies(And (x <= A[0], ordered(A)),
+                           ordered(insert(A,0,x)))
+    )
+)
+
+s.add (
+    ForAll([A,B,x], Implies (And (ordered(A), A == cons(x, B)),
+                             ordered (B)
+                    )
+    )
+)
+
+s.add (
+    ForAll([A, B, x, y, i], Implies(And (ordered(A),
+                                         ordered(insert(B, i, y)),
+                                         A == cons (x, B),
+                                         x <= y
+                                    ),
+                                    ordered (insert(A, i+1, y))
+                            )
+    )
 )

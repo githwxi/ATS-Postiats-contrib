@@ -52,3 +52,29 @@ def cond_set_or_clear_bv32 (f, w, m):
     Conditionally set or clear bits.
     """
     return If (f == BitVecVal(1, 32), w | m, w & ~m)
+
+
+s = patsolve.solver
+
+bits_set = Function("bits_set_bv32", BitVecSort(32), IntSort())
+
+x,y = BitVecs('x y', 32)
+
+s.add (
+    ForAll (x, And(bits_set (x) >= 0, bits_set(x) <= 32))
+)
+
+s.add (
+    ForAll([x,y], Implies (y == 0, bits_set(x - y) == bits_set(x)))
+)
+
+s.add (
+    ForAll (x, Implies (x == 0, bits_set (x) == 0))
+)
+
+s.add (
+    ForAll(x, Implies(UGT(x, 0x0),
+                      bits_set(x) == BV2Int((x & 1)) + bits_set(LShR(x, 1))
+            )
+    )
+)

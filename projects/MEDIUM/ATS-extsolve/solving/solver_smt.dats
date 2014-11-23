@@ -533,6 +533,15 @@ in
     n / d
   end // end of [f_idiv_int_int]
 
+
+  implement f_mod_int_int (env, s2es) = let
+    val- s2e1 :: s2e2 :: _ = s2es
+    val n = formula_make (env, s2e1) 
+    val d = formula_make (env, s2e2)
+  in
+    $SMT.make_mod (n, d)
+  end // end of [f_mod_int_int]
+  
   implement f_rat_int (env, s2es) = let
     val- s2e1 :: _ = s2es
     val n = formula_make (env, s2e1)
@@ -707,11 +716,25 @@ in
 
   implement
   f_bv32_of_int (env, s2es) = let
+    (**
+      If we are passed a constant, we can avoid using 
+      an uninterpreted function.
+    *)
     val- s2e1 :: _ = s2es
-    //
-    val i = formula_make (env, s2e1)
   in
-    $SMT.make_bv_from_int (32, i)
+    case+ s2e1.s2exp_node of
+      | S2Eintinf n => let
+        val srt = $SMT.make_bitvec_sort (32)
+        val n' = $SMT.make_numeral (n, srt)
+      in
+        $SMT.sort_free (srt);
+        n'
+      end
+      | _ => let
+        val i = formula_make (env, s2e1)
+      in
+        $SMT.make_bv_from_int (32, i)
+      end
   end // end of [f_bv32_of_int]
 
   implement
@@ -944,51 +967,8 @@ in
     val i = formula_make (env, s2e2)
     val v = formula_make (env, s2e3)
   in
-    a[i] = v
+    Store (a, i, v)
   end // end of [f_array_store]
-      
-  implement
-  f_partitioned_array (env, s2es) = let
-    val- s2e1 :: s2e2 :: s2e3 :: s2e4 :: _ = s2es
-    val a     = formula_make (env, s2e1)
-    val start = formula_make (env, s2e2)
-    val p     = formula_make (env, s2e3)
-    val stop  = formula_make (env, s2e4)
-    //
-    val i = Int ("i"); val j = Int ("j")
-  in
-    ForAll (i^, j^,
-      ((start <= i^) And (i^ <= p^) And (p^ <= j^)
-        And (j^ <= stop)) ==>
-          ((Select(a^,i) <= Select(a^,p^)) And (Select(a^, p) <= Select(a,j))))
-  end // end of [f_partitioned_array]
-  
-  local
-  
-    fun
-    Sorted (a: formula, start: formula, stop: formula): formula = let
-      val i = Int ("i")
-      val j = Int("j")
-    in
-      ForAll (i^, j^,
-        ((start <= i^) And (i^ <= j^) And (j^ <= stop)) ==>
-          (Select (a^, i) <= Select (a, j))
-        )
-    end // end of [Sorted]
-    
-  in
-  
-  implement
-  f_sorted_array (env, s2es) = let
-    val- s2e1 :: s2e2 :: _ = s2es
-    val a     = formula_make (env, s2e1)
-    val len  = formula_make (env, s2e2)
-    //
-  in
-    Sorted (a, Int(0), len - Int(1))
-  end // End of [f_sorted_array]
-    
-  end // end of [local]
   
   implement
   f_array_swap (env, s2es) = let
@@ -1001,7 +981,7 @@ in
     
   in
     Store(b, i, Select(a, j))
-  end
+  end // end of [f_array_swap]
   
   implement 
   f_lte_stamp_stampseq (env, s2es) = let
@@ -1015,7 +995,7 @@ in
     ForAll (i^,
       ((Int(0) <= i^) And (i^ < n)) ==>
         (stmp <= seq[i]))
-  end
+  end // end of [f_lte_stamp_stampseq]
   
   implement
   f_lte_stamp_stampseq_range (env, s2es) = let
@@ -1030,7 +1010,7 @@ in
     ForAll(j^,
       ((i <= j^) And (j^ < n)) ==>
         (stmp <= seq[j]))
-  end
+  end // end of [f_lte_stamp_stampseq_range]
     
   implement 
   f_lte_stampseq_stamp (env, s2es) = let
@@ -1044,8 +1024,8 @@ in
     ForAll (i^,
       ((Int(0) <= i^) And (i^ < n)) ==>
         (seq[i] <= stmp))
-  end
-
+  end // end of [f_lte_stmapseq_stamp]
+  
   implement
   f_lte_cls_cls (env, s2es) = let
     val- s2e1 :: s2e2 :: _ = s2es
@@ -1054,6 +1034,6 @@ in
       | (S2Ecst (s2c1), S2Ecst (s2c2)) =>
         Bool(s2cst_lte_cls_cls (s2c1, s2c2))
       | (_, _) => Bool(false)
-  end
+  end // end of [f_lte_cls_cls]
   
 end // end of [local]
