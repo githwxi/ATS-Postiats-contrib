@@ -70,7 +70,7 @@ if argc >= 3
 val () = println! ("servname = ", servname)
 val () = println! ("servport = ", servport)
 //
-val servport_h = in_port_nbo(servport)
+val servport2 = in_port_nbo(servport)
 //
 var inp: in_addr_struct
 val ((*void*)) = assertloc(inet_aton(servname, inp))
@@ -78,7 +78,7 @@ prval ((*void*)) = opt_unsome (inp)
 //
 var servaddr: sockaddr_in_struct
 val ((*void*)) =
-sockaddr_in_init (servaddr, AF_INET, inp.s_addr, servport_h)
+sockaddr_in_init (servaddr, AF_INET, inp.s_addr, servport2)
 //
 val (pf | fd) = socket_family_type_exn (AF_INET, SOCK_STREAM)
 //
