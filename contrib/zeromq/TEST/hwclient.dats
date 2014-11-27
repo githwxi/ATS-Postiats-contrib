@@ -79,17 +79,17 @@ println!
   ("Connecting to hello world server...")
 //
 val
-requester = zmq_socket_exn (context, ZMQ_REQ)
-val () = zmq_connect_exn (requester, "tcp://localhost:5555")
+reqer = zmq_socket_exn (context, ZMQ_REQ)
+val () = zmq_connect_exn (reqer, "tcp://localhost:5555")
 //
 #define N 10
-var request: zmqmsg? and reply: zmqmsg?
+var req: zmqmsg_t? and rep: zmqmsg_t?
 val () = let
 //
 fun loop (
   nbr: natLte(N)
-, requester: !zmqsock1
-, request: &zmqmsg?, reply: &zmqmsg?
+, reqer: !zmqsock1
+, req: &zmqmsg_t?, rep: &zmqmsg_t?
 ) : void = let
 in
 //
@@ -97,10 +97,10 @@ if
 nbr < N
 then let
   val () =
-  zmq_msg_init_size_exn(request, 5SZ)
+  zmq_msg_init_size_exn(req, 5SZ)
   val () = memcpy
   (
-    zmq_msg_data (request), "Hello", 5
+    zmq_msg_data (req), "Hello", 5
   ) where {
     extern fun memcpy : (ptr, string, int) -> void = "mac#"
   } (* end of [val] *)
@@ -108,27 +108,27 @@ then let
   val () =
   println! ("Sending Hello ", nbr, "...")
   val _(*nbyte*) =
-  zmq_msg_send_exn (request, requester, 0)
-  val ((*void*)) = zmq_msg_close_exn (request)
+  zmq_msg_send_exn (req, reqer, 0)
+  val ((*void*)) = zmq_msg_close_exn (req)
 //
-  val () = zmq_msg_init_exn (reply)
-  val _(*nbyte*) = zmq_msg_recv (reply, requester, 0);
+  val () = zmq_msg_init_exn (rep)
+  val _(*nbyte*) = zmq_msg_recv (rep, reqer, 0);
   val ((*void*)) = println! ("Received World ", nbr)
-  val ((*void*)) = zmq_msg_close_exn (reply)
+  val ((*void*)) = zmq_msg_close_exn (rep)
 //
 in
-  loop (nbr+1, requester, request, reply)
+  loop (nbr+1, reqer, req, rep)
 end // end of [if]
 //
 end // end of [loop]
 //
 in
-  loop (0, requester, request, reply)
+  loop (0, reqer, req, rep)
 end // end of [val]
 //
 val _ = $extfcall (uint, "sleep", 2)
 //
-val () = zmq_close_exn (requester)
+val () = zmq_close_exn (reqer)
 val () = assertloc (zmq_ctx_destroy (context) >= 0)
 val ptr = zmqctxopt_unnone (context)
 //

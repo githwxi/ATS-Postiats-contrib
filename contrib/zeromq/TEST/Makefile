@@ -35,6 +35,14 @@ cleanall:: ; $(RMF) hwclient
 
 ######
 
+all:: \
+test_zstr
+test_zstr: test_zstr.dats ; \
+  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< -lczmq -lzmq
+cleanall:: ; $(RMF) test_zstr
+
+######
+
 RMF=rm -f
 
 ######

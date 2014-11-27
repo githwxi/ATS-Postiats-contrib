@@ -45,7 +45,46 @@
 #include <czmq.h>
 
 /* ****** ****** */
-
+//
+// ZSOCK
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zsock_new_pair(e) zsock_new_pair((char*)e)
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zsock_destroy(ref) zsock_destroy((zsock_t**)ref)
+//
+ATSinline()
+atsvoid_t0ype
+atscntrb_zeromq_zsock_destroy_val
+  (atstype_ptr val)
+{
+  atscntrb_zeromq_zsock_destroy(&val); return;
+}
+//
+/* ****** ****** */
+//
+// ZSTR
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zstr_recv(inp) zstr_recv((zsock_t*)inp)
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zstr_free(ref) zstr_free((char**)ref)
+//
+ATSinline()
+atsvoid_t0ype
+atscntrb_zeromq_zstr_free_val
+  (atstype_ptr val) { atscntrb_zeromq_zstr_free(&val); return; }
+//
 /* ****** ****** */
 
 #endif // ifndef ZEROMQ_CATS_ZMQ

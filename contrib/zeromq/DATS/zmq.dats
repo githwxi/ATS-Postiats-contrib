@@ -110,42 +110,42 @@ zmq_close_exn
 
 (*
 fun zmq_msg_init_exn
-  (msg: &zmqmsg? >> zmqmsg): void
+  (msg: &zmqmsg_t? >> _): void
 *)
 implement
 zmq_msg_init_exn
   (msg) = () where {
   val err = zmq_msg_init (msg)
   val () = assertloc (err >= 0)
-  prval () = opt_unsome {zmqmsg} (msg)
+  prval () = opt_unsome{zmqmsg_t}(msg)
 } // end of [zmq_msg_init_exn]
 
 (* ****** ****** *)
 
 (*
 fun zmq_msg_init_size_exn
-  (msg: &zmqmsg? >> zmqmsg, n: size_t): void
+  (msg: &zmqmsg_t? >> _, n: size_t): void
 *)
 implement
 zmq_msg_init_size_exn
   (msg, size) = () where {
   val err = zmq_msg_init_size (msg, size)
   val () = assertloc (err >= 0)
-  prval () = opt_unsome {zmqmsg} (msg)
+  prval () = opt_unsome{zmqmsg_t}(msg)
 } // end of [zmq_msg_init_size_exn]
 
 (* ****** ****** *)
 
 (*
 fun zmq_msg_close_exn
-  (msg: &zmqmsg >> zmqmsg?): void
+  (msg: &zmqmsg_t >> zmqmsg_t?): void
 *)
 implement
 zmq_msg_close_exn
   (msg) = () where {
   val err = zmq_msg_close (msg)
   val () = assertloc (err >= 0)
-  prval () = opt_unnone {zmqmsg} (msg)
+  prval () = opt_unnone{zmqmsg_t}(msg)
 } // end of [zmq_msg_close_exn]
 
 (* ****** ****** *)
@@ -157,7 +157,8 @@ fun zmq_msg_send_exn
 ) : intGte(0) // end of [zmq_msg_send_exn]
 *)
 implement
-zmq_msg_send_exn (
+zmq_msg_send_exn
+(
   msg, sock, flags
 ) = valerr where {
   val valerr = zmq_msg_send (msg, sock, flags)
@@ -173,7 +174,8 @@ fun zmq_msg_recv_exn
 ) : intGte(0) // end of [zmq_msg_recv_exn]
 *)
 implement
-zmq_msg_recv_exn (
+zmq_msg_recv_exn
+(
   msg, sock, flags
 ) = valerr where {
   val valerr = zmq_msg_recv (msg, sock, flags)

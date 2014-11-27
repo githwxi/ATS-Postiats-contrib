@@ -46,10 +46,64 @@
 
 (* ****** ****** *)
 
-typedef SHR(x:type) = x // for commenting purpose
-typedef NSH(x:type) = x // for commenting purpose
+macdef
+CZMQ_VERSION = $extval(int, "CZMQ_VERSION")
+  
+(* ****** ****** *)
+//
+absvtype zsock_vtype (l:addr) = ptr(l)
+vtypedef zsock (l:addr) = zsock_vtype(l)
+vtypedef zsock = [l:addr] zsock_vtype(l)
+vtypedef zsock0 = [l:agez] zsock_vtype(l)
+vtypedef zsock1 = [l:addr | l > null] zsock_vtype(l)
+//
+castfn
+zsock2ptr{l:addr} (!zsock(l)):<> ptr(l)
+overload ptrcast with zsock2ptr
+//
+(* ****** ****** *)
+//
+absvtype zstr_vtype (l:addr) = ptr(l)
+vtypedef zstr (l:addr) = zstr_vtype(l)
+vtypedef zstr = [l:addr] zstr_vtype(l)
+vtypedef zstr0 = [l:agez] zstr_vtype(l)
+vtypedef zstr1 = [l:addr | l > null] zstr_vtype(l)
+//
+castfn
+zstr2ptr{l:addr} (!zstr(l)):<> ptr(l)
+overload ptrcast with zstr2ptr
+//
+castfn
+zstr2strptr{l:addr}
+  (!zstr(l)):<> (strptr(l) -<lin,prf> zstr(l) | strptr(l))
+//
+(* ****** ****** *)
+//
+// ZSOCK
+//
+(* ****** ****** *)
+//
+fun
+zsock_new_pair
+  (name: string): zsock0 = "mac#%"
+//
+(* ****** ****** *)
+
+fun zsock_destroy (&zsock0 >> _?): void = "mac#%"  
+fun zsock_destroy_val (sock: zsock0): void = "ext#%"
+  
+(* ****** ****** *)
+//
+// ZSTR
+//
+(* ****** ****** *)
+
+fun zstr_recv (!zsock1): zstr0 = "mac#%"
 
 (* ****** ****** *)
+
+fun zstr_free (&zstr >> _?): void = "mac#%"
+fun zstr_free_val (str: zstr0): void = "ext#%"
 
 (* ****** ****** *)
 

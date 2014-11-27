@@ -90,7 +90,7 @@ while (true) {
 //
 // Wait for request from client
 //
-  var request : zmqmsg
+  var request : zmqmsg_t
   val () = zmq_msg_init_exn (request)
   val _(*nbyte*) = zmq_msg_recv_exn (request, responder, 0)
   val () = println! ("Received 'Hello'")
@@ -102,7 +102,7 @@ while (true) {
 //
 // Send reply back to client
 //
-  var reply : zmqmsg
+  var reply : zmqmsg_t
   val () =
   zmq_msg_init_size_exn (reply, 5SZ)
   val () =
