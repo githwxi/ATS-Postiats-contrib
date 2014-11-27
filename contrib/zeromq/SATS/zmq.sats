@@ -347,7 +347,7 @@ zmq_recv
 
 (* ****** ****** *)
 
-absviewt@ype
+absvt@ype
 zmqmsg_viewt0ype = $extype"zmq_msg_t"
 viewtypedef zmqmsg = zmqmsg_viewt0ype
 
@@ -438,7 +438,8 @@ void (zmq_free_fn) (void *data, void *hint);
 //
 int zmq_msg_init_data
 (
-  zmq_msg_t *msg, void *data, size_t size, zmq_free_fn *ffn, void *hint
+  zmq_msg_t *msg
+, void *data, size_t size, zmq_free_fn *ffn, void *hint
 ) ; // end of [zmq_msg_init_data]
 //
 *)
