@@ -80,7 +80,7 @@ var servaddr: sockaddr_in_struct
 val ((*void*)) =
 sockaddr_in_init (servaddr, AF_INET, inp.s_addr, servport2)
 //
-val (pf | fd) = socket_family_type_exn (AF_INET, SOCK_STREAM)
+val (pf | fd) = socket_AF_type_exn (AF_INET, SOCK_STREAM)
 //
 val () = connect_in_exn (pf | fd, servaddr)
 //

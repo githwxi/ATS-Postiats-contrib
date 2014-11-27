@@ -100,7 +100,7 @@ sockaddr_in_init
   (servaddr, AF_INET, in4addr_any, servport2)
 //
 val (pf | fd) =
-  socket_family_type_exn (AF_INET, SOCK_STREAM)
+  socket_AF_type_exn (AF_INET, SOCK_STREAM)
 //
 val () =
   bind_in_exn (pf | fd, servaddr)
