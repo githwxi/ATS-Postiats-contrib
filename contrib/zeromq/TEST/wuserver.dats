@@ -17,6 +17,7 @@ staload UN = $UNSAFE
 
 (* ****** ****** *)
 
+staload "libc/SATS/time.sats"
 staload "libc/SATS/stdlib.sats"
 
 (* ****** ****** *)
@@ -62,15 +63,40 @@ in
 end // end of [theWeather_get]
 //
 (* ****** ****** *)
+//
+extern
+fun
+theWeather_pub_loop(sock: !zmqsock1): void
+//
+implement
+theWeather_pub_loop
+  (sock) = () where
+{
+  val (fpf | str) = theWeather_get()
+  val () = println! ("theWeather_pub_loop: ", str)
+  val res = zmq_send_string (sock, $UN.strptr2string(str), 0)
+  prval ((*void*)) = fpf (str)
+  val ((*void*)) = theWeather_pub_loop (sock)
+} (* end of [theWeather_pub] *)
+//
+(* ****** ****** *)
 
 implement
 main0 () =
 {
 //
+val () =
+srandom($UN.cast2uint(time_get()))
+//
 val ctx = zmq_ctx_new ()
 val () = assertloc (ptrcast(ctx) > 0)
 //
 val pub = zmq_socket_exn (ctx, ZMQ_PUB)
+//
+val () = zmq_bind_exn (pub, "tcp://*:5556");
+val () = zmq_bind_exn (pub, "ipc://weather.ipc");
+//
+val ((*void*)) = theWeather_pub_loop (pub)
 //
 val () = zmq_close_exn (pub)
 val () = zmq_ctx_destroy_exn (ctx)

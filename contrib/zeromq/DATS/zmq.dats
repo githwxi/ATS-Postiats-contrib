@@ -145,7 +145,7 @@ zmq_send_string
 //
 val [n:int] n = g1ofg0(length(msg))
 //
-prval (pf, fpf | p) =
+val (pf, fpf | p) =
   $UN.ptr0_vtake{array(byte,n)}(string2ptr(msg))
 //
 val res = zmq_send (sock, !p, n, flags)

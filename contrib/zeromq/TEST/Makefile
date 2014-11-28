@@ -44,7 +44,7 @@ cleanall:: ; $(RMF) wuserver
 all:: \
 wuclient
 wuclient: wuclient.dats ; \
-  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
+  $(PATSCC2) -DATS_MEMALLOC_LIBC -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
 cleanall:: ; $(RMF) wuclient
 
 ######
@@ -62,5 +62,11 @@ RMF=rm -f
 ######
 
 cleanats:: ; $(RMF) *_?ats.c
+
+######
+
+cleanall:: ; $(RMF) weather.ipc
+
+######
 
 ###### end of [Makefile] ######
