@@ -47,6 +47,8 @@ include $(PATSHOME)/share/atsmake-post.mk
 ######
 
 cleanall:: ; $(RMF) MYPORTDIR/*
+cleanall:: ; $(RMF) calc
+cleanall:: ; $(RMF) *.exe
 
 ######
 
