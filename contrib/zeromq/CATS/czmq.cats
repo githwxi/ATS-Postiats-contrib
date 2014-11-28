@@ -86,6 +86,37 @@ atscntrb_zeromq_zstr_free_val
   (atstype_ptr val) { atscntrb_zeromq_zstr_free(&val); return; }
 //
 /* ****** ****** */
+//
+// ZFRAME
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zframe_new(msg, bsz) zframe_new(msg, bsz)
+//
+#define atscntrb_zeromq_zframe_new_empty() zframe_new_empty()
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zframe_destroy(ref) zframe_destroy((zframe_t**)ref)
+//
+ATSinline()
+atsvoid_t0ype
+atscntrb_zeromq_zframe_destroy_val
+  (atstype_ptr val)
+{
+  atscntrb_zeromq_zframe_destroy(&val); return;
+}
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_zeromq_zframe_eq(x1, x2) zframe_eq(x1, x2)
+#define \
+atscntrb_zeromq_zframe_streq(x1, x2) zframe_streq(x1, x2)
+//
+/* ****** ****** */
 
 #endif // ifndef ZEROMQ_CATS_ZMQ
 

@@ -83,9 +83,14 @@ zmqctxopt_unnone
 // end of [zmqctxopt_unnone]
 
 (* ****** ****** *)
-
+//
 macdef ZMQ_REP = $extval(int, "ZMQ_REP")
 macdef ZMQ_REQ = $extval(int, "ZMQ_REQ")
+//
+macdef ZMQ_PUB = $extval(int, "ZMQ_PUB")
+macdef ZMQ_SUB = $extval(int, "ZMQ_SUB")
+//
+(* ****** ****** *)
 
 absvtype zmqsock (l:addr) = ptr
 vtypedef zmqsock = [l:addr] zmqsock(l)
@@ -112,6 +117,7 @@ fun zmq_errno (): int = "mac#%"
 (* ****** ****** *)
 
 fun zmq_ctx_new (): zmqctx0 = "mac#%"
+fun zmq_ctx_new_exn (): zmqctx1 = "ext#%"
 
 (* ****** ****** *)
 
@@ -328,9 +334,15 @@ fun
 zmq_send
   {m:int}{n:int | n <= m}
 (
-  sock: !zmqsock1, buf: &(@[byte][m]), len: size_t (n), flags: int
+  sock: !zmqsock1, buf: &(@[byte][m]), n: size_t(n), flags: int
 ) : int(*verr*) = "mac#%" // end of [zmq_send]
 
+(* ****** ****** *)
+//
+fun
+zmq_send_string
+  (sock: !zmqsock1, msg: string, flags: int): int(*verr*)
+//
 (* ****** ****** *)
 
 (*

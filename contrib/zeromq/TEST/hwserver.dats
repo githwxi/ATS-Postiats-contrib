@@ -46,11 +46,13 @@ return 0;
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 
-staload "./../SATS/zmq.sats"
+staload "{$ZEROMQ}/SATS/zmq.sats"
 
 (* ****** ****** *)
 

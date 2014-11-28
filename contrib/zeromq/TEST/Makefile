@@ -36,6 +36,20 @@ cleanall:: ; $(RMF) hwclient
 ######
 
 all:: \
+wuserver
+wuserver: wuserver.dats ; \
+  $(PATSCC2) -D_GNU_SOURCE -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
+cleanall:: ; $(RMF) wuserver
+
+all:: \
+wuclient
+wuclient: wuclient.dats ; \
+  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
+cleanall:: ; $(RMF) wuclient
+
+######
+
+all:: \
 test_zstr
 test_zstr: test_zstr.dats ; \
   $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< -lczmq -lzmq
