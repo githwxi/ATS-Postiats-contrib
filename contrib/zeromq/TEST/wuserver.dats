@@ -73,7 +73,9 @@ theWeather_pub_loop
   (sock) = () where
 {
   val (fpf | str) = theWeather_get()
+(*
   val () = println! ("theWeather_pub_loop: ", str)
+*)
   val res = zmq_send_string (sock, $UN.strptr2string(str), 0)
   prval ((*void*)) = fpf (str)
   val ((*void*)) = theWeather_pub_loop (sock)

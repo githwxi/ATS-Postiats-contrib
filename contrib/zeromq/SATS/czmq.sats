@@ -46,6 +46,10 @@
 
 (* ****** ****** *)
 
+staload "./zmq.sats"
+
+(* ****** ****** *)
+
 macdef
 CZMQ_VERSION = $extval(int, "CZMQ_VERSION")
   
@@ -95,6 +99,8 @@ zframe2ptr
 //
 overload ptrcast with zframe2ptr
 //
+prfun zframe_free_null (zframe0): void
+//
 (* ****** ****** *)
 //
 // ZSOCK
@@ -102,8 +108,32 @@ overload ptrcast with zframe2ptr
 (* ****** ****** *)
 //
 fun
-zsock_new_pair
-  (name: string): zsock0 = "mac#%"
+zsock_new (type: int): zsock0 = "mac#%"
+fun
+zsock_new_exn (type: int): zsock1 = "ext#%"
+//
+(* ****** ****** *)
+//
+fun
+zsock_new_pair (name: string): zsock0 = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+zsock_get_socket
+  {l:agz}
+(
+  sock: !zsock(l)
+) : [l2:agz]
+(
+  minus (zsock(l), zmqsock(l2)) | zmqsock(l2)
+) = "mac#%" // end of [zsock_get_socket]
+//
+(* ****** ****** *)
+//
+fun
+zsock_bind
+  (sock: !zsock1, endpt: string): interr = "mac#%"
 //
 (* ****** ****** *)
 
@@ -112,11 +142,21 @@ fun zsock_destroy_val (sock: zsock0): void = "mac#%"
   
 (* ****** ****** *)
 //
+fun
+zsock_set_router_raw (!zsock1, int): void = "mac#%"
+//
+(* ****** ****** *)
+//
 // ZSTR
 //
 (* ****** ****** *)
 
 fun zstr_recv (!zsock1): zstr0 = "mac#%"
+fun zmqstr_recv (!zmqsock1): zstr0 = "mac#%"
+
+(* ****** ****** *)
+
+fun zstr_send (!zsock1, msg: string): interr = "mac#%"
 
 (* ****** ****** *)
 
@@ -149,13 +189,53 @@ fun zframe_new_empty (): zframe0 = "mac#%"
 //
 (* ****** ****** *)
 
+fun zframe_recv (!zsock1): zframe0 = "mac#%"
+fun zmqframe_recv (!zmqsock1): zframe0 = "mac#%"
+
+(* ****** ****** *)
+//
+fun
+zframe_send1
+(
+  &zframe1, !zsock1, int(*flags*)
+) : int = "mac#%" // end-of-function
+fun
+zframe_send1_val
+(
+  !zframe1, !zsock1, int(*flags*)
+) : int = "mac#%" // end-of-function
+//
+fun
+zframe_send0
+(
+  &zframe1 >> _?, !zsock1, int(*flags*)
+) : int = "mac#%" // end-of-function
+fun
+zframe_send0_val
+  (zframe1, !zsock1, int(*flags*)): int = "mac#%"
+//
+(* ****** ****** *)
+
 fun zframe_destroy (&zframe0 >> _?): void = "mac#%"  
 fun zframe_destroy_val (frame: zframe0): void = "mac#%"
   
 (* ****** ****** *)
 
+fun zframe_more (!zframe1): int = "mac#%"
+
+(* ****** ****** *)
+
+fun zframe_size (!zframe1): size_t = "mac#%"
+fun zframe_data (!zframe1): cPtr0(byte) = "mac#%"
+
+(* ****** ****** *)
+
 fun zframe_eq (!zframe0, !zframe0): bool = "mac#%"
 fun zframe_streq (!zframe0, string): bool = "mac#%"
+
+(* ****** ****** *)
+
+fun zframe_print (!zframe0, prfx: stropt): void = "mac#%"
 
 (* ****** ****** *)
 

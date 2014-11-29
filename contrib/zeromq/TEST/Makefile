@@ -57,6 +57,14 @@ cleanall:: ; $(RMF) test_zstr
 
 ######
 
+all:: \
+httpserver
+httpserver: httpserver.dats ; \
+  $(PATSCC2) -D_GNU_SOURCE -I${PATSHOME}/contrib -o $@ $< testlib.dats -lczmq -lzmq
+cleanall:: ; $(RMF) httpserver
+
+######
+
 RMF=rm -f
 
 ######

@@ -90,6 +90,9 @@ macdef ZMQ_REQ = $extval(int, "ZMQ_REQ")
 macdef ZMQ_PUB = $extval(int, "ZMQ_PUB")
 macdef ZMQ_SUB = $extval(int, "ZMQ_SUB")
 //
+macdef ZMQ_DEALER = $extval(int, "ZMQ_DEALER")
+macdef ZMQ_ROUTER = $extval(int, "ZMQ_ROUTER")
+//
 (* ****** ****** *)
 
 absvtype zmqsock (l:addr) = ptr
@@ -203,6 +206,8 @@ macdef ZMQ_EVENTS = $extval(zmqsockopt(int), "ZMQ_EVENTS")
 macdef ZMQ_LAST_ENDPOINT = $extval(zmqsockopt(void), "ZMQ_LAST_ENDPOINT")
 
 macdef ZMQ_XPUB_VERBOSE = $extval(zmqsockopt(int), "ZMQ_XPUB_VERBOSE")
+
+macdef ZMQ_ROUTER_RAW = $extval(zmqsockopt(int), "ZMQ_ROUTER_RAW")
 macdef ZMQ_ROUTER_MANDATORY = $extval(zmqsockopt(int), "ZMQ_ROUTER_MANDATORY")
 
 macdef ZMQ_TCP_KEEPALIVE = $extval(zmqsockopt(int), "ZMQ_TCP_KEEPALIVE")
@@ -241,6 +246,12 @@ fun
 zmq_setsockopt
   {a:t@ype} (
   sock: !zmqsock1, name: zmqsockopt(a), value: ptr, len: size_t
+) : interr = "mac#%" // endfun
+
+fun
+zmq_setsockopt2
+  {a:t@ype} (
+  sock: !zmqsock1, name: zmqsockopt(a), value: &(a), len: sizeof_t(a)
 ) : interr = "mac#%" // endfun
 
 (* ****** ****** *)

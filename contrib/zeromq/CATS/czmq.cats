@@ -51,8 +51,21 @@
 /* ****** ****** */
 //
 #define \
+atscntrb_zeromq_zsock_new(type) zsock_new(type)
+//
+#define \
 atscntrb_zeromq_zsock_new_pair(e) zsock_new_pair((char*)e)
 //
+/* ****** ****** */
+
+#define \
+atscntrb_zeromq_zsock_get_socket(sock) zsock_resolve(sock)
+
+/* ****** ****** */
+
+#define \
+atscntrb_zeromq_zsock_bind(sock, e) zsock_bind(sock, (char*)e)
+
 /* ****** ****** */
 //
 #define \
@@ -67,14 +80,26 @@ atscntrb_zeromq_zsock_destroy_val
 }
 //
 /* ****** ****** */
+
+#define \
+atscntrb_zeromq_zsock_set_router_raw zsock_set_router_raw
+
+/* ****** ****** */
 //
 // ZSTR
 //
 /* ****** ****** */
 //
 #define \
-atscntrb_zeromq_zstr_recv(inp) zstr_recv((zsock_t*)inp)
+atscntrb_zeromq_zstr_recv(sock) zstr_recv(sock)
+#define \
+atscntrb_zeromq_zmqstr_recv(sock) zstr_recv(sock)
 //
+/* ****** ****** */
+
+#define \
+atscntrb_zeromq_zstr_send(sock, msg) zstr_send(sock, (char*)msg)
+
 /* ****** ****** */
 //
 #define \
@@ -99,6 +124,45 @@ atscntrb_zeromq_zframe_new(msg, bsz) zframe_new(msg, bsz)
 /* ****** ****** */
 //
 #define \
+atscntrb_zeromq_zframe_recv(sock) zframe_recv(sock)
+#define \
+atscntrb_zeromq_zmqframe_recv(sock) zframe_recv(sock)
+//
+/* ****** ****** */
+//
+ATSinline()
+atstype_int
+atscntrb_zeromq_zframe_send1
+  (atstype_ref frame, atstype_ptr sock, atstype_int flags)
+{
+  return zframe_send((zframe_t**)(frame), sock, flags | ( ZFRAME_REUSE ));
+}
+ATSinline()
+atstype_int
+atscntrb_zeromq_zframe_send1_val
+  (atstype_ptr frame, atstype_ptr sock, atstype_int flags)
+{
+  return zframe_send((zframe_t**)(&frame), sock, flags | ( ZFRAME_REUSE ));
+}
+//
+ATSinline()
+atstype_int
+atscntrb_zeromq_zframe_send0
+  (atstype_ref frame, atstype_ptr sock, atstype_int flags)
+{
+  return zframe_send((zframe_t**)(frame), sock, flags & ( ~ZFRAME_REUSE ));
+}
+ATSinline()
+atstype_int
+atscntrb_zeromq_zframe_send0_val
+  (atstype_ptr frame, atstype_ptr sock, atstype_int flags)
+{
+  return zframe_send((zframe_t**)(&frame), sock, flags & ( ~ZFRAME_REUSE ));
+}
+//
+/* ****** ****** */
+//
+#define \
 atscntrb_zeromq_zframe_destroy(ref) zframe_destroy((zframe_t**)ref)
 //
 ATSinline()
@@ -110,12 +174,26 @@ atscntrb_zeromq_zframe_destroy_val
 }
 //
 /* ****** ****** */
+
+#define atscntrb_zeromq_zframe_more(x) zframe_more(x)
+
+/* ****** ****** */
+
+#define atscntrb_zeromq_zframe_size(x) zframe_size(x)
+#define atscntrb_zeromq_zframe_data(x) zframe_data(x)
+
+/* ****** ****** */
 //
 #define \
 atscntrb_zeromq_zframe_eq(x1, x2) zframe_eq(x1, x2)
 #define \
 atscntrb_zeromq_zframe_streq(x1, x2) zframe_streq(x1, x2)
 //
+/* ****** ****** */
+
+#define \
+atscntrb_zeromq_zframe_print(x, prfx) zframe_print(x, (char*)prfx)
+
 /* ****** ****** */
 
 #endif // ifndef ZEROMQ_CATS_ZMQ

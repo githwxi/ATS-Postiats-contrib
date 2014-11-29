@@ -70,7 +70,10 @@ atscntrb_zeromq_zmq_getsockopt zmq_getsockopt
 #define \
 atscntrb_zeromq_zmq_getsockopt2 zmq_getsockopt
 //
-#define atscntrb_zeromq_zmq_setsockopt zmq_setsockopt
+#define \
+atscntrb_zeromq_zmq_setsockopt zmq_setsockopt
+#define \
+atscntrb_zeromq_zmq_setsockopt2 zmq_setsockopt
 //
 /* ****** ****** */
 
