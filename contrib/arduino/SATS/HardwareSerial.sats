@@ -51,23 +51,28 @@ overload ._end with HardwareSerial_end
 //
 (* ****** ****** *)
 //
-fun HardwareSerial_peek (HardwareSerial_ptr): int = "mac#"
-fun HardwareSerial_read (HardwareSerial_ptr): int = "mac#"
+fun
+HardwareSerial_available
+  (p0: HardwareSerial_ptr): int = "mac#"
 //
-fun HardwareSerial_write
-  (p0: HardwareSerial_ptr, c: natLt(256)): size_t = "mac#"
+overload .available with HardwareSerial_available
+//
+(* ****** ****** *)
+//
+fun HardwareSerial_read (HardwareSerial_ptr): int = "mac#"
+fun HardwareSerial_peek (HardwareSerial_ptr): int = "mac#"
+//
+fun HardwareSerial_write_char
+  (p0: HardwareSerial_ptr, c: uint8): size_t = "mac#"
 //
 fun HardwareSerial_flush (HardwareSerial_ptr): void = "mac#"
 //
-fun HardwareSerial_available (HardwareSerial_ptr): int = "mac#"
-//
 (* ****** ****** *)
 
-overload .peek with HardwareSerial_peek
 overload .read with HardwareSerial_read
-overload .write with HardwareSerial_write
+overload .peek with HardwareSerial_peek
+overload .write with HardwareSerial_write_char
 overload .flush with HardwareSerial_flush
-overload .available with HardwareSerial_available
 
 (* ****** ****** *)
 //
