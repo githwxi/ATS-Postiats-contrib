@@ -33,13 +33,16 @@ UNOYUNIP=192.168.1.9
 #
 ######
 #
-myupload:: myupload_step1
-myupload:: myupload_step2
+yunload:: yunload_step1
+yunload:: yunload_step2
 #
-myupload_step1:: ; \
+yunload_step1:: ; \
 $(SCP) build-unoyun/ConsoleRead.hex root@$(UNOYUNIP):/tmp/.
-myupload_step2:: ; \
-$(SSH) -l root $(UNOYUNIP) 'merge-sketch-with-bootloader.lua /tmp/ConsoleRead.hex && run-avrdude /tmp/ConsoleRead.hex'
+yunload_step2:: ; \
+$(SSH) -l root $(UNOYUNIP) \
+  'merge-sketch-with-bootloader.lua /tmp/ConsoleRead.hex && run-avrdude /tmp/ConsoleRead.hex'
+#
+yunload_step3:: ; $(SSH) -l root $(UNOYUNIP) 'telnet localhost 6571'
 #
 ######
 

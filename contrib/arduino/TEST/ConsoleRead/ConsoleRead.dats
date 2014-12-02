@@ -54,8 +54,8 @@ implement
 setup () =
 {
   val () = Bridge_ptr._begin()
-  val () = Console_ptr._begin()
 //
+  val () = Console_ptr._begin()
   val () = while(~Console_ptr.connected()) ()
 //
 } (* end of [setup] *)

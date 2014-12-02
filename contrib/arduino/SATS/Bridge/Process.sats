@@ -10,15 +10,17 @@
 %} // end of [%{#]
 
 (* ****** ****** *)
-
+//
 (*
 class Process : Stream
 *)
 abst@ype
 Process =
 $extype"Process"
-abstype Process_ptr = ptr
-
+abstype
+Process_ptr =
+$extype"Process_ptr"
+//
 (* ****** ****** *)
 //
 fun

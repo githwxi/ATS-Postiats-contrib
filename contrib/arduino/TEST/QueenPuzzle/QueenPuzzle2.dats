@@ -150,6 +150,7 @@ setup () = () where
 {
 //
 val () = Bridge_ptr._begin()
+//
 val () = Console_ptr._begin()
 val () = while (~Console_ptr.connected()) ()
 val () = Console_ptr.println ("Let us solve the 8-queen puzzle!\n")

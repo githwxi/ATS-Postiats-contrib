@@ -12,6 +12,10 @@
 #include <Process.h>
 
 /* ****** ****** */
+
+typedef Process *Process_ptr;
+
+/* ****** ****** */
 //
 #define \
 Process_started(p0) \

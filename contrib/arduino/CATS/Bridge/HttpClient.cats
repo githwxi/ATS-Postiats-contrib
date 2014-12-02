@@ -12,13 +12,23 @@
 #include <HttpClient.h>
 
 /* ****** ****** */
+
+typedef HttpClient *HttpClient_ptr;
+
+/* ****** ****** */
 //
 #define \
 HttpClient_ready(p0) \
   (static_cast<HttpClient*>(p0))->ready()
+//
+#define \
+HttpClient_available(p0) \
+  (static_cast<HttpClient*>(p0))->available()
+//
 #define \
 HttpClient_getResult(p0) \
   (static_cast<HttpClient*>(p0))->getResult()
+//
 #define \
 HttpClient_checkSSL(p0) \
   (static_cast<HttpClient*>(p0))->checkSSL()
