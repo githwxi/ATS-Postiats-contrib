@@ -20,6 +20,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
+staload _ = "prelude/DATS/list.dats"
+staload _ = "prelude/DATS/list_vt.dats"
+
+(* ****** ****** *)
+
 %{^
 typedef char *charptr;
 %} // end of [%{^]
@@ -30,6 +35,7 @@ abstype charptr = $extype"charptr"
 %{^
 #define ATS_MFREE free
 #define ATS_MALLOC malloc
+#define ATSextfcall(fun, funarg) fun funarg
 #define ATSextmcall(obj, mtd, funarg) obj.mtd funarg
 %} // end of [%{^]
 
@@ -49,40 +55,95 @@ setup () =
 {
   val () = Bridge_ptr._begin()
   val () = Console_ptr._begin()
-  val () = while (~Console_ptr.connected()) ()
-  val () = Console_ptr.println ("Hi, what's your name?")
+//
+  val () = while(~Console_ptr.connected()) ()
+//
+} (* end of [setup] *)
+//
+(* ****** ****** *)
+//
+vtypedef
+charlst = List0_vt(char)
+//
+extern
+fun
+myloop (cs: charlst): void
+extern
+fun
+myloop_respond (cs: charlst): void
+//
+(* ****** ****** *)
+//
+extern
+fun
+loop (): void = "mac#"
+implement
+loop () =
+{
+  val () = delay(1000)
+  val () = Console_ptr.println("Amigo, what's your name?");
+  val () = myloop (list_vt_nil)
 }
 //
 (* ****** ****** *)
 
-extern
-fun loop (): void = "mac#"
-implement loop () = while (true) ( delay(250) )
+macdef EOL = char2int0('\n')
+
+implement
+myloop (cs) = let
+//
+val
+test =
+Console_ptr.available()
+//
+in
+//
+if
+test > 0
+then let
+  val c = Console_ptr.read()
+in
+  if c = EOL
+    then myloop_respond(cs)
+    else myloop (cons_vt(int2char0(c), cs))
+  // end of [if]
+end // end of [then]
+else let
+  val () = delay (1000) in myloop (cs)
+end (* end of [else] *)
+//
+end // end of [myloop]
+
+(* ****** ****** *)
+
+fun
+myprint_charlst
+  (cs: charlst): void = let
+in
+//
+case+ cs of
+| ~list_vt_nil () => ()
+| ~list_vt_cons (c, cs) =>
+  (
+    Console_ptr.print(c); myprint_charlst(cs)
+  ) (* end of [list_vt_cons] *)
+//
+end // end of [myprint_charlst]
+
+(* ****** ****** *)
+
+implement
+myloop_respond (cs) =
+{
+  val () =
+    Console_ptr.print("Hi, ")
+  // end of [val]
+  val cs = list_vt_reverse(cs)
+  val () = myprint_charlst(cs)
+  val () = Console_ptr.println("! Nice to meet you!")
+  val () = Console_ptr.println()
+} (* end of [myloop_respond] *)
 
 (* ****** ****** *)
 
 (* end of [ConsoleRead.dats] *)
-////
-
-void loop() {
-  if (Console.available() > 0) {
-    char c = Console.read(); // read the next char received
-    // look for the newline character, this is the last character in the string
-    if (c == '\n') {
-      //print text with the name received
-      Console.print("Hi ");
-      Console.print(name);
-      Console.println("! Nice to meet you!");
-      Console.println();
-      // Ask again for name and clear the old name
-      Console.println("Hi, what's your name?");
-      name = "";  // clear the name string
-    } else {
-    // if the buffer is empty Cosole.read() returns -1
-    name += c; // append the read char from Console to the name string
-  }
-  } else {
-    delay(100);
-  }
-}
-                                                                                                    

@@ -22,6 +22,12 @@ Bridge_begin(p0) \
   (static_cast<BridgeClass*>(p0))->begin()
 //
 /* ****** ****** */
+//
+#define \
+SerialBridge_begin(p0) \
+  (static_cast<SerialBridgeClass*>(p0))->begin()
+//
+/* ****** ****** */
 
 #endif // #ifndef(ARDUINO_CATS_BRIDGE_BRIDGE)
 

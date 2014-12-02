@@ -33,6 +33,19 @@ Console_connected(p0) \
 /* ****** ****** */
 //
 #define \
+Console_available(p0) \
+  (static_cast<ConsoleClass*>(p0))->available()
+//
+/* ****** ****** */
+//
+#define \
+Console_read(p0) (static_cast<ConsoleClass*>(p0))->read()
+#define \
+Console_peek(p0) (static_cast<ConsoleClass*>(p0))->peek()
+//
+/* ****** ****** */
+//
+#define \
 Console_print_int(p0, x) (static_cast<ConsoleClass*>(p0))->print(x)
 #define \
 Console_print_uint(p0, x) (static_cast<ConsoleClass*>(p0))->print(x)
