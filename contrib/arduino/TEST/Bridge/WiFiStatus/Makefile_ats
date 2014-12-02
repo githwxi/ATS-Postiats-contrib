@@ -1,0 +1,27 @@
+#
+MAKE=make
+PATSOPT=$(PATSHOME)/bin/patsopt
+#
+all:: \
+WiFiStatus_dats.ino
+WiFiStatus_dats.ino: \
+WiFiStatus.dats; $(PATSOPT) -o $@ --dynamic $<
+#
+all:: ; $(MAKE) -f Makefile
+#
+######
+#
+RMF=rm -f
+#
+######
+#
+clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
+#
+######
+#
+cleanall:: clean
+cleanall:: ; $(MAKE) -f Makefile clean
+cleanall:: ; $(RMF) *_dats.ino
+#
+###### end of [Makefile] ######

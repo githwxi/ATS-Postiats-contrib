@@ -18,6 +18,16 @@ typedef Process *Process_ptr;
 /* ****** ****** */
 //
 #define \
+Process_begin(p0, cmd) \
+  (static_cast<Process*>(p0))->begin(cmd)
+//
+#define \
+Process_addParameter(p0, param) \
+  (static_cast<Process*>(p0))->addParameter(param)
+//
+/* ****** ****** */
+//
+#define \
 Process_started(p0) \
   (static_cast<Process*>(p0))->started()
 //
@@ -33,6 +43,9 @@ Process_runAsynchronously(p0) \
 /* ****** ****** */
 //
 #define \
+Process_runShellCommand(p0, command) \
+  (static_cast<Process*>(p0))->runShellCommand(command)
+#define \
 Process_runShellCommandAsynchronously(p0, command) \
   (static_cast<Process*>(p0))->runShellCommandAsynchronously(command)
 //
@@ -45,14 +58,14 @@ Process_running(p0) \
 /* ****** ****** */
 //
 #define \
-Process_close(p0) \
-  (static_cast<Process*>(p0))->close()
+Process_exitValue(p0) \
+  (static_cast<Process*>(p0))->exitValue()
 //
 /* ****** ****** */
 //
 #define \
-Process_exitValue(p0) \
-  (static_cast<Process*>(p0))->exitValue()
+Process_close(p0) \
+  (static_cast<Process*>(p0))->close()
 //
 /* ****** ****** */
 //

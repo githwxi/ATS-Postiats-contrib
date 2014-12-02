@@ -1,6 +1,6 @@
 (*
 #
-# HttpClient
+# WiFiStatus
 #
 *)
 (* ****** ****** *)
@@ -15,9 +15,10 @@
 "{$ARDUINO}/staloadall.hats"
 //
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 %{^
@@ -38,7 +39,7 @@ abstype charptr = $extype"charptr"
 
 staload "{$ARDUINO}/SATS/Bridge/Bridge.sats"
 staload "{$ARDUINO}/SATS/Bridge/Console.sats"
-staload "{$ARDUINO}/SATS/Bridge/HttpClient.sats"
+staload "{$ARDUINO}/SATS/Bridge/Process.sats"
 
 (* ****** ****** *)
 //
@@ -53,6 +54,8 @@ setup () =
 //
   val () = Console_ptr._begin()
   val () = while(~Console_ptr.connected()) ()
+//
+  val () = Console_ptr.println("[setup]: Console is connected!")
 //
 } (* end of [setup] *)
 //
@@ -80,21 +83,17 @@ implement
 myloop () =
 {
 //
-var HC: HttpClient
-val HCP = $UN.cast{HttpClient_ptr}(addr@HC)
+var WiFiCK: Process
+val WiFiCKP = $UN.cast{Process_ptr}(addr@WiFiCK)
 //
-(*
-val err = HCP.get("http://192.168.1.3:8888")
-*)
-//
-val err = HCP.get("http://arduino.cc/asciilogo.txt")
+val err = WiFiCKP.runShellCommand("/usr/bin/pretty-wifi-info.lua")
 //
 val () =
-while(HCP.available() > 0)
+while(WiFiCKP.available() > 0)
 {
-  val c =
-  $extmcall(char, HC, "read")
-  val () = Console_ptr.print(c)
+  val char =
+  $extmcall(char, WiFiCK, "read")
+  val ((*void*)) = Console_ptr.print(char)
 } (* end of [where] *)
 //
 val () = Console_ptr.flush()
@@ -103,4 +102,4 @@ val () = Console_ptr.flush()
 
 (* ****** ****** *)
 
-(* end of [HttpClient.dats] *)
+(* end of [WiFiStatus.dats] *)

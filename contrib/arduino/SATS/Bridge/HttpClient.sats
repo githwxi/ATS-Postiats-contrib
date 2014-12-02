@@ -34,7 +34,7 @@ HttpClient_ready(HttpClient_ptr): bool = "mac#"
 (* ****** ****** *)
 //
 fun
-HttpClient_available(HttpClient_ptr): bool = "mac#"
+HttpClient_available(HttpClient_ptr): int = "mac#"
 //
 (* ****** ****** *)
 //
