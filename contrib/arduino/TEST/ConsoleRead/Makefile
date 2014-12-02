@@ -23,25 +23,24 @@ include ./../../Arduino-Makefile/Arduino.mk
 
 SCP=scp
 SSH=ssh
-
-######
-
-UNOYUNIP=192.168.1.9
-
-######
-#
-myupload:: myupload1
-myupload:: myupload2
-#
-myupload1:: ; \
-$(SCP) build-unoyun/ConsoleRead.hex root@$(UNOYUNIP):/tmp/.
-myupload2:: ; \
-$(SSH) -l root $(UNOYUNIP) 'merge-sketch-with-bootloader.lua /tmp/ConsoleRead.hex && run-avrdude /tmp/ConsoleRead.hex'
-#
-######
-
 MAKE=make
 
+######
+#
+# Try to find yours: 
+#
+UNOYUNIP=192.168.1.9
+#
+######
+#
+myupload:: myupload_step1
+myupload:: myupload_step2
+#
+myupload_step1:: ; \
+$(SCP) build-unoyun/ConsoleRead.hex root@$(UNOYUNIP):/tmp/.
+myupload_step2:: ; \
+$(SSH) -l root $(UNOYUNIP) 'merge-sketch-with-bootloader.lua /tmp/ConsoleRead.hex && run-avrdude /tmp/ConsoleRead.hex'
+#
 ######
 
 cleanall:: ; $(MAKE) -f Makefile_ats cleanall

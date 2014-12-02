@@ -12,13 +12,34 @@ CFLAGS_STD = $(MYCFLAGS)
 CXXFLAGS_STD = $(MYCFLAGS)
 #
 BOARD_TAG = uno
+#
 ARDUINO_LIBS =
+#
 include ./../../Arduino-Makefile/Arduino.mk
 #
 ######
 
+SCP=scp
+SSH=ssh
 MAKE=make
 
+######
+#
+# Try to find yours: 
+#
+UNOYUNIP=192.168.1.9
+#
+######
+#
+myupload2:: myupload2_step1
+myupload2:: myupload2_step2
+#
+myupload2_step1:: ; \
+$(SCP) build-unoyun/QueenPuzzle.hex root@$(UNOYUNIP):/tmp/.
+myupload2_step2:: ; \
+$(SSH) -l root $(UNOYUNIP) \
+  'merge-sketch-with-bootloader.lua /tmp/QueenPuzzle.hex && run-avrdude /tmp/QueenPuzzle.hex'
+#
 ######
 
 cleanall:: ; $(MAKE) -f Makefile_ats cleanall
