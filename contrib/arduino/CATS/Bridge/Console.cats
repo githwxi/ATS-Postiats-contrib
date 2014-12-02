@@ -46,6 +46,17 @@ Console_peek(p0) (static_cast<ConsoleClass*>(p0))->peek()
 /* ****** ****** */
 //
 #define \
+Console_write_char(p0, char) \
+  (static_cast<ConsoleClass*>(p0))->write_char(p0, char)
+//
+/* ****** ****** */
+//
+#define \
+Console_flush(p0) (static_cast<ConsoleClass*>(p0))->flush()
+//
+/* ****** ****** */
+//
+#define \
 Console_print_int(p0, x) (static_cast<ConsoleClass*>(p0))->print(x)
 #define \
 Console_print_uint(p0, x) (static_cast<ConsoleClass*>(p0))->print(x)

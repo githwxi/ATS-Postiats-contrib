@@ -52,6 +52,11 @@ overload ._end with HardwareSerial_end
 (* ****** ****** *)
 //
 fun
+HardwareSerial_connected (HardwareSerial_ptr): bool = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 HardwareSerial_available
   (p0: HardwareSerial_ptr): int = "mac#"
 //

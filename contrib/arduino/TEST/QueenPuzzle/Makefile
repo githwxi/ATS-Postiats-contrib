@@ -39,6 +39,7 @@ $(SCP) build-unoyun/QueenPuzzle.hex root@$(UNOYUNIP):/tmp/.
 myupload2_step2:: ; \
 $(SSH) -l root $(UNOYUNIP) \
   'merge-sketch-with-bootloader.lua /tmp/QueenPuzzle.hex && run-avrdude /tmp/QueenPuzzle.hex'
+myupload2_step3:: ; $(SSH) -l root $(UNOYUNIP) 'telnet localhost 6571'
 #
 ######
 
