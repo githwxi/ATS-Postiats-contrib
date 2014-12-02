@@ -17,7 +17,7 @@ BOARD_TAG = unoyun
 #
 ARDUINO_LIBS = Bridge
 #
-include ./../../Arduino-Makefile/Arduino.mk
+include ./../../../Arduino-Makefile/Arduino.mk
 #
 ######
 
@@ -37,10 +37,10 @@ yunload:: yunload_step1
 yunload:: yunload_step2
 #
 yunload_step1:: ; \
-$(SCP) build-unoyun/HttpClient.hex root@$(UNOYUNIP):/tmp/.
+$(SCP) build-unoyun/ConsoleRead.hex root@$(UNOYUNIP):/tmp/.
 yunload_step2:: ; \
 $(SSH) -l root $(UNOYUNIP) \
-  'merge-sketch-with-bootloader.lua /tmp/HttpClient.hex && run-avrdude /tmp/HttpClient.hex'
+  'merge-sketch-with-bootloader.lua /tmp/ConsoleRead.hex && run-avrdude /tmp/ConsoleRead.hex'
 #
 yunload_step3:: ; $(SSH) -l root $(UNOYUNIP) 'telnet localhost 6571'
 #

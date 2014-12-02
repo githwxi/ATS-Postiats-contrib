@@ -11,39 +11,14 @@ MYCFLAGS += -I$(PATSHOME) -I$(PATSHOME)/ccomp/runtime -I${PATSHOMERELOC}/contrib
 CFLAGS_STD = $(MYCFLAGS)
 CXXFLAGS_STD = $(MYCFLAGS)
 #
-BOARD_TAG = unoyun
-#
-# MONITOR_PORT=192.168.1.9
-#
-ARDUINO_LIBS = Bridge
-#
-include ./../../Arduino-Makefile/Arduino.mk
+BOARD_TAG = uno
+ARDUINO_LIBS = Firmata
+include ./../../../Arduino-Makefile/Arduino.mk
 #
 ######
 
-SCP=scp
-SSH=ssh
 MAKE=make
 
-######
-#
-# Try to find yours: 
-#
-UNOYUNIP=192.168.1.9
-#
-######
-#
-yunload:: yunload_step1
-yunload:: yunload_step2
-#
-yunload_step1:: ; \
-$(SCP) build-unoyun/ConsoleRead.hex root@$(UNOYUNIP):/tmp/.
-yunload_step2:: ; \
-$(SSH) -l root $(UNOYUNIP) \
-  'merge-sketch-with-bootloader.lua /tmp/ConsoleRead.hex && run-avrdude /tmp/ConsoleRead.hex'
-#
-yunload_step3:: ; $(SSH) -l root $(UNOYUNIP) 'telnet localhost 6571'
-#
 ######
 
 cleanall:: ; $(MAKE) -f Makefile_ats cleanall
