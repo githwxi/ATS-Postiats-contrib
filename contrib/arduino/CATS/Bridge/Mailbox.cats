@@ -16,6 +16,11 @@
 #include <Mailbox.h>
 
 /* ****** ****** */
+//
+typedef
+MailboxClass *MailboxClass_ptr;
+//
+/* ****** ****** */
 
 #define Mailbox_ptr (&Mailbox)
 
@@ -36,10 +41,7 @@ Mailbox_readMessage_buffer(p0, buf, bsz) \
 //
 /* ****** ****** */
 //
-#define \
-Mailbox_writeMessage_buffer(p0, buf, bsz) \
-  (static_cast<MailboxClass*>(p0))->writeMessage(buf, bsz)
-//
+/*
 ATSinline()
 Mailbox_writeMessage_string
 (
@@ -48,6 +50,16 @@ Mailbox_writeMessage_string
 {
   return Mailbox_writeMessage_buffer(p0, msg, strlen((char*)msg));
 }
+*/
+//
+#define \
+Mailbox_writeMessage_string(p0, msg) \
+  (static_cast<MailboxClass*>(p0))->writeMessage(msg)
+//
+#define \
+Mailbox_writeMessage_buffer(p0, buf, bsz) \
+  (static_cast<MailboxClass*>(p0))->writeMessage(buf, bsz)
+//
 /* ****** ****** */
 
 #endif // #ifndef(ARDUINO_CATS_BRIDGE_MAILBOX)

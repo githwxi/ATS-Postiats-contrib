@@ -44,6 +44,35 @@ overload ._begin with Bridge_begin
 (* ****** ****** *)
 //
 fun
+Bridge_put_string
+(
+  BridgeClass_ptr, k:string, v:string
+) : void = "mac#" // end-of-fun
+//
+overload .put with Bridge_put_string
+//
+(* ****** ****** *)
+//
+fun
+Bridge_get_buffer
+  {n:int}
+(
+  BridgeClass_ptr, key: string, buf: &(@[byte?][n]) >> _, int(n)
+) : natLte(n) = "mac#" // end-of-fun
+//
+overload .get with Bridge_get_buffer
+//
+(* ****** ****** *)
+//
+fun
+Bridge_TRANSFER_TIMEOUT
+  (p0: BridgeClass_ptr): uint16 = "mac#"
+//
+overload .TRANSFER_TIMEOUT with Bridge_TRANSFER_TIMEOUT
+//
+(* ****** ****** *)
+//
+fun
 Bridge_getBridgeVersion
   (p0: BridgeClass_ptr): uint16 = "mac#"
 //

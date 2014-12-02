@@ -23,6 +23,15 @@ $extype"MailboxClass_ptr"
 //
 (* ****** ****** *)
 //
+macdef
+Mailbox =
+$extval(MailboxClass, "Mailbox")
+macdef
+Mailbox_ptr =
+$extval(MailboxClass_ptr, "Mailbox_ptr")
+//
+(* ****** ****** *)
+//
 fun
 Mailbox_end
   (MailboxClass_ptr): void = "mac#"
@@ -49,7 +58,6 @@ overload .readMessage with Mailbox_readMessage_buffer
 //
 fun
 Mailbox_writeMessage_string
-  {n1,n2:int | n1 >= n2; n2 >= 0}
   (MailboxClass_ptr, msg: string): void = "mac#"
 fun
 Mailbox_writeMessage_buffer
@@ -58,6 +66,14 @@ Mailbox_writeMessage_buffer
 //
 overload .writeMessage with Mailbox_writeMessage_string
 overload .writeMessage with Mailbox_writeMessage_buffer
+//
+(* ****** ****** *)
+//
+fun
+Mailbox_writeJSON_string
+  (MailboxClass_ptr, msg: string): void = "mac#"
+//
+overload .writeJSON with Mailbox_writeJSON_string
 //
 (* ****** ****** *)
 //
