@@ -31,7 +31,7 @@ token_is_nil (tok) = let
 in
 //
 case+ tok of
-| TOKunknown (' ') => true | _ => false
+| TOKunknown (c) => isspace(c) | _ => false
 //
 end // end of [token_is_nil]
 
@@ -86,6 +86,17 @@ case+ tok of
 | _ (* void *) => false
 //
 end // end of [token_is_div]
+
+(* ****** ****** *)
+
+implement
+token_is_unknown (tok) = let
+in
+//
+case+ tok of
+| TOKunknown (c) => true | _ => false
+//
+end // end of [token_is_unknown]
 
 (* ****** ****** *)
 

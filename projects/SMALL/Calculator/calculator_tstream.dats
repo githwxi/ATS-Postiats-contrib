@@ -57,7 +57,7 @@ val+TSTREAM (tref, cs) = ts
 in
 //
 case+ !tref of tok =>
-if token_is_nil(tok)
+if token_is_unknown(tok)
   then (tstream_inc(ts);tstream_get(ts)) else tok
 //
 end // end of [tstream_get_token]
