@@ -1,0 +1,14 @@
+.gradle/
+
+// Ignore all projects' build output directories
+build/
+
+// Eclipse files
+.settings/
+.classpath
+.metadata
+.project
+
+// IntelliJ files
+.idea
+*.iml
