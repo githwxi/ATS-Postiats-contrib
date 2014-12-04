@@ -2,7 +2,19 @@
 ** Implementation of
 ** a simple calculator in ATS for use in Java
 *)
-
+(* ****** ****** *)
+//
+// How to test:
+// java -Djava.library.path=. Calculator
+//
+// Here is a running session:
+//
+// >> 1+2*3/4
+// eval(1+2*3/4) = 2.5
+// >> 1*2*3*4*5*6*7*8*9
+// eval(1*2*3*4*5*6*7*8*9) = 362880.0
+// >>   C-c C-c
+//
 (* ****** ****** *)
 //
 // no run-time dynloading

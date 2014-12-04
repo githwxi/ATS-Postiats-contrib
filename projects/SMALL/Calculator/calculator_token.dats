@@ -27,13 +27,24 @@ staload "./calculator.sats"
 (* ****** ****** *)
 
 implement
+token_is_nil (tok) = let
+in
+//
+case+ tok of
+| TOKunknown (' ') => true | _ => false
+//
+end // end of [token_is_nil]
+
+(* ****** ****** *)
+
+implement
 token_is_add (tok) = let
 in
 //
 case+ tok of
 | TOKopr ("+") => true
 | TOKopr ("add") => true
-| _ => false
+| _ (* void *) => false
 //
 end // end of [token_is_add]
 
@@ -46,7 +57,7 @@ in
 case+ tok of
 | TOKopr ("-") => true
 | TOKopr ("sub") => true
-| _ => false
+| _ (* void *) => false
 //
 end // end of [token_is_sub]
 
@@ -59,7 +70,7 @@ in
 case+ tok of
 | TOKopr ("*") => true
 | TOKopr ("mul") => true
-| _ => false
+| _ (* void *) => false
 //
 end // end of [token_is_mul]
 
@@ -72,7 +83,7 @@ in
 case+ tok of
 | TOKopr ("/") => true
 | TOKopr ("div") => true
-| _ => false
+| _ (* void *) => false
 //
 end // end of [token_is_div]
 
