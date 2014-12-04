@@ -13,7 +13,7 @@ CXXFLAGS_STD = $(MYCFLAGS)
 #
 BOARD_TAG = uno
 ARDUINO_LIBS = Firmata
-include ./../../Arduino-Makefile/Arduino.mk
+include ./../../../Arduino-Makefile/Arduino.mk
 #
 ######
 

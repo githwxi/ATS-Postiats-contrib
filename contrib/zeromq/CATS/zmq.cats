@@ -90,8 +90,14 @@ atscntrb_zeromq_zmq_setsockopt2 zmq_setsockopt
 #define atscntrb_zeromq_zmq_close zmq_close
 
 /* ****** ****** */
-
+//
 #define atscntrb_zeromq_zmq_send zmq_send
+//
+#define \
+atscntrb_zeromq_zmq_send_null(sock) zmq_send(sock, NULL, 0, 0)
+//
+/* ****** ****** */
+
 #define atscntrb_zeromq_zmq_recv zmq_recv
 
 /* ****** ****** */

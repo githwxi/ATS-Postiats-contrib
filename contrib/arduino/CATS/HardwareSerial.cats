@@ -24,7 +24,31 @@ HardwareSerial_begin_int(p0, baud) \
 HardwareSerial_begin_ulint(p0, baud) \
   (static_cast<HardwareSerial*>(p0))->begin(baud)
 //
-#define HardwareSerial_end(p0) (static_cast<HardwareSerial*>(p0))->end()
+#define \
+HardwareSerial_end(p0) (static_cast<HardwareSerial*>(p0))->end()
+//
+/* ****** ****** */
+
+#define \
+HardwareSerial_connected(p0) (static_cast<HardwareSerial*>(p0))->bool()
+
+/* ****** ****** */
+//
+#define \
+HardwareSerial_available(p0) \
+  (static_cast<HardwareSerial*>(p0))->available()
+//
+#define \
+HardwareSerial_read(p0) (static_cast<HardwareSerial*>(p0))->read()
+#define \
+HardwareSerial_peek(p0) (static_cast<HardwareSerial*>(p0))->peek()
+//
+#define \
+HardwareSerial_write_char(p0, char) \
+  (static_cast<HardwareSerial*>(p0))->write(char)
+//
+#define \
+HardwareSerial_flush(p0) (static_cast<HardwareSerial*>(p0))->flush()
 //
 /* ****** ****** */
 //
