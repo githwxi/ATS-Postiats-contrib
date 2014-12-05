@@ -5,7 +5,9 @@
 (* ****** ****** *)
 //
 // How to test:
-// java -cp . -Djava.library.path=. Calculator
+// java \
+// -cp build/classes/main \
+// -Djava.library.path=. Calculator
 //
 // Here is a running session:
 //

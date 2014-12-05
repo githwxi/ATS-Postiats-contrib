@@ -18,15 +18,19 @@ all:: Calculator
 
 ######
 
+Calculator:: Gradle
 Calculator:: Calculator.h
-Calculator:: Calculator.class
 Calculator:: libCalculator_dats.so
 
 ######
+
+JAVA=java
+CLASSPATH=build/classes/main
+
+######
 #
-Calculator.h: \
-Calculator.class; javah Calculator
-Calculator.class: Calculator.java ; javac $<
+Gradle: ; gradle build
+Calculator.h: ; javah -cp $(CLASSPATH) Calculator
 #
 Calculator_dats.o: Calculator.dats; \
 $(PATSCC) -D_GNU_SOURCE $(INCLUDE) $(INCLUDE_ATS) \
@@ -34,19 +38,17 @@ $(PATSCC) -D_GNU_SOURCE $(INCLUDE) $(INCLUDE_ATS) \
 #
 ######
 
-libCalculator_dats.so: Calculator_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl
+libCalculator_dats.so: \
+Calculator_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl
 
 ######
 
-JAVA=java
-
-######
-
-test:: ; $(JAVA) -cp . -Djava.library.path=. Calculator
+test:: ; $(JAVA) -cp build/classes/main -Djava.library.path=. Calculator
 
 ######
 
 RMF=rm -f
+RMRF=rm -rf
 
 ######
 
@@ -56,8 +58,8 @@ clean::; $(RMF) Calculator_dats.o
 clean::; $(RMF) Calculator_dats.c
 
 cleanall:: clean
-cleanall::; $(RMF) Calculator.class
 cleanall:: ; $(RMF) libCalculator_dats.so
+cleanall:: ; $(RMRF) build
 
 ######
 
