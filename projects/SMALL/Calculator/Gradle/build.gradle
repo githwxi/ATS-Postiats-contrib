@@ -1,1 +1,75 @@
+/*
+** For patscc
+*/
+//
+GCC = "gcc"
+//
+PATSHOME = System.getenv('PATSHOME')
+//
+PATSCC = "${PATSHOME}/bin/patscc"
+PATSOPT = "${PATSHOME}/bin/patsopt"
+//
+INCLUDE = "-I${PATSHOME} -I${PATSHOME}/ccomp/runtime"
+JNIincl = "/usr/lib/jvm/java-7-openjdk-amd64/include"
+//
+/* ****** ****** */
+
 apply plugin: 'java'
+
+/* ****** ****** */
+
+task \
+Calculator_dats_o \
+(
+  type: MyExternTask
+) {
+  mycmdln = 
+  "${PATSCC} -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -fPIC " +
+  "${INCLUDE} -IIATS ${PATSHOME}/contrib -I${JNIincl} -c Calculator.dats"
+} // end of [Calculator_dats_o]
+
+/* ****** ****** */
+
+task \
+libCalculator_dats_so \
+(
+  type: MyExternTask
+) {
+  mycmdln = "${GCC} -shared -o libCalculator_dats.so -Wl,-soname,libCalculator_dats.so Calculator_dats.o -ldl"
+} // end of [libCalculator_dats_so]
+
+/* ****** ****** */
+
+Calculator_dats_o.dependsOn build
+libCalculator_dats_so.dependsOn Calculator_dats_o
+
+/* ****** ****** */
+
+task buildall \
+{
+  dependsOn libCalculator_dats_so
+}
+
+/* ****** ****** */
+
+class \
+MyExternTask
+extends DefaultTask
+{
+//
+def mycmdln
+//
+@TaskAction
+def myrun()
+{
+  project.exec
+  { 
+    commandLine = mycmdln.split().toList()
+  }
+}
+//
+} // end of [Calculator_dats_o]
+
+/* ****** ****** */
+
+/* end of [build.gradle] */
