@@ -23,6 +23,8 @@ Calculator_dats_o \
 (
   type: MyExternTask
 ) {
+  inputs.file file("Calculator.dats")
+  outputs.file file("Calculator_dats.o")
   mycmdln = 
   "${PATSCC} -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -fPIC " +
   "${INCLUDE} -IIATS ${PATSHOME}/contrib -I${JNIincl} -c Calculator.dats"
@@ -35,6 +37,8 @@ libCalculator_dats_so \
 (
   type: MyExternTask
 ) {
+  inputs.file file("Calculator_dats.o")
+  outputs.file file("libCalculator_dats.so")
   mycmdln = "${GCC} -shared -o libCalculator_dats.so -Wl,-soname,libCalculator_dats.so Calculator_dats.o -ldl"
 } // end of [libCalculator_dats_so]
 
