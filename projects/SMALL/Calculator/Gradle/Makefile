@@ -60,6 +60,7 @@ clean::; $(RMF) Calculator_dats.c
 cleanall:: clean
 cleanall:: ; $(RMF) libCalculator_dats.so
 cleanall:: ; $(RMRF) build
+cleanall:: ; $(RMRF) .gradle
 
 ######
 
