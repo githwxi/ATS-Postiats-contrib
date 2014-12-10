@@ -5,6 +5,7 @@
 GCC = "gcc"
 //
 PATSHOME = System.getenv('PATSHOME')
+PATSHOMERELOC = System.getenv('PATSHOMERELOC')
 //
 PATSCC = "${PATSHOME}/bin/patscc"
 PATSOPT = "${PATSHOME}/bin/patsopt"
@@ -27,7 +28,7 @@ Calculator_dats_o \
   outputs.file file("Calculator_dats.o")
   mycmdln = 
   "${PATSCC} -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -fPIC " +
-  "${INCLUDE} -IIATS ${PATSHOME}/contrib -I${JNIincl} -c Calculator.dats"
+  "${INCLUDE} -IIATS ${PATSHOMERELOC}/contrib -I${JNIincl} -c Calculator.dats"
 } // end of [Calculator_dats_o]
 
 /* ****** ****** */

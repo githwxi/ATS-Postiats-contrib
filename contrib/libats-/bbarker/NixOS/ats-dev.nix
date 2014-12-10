@@ -10,7 +10,7 @@
 
 #
 # Some of the buildInputs are strictly speaking, optional
-# Fee free to tailor to your needs
+# Feel free to tailor to your needs
 #
 
 let
