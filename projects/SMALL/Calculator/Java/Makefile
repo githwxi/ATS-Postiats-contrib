@@ -30,7 +30,7 @@ Calculator.class: Calculator.java ; javac $<
 #
 Calculator_dats.o: Calculator.dats; \
 $(PATSCC) -D_GNU_SOURCE $(INCLUDE) $(INCLUDE_ATS) \
-  -IIATS $(PATSHOME)/contrib -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c Calculator.dats
+  -IIATS $(PATSHOMERELOC)/contrib -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c Calculator.dats
 #
 ######
 
