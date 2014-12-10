@@ -118,10 +118,12 @@ datatype token =
 
 (* ****** ****** *)
 
+fun token_is_nil (token): bool
 fun token_is_add (token): bool
 fun token_is_sub (token): bool
 fun token_is_mul (token): bool
 fun token_is_div (token): bool
+fun token_is_unknown (token): bool
 
 (* ****** ****** *)
 
@@ -148,7 +150,6 @@ fun tstream_make_string (string): tstream
 
 fun tstream_get (tstream): token
 fun tstream_inc (ts: tstream): void
-fun tstream_getinc (ts: tstream): token
 
 (* ****** ****** *)
 

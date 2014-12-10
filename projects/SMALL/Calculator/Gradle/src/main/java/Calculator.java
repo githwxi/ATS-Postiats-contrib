@@ -4,7 +4,7 @@
 // an approach to calling ATS from Java
 //
 // How to test:
-// java -cp . -Djava.library.path=. Calculator
+// java -Djava.library.path=. Calculator
 //
 // Here is a running session:
 //

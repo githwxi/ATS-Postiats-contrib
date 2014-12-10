@@ -10,11 +10,6 @@ PATSLIB=$(PATSHOME)/ccomp/atslib/lib
 
 ######
 
-CLFAGS =
-CLFAGS += -D_BSD_SOURCE
-
-######
-
 RMF=rm -f
 
 ######
@@ -32,6 +27,10 @@ tcpserver_daytime
 tcpserver_daytime: \
 tcpserver_daytime.dats ; \
 $(PATSCC) $(CFLAGS) -o $@ $< -L $(PATSLIB) -latslib
+
+######
+
+all_scons:: ; scons -Q
 
 ######
 

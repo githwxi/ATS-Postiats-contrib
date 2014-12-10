@@ -17,39 +17,34 @@
 (* ****** ****** *)
 //
 local
-#include "../GameOf24_card.dats"
-in (*nothing*) end
-//
+#include "./../GameOf24_card.dats"
+in end
 local
-#include "../GameOf24_cardset.dats"
-in (*nothing*) end
-//
+#include "./../GameOf24_cardset.dats"
+in end
 local
-#include "../GameOf24_solve.dats"
-in (*nothing*) end
+#include "./../GameOf24_solve.dats"
+in end
 //
-(* ****** ****** *)
-
-staload "../GameOf24.sats"
-
 (* ****** ****** *)
 
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
-staload JNI = "{$JNI}/SATS/jni.sats"
-
-(* ****** ****** *)
-
+//
+staload
+JNI = "{$JNI}/SATS/jni.sats"
+//
 stadef jint = $JNI.jint
-
-(* ****** ****** *)
-
 stadef JNIEnvPtr = $JNI.JNIEnvPtr
 stadef jstring (l:addr) = $JNI.jstring(l)
 stadef jobject (l:addr) = $JNI.jobject(l)
+//
+(* ****** ****** *)
+
+staload "./../GameOf24.sats"
 
 (* ****** ****** *)
 //

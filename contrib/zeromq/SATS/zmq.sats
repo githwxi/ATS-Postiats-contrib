@@ -351,6 +351,11 @@ zmq_send
 (* ****** ****** *)
 //
 fun
+zmq_send_null (sock: !zmqsock1): int(*verr*) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 zmq_send_string
   (sock: !zmqsock1, msg: string, flags: int): int(*verr*)
 //
@@ -538,11 +543,14 @@ int
 zmq_msg_send
   (zmq_msg_t *msg, void *socket, int flags);
 *)
-fun zmq_msg_send (
+fun
+zmq_msg_send
+(
   msg: &zmqmsg_t, sock: !zmqsock1, flags: int
 ) : interr = "mac#%" // endfun
 
-fun zmq_msg_send_exn
+fun
+zmq_msg_send_exn
   (msg: &zmqmsg_t, sock: !zmqsock1, flags: int): intGte(0)
 // end of [zmq_msg_send_exn]
 

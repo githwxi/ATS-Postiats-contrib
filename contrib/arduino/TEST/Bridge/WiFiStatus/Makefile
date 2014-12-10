@@ -11,11 +11,13 @@ MYCFLAGS += -I$(PATSHOME) -I$(PATSHOME)/ccomp/runtime -I${PATSHOMERELOC}/contrib
 CFLAGS_STD = $(MYCFLAGS)
 CXXFLAGS_STD = $(MYCFLAGS)
 #
-BOARD_TAG = uno
+BOARD_TAG = unoyun
 #
-ARDUINO_LIBS =
+# MONITOR_PORT=192.168.1.9
 #
-include ./../../Arduino-Makefile/Arduino.mk
+ARDUINO_LIBS = Bridge
+#
+include ./../../../Arduino-Makefile/Arduino.mk
 #
 ######
 
@@ -31,16 +33,16 @@ UNOYUNIP=192.168.1.9
 #
 ######
 #
-yunload2:: yunload2_step1
-yunload2:: yunload2_step2
+yunload:: yunload_step1
+yunload:: yunload_step2
 #
-yunload2_step1:: ; \
-$(SCP) build-unoyun/QueenPuzzle.hex root@$(UNOYUNIP):/tmp/.
-yunload2_step2:: ; \
+yunload_step1:: ; \
+$(SCP) build-unoyun/WiFiStatus.hex root@$(UNOYUNIP):/tmp/.
+yunload_step2:: ; \
 $(SSH) -l root $(UNOYUNIP) \
-  'merge-sketch-with-bootloader.lua /tmp/QueenPuzzle.hex && run-avrdude /tmp/QueenPuzzle.hex'
+  'merge-sketch-with-bootloader.lua /tmp/WiFiStatus.hex && run-avrdude /tmp/WiFiStatus.hex'
 #
-yunload2_step3:: ; $(SSH) -l root $(UNOYUNIP) 'telnet localhost 6571'
+yunload_step3:: ; $(SSH) -l root $(UNOYUNIP) 'telnet localhost 6571'
 #
 ######
 

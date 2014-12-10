@@ -55,7 +55,11 @@ tstream_get (ts) = let
 val+TSTREAM (tref, cs) = ts
 //
 in
-  !tref
+//
+case+ !tref of tok =>
+if token_is_unknown(tok)
+  then (tstream_inc(ts);tstream_get(ts)) else tok
+//
 end // end of [tstream_get_token]
 
 (* ****** ****** *)
@@ -64,23 +68,11 @@ implement
 tstream_inc (ts) = let
 //
 val+TSTREAM (tref, cs) = ts
+//
 val ((*void*)) = !tref := cstream_get_token (cs)
 //
 in
   // nothing
-end // end of [tstream_inc]
-
-(* ****** ****** *)
-
-implement
-tstream_getinc (ts) = let
-//
-val+TSTREAM (tref, cs) = ts
-val tok = !tref
-val ((*void*)) = !tref := cstream_get_token (cs)
-//
-in
-  tok
 end // end of [tstream_inc]
 
 (* ****** ****** *)

@@ -1,0 +1,64 @@
+#
+# HX-2014-12-07
+# Trying SCons out!
+#
+
+######
+
+import os
+
+######
+
+OS_PATH = os.environ['PATH']
+PATSHOME= os.environ['PATSHOME']
+PATSHOMERELOC= os.environ['PATSHOMERELOC']
+
+######
+
+PATSHOMEbin= PATSHOME + "/bin"
+
+######
+
+PATSCC=PATSHOMEbin + "/patscc"
+PATSOPT=PATSHOMEbin + "/patsopt"
+PATSLIB=PATSHOMEbin + "/ccomb/atslib/lib"
+
+######
+#
+myenv = Environment()
+#
+myenv['ENV']['PATH'] = \
+  OS_PATH + os.pathsep + PATSHOMEbin
+#
+myenv['ENV']['PATSHOME'] = PATSHOME
+myenv['ENV']['PATSHOMERELOC'] = PATSHOMERELOC
+#
+myenv['ENV']['PATSCC'] = PATSCC
+myenv['ENV']['PATSOPT'] = PATSOPT
+myenv['ENV']['PATSLIB'] = PATSLIB
+#
+######
+#
+def \
+generate_actions \
+(source, target, env, for_signature): \
+return '%s -o %s %s -L%s -latslib' % \
+  (env['ENV']['PATSCC'], target[0], source[0], env['ENV']['PATSLIB'])
+#
+######
+#
+patsccBuilder = \
+Builder(
+  generator = generate_actions, src_suffix = '.dats'
+) # end of [Builder]
+#
+myenv['BUILDERS']['Patscc'] = patsccBuilder
+#
+######
+
+myenv.Patscc('tcpserver_daytime.dats')
+myenv.Patscc('tcpclient_daytime.dats')
+
+######
+
+###### end of [SConstruct] ######

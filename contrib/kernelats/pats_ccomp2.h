@@ -30,6 +30,11 @@
 #define ATS_MALLOC atsruntime_malloc
 */
 /* ****** ****** */
+
+#define ATSINSfreeclo(cloptr) ATS_MFREE(cloptr)
+#define ATSINSfreecon(datconptr) ATS_MFREE(datconptr)
+
+/* ****** ****** */
 //
 #define \
 ATSINSmove_nil(tmp) (tmp = ((void*)0))
