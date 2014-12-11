@@ -25,6 +25,14 @@
 staload "./calculator.sats"
 
 (* ****** ****** *)
+//
+// Needed in Cygwin
+//
+%{^
+#include <alloca.h>
+%}
+
+(* ****** ****** *)
 
 (*
 
