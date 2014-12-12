@@ -17,6 +17,10 @@ LDFLAGS :=
 
 ######
 
+PATSCCOMP = $(CC) -D_XOPEN_SOURCE
+
+######
+
 SOURCES_SATS += \
   calculator.sats \
 
