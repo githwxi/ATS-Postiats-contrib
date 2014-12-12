@@ -37,6 +37,11 @@ staload "./../utfpl.sats"
 staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
+//
+fun jsonval_get_field
+  (jsv: jsonval, name: string): Option_vt (jsonval)
+//
+(* ****** ****** *)
 
 fun parse_int (jsv: jsonval): int
 fun parse_string (jsv: jsonval): string
@@ -75,7 +80,15 @@ a:t@ype
 (* ****** ****** *)
 
 fun parse_d2cst (jsv: jsonval): d2cst
+fun parse_d2cstmap (jsv: jsonval): void
+
+(* ****** ****** *)
+
 fun parse_d2var (jsv: jsonval): d2var
+fun parse_d2varmap (jsv: jsonval): void
+
+(* ****** ****** *)
+
 fun parse_d2sym (jsv: jsonval): d2sym
 
 (* ****** ****** *)
@@ -93,6 +106,10 @@ fun parse_d2expopt (jsv: jsonval): d2expopt
 
 fun parse_d2ecl (jsv: jsonval): d2ecl
 fun parse_d2eclist (jsv: jsonval): d2eclist
+
+(* ****** ****** *)
+
+fun parse_d2eclist_export (jsv0: jsonval): d2eclist
 
 (* ****** ****** *)
 

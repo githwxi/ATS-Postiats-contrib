@@ -10,17 +10,13 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-//
+
+staload "./parsing.sats"
 staload "./../utfpl.sats"
-//
+
 (* ****** ****** *)
 
 staload "{$JSONC}/SATS/json_ML.sats"
-
-(* ****** ****** *)
-
-staload "./parsing.sats"
-staload "./parsing.dats"
 
 (* ****** ****** *)
 
@@ -93,7 +89,7 @@ case+ opt of
 | ~None_vt ((*void*)) => d2c where
   {
     val-~Some_vt(jsv1) =
-      jsonval_get_field (jsv0, "d2cst_name")
+      jsonval_get_field (jsv0, "d2cst_sym")
     val sym = parse_symbol (jsv1)
     val d2c = d2cst_make (sym, stamp)
     val ((*void*)) = the_d2cstmap_insert (d2c)
@@ -101,6 +97,32 @@ case+ opt of
 //
 end // end of [parse_d2cst]
 
+(* ****** ****** *)
+  
+implement
+parse_d2cstmap
+  (jsv0) = let
+//
+fun
+loop
+(
+  jsvs: jsonvalist
+) : void =
+(
+case+ jsvs of
+| list_nil () => ()
+| list_cons
+    (jsv, jsvs) => let
+    val d2c = parse_d2cst(jsv) in loop (jsvs)
+  end // end of [list_cons]
+)
+//
+val-JSONarray(jsvs) = jsv0
+//
+in
+  loop (jsvs)
+end // end of [parse_d2cstmap]
+  
 (* ****** ****** *)
 
 (* end of [parsing_d2cst.dats] *)

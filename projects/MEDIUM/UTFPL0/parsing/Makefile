@@ -43,6 +43,7 @@ SOURCES_DATS += \
   parsing_p2at.dats \
   parsing_d2exp.dats \
   parsing_d2ecl.dats \
+  parsing_export.dats \
 
 ######
 

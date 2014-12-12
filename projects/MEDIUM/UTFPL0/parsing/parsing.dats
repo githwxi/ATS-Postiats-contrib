@@ -11,26 +11,16 @@
 //
 (* ****** ****** *)
 
-staload
-UN = "prelude/SATS/unsafe.sats"
+staload UN = $UNSAFE
 
 (* ****** ****** *)
 //
+staload "./parsing.sats"
 staload "./../utfpl.sats"
 //
 (* ****** ****** *)
 
 staload "{$JSONC}/SATS/json_ML.sats"
-
-(* ****** ****** *)
-
-staload "./parsing.sats"
-
-(* ****** ****** *)
-
-extern
-fun jsonval_get_field
-  (jsv: jsonval, name: string): Option_vt (jsonval)
 
 (* ****** ****** *)
 

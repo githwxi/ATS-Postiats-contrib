@@ -10,17 +10,17 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-//
-staload "./../utfpl.sats"
-//
-(* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "./../utfpl.sats"
 
 (* ****** ****** *)
 
 staload "./parsing.sats"
-staload "./parsing.dats"
+staload _ = "./parsing.dats"
+
+(* ****** ****** *)
+
+staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 
