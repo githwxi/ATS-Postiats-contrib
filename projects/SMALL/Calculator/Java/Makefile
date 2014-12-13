@@ -7,6 +7,12 @@
 include $(PATSHOME)/share/atsmake-pre.mk
 
 ######
+
+PATSCCOMP = $(CC) -D_XOPEN_SOURCE
+
+######
+
+######
 #
 # You may need to change this:
 #
