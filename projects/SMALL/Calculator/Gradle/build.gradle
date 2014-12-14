@@ -9,6 +9,7 @@ PATSHOMERELOC = System.getenv('PATSHOMERELOC')
 //
 PATSCC = "${PATSHOME}/bin/patscc"
 PATSOPT = "${PATSHOME}/bin/patsopt"
+PATSCCOMP = "${GCC} -D_XOPEN_SOURCE"
 //
 INCLUDE = "-I${PATSHOME} -I${PATSHOME}/ccomp/runtime"
 JNIincl = "/usr/lib/jvm/java-7-openjdk-amd64/include"
