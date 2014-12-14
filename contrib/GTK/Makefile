@@ -1,4 +1,4 @@
-SUBDIRS :=
+SUBDIRS := TEST
 
 all regress cleanall:
 	@for i in $(SUBDIRS); do \

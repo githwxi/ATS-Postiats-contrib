@@ -1,6 +1,6 @@
-SUBDIRS :=
+SUBDIRS := GTK
 
-all regress:
+all regress cleanall:
 	@for i in $(SUBDIRS); do \
 		$(MAKE) -C $$i $@; \
 	done
