@@ -17,6 +17,8 @@ before_install:
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - make
+  - make all
+  - make regress
+  - make cleanall
 after_script:
   - date
