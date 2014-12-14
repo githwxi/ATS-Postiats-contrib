@@ -44,6 +44,10 @@ RMF=rm -f
 
 ######
 
+regress::
+
+######
+
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) *_?ats.c

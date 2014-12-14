@@ -1,4 +1,4 @@
-ATS-Postiats-contrib
+ATS-Postiats-contrib [![Build Status](https://travis-ci.org/githwxi/ATS-Postiats-contrib.svg?branch=master)](https://travis-ci.org/githwxi/ATS-Postiats-contrib)
 ====================
 
 ATS-Postiats-contrib, also referred to as ATS2-contrib, is primarily for
