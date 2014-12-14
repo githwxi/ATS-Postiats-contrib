@@ -1,4 +1,4 @@
-SUBDIRS := contrib document projects
+SUBDIRS :=
 
 all regress:
 	@for i in $(SUBDIRS); do \
