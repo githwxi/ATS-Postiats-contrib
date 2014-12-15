@@ -37,6 +37,11 @@ $(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native -fopenmp -mfpmath=sse 
 
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######

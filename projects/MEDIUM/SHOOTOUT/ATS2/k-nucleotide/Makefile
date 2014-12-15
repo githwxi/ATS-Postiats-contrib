@@ -42,6 +42,11 @@ $(GPP) -c -pipe -O3 -fomit-frame-pointer -march=native -std=c++0x $< -o $@
 
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######

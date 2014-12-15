@@ -35,6 +35,11 @@ $(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native -pthread -std=c99 $< -
 
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######

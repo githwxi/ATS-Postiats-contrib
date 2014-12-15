@@ -15,6 +15,7 @@ SUBDIRS += SMALL/gtkcairoclock
 SUBDIRS += SMALL/gtkcairotimer
 
 SUBDIRS += MEDIUM/FALCON
+SUBDIRS += MEDIUM/SHOOTOUT/ATS2
 
 ######
 #
