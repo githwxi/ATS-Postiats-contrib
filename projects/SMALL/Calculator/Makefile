@@ -50,6 +50,11 @@ include $(PATSHOME)/share/atsmake-post.mk
 
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 cleanall:: ; $(RMF) MYPORTDIR/*
 
 ######

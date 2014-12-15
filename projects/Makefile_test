@@ -6,12 +6,15 @@
 
 SUBDIRS :=
 SUBDIRS += SMALL/Socket
-SUBDIRS += SMALL/Doublet
-SUBDIRS += SMALL/GameOf24
 SUBDIRS += SMALL/Coroutine
+SUBDIRS += SMALL/Doublet
+SUBDIRS += SMALL/Calculator
+SUBDIRS += SMALL/GameOf24
 SUBDIRS += SMALL/M-N-K-game
 SUBDIRS += SMALL/gtkcairoclock
 SUBDIRS += SMALL/gtkcairotimer
+
+SUBDIRS += MEDIUM/FALCON
 
 ######
 #
