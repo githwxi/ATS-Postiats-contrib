@@ -48,6 +48,16 @@ include $(PATSHOME)/share/atsmake-post.mk
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
+regress:: GameOf24; ./GameOf24
+
+######
+
 cleanall:: ; $(RMF) $(MYPORTDIR)/*
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.o
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.c

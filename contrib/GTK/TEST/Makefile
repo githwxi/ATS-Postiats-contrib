@@ -14,6 +14,12 @@ GTKFLAGS=$(shell pkg-config gtk+-3.0 --cflags --libs)
 
 ######
 
+all::
+regress::
+cleanall::
+
+######
+
 all:: test00
 test00: test00.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test00

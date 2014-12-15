@@ -42,4 +42,16 @@ include $(PATSHOME)/share/atsmake-post.mk
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
+regress:: doublet; ./doublet poor rich
+regress:: doublet; ./doublet clean dirty
+regress:: doublet; ./doublet wheat bread
+
+######
+
 ###### end of [Makefile] ######

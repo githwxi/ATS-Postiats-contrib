@@ -5,11 +5,14 @@
 ######
 
 SUBDIRS :=
+SUBDIRS += SMALL/Doublet
+SUBDIRS += SMALL/GameOf24
+SUBDIRS += SMALL/Coroutine
 
 ######
 #
-all regress cleanall: ; \
-for i in $(SUBDIRS); do $(MAKE) -f Makefile_test -C $$i $@; done
+testall:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i -f Makefile testall; done
 #
 ######
 

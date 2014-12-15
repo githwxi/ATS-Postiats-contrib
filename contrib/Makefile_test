@@ -13,8 +13,9 @@ SUBDIRS += libfloats
 
 ######
 #
-all regress cleanall: ; \
-for i in $(SUBDIRS); do $(MAKE) -f Makefile_test -C $$i $@; done
+testall:: ; \
+for i in $(SUBDIRS); \
+  do $(MAKE) -C $$i -f Makefile_test testall; done
 #
 ######
 
