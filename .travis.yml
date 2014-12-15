@@ -5,6 +5,7 @@ before_install:
   - sudo apt-get -qq -y update
   - sudo apt-get -qq -y install libgc-dev
   - sudo apt-get -qq -y install libgmp-dev
+  - sudo apt-get -qq -y install libjansson-dev
   # For contrib/GTK/
   - sudo apt-get -qq -y install libgtk-3-dev
   - git clone https://github.com/githwxi/ATS-Postiats.git
