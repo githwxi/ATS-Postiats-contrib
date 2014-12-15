@@ -1,0 +1,18 @@
+#
+# For testing
+#
+
+######
+
+SUBDIRS :=
+SUBDIRS += contrib
+SUBDIRS += projects
+
+######
+#
+all regress cleanall: ; \
+for i in $(SUBDIRS); do $(MAKE) -f Makefile_test -C $$i $@; done
+#
+######
+
+###### end of [Makefile_test] ######
