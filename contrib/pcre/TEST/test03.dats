@@ -38,13 +38,13 @@ regstr_match3_string (": ([0-9]+)\\(line=([0-9]+), offs=([0-9]+)\\) -- ([0-9]+)\
 //
 val () = println! ("err = ", err)
 //
-val~cons_vt (ntot0, res) = res
-val~cons_vt (line0, res) = res
-val~cons_vt (offs0, res) = res
-val~cons_vt (ntot1, res) = res
-val~cons_vt (line1, res) = res
-val~cons_vt (offs1, res) = res
-val~list_vt_nil ((*void*)) = res
+val-~cons_vt (ntot0, res) = res
+val-~cons_vt (line0, res) = res
+val-~cons_vt (offs0, res) = res
+val-~cons_vt (ntot1, res) = res
+val-~cons_vt (line1, res) = res
+val-~cons_vt (offs1, res) = res
+val-~list_vt_nil ((*void*)) = res
 //
 val () = println! ("ntot0 = ", ntot0)
 val () = println! ("line0 = ", line0)

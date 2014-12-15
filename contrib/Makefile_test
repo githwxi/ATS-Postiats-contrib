@@ -7,6 +7,7 @@
 SUBDIRS :=
 SUBDIRS += GTK
 SUBDIRS += cairo
+SUBDIRS += pcre
 SUBDIRS += libcurl
 SUBDIRS += libfloats
 
