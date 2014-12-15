@@ -3,6 +3,7 @@ before_install:
   - cat /proc/cpuinfo
   - cd ${HOME}
   - sudo apt-get -qq -y update
+  - sudo apt-get -qq -y install libgc-dev
   - sudo apt-get -qq -y install libgmp-dev
   # For contrib/GTK/
   - sudo apt-get -qq -y install libgtk-3-dev
