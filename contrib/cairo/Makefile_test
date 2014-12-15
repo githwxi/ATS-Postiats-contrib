@@ -1,0 +1,25 @@
+#
+# For testing
+#
+
+######
+
+SUBDIRS :=
+SUBDIRS += TEST
+
+######
+#
+all:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i all; done
+#
+all:: regress
+regress: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i regress; done
+#
+all:: cleanall
+cleanall: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i cleanall; done
+#
+######
+
+###### end of [Makefile_test] ######
