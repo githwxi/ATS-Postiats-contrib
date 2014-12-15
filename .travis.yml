@@ -20,6 +20,10 @@ before_install:
   # Setup ATS2 contrib
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
+  # Build utils
+  - make -C ${PATSHOME}/libatsynmark
+  - make -C ${PATSHOME}/utils/atsynmark
+  - make -C ${PATSHOME}/utils/packedit
   - make -C ${TRAVIS_BUILD_DIR} -f Makefile_test testall
 after_script:
   - date
