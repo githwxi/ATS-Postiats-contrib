@@ -14,10 +14,10 @@ before_install:
   # Build ATS2
   - export PATSHOME=${HOME}/ATS-Postiats
   - export PATH=${PATH}:${PATSHOME}/bin
-  - cd ${PATSHOME} && make -f codegen/Makefile_atslib && make -f Makefile_devl src_depend && make -f Makefile_devl all
+  - cd ${PATSHOME} && make -f codegen/Makefile_atslib && make -f Makefile_devl all
   # Setup ATS2 contrib
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
-  - make -C ${PATSHOMERELOC} -f Makefile_test testall
+  - make -C ${TRAVIS_BUILD_DIR} -f Makefile_test testall
 after_script:
   - date
