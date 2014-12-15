@@ -31,6 +31,8 @@ CFLAGS += -I$(PATSHOMERELOCQ)/contrib
 ######
 
 all::
+regress::
+cleanall::
 
 ######
 
@@ -41,12 +43,14 @@ RMF=rm -f
 
 all:: test01
 test01: test01_dats.c ; $(CCOPT) -DATS_MEMALLOC_LIBC $(CFLAGS) -o $@ $< -ljansson
+regress:: test01 ; ./$<
 cleanall:: ; $(RMF) test01
 
 ######
 
 all:: test02
 test02: test02_dats.c ; $(CCOPT) -DATS_MEMALLOC_LIBC $(CFLAGS) -o $@ $< -ljansson
+regress:: test02 ; ./$<
 cleanall:: ; $(RMF) test02
 
 ######
@@ -55,6 +59,7 @@ all:: \
 github_commit_query
 github_commit_query: \
 github_commit_query_dats.c ; $(CCOPT) -DATS_MEMALLOC_LIBC $(CFLAGS) -o $@ $< -lcurl -ljansson
+regress:: github_commit_query ; ./$<
 cleanall:: ; $(RMF) github_commit_query
 
 ######

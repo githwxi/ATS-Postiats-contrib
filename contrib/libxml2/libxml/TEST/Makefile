@@ -30,18 +30,22 @@ LDFLAGS += $(shell xml2-config --libs)
 ######
 
 all::
-all:: htmlParseDoc
-all:: htmlTreeWalk
+regress::
+cleanall::
 
 ######
 
+all:: htmlParseDoc
 htmlParseDoc: htmlParseDoc.dats; \
   $(PATSCC) -DATS_MEMALLOC_LIBC $(CFLAGS) -O2 -o $@ $< $(LDFLAGS) -latslib
+regress:: htmlParseDoc; ./$<
 cleanall:: ; $(RMF) htmlParseDoc
 
 ######
 
+all:: htmlTreeWalk
 htmlTreeWalk: htmlTreeWalk.dats; $(PATSCC) $(CFLAGS) -O2 -o $@ $< $(LDFLAGS)
+regress:: htmlTreeWalk; ./$<
 cleanall:: ; $(RMF) htmlTreeWalk
 
 ######
