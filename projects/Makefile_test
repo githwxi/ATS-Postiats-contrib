@@ -16,6 +16,8 @@ SUBDIRS += SMALL/gtkcairotimer
 
 SUBDIRS += MEDIUM/FALCON
 SUBDIRS += MEDIUM/SHOOTOUT/ATS2
+SUBDIRS += MEDIUM/ATS-parse-emit/PHP
+SUBDIRS += MEDIUM/ATS-parse-emit/JavaScript
 
 ######
 #
