@@ -10,7 +10,8 @@ ATSCC2JS=atscc2js
 ######
 #
 all:: \
-Queen_puzzle_php.dats
+Queen_puzzle_php_dats.js
+#
 Queen_puzzle_php.dats: Queen_puzzle.php ; $(PHP) -f $< > $@
 Queen_puzzle_php_dats.c: Queen_puzzle_php.dats; $(PATSCC) -ccats $<
 Queen_puzzle_php_dats.js: Queen_puzzle_php_dats.c; $(ATSCC2JS) -o $@ -i $<

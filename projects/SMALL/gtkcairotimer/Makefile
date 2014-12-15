@@ -53,6 +53,11 @@ cleanall:: ; $(RMF) mytimer1-all
 #
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 cleanats:: ; $(RMF) *_?ats.c
 
 ###### end of [Makefile] ######
