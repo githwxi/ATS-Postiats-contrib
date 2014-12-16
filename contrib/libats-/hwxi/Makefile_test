@@ -6,6 +6,7 @@
 
 SUBDIRS :=
 SUBDIRS += intinf/TEST
+SUBDIRS += jsonats/TEST
 
 ######
 
