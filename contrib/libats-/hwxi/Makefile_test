@@ -1,0 +1,17 @@
+#
+# For testing
+#
+
+######
+
+SUBDIRS :=
+SUBDIRS += intinf/TEST
+
+######
+
+testall:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i testall; done
+
+######
+
+###### end of [Makefile_test] ######

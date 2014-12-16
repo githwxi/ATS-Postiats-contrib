@@ -14,6 +14,13 @@ SUBDIRS += libfloats
 
 ######
 #
+# HX-2014-12-16:
+# Privilege for myself :)
+#
+SUBDIRS += libats-/hwxi
+#
+######
+#
 testall:: ; \
 for i in $(SUBDIRS); \
   do $(MAKE) -C $$i -f Makefile_test testall; done
