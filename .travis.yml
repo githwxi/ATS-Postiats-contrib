@@ -14,8 +14,7 @@ before_install:
   # Building ATS2
   - export PATSHOME=${HOME}/ATS2-srcfrg
   - export PATH=${PATH}:${PATSHOME}/bin
-  - ${PATSHOME}/configure
-  - make -C ${PATSHOME} all
+  - cd ${PATSHOME} && ./configure && make
   # Seting-up ATS2 contrib
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
