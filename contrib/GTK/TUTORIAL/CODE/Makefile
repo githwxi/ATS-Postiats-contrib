@@ -50,6 +50,11 @@ cleanall:: ; $(RMF) chap_boxpack
 #
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 cleanats:: ; $(RMF) *_?ats.c
 
 ######

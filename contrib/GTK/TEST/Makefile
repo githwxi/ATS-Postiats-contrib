@@ -15,7 +15,6 @@ GTKFLAGS=$(shell pkg-config gtk+-3.0 --cflags --libs)
 ######
 
 all::
-regress::
 cleanall::
 
 ######
@@ -50,15 +49,15 @@ RMF=rm -f
 
 ######
 
-regress::
+testall:: all
+testall:: cleanall
 
 ######
-
+#
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) *_?ats.c
-
+#
 cleanall:: clean
-
+#
 ###### end of [Makefile] ######
-

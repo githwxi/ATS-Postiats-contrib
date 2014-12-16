@@ -24,6 +24,12 @@ XRCFLAGS=`pkg-config cairo --cflags`
 
 ######
 
+all::
+regress::
+cleanall::
+
+######
+
 all:: test00
 all:: test01
 all:: test02
@@ -108,6 +114,12 @@ cairo-Bulge02c.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: cairo-Bulge02c; ./$<
 cleanall:: ; $(RMF) cairo-Bulge02c
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
