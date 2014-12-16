@@ -5,25 +5,25 @@ before_install:
   - sudo apt-get -qq -y update
   - sudo apt-get -qq -y install libgc-dev
   - sudo apt-get -qq -y install libgmp-dev
-  - sudo apt-get -qq -y install libjansson-dev
   # For contrib/GTK/
   - sudo apt-get -qq -y install libgtk-3-dev
-  - git clone https://github.com/githwxi/ATS-Postiats.git
-  # Build ATS1
-  - export ATSHOME=${HOME}/ats-lang-anairiats-0.2.11
-  - export ATSHOMERELOC=ATS-0.2.11
-  - ./ATS-Postiats/travis-ci/setup.sh 0.2.11
-  # Build ATS2
-  - export PATSHOME=${HOME}/ATS-Postiats
+  # For contrib/jansson/
+  - sudo apt-get -qq -y install libjansson-dev
+  # Download ATS2
+  - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-srcfrg
+  # Building ATS2
+  - export PATSHOME=${HOME}/ATS2-srcfrg
   - export PATH=${PATH}:${PATSHOME}/bin
-  - cd ${PATSHOME} && make -f codegen/Makefile_atslib && make -f Makefile_devl all
-  # Setup ATS2 contrib
+  - ${PATSHOME}/configure
+  - make -C ${PATSHOME} all
+  # Seting-up ATS2 contrib
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
-  # Build utils
+  # Building utils
   - make -C ${PATSHOME}/libatsynmark
   - make -C ${PATSHOME}/utils/atsynmark
   - make -C ${PATSHOME}/utils/packedit
+  # Testing extensively
   - make -C ${TRAVIS_BUILD_DIR} -f Makefile_test testall
 after_script:
   - date
