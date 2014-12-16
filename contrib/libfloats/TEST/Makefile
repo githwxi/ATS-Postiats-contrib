@@ -16,6 +16,10 @@
 
 ######
 
+CCOMP=gcc
+
+######
+
 PATSHOMEQ="$(PATSHOME)"
 PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
@@ -24,9 +28,11 @@ PATSHOMERELOCQ="$(PATSHOMERELOC)"
 PATSCC=$(PATSHOME)/bin/patscc
 
 ######
-
-ATSCCOMP='gcc -D_XOPEN_SOURCE -I${PATSHOME} -I${PATSHOME}/ccomp/runtime -DATS_MEMALLOC_LIBC'
-
+#
+ATSCCOMP=\
+$(CCOMP) -D_XOPEN_SOURCE \
+  -I${PATSHOME} -I${PATSHOME}/ccomp/runtime -DATS_MEMALLOC_LIBC
+#
 ######
 
 all::

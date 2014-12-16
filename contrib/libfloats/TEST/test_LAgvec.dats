@@ -15,15 +15,15 @@
 (* Start time: July, 2013 *)
 
 (* ****** ****** *)
-
-#include "share/atspre_staload.hats"
 //
-staload _ = "prelude/DATS/gnumber.dats"
+#include
+"share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
 staload "libats/SATS/gvector.sats"
