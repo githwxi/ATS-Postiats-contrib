@@ -8,6 +8,13 @@ staload
 "libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
+
+%{^
+#undef ATSextfcall
+#define ATSextfcall(f, xs) f xs
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 staload "./../SATS/ev.sats"
 //
