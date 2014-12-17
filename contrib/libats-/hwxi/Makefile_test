@@ -13,6 +13,7 @@ SUBDIRS += jsonats/TEST
 SUBDIRS += teaching/myGTK/TEST
 SUBDIRS += teaching/mydraw/TEST
 SUBDIRS += teaching/mythread/TEST
+SUBDIRS += teaching/fileAsLock/TEST
 
 ######
 
