@@ -6,6 +6,7 @@
 
 SUBDIRS :=
 SUBDIRS += intinf/TEST
+SUBDIRS += testing/TEST
 SUBDIRS += globals/TEST
 SUBDIRS += cstream/TEST
 SUBDIRS += jsonats/TEST
