@@ -20,6 +20,11 @@ include $(PATSHOME)/share/atsmake-post.mk
 GTKFLAGS=`pkg-config gtk+-3.0 --cflags --libs`
 
 ######
+
+all::
+cleanall::
+
+######
 #
 all:: test_gtkcairotimer
 #
@@ -33,6 +38,11 @@ test_gtkcairotimer: \
 #
 cleanall:: ; $(RMF) test_gtkcairotimer
 #
+######
+
+testall:: all
+testall:: cleanall
+
 ######
 
 cleanats:: ; $(RMF) *_?ats.c
