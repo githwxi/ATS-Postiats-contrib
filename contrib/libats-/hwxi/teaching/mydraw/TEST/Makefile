@@ -27,12 +27,20 @@ XRCFLAGS=`pkg-config cairo --cflags`
 
 ######
 
+all::
+regress::
+cleanall::
+
+######
+
 all:: \
 test01-cairo
 test01-cairo: \
   test01-cairo.dats test01.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+regress:: test01-cairo; ./$<
 cleanall:: ; $(RMF) test01-cairo test01.png
+
 
 ######
 
@@ -52,6 +60,7 @@ all:: \
 test02-cairo
 test02-cairo: test02-cairo.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+regress:: test02-cairo; ./$<
 cleanall:: ; $(RMF) test02-cairo test02.png
 
 ######
@@ -73,6 +82,7 @@ test03-cairo
 test03-cairo: \
   test03-cairo.dats test03.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+regress:: test03-cairo; ./$<
 cleanall:: ; $(RMF) test03-cairo test03.png
 
 ######
@@ -94,6 +104,7 @@ test04-cairo
 test04-cairo: \
   test04-cairo.dats test04.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+regress:: test04-cairo; ./$<
 cleanall:: ; $(RMF) test04-cairo test04.png
 
 ######
@@ -107,6 +118,12 @@ cleanall:: ; $(RMF) test04-canvas2d.js
 cleanall:: ; $(RMF) test04-canvas2d.js.map
 upload_test04:: ; scp test04.html test04-canvas2d.js \
   ats-hwxi,ats-lang@web.sourceforge.net:htdocs/TEMPATS/JS/mydraw/
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

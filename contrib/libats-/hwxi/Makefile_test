@@ -10,6 +10,7 @@ SUBDIRS += testing/TEST
 SUBDIRS += globals/TEST
 SUBDIRS += cstream/TEST
 SUBDIRS += jsonats/TEST
+SUBDIRS += teaching/mydraw/TEST
 
 ######
 
