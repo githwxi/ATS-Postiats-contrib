@@ -1,7 +1,10 @@
 (*
 ** Parsing constraints in JSON format
 *)
-
+//
+#include
+"patsolve.hats"
+//
 (* ****** ****** *)
 //
 #include
@@ -25,30 +28,11 @@ staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 
+staload "{$LIBATSWDBLAIR}/jsmn/SATS/jsmn.sats"
+
+(* ****** ****** *)
+
 staload "./parsing.sats"
-
-(* ****** ****** *)
-
-extern
-fun jsonval_get_field
-  (jsv: jsonval, name: string): Option_vt (jsonval)
-
-(* ****** ****** *)
-
-implement
-jsonval_get_field
-  (jsv0, name) = let
-in
-//
-case+ jsv0 of
-| JSONobject
-    (lxs) => let
-  in
-    list_assoc_opt<string,jsonval> (lxs, name)
-  end // end of [JSONobject]
-| _ (*nonobj*) => None_vt ()
-//
-end // end of [jsonval_get_field]
 
 (* ****** ****** *)
 //
@@ -127,10 +111,12 @@ end // end of [parse_option]
 
 (* ****** ****** *)
 
+////
 implement parse_c3nstr_from_stdin () = let
   val inp = stdin_ref
   val out = stdout_ref
   //
+(**
   val D = 1024
   val tkr = json_tokener_new_ex (D)
   val () = assertloc (json_tokener2ptr (tkr) > 0)
@@ -156,6 +142,7 @@ implement parse_c3nstr_from_stdin () = let
   //
   val () = parse_s2cstmap (s2csts)
   val () = parse_s2varmap (s2vars)
+*)
 in
   parse_c3nstr (c3nstrs)
 end // end of [parse_c3nstr_from_stdin]

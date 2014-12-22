@@ -37,6 +37,7 @@ main:: main_dats.o parsing.o ; \
 
 SOURCES_SATS += \
   parsing.sats \
+  jsonval.sats \
 
 SOURCES_DATS += \
   parsing.dats \
@@ -49,8 +50,10 @@ SOURCES_DATS += \
   parsing_s3itm.dats \
   parsing_h3ypo.dats \
   parsing_c3nstr.dats \
+  jsonval.dats \
   parsing_mylib.dats \
   parsing_dynload.dats \
+
 
 ######
 
