@@ -1,13 +1,19 @@
 (* ****** ****** *)
-
-typedef str = string
-
+//
+// HX-2014-12-23:
+// For the purpose of
+// studying session types
+//
 (* ****** ****** *)
 
 (*
 client: send(string) -> send(int) -> recv(int)
 server: recv(string) -> recv(int) -> send(int)
 *)
+
+(* ****** ****** *)
+
+typedef str = string
 
 (* ****** ****** *)
 
@@ -42,4 +48,4 @@ server () =
 
 (* ****** ****** *)
 
-(* end of [test01.dats] *)
+(* end of [scratch01.dats] *)
