@@ -33,17 +33,17 @@ absview send_v (a:t@ype)
 absview recv_v (a:t@ype)
 //
 (* ****** ****** *)
-
-viewdef
+//
+viewdef // for accessing a unary service
 client1_v = send_v(int) :: recv_v(int) :: nil
-viewdef
+viewdef // for accessing a binary service
 client2_v = send_v(int) :: send_v(int) :: recv_v(int) :: nil
-
+//
 (* ****** ****** *)
 
-viewdef
+viewdef // for providing a unary service
 server1_v = recv_v(int) :: send_v(int) :: nil
-viewdef
+viewdef // for providing a binary service
 server2_v = recv_v(int) :: recv_v(int) :: send_v(int) :: nil
 
 (* ****** ****** *)
@@ -94,7 +94,7 @@ extern
 fun server1 (pf: server1_v | (*void*)): void
 extern
 fun server2 (pf: server2_v | (*void*)): void
-extern
+extern // [server] combines [server1] and [server2]
 fun server (pf: aconj (server1_v, server2_v) | (*void*)): void
 
 (* ****** ****** *)
