@@ -25,14 +25,14 @@ fun{a:t@ype} recv ((*void*)): a
 (* ****** ****** *)
 
 extern
-fun client (): void
+fun client (): int
 implement
-client () =
-{
+client () = let
   val () = send ("candy")
   val () = send (1357902468)
-  val receipt = recv<int> ()
-}
+in
+  recv<int> ((*void*))
+end // end of [client]
 
 (* ****** ****** *)
 
@@ -43,7 +43,7 @@ server () =
 {
   val name = recv<str> ()
   val number = recv<int> ()
-  val receipt = send<int> (12345)
+  val ((*void*)) = send<int> (12345)
 }
 
 (* ****** ****** *)

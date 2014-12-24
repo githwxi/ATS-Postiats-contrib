@@ -29,12 +29,12 @@ stadef :: (a:view, b:view) = (a, b)
 
 extern
 fun{a:t@ype}
-send{ps:view}
-  (pf: !send_v(a) :: ps >> ps | x: a): void
+send{vs:view}
+  (pf: !send_v(a) :: vs >> vs | x: a): void
 extern
 fun{a:t@ype}
-recv{ps:view}
-  (pf: !recv_v(a) :: ps >> ps | (*void*)): a
+recv{vs:view}
+  (pf: !recv_v(a) :: vs >> vs | (*void*)): a
 
 (* ****** ****** *)
 //
@@ -48,13 +48,13 @@ server_v = recv_v(str) :: recv_v(int) :: send_v(int) :: nil
 extern
 fun
 client
-  (pf: client_v | (*void*)): void
+  (pf: client_v | (*void*)): int
 //
 implement
 client
 (
   pf | (*void*)
-) =
+) = receipt where
 {
   val () = send (pf | "candy")
   val () = send (pf | 1357902468)
