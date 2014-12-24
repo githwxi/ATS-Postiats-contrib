@@ -17,11 +17,8 @@ typedef str = string
 
 (* ****** ****** *)
 //
-dataview
-send_v (a:t@ype) = SEND of ()
-//
-dataview
-recv_v (a:t@ype) = RECV of ()
+absview send_v (a:t@ype)
+absview recv_v (a:t@ype)
 //
 (* ****** ****** *)
 
