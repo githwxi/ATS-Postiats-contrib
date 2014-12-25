@@ -62,7 +62,7 @@ abstype service(type)
 extern
 fun
 service_create
-  {ss:type}(f: chpos(ss) -> void): service(ss)
+  {ss:type}(f: chpos(ss) -<lincloptr1> void): service(ss)
 //
 extern
 fun
@@ -102,7 +102,7 @@ in
   // nothing
 end // end of [fserv]
 in
-  service_create (fserv)
+  service_create{ss1}(llam (ch) => fserv (ch))
 end // end of [myservice1]
 
 (* ****** ****** *)
@@ -125,7 +125,7 @@ in
   // nothing
 end // end of [fserv]
 in
-  service_create (fserv)
+  service_create{ss2}(llam (ch) => fserv (ch))
 end // end of [myservice2]
 
 (* ****** ****** *)
