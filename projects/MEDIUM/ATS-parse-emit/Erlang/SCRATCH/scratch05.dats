@@ -69,16 +69,64 @@ fun
 service_request{ss:type}(service(ss)): chneg(ss)
 //
 (* ****** ****** *)
-
-extern
-val myservice1 : service (recv(int) :: send(int) :: nil)
-extern
-val myservice2 : service (recv(int) :: recv(int) :: send(int) :: nil)
-
+//
+typedef ss1 =
+  recv(int) :: send(int) :: nil
+typedef ss2 =
+  recv(int) :: recv(int) :: send(int) :: nil
+//
+extern val myservice1 : service (ss1)
+extern val myservice2 : service (ss2)
+//
 (* ****** ****** *)
 
 extern fun myservice1_use (int): int
 extern fun myservice2_use (int, int): int
+
+(* ****** ****** *)
+
+implement
+myservice1 = let
+//
+fun
+fserv
+(
+  ch: chpos(ss1)
+) : void = let
+  var x: int
+  val () = chpos_recv (ch, x)
+  val () = chpos_send (ch, x * x)
+  val () = chpos_recv_close (ch)
+//
+in
+  // nothing
+end // end of [fserv]
+in
+  service_create (fserv)
+end // end of [myservice1]
+
+(* ****** ****** *)
+
+implement
+myservice2 = let
+//
+fun
+fserv
+(
+  ch: chpos(ss2)
+) : void = let
+  var x1: int and x2: int
+  val () = chpos_recv (ch, x1)
+  val () = chpos_recv (ch, x2)
+  val () = chpos_send (ch, x1 * x2)
+  val () = chpos_recv_close (ch)
+//
+in
+  // nothing
+end // end of [fserv]
+in
+  service_create (fserv)
+end // end of [myservice2]
 
 (* ****** ****** *)
 
