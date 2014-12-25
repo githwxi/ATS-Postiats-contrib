@@ -23,15 +23,15 @@ server2: recv(int) -> recv(int) -> send(int)
 typedef str = string
 
 (* ****** ****** *)
-
-stadef nil = unit_v
-stadef :: (a:view, b:view) = (a, b)
-
-(* ****** ****** *)
 //
 absview send_v (a:t@ype)
 absview recv_v (a:t@ype)
 //
+(* ****** ****** *)
+
+stadef nil = unit_v
+stadef :: (a:view, b:view) = (a, b)
+
 (* ****** ****** *)
 //
 viewdef // for accessing a unary service
@@ -48,12 +48,7 @@ server2_v = recv_v(int) :: recv_v(int) :: send_v(int) :: nil
 
 (* ****** ****** *)
 
-absview
-adisj_v (v1:view, v2: view)
-extern
-praxi adisj_v_left : {v1,v2:view} (v1) -> adisj_v (v1, v2)
-extern
-praxi adisj_v_right : {v1,v2:view} (v2) -> adisj_v (v1, v2)
+absview adisj_v (v1:view, v2: view)
 
 (* ****** ****** *)
 
@@ -76,12 +71,12 @@ adisj_vt (v1:view, v2:view) =
 extern
 fun inject_l{v1,v2:view}
 (
-  pf: !v1 >> adisj_v (v1, v2) | (*void*)
+  pf: !adisj_v (v1, v2) >> v1 | (*void*)
 ) : adisj_vt (v1, v2) // end of [inject_l]
 extern
 fun inject_r{v1,v2:view}
 (
-  pf: !v2 >> adisj_v (v1, v2) | (*void*)
+  pf: !adisj_v (v1, v2) >> v2 | (*void*)
 ) : adisj_vt (v1, v2) // end of [inject_r]
 //
 extern
