@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// HX-2014-12-23:
+// HX-2014-12-25:
 // For the purpose of
 // studying session types
 //
