@@ -57,11 +57,11 @@ extern
 fun chneg_send_close (ch: chneg(nil)): void
 
 (* ****** ****** *)
-
+//
 extern
-fun{ss:type}
-chpos_chneg_connect (chpos(ss), chneg(ss)): void
-
+fun
+chpos_chneg_connect{ss:type} (ch1: chpos(ss), ch2: chneg(ss)): void
+//
 (* ****** ****** *)
 
 abstype service(type)

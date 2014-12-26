@@ -60,12 +60,6 @@ extern
 fun chneg_send_close (ch: chneg(nil)): void
 
 (* ****** ****** *)
-//
-extern
-fun{ss:type}
-chpos_chneg_connect (ch1: chpos(ss), ch2: chneg(ss)): void
-//
-(* ****** ****** *)
 
 abstype service(type)
 
@@ -120,7 +114,7 @@ myservice_ints = let
 fun
 fserv
 (
-  ch: chpos(sslist(int)), n: int
+  n: int, ch: chpos(sslist(int))
 ) : void = let
 //
 val opt = chpos_sslist(ch)
@@ -130,13 +124,13 @@ in
 case+ opt of
 | ~chpos_sslist_nil () => ()
 | ~chpos_sslist_cons (ch) => let
-    val () = chpos_send (ch, n) in fserv(ch, n+1)
-  end // end of [chpos_cons]
+    val () = chpos_send (ch, n) in fserv(n+1, ch)
+  end // end of [chpos_sslist_cons]
 //
 end // end of [fserv]
 //
 in
-  service_create{sslist(int)}(llam (ch) => fserv(ch, 0))
+  service_create{sslist(int)}(llam (ch) => fserv(0, ch))
 end // end of [myservice_ints]
 
 (* ****** ****** *)
