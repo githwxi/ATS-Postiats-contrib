@@ -18,7 +18,6 @@ BOARD_TAG = uno
 upload:: ./../../Arduino-Makefile/Arduino.mk
 
 .INTERMEDIATE: ./../../Arduino-Makefile/Arduino.mk
-.PRECIOUS: ./../../Arduino-Makefile/Arduino.mk
 
 ./../../Arduino-Makefile/Arduino.mk:
 	git clone https://github.com/sudar/Arduino-Makefile.git ./../../Arduino-Makefile
