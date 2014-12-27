@@ -147,8 +147,17 @@ implement parse_c3nstr_from_stdin () = let
   val jsv = json_object2val0 (jso)
   val () = strptr_free (cs)
   val () = json_tokener_free (tkr)
+  (**
+      Build the variable and constant maps
+  *)
+  val-~Some_vt(s2csts) = jsonval_get_field (jsv, "s2cstmap")
+  val-~Some_vt(s2vars) = jsonval_get_field(jsv, "s2varmap")
+  val-~Some_vt(c3nstrs) = jsonval_get_field(jsv, "c3nstrbody")
+  //
+  val () = parse_s2cstmap (s2csts)
+  val () = parse_s2varmap (s2vars)
 in
-  parse_c3nstr (jsv)
+  parse_c3nstr (c3nstrs)
 end // end of [parse_c3nstr_from_stdin]
 
 (* ****** ****** *)

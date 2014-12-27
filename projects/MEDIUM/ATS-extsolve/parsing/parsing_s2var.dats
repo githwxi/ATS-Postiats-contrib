@@ -76,9 +76,15 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
+parse_s2varmap (jsvs) = {
+     val _ = parse_list<s2var>(jsvs, parse_s2var)
+}
+
+(* ****** ****** *)
+implement
 parse_s2var
   (jsv0) = let
-(*
+(**
 val () =
 println! ("parse_s2var: jsv0 = ", jsv0)
 *)
@@ -97,7 +103,7 @@ case+ opt of
 | ~None_vt ((*void*)) => s2v where
   {
     val-~Some_vt(jsv1) =
-      jsonval_get_field (jsv0, "s2var_name")
+      jsonval_get_field (jsv0, "s2var_sym")
     val sym = parse_symbol (jsv1)
     val-~Some_vt(jsv2) =
       jsonval_get_field (jsv0, "s2var_srt")

@@ -115,6 +115,7 @@ case+ s2t0 of
 | S2RTerr () => fprint (out, "S2RTerr()")
 //
 | S2RTignored () => fprint (out, "S2RTignored()")
+| S2RTuninterp(name) => fprint! (out, "S2RTuninterp(", name, ")")
 //
 end // end of [fprint_s2rt]
 

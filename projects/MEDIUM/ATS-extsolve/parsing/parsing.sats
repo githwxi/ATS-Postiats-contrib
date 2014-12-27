@@ -82,6 +82,12 @@ fun parse_c3nstr_from_stdin (): c3nstr
 
 (* ****** ****** *)
 
+fun parse_s2cstmap (jsv: jsonval): void
+
+fun parse_s2varmap (jsv: jsonval): void
+
+(* ****** ****** *)
+
 fun the_s2cstmap_listize (): List (s2cst)
 
 (* ****** ****** *)

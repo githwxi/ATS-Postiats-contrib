@@ -128,11 +128,12 @@ constraint3_initialize () = {
           val decl =
             make_func_decl (sym, domain, range)
           //
-          var res: func_decl
-          val replaced =
-            $LinMap.linmap_insert (!declp, name, decl, res)
-          val () = assertloc (~replaced)
-          prval () = opt_unnone (res)
+          val opt =
+            $LinMap.linmap_insert_opt (!declp, name, decl)
+          val () = 
+              case+ opt of
+              	| ~None_vt () => ()
+              	| ~Some_vt (decl) => func_decl_free (decl)
           prval () = decfpf (decpf)
         }
       end

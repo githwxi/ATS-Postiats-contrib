@@ -95,12 +95,15 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
+parse_s2cstmap (jsvs) = {
+    val _ = parse_list<s2cst> (jsvs, parse_s2cst)
+}
+
+(* ****** ****** *)
+
+implement
 parse_s2cst
   (jsv0) = let
-(*
-val () =
-println! ("parse_s2cst: jsv0 = ", jsv0)
-*)
 //
 val-~Some_vt(jsv2) =
   jsonval_get_field (jsv0, "s2cst_stamp")
@@ -116,7 +119,7 @@ case+ opt of
 | ~None_vt ((*void*)) => s2c where
   {
     val-~Some_vt (jsv1) =
-      jsonval_get_field (jsv0, "s2cst_name")
+      jsonval_get_field (jsv0, "s2cst_sym")
     val sym = parse_symbol (jsv1)
     val-~Some_vt (jsv2) =
       jsonval_get_field (jsv0, "s2cst_srt")
