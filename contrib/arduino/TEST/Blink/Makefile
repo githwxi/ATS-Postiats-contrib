@@ -11,26 +11,26 @@ CFLAGS_STD = $(MYCFLAGS)
 CXXFLAGS_STD = $(MYCFLAGS)
 #
 BOARD_TAG = uno
-
-######    End of Project Configuration      ######
-
-#We need to guarantee these are copied first.
-upload:: ./../../Arduino-Makefile/Arduino.mk
-
-.INTERMEDIATE: ./../../Arduino-Makefile/Arduino.mk
-
-./../../Arduino-Makefile/Arduino.mk:
-	git clone https://github.com/sudar/Arduino-Makefile.git ./../../Arduino-Makefile
-
-######
-
+#
 ARDUINO_LIBS =
+#
 include ./../../Arduino-Makefile/Arduino.mk
 #
 ######
 
 MAKE=make
 
+######
+#
+# Please make sure Arduino.mk is available
+#
+Arduino_mk=./../../Arduino-Makefile/Arduino.mk
+Arduino_mk_src=https://github.com/sudar/Arduino-Makefile.git
+#
+.INTERMEDIATE: $(Arduino_mk)
+#
+$(Arduino_mk): ; git clone $(Arduino_mk_src) ./../../Arduino-Makefile
+#
 ######
 
 cleanall:: ; $(MAKE) -f Makefile_ats cleanall
