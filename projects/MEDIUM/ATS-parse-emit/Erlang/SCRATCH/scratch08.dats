@@ -119,7 +119,7 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-abst@ype bit = natLt(2)
+abst@ype bit = int
 //
 macdef B0 = $UN.cast{bit}(0)
 macdef B1 = $UN.cast{bit}(1)
@@ -139,7 +139,7 @@ fun int2bits{n:nat} (int(n)): chneg(sslist(bit))
 (* ****** ****** *)
 
 implement
-int2bits (n) = let
+int2bits(n) = let
 //
 fun
 fserv{n:nat}
@@ -151,8 +151,10 @@ if
 n > 0
 then let
   val n2 = half(n)
-  val bit = (if n = 2*n2 then 0 else 1): natLt(2)
-  val bit = $UN.cast{bit}(bit)
+  val bit =
+  (
+    if n = 2*n2 then B0 else B1
+  ) : bit // end of [val]
   val ch = chpos_sslist_cons (ch)
   val ((*void*)) = chpos_send (ch, bit)
 in
@@ -175,8 +177,12 @@ fun add_bits_bits (chneg(sslist(bit)), chneg(sslist(bit))): chneg(sslist(bit))
 //
 (* ****** ****** *)
 
+typedef bit_ = natLt(2)
+
+(* ****** ****** *)
+
 implement
-succ_bits (ch1) = let
+succ_bits(ch1) = let
 //
 fun
 fserv
@@ -198,18 +204,18 @@ case+ opt of
     // nothing
   end // end of [chneg_sslist_nil]
 | ~chneg_sslist_cons (ch1) => let
-    val ch = chpos_sslist_cons (ch)
     val bit = chneg_send_val (ch1)
-    val bit = $UN.cast{natLt(0)}(bit)
+    val bit_ = $UN.cast{bit_}(bit)
+    val ch = chpos_sslist_cons (ch)
   in
-    if bit = 0
+    if bit_ = 0
       then let
-        val ((*void*)) = chpos_send (ch, B1)
+        val () = chpos_send (ch, B1)
       in
         chpos_chneg_connect (ch, ch1)
       end // end of [then]
       else let
-        val ((*void*)) = chpos_send (ch, B0)
+        val () = chpos_send (ch, B0)
       in
         fserv (ch, ch1)
       end // end of [else]
