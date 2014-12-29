@@ -88,7 +88,9 @@ abstype service(type)
 extern
 fun
 service_create{ss:type}
-  (f: chpos(ss) -<lincloptr1> void): service(ss)
+(
+  f: chpos(ss) -<cloref1> void
+) : service(ss) // end-of-fun
 //
 extern
 fun service_request{ss:type}(service(ss)): chneg(ss)
@@ -170,7 +172,7 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  service_create{sslist(int)}(llam (ch) => fserv (ch, create_ints(2)))
+  service_create{sslist(int)}(lam (ch) => fserv (ch, create_ints(2)))
 end // end of [myservice_primes]
 
 (* ****** ****** *)

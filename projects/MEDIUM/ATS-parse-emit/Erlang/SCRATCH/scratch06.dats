@@ -71,7 +71,10 @@ abstype service(type)
 extern
 fun
 service_create
-  {ss:type}(f: chpos(ss) -<lincloptr1> void): service(ss)
+  {ss:type}
+(
+  f: chpos(ss) -<cloref1> void
+) : service(ss) // end-of-fun
 //
 extern
 fun
@@ -98,9 +101,6 @@ implement
 service_join
   {ss1,ss2}(ss1, ss2) = let
 //
-val ch1 = service_request (ss1)
-val ch2 = service_request (ss2)
-//
 typedef
 ss12 = send(chneg(ss1)) :: send(chneg(ss2)) :: nil
 //
@@ -108,16 +108,20 @@ fun
 fserv
 (
   ch: chpos(ss12)
-, ch1: chneg(ss1), ch2: chneg(ss2)
 ) : void =
 {
-  val () = chpos_send (ch, ch1)
-  val () = chpos_send (ch, ch2)
-  val () = chpos_recv_close (ch)
+//
+val ch1 = service_request (ss1)
+val ch2 = service_request (ss2)
+//
+val ((*void*)) = chpos_send (ch, ch1)
+val ((*void*)) = chpos_send (ch, ch2)
+val ((*void*)) = chpos_recv_close (ch)
+//
 }
 //
 in
-  service_create{ss12}(llam (ch) => fserv (ch, ch1, ch2))
+  service_create{ss12}(lam (ch) => fserv (ch))
 end // end of [service_join]
 
 (* ****** ****** *)
@@ -126,24 +130,25 @@ implement
 service_join_sill
   {ss1,ss2}(ss1, ss2) = let
 //
-val ch1 = service_request (ss1)
-val ch2 = service_request (ss2)
-//
 typedef ss12 = send(chneg(ss1)) :: ss2
 //
 fun
 fserv
 (
   ch: chpos(ss12)
-, ch1: chneg(ss1), ch2: chneg(ss2)
 ) : void =
 {
-  val () = chpos_send (ch, ch1)
-  val () = chpos_chneg_connect (ch, ch2)
+//
+val ch1 = service_request (ss1)
+val ch2 = service_request (ss2)
+//
+val () = chpos_send (ch, ch1)
+val () = chpos_chneg_connect (ch, ch2)
+//
 }
 //
 in
-  service_create{ss12}(llam (ch) => fserv (ch, ch1, ch2))
+  service_create{ss12}(lam (ch) => fserv (ch))
 end // end of [service_join_sill]
 
 (* ****** ****** *)
@@ -185,7 +190,7 @@ in
 end // end of [fserv]
 //
 in
-  service_create{ss12}(llam (ch) => fserv (ch))
+  service_create{ss12}(lam (ch) => fserv (ch))
 end // end of [service_cond]
 
 (* ****** ****** *)
@@ -209,7 +214,7 @@ in
 end // end of [fserv]
 //
 in
-  service_create{ss12}(llam (ch) => fserv (ch))
+  service_create{ss12}(lam (ch) => fserv (ch))
 end // end of [service_cond]
 
 (* ****** ****** *)

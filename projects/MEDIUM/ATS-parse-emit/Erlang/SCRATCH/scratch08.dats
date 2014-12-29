@@ -198,15 +198,15 @@ in
 case+ opt of
 | ~chneg_sslist_nil () => let
     val ch = chpos_sslist_cons (ch)
-    val ((*void*)) = chpos_send (ch, B1)
-    val ((*void*)) = chpos_sslist_nil (ch)
+    val () = chpos_send (ch, B1)
+    val () = chpos_sslist_nil (ch)
   in
     // nothing
   end // end of [chneg_sslist_nil]
 | ~chneg_sslist_cons (ch1) => let
+    val ch = chpos_sslist_cons (ch)
     val bit = chneg_send_val (ch1)
     val bit_ = $UN.cast{bit_}(bit)
-    val ch = chpos_sslist_cons (ch)
   in
     if bit_ = 0
       then let
@@ -249,20 +249,20 @@ case+ opt1 of
 | ~chneg_sslist_nil () =>
     chpos_chneg_connect (ch, ch2)
 | ~chneg_sslist_cons (ch1) => let
+    val ch =
+      chpos_sslist_cons (ch)
+    // end of [val]
     val opt2 = chneg_sslist (ch2)
   in
     case+ opt2 of
-    | ~chneg_sslist_nil () => let
-        val ch = chpos_sslist_cons (ch)
-      in
-        chpos_chneg_connect (ch, ch1)
-      end // end of [chneg_sslist_nil]
+    | ~chneg_sslist_nil () =>
+        chpos_chneg_connect(ch, ch1)
+      // end of [chneg_sslist_nil]
     | ~chneg_sslist_cons (ch2) => let
-        val b1 = chneg_send_val (ch1)
-        and b2 = chneg_send_val (ch2)
-        val b1_ = $UN.cast{natLt(2)}(b1)
-        and b2_ = $UN.cast{natLt(2)}(b2)
-        val ch = chpos_sslist_cons (ch)
+        val b1 = chneg_send_val(ch1)
+        and b2 = chneg_send_val(ch2)
+        val b1_ = $UN.cast{bit_}(b1)
+        and b2_ = $UN.cast{bit_}(b2)
       in
         case+ b1_ of
         | 0 => (chpos_send (ch, b2); fserv (ch, ch1, ch2))
