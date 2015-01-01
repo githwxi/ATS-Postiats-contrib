@@ -34,6 +34,64 @@ assume jsonval = jsmntokptr
 
 (* ****** ****** *)
 
+(**
+    Get the number of tokens in a jsonval
+*)
+extern
+fun{} jsonval_numtokens(jsonval): int
+
+
+implement{}
+jsonval_numtokens (jsv) = 
+    if jsv.type = JSMN_PRIMITIVE then
+        1
+    else if jsv.type = JSMN_STRING then
+        1
+    else if jsv.type = JSMN_ARRAY then let
+        //
+        fun loop (jsv: jsonval, i: int, n:int): int =
+            if i = jsv.size then
+                n
+            else let
+                val p = $UN.cast{ptr}(jsv)
+                val ofs =  g0i2u(n)*sizeof<jsonval>
+                val nextjsv = $UN.cast{jsonval}(add_ptr_bsz(p, ofs))
+            in
+                loop (jsv, succ(i), n + jsonval_numtokens(nextjsv))
+            end
+        //
+    in
+        loop (jsv, 0, 1)
+    end
+    else if jsv.type = JSMN_OBJECT then let
+
+        fun loop (jsv: jsonval, i: int, n: int): int =
+            if i = jsv.size then
+                n
+            else let
+                val p =  $UN.cast{ptr}(jsv)
+                val keyofs =  g0i2u(n)*sizeof<jsonval>
+                val keyjsv = $UN.cast{jsonval}(add_ptr_bsz(p, keyofs))
+                val keysize = jsonval_numtokens (keyjsv)
+                //
+                val valueofs = g0i2u(n + keysize) * sizeof<jsonval>
+                val valuejsv = $UN.cast{jsonval}(add_ptr_bsz(p, valueofs))
+                val valuesize = jsonval_numtokens (valuejsv)
+            in
+                loop (jsv, succ(i), n + keysize + valuesize)
+            end
+
+     in
+         loop (jsv, 0, 1)
+     end
+     else let
+         val () = prerrln! ("Invalid json value.")
+     in
+         exit(1)
+     end
+
+(* ****** ****** *)
+
 implement{}
 jsonval_is_int (jsv) =
   if jsv.type != JSMN_PRIMITIVE then
@@ -42,7 +100,7 @@ jsonval_is_int (jsv) =
     val [n:int] n = g1ofg0(jsv.size)
     val () = assertloc (n >= 0)
     val src = $UN.cast{string(n)} (jsv.string)
-    //
+
     fun loop {i:nat | i <= n} (src: string(n), i: int i): bool =
       if i = n then
         true
@@ -54,6 +112,7 @@ jsonval_is_int (jsv) =
         else
           loop (src, succ(i))
       end
+      
    in
     loop (src, 0)
    end
@@ -91,8 +150,22 @@ end
 implement{}
 jsonval_array_get_at_exn (jsv, i) = let
   val () = assertloc(i >= 0 andalso i < jsv.size)
-  val p = $UN.cast{ptr}(jsv)
-  val ofs =  g0i2u(i)*sizeof<jsonval>
+  val p = $UN.cast{ptr} (jsv)
+  
+  fun loop (jsv: jsonval, j:int, n:int): int =
+      if j = i then
+          n
+      else let
+          val p = $UN.cast{ptr} (jsv) 
+          val ofs =  g0i2u(n)*sizeof<jsonval>
+          val nextjsv = $UN.cast{jsonval} (add_ptr_bsz(p, ofs))
+      in
+          loop (jsv, succ(i), n + jsonval_numtokens (nextjsv))
+      end
+      
+  val j = loop (jsv, 0, 1)
+  val p = $UN.cast{ptr} (jsv)
+  val ofs = g0i2u(j)*sizeof<jsonval>
   val q = add_ptr_bsz(p, ofs)
 in
   $UN.cast{jsonval}(q)
