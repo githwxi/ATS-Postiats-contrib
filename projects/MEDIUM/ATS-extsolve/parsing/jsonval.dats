@@ -54,7 +54,7 @@ jsonval_numtokens (jsv) =
                 n
             else let
                 val p = $UN.cast{ptr}(jsv)
-                val ofs =  g0i2u(n)*sizeof<jsonval>
+                val ofs =  g0i2u(n)*sizeof<jsmntok_t>
                 val nextjsv = $UN.cast{jsonval}(add_ptr_bsz(p, ofs))
             in
                 loop (jsv, succ(i), n + jsonval_numtokens(nextjsv))
@@ -70,11 +70,11 @@ jsonval_numtokens (jsv) =
                 n
             else let
                 val p =  $UN.cast{ptr}(jsv)
-                val keyofs =  g0i2u(n)*sizeof<jsonval>
+                val keyofs =  g0i2u(n)*sizeof<jsmntok_t>
                 val keyjsv = $UN.cast{jsonval}(add_ptr_bsz(p, keyofs))
                 val keysize = jsonval_numtokens (keyjsv)
                 //
-                val valueofs = g0i2u(n + keysize) * sizeof<jsonval>
+                val valueofs = g0i2u(n + keysize) * sizeof<jsmntok_t>
                 val valuejsv = $UN.cast{jsonval}(add_ptr_bsz(p, valueofs))
                 val valuesize = jsonval_numtokens (valuejsv)
             in
@@ -147,7 +147,7 @@ in
   $UN.cast{string}(buf)
 end
 
-implement{}
+implement
 jsonval_array_get_at_exn (jsv, i) = let
   val () = assertloc(i >= 0 andalso i < jsv.size)
   val p = $UN.cast{ptr} (jsv)
@@ -157,7 +157,7 @@ jsonval_array_get_at_exn (jsv, i) = let
           n
       else let
           val p = $UN.cast{ptr} (jsv) 
-          val ofs =  g0i2u(n)*sizeof<jsonval>
+          val ofs =  g0i2u(n)*sizeof<jsmntok_t>
           val nextjsv = $UN.cast{jsonval} (add_ptr_bsz(p, ofs))
       in
           loop (jsv, succ(i), n + jsonval_numtokens (nextjsv))
@@ -165,8 +165,39 @@ jsonval_array_get_at_exn (jsv, i) = let
       
   val j = loop (jsv, 0, 1)
   val p = $UN.cast{ptr} (jsv)
-  val ofs = g0i2u(j)*sizeof<jsonval>
+  val ofs = g0i2u(j)*sizeof<jsmntok_t>
   val q = add_ptr_bsz(p, ofs)
 in
   $UN.cast{jsonval}(q)
 end
+
+implement{}
+jsonval_object_get_exn (jsv, label) = let
+    val () = assertloc (jsv.type = JSMN_OBJECT)
+
+    fun loop (jsv: jsonval, i:int, n:int): jsonval =
+         if i = jsv.size then let
+            val () = prerrln! ("key ", label, " not found")
+         in
+             exit(1)
+         end
+         else let
+             val p = $UN.cast{ptr} (jsv)
+             val ofs = g0i2u(n)*sizeof<jsmntok_t>
+             val keyjsv = $UN.cast{jsonval} (add_ptr_bsz (p, ofs))
+             val () = assertloc (jsonval_is_string (keyjsv))
+             val key = keyjsv.string
+             val ofs = g0i2u(n+1)*sizeof<jsmntok_t>
+             val valjsv = $UN.cast{jsonval} (add_ptr_bsz(p, ofs))
+         in
+            if strncmp (key, label, length (label)) = 0 then 
+               valjsv
+           else
+               loop (jsv, succ(i), n+1+jsonval_numtokens (valjsv))
+        end
+in
+    loop (jsv, 0, 1) 
+end
+                
+         
+    

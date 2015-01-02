@@ -49,7 +49,7 @@ overload .string with jsonval_get_string
   Array Operations
 *)
 
-fun{} jsonval_array_get_at_exn (
+fun jsonval_array_get_at_exn (
   jsonval, int
 ): jsonval
 
