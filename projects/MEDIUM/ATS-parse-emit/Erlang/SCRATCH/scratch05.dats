@@ -51,7 +51,7 @@ chneg_send{ss:type}
 extern
 fun chpos_recv_close (ch: chpos(nil)): void
 extern
-fun chneg_send_close (ch: chneg(nil)): void
+fun chneg_recv_close (ch: chneg(nil)): void
 
 (* ****** ****** *)
 
@@ -142,7 +142,7 @@ val ch =
 val () = chneg_recv (ch, x)
 var res: int
 val () = chneg_send (ch, res)
-val () = chneg_send_close (ch)
+val () = chneg_recv_close (ch)
 //
 in
   res
@@ -161,7 +161,7 @@ val () = chneg_recv (ch, x1)
 val () = chneg_recv (ch, x2)
 var res: int
 val () = chneg_send (ch, res)
-val () = chneg_send_close (ch)
+val () = chneg_recv_close (ch)
 //
 in
   res

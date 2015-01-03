@@ -54,7 +54,7 @@ chneg_send{ss:type}
 extern
 fun chpos_recv_close (ch: chpos(nil)): void
 extern
-fun chneg_send_close (ch: chneg(nil)): void
+fun chneg_recv_close (ch: chneg(nil)): void
 
 (* ****** ****** *)
 //
