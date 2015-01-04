@@ -38,10 +38,10 @@ assume jsonval = jsmntokptr
     Get the number of tokens in a jsonval
 *)
 extern
-fun{} jsonval_numtokens(jsonval): int
+fun jsonval_numtokens(jsonval): int
 
 
-implement{}
+implement
 jsonval_numtokens (jsv) = 
     if jsv.type = JSMN_PRIMITIVE then
         1
@@ -135,7 +135,6 @@ jsonval_is_array (jsv) = jsv.type = JSMN_ARRAY
 
 implement{}
 jsonval_is_object (jsv) = jsv.type = JSMN_OBJECT
-
 
 (* ****** ****** *)
 

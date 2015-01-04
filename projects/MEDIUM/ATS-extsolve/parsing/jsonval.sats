@@ -39,11 +39,30 @@ fun{} bool_of_jsonval (jsonval): bool
 fun{} double_of_jsonval (jsonval): double
 
 (**
-  Accessors
+  Accessors 
+*)
+
+(**
+    Get a pointer to a string. This string is technically
+    null terminated, but in order to capture just the portion
+    of the string that represents the jsonval you need to
+    get the string's size.
+    
+    In short, be careful and use the strn* functions when you
+    work with this function's return value.
 *)
 fun{} jsonval_get_string (jsonval): string
 
 overload .string with jsonval_get_string
+
+(**
+    Get a null terminated string that represents the jsonval.
+   
+   This allocates a new string.
+*)
+fun{} jsonval_get_copy_string (jsonval): string
+
+overload .copy_string with jsonval_get_copy_string
 
 (**
   Array Operations

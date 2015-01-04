@@ -7,7 +7,7 @@
 #define
 ATS_PACKNAME "ATSCNTRB.jsmn"
 #define
-ATS_EXTERN_PREFIX "atscntrb_jsmn_" // prefix for external names
+ATS_EXTERN_PREFIX "atscntrb_jsmn" // prefix for external names
 
 (* ****** ****** *)
 
@@ -37,7 +37,7 @@ fun jsmn_init (&jsmn_parser? >> _): void = "mac#%"
 
 fun jsmn_parse {m,n:int} (
     &jsmn_parser, string(m), size_t(m),
-    arrayptr(jsmntok_t?, n), uint(n)
+    arrayptr(jsmntok_t, n), uint(n)
 ): jsmnerr_t = "mac#%"
 
 (* ****** ****** *)
