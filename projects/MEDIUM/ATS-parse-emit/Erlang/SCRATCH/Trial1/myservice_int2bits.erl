@@ -25,10 +25,13 @@ myservice_int2bits_fserv(Chpos) ->
 myservice_int2bits_fserv2(Chpos, N) ->
   if
     N>0 ->
-      N2 = trunc(N / 2), Bit = N-2*N2,
-      session:chpos_sslist_cons(Chpos), session:chpos_send(Chpos, Bit),
+      N2 = trunc(N/2), Bit = N-2*N2,
+      session:chpos_sslist_cons(Chpos),
+      session:chpos_send(Chpos, Bit),
       myservice_int2bits_fserv2(Chpos, N2);
-    true -> session:chpos_sslist_nil(Chpos)
+    true ->
+      session:chpos_sslist_nil(Chpos),
+      session:chpos_recv_close(Chpos)
   end.
 
 %%%%%%

@@ -33,8 +33,8 @@ myservice_primes_fserv2(Ints, Chpos) ->
   Opt2 = session:chpos_sslist (Chpos),
   case Opt2 of
     nil ->
-      Chpos ! chpos_transfer_close,
-      session:chneg_sslist_nil(Ints);
+      session:chneg_sslist_nil(Ints),
+      session:chpos_recv_close(Chpos);
     cons -> 
       myservice_ints_filter ! self(),
       receive

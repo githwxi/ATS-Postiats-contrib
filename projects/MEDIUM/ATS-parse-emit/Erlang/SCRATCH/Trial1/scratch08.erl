@@ -73,7 +73,9 @@ succ_bits_fserv(Chpos, Bitlst) ->
     nil ->
       session:chneg_recv_close(Bitlst),
       session:chpos_sslist_cons(Chpos),
-      session:chpos_send(Chpos, 1), session:chpos_sslist_nil(Chpos);
+      session:chpos_send(Chpos, 1),
+      session:chpos_sslist_nil(Chpos),
+      session:chpos_recv_close(Chpos);
     cons ->
       session:chpos_sslist_cons(Chpos),
       Bit = session:chneg_send(Bitlst),

@@ -26,7 +26,6 @@ myservice_ints_filter_fserv(Chpos) ->
   %% io:format("myservice_ints_filter_fserv: Opt2 = ~p~n", [Opt2]),
   case Opt2 of
     nil ->
-      Chpos ! chpos_transfer_close,
       session:chneg_sslist_nil(Ints);
     cons ->
       session:chneg_sslist_cons(Ints),
@@ -39,8 +38,8 @@ myservice_ints_filter_fserv2(P, Ints, Chpos) ->
   Opt2 = session:chpos_sslist (Chpos),
   case Opt2 of
     nil ->
-      Chpos ! chpos_transfer_close,
-      session:chneg_sslist_nil(Ints);
+      session:chneg_sslist_nil(Ints),
+      session:chpos_recv_close(Chpos);
     cons ->
       Next = myservice_ints_filter_fserv2_next(P, Ints, Chpos),
       session:chpos_send(Chpos, Next),	  

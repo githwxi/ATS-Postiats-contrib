@@ -94,13 +94,13 @@ extern
 fun
 chpos_sslist
   {a:t0p}(chpos(sslist(a))): chpos_sslist(a)
+*)
 extern
 fun
-chneg_sslist_nil{a:t0p}(chneg(sslist(a))): void
+chpos_sslist_nil{a:t0p}(chpos(sslist(a))): void
 and
-chneg_sslist_cons
-  {a:t0p}(chneg(sslist(a))): chneg(send(a) :: sslist(a))
-*)
+chpos_sslist_cons
+  {a:t0p}(chpos(sslist(a))): chpos(send(a) :: sslist(a))
 //
 (* ****** ****** *)
 //
@@ -108,12 +108,14 @@ extern
 fun
 chneg_sslist
   {a:t0p}(chneg(sslist(a))): chneg_sslist(a)
+(*
 extern
 fun
-chpos_sslist_nil{a:t0p}(chpos(sslist(a))): void
+chneg_sslist_nil{a:t0p}(chneg(sslist(a))): void
 and
-chpos_sslist_cons
-  {a:t0p}(chpos(sslist(a))): chpos(send(a) :: sslist(a))
+chneg_sslist_cons
+  {a:t0p}(chneg(sslist(a))): chneg(send(a) :: sslist(a))
+*)
 //
 (* ****** ****** *)
 

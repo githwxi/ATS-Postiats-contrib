@@ -24,7 +24,7 @@ myservice_ints_fserv(Chpos, N) ->
   Opt2 = session:chpos_sslist(Chpos),
   %% io:format("myservice_ints_fserv: Opt2 = ~p~n", [Opt2]),
   case Opt2 of
-    nil -> Chpos ! chpos_transfer_close;
+    nil -> session:chpos_recv_close(Chpos);
     cons -> session:chpos_send(Chpos, N), myservice_ints_fserv(Chpos, N+1)
   end.
 
