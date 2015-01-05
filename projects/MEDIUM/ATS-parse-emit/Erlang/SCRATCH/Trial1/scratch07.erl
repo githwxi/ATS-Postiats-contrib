@@ -1,12 +1,12 @@
 %%%%%%
 %
 -module(scratch07).
--export([scratch07/0]).
+-export([scratch07_init/0]).
 -export([scratch07_test/1]).
 %
 %%%%%%
 
-scratch07() ->
+scratch07_init() ->
   register(myservice_ints, spawn(myservice_ints, myservice_ints, [])),
   register(myservice_ints_filter, spawn(myservice_ints_filter, myservice_ints_filter, [])),
   register(myservice_primes, spawn(myservice_primes, myservice_primes, [])).

@@ -1,14 +1,14 @@
 %%%%%%
 %
 -module(scratch02).
--export([scratch02/0]).
+-export([scratch02_init/0]).
 -export([scratch02_test1/0]).
 -export([scratch02_test2/0]).
 -export([server/0, server_session/1]).
 %
 %%%%%%
 
-scratch02() ->
+scratch02_init() ->
   register(server, spawn(?MODULE, server, [])).
 
 %%%%%%
@@ -21,21 +21,21 @@ scratch02_test2() -> client2().
 server() ->
   receive
     Client ->
-    Chneg = spawn(session, chneg_transfer, []),
-    Chpos = spawn(?MODULE, server_session, [Chneg]),
+    Chpos = spawn(session, chpos_transfer, []),
+    Chneg = spawn(?MODULE, server_session, [Chpos]),
     Client ! {server, {Chpos, Chneg}},
     server()
   end.
 
 %%%%%%
 
-server_session(Chneg) ->
-  X = session:chpos_recv(Chneg),
-  CC = session:chpos_recv(Chneg),
+server_session(Chpos) ->
+  X = session:chpos_recv(Chpos),
+  CC = session:chpos_recv(Chpos),
   io:format("X = ~p~n", [X]),
   io:format("CC = ~p~n", [CC]),
-  session:chpos_send(Chneg, receipt),
-  session:chpos_recv_close(Chneg),
+  session:chpos_send(Chpos, receipt),
+  session:chpos_recv_close(Chpos),
   io:format("~p~n", ["server_session terminates!"]).
 
 %%%%%%

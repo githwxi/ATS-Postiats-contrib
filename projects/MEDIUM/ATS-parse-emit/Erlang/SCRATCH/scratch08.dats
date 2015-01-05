@@ -65,7 +65,8 @@ fun chneg_recv_close (ch: chneg(nil)): void
 //
 extern
 fun
-chpos_chneg_connect{ss:type} (ch1: chpos(ss), ch2: chneg(ss)): void
+chpos_chneg_connect
+  {ss:type}(ch1: chpos(ss), ch2: chneg(ss)): void
 //
 (* ****** ****** *)
 //
@@ -167,7 +168,7 @@ else chpos_sslist_nil (ch)
 ) (* end of [fserv] *)
 //
 in
-  chneg_create{sslist(bit)}(llam (ch) => fserv (n, ch))
+  chneg_create{sslist(bit)}(llam(ch) => fserv (n, ch))
 end // end of [int2bits]
 
 (* ****** ****** *)
@@ -226,7 +227,7 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  chneg_create{sslist(bit)}(llam (ch) => fserv (ch, ch1))
+  chneg_create{sslist(bit)}(llam(ch) => fserv (ch, ch1))
 end // end of [succ_bits]
   
 (* ****** ****** *)
@@ -279,7 +280,7 @@ case+ opt1 of
 end // end of [fserv]
 //
 in
-  chneg_create{sslist(bit)}(llam (ch) => fserv (ch, ch1, ch2))
+  chneg_create{sslist(bit)}(llam(ch) => fserv (ch, ch1, ch2))
 end // end of [add_bits_bits]
 
 (* ****** ****** *)

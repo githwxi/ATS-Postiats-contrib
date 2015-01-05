@@ -10,22 +10,22 @@
 myservice_ints() ->
   receive
     Client ->
-    Chneg = spawn(session, chneg_transfer, []),
-    Chpos = spawn(?MODULE, myservice_ints_fserv, [Chneg, 0]),
+    Chpos = spawn(session, chpos_transfer, []),
+    Chneg = spawn(?MODULE, myservice_ints_fserv, [Chpos, 0]),
     Client ! {myservice_ints, {Chpos, Chneg}},
     myservice_ints()
   end.
 
 %%%%%%
 
-myservice_ints_fserv(Chneg, N) ->
+myservice_ints_fserv(Chpos, N) ->
   %% io:format("myservice_ints_fserv: ~p~n", [self()]),
-  %% io:format("myservice_ints_fserv: Chneg = ~p~n", [Chneg]),
-  Opt2 = session:chpos_sslist(Chneg),
+  %% io:format("myservice_ints_fserv: Chpos = ~p~n", [Chpos]),
+  Opt2 = session:chpos_sslist(Chpos),
   %% io:format("myservice_ints_fserv: Opt2 = ~p~n", [Opt2]),
   case Opt2 of
-    nil -> Chneg ! chneg_transfer_close;
-    cons -> session:chpos_send(Chneg, N), myservice_ints_fserv(Chneg, N+1)
+    nil -> Chpos ! chpos_transfer_close;
+    cons -> session:chpos_send(Chpos, N), myservice_ints_fserv(Chpos, N+1)
   end.
 
 %%%%%%

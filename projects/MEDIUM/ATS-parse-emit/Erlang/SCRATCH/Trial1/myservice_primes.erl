@@ -10,30 +10,30 @@
 myservice_primes() ->
   receive
     Client ->
-    Chneg = spawn(session, chneg_transfer, []),
-    Chpos = spawn(?MODULE, myservice_primes_fserv, [Chneg]),
+    Chpos = spawn(session, chpos_transfer, []),
+    Chneg = spawn(?MODULE, myservice_primes_fserv, [Chpos]),
     Client ! {myservice_primes, {Chpos, Chneg}},
     myservice_primes()
   end.
 
 %%%%%%
 
-myservice_primes_fserv(Chneg) ->
-  %% io:format("myservice_primes_fserv: Chneg = ~p~n", [Chneg]),
+myservice_primes_fserv(Chpos) ->
+  %% io:format("myservice_primes_fserv: Chpos = ~p~n", [Chpos]),
   myservice_ints ! self(),
   receive {myservice_ints, Ints} ->
     session:chneg_sslist_cons(Ints), 0 = session:chneg_send(Ints),
     session:chneg_sslist_cons(Ints), 1 = session:chneg_send(Ints),
-    myservice_primes_fserv2(Ints, Chneg)
+    myservice_primes_fserv2(Ints, Chpos)
   end.
 
-myservice_primes_fserv2(Ints, Chneg) ->
+myservice_primes_fserv2(Ints, Chpos) ->
   %% io:format("myservice_primes_fserv2: Ints = ~p~n", [Ints]),
-  %% io:format("myservice_primes_fserv2: Chneg = ~p~n", [Chneg]),
-  Opt2 = session:chpos_sslist (Chneg),
+  %% io:format("myservice_primes_fserv2: Chpos = ~p~n", [Chpos]),
+  Opt2 = session:chpos_sslist (Chpos),
   case Opt2 of
     nil ->
-      Chneg ! chneg_transfer_close,
+      Chpos ! chpos_transfer_close,
       session:chneg_sslist_nil(Ints);
     cons -> 
       myservice_ints_filter ! self(),
@@ -42,8 +42,8 @@ myservice_primes_fserv2(Ints, Chneg) ->
         session:chneg_recv(Ints_filter, Ints),
         session:chneg_sslist_cons(Ints_filter),
         First = session:chneg_send(Ints_filter),
-        session:chpos_send (Chneg, First),
-        myservice_primes_fserv2(Ints_filter, Chneg)
+        session:chpos_send (Chpos, First),
+        myservice_primes_fserv2(Ints_filter, Chpos)
       end
   end.
 

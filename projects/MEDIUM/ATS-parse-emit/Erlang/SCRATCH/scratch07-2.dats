@@ -164,9 +164,9 @@ case+ opt of
     (ch) => let
     val ch1 =
       chneg_sslist_cons (ch1)
-    val prime = chneg_send_val (ch1)
-    val ch2 = filter_sslist<int> (ch1, lam (n) => n % prime > 0)
-    val ((*void*)) = chpos_send (ch, prime)
+    val p = chneg_send_val (ch1)
+    val ch2 = filter_sslist<int> (ch1, lam (n) => n % p > 0)
+    val ((*void*)) = chpos_send (ch, p)
   in
     fserv (ch, ch2)
   end // end of [chneg_sslist_cons]
