@@ -27,12 +27,36 @@ scratch08_test0(N) ->
 
 %%%%%%
 
+bitlst_show_loop(Bitlst, I) ->
+  Opt = session:chneg_send(Bitlst),
+  case Opt of
+    nil ->
+      session:chneg_recv_close(Bitlst);
+    cons ->
+      Bit = session:chneg_send(Bitlst),
+      io:format("Bit[~p] = ~p~n", [I, Bit]),
+      bitlst_show_loop(Bitlst, I+1)
+  end.
+
+%%%%%%
+
+bitlst2int(Bitlst) ->
+  Opt = session:chneg_send(Bitlst),
+  case Opt of
+      nil ->
+	  session:chneg_recv_close(Bitlst), 0;
+      cons ->
+	  Bit = session:chneg_send(Bitlst), 2*bitlst2int(Bitlst)+Bit
+  end.
+
+%%%%%%
+
 scratch08_test1(N) ->
   myservice_int2bits ! self(),
   Bitlst =
     receive {myservice_int2bits, Chposneg1} -> Chposneg1 end,
   session:chneg_recv(Bitlst, N),
-  bitlst_show_loop(succ_bits(Bitlst), 0).
+  bitlst2int(succ_bits(Bitlst)).
 
 %%%%%%
 
@@ -45,20 +69,7 @@ scratch08_test2(N1, N2) ->
     receive {myservice_int2bits, Chposneg2} -> Chposneg2 end,
   session:chneg_recv(Bitlst1, N1),
   session:chneg_recv(Bitlst2, N2),
-  bitlst_show_loop(add_bits_bits(Bitlst1, Bitlst2), 0).
-
-%%%%%%
-
-bitlst_show_loop(Bitlst, I) ->
-  Opt = session:chneg_send(Bitlst),
-  case Opt of
-    nil ->
-      session:chneg_recv_close(Bitlst);
-    cons ->
-      Bit = session:chneg_send(Bitlst),
-      io:format("Bit[~p] = ~p~n", [I, Bit]),
-      bitlst_show_loop(Bitlst, I+1)
-  end.
+  bitlst2int(add_bits_bits(Bitlst1, Bitlst2)).
 
 %%%%%%
 

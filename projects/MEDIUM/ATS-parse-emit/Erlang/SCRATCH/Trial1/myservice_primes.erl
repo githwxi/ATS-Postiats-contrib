@@ -42,7 +42,7 @@ myservice_primes_fserv2(Ints, Chpos) ->
         session:chneg_recv(Ints_filter, Ints),
         session:chneg_sslist_cons(Ints_filter),
         First = session:chneg_send(Ints_filter),
-        session:chpos_send (Chpos, First),
+        session:chpos_send(Chpos, First),
         myservice_primes_fserv2(Ints_filter, Chpos)
       end
   end.
