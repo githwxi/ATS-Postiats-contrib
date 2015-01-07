@@ -7,7 +7,7 @@
 #define
 ATS_PACKNAME "ATSCNTRB.jsmn"
 #define
-ATS_EXTERN_PREFIX "atscntrb_jsmn" // prefix for external names
+ATS_EXTERN_PREFIX "atscntrb_jsmn_" // prefix for external names
 
 (* ****** ****** *)
 
@@ -20,7 +20,6 @@ macdef JSMN_STRING = $extval(jsmntype_t, "JSMN_STRING")
 
 typedef jsmnerr_t = int
 
-macdef JSMN_PRIMITIVE = $extval(jsmntype_t, "JSMN_PRIMITIVE")
 (** Not enough tokens were provided *)
 macdef JSMN_ERROR_NOMEM = $extval(jsmnerr_t, "JSMN_ERROR_NOMEM")
 (** Invalid character inside JSON string *)
@@ -35,9 +34,9 @@ abst@ype jsmntokptr = $extype "jsmntok_t*"
 
 fun jsmn_init (&jsmn_parser? >> _): void = "mac#%"
 
-fun jsmn_parse {m,n:int} (
-    &jsmn_parser, string(m), size_t(m),
-    arrayptr(jsmntok_t, n), uint(n)
+fun jsmn_parse {k,l:addr} {m,n:int} (
+    !bytes m @ k, !bytes (sizeof(jsmntok_t)*n) @ l |
+        &jsmn_parser, ptr k, size_t m, ptr l, uint n
 ): jsmnerr_t = "mac#%"
 
 (* ****** ****** *)
@@ -47,8 +46,6 @@ fun jsmntok_type (jsmntokptr): jsmntype_t = "mac#%"
 overload .type with jsmntok_type
 
 fun jsmntok_size (jsmntokptr): int = "mac#%"
-
-overload .size with jsmntok_size
 
 fun jsmntok_start (jsmntokptr): int = "mac#%"
 

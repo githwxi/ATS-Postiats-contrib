@@ -15,12 +15,11 @@ staload "constraint/constraint.sats"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "parsing/jsonval.sats"
 
 (* ****** ****** *)
 
 staload "./parsing.sats"
-staload "./parsing.dats"
 
 (* ****** ****** *)
 
@@ -94,19 +93,22 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_s2cstmap (jsvs) = {
-    val _ = parse_list<s2cst> (jsvs, parse_s2cst)
+
+    implement
+    parse_list$fwork<s2cst> (jsv) = parse_s2cst (jsv)
+    
+    val _ = parse_list<s2cst> (jsvs)
 }
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_s2cst
   (jsv0) = let
 //
-val-~Some_vt(jsv2) =
-  jsonval_get_field (jsv0, "s2cst_stamp")
+val jsv2 = jsv0["s2cst_stamp"]
 //
 val stamp = parse_stamp (jsv2)
 //
@@ -118,14 +120,11 @@ case+ opt of
 | ~Some_vt (s2c) => s2c
 | ~None_vt ((*void*)) => s2c where
   {
-    val-~Some_vt (jsv1) =
-      jsonval_get_field (jsv0, "s2cst_sym")
+    val jsv1 = jsv0["s2cst_sym"]
     val sym = parse_symbol (jsv1)
-    val-~Some_vt (jsv2) =
-      jsonval_get_field (jsv0, "s2cst_srt")
+    val jsv2 = jsv0["s2cst_srt"]
     val srt = parse_s2rt (jsv2)
-    val-~Some_vt (jsv3) =
-      jsonval_get_field (jsv0, "s2cst_supcls")
+    val jsv3 = jsv0["s2cst_supcls"]
     val supcls = parse_s2explst (jsv3)
     val s2c = s2cst_make (sym, stamp, srt)
     val () = s2cst_set_supcls (s2c, supcls)

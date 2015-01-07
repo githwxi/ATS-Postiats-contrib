@@ -15,27 +15,24 @@ staload "constraint/constraint.sats"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "parsing/jsonval.sats"
 
 (* ****** ****** *)
 
-staload "./parsing.sats"
-staload "./parsing.dats"
+staload "parsing/parsing.sats"
 
 (* ****** ****** *)
 
 extern
-fun parse_S2ZEvar (jsonval): s2zexp
+fun{} parse_S2ZEvar (jsonval): s2zexp
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_S2ZEvar 
   (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-val s2v = parse_s2var (jsvs[0])
+    val () = assertloc (jsv0.size >= 1)
+    val s2v = parse_s2var (jsv0[0])
 //
 in
   S2ZEvar (s2v)
@@ -43,18 +40,12 @@ end // end of [parse_S2ZEvar]
 
 (* ****** ****** *)
 
-implement 
+implement{}
 parse_s2zexp 
   (jsv0) = let
-val-JSONobject(lxs) = jsv0
-val-list_cons (lx, lxs) = lxs
-//
-val name = lx.0 and jsv2 = lx.1
-//
 in
-//
-  case+ name of
-  | "S2ZEvar" => parse_S2ZEvar (jsv2)
-  | _ => S2ZEbot ()
-//
+    if jsv0.has_key ("S2ZEvar") then
+        parse_S2ZEvar (jsv0["S2ZEvar"])
+    else
+        S2ZEbot ()
 end

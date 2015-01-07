@@ -2,7 +2,6 @@
   A convenience wrapper around the jsmn library.
 *)
 
-
 abst@ype jsonval = ptr
 
 (**
@@ -10,6 +9,11 @@ abst@ype jsonval = ptr
   that the jsonval refers to.
 *)
 fun{} jsonval_src: () -> string
+
+(**
+    Parse a jsonval
+*)
+fun jsonval_parse_from_stdin: () -> (string, jsonval)
 
 (**
   Typechecking functions
@@ -32,11 +36,7 @@ fun{} jsonval_is_object (jsonval): bool
 
 fun{} int_of_jsonval (jsonval): int
 
-fun{} string_of_jsonval (jsonval): string
-
 fun{} bool_of_jsonval (jsonval): bool
-
-fun{} double_of_jsonval (jsonval): double
 
 (**
   Accessors 
@@ -65,6 +65,18 @@ fun{} jsonval_get_copy_string (jsonval): string
 overload .copy_string with jsonval_get_copy_string
 
 (**
+    Get a null terminated string by modifying the original json
+    string.
+*)
+fun{} jsonval_get_string_unsafe (jsonval): string
+
+overload .string_unsafe with jsonval_get_string_unsafe
+
+fun jsonval_size (jsonval): int
+
+overload .size with jsonval_size
+
+(**
   Array Operations
 *)
 
@@ -75,21 +87,27 @@ fun jsonval_array_get_at_exn (
 overload [] with jsonval_array_get_at_exn
 
 fun{a:vt@ype}
-jsonval_array_foreach$fwork (
-  jsonval, &a >> _
-): void
+jsonval_array_map$fwork (
+  jsonval
+): a
 
 fun{a:vt@ype}
-jsonval_array_foreach (
-  jsonval, &a
-): void
+jsonval_array_map (
+  jsonval
+): List0_vt (a)
 
 (**
   Object Operations
 *)
 
-fun{} jsonval_object_get_exn (
+fun{} jsonval_object_get_key_exn (
   jsonval, string
 ): jsonval
 
-overload [] with jsonval_object_get_exn
+overload [] with jsonval_object_get_key_exn
+
+fun{} jsonval_object_has_key (
+  jsonval, string
+): bool
+
+overload .has_key with jsonval_object_has_key
