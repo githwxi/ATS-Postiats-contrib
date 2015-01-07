@@ -424,7 +424,7 @@ local
 
 in
 
-implement{a}
+implement {a}
 jsonval_array_map (jsv0) = let
     
     val () = assertloc (jsonval_is_array (jsv0))

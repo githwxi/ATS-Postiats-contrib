@@ -25,7 +25,6 @@ staload "constraint/constraint.sats"
 
 staload "parsing/parsing.sats"
 
-
 staload _ = "parsing/parsing_c3nstr.dats"
 staload _ = "parsing/parsing_h3ypo.dats"
 staload _ = "parsing/parsing_s2cst.dats"
@@ -35,7 +34,6 @@ staload _ = "parsing/parsing_s2var.dats"
 staload _ = "parsing/parsing_s2vvar.dats"
 staload _ = "parsing/parsing_s2zexp.dats"
 staload _ = "parsing/parsing_s3itm.dats"
-
 
 (* ****** ****** *)
 

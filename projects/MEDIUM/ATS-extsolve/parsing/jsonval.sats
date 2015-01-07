@@ -86,12 +86,12 @@ fun jsonval_array_get_at_exn (
 
 overload [] with jsonval_array_get_at_exn
 
-fun{a:vt@ype}
+fun {a:vt@ype}
 jsonval_array_map$fwork (
   jsonval
 ): a
 
-fun{a:vt@ype}
+fun {a:vt@ype}
 jsonval_array_map (
   jsonval
 ): List0_vt (a)
