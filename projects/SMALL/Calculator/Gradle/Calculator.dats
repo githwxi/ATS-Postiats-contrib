@@ -75,9 +75,8 @@ fun JNI_eval{l1,l2:addr}
 
 (* ****** ****** *)
 
-implmnt
-JNI_eval
-  (env, obj, inp) = let
+implement
+JNI_eval(env, obj, inp) = let
 //
 val () = assertloc ($JNI.jstring2ptr(inp) > 0)
 //

@@ -4,7 +4,8 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
