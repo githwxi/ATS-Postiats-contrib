@@ -1,7 +1,13 @@
 (*
 ** Project Euler: P1
+** See https://projecteuler.net
 *)
-
+(* ****** ****** *)
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start time: January 13, 2015
+//
 (* ****** ****** *)
 //
 #include "share/atspre_define.hats"
@@ -13,16 +19,20 @@ staload
 //
 (* ****** ****** *)
 
-fun nmod
-  {n,p:int | n >= 0; p > 0}
-  (n: int n, p: int p):<> [r:nat] (MOD (n, p, r) | int r)
+fun
+nmod
+{n,p:int |
+ n >= 0; p > 0}
+(
+  n: int n, p: int p
+) :<> [r:nat] (MOD (n, p, r) | int r)
   = "mac#atspre_g0int_mod_int"
 // end of [nmod]
 
 (* ****** ****** *)
-
 //
-// SUM35 (n, t) = sum of i <= n such that i mod 3 = 0 or i mod 5 = 0
+// SUM35 (n, t) =
+// sum of i <= n such that i mod 3 = 0 or i mod 5 = 0
 //
 dataprop SUM35
 (
