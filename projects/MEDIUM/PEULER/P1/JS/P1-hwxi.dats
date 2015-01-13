@@ -14,13 +14,35 @@
 #include
 "share/atspre_define.hats"
 #include
-"share/atspre_staload.hats"
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
-//
+
 staload
-"{$LIBATSHWXI}/PEULER/SATS/peuler.sats"
+"{$LIBATSCC2JS}/SATS/print.sats"
+
+(* ****** ****** *)
+
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "my_dynload"
+
+(* ****** ****** *)
+
+%{
+function
+atspre_g0int_mod_int(n, p) { return (n%p); }
+%} // end of [%{]
+
+(* ****** ****** *)
+
+%{$
 //
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+
 (* ****** ****** *)
 //
 staload
