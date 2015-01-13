@@ -57,7 +57,7 @@ fun loop
   {n:nat}{t0:int} .<n>.
 (
   n: int n, t0: int t0
-) :<> [t:int | t >= t0] (SUM35 (n, t-t0) | int (t)) =
+) : [t:int | t >= t0] (SUM35 (n, t-t0) | int (t)) =
 (
   if n > 0 then let
     val (pf3 | r3) = nmod (n, 3)
@@ -84,9 +84,7 @@ end // end if [sum35]
 
 (* ****** ****** *)
 
-implement
-main0 () =
-{
+val () = {
 //
 #define N 1000
 //
