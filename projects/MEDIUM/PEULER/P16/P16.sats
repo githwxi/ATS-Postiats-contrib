@@ -33,18 +33,17 @@ dlist(int) =
 //
 fun
 add_dlist_dlist
-  {m,n:nat}
-  (m: dlist(m), n: dlist(n)): dlist(m+n)
+  {m,n:nat}(m: dlist(m), n: dlist(n)): dlist(m+n)
 //
 (* ****** ****** *)
 //
 fun
-exp2{n:nat}
-  (int(n)): [r:int] (EXP2(n, r) | dlist(r))
+dlist_gen_exp2
+  {n:nat}(n: int(n)): [r:int] (EXP2(n, r) | dlist(r))
 //
 (* ****** ****** *)
 
-fun dlist_sum{n:nat}(ds: dlist(n)): int
+fun dlist_tally{n:nat}(ds: dlist(n)): int
 
 (* ****** ****** *)
 
