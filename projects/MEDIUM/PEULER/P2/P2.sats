@@ -32,16 +32,16 @@ absprop FIB (n: int, r: int) // fib(n) = r
 //
 dataprop MYSUM
 (
-  int(*n*), int
+  int(*n*), int(*t*)
 ) =
-  | {n:nat}{r: int | r > LIMIT}
+  | {n:nat}{r:int | r > LIMIT}
     MYSUM (n, 0) of FIB (n, r)
   | {n:nat}
-    {r: int | r <= LIMIT; r mod 2 > 0}
+    {r:nat | r <= LIMIT; r mod 2 > 0}
     {t1:int}
     MYSUM (n, t1) of (FIB (n, r), MYSUM (n+1, t1))
   | {n:nat}
-    {r: int | r <= LIMIT; r mod 2 == 0}
+    {r:nat | r <= LIMIT; r mod 2 == 0}
     {t1:int}
     MYSUM (n, r + t1) of (FIB (n, r), MYSUM (n+1, t1))
 // end of [MYSUM]
