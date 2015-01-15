@@ -15,13 +15,45 @@ other people interested in ATS to translate into ATS some of the problems
 published at [Project Euler](https://projecteuler.net). The ATS
 code translated from the description of a problem is referred to as a
 formal specification for the problem. It is my hope that there will be
-considerably large interest (generated from the ats-lang-users community
+considerably large interest (originated from the ats-lang-users community
 and elsewhere) in implementing the specifications posted here.
 
 I will be eagerly collecting both specifications and their implementations.
 Note that a problem may be given multiple specificatons (of varying degree
-of accuracy or completeness) and each specification may implemented in many
+of accuracy or completeness) and each specification may be implemented in many
 different styles.
 
 ## The very first example
+
+Please follow the
+[link](https://projecteuler.net/problem=1) to find the first problem at
+Project Euler. For easy access, the description of the problem is pasted
+as follows:
+
+```text
+If we list all the natural numbers below 10 that are multiples of 3 or 5,
+we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+```
+
+```ocaml
+//
+// SUM35 (n, t) =
+// sum of i <= n such that i mod 3 = 0 or i mod 5 = 0
+//
+dataprop SUM35
+(
+  int(*n*), int(*t*)
+) =
+  | SUM35bas (0, 0) of ()
+  | {n:pos}{s1:nat}
+    SUM35ind1 (n, s1+n) of (SUM35 (n-1, s1), MOD (n, 3, 0))
+  | {n:pos}{s1:nat}
+    SUM35ind2 (n, s1+n) of (SUM35 (n-1, s1), MOD (n, 5, 0))
+  | {n:pos}{s1:nat}{r3,r5:pos}
+    SUM35ind3 (n, s1) of (SUM35 (n-1, s1), MOD (n, 3, r3), MOD (n, 5, r5))
+// end of [SUM35]
+//
+```
 

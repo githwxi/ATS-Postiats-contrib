@@ -46,7 +46,7 @@ dataprop SUM35
   | {n:pos}{s1:nat}{r3,r5:pos}
     SUM35ind3 (n, s1) of (SUM35 (n-1, s1), MOD (n, 3, r3), MOD (n, 5, r5))
 // end of [SUM35]
-
+//
 (* ****** ****** *)
 //
 // HX-2015-01-13:
