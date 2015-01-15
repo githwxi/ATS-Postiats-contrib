@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Learning ATS by Solving Math Puzzles
+=======
+# Learning Program Verification by Solving Math Puzzles
+>>>>>>> 2e10ee5406f13bc84dec94731975edbd5325b834
 
 ## Project Description
 
