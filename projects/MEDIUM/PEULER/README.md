@@ -76,9 +76,15 @@ paradigm of programming with theorem-proving (PwTP) in ATS.
 
 * [P1](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P1/.):
   See [description](https://projecteuler.net/problem=1)
-* [P2](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P2/.)
+* [P2](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P2/.):
   See [description](https://projecteuler.net/problem=2)
-* [P15](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P15/.)
+* [P15](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P15/.):
   See [description](https://projecteuler.net/problem=15)
-* [P16](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P16/.)
+* [P16](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P16/.):
   See [description](https://projecteuler.net/problem=16)
+
+Please try to contribute either a specification or a solution
+(that is, implementation), or both! The success of this project
+relies on the jointly effort of the ats-lang-users community and beyond.
+
+## The End of [README.md]
