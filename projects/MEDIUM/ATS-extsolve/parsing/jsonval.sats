@@ -86,8 +86,8 @@ fun jsonval_array_get_at_exn (
 
 overload [] with jsonval_array_get_at_exn
 
-fun {a:vt@ype}
-jsonval_array_map$fwork (
+fun{a:vt@ype}
+jsonval_parse (
   jsonval
 ): a
 

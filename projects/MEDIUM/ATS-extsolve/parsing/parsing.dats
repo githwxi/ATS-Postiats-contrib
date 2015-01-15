@@ -38,6 +38,7 @@ staload _ = "parsing/parsing_s3itm.dats"
 (* ****** ****** *)
 
 staload "parsing/jsonval.sats"
+
 staload _ = "parsing/jsonval.dats"
 
 (* ****** ****** *)
@@ -88,11 +89,6 @@ implement
 {a}
 parse_list
   (jsv0) = let
-    
-    implement
-    jsonval_array_map$fwork<a> (jsv) =
-        parse_list$fwork<a> (jsv)
-
     val rs = jsonval_array_map<a> (jsv0)
 in
     list_of_list_vt (rs)
@@ -113,7 +109,7 @@ in
         None ()
     else let
         val jsv = jsv0[0]
-        val x = parse_option$fwork<a> (jsv)
+        val x = jsonval_parse<a> (jsv)
      in
          Some (x)
      end
@@ -127,6 +123,8 @@ parse_c3nstr_from_stdin () = let
   val out = stdout_ref
 
   val (data, jsv) = jsonval_parse_from_stdin ()
+  
+  val () = $tempenver (data)
   
   implement
   jsonval_src<> () = data

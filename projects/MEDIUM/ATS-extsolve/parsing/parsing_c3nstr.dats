@@ -47,7 +47,7 @@ parse_c3nstropt
   (jsv0) = let
   
   implement
-  parse_option$fwork<c3nstr> (jsv) = parse_c3nstr (jsv)
+  jsonval_parse<c3nstr> (jsv) = parse_c3nstr (jsv)
 in
   parse_option<c3nstr> (jsv0)
 end // end of [parse_c3nstropt]
@@ -80,29 +80,27 @@ in
     in
         exit (1)
     end
-end // end of [parse_c3nstr_node]
+end where { 
 
-(* ****** ****** *)
-
-implement{}
+fun
 parse_C3NSTRprop
-  (jsv0) = let
+  (jsv0: jsonval): c3nstr_node = let
     val () = assertloc (jsv0.size >= 1)
     val s2e = parse_s2exp (jsv0[0])
 in
   C3NSTRprop (s2e)
 end // end of [parse_C3NSTRprop]
 
-(* ****** ****** *)
-
-implement{}
+fun
 parse_C3NSTRitmlst
-  (jsv0) = let
+  (jsv0: jsonval): c3nstr_node = let
     val () = assertloc (jsv0.size >= 1)
     val s3is = parse_s3itmlst (jsv0[0])
 in
   C3NSTRitmlst (s3is)
 end // end of [parse_C3NSTRitmlst]
+
+} // end of [parse_c3nstr_node]
 
 (* ****** ****** *)
 

@@ -8,6 +8,8 @@
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
+#include 
+"share/HATS/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 //
@@ -22,23 +24,9 @@ staload "parsing/jsonval.sats"
 staload "parsing/parsing.sats"
 
 (* ****** ****** *)
-//
-extern
-fun{} parse_S3ITMsvar (jsonval): s3itm
-extern
-fun{} parse_S3ITMhypo (jsonval): s3itm
-extern
-fun{} parse_S3ITMsVar (jsonval): s3itm
-extern
-fun{} parse_S3ITMcnstr (jsonval): s3itm
-extern
-fun{} parse_S3ITMcnstr_ref (jsonval): s3itm
-extern
-fun{} parse_S3ITMdisj (jsonval): s3itm
-//
-extern
-fun{} parse_S3ITMignored (jsonval): s3itm
-//
+
+staload UN = "prelude/SATS/unsafe.sats"
+
 (* ****** ****** *)
 
 implement{}
@@ -64,37 +52,11 @@ in
         parse_S3ITMdisj (jsv0["S3ITMdisj"])
     else
          parse_S3ITMignored (jsv0)
-end // end of [parse_s3itm]
+end where {
 
-(* ****** ****** *)
-
-implement{}
-parse_s3itmlst
-  (jsv0) = let
-  
-  implement
-  parse_list$fwork<s3itm> (jsv) = parse_s3itm (jsv)
-in
-  parse_list<s3itm> (jsv0)
-end // end of [parse_s3itmlst]
-
-(* ****** ****** *)
-
-implement{}
-parse_s3itmlstlst
-  (jsv0) = let
-  
-  implement
-  parse_list$fwork<s3itmlst> (jsv) = parse_s3itmlst (jsv)
-in
-  parse_list<s3itmlst> (jsv0)
-end // end of [parse_s3itmlstlst]
-
-(* ****** ****** *)
-
-implement{}
+fun
 parse_S3ITMsvar
-  (jsv0) = let
+  (jsv0:jsonval): s3itm = let
   
 val () = assertloc (jsv0.size >= 1)
 val s2v = parse_s2var (jsv0[0])
@@ -105,9 +67,9 @@ end // end of [parse_S3ITMsvar]
 
 (* ****** ****** *)
 
-implement{}
+fun
 parse_S3ITMhypo
-  (jsv0) = let
+  (jsv0:jsonval): s3itm = let
 
 val () = assertloc (jsv0.size >= 1)
 val h3p = parse_h3ypo (jsv0[0])
@@ -118,9 +80,9 @@ end // end of [parse_S3ITMhypo]
 
 (* ****** ****** *)
 
-implement{}
+fun
 parse_S3ITMsVar
-  (jsv0) = let
+  (jsv0:jsonval): s3itm = let
 
 val () = assertloc (jsv0.size >= 1)
 val s2V = parse_s2Var (jsv0[0])
@@ -131,9 +93,9 @@ end // end of [parse_S3ITMsVar]
 
 (* ****** ****** *)
 
-implement{}
+fun
 parse_S3ITMcnstr
-  (jsv0) = let
+  (jsv0:jsonval): s3itm = let
 
 val () = assertloc (jsv0.size >= 1)
 val c3t = parse_c3nstr (jsv0[0])
@@ -144,9 +106,9 @@ end // end of [parse_S3ITMcnstr]
 
 (* ****** ****** *)
 
-implement{}
+fun
 parse_S3ITMcnstr_ref
-  (jsv0) = let
+  (jsv0:jsonval): s3itm = let
 
 val () = assertloc (jsv0.size >= 2)
 val loc = parse_location (jsv0[0])
@@ -158,9 +120,9 @@ end // end of [parse_S3ITMcnstr_ref]
 
 (* ****** ****** *)
 
-implement{}
+fun
 parse_S3ITMdisj
-  (jsv0) = let
+  (jsv0:jsonval): s3itm = let
 
 val () = assertloc (jsv0.size >= 1)
 val s3iss = parse_s3itmlstlst (jsv0[0])
@@ -171,10 +133,49 @@ end // end of [parse_S3ITMdisj]
 
 (* ****** ****** *)
 //
-implement{}
-parse_S3ITMignored (jsv0) =
+fun
+parse_S3ITMignored (jsv0:jsonval): s3itm =
   let val () = assertloc (false) in exit(1) end
-//
+
+} // end of [parse_s3itm]
+
+(* ****** ****** *)
+
+implement{}
+parse_s3itmlst
+  (jsv0) = let
+  
+  implement
+  jsonval_parse<s3itm> (jsv) = parse_s3itm (jsv)
+  
+in
+  parse_list<s3itm> (jsv0)
+end // end of [parse_s3itmlst]
+
+(* ****** ****** *)
+
+implement{}
+parse_s3itmlstlst
+  (jsv0) = let
+  
+  typedef s3itmlst0 = list0(s3itm)
+  
+  implement
+  jsonval_parse<s3itmlst0> (jsv) = let   
+      val s3s = parse_s3itmlst<> (jsv)
+  in
+      $UN.cast{s3itmlst0} (s3s)
+  end
+  
+  val s3s = parse_list<s3itmlst0> (jsv0)
+  
+in
+  $UN.cast{List0(s3itmlst)} (s3s)
+end // end of [parse_s3itmlstlst]
+
+(* ****** ****** *)
+
+
 (* ****** ****** *)
 
 (* end of [parsing_s3itm.dats] *)

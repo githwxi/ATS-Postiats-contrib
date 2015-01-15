@@ -44,18 +44,9 @@ end // end of [parse_h3ypo]
 
 (* ****** ****** *)
 
-extern
-fun{} parse_H3YPOprop (jsonval): h3ypo_node
-extern
-fun{} parse_H3YPObind (jsonval): h3ypo_node
-extern
-fun{} parse_H3YPOeqeq (jsonval): h3ypo_node
-
-(* ****** ****** *)
-
 implement{}
 parse_h3ypo_node
-  (jsv0) = let
+  (jsv0:jsonval): h3ypo_node = let
 (*
 val (
 ) = fprintln!
@@ -73,13 +64,11 @@ in
      in 
           exit (1)
      end
-end // end of [parse_h3ypo_node]
+end where {
 
-(* ****** ****** *)
-
-implement{}
+fun
 parse_H3YPOprop
-  (jsv0) = let
+  (jsv0:jsonval): h3ypo_node = let
 
 val () = assertloc (jsv0.size >= 1)
 val s2e = parse_s2exp (jsv0[0])
@@ -88,11 +77,9 @@ in
   H3YPOprop (s2e)
 end // end of [parse_H3YPOprop]
 
-(* ****** ****** *)
-
-implement{}
+fun
 parse_H3YPObind
-  (jsv0) = let
+  (jsv0:jsonval): h3ypo_node = let
 
 val () = assertloc (jsv0.size >= 2)
 val s2v = parse_s2var (jsv0[0])
@@ -102,11 +89,9 @@ in
   H3YPObind (s2v, s2e)
 end // end of [parse_H3YPObind]
 
-(* ****** ****** *)
-
-implement{}
+fun
 parse_H3YPOeqeq
-  (jsv0) = let
+  (jsv0:jsonval): h3ypo_node = let
   
 val () = assertloc (jsv0.size >= 2)
 
@@ -116,6 +101,8 @@ val s2e2 = parse_s2exp (jsv0[1])
 in
   H3YPOeqeq (s2e1, s2e2)
 end // end of [parse_H3YPOeqeq]
+
+} // end of [parse_h3ypo_node]
 
 (* ****** ****** *)
 

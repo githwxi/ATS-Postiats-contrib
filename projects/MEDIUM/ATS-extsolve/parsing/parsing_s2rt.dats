@@ -21,17 +21,35 @@ staload "parsing/parsing.sats"
 
 (* ****** ****** *)
 
-extern
-fun{} parse_S2RTbas (jsonval) : s2rt
-
-extern
-fun{} parse_S2RTfun (jsonval) : s2rt
+implement{}
+parse_s2rtlst
+  (jsv0) = let
+  
+    implement
+    jsonval_parse<s2rt> (jsv) = parse_s2rt (jsv)
+    
+in
+    parse_list<s2rt> (jsv0)
+end
 
 (* ****** ****** *)
 
 implement{}
-parse_S2RTbas
+parse_s2rt
   (jsv0) = let
+
+in
+    if jsv0.has_key ("S2RTbas") then
+        parse_S2RTbas (jsv0["S2RTbas"])
+    else if jsv0.has_key ("S2RTfun") then
+        parse_S2RTfun (jsv0["S2RTfun"])
+    else 
+        S2RTignored ()
+end where {
+
+fun
+parse_S2RTbas
+  (jsv0: jsonval): s2rt = let
 
 val () = assertloc (jsv0.size >= 1)
 //
@@ -76,11 +94,9 @@ in
    
 end // end of [parse_S2RTbas]
 
-(* ****** ****** *)
-
-implement{}
+fun
 parse_S2RTfun
-  (jsv0) = let
+  (jsv0:jsonval): s2rt = let
 
 val () = assertloc (jsv0.size >= 2)
 val args = parse_s2rtlst (jsv0[0])
@@ -91,33 +107,7 @@ in
   S2RTfun (args, ret)
 end // end of [parse_S2RTfun]
 
-(* ****** ****** *)
-
-implement{}
-parse_s2rtlst
-  (jsv0) = let
-  
-    implement
-    parse_list$fwork<s2rt> (jsv)= parse_s2rt (jsv)
-    
-in
-    parse_list<s2rt> (jsv0)
-end
-
-(* ****** ****** *)
-
-implement{}
-parse_s2rt
-  (jsv0) = let
-
-in
-    if jsv0.has_key ("S2RTbas") then
-        parse_S2RTbas (jsv0["S2RTbas"])
-    else if jsv0.has_key ("S2RTfun") then
-        parse_S2RTfun (jsv0["S2RTfun"])
-    else 
-        S2RTignored ()
-end // end of [parse_s2rt]
+} // end of [parse_s2rt]
 
 (* ****** ****** *)
 

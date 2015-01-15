@@ -97,7 +97,7 @@ implement{}
 parse_s2cstmap (jsvs) = {
 
     implement
-    parse_list$fwork<s2cst> (jsv) = parse_s2cst (jsv)
+    jsonval_parse<s2cst> (jsv) = parse_s2cst (jsv)
     
     val _ = parse_list<s2cst> (jsvs)
 }

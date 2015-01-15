@@ -9,6 +9,8 @@
 
 #include
 "share/atspre_define.hats"
+#include
+"share/atspre_staload.hats"
 
 (* ****** ****** *)
 
@@ -438,7 +440,7 @@ jsonval_array_map (jsv0) = let
             val pjs = $UN.cast{ptr} (jsv)
             val ofs = g0i2u(n)*sizeof<jsmntok_t>
             val jsvi = $UN.cast{jsonval} (add_ptr_bsz (pjs, ofs))
-            val x = jsonval_array_map$fwork<a> (jsvi)
+            val x = jsonval_parse<a> (jsvi)
          in
              loop (jsv, succ(i), n+jsonval_numtokens (jsvi), x :: rs)
          end

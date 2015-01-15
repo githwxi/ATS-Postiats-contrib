@@ -78,7 +78,7 @@ implement{}
 parse_s2varmap (jsvs) = {
 
     implement
-    parse_list$fwork<s2var> (jsv) = parse_s2var (jsv)
+    jsonval_parse<s2var> (jsv) = parse_s2var (jsv)
     
     val _ = parse_list<s2var>(jsvs)
 }

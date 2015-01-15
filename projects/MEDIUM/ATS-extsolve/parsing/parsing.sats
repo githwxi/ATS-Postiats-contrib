@@ -28,22 +28,11 @@ fun{} parse_location (jsv: jsonval): loc_t
 
 fun {
 a:t@ype
-} parse_list$fwork 
-  (jsv: jsonval): a
-// end of [parse_list$fwork]
-
-fun {
-a:t@ype
 } parse_list
   (jsv: jsonval): List0 (a)
 // end of [parse_list]
 
 (* ****** ****** *)
-
-fun {
-a:t@ype
-} parse_option$fwork (jsonval): a
-// end of [parse_option$fwork]
 
 fun {
 a:t@ype
