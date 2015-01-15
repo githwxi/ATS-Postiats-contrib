@@ -25,10 +25,9 @@ different styles.
 
 ## The very first example
 
-Please follow the
-[link](https://projecteuler.net/problem=1) to find the first problem at
-Project Euler. For easy access, the description of the problem is pasted
-as follows:
+Please follow the [link](https://projecteuler.net/problem=1) to find the
+first problem at Project Euler. Let us use P1 to refer to this problem.
+For easy access, the description of P1 is pasted as follows:
 
 ```text
 If we list all the natural numbers below 10 that are multiples of 3 or 5,
@@ -70,5 +69,12 @@ fun sum35{n:nat}(n: int n): [t:nat] (SUM35 (n, t) | int t)
 
 If an implementation of the function `sum35` passes typechecking in ATS,
 then its return value from a call on 1000 is *guaranteed* to yield the
-correct answer.
+correct answer to P1. This is really just a tiny showcase for the powerful
+paradigm of programming with theorem-proving (PwTP) in ATS.
 
+## List of Problems Having Specifications
+
+* [P1](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P1/.)
+* [P2](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P2/.)
+* [P15](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P15/.)
+* [P16](https://github.com/githwxi/ATS-Postiats-contrib/blob/master/projects/MEDIUM/PEULER/P16/.)
