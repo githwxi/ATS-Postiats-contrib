@@ -84,7 +84,8 @@ paradigm of programming with theorem-proving (PwTP) in ATS.
   See [description](https://projecteuler.net/problem=16)
 
 Please try to contribute either a specification or a solution
-(that is, implementation), or both! The success of this project
-relies on the jointly effort of the ats-lang-users community and beyond.
+(that is, implementation), or both. The success of this project
+relies on the joint effort of the ats-lang-users community and beyond.
+Thanks!
 
 ## The End of [README.md]
