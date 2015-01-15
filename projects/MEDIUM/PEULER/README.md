@@ -37,7 +37,10 @@ we get 3, 5, 6 and 9. The sum of these multiples is 23.
 Find the sum of all the multiples of 3 or 5 below 1000.
 ```
 
+Here is one way to translate this description into ATS code:
+
 ```ocaml
+(* ****** ****** *)
 //
 // SUM35 (n, t) =
 // sum of i <= n such that i mod 3 = 0 or i mod 5 = 0
@@ -55,5 +58,17 @@ dataprop SUM35
     SUM35ind3 (n, s1) of (SUM35 (n-1, s1), MOD (n, 3, r3), MOD (n, 5, r5))
 // end of [SUM35]
 //
+(* ****** ****** *)
+//
+// HX-2015-01-13:
+// please implement this one:
+//
+fun sum35{n:nat}(n: int n): [t:nat] (SUM35 (n, t) | int t)
+//
+(* ****** ****** *)
 ```
+
+If an implementation of the function `sum35` passes typechecking in ATS,
+then its return value from a call on 1000 is *guaranteed* to yield the
+correct answer.
 

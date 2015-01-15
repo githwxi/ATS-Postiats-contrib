@@ -52,7 +52,7 @@ dataprop SUM35
 // HX-2015-01-13:
 // please implement this one:
 //
-fun sum35 {n:nat} (n: int n): [t:nat] (SUM35 (n, t) | int t)
+fun sum35{n:nat}(n: int n): [t:nat] (SUM35 (n, t) | int t)
 //
 (* ****** ****** *)
 
