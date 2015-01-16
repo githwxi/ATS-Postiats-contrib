@@ -1,0 +1,10 @@
+*.iml
+.gradle
+.idea
+gradle
+gradlew
+gradlew.bat
+atlassian-ide-plugin.xml
+
+*.o
+*.exe
