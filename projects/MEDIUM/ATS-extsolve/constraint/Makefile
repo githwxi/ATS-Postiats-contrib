@@ -13,6 +13,10 @@ PATSCC := $(PATSCC) -IATS ../
 
 ######
 
+CFLAGS += -O2
+
+######
+
 MALLOCFLAG := -DATS_MEMALLOC_LIBC
 
 ######

@@ -41,7 +41,7 @@ assume jsonval = jsmntokptr
 (**
     This is unsafe because it assumes that bytes
     that lie outside the boundary m are initialized
-    afte the call, which they are not.
+    after the call, which they are not.
 *)
 extern
 fun realloc_unsafe {l:addr} {m,n:int} (
@@ -79,12 +79,16 @@ praxi bytes_to_array {a:t@ype} {n:int} {l:addr} (
     bytes(n*sizeof(a)) @ l
 ):  @[a][n] @ l
 
+(**
+    This is as ugly as sin. It would be good to
+    clean it up a little bit.
+*)
 implement
 jsonval_parse_from_stdin () = let
     var parser : jsmn_parser
     val () = jsmn_init (parser)
     
-    val (pfjs, pffjs | js) = malloc_gc (i2sz(bufsize))
+    val (pfjs, pffjs | js) = malloc_gc (i2sz(0))
     val (pftok, pfftok | tok) = malloc_gc (sizeof<jsmntok_t> * i2sz(2))
     
     prval pfjs = b0ytes2bytes_v (pfjs)
@@ -120,12 +124,13 @@ jsonval_parse_from_stdin () = let
                 *)
                 val (pfjson, pffjson | js) = 
                     realloc_unsafe (pfjson, pffjson | json, m+i2sz(1))
-                val ending = $UN.cast{ptr}(add_ptr_bsz (json, m))
+                val ending = $UN.cast{ptr}(add_ptr_bsz (js, m))
                 val () = $UN.ptr0_set (ending, '\0')
                 
                 prval () = remove_proof (pfjson, pffjson)
                 prval () = remove_proof (pftok, pfftok)
-                val str = $UN.cast{string} (json)
+                
+                val str = $UN.cast{string} (js)
                 val jsv = $UN.cast{jsonval} (tokens)
             in
                 (str, jsv)
@@ -139,7 +144,6 @@ jsonval_parse_from_stdin () = let
             end
         else let
             (** Try parsing again. *)
-            
             val (pfjs, pffjs | js) =
                 realloc_unsafe (pfjson, pffjson | json, m+r)
             val newjs = add_ptr_bsz (js, m)
@@ -178,7 +182,7 @@ jsonval_parse_from_stdin () = let
         
     end  // end of [loop]  
 in
-    loop (pfjs, pftok, pffjs, pfftok | parser, js, tok, i2sz(bufsize), i2sz(2), false)
+    loop (pfjs, pftok, pffjs, pfftok | parser, js, tok, i2sz(0), i2sz(2), false)
 end // end of [jsonval_parse_stdin]
 
 (* ****** ****** *)
@@ -187,9 +191,9 @@ end // end of [jsonval_parse_stdin]
     Get the number of tokens in a jsonval
 *)
 extern
-fun jsonval_numtokens(jsonval): int
+fun{} jsonval_numtokens(jsonval): int
 
-implement
+implement{}
 jsonval_numtokens (jsv) = 
     if jsv.type = JSMN_PRIMITIVE then
         1
@@ -378,6 +382,14 @@ jsonval_object_get_key_exn (jsv, label) = let
              val p = $UN.cast{ptr} (jsv)
              val ofs = g0i2u(n)*sizeof<jsmntok_t>
              val keyjsv = $UN.cast{jsonval} (add_ptr_bsz (p, ofs))
+             val () = 
+                 if ~jsonval_is_string (keyjsv) then begin
+                     println! ("Key is not string! While looking for key ", label);
+                     println! ("Found type: ", keyjsv.type);
+                     println! ("ofs = ", n);
+                     println! ("start =", keyjsv.start);
+                 end
+                          
              val () = assertloc (jsonval_is_string (keyjsv))
              val key = keyjsv.string
              val ofs = g0i2u(n+1)*sizeof<jsmntok_t>

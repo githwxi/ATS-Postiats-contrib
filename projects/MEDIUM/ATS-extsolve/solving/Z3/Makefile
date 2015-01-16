@@ -18,6 +18,7 @@ PYTHON_PREFIX = $(shell python-config --prefix)
 CFLAGS += $(shell python-config --include --cflags)
 CFLAGS += -I ${PYTHON_PREFIX}/include
 CFLAGS += -Wunused-label
+CFLAGS += -O2
 
 ######
 

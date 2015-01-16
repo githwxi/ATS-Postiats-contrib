@@ -13,7 +13,7 @@ PATSCC := $(PATSCC) -IATS ../
 
 ######
 
-CFLAGS += $(shell pkg-config --cflags json-c)
+CFLAGS += -O2
 
 ######
 

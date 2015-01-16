@@ -13,13 +13,13 @@ MALLOCFLAG := -DATS_MEMALLOC_LIBC
 
 ######
 
-CFLAGS += $(shell pkg-config --cflags json-c)
+CFLAGS += -O2
 
 ######
 
 LDFLAGS += -L$(PATSHOMEQ)/ccomp/atslib/lib
 LDFLAGS += -latslib
-LDFLAGS += $(shell pkg-config --libs json-c)
+LDFLAGS += -ljsmn
 
 ######
 
