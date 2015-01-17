@@ -17,6 +17,15 @@ staload "./../SATS/z3.sats"
 val () =
 {
 //
+var major: uint
+and minor: uint
+and build: uint
+and revision: uint
+//
+val () = Z3_get_version(major, minor, build, revision)
+//
+val () = println! ("Z3-version-", major, ".", minor, ".", build, ".", revision)
+//
 val cfg = Z3_mk_config ()
 val ctx = Z3_mk_context_rc (cfg)
 val ((*unref*)) = Z3_del_config (cfg)

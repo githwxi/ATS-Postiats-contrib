@@ -18,8 +18,15 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
 
-INCLUDE=-I$(PATSHOMERELOC)/contrib/SMT
+INCLUDE :=
+INCLUDE += -I$(PATSHOMERELOC)/contrib/SMT
 
+######
+#
+LDFLAGS :=
+#
+# LDFLAGS += -L/usr/local/z3/bin
+#
 ######
 
 all::
@@ -30,7 +37,7 @@ regress::
 all:: \
 test00
 test00: \
-test00.dats ; $(PATSCC) $(INCLUDE) -o $@ $<
+test00.dats ; $(PATSCC) $(INCLUDE) -o $@ $< $(LDFLAGS) -lz3
 regress:: \
 test00; ./test00
 cleanall:: ; $(RMF) test00
@@ -40,7 +47,7 @@ cleanall:: ; $(RMF) test00
 all:: \
 test01
 test01: \
-test01.dats ; $(PATSCC) $(INCLUDE) -o $@ $<
+test01.dats ; $(PATSCC) $(INCLUDE) -o $@ $< $(LDFLAGS) -lz3
 regress:: \
 test01; ./test01
 cleanall:: ; $(RMF) test01

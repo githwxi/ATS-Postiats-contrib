@@ -52,19 +52,29 @@ Create a new (incremental) solver. This solver also uses a set of builtin
 tactics for handling the first check-sat command, and check-sat commands
 that take more than a given number of milliseconds to be solved.
 *)
-fun Z3_mk_solver (ctx: !Z3_context): Z3_solver
+fun
+Z3_mk_solver (ctx: !Z3_context): Z3_solver = "mac#%"
 
 (* ****** ****** *)
 
-fun Z3_mk_simple_solver (ctx: !Z3_context): Z3_solver
+fun
+Z3_mk_simple_solver (ctx: !Z3_context): Z3_solver = "mac#%"
    
 (* ****** ****** *)
-
+//
 (*
 Create a new solver customized for the given logic. It behaves like
 Z3_mk_solver if the logic is unknown or unsupported.
 *)
-fun Z3_mk_solver_for_logic (ctx: !Z3_context, logic: Z3_symbol): Z3_solver
+fun
+Z3_mk_solver_for_logic
+  (ctx: !Z3_context, logic: Z3_symbol): Z3_solver = "mac#%"
+//
+(* ****** ****** *)
+
+fun
+Z3_mk_solver_get_help
+  (ctx: !Z3_context, solver: !Z3_solver): vStrptr1 = "mac#%"
 
 (* ****** ****** *)
 
@@ -73,19 +83,19 @@ Create a new solver that is implemented using the given tactic. The solver
 supports the commands Z3_solver_push and Z3_solver_pop, but it will always
 solve each Z3_solver_check from scratch.
 *)
-fun Z3_mk_solver_from_tactic (ctx: !Z3_context, tactic: !Z3_tactic): Z3_solver
+fun
+Z3_mk_solver_from_tactic
+  (ctx: !Z3_context, t: !Z3_tactic): Z3_solver = "mac#%"
 
 (* ****** ****** *)
 
-fun Z3_mk_solver_get_help (ctx: !Z3_context, solver: !Z3_solver): vStrptr1
-
-(* ****** ****** *)
-
-fun Z3_solver_inc_ref
+fun
+Z3_solver_inc_ref
   (ctx: !Z3_context, p: !Z3_solver): Z3_solver = "mac#%"
 // end of [Z3_solver_inc_ref]
 
-fun Z3_solver_dec_ref (ctx: !Z3_context, p: Z3_solver): void = "mac#%"
+fun
+Z3_solver_dec_ref (ctx: !Z3_context, p: Z3_solver): void = "mac#%"
 
 (* ****** ****** *)
 
@@ -97,7 +107,7 @@ Z3_solver_get_model
 ) : [l2:addr]
 (
   minus (Z3_solver l, Z3_model l2) | Z3_model l2
-) // end of [Z3_solver_get_model]
+) = "mac#%" // end of [Z3_solver_get_model]
 
 (* ****** ****** *)
 

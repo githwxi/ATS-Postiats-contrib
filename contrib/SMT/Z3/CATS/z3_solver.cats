@@ -27,29 +27,52 @@
 
 /* ****** ****** */
 
-#ifndef Z3_Z3_SORT_CATS
-#define Z3_Z3_SORT_CATS
+#ifndef Z3_Z3_SOLVER_CATS
+#define Z3_Z3_SOLVER_CATS
 
+/* ****** ****** */
+
+#define \
+atscntrb_Z3_mk_tactic Z3_mk_tactic
+
+/* ****** ****** */
+
+#define \
+atscntrb_Z3_tactic_dec_ref Z3_tactic_dec_ref
+
+/* ****** ****** */
+//
+#define atscntrb_Z3_mk_solver Z3_mk_solver
+//
+#define \
+atscntrb_Z3_mk_solver_from_tactic Z3_mk_solver_from_tactic
+//
 /* ****** ****** */
 
 ATSinline()
-Z3_sort
-atscntrb_Z3_mk_int_sort
-  (Z3_context ctx)
+Z3_solver
+atscntrb_Z3_solver_inc_ref
+  (Z3_context ctx, Z3_solver slvr)
 {
-  Z3_sort ty = Z3_mk_int_sort(ctx);
-  Z3_inc_ref(ctx, Z3_sort_to_ast(ctx, ty));
-  return ty;
-}
+  Z3_solver_inc_ref(ctx, slvr); return slvr;
+} // end of [atscntrb_Z3_solver_inc_ref]
+
+#define \
+atscntrb_Z3_solver_dec_ref Z3_solver_dec_ref
 
 /* ****** ****** */
 
-#define atscntrb_Z3_sort_dec_ref Z3_dec_ref
+#define atscntrb_Z3_solver_check Z3_solver_check
+#define atscntrb_Z3_solver_assert Z3_solver_assert
 
 /* ****** ****** */
 
-#endif // end of [Z3_Z3_SORT_CATS]
+#define atscntrb_Z3_get_num_scopes Z3_get_num_scopes
 
 /* ****** ****** */
 
-/* end of [z3_sort.cats] */
+#endif // end of [Z3_Z3_SOLVER_CATS]
+
+/* ****** ****** */
+
+/* end of [z3_solver.cats] */

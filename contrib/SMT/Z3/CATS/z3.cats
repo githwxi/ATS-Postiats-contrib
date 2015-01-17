@@ -44,6 +44,13 @@
 
 /* ****** ****** */
 
+#define \
+atscntrb_Z3_get_version( \
+  major, minor, build, revision \
+) Z3_get_version(major, minor, build, revision)
+
+/* ****** ****** */
+
 #define atscntrb_Z3_mk_config Z3_mk_config
 #define atscntrb_Z3_del_config Z3_del_config
 #define atscntrb_Z3_set_param_value Z3_set_param_value
@@ -56,13 +63,25 @@
 
 /* ****** ****** */
 
+/*
 ATSinline()
 Z3_ast
 atscntrb_Z3_inc_ref
   (Z3_ast a) { Z3_inc_ref (a); return a ; }
 // end of [atscntrb_Z3_inc_ref]
+*/
+ATSinline()
+Z3_ast
+atscntrb_Z3_inc_ref
+(
+  Z3_context ctx, Z3_ast a
+) { Z3_inc_ref (ctx, a); return a ; }
 
+/*
 #define atscntrb_Z3_dec_ref(a) Z3_dec_ref(a)
+*/
+#define \
+atscntrb_Z3_dec_ref(ctx, a) Z3_dec_ref(ctx, a)
 
 /* ****** ****** */
 
@@ -78,7 +97,15 @@ atscntrb_Z3_inc_ref
 
 /* ****** ****** */
 
+#include "z3_numeral.cats"
+
+/* ****** ****** */
+
 #include "./z3_arithmetic.cats"
+
+/* ****** ****** */
+
+#include "./z3_solver.cats"
 
 /* ****** ****** */
 

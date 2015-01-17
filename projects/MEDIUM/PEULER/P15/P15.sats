@@ -31,6 +31,13 @@ NPATH (int, int, int) =
 //
 (* ****** ****** *)
 //
+prfun
+lemma_m0{m:nat}{r:int}(NPATH(m, 0, r)): [r==0] void
+prfun
+lemma_0n{n:nat}{r:int}(NPATH(0, n, r)): [r==0] void
+//
+(* ****** ****** *)
+//
 fun
 npath{m,n:nat}
   (int(m), int(n)): [r:int] (NPATH(m, n, r) | int(r))

@@ -37,7 +37,7 @@ Z3_ast
 atscntrb_Z3_mk_true
   (Z3_context ctx)
 {
-  return atscntrb_Z3_inc_ref(Z3_mk_true(ctx)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_true(ctx)) ;
 } // end of [atscntrb_Z3_mk_true]
 
 ATSinline()
@@ -45,7 +45,7 @@ Z3_ast
 atscntrb_Z3_mk_false
   (Z3_context ctx)
 {
-  return atscntrb_Z3_inc_ref(Z3_mk_false(ctx)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_false(ctx)) ;
 } // end of [atscntrb_Z3_mk_false]
 
 /* ****** ****** */
@@ -55,7 +55,7 @@ Z3_ast
 atscntrb_Z3_mk_eq
   (Z3_context ctx, Z3_ast l, Z3_ast r)
 {
-  return atscntrb_Z3_inc_ref(Z3_mk_eq(ctx, l, r)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_eq(ctx, l, r)) ;
 } // end of [atscntrb_Z3_mk_eq]
 
 /* ****** ****** */
@@ -67,7 +67,7 @@ atscntrb_Z3_mk_or2
 {
   Z3_ast a01[2] ;
   a01[0] = a0 ; a01[1] = a1 ;
-  return atscntrb_Z3_inc_ref(Z3_mk_or(ctx, 2, a01)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_or(ctx, 2, a01)) ;
 } // end of [atscntrb_Z3_mk_or2]
 
 /* ****** ****** */
@@ -79,7 +79,7 @@ atscntrb_Z3_mk_and2
 {
   Z3_ast a01[2] ;
   a01[0] = a0 ; a01[1] = a1 ;
-  return atscntrb_Z3_inc_ref(Z3_mk_and(ctx, 2, a01)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_and(ctx, 2, a01)) ;
 } // end of [atscntrb_Z3_mk_and2]
 
 /* ****** ****** */
