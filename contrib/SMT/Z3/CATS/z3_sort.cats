@@ -38,13 +38,13 @@ atscntrb_Z3_mk_int_sort
   (Z3_context ctx)
 {
   Z3_sort ty = Z3_mk_int_sort(ctx);
-  Z3_inc_ref(ctx, Z3_sort_to_ast(ctx, ty));
-  return ty;
+  return atscntrb_Z3_inc_ref(ctx, Z3_sort_to_ast(ctx, ty));
 }
 
 /* ****** ****** */
 
-#define atscntrb_Z3_sort_dec_ref Z3_dec_ref
+#define atscntrb_Z3_sort_inc_ref atscntrb_Z3_inc_ref 
+#define atscntrb_Z3_sort_dec_ref atscntrb_Z3_dec_ref
 
 /* ****** ****** */
 

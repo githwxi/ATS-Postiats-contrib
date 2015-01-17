@@ -74,14 +74,14 @@ ATSinline()
 Z3_ast
 atscntrb_Z3_inc_ref
 (
-  Z3_context ctx, Z3_ast a
-) { Z3_inc_ref (ctx, a); return a ; }
+  Z3_context ctx, Z3_ast ast
+) { Z3_inc_ref (ctx, ast); return ast ; }
 
 /*
-#define atscntrb_Z3_dec_ref(a) Z3_dec_ref(a)
+#define atscntrb_Z3_dec_ref(ast) Z3_dec_ref(ast)
 */
 #define \
-atscntrb_Z3_dec_ref(ctx, a) Z3_dec_ref(ctx, a)
+atscntrb_Z3_dec_ref(ctx, ast) Z3_dec_ref(ctx, ast)
 
 /* ****** ****** */
 

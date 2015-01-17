@@ -60,6 +60,8 @@ val () = Z3_solver_dec_ref (ctx, solver)
 //
 val () = Z3_del_context (ctx)
 //
+val () = println! ("[test01] is successfully finished!")
+//
 } (* end of [val] *)
 
 (* ****** ****** *)
