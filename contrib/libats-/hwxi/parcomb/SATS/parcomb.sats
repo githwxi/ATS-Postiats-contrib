@@ -23,27 +23,39 @@
 //
 (* ****** ****** *)
 //
-abstype
-parser_type (t: t@ype, a: t@ype)
+// HX:
+// [parser(t,a)]
+// returns a value of type [a]
+// by consuming some tokens of type [t]
 //
-typedef parser (t: t@ype, a:t@ype) = parser_type (t, a)
+abstype
+parser_type(t:t@ype, a:t@ype)
+//
+typedef
+parser(t:t@ype, a:t@ype) = parser_type(t, a)
 //
 (* ****** ****** *)
 
 symintr && ||
 
 (* ****** ****** *)
+//
+// HX: out-of-tokens
+//
+exception TOKEN_NONE of ()
+//
+(* ****** ****** *)
 
 fun
 {a:t0p}
-any_parser (): parser (a, a)
+any_parser(): parser (a, a)
 
 (* ****** ****** *)
 
 fun
 {t:t0p}
 {a:t0p}
-ret_parser (x: a): parser (t, a)
+ret_parser(x: a): parser (t, a)
 
 (* ****** ****** *)
 //

@@ -38,7 +38,9 @@ staload "./../SATS/parcomb.sats"
 typedef
 pstate(t:t0p) = @{
 //
-tstream= stream(t), ncur= int, nmax= int
+  tstream= stream(t)
+, ncur= int // current position
+, nmax= int // maximal position ever reached
 //
 } (* end of [pstate] *)
 
@@ -46,10 +48,38 @@ tstream= stream(t), ncur= int, nmax= int
 //
 extern
 fun{t:t0p}
-pstate_get_token(st: &pstate(t) >> _): t
+pstate_get_token
+  (st: &pstate(t) >> _): (t)
 //
 overload .tget with pstate_get_token
 //
+(* ****** ****** *)
+
+implement
+{t}(*tmp*)
+pstate_get_token
+  (st) = let
+//
+val ts = st.tstream
+//
+in
+//
+case+ !(ts) of
+| stream_cons
+    (t, ts) => t where
+  {
+    val n1 = st.ncur + 1
+    val () = st.ncur := n1
+    val () = if n1 > st.nmax then st.nmax := n1
+    val () = st.tstream := ts
+  } (* end of [stream_cons] *)
+| stream_nil () => let
+  in
+    $raise TOKEN_NONE(*void*)
+  end // end of [stream_nil]
+//
+end // end of [pstate_get_token]
+
 (* ****** ****** *)
 //
 extern
@@ -76,10 +106,10 @@ parser_type
 (* ****** ****** *)
 
 exception
-ParFailExn of (ptr(*tstream*), int(*ncur*))
+PARSE_FAIL of (ptr(*tstream*), int(*ncur*))
 
 (* ****** ****** *)
-
+//
 implement
 {a}
 any_parser
@@ -115,7 +145,7 @@ prval ((*void*)) = fpf (pf)
 in
   res
 end with
-| ~ParFailExn
+| ~PARSE_FAIL
     (ts, ncur) => let
     val
     (pf, fpf | stp) =

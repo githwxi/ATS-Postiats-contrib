@@ -127,7 +127,7 @@ isnot
 then let
   val isnil = deqarray_is_nil (deq)
   val ((*void*)) = deqarray_insert_atend (deq, x0)
-  val ((*void*)) = condvar_signal (CVisnil)
+  val ((*void*)) = if isnil then condvar_signal (CVisnil)
 in
   // nothing
 end // end of [then]
@@ -187,7 +187,7 @@ isnot
 then let
   val isful = deqarray_is_full (deq)
   val x0 = deqarray_takeout_atbeg (deq)
-  val ((*void*)) = condvar_signal (CVisful)
+  val ((*void*)) = if isful then condvar_signal (CVisful)
 in
   x0
 end // end of [then]
