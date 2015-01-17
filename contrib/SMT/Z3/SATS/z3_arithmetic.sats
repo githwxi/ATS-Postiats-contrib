@@ -40,16 +40,18 @@
 (* ****** ****** *)
 //
 #ifndef
-ATSCNTRB_SML_Z3_Z3_HEADER
+ATSCNTRB_SMT_Z3_Z3_HEADER
 #include "./z3_header.sats"
-#endif
+#endif // end of [ifndef]
 //
 (* ****** ****** *)
 
-fun Z3_mk_add{n:int}
+fun
+Z3_mk_add{n:int}
 (
-  ctx: !Z3_context, xs: &array (Z3_ast, n), n: int n
-) : Z3_ast = "mac#%" // end of [Z3_mk_add]
+  ctx: !Z3_context
+, xs: &array (Z3_ast, n), n: int(n)
+) : Z3_ast = "mac#%" // end-of-fun
 
 (* ****** ****** *)
 

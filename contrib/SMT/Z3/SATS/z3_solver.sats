@@ -40,7 +40,7 @@
 (* ****** ****** *)
 //
 #ifndef
-ATSCNTRB_SML_Z3_Z3_HEADER
+ATSCNTRB_SMT_Z3_Z3_HEADER
 #include "./z3_header.sats"
 #endif // end of [#ifndef]
 //
@@ -98,6 +98,19 @@ Z3_solver_get_model
 (
   minus (Z3_solver l, Z3_model l2) | Z3_model l2
 ) // end of [Z3_solver_get_model]
+
+(* ****** ****** *)
+
+fun
+Z3_solver_assert
+(
+  ctx: !Z3_context, s: !Z3_solver, f: !Z3_ast
+): void = "mac#" // end of [Z3_solver_assert]
+
+fun Z3_solver_check 
+(
+  ctx: !Z3_context, s: !Z3_solver
+): Z3_ibool = "mac#" // end of [Z3_solver_check]
 
 (* ****** ****** *)
 

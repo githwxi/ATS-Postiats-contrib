@@ -52,7 +52,7 @@
 (* ****** ****** *)
 //
 #define
-ATSCNTRB_SML_Z3_Z3_HEADER
+ATSCNTRB_SMT_Z3_Z3_HEADER
 //
 #include "./z3_header.sats"
 //

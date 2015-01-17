@@ -40,14 +40,17 @@
 (* ****** ****** *)
 //
 #ifndef
-ATSCNTRB_SML_Z3_Z3_HEADER
+ATSCNTRB_SMT_Z3_Z3_HEADER
 #include "./z3_header.sats"
-#endif
+#endif // end of [ifndef]
 //
 (* ****** ****** *)
 
-fun Z3_stats_to_string
-  (ctx: !Z3_context, s: !Z3_stats): vStrptr1 = "mac#%"
+fun
+Z3_stats_to_string
+(
+  ctx: !Z3_context, s: !Z3_stats
+) : vStrptr1 = "mac#%" // endfun
 
 (* ****** ****** *)
 //
