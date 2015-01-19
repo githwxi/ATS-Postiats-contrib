@@ -61,21 +61,22 @@ overload .ending with jsmntok_end
 (* ****** ****** *)
 
 (**
-
-datatype
-jsonval =
-  | JSONnul of ()
-//
-  | JSONint of (json_int)
-  | JSONbool of (json_bool)
-  | JSONfloat of (double)
-  | JSONstring of (string)
-//
-  | JSONarray of (jsonvalist) // array
-  | JSONobject of (labjsonvalist) // hashtable
-`
+    Intended as a way to easily get the source string associated with
+    a jsmn token.
 *)
+fun{}
+jsmn_src (): string
 
-// end of [jsonval]
+(* ****** ****** *)
+
+
+fun{} 
+jsmntokptr_numtokens(jsmntokptr): int
+
+overload .numtokens with jsmntokptr_numtokens
+
+(* ****** ****** *)
+
+// end of [jsmn]
 
 (* ****** ****** *)

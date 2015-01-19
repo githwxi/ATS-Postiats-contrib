@@ -40,6 +40,7 @@ staload _ = "parsing/parsing_s3itm.dats"
 staload "parsing/jsonval.sats"
 
 staload _ = "parsing/jsonval.dats"
+staload _ = "{$LIBATSWDBLAIR}/jsmn/DATS/jsmn.dats"
 
 (* ****** ****** *)
 
@@ -133,9 +134,16 @@ parse_c3nstr_from_stdin () = let
   val s2vars = jsv["s2varmap"]
   val c3nstrs = jsv["c3nstrbody"]
   
+  val () = println! ("Have JSON objects from file!")
+  
   val () = parse_s2cstmap (s2csts)
+  
+  val () = println! ("Parsed s2csts from file!")
+  
   val () = parse_s2varmap (s2vars)  
-
+  
+  val () = println! ("Parsed s2vars from file!")
+  
 in
   parse_c3nstr (c3nstrs)
 end // end of [parse_c3nstr_from_stdin]
