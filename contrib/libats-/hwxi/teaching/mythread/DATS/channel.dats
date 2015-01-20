@@ -132,7 +132,7 @@ then let
   val ((*void*)) =
     deqarray_insert_atend (deq, x0)
   val ((*void*)) =
-    if isnil then condvar_signal (CVisnil)
+    if isnil then condvar_broadcast (CVisnil)
   // end of [val]
 in
   // nothing
@@ -190,7 +190,7 @@ then let
   val isful = deqarray_is_full (deq)
   val x0_out = deqarray_takeout_atbeg (deq)
   val ((*void*)) =
-    if isful then condvar_signal (CVisful)
+    if isful then condvar_broadcast (CVisful)
   // end of [val]
 in
   x0_out

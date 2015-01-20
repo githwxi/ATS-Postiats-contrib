@@ -34,10 +34,10 @@
 *)
 
 (* ****** ****** *)
-
+//
 #define
-ATS_PACKNAME "ATSCNTRB.atshwxi.testing"
-
+ATS_PACKNAME "ATSCNTRB.libatshwxi.testing"
+//
 (* ****** ****** *)
 
 (*
@@ -85,7 +85,8 @@ randgen_arrszref (n: size_t): arrszref (a)
 
 fun{a:vt0p}
 randarr_initize
-  {n:int} (A: &(@[a?][n]) >> @[a][n], n: size_t n): void
+  {n:int}
+  (A: &(@[a?][n]) >> @[a][n], n: size_t n): void
 // end of [randarr_initize]
 
 (* ****** ****** *)

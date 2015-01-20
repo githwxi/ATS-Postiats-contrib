@@ -115,7 +115,8 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-grcnf_conj (cnfs) = let
+grcnf_conj
+  (cnfs) = let
 //
 fun loop
 (
@@ -147,7 +148,8 @@ end // end of [grcnf_conj]
 (* ****** ****** *)
 //
 implement
-grcnf_disj (cnfs) = let
+grcnf_disj
+  (cnfs) = let
 //
 fun aux
 (
@@ -212,7 +214,8 @@ end // end of [grcnf_disj]
 
 local
 
-fun auxsup
+fun
+auxsup
 (
   gn1: !genes, gns2: !geneslst
 ) : bool =

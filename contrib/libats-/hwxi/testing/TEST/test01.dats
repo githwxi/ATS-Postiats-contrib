@@ -17,8 +17,10 @@ staload _(*anon*) = "./../DATS/foldleft.dats"
 
 (* ****** ****** *)
 
-fun factorial
-  {n:nat} (n: int n): int = let
+fun
+factorial
+  {n:nat}
+  (n: int n): int = let
 //
 typedef res = int
 //
@@ -31,8 +33,10 @@ end // end of [factorial]
 
 (* ****** ****** *)
 
-fun fibonacci
-  {n:nat} (n: int n): int = let
+fun
+fibonacci
+  {n:nat}
+  (n: int n): int = let
 //
 typedef res = (int, int)
 //
@@ -53,14 +57,15 @@ end // end of [fibonacci]
 implement
 main () = let
 //
-val () = assertloc (
+val () =
+assertloc (
   factorial (10) = 1*2*3*4*5*6*7*8*9*10
 ) (* end of [val] *)
 //
 val () = assertloc (fibonacci (20) = 6765)
 //
 in
-  0(*normal*)
+  0(*normal-exit*)
 end // end of [main]
 
 (* ****** ****** *)
