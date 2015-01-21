@@ -38,12 +38,14 @@ grexplst_cnfize_ifnot
   (gxs: grexplst, skipped: ruleset): grcnflst
 //
 (* ****** ****** *)
-
+//
 extern
-fun ruleset_make_nil (): ruleset
+fun
+ruleset_make_nil (): ruleset
 extern
-fun ruleset_is_member (ruleset, rule: int): bool
-
+fun
+ruleset_is_member (ruleset, rule: int): bool
+//
 (* ****** ****** *)
 
 local
@@ -61,7 +63,7 @@ implement
 ruleset_make_nil() = $FS.funset_make_nil{int}()
 
 implement
-ruleset_is_member (xs, x) = $FS.funset_is_member (xs, x, cmp)
+ruleset_is_member(xs, x) = $FS.funset_is_member (xs, x, cmp)
 
 end // end of [local]
 
