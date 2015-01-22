@@ -79,7 +79,7 @@ in
         parse_S2Evar (jsv0["S2Evar"])
     
     else if jsv0.has_key("S2EVar") then
-        parse_S2EVar (jsv0["S2Evar"])
+        parse_S2EVar (jsv0["S2EVar"])
     
     else if jsv0.has_key("S2Eeqeq") then
         parse_S2Eeqeq (jsv0["S2Eeqeq"])
