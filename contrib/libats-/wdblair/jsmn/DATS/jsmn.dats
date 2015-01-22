@@ -55,7 +55,7 @@ jsmntokptr_numtokens (jsv) =
      end
      else let
          val () = prerrln! ("Invalid json value.")
-         val () = prerrln! ("Has type: ", jsv.type)         
+         val () = prerrln! ("Has type: ", jsv.type) 
          val () = println! ("Invalid json value starts @ ", jsv.start)
      in
          exit(1)

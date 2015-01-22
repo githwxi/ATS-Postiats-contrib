@@ -37,7 +37,6 @@ end
 implement{}
 parse_s2rt
   (jsv0) = let
-
 in
     if jsv0.has_key ("S2RTbas") then
         parse_S2RTbas (jsv0["S2RTbas"])
@@ -53,7 +52,9 @@ parse_S2RTbas
 
 val () = assertloc (jsv0.size >= 1)
 //
+// val () = println! ("Trying to parse base sort!")
 val srt = parse_string (jsv0[0])
+// val () = println! ("Parsed base sort!")
 in
     case+ srt of
       | "int" => S2RTint ()

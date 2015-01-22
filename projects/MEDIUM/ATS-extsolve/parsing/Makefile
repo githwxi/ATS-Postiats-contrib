@@ -13,8 +13,8 @@ PATSCC := $(PATSCC) -IATS ../
 
 ######
 
-CFLAGS += -O2
-
+CFLAGS += -O3
+ 
 ######
 
 LDFLAGS :=
@@ -31,7 +31,7 @@ all:: parsing.o
 
 main:: constraint
 main:: main_dats.o parsing.o ; \
-  $(PATSCC) $(CFLAGS) -O2 -o $@ ../constraint/constraint.o $^ $(LDFLAGS)
+  $(PATSCC) $(CFLAGS) -o $@ ../constraint/constraint.o $^ $(LDFLAGS)
 
 ######
 

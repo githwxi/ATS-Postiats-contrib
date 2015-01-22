@@ -111,6 +111,7 @@ parse_S3ITMcnstr_ref
   (jsv0:jsonval): s3itm = let
 
 val () = assertloc (jsv0.size >= 2)
+
 val loc = parse_location (jsv0[0])
 val opt = parse_c3nstropt (jsv0[1])
 

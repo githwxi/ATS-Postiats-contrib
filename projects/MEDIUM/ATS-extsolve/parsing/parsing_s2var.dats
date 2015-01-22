@@ -89,7 +89,7 @@ parse_s2var
   (jsv0) = let
 (**
 val () =
-println! ("parse_s2var: jsv0 = ", jsv0)
+println! ("parse_s2var: jsv0 = ", jsv0.string_unsafe)
 *)
 //
 val jsv2 = jsv0["s2var_stamp"]
@@ -106,7 +106,7 @@ case+ opt of
   {
     val jsv1 = jsv0["s2var_sym"]
     val sym = parse_symbol (jsv1)
-    val sv2 = jsv0["s2var_srt"]
+    val jsv2 = jsv0["s2var_srt"]
     val srt = parse_s2rt (jsv2)
     val s2v = s2var_make (sym, stamp, srt)
     //
