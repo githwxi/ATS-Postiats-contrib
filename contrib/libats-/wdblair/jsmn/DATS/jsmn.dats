@@ -3,7 +3,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 staload "contrib/libats-/wdblair/jsmn/SATS/jsmn.sats"
 
-implement{}
+implement
 jsmntokptr_numtokens (jsv) = 
     if jsv.type = JSMN_PRIMITIVE then let
     in
@@ -58,5 +58,5 @@ jsmntokptr_numtokens (jsv) =
          val () = prerrln! ("Has type: ", jsv.type) 
          val () = println! ("Invalid json value starts @ ", jsv.start)
      in
-         exit(1)
+         ~1
      end

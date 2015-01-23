@@ -13,13 +13,12 @@ MALLOCFLAG := -DATS_MEMALLOC_LIBC
 
 ######
 
-CFLAGS += -O2
+CFLAGS += -O2 -I ./parsing
 
 ######
 
 LDFLAGS += -L$(PATSHOMEQ)/ccomp/atslib/lib
 LDFLAGS += -latslib
-LDFLAGS += -ljsmn
 
 ######
 

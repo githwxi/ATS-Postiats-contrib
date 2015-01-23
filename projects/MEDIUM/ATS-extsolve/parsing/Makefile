@@ -13,7 +13,7 @@ PATSCC := $(PATSCC) -IATS ../
 
 ######
 
-CFLAGS += -O3
+CFLAGS += -I ./ -O3
  
 ######
 

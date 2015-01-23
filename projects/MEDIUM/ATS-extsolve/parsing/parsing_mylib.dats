@@ -6,6 +6,8 @@
 
 #include
 "share/atspre_define.hats"
+#include
+"share/atspre_staload.hats"
 
 (* ****** ****** *)
 
@@ -13,6 +15,20 @@
 
 (* ****** ****** *)
 
+local
+in
+%{
+#define JSMN_STRICT 1
+
+#include "jsmn.c"
+%}
+end
+
+
+local
+in
+#include "contrib/libats-/wdblair/jsmn/DATS/jsmn.dats"
+end
 
 (* ****** ****** *)
 

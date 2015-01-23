@@ -133,17 +133,10 @@ parse_c3nstr_from_stdin () = let
   val s2csts = jsv["s2cstmap"]
   val s2vars = jsv["s2varmap"]
   val c3nstrs = jsv["c3nstrbody"]
-  
-  val () = println! ("Have JSON objects from file!")
-  
+    
   val () = parse_s2cstmap (s2csts)
-  
-  val () = println! ("Parsed s2csts from file!")
-  
-  val () = parse_s2varmap (s2vars)  
-  
-  val () = println! ("Parsed s2vars from file!")
-  
+  val () = parse_s2varmap (s2vars)
+ 
 in
   parse_c3nstr (c3nstrs)
 end // end of [parse_c3nstr_from_stdin]

@@ -70,7 +70,7 @@ jsmn_src (): string
 (* ****** ****** *)
 
 
-fun{} 
+fun 
 jsmntokptr_numtokens(jsmntokptr): int
 
 overload .numtokens with jsmntokptr_numtokens
