@@ -72,10 +72,10 @@ end // end of [nth]
 //
 extern 
 fun
-main0_pl (): void = "mac#"
+main0_py (): void = "mac#"
 //
 implement
-main0_pl ((*void*)) =
+main0_py ((*void*)) =
 {
 //
 val ps = sieve (from(2))
@@ -94,13 +94,13 @@ val () = println! ("primes[9] = ", nth(ps, 9))
 val () = println! ("primes[100] = ", nth(ps, 100))
 val () = println! ("primes[1000] = ", nth(ps, 1000))
 //
-} (* end of [main0_pl] *)
+} (* end of [main0_py] *)
 //
 (* ****** ****** *)
 
 %{$
 //
-main0_pl();
+main0_py();
 //
 %} // end of [%{$]
 
@@ -124,7 +124,7 @@ from ats2pypre_PYlist_cats import *
 from ats2pypre_stream_dats import *
 #
 ######
-%} // end of [%{^]
+%} (* end of [%{^] *)
 
 (* ****** ****** *)
 

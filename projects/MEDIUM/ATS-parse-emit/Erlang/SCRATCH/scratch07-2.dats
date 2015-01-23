@@ -6,8 +6,8 @@
 //
 (* ****** ****** *)
 //
-abstype send (a:vt@ype)
-abstype recv (a:vt@ype)
+abstype snd (a:vt@ype)
+abstype rcv (a:vt@ype)
 //
 (* ****** ****** *)
 
@@ -29,28 +29,28 @@ absvtype chneg(type)
 extern
 fun{a:vt0p}
 chpos_send{ss:type}
-  (ch: !chpos(send(a) :: ss) >> chpos(ss), x: a): void
+  (ch: !chpos(snd(a) :: ss) >> chpos(ss), x: a): void
 extern
 fun{a:vt0p}
 chpos_recv{ss:type}
-  (ch: !chpos(recv(a) :: ss) >> chpos(ss), x: &a? >> _): void
+  (ch: !chpos(rcv(a) :: ss) >> chpos(ss), x: &a? >> _): void
 extern
 fun{a:vt0p}
-chpos_recv_val{ss:type}(ch: !chpos(recv(a) :: ss) >> chpos(ss)): a
+chpos_recv_val{ss:type}(ch: !chpos(rcv(a) :: ss) >> chpos(ss)): a
 //
 (* ****** ****** *)
 //
 extern
 fun{a:vt0p}
 chneg_recv{ss:type}
-  (ch: !chneg(recv(a) :: ss) >> chneg(ss), x: a): void
+  (ch: !chneg(rcv(a) :: ss) >> chneg(ss), x: a): void
 extern
 fun{a:vt0p}
 chneg_send{ss:type}
-  (ch: !chneg(send(a) :: ss) >> chneg(ss), x: &a? >> _): void
+  (ch: !chneg(snd(a) :: ss) >> chneg(ss), x: &a? >> _): void
 extern
 fun{a:vt0p}
-chneg_send_val{ss:type}(ch: !chneg(send(a) :: ss) >> chneg(ss)): a
+chneg_send_val{ss:type}(ch: !chneg(snd(a) :: ss) >> chneg(ss)): a
 //
 (* ****** ****** *)
 
@@ -102,12 +102,12 @@ fun service_request{ss:type}(service(ss)): chneg(ss)
 datatype
 sslist (a:t@ype) =
 | sslist_nil of (nil)
-| sslist_cons of (send(a) :: sslist(a))
+| sslist_cons of (snd(a) :: sslist(a))
 //
 datavtype
 chpos_sslist (a:t@ype) =
 | chpos_sslist_nil of ()
-| chpos_sslist_cons of (chpos(send(a) :: sslist(a)))
+| chpos_sslist_cons of (chpos(snd(a) :: sslist(a)))
 //
 (* ****** ****** *)
 //
@@ -121,7 +121,7 @@ chneg_sslist_nil{a:t0p}(chneg(sslist(a))): void
 extern
 fun
 chneg_sslist_cons
-  {a:t0p}(chneg(sslist(a))): chneg(send(a) :: sslist(a))
+  {a:t0p}(chneg(sslist(a))): chneg(snd(a) :: sslist(a))
 //
 (* ****** ****** *)
 //

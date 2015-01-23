@@ -59,7 +59,7 @@ channel_get_refcount{a:vt0p}(!channel(a)): intGt(0)
 (* ****** ****** *)
 
 fun{a:vt0p} channel_ref (!channel(a)): channel(a)
-fun{a:vt0p} channel_unref (!channel(a)): queueopt(a)
+fun{a:vt0p} channel_unref (channel(a)): queueopt(a)
 
 (* ****** ****** *)
 
