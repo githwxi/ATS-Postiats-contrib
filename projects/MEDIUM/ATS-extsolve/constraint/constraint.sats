@@ -174,11 +174,15 @@ equal_string_s2cst (string, s2cst): bool
 fun s2cst_make (symbol, stamp, s2rt): s2cst
 
 (* ****** ****** *)
-//
+
 fun s2cst_get_name (s2cst):<> symbol
 fun s2cst_get_stamp (s2cst):<> stamp
 fun s2cst_get_srt (s2cst):<> s2rt
-//
+
+overload .name with s2cst_get_name
+overload .stamp with s2cst_get_stamp
+overload .srt with s2cst_get_srt
+
 (* ****** ****** *)
 
 fun s2cst_lte_cls_cls (s2cst, s2cst): bool

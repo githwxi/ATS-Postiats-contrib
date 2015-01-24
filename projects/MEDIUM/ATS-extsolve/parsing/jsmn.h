@@ -1,6 +1,8 @@
 /**
  * This the jsmn JSON parsing library developed by Serge Zaitsev
  * http://zserge.com/jsmn.html
+ * 
+ * jsmn is distributed under the MIT license
  */
 #ifndef __JSMN_H_
 #define __JSMN_H_

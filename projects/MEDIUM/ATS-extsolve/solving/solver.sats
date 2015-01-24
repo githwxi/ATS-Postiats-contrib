@@ -122,10 +122,6 @@ fun c3nstr_solve (
 
 (* ****** ****** *)
 
-fun the_s2cdeclmap_listize (): List0_vt (@(string, func_decl))
-
-(* ****** ****** *)
-
 abstype s2cstmap (a:t@ype) = ptr
 
 fun {a:t@ype}
