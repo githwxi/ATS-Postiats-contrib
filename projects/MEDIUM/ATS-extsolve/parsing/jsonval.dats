@@ -44,6 +44,14 @@ jsmn_src () = jsonval_src ()
 
 #define bufsize 1024
 
+local
+
+vtypedef buffer_gc ( l:addr, n:int) = @{
+    pf= bytes n @ l,
+    fpf= mfree_gc_v l,
+    p= ptr l
+}
+
 (**
     This is unsafe because it assumes that bytes
     that lie outside the boundary m are initialized
@@ -51,14 +59,12 @@ jsmn_src () = jsonval_src ()
 *)
 extern
 fun realloc_unsafe {l:addr} {m,n:int} (
-    bytes m @ l, mfree_gc_v l |
-        ptr l, size_t n
+    buffer_gc(l, m), size_t n
 ): [k:addr] (
-    bytes n @ k, mfree_gc_v k | ptr k
+    buffer_gc(k, n)
 )  = "ext#"
 
 %{
-
 void* realloc_unsafe (void *p, size_t n) {
     void *r = realloc (p, n);
     
@@ -71,42 +77,45 @@ void* realloc_unsafe (void *p, size_t n) {
 }
 %}
 
-extern
-praxi remove_proof {a:vt@ype} {l:addr} (
-    a @ l , mfree_gc_v (l)
-): void
+fun 
+buffer_malloc_gc {n:int} (
+    n: size_t n
+): [l:addr] buffer_gc (l, n) = let
+    val (pf, pfgc | p) = malloc_gc (n)
+    prval pf = b0ytes2bytes_v (pf) (** cheating *)
+in
+    @{pf=pf, fpf=pfgc, p= p}
+end
 
-extern
-praxi array_to_bytes {a:t@ype} {n:int} {l:addr} (
-    @[a][n] @ l 
-): bytes(n*sizeof(a)) @ l
+fun
+buffer_mfree_gc {l:addr} {n:int} (
+    buf: buffer_gc (l, n) 
+): void = let
+    prval pf = buf.pf
+    prval pfgc = buf.fpf
+    val p = buf.p
+in
+    mfree_gc (pf, pfgc | p)
+end
 
-extern
-praxi bytes_to_array {a:t@ype} {n:int} {l:addr} (
-    bytes(n*sizeof(a)) @ l
-):  @[a][n] @ l
+in
 
-(**
-    This is as ugly as sin. It would be good to
-    clean it up a little bit.
-*)
 implement
 jsonval_parse_from_stdin () = let
     var parser : jsmn_parser
     val () = jsmn_init (parser)
     
-    val (pfjs, pffjs | js) = malloc_gc (i2sz(0))
-    val (pftok, pfftok | tok) = malloc_gc (sizeof<jsmntok_t> * i2sz(2))
-    
-    prval pfjs = b0ytes2bytes_v (pfjs)
-    prval pftok = b0ytes2bytes_v (pftok)
-    
+    val (js) = buffer_malloc_gc (i2sz(0))
+    val (tok) = buffer_malloc_gc (sizeof<jsmntok_t> * i2sz(2))
+
+in
+    loop (js, i2sz(0), tok, i2sz(2), parser, false)
+end where {
+
     fun loop {k,l:addr} {m,n:int} (
-        pfjson: bytes(m) @ k, pftok: bytes(sizeof(jsmntok_t)*n) @ l, 
-        pffjson: mfree_gc_v(k), pfftok: mfree_gc_v(l) |
-            parser: &jsmn_parser, json: ptr (k), tokens: ptr (l), 
-            m: size_t (m), n: size_t (n),
-            parsed: bool
+        js: buffer_gc (k, m), m: size_t m, 
+        tok: buffer_gc (l, sizeof(jsmntok_t)*n), n: size_t (n),
+        parser: &jsmn_parser, parsed: bool
     ): (string, jsonval) = let
         val stdin = stdin_ref
         var buf : @[byte][bufsize]
@@ -114,10 +123,10 @@ jsonval_parse_from_stdin () = let
         
         val r = fread (buf, i2sz(1), i2sz(bufsize), stdin)
     in
-        if r < i2sz(0) then let
+        if r < i2sz (0) then let
             (** An error occured *)
-            val () = mfree_gc (pfjson, pffjson | json)
-            val () = mfree_gc (pftok, pfftok | tokens)
+            val () = buffer_mfree_gc (js)
+            val () = buffer_mfree_gc (tok)
             val () = prerrln! ("fread failed!")
         in
             exit (1)
@@ -129,69 +138,71 @@ jsonval_parse_from_stdin () = let
                 (**
                      Make sure we have room for the null byte
                 *)
-                val (pfjson, pffjson | js) = 
-                    realloc_unsafe (pfjson, pffjson | json, m+i2sz(1))
-                val ending = $UN.cast{ptr}(add_ptr_bsz (js, m))
+                val js = 
+                    realloc_unsafe (js, m+i2sz(1))
+                val ending = $UN.cast{ptr}(add_ptr_bsz (js.p, m))
                 val () = $UN.ptr0_set (ending, '\0')
-                
-                prval () = remove_proof (pfjson, pffjson)
-                prval () = remove_proof (pftok, pfftok)
-                
-                val str = $UN.cast{string} (js)
-                val jsv = $UN.cast{jsonval} (tokens)
+
+                val str = $UN.castvwtp0{string} (js)
+                val jsv = $UN.castvwtp0{jsonval} (tok)
             in
                 (str, jsv)
             end
             else let
-                val () = mfree_gc (pfjson, pffjson | json)
-                val () = mfree_gc (pftok, pfftok | tokens)
+                val () = buffer_mfree_gc (js)
+                val () = buffer_mfree_gc (tok)
                 val () = prerrln! ("unexpected end of file!")
             in
                 exit (1)
             end
         else let
             (** Try parsing again. *)
-            val (pfjs, pffjs | js) =
-                realloc_unsafe (pfjson, pffjson | json, m+r)
-            val newjs = add_ptr_bsz (js, m)
+            val (js) =
+                realloc_unsafe (js, m+r)
+            val newjs = add_ptr_bsz (js.p, m)
             val _ = strncpy_unsafe (newjs, $UN.cast{string} (buf), r)
             val jslen = m+r
             
             fun parse {k,l:addr} {m,n:int} (
-                pfjs: !bytes(m) @ k, pftok: bytes(sizeof(jsmntok_t)*n) @ l,
-                pfftok: mfree_gc_v(l) |
-                    parser: &jsmn_parser, js: ptr k, tok: ptr l, m: size_t m, n: size_t n
-            ): [q:addr] [o:int](
-                bytes(sizeof(jsmntok_t)*o) @ q, mfree_gc_v(q) | ptr q, size_t o, bool
+                js: !buffer_gc (k, m), m: size_t m,  
+                tok: buffer_gc (l, sizeof(jsmntok_t)*n), n: size_t n, 
+                parser: &jsmn_parser
+            ): [q:addr] [o:int] (
+                buffer_gc (q, sizeof(jsmntok_t)*o), size_t o, bool
             ) = let
-                val err = jsmn_parse (pfjs, pftok | parser, js, m, tok, sz2u(n))
+                prval pfjs = js.pf
+                prval pftok = tok.pf
+
+                val err = jsmn_parse (pfjs, pftok | parser, js.p, m, tok.p, sz2u(n))
+                
+                prval () = js.pf := pfjs
+                prval () = tok.pf := pftok
             in
                 if err < 0 then
                     if err = JSMN_ERROR_NOMEM then let
                         val tokcount = n * i2sz(2)
                         val newbytes = sizeof<jsmntok_t> * tokcount
-                        val (pftok, pfftok | tok) = 
-                            realloc_unsafe (pftok, pfftok | tok, newbytes)
+                        val (tok) = 
+                            realloc_unsafe (tok, newbytes)
                     in
-                        parse (pfjs, pftok, pfftok | parser, js, tok, m, tokcount)
+                        parse (js, m, tok, tokcount, parser)
                     end
                     else
-                        (pftok, pfftok |  tok, n, false)
+                        (tok, n, false)
                 else
-                    (pftok, pfftok | tok, n, true)
+                    (tok, n, true)
             end
             
-            val (pftok, pfftok | tok, tokcount, finished) = 
-                parse (pfjs, pftok, pfftok | parser, js, tokens, jslen, n)
+            val (tok, tokcount, finished) = parse (js, jslen, tok, n, parser)
         in
-            loop (pfjs, pftok, pffjs, pfftok | parser, js, tok, jslen, tokcount, finished)
+            loop (js, jslen, tok, tokcount, parser, finished)
         end  // end of [else]
         
     end  // end of [loop]  
-in
-    loop (pfjs, pftok, pffjs, pfftok | parser, js, tok, i2sz(0), i2sz(2), false)
-end // end of [jsonval_parse_stdin]
 
+}// end of [jsonval_parse_stdin]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -325,6 +336,7 @@ end
 
 implement{}
 jsonval_object_get_key_exn (jsv, label) = let
+     (**
      val () = 
         if ~jsonval_is_object (jsv) then {
             val () = println! ("Expected object but found: ", jsv.type)
@@ -332,7 +344,7 @@ jsonval_object_get_key_exn (jsv, label) = let
             val () = println! ("Token starts @  ", jsv.start)
             val () = println! ("Data:", jsv.string_unsafe)
         }
-   
+     *)
     val () = assertloc (jsonval_is_object (jsv))
 
     fun loop (jsv: jsonval, i:int, n:int): jsonval =
@@ -345,6 +357,7 @@ jsonval_object_get_key_exn (jsv, label) = let
              val p = $UN.cast{ptr} (jsv)
              val ofs = g0i2u(n)*sizeof<jsmntok_t>
              val keyjsv = $UN.cast{jsonval} (add_ptr_bsz (p, ofs))
+             (**
              val () = 
                  if ~jsonval_is_string (keyjsv) then begin
                      println! ("Key is not string! While looking for key ", label);
@@ -352,7 +365,7 @@ jsonval_object_get_key_exn (jsv, label) = let
                      println! ("ofs = ", n);
                      println! ("start =", keyjsv.start);
                  end
-                          
+             *)    
              val () = assertloc (jsonval_is_string (keyjsv))
              val key = keyjsv.string
              val ofs = g0i2u(n+1)*sizeof<jsmntok_t>
@@ -386,6 +399,7 @@ end
 
 implement{}
 jsonval_object_has_key (jsv, label) = let
+    (**
     val () = 
         if ~jsonval_is_object (jsv) then {
             val () = println! ("Expected object but found: ", jsv.type)
@@ -393,7 +407,7 @@ jsonval_object_has_key (jsv, label) = let
             val () = println! ("Token starts @  ", jsv.start)
             val () = println! ("Data:", jsv.string_unsafe)
         }
-
+    *)
     val () = assertloc (jsonval_is_object (jsv))
     
     fun loop (jsv: jsonval, i:int, n:int): bool =
