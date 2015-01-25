@@ -181,7 +181,7 @@ end // end of [fserv2]
 //
 in
   chneg_create (llam (chp) => fserv (chp))
-end // end of [chneg_ssqueue_nil]
+end // end of [myqueue_nil]
 
 (* ****** ****** *)
 
