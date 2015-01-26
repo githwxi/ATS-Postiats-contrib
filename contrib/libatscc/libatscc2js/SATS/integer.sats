@@ -145,11 +145,11 @@ overload <> with neq_int1_int1 of 120
 //
 (* ****** ****** *)
 //
-fun add_uint0_uint0: (int, int) -> int = "mac#%"
-fun sub_uint0_uint0 : (int, int) -> int = "mac#%"
-fun mul_uint0_uint0 : (int, int) -> int = "mac#%"
-fun div_uint0_uint0 : (int, int) -> int = "mac#%"
-fun mod_uint0_uint0 : (int, int) -> int = "mac#%"
+fun add_uint0_uint0: (uint, uint) -> uint = "mac#%"
+fun sub_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun mul_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun div_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun mod_uint0_uint0 : (uint, uint) -> uint = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -162,13 +162,13 @@ overload mod with mod_uint0_uint0 of 100
 //
 (* ****** ****** *)
 //
-fun lt_uint0_uint0: (int, int) -> bool = "mac#%"
-fun lte_uint0_uint0: (int, int) -> bool = "mac#%"
-fun gt_uint0_uint0: (int, int) -> bool = "mac#%"
-fun gte_uint0_uint0: (int, int) -> bool = "mac#%"
+fun lt_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun lte_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun gt_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun gte_uint0_uint0: (uint, uint) -> bool = "mac#%"
 //
-fun eq_uint0_uint0: (int, int) -> bool = "mac#%"
-fun neq_uint0_uint0: (int, int) -> bool = "mac#%"
+fun eq_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun neq_uint0_uint0: (uint, uint) -> bool = "mac#%"
 //
 (* ****** ****** *)
 //
