@@ -1,5 +1,5 @@
 (*
-** Session Lists
+** Session List
 *)
 
 (* ****** ****** *)

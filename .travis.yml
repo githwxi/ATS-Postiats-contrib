@@ -1,3 +1,5 @@
+os:
+  - linux
 before_install:
   - date
   - cat /proc/cpuinfo

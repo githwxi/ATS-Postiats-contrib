@@ -11,6 +11,10 @@
 //
 (* ****** ****** *)
 //
+// HX: for signed integers
+//
+(* ****** ****** *)
+//
 fun
 abs_int0 : int -> int = "mac#%"
 //
@@ -134,6 +138,47 @@ overload >= with gte_int1_int1 of 120
 overload = with eq_int1_int1 of 120
 overload != with neq_int1_int1 of 120
 overload <> with neq_int1_int1 of 120
+//
+(* ****** ****** *)
+//
+// HX: for unsigned integers
+//
+(* ****** ****** *)
+//
+fun add_uint0_uint0: (int, int) -> int = "mac#%"
+fun sub_uint0_uint0 : (int, int) -> int = "mac#%"
+fun mul_uint0_uint0 : (int, int) -> int = "mac#%"
+fun div_uint0_uint0 : (int, int) -> int = "mac#%"
+fun mod_uint0_uint0 : (int, int) -> int = "mac#%"
+//
+(* ****** ****** *)
+//
+overload + with add_uint0_uint0 of 100
+overload - with sub_uint0_uint0 of 100
+overload * with mul_uint0_uint0 of 100
+overload / with div_uint0_uint0 of 100
+overload % with mod_uint0_uint0 of 100
+overload mod with mod_uint0_uint0 of 100
+//
+(* ****** ****** *)
+//
+fun lt_uint0_uint0: (int, int) -> bool = "mac#%"
+fun lte_uint0_uint0: (int, int) -> bool = "mac#%"
+fun gt_uint0_uint0: (int, int) -> bool = "mac#%"
+fun gte_uint0_uint0: (int, int) -> bool = "mac#%"
+//
+fun eq_uint0_uint0: (int, int) -> bool = "mac#%"
+fun neq_uint0_uint0: (int, int) -> bool = "mac#%"
+//
+(* ****** ****** *)
+//
+overload < with lt_uint0_uint0 of 100
+overload <= with lte_uint0_uint0 of 100
+overload > with gt_uint0_uint0 of 100
+overload >= with gte_uint0_uint0 of 100
+overload = with eq_uint0_uint0 of 100
+overload != with neq_uint0_uint0 of 100
+overload <> with neq_uint0_uint0 of 100
 //
 (* ****** ****** *)
 
