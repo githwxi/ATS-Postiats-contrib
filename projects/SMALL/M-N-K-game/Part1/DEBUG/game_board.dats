@@ -60,6 +60,33 @@ datatype dir = E | W | N | S | NE | SE | NW | SW
 (* ****** ****** *)
 
 fun
+dir2str (x:dir): string =
+(
+case+ x of
+| E () => "E"
+| W () => "W"
+| N () => "N"
+| S () => "S"
+| NE () => "NE"
+| SE () => "SE"
+| NW () => "NW"
+| SW () => "SW"
+)
+
+(* ****** ****** *)
+//
+fun
+fprint_dir
+(
+  out: FILEref, x: dir
+) : void =
+  fprint (out, dir2str(x))
+//
+overload fprint with fprint_dir
+//
+(* ****** ****** *)
+
+fun
 dirnext
 (
   dir: dir, i: int, j: int
@@ -97,8 +124,22 @@ board_dirmax
   board, pid, dir, i, j
 ) = let
 //
+(*
+val () =
+fprintln! (stdout_ref, "board_dirmax: pid = ", pid)
+val () =
+fprintln! (stdout_ref, "board_dirmax: dir = ", dir)
+*)
+//
+(*
 var nseq: int = 0
 val p_nseq = addr@nseq
+*)
+//
+val (
+pf, pfgc | p_nseq
+) = ptr_alloc<int> ()
+val () = !p_nseq := 0
 //
 fun loop
 (
@@ -112,6 +153,8 @@ in
     then let
       val n = $UN.ptr1_get<int> (p_nseq)
       val () = $UN.ptr1_set<int> (p_nseq, n + 1)
+      val n1 = $UN.ptr1_get<int> (p_nseq)
+      val () = fprintln! (stdout_ref, "loop: !p_nseq = ", n1)
       val (i, j) = dirnext (dir, i, j)
     in
       loop (i, j)
@@ -121,10 +164,16 @@ end // end of [loop]
 //
 // HX-2014-05:
 // [ptr_as_volatile] does nothing;
-// gcc/clang -O1 bug is triggered if the
+// gcc/clang-O2 bug is triggered if the
 val () = ptr_as_volatile (p_nseq) // line is omitted
 //
-val () = try loop (i, j) with ~MatrixSubscriptExn () => ()
+val () =
+try loop (i, j) with ~MatrixSubscriptExn () => ()
+//
+val nseq = !p_nseq
+val () =
+fprintln! (stdout_ref, "board_dirmax: nseq = ", !p_nseq)
+val ((*void*)) = ptr_free(pfgc, pf | p_nseq)
 //
 in
   $UN.cast{intGte(0)}(nseq)
@@ -199,14 +248,14 @@ val ((*void*)) = fprint_newline (stdout_ref)
 val () =
 println! ("TESTING(fprint_board): end")
 //
-val () = println! ("board_check_at (0, 0) = ", board_check_at (board, 0, 0))
-val () = println! ("board_check_at (1, 1) = ", board_check_at (board, 1, 1))
-val () = println! ("board_check_at (2, 2) = ", board_check_at (board, 2, 2))
-val () = println! ("board_check_at (3, 3) = ", board_check_at (board, 3, 3))
+val () = println! ("board_check_at (0, 0) =\n", board_check_at (board, 0, 0))
+val () = println! ("board_check_at (1, 1) =\n", board_check_at (board, 1, 1))
+val () = println! ("board_check_at (2, 2) =\n", board_check_at (board, 2, 2))
+val () = println! ("board_check_at (3, 3) =\n", board_check_at (board, 3, 3))
 //
 } (* end of [val] *)
 // *)
 
 (* ****** ****** *)
 
-(* end of [game_board.dats] *)
+(* end of [game_board2.dats] *)
