@@ -15,7 +15,7 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/PEULER/SATS/peuler.sats"
+"../SATS/peuler.sats"
 //
 (* ****** ****** *)
 //
