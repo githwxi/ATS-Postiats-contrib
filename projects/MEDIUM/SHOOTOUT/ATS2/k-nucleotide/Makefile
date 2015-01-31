@@ -12,6 +12,12 @@ GPP=g++
 PATSCC=$(PATSHOME)/bin/patscc
 
 ######
+#
+export PATSCCOMP=\
+$(GCC) -std=c99 -D_XOPEN_SOURCE \
+  -I${PATSHOME} -I${PATSHOME}/ccomp/runtime -L${PATSHOME}/ccomp/atslib/lib
+#
+######
 
 all:: k-nucleotide
 all:: k-nucleotide_mt
@@ -21,14 +27,14 @@ all:: k-nucleotide_gpp3
 
 k-nucleotide: \
 k-nucleotide.dats ; \
-$(PATSCC) -DATS_MEMALLOC_LIBC \
+$(PATSCC) -verbose -DATS_MEMALLOC_LIBC \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@
 
 ######
 
 k-nucleotide_mt: \
 k-nucleotide_mt.dats ; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
+$(PATSCC) -verbose -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@ -lpthread
 
 ######

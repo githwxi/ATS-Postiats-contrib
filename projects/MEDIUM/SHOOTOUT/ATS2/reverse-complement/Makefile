@@ -11,6 +11,12 @@ GCC=gcc
 PATSCC=$(PATSHOME)/bin/patscc
 
 ######
+#
+export PATSCCOMP=\
+$(GCC) -std=c99 -D_XOPEN_SOURCE \
+  -I${PATSHOME} -I${PATSHOME}/ccomp/runtime -L${PATSHOME}/ccomp/atslib/lib
+#
+######
 
 all:: revcomp
 all:: revcomp_mt
@@ -19,13 +25,13 @@ all:: revcomp_gcc2
 ######
 
 revcomp: revcomp.dats ; \
-$(PATSCC) -D_GNU_SOURCE \
+$(PATSCC) -verbose -D_GNU_SOURCE \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@
 
 ######
 
 revcomp_mt: revcomp_mt.dats ; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
+$(PATSCC) -verbose -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 $< -o $@ -lpthread
 
 ######

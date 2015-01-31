@@ -167,7 +167,8 @@ implement
 mult_Av (v0, out, n) = let
 //
 implement
-A<> (i, j) = g0i2f ((i+j) * (i+j+1) / 2 + i + 1)
+A<> (i, j) =
+  g0i2f((i+j) * (i+j+1)/2 + i + 1)
 //
 in
   mult_Av_all (addr@v0, addr@out, n)
