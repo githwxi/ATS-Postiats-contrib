@@ -18,13 +18,23 @@ CFLAGS_COMPCERT += -D__GLIBC_HAVE_LONG_LONG=1
 
 ######
 
-COMPCERT=\
-compcert -fbitfields -flongdouble -fpacked-structs -fstruct-return $(CFLAGS_COMPCERT)
+COMPCERT=compcert
+
+######
+
+COMPCERT2=\
+$(COMPCERT) \
+  -fbitfields -flongdouble \
+  -fpacked-structs -fstruct-return \
+  $(CFLAGS_COMPCERT)
+
+######
+
+export PATSCCOMP=$(COMPCERT2)
 
 ######
 
 PATSCC=$(PATSHOME)/bin/patscc
-export PATSCCOMP=$(COMPCERT)
 
 ######
 

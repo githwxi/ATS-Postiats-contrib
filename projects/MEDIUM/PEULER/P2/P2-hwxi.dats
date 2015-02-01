@@ -30,11 +30,8 @@ staload
 //
 (* ****** ****** *)
 //
-(*
 staload
 "{$LIBATSHWXI}/PEULER/PROJECT/P2/P2.sats"
-*)
-staload "./P2.sats"
 //
 (* ****** ****** *)
 //
