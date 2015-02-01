@@ -26,6 +26,12 @@ staload
 absprop FIB (n: int, r: int) // fib(n) = r
 
 (* ****** ****** *)
+
+(*
+fun fib{n:nat}(n:int(n)): [r:int] (FIB(n, r) | int(r))
+*)
+
+(* ****** ****** *)
 //
 // MYSUM (n, t) =
 // t = sum of all the even fibs <= LIMIT starting from the nth one
@@ -35,27 +41,23 @@ dataprop MYSUM
   int(*n*), int(*t*)
 ) =
   | {n:nat}{r:int | r > LIMIT}
-    MYSUM (n, 0) of FIB (n, r)
+    MYSUMrule0 (n, 0) of FIB (n, r)
   | {n:nat}
     {r:nat | r <= LIMIT; r mod 2 > 0}
     {t1:int}
-    MYSUM (n, t1) of (FIB (n, r), MYSUM (n+1, t1))
+    MYSUMrule1 (n, t1) of (FIB (n, r), MYSUM (n+1, t1))
   | {n:nat}
     {r:nat | r <= LIMIT; r mod 2 == 0}
     {t1:int}
-    MYSUM (n, r + t1) of (FIB (n, r), MYSUM (n+1, t1))
+    MYSUMrule2 (n, r + t1) of (FIB (n, r), MYSUM (n+1, t1))
 // end of [MYSUM]
-
-(* ****** ****** *)
-
-fun fib{n:nat}(n:int(n)): [r:int] (FIB(n, r) | int(r))
 
 (* ****** ****** *)
 //
 // HX-2015-01-13:
 // please implement this one:
 //
-fun mysum {n:nat} (n: int n): [t:int] (MYSUM (n, t) | int t)
+fun mysum (): [t:int] (MYSUM (1, t) | int t)
 //
 (* ****** ****** *)
 

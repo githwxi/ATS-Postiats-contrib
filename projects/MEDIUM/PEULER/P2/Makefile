@@ -16,12 +16,12 @@ cleanall::
 ######
 
 all:: \
-P1-hwxi
-P1-hwxi: \
-P1-hwxi.dats; \
+P2-hwxi
+P2-hwxi: \
+P2-hwxi.dats; \
 $(PATSCC) -o $@ $<
-regress:: P1-hwxi; ./$<
-cleanall:: ; $(RMF) P1-hwxi
+regress:: P2-hwxi; ./$<
+cleanall:: ; $(RMF) P2-hwxi
 
 ######
 
