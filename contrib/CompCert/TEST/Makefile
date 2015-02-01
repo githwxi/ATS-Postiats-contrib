@@ -1,7 +1,7 @@
 #
-INCLATS :=
-INCLATS += -I${PATSHOME}
-INCLATS += -I${PATSHOMERELOC}/contrib
+INCLUDATS :=
+INCLUDATS += -I${PATSHOME}
+INCLUDATS += -I${PATSHOMERELOC}/contrib
 #
 CFLAGS_ATS :=
 CFLAGS_ATS += -D_ATS_CCOMP_HEADER_NONE
@@ -22,7 +22,7 @@ all:: \
 test00
 test00: \
 test00.dats; \
-$(PATSCC) $(INCLATS) $(CFLAGS_ATS) -o $@ -verbose $<
+$(PATSCC) $(INCLUDATS) $(CFLAGS_ATS) -o $@ -verbose $<
 cleanall:: ; $(RMF) test00
 
 ######

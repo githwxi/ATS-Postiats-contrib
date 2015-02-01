@@ -19,12 +19,6 @@ $(GCC) -std=c99 -D_XOPEN_SOURCE \
 ######
 
 all:: mandelbrot
-all:: mandelbrot_v2df
-all:: mandelbrot_v2df_smp
-all:: mandelbrot_gcc4
-
-######
-
 mandelbrot: \
 mandelbrot.dats ; \
 $(PATSCC) -verbose -D_GNU_SOURCE \
@@ -32,24 +26,36 @@ $(PATSCC) -verbose -D_GNU_SOURCE \
 
 ######
 
+ifeq ($(GCC),gcc)
+all:: \
+mandelbrot_v2df
 mandelbrot_v2df: \
 mandelbrot_v2df.dats ; \
 $(PATSCC) -verbose -D_GNU_SOURCE \
   -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@
+endif #end-of-ifeq
 
 ######
 
+ifeq ($(GCC),gcc)
+all:: \
+mandelbrot_v2df_smp
 mandelbrot_v2df_smp: \
 mandelbrot_v2df_smp.dats ; \
 $(PATSCC) -verbose -D_GNU_SOURCE \
   -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@ -lpthread
+endif #end-of-ifeq
 
 ######
 
+ifeq ($(GCC),gcc)
+all:: \
+mandelbrot_gcc4
 mandelbrot_gcc4: mandelbrot_gcc4.c ; \
 $(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native -std=c99 -D_GNU_SOURCE -mfpmath=sse -msse2 -fopenmp $< -o $@
+endif #end-of-ifeq
 
 ######
 
