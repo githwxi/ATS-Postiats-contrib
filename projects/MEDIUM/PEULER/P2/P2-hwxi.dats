@@ -30,8 +30,11 @@ staload
 //
 (* ****** ****** *)
 //
+(*
 staload
 "{$LIBATSHWXI}/PEULER/PROJECT/P2/P2.sats"
+*)
+staload "./P2.sats"
 //
 (* ****** ****** *)
 //
@@ -106,7 +109,13 @@ then let
   prval () = MYSUM_un_rule0 (pf0, pf2) in res
 end // end of [then]
 else let
-  val k0 = r0-2*half(r0)
+  val
+  (
+    pf_divmod | k0
+  ) = nmod2_g1int_int1(r0, 2)
+  prval () =
+    divmod_mul_elim (pf_divmod)
+  // end of [prval]
 in
   if k0 > 0
     then let
