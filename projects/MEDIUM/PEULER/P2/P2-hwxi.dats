@@ -5,6 +5,13 @@
 
 (* ****** ****** *)
 //
+// HX-2015-02-01:
+// Please note that
+// the solution is
+// verified and tail-recursive
+//
+(* ****** ****** *)
+//
 // Author: Hongwei Xi
 // Authoremail: gmhwxiATgmailDOTcom
 // Start time: February 1, 2015
