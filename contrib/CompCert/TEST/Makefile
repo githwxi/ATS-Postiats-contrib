@@ -13,8 +13,18 @@ CFLAGS_ATS += -D_ATSTYPE_VAR_SIZE=0x10000
 #
 ######
 
+CFLAGS_COMPCERT += -D__signed__=
+CFLAGS_COMPCERT += -D__GLIBC_HAVE_LONG_LONG=1
+
+######
+
+COMPCERT=\
+compcert -fbitfields -flongdouble -fpacked-structs -fstruct-return $(CFLAGS_COMPCERT)
+
+######
+
 PATSCC=$(PATSHOME)/bin/patscc
-export PATSCCOMP=gcc -std=c99
+export PATSCCOMP=$(COMPCERT)
 
 ######
 
