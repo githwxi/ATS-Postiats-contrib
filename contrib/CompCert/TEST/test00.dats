@@ -4,7 +4,8 @@
 
 (* ****** ****** *)
 
-implement main0((*void*)) = ()
+implement
+main0((*void*)) = println! ("Hello, world!")
 
 (* ****** ****** *)
 

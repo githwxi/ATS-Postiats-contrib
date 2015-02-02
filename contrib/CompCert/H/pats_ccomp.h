@@ -27,56 +27,31 @@
 /* ****** ****** */
 //
 #include \
-"kernelats/pats_ccomp.h"
-//
-/* ****** ****** */
-//
-#define ATSdynload()
-//
-#define ATSdynloadflag_sta(flag)
-#define ATSdynloadflag_ext(flag) ATSextern() int flag
-//
-#define ATSdynloadflag_init(flag) int flag = 0
-//
-#define ATSdynloadset(flag) flag = 1
-#define ATSdynloadfcall(dynloadfun) dynloadfun()
-//
-/* ****** ****** */
-//
-#define \
-ATSmainats_void_0(err) mainats_void_0()
-#define \
-ATSmainats_argc_argv_0(argc, argv, err) mainats_argc_argv_0(argc, argv)
-#define \
-ATSmainats_argc_argv_envp_0(argc, argv, envp, err) mainats_argc_argv_envp_0(argc, argv, envp)
-//
-#define \
-ATSmainats_void_int(err) err = mainats_void_int()
-#define \
-ATSmainats_argc_argv_int(argc, argv, err) err = mainats_argc_argv_int(argc, argv)
-#define \
-ATSmainats_argc_argv_envp_int(argc, argv, envp, err) err = mainats_argc_argv_envp_int(argc, argv, envp)
-//
-/* ****** ****** */
-//
+"ccomp/runtime/pats_ccomp_config.h"
 #include \
-"kernelats/prelude/CATS/integer.cats"
+"ccomp/runtime/pats_ccomp_basics.h"
 #include \
-"kernelats/prelude/CATS/pointer.cats"
-//
-#include "kernelats/prelude/CATS/bool.cats"
-#include "kernelats/prelude/CATS/char.cats"
-#include "kernelats/prelude/CATS/string.cats"
-//
-#include "kernelats/prelude/CATS/array.cats"
-#include "kernelats/prelude/CATS/arrayptr.cats"
-#include "kernelats/prelude/CATS/arrayref.cats"
+"ccomp/runtime/pats_ccomp_typedefs.h"
+#include \
+"ccomp/runtime/pats_ccomp_instrset.h"
+#include \
+"ccomp/runtime/pats_ccomp_memalloc.h"
 //
 /* ****** ****** */
-/*
-#include <stdint.h>
-#include "kernelats/prelude/CATS/integer_fixed.cats"
-*/
+//
+#include "prelude/CATS/basics.cats"
+//
+#include "prelude/CATS/integer.cats"
+#include "prelude/CATS/pointer.cats"
+//
+#include "prelude/CATS/bool.cats"
+#include "prelude/CATS/char.cats"
+#include "prelude/CATS/string.cats"
+//
+#include "prelude/CATS/array.cats"
+#include "prelude/CATS/arrayptr.cats"
+#include "prelude/CATS/arrayref.cats"
+//
 /* ****** ****** */
 
 #endif // end of [COMPCERT_PATS_CCOMP_H]
