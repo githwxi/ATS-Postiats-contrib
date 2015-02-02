@@ -40,7 +40,7 @@ factorize{n:int | n >= 2}(int(n)): FACTORIZE(n)
 fun
 findMaxPrime
 {n:int | n >= 2}
-  (n: int(n)): [p:nat] (MOD(n, p, 0), ISPRIME(p) | int(p))
+  (n: int(n)): [p:int] (MOD(n, p, 0), ISPRIME(p) | int(p))
 //
 (* ****** ****** *)
 
