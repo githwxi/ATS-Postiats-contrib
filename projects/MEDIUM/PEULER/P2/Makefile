@@ -25,6 +25,16 @@ cleanall:: ; $(RMF) P2-hwxi
 
 ######
 
+all:: \
+P2-hwxi-2
+P2-hwxi-2: \
+P2-hwxi-2.dats; \
+$(PATSCC) -o $@ $<
+regress:: P2-hwxi-2; ./$<
+cleanall:: ; $(RMF) P2-hwxi-2
+
+######
+
 RMF=rm -f
 
 ######
