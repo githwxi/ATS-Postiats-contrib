@@ -15,11 +15,6 @@
 "{$ARDUINO}/staloadall.hats"
 //
 (* ****** ****** *)
-//
-staload _ =
-  "prelude/DATS/array_quicksort.dats"
-//
-(* ****** ****** *)
 
 staload UN = "prelude/SATS/unsafe.sats"
 
