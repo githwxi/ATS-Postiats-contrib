@@ -71,14 +71,22 @@ atscntrb_sdstring_sdscat(sds, str) \
 atscntrb_sdstring_sdscatsds(sds1, sds2) \
   sdscatsds(sds1, (const sds)sds2)
 #define \
-atscntrb_sdstring_sdscpy(sds, str) \
-  sdscpy(sds, (const char*)str)
+atscntrb_sdstring_sdscatlen(sds, str, size) \
+  sdscatlen(sds, (const char*)str, size)
 /*
-fun sdscatlen(sds0, string, size_t): sds0
 fun sdscatrepr(sds0, string, size_t): sds0
 fun sdscatprintf{ts:t@ype}(sds, fmt: string, ts): sds0
-fun sdscpylen(sds0, string, size_t): sds0
 */
+//
+/* ****** ****** */
+//
+#define \
+atscntrb_sdstring_sdscpy(sds, str) \
+  sdscpy(sds, (const char*)str)
+#define \
+atscntrb_sdstring_sdscpylen(sds, str, size) \
+  sdscpylen(sds, (const char*)str, size)
+//
 /* ****** ****** */
 
 #define atscntrb_sdstring_sdstrim sdstrim

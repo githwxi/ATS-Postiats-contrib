@@ -99,6 +99,12 @@ sdsgrowzero(sds: sds0, len: size_t): sds0 = "mac#%"
 //
 fun sdscat(sds: sds0, string): sds0 = "mac#%"
 fun sdscatsds(sds1: sds0, sds2: !sds0): sds0 = "mac#%"
+//
+fun
+sdscatlen
+  {n:int}
+  (sds0, arrayref(char, n), size_t(n)): sds0 = "mac#%"
+//
 (*
 fun sdscatlen(sds0, string, size_t): sds0 = "mac#%"
 fun sdscatrepr(sds0, string, size_t): sds0 = "mac#%"
@@ -108,9 +114,11 @@ fun sdscatprintf{ts:t@ype}(sds, fmt: string, ts): sds0 = "mac#%"
 (* ****** ****** *)
 //
 fun sdscpy(sds: sds0, string): sds0 = "mac#%"
-(*
-fun sdscpylen(sds0, string, size_t): sds0 = "mac#%"
-*)
+//
+fun
+sdscpylen
+  {n:int}
+  (sds0, arrayref(char, n), size_t(n)): sds0 = "mac#%"
 //
 (* ****** ****** *)
 //
