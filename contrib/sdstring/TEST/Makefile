@@ -35,6 +35,16 @@ regress:: test2; ./$<
 cleanall:: ; $(RMF) test2
 #
 ######
+#
+all:: \
+test3
+test3: \
+test3.dats; \
+$(PATSCC) $(INCLATS) -o $@ ./../DATS/sdstring.dats $<
+regress:: test3; ./$<
+cleanall:: ; $(RMF) test3
+#
+######
 
 testall:: all
 testall:: regress

@@ -29,6 +29,11 @@ staload
 "./../SATS/sdstring.sats"
 //
 (* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
 
 %{$
 //
@@ -36,6 +41,111 @@ staload
 //
 %} // end of [%{$]
 
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+sdstring_get_at
+  (sds, i) = let
+//
+val p0 = sdstring2ptr(sds)
+//
+in
+//
+if
+p0 > 0
+then let
+  val n = sdslen(sds)
+in
+  if i < n then uchar2int0($UN.ptr0_get_at<uchar>(p0, i)) else ~1
+end // end of [then]
+else (~1) // end of [else]
+//
+end // end of [sdstring_get_at]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+sdstring_set_at
+  (sds, i, c) = let
+//
+val p0 = sdstring2ptr(sds)
+//
+in
+//
+if
+p0 > 0
+then let
+  val n = sdslen(sds)
+in
+  if i < n
+    then (
+      let val () = $UN.ptr0_set_at<char>(p0, i, c) in 0 end
+    ) (* end of [then] *)
+    else (~1) // end of [else]
+  // end of [if]
+end // end of [then]
+else (~1) // end of [else]
+//
+end // end of [sdstring_set_at]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+sdstring_foreach
+  (sds) = let
+//
+var env: void = () in sdstring_foreach_env<void> (sds, env)
+//
+end // end of [sdstring_foreach]
+
+(* ****** ****** *)
+
+implement
+{env}(*tmp*)
+sdstring_foreach_env
+  (sds, env) = let
+//
+implement
+array_foreach$cont<char><env>
+  (x, env) = sdstring_foreach$cont(x, env)
+implement
+array_foreach$fwork<char><env>
+  (x, env) = sdstring_foreach$fwork(x, env)
+//
+val p0 = sdstring2ptr(sds)
+//
+in
+//
+if
+p0 > 0
+then let
+//
+val n = sdslen(sds)
+val [n:int] n = g1ofg0(n)
+val
+(pf, fpf | p) =
+  $UN.ptr_vtake{array(char, n)}(p0)
+//
+val res = array_foreach_env<char><env> (!p, n, env)
+//
+prval () = fpf(pf)
+//  
+in
+  res
+end // end of [then]
+else i2sz(0) // end of [else]
+//
+end // end of [sdstring_foreach_env]
+
+(* ****** ****** *)
+//
+implement
+{env}(*tmp*)
+sdstring_foreach$cont(x, env) = true
+//
 (* ****** ****** *)
 
 (* end of [sdstring.dats] *)

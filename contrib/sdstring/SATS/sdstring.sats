@@ -55,10 +55,10 @@ vtypedef sds1 = [l:addr | l > null] sds(l)
 (* ****** ****** *)
 //
 castfn
-sds2ptr
+sdstring2ptr
   {l:addr}(!sds(l)):<> ptr(l)
 //
-overload ptrcast with sds2ptr
+overload ptrcast with sdstring2ptr
 //
 (* ****** ****** *)
 //
@@ -160,6 +160,37 @@ sdsmapchars{l:addr}{n:int}
   sds: !sds(l) >> _, _from: string(n), _to: string(n), size_t(n)
 ) : void = "mac#%" // end of [sdsmapchars]
 
+(* ****** ****** *)
+//
+// HX: Some extensions based on features in ATS
+//
+(* ****** ****** *)
+//
+fun{}
+sdstring_get_at (sds: !sds0, i: size_t): int
+fun{}
+sdstring_set_at
+  {l:addr}(sds: !sds(l) >> _, i: size_t, c: char): int(*err*)
+//
+overload [] with sdstring_get_at
+overload [] with sdstring_set_at
+//
+(* ****** ****** *)
+//
+fun{
+} sdstring_foreach
+  {l:addr}(sds: !sds(l) >> _): size_t
+fun{
+env:vt0p
+} sdstring_foreach_env
+  {l:addr}(sds: !sds(l) >> _, env: &(env) >> _): size_t
+// end of [sdstring_foreach_env]
+//
+fun{env:vt0p}
+sdstring_foreach$cont (c: &char, env: &env): bool
+fun{env:vt0p}
+sdstring_foreach$fwork (c: &char >> _, env: &env): void
+//
 (* ****** ****** *)
 
 (* end of [sdstring.sats] *)
