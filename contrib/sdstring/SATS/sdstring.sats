@@ -21,6 +21,13 @@
 
 (* ****** ****** *)
 
+(*
+** Author: Hanwen Wu (Summer 2014)
+** Author: Hongwei Xi (February 2015)
+*)
+
+(* ****** ****** *)
+
 #define
 ATS_PACKNAME "ATSCNTRB.sdstring" // package name
 #define
