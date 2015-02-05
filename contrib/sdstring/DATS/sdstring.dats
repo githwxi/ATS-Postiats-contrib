@@ -42,10 +42,18 @@ UN = "prelude/SATS/unsafe.sats"
 %} // end of [%{$]
 
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
-sdstring_get_at
+sdstring_get_at_int
+  (sds, i) =
+(
+  sdstring_get_at_size(sds, i2sz(i))
+)
+//
+implement
+{}(*tmp*)
+sdstring_get_at_size
   (sds, i) = let
 //
 val p0 = sdstring2ptr(sds)
@@ -61,13 +69,21 @@ in
 end // end of [then]
 else (~1) // end of [else]
 //
-end // end of [sdstring_get_at]
-
+end // end of [sdstring_get_at_size]
+//
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
-sdstring_set_at
+sdstring_set_at_int
+  (sds, i, c) =
+(
+  sdstring_set_at_size(sds, i2sz(i), c)
+)
+//
+implement
+{}(*tmp*)
+sdstring_set_at_size
   (sds, i, c) = let
 //
 val p0 = sdstring2ptr(sds)
@@ -88,8 +104,8 @@ in
 end // end of [then]
 else (~1) // end of [else]
 //
-end // end of [sdstring_set_at]
-
+end // end of [sdstring_set_at_size]
+//
 (* ****** ****** *)
 
 implement

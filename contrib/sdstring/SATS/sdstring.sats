@@ -167,13 +167,25 @@ sdsmapchars{l:addr}{n:int}
 (* ****** ****** *)
 //
 fun{}
-sdstring_get_at (sds: !sds0, i: size_t): int
+sdstring_get_at_int
+  (sds: !sds0, intGte(0)): int
 fun{}
-sdstring_set_at
+sdstring_get_at_size
+  (sds: !sds0, i: size_t): int
+//
+overload [] with sdstring_get_at_int
+overload [] with sdstring_get_at_size
+//
+fun{}
+sdstring_set_at_int
+  {l:addr}(sds: !sds(l) >> _, intGte(0), char): int(*err*)
+fun{}
+sdstring_set_at_size
   {l:addr}(sds: !sds(l) >> _, i: size_t, c: char): int(*err*)
 //
-overload [] with sdstring_get_at
-overload [] with sdstring_set_at
+symintr sdstring_set_at
+overload sdstring_set_at with sdstring_set_at_int
+overload sdstring_set_at with sdstring_set_at_size
 //
 (* ****** ****** *)
 //
