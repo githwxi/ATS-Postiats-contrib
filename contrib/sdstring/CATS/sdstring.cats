@@ -63,7 +63,7 @@ atscntrb_sdstring_sdsempty sdsempty
 atscntrb_sdstring_sdsgrowzero sdsgrowzero
 
 /* ****** ****** */
-
+//
 #define \
 atscntrb_sdstring_sdscat(sds, str) \
   sdscat(sds, (const char*)str)
@@ -120,4 +120,3 @@ atscntrb_sdstring_sdsmapchars(sds, _from, _to, size) \
 /* ****** ****** */
 
 /* end of [sdstring.cats] */
-
