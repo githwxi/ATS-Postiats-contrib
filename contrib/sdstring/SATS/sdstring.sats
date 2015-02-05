@@ -107,7 +107,7 @@ fun sdscatprintf{ts:t@ype}(sds, fmt: string, ts): sds0 = "mac#%"
 //
 (* ****** ****** *)
 //
-fun sdscpy(sds1: sds0, sds2: !sds0): sds0 = "mac#%"
+fun sdscpy(sds: sds0, string): sds0 = "mac#%"
 (*
 fun sdscpylen(sds0, string, size_t): sds0 = "mac#%"
 *)

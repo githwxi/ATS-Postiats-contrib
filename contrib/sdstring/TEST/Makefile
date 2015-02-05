@@ -17,12 +17,22 @@ all::
 ######
 #
 all:: \
-test
-test: \
-test.dats; \
+test1
+test1: \
+test1.dats; \
 $(PATSCC) $(INCLATS) -o $@ ./../DATS/sdstring.dats $<
-regress: test; ./$<
-cleanall:: ; $(RMF) test
+regress:: test1; ./$<
+cleanall:: ; $(RMF) test1
+#
+######
+#
+all:: \
+test2
+test2: \
+test2.dats; \
+$(PATSCC) $(INCLATS) -o $@ ./../DATS/sdstring.dats $<
+regress:: test2; ./$<
+cleanall:: ; $(RMF) test2
 #
 ######
 

@@ -38,4 +38,4 @@ val ((*freed*)) = sdsfree(foobar)
 
 (* ****** ****** *)
 
-(* end of [test.dats] *)
+(* end of [test1.dats] *)

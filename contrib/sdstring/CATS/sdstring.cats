@@ -64,21 +64,21 @@ atscntrb_sdstring_sdsgrowzero sdsgrowzero
 
 /* ****** ****** */
 
-#define atscntrb_sdstring_sdscat sdscat
-#define atscntrb_sdstring_sdscatsds sdscatsds
+#define \
+atscntrb_sdstring_sdscat(sds, str) \
+  sdscat(sds, (const char*)str)
+#define \
+atscntrb_sdstring_sdscatsds(sds1, sds2) \
+  sdscatsds(sds1, (const sds)sds2)
+#define \
+atscntrb_sdstring_sdscpy(sds, str) \
+  sdscpy(sds, (const char*)str)
 /*
-fun sdscatlen(sds0, string, size_t): sds0 = "mac#%"
-fun sdscatrepr(sds0, string, size_t): sds0 = "mac#%"
-fun sdscatprintf{ts:t@ype}(sds, fmt: string, ts): sds0 = "mac#%"
+fun sdscatlen(sds0, string, size_t): sds0
+fun sdscatrepr(sds0, string, size_t): sds0
+fun sdscatprintf{ts:t@ype}(sds, fmt: string, ts): sds0
+fun sdscpylen(sds0, string, size_t): sds0
 */
-
-/* ****** ****** */
-
-#define atscntrb_sdstring_sdscpy sdscpy
-/*
-fun sdscpylen(sds0, string, size_t): sds0 = "mac#%"
-*/
-
 /* ****** ****** */
 
 #define atscntrb_sdstring_sdstrim sdstrim
@@ -101,7 +101,9 @@ atscntrb_sdstring_sdsfromlonglong sdsfromlonglong
 
 /* ****** ****** */
 
-#define atscntrb_sdstring_sdsmapchars sdsmapchars
+#define \
+atscntrb_sdstring_sdsmapchars(sds, _from, _to, size) \
+  sdsmapchars(sds, (const char*)_from, (const char*)_to, size)
 
 /* ****** ****** */
 
