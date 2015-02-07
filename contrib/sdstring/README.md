@@ -1,4 +1,4 @@
-# API for Simple Dynamic Strings
+# Simple Dynamic Strings
 
 ## Project Description
 
