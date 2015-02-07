@@ -26,6 +26,8 @@
 #include
 "share/atspre_staload.hats"
 //
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
@@ -84,17 +86,19 @@ end // end of [pstate_get_token]
 //
 extern
 fun
-pstate_update{t:t0p}
+pstate_update
+  {t:t0p}
 (
-  st: &pstate(t) >> _, ts: ptr, ncur: int
+  &pstate(t) >> _, ptr, int
 ) : void // end-of-function
 //
 implement
 pstate_update
-  {t}(st, ts, ncur) =
-(
-  st.tstream := $UN.cast{stream(t)}(ts); st.ncur := ncur
-) (* end of [pstate_update] *)
+  {t}(st, ts, ncur) = let
+  val ts = $UN.cast{stream(t)}(ts)
+in
+  st.tstream := ts; st.ncur := ncur
+end (* end of [pstate_update] *)
 //
 (* ****** ****** *)
 //
@@ -105,8 +109,7 @@ parser_type
 //
 (* ****** ****** *)
 
-exception
-PARSE_FAIL of (ptr(*tstream*), int(*ncur*))
+exception PARFAIL of (ptr(*tstream*), int(*ncur*))
 
 (* ****** ****** *)
 //
@@ -145,7 +148,7 @@ prval ((*void*)) = fpf (pf)
 in
   res
 end with
-| ~PARSE_FAIL
+| ~PARFAIL
     (ts, ncur) => let
     val
     (pf, fpf | stp) =
@@ -155,7 +158,7 @@ end with
     prval ((*void*)) = fpf (pf)
   in
     res
-  end // end of [ParFailExn]
+  end // end of [PARFAIL]
 //
 end // end of [lam]
 //
