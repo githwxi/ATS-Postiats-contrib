@@ -109,13 +109,11 @@ local
      
   viewtypedef smtenv_struct = @{
     smt= solver,
-    variables= @{
-      statics= s2varmap (formula)
-    },
-    err= int,
-    verbose= bool
+    statics= s2varmap (formula),
+    verbose= bool,
+    err= int
   }
-  
+
   assume smtenv_viewt0ype = smtenv_struct
   
 in
@@ -123,14 +121,14 @@ in
   implement 
   smtenv_nil (env) = begin
     env.smt := $SMT.make_solver ();
-    s2varmap_nil (env.variables.statics);
+    s2varmap_nil (env.statics);
     env.err := 0;
     env.verbose := false
   end
 
   implement 
   smtenv_free (env) = begin
-      s2varmap_delete (env.variables.statics);
+      s2varmap_delete (env.statics);
       $SMT.delete_solver (env.smt);
   end
 
@@ -138,7 +136,7 @@ in
   smtenv_push (env) = (pf | ()) where {
     val _ = if env.verbose then println! ("(push 1)")
     val _ = $SMT.push (env.smt)
-    val _ = s2varmap_push (env.variables.statics)
+    val _ = s2varmap_push (env.statics)
     prval pf = __push () where {
       extern praxi __push (): smtenv_push_v
     }
@@ -148,7 +146,7 @@ in
   smtenv_pop (pf | env) = {
     val _ = if env.verbose then println! ("(pop 1)")
     val _ = $SMT.pop (env.smt)
-    val _ = s2varmap_pop (env.variables.statics)
+    val _ = s2varmap_pop (env.statics)
     prval _ = __pop (pf) where {
       extern praxi __pop (pf: smtenv_push_v): void
     }
@@ -178,14 +176,14 @@ in
     val id = stamp_get_int (stamp)
     val () = if env.verbose then
       println! ("Variables: ",
-        s2varmap_size (env.variables.statics)
+        s2varmap_size (env.statics)
     )
     //
     val fresh = $SMT.make_int_constant (id, smt_type)
     val () = $SMT.sort_free (smt_type)
     val opt =
       s2varmap_add (
-        env.variables.statics, s2v, fresh
+        env.statics, s2v, fresh
       )
   in
     case+ opt of
@@ -195,7 +193,7 @@ in
 
   implement 
   smtenv_get_var_exn (env, s2v) = let
-    val opt = s2varmap_find (env.variables.statics, s2v)
+    val opt = s2varmap_find (env.statics, s2v)
   in
     case+ opt of
       | ~None_vt () => let

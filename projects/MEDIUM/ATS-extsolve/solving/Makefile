@@ -13,14 +13,13 @@ PATSCC := $(PATSCC) -IATS ../
 
 ######
 
-# CFLAGS += 02 
+CFLAGS += -g -O2
 
 ######
 
 LDFLAGS :=
 LDFLAGS += -L$(PATSHOMEQ)/ccomp/atslib/lib
 LDFLAGS += -latslib
-LDFLAGS += $(shell pkg-config --libs json-c)
 
 ######
 
