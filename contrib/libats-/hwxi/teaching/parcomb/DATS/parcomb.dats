@@ -89,7 +89,8 @@ fun
 pstate_update
   {t:t0p}
 (
-  &pstate(t) >> _, ptr, int
+  &pstate(t) >> _
+, ts: stream(t), ncur: int
 ) : void // end-of-function
 //
 implement
@@ -109,8 +110,21 @@ parser_type
 //
 (* ****** ****** *)
 
-exception PARFAIL of (ptr(*tstream*), int(*ncur*))
+exception
+PARFAIL of
+(
+  ptr(*tstream*), int(*ncur*), int(*nmax*)
+) (* end of [PARFAIL] *)
 
+(* ****** ****** *)
+//
+fun
+{t:t0p}
+{a:t0p}
+parfail_raise
+  (st: &pstate(t)): a =
+  $raise PARFAIL($UN.cast{ptr}(st.tstream), st.ncur, st.nmax)
+//
 (* ****** ****** *)
 //
 implement
@@ -125,6 +139,46 @@ implement
 ret_parser (x) = lam (st) => (x)
 //
 (* ****** ****** *)
+//
+implement
+{t}{a}
+sat_parser_fun
+  (p0, ftest) = (
+//
+lam (st) => let
+//
+val x0 = p0 (st)
+val test = ftest(x0)
+//
+in
+//
+if test
+  then (x0) else parfail_raise<t><a>(st)
+//
+end // end of [end]
+//
+) (* end of [sat_parser_fun] *)
+//
+implement
+{t}{a}
+sat_parser_cloref
+  (p0, ftest) = (
+//
+lam (st) => let
+//
+val x0 = p0 (st)
+val test = ftest(x0)
+//
+in
+//
+if test
+  then (x0) else parfail_raise<t><a>(st)
+//
+end // end of [end]
+//
+) (* end of [sat_parser_cloref] *)
+//
+(* ****** ****** *)
 
 implement
 {t}{a}
@@ -134,6 +188,10 @@ alt_parser_parser
 lam (st) => let
 //
 val stp = addr@st
+//
+val ts0 = st.tstream
+val ncur0 = st.ncur
+//
 typedef pstate = pstate(t)
 //
 in
@@ -149,11 +207,11 @@ in
   res
 end with
 | ~PARFAIL
-    (ts, ncur) => let
+    (ts, ncur, nmax) => let
     val
     (pf, fpf | stp) =
     $UN.ptr_vtake{pstate}(stp)
-    val () = pstate_update (!stp, ts, ncur)
+    val () = pstate_update (!stp, ts0, ncur0)
     val res = p2 (st)
     prval ((*void*)) = fpf (pf)
   in
@@ -182,11 +240,25 @@ end // end of [let]
 //
 implement
 {t}{a,b}
+seq1wth_parser_fun
+  (p, f) =
+  lam (st) =>
+  let val x = p(st) in f (x) end
+implement
+{t}{a,b}
 seq1wth_parser_cloref
   (p, f) =
   lam (st) =>
   let val x = p(st) in f (x) end
 //
+implement
+{t}{a1,a2,b}
+seq2wth_parser_fun
+  (p1, p2, f) =
+lam (st) => let
+  val x1 = p1(st)
+  val x2 = p2(st) in f (x1, x2)
+end // end of [seq2wth_parser_fun]
 implement
 {t}{a1,a2,b}
 seq2wth_parser_cloref
@@ -221,6 +293,74 @@ lam (st) => let
   val x4 = p4(st) in f (x1, x2, x3, x4)
 end // end of [seq4wth_parser_cloref]
 //
+(* ****** ****** *)
+
+implement
+{t}{a}
+list0_parser(p0) = let
+//
+in
+//
+list1_parser<t><a>(p0) ||
+ret_parser<t><List0(a)>(list_nil)
+//
+end // end of [list0_parser]
+
+(* ****** ****** *)
+
+implement
+{t}{a}
+list1_parser
+(
+  p0
+) =
+(
+//
+lam (st) => let
+  val x = p0(st)
+  val p1 = list0_parser<t><a>(p0)
+  val xs = p1(st)
+in
+  list_cons(x, xs)
+end // end of [let]
+//
+) (* end of [list1_parser] *)
+
+(* ****** ****** *)
+//
+implement
+{t}{a}
+opt_parser(p0) = let
+//
+typedef b = Option(a)
+//
+in
+//
+seq1wth_parser_fun<t><a,b>
+  (p0, lam x => Some(x)) ||
+ret_parser<t><b>(None(*void*))
+//
+end // end of [opt_parser]
+//
+(* ****** ****** *)
+
+implement
+{t}{a}
+parser_apply_stream
+  (p0, ts) = let
+//
+var st: pstate(t)
+//
+val () =
+  st.tstream := ts
+//
+val () = st.ncur := 0
+and () = st.nmax := 0
+//
+in
+  p0 (st)
+end // end of [parser_apply_stream]
+
 (* ****** ****** *)
 
 (* end of [parcomb.dats] *)

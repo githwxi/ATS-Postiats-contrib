@@ -35,7 +35,7 @@
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
-(* ****** ****** *)
+
 
 staload "libats/ML/SATS/basis.sats"
 staload "libats/ML/SATS/list0.sats"
@@ -44,7 +44,11 @@ staload "libats/ML/SATS/array0.sats"
 (* ****** ****** *)
 //
 staload
+STDIO = "libc/SATS/stdio.sats"
+//
+staload
 STDLIB = "libc/SATS/stdlib.sats"
+//
 staload TIME = "libc/SATS/time.sats"
 //
 staload
@@ -180,6 +184,66 @@ in
   array0_make_arrayref (arrayptr_refize (A), n)
 end // end of [array0_make_argv]
 //
+(* ****** ****** *)
+//
+extern
+fun{}
+cstream_make_stdin(): stream(int)
+//
+implement
+{}(*tmp*)
+cstream_make_stdin
+  ((*void*)) =
+(
+(fix f(): stream(int) => $delay(stream_cons($STDIO.getchar0(), f())))()
+) (* end of [cstream_make_stdin] *)
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+cstream_make_fileref
+  (inp: FILEref): stream(int)
+//
+implement
+{}(*tmp*)
+cstream_make_fileref
+  (inp) = aux(inp) where
+{
+//
+fun
+aux (
+ inp: FILEref
+) : stream(int) = $delay
+(
+//
+let
+//
+val c = $STDIO.fgetc0(inp)
+//
+in
+//
+if
+c >= 0
+then (
+  stream_cons(c, aux(inp))
+) (* end of [then] *)
+else (
+  fileref_close(inp); stream_cons(~1, aux2())
+) (* end of [else] *)
+//
+end // end of [let]
+//
+) (* end of [$delay] *)
+//
+and
+aux2(): stream(int) =
+(
+  $delay(stream_cons(~1, aux2()))
+)
+//
+} (* end of [cstream_make_fileref] *)
+
 (* ****** ****** *)
 
 (* end of [BUCS.dats] *)
