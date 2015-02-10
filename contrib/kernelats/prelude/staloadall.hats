@@ -1,12 +1,20 @@
 (* ****** ****** *)
 //
-// Templates for kernel programming 
+// Templates for
+// kernel programming 
 //
 (* ****** ****** *)
-
-staload _ = "prelude/DATS/integer.dats"
-staload _ = "prelude/DATS/pointer.dats"
-
+//
+staload _ =
+"prelude/DATS/integer.dats"
+staload _ =
+"prelude/DATS/pointer.dats"
+//
+(* ****** ****** *)
+//
+staload _ =
+"prelude/DATS/integer_fixed.dats"
+//
 (* ****** ****** *)
 
 staload _ = "prelude/DATS/bool.dats"

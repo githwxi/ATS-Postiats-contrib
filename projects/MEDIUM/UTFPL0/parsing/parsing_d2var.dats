@@ -10,17 +10,13 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-//
+
+staload "./parsing.sats"
 staload "./../utfpl.sats"
-//
+
 (* ****** ****** *)
 
 staload "{$JSONC}/SATS/json_ML.sats"
-
-(* ****** ****** *)
-
-staload "./parsing.sats"
-staload "./parsing.dats"
 
 (* ****** ****** *)
 
@@ -65,7 +61,7 @@ the_d2varmap_insert
 //
 val k0 = d2v0.stamp
 val (vbox(pf) | p) = ref_get_viewptr (the_d2varmap)
-val~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, d2v0))
+val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, d2v0))
 //
 in
   // nothing
@@ -93,13 +89,39 @@ case+ opt of
 | ~None_vt ((*void*)) => d2v where
   {
     val-~Some_vt(jsv1) =
-      jsonval_get_field (jsv0, "d2var_name")
+      jsonval_get_field (jsv0, "d2var_sym")
     val sym = parse_symbol (jsv1)
     val d2v = d2var_make (sym, stamp)
     val ((*void*)) = the_d2varmap_insert (d2v)
   } (* end of [None_vt] *)
 //
 end // end of [parse_d2var]
+
+(* ****** ****** *)
+
+implement
+parse_d2varmap
+  (jsv0) = let
+//
+fun
+loop
+(
+  jsvs: jsonvalist
+) : void =
+(
+case+ jsvs of
+| list_nil () => ()
+| list_cons
+    (jsv, jsvs) => let
+    val d2v = parse_d2var(jsv) in loop (jsvs)
+  end // end of [list_cons]
+)
+//
+val-JSONarray(jsvs) = jsv0
+//
+in
+  loop (jsvs)
+end // end of [parse_d2varmap]
 
 (* ****** ****** *)
 

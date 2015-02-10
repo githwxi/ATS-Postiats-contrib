@@ -131,9 +131,6 @@ val-~None_vt() = kwordins ("ATSfunbody_end", ATSfunbody_end)
 val-~None_vt() = kwordins ("ATSreturn", ATSreturn)
 val-~None_vt() = kwordins ("ATSreturn_void", ATSreturn_void)
 //
-val-~None_vt() = kwordins ("ATSempty", ATSempty)
-val-~None_vt() = kwordins ("ATSextval", ATSextval)
-//
 val-~None_vt() = kwordins ("ATSPMVint", ATSPMVint)
 val-~None_vt() = kwordins ("ATSPMVintrep", ATSPMVintrep)
 //
@@ -146,6 +143,9 @@ val-~None_vt() = kwordins ("ATSPMVstring", ATSPMVstring)
 //
 val-~None_vt() = kwordins ("ATSPMVi0nt", ATSPMVi0nt)
 val-~None_vt() = kwordins ("ATSPMVf0loat", ATSPMVf0loat)
+//
+val-~None_vt() = kwordins ("ATSPMVempty", ATSPMVempty)
+val-~None_vt() = kwordins ("ATSPMVextval", ATSPMVextval)
 //
 val-~None_vt() = kwordins ("ATSPMVrefarg0", ATSPMVrefarg0)
 val-~None_vt() = kwordins ("ATSPMVrefarg1", ATSPMVrefarg1)

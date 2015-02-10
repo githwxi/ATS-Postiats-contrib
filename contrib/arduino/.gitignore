@@ -1,0 +1,9 @@
+#
+# git-igored
+#
+######
+
+/Arduino-Makefile
+/TEST/Firmata/FirmataC
+
+###### end of [./gitignore] ######

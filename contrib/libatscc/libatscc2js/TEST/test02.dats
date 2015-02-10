@@ -8,10 +8,6 @@
 "./../staloadall.hats"
 //
 staload "./../SATS/print.sats"
-//
-(* ****** ****** *)
-//
-staload _ = "./../DATS/list.dats"
 staload _ = "./../DATS/print.dats"
 //
 (* ****** ****** *)

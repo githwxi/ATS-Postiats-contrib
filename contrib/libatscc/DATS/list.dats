@@ -60,10 +60,11 @@ case+ 0 of
 end // end of [list_make_intrange_3]
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
-print_list(xs) = let
+fprint_list
+  (out, xs) = let
 //
 fun
 loop
@@ -77,22 +78,37 @@ case+ xs of
 | list_cons (x, xs) =>
   (
     if i > 0
-      then print_list$sep<> ();
+      then fprint_list$sep<> (out);
     // end of [if]
-    print_val<a> (x); loop (xs, i+1)
+    fprint_val<a> (out, x); loop (xs, i+1)
   ) (* end of [list_cons] *)
 //
 ) (* end of [loop] *)
 //
 in
   loop (xs, 0)
-end // end of [print_list]
-
+end // end of [fprint_list]
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+fprint_list$sep
+  (out) = fprint_string (out, ", ")
+//
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
-print_list$sep () = print_string (", ")
+{a}(*tmp*)
+fprint_list_sep
+  (out, xs, sep) = let
+//
+implement
+fprint_list$sep<> (out) = fprint_string (out, ", ")
+//
+in
+  fprint_list<a> (out, xs)
+end // end of [fprint_list_sep]
 
 (* ****** ****** *)
 

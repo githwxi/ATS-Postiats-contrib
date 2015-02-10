@@ -20,7 +20,7 @@ staload "./game.sats"
 
 (* ****** ****** *)
 //
-implement ptr_volatile (p) = ()
+implement ptr_as_volatile (p) = ()
 // this is for circumventing a gcc-O1 bug
 //
 (* ****** ****** *)

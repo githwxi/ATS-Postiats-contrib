@@ -1,0 +1,44 @@
+#
+MAKE=make
+PATSOPT=$(PATSHOME)/bin/patsopt
+#
+######
+#
+all:: \
+QueenPuzzle_dats.ino
+QueenPuzzle_dats.ino: \
+QueenPuzzle.dats; $(PATSOPT) -o $@ --dynamic $<
+#
+all:: ; $(MAKE) -f Makefile
+#
+cleanall:: ; $(MAKE) -f Makefile clean
+#
+######
+#
+all2:: \
+QueenPuzzle2_dats.ino
+QueenPuzzle2_dats.ino: \
+QueenPuzzle2.dats; $(PATSOPT) -o $@ --dynamic $<
+#
+all2:: ; $(MAKE) BOARD_TAG=unoyun ARDUINO_LIBS=Bridge -f Makefile
+#
+cleanall2:: ; $(MAKE) BOARD_TAG=unoyun -f Makefile clean
+#
+######
+#
+RMF=rm -f
+RMRF=rm -rf
+#
+######
+#
+clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
+#
+######
+#
+cleanall:: clean
+cleanall:: ; $(RMF) *_dats.ino
+cleanall:: ; $(RMRF) build-uno
+cleanall:: ; $(RMRF) build-unoyun
+#
+###### end of [Makefile] ######

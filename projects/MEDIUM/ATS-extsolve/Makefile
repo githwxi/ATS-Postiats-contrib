@@ -57,7 +57,7 @@ PATSOLVE_OBJECTS += solving/solving.o
 
 ######
 
-all:: setup patsolve
+all:: setup patsolve deploy
 cleanall:: ; $(RMF) patsolve 
 
 .phony: setup
@@ -77,6 +77,9 @@ include solving/Z3/atsmake-z3.mk
 patsolve: $(PATSOLVE_OBJECTS)
 	$(PATSCC) -o $@ $^ $(LDFLAGS)
 
+deploy: patsolve
+	cp patsolve $(PATSHOME)/bin/
+	
 ######
 
 cleanall:: ; make -C parsing cleanall

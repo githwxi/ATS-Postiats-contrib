@@ -17,7 +17,8 @@ staload
 (* ****** ****** *)
 //
 extern
-fun acker : (int, int) -> int = "mac#acker"
+fun acker 
+  : (int, int) -> int = "mac#acker"
 //
 implement
 acker (m, n) =

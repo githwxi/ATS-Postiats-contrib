@@ -20,7 +20,8 @@ staload "./../SATS/mydraw.sats"
 
 (* ****** ****** *)
 //
-// HX: p1, p2, p3 and p4 are positioned CCW
+// HX:
+// p1,p2,p3,p4 are CCW-positioned
 //
 extern
 fun{
@@ -31,15 +32,23 @@ fun{
 ) : void // end of [mydraw_matgraph]
 //
 extern
-fun{} mydraw_matgraph$color (i: intGte(0), j: intGte(0)): color
+fun{}
+mydraw_matgraph$color
+  (i: intGte(0), j: intGte(0)): color
+//
 extern
-fun{} mydraw_matgraph$draw_cell
-  (i: intGte(0), j: intGte(0), p1: point, p2: point, p3: point, p4: point): void
+fun{}
+mydraw_matgraph$draw_cell
+(
+  i: intGte(0), j: intGte(0)
+, p1: point, p2: point, p3: point, p4: point
+) : void // end-of-function
 //
 (* ****** ****** *)
 
-implement{
-} mydraw_matgraph
+implement
+{}(*tmp*)
+mydraw_matgraph
 (
   m, n, p1, p2, p3, p4
 ) = let
@@ -82,7 +91,7 @@ val () = loop2 (0)
 //
 in
   if succ(i) < m then loop (succ(i)) else ()
-end
+end // end of [loop]
 //
 in
   loop (0)

@@ -71,17 +71,13 @@ in
       (**
         There really should be a distinction here between flat types
         and boxed types if only because
+        
           \forall t,s:type sizeof(t) == sizeof(s)
       *)
       | "type" => S2RTt0ype ()
       | "viewtype" =>  S2RTt0ype ()
-      | _ => let
-        (*
-        val () = fprintln! (stderr_ref, "Could not understand sort :", srt)
-        *)
-      in
-        S2RTignored ()
-      end
+      | _ => S2RTuninterp (srt)
+   
 end // end of [parse_S2RTbas]
 
 (* ****** ****** *)

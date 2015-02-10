@@ -26,6 +26,8 @@ $(CPF) ./CATS/float_cats.py ./output/ats2pypre_float_cats.py
 all:: ; \
 $(CPF) ./CATS/string_cats.py ./output/ats2pypre_string_cats.py
 all:: ; \
+$(CPF) ./CATS/print_cats.py ./output/ats2pypre_print_cats.py
+all:: ; \
 $(CPF) ./CATS/filebas_cats.py ./output/ats2pypre_filebas_cats.py
 all:: ; \
 $(CPF) ./CATS/PYlist_cats.py ./output/ats2pypre_PYlist_cats.py
@@ -34,6 +36,8 @@ $(CPF) ./CATS/PYlist_cats.py ./output/ats2pypre_PYlist_cats.py
 
 all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_dats.py -i
 all:: ; \
 $(PATSOPT) -d ./DATS/array.dats | $(ATSCC2PY) -o ./output/ats2pypre_array_dats.py -i
 all:: ; \

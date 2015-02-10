@@ -152,6 +152,9 @@ fun emit2_ATSINSmove_boxrec
 extern
 fun emit2_ATSINSmove_delay
   (out: FILEref, ind: int, ins: instr) : void
+extern
+fun emit2_ATSINSmove_lazyeval
+  (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
 //
@@ -209,7 +212,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ") ")
+    val ((*closing*)) = emit_text (out, ") ")
     val () = emit_instr (out, ins)
   }
 //
@@ -323,10 +326,10 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
     val () = (
       case+ d0e.d0exp_node of
-      | ATSempty _ =>
+      | ATSPMVempty _ =>
           emit_text (out, "// ATSINSmove_void")
-        // end of [ATSempty]
-      | _ (*non-ATSempty*) => emit_d0exp (out, d0e)
+        // end of [ATSPMVempty]
+      | _ (*non-ATSPMVempty*) => emit_d0exp (out, d0e)
     ) : void // end of [val]
     val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove_void] *)
@@ -356,6 +359,8 @@ ins0.instr_node of
 //
 | ATSINSmove_delay _ =>
     emit2_ATSINSmove_delay (out, ind, ins0)
+| ATSINSmove_lazyeval _ =>
+    emit2_ATSINSmove_lazyeval (out, ind, ins0)
 //
 | ATStailcalseq (inss) =>
   {
@@ -399,6 +404,22 @@ ins0.instr_node of
     val () = emit_i0de (out, d2c)
     val () = emit_text (out, " = ")
     val () = emit_d0exp (out, d0e_r)
+    val () = emit_SEMICOLON (out)
+  }
+//
+| ATSINScaseof_fail (errmsg) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "ATSINScaseof_fail")
+    val () = emit_LPAREN (out)
+    val () = emit_PMVstring (out, errmsg)
+    val () = emit_RPAREN (out)
+    val () = emit_SEMICOLON (out)
+  }
+| ATSINSdeadcode_fail (__tok__) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "ATSINSdeadcode_fail()")
     val () = emit_SEMICOLON (out)
   }
 //
@@ -607,6 +628,33 @@ end // end of [emit2_ATSINSmove_delay]
 
 (* ****** ****** *)
 
+implement
+emit2_ATSINSmove_lazyeval
+  (out, ind, ins0) = let
+//
+val-
+ATSINSmove_lazyeval
+  (tmp, s0e, lazyval) = ins0.instr_node
+//
+val () = emit_nspc (out, ind)
+val () = emit_text (out, "ATSPMVlazyval_eval")
+val () = emit_text (out, "(")
+val () = emit_d0exp (out, lazyval)
+val () = emit_text (out, "); ")
+val () = emit_tmpvar (out, tmp)
+val () = emit_text (out, " = ")
+val () = emit_d0exp (out, lazyval)
+val () =
+(
+  emit_text (out, "["); emit_int (out, 1); emit_text (out, "];")
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_lazyeval]
+
+(* ****** ****** *)
+
 #define
 ATSEXTCODE_BEG "/* ATSextcode_beg() */"
 #define
@@ -712,7 +760,7 @@ in
 case+
 f0a.f0arg_node of
 //
-| F0ARGnone _ => emit_text (out, "*ERROR**")
+| F0ARGnone _ => emit_text (out, "**ERROR**")
 | F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
 //
 end // end of [emit_f0arg]
@@ -749,10 +797,6 @@ end // end of [emit_f0marg]
 implement
 emit_f0head
   (out, fhd) = let
-//
-val f0as =
-  f0head_get_f0arglst (fhd)
-//
 in
 //
 case+

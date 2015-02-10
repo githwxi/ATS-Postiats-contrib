@@ -29,17 +29,15 @@ regress::
 # omp_hello.c ; $(GCC) -fopenmp -o $@ $<
 
 ######
-
+#
 all:: \
 omp_hello
 omp_hello: \
 omp_hello.dats ; $(PATSCC) -I$(PATSHOMERELOC)/contrib -fopenmp -o $@ $<
+regress:: \
+omp_hello; ./omp_hello
 cleanall:: ; $(RMF) omp_hello
-
-######
-
-regress:: omp_hello; ./omp_hello
-
+#
 ######
 
 RMF=rm -f

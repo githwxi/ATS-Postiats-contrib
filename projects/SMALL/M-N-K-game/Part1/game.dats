@@ -7,9 +7,14 @@
 staload "./game.sats"
 
 (* ****** ****** *)
-  
+(*
+//
+// HX-2014:
+// no longer needed  
+//
 dynload "./game.sats"
-
+//
+*)
 (* ****** ****** *)
 
 dynload "./game_conf.dats"

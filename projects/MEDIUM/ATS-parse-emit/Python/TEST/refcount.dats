@@ -11,14 +11,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PY}/basics_py.sats"
-staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PY}/SATS/string.sats"
-staload
-"{$LIBATSCC2PY}/SATS/reference.sats"
+#include
+"{$LIBATSCC2PY}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -64,7 +58,10 @@ sys.setrecursionlimit(1000000)
 from ats2pypre_basics_cats import *
 #
 from ats2pypre_integer_cats import *
+#
 from ats2pypre_string_cats import *
+#
+from ats2pypre_print_cats import *
 #
 from ats2pypre_PYlist_cats import *
 #

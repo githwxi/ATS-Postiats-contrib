@@ -51,15 +51,13 @@ staload "./../SATS/location.sats"
 macdef EOL = char2int0('\n')
 
 (* ****** ****** *)
-
+//
 assume
-position_type =
-$extype_struct
-"atscntrb_lexingbuf_position" of
-{
-  ntot= lint, nrow= int, ncol= int
-} (* end of [postion_type] *)
-
+position_t0ype =
+$extype_struct"\
+atscntrb_libatshwxi_lexingbuf_position\
+" of { ntot= lint, nrow= int, ncol= int }
+//
 (* ****** ****** *)
 
 implement
@@ -73,15 +71,19 @@ position_incby_char
 (* ****** ****** *)
 
 assume
-location_type = $rec
-{
-  fname= fname_t // file name
-, beg_ntot= lint // beginning char position
-, beg_nrow= int
-, beg_ncol= int
-, end_ntot= lint // finishing char position
-, end_nrow= int
-, end_ncol= int
+location_type = $rec{
+//
+// file name
+//
+  fname= fname_t
+//
+// beginning char position
+//
+, beg_ntot= lint, beg_nrow= int, beg_ncol= int
+//
+// finishing char position
+//
+, end_ntot= lint, end_nrow= int, end_ncol= int
 } (* end of [location] *)
 
 (* ****** ****** *)

@@ -63,11 +63,11 @@ ats2jspre_JSmath_log(x) { return Math.log(x); }
 /* ****** ****** */
 //
 function
-ats2jspre_JSmath_ceil() { return Math.ceil(); }
+ats2jspre_JSmath_ceil(x) { return Math.ceil(x); }
 function
-ats2jspre_JSmath_floor() { return Math.floor(); }
+ats2jspre_JSmath_floor(x) { return Math.floor(x); }
 function
-ats2jspre_JSmath_round() { return Math.round(); }
+ats2jspre_JSmath_round(x) { return Math.round(x); }
 //
 /* ****** ****** */
 //

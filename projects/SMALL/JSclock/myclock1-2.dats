@@ -17,8 +17,6 @@ http://www.neilwallis.com/projects/html5/clock/
 //
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 
@@ -118,7 +116,7 @@ draw_clock
   ctx, nhr, nmin, nsec
 ) = () where {
 //
-val () = ctx.clearRect(0.0, 0.0, 300.0, 300.0)
+val () = ctx.clearRect(0, 0, 300, 300)
 //
 // Define gradients for 3D-shadow effect
 //

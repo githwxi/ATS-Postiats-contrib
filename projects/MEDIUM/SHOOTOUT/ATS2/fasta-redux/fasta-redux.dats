@@ -10,6 +10,13 @@
 // HX-2014-06-05
 //
 (* ****** ****** *)
+
+%{^
+#undef ATSextfcall
+#define ATSextfcall(f, args) f args
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"

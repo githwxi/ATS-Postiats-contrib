@@ -67,7 +67,7 @@ end // end of [val]
 val ((*void*)) = strptr_free (cs)
 val ((*void*)) = json_tokener_free (tkr)
 //
-val jsv = json_object2val0 (jso)
+val jsv0 = json_object2val0 (jso)
 //
 (*
 val () =
@@ -75,7 +75,7 @@ val () =
 val () = fprint_newline (stdout_ref)
 *)
 //
-val d2cs = parse_d2eclist (jsv)
+val d2cs = parse_d2eclist_export (jsv0)
 //
 (*
 val () =

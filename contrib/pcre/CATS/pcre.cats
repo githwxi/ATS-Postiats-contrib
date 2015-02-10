@@ -60,7 +60,8 @@ void *memcpy (void* dst, const void* src, size_t n) ;
 
 /* ****** ****** */
 
-#define atscntrb_pcre_pcre_version pcre_version
+#define \
+atscntrb_pcre_pcre_version() ((char*)(pcre_version()))
 
 /* ****** ****** */
 

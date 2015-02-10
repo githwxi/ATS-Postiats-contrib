@@ -25,6 +25,8 @@
 staload
 "{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
 staload
+"{$LIBATSCC2JS}/SATS/Node.js/fprint.sats"
+staload
 "{$LIBATSCC2JS}/SATS/Node.js/process.sats"
 //
 (* ****** ****** *)
@@ -192,7 +194,8 @@ end // end of [local]
 local
 //
 assume
-cardset_type = JSarray(card)
+cardset_type =
+JSarray(card)
 //
 in (* in-of-local *)
 //
@@ -214,11 +217,11 @@ fun loop
   res: res, cs: cardlst
 ) : res =
 (
-  case+ cs of
-  | list_nil () => res
-  | list_cons (c, cs) => let
-      val () = JSarray_push (res, c) in loop (res, cs)
-    end // end of [list_cons]
+case+ cs of
+| list_nil () => res
+| list_cons (c, cs) => let
+    val _ = JSarray_push (res, c) in loop (res, cs)
+  end // end of [list_cons]
 ) (* end of [loop] *)
 //
 in
@@ -240,7 +243,7 @@ val () = assertloc (j >= i)
 val cs = JSarray_copy (cs)
 val () = JSarray_remove_at (cs, j)
 val () = JSarray_remove_at (cs, i)
-val () = JSarray_push (cs, c)
+val _(*n*) = JSarray_push (cs, c)
 //
 } // end of [cardset_remove2_add1]
 
@@ -500,7 +503,8 @@ val A = JSarray_nil ()
 //
 implement
 {a}(*tmp*)
-logats_tmp (x) = JSarray_push(A, x)
+logats_tmp (x) =
+  ignoret(JSarray_push(A, x))
 //
 implement
 logats_tmp<card> (x) = logats_card (x)

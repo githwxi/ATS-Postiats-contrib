@@ -73,18 +73,24 @@ val NWT2 = nwaiter_ticket_split (NWT1)
 val NWT3 = nwaiter_ticket_split (NWT1)
 val NWT4 = nwaiter_ticket_split (NWT1)
 //
-val () = workshop_insert_job_lincloptr
+val () =
+workshop_insert_job_lincloptr
   (ws0, llam () => $effmask_all(do_work(NWT1)))
-val () = workshop_insert_job_lincloptr
+val () =
+workshop_insert_job_lincloptr
   (ws0, llam () => $effmask_all(do_work(NWT2)))
-val () = workshop_insert_job_lincloptr
+val () =
+workshop_insert_job_lincloptr
   (ws0, llam () => $effmask_all(do_work(NWT3)))
-val () = workshop_insert_job_lincloptr
+val () =
+workshop_insert_job_lincloptr
   (ws0, llam () => $effmask_all(do_work(NWT4)))
 //
 val ((*void*)) = nwaiter_waitfor (NW)
 //
 val ((*void*)) = nwaiter_destroy (NW)
+//
+val ((*void*)) = println! ("[test_workshop] is finished.")
 //
 } (* end of [main0] *)
 

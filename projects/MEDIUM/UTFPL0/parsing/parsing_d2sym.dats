@@ -15,12 +15,11 @@ staload "./../utfpl.sats"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "./parsing.sats"
 
 (* ****** ****** *)
 
-staload "./parsing.sats"
-staload "./parsing.dats"
+staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 
@@ -29,7 +28,7 @@ parse_d2sym
   (jsv0) = let
 //
 val-~Some_vt(jsv1) =
-  jsonval_get_field (jsv0, "d2sym_name")
+  jsonval_get_field (jsv0, "d2sym_sym")
 //
 val sym = parse_symbol (jsv1)
 //

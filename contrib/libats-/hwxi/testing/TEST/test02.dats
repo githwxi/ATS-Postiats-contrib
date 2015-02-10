@@ -46,13 +46,11 @@ end // end of [factorial]
 implement
 main () = let
 //
-val (
-) = assertloc (
-  factorial (10) = 1*2*3*4*5*6*7*8*9*10
-) (* end of [val] *)
+val () =
+assertloc (factorial (10) = 1*2*3*4*5*6*7*8*9*10)
 //
 in
-  0(*normal*)
+  0(*normal-exit*)
 end // end of [main]
 
 (* ****** ****** *)

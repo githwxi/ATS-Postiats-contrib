@@ -14,27 +14,44 @@ PATSLIB=$(PATSHOMEQ)/ccomp/atslib/lib
 ######
 
 all::
-all:: test_spinref
-all:: test_nwaiter
-all:: test_workshop
+regress::
+cleanall::
 
 ######
 
+all:: \
+test_spinref
 test_spinref: \
 test_spinref.dats ; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: test_spinref; ./$<
+cleanall:: ; $(RMF) test_spinref
 
 ######
 
+all:: \
+test_nwaiter
 test_nwaiter: \
 test_nwaiter.dats ; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: test_nwaiter; ./$<
+cleanall:: ; $(RMF) test_nwaiter
 
 ######
 
+all:: \
+test_workshop
 test_workshop: \
 test_workshop.dats ; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: test_workshop; ./$<
+cleanall:: ; $(RMF) test_workshop
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
@@ -49,8 +66,5 @@ clean:: ; $(RMF) *_?ats.o
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) test_spinref
-cleanall:: ; $(RMF) test_nwaiter
-cleanall:: ; $(RMF) test_workshop
 
 ###### end of [Makefile] ######

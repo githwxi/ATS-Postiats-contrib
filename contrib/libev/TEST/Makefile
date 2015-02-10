@@ -29,6 +29,8 @@ LDFLAGS += -lev
 ######
 
 all::
+regress::
+cleanall::
 
 ######
 
@@ -36,6 +38,7 @@ all:: \
 test00
 test00: test00.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
+regress:: test00; ./$<
 cleanall:: ; $(RMF) test00
 
 ######
@@ -60,7 +63,14 @@ all:: \
 test01
 test01: test01.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
+regress:: test01; echo | ./$<
 cleanall:: ; $(RMF) test01
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

@@ -58,19 +58,6 @@ abstype PYdict (a:t@ype)
 //
 (* ****** ****** *)
 //
-fun
-print_obj{a:t@ype}(obj: a): void = "mac#%"
-fun
-println_obj{a:t@ype}(obj: a): void = "mac#%"
-//
-(* ****** ****** *)
-
-fun print_newline ((*void*)): void = "mac#%"
-fun prerr_newline ((*void*)): void = "mac#%"
-fun fprint_newline (out: PYfile): void = "mac#%"
-
-(* ****** ****** *)
-//
 fun assert_errmsg_bool0
   (x: bool, msg: string): void = "mac#%"
 fun assert_errmsg_bool1

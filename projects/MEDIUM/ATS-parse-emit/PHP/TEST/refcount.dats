@@ -11,21 +11,18 @@
 //
 (* ****** ****** *)
 //
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "refcount_dynload"
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "refcount_dynload"
 //
-#define ATS_STATIC_PREFIX "refcount__"
+#define
+ATS_STATIC_PREFIX "refcount__"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PHP}/basics_php.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/string.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/reference.sats"
+#include
+"{$LIBATSCC2PHP}/staloadall.hats"
 //
 (* ****** ****** *)
 //

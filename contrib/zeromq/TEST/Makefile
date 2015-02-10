@@ -10,18 +10,58 @@ include $(PATSHOME)/share/atsmake-post.mk
 ######
 
 all::
-all:: hwserver
-all:: hwclient
 
 ######
 
+all:: \
+test00
+test00: test00.dats ; \
+  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< -lzmq
+cleanall:: ; $(RMF) test00
+
+######
+
+all:: \
+hwserver
 hwserver: hwserver.dats ; \
-  $(PATSCC2) -I${PATSHOME}/contrib -o $@  $< testlib.dats -lzmq
+  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
 cleanall:: ; $(RMF) hwserver
 
+all:: \
+hwclient
 hwclient: hwclient.dats ; \
-  $(PATSCC2) -I${PATSHOME}/contrib -o $@  $< testlib.dats -lzmq
+  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
 cleanall:: ; $(RMF) hwclient
+
+######
+
+all:: \
+wuserver
+wuserver: wuserver.dats ; \
+  $(PATSCC2) -D_GNU_SOURCE -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
+cleanall:: ; $(RMF) wuserver
+
+all:: \
+wuclient
+wuclient: wuclient.dats ; \
+  $(PATSCC2) -DATS_MEMALLOC_LIBC -I${PATSHOME}/contrib -o $@ $< testlib.dats -lzmq
+cleanall:: ; $(RMF) wuclient
+
+######
+
+all:: \
+test_zstr
+test_zstr: test_zstr.dats ; \
+  $(PATSCC2) -I${PATSHOME}/contrib -o $@ $< -lczmq -lzmq
+cleanall:: ; $(RMF) test_zstr
+
+######
+
+all:: \
+httpserver
+httpserver: httpserver.dats ; \
+  $(PATSCC2) -D_GNU_SOURCE -I${PATSHOME}/contrib -o $@ $< testlib.dats -lczmq -lzmq
+cleanall:: ; $(RMF) httpserver
 
 ######
 
@@ -30,5 +70,11 @@ RMF=rm -f
 ######
 
 cleanats:: ; $(RMF) *_?ats.c
+
+######
+
+cleanall:: ; $(RMF) weather.ipc
+
+######
 
 ###### end of [Makefile] ######

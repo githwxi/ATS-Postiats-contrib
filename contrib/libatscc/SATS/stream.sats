@@ -11,7 +11,9 @@ staload "./../basics.sats"
 fun
 stream_nth_exn
   {a:t0p}
-  (xs: stream(INV(a)), n: intGte(0)): a = "mac#%"
+(
+  xs: stream(INV(a)), n: intGte(0)
+) : a = "mac#%" // end-of-function
 //
 (* ****** ****** *)
 

@@ -56,9 +56,18 @@ cleanall:: ; $(RMF) falcon_cmdline
 depend:: ; $(PATSOPT) --output-a .depend --depgen -d falcon_main.dats
 depend:: ; $(PATSOPT) --output-a .depend --depgen -d falcon_cmdline.dats
 #
+######
+#
 PATS2XHTML=$(PATSHOME)/bin/pats2xhtml
 %_sats.html: %.sats ; $(PATS2XHTML) -o $@ -s $<
 %_dats.html: %.dats ; $(PATS2XHTML) -o $@ -d $<
+#
+######
+
+testall:: all
+testall:: cleanall
+
+######
 #
 cleanall:: ; $(RMF) *_?ats.c
 #

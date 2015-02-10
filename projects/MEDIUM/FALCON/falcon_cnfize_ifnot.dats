@@ -38,12 +38,14 @@ grexplst_cnfize_ifnot
   (gxs: grexplst, skipped: ruleset): grcnflst
 //
 (* ****** ****** *)
-
+//
 extern
-fun ruleset_make_nil (): ruleset
+fun
+ruleset_make_nil (): ruleset
 extern
-fun ruleset_is_member (ruleset, rule: int): bool
-
+fun
+ruleset_is_member (ruleset, rule: int): bool
+//
 (* ****** ****** *)
 
 local
@@ -61,7 +63,7 @@ implement
 ruleset_make_nil() = $FS.funset_make_nil{int}()
 
 implement
-ruleset_is_member (xs, x) = $FS.funset_is_member (xs, x, cmp)
+ruleset_is_member(xs, x) = $FS.funset_is_member (xs, x, cmp)
 
 end // end of [local]
 
@@ -82,17 +84,21 @@ case+ gxs of
 | list_cons
     (gx, gxs) => let
     val skip = ruleset_is_member (skipped, rule)
-    val () = if skip then fprintln! (stderr_ref, "Skipping rule(", rule, ")") 
-    val () = if ~skip then fprintln! (stderr_ref, "Processing rule(", rule, ")") 
+    val () =
+    if skip then
+      fprintln! (stderr_ref, "Skipping rule(", rule, ")")
+    // end of [if]
+    val () =
+    if ~skip then
+      fprintln! (stderr_ref, "Processing rule(", rule, ")") 
+    // end of [if]
   in
     if skip
       then
         loop (gxs, rule+1, res)
       else let
         val grf = grexp_cnfize (gx)
-        val () = (
-          fprint_grcnf (stderr_ref, grf); fprint_newline (stderr_ref)
-        ) (* end of [val] *)
+        val () = fprintln! (stderr_ref, grf)
         val res = list_vt_cons (grf, res)
       in
         loop (gxs, rule+1, res)

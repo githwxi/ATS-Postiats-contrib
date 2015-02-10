@@ -22,14 +22,11 @@ overload list_make_intrange with list_make_intrange_3
 (* ****** ****** *)
 //
 fun{a:t0p}
-print_list(List(INV(a))): void = "mac#%"
-//
-fun{}
-print_list$sep ((*void*)): void = "mac#%"
-//
+print_list
+  (xs: List(INV(a))): void = "mac#%"
 fun{a:t0p}
 print_list_sep
-  (List(INV(a)), sep: string): void = "mac#%"
+  (xs: List(INV(a)), sep: string): void = "mac#%"
 //
 overload print with print_list of 100
 //

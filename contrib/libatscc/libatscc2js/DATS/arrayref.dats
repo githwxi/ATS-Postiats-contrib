@@ -25,6 +25,9 @@ staload UN =
 (* ****** ****** *)
 //
 staload "./../basics_js.sats"
+//
+staload "./../SATS/integer.sats"
+//
 staload "./../SATS/JSarray.sats"
 //
 (* ****** ****** *)
@@ -57,16 +60,39 @@ ats2jspre_arrayref_make_elt
 (* ****** ****** *)
 
 implement
-arrayref_get_at{a}(A, i) = let
+arrayref_get_at
+  {a}(A, i) = let
   val A = $UN.cast{JSarray(a)}(A) in JSarray_get_at(A, i)
 end // end of [arrayref_get_at]
 
 (* ****** ****** *)
 
 implement
-arrayref_set_at{a}(A, i, x) = let
+arrayref_set_at
+  {a}(A, i, x) = let
   val A = $UN.cast{JSarray(a)}(A) in JSarray_set_at(A, i, x)
 end // end of [arrayref_set_at]
+
+(* ****** ****** *)
+
+implement
+arrayref_foreach_cloref
+  {a}(A, n, f) = let
+//
+fun
+loop
+{i:nat}
+(
+  i: int(i)
+) : void =
+(
+  if i < n
+    then (f(i); loop(i+1)) else ()
+  // end of [if]
+) (* end of [loop] *)
+in
+  loop(0)
+end // end of [arrayref_foreach_cloref]
 
 (* ****** ****** *)
 

@@ -45,12 +45,15 @@ staload "./../SATS/foldleft.sats"
 
 (* ****** ****** *)
 
-implement{res}
+implement
+{res}(*tmp*)
 foldleft_int (n, ini) = let
 //
-fun loop
+fun
+loop
   {n:int}
-  {i:nat | i <= n} .<n-i>. (
+  {i:nat | i <= n} .<n-i>.
+(
   n: int n, i: int i, acc: res
 ) : res =
 (
@@ -85,7 +88,7 @@ fun loop
     in
       loop (xs, acc)
     end // end of [list_cons]
-  | list_nil () => acc
+  | list_nil ((*void*)) => acc
 ) (* end of [loop] *)
 //
 in
@@ -115,7 +118,7 @@ fun loop
     in
       res
     end // end of [list_cons]
-  | list_vt_nil () => acc
+  | list_vt_nil ((*void*)) => acc
 ) (* end of [loop] *)
 //
 in

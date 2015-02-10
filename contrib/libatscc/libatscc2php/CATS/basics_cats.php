@@ -49,6 +49,52 @@ function
 ATSCKpat_con1($con, $tag) { return ($con[0] === $tag) ; }
 
 /* ****** ****** */
+//
+function
+ATSINScaseof_fail($errmsg)
+{
+  fprintf(STDERR, "ATSINScaseof_fail:%s", $errmsg); exit(1);
+  return;
+}
+//
+function
+ATSINSdeadcode_fail()
+  { fprintf(STDERR, "ATSINSdeadcode_fail"); exit(1); return; }
+//
+/* ****** ****** */
+
+function ATSPMVempty() { return; }
+
+/* ****** ****** */
+
+/*
+function
+ATSPMVlazyval_make (thunk) { return [0, thunk]; }
+*/
+
+/* ****** ****** */
+
+function
+ATSPMVlazyval_eval
+  (&$lazyval)
+{
+//
+  $flag = $lazyval[0];
+//
+  if($flag===0)
+  {
+    $lazyval[0] = 1;
+    $thunk = $lazyval[1];
+    $lazyval[1] = $thunk[0]($thunk);
+  } else {
+    $lazyval[0] = $flag + 1;
+  } // end of [if]
+//
+  return;
+//
+} // end of [ATSPMVlazyval_eval]
+
+/* ****** ****** */
 
 function
 ats2phppre_echo_obj($x) { echo($x); return; }
@@ -86,14 +132,6 @@ ats2phppre_echo8_obj
   { echo $x1, $x2, $x3, $x4, $x5, $x6, $x7, $x8; return; }
 //
 */
-/* ****** ****** */
-//
-function
-ats2phppre_print_obj($x) { print($x); return; }
-//
-function
-ats2phppre_print_r_obj($x) { print_r($x); return; }
-//
 /* ****** ****** */
 
 function

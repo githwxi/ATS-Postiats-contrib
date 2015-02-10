@@ -46,6 +46,11 @@ emit_SEMICOLON (out) = emit_text (out, ";")
 (* ****** ****** *)
 
 implement
+emit_AMPER (out) = emit_text (out, "&")
+
+(* ****** ****** *)
+
+implement
 emit_SHARP (out) = emit_text (out, "#")
 
 (* ****** ****** *)
@@ -82,6 +87,11 @@ emit_LBRACE (out) = emit_text (out, "{")
 implement
 emit_RBRACE (out) = emit_text (out, "}")
 //
+(* ****** ****** *)
+
+implement
+emit_MINUSGT (out) = emit_text (out, "->")
+
 (* ****** ****** *)
 
 implement
@@ -199,9 +209,6 @@ end // end of [emit_tokenlst]
 
 (* ****** ****** *)
 //
-implement
-emit_extval
-  (out, toks) = emit_tokenlst (out, toks)
 implement
 emit_extcode
   (out, toks) = emit_tokenlst (out, toks)

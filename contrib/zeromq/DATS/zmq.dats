@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2012 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -31,6 +31,7 @@
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
 ** Start Time: December, 2012
+** Continue Time: November, 2014
 *)
 
 (* ****** ****** *)
@@ -38,6 +39,11 @@
 // HX: no dynloading
 //
 #define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
+//
+staload UN =
+  "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
@@ -49,6 +55,30 @@ staload "./../SATS/zmq.sats"
 
 (* ****** ****** *)
 
+implement
+zmq_ctx_new_exn
+  () = ctx where
+{
+  val ctx = zmq_ctx_new ()
+  val ((*void*)) = assertloc (zmqctx2ptr(ctx) > 0)
+} (* end of [zmq_ctx_new_exn] *)
+
+(* ****** ****** *)
+
+(*
+fun zmq_ctx_destroy_exn (ctx: zmqctx1) : void
+*)
+implement
+zmq_ctx_destroy_exn
+  (ctx) = () where
+{
+  val err = zmq_ctx_destroy (ctx)
+  val ((*void*)) = assertloc (err >= 0)
+  prval _(*ptr*) = zmqctxopt_unnone(ctx)
+} // end of [zmq_ctx_destroy_exn]
+
+(* ****** ****** *)
+
 (*
 fun zmq_socket_exn
   (ctx: !zmqctx1, type: int): zmqsock1
@@ -56,13 +86,12 @@ fun zmq_socket_exn
 *)
 implement
 zmq_socket_exn
-  (ctx, type) = let
+  (ctx, type) =
+  sock where
+{
   val sock = zmq_socket (ctx, type)
-  val p_sock = zmqsock2ptr (sock)
-  val () = assertloc (p_sock > nullp)
-in
-  sock
-end // end of [zmq_socket_exn]
+  val ((*void*)) = assertloc (zmqsock2ptr(sock) > 0)
+} (* end of [zmq_socket_exn] *)
 
 (* ****** ****** *)
 
@@ -75,8 +104,7 @@ fun zmq_bind_exn
 implement
 zmq_bind_exn
   (sock, endpt) = () where {
-  val err = zmq_bind (sock, endpt)
-  val () = assertloc (err >= 0)
+  val ((*void*)) = assertloc (zmq_bind (sock, endpt) >= 0)
 } // end of [zmq_bind_exn]
 
 (* ****** ****** *)
@@ -89,9 +117,9 @@ fun zmq_connect_exn
 *)
 implement
 zmq_connect_exn
-  (sock, endpt) = () where {
-  val err = zmq_connect (sock, endpt)
-  val () = assertloc (err >= 0)
+  (sock, endpt) = () where
+{
+  val () = assertloc (zmq_connect (sock, endpt) >= 0)
 } // end of [zmq_connect_exn]
 
 (* ****** ****** *)
@@ -101,51 +129,74 @@ fun zmq_close_exn (sock: zmqsock1) : void
 *)
 implement
 zmq_close_exn
-  (sock) = () where {
-  val err = zmq_close (sock)
-  val () = assertloc (err >= 0)
+  (sock) = () where
+{
+  val () = assertloc (zmq_close (sock) >= 0)
 } // end of [zmq_close_exn]
+
+(* ****** ****** *)
+
+implement
+zmq_send_string
+(
+  sock, msg, flags
+) = res where
+{
+//
+val [n:int] n = g1ofg0(length(msg))
+//
+val (pf, fpf | p) =
+  $UN.ptr0_vtake{array(byte,n)}(string2ptr(msg))
+//
+val res = zmq_send (sock, !p, n, flags)
+//
+prval ((*void*)) = fpf (pf)
+//
+} (* end of [zmq_send_string] *)
 
 (* ****** ****** *)
 
 (*
 fun zmq_msg_init_exn
-  (msg: &zmqmsg? >> zmqmsg): void
+  (msg: &zmqmsg_t? >> _): void
 *)
 implement
 zmq_msg_init_exn
-  (msg) = () where {
+  (msg) = () where
+{
   val err = zmq_msg_init (msg)
-  val () = assertloc (err >= 0)
-  prval () = opt_unsome {zmqmsg} (msg)
+  val ((*void*)) = assertloc (err >= 0)
+  prval ((*void*)) = opt_unsome{zmqmsg_t}(msg)
 } // end of [zmq_msg_init_exn]
 
 (* ****** ****** *)
 
 (*
 fun zmq_msg_init_size_exn
-  (msg: &zmqmsg? >> zmqmsg, n: size_t): void
+  (msg: &zmqmsg_t? >> _, n: size_t): void
 *)
 implement
 zmq_msg_init_size_exn
-  (msg, size) = () where {
+  (msg, size) = () where
+{
   val err = zmq_msg_init_size (msg, size)
-  val () = assertloc (err >= 0)
-  prval () = opt_unsome {zmqmsg} (msg)
+  val ((*void*)) = assertloc (err >= 0)
+  prval ((*void*)) = opt_unsome{zmqmsg_t}(msg)
 } // end of [zmq_msg_init_size_exn]
 
 (* ****** ****** *)
 
 (*
 fun zmq_msg_close_exn
-  (msg: &zmqmsg >> zmqmsg?): void
+  (msg: &zmqmsg_t >> zmqmsg_t?): void
 *)
 implement
 zmq_msg_close_exn
-  (msg) = () where {
+  (msg) = () where
+{
   val err = zmq_msg_close (msg)
-  val () = assertloc (err >= 0)
-  prval () = opt_unnone {zmqmsg} (msg)
+  val ((*void*)) = assertloc (err >= 0)
+  prval ((*void*)) = opt_unnone{zmqmsg_t}(msg)
 } // end of [zmq_msg_close_exn]
 
 (* ****** ****** *)
@@ -157,11 +208,13 @@ fun zmq_msg_send_exn
 ) : intGte(0) // end of [zmq_msg_send_exn]
 *)
 implement
-zmq_msg_send_exn (
+zmq_msg_send_exn
+(
   msg, sock, flags
 ) = valerr where {
-  val valerr = zmq_msg_send (msg, sock, flags)
-  val () = assertloc (valerr >= 0)
+  val valerr =
+    zmq_msg_send (msg, sock, flags)
+  val ((*void*)) = assertloc (valerr >= 0)
 } // end of [zmq_msg_send_exn]
 
 (* ****** ****** *)
@@ -173,11 +226,13 @@ fun zmq_msg_recv_exn
 ) : intGte(0) // end of [zmq_msg_recv_exn]
 *)
 implement
-zmq_msg_recv_exn (
+zmq_msg_recv_exn
+(
   msg, sock, flags
 ) = valerr where {
-  val valerr = zmq_msg_recv (msg, sock, flags)
-  val () = assertloc (valerr >= 0)
+  val valerr =
+    zmq_msg_recv (msg, sock, flags)
+  val ((*void*)) = assertloc (valerr >= 0)
 } // end of [zmq_msg_recv_exn]
 
 (* ****** ****** *)

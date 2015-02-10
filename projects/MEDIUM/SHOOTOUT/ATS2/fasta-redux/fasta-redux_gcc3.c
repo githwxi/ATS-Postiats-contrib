@@ -45,6 +45,13 @@ struct amino_acid {
    float cprob_lookup;
 };
 
+extern
+int fputc_unlocked(char s, FILE *stream);
+extern
+int fputs_unlocked(const char *s, FILE *stream);
+extern
+size_t fwrite_unlocked(const void *ptr, size_t size, size_t n, FILE *stream);
+
 void
 repeat(const char *alu, const char *title, int n) {
     int len = strlen(alu);

@@ -35,12 +35,16 @@ abstype JSarray(a:t@ype)
 abstype JSregexp // new RegExp()
 //
 (* ****** ****** *)
+
+abstype JSfile // HX: this is nominal!
+
+(* ****** ****** *)
 //
 fun alert(msg: string): void = "mac#%"
 //
 (* ****** ****** *)
 //
-fun confirm(msg: string): void = "mac#%"
+fun confirm(msg: string): bool = "mac#%"
 //
 (* ****** ****** *)
 //

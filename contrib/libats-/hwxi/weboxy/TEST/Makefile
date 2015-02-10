@@ -17,6 +17,12 @@ LDFLAGS :=
 LDFLAGS += -lgc
 
 ######
+
+all::
+regress::
+cleanall::
+
+######
 #
 all:: \
 layout_cs320
@@ -50,6 +56,12 @@ cleanall:: ; $(RMF) layout_ats2lang
 ######
 
 include $(PATSHOME)/share/atsmake-post.mk
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

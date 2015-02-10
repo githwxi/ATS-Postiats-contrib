@@ -1684,7 +1684,7 @@ atspre_g0uint_min_size
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER
+#endif // ifndef(ATSLIB_PRELUDE_CATS_INTEGER)
 
 /* ****** ****** */
 

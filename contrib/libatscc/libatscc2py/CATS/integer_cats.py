@@ -38,6 +38,9 @@ def ats2pypre_mul_int1_int1(x, y): return (x * y)
 def ats2pypre_div_int0_int0(x, y): return (x // y)
 def ats2pypre_div_int1_int1(x, y): return (x // y)
 #
+def ats2pypre_mod_int0_int0(x, y): return (x % y)
+def ats2pypre_mod_int1_int1(x, y): return (x % y)
+#
 ############################################
 #
 def ats2pypre_lt_int0_int0(x, y): return (x < y)

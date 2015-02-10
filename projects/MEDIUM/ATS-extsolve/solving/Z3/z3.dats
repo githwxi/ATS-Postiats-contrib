@@ -80,6 +80,7 @@ end
 (* ****** ****** *)
 
 staload FunSet = "libats/SATS/funset_avltree.sats"
+
 vtypedef set (a:t@ype+) = $FunSet.set (a)
 macdef set_is_member = $FunSet.funset_is_member
 
@@ -344,7 +345,7 @@ evaluate_macro_exn (slv, str, fs) = let
     tup
    end
   //
-  val () = println! ("Evaluating a macro: ", str)
+  // val () = println! ("Evaluating a macro: ", str)
   //
   implement
   list_vt_freelin$clear<formula> (x) = $effmask_all (
@@ -779,6 +780,17 @@ end
 implement 
 make_div (num, den) = let
   val phi = Z3_mk_div (!the_context, num, den)
+  val () = begin
+    Z3_dec_ref(!the_context, num);
+    Z3_dec_ref(!the_context, den);
+  end
+in
+  phi
+end
+
+implement
+make_mod (num, den) = let
+  val phi = Z3_mk_mod (!the_context, num, den)
   val () = begin
     Z3_dec_ref(!the_context, num);
     Z3_dec_ref(!the_context, den);

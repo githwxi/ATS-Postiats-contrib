@@ -15,12 +15,15 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 ######
 
 all::
-all:: test01
+regress::
+cleanall::
 
 ######
 
+all:: test01
 test01: test01.dats ; \
   $(PATSCC) -cleanaft --gline -IIATS $(PATSHOMERELOCQ)/contrib -o $@ $< -lzlog
+regress:: test01; ./$<
 cleanall:: ; $(RMF) test01
 
 ######

@@ -52,10 +52,30 @@
 (* ****** ****** *)
 //
 #define
-ATSCNTRB_SML_Z3_Z3_HEADER
+ATSCNTRB_SMT_Z3_Z3_HEADER
 //
 #include "./z3_header.sats"
 //
+(* ****** ****** *)
+  
+(*  
+void
+Z3_API
+Z3_get_version
+(
+  __out unsigned * major
+, __out unsigned * minor
+, __out unsigned * build_number
+, __out unsigned * revision_number
+) ;
+*)
+fun
+Z3_get_version
+(
+  major: &uint? >> _, minor: &uint? >> _
+, build: &uint? >> _, revision: &uint? >> _
+) : void = "mac#%"
+  
 (* ****** ****** *)
 
 (*
@@ -113,7 +133,7 @@ void
 Z3_del_context (__in Z3_context c)
 Delete the given logical context.
 *)
-fun Z3_del_context (ctx: Z3_context): void
+fun Z3_del_context (ctx: Z3_context): void = "mac#%"
  
 (* ****** ****** *)
 

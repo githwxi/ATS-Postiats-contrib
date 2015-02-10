@@ -425,8 +425,6 @@ end // end of [pstar_fun]
 
 (* ****** ****** *)
 //
-// HX: looping if [f] is nullable!
-//
 implement
 pstar_sep_fun{a}
   (buf, bt, sep, f) = let
@@ -479,7 +477,8 @@ end // end of [pstar_sep_fun]
 //
 implement
 pstar_COMMA_fun{a}
-  (buf, bt, f) = pstar_sep_fun (buf, bt, p_COMMA_test, f)
+  (buf, bt, f) =
+  pstar_sep_fun (buf, bt, p_COMMA_test, f)
 //
 (* ****** ****** *)
 

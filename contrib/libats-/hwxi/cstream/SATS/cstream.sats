@@ -91,7 +91,8 @@ fun cstream_make_fun (() -> int): cstream(TKfun)
 
 (* ****** ****** *)
 
-fun cstream_make_cloref (() -<cloref1> int): cstream(TKcloref)
+fun
+cstream_make_cloref (() -<cloref1> int): cstream(TKcloref)
 
 (* ****** ****** *)
 //

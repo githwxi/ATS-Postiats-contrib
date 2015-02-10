@@ -4,6 +4,16 @@
 
 ######
 #
+# WARNING:
+#
+# A very serious issue with
+# using setjmp/longjmp together with -O2:
+# https://groups.google.com/forum/?fromgroups#!topic/ats-lang-users/FSgjjkUURs4
+#
+######
+
+######
+#
 # Part1
 #
 ######

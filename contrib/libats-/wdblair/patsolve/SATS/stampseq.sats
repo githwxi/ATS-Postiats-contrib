@@ -21,6 +21,7 @@ sortdef stmsq = stampseq
 stacst stampseq_nil : () -> stampseq
 stacst stampseq_sing : (stamp) -> stampseq
 stacst stampseq_cons : (stamp, stampseq) -> stampseq
+stacst stampseq_snoc : (stampseq, stamp) -> stampseq
 stacst stampseq_head : stampseq -> stamp
 stacst stampseq_tail : stampseq -> stampseq
 
@@ -29,6 +30,7 @@ stacst stampseq_tail : stampseq -> stampseq
 stadef nil = stampseq_nil
 stadef sing = stampseq_sing
 stadef cons = stampseq_cons
+stadef snoc = stampseq_snoc
 stadef tail = stampseq_tail
 stadef head = stampseq_head
 
@@ -116,6 +118,9 @@ stadef lt = lt_stampseq_stamp; stadef lte = lte_stampseq_stamp
 stacst stampseq_sorted : (stampseq, int) -> bool // stampseq[<n] is sorted
 stadef sorted = stampseq_sorted
 
+stacst stampseq_ordered : stampseq -> bool // stampseq is ordered
+stadef ordered = stampseq_ordered
+
 (* ****** ****** *)
 
 stacst stampseq_permutation : (stampseq, stampseq, int) -> bool
@@ -123,10 +128,10 @@ stadef permutation = stampseq_permutation
 
 (* ****** ****** *)
 
-stacst stampseq_partitioned : (stampseq, int, int, int) -> bool
-stadef partitioned 
-  (xs:stampseq, p: int, n:int) =  stampseq_partitioned (xs, 0, p, n-1)
-  
+stadef partitioned
+  (xs:stampseq, p: int, n:int) = 
+    lte (xs, p, select (xs, p)) && lte (select (xs, p), xs, p, n)
+    
 (* ****** ****** *)
 
 (* end of [stampseq.sats] *)

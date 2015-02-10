@@ -200,7 +200,8 @@ nil0()))))))))))
 ) : list0 (string)
 //
 implement
-print_val<string> (x) = print! ("\"", x, "\"")
+print_val<string>
+  (x) = print! ("\"", x, "\"")
 //
 val () = println! ("xs = ", xs)
 val () = println! ("mergesort(xs) = ", mergesort<string> (xs, lam (x, y) => x <= y))

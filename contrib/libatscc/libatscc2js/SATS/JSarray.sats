@@ -43,7 +43,7 @@ JSarray_length{a:t@ype}(JSarray(a)): int = "mac#%"
 fun
 JSarray_pop{a:t@ype}(A: JSarray(a)): a = "mac#%"
 fun
-JSarray_push{a:t@ype}(A: JSarray(a), x: a): void = "mac#%"
+JSarray_push{a:t@ype}(A: JSarray(a), x: a): int = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -101,8 +101,15 @@ JSarray_join_sep
 overload [] with JSarray_get_at
 overload [] with JSarray_set_at
 //
-overload length with JSarray_length
+(* ****** ****** *)
 //
+overload .pop with JSarray_pop
+overload .push with JSarray_push
+//
+(* ****** ****** *)
+
+overload length with JSarray_length
+
 (* ****** ****** *)
 
 (* end of [JSarray.sats] *)

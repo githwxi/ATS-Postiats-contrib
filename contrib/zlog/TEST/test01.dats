@@ -13,6 +13,13 @@ staload "./../SATS/zlog.sats"
 
 (* ****** ****** *)
 
+%{^
+#undef ATSextfcall
+#define ATSextfcall(f, xs) f xs
+%} // end of [%{^]
+
+(* ****** ****** *)
+
 #define strnone stropt_none()
 #define strsome(str) stropt_some(str)
 
@@ -37,7 +44,11 @@ val p_cat = zlgcat2ptr(cat)
 //
 val () = assertloc (p_cat > 0)
 //
-val () = $extfcall (void, "zlog_info", p_cat, "%s, %d", "Hello World", 1024)
+val () =
+$extfcall
+(
+  void, "zlog_info", p_cat, "%s, %d", "Hello World", 1024
+) (* end of [val] *)
 //
 val ec = zlog_put_mdc (ctx, "mykey", "myval")
 val () = assertloc (ec = 0)

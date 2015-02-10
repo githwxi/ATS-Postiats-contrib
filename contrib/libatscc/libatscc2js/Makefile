@@ -25,6 +25,8 @@ $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2JS) -o ./output/DATS/intrange_dats.
 all:: ; \
 $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2JS) -o ./output/DATS/arrayref_dats.js -i
 all:: ; \
+$(PATSOPT) -d ./DATS/matrixref.dats | $(ATSCC2JS) -o ./output/DATS/matrixref_dats.js -i
+all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2JS) -o ./output/DATS/reference_dats.js -i
 #
 #######
@@ -44,17 +46,23 @@ CATS/HTML/canvas-2d/canvas2d_cats.js \
 output/DATS/list_dats.js \
 output/DATS/stream_dats.js \
 output/DATS/intrange_dats.js \
+output/DATS/arrayref_dats.js \
+output/DATS/matrixref_dats.js \
 output/DATS/reference_dats.js \
 
 #######
 #
 upload_source:: ; \
 scp -r basics_js.sats staloadall.hats CATS SATS DATS \
-  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/.
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
+#
+upload_all_in_one:: ; \
+scp libatscc2js_all.js \
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
 #
 upload_DATS_JS:: ; \
 scp output/DATS/*_dats.js \
-  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc2js/DATS/.
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/DATS/.
 #
 #######
 

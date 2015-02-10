@@ -165,14 +165,21 @@ in
 end // end of [emit_PMVf0loat]
 
 (* ****** ****** *)
-
+//
+implement
+emit_PMVempty
+  (out, _) = emit_text (out, "null")
+//  
+implement
+emit_PMVextval
+  (out, toks) = emit_tokenlst (out, toks)
+//
+(* ****** ****** *)
+//
 implement
 emit_PMVfunlab
-  (out, flab) = let
-in
-  emit_label (out, flab)
-end // end of [emit_PMVfunlab]
-
+  (out, flab) = emit_label (out, flab)
+//
 (* ****** ****** *)
 
 implement
@@ -271,9 +278,6 @@ d0e0.d0exp_node of
     val () = emit_RPAREN (out)
   }
 //
-| ATSempty (dummy) => emit_text (out, "null")
-| ATSextval (toklst) => emit_extval (out, toklst)
-//
 | ATSPMVint (int) => emit_PMVint (out, int)
 | ATSPMVintrep (int) => emit_PMVintrep (out, int)
 //
@@ -285,6 +289,9 @@ d0e0.d0exp_node of
 //
 | ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
 | ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
+//
+| ATSPMVempty (dummy) => emit_PMVempty (out, 0)
+| ATSPMVextval (toklst) => emit_PMVextval (out, toklst)
 //
 | ATSPMVrefarg0 (d0e) => emit_d0exp (out, d0e)
 | ATSPMVrefarg1 (d0e) => emit_d0exp (out, d0e)

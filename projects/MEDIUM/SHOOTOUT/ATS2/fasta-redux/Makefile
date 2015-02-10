@@ -11,6 +11,12 @@ GCC=gcc
 PATSCC=$(PATSHOME)/bin/patscc
 
 ######
+#
+export PATSCCOMP=\
+$(GCC) -std=c99 -D_XOPEN_SOURCE \
+  -I${PATSHOME} -I${PATSHOME}/ccomp/runtime -L${PATSHOME}/ccomp/atslib/lib
+#
+######
 
 all:: fasta-redux
 all:: fasta-redux_gcc3
@@ -19,13 +25,18 @@ all:: fasta-redux_gcc3
 
 fasta-redux: \
 fasta-redux.dats ; \
-$(PATSCC) -D_GNU_SOURCE \
+$(PATSCC) -verbose -D_GNU_SOURCE \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse3 $< -o $@
 
 ######
 
 fasta-redux_gcc3: fasta-redux_gcc3.c ; \
 $(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse3 $< -o $@
+
+######
+
+testall:: all
+testall:: cleanall
 
 ######
 

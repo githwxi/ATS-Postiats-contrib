@@ -11,6 +11,10 @@
 //
 (* ****** ****** *)
 //
+// HX: for signed integers
+//
+(* ****** ****** *)
+//
 fun
 abs_int0 : int -> int = "mac#%"
 //
@@ -39,6 +43,14 @@ overload pred with pred_int0 of 100
 //
 overload succ with succ_int1 of 110
 overload pred with pred_int1 of 110
+//
+(* ****** ****** *)
+//
+fun half_int0 : int -> int = "mac#%"
+fun half_int1 : {i:int} int(i) -> int(i/2) = "mac#%"
+//
+overload half with half_int0 of 100
+overload half with half_int1 of 110
 //
 (* ****** ****** *)
 //
@@ -126,6 +138,47 @@ overload >= with gte_int1_int1 of 120
 overload = with eq_int1_int1 of 120
 overload != with neq_int1_int1 of 120
 overload <> with neq_int1_int1 of 120
+//
+(* ****** ****** *)
+//
+// HX: for unsigned integers
+//
+(* ****** ****** *)
+//
+fun add_uint0_uint0: (uint, uint) -> uint = "mac#%"
+fun sub_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun mul_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun div_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun mod_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+//
+(* ****** ****** *)
+//
+overload + with add_uint0_uint0 of 100
+overload - with sub_uint0_uint0 of 100
+overload * with mul_uint0_uint0 of 100
+overload / with div_uint0_uint0 of 100
+overload % with mod_uint0_uint0 of 100
+overload mod with mod_uint0_uint0 of 100
+//
+(* ****** ****** *)
+//
+fun lt_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun lte_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun gt_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun gte_uint0_uint0: (uint, uint) -> bool = "mac#%"
+//
+fun eq_uint0_uint0: (uint, uint) -> bool = "mac#%"
+fun neq_uint0_uint0: (uint, uint) -> bool = "mac#%"
+//
+(* ****** ****** *)
+//
+overload < with lt_uint0_uint0 of 100
+overload <= with lte_uint0_uint0 of 100
+overload > with gt_uint0_uint0 of 100
+overload >= with gte_uint0_uint0 of 100
+overload = with eq_uint0_uint0 of 100
+overload != with neq_uint0_uint0 of 100
+overload <> with neq_uint0_uint0 of 100
 //
 (* ****** ****** *)
 

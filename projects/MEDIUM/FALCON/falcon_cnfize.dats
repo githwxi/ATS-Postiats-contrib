@@ -11,17 +11,12 @@
 //
 (* ****** ****** *)
 
+staload UN = $UNSAFE
+
+(* ****** ****** *)
+
 staload "./falcon.sats"
   
-(* ****** ****** *)
-
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload M = "libc/SATS/math.sats"
-
 (* ****** ****** *)
 
 assume grcnf_vtype = geneslst
@@ -29,7 +24,8 @@ assume grcnf_vtype = geneslst
 (* ****** ****** *)
 
 extern
-fun grcnf_free (grcnf): void
+fun
+grcnf_free (grcnf): void
 
 (* ****** ****** *)
 
@@ -39,7 +35,8 @@ fun grcnf_make_nil(): grcnf
 (* ****** ****** *)
 
 extern
-fun grcnflst_free (grcnflst): void
+fun
+grcnflst_free (grcnflst): void
 //
 implement
 grcnflst_free (xs) =
@@ -69,19 +66,22 @@ case+ cnfs of
 (* ****** ****** *)
 //
 extern
-fun geneslst_cons
+fun
+geneslst_cons
   (gn: genes, gns: geneslst): geneslst
 //
 extern
-fun geneslst_append
+fun
+geneslst_append
   (gns1: geneslst, gns2: geneslst): geneslst
 //
 (* ****** ****** *)
 //
 extern
-fun grcnf_conj (cnfs: grcnflst): geneslst
-extern
-fun grcnf_disj (cnfs: grcnflst): geneslst
+fun
+grcnf_conj (cnfs: grcnflst): geneslst
+and
+grcnf_disj (cnfs: grcnflst): geneslst
 //
 (* ****** ****** *)
 
@@ -90,11 +90,12 @@ grcnf_free (xs) =
 (
 case+ xs of
 | ~list_vt_nil () => ()
-| ~list_vt_cons (x, xs) => (genes_free (x); grcnf_free (xs))
+| ~list_vt_cons (x, xs) =>
+    (genes_free (x); grcnf_free (xs))
 ) (* end of [grcnf_free] *)
 
 implement
-grcnf_make_nil() = nil_vt
+grcnf_make_nil () = list_vt_nil(*void*)
 
 (* ****** ****** *)
 
@@ -115,7 +116,8 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-grcnf_conj (cnfs) = let
+grcnf_conj
+  (cnfs) = let
 //
 fun loop
 (
@@ -147,7 +149,8 @@ end // end of [grcnf_conj]
 (* ****** ****** *)
 //
 implement
-grcnf_disj (cnfs) = let
+grcnf_disj
+  (cnfs) = let
 //
 fun aux
 (
@@ -212,7 +215,8 @@ end // end of [grcnf_disj]
 
 local
 
-fun auxsup
+fun
+auxsup
 (
   gn1: !genes, gns2: !geneslst
 ) : bool =
@@ -311,7 +315,7 @@ fun auxlst
 )
 //
 var gns1: geneslst = gns1
-var gns2: geneslst = gns2
+and gns2: geneslst = gns2
 //
 val () = auxlst (gns1, gns2)
 //

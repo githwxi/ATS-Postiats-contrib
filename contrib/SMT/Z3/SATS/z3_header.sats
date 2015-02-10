@@ -45,6 +45,10 @@ macdef Z3_true = $extval (Z3_bool, "Z3_true")
 macdef Z3_false = $extval (Z3_bool, "Z3_false")
 //
 (* ****** ****** *)
+  
+typedef Z3_ibool = int // integers for booleans
+  
+(* ****** ****** *)
 
 typedef Z3_string = string
 

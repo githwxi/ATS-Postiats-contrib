@@ -1,0 +1,31 @@
+#
+# For testing
+#
+
+######
+
+SUBDIRS :=
+SUBDIRS += GTK
+SUBDIRS += cairo
+SUBDIRS += pcre
+SUBDIRS += jansson
+SUBDIRS += libev
+SUBDIRS += libcurl
+SUBDIRS += libfloats
+
+######
+#
+# HX-2014-12-16:
+# Privilege for myself :)
+#
+SUBDIRS += libats-/hwxi
+#
+######
+#
+testall:: ; \
+for i in $(SUBDIRS); \
+  do $(MAKE) -C $$i -f Makefile_test testall; done
+#
+######
+
+###### end of [Makefile_test] ######

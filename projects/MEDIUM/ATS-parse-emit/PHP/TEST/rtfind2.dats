@@ -16,12 +16,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PHP}/basics_php.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PHP}/SATS/string.sats"
+#include
+"{$LIBATSCC2PHP}/staloadall.hats"
 //
 (* ****** ****** *)
 //

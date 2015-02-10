@@ -26,67 +26,92 @@ LDFLAGS2 += $(shell pkg-config --libs json-c)
 ######
 
 all::
-all:: test00
-all:: test01
-all:: test02
-all:: test03
-all:: test04
-all:: test05
-all:: test06
-all:: test07
+regress::
+cleanall::
 
 ######
 
-test00: test00.dats ; \
+all:: \
+test00
+test00: \
+test00.dats ; \
   $(PATSCC) $(CFLAGS) -o $@ $< $(LDFLAGS)
+regress:: test00; ./$<
 cleanall:: ; $(RMF) test00
 
 ######
 
-test01: test01.dats ; \
+all:: \
+test01
+test01: \
+test01.dats ; \
   $(PATSCC) -cleanaft $(CFLAGS) -o $@ $< $(LDFLAGS)
+regress:: test01; ./$<
 cleanall:: ; $(RMF) test01
 
 ######
 
-test02: test02.dats ; \
-  $(PATSCC) -cleanaft \
+all:: \
+test02
+test02: \
+test02.dats ; \
+$(PATSCC) -cleanaft \
   -DATS_MEMALLOC_GCBDW $(CFLAGS) -o $@ $< $(LDFLAGS2)
+regress:: test02; ./$<
 cleanall:: ; $(RMF) test02
 
 ######
 
-test03: test03.dats ; \
-  $(PATSCC) -cleanaft \
+all:: \
+test03
+test03: \
+test03.dats ; \
+$(PATSCC) -cleanaft \
   -DATS_MEMALLOC_GCBDW $(CFLAGS) -o $@ $< $(LDFLAGS2)
+regress:: test03; ./$<
 cleanall:: ; $(RMF) test03
 
 ######
 
-test04: test04.dats ; \
-  $(PATSCC) -cleanaft \
+all:: \
+test04
+test04: \
+test04.dats ; \
+$(PATSCC) -cleanaft \
   -DATS_MEMALLOC_GCBDW $(CFLAGS) -o $@ $< $(LDFLAGS2)
+regress:: test04; ./$<
 cleanall:: ; $(RMF) test04
 
 ######
 
-test05: test05.dats ; \
-  $(PATSCC) -cleanaft \
+all:: \
+test05
+test05: \
+test05.dats ; \
+$(PATSCC) -cleanaft \
   -DATS_MEMALLOC_GCBDW $(CFLAGS) -o $@ $< $(LDFLAGS2)
 cleanall:: ; $(RMF) test05
 
 ######
 
-test06: test06.dats ; \
-  $(PATSCC) -cleanaft \
+all:: \
+test06
+test06: \
+test06.dats ; \
+$(PATSCC) -cleanaft \
   -DATS_MEMALLOC_GCBDW $(CFLAGS) -o $@ $< $(LDFLAGS2)
+regress:: test06; ./$<
 cleanall:: ; $(RMF) test06
 
 ######
 
-test07: test07.dats ; \
-  $(PATSCC) -cleanaft \
+all:: \
+test07
+test07: \
+test07.dats ; \
+$(PATSCC) -cleanaft \
   -DATS_MEMALLOC_GCBDW $(CFLAGS) -o $@ $< testlib.dats $(LDFLAGS2)
+regress:: test07; ./$<
 cleanall:: ; $(RMF) test07
 
 ######

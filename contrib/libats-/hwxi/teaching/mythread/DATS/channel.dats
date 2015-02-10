@@ -84,11 +84,14 @@ channel_get_capacity (chan) =
   let val+CHANNEL(ptr, cap, _, _, _) = chan in cap end
 //
 (* ****** ****** *)
-
+//
 extern
 fun{a:vt0p}
 channel_insert2 (channel(a), !deqarray(a) >> _, a): void
-
+extern
+fun{a:vt0p}
+channel_takeout2 (chan: channel(a), !deqarray(a) >> _): (a)
+//
 (* ****** ****** *)
 
 implement{a}
@@ -126,15 +129,20 @@ if
 isnot
 then let
   val isnil = deqarray_is_nil (deq)
-  val ((*void*)) = deqarray_insert_atend (deq, x0)
-  val ((*void*)) = condvar_signal (CVisnil)
+  val ((*void*)) =
+    deqarray_insert_atend (deq, x0)
+  val ((*void*)) =
+    if isnil then condvar_broadcast (CVisnil)
+  // end of [val]
 in
   // nothing
 end // end of [then]
 else let
-  prval (pfmut, fpf) = __assert () where
+  prval
+  (pfmut, fpf) = __assert () where
   {
-    extern praxi __assert (): vtakeout0(locked_v(l1))
+    extern
+    praxi __assert (): vtakeout0(locked_v(l1))
   }
   val ((*void*)) = condvar_wait (pfmut | CVisful, mut)
   prval ((*void*)) = fpf (pfmut)
@@ -143,12 +151,6 @@ in
 end // end of [else]
 //
 end // end of [channel_insert2]
-
-(* ****** ****** *)
-
-extern
-fun{a:vt0p}
-channel_takeout2 (channel(a), !deqarray(a) >> _): (a)
 
 (* ****** ****** *)
 
@@ -186,16 +188,19 @@ if
 isnot
 then let
   val isful = deqarray_is_full (deq)
-  val x0 = deqarray_takeout_atbeg (deq)
-  val ((*void*)) = condvar_signal (CVisful)
+  val x0_out = deqarray_takeout_atbeg (deq)
+  val ((*void*)) =
+    if isful then condvar_broadcast (CVisful)
+  // end of [val]
 in
-  x0
+  x0_out
 end // end of [then]
 else let
   prval (pfmut, fpf) = __assert () where
   {
-    extern praxi __assert (): vtakeout0(locked_v(l1))
-}
+    extern
+    praxi __assert (): vtakeout0(locked_v(l1))
+  }
   val ((*void*)) = condvar_wait (pfmut | CVisnil, mut)
   prval ((*void*)) = fpf (pfmut)
 in

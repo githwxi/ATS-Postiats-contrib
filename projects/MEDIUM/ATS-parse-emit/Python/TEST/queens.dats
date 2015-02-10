@@ -53,12 +53,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PY}/basics_py.sats"
-staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
-staload
-"{$LIBATSCC2PY}/SATS/string.sats"
+#include
+"{$LIBATSCC2PY}/staloadall.hats"
 //
 (* ****** ****** *)
 
@@ -201,13 +197,17 @@ fun search
 (* ****** ****** *)
 //
 extern 
-fun main_py (): void = "mac#"
+fun
+main0_py
+(
+// argless
+) : void = "mac#main0_py"
 //
 implement
-main_py () =
+main0_py () =
 {
   val nsol = search ($tup(0, 0, 0, 0, 0, 0, 0, 0), 0, 0, 0)
-} (* end of [main_py] *)
+} (* end of [main0_py] *)
 //
 (* ****** ****** *)
 
@@ -218,6 +218,7 @@ sys.setrecursionlimit(1000000)
 from ats2pypre_basics_cats import *
 from ats2pypre_integer_cats import *
 from ats2pypre_string_cats import *
+from ats2pypre_print_cats import *
 ######
 %} // end of [%{^]
 
@@ -225,7 +226,7 @@ from ats2pypre_string_cats import *
 
 %{$
 ######
-main_py()
+main0_py()
 ######
 %} // end of [%{$]
 

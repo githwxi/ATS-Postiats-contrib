@@ -31,58 +31,53 @@ def ATSCKpat_con1 (con, tag): return (con[0] == tag)
 #
 ############################################
 #
-def ats2pypre_print_obj(x):
-  out = sys.__stdout__
-  ats2pypre_fprint_obj(out, x); return
-def ats2pypre_println_obj(x):
-  out = sys.__stdout__
-  ats2pypre_fprintln_obj(out, x); return
-#
-def ats2pypre_prerr_obj(x):
-  out = sys.__stderr__
-  ats2pypre_fprint_obj(out, x); return
-def ats2pypre_prerrln_obj(x):
-  out = sys.__stderr__
-  ats2pypre_fprintln_obj(out, x); return
-#
-def ats2pypre_fprint_obj(out, x):
-  print(x, file=out, end=''); return
-def ats2pypre_fprintln_obj(out, x):
-  print(x, file=out, end='\n'); return
-#
-############################################
-#
-def ats2pypre_print_newline():
-  out = sys.__stdout__
-  ats2pypre_fprint_newline(out); return
-def ats2pypre_prerr_newline():
-  out = sys.__stderr__
-  ats2pypre_fprint_newline(out); return
-#
-def ats2pypre_fprint_newline(out):
-  print(file=out, end='\n'); sys.stdout.flush(); return
-#
-############################################
-#
 def ats2pypre_list_nil(): return None
 def ats2pypre_list_cons(x, xs): return (x, xs)
 #
 ############################################
 #
-def ats2pypre_assert_bool0(tfv, errmsg):
+def ATSINScaseof_fail(em):
+  print("ATSINScaseof_fail:", em, file=sys.__stderr__); sys.exit(1)
+  return
+#
+def ATSINSdeadcode_fail():
+  print("ATSINSdeadcode_fail(", ")", file=sys.__stderr__); sys.exit(1)
+  return
+#
+############################################
+
+def ATSPMVempty(): return
+
+############################################
+
+def ATSPMVlazyval_eval(lazyval):
+  flag = lazyval[0]
+  thunk = None
+  if (flag==0):
+    lazyval[0] = 1
+    thunk = lazyval[1]
+    lazyval[1] = thunk[0](thunk)
+  else:
+    lazyval[0] = flag + 1
+  return
+#end-of-[ATSPMVlazyval_eval]
+
+############################################
+#
+def ats2pypre_assert_bool0(tfv):
   if not(tfv): sys.exit(1)
   return
-def ats2pypre_assert_bool1(tfv, errmsg):
+def ats2pypre_assert_bool1(tfv):
   if not(tfv): sys.exit(1)
   return
 #
 def ats2pypre_assert_errmsg_bool0(tfv, errmsg):
   if not(tfv):
-    print(errmsg, file=sys.__stderr__); sys.exit(1);
+    print(errmsg, file=sys.__stderr__); sys.exit(1)
   return
 def ats2pypre_assert_errmsg_bool1(tfv, errmsg):
   if not(tfv):
-    print(errmsg, file=sys.__stderr__); sys.exit(1);
+    print(errmsg, file=sys.__stderr__); sys.exit(1)
   return
 #
 ############################################

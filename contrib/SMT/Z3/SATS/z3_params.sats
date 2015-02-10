@@ -40,13 +40,10 @@
 (* ****** ****** *)
 //
 #ifndef
-ATSCNTRB_SML_Z3_Z3_HEADER
+ATSCNTRB_SMT_Z3_Z3_HEADER
 #include "./z3_header.sats"
-#endif
+#endif // end of [ifndef]
 //
-(* ****** ****** *)
-
-
 (* ****** ****** *)
 
 (* end of [z3_params.sats] *)

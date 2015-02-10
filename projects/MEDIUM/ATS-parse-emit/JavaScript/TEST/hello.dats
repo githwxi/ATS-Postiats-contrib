@@ -11,10 +11,13 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2JS}/basics_js.sats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
 staload
 "{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
+staload
+"{$LIBATSCC2JS}/SATS/Node.js/fprint.sats"
 staload
 "{$LIBATSCC2JS}/SATS/Node.js/process.sats"
 //
@@ -37,6 +40,7 @@ val ((*void*)) = fprintln! (out, "Hello world!")
 var fs = require('fs');
 eval(fs.readFileSync('./libatscc2js/CATS/basics_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/Node.js/basics_cats.js').toString());
+eval(fs.readFileSync('./libatscc2js/CATS/Node.js/fprint_cats.js').toString());
 eval(fs.readFileSync('./libatscc2js/CATS/Node.js/process_cats.js').toString());
 %} // end of [%{^]
 

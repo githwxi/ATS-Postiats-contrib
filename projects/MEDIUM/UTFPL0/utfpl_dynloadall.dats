@@ -5,7 +5,9 @@
 
 (* ****** ****** *)
 //
+(*
 dynload "./utfpl.sats"
+*)
 dynload "./utfpl_stamp.dats"
 dynload "./utfpl_symbol.dats"
 dynload "./utfpl_location.dats"

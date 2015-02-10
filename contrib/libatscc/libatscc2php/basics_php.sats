@@ -110,20 +110,6 @@ overload echo with echo8
 (* ****** ****** *)
 //
 fun
-print_obj{a:t0p}(obj: a): void = "mac#%"
-//
-fun
-print_r_obj{a:t0p}(obj: a): void = "mac#%"
-//
-(* ****** ****** *)
-
-fun print_newline ((*void*)): void = "mac#%"
-fun prerr_newline ((*void*)): void = "mac#%"
-fun fprint_newline (out: PHPfilr): void = "mac#%"
-
-(* ****** ****** *)
-//
-fun
 lazy2cloref
   {a:t0p}(lazy(a)): ((*void*)) -<cloref1> (a) = "mac#%"
 //

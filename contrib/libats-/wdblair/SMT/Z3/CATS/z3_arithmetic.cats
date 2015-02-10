@@ -59,6 +59,10 @@ atscntrb_Z3_mk_div (Z3_context ctx, Z3_ast l, Z3_ast r) {
   Z3_BODY_MK_AST(Z3_mk_div, l, r)
 }
 
+Z3_DECLARE_MK_AST(Z3_mk_mod, Z3_ast l, Z3_ast r) {
+  Z3_BODY_MK_AST(Z3_mk_mod, l, r)
+}
+
 /* ****** ****** */
 
 Z3_DECLARE_MK_AST(Z3_mk_lt, Z3_ast l, Z3_ast r) {

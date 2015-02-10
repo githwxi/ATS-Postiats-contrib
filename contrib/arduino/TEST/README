@@ -1,0 +1,49 @@
+#
+# beg of [README]
+#
+
+######
+
+Here are the steps for trying:
+
+######
+
+STEP1:
+First git-clone ATS-Postiats-contrib:
+
+git clone https://github.com/githwxi/ATS-Postiats-contrib.git
+
+######
+
+STEP2:
+Then execute the following two command-lines:
+
+cd ATS-Postiats-contrib/contrib/arduino/
+git clone https://github.com/sudar/Arduino-Makefile.git
+
+######
+
+STEP3:
+Suppose you want to try the code in Blink:
+
+cd TEST/Blink
+
+Note that the following DATS-files are in Blink:
+
+Blink.dats
+Blink2.dats
+Blink3.dats
+
+To try Blink.dats:
+
+make -f Makefile_ats all && make upload
+
+To try Blink2.dats:
+
+make -f Makefile_ats all2 && make upload
+
+To try Blink3.dats:
+
+make -f Makefile_ats all3 && make upload
+
+###### end of [README] ######

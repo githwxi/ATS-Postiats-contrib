@@ -11,6 +11,13 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+
+%{^
+#define \
+atstyarr_field_undef(fname) fname[]
+%} // end of [%{]
+
+(* ****** ****** *)
 //
 staload "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
 staload "{$LIBATSHWXI}/cstream/SATS/cstream_tokener.sats"

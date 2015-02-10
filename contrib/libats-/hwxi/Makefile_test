@@ -1,0 +1,26 @@
+#
+# For testing
+#
+
+######
+
+SUBDIRS :=
+SUBDIRS += intinf/TEST
+SUBDIRS += testing/TEST
+SUBDIRS += globals/TEST
+SUBDIRS += cstream/TEST
+SUBDIRS += jsonats/TEST
+SUBDIRS += teaching/myGTK/TEST
+SUBDIRS += teaching/mydraw/TEST
+SUBDIRS += teaching/mythread/TEST
+SUBDIRS += teaching/fileAsLock/TEST
+SUBDIRS += weboxy/TEST
+
+######
+
+testall:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i testall; done
+
+######
+
+###### end of [Makefile_test] ######

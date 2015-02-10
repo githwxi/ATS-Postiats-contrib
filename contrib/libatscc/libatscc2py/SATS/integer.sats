@@ -12,10 +12,6 @@
 ATS_EXTERN_PREFIX "ats2pypre_"
 //
 (* ****** ****** *)
-
-staload "./../basics_py.sats"  
-  
-(* ****** ****** *)
 //
 fun
 abs_int0 : int -> int = "mac#%"
@@ -52,6 +48,7 @@ fun add_int0_int0 : (int, int) -> int = "mac#%"
 fun sub_int0_int0 : (int, int) -> int = "mac#%"
 fun mul_int0_int0 : (int, int) -> int = "mac#%"
 fun div_int0_int0 : (int, int) -> int = "mac#%"
+fun mod_int0_int0 : (int, int) -> int = "mac#%"
 //
 fun add_int1_int1
   : {i,j:int} (int(i), int(j)) -> int(i+j) = "mac#%"
@@ -68,6 +65,8 @@ overload + with add_int0_int0 of 100
 overload - with sub_int0_int0 of 100
 overload * with mul_int0_int0 of 100
 overload / with div_int0_int0 of 100
+overload % with mod_int0_int0 of 100
+overload mod with mod_int0_int0 of 100
 //
 overload + with add_int1_int1 of 120
 overload - with sub_int1_int1 of 120
@@ -115,18 +114,6 @@ overload >= with gte_int1_int1 of 120
 overload = with eq_int1_int1 of 120
 overload != with neq_int1_int1 of 120
 overload <> with neq_int1_int1 of 120
-//
-(* ****** ****** *)
-//
-fun print_int : (int) -> void = "mac#%"
-fun prerr_int : (int) -> void = "mac#%"
-//
-fun
-fprint_int : (PYfile, int) -> void = "mac#%"
-//
-overload print with print_int of 100
-overload prerr with prerr_int of 100
-overload fprint with fprint_int of 100
 //
 (* ****** ****** *)
 

@@ -16,37 +16,36 @@
 
 (* ****** ****** *)
 //
-#include "share/atspre_staload.hats"
-//
-staload _ = "prelude/DATS/gnumber.dats"
+#include
+"share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
-
+//
 staload "libats/SATS/gmatrix.sats"
+//
 staload _ = "libats/DATS/gvector.dats"
 staload _ = "libats/DATS/gmatrix.dats"
 staload _ = "libats/DATS/gmatrix_row.dats"
 staload _ = "libats/DATS/gmatrix_col.dats"
 staload _ = "libats/DATS/refcount.dats"
-
+//
 (* ****** ****** *)
-
+//
 staload "./../SATS/lavector.sats"
 staload "./../SATS/lamatrix.sats"
-
-(* ****** ****** *)
-
+//
 staload _ = "./../DATS/blas0.dats"
 staload _ = "./../DATS/blas1.dats"
 staload _ = "./../DATS/blas_gemv.dats"
 staload _ = "./../DATS/blas_gemm.dats"
 staload _ = "./../DATS/lavector.dats"
 staload _ = "./../DATS/lamatrix.dats"
-
+//
 (* ****** ****** *)
 //
 // HX: a hackery of a little fun

@@ -66,8 +66,7 @@ fun
 canvas2d_clearRect
 (
   canvas2d
-, x: double, y: double
-, wd: double, ht: double
+, x: int, y: int, wd: int, ht: int
 ) : void = "mac#%" // endfun
 
 overload .clearRect with canvas2d_clearRect
@@ -101,11 +100,9 @@ fun
 canvas2d_rect
 (
   canvas2d
-, xul: double
-, yul: double
-, width: double
-, height: double
-) : void = "mac#%"
+, xul: double, yul: double
+, width: double, height: double
+) : void = "mac#%" // endfun
 
 overload .rect with canvas2d_rect
 
@@ -115,13 +112,9 @@ fun
 canvas2d_arc
 (
   canvas2d
-, xc: double
-, yc: double
-, rad: double
-, angle_beg: double
-, angle_end: double
-, counterclockwise: bool
-) : void = "mac#%"
+, xc: double, yc: double, rad: double
+, angle_beg: double, angle_end: double, ccw: bool
+) : void = "mac#%" // endfun
 
 overload .arc with canvas2d_arc
 

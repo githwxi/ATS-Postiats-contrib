@@ -5,7 +5,7 @@
 (***********************************************************************)
 
 (*
-** Copyright (C) 2014 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2015 Hongwei Xi, ATS Trustful Software, Inc.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -39,10 +39,12 @@
 (* ****** ****** *)
 //
 abst@ype
-position_type =
-$extype"atscntrb_lexingbuf_position" 
+position_t0ype =
+$extype"\
+atscntrb_libatshwxi_lexingbuf_position\
+" 
 //
-typedef pos_t = position_type
+typedef pos_t = position_t0ype
 //  
 (* ****** ****** *)
 //

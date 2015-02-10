@@ -32,8 +32,15 @@
 
 /* ****** ****** */
 
-#define atscntrb_Z3_mk_const(ctx, sym, ty) \
-  atscntrb_Z3_inc_ref(Z3_mk_const(ctx, sym, ty))
+#define \
+atscntrb_Z3_mk_const(ctx, sym, ty) \
+  atscntrb_Z3_inc_ref(ctx, Z3_mk_const(ctx, sym, ty))
+
+/* ****** ****** */
+
+#define \
+atscntrb_Z3_mk_fresh_const(ctx, prefix, ty) \
+  atscntrb_Z3_inc_ref(ctx, Z3_mk_fresh_const(ctx, prefix, ty))
 
 /* ****** ****** */
 

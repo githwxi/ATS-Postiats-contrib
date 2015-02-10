@@ -9,7 +9,8 @@
 #include <unistd.h>
 #include <string.h>
 
-int main (void)
+int
+main(void)
 {
 void *context = zmq_ctx_new ();
 
@@ -45,11 +46,13 @@ return 0;
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 
-staload "./../SATS/zmq.sats"
+staload "{$ZEROMQ}/SATS/zmq.sats"
 
 (* ****** ****** *)
 
@@ -57,7 +60,7 @@ staload "./../SATS/zmq.sats"
 
 (* ****** ****** *)
 
-postfix SZ; macdef SZ (i) = g1int2uint (,(i))
+postfix SZ; macdef SZ (i) = g1i2u(,(i))
 
 (* ****** ****** *)
 
@@ -68,21 +71,28 @@ extern unsigned int sleep (unsigned int) ;
 (* ****** ****** *)
 
 implement
-main () = (0) where {
+main0 ((*void*)) = {
 //
-val context = zmq_ctx_new ()
+val
+context = zmq_ctx_new ()
 val () = assertloc (zmqctx2ptr (context) > nullp)
 //
-val responder = zmq_socket_exn (context, ZMQ_REP)
-//
-val () = assertloc (zmq_bind (responder, "tcp://*:5555") >= 0)
+val
+responder =
+zmq_socket_exn (context, ZMQ_REP)
 //
 val () =
-  while (true) {
+assertloc
+(
+  zmq_bind (responder, "tcp://*:5555") >= 0
+) (* end of [val] *)
+//
+val () =
+while (true) {
 //
 // Wait for request from client
 //
-  var request : zmqmsg
+  var request : zmqmsg_t
   val () = zmq_msg_init_exn (request)
   val _(*nbyte*) = zmq_msg_recv_exn (request, responder, 0)
   val () = println! ("Received 'Hello'")
@@ -94,24 +104,22 @@ val () =
 //
 // Send reply back to client
 //
-  var reply : zmqmsg
-  val () = zmq_msg_init_size_exn (reply, 5SZ)
-  val () = memcpy (
-    zmq_msg_data (reply), "World", 5
-  ) where {
-    extern fun memcpy
-      : (ptr, string, int) -> void = "mac#atslib_memcpy"
-    // end of [extern]
-  } // end of [val]
+  var reply : zmqmsg_t
+  val () =
+  zmq_msg_init_size_exn (reply, 5SZ)
+  val () =
+  $extfcall (void
+  , "memcpy", zmq_msg_data(reply), "World", 5
+  ) (* end of [val] *)
   val _(*nbyte*) = zmq_msg_send (reply, responder, 0)
   val () = zmq_msg_close_exn (reply)
-} // end of [while] // end of [val]
+} (* end of [while] *) // end of [val]
 //
 val () = zmq_close_exn (responder)
 val () = assertloc (zmq_ctx_destroy (context) >= 0)
 val ptr = zmqctxopt_unnone (context)
 //
-} // end of [main]
+} (* end of [main0] *)
 
 (* ****** ****** *)
 

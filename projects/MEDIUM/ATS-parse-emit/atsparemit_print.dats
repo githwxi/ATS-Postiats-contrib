@@ -120,9 +120,6 @@ case+ x of
 | ATSreturn () => pr "ATSreturn"
 | ATSreturn_void () => pr "ATSreturn_void"
 //
-| ATSempty () => pr "ATSempty"
-| ATSextval () => pr "ATSextval"
-//
 | ATSPMVint () => pr "ATSPMVint"
 | ATSPMVintrep () => pr "ATSPMVintrep"
 //
@@ -135,6 +132,9 @@ case+ x of
 //
 | ATSPMVi0nt () => pr "ATSPMVi0nt"
 | ATSPMVf0loat () => pr "ATSPMVf0loat"
+//
+| ATSPMVempty () => pr "ATSPMVempty"
+| ATSPMVextval () => pr "ATSPMVextval"
 //
 | ATSPMVrefarg0 () => pr "ATSPMVrefarg0"
 | ATSPMVrefarg1 () => pr "ATSPMVrefarg1"
@@ -377,9 +377,6 @@ d0e.d0exp_node of
 | D0Eappexp (d0e, d0es) =>
     fprint! (out, "D0Eappexp(", d0e, "; ", d0es, ")")
 //
-| ATSempty (dummy) => fprint! (out, "ATSempty(", ")")
-| ATSextval (toklst) => fprint! (out, "ATSextval(", "...", ")")
-//
 | ATSPMVint (tok) => fprint! (out, "ATSPMVint(", tok, ")")
 | ATSPMVintrep (tok) => fprint! (out, "ATSPMVintrep(", tok, ")")
 //
@@ -391,6 +388,9 @@ d0e.d0exp_node of
 //
 | ATSPMVi0nt (tok) => fprint! (out, "ATSPMVi0nt(", tok, ")")
 | ATSPMVf0loat (tok) => fprint! (out, "ATSPMVf0loat(", tok, ")")
+//
+| ATSPMVempty (dummy) => fprint! (out, "ATSPMVempty(", ")")
+| ATSPMVextval (toklst) => fprint! (out, "ATSPMVextval(", "...", ")")
 //
 | ATSPMVrefarg0 (d0e) => fprint! (out, "ATSPMVrefarg0(", d0e, ")")
 | ATSPMVrefarg1 (d0e) => fprint! (out, "ATSPMVrefarg1(", d0e, ")")

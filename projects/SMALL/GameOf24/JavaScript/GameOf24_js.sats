@@ -36,6 +36,8 @@ are a good quad.
 //
 staload
 "{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
+staload
+"{$LIBATSCC2JS}/SATS/Node.js/fprint.sats"
 //
 (* ****** ****** *)
 

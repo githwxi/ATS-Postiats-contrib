@@ -72,15 +72,6 @@ ats2phppre_neq_double_double($x, $y) { return ($x !== $y); }
 
 /* ****** ****** */
 
-function
-ats2phppre_print_double($x) { fprintf(STDOUT, "%f", $x); return; }
-function
-ats2phppre_prerr_double($x) { fprintf(STDERR, "%f", $x); return; }
-function
-ats2phppre_fprint_double($out, $x) { fprintf($out, "%f", $x); return; }
-
-/* ****** ****** */
-
 /* end of [float_cats.php] */
 
 ?>

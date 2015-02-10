@@ -17,6 +17,10 @@ LDFLAGS :=
 
 ######
 
+PATSCCOMP = $(CC) -D_XOPEN_SOURCE
+
+######
+
 SOURCES_SATS += \
   calculator.sats \
 
@@ -43,6 +47,11 @@ MYPORTDIR=MYPORTDIR
 ######
 
 include $(PATSHOME)/share/atsmake-post.mk
+
+######
+
+testall:: all
+testall:: cleanall
 
 ######
 

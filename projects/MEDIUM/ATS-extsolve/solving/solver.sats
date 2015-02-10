@@ -181,6 +181,8 @@ fun f_ndiv_int_int : s2cstmap_ftype
 
 fun f_idiv_int_int : s2cstmap_ftype
 
+fun f_mod_int_int : s2cstmap_ftype
+
 fun f_lt_int_int : s2cstmap_ftype
 
 fun f_lte_int_int : s2cstmap_ftype

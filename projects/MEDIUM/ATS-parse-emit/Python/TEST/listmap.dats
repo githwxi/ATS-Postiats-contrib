@@ -70,6 +70,7 @@ from ats2pypre_integer_cats import *
 %{$
 //
 print("test(5, 10) = ", test(5, 10), sep='')
+//
 %} // end of [%{$]
 
 (* ****** ****** *)

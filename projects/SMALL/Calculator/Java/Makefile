@@ -4,7 +4,14 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
+
+######
+
+PATSCCOMP = $(CC) -D_XOPEN_SOURCE
+
+######
 
 ######
 #
@@ -23,16 +30,26 @@ Calculator:: Calculator.class
 Calculator:: libCalculator_dats.so
 
 ######
-
-Calculator.h: Calculator.class ; javah Calculator
+#
+Calculator.h: \
+Calculator.class; javah Calculator
 Calculator.class: Calculator.java ; javac $<
+#
 Calculator_dats.o: Calculator.dats; \
 $(PATSCC) -D_GNU_SOURCE $(INCLUDE) $(INCLUDE_ATS) \
-  -IIATS $(PATSHOME)/contrib -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c Calculator.dats
-
+  -IIATS $(PATSHOMERELOC)/contrib -I$(JNIincl) -DATS_MEMALLOC_LIBC -fPIC -c Calculator.dats
+#
 ######
 
 libCalculator_dats.so: Calculator_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl
+
+######
+
+JAVA=java
+
+######
+
+test:: ; $(JAVA) -cp . -Djava.library.path=. Calculator
 
 ######
 

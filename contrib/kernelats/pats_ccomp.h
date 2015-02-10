@@ -21,9 +21,16 @@
 
 /* ****** ****** */
 
-#ifndef LINUX_PATS_CCOMP_H
-#define LINUX_PATS_CCOMP_H
+#ifndef KERNELATS_PATS_CCOMP_H
+#define KERNELATS_PATS_CCOMP_H
 
+/* ****** ****** */
+//
+#define ATSstruct struct
+/*
+#define ATStypedef typedef
+*/
+//
 /* ****** ****** */
 
 #define ATSextern() extern
@@ -49,7 +56,9 @@
 //
 /* ****** ****** */
 //
+#ifndef NULL
 #define NULL ((void*)0)
+#endif // ifndef(NULL)
 #define atsptr_null ((void*)0)
 //
 /* ****** ****** */
@@ -205,6 +214,18 @@ ATSloop_close(init, fini, cont) \
 
 /* ****** ****** */
 //
+// HX: [ATSSELcon] is the same as [ATSSELboxrec]
+//
+#define ATSSELcon(pmv, tysum, lab) (((tysum*)pmv)->lab)
+//
+#define ATSSELrecsin(pmv, tyrec, lab) (pmv)
+#define ATSSELfltrec(pmv, tyrec, lab) ((pmv).lab)
+#define ATSSELboxrec(pmv, tyrec, lab) (((tyrec*)pmv)->lab)
+#define ATSSELarrind(pmv, tyarr, lab) (((tyarr)pmv).lab)
+#define ATSSELarrptrind(pmv, tyelt, lab) (((tyelt*)pmv)lab)
+//
+/* ****** ****** */
+//
 #define ATSCKnot(x) ((x)==0)
 #define ATSCKiseqz(x) ((x)==0)
 #define ATSCKisneqz(x) ((x)!=0)
@@ -248,6 +269,12 @@ ATSloop_close(init, fini, cont) \
 #define ATSINSmove_tlcal(apy, tmp) (apy = tmp)
 #define ATSINSargmove_tlcal(arg, apy) (arg = apy)
 //
+/* ****** ****** */
+
+#define ATSINSmove_fltrec_beg()
+#define ATSINSmove_fltrec_end()
+#define ATSINSstore_fltrec_ofs(tmp, tyrec, lab, val) ((tmp).lab = val)
+
 /* ****** ****** */
 
 #define ATSINSload(tmp, pmv) (tmp = pmv)
@@ -407,10 +434,17 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 
 /* ****** ****** */
 //
+#if(0)
+//
+// HX-2014-11-19: for example
+//
 #include \
 "kernelats/prelude/CATS/integer.cats"
 #include \
 "kernelats/prelude/CATS/pointer.cats"
+//
+#include \
+"kernelats/prelude/CATS/integer_fixed.cats"
 //
 #include "kernelats/prelude/CATS/bool.cats"
 #include "kernelats/prelude/CATS/char.cats"
@@ -420,9 +454,11 @@ struct{char _[_ATSTYPE_VAR_SIZE];} atstype_var[0] ;
 #include "kernelats/prelude/CATS/arrayptr.cats"
 #include "kernelats/prelude/CATS/arrayref.cats"
 //
+#endif // if(0)
+//
 /* ****** ****** */
 
-#endif // end of [LINUX_PATS_CCOMP_H]
+#endif // end of [KERNELATS_PATS_CCOMP_H]
 
 /* ****** ****** */
 

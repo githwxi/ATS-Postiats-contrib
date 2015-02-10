@@ -74,25 +74,29 @@ end // end of [nth]
 //
 extern 
 fun
-main_js (): void = "mac#"
+main0_js (): void = "mac#"
 //
 implement
-main_js ((*void*)) =
+main0_js ((*void*)) =
 {
-  val primes = sieve (from(2))
-  val () = println! ("primes[0] = ", nth(primes, 0))
-  val () = println! ("primes[1] = ", nth(primes, 1))
-  val () = println! ("primes[2] = ", nth(primes, 2))
-  val () = println! ("primes[3] = ", nth(primes, 3))
-  val () = println! ("primes[4] = ", nth(primes, 4))
-  val () = println! ("primes[5] = ", nth(primes, 5))
-  val () = println! ("primes[6] = ", nth(primes, 6))
-  val () = println! ("primes[7] = ", nth(primes, 7))
-  val () = println! ("primes[8] = ", nth(primes, 8))
-  val () = println! ("primes[9] = ", nth(primes, 9))
-  val () = println! ("primes[100] = ", nth(primes, 100))
-  val () = println! ("primes[1000] = ", nth(primes, 1000))
-} (* end of [main_js] *)
+//
+val ps = sieve (from(2))
+//
+val () = println! ("primes[0] = ", nth(ps, 0))
+val () = println! ("primes[1] = ", nth(ps, 1))
+val () = println! ("primes[2] = ", nth(ps, 2))
+val () = println! ("primes[3] = ", nth(ps, 3))
+val () = println! ("primes[4] = ", nth(ps, 4))
+val () = println! ("primes[5] = ", nth(ps, 5))
+val () = println! ("primes[6] = ", nth(ps, 6))
+val () = println! ("primes[7] = ", nth(ps, 7))
+val () = println! ("primes[8] = ", nth(ps, 8))
+val () = println! ("primes[9] = ", nth(ps, 9))
+//
+val () = println! ("primes[100] = ", nth(ps, 100))
+val () = println! ("primes[1000] = ", nth(ps, 1000))
+//
+} (* end of [main0_js] *)
 //
 (* ****** ****** *)
 
@@ -117,7 +121,7 @@ eval(fs.readFileSync('./libatscc2js/DATS/stream_dats.js').toString());
 
 %{$
 //
-main_js()
+main0_js()
 //
 %} // end of [%{$]
 

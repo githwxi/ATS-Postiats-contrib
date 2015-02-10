@@ -113,7 +113,7 @@ Message1_ptr = $extval(charptr, "Message1_ptr")
 //
 static
 void
-Message_init()
+Message_init(void)
 {
   int i;
   for (i = 0; i < BUFLEN; i += 1) Message[i] = 0;
