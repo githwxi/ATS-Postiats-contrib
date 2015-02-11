@@ -17,6 +17,6 @@ array_insort.o: array_insort.dats array_insort
 	-I $(PATSHOME) array_insort_dats.c -o array_insort.o
 
 sort: sort.c array_insort.o
-	gcc -std=c99 -D_XOPEN_SOURCE=600 -o $@ $^
+	gcc -std=c99 -D_XOPEN_SOURCE=600 -O2 -o $@ $^
 
 build: sort 

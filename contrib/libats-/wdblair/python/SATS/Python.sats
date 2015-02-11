@@ -33,7 +33,9 @@ fun Py_InitModule (string, ptr): PyObject = "mac#"
 (* ****** ****** *)
 
 fun PyImport_Import (PyObject): PyObject = "mac#"
+fun PyImport_ImportModule (string): PyObject = "mac#"
 fun PyImport_AddModule (string): PyObject = "mac#"
+
 
 (* ****** ****** *)
 

@@ -13,7 +13,7 @@ MALLOCFLAG := -DATS_MEMALLOC_LIBC
 
 ######
 
-CFLAGS += -O2 -I ./parsing
+CFLAGS += -g -O2 -I ./parsing
 
 ######
 
