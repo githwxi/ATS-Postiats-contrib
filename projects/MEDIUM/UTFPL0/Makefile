@@ -46,10 +46,10 @@ PATSCC2= $(PATSCC) -atsccomp "$(CCOPT)" $(MALLOCFLAG) $(CFLAGS)
 
 ######
 
-UTFPLsrc_sta := \
+UTFPLSRC_sta := \
   utfpl.sats \
 
-UTFPLsrc_dyn := \
+UTFPLSRC_dyn := \
   utfpl_stamp.dats \
   utfpl_symbol.dats \
   utfpl_location.dats \
@@ -61,15 +61,15 @@ UTFPLsrc_dyn := \
   utfpl_d2exp.dats \
   utfpl_d2ecl.dats \
 
-UTFPLsrc := \
-  $(UTFPLsrc_sta) \
-  $(UTFPLsrc_dyn) \
+UTFPLSRC := \
+  $(UTFPLSRC_sta) \
+  $(UTFPLSRC_dyn) \
 
 ######
 
-UTFPLobj := $(UTFPLsrc)
-UTFPLobj := $(patsubst %.sats, %_sats.o, $(UTFPLobj))
-UTFPLobj := $(patsubst %.dats, %_dats.o, $(UTFPLobj))
+UTFPLOBJ := $(UTFPLSRC)
+UTFPLOBJ := $(patsubst %.sats, %_sats.o, $(UTFPLOBJ))
+UTFPLOBJ := $(patsubst %.dats, %_dats.o, $(UTFPLOBJ))
 
 ######
 
@@ -77,7 +77,7 @@ all:: UTFPLEVAL
 
 ######
 #
-utfpl.o: $(UTFPLobj) ; ld -r -o $@ $^
+utfpl.o: $(UTFPLOBJ) ; ld -r -o $@ $^
 #
 parsing/parsing.o: ; make -C parsing parsing.o
 #
@@ -85,10 +85,15 @@ evaluating/evaluating.o: ; make -C evaluating evaluating.o
 #
 ######
 
-UTFPLEVAL:: ; make -C parsing
-UTFPLEVAL:: ; make -C evaluating
-UTFPLEVAL:: \
-  utfpl.o \
+MAKE=make
+
+######
+#
+UTFPLEVAL:: ; \
+  $(MAKE) -C parsing
+UTFPLEVAL:: ; \
+  $(MAKE) -C evaluating
+UTFPLEVAL:: utfpl.o \
   parsing/parsing.o \
   evaluating/evaluating.o \
   utfpl_dynloadall_dats.o \
@@ -96,7 +101,7 @@ UTFPLEVAL:: \
   utfpleval_symenv_dats.o \
   utfpleval_mylib_dats.o ; \
   $(PATSCC2) -o utfpleval $^ $(LDFLAGS)
-
+#
 ######
 
 %_sats.o: %.sats ; $(PATSCC2) -c $<
@@ -110,12 +115,28 @@ UTFPLEVAL:: \
 
 depend:: ; $(RMF) .depend
 depend:: ; $(PATSOPT) --output-a .depend --depgen -
-depend:: ; $(PATSOPT) --output-a .depend --depgen -s $(UTFPLsrc_sta)
-depend:: ; $(PATSOPT) --output-a .depend --depgen -d $(UTFPLsrc_dyn)
+depend:: ; $(PATSOPT) --output-a .depend --depgen -s $(UTFPLSRC_sta)
+depend:: ; $(PATSOPT) --output-a .depend --depgen -d $(UTFPLSRC_dyn)
 depend:: ; $(PATSOPT) --output-a .depend --depgen -s utfpleval.sats
 depend:: ; $(PATSOPT) --output-a .depend --depgen -d utfpleval_symenv.dats
 depend:: ; $(PATSOPT) --output-a .depend --depgen -d utfpleval.dats
 
+######
+#
+testall:: UTFPLEVAL
+#
+testall:: ; $(MAKE) -C TEST
+#
+testall:: ; ./utfpleval TEST/test01_utfpl.json
+testall:: ; ./utfpleval TEST/test02_utfpl.json
+testall:: ; ./utfpleval TEST/test03_utfpl.json
+testall:: ; ./utfpleval TEST/test04_utfpl.json
+testall:: ; ./utfpleval TEST/test05_utfpl.json
+testall:: ; ./utfpleval TEST/test06_utfpl.json < TEST/test06_utfpl.json
+testall:: ; ./utfpleval TEST/queens_utfpl.json
+#
+testall:: cleanall
+#
 ######
 
 cleanats:: ; $(RMF) *_?ats.c
