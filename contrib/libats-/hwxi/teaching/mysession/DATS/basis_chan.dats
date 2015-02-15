@@ -257,7 +257,8 @@ val () = ch.rfcnt := 1
 //
 val q0 = queue_make<a>(cap)
 val () = ch.queue := $UN.castvwtp0{ptr}(q0)
-val () = ch.qnext := $UN.castvwtp0{ptr}(the_null_ptr)
+//
+val () = ch.qnext := the_null_ptr
 //
 local
 val x = spin_create_exn()

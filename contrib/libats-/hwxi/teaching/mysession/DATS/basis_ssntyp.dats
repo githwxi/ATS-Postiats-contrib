@@ -148,11 +148,12 @@ channeg_nil_close
 vtypedef
 chan2 = channel2(ptr)
 //
-val chan2 =
-  $UN.castvwtp0{chan2}(chneg)
+val
+chan2 =
+$UN.castvwtp0{chan2}(chneg)
 //
-val ((*void*)) =
-  channel2_send (chan2, the_null_ptr)
+val () =
+channel2_send (chan2, $UN.int2ptr(0))
 //
 val ((*freed*)) = channel2_free (chan2)
 //
@@ -182,9 +183,7 @@ staload "libats/SATS/athread.sats"
 
 (* ****** ****** *)
 
-implement
-{}(*tmp*)
-channel_cap () = 1
+implement{} channel_cap ((*void*)) = 1
 
 (* ****** ****** *)
 

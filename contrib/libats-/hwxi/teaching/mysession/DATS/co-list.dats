@@ -58,11 +58,12 @@ channeg_list_nil
 vtypedef
 chan2 = channel2(ptr)
 //
-val chan2 =
-  $UN.castvwtp1{chan2}(chneg)
+val
+chan2 =
+$UN.castvwtp1{chan2}(chneg)
 //
-val ((*void*)) =
-  channel2_send (chan2, the_null_ptr)
+val () = 
+channel2_send (chan2, $UN.int2ptr(0))
 //
 prval () = $UN.cast2void(chan2)
 //
