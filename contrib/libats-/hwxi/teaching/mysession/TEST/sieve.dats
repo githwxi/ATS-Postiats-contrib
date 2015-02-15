@@ -4,9 +4,43 @@
 
 (* ****** ****** *)
 
+%{^
+//
+#include <pthread.h>
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/basis.sats"
 staload "./../SATS/co-list.sats"
+//
+(* ****** ****** *)
 
+staload
+_ = "libats/DATS/deqarray.dats"
+
+(* ****** ****** *)
+//
+staload
+_ = "libats/DATS/athread.dats"
+staload
+_ = "libats/DATS/athread_posix.dats"
+//
+(* ****** ****** *)
+//
+staload _ = "./../DATS/basis_chan.dats"
+staload _ = "./../DATS/basis_chan2.dats"
+//
+staload _ = "./../DATS/basis_ssntyp.dats"
+//
+staload _(*anon*) = "./../DATS/co-list.dats"
+//
 (* ****** ****** *)
 //
 extern
@@ -42,7 +76,7 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  channeg_create(llam(chp) => fserv(chp, n))
+  channeg_create_exn(llam(chp) => fserv(chp, n))
 end // end of [ints_from]
 
 (* ****** ****** *)
@@ -89,7 +123,7 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  channeg_create(llam(chp) => fserv(chp, chn))
+  channeg_create_exn(llam(chp) => fserv(chp, chn))
 end // end of [ints_filter]
 
 (* ****** ****** *)
@@ -132,8 +166,54 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  channeg_create(llam(chp) => fserv(chp, ints_from(2)))
+  channeg_create_exn(llam(chp) => fserv(chp, ints_from(2)))
 end // end of [primes_gen]
+
+(* ****** ****** *)
+//
+extern
+fun
+fprint_primes
+  (out: FILEref, n: int, chn: !channeg(sslist(int))): void
+//
+implement
+fprint_primes
+  (out, n, chn) =
+(
+if
+n > 0
+then let
+//
+val () =
+  channeg_list_cons(chn)
+// end of [val]
+val px = channeg_send_val<int> (chn)
+val () = fprintln! (out, px)
+//
+in
+  fprint_primes (out, n-1, chn)
+end // end of [then]
+else () // end of [else]
+) (* end of [fprint_primes] *)
+//
+(* ****** ****** *)
+
+implement
+main0((*void*)) =
+{
+//
+#define N 100
+//
+val out = stdout_ref
+//
+val chn = primes_gen()
+//
+val () = fprint_primes(out, N, chn)
+//
+val () = channeg_list_nil(chn)
+val () = channeg_nil_close(chn)
+//
+} (* end of [main0] *)
 
 (* ****** ****** *)
 

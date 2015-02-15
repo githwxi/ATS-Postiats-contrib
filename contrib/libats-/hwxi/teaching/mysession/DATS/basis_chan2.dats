@@ -146,11 +146,16 @@ channel2_link
 val~CHAN2(chx0, chx1) = chan2x
 val~CHAN2(chy0, chy1) = chan2y
 //
-val () = channel_qinsert (chx1, chy0)
-val () = channel_qinsert (chy1, chx0)
+val () = channel_qinsert (chx0, chy1)
+val () = channel_qinsert (chy0, chx1)
 //
-val ((*void*)) = channel_unref (chx1)
-val ((*void*)) = channel_unref (chy1)
+val ((*void*)) = channel_unref (chx0)
+val ((*void*)) = channel_unref (chy0)
+//
+(*
+val () =
+fprintln! (stdout_ref, "channel2_link: leave")
+*)
 //
 in
   // nothing

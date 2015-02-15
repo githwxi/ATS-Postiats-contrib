@@ -31,6 +31,24 @@ cleanall:: ; $(RMF) test01
 
 ######
 
+all:: \
+sieve
+sieve: \
+sieve.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+cleanall:: ; $(RMF) sieve
+
+######
+
+all:: \
+bitstr
+bitstr: \
+bitstr.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+cleanall:: ; $(RMF) bitstr
+
+######
+
 RMF=rm -f
 
 ######

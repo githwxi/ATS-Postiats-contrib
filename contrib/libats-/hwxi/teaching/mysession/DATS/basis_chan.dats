@@ -384,7 +384,7 @@ end // end of [channel_rfcnt]
 extern
 fun{a:vt0p}
 channel_insert2
-  (!channel(a), !queue(a) >> _, a): void
+  (!channel(a), queue(a), a): void
 //
 (* ****** ****** *)
 
@@ -395,16 +395,14 @@ channel_insert
 val+CHANNEL
   {l0,l1,l2,l3}(ch) = chan
 //
-val mutex = unsafe_mutex_vt2t(ch.mutex)
+val
+mutex = unsafe_mutex_vt2t(ch.mutex)
 //
 val (pfmut | ()) = mutex_lock (mutex)
 //
 val xs = $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
 //
 val ((*void*)) = channel_insert2<a> (chan, xs, x0)
-//
-val ((*void*)) =
-mutex_unlock ($UN.castview0{locked_v(l1)}(xs) | mutex)
 //
 in
   // nothing
@@ -419,6 +417,9 @@ channel_insert2
 //
 val+CHANNEL
   {l0,l1,l2,l3}(ch) = chan
+//
+val
+mutex = unsafe_mutex_vt2t(ch.mutex)
 //
 val (pf | isful) = queue_isful (xs)
 //
@@ -435,11 +436,9 @@ then let
     praxi __assert (): vtakeout0(locked_v(l1))
   } (* end of [prval] *)
   val
-  mutex = unsafe_mutex_vt2t(ch.mutex)
-  val
   CVisful = unsafe_condvar_vt2t(ch.CVisful)
   val () = condvar_wait (pfmut | CVisful, mutex)
-  prval ((*returned*)) = fpf (pfmut)
+  prval ((*ret*)) = fpf (pfmut)
 in
   channel_insert2 (chan, xs, x0)
 end // end of [then]
@@ -451,6 +450,9 @@ else let
   if isnil.1
     then condvar_broadcast(unsafe_condvar_vt2t(ch.CVisnil))
   // end of [if]
+  val ((*void*)) =
+  mutex_unlock ($UN.castview0{locked_v(l1)}(xs) | mutex)
+//
 in
   // nothing
 end // end of [else]
@@ -462,7 +464,7 @@ end // end of [channel_insert2]
 extern
 fun{a:vt0p}
 channel_remove2
-  (chan: !channel(a), !queue(a) >> _): (a)
+  (chan: &channel(a) >> _, queue(a)): (a)
 //
 (* ****** ****** *)
 
@@ -470,6 +472,27 @@ implement
 {a}(*tmp*)
 channel_remove
   (chan) = let
+//
+val+CHANNEL
+  {l0,l1,l2,l3}(ch) = chan
+//
+val
+mutex = unsafe_mutex_vt2t(ch.mutex)
+//
+val (pfmut | ()) = mutex_lock (mutex)
+//
+val xs =
+  $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
+//
+in
+  channel_remove2<a> (chan, xs)
+end // end of [channel_remove]
+
+(* ****** ****** *)
+
+implement{a}
+channel_remove2
+  (chan, xs) = let
 //
 val+@CHANNEL
   {l0,l1,l2,l3}(ch) = chan
@@ -482,59 +505,6 @@ queue_unlock_mac(xs) =
 mutex_unlock
   ($UN.castview0{locked_v(l1)}(,(xs)) | mutex)
 //
-val (pfmut | ()) = mutex_lock(mutex)
-val xs = $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
-//
-val isnil = queue_isnil (xs)
-//
-in
-//
-if
-isnil.1
-then let
-  val qnxt = ch.qnext
-in
-//
-if
-qnxt > 0
-then (x0) where
-{
-  val () =
-  ch.qnext := the_null_ptr
-  val () = queue_unlock_mac(xs)
-  prval ((*fold*)) = fold@chan
-  val () = channel_unref (chan)
-  val () =
-  chan := $UN.castvwtp0{channel(a)}(qnxt)
-  val x0 = channel_remove (chan)
-} (* end of [then] *)
-else (x0) where
-{
-  prval
-  ((*fold*)) = fold@chan
-  val x0 = channel_remove2 (chan, xs)
-  val () = queue_unlock_mac(xs)
-} (* end of [else] *)
-//
-end // end of [then]
-else let
-  prval
-  ((*fold*)) = fold@chan
-  val x0 = queue_remove (isnil.0 | xs)
-  val () = queue_unlock_mac(xs) in (x0)
-end (* end of [else] *)
-//
-end // end of [channel_remove]
-
-(* ****** ****** *)
-
-implement{a}
-channel_remove2
-  (chan, xs) = let
-//
-val+CHANNEL
-  {l0,l1,l2,l3}(ch) = chan
-//
 val (pf | isnil) = queue_isnil (xs)
 //
 in
@@ -542,27 +512,46 @@ in
 if
 isnil
 then let
-  prval
-  (pfmut, fpf) =
-  __assert () where
-  {
-    extern
-    praxi __assert (): vtakeout0(locked_v(l1))
-  } (* end of [prval] *)
-  val mutex = unsafe_mutex_vt2t(ch.mutex)
-  val CVisnil = unsafe_condvar_vt2t(ch.CVisnil)
-  val ((*void*)) = condvar_wait (pfmut | CVisnil, mutex)
-  prval ((*void*)) = fpf (pfmut)
+  val qnxt = ch.qnext
 in
-  channel_remove2 (chan, xs)
+  if qnxt > 0
+    then let
+      val () =
+      ch.qnext := the_null_ptr
+      val () = queue_unlock_mac(xs)
+      prval ((*fold*)) = fold@chan
+      val () = channel_unref (chan)
+      val () =
+      chan := $UN.castvwtp0{channel(a)}(qnxt)
+    in
+      channel_remove (chan)
+    end (* end of [then] *)
+    else let
+      prval
+      (pfmut, fpf) =
+      __assert () where
+      {
+        extern
+        praxi __assert (): vtakeout0(locked_v(l1))
+      } (* end of [prval] *)
+      val CVisnil = unsafe_condvar_vt2t(ch.CVisnil)
+      val ((*void*)) = condvar_wait (pfmut | CVisnil, mutex)
+      prval ((*ret*)) = fpf (pfmut)
+      prval ((*fold*)) = fold@chan
+    in
+      channel_remove2 (chan, xs)
+    end // end of [else]
+  // end of [if]
 end // end of [then]
 else let
   val isful = queue_isful (xs)
   val x0_out = queue_remove (pf | xs)
-  val ((*void*)) =
+  val () =
   if isful.1
     then condvar_broadcast(unsafe_condvar_vt2t(ch.CVisful))
   // end of [if]
+  val () = queue_unlock_mac(xs)
+  prval ((*fold*)) = fold@chan
 in
   x0_out
 end // end of [else]
@@ -579,7 +568,7 @@ qnext_insert
 extern
 fun{a:vt0p}
 channel_qinsert2
-  (!channel(a), !queue(a) >> _, channel(a)): void
+  (!channel(a), queue(a), channel(a)): void
 //
 (* ****** ****** *)
 
@@ -587,19 +576,18 @@ implement
 {a}(*tmp*)
 channel_qinsert
   (chan, chx) = let
+//
 val+CHANNEL
   {l0,l1,l2,l3}(ch) = chan
 //
-val mutex = unsafe_mutex_vt2t(ch.mutex)
+val
+mutex = unsafe_mutex_vt2t(ch.mutex)
 //
 val (pfmut | ()) = mutex_lock (mutex)
 //
 val xs = $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
 //
 val ((*void*)) = channel_qinsert2<a> (chan, xs, chx)
-//
-val ((*void*)) =
-mutex_unlock ($UN.castview0{locked_v(l1)}(xs) | mutex)
 //
 in
   // nothing
@@ -641,6 +629,9 @@ channel_qinsert2
 val+@CHANNEL
   {l0,l1,l2,l3}(ch) = chan
 //
+val
+mutex = unsafe_mutex_vt2t(ch.mutex)
+//
 val isnil = queue_isnil (xs)
 //
 val () = qnext_insert (ch.qnext, chx)
@@ -653,7 +644,7 @@ if isnil.1
 prval ((*fold*)) = fold@chan
 //
 in
-  // nothing
+  mutex_unlock ($UN.castview0{locked_v(l1)}(xs) | mutex)
 end // end of [channel_qinsert2]
 
 (* ****** ****** *)

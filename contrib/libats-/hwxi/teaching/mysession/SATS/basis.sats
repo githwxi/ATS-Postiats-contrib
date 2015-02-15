@@ -71,7 +71,7 @@ channeg_nil_close(channeg(nil)): void
 
 (* ****** ****** *)
 //
-fun
+fun{}
 chanposneg_link
   {ss:type}(chp: chanpos(ss), chn: channeg(ss)): void
 //

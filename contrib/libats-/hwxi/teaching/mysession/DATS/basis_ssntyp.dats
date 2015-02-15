@@ -161,6 +161,7 @@ val ((*freed*)) = channel2_free (chan2)
 (* ****** ****** *)
 //
 implement
+{}(*tmp*)
 chanposneg_link
   {ss}(chpos, chneg) = let
 //
@@ -191,7 +192,7 @@ implement
 channeg_create_exn
   {ss}(fserv) = let
 //
-#define CAP 2
+#define CAP 1
 //
 val
 (chx, chy) =
