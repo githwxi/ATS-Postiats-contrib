@@ -20,8 +20,8 @@ stadef cons = chcons
 
 (* ****** ****** *)
 
-absvtype chanpos (type)
-absvtype channeg (type)
+absvtype chanpos (type) = ptr
+absvtype channeg (type) = ptr
 
 (* ****** ****** *)
 //
@@ -29,25 +29,26 @@ fun
 {a:vt0p}
 chanpos_send{ss:type}
   (!chanpos(chsnd(a)::ss) >> chanpos(ss), a): void
+//
 fun
 {a:vt0p}
-chanpos_recv{ss:type}
-(
-  !chanpos(chrcv(a)::ss) >> chanpos(ss), &a? >> a
-) : void // end of [chanpos_recv]
+channeg_recv{ss:type}
+  (!channeg(chrcv(a)::ss) >> channeg(ss), a): void
 //
 (* ****** ****** *)
 //
 fun
 {a:vt0p}
-channeg_send{ss:type}
+chanpos_recv{ss:type}
 (
-  !channeg(chsnd(a)::ss) >> channeg(ss), &a? >> a
-) : void // end of [channeg_send]
+  !chanpos(chrcv(a)::ss) >> chanpos(ss), x: &a? >> a
+) : void // end of [chanpos_recv]
 fun
 {a:vt0p}
-channeg_recv{ss:type}
-  (!channeg(chrcv(a)::ss) >> channeg(ss), a): void
+channeg_send{ss:type}
+(
+  !channeg(chsnd(a)::ss) >> channeg(ss), x: &a? >> a
+) : void // end of [channeg_send]
 //
 (* ****** ****** *)
 //
@@ -77,7 +78,7 @@ chanposneg_link
 (* ****** ****** *)
 //
 fun{}
-channeg_create{ss:type}
+channeg_create_exn{ss:type}
   (fserv: chanpos(ss) -<lincloptr1> void): channeg(ss)
 //
 (* ****** ****** *)
