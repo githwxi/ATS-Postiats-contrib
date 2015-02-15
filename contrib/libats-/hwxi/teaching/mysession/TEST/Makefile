@@ -49,6 +49,15 @@ cleanall:: ; $(RMF) bitstr
 
 ######
 
+all:: \
+queue
+queue: \
+queue.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+cleanall:: ; $(RMF) queue
+
+######
+
 RMF=rm -f
 
 ######

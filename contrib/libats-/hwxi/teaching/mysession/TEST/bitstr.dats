@@ -303,7 +303,7 @@ case+ opt of
 | ~channeg_list_nil(chn) => let
     val () =
       channeg_nil_close(chn) in xs
-    // end of [val[
+    // end of [val]
   end // end of [channeg_list_nil]
 | ~channeg_list_cons(chn) => let
     val x =
