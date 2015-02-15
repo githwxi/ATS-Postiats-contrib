@@ -182,6 +182,12 @@ staload "libats/SATS/athread.sats"
 
 (* ****** ****** *)
 
+implement
+{}(*tmp*)
+channel_cap () = 1
+
+(* ****** ****** *)
+
 (*
 fun{}
 channeg_create{ss:type}
@@ -192,7 +198,7 @@ implement
 channeg_create_exn
   {ss}(fserv) = let
 //
-#define CAP 1
+val CAP = channel_cap()
 //
 val
 (chx, chy) =

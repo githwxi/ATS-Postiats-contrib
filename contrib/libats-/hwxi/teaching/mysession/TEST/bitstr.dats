@@ -58,6 +58,8 @@ macdef B1 = $UN.cast{bit}(1)
 //
 typedef bit_ = natLt(2)
 //
+extern castfn bit2bit_(bit): bit_
+//
 (* ****** ****** *)
 //
 extern
@@ -174,7 +176,7 @@ case+ opt of
     val () =
       chanpos_list_cons (chp)
     val bit = channeg_send_val<bit> (chn)
-    val bit_ = $UN.cast{bit_}(bit)
+    val bit_ = bit2bit_(bit)
   in
     if bit_ > 0
       then let
@@ -244,8 +246,7 @@ case+ opt1 of
     | ~channeg_list_cons(chn2) => let
         val b1 = channeg_send_val(chn1)
         and b2 = channeg_send_val(chn2)
-        val b1_ = $UN.cast{bit_}(b1)
-        and b2_ = $UN.cast{bit_}(b2)
+        val b1_ = bit2bit_(b1) and b2_ = bit2bit_(b2)
       in
         case+ b1_ of
         | 0 => (
@@ -285,7 +286,7 @@ loop
 case+ xs of
 | ~list_vt_nil() => res
 | ~list_vt_cons(x, xs) =>
-    loop (xs, 2*res + $UN.cast{bit_}(x))
+    loop (xs, 2*res + bit2bit_(x))
 ) (* end of [loop] *)
 //
 //

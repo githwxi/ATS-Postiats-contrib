@@ -189,20 +189,20 @@ prval () = $UN.castview2void(chneg)
 (* ****** ****** *)
 //
 extern
-fun{a:t@ype}
+fun{a:vt0p}
 queue_nil((*void*)): channeg(ssque(a, 0))
 //
 extern
-fun{a:t@ype}
+fun{a:vt0p}
 queue_free_nil(channeg(ssque(a, 0))): void
 //
 extern
-fun{a:vt@ype}
+fun{a:vt0p}
 queue_deq{n:pos}
   (que: !channeg(ssque(a,n)) >> channeg(ssque(a,n-1))): a
 //
 extern
-fun{a:vt@ype}
+fun{a:vt0p}
 queue_enq{n:nat}
   (que: !channeg(ssque(a,n)) >> channeg(ssque(a,n+1)), x0: a): void
 //

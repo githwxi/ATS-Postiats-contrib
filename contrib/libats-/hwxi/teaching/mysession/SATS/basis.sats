@@ -25,6 +25,10 @@ absvtype channeg (type) = ptr
 
 (* ****** ****** *)
 //
+fun{} channel_cap(): intGte(1)  
+//
+(* ****** ****** *)
+//
 fun
 {a:vt0p}
 chanpos_send{ss:type}
