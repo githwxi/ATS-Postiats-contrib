@@ -1,11 +1,12 @@
 (*
-** Implementing channels
+** Channels
 *)
 
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
@@ -657,4 +658,4 @@ end // end of [channel_qinsert2]
 
 (* ****** ****** *)
 
-(* end of [channel.dats] *)
+(* end of [basis_chan.dats] *)

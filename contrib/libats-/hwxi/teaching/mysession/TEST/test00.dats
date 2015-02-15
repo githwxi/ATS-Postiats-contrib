@@ -33,8 +33,8 @@ _ = "libats/DATS/athread_posix.dats"
 //
 (* ****** ****** *)
 //
-staload _ = "./../DATS/channel.dats"
-staload _ = "./../DATS/channel2.dats"
+staload _ = "./../DATS/basis_chan.dats"
+staload _ = "./../DATS/basis_chan2.dats"
 //
 staload _ = "./../DATS/basis_ssntyp.dats"
 //

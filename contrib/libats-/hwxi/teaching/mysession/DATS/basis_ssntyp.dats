@@ -1,5 +1,5 @@
 (*
-** Implementing sessions
+** Session-typed channels
 *)
 
 (* ****** ****** *)
@@ -10,12 +10,11 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./../SATS/basis.sats"
+staload
+"./../SATS/basis.sats"
 //
-(* ****** ****** *)
-
-staload "./channel2.dats"
-
+staload "./basis_chan2.dats"
+//
 (* ****** ****** *)
 //
 datavtype

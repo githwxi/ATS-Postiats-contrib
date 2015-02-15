@@ -1,10 +1,10 @@
 (*
-** Implementing channels
+** Channel pairs
 *)
 
 (* ****** ****** *)
 
-staload "./channel.dats"
+staload "./basis_chan.dats"
 
 (* ****** ****** *)
 
@@ -158,4 +158,4 @@ end // end of [channel2_link]
 
 (* ****** ****** *)
 
-(* end of [channel2.dats] *)
+(* end of [basic_chan2.dats] *)
