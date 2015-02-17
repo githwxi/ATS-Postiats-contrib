@@ -40,9 +40,17 @@
 // Start Time: September, 2013
 //
 (* ****** ****** *)
+//
+// HX-2015-02-17:
+// Not to be used independently
+// For inclusion in ./../glib.sats
+//
+(* ****** ****** *)
 
-macdef GTRUE = $extval (gboolean, "TRUE")
-macdef GFALSE = $extval (gboolean, "FALSE")
+macdef
+GTRUE = $extval (gboolean, "TRUE")
+macdef
+GFALSE = $extval (gboolean, "FALSE")
 
 (* ****** ****** *)
 //

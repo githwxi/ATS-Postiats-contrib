@@ -199,10 +199,19 @@ else () // end of [else]
 (* ****** ****** *)
 
 implement
-main0((*void*)) =
+main0(argc, argv) =
 {
 //
-#define N 100
+val N =
+(
+//
+if argc >= 2
+  then g0string2int(argv[1]) else 10
+//
+) : int // end of [val]
+//
+val N = g1ofg0(N)
+val () = assertloc (N >= 0)
 //
 val out = stdout_ref
 //
