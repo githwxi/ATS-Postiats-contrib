@@ -878,8 +878,9 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_d0exp (out, d0e)
+    val () = (
+      emit_text (out, " = "); emit_d0exp (out, d0e)
+    ) (* end of [val] *)
   } (* end of [ATSINSmove] *)
 //
 | ATSINSmove_void (tmp, d0e) =>
@@ -898,16 +899,18 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_text (out, "None")
+    val () = (
+      emit_text (out, " = "); emit_text (out, "None")
+    ) (* end of [val] *)
   }
 //
 | ATSINSmove_con0 (tmp, tag) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_PMVint (out, tag)
+    val () = (
+      emit_text (out, " = "); emit_PMVint (out, tag)
+    ) (* end of [val] *)
   }
 //
 | ATSINSmove_con1 _ =>

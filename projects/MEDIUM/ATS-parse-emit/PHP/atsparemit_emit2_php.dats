@@ -337,8 +337,9 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_d0exp (out, d0e)
+    val () = (
+      emit_text (out, " = "); emit_d0exp (out, d0e)
+    ) (* end of [val] *)
     val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove] *)
 //
