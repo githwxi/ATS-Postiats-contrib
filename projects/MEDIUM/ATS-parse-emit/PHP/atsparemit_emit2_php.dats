@@ -312,6 +312,27 @@ ins0.instr_node of
     val () = emit_SEMICOLON (out)
   } (* end of [ATSINSfgoto] *)
 //
+| ATSINSfreeclo (d0e) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ")
+    val () = emit_text (out, "ATSINSfreeclo")
+    val () = emit_LPAREN (out)
+    val () = emit_d0exp (out, d0e)
+    val () = emit_RPAREN (out)
+    val () = emit_SEMICOLON (out)
+  }
+| ATSINSfreecon (d0e) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "// ")
+    val () = emit_text (out, "ATSINSfreecon")
+    val () = emit_LPAREN (out)
+    val () = emit_d0exp (out, d0e)
+    val () = emit_RPAREN (out)
+    val () = emit_SEMICOLON (out)
+  }
+//
 | ATSINSmove (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
