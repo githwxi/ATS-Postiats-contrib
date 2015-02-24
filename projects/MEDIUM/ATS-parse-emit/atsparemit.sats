@@ -280,6 +280,9 @@ keyword =
   | ATSINSflab of ()
   | ATSINSfgoto of ()
 //
+  | ATSINSfreeclo of ()
+  | ATSINSfreecon of ()
+//
   | ATSINSmove of ()
   | ATSINSmove_void of ()
 //
@@ -926,6 +929,9 @@ instr_node =
 //
   | ATSINSflab of (label)
   | ATSINSfgoto of (label)
+//
+  | ATSINSfreeclo of (d0exp)
+  | ATSINSfreecon of (d0exp)
 //
   | ATSINSmove of (i0de, d0exp)
   | ATSINSmove_void of (i0de, d0exp)
