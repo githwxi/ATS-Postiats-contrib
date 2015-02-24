@@ -389,7 +389,8 @@ channel_insert2
 //
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 channel_insert
   (chan, x0) = let
 //
@@ -491,7 +492,8 @@ end // end of [channel_remove]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 channel_remove2
   (chan, xs) = let
 //
