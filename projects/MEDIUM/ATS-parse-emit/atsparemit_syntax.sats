@@ -426,6 +426,7 @@ ATSINSfgoto_make
 fun
 ATSINSfreeclo_make
   (tok_kwd: token, d0e: d0exp, tok_end: token): instr
+//
 fun
 ATSINSfreecon_make
   (tok_kwd: token, d0e: d0exp, tok_end: token): instr
