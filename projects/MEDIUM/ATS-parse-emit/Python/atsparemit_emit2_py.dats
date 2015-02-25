@@ -899,9 +899,8 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = (
-      emit_text (out, " = "); emit_text (out, "None")
-    ) (* end of [val] *)
+    val () = emit_text (out, " = ")
+    val () = emit_text (out, "None")
   }
 //
 | ATSINSmove_con0 (tmp, tag) =>
