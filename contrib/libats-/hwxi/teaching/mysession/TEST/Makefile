@@ -58,6 +58,15 @@ cleanall:: ; $(RMF) queue
 
 ######
 
+all:: \
+mergesort
+mergesort: \
+mergesort.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+cleanall:: ; $(RMF) mergesort
+
+######
+
 RMF=rm -f
 
 ######

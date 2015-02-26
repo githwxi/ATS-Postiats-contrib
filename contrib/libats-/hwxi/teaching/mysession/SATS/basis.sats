@@ -86,5 +86,16 @@ channeg_create_exn{ss:type}
   (fserv: chanpos(ss) -<lincloptr1> void): channeg(ss)
 //
 (* ****** ****** *)
+(*
+//
+// HX: this one can readily result in deadlocking!!!
+//
+fun{}
+channeg2_create_exn
+  {ss1,ss2:type}
+  (fserv: (chanpos(ss1), chanpos(ss2)) -<lincloptr1> void): (channeg(ss1), channeg(ss2))
+//
+*)
+(* ****** ****** *)
 
 (* end of [basis.sats] *)

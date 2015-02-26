@@ -189,7 +189,7 @@ implement{} channel_cap ((*void*)) = 1
 
 (*
 fun{}
-channeg_create{ss:type}
+channeg_create_exn{ss:type}
   (fserv: chanpos(ss) -<lincloptr1> void): channeg(ss)
 *)
 implement
@@ -221,7 +221,57 @@ end // end of [let]
 //
 in
   $UN.castvwtp0{channeg(ss)}(chy)
-end // end of [channeg_create]
+end // end of [channeg_create_exn]
+
+(* ****** ****** *)
+
+(*
+(*
+fun{}
+channeg2_create_exn
+  {ss1,ss2:type}
+  (fserv: (chanpos(ss1), chanpos(ss2)) -<lincloptr1> void): (channeg(ss1), channeg(ss2))
+*)
+implement
+{}(*tmp*)
+channeg2_create_exn
+  {ss1,ss2}(fserv) = let
+//
+val CAP = channel_cap()
+//
+val
+(chx1, chy1) =
+  channel2_make_pair<ptr>(CAP)
+val
+(chx2, chy2) =
+  channel2_make_pair<ptr>(CAP)
+//
+val chp1 =
+  $UN.castvwtp0{chanpos(ss1)}(chx1)
+val chp2 =
+  $UN.castvwtp0{chanpos(ss2)}(chx2)
+//
+val tid =
+athread_create_cloptr_exn
+(
+//
+llam (
+) => let
+  val () = fserv(chp1, chp2)
+in
+  cloptr_free($UN.castvwtp0{cloptr(void)}(fserv))
+end // end of [let]
+//
+) (* end of [val] *)
+//
+in
+(
+$UN.castvwtp0{channeg(ss1)}(chy1)
+,
+$UN.castvwtp0{channeg(ss2)}(chy2)
+)
+end // end of [channeg2_create_exn]
+*)
 
 (* ****** ****** *)
 

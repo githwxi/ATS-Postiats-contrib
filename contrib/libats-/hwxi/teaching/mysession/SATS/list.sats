@@ -42,5 +42,21 @@ channeg_list
   {a:vt@ype}(channeg(sslist(a))): channeg_list(a)
 //
 (* ****** ****** *)
+//
+fun
+{a:t@ype}
+list2sslist(List(a)): channeg(sslist(a))
+fun
+{a:t@ype}
+sslist2list(channeg(sslist(a))): List0(a)
+//
+fun
+{a:vt@ype}
+list2sslist_vt(List_vt(a)): channeg(sslist(a))
+fun
+{a:vt@ype}
+sslist2list_vt(channeg(sslist(a))): List0_vt(a)
+//
+(* ****** ****** *)
 
 (* end of [list.sats] *)
