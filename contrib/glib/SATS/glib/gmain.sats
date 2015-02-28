@@ -3,6 +3,12 @@
 *)
 
 (* ****** ****** *)
+//
+// HX-2015-02-17:
+// Not to be used independently
+// For inclusion in ./../glib.sats
+//
+(* ****** ****** *)
 
 /*
 typedef gboolean (*GSourceFunc) (gpointer user_data);

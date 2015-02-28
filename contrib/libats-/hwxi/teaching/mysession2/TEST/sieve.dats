@@ -68,9 +68,9 @@ val opt = chanpos_list (chp)
 in
 //
 case+ opt of
-| ~chanpos_list_nil(chp) =>
+| chanpos_list_nil() =>
     chanpos_nil_wait(chp)
-| ~chanpos_list_cons(chp) =>
+| chanpos_list_cons() =>
     (chanpos_send<int>(chp, n); fserv(chp, n+1))
 //
 end // end of [fserv]
@@ -110,12 +110,12 @@ val opt = chanpos_list (chp)
 in
 //
 case+ opt of
-| ~chanpos_list_nil(chp) =>
+| chanpos_list_nil() =>
   (
     chanpos_nil_wait(chp);
     channeg_list_nil(chn); channeg_nil_close(chn)
   )
-| ~chanpos_list_cons(chp) =>
+| chanpos_list_cons() =>
   (
     chanpos_send(chp, getfst(chn)); fserv(chp, chn)
   )
@@ -149,12 +149,12 @@ val opt = chanpos_list (chp)
 in
 //
 case+ opt of
-| ~chanpos_list_nil(chp) =>
+| chanpos_list_nil() =>
   (
     chanpos_nil_wait(chp);
     channeg_list_nil(chn); channeg_nil_close(chn)
   )
-| ~chanpos_list_cons(chp) => let
+| chanpos_list_cons() => let
     val () =
       channeg_list_cons(chn)
     // end of [val]

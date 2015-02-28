@@ -177,6 +177,9 @@ val-~None_vt() = kwordins ("ATSINSgoto", ATSINSgoto)
 val-~None_vt() = kwordins ("ATSINSflab", ATSINSflab)
 val-~None_vt() = kwordins ("ATSINSfgoto", ATSINSfgoto)
 //
+val-~None_vt() = kwordins ("ATSINSfreeclo", ATSINSfreeclo)
+val-~None_vt() = kwordins ("ATSINSfreecon", ATSINSfreecon)
+//
 val-~None_vt() = kwordins ("ATSINSmove", ATSINSmove)
 val-~None_vt() = kwordins ("ATSINSmove_void", ATSINSmove_void)
 //

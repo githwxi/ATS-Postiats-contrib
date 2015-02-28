@@ -850,16 +850,37 @@ ins0.instr_node of
     val () = emit_funlab_index (out, flab)
     val () =
     (
-      emit_SPACE (out); emit_SHARP (out); emit_label (out, flab)
+      emit_SPACE (out);
+      emit_SHARP (out); emit_label (out, flab)
     ) (* end of [val] *)
+  }
+//
+| ATSINSfreeclo (d0e) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#ATSINSfreeclo")
+    val () = emit_LPAREN (out)
+    val () = emit_d0exp (out, d0e)
+    val () = emit_RPAREN (out)
+    val () = emit_SEMICOLON (out)
+  }
+| ATSINSfreecon (d0e) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#ATSINSfreecon")
+    val () = emit_LPAREN (out)
+    val () = emit_d0exp (out, d0e)
+    val () = emit_RPAREN (out)
+    val () = emit_SEMICOLON (out)
   }
 //
 | ATSINSmove (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_d0exp (out, d0e)
+    val () = (
+      emit_text (out, " = "); emit_d0exp (out, d0e)
+    ) (* end of [val] *)
   } (* end of [ATSINSmove] *)
 //
 | ATSINSmove_void (tmp, d0e) =>
@@ -886,8 +907,9 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_PMVint (out, tag)
+    val () = (
+      emit_text (out, " = "); emit_PMVint (out, tag)
+    ) (* end of [val] *)
   }
 //
 | ATSINSmove_con1 _ =>

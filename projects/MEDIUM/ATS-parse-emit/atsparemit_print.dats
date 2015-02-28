@@ -166,6 +166,9 @@ case+ x of
 | ATSfunclo_fun () => pr "ATSfunclo_fun"
 | ATSfunclo_clo () => pr "ATSfunclo_clo"
 //
+| ATSINSfreeclo () => pr "ATSINSfreeclo"
+| ATSINSfreecon () => pr "ATSINSfreecon"
+//
 | ATSINSmove () => pr "ATSINSmove"
 | ATSINSmove_void () => pr "ATSINSmove_void"
 //

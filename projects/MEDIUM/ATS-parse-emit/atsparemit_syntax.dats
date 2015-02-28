@@ -1071,6 +1071,34 @@ end // end of [ATSINSfgoto_make]
 (* ****** ****** *)
 
 implement
+ATSINSfreeclo_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSfreeclo (d0e))
+end // end of [ATSINSfreeclo_make]
+
+implement
+ATSINSfreecon_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSfreecon (d0e))
+end // end of [ATSINSfreecon_make]
+
+(* ****** ****** *)
+
+implement
 ATSINSmove_make
 (
   tok1, tmp, d0e, tok2

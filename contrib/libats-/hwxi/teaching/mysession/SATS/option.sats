@@ -27,11 +27,11 @@ channeg_opt (a:vt@ype) =
 (* ****** ****** *)
 //
 fun{}
-chanpos_opt_nil
+chanpos_opt_none
   {a:vt@ype}
   (!chanpos(ssopt(a)) >> chanpos(nil)): void
 fun{}
-chanpos_opt_cons
+chanpos_opt_some
   {a:vt@ype}
   (!chanpos(ssopt(a)) >> chanpos(chsnd(a)::nil)): void
 //
