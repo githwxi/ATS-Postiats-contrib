@@ -814,7 +814,7 @@ getarglst
 case+ inss of
 | list_nil () => list_nil ()
 | list_cons (ins, inss) => let
-    val-ATSINSstore_boxrec_ofs (_, _, _, d0e) = ins.instr_node
+    val-ATSINSstore_boxrec_ofs(_, _, _, d0e) = ins.instr_node
     val d0es = getarglst (inss)
   in
     list_cons (d0e, d0es)
