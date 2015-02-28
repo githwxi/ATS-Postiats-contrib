@@ -32,7 +32,7 @@ sstrbuf_check {m,n:int} {l:addr} (&sstrbuf_vt (m, n, l)): size_t (m-n)
 
 extern
 fun
-sstrbuf_cons {m,n:int | n <= m} {l:addr} (&sstrbuf_vt (m, n, l) >> sstrbuf_vt (m, n+1, l), charNZ): void
+sstrbuf_cons {m,n:int | n < m} {l:addr} (&sstrbuf_vt (m, n, l) >> sstrbuf_vt (m, n+1, l), charNZ): void
 
 extern
 fun
@@ -48,7 +48,7 @@ prfun lemma_sizeof_byte_char (): [sizeof(byte) == sizeof(char)] void
 dataprop LTE (int, int) = {m,n:int | n <= m} LTE (m, n)
 
 assume sstrbuf_vt (m:int, n:int, l:addr) = @(
-  (array_v (charNZ, l, n), array_v (byte?, l + n*sizeof(char), m-n+1) | ptr l)
+  (array_v (charNZ, l, n), array_v (byte?, l + n*sizeof(byte), m-n+1) | ptr l)
 , size_t m
 , (LTE (m, n) | size_t n)
 ) (* end of [sstrbuf_vt] *)
@@ -72,19 +72,28 @@ in
   sbf.1 - sbf.2.1
 end
 
-// this one doesn't work
 implement
 sstrbuf_cons {m,n} {l} (sbf, c) = let
+  extern
+  prfun lemma_char_size () : [sizeof(char)==sizeof(byte)] void
+  prval () = lemma_char_size ()
   prval (pf2_at, pf2_arr) = array_v_uncons {byte?} {l+n*sizeof(byte)} (sbf.0.1)
   val p1 = ptr_add<char> (sbf.0.2, sbf.2.1)
-  val () = ptr_set<charNZ> (pf2_at | p1)
-  val () = sbf.2 := succ (sbf.2)
+  prval pf2_at = $UN.castview0 {charNZ? @ l+n*sizeof(char)} (pf2_at)
+  val () = ptr_set<charNZ> (pf2_at | p1, c)
+  prval LTE () = sbf.2.0
+  val () = sbf.2 := (LTE () | succ (sbf.2.1))
   prval pf1_arr = array_v_extend (sbf.0.0, pf2_at)
   prval () = $effmask_wrt (sbf.0.0 := pf1_arr)
   prval () = $effmask_wrt (sbf.0.1 := pf2_arr)
 in
   // nothing
 end
+
+// now, if you want to get a string, put 0 at p+n
+// and that's all!
+// there is always enough space
+
 ////
 (*
 implement
