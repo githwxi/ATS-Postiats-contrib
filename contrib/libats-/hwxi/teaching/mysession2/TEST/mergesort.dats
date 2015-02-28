@@ -252,7 +252,7 @@ case+ opt1 of
       then let
         val () =
           chanpos_send(chp, x1)
-        // end of [vall]
+        // end of [val]
       in
         fserv2 (chp, chn1, x2, chn2)
       end // end of [then]
@@ -327,8 +327,10 @@ end // end of [mergesort]
 
 (* ****** ****** *)
 
+(*
 implement
 channel_cap<> () = 1024
+*)
 
 (* ****** ****** *)
 
