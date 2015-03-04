@@ -220,7 +220,12 @@ implement
 {a}(*tmp*)
 ssarray_msort
   (n, chn) = let
+(*
+val () =
+println! ("ssarray_msort")
+*)
 in
+//
 if
 n <= 1
 then chn
@@ -228,8 +233,13 @@ else let
 //
 val n1 = half(n)
 val n2 = n - n1
-val xs = channeg_array_takeout_list(chn, n1)
-val chn1 = list2ssarray_vt(xs) and chn2 = chn
+//
+val xs =
+channeg_array_takeout_list
+  (chn, n1)
+//
+val chn2 = chn
+val chn1 = list2ssarray_vt(xs)
 //
 val chn1 = ssarray_msort(n1, chn1)
 val chn2 = ssarray_msort(n2, chn2)
@@ -238,7 +248,7 @@ in
   ssarray_merge(n1, chn1, n2, chn2)
 end // end of [else]
 //
-end // end of [sslist_msort]
+end // end of [ssarray_msort]
 
 (* ****** ****** *)
 
