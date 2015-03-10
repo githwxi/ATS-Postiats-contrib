@@ -41,7 +41,7 @@ staload "./atsparemit.sats"
 typedef key = symbol and itm = tyrec
 //
 implement
-gequal_val<key> (k1, k2) = (k1 = k2)
+gequal_val_val<key> (k1, k2) = (k1 = k2)
 //
 staload
 "libats/SATS/hashtbl_chain.sats"
