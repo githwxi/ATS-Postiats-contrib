@@ -151,43 +151,43 @@ end // end of [gpred_val]
 (* ****** ****** *)
 
 implement
-gadd_val<intinf>
+gadd_val_val<intinf>
   (x1, x2) = let
   val x1 = g1ofg0(x1)
   and x2 = g1ofg0(x2)
   val y = $effmask_all(add_intinf_intinf(x1, x2))
 in
   g0ofg1_intinf(y)
-end // end of [gadd_val]
+end // end of [gadd_val_val]
 
 (* ****** ****** *)
 
 implement
-gsub_val<intinf>
+gsub_val_val<intinf>
   (x1, x2) = let
   val x1 = g1ofg0(x1)
   and x2 = g1ofg0(x2)
   val y = $effmask_all(sub_intinf_intinf(x1, x2))
 in
   g0ofg1_intinf(y)
-end // end of [gsub_val]
+end // end of [gsub_val_val]
 
 (* ****** ****** *)
 
 implement
-gmul_val<intinf>
+gmul_val_val<intinf>
   (x1, x2) = let
   val x1 = g1ofg0(x1)
   and x2 = g1ofg0(x2)
   val y = $effmask_all(mul_intinf_intinf(x1, x2))
 in
   g0ofg1_intinf(y)
-end // end of [gmul_val]
+end // end of [gmul_val_val]
 
 (* ****** ****** *)
 
 implement
-gdiv_val<intinf>
+gdiv_val_val<intinf>
   (x1, x2) = let
 //
 val x1 = g1ofg0(x1)
@@ -208,33 +208,33 @@ in
   g0ofg1_intinf(y)
 end // end of [then]
 else
-  $raise IllegalArgExn("gdiv_val<intinf>:division-by-zero")
+  $raise IllegalArgExn("gdiv_val_val<intinf>:division-by-zero")
 //
-end // end of [gdiv_val]
+end // end of [gdiv_val_val]
 
 (* ****** ****** *)
 
 implement
-gequal_val<intinf>
+gequal_val_val<intinf>
   (x1, x2) = let
 //
 val sgn =
-  gcompare_val<intinf> (x1, x2)
+  gcompare_val_val<intinf> (x1, x2)
 //
 in
   if sgn = 0 then true else false
-end // end of [gequal_val]
+end // end of [gequal_val_val]
 
 (* ****** ****** *)
 
 implement
-gcompare_val<intinf>
+gcompare_val_val<intinf>
   (x1, x2) = let
   val x1 = g1ofg0(x1)
   and x2 = g1ofg0(x2)
 in
   compare_intinf_intinf (x1, x2)
-end // end of [gcompare_val]
+end // end of [gcompare_val_val]
 
 (* ****** ****** *)
 

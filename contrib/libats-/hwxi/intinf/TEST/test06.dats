@@ -33,9 +33,8 @@ implement
 {a}(*tmp*)
 gfib (x) = let
 //
-macdef gadd = gadd_val<a>
-//
 macdef gint = gnumber_int<a>
+macdef gadd = gadd_val_val<a>
 //
 fun loop
 (

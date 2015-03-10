@@ -718,7 +718,7 @@ val _0 = gnumber_int<a>(0)
 local
 implement
 blas$_alpha_beta<a>
-  (alpha, x, beta, y) = gmul_val<a> (alpha, x)
+  (alpha, x, beta, y) = gmul_val_val<a> (alpha, x)
 prval () = LAgmat_initize (M2)
 in (* in of [local] *)
 val () = LAgmat_axby (alpha, M, _0, M2)
@@ -855,7 +855,7 @@ val _1 = gnumber_int<a>(1)
 //
 implement
 blas$_alpha_beta<a>
-  (alpha, x, beta, y) = gadd_val<a> (x, y)
+  (alpha, x, beta, y) = gadd_val_val<a> (x, y)
 //
 in
   LAgmat_axby (_1, A, _1, B)
