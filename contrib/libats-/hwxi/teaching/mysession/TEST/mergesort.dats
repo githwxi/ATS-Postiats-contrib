@@ -138,7 +138,7 @@ implement
 sslist_merge
   (chn1, chn2) = let
 //
-overload <= with glte_val
+overload <= with glte_val_val
 //
 fnx
 fserv

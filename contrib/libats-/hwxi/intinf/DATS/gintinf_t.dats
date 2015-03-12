@@ -38,6 +38,13 @@ staload "./../SATS/intinf.sats"
 staload "./../SATS/intinf_t.sats"
 
 (* ****** ****** *)
+
+(*
+staload+ _ = "./../DATS/intinf_t.dats"
+staload+ _ = "./../DATS/intinf_vt.dats"
+*)
+
+(* ****** ****** *)
 //
 abstype intinf_type = ptr
 typedef intinf = intinf_type

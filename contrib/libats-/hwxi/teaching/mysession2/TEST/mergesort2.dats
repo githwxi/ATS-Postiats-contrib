@@ -71,7 +71,7 @@ implement
 ssarray_merge
   (n1, chn1, n2, chn2) = let
 //
-overload <= with glte_val
+overload <= with glte_val_val
 //
 fnx
 fserv
