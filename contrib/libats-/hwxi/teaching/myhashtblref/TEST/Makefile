@@ -17,7 +17,7 @@ all:: \
 test01
 test01: \
 test01.dats; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $<
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -O2 -o $@ $<
 cleanall:: ; $(RMF) test01
 
 ######

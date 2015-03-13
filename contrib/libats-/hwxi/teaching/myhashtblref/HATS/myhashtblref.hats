@@ -174,4 +174,4 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [myhashtbl.hats] *)
+(* end of [myhashtblref.hats] *)

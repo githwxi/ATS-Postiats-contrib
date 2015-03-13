@@ -15,7 +15,7 @@ key = string and itm = int
 
 (* ****** ****** *)
 
-#include "./../HATS/myhashtbl.hats"
+#include "./../HATS/myhashtblref.hats"
 
 (* ****** ****** *)
 
