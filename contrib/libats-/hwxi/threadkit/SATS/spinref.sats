@@ -5,7 +5,7 @@
 (***********************************************************************)
 
 (*
-** Copyright (C) 2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2014 Hongwei Xi, ATS Trustful Software, Inc.
 **
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and associated documentation files (the "Software"),
@@ -28,31 +28,36 @@
 
 (* ****** ****** *)
 //
-// HX-2013-11:
-// An array-based channel for ATS
+// HX-2014-05:
+// This is based on spinlock
 //
 (* ****** ****** *)
 //
-abstype
-channel_type(a:vt@ype) = ptr
-typedef
-channel(a:vt0p) = channel_type(a)
+abstype spinref_type (a:vt@ype) = ptr
+typedef spinref (a:vt0p) = spinref_type (a)
 //
 (* ****** ****** *)
 
 fun{a:vt0p}
-channel_create_exn (cap: sizeGte(1)): channel(a)
+spinref_create_exn (x: a): spinref (a)
+
+(* ****** ****** *)
+
+fun{a:t0p} spinref_get (spnr: spinref(a)): (a)
 
 (* ****** ****** *)
 //
-fun{}
-channel_get_capacity{a:vt0p}(channel(a)):<> size_t
+fun{
+a:vt0p}{env:vt0p
+} spinref_process$fwork (x: &a >> _, env: &(env) >> _): void
+//
+fun{
+a:vt0p
+} spinref_process (spnr: spinref(a)): void
+fun{
+a:vt0p}{env:vt0p
+} spinref_process_env (spnr: spinref(a), env: &(env) >> _): void
 //
 (* ****** ****** *)
 
-fun{a:vt0p} channel_insert (channel(a), a): void
-fun{a:vt0p} channel_takeout (chan: channel(a)): (a) 
-
-(* ****** ****** *)
-
-(* end of [channel.sats] *)
+(* end of [spinref.sats] *)
