@@ -171,7 +171,9 @@ val () = gtk_window_set_default_size (win0, gint(400), gint(400))
 val opt = gtkcairoclock_title ()
 val issome = stropt_is_some(opt)
 val () =
-if issome then let
+if
+issome
+then let
   val title = stropt_unsome (opt)
 in
   gtk_window_set_title (win0, gstring(title))
@@ -183,24 +185,39 @@ val p_darea = gobjref2ptr (darea)
 val () = assertloc (p_darea > 0)
 val () = gtk_container_add (win0, darea)
 //
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  darea, (gsignal)"draw", G_CALLBACK(fexpose), gpointer(nullp)
-)
+  darea
+, (gsignal)"draw"
+, G_CALLBACK(fexpose), gpointer(nullp)
+) (* end of [val] *)
+//
 val () = g_object_unref (darea)
 //
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  win0, (gsignal)"destroy", G_CALLBACK(on_destroy), gpointer(nullp)
-)
-val _sid = g_signal_connect
+  win0
+, (gsignal)"destroy"
+, G_CALLBACK(on_destroy), gpointer(nullp)
+) (* end of [val] *)
+val _sid =
+g_signal_connect
 (
-  win0, (gsignal)"delete-event", G_CALLBACK(on_delete_event), gpointer(nullp)
-)
+  win0
+, (gsignal)"delete-event"
+, G_CALLBACK(on_delete_event), gpointer(nullp)
+) (* end of [val] *)
 //
 val int =
-  gtkcairoclock_timeout_interval ()
-val _rid = g_timeout_add (guint(int), (GSourceFunc)ftimeout, gpointer(p_darea))
+  gtkcairoclock_timeout_interval()
+//
+val _rid =
+g_timeout_add
+(
+  guint(int), (GSourceFunc)ftimeout, gpointer(p_darea)
+) (* end of [val] *)
 //
 val () = gtk_widget_show_all (win0)
 //
@@ -208,7 +225,7 @@ val () = g_object_unref (win0) // HX: refcount of [win0] decreases from 2 to 1
 //
 val ((*void*)) = gtk_main ((*void*))
 //
-} // end of [gtkcairoclock_main]
+} (* end of [gtkcairoclock_main] *)
 
 (* ****** ****** *)
 
