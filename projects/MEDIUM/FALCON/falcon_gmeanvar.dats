@@ -118,10 +118,11 @@ local
 typedef key = gene and itm = double
 
 (* ****** ****** *)
-
+//
 implement
-gequal_val<key> (x1, x2) = (compare (x1, x2) = 0)
-
+gequal_val_val<key>
+  (x1, x2) = (compare (x1, x2) = 0)
+//
 (* ****** ****** *)
 //
 staload "libats/ML/SATS/hashtblref.sats"

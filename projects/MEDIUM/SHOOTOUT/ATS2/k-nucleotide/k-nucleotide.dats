@@ -624,9 +624,9 @@ end // end of [write_count]
 (* ****** ****** *)
 //
 implement
-gequal_val<uint32> (x1, x2) = (x1 = x2)
+gequal_val_val<uint32> (x1, x2) = (x1 = x2)
 implement
-gequal_val<uint64> (x1, x2) = (x1 = x2)
+gequal_val_val<uint64> (x1, x2) = (x1 = x2)
 //
 (* ****** ****** *)
 
