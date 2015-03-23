@@ -55,7 +55,7 @@ randcolor() = let
   val (pf, pfgc | p) = malloc_gc (i2sz(bsz))
   val () = $extfcall
   (
-    void, "snprintf", p, bsz, "#%02x%02x%02x", (i2u)r, (i2u)b, (i2u)g
+    void, "snprintf", p, bsz, "#%02x%02x%02x", i2u(r), i2u(b), i2u(g)
   ) (* end of [$extfcall] *)
 //
 in

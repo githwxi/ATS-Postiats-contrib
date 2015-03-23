@@ -101,50 +101,74 @@ main0 (argc, argv) = () where
 var argc: int = argc
 var argv: charptrptr = $UN.castvwtp1{charptrptr}(argv)
 //
-val () = $extfcall (void, "gtk_init", addr@(argc), addr@(argv))
+val () =
+$extfcall (void, "gtk_init", addr@(argc), addr@(argv))
 //
 val window =
   gtk_window_new (GTK_WINDOW_TOPLEVEL)
+//
 val () = assertloc (ptrcast(window) > 0)
-val () = gtk_window_set_title (window, gstring("Hello Buttons!"))
+val () =
+gtk_window_set_title (window, gstring("Hello Buttons!"))
+//
 val _sid = g_signal_connect
 (
-  window, (gsignal)"destroy", (G_CALLBACK)fdestroy, (gpointer)nullp
+  window
+, (gsignal)"destroy"
+, (G_CALLBACK)fdestroy, gpointer(nullp)
 ) // end of [val]
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  window, (gsignal)"delete_event", (G_CALLBACK)fdelete_event, (gpointer)nullp
+  window
+, (gsignal)"delete_event"
+, (G_CALLBACK)fdelete_event, gpointer(nullp)
 ) // end of [val]
 //
-val () = gtk_container_set_border_width (window, (guint)10)
+val () = gtk_container_set_border_width (window, guint(10))
 //
 val table =
-gtk_table_new ((guint)2, (guint)2, GTRUE)
+gtk_table_new (guint(2), guint(2), GTRUE)
 val () = assertloc (ptrcast(table) > 0)
 val () = gtk_container_add (window, table)
 //
-val button = gtk_button_new_with_label (gstring("Button 1"))
-val () = assertloc (ptrcast(button) > 0)
-val _ = g_signal_connect
+val button =
+gtk_button_new_with_label (gstring("Button 1"))
+val ((*void*)) = assertloc (ptrcast(button) > 0)
+val _(*_sid_*) =
+g_signal_connect
 (
-  button, (gsignal)"clicked", G_CALLBACK(fcallback), $UN.cast{gpointer}"button 1"
-)
-val () = gtk_table_attach_defaults (table, button, (guint)0, (guint)1, (guint)0, (guint)1)
+  button
+, (gsignal)"clicked", G_CALLBACK(fcallback), $UN.cast{gpointer}"button 1"
+) (* end of [val] *)
+val () =
+gtk_table_attach_defaults
+  (table, button, guint(0), guint(1), guint(0), guint(1))
 val () = gtk_widget_show_unref (button)
 //
 val button = gtk_button_new_with_label (gstring("Button 2"))
 val () = assertloc (ptrcast(button) > 0)
 val _ = g_signal_connect
 (
-  button, (gsignal)"clicked", G_CALLBACK(fcallback), $UN.cast{gpointer}"button 2"
+  button
+, (gsignal)"clicked", G_CALLBACK(fcallback), $UN.cast{gpointer}"button 2"
 )
-val () = gtk_table_attach_defaults (table, button, (guint)1, (guint)2, (guint)0, (guint)1)
+val () =
+gtk_table_attach_defaults
+  (table, button, guint(1), guint(2), guint(0), guint(1))
+//
 val () = gtk_widget_show_unref (button)
 //
 val button = gtk_button_new_with_mnemonic (gstring("_Q_u_i_t"))
 val () = assertloc (ptrcast(button) > 0)
-val _ = g_signal_connect_swapped (button, (gsignal)"clicked", G_CALLBACK(fdestroy), window)
-val () = gtk_table_attach_defaults (table, button, (guint)0U, (guint)2U, (guint)1U, (guint)2U)
+val _ =
+g_signal_connect_swapped
+  (button, (gsignal)"clicked", G_CALLBACK(fdestroy), window)
+//
+val () =
+gtk_table_attach_defaults
+  (table, button, guint(0), guint(2), guint(1), guint(2))
+//
 val () = gtk_widget_show_unref (button)
 //
 val () = gtk_widget_show_unref (table)

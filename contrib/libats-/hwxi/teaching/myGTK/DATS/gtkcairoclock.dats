@@ -135,10 +135,12 @@ prval () = minus_addback (fpf_win, win | darea)
 //
 in
 //
-if isnot then let
+if
+isnot
+then let
   var alloc: GtkAllocation
   val () = gtk_widget_get_allocation (darea, alloc)
-  val () = gtk_widget_queue_draw_area (darea, (gint)0, (gint)0, alloc.width, alloc.height)
+  val () = gtk_widget_queue_draw_area (darea, gint(0), gint(0), alloc.width, alloc.height)
 in
   GTRUE // HX: [ftimeout] continues
 end else
@@ -164,7 +166,7 @@ val win0 =
 val win0 = win0 // HX: fix the master type
 //
 val () = assertloc (ptrcast(win0) > 0)
-val () = gtk_window_set_default_size (win0, (gint)400, (gint)400)
+val () = gtk_window_set_default_size (win0, gint(400), gint(400))
 //
 val opt = gtkcairoclock_title ()
 val issome = stropt_is_some(opt)
@@ -183,22 +185,22 @@ val () = gtk_container_add (win0, darea)
 //
 val _sid = g_signal_connect
 (
-  darea, (gsignal)"draw", G_CALLBACK(fexpose), (gpointer)nullp
+  darea, (gsignal)"draw", G_CALLBACK(fexpose), gpointer(nullp)
 )
 val () = g_object_unref (darea)
 //
 val _sid = g_signal_connect
 (
-  win0, (gsignal)"destroy", G_CALLBACK(on_destroy), (gpointer)nullp
+  win0, (gsignal)"destroy", G_CALLBACK(on_destroy), gpointer(nullp)
 )
 val _sid = g_signal_connect
 (
-  win0, (gsignal)"delete-event", G_CALLBACK(on_delete_event), (gpointer)nullp
+  win0, (gsignal)"delete-event", G_CALLBACK(on_delete_event), gpointer(nullp)
 )
 //
 val int =
   gtkcairoclock_timeout_interval ()
-val _rid = g_timeout_add ((guint)int, (GSourceFunc)ftimeout, (gpointer)p_darea)
+val _rid = g_timeout_add (guint(int), (GSourceFunc)ftimeout, gpointer(p_darea))
 //
 val () = gtk_widget_show_all (win0)
 //

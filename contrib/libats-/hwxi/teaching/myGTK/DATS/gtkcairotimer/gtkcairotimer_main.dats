@@ -125,7 +125,7 @@ val p_win0 = ptrcast(win0)
 val () = assertloc (p_win0 > 0)
 //
 val () = $TOPWIN.set (p_win0)
-val () = gtk_window_set_default_size (win0, (gint)600, (gint)400)
+val () = gtk_window_set_default_size (win0, gint(600), gint(400))
 //
 val opt = gtkcairotimer_title ()
 val issome = stropt_is_some(opt)
@@ -139,7 +139,7 @@ end // end of [if] // end of [val]
 val hbox1 =
 gtk_box_new
 (
-  GTK_ORIENTATION_HORIZONTAL(*orient*), (gint)0(*spacing*)
+  GTK_ORIENTATION_HORIZONTAL(*orient*), gint(0)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (hbox1) > 0)
 //
@@ -147,7 +147,7 @@ val CP = ControlPanel_make ()
 val () =
 gtk_box_pack_start
 (
-  hbox1, CP, GFALSE, GFALSE, (guint)2
+  hbox1, CP, GFALSE, GFALSE, guint(2)
 ) (* end of [val] *)
 val () = g_object_unref (CP)
 //
@@ -157,7 +157,7 @@ val () = assertloc (ptrcast (VS) > 0)
 val () =
 gtk_box_pack_start
 (
-  hbox1, VS, GFALSE, GFALSE, (guint)2
+  hbox1, VS, GFALSE, GFALSE, guint(2)
 ) (* end of [val] *)
 val () = g_object_unref (VS)
 //
@@ -165,7 +165,7 @@ val DP = DrawingPanel_make ()
 val () =
 gtk_box_pack_start
 (
-  hbox1, DP, GTRUE (*expand*), GTRUE (*fill*), (guint)2
+  hbox1, DP, GTRUE (*expand*), GTRUE (*fill*), guint(2)
 ) (* end of [val] *)
 val () = g_object_unref (DP)
 //
@@ -174,19 +174,19 @@ val () = g_object_unref (hbox1)
 //
 val _sid = g_signal_connect
 (
-  win0, (gsignal)"destroy", G_CALLBACK(on_destroy), (gpointer)NULL
+  win0, (gsignal)"destroy", G_CALLBACK(on_destroy), gpointer(NULL)
 )
 val _sid = g_signal_connect
 (
-  win0, (gsignal)"delete-event", G_CALLBACK(on_delete_event), (gpointer)NULL
+  win0, (gsignal)"delete-event", G_CALLBACK(on_delete_event), gpointer(NULL)
 )
 val _sid = g_signal_connect
 (
-  win0, (gsignal)"key-press-event", G_CALLBACK(on_key_press_event), (gpointer)NULL
+  win0, (gsignal)"key-press-event", G_CALLBACK(on_key_press_event), gpointer(NULL)
 )
 val _sid = g_signal_connect
 (
-  win0, (gsignal)"key-release-event", G_CALLBACK(on_key_release_event), (gpointer)NULL
+  win0, (gsignal)"key-release-event", G_CALLBACK(on_key_release_event), gpointer(NULL)
 )
 //
 val () = gtk_widget_show_all (win0)

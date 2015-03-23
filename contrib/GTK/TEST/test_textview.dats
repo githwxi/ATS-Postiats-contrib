@@ -86,26 +86,34 @@ val () = $extfcall (void, "gtk_init", addr@(argc), addr@(argv))
 val window =
   gtk_window_new (GTK_WINDOW_TOPLEVEL)
 val () = assertloc (ptrcast(window) > 0)
-val () = gtk_window_set_title (window, gstring("Hello, MyTextView!"))
+//
+val () =
+gtk_window_set_title (window, gstring("Hello, MyTextView!"))
 val _sid = g_signal_connect
 (
-  window, (gsignal)"destroy", (G_CALLBACK)fdestroy, (gpointer)nullp
+  window
+, (gsignal)"destroy", (G_CALLBACK)fdestroy, gpointer(nullp)
 ) // end of [val]
 val _sid = g_signal_connect
 (
-  window, (gsignal)"delete_event", (G_CALLBACK)fdelete_event, (gpointer)nullp
+  window
+, (gsignal)"delete_event", (G_CALLBACK)fdelete_event, gpointer(nullp)
 ) // end of [val]
 //
 val () =
-gtk_window_set_position (window, GTK_WIN_POS_CENTER)
-val () = gtk_window_set_resizable (window, GTRUE)
-val () = gtk_container_set_border_width (window, (guint)10)
+gtk_window_set_position
+  (window, GTK_WIN_POS_CENTER)
+//
+val () =
+gtk_window_set_resizable (window, GTRUE)
+val () =
+gtk_container_set_border_width (window, guint(10))
 //
 val win2 =
 gtk_scrolled_window_new_null ((*void*))
 val () = assertloc (ptrcast(win2) > 0)
 val () =
-gtk_widget_set_size_request (win2, (gint)640, (gint)400)
+gtk_widget_set_size_request (win2, gint(640), gint(400))
 val () = gtk_container_add (window, win2)
 //
 val tv = gtk_text_view_new ()

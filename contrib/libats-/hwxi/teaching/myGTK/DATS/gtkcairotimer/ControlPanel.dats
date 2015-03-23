@@ -247,7 +247,7 @@ val () =
 if n > 0 then {
   val () = $NCLICK.set (0)
   val (pf, fpf | p_event) = $UN.ptr0_vtake{GdkEvent}(NULL)
-  val () = on_quit_clicked_dialog (widget, !p_event, (gpointer)NULL)
+  val () = on_quit_clicked_dialog (widget, !p_event, gpointer(NULL))
   prval ((*void*)) = fpf (pf)
 } (* end of [if] *)
 //
@@ -278,7 +278,7 @@ case+ 0 of
   {
     val p = ptrcast(widget)
     val _ = g_timeout_add
-      ((guint)200, (GSourceFunc)ftimeout, (gpointer)p)
+      (guint(200), (GSourceFunc)ftimeout, gpointer(p))
     // end of [g_timeout_add]
   }
 | _ when n = 1 => on_quit_clicked (widget, event, gdata)
@@ -305,127 +305,161 @@ implement{
 val vbox0 =
 gtk_box_new
 (
-  GTK_ORIENTATION_VERTICAL(*orient*), (gint)10(*spacing*)
+  GTK_ORIENTATION_VERTICAL(*orient*), gint(10)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (vbox0) > 0)
 //
 val hbox1 = 
 gtk_box_new
 (
-  GTK_ORIENTATION_HORIZONTAL(*orient*), (gint)0(*spacing*)
+  GTK_ORIENTATION_HORIZONTAL(*orient*), gint(0)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (hbox1) > 0)
 val () =
 gtk_box_pack_start
 (
-  vbox0, hbox1, GTRUE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, hbox1
+, GTRUE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
 val () = g_object_unref (hbox1)
 //
 val button_start =
-gtk_button_new_with_label((gstring)"Start")
+gtk_button_new_with_label(gstring("Start"))
 val p_button_start = ptrcast (button_start)
 val () = assertloc (p_button_start > the_null_ptr)
 val () = $BUTTONstart.set (p_button_start)
 val () =
 gtk_box_pack_start
 (
-  vbox0, button_start, GFALSE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, button_start
+, GFALSE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
-val _sid = g_signal_connect
+//
+val _sid =
+g_signal_connect
 (
-  button_start, (gsignal)"clicked", G_CALLBACK(on_start_clicked), (gpointer)NULL
+  button_start
+, (gsignal)"clicked"
+, G_CALLBACK(on_start_clicked), gpointer(NULL)
 )
 val () = g_object_unref (button_start)
 //
 val button_finish =
-gtk_button_new_with_label((gstring)"Finish")
+gtk_button_new_with_label(gstring("Finish"))
 val p_button_finish = ptrcast (button_finish)
 val () = assertloc (p_button_finish > the_null_ptr)
 val () = $BUTTONfinish.set (p_button_finish)
 val () =
 gtk_box_pack_start
 (
-  vbox0, button_finish, GFALSE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, button_finish
+, GFALSE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
 val _sid = g_signal_connect
 (
-  button_finish, (gsignal)"clicked", G_CALLBACK(on_finish_clicked), (gpointer)NULL
+  button_finish
+, (gsignal)"clicked"
+, G_CALLBACK(on_finish_clicked), gpointer(NULL)
 )
 val () = g_object_unref (button_finish)
 //
 val button_pause =
-gtk_button_new_with_label((gstring)"Pause")
+gtk_button_new_with_label(gstring("Pause"))
 val p_button_pause = ptrcast (button_pause)
 val () = $BUTTONpause.set (p_button_pause)
 val () = assertloc (p_button_pause > the_null_ptr)
 val () =
 gtk_box_pack_start
 (
-  vbox0, button_pause, GFALSE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, button_pause
+, GFALSE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
-val _sid = g_signal_connect
+//
+val _sid =
+g_signal_connect
 (
-  button_pause, (gsignal)"clicked", G_CALLBACK(on_pause_clicked), (gpointer)NULL
+  button_pause
+, (gsignal)"clicked"
+, G_CALLBACK(on_pause_clicked), gpointer(NULL)
 )
 val () = g_object_unref (button_pause)
 //
 val button_resume =
-gtk_button_new_with_label((gstring)"Resume")
+gtk_button_new_with_label(gstring("Resume"))
 val p_button_resume = ptrcast (button_resume)
 val () = $BUTTONresume.set (p_button_resume)
 val () = assertloc (p_button_resume > the_null_ptr)
 val () =
 gtk_box_pack_start
 (
-  vbox0, button_resume, GFALSE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, button_resume
+, GFALSE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  button_resume, (gsignal)"clicked", G_CALLBACK(on_resume_clicked), (gpointer)NULL
+  button_resume
+, (gsignal)"clicked"
+, G_CALLBACK(on_resume_clicked), gpointer(NULL)
 )
 val () = g_object_unref (button_resume)
 //
 val button_reset =
-gtk_button_new_with_label ((gstring)"Reset")
+gtk_button_new_with_label (gstring("Reset"))
 val p_button_reset = ptrcast (button_reset)
 val () = assertloc (p_button_reset > the_null_ptr)
 val () = $BUTTONreset.set (p_button_reset)
 val () =
 gtk_box_pack_start
 (
-  vbox0, button_reset, GFALSE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, button_reset
+, GFALSE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  button_reset, (gsignal)"clicked", G_CALLBACK(on_reset_clicked), (gpointer)NULL
+  button_reset
+, (gsignal)"clicked"
+, G_CALLBACK(on_reset_clicked), gpointer(NULL)
 )
 val () = g_object_unref (button_reset)
 //
 val button_quit =
-gtk_button_new_with_mnemonic ((gstring)"_Quit")
-val () = assertloc (ptrcast (button_quit) > 0)
+gtk_button_new_with_mnemonic(gstring("_Quit"))
+val ((*void*)) = assertloc (ptrcast(button_quit) > 0)
+//
 val () =
 gtk_box_pack_start
 (
-  vbox0, button_quit, GFALSE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0
+, button_quit
+, GFALSE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  button_quit, (gsignal)"clicked", G_CALLBACK(on_quit_clicked2), (gpointer)NULL
+  button_quit
+, (gsignal)"clicked"
+, G_CALLBACK(on_quit_clicked2), gpointer(NULL)
 )
 val () = g_object_unref (button_quit)
 //
 val hbox2 = 
 gtk_box_new
 (
-  GTK_ORIENTATION_HORIZONTAL(*orient*), (gint)0(*spacing*)
+  GTK_ORIENTATION_HORIZONTAL(*orient*), gint(0)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (hbox2) > 0)
 val () =
 gtk_box_pack_start
 (
-  vbox0, hbox2, GTRUE(*expand*), GFALSE(*fill*), (guint)2
+  vbox0, hbox2, GTRUE(*expand*), GFALSE(*fill*), guint(2)
 ) (* end of [val] *)
 val () = g_object_unref (hbox2)
 //

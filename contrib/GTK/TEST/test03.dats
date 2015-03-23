@@ -89,30 +89,44 @@ val () = gtk_window_set_title (window, gstring("Hello Buttons!"))
 val _sid =
 g_signal_connect
 (
-  window, (gsignal)"delete_event", (G_CALLBACK)fdelete_event, (gpointer)nullp
+  window
+, (gsignal)"delete_event", (G_CALLBACK)fdelete_event, gpointer(nullp)
 ) (* end of [val] *)
 //
-val () = gtk_container_set_border_width (window, (guint)10)
+val () = gtk_container_set_border_width (window, guint(10))
 //
 val box1 =
-gtk_box_new (GTK_ORIENTATION_HORIZONTAL, (gint)0)
+gtk_box_new (GTK_ORIENTATION_HORIZONTAL, gint(0))
 val () = assertloc (ptrcast(box1) > 0)
 val () = gtk_container_add (window, box1)
 //
 val button =
 gtk_button_new_with_label (gstring("Button 1"))
 val ((*void*)) = assertloc (ptrcast(button) > 0)
-val _sid = g_signal_connect
-  (button, (gsignal)"clicked", G_CALLBACK(fcallback), $UN.cast{gpointer}"button 1")
-val () = gtk_box_pack_start (box1, button, GTRUE, GTRUE, (guint)0)
+val _sid =
+g_signal_connect
+(
+  button
+, (gsignal)"clicked"
+, G_CALLBACK(fcallback)
+, $UN.cast{gpointer}"button 1"
+)
+val () = gtk_box_pack_start (box1, button, GTRUE, GTRUE, guint(0))
 val () = gtk_widget_show_unref (button)
 //
 val button =
 gtk_button_new_with_label (gstring("Button 2"))
 val ((*void*)) = assertloc (ptrcast(button) > 0)
-val _sid = g_signal_connect
-  (button, (gsignal)"clicked", G_CALLBACK(fcallback), $UN.cast{gpointer}"button 2")
-val () = gtk_box_pack_start (box1, button, GTRUE, GTRUE, (guint)0)
+val _sid =
+g_signal_connect
+(
+  button
+, (gsignal)"clicked"
+, G_CALLBACK(fcallback)
+, $UN.cast{gpointer}"button 2"
+)
+//
+val () = gtk_box_pack_start (box1, button, GTRUE, GTRUE, guint(0))
 val () = gtk_widget_show_unref (button)
 //
 val () = gtk_widget_show_unref (box1)

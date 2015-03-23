@@ -87,15 +87,17 @@ val window =
 val () = assertloc (ptrcast(window) > 0)
 //
 val _(*id*) =
-g_signal_connect (
-  window, (gsignal)"destroy", (G_CALLBACK)on_destroy, (gpointer)nullp
+g_signal_connect
+(
+  window, (gsignal)"destroy", (G_CALLBACK)on_destroy, gpointer(nullp)
 ) (* end of [val] *)
 val _(*id*) =
-g_signal_connect (
-  window, (gsignal)"delete_event", (G_CALLBACK)on_delete_event, (gpointer)nullp
+g_signal_connect
+(
+  window, (gsignal)"delete_event", (G_CALLBACK)on_delete_event, gpointer(nullp)
 ) (* end of [val] *)
 //
-val () = gtk_container_set_border_width (window, (guint)10)
+val () = gtk_container_set_border_width (window, guint(10))
 val button = gtk_button_new_with_label (gstring("Hello, world!"))
 val () = assertloc (ptrcast(button) > 0)
 //
@@ -106,7 +108,7 @@ val () = gtk_widget_show (window)
 val _(*id*) =
 g_signal_connect
 (
-  button, (gsignal)"clicked", (G_CALLBACK)hello, (gpointer)nullp
+  button, (gsignal)"clicked", (G_CALLBACK)hello, gpointer(nullp)
 )
 val _(*id*) =
 g_signal_connect_swapped
