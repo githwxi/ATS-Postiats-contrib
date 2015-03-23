@@ -75,7 +75,7 @@ typedef wordset = set (word)
 (* ****** ****** *)
 
 implement
-gcompare_val<strarr> = strarr_compare
+gcompare_val_val<strarr> = strarr_compare
 
 (* ****** ****** *)
 //
