@@ -1,28 +1,25 @@
 ######
-
-PHP=php
-
+#
+# A simple Makefile
+#
 ######
 
-PATSCC=patscc
-ATSCC2JS=atscc2js
+PATSCC=$(PATSHOME)/bin/patscc
+ATSCC2JS=$(PATSHOME)/bin/atscc2js
 
 ######
 #
 all:: \
-DiningPhil_php_dats.js
+DiningPhil_dats.js
 #
-DiningPhil_php.dats: DiningPhil.php ; $(PHP) -f $< > $@
-DiningPhil_php_dats.c: DiningPhil_php.dats; $(PATSCC) -ccats $<
-DiningPhil_php_dats.js: DiningPhil_php_dats.c; $(ATSCC2JS) -o $@ -i $<
-#
-# cleanall:: ; $(RMF) DiningPhil_php.dats
+DiningPhil_dats.c: DiningPhil.dats; $(PATSCC) -ccats $<
+DiningPhil_dats.js: DiningPhil_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 #
 upload_demo:: \
 DiningPhil.html \
-DiningPhil_php_dats.js ; \
+DiningPhil_dats.js ; \
 scp $^ ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSmydraw/.
 #
 ######
