@@ -290,14 +290,14 @@ phil_draw(id)
   if (ph.lfork > 0)
   {
     myctx2d0.beginPath();
-    myctx2d0.arc(Cx, Cy, r2, 1*PI/2, 3*PI/2, true);
+    myctx2d0.arc(Cx, Cy, r2, 3*PI/2, 1*PI/2, true);
     myctx2d0.closePath();
     myctx2d0.fillStyle = fg_color; myctx2d0.fill();
   }
   if (ph.rfork > 0)
   {
     myctx2d0.beginPath();
-    myctx2d0.arc(Cx, Cy, r2, 3*PI/2, 1*PI/2, true);
+    myctx2d0.arc(Cx, Cy, r2, 1*PI/2, 3*PI/2, true);
     myctx2d0.closePath();
     myctx2d0.fillStyle = fg_color; myctx2d0.fill();
   }
