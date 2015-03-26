@@ -258,7 +258,7 @@ phil_Cx(id)
 {
   var r1 = theRadius1_get();
   var r2 = theRadius2_get();
-  var theta = Math.PI/2 - id*(2*Math.PI/5);
+  var theta = Math.PI/2 + id*(2*Math.PI/5);
   return theCx_get() + (r1-r2) * Math.cos(theta);
 }
 function
@@ -266,7 +266,7 @@ phil_Cy(id)
 {
   var r1 = theRadius1_get();
   var r2 = theRadius2_get();
-  var theta = Math.PI/2 - id*(2*Math.PI/5);
+  var theta = Math.PI/2 + id*(2*Math.PI/5);
   return theCy_get() - (r1-r2) * Math.sin(theta);
 }
 //
@@ -281,7 +281,7 @@ phil_draw(id)
   var bg_color = "#ffffff"; // white
 //
   var PI = Math.PI
-  var rot = id*(2*PI/5)+PI/2
+  var rot = PI/2-id*(2*PI/5)
 //
   myctx2d0.beginPath();
   myctx2d0.arc(Cx, Cy, r2, 0, 2*PI, true);
