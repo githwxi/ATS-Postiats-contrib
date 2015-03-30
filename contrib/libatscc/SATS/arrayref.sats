@@ -58,7 +58,7 @@ arrszref_get_at
   {a:t0p}(A: arrszref(a), i: int): a = "mac#%"
 //
 fun
-arrayref_set_at
+arrszref_set_at
   {a:t0p}(A: arrszref(a), i: int, x: a): void = "mac#%"
 //
 (* ****** ****** *)

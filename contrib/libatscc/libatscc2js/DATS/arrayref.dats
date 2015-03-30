@@ -99,10 +99,11 @@ end // end of [arrayref_foreach_cloref]
 // Array-with-size
 //
 (* ****** ****** *)
-
+//
 implement
-arrszref_make_arrayref(A, n) = A
-
+arrszref_make_arrayref
+  {a}(A, n) = $UN.cast{arrszref(a)}(A)
+//
 (* ****** ****** *)
 //
 implement
@@ -111,7 +112,7 @@ arrszref_get_at{a}(A, i) = let
 end // end of [arrszref_get_at]
 //
 implement
-arrszref_get_at{a}(A, i, x) = let
+arrszref_set_at{a}(A, i, x) = let
   val A = $UN.cast{JSarray(a)}(A) in JSarray_set_at(A, i, x)
 end // end of [arrszref_set_at]
 //
