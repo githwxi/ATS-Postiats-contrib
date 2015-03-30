@@ -27,6 +27,12 @@ JSarray_pair{a:t0p}(a, a): JSarray(a) = "mac#%"
 (* ****** ****** *)
 //
 fun
+JSarray_make_arrayref
+  {a:t0p}{n:int}(A: arrayref(a, n), asz: int(n)) = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 JSarray_get_at
   {a:t@ype}(JSarray(a), int): a = "mac#%"
 fun

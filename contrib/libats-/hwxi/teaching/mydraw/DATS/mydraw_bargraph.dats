@@ -35,9 +35,11 @@ fun{
 ) : void // end of [mydraw_bargraph]
 //
 extern
-fun{} mydraw_bargraph$color (i: intGte(0)): color
+fun{}
+mydraw_bargraph$color (i: intGte(0)): color
 extern
-fun{} mydraw_bargraph$height (i: intGte(0)): double
+fun{}
+mydraw_bargraph$height (i: intGte(0)): double
 //
 (* ****** ****** *)
 
