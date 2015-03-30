@@ -176,7 +176,7 @@ fun gte_uint0_uint0: (uint, uint) -> bool = "mac#%"
 fun eq_uint0_uint0: (uint, uint) -> bool = "mac#%"
 fun neq_uint0_uint0: (uint, uint) -> bool = "mac#%"
 //
-fun compare_int0_int0: (uint, uint) -> int = "mac#"
+fun compare_uint0_uint0: (uint, uint) -> int = "mac#"
 //
 (* ****** ****** *)
 //
