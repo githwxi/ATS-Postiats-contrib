@@ -182,6 +182,45 @@ in
 end // end of [list_reverse_append]
 
 (* ****** ****** *)
+
+implement
+list_take(xs, i) =
+(
+//
+if
+i > 0
+then let
+  val+list_cons(x, xs) = xs
+in
+  list_cons(x, list_take(xs, i-1))
+end // end of [then]
+else list_nil() // end of [else]
+//
+) (* end of [list_take] *)
+
+implement
+list_drop(xs, i) =
+(
+//
+if
+i > 0
+then let
+  val+list_cons(_, xs) = xs in list_drop(xs, i-1)
+end // end of [then]
+else xs // end of [else]
+//
+) (* end of [list_drop] *)
+
+(* ****** ****** *)
+
+implement
+list_split_at
+  (xs, i) =
+(
+  list_take(xs, i), list_drop(xs, i)
+) (* end of [list_split_at] *)
+
+(* ****** ****** *)
 //
 implement
 list_app (xs, f) = list_foreach (xs, f)

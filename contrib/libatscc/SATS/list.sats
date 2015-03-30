@@ -59,6 +59,25 @@ list_reverse_append
 (* ****** ****** *)
 //
 fun
+list_take
+  {a:t0p}
+  {n:int}{i:nat | i <= n}
+  (xs: list(a, n), i: int(i)): list(a, i) = "mac#%"
+fun
+list_drop
+  {a:t0p}
+  {n:int}{i:nat | i <= n}
+  (xs: list(a, n), i: int(i)): list(a, n-i) = "mac#%"
+//
+fun
+list_split_at
+  {a:t0p}
+  {n:int}{i:nat | i <= n}
+  (xs: list(a, n), i: int(i)): (list(a, i), list(a, n-i)) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_app
   {a:t0p}(xs: List(INV(a)), f: cfun(a, void)): void = "mac#%"
 fun

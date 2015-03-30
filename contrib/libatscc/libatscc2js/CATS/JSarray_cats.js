@@ -26,13 +26,13 @@ ats2jspre_JSarray_pair(x1, x2) { return [x1, x2]; }
 /* ****** ****** */
 
 function
-ats2jspre_make_JSarray(A, n)
+ats2jspre_JSarray_copy_arrayref(A, n)
 {
 //
   var A2 = new Array(n);
   for (var i = 0; i < n; i += 1) A2[i] = A[i]; return A2;
 //
-} // end of [ats2jspre_make_JSarray]
+} // end of [ats2jspre_JSarray_copy_arrayref]
 
 /* ****** ****** */
 
