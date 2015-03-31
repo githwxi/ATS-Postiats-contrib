@@ -202,6 +202,12 @@ regress:: sieve_lazy
 cleanall:: ; $(RMF) sieve_lazy_dats.py
 
 ######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
 #
 libatscc2py:: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py/output/* libatscc2py/.

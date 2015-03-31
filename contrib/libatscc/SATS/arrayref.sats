@@ -36,8 +36,9 @@ fun
 arrayref_foreach_cloref
   {a:t@ype}{n:int}
 (
-  arrayref(a, n), int(n), fwork: natLt(n) -<cloref1> void
-) : void = "mac#%" // end-of-function
+  arrayref(a, n)
+, asz: int(n), fwork: natLt(n) -<cloref1> void
+) : void = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -54,6 +55,12 @@ arrszref_make_arrayref
 (* ****** ****** *)
 //
 fun
+arrszref_size
+  {a:t0p}(A: arrszref(a)): intGte(0) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 arrszref_get_at
   {a:t0p}(A: arrszref(a), i: int): a = "mac#%"
 //
@@ -66,6 +73,13 @@ arrszref_set_at
 overload [] with arrszref_get_at of 100
 overload [] with arrszref_set_at of 100
 
+(* ****** ****** *)
+//
+fun
+arrszref_foreach_cloref
+  {a:t@ype}
+  (arrszref(a), fwork: int -<cloref1> void): void = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [arrayref.sats] *)

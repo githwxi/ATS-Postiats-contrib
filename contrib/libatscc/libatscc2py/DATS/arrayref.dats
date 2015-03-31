@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Javascript
+** that translates into Python
 *)
 
 (* ****** ****** *)
@@ -13,10 +13,22 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_arrayref_"
+ATS_STATIC_PREFIX "_ats2pypre_array_"
 //
+(* ****** ****** *)
+
+%{^
+######
+#
+from ats2pypre_basics_cats import *
+#
+from ats2pypre_PYlist_cats import *
+#
+######
+%} // end of [%{^]
+
 (* ****** ****** *)
 //
 #include
@@ -29,11 +41,11 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../basics_js.sats"
+staload "./../basics_py.sats"
 //
 staload "./../SATS/integer.sats"
 //
-staload "./../SATS/JSarray.sats"
+staload "./../SATS/PYlist.sats"
 //
 (* ****** ****** *)
 //
@@ -41,45 +53,34 @@ staload "./../SATS/arrayref.sats"
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/arrayref.dats"
+#include
+  "{$LIBATSCC}/DATS/arrayref.dats"
 //
 (* ****** ****** *)
 //
 (*
-assume
-arrayref_vt0ype_type(a, n) = JSarray(a)
+assume array(a, n) = PYlist(a)
 *)
 //
 (* ****** ****** *)
-
-%{^
 //
-function
-ats2jspre_arrayref_make_elt
-  (n, x)
-{
-  var A, i;
-  A = new Array(n);
-  for (i = 0; i < n; i += 1) A[i] = x;
-  return A;
-}
+implement
+arrayref_make_elt
+  {a}{n}(asz, x0) =
+  $UN.cast{arrayref(a,n)}(PYlist_make_elt(asz, x0))
 //
-%} // end of [%{^]
-
 (* ****** ****** *)
 
 implement
-arrayref_get_at
-  {a}(A, i) = let
-  val A = $UN.cast{JSarray(a)}(A) in JSarray_get_at(A, i)
+arrayref_get_at{a}(A, i) = let
+  val A = $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
 end // end of [arrayref_get_at]
 
 (* ****** ****** *)
 
 implement
-arrayref_set_at
-  {a}(A, i, x) = let
-  val A = $UN.cast{JSarray(a)}(A) in JSarray_set_at(A, i, x)
+arrayref_set_at{a}(A, i, x) = let
+  val A = $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
 end // end of [arrayref_set_at]
 
 (* ****** ****** *)
@@ -96,21 +97,21 @@ arrszref_make_arrayref
 //
 implement
 arrszref_size{a}(A) = let
-  val A = $UN.cast{JSarray(a)}(A)
+  val A = $UN.cast{PYlist(a)}(A)
 in
-  $UN.cast{intGte(0)}(JSarray_length(A))
+  $UN.cast{intGte(0)}(PYlist_length(A))
 end // end of [arrszref_size]
 //
 (* ****** ****** *)
 //
 implement
 arrszref_get_at{a}(A, i) = let
-  val A = $UN.cast{JSarray(a)}(A) in JSarray_get_at(A, i)
+  val A = $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
 end // end of [arrszref_get_at]
 //
 implement
 arrszref_set_at{a}(A, i, x) = let
-  val A = $UN.cast{JSarray(a)}(A) in JSarray_set_at(A, i, x)
+  val A = $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
 end // end of [arrszref_set_at]
 //
 (* ****** ****** *)

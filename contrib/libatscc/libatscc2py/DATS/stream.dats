@@ -18,6 +18,14 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_stream_"
 //
 (* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
@@ -44,14 +52,6 @@ staload "./../SATS/stream.sats"
 //
 #include "{$LIBATSCC}/DATS/stream.dats"
 //
-(* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-%} // end of [%{^]
-
 (* ****** ****** *)
 
 (* end of [stream.dats] *)
