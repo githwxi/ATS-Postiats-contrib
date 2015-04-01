@@ -22,6 +22,17 @@ ATS_STATIC_PREFIX "_ats2jspre_basics_"
 staload "./../basics_js.sats"
 //
 (* ****** ****** *)
+
+implement
+cloref0_app(f) = f()
+implement
+cloref1_app(f, x) = f(x)
+implement
+cloref2_app(f, x1, x2) = f(x1, x2)
+implement
+cloref3_app(f, x1, x2, x3) = f(x1, x2, x3)
+
+(* ****** ****** *)
 //
 implement
 {}(*tmp*)
