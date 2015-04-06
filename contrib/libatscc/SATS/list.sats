@@ -73,7 +73,7 @@ fun
 list_split_at
   {a:t0p}
   {n:int}{i:nat | i <= n}
-  (xs: list(a, n), i: int(i)): (list(a, i), list(a, n-i)) = "mac#%"
+  (xs: list(a, n), i: int(i)): $tup(list(a, i), list(a, n-i)) = "mac#%"
 //
 (* ****** ****** *)
 //

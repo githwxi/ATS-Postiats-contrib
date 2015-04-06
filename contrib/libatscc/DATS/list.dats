@@ -217,7 +217,7 @@ implement
 list_split_at
   (xs, i) =
 (
-  list_take(xs, i), list_drop(xs, i)
+  $tup(list_take(xs, i), list_drop(xs, i))
 ) (* end of [list_split_at] *)
 
 (* ****** ****** *)

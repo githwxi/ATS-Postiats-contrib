@@ -16,6 +16,9 @@ RMF=rm -f
 ######
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/basics.dats | $(ATSCC2JS) -o ./output/DATS/basics_dats.js -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2JS) -o ./output/DATS/list_dats.js -i
 all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2JS) -o ./output/DATS/stream_dats.js -i
@@ -43,6 +46,8 @@ CATS/JSarray_cats.js \
 CATS/JSglobal_cats.js \
 CATS/Ajax/Ajax_cats.js \
 CATS/HTML/canvas-2d/canvas2d_cats.js \
+CATS/Bacon.js/baconjs_cats.js \
+output/DATS/basics_dats.js \
 output/DATS/list_dats.js \
 output/DATS/stream_dats.js \
 output/DATS/intrange_dats.js \
