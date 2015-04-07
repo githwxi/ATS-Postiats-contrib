@@ -76,18 +76,91 @@ fun
 EStream_merge2
   {a:t0p}
   (EStream(a), EStream(a)): EStream(a) = "mac#%"
+fun
+EStream_merge3
+  {a:t0p}
+  (EStream(a), EStream(a), EStream(a)): EStream(a) = "mac#%"
 //
 overload merge with EStream_merge2
+overload merge with EStream_merge3
+//
 overload .merge with EStream_merge2
+overload .merge with EStream_merge3
 //
 (* ****** ****** *)
 //
 fun
 EStream_toProperty
-  {a:t0p}(EStream(a), ini: a): EStream(a) = "mac#%"
+  {a:t0p}(EStream(a), ini: a): Property(a) = "mac#%"
 //
 overload toProperty with EStream_toProperty
 overload .toProperty with EStream_toProperty
+//
+(* ****** ****** *)
+//
+fun
+EStream_onValue
+  {a:t0p}(EStream(a), cfun(a, void)): void = "mac#%"
+fun
+Property_onValue
+  {a:t0p}(Property(a), cfun(a, void)): void = "mac#%"
+//
+overload onValue with EStream_onValue
+overload .onValue with EStream_onValue
+//
+overload onValue with Property_onValue
+overload .onValue with Property_onValue
+//
+(* ****** ****** *)
+//
+fun
+EStream_subscribe
+  {a:t0p}(EStream(a), cfun(Event, void)): void = "mac#%"
+fun
+Property_subscribe
+  {a:t0p}(Property(a), cfun(Event, void)): void = "mac#%"
+//
+overload subscribe with EStream_subscribe
+overload .subscribe with EStream_subscribe
+//
+overload subscribe with Property_subscribe
+overload .subscribe with Property_subscribe
+//
+(* ****** ****** *)
+//
+fun
+Property_startWith
+  {a:t0p}(Property(a), a): Property(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+Property_sampledBy_estream
+  {a,b:t0p}(Property(a), EStream(b)): EStream(a) = "mac#%"
+fun
+Property_sampledBy_property
+  {a,b:t0p}(Property(a), Property(b)): Property(a) = "mac#%"
+//
+overload sampledBy with Property_sampledBy_estream
+overload sampledBy with Property_sampledBy_property
+overload .sampledBy with Property_sampledBy_estream
+overload .sampledBy with Property_sampledBy_property
+//
+(* ****** ****** *)
+//
+fun
+Property_sampledBy_estream_cfun
+  {a,b,c:t0p}
+  (Property(a), EStream(b), cfun(a, b, c)): EStream(c) = "mac#%"
+fun
+Property_sampledBy_property_cfun
+  {a,b,c:t0p}
+  (Property(a), Property(b), cfun(a, b, c)): Property(c) = "mac#%"
+//
+overload sampledBy with Property_sampledBy_estream_cfun
+overload sampledBy with Property_sampledBy_property_cfun
+overload .sampledBy with Property_sampledBy_estream_cfun
+overload .sampledBy with Property_sampledBy_property_cfun
 //
 (* ****** ****** *)
 
