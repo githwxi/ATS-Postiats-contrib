@@ -148,11 +148,15 @@ overload .merge with EStream_merge3
 //
 fun
 EStream_toProperty
-  {a:t0p}
-  (EStream(a), x0: a): Property(a) = "mac#%"
+  {a:t0p}(EStream(a)): Property(a) = "mac#%"
+fun
+EStream_toProperty_init
+  {a:t0p}(EStream(a), x0: a): Property(a) = "mac#%"
 //
 overload toProperty with EStream_toProperty
+overload toProperty with EStream_toProperty_init
 overload .toProperty with EStream_toProperty
+overload .toProperty with EStream_toProperty_init
 //
 fun
 Property_toEventStream

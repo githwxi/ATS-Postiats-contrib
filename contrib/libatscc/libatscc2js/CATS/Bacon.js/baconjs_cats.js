@@ -99,7 +99,10 @@ ats2js_bacon_EStream_merge3
 /* ****** ****** */
 //
 function
-ats2js_bacon_EStream_toProperty(xs, x0) { return xs.toProperty(x0); }
+ats2js_bacon_EStream_toProperty(xs) { return xs.toProperty(); }
+function
+ats2js_bacon_EStream_toProperty_init(xs, x0) { return xs.toProperty(x0); }
+//
 function
 ats2js_bacon_Property_toEventStream(xs) { return xs.toEventStream(); }
 //
