@@ -49,14 +49,71 @@ abstype Property(a:t@ype) = ptr
 (* ****** ****** *)
 //
 fun
+Bacon_once
+  {a:t0p}(x: a): EStream(a) = "mac#%"
+fun
+Bacon_never
+  {a:t0p}((*void*)): EStream(a) = "mac#%"
+//
+fun
+Bacon_repeat
+  {a:t0p}(cfun(EStream(a))): EStream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 EStream_map
   {a,b:t0p}
 (
   xs: EStream(a), fopr: cfun(a, b)
 ) : EStream(b) = "mac#%" // end-of-fun
+fun
+Property_map
+  {a,b:t0p}
+(
+  xs: Property(a), fopr: cfun(a, b)
+) : Property(b) = "mac#%" // end-of-fun
 //
 overload map with EStream_map
+overload map with Property_map
 overload .map with EStream_map
+overload .map with Property_map
+//
+(* ****** ****** *)
+//
+fun
+EStream_map_property
+  {a,b:t0p}
+(
+  xs: EStream(a), ys: Property(b)
+) : EStream(b) = "mac#%" // end-of-fun
+//
+overload map with EStream_map_property
+overload .map with EStream_map_property
+//
+(* ****** ****** *)
+//
+fun
+EStream_filter
+  {a:t0p}
+(
+  xs: EStream(a), test: cfun(a, bool)
+) : EStream(a) = "mac#%" // end-of-fun
+//
+overload filter with EStream_filter
+overload .filter with EStream_filter
+//
+(* ****** ****** *)
+//
+fun
+EStream_filter_property
+  {a:t0p}
+(
+  xs: EStream(a), bs: Property(bool)
+) : EStream(a) = "mac#%" // end-of-fun
+//
+overload filter with EStream_filter_property
+overload .filter with EStream_filter_property
 //
 (* ****** ****** *)
 //
@@ -91,10 +148,18 @@ overload .merge with EStream_merge3
 //
 fun
 EStream_toProperty
-  {a:t0p}(EStream(a), ini: a): Property(a) = "mac#%"
+  {a:t0p}
+  (EStream(a), x0: a): Property(a) = "mac#%"
 //
 overload toProperty with EStream_toProperty
 overload .toProperty with EStream_toProperty
+//
+fun
+Property_toEventStream
+  {a:t0p}(Property(a)): EStream(a) = "mac#%"
+//
+overload toEventStream with Property_toEventStream
+overload .toEventStream with Property_toEventStream
 //
 (* ****** ****** *)
 //
@@ -121,9 +186,8 @@ Property_subscribe
   {a:t0p}(Property(a), cfun(Event, void)): void = "mac#%"
 //
 overload subscribe with EStream_subscribe
-overload .subscribe with EStream_subscribe
-//
 overload subscribe with Property_subscribe
+overload .subscribe with EStream_subscribe
 overload .subscribe with Property_subscribe
 //
 (* ****** ****** *)
@@ -131,6 +195,22 @@ overload .subscribe with Property_subscribe
 fun
 Property_startWith
   {a:t0p}(Property(a), a): Property(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+EStream_doAction
+  {a:t0p}
+  (xs: EStream(a), f: cfun(a, void)): EStream(a) = "mac#%"
+fun
+Property_doAction
+  {a:t0p}
+  (xs: Property(a), f: cfun(a, void)): Property(a) = "mac#%"
+//
+overload doAction with EStream_doAction
+overload doAction with Property_doAction
+overload .doAction with EStream_doAction
+overload .doAction with Property_doAction
 //
 (* ****** ****** *)
 //
@@ -151,16 +231,32 @@ overload .sampledBy with Property_sampledBy_property
 fun
 Property_sampledBy_estream_cfun
   {a,b,c:t0p}
-  (Property(a), EStream(b), cfun(a, b, c)): EStream(c) = "mac#%"
+(
+  Property(a), EStream(b), cfun(a, b, c)
+) : EStream(c) = "mac#%" // end-of-function
 fun
 Property_sampledBy_property_cfun
   {a,b,c:t0p}
-  (Property(a), Property(b), cfun(a, b, c)): Property(c) = "mac#%"
+(
+  Property(a), Property(b), cfun(a, b, c)
+) : Property(c) = "mac#%" // end-of-function
 //
 overload sampledBy with Property_sampledBy_estream_cfun
 overload sampledBy with Property_sampledBy_property_cfun
 overload .sampledBy with Property_sampledBy_estream_cfun
 overload .sampledBy with Property_sampledBy_property_cfun
+//
+(* ****** ****** *)
+//
+fun
+EStream_zip_estream_cfun
+  {a,b,c:t0p}
+(
+  xs: EStream(a), ys: EStream(b), cfun(a, b, c)
+) : EStream(c) = "mac#%" // end-of-function
+//
+overload zip with EStream_zip_estream_cfun
+overload .zip with EStream_zip_estream_cfun
 //
 (* ****** ****** *)
 

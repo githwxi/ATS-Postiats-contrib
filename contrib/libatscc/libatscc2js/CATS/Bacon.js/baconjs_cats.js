@@ -17,6 +17,21 @@
 /* ****** ****** */
 //
 function
+ats2js_bacon_Bacon_once(x)
+  { return Bacon.once(x); }
+function
+ats2js_bacon_Bacon_never()
+  { return Bacon.never(); }
+//
+function
+ats2js_bacon_Bacon_repeat(f)
+{
+  return Bacon.repeat(function(){return ats2jspre_cloref0_app(f);});
+}
+//
+/* ****** ****** */
+//
+function
 ats2js_bacon_EStream_map(xs, f)
 {
   return ats2js_bacon_Observable_map(xs, f);
@@ -29,8 +44,37 @@ ats2js_bacon_Property_map(xs, f)
 function
 ats2js_bacon_Observable_map(xs, f)
 {
-  return xs.map(function(x){return ats2jspre_cloref1_app(f, x);});
+  return xs.map(
+    function(x){return ats2jspre_cloref1_app(f, x);}
+  ); // end of [return]
 }
+//
+/* ****** ****** */
+//
+function
+ats2js_bacon_EStream_filter(xs, f)
+{
+  return ats2js_bacon_Observable_filter(xs, f);
+}
+function
+ats2js_bacon_Property_filter(xs, f)
+{
+  return ats2js_bacon_Observable_filter(xs, f);
+}
+function
+ats2js_bacon_Observable_filter(xs, f)
+{
+  return xs.filter(
+    function(x){return ats2jspre_cloref1_app(f, x);}
+  ); // end of [return]
+}
+//
+/* ****** ****** */
+//
+function
+ats2js_bacon_EStream_map_property(xs, ys) { return xs.map(ys); }
+function
+ats2js_bacon_EStream_filter_property(xs, bs) { return xs.filter(bs); }
 //
 /* ****** ****** */
 
@@ -55,7 +99,9 @@ ats2js_bacon_EStream_merge3
 /* ****** ****** */
 //
 function
-ats2js_bacon_EStream_toProperty(xs, ini) { return xs.toProperty(ini); }
+ats2js_bacon_EStream_toProperty(xs, x0) { return xs.toProperty(x0); }
+function
+ats2js_bacon_Property_toEventStream(xs) { return xs.toEventStream(); }
 //
 /* ****** ****** */
 
@@ -100,23 +146,53 @@ ats2js_bacon_Property_startWith
   (xs, x0) { return xs.startWith(x0); }
 //
 /* ****** ****** */
+
+function
+ats2js_bacon_EStream_doAction(xs, f0)
+{
+  return ats2js_bacon_Observable_doAction(xs, f0);
+}
+function
+ats2js_bacon_Property_doAction(xs, f0)
+{
+  return ats2js_bacon_Observable_doAction(xs, f0);
+}
+function
+ats2js_bacon_Observable_doAction(xs, f0)
+{
+  return xs.doAction(function(x){ats2jspre_cloref1_app(f0, x); return;});
+}
+
+/* ****** ****** */
 //
 function
 ats2js_bacon_Property_sampledBy_estream
   (xs, ys) { return xs.sampledBy(ys); }
 function
-ats2js_bacon_Property_sampledBy_estream_fun(xs, ys, f)
+ats2js_bacon_Property_sampledBy_estream_cfun(xs, ys, f)
 {
-  return xs.sampledBy(ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);});
+  return xs.sampledBy(
+    ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);}
+  ); // end of [return]
 }
 //
 function
 ats2js_bacon_Property_sampledBy_property
   (xs, ys) { return xs.sampledBy(ys); }
 function
-ats2js_bacon_Property_sampledBy_property_fun(xs, ys, f)
+ats2js_bacon_Property_sampledBy_property_cfun(xs, ys, f)
 {
-  return xs.sampledBy(ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);});
+  return xs.sampledBy(
+    ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);}
+  ); // end of [return]
+}
+//
+/* ****** ****** */
+//
+function
+ats2js_bacon_EStream_zip_estream_cfun(xs, ys, f) 
+{
+  return xs.zip(ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);});
 }
 //
 /* ****** ****** */
