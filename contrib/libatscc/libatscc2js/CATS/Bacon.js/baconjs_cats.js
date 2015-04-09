@@ -97,6 +97,30 @@ ats2js_bacon_EStream_merge3
   (xs1, xs2, xs3) { return Bacon.mergeAll(xs1, xs2, xs3); }
 //
 /* ****** ****** */
+
+function
+ats2js_bacon_Bacon_combineWith2(xs1, xs2, f)
+{
+  var
+  theCombined =
+  Bacon.combineWith(
+    xs1, xs2, function(x1,x2){ return ats2jspre_cloref2_app(f, x1, x2); }
+  ) // end of [var]
+  return theCombined;
+}
+
+function
+ats2js_bacon_Bacon_combineWith3(xs1, xs2, xs3, f)
+{
+  var
+  theCombined =
+  Bacon.combineWith(
+    xs1, xs2, xs3, function(x1,x2,x3){ return ats2jspre_cloref3_app(f, x1, x2, x3); }
+  ) // end of [var]
+  return theCombined;
+}
+
+/* ****** ****** */
 //
 function
 ats2js_bacon_EStream_toProperty(xs) { return xs.toProperty(); }

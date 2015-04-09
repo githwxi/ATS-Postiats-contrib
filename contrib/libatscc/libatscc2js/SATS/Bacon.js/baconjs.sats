@@ -147,6 +147,24 @@ overload .merge with EStream_merge3
 (* ****** ****** *)
 //
 fun
+Bacon_combineWith2
+  {a,b,c:t0p}
+(
+  Property(a), Property(b), cfun(a, b, c)
+) : Property(c) = "mac#%" // end-of-function
+fun
+Bacon_combineWith3
+  {a,b,c,d:t0p}
+(
+  Property(a), Property(b), Property(c), cfun(a, b, c, d)
+) : Property(d) = "mac#%" // end-of-function
+//
+overload combineWith with Bacon_combineWith2
+overload combineWith with Bacon_combineWith3
+//
+(* ****** ****** *)
+//
+fun
 EStream_toProperty
   {a:t0p}(EStream(a)): Property(a) = "mac#%"
 fun
