@@ -17,16 +17,26 @@
 /* ****** ****** */
 //
 function
-ats2js_bacon_Bacon_once(x)
-  { return Bacon.once(x); }
+ats2js_bacon_Bacon_once(x) { return Bacon.once(x); }
 function
-ats2js_bacon_Bacon_never()
-  { return Bacon.never(); }
+ats2js_bacon_Bacon_never() { return Bacon.never(); }
 //
 function
-ats2js_bacon_Bacon_repeat(f)
+ats2js_bacon_Bacon_interval
+  (int, x) { return Bacon.interval(int, x); }
+//
+function
+ats2js_bacon_Bacon_repeatedly
+  (int, xs) { return Bacon.repeatedly(int, xs); }
+//
+function
+ats2js_bacon_Bacon_sequentially
+  (int, xs) { return Bacon.sequentially(int, xs); }
+//
+function
+ats2js_bacon_Bacon_repeat(fopr)
 {
-  return Bacon.repeat(function(){return ats2jspre_cloref0_app(f);});
+  return Bacon.repeat(function(){return ats2jspre_cloref0_app(fopr);});
 }
 //
 /* ****** ****** */

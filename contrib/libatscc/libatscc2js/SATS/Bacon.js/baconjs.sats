@@ -55,9 +55,25 @@ fun
 Bacon_never
   {a:t0p}((*void*)): EStream(a) = "mac#%"
 //
+(* ****** ****** *)
+//
+fun
+Bacon_interval
+  {a:t0p}(int: intGte(0), x: a): EStream(a) = "mac#%"
+//
+fun
+Bacon_repeatedly{a:t0p}
+  (int: intGte(0), xs: JSarray(a)): EStream(a) = "mac#%"
+//
+fun
+Bacon_sequentially{a:t0p}
+  (int: intGte(0), xs: JSarray(a)): EStream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
 fun
 Bacon_repeat
-  {a:t0p}(cfun(EStream(a))): EStream(a) = "mac#%"
+  {a:t0p}(fopr: cfun(EStream(a))): EStream(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -193,9 +209,8 @@ Property_onValue
   {a:t0p}(Property(a), cfun(a, void)): void = "mac#%"
 //
 overload onValue with EStream_onValue
-overload .onValue with EStream_onValue
-//
 overload onValue with Property_onValue
+overload .onValue with EStream_onValue
 overload .onValue with Property_onValue
 //
 (* ****** ****** *)
