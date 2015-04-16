@@ -1,7 +1,8 @@
 (* ****** ****** *)
-
-#include "../share/utfpl_symintr.hats"
-
+//
+#include
+"./../share/utfpl_symintr.hats"
+//
 (* ****** ****** *)
 
 fun fib (n) = let
