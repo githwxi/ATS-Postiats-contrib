@@ -105,6 +105,8 @@ extern
 fun parse_D2Eifhead (jsonval): d2exp_node
 
 extern
+fun parse_D2Esing (jsonval): d2exp_node
+extern
 fun parse_D2Elist (jsonval): d2exp_node
 
 extern
@@ -171,6 +173,7 @@ case+ name of
 //
 | "D2Eifhead" => parse_D2Eifhead (jsv2)
 //
+| "D2Esing" => parse_D2Esing (jsv2)
 | "D2Elist" => parse_D2Elist (jsv2)
 //
 | "D2Etup" => parse_D2Etup (jsv2)
@@ -371,6 +374,20 @@ val _else = parse_d2expopt (jsvs[3])
 in
   D2Eifopt (_test, _then, _else)
 end // end of [parse_D2Eifhead]
+
+(* ****** ****** *)
+
+implement
+parse_D2Esing
+  (jsv0) = let
+//
+val-JSONarray(jsvs) = jsv0
+val () = assertloc (length(jsvs) >= 1)
+val d2e = parse_d2exp (jsvs[0])
+//
+in
+  D2Esing (d2e)
+end // end of [parse_D2Esing]
 
 (* ****** ****** *)
 

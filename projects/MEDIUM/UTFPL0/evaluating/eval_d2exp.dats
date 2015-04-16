@@ -109,6 +109,8 @@ case+ d2e0.d2exp_node of
     // end of [if]
   end // end of [D2Eifopt]
 //
+| D2Esing(d2e) => aux_d2exp (env, d2e)
+//
 | D2Elist
     (d2es) => let
     val d2us =
