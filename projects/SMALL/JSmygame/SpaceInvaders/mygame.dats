@@ -45,6 +45,10 @@ var
 theKeyDowns =
   $(document).asEventStream("keydown")
 //
+var
+theKeyDowns =
+theKeyDowns.doAction(".preventDefault")
+//
 %} // end of ...
 //
 (* ****** ****** *)
@@ -81,32 +85,190 @@ theKeyDowns_handle(fwork) = theKeyCodes.onValue(fwork)
 end // end of [local]
 
 (* ****** ****** *)
+//
+%{^
+//
+var
+theStage = 0;
+//
+function
+theGame_tick(event)
+{
+  theStage.update(); return;
+}
+//
+function
+theGame_initize()
+{
+  theStage = new createjs.Stage("theGameCanvas");
+  createjs.Ticker.addEventListener("tick", theGame_tick);
+}
+//
+%}
+//
+extern
+fun
+theGame_initize(): void = "mac#"
+//
+val () = theGame_initize((*void*))
+//
+(* ****** ****** *)
+//
+%{^
+//
+function
+theStage_addChild(x)
+{
+  theStage.addChild(x); return;
+}
+//
+%} // end of [%{^]
+//
+extern
+fun
+theStage_addChild{a:type}(x: a): void = "mac#"
+//
+(* ****** ****** *)
 
 abstype player
+abstype myplayer
 
 (* ****** ****** *)
 
+%{^
+//
+function
+myplayer_new()
+{
+  var
+  player = new createjs.Shape();
+  player.x = 0;
+  player.y = 0;
+  player.graphics.beginFill("yellow").drawCircle(0, 0, 16);
+  return { player: player, isadded: 0 };
+}
+//
+function
+myplayer_get_player(x0) { return x0.player; }
+//
+%} // end of [%{]
+//
 extern
 fun
-player_new (): player = "mac#"
-
+myplayer_new (): myplayer = "mac#"
+//
+extern
+fun
+myplayer_get_player (myplayer): player = "mac#"
+//
+(* ****** ****** *)
+//
+%{^
+//
+function
+myplayer_incby_x
+  (myplayer, dx)
+  { myplayer.player.x += dx; return; }
+function
+myplayer_incby_y
+  (myplayer, dy)
+  { myplayer.player.y += dy; return; }
+//
+%} // end of [%{]
+//
+extern
+fun
+myplayer_incby_x (myplayer, dx: int): void = "mac#"
+extern
+fun
+myplayer_incby_y (myplayer, dy: int): void = "mac#"
+//
 (* ****** ****** *)
 
 extern
-fun
-player_incby_x (player, x: int): void = "mac#"
-extern
-fun
-player_incby_y (player, y: int): void = "mac#"
+fun theMyPlayer_get (): Option(myplayer)
 
 (* ****** ****** *)
 
 local
 
-fun aux_up(): void = alert("UP")
-fun aux_down(): void = alert("DOWN")
-fun aux_left(): void = alert("LEFT")
-fun aux_right(): void = alert("RIGHT")
+val
+theMyPlayer = ref(None)
+
+fun
+theMyPlayer_initize(): void =
+{
+  val x0 = myplayer_new()
+  val () = myplayer_incby_x(x0, 16)
+  val () = myplayer_incby_y(x0, 640-16)
+  val () = theStage_addChild(myplayer_get_player(x0))
+  val () = theMyPlayer[] := Some(x0)
+}
+
+implement
+theMyPlayer_get() = theMyPlayer[]
+
+in (* in-of-local *)
+
+val () = theMyPlayer_initize((*void*))
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
+fun
+aux_up(): void = let
+//
+val opt = theMyPlayer_get()
+//
+in
+//
+case+ opt of
+| None () => ()
+| Some (x0) => myplayer_incby_y(x0, ~10)
+//
+end // end of [aux_up]
+//
+fun
+aux_down(): void = let
+//
+val opt = theMyPlayer_get()
+//
+in
+//
+case+ opt of
+| None () => ()
+| Some (x0) => myplayer_incby_y(x0, (10))
+//
+end // end of [aux_down]
+//
+fun
+aux_left(): void = let
+//
+val opt = theMyPlayer_get()
+//
+in
+//
+case+ opt of
+| None () => ()
+| Some (x0) => myplayer_incby_x(x0, ~10)
+//
+end // end of [aux_left]
+//
+fun
+aux_right(): void = let
+//
+val opt = theMyPlayer_get()
+//
+in
+//
+case+ opt of
+| None () => ()
+| Some (x0) => myplayer_incby_x(x0, (10))
+//
+end // end of [aux_right]
 
 fun
 fwork_keycode(c: int) =
