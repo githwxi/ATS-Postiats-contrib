@@ -12,8 +12,27 @@ ATSCC2JS=$(PATSHOME)/bin/atscc2js
 all:: \
 mygame_dats.js
 #
-mygame_dats.c: mygame.dats; $(PATSCC) -ccats $<
+mygame_dats.c: \
+mygame.sats mygame.dats; $(PATSCC) -ccats mygame.dats
 mygame_dats.js: mygame_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
+#
+all:: \
+mygame_keybd_dats.js
+#
+mygame_keybd_dats.c: \
+mygame.sats mygame_keybd.dats; $(PATSCC) -ccats mygame_keybd.dats
+mygame_keybd_dats.js: mygame_keybd_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
+#
+all:: \
+mygame_player_dats.js
+#
+mygame_player_dats.c: \
+mygame.sats mygame_player.dats; $(PATSCC) -ccats mygame_player.dats
+mygame_player_dats.js: mygame_player_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 
