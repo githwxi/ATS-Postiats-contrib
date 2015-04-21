@@ -43,9 +43,6 @@ player_new()
 %{^
 //
 function
-player_get_createjs(x0) { return x0.createjs; }
-//
-function
 player_get_x(player, x) { return player.createjs.x ; }
 function
 player_get_y(player, y) { return player.createjs.y ; }
@@ -73,9 +70,9 @@ val blt = bullet_new(0)
 val () = blt.x := player.x
 val () = blt.y := player.y - YPLAYER/2
 //
-val () = thePlayerBullets_add(blt)
+val () = theStage_addChild(blt)
 //
-val () = theStage_addChild(bullet_get_createjs(blt))
+val () = thePlayerBullets_add(blt)
 //
 in
   // alert("player_fire_bullet!")

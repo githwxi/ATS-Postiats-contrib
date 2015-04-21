@@ -54,9 +54,6 @@ bullet_new(i)
 %{^
 //
 function
-bullet_get_createjs(x0) { return x0.createjs; }
-//
-function
 bullet_get_x(bullet, x) { return bullet.createjs.x ; }
 function
 bullet_get_y(bullet, y) { return bullet.createjs.y ; }

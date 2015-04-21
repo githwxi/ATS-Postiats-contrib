@@ -73,7 +73,7 @@ theGame_initize() where
 function
 theStage_addChild(x)
 {
-  theStage.addChild(x); return;
+  theStage.addChild(x.createjs); return;
 }
 //
 %} // end of [%{^]
@@ -91,7 +91,7 @@ thePlayer_initize(): void =
   val x0 = player_new()
   val () = player_incby_x(x0, XPLAYER/2)
   val () = player_incby_y(x0, YSCREEN-YPLAYER/2)
-  val () = theStage_addChild(player_get_createjs(x0))
+  val () = theStage_addChild(x0)
   val () = thePlayer[] := Some(x0)
 }
 

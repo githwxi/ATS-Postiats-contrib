@@ -46,8 +46,6 @@ fun
 bullet_new
   (kind: int): bullet = "mac#"
 //
-fun bullet_get_createjs(bullet): JSobj = "mac#"
-//
 fun
 bullet_get_x (bullet): int(*x*) = "mac#"
 fun
@@ -116,10 +114,6 @@ abstype player
 (* ****** ****** *)
 
 fun player_new (): player = "mac#"
-
-(* ****** ****** *)
-
-fun player_get_createjs(player): JSobj = "mac#"
 
 (* ****** ****** *)
 //
