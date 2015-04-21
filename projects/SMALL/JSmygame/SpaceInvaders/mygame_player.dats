@@ -4,6 +4,10 @@
 
 (* ****** ****** *)
 
+#define ATS_STATIC_PREFIX "mygame_player_"
+
+(* ****** ****** *)
+
 #define ATS_MAINATSFLAG 1
 #define ATS_DYNLOADNAME "mygame_player_initize"
 

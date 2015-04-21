@@ -109,6 +109,43 @@ theEnemiesBullets_update ((*void*)): void = "mac#"
 //
 (* ****** ****** *)
 
+abstype enemy
+
+(* ****** ****** *)
+
+fun enemy_new (): enemy = "mac#"
+
+(* ****** ****** *)
+//
+fun
+enemy_get_x (enemy): int(*x*) = "mac#"
+fun
+enemy_set_x (enemy, x: int): void = "mac#"
+fun
+enemy_incby_x (enemy, dx: int): void = "mac#"
+//
+fun
+enemy_get_y (enemy): int(*y*) = "mac#"
+fun
+enemy_set_y (enemy, y: int): void = "mac#"
+fun
+enemy_incby_y (enemy, dy: int): void = "mac#"
+//
+(* ****** ****** *)
+//
+overload .x with enemy_get_x
+overload .x with enemy_set_x
+//
+overload .y with enemy_get_y
+overload .y with enemy_set_y
+//
+(* ****** ****** *)
+
+fun
+enemy_fire_bullet(enemy): void = "mac#"
+
+(* ****** ****** *)
+
 abstype player
 
 (* ****** ****** *)
@@ -157,6 +194,7 @@ theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
 
 fun mygame_keybd_initize(): void = "mac#"
 fun mygame_bullet_initize(): void = "mac#"
+fun mygame_enemy_initize(): void = "mac#"
 fun mygame_player_initize(): void = "mac#"
 
 (* ****** ****** *)

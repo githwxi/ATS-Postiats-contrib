@@ -28,20 +28,29 @@ mygame_keybd_dats.js: mygame_keybd_dats.c; $(ATSCC2JS) -o $@ -i $<
 ######
 #
 all:: \
-mygame_player_dats.js
-#
-mygame_player_dats.c: \
-mygame.sats mygame_player.dats; $(PATSCC) -ccats mygame_player.dats
-mygame_player_dats.js: mygame_player_dats.c; $(ATSCC2JS) -o $@ -i $<
-#
-######
-#
-all:: \
 mygame_bullet_dats.js
 #
 mygame_bullet_dats.c: \
 mygame.sats mygame_bullet.dats; $(PATSCC) -ccats mygame_bullet.dats
 mygame_bullet_dats.js: mygame_bullet_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
+#
+all:: \
+mygame_enemy_dats.js
+#
+mygame_enemy_dats.c: \
+mygame.sats mygame_enemy.dats; $(PATSCC) -ccats mygame_enemy.dats
+mygame_enemy_dats.js: mygame_enemy_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
+#
+all:: \
+mygame_player_dats.js
+#
+mygame_player_dats.c: \
+mygame.sats mygame_player.dats; $(PATSCC) -ccats mygame_player.dats
+mygame_player_dats.js: mygame_player_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 
