@@ -14,7 +14,12 @@
 //
 (* ****** ****** *)
 //
-staload (*opened*) "./mygame.sats"
+staload "./mygame.sats"
+//
+(* ****** ****** *)
+//
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
 
@@ -41,12 +46,41 @@ function
 player_get_createjs(x0) { return x0.createjs; }
 //
 function
+player_get_x(player, x) { return player.createjs.x ; }
+function
+player_get_y(player, y) { return player.createjs.y ; }
+//
+function
+player_set_x(player, x) { player.createjs.x = x; return; }
+function
+player_set_y(player, y) { player.createjs.y = y; return; }
+//
+function
 player_incby_x(player, dx) { player.createjs.x += dx; return; }
 function
 player_incby_y(player, dy) { player.createjs.y += dy; return; }
 //
 %} // end of [%{]
 //
+(* ****** ****** *)
+
+implement
+player_fire_bullet
+  (player) = let
+//
+val blt = bullet_new(0)
+//
+val () = blt.x := player.x
+val () = blt.y := player.y - YPLAYER/2
+//
+val () = thePlayerBullets_add(blt)
+//
+val () = theStage_addChild(bullet_get_createjs(blt))
+//
+in
+  // alert("player_fire_bullet!")
+end // end of [player_fire_bullet]
+
 (* ****** ****** *)
     
 (* end of [mygame_player.dats] *)

@@ -4,6 +4,10 @@
 
 (* ****** ****** *)
 
+#define ATS_STATIC_PREFIX "mygame_"
+
+(* ****** ****** *)
+
 #define ATS_MAINATSFLAG 1
 #define ATS_DYNLOADNAME "my_dynload"
 
@@ -39,12 +43,13 @@ theKeyDowns.doAction(".preventDefault")
 //
 %{^
 //
-var
-theStage = 0;
+var theStage = 0;
 //
 function
 theGame_tick(event)
 {
+  thePlayerBullets_update();
+  theEnemiesBullets_update();
   theStage.update(); return;
 }
 //
@@ -58,10 +63,8 @@ theGame_initize()
 %}
 //
 val () =
-theGame_initize()
-where {
-  extern fun theGame_initize(): void = "mac#"
-} (* end of [val] *)
+theGame_initize() where
+  { extern fun theGame_initize(): void = "mac#" }
 //
 (* ****** ****** *)
 //
@@ -104,6 +107,7 @@ end // end of [local]
 (* ****** ****** *)
 //
 val () = mygame_keybd_initize()
+val () = mygame_bullet_initize()
 val () = mygame_player_initize()
 //
 (* ****** ****** *)

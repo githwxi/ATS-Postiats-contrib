@@ -59,6 +59,7 @@ end // end of [local]
 #define KDOWN 40
 #define KLEFT 37
 #define KRIGHT 39
+#define KSPACE 32
 
 (* ****** ****** *)
 
@@ -116,6 +117,23 @@ case+ opt of
 //
 end // end of [aux_right]
 
+(* ****** ****** *)
+
+fun
+aux_space(): void = let
+//
+val opt = thePlayer_get()
+//
+in
+//
+case+ opt of
+| None () => ()
+| Some (x0) => player_fire_bullet(x0)
+//
+end // end of [aux_space]
+
+(* ****** ****** *)
+
 fun
 fwork_keycode(c: int) =
 (
@@ -125,6 +143,7 @@ case+ 0 of
 | _ when c = KDOWN => aux_down()
 | _ when c = KLEFT => aux_left()
 | _ when c = KRIGHT => aux_right()
+| _ when c = KSPACE => aux_space()
 //
 | _ (* ignored *) => ()
 //

@@ -35,6 +35,15 @@ mygame.sats mygame_player.dats; $(PATSCC) -ccats mygame_player.dats
 mygame_player_dats.js: mygame_player_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
+#
+all:: \
+mygame_bullet_dats.js
+#
+mygame_bullet_dats.c: \
+mygame.sats mygame_bullet.dats; $(PATSCC) -ccats mygame_bullet.dats
+mygame_bullet_dats.js: mygame_bullet_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
 
 RMF=rm -f
 
