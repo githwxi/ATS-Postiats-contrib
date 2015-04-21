@@ -69,10 +69,10 @@ implement
 enemy_fire_bullet
   (enemy) = let
 //
-val blt = bullet_new(0)
+val blt = bullet_new(1)
 //
 val () = blt.x := enemy.x
-val () = blt.y := enemy.y + YPLAYER/2
+val () = blt.y := enemy.y + YENEMY/2
 //
 val () = theStage_addChild(blt)
 //

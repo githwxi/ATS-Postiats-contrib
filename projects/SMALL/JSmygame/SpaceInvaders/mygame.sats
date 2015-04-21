@@ -21,6 +21,8 @@
 
 #define XBULLET 8
 #define YBULLET 8
+#define XENEMY 32
+#define YENEMY 32
 #define XPLAYER 32
 #define YPLAYER 32
 #define XSCREEN 640
