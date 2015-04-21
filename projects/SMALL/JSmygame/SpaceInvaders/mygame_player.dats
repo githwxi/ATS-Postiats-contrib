@@ -84,4 +84,30 @@ end // end of [player_fire_bullet]
 
 (* ****** ****** *)
     
+local
+
+val
+thePlayer = ref(None)
+
+fun
+thePlayer_initize(): void =
+{
+  val x0 = player_new()
+  val () = player_incby_x(x0, XSCREEN/2)
+  val () = player_incby_y(x0, YSCREEN-YPLAYER/2)
+  val () = theStage_addChild(x0)
+  val () = thePlayer[] := Some(x0)
+}
+
+implement
+thePlayer_get() = thePlayer[]
+
+in (* in-of-local *)
+
+val () = thePlayer_initize((*void*))
+
+end // end of [local]
+
+(* ****** ****** *)
+
 (* end of [mygame_player.dats] *)

@@ -79,32 +79,6 @@ theStage_addChild(x)
 %} // end of [%{^]
 //
 (* ****** ****** *)
-
-local
-
-val
-thePlayer = ref(None)
-
-fun
-thePlayer_initize(): void =
-{
-  val x0 = player_new()
-  val () = player_incby_x(x0, XPLAYER/2)
-  val () = player_incby_y(x0, YSCREEN-YPLAYER/2)
-  val () = theStage_addChild(x0)
-  val () = thePlayer[] := Some(x0)
-}
-
-implement
-thePlayer_get() = thePlayer[]
-
-in (* in-of-local *)
-
-val () = thePlayer_initize((*void*))
-
-end // end of [local]
-
-(* ****** ****** *)
 //
 val () = mygame_keybd_initize()
 val () = mygame_bullet_initize()
