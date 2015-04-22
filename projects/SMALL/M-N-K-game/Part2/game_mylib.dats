@@ -20,6 +20,10 @@ staload UN = $UNSAFE
 staload "./game.sats"
 
 (* ****** ****** *)
+//
+implement ptr_as_volatile (p) = ()
+//
+(* ****** ****** *)
 
 implement
 string_get_int (inp) = let
