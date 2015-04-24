@@ -18,16 +18,16 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./atsparemit.sats"
-staload "./atsparemit_syntax.sats"
+staload "./catsparse.sats"
+staload "./catsparse_syntax.sats"
 //
 (* ****** ****** *)
 //
-staload "./atsparemit_emit.sats"
+staload "./catsparse_emit.sats"
 //
 (* ****** ****** *)
 //
-staload "./atsparemit_typedef.dats"
+staload "./catsparse_typedef.dats"
 //
 (* ****** ****** *)
 
@@ -632,4 +632,4 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [atsparemit_emit_php.dats] *)
+(* end of [catsparse_emit_php.dats] *)
