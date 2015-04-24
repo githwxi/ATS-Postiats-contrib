@@ -69,6 +69,11 @@ srclines: ; $(WCL) *.?ats
 
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 cleanats:: ; $(RMF) *_?ats.c
 
 ######
