@@ -21,50 +21,50 @@ STDIO =
 //
 (* ****** ****** *)
 
-staload "./atsparemit.sats"
-staload "./atsparemit_parsing.sats"
-staload "./atsparemit_emit.sats"
+staload "./catsparse.sats"
+staload "./catsparse_parsing.sats"
+staload "./catsparse_emit.sats"
 
 (* ****** ****** *)
 //
-dynload "./atsparemit_mylib.dats"
+dynload "./catsparse_mylib.dats"
 //
 (* ****** ****** *)
 //
-dynload "./atsparemit_error.dats"
+dynload "./catsparse_error.dats"
 //
-dynload "./atsparemit_print.dats"
+dynload "./catsparse_print.dats"
 //
-dynload "./atsparemit_symbol.dats"
+dynload "./catsparse_symbol.dats"
 //
-dynload "./atsparemit_fname.dats"
-dynload "./atsparemit_posloc.dats"
+dynload "./catsparse_fname.dats"
+dynload "./catsparse_posloc.dats"
 //
-dynload "./atsparemit_global.dats"
+dynload "./catsparse_global.dats"
 //
-dynload "./atsparemit_syntax.dats"
+dynload "./catsparse_syntax.dats"
 //
-dynload "./atsparemit_lexerr.dats"
-dynload "./atsparemit_lexbuf.dats"
-dynload "./atsparemit_lexing.dats"
+dynload "./catsparse_lexerr.dats"
+dynload "./catsparse_lexbuf.dats"
+dynload "./catsparse_lexing.dats"
 //
-dynload "./atsparemit_tokbuf.dats"
+dynload "./catsparse_tokbuf.dats"
 //
-dynload "./atsparemit_parerr.dats"
-dynload "./atsparemit_parsing.dats"
-dynload "./atsparemit_parsing_d0exp.dats"
-dynload "./atsparemit_parsing_d0ecl.dats"
-dynload "./atsparemit_parsing_instr.dats"
+dynload "./catsparse_parerr.dats"
+dynload "./catsparse_parsing.dats"
+dynload "./catsparse_parsing_d0exp.dats"
+dynload "./catsparse_parsing_d0ecl.dats"
+dynload "./catsparse_parsing_instr.dats"
 //
 (* ****** ****** *)
 
-dynload "./atsparemit_emit.dats"
-dynload "./atsparemit_typedef.dats"
+dynload "./catsparse_emit.dats"
+dynload "./catsparse_typedef.dats"
 
 (* ****** ****** *)
 
-dynload "./atsparemit_emit_pl.dats"
-dynload "./atsparemit_emit2_pl.dats"
+dynload "./catsparse_emit_pl.dats"
+dynload "./catsparse_emit2_pl.dats"
 
 (* ****** ****** *)
 //
@@ -594,4 +594,4 @@ prerrln! ("Good-bye from atscc2pl!")
 
 (* ****** ****** *)
 
-(* end of [atsparemit_main_pl.dats] *)
+(* end of [catsparse_main_pl.dats] *)
