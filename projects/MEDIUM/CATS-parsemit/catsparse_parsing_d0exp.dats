@@ -439,7 +439,7 @@ tok.token_node of
     // end of [if]
   end // end of [ATSfunclo_clo]
 //
-| _ => let
+| _ (*rest-of-token*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_d0exp)
   in
@@ -449,15 +449,17 @@ tok.token_node of
 end // end of [parse_d0exp]
 
 (* ****** ****** *)
-
+//
 extern
-fun parse_d0expseq : parser (d0explst)
+fun
+parse_d0expseq : parser (d0explst)
+//
 implement
 parse_d0expseq
   (buf, bt, err) =
   list_vt2t(pstar_fun0_COMMA (buf, bt, parse_d0exp))
 // end of [parse_d0expseq]
-
+//
 (* ****** ****** *)
 
 (*

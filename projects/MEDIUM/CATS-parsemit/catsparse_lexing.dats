@@ -1133,7 +1133,8 @@ val tok = lexbuf_get_token_any (buf)
 //
 in
 //
-case+ tok.token_node of
+case+
+tok.token_node of
 | T_ENDL () => lexbuf_get_token_skip (buf)
 | T_SPACES _ => lexbuf_get_token_skip (buf)
 | T_COMMENT_line () => lexbuf_get_token_skip (buf)
