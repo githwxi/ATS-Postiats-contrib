@@ -78,6 +78,20 @@ list_split_at
 (* ****** ****** *)
 //
 fun
+list_insert_at
+  {a:t0p}
+  {n:int}{i:nat | i <= n}
+  (xs: list(a, n), i: int(i), x0: a): list(a, n+1) = "mac#%"
+//
+fun
+list_remove_at
+  {a:t0p}
+  {n:int}{i:nat | i < n}
+  (xs: list(a, n), i: int(i)): $tup(a, list(a, n-1)) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_app
   {a:t0p}(xs: List(INV(a)), f: cfun(a, void)): void = "mac#%"
 fun

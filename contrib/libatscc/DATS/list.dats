@@ -221,6 +221,47 @@ list_split_at
 ) (* end of [list_split_at] *)
 
 (* ****** ****** *)
+
+implement
+list_insert_at
+  (xs, i, x0) = (
+//
+if
+(i > 0)
+then let
+  val+list_cons (x, xs) = xs
+in
+  list_cons (x, list_insert_at (xs, i-1, x0))
+end // end of [then]
+else list_cons (x0, xs)
+//
+) (* end of [list_insert_at] *)
+  
+(* ****** ****** *)
+
+implement
+list_remove_at
+  (xs, i) = let
+//
+val+list_cons (x, xs) = xs
+//
+in
+//
+if
+(i > 0)
+then let
+//
+val $tup(x_rem, xs) =
+  list_remove_at (xs, i-1)
+//
+in
+  $tup(x_rem, list_cons (x, xs))
+end // end of [then]
+else $tup(x, xs) // end of [else]
+//
+end (* end of [list_remove_at] *)
+
+(* ****** ****** *)
 //
 implement
 list_app (xs, f) = list_foreach (xs, f)
