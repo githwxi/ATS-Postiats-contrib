@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit-pl
+// CATS-parsemit-pl
 //
 (* ****** ****** *)
 //

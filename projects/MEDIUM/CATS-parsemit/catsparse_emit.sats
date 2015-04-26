@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit-python
+// CATS-parsemit
 //
 (* ****** ****** *)
 //

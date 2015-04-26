@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit
+// CATS-parsemit
 //
 (* ****** ****** *)
 //
@@ -202,8 +202,10 @@ then let
   {
     val c = int2char0(i)
     val c = $UN.cast{charNZ}(c)
-    val _(*1*) = $SBF.stringbuf_insert_char (buf.lexbuf_stringbuf, c)
-  } (* end of [val] *)
+    val _(*1*) =
+      $SBF.stringbuf_insert_char (buf.lexbuf_stringbuf, c)
+    // end of [val]
+  } (* end of [if] *) // end of [if]
 in
   i(*inserted*)
 end // end of [then]

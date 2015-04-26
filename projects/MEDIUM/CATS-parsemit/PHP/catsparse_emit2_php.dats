@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit-php
+// CATS-parsemit-php
 //
 (* ****** ****** *)
 //

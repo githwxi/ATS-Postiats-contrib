@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// ATS-parse-emit-js
+// CATS-parsemit-js
 //
 (* ****** ****** *)
 //
