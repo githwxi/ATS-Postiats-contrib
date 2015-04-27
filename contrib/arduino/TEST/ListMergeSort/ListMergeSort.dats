@@ -39,13 +39,15 @@ abstype charptr = $extype"charptr"
 %} // end of [%{^]
 
 (* ****** ****** *)
-
+//
 %{^
-void *theList = NULL;
+void *theList = 0;
 void *theList_get ()
 {
   void *res;
-  res = theList; theList = NULL; return res;
+  res = theList;
+  theList = NULL;
+  return res;
 } /* end of [theList_get] */
 %} // end of [%{^]
 //
