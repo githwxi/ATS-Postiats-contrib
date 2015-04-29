@@ -14,17 +14,22 @@ all:: upload_html
 
 ######
 
-mytest_dats.js: mytest.dats; $(PATSOPT) -d $< | $(ATSCC2JS) -o $@ -i
+DATS_JS/mytest_dats.js: mytest.dats; $(PATSOPT) -d $< | $(ATSCC2JS) -o $@ -i
 
 ######
 #
 upload_html: ; \
-  scp mytest.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/CATS-parsemit/JavaScript/.
-upload_DATS_JS: mytest_dats.js; \
-  scp mytest_dats.js ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/CATS-parsemit/JavaScript/DATS_JS/.
+$(SCP) mytest.html \
+ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/CATS-parsemit/JavaScript/.
+#
+upload_DATS_JS: \
+DATS_JS/mytest_dats.js; \
+$(SCP) DATS_JS/mytest_dats.js \
+ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/MEDIUM/CATS-parsemit/JavaScript/DATS_JS/.
 #
 ######
 
+SCP=scp
 RMF=rm -f
 
 ######
@@ -35,7 +40,7 @@ clean:: ; $(RMF) *_dats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) *_dats.js
+cleanall:: ; $(RMF) DATS_JS/*_dats.js
 
 ######
 
