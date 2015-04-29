@@ -105,7 +105,7 @@ fun board_get
 
 fun board_set
   (bd: int8, i: int, j:int): int8 = let
-  val '(x0, x1, x2, x3, x4, x5, x6, x7) = bd
+  val $tup(x0, x1, x2, x3, x4, x5, x6, x7) = bd
 in
   case+ i of
   | 0 => let

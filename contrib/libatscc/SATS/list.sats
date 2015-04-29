@@ -39,6 +39,12 @@ list_length
 (* ****** ****** *)
 //
 fun
+list_get_at
+  {a:t0p}{n:int}(list(a, n), natLt(n)): a = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_append
   {a:t0p}{i,j:int}
   (list(INV(a), i), list(a, j)): list(a, i+j)= "mac#%"

@@ -133,6 +133,23 @@ end // end of [list_length]
 (* ****** ****** *)
 
 implement
+list_get_at
+  {a}(xs, i) = (
+//
+if
+(i = 0)
+then let
+  val+list_cons(x, xs) = xs in x
+end // end of [then]
+else let
+  val+list_cons(_, xs) = xs in list_get_at(xs, i-1)
+end // end of [else]
+//
+) (* end of [list_get_at] *)
+
+(* ****** ****** *)
+
+implement
 list_append
   (xs, ys) = let
 //
