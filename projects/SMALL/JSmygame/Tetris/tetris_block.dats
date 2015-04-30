@@ -29,15 +29,18 @@ function
 Block_new_c1c2(c1, c2)
 {
   var
-  bullet = new createjs.Shape();
+  block = new createjs.Shape();
 //
-  bullet.x = 0;
-  bullet.y = 0;
+  block.x = 0;
+  block.y = 0;
 //
-  bullet.graphics.beginStroke(c1).beginFill(c2).drawRect(0, 0, 0, 15);
-  return { createjs: bullet };
+  block.graphics.beginStroke(c1).beginFill(c2).drawRect(0, 0, 0, 15);
+  return { createjs: block };
 //
 }
+//
+function Block_null() { return null; }
+function Block_is_null(x) { return (x===null); }
 //
 %} // end of [%{]
 
@@ -48,5 +51,5 @@ Block_new () =
   $extfcall(Block, "Block_new_c1c2", "#eee", "#428bca")
 //
 (* ****** ****** *)
-    
+
 (* end of [tetris_block.dats] *)
