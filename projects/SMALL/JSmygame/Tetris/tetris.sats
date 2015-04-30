@@ -61,7 +61,7 @@ fun Piece_rrotate (Piece): void = "mac#"
 fun GameBoard_isset_at
   (GameBoard, x: int, y: int): bool = "mac#"
 //
-fun GameBoard_delrows_if (GameBoard): void = "mac#"
+fun GameBoard_drop_bottom (GameBoard): void = "mac#"
 //
 (* ****** ****** *)
 //
