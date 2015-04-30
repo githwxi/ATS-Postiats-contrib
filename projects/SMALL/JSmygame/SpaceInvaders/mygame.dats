@@ -80,10 +80,10 @@ theStage_addChild(x)
 //
 (* ****** ****** *)
 //
-val () = mygame_keybd_initize()
 val () = mygame_bullet_initize()
 val () = mygame_enemy_initize()
 val () = mygame_player_initize()
+val () = mygame_keyboard_initize()
 //
 (* ****** ****** *)
 

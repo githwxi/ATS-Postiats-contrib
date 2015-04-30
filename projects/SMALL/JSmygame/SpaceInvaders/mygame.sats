@@ -3,11 +3,6 @@
 *)
 
 (* ****** ****** *)
-
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "my_dynload"
-
-(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
@@ -194,10 +189,10 @@ theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
 //
 (* ****** ****** *)
 
-fun mygame_keybd_initize(): void = "mac#"
 fun mygame_bullet_initize(): void = "mac#"
 fun mygame_enemy_initize(): void = "mac#"
 fun mygame_player_initize(): void = "mac#"
+fun mygame_keyboard_initize(): void = "mac#"
 
 (* ****** ****** *)
 

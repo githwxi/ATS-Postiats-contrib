@@ -4,12 +4,12 @@
 
 (* ****** ****** *)
 
-#define ATS_STATIC_PREFIX "mygame_keybd_"
+#define ATS_STATIC_PREFIX "mygame_keyboard_"
 
 (* ****** ****** *)
 
 #define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "mygame_keybd_initize"
+#define ATS_DYNLOADNAME "mygame_keyboard_initize"
 
 (* ****** ****** *)
 //
@@ -161,4 +161,4 @@ end // end of [local]
 
 (* ****** ****** *)
     
-(* end of [mygame_keybd.dats] *)
+(* end of [mygame_keyboard.dats] *)

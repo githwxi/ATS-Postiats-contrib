@@ -19,15 +19,6 @@ mygame_dats.js: mygame_dats.c; $(ATSCC2JS) -o $@ -i $<
 ######
 #
 all:: \
-mygame_keybd_dats.js
-#
-mygame_keybd_dats.c: \
-mygame.sats mygame_keybd.dats; $(PATSCC) -ccats mygame_keybd.dats
-mygame_keybd_dats.js: mygame_keybd_dats.c; $(ATSCC2JS) -o $@ -i $<
-#
-######
-#
-all:: \
 mygame_bullet_dats.js
 #
 mygame_bullet_dats.c: \
@@ -51,6 +42,15 @@ mygame_player_dats.js
 mygame_player_dats.c: \
 mygame.sats mygame_player.dats; $(PATSCC) -ccats mygame_player.dats
 mygame_player_dats.js: mygame_player_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
+#
+all:: \
+mygame_keyboard_dats.js
+#
+mygame_keyboard_dats.c: \
+mygame.sats mygame_keyboard.dats; $(PATSCC) -ccats mygame_keyboard.dats
+mygame_keyboard_dats.js: mygame_keyboard_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 
