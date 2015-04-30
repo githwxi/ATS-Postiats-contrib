@@ -31,6 +31,10 @@ fun theNextPiece_set (Piece): void = "mac#"
 //
 (* ****** ****** *)
 
+fun theGameBoard_get(): GameBoard = "mac#"
+
+(* ****** ****** *)
+
 fun Block_new (): Block = "mac#"
 
 (* ****** ****** *)
@@ -50,9 +54,17 @@ fun Piece_lrotate (Piece): void = "mac#"
 fun Piece_rrotate (Piece): void = "mac#"
 
 (* ****** ****** *)
-
+//
+fun GameBoard_isset_at
+  (GameBoard, x: int, y: int): bool = "mac#"
+//
 fun GameBoard_delrows_if (GameBoard): void = "mac#"
-
+//
+(* ****** ****** *)
+//
+fun
+Piece_collide_at(Piece, x: int, y: int): bool = "mac#"
+//
 (* ****** ****** *)
 
 (* end of [tetris.sats] *)
