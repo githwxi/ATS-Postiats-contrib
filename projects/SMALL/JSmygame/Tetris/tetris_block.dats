@@ -22,6 +22,10 @@ ATS_STATIC_PREFIX "tetris_block__"
 staload (*opened*) "./tetris.sats"
 //
 (* ****** ****** *)
+//
+#include "{$LIBATSCC2JS}/staloadall.hats"
+//
+(* ****** ****** *)
 
 %{^
 //
@@ -40,7 +44,8 @@ Block_new_c1c2(c1, c2)
 }
 //
 function Block_null() { return null; }
-function Block_is_null(x) { return (x===null); }
+function Block_is_null(x) { return (x === null); }
+function Block_isnot_null(x) { return (x !== null); }
 //
 %} // end of [%{]
 

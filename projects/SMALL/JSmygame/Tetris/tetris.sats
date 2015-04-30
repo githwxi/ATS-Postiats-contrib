@@ -14,6 +14,9 @@ typedef Piece = Piece_type
 //
 (* ****** ****** *)
 //
+#define GROWS 36
+#define GCOLS 20
+//
 abstype GameBoard_type
 typedef GameBoard = GameBoard_type
 //
@@ -39,6 +42,7 @@ fun Block_new (): Block = "mac#"
 //
 fun Block_null (): Block = "mac#" // JS null obj
 fun Block_is_null (Block): bool = "mac#" // is null?
+fun Block_isnot_null (Block): bool = "mac#" // is not null?
 //
 (* ****** ****** *)
 //
@@ -58,7 +62,8 @@ fun Piece_rrotate (Piece): void = "mac#"
 
 (* ****** ****** *)
 //
-fun GameBoard_isset_at
+fun
+GameBoard_isset_at
   (GameBoard, x: int, y: int): bool = "mac#"
 //
 fun GameBoard_drop_bottom (GameBoard): void = "mac#"
