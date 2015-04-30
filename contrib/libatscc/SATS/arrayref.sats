@@ -33,6 +33,16 @@ overload [] with arrayref_set_at of 100
 (* ****** ****** *)
 //
 fun
+arrayref_forall_cloref
+  {a:t@ype}{n:int}
+(
+  arrayref(a, n)
+, asz: int(n), ftest: natLt(n) -<cloref1> bool
+) : bool = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
 arrayref_foreach_cloref
   {a:t@ype}{n:int}
 (
