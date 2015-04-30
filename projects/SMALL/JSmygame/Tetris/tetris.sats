@@ -34,9 +34,12 @@ fun theNextPiece_set (Piece): void = "mac#"
 fun theGameBoard_get(): GameBoard = "mac#"
 
 (* ****** ****** *)
-
+//
 fun Block_new (): Block = "mac#"
-
+//
+fun Block_null (): Block = "mac#" // JS null obj
+fun Block_is_null (Block): bool = "mac#" // is null?
+//
 (* ****** ****** *)
 //
 fun Piece_new_0 (): Piece = "mac#"
