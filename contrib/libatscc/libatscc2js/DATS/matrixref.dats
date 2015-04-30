@@ -19,8 +19,13 @@ ATS_STATIC_PREFIX "_ats2jspre_matrixref_"
 //
 (* ****** ****** *)
 //
-staload UN =
-  "prelude/SATS/unsafe.sats"
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
@@ -33,6 +38,10 @@ staload "./../SATS/JSarray.sats"
 (* ****** ****** *)
 //
 staload "./../SATS/matrixref.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/matrixref.dats"
 //
 (* ****** ****** *)
 //

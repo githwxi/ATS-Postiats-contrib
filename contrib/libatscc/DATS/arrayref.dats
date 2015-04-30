@@ -27,6 +27,7 @@ loop
     then (f(i); loop(i+1)) else ()
   // end of [if]
 ) (* end of [loop] *)
+//
 in
   loop(0)
 end // end of [arrayref_foreach_cloref]
@@ -52,6 +53,7 @@ loop
     then (f(i); loop(i+1)) else ()
   // end of [if]
 ) (* end of [loop] *)
+//
 in
   loop(0)
 end // end of [arrszref_foreach_cloref]
