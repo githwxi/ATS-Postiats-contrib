@@ -108,9 +108,9 @@ ats2jspre_gt_double_double(x, y) { return (x > y); }
 function
 ats2jspre_gte_double_double(x, y) { return (x >= y); }
 function
-ats2jspre_eq_double_double(x, y) { return (x === y); }
+ats2jspre_eq_double_double(x, y) { return (x == y); }
 function
-ats2jspre_neq_double_double(x, y) { return (x !== y); }
+ats2jspre_neq_double_double(x, y) { return (x != y); }
 
 /* ****** ****** */
 

@@ -26,9 +26,9 @@ function
 ats2jspre_gte_string_string(x, y) { return (x >= y); }
 //
 function
-ats2jspre_eq_string_string(x, y) { return (x === y); }
+ats2jspre_eq_string_string(x, y) { return (x == y); }
 function
-ats2jspre_neq_string_string(x, y) { return (x !== y); }
+ats2jspre_neq_string_string(x, y) { return (x != y); }
 //
 /* ****** ****** */
 

@@ -112,13 +112,7 @@ fun Piece_rrotate (Piece): bool = "mac#"
 //
 fun
 GameBoard_isset_at
-  (GameBoard, x: int, y: int): bool = "mac#"
-//
-fun
-GameBoard_bottom_drop (GameBoard): void = "mac#"
-//
-fun
-GameBoard_bottom_isful (GameBoard): bool = "mac#"
+  (GameBoard, x:int, y:int): bool = "mac#"
 //
 (* ****** ****** *)
 //

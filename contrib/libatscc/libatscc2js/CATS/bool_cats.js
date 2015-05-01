@@ -25,4 +25,11 @@ ats2jspre_neg_bool1(x)
 //
 /* ****** ****** */
 
+function
+ats2jspre_eq_bool0_bool0(x, y) { return (x == y); }
+function
+ats2jspre_neq_bool0_bool0(x, y) { return (x != y); }
+
+/* ****** ****** */
+
 /* end of [bool_cats.js] */

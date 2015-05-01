@@ -1,0 +1,23 @@
+canvas {
+background-color: white;
+border-radius: 10px;
+width: auto;
+height: auto;
+}
+
+#buttons{
+	padding-top: 100px;
+}
+#tetris{
+	padding-top: 20px;
+}
+#score
+{
+	padding-top: 100px;
+}
+body
+{
+	width: 1300px; 
+	min-width: 1300px;
+	margin: 0 auto;
+}

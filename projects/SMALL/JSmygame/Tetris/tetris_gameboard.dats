@@ -82,45 +82,17 @@ if y >= GROWS then true else isneqz(board[x,GROWS,y])
 end // end of [GameBoard_isset_at]
 
 (* ****** ****** *)
-
-implement
-GameBoard_bottom_drop
-  (board) = let
 //
-#define m GCOLS
-#define n GROWS
-//
+extern
 fun
-fwork
-(
-  i: natLt(m)
-, j: natLt(n)
-) : void = let
-  val m1i = m-1-i
-  val m2i = m1i-1
-in
+GameBoard_rowful_at
+  (GameBoard, y: natLt(GROWS)): bool = "mac#"
 //
-if m2i >= 0
-  then board[m1i,n,j] := board[m2i,n,j]
-  else board[m1i,n,j] := Block_null((*void*))
-// end of [if]
-//
-end // end of [fwork]
-//
-in
-//
-matrixref_foreach_cloref
-(
-  board, m, n, lam(i, j) => fwork(i, j)
-) (* end of [matrixref_foreach_cloref] *)
-//
-end (* end of [GameBoard_bottom_drop] *)
-
 (* ****** ****** *)
-    
+
 implement
-GameBoard_bottom_isful
-  (board) = let
+GameBoard_rowful_at
+  (board, y) = let
 //
 val m = GCOLS
 val n = GROWS
@@ -134,13 +106,60 @@ loop
 (
 if i < GCOLS
   then (
-    if isneqz(board[i,n,n1]) then loop(i+1) else false
+    if isneqz(board[i,n,y]) then loop(i+1) else false
   ) else true
 ) (* end of [loop] *)
 //
 in
   loop(0)
-end // end of [GameBoard_bottom_isful]
+end // end of [GameBoard_rowful_at]
+
+(* ****** ****** *)
+//
+extern
+fun
+GameBoard_rowdel_at
+  (GameBoard, y: natLt(GROWS)): void = "mac#"
+//
+(* ****** ****** *)
+
+implement
+GameBoard_rowdel_at
+  (board, y) = let
+//
+#define m GCOLS; #define n GROWS
+//
+fun
+fwork
+(
+  i: natLt(m)
+, j: natLt(n)
+) : void = let
+  val y0j = y-j
+  val y1j = y0j-1
+in
+//
+if y1j >= 0
+  then board[i,n,y0j] := board[i,n,y1j]
+  else (
+    if y0j >= 0 then board[i,n,y0j] := Block_null((*void*))
+  ) (* end of [else] *)
+// end of [if]
+//
+end // end of [fwork]
+//
+in
+//
+ignoret
+(
+matrixref_forall_cloref
+(
+  board, m, n
+, lam(i, j) => if j <= y then (fwork(i, j); true) else false
+) (* end of [matrixref_foreach_cloref] *)
+)
+//
+end (* end of [GameBoard_rowdel_at] *)
 
 (* ****** ****** *)
 
