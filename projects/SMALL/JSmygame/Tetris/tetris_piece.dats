@@ -41,7 +41,6 @@ assume
 Piece_type = $rec{
   x= int
 , y= int
-, vy= int // y-velocity
 //
 , mat1= matrixref(Block, PDIM, PDIM)
 , mat2= matrixref(Block, PDIM, PDIM)
@@ -128,6 +127,27 @@ end // end of [Piece_new]
 //
 (* ****** ****** *)
 
+fun
+Piece_update_mat
+(
+  P: Piece
+, mymat: matrixref(int, PDIM, PDIM)
+) : void = let
+//
+val M1 = P.mat1
+//
+in
+//
+matrixref_foreach_cloref
+(
+  M1, PDIM, PDIM
+, lam(i, j) => if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
+) (* end of [matrixref_foreach_cloref] *)
+//
+end (* end of [Piece_update_mat] *)
+
+(* ****** ****** *)
+
 local
 //
 val
@@ -140,23 +160,11 @@ val () = mymat[2,PDIM,1] := 1
 val () = mymat[2,PDIM,2] := 1
 //
 in (* in-of-local *)
-
+//
 fun
 Piece_update_0
-  (P: Piece): void = let
+  (P: Piece): void = Piece_update_mat(P, mymat)
 //
-val M1 = P.mat1
-//
-in
-//
-matrixref_foreach_cloref
-(
-  M1, PDIM, PDIM
-, lam(i, j) => if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
-) (* end of [matrixref_foreach_cloref] *)
-//
-end (* end of [Piece_update_0] *)
-
 end // end of [local]
 
 (* ****** ****** *)
@@ -173,23 +181,158 @@ val () = mymat[1,PDIM,2] := 1
 val () = mymat[1,PDIM,3] := 1
 //
 in (* in-of-local *)
-
+//
 fun
-Piece_update_1
-  (P: Piece): void = let
+Piece_update_10
+  (P: Piece): void = Piece_update_mat(P, mymat)
 //
-val M1 = P.mat1
-//
-in
-//
-matrixref_foreach_cloref
-(
-  M1, PDIM, PDIM
-, lam(i, j) => if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
-) (* end of [matrixref_foreach_cloref] *)
-//
-end (* end of [Piece_update_1] *)
+end // end of [local]
 
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[2,PDIM,0] := 1
+val () = mymat[2,PDIM,1] := 1
+val () = mymat[2,PDIM,2] := 1
+val () = mymat[2,PDIM,3] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_11
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[1,PDIM,0] := 1
+val () = mymat[1,PDIM,1] := 1
+val () = mymat[1,PDIM,2] := 1
+val () = mymat[2,PDIM,1] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_20
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[2,PDIM,0] := 1
+val () = mymat[2,PDIM,1] := 1
+val () = mymat[2,PDIM,2] := 1
+val () = mymat[1,PDIM,1] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_21
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[1,PDIM,0] := 1
+val () = mymat[1,PDIM,1] := 1
+val () = mymat[1,PDIM,2] := 1
+val () = mymat[2,PDIM,2] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_30
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[2,PDIM,0] := 1
+val () = mymat[2,PDIM,1] := 1
+val () = mymat[2,PDIM,2] := 1
+val () = mymat[1,PDIM,2] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_31
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[1,PDIM,0] := 1
+val () = mymat[1,PDIM,1] := 1
+val () = mymat[2,PDIM,1] := 1
+val () = mymat[2,PDIM,2] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_40
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[2,PDIM,0] := 1
+val () = mymat[2,PDIM,1] := 1
+val () = mymat[1,PDIM,1] := 1
+val () = mymat[1,PDIM,2] := 1
+//
+in (* in-of-local *)
+//
+fun
+Piece_update_41
+  (P: Piece): void = Piece_update_mat(P, mymat)
+//
 end // end of [local]
 
 (* ****** ****** *)
@@ -426,6 +569,9 @@ Piece_start_out
 {
 //
 val () =
+  P0.y := 0
+//
+val () =
   P0.x := (GCOLS-PDIM)/2
 //
 val () = Piece_repos_blocks(P0)
@@ -436,7 +582,26 @@ val () = Piece_stage_blocks(P0)
 (* ****** ****** *)
 
 implement
-Piece_update_rand(P) = Piece_update_1(P)
+Piece_update_rand
+  (P) = let
+//
+val type = double2int(10 * JSmath_random())
+//
+in
+//
+case+ type of
+| 0 => Piece_update_0(P)
+| 1 => Piece_update_10(P)
+| 2 => Piece_update_11(P)
+| 3 => Piece_update_20(P)
+| 4 => Piece_update_21(P)
+| 5 => Piece_update_30(P)
+| 6 => Piece_update_31(P)
+| 7 => Piece_update_40(P)
+| 8 => Piece_update_41(P)
+| _ => Piece_update_rand(P)
+//
+end // end of [Piece_update_rand]
 
 (* ****** ****** *)
 

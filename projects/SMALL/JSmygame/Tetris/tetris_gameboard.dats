@@ -45,6 +45,22 @@ in (* in-of-local *)
 implement
 theGameBoard_get () = theGameBoard
 
+implement
+theGameBoard_set_at
+  (x, y, b0) = let
+//
+val x = g1ofg0(x)
+val y = g1ofg0(y)
+//
+in
+//
+if x < 0 then () else
+if y < 0 then () else
+if x >= GCOLS then () else
+if y >= GROWS then () else theGameBoard[x,GROWS,y] := b0
+//
+end // end of [theGameBoard_set_at]
+
 end // end of [local]
 
 (* ****** ****** *)
@@ -61,7 +77,7 @@ in
 if x < 0 then true else
 if y < 0 then true else
 if x >= GCOLS then true else
-if y >= GROWS then true else isneqz(board[x, GROWS, y])
+if y >= GROWS then true else isneqz(board[x,GROWS,y])
 //
 end // end of [GameBoard_isset_at]
 

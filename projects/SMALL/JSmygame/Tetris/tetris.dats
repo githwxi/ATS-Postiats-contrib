@@ -102,9 +102,11 @@ thePiece_handle(): void = "mac#"
 implement
 thePiece_handle() = let
 //
-val piece = thePiece_get()
+val P0 = thePiece_get()
 //
-val moved = Piece_ymove_dn(piece)
+val moved = Piece_ymove_dn(P0)
+//
+val () = if not(moved) then Piece_dump_blocks(P0)
 //
 val () = if not(moved) then thePiece_theNextPiece_update()
 //
