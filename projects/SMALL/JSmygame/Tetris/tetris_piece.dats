@@ -54,6 +54,18 @@ Piece_type = $rec{
 %{^
 //
 function
+Piece_new_()
+{
+  return { x: 0, y: 0, mat1: null, mat2: null };
+}
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
+
+%{^
+//
+function
 Piece_get_x(piece) { return piece.x; }
 function
 Piece_set_x(piece, x) { piece.x = x; return; }
@@ -62,6 +74,16 @@ function
 Piece_get_y(piece) { return piece.y; }
 function
 Piece_set_y(piece, y) { piece.y = y; return; }
+//
+function
+Piece_get_mat1(piece) { return piece.mat1; }
+function
+Piece_set_mat1(piece, M1) { piece.mat1 = M1; return; }
+//
+function
+Piece_get_mat2(piece) { return piece.mat2; }
+function
+Piece_set_mat2(piece, M2) { piece.mat2 = M2; return; }
 //
 %} // end of [%{^]
 
@@ -72,19 +94,194 @@ Piece_mat =
 matrixref(Block, PDIM, PDIM)
 //
 extern
-fun Piece_get_mat1 (Piece): Piece_mat
-and Piece_set_mat1 (Piece, mat1: Piece_mat): void
+fun
+Piece_get_mat1 (Piece): Piece_mat = "mac#"
+and
+Piece_set_mat1 (Piece, mat1: Piece_mat): void = "mac#"
 //
 overload .mat1 with Piece_get_mat1
 overload .mat1 with Piece_set_mat1
 //
 extern
-fun Piece_get_mat2 (Piece): Piece_mat
-and Piece_set_mat2 (Piece, mat2: Piece_mat): void
+fun
+Piece_get_mat2 (Piece): Piece_mat = "mac#"
+and
+Piece_set_mat2 (Piece, mat2: Piece_mat): void = "mac#"
 //
 overload .mat2 with Piece_get_mat2
 overload .mat2 with Piece_set_mat2
 //
+(* ****** ****** *)
+//
+extern
+fun Piece_new(): Piece = "mac#"
+and Piece_new_(): Piece = "mac#"
+//
+implement
+Piece_new() = let
+  val P_ = Piece_new_()
+  val M1 = matrixref_make_elt(PDIM, PDIM, Block_null())
+  val M2 = matrixref_make_elt(PDIM, PDIM, Block_null())
+in
+  P_.mat1 := M1; P_.mat2 := M2; P_
+end // end of [Piece_new]
+//
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[1,PDIM,1] := 1
+val () = mymat[1,PDIM,2] := 1
+val () = mymat[2,PDIM,1] := 1
+val () = mymat[2,PDIM,2] := 1
+//
+in (* in-of-local *)
+
+fun
+Piece_update_0
+  (P: Piece): void = let
+//
+val M1 = P.mat1
+//
+in
+//
+matrixref_foreach_cloref
+(
+  M1, PDIM, PDIM
+, lam(i, j) => if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
+) (* end of [matrixref_foreach_cloref] *)
+//
+end (* end of [Piece_update_0] *)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+val
+mymat =
+matrixref_make_elt{int}(PDIM, PDIM, 0)
+//
+val () = mymat[1,PDIM,0] := 1
+val () = mymat[1,PDIM,1] := 1
+val () = mymat[1,PDIM,2] := 1
+val () = mymat[1,PDIM,3] := 1
+//
+in (* in-of-local *)
+
+fun
+Piece_update_1
+  (P: Piece): void = let
+//
+val M1 = P.mat1
+//
+in
+//
+matrixref_foreach_cloref
+(
+  M1, PDIM, PDIM
+, lam(i, j) => if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
+) (* end of [matrixref_foreach_cloref] *)
+//
+end (* end of [Piece_update_1] *)
+
+end // end of [local]
+
+(* ****** ****** *)
+//
+extern
+fun
+Piece_mat_nullify(Piece_mat): void = "mac#"
+//
+implement
+Piece_mat_nullify(M) =
+(
+//
+matrixref_foreach_cloref
+  (M, PDIM, PDIM, lam(i, j) => M[i,PDIM,j] := Block_null())
+//
+) (* end of [Piece_mat_nullify] *)
+//
+(* ****** ****** *)
+//
+extern
+fun
+Piece_mat_collide_at
+  (Piece_mat, x: int, y: int): bool = "mac#"
+//
+implement
+Piece_mat_collide_at
+  (M1, x, y) = let
+//
+val board = theGameBoard_get()
+//
+fun
+ftest(i: natLt(PDIM), j: natLt(PDIM)): bool =
+(
+if isneqz(M1[i,PDIM,j])
+  then GameBoard_isset_at(board, x+i, y+j) else false
+)
+//
+in
+  matrixref_exists_cloref(M1, PDIM, PDIM, lam(i, j) => ftest(i, j))
+end // end of [Piece_mat_collide_at]
+//
+(* ****** ****** *)
+//
+extern
+fun
+Piece_repos_blocks(Piece): void = "mac#"
+//
+implement
+Piece_repos_blocks
+  (piece) = let
+//
+val M1 = piece.mat1
+val x0 = piece.x and y0 = piece.y
+//
+fun
+block_repos
+  (b: Block, x_i: int, y_j: int): void =
+  if isneqz(b) then (b.x := x_i; b.y := y_j) else ()
+//
+in
+//
+matrixref_foreach_cloref
+  (M1, PDIM, PDIM, lam(i, j) => block_repos(M1[i,PDIM,j], x0+i, y0+j))
+//
+end // end of [Piece_repos_blocks]
+//
+(* ****** ****** *)
+//
+extern
+fun
+Piece_stage_blocks(Piece): void = "mac#"
+//
+implement
+Piece_stage_blocks
+  (piece) = let
+//
+val M1 = piece.mat1
+//
+in
+//
+matrixref_foreach_cloref
+(
+  M1, PDIM, PDIM
+, lam(i, j) => let
+    val b = M1[i,PDIM,j]
+  in
+    if isneqz(b) then $extfcall(void, "theStage_addChild", b)
+  end // end of [let] // end of [lam]
+)
+//
+end // end of [Piece_stage_blocks]
+
 (* ****** ****** *)
 //
 extern
@@ -103,11 +300,7 @@ matrixref_lrotate_to
 //
 matrixref_foreach_cloref
 (
-  A, m, n
-, lam(i, j) =>
-  let val tmp = A[i,n,j] in
-    A[i,n,j] := B[n-1-j,m,i]; B[n-1-j,m,i] := tmp
-  end // end of [let] // end of [lam]
+  A, m, n, lam(i, j) => B[n-1-j,m,i] := A[i,n,j]
 )
 //
 ) (* end of [matrixref_lrotate_to] *)
@@ -115,9 +308,59 @@ matrixref_foreach_cloref
 (* ****** ****** *)
 
 implement
+Piece_xmove_l
+  (piece) = let
+//
+val x = piece.x and y = piece.y
+//
+val
+test = Piece_mat_collide_at(piece.mat1, x-1, y)
+//
+in
+//
+if test then false else (piece.x := x-1; Piece_repos_blocks(piece); true)
+//
+end // end of [Piece_xmove_l]
+
+(* ****** ****** *)
+
+implement
+Piece_xmove_r
+  (piece) = let
+//
+val x = piece.x and y = piece.y
+//
+val
+test = Piece_mat_collide_at(piece.mat1, x+1, y)
+//
+in
+//
+if test then false else (piece.x := x+1; Piece_repos_blocks(piece); true)
+//
+end // end of [Piece_xmove_r]
+
+(* ****** ****** *)
+
+implement
+Piece_ymove_dn
+  (piece) = let
+//
+val x = piece.x and y = piece.y
+//
+val
+test = Piece_mat_collide_at(piece.mat1, x, y+1)
+//
+in
+//
+if test then false else (piece.y := y+1; Piece_repos_blocks(piece); true)
+//
+end // end of [Piece_ymove_dn]
+
+(* ****** ****** *)
+
+implement
 Piece_lrotate
-  (piece) =
-{
+  (piece) = let
 //
 val M1 = piece.mat1
 val M2 = piece.mat2
@@ -125,30 +368,16 @@ val M2 = piece.mat2
 val () =
   matrixref_lrotate_to(M1, M2, PDIM, PDIM)
 //
-val () = piece.mat1 := M2
-val () = piece.mat2 := M1
-//
-} (* end of [Piece_lrotate] *)
-
-(* ****** ****** *)
-
-implement
-Piece_collide_at
-  (piece, x, y) = let
-//
-val M1 = piece.mat1
-val board = theGameBoard_get()
-//
-fun
-ftest(i: natLt(PDIM), j: natLt(PDIM)): bool =
-(
-if Block_isnot_null(M1[i,PDIM,j])
-  then GameBoard_isset_at(board, x+i, y+j) else false
-)
+val
+test = Piece_mat_collide_at (M2, piece.x, piece.y)
 //
 in
-  matrixref_exists_cloref(M1, PDIM, PDIM, lam(i, j) => ftest(i, j))
-end // end of [Piece_collide_at]
+//
+if test
+  then (Piece_mat_nullify(M2); false)
+  else (Piece_mat_nullify(M1); piece.mat1 := M2; piece.mat2 := M1; Piece_repos_blocks(piece); true)
+//
+end (* end of [Piece_lrotate] *)
 
 (* ****** ****** *)
     
@@ -167,7 +396,7 @@ fwork(
 ) : void = let
 //
 val b_ij = M1[i,PDIM,j]
-val isnot = Block_isnot_null(b_ij)
+val isnot = isneqz(b_ij)
 //
 in
 //
@@ -188,6 +417,61 @@ end (* end of [fwork] *)
 in
   matrixref_foreach_cloref(M1, PDIM, PDIM, lam(i, j) => fwork(i, j))
 end // end of [Piece_dump_blocks]
+
+(* ****** ****** *)
+
+fun
+Piece_start_out
+  (P0: Piece): void =
+{
+//
+val () =
+  P0.x := (GCOLS-PDIM)/2
+//
+val () = Piece_repos_blocks(P0)
+val () = Piece_stage_blocks(P0)
+//
+} // end of [Piece_start_out]
+
+(* ****** ****** *)
+
+implement
+Piece_update_rand(P) = Piece_update_1(P)
+
+(* ****** ****** *)
+
+local
+//
+val P0 = Piece_new()
+val () = Piece_update_rand(P0)
+val P1 = Piece_new()
+val () = Piece_update_rand(P1)
+//
+val thePiece = ref{Piece}(P0)
+val theNextPiece = ref{Piece}(P1)
+//
+in (* in-of-local *)
+
+implement thePiece_get() = thePiece[]
+implement theNextPiece_get() = theNextPiece[]
+
+implement
+thePiece_theNextPiece_update
+ ((*void*)) =
+{
+ val P0 = thePiece[]
+ val P1 = theNextPiece[]
+ val () = thePiece[] := P1
+ val () = theNextPiece[] := P0
+ val () = Piece_start_out(P1)
+ val () = Piece_update_rand(P0)
+}
+
+end // end of [local]
+
+(* ****** ****** *)
+
+val () = Piece_start_out(thePiece_get())
 
 (* ****** ****** *)
 

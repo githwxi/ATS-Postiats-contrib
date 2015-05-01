@@ -40,6 +40,7 @@ all_in_one:: ; \
 $(CAT) >libatscc2js_all.js \
 CATS/basics_cats.js \
 CATS/integer_cats.js \
+CATS/bool_cats.js \
 CATS/float_cats.js \
 CATS/string_cats.js \
 CATS/JSmath_cats.js \

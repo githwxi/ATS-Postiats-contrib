@@ -22,6 +22,8 @@
 
 function
 ats2jspre_neg_int0(x) { return ( -x ); }
+function
+ats2jspre_neg_int1(x) { return ( -x ); }
 
 /* ****** ****** */
 

@@ -29,16 +29,17 @@ staload (*opened*) "./tetris.sats"
 //
 assume
 GameBoard_type =
-  matrixref(Block, GROWS, GCOLS)
+matrixref(Block, GCOLS, GROWS)
 //
 (* ****** ****** *)
 
 local
-
+//
 val
 theGameBoard =
-matrixref_make_elt(GROWS, GCOLS, Block_null())
-
+matrixref_make_elt
+  (GCOLS, GROWS, Block_null())
+//
 in (* in-of-local *)
 
 implement
@@ -59,9 +60,8 @@ in
 //
 if x < 0 then true else
 if y < 0 then true else
-if x >= GROWS then true else
-if y >= GCOLS then true else
-  Block_is_null(board[x, GCOLS, y])
+if x >= GCOLS then true else
+if y >= GROWS then true else isneqz(board[x, GROWS, y])
 //
 end // end of [GameBoard_isset_at]
 
@@ -71,8 +71,8 @@ implement
 GameBoard_bottom_drop
   (board) = let
 //
-#define m GROWS
-#define n GCOLS
+#define m GCOLS
+#define n GROWS
 //
 fun
 fwork
@@ -106,18 +106,20 @@ implement
 GameBoard_bottom_isful
   (board) = let
 //
-val n = GCOLS
-val m1 = GROWS-1
+val m = GCOLS
+val n = GROWS
+val n1 = GROWS-1
 //
 fun
 loop
 (
-  j: natLte(GCOLS)
+  i: natLte(GCOLS)
 ) : bool =
 (
-if j < GCOLS
-  then (if Block_isnot_null(board[m1,n,j]) then loop(j+1) else false)
-  else true
+if i < GCOLS
+  then (
+    if isneqz(board[i,n,n1]) then loop(i+1) else false
+  ) else true
 ) (* end of [loop] *)
 //
 in

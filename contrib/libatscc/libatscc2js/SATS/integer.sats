@@ -25,8 +25,13 @@ overload abs with abs_int0 of 100
 fun
 neg_int0 : int -> int = "mac#%"
 //
+fun neg_int1
+  : {i:int} int(i) -> int(~i) = "mac#%"
+//
 overload ~ with neg_int0 of 100
+overload ~ with neg_int1 of 110
 overload neg with neg_int0 of 100
+overload neg with neg_int1 of 110
 //
 (* ****** ****** *)
 //
