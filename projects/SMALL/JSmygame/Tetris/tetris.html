@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+//
+HX-2015-05-01:
+This one is essentially copied from a version
+by Mary Ann Sundermeyer.
+//
+-->
+<html>
+<head>
+<title>FRP Tetris</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.53/Bacon.min.js">
+</script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script
+  src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/libatscc2js_all.js">
+</script>
+<script src="./tetris_dats.js"></script>
+<script src="./tetris_block_dats.js"></script>
+<script src="./tetris_piece_dats.js"></script>
+<script src="./tetris_keyboard_dats.js"></script>
+<script src="./tetris_gameboard_dats.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body >
+	<div class="container col-md-8 col-md-offset-2" id = "tetris">
+		<div class="jumbotron" id = "game">
+			<div class="row">
+				<div class = "col-md-2" id = "score">
+
+				<h4><center>
+				<div class = "well" id = "well">0</div>
+				</h4></center>
+				
+	
+  				</div>
+				<div  class = "col-md-4 col-md-offset-1 " id = "container-canvas">
+					<canvas id="theGameCanvas" width="300" height="540">
+						Sorry, your browser doesn't support the &lt;canvas&gt; element.
+		    		</canvas>
+				</div>
+				<div class = "col-md-3 col-md-offset-2" id = "buttons">
+					<button type="button" onclick = "tetris_initize();" class="btn btn-info btn-block" id="play">PLAY</button>
+					<br></br>
+					<button type="button" onclick = "tetris_terminate();" class="btn btn-danger btn-block" id="quit">QUIT</button>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</body>
+
+</html>
