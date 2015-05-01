@@ -112,9 +112,18 @@ matrixref_foreach_cloref
 implement
 Piece_lrotate
   (piece) =
-(
-   matrixref_lrotate_to(piece.mat1, piece.mat2, PDIM, PDIM)
-) // end of [Piece_lrotate]
+{
+//
+val M1 = piece.mat1
+val M2 = piece.mat2
+//
+val () =
+  matrixref_lrotate_to(M1, M2, PDIM, PDIM)
+//
+val () = piece.mat1 := M2
+val () = piece.mat2 := M1
+//
+} (* end of [Piece_lrotate] *)
 
 (* ****** ****** *)
     
