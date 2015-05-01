@@ -15,6 +15,30 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 implement
+arrayref_exists_cloref
+  (A, n, f) = let
+//
+fun
+loop
+{i:nat}
+(i: int(i)) : bool =
+(
+//
+if i < n
+  then (
+    if f(i) then true else loop(i+1)
+  ) else false
+// end of [if]
+//
+) (* end of [loop] *)
+//
+in
+  loop(0)
+end // end of [arrayref_exists_cloref]
+
+(* ****** ****** *)
+
+implement
 arrayref_forall_cloref
   (A, n, f) = let
 //

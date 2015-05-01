@@ -38,7 +38,35 @@ if j < n
 //
 in
   loop(0)
-end // end of [matrixref_foreach_cloref]
+end // end of [matrixref_forall_cloref]
+
+(* ****** ****** *)
+
+implement
+matrixref_exists_cloref
+  {a}{m,n}(A, m, n, f) = let
+//
+fnx
+loop
+{i:nat}
+(i: int(i)): bool =
+(
+  if i < m then loop2(i, 0) else false
+) (* end of [loop] *)
+//
+and
+loop2
+{i,j:nat | i < m}
+(i: int(i), j: int(j)): bool =
+(
+if j < n
+  then (if f(i, j) then true else loop2(i, j+1))
+  else loop(i+1)
+) (* end of [loop2] *)
+//
+in
+  loop(0)
+end // end of [matrixref_exists_cloref]
 
 (* ****** ****** *)
 

@@ -46,9 +46,13 @@ fun theNextPiece_get (): Piece = "mac#"
 fun theNextPiece_set (Piece): void = "mac#"
 //
 (* ****** ****** *)
-
-fun theGameBoard_get(): GameBoard = "mac#"
-
+//
+fun
+theGameBoard_get(): GameBoard = "mac#"
+fun
+theGameBoard_set_at
+  (x: int, y: int, Block): void = "mac#"
+//
 (* ****** ****** *)
 //
 fun Block_new (): Block = "mac#"
@@ -79,14 +83,19 @@ fun
 GameBoard_isset_at
   (GameBoard, x: int, y: int): bool = "mac#"
 //
-fun GameBoard_bottom_drop (GameBoard): void = "mac#"
+fun
+GameBoard_bottom_drop (GameBoard): void = "mac#"
 //
-fun GameBoard_bottom_isful (GameBoard): bool = "mac#"
+fun
+GameBoard_bottom_isful (GameBoard): bool = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-Piece_collide_at(Piece, x: int, y: int): bool = "mac#"
+Piece_collide_at
+  (Piece, x: int, y: int): bool = "mac#"
+//
+fun Piece_dump_blocks(Piece): void = "mac#"
 //
 (* ****** ****** *)
 

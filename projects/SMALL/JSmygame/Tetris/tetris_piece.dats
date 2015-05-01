@@ -19,6 +19,11 @@ ATS_STATIC_PREFIX "tetris_piece__"
 //
 (* ****** ****** *)
 //
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
 staload (*opened*) "./tetris.sats"
 //
 (* ****** ****** *)
@@ -126,5 +131,64 @@ val () = piece.mat2 := M1
 } (* end of [Piece_lrotate] *)
 
 (* ****** ****** *)
+
+implement
+Piece_collide_at
+  (piece, x, y) = let
+//
+val M1 = piece.mat1
+val board = theGameBoard_get()
+//
+fun
+ftest(i: natLt(PDIM), j: natLt(PDIM)): bool =
+(
+if Block_isnot_null(M1[i,PDIM,j])
+  then GameBoard_isset_at(board, x+i, y+j) else false
+)
+//
+in
+  matrixref_exists_cloref(M1, PDIM, PDIM, lam(i, j) => ftest(i, j))
+end // end of [Piece_collide_at]
+
+(* ****** ****** *)
     
+implement
+Piece_dump_blocks
+  (piece) = let
+//
+val x = piece.x
+val y = piece.y
+val M1 = piece.mat1
+//
+fun
+fwork(
+  i: natLt(PDIM)
+, j: natLt(PDIM)
+) : void = let
+//
+val b_ij = M1[i,PDIM,j]
+val isnot = Block_isnot_null(b_ij)
+//
+in
+//
+if
+isnot
+then let
+//
+val () =
+  M1[i,PDIM,j] := Block_null()
+//
+in
+  theGameBoard_set_at(x+i, y+j, b_ij)
+end // end of [then]
+else () // end of [else]
+//
+end (* end of [fwork] *)
+//
+in
+  matrixref_foreach_cloref(M1, PDIM, PDIM, lam(i, j) => fwork(i, j))
+end // end of [Piece_dump_blocks]
+
+(* ****** ****** *)
+
 (* end of [tetris_piece.dats] *)
