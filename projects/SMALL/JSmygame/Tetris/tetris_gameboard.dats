@@ -66,5 +66,64 @@ if y >= GCOLS then true else
 end // end of [GameBoard_isset_at]
 
 (* ****** ****** *)
+
+implement
+GameBoard_bottom_drop
+  (board) = let
+//
+#define m GROWS
+#define n GCOLS
+//
+fun
+fwork
+(
+  i: natLt(m)
+, j: natLt(n)
+) : void = let
+  val m1i = m-1-i
+  val m2i = m1i-1
+in
+//
+if m2i >= 0
+  then board[m1i,n,j] := board[m2i,n,j]
+  else board[m1i,n,j] := Block_null((*void*))
+// end of [if]
+//
+end // end of [fwork]
+//
+in
+//
+matrixref_foreach_cloref
+(
+  board, m, n, lam(i, j) => fwork(i, j)
+) (* end of [matrixref_foreach_cloref] *)
+//
+end (* end of [GameBoard_bottom_drop] *)
+
+(* ****** ****** *)
     
+implement
+GameBoard_bottom_isful
+  (board) = let
+//
+val n = GCOLS
+val m1 = GROWS-1
+//
+fun
+loop
+(
+  j: natLte(GCOLS)
+) : bool =
+(
+if j < GCOLS
+  then (if Block_isnot_null(board[m1,n,j]) then loop(j+1) else false)
+  else true
+) (* end of [loop] *)
+//
+in
+  loop(0)
+end // end of [GameBoard_bottom_isful]
+
+(* ****** ****** *)
+
 (* end of [tetris_gameboard.dats] *)

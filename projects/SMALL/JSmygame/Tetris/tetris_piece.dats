@@ -31,17 +31,55 @@ staload (*opened*) "./tetris.sats"
 
 (* ****** ****** *)
 
+(*
 assume
 Piece_type = $rec{
   x= int
 , y= int
 , vy= int // y-velocity
 //
-, mat1= ref(matrixref(Block, PDIM, PDIM))
-, mat2= ref(matrixref(Block, PDIM, PDIM))
+, mat1= matrixref(Block, PDIM, PDIM)
+, mat2= matrixref(Block, PDIM, PDIM)
 //
 } (* end of [Piece_type] *)
+*)
 
+(* ****** ****** *)
+
+%{^
+//
+function
+Piece_get_x(piece) { return piece.x; }
+function
+Piece_set_x(piece, x) { piece.x = x; return; }
+//
+function
+Piece_get_y(piece) { return piece.y; }
+function
+Piece_set_y(piece, y) { piece.y = y; return; }
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
+//
+typedef
+Piece_mat =
+matrixref(Block, PDIM, PDIM)
+//
+extern
+fun Piece_get_mat1 (Piece): Piece_mat
+and Piece_set_mat1 (Piece, mat1: Piece_mat): void
+//
+overload .mat1 with Piece_get_mat1
+overload .mat1 with Piece_set_mat1
+//
+extern
+fun Piece_get_mat2 (Piece): Piece_mat
+and Piece_set_mat2 (Piece, mat2: Piece_mat): void
+//
+overload .mat2 with Piece_get_mat2
+overload .mat2 with Piece_set_mat2
+//
 (* ****** ****** *)
 //
 extern
@@ -73,19 +111,10 @@ matrixref_foreach_cloref
 
 implement
 Piece_lrotate
-  (P) = let
-//
-val r1 = P.mat1
-val r2 = P.mat2
-val M1 = r1[]
-val M2 = r2[]
-val () = matrixref_lrotate_to(M1, M2, PDIM, PDIM)
-val () = r1[] := M2
-val () = r2[] := M1
-//
-in
-  // nothing
-end // end of [Piece_lrotate]
+  (piece) =
+(
+   matrixref_lrotate_to(piece.mat1, piece.mat2, PDIM, PDIM)
+) // end of [Piece_lrotate]
 
 (* ****** ****** *)
     

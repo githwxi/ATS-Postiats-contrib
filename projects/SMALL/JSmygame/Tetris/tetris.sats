@@ -14,6 +14,19 @@ typedef Piece = Piece_type
 //
 (* ****** ****** *)
 //
+fun Piece_get_x (Piece): int
+fun Piece_set_x (Piece, x: int): void
+//
+fun Piece_get_y (Piece): int
+fun Piece_set_y (Piece, y: int): void
+//
+overload .x with Piece_get_x
+overload .x with Piece_set_x
+overload .y with Piece_get_y
+overload .y with Piece_set_y
+//
+(* ****** ****** *)
+//
 #define GROWS 36
 #define GCOLS 20
 //
@@ -66,7 +79,9 @@ fun
 GameBoard_isset_at
   (GameBoard, x: int, y: int): bool = "mac#"
 //
-fun GameBoard_drop_bottom (GameBoard): void = "mac#"
+fun GameBoard_bottom_drop (GameBoard): void = "mac#"
+//
+fun GameBoard_bottom_isful (GameBoard): bool = "mac#"
 //
 (* ****** ****** *)
 //
