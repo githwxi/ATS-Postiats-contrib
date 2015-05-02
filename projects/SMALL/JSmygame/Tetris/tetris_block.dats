@@ -62,5 +62,15 @@ Block_new () =
   $extfcall(Block, "Block_new_c1c2", "#eee", "#428bca")
 //
 (* ****** ****** *)
+//
+implement
+Block_drop1(b) =
+  if isneqz(b) then b.y := (b.y/15 + 1)
+//
+implement
+Block_unstage(b) =
+  if isneqz(b) then $extfcall(void, "theStage_removeChild", b)
+//
+(* ****** ****** *)
 
 (* end of [tetris_block.dats] *)

@@ -21,9 +21,20 @@ abstype GameBoard_type
 typedef GameBoard = GameBoard_type
 //
 (* ****** ****** *)
+//
+fun theGame_play(): void = "mac#"
+fun theGame_stop(): void = "mac#"
+//
+(* ****** ****** *)
 
 fun theGameStatus_get(): int = "mac#"
 fun theGameStatus_set(int): void = "mac#"
+
+(* ****** ****** *)
+
+fun theGameTQuota_get(): double = "mac#"
+fun theGameTQuota_reset(): void = "mac#"
+fun theGameTQuota_update(): void = "mac#"
 
 (* ****** ****** *)
 //
@@ -78,6 +89,13 @@ overload .y with Block_get_y
 overload .y with Block_set_y
 //
 (* ****** ****** *)
+
+fun
+Block_drop1 (Block): void = "mac#"
+fun
+Block_unstage (Block): void = "mac#"
+  
+(* ****** ****** *)
 //
 fun Piece_update_rand (Piece): void = "mac#"
 //
@@ -114,8 +132,8 @@ fun Piece_rrotate (Piece): bool = "mac#"
 
 (* ****** ****** *)
 //
-fun
-GameBoard_clear(GameBoard): void = "mac#"
+fun theGameBoard_clear(): void = "mac#"
+fun theGameBoard_rowdel_one(): bool = "mac#"
 //
 (* ****** ****** *)
 //

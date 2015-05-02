@@ -99,6 +99,38 @@ theGameStatus_set(x) = theGameStatus[] := x
 end // end of [local]  
   
 (* ****** ****** *)
+
+local
+//
+val
+theGameTQuota_init = ref{double}(100.0)
+val
+theGameTQuota_left = ref{double}(100.0)
+val
+theGameTQuota_delta = ref{double}(21.0)
+//
+in
+//
+implement
+theGameTQuota_get() = theGameTQuota_left[]
+//
+implement
+theGameTQuota_reset
+  ((*void*)) =
+(
+  theGameTQuota_left[] := theGameTQuota_init[]
+)
+implement
+theGameTQuota_update
+  ((*void*)) = let
+  val left = theGameTQuota_left[]
+in
+  theGameTQuota_left[] := left - theGameTQuota_delta[]
+end // end of [theGameTQuota_update]
+//
+end // end of [local]
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -122,7 +154,33 @@ fun
 thePiece_handle_if(): void = "mac#"
 implement
 thePiece_handle_if() =
-  if theGameStatus_get() > 0 then thePiece_handle()
+(
+//
+if
+theGameStatus_get() > 0
+then let
+  val test = theGameBoard_rowdel_one()
+in
+//
+if
+not(test)
+then let
+  val () =
+    theGameTQuota_update()
+  // end of [val]
+  val tq = theGameTQuota_get()
+in
+//
+if
+tq > 0.0
+then ((*void*))
+else (theGameTQuota_reset(); thePiece_handle())
+//
+end // end of [then]
+//
+end // end of [then]
+//
+) (* end of [thePiece_handle_if] *)
 //
 (* ****** ****** *)
 //
@@ -133,28 +191,24 @@ val () = tetris_gameboard_initize()
 //
 (* ****** ****** *)
 //
-extern
-fun
-theGame_play(): void = "mac#"
-//
 implement
 theGame_play() =
+if
+(theGameStatus_get() = 0)
+then
 {
+  val () = theGameBoard_clear()
   val () = theGameStatus_set(1)
-  val () = GameBoard_clear(theGameBoard_get())
   val () = thePiece_start_out()
 }
 //
 (* ****** ****** *)
 //
-extern
-fun
-theGame_stop(): void = "mac#"
-//
 implement
 theGame_stop() =
 {
   val () = theGameStatus_set(0)
+  val () = theGameTQuota_reset()
 }
 //
 (* ****** ****** *)

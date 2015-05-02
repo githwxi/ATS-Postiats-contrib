@@ -57,17 +57,23 @@ in
 if x < 0 then () else
 if y < 0 then () else
 if x >= GCOLS then () else
-if y >= GROWS then () else theGameBoard[x,GROWS,y] := b0
+if y >= GROWS then () else
+  theGameBoard[x,GROWS,y] := b0
 //
 end // end of [theGameBoard_set_at]
 
 end // end of [local]
 
 (* ****** ****** *)
-
+//
+extern
+fun
+GameBoard_clear(GameBoard): void = "mac#"
+//
+(* ****** ****** *)
+//
 implement
-GameBoard_clear
-  (board) =
+GameBoard_clear(board) =
 (
 //
 matrixref_foreach_cloref
@@ -88,7 +94,11 @@ matrixref_foreach_cloref
 )
 //
 ) (* end of [GameBoard_clear] *)
-
+//
+implement
+theGameBoard_clear
+  ((*void*)) = GameBoard_clear(theGameBoard_get())
+//
 (* ****** ****** *)
 
 implement
@@ -120,9 +130,7 @@ implement
 GameBoard_rowful_at
   (board, y) = let
 //
-val m = GCOLS
-val n = GROWS
-val n1 = GROWS-1
+val m = GCOLS and n = GROWS
 //
 fun
 loop
@@ -156,37 +164,100 @@ GameBoard_rowdel_at
 #define m GCOLS; #define n GROWS
 //
 fun
-fwork
+loop
+(
+  i: natLte(m)
+) : void =
+(
+if
+i < m
+then let
+  val () =
+    Block_unstage(board[i,n,y])
+  // end of [val]
+in
+  board[i,n,y] := Block_null(); loop(i+1)
+end // end of [then]
+)
+//
+fun
+loop1
+(
+  i: natLte(m)
+) : void =
+(
+if i < m then loop2(i, 0) else ()
+)
+//
+and
+loop2
 (
   i: natLt(m)
-, j: natLt(n)
-) : void = let
+, j: natLte(n)
+) : void =
+(
+if
+j < n
+then let
   val y0j = y-j
   val y1j = y0j-1
 in
 //
 if y1j >= 0
-  then board[i,n,y0j] := board[i,n,y1j]
+  then let
+    val b1 = board[i,n,y1j]
+  in
+    Block_drop1(b1); board[i,n,y0j] := b1; loop2(i, j+1)
+  end // end of [then]
   else (
-    if y0j >= 0 then board[i,n,y0j] := Block_null((*void*))
+    if (y0j >= 0) then board[i,n,y0j] := Block_null(); loop2(i, j+1)
   ) (* end of [else] *)
 // end of [if]
 //
-end // end of [fwork]
-//
-in
-//
-ignoret
-(
-matrixref_forall_cloref
-(
-  board, m, n
-, lam(i, j) => if j <= y then (fwork(i, j); true) else false
-) (* end of [matrixref_foreach_cloref] *)
+end // end of [then]
+else loop1 (i+1) // end of [else]
 )
 //
+in
+  loop(0); loop1(0)
 end (* end of [GameBoard_rowdel_at] *)
 
+(* ****** ****** *)
+//
+extern
+fun
+GameBoard_rowdel_one(GameBoard): bool = "mac#"
+//
+(* ****** ****** *)
+//
+implement
+GameBoard_rowdel_one
+  (board) = let
+//
+fun
+loop
+(
+  y: natLte(GROWS)
+) : bool =
+(
+if
+(y < GROWS)
+then (
+  if GameBoard_rowful_at(board, y)
+    then (GameBoard_rowdel_at(board, y); true)
+    else loop(y+1)
+) (* end of [then] *)
+else false // end of [else]
+)
+//
+in
+  loop (0)
+end // end of [GameBoard_rowdel_one]
+//
+implement
+theGameBoard_rowdel_one
+  ((*void*)) = GameBoard_rowdel_one(theGameBoard_get())
+//
 (* ****** ****** *)
 
 (* end of [tetris_gameboard.dats] *)
