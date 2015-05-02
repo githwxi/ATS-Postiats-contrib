@@ -48,8 +48,7 @@ var theStage = 0;
 function
 theGame_tick(event)
 {
-  thePiece_handle();
-  theStage.update(); return;
+  thePiece_handle_if(); theStage.update(); return;
 }
 //
 function
@@ -75,6 +74,12 @@ theStage_addChild(x)
   theStage.addChild(x.createjs); return;
 }
 //
+function
+theStage_removeChild(x)
+{
+  theStage.removeChild(x.createjs); return;
+}
+//
 %} // end of [%{^]
 //
 (* ****** ****** *)
@@ -98,7 +103,6 @@ end // end of [local]
 extern
 fun
 thePiece_handle(): void = "mac#"
-//
 implement
 thePiece_handle() = let
 //
@@ -107,12 +111,18 @@ val P0 = thePiece_get()
 val moved = Piece_ymove_dn(P0)
 //
 val () = if not(moved) then Piece_dump_blocks(P0)
-//
 val () = if not(moved) then thePiece_theNextPiece_update()
 //
 in
   // nothing
 end // end of [thePiece_handle]
+//
+extern
+fun
+thePiece_handle_if(): void = "mac#"
+implement
+thePiece_handle_if() =
+  if theGameStatus_get() > 0 then thePiece_handle()
 //
 (* ****** ****** *)
 //
@@ -122,10 +132,31 @@ val () = tetris_keyboard_initize()
 val () = tetris_gameboard_initize()
 //
 (* ****** ****** *)
-
-val () = theGameStatus_set(1)
-val () = thePiece_start_out()
-
+//
+extern
+fun
+theGame_play(): void = "mac#"
+//
+implement
+theGame_play() =
+{
+  val () = theGameStatus_set(1)
+  val () = GameBoard_clear(theGameBoard_get())
+  val () = thePiece_start_out()
+}
+//
+(* ****** ****** *)
+//
+extern
+fun
+theGame_stop(): void = "mac#"
+//
+implement
+theGame_stop() =
+{
+  val () = theGameStatus_set(0)
+}
+//
 (* ****** ****** *)
 
 (* end of [tetris.dats] *)

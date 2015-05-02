@@ -591,6 +591,8 @@ val () = Piece_stage_blocks(P0)
 //
 } (* end of [if] *)
 //
+val () = if test then theGameStatus_set(0)
+//
 } // end of [Piece_start_out]
 //
 (* ****** ****** *)

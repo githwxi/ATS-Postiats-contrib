@@ -33,7 +33,7 @@ by Mary Ann Sundermeyer.
 <link rel="stylesheet" href="style.css">
 
 </head>
-<body >
+<body onload="tetris_initize();">
 	<div class="container col-md-8 col-md-offset-2" id = "tetris">
 		<div class="jumbotron" id = "game">
 			<div class="row">
@@ -51,9 +51,9 @@ by Mary Ann Sundermeyer.
 		    		</canvas>
 				</div>
 				<div class = "col-md-3 col-md-offset-2" id = "buttons">
-					<button type="button" onclick = "tetris_initize();" class="btn btn-info btn-block" id="play">PLAY</button>
+					<button type="button" onclick = "theGame_play();" class="btn btn-info btn-block" id="play">PLAY</button>
 					<br></br>
-					<button type="button" onclick = "tetris_terminate();" class="btn btn-danger btn-block" id="quit">QUIT</button>
+					<button type="button" onclick = "theGame_stop();" class="btn btn-danger btn-block" id="quit">QUIT</button>
 				</div>
 			</div>
 		</div>

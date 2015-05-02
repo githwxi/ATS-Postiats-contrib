@@ -66,6 +66,32 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
+GameBoard_clear
+  (board) =
+(
+//
+matrixref_foreach_cloref
+(
+  board
+, GCOLS, GROWS
+, lam(i, j) =>
+  let
+    val b = board[i,GROWS,j]
+  in
+    if isneqz(b)
+      then (
+        board[i,GROWS,j] := Block_null();
+        $extfcall(void, "theStage_removeChild", b)
+      ) (* end of [then] *)
+    // end of [if]
+  end // end of [let] // end of [lam]
+)
+//
+) (* end of [GameBoard_clear] *)
+
+(* ****** ****** *)
+
+implement
 GameBoard_isset_at
   (board, x, y) = let
 //

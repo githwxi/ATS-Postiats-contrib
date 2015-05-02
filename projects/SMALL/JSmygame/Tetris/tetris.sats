@@ -115,6 +115,11 @@ fun Piece_rrotate (Piece): bool = "mac#"
 (* ****** ****** *)
 //
 fun
+GameBoard_clear(GameBoard): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 GameBoard_isset_at
   (GameBoard, x:int, y:int): bool = "mac#"
 //
