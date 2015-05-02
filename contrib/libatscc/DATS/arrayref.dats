@@ -13,99 +13,53 @@ staload UN = "prelude/SATS/unsafe.sats"
 *)
 
 (* ****** ****** *)
-
+//
 implement
 arrayref_exists_cloref
-  (A, n, f) = let
-//
-fun
-loop
-{i:nat}
-(i: int(i)) : bool =
+  (A, n, f) =
 (
-//
-if i < n
-  then (
-    if f(i) then true else loop(i+1)
-  ) else false
-// end of [if]
-//
-) (* end of [loop] *)
-//
-in
-  loop(0)
-end // end of [arrayref_exists_cloref]
-
-(* ****** ****** *)
-
+  int_exists_cloref(n, $UN.cast{cfun1(int,bool)}(f))
+)
 implement
 arrayref_forall_cloref
-  (A, n, f) = let
-//
-fun
-loop
-{i:nat}
-(i: int(i)) : bool =
+  (A, n, f) =
 (
+  int_forall_cloref(n, $UN.cast{cfun1(int,bool)}(f))
+)
 //
-if i < n
-  then (
-    if f(i) then loop(i+1) else false
-  ) else true
-// end of [if]
-//
-) (* end of [loop] *)
-//
-in
-  loop(0)
-end // end of [arrayref_forall_cloref]
-
-(* ****** ****** *)
-
 implement
 arrayref_foreach_cloref
-  (A, n, f) = let
-//
-fun
-loop
-{i:nat}
-(i: int(i)) : void =
+  (A, n, f) =
 (
-  if i < n
-    then (f(i); loop(i+1)) else ((*void*))
-  // end of [if]
-) (* end of [loop] *)
+  int_foreach_cloref(n, $UN.cast{cfun1(int,void)}(f))
+)
 //
-in
-  loop(0)
-end // end of [arrayref_foreach_cloref]
-
 (* ****** ****** *)
-
+//
+implement
+arrszref_exists_cloref
+  {a}(A, f) = let
+  val n = arrszref_size(A)
+in
+  int_exists_cloref(n, $UN.cast{cfun1(int,bool)}(f))
+end // end of [arrszref_exists_cloref]
+//
+implement
+arrszref_forall_cloref
+  {a}(A, f) = let
+  val n = arrszref_size(A)
+in
+  int_forall_cloref(n, $UN.cast{cfun1(int,bool)}(f))
+end // end of [arrszref_forall_cloref]
+//
 implement
 arrszref_foreach_cloref
   {a}(A, f) = let
-//
-val [n:int] n = arrszref_size(A)
-//
-fun
-loop
-{ i:nat
-| i <= n
-} .<n-i>.
-(
-  i: int(i)
-) : void =
-(
-  if i < n
-    then (f(i); loop(i+1)) else ()
-  // end of [if]
-) (* end of [loop] *)
-//
+  val n = arrszref_size(A)
 in
-  loop(0)
+  int_foreach_cloref(n, $UN.cast{cfun1(int,void)}(f))
 end // end of [arrszref_foreach_cloref]
-
+//
 (* ****** ****** *)
 
 (* end of [arrayref.dats] *)

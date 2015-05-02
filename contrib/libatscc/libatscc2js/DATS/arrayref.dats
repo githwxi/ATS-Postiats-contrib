@@ -37,6 +37,10 @@ staload "./../SATS/JSarray.sats"
 //
 (* ****** ****** *)
 //
+staload "./../SATS/intrange.sats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/arrayref.sats"
 //
 (* ****** ****** *)

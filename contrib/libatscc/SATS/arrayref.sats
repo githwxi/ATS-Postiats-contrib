@@ -94,6 +94,15 @@ overload [] with arrszref_set_at of 100
 (* ****** ****** *)
 //
 fun
+arrszref_exists_cloref
+  {a:t@ype}
+  (arrszref(a), ftest: int -<cloref1> bool): bool = "mac#%"
+fun
+arrszref_forall_cloref
+  {a:t@ype}
+  (arrszref(a), ftest: int -<cloref1> bool): bool = "mac#%"
+//
+fun
 arrszref_foreach_cloref
   {a:t@ype}
   (arrszref(a), fwork: int -<cloref1> void): void = "mac#%"

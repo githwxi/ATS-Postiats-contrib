@@ -35,6 +35,10 @@ fun theNextPiece_set (Piece): void = "mac#"
 //
 (* ****** ****** *)
 
+fun thePiece_start_out(): void = "mac#"
+
+(* ****** ****** *)
+
 fun thePiece_theNextPiece_update(): void = "mac#"
 
 (* ****** ****** *)

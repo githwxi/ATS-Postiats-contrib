@@ -124,6 +124,7 @@ val () = tetris_gameboard_initize()
 (* ****** ****** *)
 
 val () = theGameStatus_set(1)
+val () = thePiece_start_out()
 
 (* ****** ****** *)
 

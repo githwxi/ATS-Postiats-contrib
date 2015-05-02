@@ -141,7 +141,9 @@ in
 matrixref_foreach_cloref
 (
   M1, PDIM, PDIM
-, lam(i, j) => if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
+, lam(i, j) =>
+    if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
+  // end of [lam]
 ) (* end of [matrixref_foreach_cloref] *)
 //
 end (* end of [Piece_update_mat] *)
@@ -562,23 +564,41 @@ in
 end // end of [Piece_dump_blocks]
 
 (* ****** ****** *)
-
+//
+extern
 fun
 Piece_start_out
-  (P0: Piece): void =
+  (P0: Piece): void = "mac#"
+//
+implement
+Piece_start_out
+  (P0) =
 {
 //
-val () =
-  P0.y := 0
+val x = (GCOLS-PDIM)/2
+//
+val test =
+  Piece_mat_collide_at(P0.mat1, x, 0)
 //
 val () =
-  P0.x := (GCOLS-PDIM)/2
+if not(test) then
+{
 //
+val () = P0.x := x
+val () = P0.y := 0
 val () = Piece_repos_blocks(P0)
 val () = Piece_stage_blocks(P0)
 //
+} (* end of [if] *)
+//
 } // end of [Piece_start_out]
-
+//
+(* ****** ****** *)
+//
+implement
+thePiece_start_out() =
+  Piece_start_out(thePiece_get())
+//
 (* ****** ****** *)
 
 implement
@@ -633,10 +653,6 @@ thePiece_theNextPiece_update
 }
 
 end // end of [local]
-
-(* ****** ****** *)
-
-val () = Piece_start_out(thePiece_get())
 
 (* ****** ****** *)
 
