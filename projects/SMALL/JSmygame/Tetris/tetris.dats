@@ -103,11 +103,13 @@ end // end of [local]
 local
 //
 val
-theGameTQuota_init = ref{double}(100.0)
+theGameTQuota0 = ref{double}(100.0)
 val
 theGameTQuota_left = ref{double}(100.0)
 val
-theGameTQuota_delta = ref{double}(21.0)
+theGameTQuota_delta0 = ref{double}(15.0)
+val
+theGameTQuota_delta1 = ref{double}(15.0)
 //
 in
 //
@@ -117,16 +119,29 @@ theGameTQuota_get() = theGameTQuota_left[]
 implement
 theGameTQuota_reset
   ((*void*)) =
-(
-  theGameTQuota_left[] := theGameTQuota_init[]
-)
+{
+  val () = theGameTQuota_left[] := theGameTQuota0[]
+}
 implement
 theGameTQuota_update
   ((*void*)) = let
   val left = theGameTQuota_left[]
 in
-  theGameTQuota_left[] := left - theGameTQuota_delta[]
+  theGameTQuota_left[] := left - theGameTQuota_delta1[]
 end // end of [theGameTQuota_update]
+//
+implement
+theGameTQuota_delta_space
+  ((*void*)) =
+{
+  val () = theGameTQuota_delta1[] := 101.0
+}
+implement
+theGameTQuota_delta_reset
+  ((*void*)) =
+{
+  val () = theGameTQuota_delta1[] := theGameTQuota_delta0[]
+}
 //
 end // end of [local]
 
@@ -143,6 +158,7 @@ val P0 = thePiece_get()
 val moved = Piece_ymove_dn(P0)
 //
 val () = if not(moved) then Piece_dump_blocks(P0)
+val () = if not(moved) then theGameTQuota_delta_reset()
 val () = if not(moved) then thePiece_theNextPiece_update()
 //
 in

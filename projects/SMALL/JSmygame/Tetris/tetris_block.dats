@@ -38,7 +38,7 @@ Block_new_c1c2(c1, c2)
   block.x = 0;
   block.y = 0;
 //
-  block.graphics.beginStroke(c1).beginFill(c2).drawRect(0,0,15,15);
+  block.graphics.beginStroke(c1).beginFill(c2).drawRect(0,0,20,20);
   return { createjs: block };
 //
 }
@@ -48,10 +48,10 @@ function Block_is_null(x) { return (x === null); }
 function Block_isnot_null(x) { return (x !== null); }
 //
 function Block_get_x(block) { return block.createjs.x; }
-function Block_set_x(block, x) { block.createjs.x = 15*x; return; }
+function Block_set_x(block, x) { block.createjs.x = 20*x; return; }
 //
 function Block_get_y(block) { return block.createjs.y; }
-function Block_set_y(block, y) { block.createjs.y = 15*y; return; }
+function Block_set_y(block, y) { block.createjs.y = 20*y; return; }
 //
 %} // end of [%{]
 
@@ -65,7 +65,7 @@ Block_new () =
 //
 implement
 Block_drop1(b) =
-  if isneqz(b) then b.y := (b.y/15 + 1)
+  if isneqz(b) then b.y := (b.y/20 + 1)
 //
 implement
 Block_unstage(b) =

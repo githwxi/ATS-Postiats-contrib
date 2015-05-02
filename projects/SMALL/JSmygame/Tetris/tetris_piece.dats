@@ -592,6 +592,7 @@ val () = Piece_stage_blocks(P0)
 } (* end of [if] *)
 //
 val () = if test then theGame_stop()
+val () = if test then alert("Game over!")
 //
 } // end of [Piece_start_out]
 //

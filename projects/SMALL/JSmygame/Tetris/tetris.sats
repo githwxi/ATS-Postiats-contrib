@@ -14,8 +14,8 @@ typedef Piece = Piece_type
 //
 (* ****** ****** *)
 //
-#define GROWS 36
-#define GCOLS 20
+#define GROWS 24
+#define GCOLS 15
 //
 abstype GameBoard_type
 typedef GameBoard = GameBoard_type
@@ -31,11 +31,14 @@ fun theGameStatus_get(): int = "mac#"
 fun theGameStatus_set(int): void = "mac#"
 
 (* ****** ****** *)
-
+//
 fun theGameTQuota_get(): double = "mac#"
 fun theGameTQuota_reset(): void = "mac#"
 fun theGameTQuota_update(): void = "mac#"
-
+//
+fun theGameTQuota_delta_space(): void = "mac#"
+fun theGameTQuota_delta_reset(): void = "mac#"
+//
 (* ****** ****** *)
 //
 fun thePiece_get (): Piece = "mac#"
