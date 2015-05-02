@@ -445,10 +445,33 @@ matrixref_lrotate_to
 //
 matrixref_foreach_cloref
 (
-  A, m, n, lam(i, j) => B[n-1-j,m,i] := A[i,n,j]
+  A, m, n, lam(i, j) => B[j,m,m-1-i] := A[i,n,j]
 )
 //
 ) (* end of [matrixref_lrotate_to] *)
+//
+(* ****** ****** *)
+//
+extern
+fun
+matrixref_rrotate_to
+  {a:t@ype}{m,n:int}
+(
+  A: matrixref(a, m, n),
+  B: matrixref(a, n, m), m: int(m), n: int(n)
+) : void // end of [matrixref_rrotate_to]
+//
+implement
+matrixref_rrotate_to
+  {a}{m,n}(A, B, m, n) =
+(
+//
+matrixref_foreach_cloref
+(
+  A, m, n, lam(i, j) => B[n-1-j,m,i] := A[i,n,j]
+)
+//
+) (* end of [matrixref_rrotate_to] *)
 //
 (* ****** ****** *)
 
@@ -523,6 +546,29 @@ if test
   else (Piece_mat_nullify(M1); piece.mat1 := M2; piece.mat2 := M1; Piece_repos_blocks(piece); true)
 //
 end (* end of [Piece_lrotate] *)
+
+(* ****** ****** *)
+    
+implement
+Piece_rrotate
+  (piece) = let
+//
+val M1 = piece.mat1
+val M2 = piece.mat2
+//
+val () =
+  matrixref_rrotate_to(M1, M2, PDIM, PDIM)
+//
+val
+test = Piece_mat_collide_at (M2, piece.x, piece.y)
+//
+in
+//
+if test
+  then (Piece_mat_nullify(M2); false)
+  else (Piece_mat_nullify(M1); piece.mat1 := M2; piece.mat2 := M1; Piece_repos_blocks(piece); true)
+//
+end (* end of [Piece_rrotate] *)
 
 (* ****** ****** *)
     

@@ -28,11 +28,14 @@ all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2JS) -o ./output/DATS/intrange_dats.js -i
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2JS) -o ./output/DATS/reference_dats.js -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2JS) -o ./output/DATS/arrayref_dats.js -i
 all:: ; \
 $(PATSOPT) -d ./DATS/matrixref.dats | $(ATSCC2JS) -o ./output/DATS/matrixref_dats.js -i
 all:: ; \
-$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2JS) -o ./output/DATS/reference_dats.js -i
+$(PATSOPT) -d ./DATS/gmatrixref.dats | $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 #
 #######
 
@@ -55,9 +58,10 @@ output/DATS/list_dats.js \
 output/DATS/option_dats.js \
 output/DATS/stream_dats.js \
 output/DATS/intrange_dats.js \
+output/DATS/reference_dats.js \
 output/DATS/arrayref_dats.js \
 output/DATS/matrixref_dats.js \
-output/DATS/reference_dats.js \
+output/DATS/gmatrixref_dats.js \
 
 #######
 #

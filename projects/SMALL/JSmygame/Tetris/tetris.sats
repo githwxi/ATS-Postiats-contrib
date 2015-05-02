@@ -4,6 +4,22 @@
 
 (* ****** ****** *)
 //
+// License: BSD/MIT
+//
+(* ****** ****** *)
+//
+// HX-2014-05:
+//
+// This implementation of Tetris
+// is based on a version in Java
+// by Mary Ann Sundermeyer (sundma).
+// I did it to primarily illustrate
+// a way to translate classes in OOP
+// into abstract types in ATS. This
+// is also somewhat a test for atscc2js
+//
+(* ****** ****** *)
+//
 abstype Block_type
 typedef Block = Block_type
 //

@@ -49,7 +49,7 @@ arrayref_forall_cloref
 ) : bool = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
-//
+
 fun
 arrayref_foreach_cloref
   {a:t@ype}{n:int}
@@ -57,7 +57,7 @@ arrayref_foreach_cloref
   arrayref(a, n)
 , asz: int(n), fwork: natLt(n) -<cloref1> void
 ) : void = "mac#%" // end-of-fun
-//
+
 (* ****** ****** *)
 //
 // HX: array-with-size

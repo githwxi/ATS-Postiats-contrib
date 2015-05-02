@@ -86,9 +86,9 @@ fun
 thePiece_lrotate() =
   ignoret(Piece_lrotate(thePiece_get()))
 //
-(* ****** ****** *)
-//
-fun thePiece_rrotate() = ()
+fun
+thePiece_rrotate() =
+  ignoret(Piece_rrotate(thePiece_get()))
 //
 (* ****** ****** *)
 
@@ -101,7 +101,7 @@ val k = theGameStatus_get()
 //
 in
 //
-if k > 0 then thePiece_rrotate()
+if k > 0 then thePiece_lrotate()
 //
 end // end of [aux_up]
 //
@@ -112,7 +112,7 @@ val k = theGameStatus_get()
 //
 in
 //
-if k > 0 then thePiece_lrotate()
+if k > 0 then thePiece_rrotate()
 //
 end // end of [aux_down]
 //

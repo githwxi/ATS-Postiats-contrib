@@ -205,12 +205,14 @@ in
 //
 if y1j >= 0
   then let
-    val b1 = board[i,n,y1j]
+    val b = board[i,n,y1j]
   in
-    Block_drop1(b1); board[i,n,y0j] := b1; loop2(i, j+1)
+    Block_drop1(b); board[i,n,y0j] := b; loop2(i, j+1)
   end // end of [then]
   else (
-    if (y0j >= 0) then board[i,n,y0j] := Block_null(); loop2(i, j+1)
+    if (y0j >= 0)
+      then board[i,n,y0j] := Block_null(); loop2(i, j+1)
+    // end of [if]
   ) (* end of [else] *)
 // end of [if]
 //

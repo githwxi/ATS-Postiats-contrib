@@ -27,6 +27,8 @@ matrixref_forall_cloref
   int2_forall_cloref(m, n, $UN.cast{cfun2(int,int,bool)}(f))
 )
 //
+(* ****** ****** *)
+//
 implement
 matrixref_foreach_cloref
   (M, m, n, f) =
