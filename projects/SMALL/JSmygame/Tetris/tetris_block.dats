@@ -57,9 +57,11 @@ function Block_set_y(block, y) { block.createjs.y = 20*y; return; }
 
 (* ****** ****** *)
 //
+(*
 implement
 Block_new () =
   $extfcall(Block, "Block_new_c1c2", "#eee", "#428bca")
+*)
 //
 (* ****** ****** *)
 //

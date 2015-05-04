@@ -63,6 +63,11 @@ tetris_keyboard_dats.c: tetris.sats
 tetris_gameboard_dats.c: tetris.sats
 #
 ######
+#
+#upload_demo:
+#scp * ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSmygame/Tetris/.
+#
+######
 
 RMF=rm -f
 

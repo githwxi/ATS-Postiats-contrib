@@ -131,6 +131,7 @@ fun
 Piece_update_mat
 (
   P: Piece
+, c1: string, c2: string
 , mymat: matrixref(int, PDIM, PDIM)
 ) : void = let
 //
@@ -142,13 +143,12 @@ matrixref_foreach_cloref
 (
   M1, PDIM, PDIM
 , lam(i, j) =>
-    if mymat[i,PDIM,j] > 0 then M1[i,PDIM,j] := Block_new()
+    if mymat[i,PDIM,j] > 0
+      then M1[i,PDIM,j] := Block_new_c1c2(c1, c2)
   // end of [lam]
 ) (* end of [matrixref_foreach_cloref] *)
 //
 end (* end of [Piece_update_mat] *)
-
-(* ****** ****** *)
 
 local
 //
@@ -165,7 +165,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_0
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#428bca", mymat)
 //
 end // end of [local]
 
@@ -186,7 +187,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_10
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#5bc0de", mymat)
 //
 end // end of [local]
 
@@ -207,7 +209,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_11
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#5bc0de", mymat)
 //
 end // end of [local]
 
@@ -228,7 +231,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_20
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#f0ad4e", mymat)
 //
 end // end of [local]
 
@@ -249,7 +253,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_21
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#f0ad4e", mymat)
 //
 end // end of [local]
 
@@ -270,7 +275,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_30
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#5cb85c", mymat)
 //
 end // end of [local]
 
@@ -291,7 +297,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_31
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#5cb85c", mymat)
 //
 end // end of [local]
 
@@ -312,7 +319,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_40
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#d9534f", mymat)
 //
 end // end of [local]
 
@@ -333,7 +341,8 @@ in (* in-of-local *)
 //
 fun
 Piece_update_41
-  (P: Piece): void = Piece_update_mat(P, mymat)
+  (P: Piece): void =
+  Piece_update_mat(P, "#0e0e0e", "#d9534f", mymat)
 //
 end // end of [local]
 

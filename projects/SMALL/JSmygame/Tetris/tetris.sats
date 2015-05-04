@@ -81,7 +81,15 @@ theGameBoard_set_at
 //
 (* ****** ****** *)
 //
+(*
 fun Block_new (): Block = "mac#"
+*)
+//
+// HX: c1: stroke; c2: fill
+//
+fun
+Block_new_c1c2
+  (c1: string, c2: string): Block = "mac#"
 //
 fun Block_null (): Block = "mac#" // JS null obj
 fun Block_is_null (Block): bool = "mac#" // is null?

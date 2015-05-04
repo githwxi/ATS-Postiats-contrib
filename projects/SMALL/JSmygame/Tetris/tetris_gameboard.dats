@@ -228,13 +228,13 @@ end (* end of [GameBoard_rowdel_at] *)
 //
 extern
 fun
-GameBoard_rowdel_one(GameBoard): bool = "mac#"
+GameBoard_rowdel_one
+  (GameBoard): bool = "mac#"
 //
 (* ****** ****** *)
 //
 implement
-GameBoard_rowdel_one
-  (board) = let
+GameBoard_rowdel_one(board) = let
 //
 fun
 loop

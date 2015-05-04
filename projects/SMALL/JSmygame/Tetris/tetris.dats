@@ -58,6 +58,21 @@ theGame_initize()
   createjs.Ticker.addEventListener("tick", theGame_tick);
 }
 //
+function
+theScore_incby(delta)
+{
+    var
+    score_well =
+    document.getElementById("score_well");
+    score_well.innerHTML =
+    String(parseInt(score_well.innerHTML)+delta);
+}
+function
+theScore_reset(score)
+{
+    document.getElementById("score_well").innerHTML = score;
+}
+//
 %}
 //
 val () =
@@ -146,6 +161,28 @@ theGameTQuota_delta_reset
 end // end of [local]
 
 (* ****** ****** *)
+
+local
+
+val nprev = ref{int}(0)
+
+in (* in-of-local *)
+
+fun
+theScore_getinc_delta
+  ((*void*)): int = let
+  val np = nprev[]
+  val () = nprev[] := np + 1
+in
+  case+ np of
+  | 1 => 20 | 2 => 40 | 3 => 80 | _ => 10
+end // end-of-function
+
+fun theScore_reset_delta(): void = nprev[] := 0
+
+end // end of [local]
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -175,12 +212,20 @@ thePiece_handle_if() =
 if
 theGameStatus_get() > 0
 then let
-  val test = theGameBoard_rowdel_one()
+  val rowdel = theGameBoard_rowdel_one()
 in
 //
 if
-not(test)
+(rowdel)
 then let
+  val delta = theScore_getinc_delta()
+in
+  $extfcall(void, "theScore_incby", delta)
+end // end of [then]
+else let
+  val () =
+    theScore_reset_delta()
+  // end of [val]
   val () =
     theGameTQuota_update()
   // end of [val]
@@ -192,7 +237,7 @@ tq > 0.0
 then ((*void*))
 else (theGameTQuota_reset(); thePiece_handle())
 //
-end // end of [then]
+end // end of [else]
 //
 end // end of [then]
 //
@@ -216,6 +261,11 @@ then
   val () = theGameBoard_clear()
   val () = theGameStatus_set(1)
   val () = thePiece_start_out()
+//
+  val () = theScore_reset_delta()
+//
+  val () = $extfcall(void, "theScore_reset", 0)
+//
 }
 //
 (* ****** ****** *)
