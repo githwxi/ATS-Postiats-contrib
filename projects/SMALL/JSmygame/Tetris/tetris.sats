@@ -69,6 +69,10 @@ fun thePiece_start_out(): void = "mac#"
 
 (* ****** ****** *)
 
+fun thePiece_dump_blocks(): void = "mac#"
+
+(* ****** ****** *)
+
 fun thePiece_theNextPiece_update(): void = "mac#"
 
 (* ****** ****** *)
@@ -101,14 +105,14 @@ overload isneqz with Block_isnot_null
 (* ****** ****** *)
 //
 fun
-Block_get_x (Block): int = "mac#"
+Block_get_x (Block): double = "mac#"
 fun
-Block_set_x (Block, x: int): void = "mac#"
+Block_set_x (Block, x: double): void = "mac#"
 //
 fun
-Block_get_y (Block): int = "mac#"
+Block_get_y (Block): double = "mac#"
 fun
-Block_set_y (Block, y: int): void = "mac#"
+Block_set_y (Block, y: double): void = "mac#"
 //
 overload .x with Block_get_x
 overload .x with Block_set_x

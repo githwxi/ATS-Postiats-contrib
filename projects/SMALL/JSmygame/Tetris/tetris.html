@@ -34,21 +34,28 @@ by Mary Ann Sundermeyer.
 
 </head>
 <body onload="tetris_initize();">
+
+        <center><h1>Tetris: ATS+Bacon.js</h1></center>
+
 	<div class="container col-md-8 col-md-offset-2" id = "tetris">
 		<div class="jumbotron" id = "game">
 			<div class="row">
-				<div class = "col-md-2" id = "score">
 
-				<h4><center>
-				<div class = "well" id = "score_well">0</div>
-				</h4></center>
-				
-	
+                                <div class = "col-md-1"></div>
+				<div class = "col-md-2" id = "leftside">
+                                  <p></p>
+                                  <canvas id="theGameCanvas_np" width="90" height="90">
+                                          Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                                  </canvas>
+                                  <center><h4>
+				  <div class = "well" id = "score_well">0</div>
+				  </h4></center>	
   				</div>
-				<div  class = "col-md-4 col-md-offset-1 " id = "container-canvas">
-					<canvas id="theGameCanvas" width="300" height="480">
-						Sorry, your browser doesn't support the &lt;canvas&gt; element.
-		    		</canvas>
+
+				<div class = "col-md-4" id = "gameboard">
+                                  <canvas id="theGameCanvas_main" width="300" height="480">
+                                          Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                                  </canvas>
 				</div>
 				<div class = "col-md-3 col-md-offset-2" id = "buttons">
 				  <table style="width:100%;">

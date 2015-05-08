@@ -401,7 +401,9 @@ val x0 = piece.x and y0 = piece.y
 fun
 block_repos
   (b: Block, x_i: int, y_j: int): void =
-  if isneqz(b) then (b.x := x_i; b.y := y_j) else ()
+  if isneqz(b)
+    then (b.x := int2double(x_i); b.y := int2double(y_j)) else ()
+  // end of [if]
 //
 in
 //
@@ -435,7 +437,7 @@ matrixref_foreach_cloref
 )
 //
 end // end of [Piece_stage_blocks]
-
+//
 (* ****** ****** *)
 //
 extern
@@ -580,45 +582,6 @@ if test
 end (* end of [Piece_rrotate] *)
 
 (* ****** ****** *)
-    
-implement
-Piece_dump_blocks
-  (piece) = let
-//
-val x = piece.x
-val y = piece.y
-val M1 = piece.mat1
-//
-fun
-fwork(
-  i: natLt(PDIM)
-, j: natLt(PDIM)
-) : void = let
-//
-val b_ij = M1[i,PDIM,j]
-val isnot = isneqz(b_ij)
-//
-in
-//
-if
-isnot
-then let
-//
-val () =
-  M1[i,PDIM,j] := Block_null()
-//
-in
-  theGameBoard_set_at(x+i, y+j, b_ij)
-end // end of [then]
-else () // end of [else]
-//
-end (* end of [fwork] *)
-//
-in
-  matrixref_foreach_cloref(M1, PDIM, PDIM, lam(i, j) => fwork(i, j))
-end // end of [Piece_dump_blocks]
-
-(* ****** ****** *)
 //
 extern
 fun
@@ -660,6 +623,51 @@ thePiece_start_out() =
 (* ****** ****** *)
 
 implement
+Piece_dump_blocks
+  (piece) = let
+//
+val x = piece.x
+val y = piece.y
+val M1 = piece.mat1
+//
+fun
+fwork(
+  i: natLt(PDIM)
+, j: natLt(PDIM)
+) : void = let
+//
+val b_ij = M1[i,PDIM,j]
+val isnot = isneqz(b_ij)
+//
+in
+//
+if
+isnot
+then let
+//
+val () =
+  M1[i,PDIM,j] := Block_null()
+//
+in
+  theGameBoard_set_at(x+i, y+j, b_ij)
+end // end of [then]
+else () // end of [else]
+//
+end (* end of [fwork] *)
+//
+in
+  matrixref_foreach_cloref(M1, PDIM, PDIM, lam(i, j) => fwork(i, j))
+end // end of [Piece_dump_blocks]
+
+(* ****** ****** *)
+//
+implement
+thePiece_dump_blocks() =
+  Piece_dump_blocks(thePiece_get())
+//
+(* ****** ****** *)
+
+implement
 Piece_update_rand
   (P) = let
 //
@@ -682,13 +690,88 @@ case+ type of
 end // end of [Piece_update_rand]
 
 (* ****** ****** *)
+//
+extern
+fun
+Piece_stageNP_blocks(Piece): void = "mac#"
+//
+implement
+Piece_stageNP_blocks
+  (piece) = let
+//
+val M1 = piece.mat1
+//
+in
+//
+matrixref_foreach_cloref
+(
+  M1, PDIM, PDIM
+, lam(i, j) => let
+    val b = M1[i,PDIM,j]
+  in
+    if isneqz(b) then $extfcall(void, "theStageNP_addChild", b)
+  end // end of [let] // end of [lam]
+)
+//
+end // end of [Piece_stageNP_blocks]
+//
+extern
+fun
+Piece_unstageNP_blocks(Piece): void = "mac#"
+//
+implement
+Piece_unstageNP_blocks
+  (piece) = let
+//
+val M1 = piece.mat1
+//
+in
+//
+matrixref_foreach_cloref
+(
+  M1, PDIM, PDIM
+, lam(i, j) => let
+    val b = M1[i,PDIM,j]
+  in
+    if isneqz(b) then $extfcall(void, "theStageNP_removeChild", b)
+  end // end of [let] // end of [lam]
+)
+//
+end // end of [Piece_unstageNP_blocks]
+//
+(* ****** ****** *)
+
+extern
+fun
+Piece_reposNP_blocks(Piece): void = "mac#"
+//
+implement
+Piece_reposNP_blocks
+  (piece) = let
+//
+val M1 = piece.mat1
+//
+fun
+block_repos
+  (b: Block, x_i: double, y_j: double): void =
+  if isneqz(b) then (b.x := x_i; b.y := y_j) else ()
+//
+in
+//
+matrixref_foreach_cloref
+  (M1, PDIM, PDIM, lam(i, j) => block_repos(M1[i,PDIM,j], 0.25+i, 0.25+j))
+//
+end // end of [Piece_reposNP_blocks]
+
+(* ****** ****** *)
 
 local
 //
 val P0 = Piece_new()
-val () = Piece_update_rand(P0)
 val P1 = Piece_new()
 val () = Piece_update_rand(P1)
+val () = Piece_reposNP_blocks(P1)
+val () = Piece_stageNP_blocks(P1)
 //
 val thePiece = ref{Piece}(P0)
 val theNextPiece = ref{Piece}(P1)
@@ -700,15 +783,26 @@ implement theNextPiece_get() = theNextPiece[]
 
 implement
 thePiece_theNextPiece_update
- ((*void*)) =
+ ((*void*)) = let
+//
+val P0 = thePiece[]
+val P1 = theNextPiece[]
+//
+val () = Piece_start_out(P1)
+//
+in
+//
+if(theGameStatus_get() > 0) then
 {
- val P0 = thePiece[]
- val P1 = theNextPiece[]
  val () = thePiece[] := P1
  val () = theNextPiece[] := P0
- val () = Piece_start_out(P1)
  val () = Piece_update_rand(P0)
+ val () = Piece_reposNP_blocks(P0)
+ val () = Piece_stageNP_blocks(P0)
+ val () = Piece_unstageNP_blocks(P1)
 }
+//
+end // end of [thePiece_theNextPiece_update]
 
 end // end of [local]
 

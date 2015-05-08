@@ -44,17 +44,20 @@ theKeyDowns.doAction(".preventDefault")
 %{^
 //
 var theStage = 0;
+var theStageNP = 0;
 //
 function
 theGame_tick(event)
 {
-  thePiece_handle_if(); theStage.update(); return;
+  thePiece_handle_if();
+  theStage.update(); theStageNP.update(); return;
 }
 //
 function
 theGame_initize()
 {
-  theStage = new createjs.Stage("theGameCanvas");
+  theStage = new createjs.Stage("theGameCanvas_main");
+  theStageNP = new createjs.Stage("theGameCanvas_np"); // theNextPiece
   createjs.Ticker.addEventListener("tick", theGame_tick);
 }
 //
@@ -93,6 +96,18 @@ function
 theStage_removeChild(x)
 {
   theStage.removeChild(x.createjs); return;
+}
+//
+function
+theStageNP_addChild(x)
+{
+  theStageNP.addChild(x.createjs); return;
+}
+//
+function
+theStageNP_removeChild(x)
+{
+  theStageNP.removeChild(x.createjs); return;
 }
 //
 %} // end of [%{^]
@@ -258,9 +273,11 @@ if
 (theGameStatus_get() = 0)
 then
 {
+//
   val () = theGameBoard_clear()
   val () = theGameStatus_set(1)
-  val () = thePiece_start_out()
+//
+  val () = thePiece_theNextPiece_update()
 //
   val () = theScore_reset_delta()
 //
@@ -274,6 +291,7 @@ implement
 theGame_stop() =
 {
   val () = theGameStatus_set(0)
+  val () = thePiece_dump_blocks()
   val () = theGameTQuota_reset()
 }
 //
