@@ -19,8 +19,14 @@ lemma_quadratic_equation
 { A,B,C:real
 | A != i2r(0);
   B*B - i2r(4)*A*C >= i2r(0)
-} (): [x:real | A*x*x + B*x + C == i2r(0)] ()
+} (): [x:real | A*x*x + B*x + C == i2r(0)] void
 //
+(* ****** ****** *)
+
+(*
+val () = lemma_quadratic_equation{i2r(1), i2r(~7), i2r(12)}()
+*)
+
 (* ****** ****** *)
 
 (* end of [test01.dats] *)
