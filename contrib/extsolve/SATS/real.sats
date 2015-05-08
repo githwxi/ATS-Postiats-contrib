@@ -32,8 +32,10 @@ stadef / = div_real_real
 
 (* ****** ****** *)
 
-stacst real_of_int : (int) -> real
-stacst real_of_float : (float) -> real
+stacst
+real_of_int : (int) -> real
+stacst
+real_of_float : (float) -> real
 
 (* ****** ****** *)
 
