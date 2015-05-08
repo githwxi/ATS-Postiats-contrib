@@ -50,4 +50,98 @@ overload fprint with fprint_symbol
 //
 (* ****** ****** *)
 
+fun
+symbol_make_name (string): symbol
+
+(* ****** ****** *)
+//
+fun
+symbol_get_name (symbol): string
+//
+overload .name with symbol_get_name
+//
+(* ****** ****** *)
+//
+fun
+eq_symbol_symbol : (symbol, symbol) -<fun0> bool
+fun
+neq_symbol_symbol : (symbol, symbol) -<fun0> bool
+fun
+compare_symbol_symbol : (symbol, symbol) -<fun0> int
+//
+overload = with eq_symbol_symbol
+overload != with neq_symbol_symbol
+overload compare with compare_symbol_symbol
+//
+(* ****** ****** *)
+//
+abstype
+location_type = ptr
+//
+typedef loc_t = location_type
+//
+(* ****** ****** *)
+//
+fun
+fprint_location: fprint_type(loc_t)
+//
+overload fprint with fprint_location
+//
+(* ****** ****** *)
+//
+fun location_make (rep: string): loc_t
+//
+(* ****** ****** *)
+
+datatype s2rt =
+//
+  | S2RTint of ()
+  | S2RTaddr of ()
+  | S2RTbool of ()
+//
+  | S2RTcls of ()
+//
+  | S2RTtup of ((*void*))
+//
+  | S2RTtype of ((*void*))
+  | S2RTt0ype of ((*void*))
+//
+  | S2RTfun of (s2rtlst(*args*), s2rt (*res*))
+//
+  | S2RTerr of ((*void*))
+  | S2RTignored of ((*void*))
+//
+// end of [datatype]
+
+where s2rtlst = List0 (s2rt)
+
+(* ****** ****** *)
+//
+fun
+fprint_s2rt: fprint_type(s2rt)
+//
+overload fprint with fprint_s2rt
+//
+(* ****** ****** *)
+//
+abstype
+s2cst_type = ptr
+//
+typedef s2cst = s2cst_type
+//
+typedef s2cstlst = List0 (s2cst)
+vtypedef s2cstlst_vt = List0_vt (s2cst)
+//
+typedef s2cstopt = Option (s2cst)
+vtypedef s2cstopt_vt = Option_vt (s2cst)
+//
+(* ****** ****** *)
+//
+fun
+fprint_s2cst: fprint_type(s2cst)
+//
+overload fprint with fprint_s2cst
+//
+(* ****** ****** *)
+
 (* end of [patsolve_constraint3.sats] *)

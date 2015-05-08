@@ -58,10 +58,13 @@ INCLUDE += -I$(PATSHOMEQ)/ccomp/runtime
 ######
 
 SOURCES_SATS= \
-  patsolve_constraint3.sats
+  patsolve_constraint3.sats \
+
+######
 
 SOURCES_DATS= \
-  patsolve_main.dats
+  patsolve_main.dats \
+  patsolve_constraint3_location.dats \
 
 ######
 
@@ -90,6 +93,11 @@ patsolve_constraint3_sats.o: \
 ######
 
 patsolve_main_dats.o: patsolve_main.dats; $(PATSCC) -c $<
+
+######
+
+patsolve_constraint3_location_dats.o: \
+  patsolve_constraint3_location.dats; $(PATSCC) -c $<
 
 ######
 #

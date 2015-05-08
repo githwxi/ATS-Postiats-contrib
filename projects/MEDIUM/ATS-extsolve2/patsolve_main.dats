@@ -12,6 +12,11 @@
 *)
 
 (* ****** ****** *)
+//
+dynload
+"patsolve_constraint3_location.dats"
+//
+(* ****** ****** *)
 
 implement
 main0 (argc, argv) =
