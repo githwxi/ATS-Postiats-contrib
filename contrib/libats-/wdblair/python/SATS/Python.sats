@@ -2,6 +2,12 @@
 #include "contrib/libats-/wdblair/python/CATS/Python.cats"
 %}
 
+(**
+  Will Blair
+
+  October 2014
+*)
+
 abstype PyObject = ptr
 
 fun Py_SetProgramName (string): void = "mac#"
