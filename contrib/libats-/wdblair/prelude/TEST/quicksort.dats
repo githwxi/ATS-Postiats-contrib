@@ -15,7 +15,7 @@ staload _ = "contrib/libats-/wdblair/prelude/DATS/array.dats"
 *)
 extern
 fun {}
-compare_ptr_ptr {a:t@ype}{p,q:addr}{x,y:stamp} (
+compare_ptr_ptr {a:t@ype} {p,q:addr} {x,y:stamp} (
   pfp: !T(a,x) @ p, pfq: !T(a,y) @ q | p: ptr p, q: ptr q
 ): int (sgn(x - y))
 
@@ -159,7 +159,13 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
               array_v (a, l, ys, n) | size_t (p)
       ) =
         if pi = pn then let
-          //prval () = equal_ptr_lemma{a}{l}{i,n-1} (pi, pn)
+          (**
+            The SMT solver cannot prove that i and n-1 are equal given pi = pn
+            This lemma seems required as it is as it is very important for the SMT 
+            solver to know that i and n-1 are equal in order for it to determine 
+            that the array is partitioned.
+          *) 
+          prval () = equal_ptr_lemma {a}{l}{i,n-1} (pi, pn)
           //
           val () = swap{a}{l}{n}{pind, n-1} (pf | pind, pn, sz)
         in 
