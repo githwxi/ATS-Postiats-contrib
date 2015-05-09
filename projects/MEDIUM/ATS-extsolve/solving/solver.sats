@@ -8,47 +8,6 @@
 staload "constraint/constraint.sats"
 staload "solving/smt.sats"
 
-absviewt@ype smtenv_viewt0ype = @{
-  smt= ptr,
-  variables= @{
-    statics= ptr
-  },
-  err= int,
-  verbose=bool
-}
-
-viewtypedef smtenv = smtenv_viewt0ype
-
-fun smtenv_nil (env: &smtenv? >> smtenv): void
-fun smtenv_free (env: &smtenv >> smtenv?): void
-
-absview smtenv_push_v
-
-fun smtenv_push (env: &smtenv): (smtenv_push_v | void)
-fun smtenv_pop  (pf: smtenv_push_v | env: &smtenv): void
-
-fun smtenv_add_svar (env: &smtenv, s2v: s2var): void
-fun smtenv_get_var_exn (env: &smtenv, s2v: s2var): formula
-fun smtenv_assert_sbexp (env: &smtenv, s2e: s2exp): void
-
-fun smtenv_formula_is_valid (env: &smtenv, fm: formula): bool
-
-fun smtenv_assert_formula (env: &smtenv, fm: formula): void
-
-fun smtenv_load_scripts (env: &smtenv, scripts: List0(string)): void
-
-fun smtenv_get_solver (env: &smtenv): solver
-
-fun smtenv_get_verbose (env: &smtenv): bool
-
-overload .verbose with smtenv_get_verbose
-
-fun smtenv_set_verbose (env: &smtenv, verbose: bool): void
-
-overload .verbose with smtenv_set_verbose
-
-fun formula_cst (s2c: s2cst): formula
-
 (* ****** ****** *)
 
 absvt@ype s2varmap_vt0ype (a:viewt@ype) = @{
@@ -91,6 +50,43 @@ s2varmap_size (&s2varmap (a)): size_t
 
 (* ****** ****** *)
 
+absviewt@ype smtenv_viewt0ype = @{
+  smt= ptr,
+  statics=s2varmap(formula), 
+  verbose=bool,
+  err= int
+}
+
+viewtypedef smtenv = smtenv_viewt0ype
+
+fun smtenv_nil (env: &smtenv? >> smtenv): void
+fun smtenv_free (env: &smtenv >> smtenv?): void
+
+absview smtenv_push_v
+
+fun smtenv_push (env: &smtenv): (smtenv_push_v | void)
+fun smtenv_pop  (pf: smtenv_push_v | env: &smtenv): void
+
+fun smtenv_add_svar (env: &smtenv, s2v: s2var): void
+fun smtenv_get_var_exn (env: &smtenv, s2v: s2var): formula
+fun smtenv_assert_sbexp (env: &smtenv, s2e: s2exp): void
+
+fun smtenv_formula_is_valid (env: &smtenv, fm: formula): bool
+
+fun smtenv_assert_formula (env: &smtenv, fm: formula): void
+
+fun smtenv_load_scripts (env: &smtenv, scripts: List0(string)): void
+
+fun smtenv_load_script_paths (env: &smtenv, scripts: List0(string)): void
+
+fun smtenv_get_solver (env: &smtenv): solver
+
+fun smtenv_set_verbose (env: &smtenv, verbose: bool): void
+
+fun formula_cst (s2c: s2cst): formula
+
+(* ****** ****** *)
+
 fun s2exp_make_h3ypo (env: &smtenv, h3p: h3ypo): s2exp
 //
 fun formula_make (env: &smtenv, s2e: s2exp): formula
@@ -119,10 +115,6 @@ fun c3nstr_solve (
   scripts: List0 (string),
   verbose: bool
 ): void
-
-(* ****** ****** *)
-
-fun the_s2cdeclmap_listize (): List0_vt (@(string, func_decl))
 
 (* ****** ****** *)
 

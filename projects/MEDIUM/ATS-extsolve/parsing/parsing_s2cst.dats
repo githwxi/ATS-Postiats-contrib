@@ -10,17 +10,17 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-//
+
 staload "constraint/constraint.sats"
-//
-(* ****** ****** *)
-
-staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 
-staload "./parsing.sats"
-staload "./parsing.dats"
+staload "parsing/parsing.sats"
+staload "parsing/jsonval.sats"
+
+(* ****** ****** *)
+
+staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
@@ -32,58 +32,58 @@ fun the_s2cstmap_insert (s2c: s2cst): void
 (* ****** ****** *)
 
 local
-//
+
 staload FM =
 "libats/SATS/funmap_avltree.sats"
 staload _(*FM*) =
 "libats/DATS/funmap_avltree.dats"
 staload _ =
 "libats/DATS/qlist.dats"
-//
+
 typedef map = $FM.map (stamp, s2cst)
-//
+
 var mymap: map = $FM.funmap_nil ()
 val the_s2cstmap =
   ref_make_viewptr{map} (view@mymap | addr@mymap)
-//
+
 implement
 $FM.compare_key_key<stamp> = compare_stamp_stamp
-//
+
 in (* in of [local] *)
 
 implement
 the_s2cstmap_find
   (k0) = let
-//
+  
 val (vbox(pf) | p) = ref_get_viewptr (the_s2cstmap)
-//
+
 in
   $effmask_ref ($FM.funmap_search_opt (!p, k0))
 end // end of [the_s2cstmap_find]
 
 implement
 the_s2cstmap_insert
-  (s2c0) = let
-//
+  (s2c0) = {
+
 val k0 = s2c0.stamp
 val (vbox(pf) | p) = ref_get_viewptr (the_s2cstmap)
-val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, s2c0))
-//
-in
-  // nothing
-end // end of [the_s2cstmap_find]
+val-~None_vt ((*void*)) = $effmask_ref (
+    $FM.funmap_insert_opt (!p, k0, s2c0)
+)
+
+}// end of [the_s2cstmap_find]
 
 implement the_s2cstmap_listize 
   () = let
-//
+
 val (vbox(pf) | p) = ref_get_viewptr (the_s2cstmap)
 val constants = $effmask_ref (list_of_list_vt (
   $FM.funmap_listize (!p)
 ))
-//
+
 implement list_map$fopr<@(stamp, s2cst)><s2cst> (x) = x.1
-//
-//
+
+
 in
   $effmask_ref ( list_of_list_vt (
     list_map<@(stamp, s2cst)><s2cst> (constants)
@@ -94,16 +94,22 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement
+implement{}
+parse_s2cstmap (jsvs) = {
+
+    implement
+    jsonval_parse<s2cst> (jsv) = parse_s2cst (jsv)
+    
+    val _ = parse_list<s2cst> (jsvs)
+}
+
+(* ****** ****** *)
+
+implement{}
 parse_s2cst
   (jsv0) = let
-(*
-val () =
-println! ("parse_s2cst: jsv0 = ", jsv0)
-*)
 //
-val-~Some_vt(jsv2) =
-  jsonval_get_field (jsv0, "s2cst_stamp")
+val jsv2 = jsv0["s2cst_stamp"]
 //
 val stamp = parse_stamp (jsv2)
 //
@@ -115,14 +121,11 @@ case+ opt of
 | ~Some_vt (s2c) => s2c
 | ~None_vt ((*void*)) => s2c where
   {
-    val-~Some_vt (jsv1) =
-      jsonval_get_field (jsv0, "s2cst_name")
+    val jsv1 = jsv0["s2cst_sym"]
     val sym = parse_symbol (jsv1)
-    val-~Some_vt (jsv2) =
-      jsonval_get_field (jsv0, "s2cst_srt")
+    val jsv2 = jsv0["s2cst_srt"]
     val srt = parse_s2rt (jsv2)
-    val-~Some_vt (jsv3) =
-      jsonval_get_field (jsv0, "s2cst_supcls")
+    val jsv3 = jsv0["s2cst_supcls"]
     val supcls = parse_s2explst (jsv3)
     val s2c = s2cst_make (sym, stamp, srt)
     val () = s2cst_set_supcls (s2c, supcls)

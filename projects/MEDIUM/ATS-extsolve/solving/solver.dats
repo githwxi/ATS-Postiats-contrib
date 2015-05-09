@@ -250,7 +250,7 @@ end // end of [c3nstr_solve_main]
 implement c3nstr_solve (c3t, scripts, verbose) = let
   var env : smtenv
   val _ = smtenv_nil (env)
-  val () = env.verbose (verbose)
+  val () = smtenv_set_verbose (env, verbose)
   val () = 
       case+ scripts of 
           | list_nil () => ()

@@ -15,12 +15,11 @@ staload "constraint/constraint.sats"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "parsing/jsonval.sats"
 
 (* ****** ****** *)
 
 staload "./parsing.sats"
-staload "./parsing.dats"
 
 (* ****** ****** *)
 
@@ -65,7 +64,7 @@ the_s2Varmap_insert
 //
 val k0 = s2V0.stamp
 val (vbox(pf) | p) = ref_get_viewptr (the_s2Varmap)
-val~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, s2V0))
+val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, s2V0))
 //
 in
   // nothing
@@ -75,7 +74,7 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_s2Var
   (jsv0) = let
 (*
@@ -83,11 +82,10 @@ val () =
 println! ("parse_s2Var: jsv0 = ", jsv0)
 *)
 //
-val-~Some_vt(jsv1) =
-  jsonval_get_field (jsv0, "s2Var_stamp")
+val jsv1 = jsv0["s2Var_stamp"]
 //
-val-~Some_vt(jsv2) =
-  jsonval_get_field (jsv0, "s2Var_szexp")
+val jsv2 = jsv0["s2Var_szexp"]
+
 val stamp = parse_stamp (jsv1)
 val szexp = parse_s2zexp (jsv2)
 //

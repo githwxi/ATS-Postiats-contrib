@@ -5,7 +5,7 @@
 
 /**
   Here we demonstrate our verified version of qsort as if it were
-  the normal one provided by libc.
+  the sorting function given by libc.
 */
 
 extern
@@ -31,7 +31,10 @@ int cmp_msg (const void *x, const void *y) {
 int main () {
     msg_t *buf = calloc(N, sizeof(msg_t));
     assert(buf != NULL);
-    
+   
+    /**
+      Make some fake messages with random time stamps.
+    */ 
     for (int i = 0; i < N; i++) {
         buf[i].timestamp = (int)random() % INT_MAX;
     }

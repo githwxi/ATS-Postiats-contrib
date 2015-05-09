@@ -15,30 +15,27 @@ staload "constraint/constraint.sats"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "parsing/jsonval.sats"
 
 (* ****** ****** *)
 
-staload "./parsing.sats"
-staload "./parsing.dats"
+staload "parsing/parsing.sats"
 
 (* ****** ****** *)
 
 extern
-fun
+fun{}
 parse_s2exp_node (jsonval): s2exp_node
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_s2exp
   (jsv0) = let
 //
-val-~Some_vt (jsv) =
-  jsonval_get_field (jsv0, "s2exp_srt")
+val jsv = jsv0["s2exp_srt"]
 val s2t = parse_s2rt (jsv)
-val-~Some_vt (jsv) =
-  jsonval_get_field (jsv0, "s2exp_node")
+val jsv = jsv0["s2exp_node"]
 val node = parse_s2exp_node (jsv)
 //
 in
@@ -47,55 +44,20 @@ end // end of [parse_s2exp]
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_s2explst 
-  (jsv0) = (
-  parse_list<s2exp> (jsv0, parse_s2exp)
-)
+  (jsv0) = let
+  
+  implement
+  jsonval_parse<s2exp> (jsv) = parse_s2exp (jsv)
+  
+in
+  parse_list<s2exp> (jsv0)
+end
 
 (* ****** ****** *)
 
-extern
-fun parse_S2Eint (jsonval): s2exp_node
-extern
-fun parse_S2Eintinf (jsonval): s2exp_node
-
-extern
-fun parse_S2Ecst (jsonval): s2exp_node
-extern
-fun parse_S2Evar (jsonval): s2exp_node
-extern
-fun parse_S2EVar (jsonval): s2exp_node
-extern
-fun parse_S2Esizeof (jsonval): s2exp_node
-extern
-fun parse_S2Eeqeq (jsonval): s2exp_node
-extern
-fun parse_S2Etop (jsonval): s2exp_node
-
-(* ****** ****** *)
-
-extern
-fun parse_S2Eapp (jsonval): s2exp_node
-
-(* ****** ****** *)
-
-extern
-fun parse_S2Emetdec (jsonval): s2exp_node
-
-(* ****** ****** *)
-
-extern
-fun parse_S2Esizeof (jsonval): s2exp_node
-
-(* ****** ****** *)
-
-extern
-fun parse_S2Eignored (jsonval): s2exp_node
-
-(* ****** ****** *)
-
-implement
+implement{}
 parse_s2exp_node
   (jsv0) = let
 (*
@@ -103,191 +65,164 @@ val (
 ) = fprintln!
   (stdout_ref, "parse_s2exp_node: jsv0 = ", jsv0)
 *)
-//
-val-JSONobject(lxs) = jsv0
-val-list_cons (lx, lxs) = lxs
-//
-val name = lx.0 and jsv2 = lx.1
-//
 in
-//
-case+ name of
-//
-| "S2Eint" => parse_S2Eint (jsv2)
-| "S2Eintinf" => parse_S2Eintinf (jsv2)
-//
-| "S2Ecst" => parse_S2Ecst (jsv2)
-| "S2Evar" => parse_S2Evar (jsv2)
-| "S2EVar" => parse_S2EVar (jsv2)
-//
-| "S2Eeqeq" => parse_S2Eeqeq (jsv2)
-//
-| "S2Eapp" => parse_S2Eapp (jsv2)
-//
-| "S2Emetdec" => parse_S2Emetdec (jsv2)
-//
-| "S2Esizeof" => parse_S2Esizeof (jsv2)
-//
-| "S2Etop" => parse_S2Etop (jsv2)
-//
-| _(*rest*) => let 
-  (**
-    val () =
-    prerrln! ("warning(ATS): [parse_s2exp]: name = ", name)
-  *)
-  in
-    parse_S2Eignored (jsv2)
-  end // end of [_]
-//
-end // end of [parse_s2exp_node]
+    if jsv0.has_key("S2Eint") then
+        parse_S2Eint (jsv0["S2Eint"])
+        
+    else if jsv0.has_key("S2Eintinf") then
+        parse_S2Eintinf (jsv0["S2Eintinf"])
+        
+    else if jsv0.has_key("S2Ecst") then
+        parse_S2Ecst (jsv0["S2Ecst"])
+        
+    else if jsv0.has_key("S2Evar") then
+        parse_S2Evar (jsv0["S2Evar"])
+    
+    else if jsv0.has_key("S2EVar") then
+        parse_S2EVar (jsv0["S2EVar"])
+    
+    else if jsv0.has_key("S2Eeqeq") then
+        parse_S2Eeqeq (jsv0["S2Eeqeq"])
+    
+    else if jsv0.has_key("S2Eapp") then
+        parse_S2Eapp (jsv0["S2Eapp"])
+    
+    else if jsv0.has_key("S2Emetdec") then
+        parse_S2Emetdec (jsv0["S2Emetdec"])
+    
+    else if jsv0.has_key( "S2Esizeof" ) then
+        parse_S2Esizeof (jsv0["S2Esizeof" ])
+    
+    else if jsv0.has_key("S2Etop") then
+        parse_S2Etop (jsv0["S2Etop"])
+     
+    else let
+      (**
+          val () =
+              prerrln! ("warning(ATS): [parse_s2exp]: name = ", name)
+      *)
+    in
+        parse_S2Eignored (jsv0)
+    end
+end where {
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Eint
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 1)
+
 in
-  S2Eint (parse_int (jsvs[0]))
+  S2Eint (parse_int (jsv0[0]))
 end // end of [parse_S2Eint]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Eintinf
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 1)
+
 in
-  S2Eintinf (parse_string (jsvs[0]))
+  S2Eintinf (parse_string (jsv0[0]))
 end // end of [parse_S2Eintinf]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Ecst
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-val s2c = parse_s2cst (jsvs[0])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 1)
+val s2c = parse_s2cst (jsv0[0])
+
 in
   S2Ecst (s2c)
 end // end of [parse_S2Ecst]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Evar
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-val s2v = parse_s2var (jsvs[0])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 1)
+val s2v = parse_s2var (jsv0[0])
+
 in
   S2Evar (s2v)
 end // end of [parse_S2Evar]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2EVar
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-val s2V = parse_s2Var (jsvs[0])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 1)
+val s2V = parse_s2Var (jsv0[0])
+
 in
   S2EVar (s2V)
 end // end of [parse_S2EVar]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Eeqeq
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 2)
-val l = parse_s2exp (jsvs[0])
-val r = parse_s2exp (jsvs[1])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 2)
+val l = parse_s2exp (jsv0[0])
+val r = parse_s2exp (jsv0[1])
+
 in
   S2Eeqeq (l, r)
 end // end of [parse_S2EVar]
 
-
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Eapp
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 2)
-val s2e_fun = parse_s2exp (jsvs[0])
-val s2es_arg = parse_list<s2exp> (jsvs[1], parse_s2exp)
-//
+  (jsv0: jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 2)
+val s2e_fun = parse_s2exp (jsv0[0])
+val s2es_arg = parse_s2explst (jsv0[1])
+
 in
   S2Eapp (s2e_fun, s2es_arg)
 end // end of [parse_S2Eapp]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Emetdec
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 2)
-val met = parse_s2explst (jsvs[0])
-val bound = parse_s2explst (jsvs[1])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 2)
+val met = parse_s2explst (jsv0[0])
+val bound = parse_s2explst (jsv0[1])
+
 in
   S2Emetdec (met, bound)
 end // end of [parse_S2Emetdec]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Esizeof
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
-val s2e = parse_s2exp (jsvs[0])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 1)
+val s2e = parse_s2exp (jsv0[0])
+
 in
   S2Esizeof (s2e)
 end // end of [parse_S2Esizeof]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2Etop
-  (jsv0) = let
-//
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 2)
-val knd = parse_int (jsvs[0])
-val s2e = parse_s2exp (jsvs[1])
-//
+  (jsv0:jsonval): s2exp_node = let
+
+val () = assertloc (jsv0.size >= 2)
+val knd = parse_int (jsv0[0])
+val s2e = parse_s2exp (jsv0[1])
+
 in
   S2Etop (knd, s2e)
 end // end of [parse_S2Esizeof]
 
-(* ****** ****** *)
+fun
+parse_S2Eignored 
+  (jsv: jsonval): s2exp_node = S2Eignored ((*void*))
 
-implement
-parse_S2Eignored (jsv) = S2Eignored ((*void*))
+} // end of [parse_s2exp_node]
 
 (* ****** ****** *)
 

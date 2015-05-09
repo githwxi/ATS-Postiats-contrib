@@ -13,8 +13,8 @@ PATSCC := $(PATSCC) -IATS ../
 
 ######
 
-CFLAGS += $(shell pkg-config --cflags json-c)
-
+CFLAGS += -I ./ -O2
+ 
 ######
 
 LDFLAGS :=
@@ -31,12 +31,13 @@ all:: parsing.o
 
 main:: constraint
 main:: main_dats.o parsing.o ; \
-  $(PATSCC) $(CFLAGS) -O2 -o $@ ../constraint/constraint.o $^ $(LDFLAGS)
+  $(PATSCC) $(CFLAGS) -o $@ ../constraint/constraint.o $^ $(LDFLAGS)
 
 ######
 
 SOURCES_SATS += \
   parsing.sats \
+  jsonval.sats \
 
 SOURCES_DATS += \
   parsing.dats \
@@ -49,8 +50,10 @@ SOURCES_DATS += \
   parsing_s3itm.dats \
   parsing_h3ypo.dats \
   parsing_c3nstr.dats \
+  jsonval.dats \
   parsing_mylib.dats \
   parsing_dynload.dats \
+
 
 ######
 

@@ -12,9 +12,13 @@ $(PATSHOME)/share/atsmake-pre.mk
 PATSCC := $(PATSCC) -IATS ../../
 
 ######
+PYTHON_PREFIX = $(shell python-config --prefix)
 
-# CFLAGS += -g
+CFLAGS += -g
 CFLAGS += $(shell python-config --include --cflags)
+CFLAGS += -I ${PYTHON_PREFIX}/include
+CFLAGS += -Wunused-label
+CFLAGS += -O2
 
 ######
 
@@ -47,6 +51,10 @@ OBJECTS += $(MYTARGET_DATS_O)
 ######
 
 z3.o: $(OBJECTS) ; ld -r -o $@ $^
+
+######
+
+cleanall:: ; $(RMF) z3.o
 
 ###### end of [Makefile] ######
 

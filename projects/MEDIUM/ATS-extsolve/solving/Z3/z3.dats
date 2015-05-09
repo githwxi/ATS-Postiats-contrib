@@ -207,8 +207,8 @@ fun load_functions (
       //
       val key = PyTuple_GetItem (pair, g0int2int_int_ssize(0))
       val func = PyTuple_GetItem (pair, g0int2int_int_ssize(1))
-      //      
-      val p = copy(PyString_AsString(key))
+      //
+      val p = copy (PyString_AsString(key))
       val label = strptr2string (p)
       //
     in
@@ -244,7 +244,7 @@ in
     exit (1);
   end
   else let
-    //
+
     val main_module = PyImport_AddModule ("__main__")
     val main_dict = PyModule_GetDict (main_module)
     val file_dict = PyDict_Copy (main_dict)
@@ -257,7 +257,7 @@ in
        handle_python_exception ();
        abort ()
      end
-     //
+
      else let
        val () = load_functions (local_dict)
      in
@@ -281,32 +281,34 @@ init_scripting (slv) = {
     context and solver.
   *)
   val () = !the_python_started := true
-  //
+
   val () = Py_SetProgramName ("patsolve.py")
-  val () = Py_InitializeEx (0)
+  val () = Py_InitializeEx (1)
   val patsolve = Py_InitModule ("patsolve", the_null_ptr)
   val patsolve_global_dict = PyModule_GetDict (patsolve)
-  //
-  val _ = PyRun_SimpleString ("from z3 import *\nmain_ctx()")
-  //
+
+  val _ = PyRun_SimpleString ("from z3 import *")
+  val _ = PyRun_SimpleString ("import sys")
+
   val z3 = PyImport_AddModule ("z3")
+  val () = assertloc (isneqz (castptr(z3)))
   val z3_global_dict = PyModule_GetDict (z3)
-  //
-  val main_ctx = PyDict_GetItemString (z3_global_dict, "_main_ctx")
+  val main_ctx_func = PyDict_GetItemString (z3_global_dict, "main_ctx")
+  val main_ctx = PyObject_CallObject (main_ctx_func, $UN.cast{PyObject}(the_null_ptr))
   val ctx = PyObject_GetAttrString (main_ctx, "ctx")
-  //
+
   val pctx = PyLong_FromVoidPtr ($UN.cast{ptr} (!the_context))
   val _ = PyObject_SetAttrString (ctx, "value", pctx)
-  //
+
   val Solver_Class = PyDict_GetItemString (z3_global_dict, "Solver")
   val Solv = PyObject_CallObject (
     Solver_Class, $UN.cast{PyObject} (the_null_ptr)
   )
   val solver = PyObject_GetAttrString (Solv, "solver")
-  //
+
   val psolv = PyLong_FromVoidPtr ($UN.castvwtp1{ptr}(slv))
   val _ = PyObject_SetAttrString (solver, "value", psolv)
-  //
+
   val _ = PyDict_SetItemString (patsolve_global_dict, "solver", Solv)
 }
 
@@ -326,6 +328,7 @@ load_user_script (slv, path) =
     !the_python_modules := namespace :: !the_python_modules
   end // end of [load_user_scripts]
 
+  
 implement
 macro_exists (slv, str) =
   if ~(!the_python_started) then

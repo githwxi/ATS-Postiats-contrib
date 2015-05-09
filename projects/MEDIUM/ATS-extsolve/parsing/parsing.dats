@@ -2,153 +2,143 @@
 ** Parsing constraints in JSON format
 *)
 
+#include
+"patsolve.hats"
+
 (* ****** ****** *)
-//
+
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
-//
+
 (* ****** ****** *)
 
 staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-//
+
 staload "constraint/constraint.sats"
-//
-(* ****** ****** *)
-
-staload "{$JSONC}/SATS/json.sats"
-staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 
-staload "./parsing.sats"
+staload "parsing/parsing.sats"
+
+staload _ = "parsing/parsing_c3nstr.dats"
+staload _ = "parsing/parsing_h3ypo.dats"
+staload _ = "parsing/parsing_s2cst.dats"
+staload _ = "parsing/parsing_s2exp.dats"
+staload _ = "parsing/parsing_s2rt.dats"
+staload _ = "parsing/parsing_s2var.dats"
+staload _ = "parsing/parsing_s2vvar.dats"
+staload _ = "parsing/parsing_s2zexp.dats"
+staload _ = "parsing/parsing_s3itm.dats"
 
 (* ****** ****** *)
 
-extern
-fun jsonval_get_field
-  (jsv: jsonval, name: string): Option_vt (jsonval)
+staload "parsing/jsonval.sats"
+
+staload _ = "parsing/jsonval.dats"
+staload _ = "{$LIBATSWDBLAIR}/jsmn/DATS/jsmn.dats"
 
 (* ****** ****** *)
 
-implement
-jsonval_get_field
-  (jsv0, name) = let
-in
-//
-case+ jsv0 of
-| JSONobject
-    (lxs) => let
-  in
-    list_assoc_opt<string,jsonval> (lxs, name)
-  end // end of [JSONobject]
-| _ (*nonobj*) => None_vt ()
-//
-end // end of [jsonval_get_field]
-
-(* ****** ****** *)
-//
-implement
+implement{}
 parse_int
   (jsv0) = let
-  val-JSONint (lli) = jsv0 in $UN.cast{int}(lli)
+in
+    int_of_jsonval (jsv0)
 end // end of [parse_int]
-//
-implement
+
+
+implement{}
 parse_string
-  (jsv0) = let val-JSONstring (str) = jsv0 in str end
-//
+  (jsv0) = jsv0.string_unsafe
+
 (* ****** ****** *)
 
-implement
+implement{}
 parse_stamp (jsv0) = let
-  val-JSONint(lli) = jsv0 in stamp_make ($UN.cast{int}(lli))
+  val i = int_of_jsonval (jsv0)
+in
+    stamp_make (i)
 end // end of [parse_stamp]
 
 (* ****** ****** *)
 
-implement
+implement{}
 parse_symbol (jsv0) = let
-  val-JSONstring(name) = jsv0 in symbol_make (name)
+  val name = jsv0.string_unsafe
+in
+  symbol_make (name)
 end // end of [parse_symbol]
 
 (* ****** ****** *)
 
-implement
+
+implement{}
 parse_location (jsv0) = let
-  val-JSONstring(strloc) = jsv0 in location_make (strloc)
+  val strloc = jsv0.string_unsafe
+in
+  location_make (strloc)
 end // end of [parse_location]
 
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
+{a}
 parse_list
-  (jsv0, f) = let
-//
-val-JSONarray(jsvs) = jsv0
-//
-fun auxlst
-(
-  jsvs: jsonvalist, f: jsonval -> a
-) : List0 (a) =
-  case+ jsvs of
-  | list_cons
-      (jsv, jsvs) =>
-      list_cons{a}(f(jsv), auxlst (jsvs, f))
-  | list_nil () => list_nil ()
-//
+  (jsv0) = let
+    val rs = jsonval_array_map<a> (jsv0)
 in
-  auxlst (jsvs, f)
+    list_of_list_vt (rs)
 end // end of [parse_list]
 
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
+{a}
 parse_option
-  (jsv0, f) = let
+  (jsv0) = let
 (*
 val () = fprintln!
   (stdout_ref, "parse_option: jsv0 = ", jsv0)
 *)
-//
-val-JSONarray (jsvs) = jsv0
-//
 in
-  case+ jsvs of
-  | list_nil () => None(*void*)
-  | list_cons (jsv, _) => Some{a}(f(jsv))
+    if jsv0.size = 0 then
+        None ()
+    else let
+        val jsv = jsv0[0]
+        val x = jsonval_parse<a> (jsv)
+     in
+         Some (x)
+     end
 end // end of [parse_option]
 
 (* ****** ****** *)
 
-implement parse_c3nstr_from_stdin () = let
+implement
+parse_c3nstr_from_stdin () = let
   val inp = stdin_ref
   val out = stdout_ref
-  //
-  val D = 1024
-  val tkr = json_tokener_new_ex (D)
-  val () = assertloc (json_tokener2ptr (tkr) > 0)
-  //
-  val cs = 
-    fileref_get_file_string (inp)
-  val jso = let
-    val cs2 = $UN.strptr2string (cs)
-    val len = g1u2i (string_length (cs2))
-  in
-    json_tokener_parse_ex (tkr, cs2, len)
-  end
-  //
-  val jsv = json_object2val0 (jso)
-  val () = strptr_free (cs)
-  val () = json_tokener_free (tkr)
+
+  val (data, jsv) = jsonval_parse_from_stdin ()
+  
+  val () = $tempenver (data)
+  
+  implement
+  jsonval_src<> () = data
+  
+  val s2csts = jsv["s2cstmap"]
+  val s2vars = jsv["s2varmap"]
+  val c3nstrs = jsv["c3nstrbody"]
+    
+  val () = parse_s2cstmap (s2csts)
+  val () = parse_s2varmap (s2vars)
+  
 in
-  parse_c3nstr (jsv)
+  parse_c3nstr (c3nstrs)
 end // end of [parse_c3nstr_from_stdin]
 
 (* ****** ****** *)

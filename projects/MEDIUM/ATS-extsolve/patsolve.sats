@@ -5,6 +5,7 @@
 datatype commarg =
   | Verbose of ()
   | Script of (string)
+  | Path of (string)
   
 vtypedef commarglst = List0_vt (commarg)
 

@@ -38,7 +38,7 @@ fun array_ptrswap_size {a:t@ype} {l:addr}
   Here is a precise type for memcpy. I wonder if this could be used to
   swap regions of arrays.
   
-  Unfortunately, I think it might be too complicated.
+  Unfortunately, this may be too complicated for the effort.
 *)
 extern
 fun memcpy {l,p:addr} {num,n,m:nat | num <= n; num <= m} {xs,ys:stmsq} (
@@ -49,7 +49,7 @@ fun memcpy {l,p:addr} {num,n,m:nat | num <= n; num <= m} {xs,ys:stmsq} (
 
 (**
 
-  Z3 can't figure this one out.
+  Z3 can't figure this one out :D
 fun
 copy {l,p:addr} {n:nat} {xs,ys:stmsq} (
   pfd: !array_v (byte, l, xs, n) >> array_v (byte, l, ys, n),

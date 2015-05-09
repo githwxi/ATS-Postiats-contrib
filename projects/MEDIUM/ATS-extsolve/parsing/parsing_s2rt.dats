@@ -3,43 +3,58 @@
 *)
 
 (* ****** ****** *)
-//
+
 #include
 "share/atspre_define.hats"
-#include
-"share/atspre_staload.hats"
-//
+
 (* ****** ****** *)
-//
+
 staload "constraint/constraint.sats"
-//
-(* ****** ****** *)
-
-staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 
-staload "./parsing.sats"
-staload "./parsing.dats"
+staload "parsing/jsonval.sats"
 
 (* ****** ****** *)
 
-extern
-fun parse_S2RTbas (jsonval) : s2rt
-
-extern
-fun parse_S2RTfun (jsonval) : s2rt
+staload "parsing/parsing.sats"
 
 (* ****** ****** *)
 
-implement 
-parse_S2RTbas
+implement{}
+parse_s2rtlst
   (jsv0) = let
-//  
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 1)
+  
+    implement
+    jsonval_parse<s2rt> (jsv) = parse_s2rt (jsv)
+    
+in
+    parse_list<s2rt> (jsv0)
+end
+
+(* ****** ****** *)
+
+implement{}
+parse_s2rt
+  (jsv0) = let
+in
+    if jsv0.has_key ("S2RTbas") then
+        parse_S2RTbas (jsv0["S2RTbas"])
+    else if jsv0.has_key ("S2RTfun") then
+        parse_S2RTfun (jsv0["S2RTfun"])
+    else 
+        S2RTignored ()
+end where {
+
+fun
+parse_S2RTbas
+  (jsv0: jsonval): s2rt = let
+
+val () = assertloc (jsv0.size >= 1)
 //
-val srt = parse_string (jsvs[0])
+// val () = println! ("Trying to parse base sort!")
+val srt = parse_string (jsv0[0])
+// val () = println! ("Parsed base sort!")
 in
     case+ srt of
       | "int" => S2RTint ()
@@ -80,45 +95,20 @@ in
    
 end // end of [parse_S2RTbas]
 
-(* ****** ****** *)
-
-implement
+fun
 parse_S2RTfun
-  (jsv0) = let
+  (jsv0:jsonval): s2rt = let
+
+val () = assertloc (jsv0.size >= 2)
+val args = parse_s2rtlst (jsv0[0])
 //
-val-JSONarray(jsvs) = jsv0
-val () = assertloc (length(jsvs) >= 2)
-val-JSONarray(args) = jsvs[0]
-implement list_map$fopr<jsonval><s2rt> (x) =
-  parse_s2rt (x)
-//
-val arguments = list_of_list_vt {s2rt} (
-  list_map<jsonval><s2rt> (args)
-)
-//
-val ret = parse_s2rt (jsvs[1])
+val ret = parse_s2rt (jsv0[1])
 //
 in
-  S2RTfun (arguments, ret)
+  S2RTfun (args, ret)
 end // end of [parse_S2RTfun]
 
-(* ****** ****** *)
-
-implement
-parse_s2rt
-  (jsv0) = let
-  val-JSONobject(lxs) = jsv0
-  val-list_cons (lx, lxs) = lxs
-  val name = lx.0 and jsv2 = lx.1
-in
-//
-case+ name of
-//
-| "S2RTbas" => parse_S2RTbas (jsv2)
-| "S2RTfun" => parse_S2RTfun (jsv2)
-| _(*rest*) => S2RTignored ()
-//
-end // end of [parse_s2rt]
+} // end of [parse_s2rt]
 
 (* ****** ****** *)
 

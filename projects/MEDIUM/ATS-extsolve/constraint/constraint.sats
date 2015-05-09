@@ -110,7 +110,7 @@ datatype s2rt =
 | S2RTarray of ()
 | S2RTrat of ()
 | S2RTbitvec of (int(*width*))
-| S2RTfun of (s2rts (*args*), s2rt (*return*))
+| S2RTfun of (s2rtlst (*args*), s2rt (*return*))
 | S2RTtup of ((*void*))
 | S2RTt0ype of ((*void*))
 | S2RTuninterp of (string)
@@ -118,7 +118,7 @@ datatype s2rt =
 | S2RTignored of ((*void*))
 
 where 
-s2rts = List0 (s2rt)
+s2rtlst = List0 (s2rt)
 
 (* ****** ****** *)
 
@@ -137,7 +137,7 @@ fun s2rt_is_t0ype (s2rt): bool
 fun s2rt_is_fun (s2rt): bool
 
 fun s2rt_fun_get_num_args (s2rt): int
-fun s2rt_fun_get_args (s2rt): s2rts
+fun s2rt_fun_get_args (s2rt): s2rtlst
 fun s2rt_fun_get_ret (s2rt): s2rt
 
 fun s2rt_bitvec_get_width (s2rt): int
@@ -174,11 +174,15 @@ equal_string_s2cst (string, s2cst): bool
 fun s2cst_make (symbol, stamp, s2rt): s2cst
 
 (* ****** ****** *)
-//
+
 fun s2cst_get_name (s2cst):<> symbol
 fun s2cst_get_stamp (s2cst):<> stamp
 fun s2cst_get_srt (s2cst):<> s2rt
-//
+
+overload .name with s2cst_get_name
+overload .stamp with s2cst_get_stamp
+overload .srt with s2cst_get_srt
+
 (* ****** ****** *)
 
 fun s2cst_lte_cls_cls (s2cst, s2cst): bool

@@ -15,7 +15,7 @@ staload _ = "contrib/libats-/wdblair/prelude/DATS/array.dats"
 *)
 extern
 fun {}
-compare_ptr_ptr {a:t@ype}{p,q:addr}{x,y:stamp} (
+compare_ptr_ptr {a:t@ype} {p,q:addr} {x,y:stamp} (
   pfp: !T(a,x) @ p, pfq: !T(a,y) @ q | p: ptr p, q: ptr q
 ): int (sgn(x - y))
 
@@ -159,7 +159,13 @@ quicksort {a:t@ype} {l:addr} {xs:stmsq} {n:nat} .<n>. (
               array_v (a, l, ys, n) | size_t (p)
       ) =
         if pi = pn then let
-          //prval () = equal_ptr_lemma{a}{l}{i,n-1} (pi, pn)
+          (**
+            The SMT solver cannot prove that i and n-1 are equal given pi = pn
+            This lemma seems required as it is as it is very important for the SMT 
+            solver to know that i and n-1 are equal in order for it to determine 
+            that the array is partitioned.
+          *) 
+          prval () = equal_ptr_lemma {a}{l}{i,n-1} (pi, pn)
           //
           val () = swap{a}{l}{n}{pind, n-1} (pf | pind, pn, sz)
         in 
@@ -210,7 +216,7 @@ typedef compare_fn(a:t@ype) = {l1,l2:addr} {x1,x2:stamp} (
     ptr (l1), ptr (l2)) -> int (sgn(x1-x2))
     
 extern
-fun libc_qsort {a:t@ype} {l:addr}{xs:stmsq}{n:nat} (
+fun patslibc_qsort {a:t@ype} {l:addr}{xs:stmsq}{n:nat} (
   pf: array_v (a, l, xs, n) |
     ptr l, size_t (n), size_t (sizeof (a)), compare_fn (a)
 ): [ys:stmsq | sorted (ys, n)] (
@@ -227,7 +233,7 @@ local
     
   in
 
-  implement libc_qsort {a} (pf | p, n, sz, cmp) = let
+  implement patslibc_qsort {a} (pf | p, n, sz, cmp) = let
     implement compare_ptr_ptr<> {b} (pfx, pfy | px, py) = let
       val cmp0 = bless_cmp{a,b} (cmp)
     in

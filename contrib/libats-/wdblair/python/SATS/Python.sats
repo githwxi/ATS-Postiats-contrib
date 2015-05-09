@@ -2,6 +2,12 @@
 #include "contrib/libats-/wdblair/python/CATS/Python.cats"
 %}
 
+(**
+  Will Blair
+
+  October 2014
+*)
+
 abstype PyObject = ptr
 
 fun Py_SetProgramName (string): void = "mac#"
@@ -33,7 +39,9 @@ fun Py_InitModule (string, ptr): PyObject = "mac#"
 (* ****** ****** *)
 
 fun PyImport_Import (PyObject): PyObject = "mac#"
+fun PyImport_ImportModule (string): PyObject = "mac#"
 fun PyImport_AddModule (string): PyObject = "mac#"
+
 
 (* ****** ****** *)
 

@@ -15,4 +15,13 @@ inline void array_ptrswap_size (void *p, void *q, size_t sz) {
   return;
 }
 
+/**
+  I tried to have Z3 prove this one automatically, it really
+  doesn't like pointer arithmetic :D
+*/
+inline size_t ptr_offset (void *base, void *p, size_t sz) {
+  size_t offs = (size_t)(p - base);
+  return offs / sz;
+};
+
 #endif
