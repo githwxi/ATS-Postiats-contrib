@@ -150,6 +150,20 @@ overload fprint with fprint_s2cst
 //
 (* ****** ****** *)
 //
+fun
+s2cst_make
+  (s2rt, symbol, stamp): s2cst
+//
+fun s2cst_get_srt (s2cst): s2rt
+fun s2cst_get_name (s2cst): symbol
+fun s2cst_get_stamp (s2cst): stamp
+//
+overload .srt with s2cst_get_srt
+overload .name with s2cst_get_name
+overload .stamp with s2cst_get_stamp
+//
+(* ****** ****** *)
+//
 abstype
 s2var_type = ptr
 //
@@ -167,6 +181,14 @@ fun
 fprint_s2var: fprint_type(s2var)
 //
 overload fprint with fprint_s2var
+//
+(* ****** ****** *)
+//
+fun
+s2var_make
+  (s2rt, symbol, stamp): s2var
+//
+fun s2var_make_srt (s2rt): s2var
 //
 (* ****** ****** *)
 //
@@ -208,6 +230,16 @@ fun tyreckind_is_flt0 (knd: tyreckind): bool
 fun tyreckind_is_flt1 (knd: tyreckind): bool
 fun tyreckind_is_flt_ext (knd: tyreckind): bool
 //
+(* ****** ****** *)
+
+datatype
+s2exp_node =
+
+where
+s2exp = $rec{
+  s2exp_srt= s2rt, s2exp_node= s2exp_node
+} (* end of [s2exp] *)
+
 (* ****** ****** *)
 
 (* end of [patsolve_constraint3.sats] *)

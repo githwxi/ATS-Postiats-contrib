@@ -25,4 +25,4 @@ staload
 
 (* ****** ****** *)
 
-(* end of [patsolve_constraint3_s2cst.dats] *)
+(* end of [patsolve_constraint3_s2Var.dats] *)
