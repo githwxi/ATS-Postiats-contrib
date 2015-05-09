@@ -216,7 +216,7 @@ typedef compare_fn(a:t@ype) = {l1,l2:addr} {x1,x2:stamp} (
     ptr (l1), ptr (l2)) -> int (sgn(x1-x2))
     
 extern
-fun libc_qsort {a:t@ype} {l:addr}{xs:stmsq}{n:nat} (
+fun patslibc_qsort {a:t@ype} {l:addr}{xs:stmsq}{n:nat} (
   pf: array_v (a, l, xs, n) |
     ptr l, size_t (n), size_t (sizeof (a)), compare_fn (a)
 ): [ys:stmsq | sorted (ys, n)] (
@@ -233,7 +233,7 @@ local
     
   in
 
-  implement libc_qsort {a} (pf | p, n, sz, cmp) = let
+  implement patslibc_qsort {a} (pf | p, n, sz, cmp) = let
     implement compare_ptr_ptr<> {b} (pfx, pfy | px, py) = let
       val cmp0 = bless_cmp{a,b} (cmp)
     in

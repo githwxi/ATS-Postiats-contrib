@@ -59,10 +59,10 @@ fun {a:t@ype}
 ptr_set0{l:addr}{x,y:stamp}
   (pf: !T(a,x) @ l >> T(a, y) @ l | p: ptr l, y: T(a, y)):<> void
   
-fun{} ptr_offset
+fun ptr_offset
   {a:t@ype}{l:addr}{i:nat} (
     ptr l, ptr (l+i*sizeof(a)), size_t(sizeof(a))
-):<> size_t (i)
+):<> size_t (i) = "mac#"
 // end of [ptr_offset]
 
 (* ****** ****** *)

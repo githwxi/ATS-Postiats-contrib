@@ -68,7 +68,7 @@ take = Function ('stampseq_take', StampSeqSort(), IntSort(),
                  StampSeqSort())
 
 s.add (
-    ForAll ([A, i, j], Implies(i >= 0, take(A, i)[j] == If(j < i, A[j], 0)))
+    ForAll ([A, i, j], take(A, i)[j] == If(j < i, A[j], 0))
 )
 
 # Drop
@@ -77,7 +77,7 @@ drop = Function ('stampseq_drop', StampSeqSort(), IntSort(),
                  StampSeqSort())
 
 s.add (
-    ForAll ([A, i, j], Implies(i >= 0, drop(A, i)[j] == A[i+j]))
+    ForAll ([A, i, j], drop(A, i)[j] == A[i+j])
 )
 
 # Insert
@@ -86,8 +86,8 @@ insert = Function ('stampseq_insert', StampSeqSort(), IntSort(),
                    IntSort(), StampSeqSort())
 
 s.add (
-    ForAll ([A, x, i, j], Implies(i >= 0, insert(A, i, x)[j] == If(j < i, A[j],
-                                                   If(j == i, x, A[j-1])))
+    ForAll ([A, x, i, j], insert(A, i, x)[j] == If(j < i, A[j],
+                                                   If(j == i, x, A[j-1]))
     )
 )
 
@@ -114,3 +114,13 @@ def stampseq_sorted (xs, n):
         And (0 <= i, i <= j, j < n),
         xs[i] <= xs[j])
     )
+
+# This axiom is important for proving the ptr_offset method, but I think asserting
+# it generally to Z3 causes proof times to go up too high. I want to be able to
+# bind this assertion only in the scope of an individual function...
+
+#l , i = Ints ('l i')
+
+#s.add (
+#    ForAll([l, i, a], Implies(i >= 0, ((l+(i*sizeof(a)))-l)/sizeof(a) == i))
+#)
