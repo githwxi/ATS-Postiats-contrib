@@ -39,13 +39,7 @@ fun smtenv_load_scripts (env: &smtenv, scripts: List0(string)): void
 
 fun smtenv_get_solver (env: &smtenv): solver
 
-fun smtenv_get_verbose (env: &smtenv): bool
-
-overload .verbose with smtenv_get_verbose
-
 fun smtenv_set_verbose (env: &smtenv, verbose: bool): void
-
-overload .verbose with smtenv_set_verbose
 
 fun formula_cst (s2c: s2cst): formula
 
