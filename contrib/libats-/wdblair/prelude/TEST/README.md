@@ -10,6 +10,12 @@ provided by SMT solvers such as
    - uninterpreted functions
 
 
+To test our type checking using the external constraint solver, make sure
+you built patsolve (in projects/MEDIUM/ATS-extsolve) and run the following
+
+    make
+
+
 Verified qsort
 ==============
 
@@ -27,6 +33,26 @@ on the eyes, and I wonder if using abstract types with templates could
 simplify the code without compromising the verification result or the 
 efficancy.
 
+### Running qsort
+
+These sorting routines implement the qsort function given in the C library.
+There's a client program called sort.c that uses our qsort function to sort
+a buffer of structs. You can compile the sorting program for both quicksort
+and insertion sort by running the following
+
+    make build
+
+This builds `sort_insort` and `sort_quicksort`, simply run them from the
+commandline to see them sort randomly generated data.
+
+Sorting Lists
+=============
+
+The file `list_insort.dats` has a more manual approach to verifying insertion
+sort for linked lists. Manual in this case means it relies less on the SMT
+solver and more on proof terms constructed by the programmer. There are also
+a couple examples in `list_insort.dats` that are similar to examples made with
+the Liquid Haskell framework.
 
 Bit Hacks
 =========
@@ -45,7 +71,6 @@ understands. The examples I give using this technique are counting bits
 the naive way (shifting the number one bit and a time and counting how 
 many times the least significant bit is set) and through Brian Kernighan's
 bit counting algorithm (clearing the least significant set bit at each step).
-
 
 Uninterpreted Functions
 ========================
