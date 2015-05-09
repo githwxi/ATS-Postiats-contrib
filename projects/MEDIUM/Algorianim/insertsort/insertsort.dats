@@ -104,7 +104,7 @@ end // end of [array_insertsort]
 //
 implement
 {a}(*tmp*)
-array_insertsort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
+array_insertsort$cmp (x1, x2) = gcompare_ref_ref<a> (x1, x2)
 //
 (* ****** ****** *)
 

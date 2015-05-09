@@ -99,13 +99,13 @@ fprint_val<myint> (out, x) = fprint (out, x)
 (* ****** ****** *)
 
 implement
-gcompare_val<myint>
+gcompare_val_val<myint>
   (x1, x2) = let
   val+MYINT(i1, _) = x1
   and MYINT(i2, _) = x2
 in
   g0int_compare_int (i1, i2)
-end // end of [gcompare_val]
+end // end of [gcompare_val_val]
 
 (* ****** ****** *)
 
@@ -124,7 +124,9 @@ fun loop
   k1: size_t, k2: size_t
 ) : size_t =
   if k2 < last then let
-    val sgn = gcompare_val<myint> (pivot, A[k2])
+    val sgn =
+      gcompare_val_val<myint> (pivot, A[k2])
+    // end of [val]
   in
     if sgn <= 0
       then loop (k1, succ(k2))

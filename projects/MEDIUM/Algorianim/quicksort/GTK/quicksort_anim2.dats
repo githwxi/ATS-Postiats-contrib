@@ -171,7 +171,7 @@ fun loop
   k1: size_t, k2: size_t
 ) : size_t =
   if k2 < last then let
-    val sgn = gcompare_val<a> (pivot, A[k2])
+    val sgn = gcompare_val_val<a> (pivot, A[k2])
   in
     if sgn <= 0
       then loop (k1, succ(k2))

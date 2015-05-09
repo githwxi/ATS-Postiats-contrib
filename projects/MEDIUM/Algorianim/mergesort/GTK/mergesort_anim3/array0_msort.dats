@@ -162,7 +162,8 @@ if
 i < split && split < j
 then let
 //
-val sgn = gcompare_val<a> (A[i], A[split])
+val sgn =
+  gcompare_val_val<a> (A[i], A[split])
 //
 in
 //
