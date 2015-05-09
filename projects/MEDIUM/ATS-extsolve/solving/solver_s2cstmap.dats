@@ -64,8 +64,8 @@ in
     h
 end
 
-implement
-$HT.hashtbl_linprb_keyitm_is_null<symbol, s2cst_ftype> (kx) = let
+implement(a)
+$HT.hashtbl_linprb_keyitm_is_null<symbol, a> (kx) = let
     val k = kx.0
     val str = symbol_get_string (k)
     val p = $UN.cast{ptr} (str)
@@ -74,7 +74,7 @@ in
 end
 
 local
-    var myfuncdict: funcdict =  $HT.hashtbl_make_nil (i2sz (1000))
+    var myfuncdict: funcdict = $HT.hashtbl_make_nil (i2sz (1000))
 in
     val the_funcdict =
          ref_make_viewptr{funcdict} (view@myfuncdict | addr@myfuncdict)
@@ -247,6 +247,7 @@ constraint3_initialize_map (map) = {
 
     ins (map, "add_addr_int", f_add_int_int);
     ins (map, "sub_addr_int", f_sub_int_int);
+
     ins (map, "sub_addr_addr", f_sub_int_int);
 
     ins (map, "lt_addr_addr", f_lt_int_int);

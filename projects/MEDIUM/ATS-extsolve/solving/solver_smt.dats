@@ -353,6 +353,7 @@ in
           val bound = formula_make (!Env, x.1)
           prval () =  fpf (pf)
           val srt = x.0.s2exp_srt
+          prval () = topize(x)
         in
           if s2rt_is_bitvec (srt) then
             $SMT.make_bv_ult (met, bound)

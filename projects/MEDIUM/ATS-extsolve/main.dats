@@ -48,7 +48,7 @@ implement main0 (argc, argv) = let
   //
   implement
   list_vt_freelin$clear<commarg> (x) = {
-    val () = topize (x)
+    prval () = topize (x)
   }
   implement
   list_vt_filter$pred<commarg> (x) =
@@ -56,9 +56,14 @@ implement main0 (argc, argv) = let
       | Script (s) => true
       | _ =>> false
   implement
-  list_vt_mapfree$fopr<commarg><string> (x) =
-    case- x of
-      | Script (s) => s
+  list_vt_mapfree$fopr<commarg><string> (x) = let
+    val s = 
+      case- x of
+        | Script (s) => s
+    prval () = topize (x)
+  in
+    s
+  end
   //
   val scriptargs = filter (list_vt_copy (args))
   val scripts = mapfree<commarg><string> (scriptargs)
