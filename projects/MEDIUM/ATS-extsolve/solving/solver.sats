@@ -77,6 +77,8 @@ fun smtenv_assert_formula (env: &smtenv, fm: formula): void
 
 fun smtenv_load_scripts (env: &smtenv, scripts: List0(string)): void
 
+fun smtenv_load_script_paths (env: &smtenv, scripts: List0(string)): void
+
 fun smtenv_get_solver (env: &smtenv): solver
 
 fun smtenv_set_verbose (env: &smtenv, verbose: bool): void

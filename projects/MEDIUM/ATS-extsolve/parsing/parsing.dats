@@ -136,7 +136,7 @@ parse_c3nstr_from_stdin () = let
     
   val () = parse_s2cstmap (s2csts)
   val () = parse_s2varmap (s2vars)
- 
+  
 in
   parse_c3nstr (c3nstrs)
 end // end of [parse_c3nstr_from_stdin]

@@ -174,7 +174,7 @@ fun {a:t@ype} insord1
   {xs:stmsq | ordered (xs)}
 (
   x: T(a, x0), xs: list (a, xs, n)
-) : [i:nat | i < n; ordered (insert(xs, i, x0))]
+) : [i:nat | i <= n; ordered (insert(xs, i, x0))]
 (
   list (a, insert(xs, i, x0), n+1)
 )

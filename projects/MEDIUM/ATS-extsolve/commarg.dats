@@ -26,7 +26,7 @@ fail {n:int | n >=1}  (
   argv: !argv(n)
 ): commarglst = let
   val () = prerrln! 
-    ("Usage: ", argv[0], " [-s <script>] [-v --verbose]")
+    ("Usage: ", argv[0], " [-s <script>] [-v --verbose] [-e <python path>]")
 in
   $raise AssertExn ()
 end
@@ -38,6 +38,10 @@ parse_argv {n} (argc, argv) = let
   fun loop {i:int | i >=1; i <= n} (
     i: int i, argv: !argv (n), res: commarglst
   ): commarglst =
+    (**
+     We should be able to use templates to make this
+     a little cleaner
+    *)
     if i = argc then
       res
     else let
@@ -53,6 +57,20 @@ parse_argv {n} (argc, argv) = let
             val s = argv[i]
           in
             loop (succ (i), argv, Script (s) :: res)
+          end
+          else let
+            val () = list_vt_free (res)
+          in
+            fail (argv)
+          end
+        end
+        | _ when cmd = "-e" => let
+           val i = succ (i)
+        in
+          if i < argc then let
+            val s = argv[i]
+          in
+            loop (succ (i), argv, Path (s) :: res)
           end
           else let
             val () = list_vt_free (res)

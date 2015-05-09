@@ -207,8 +207,8 @@ fun load_functions (
       //
       val key = PyTuple_GetItem (pair, g0int2int_int_ssize(0))
       val func = PyTuple_GetItem (pair, g0int2int_int_ssize(1))
-      //      
-      val p = copy(PyString_AsString(key))
+      //
+      val p = copy (PyString_AsString(key))
       val label = strptr2string (p)
       //
     in
@@ -288,9 +288,10 @@ init_scripting (slv) = {
   val patsolve_global_dict = PyModule_GetDict (patsolve)
 
   val _ = PyRun_SimpleString ("from z3 import *")
+  val _ = PyRun_SimpleString ("import sys")
 
   val z3 = PyImport_AddModule ("z3")
-  val () = assertloc ($UN.cast{ptr}(z3) != the_null_ptr)
+  val () = assertloc (isneqz (castptr(z3)))
   val z3_global_dict = PyModule_GetDict (z3)
   val main_ctx_func = PyDict_GetItemString (z3_global_dict, "main_ctx")
   val main_ctx = PyObject_CallObject (main_ctx_func, $UN.cast{PyObject}(the_null_ptr))
@@ -327,6 +328,7 @@ load_user_script (slv, path) =
     !the_python_modules := namespace :: !the_python_modules
   end // end of [load_user_scripts]
 
+  
 implement
 macro_exists (slv, str) =
   if ~(!the_python_started) then
