@@ -38,6 +38,12 @@ overload != with neq_stamp_stamp
 overload compare with compare_stamp_stamp
 //
 (* ****** ****** *)
+//
+fun theStamp_getinc(): stamp
+//
+fun theStamp_update(n: stamp): void
+//
+(* ****** ****** *)
 
 abstype symbol_type = ptr
 typedef symbol = symbol_type
@@ -141,6 +147,66 @@ fun
 fprint_s2cst: fprint_type(s2cst)
 //
 overload fprint with fprint_s2cst
+//
+(* ****** ****** *)
+//
+abstype
+s2var_type = ptr
+//
+typedef s2var = s2var_type
+//
+typedef s2varlst = List0 (s2var)
+vtypedef s2varlst_vt = List0_vt (s2var)
+//
+typedef s2varopt = Option (s2var)
+vtypedef s2varopt_vt = Option_vt (s2var)
+//
+(* ****** ****** *)
+//
+fun
+fprint_s2var: fprint_type(s2var)
+//
+overload fprint with fprint_s2var
+//
+(* ****** ****** *)
+//
+abstype
+s2Var_type = ptr
+//
+typedef s2Var = s2Var_type
+//
+typedef s2Varlst = List0 (s2Var)
+vtypedef s2Varlst_vt = List0_vt (s2Var)
+//
+typedef s2Varopt = Option (s2Var)
+vtypedef s2Varopt_vt = Option_vt (s2Var)
+//
+(* ****** ****** *)
+//
+fun
+fprint_s2Var: fprint_type(s2Var)
+//
+overload fprint with fprint_s2Var
+//
+(* ****** ****** *)
+
+datatype
+tyreckind =
+  | TYRECKINDbox (* boxed *)
+  | TYRECKINDbox_lin (* boxed *)
+  | TYRECKINDflt0 (* flat *)
+  | TYRECKINDflt1 of stamp (* flat *)
+  | TYRECKINDflt_ext of string  (* flat *)
+// end of [tyreckind]
+
+(* ****** ****** *)
+//
+fun tyreckind_is_box (knd: tyreckind): bool
+fun tyreckind_is_box_lin (knd: tyreckind): bool
+//
+fun tyreckind_is_flt0 (knd: tyreckind): bool
+fun tyreckind_is_flt1 (knd: tyreckind): bool
+fun tyreckind_is_flt_ext (knd: tyreckind): bool
 //
 (* ****** ****** *)
 

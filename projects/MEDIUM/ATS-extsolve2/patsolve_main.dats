@@ -14,7 +14,26 @@
 (* ****** ****** *)
 //
 dynload
+"patsolve_constraint3_stamp.dats"
+//
+(* ****** ****** *)
+//
+dynload
+"patsolve_constraint3_symbol.dats"
+//
+(* ****** ****** *)
+//
+dynload
 "patsolve_constraint3_location.dats"
+//
+(* ****** ****** *)
+//
+dynload
+"patsolve_constraint3_s2cst.dats"
+dynload
+"patsolve_constraint3_s2var.dats"
+dynload
+"patsolve_constraint3_s2Var.dats"
 //
 (* ****** ****** *)
 

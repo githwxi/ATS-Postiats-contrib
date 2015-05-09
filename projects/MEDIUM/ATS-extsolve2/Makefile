@@ -46,6 +46,10 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
 
+CFLAGS :=
+
+######
+
 LDFLAGS :=
 EXTRAFLAGS :=
 
@@ -64,7 +68,12 @@ SOURCES_SATS= \
 
 SOURCES_DATS= \
   patsolve_main.dats \
+  patsolve_constraint3_stamp.dats \
+  patsolve_constraint3_symbol.dats \
   patsolve_constraint3_location.dats \
+  patsolve_constraint3_s2cst.dats \
+  patsolve_constraint3_s2var.dats \
+  patsolve_constraint3_s2Var.dats \
 
 ######
 
@@ -81,9 +90,13 @@ OBJECTS += $(OBJECTS_SATS_O)
 OBJECTS += $(OBJECTS_DATS_O)
 
 ######
+
+PATSCC2 = $(PATSCC) -DATS_MEMALLOC_LIBC
+
+######
 #
 patsolve: $(OBJECTS) ; \
-  $(PATSCC) $(INCLUDE) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(EXTRAFLAGS)
+  $(PATSCC) $(INCLUDE) -o $@ $^ $(LDFLAGS) $(EXTRAFLAGS)
 #
 ######
 
@@ -92,12 +105,27 @@ patsolve_constraint3_sats.o: \
 
 ######
 
-patsolve_main_dats.o: patsolve_main.dats; $(PATSCC) -c $<
+patsolve_main_dats.o: patsolve_main.dats; $(PATSCC2) -c $<
 
 ######
 
+patsolve_constraint3_stamp_dats.o: \
+  patsolve_constraint3_stamp.dats; $(PATSCC2) -c $<
+
+patsolve_constraint3_symbol_dats.o: \
+  patsolve_constraint3_symbol.dats; $(PATSCC2) -c $<
+
 patsolve_constraint3_location_dats.o: \
-  patsolve_constraint3_location.dats; $(PATSCC) -c $<
+  patsolve_constraint3_location.dats; $(PATSCC2) -c $<
+
+patsolve_constraint3_s2cst_dats.o: \
+  patsolve_constraint3_s2cst.dats; $(PATSCC2) -c $<
+
+patsolve_constraint3_s2var_dats.o: \
+  patsolve_constraint3_s2var.dats; $(PATSCC2) -c $<
+
+patsolve_constraint3_s2Var_dats.o: \
+  patsolve_constraint3_s2Var.dats; $(PATSCC2) -c $<
 
 ######
 #
