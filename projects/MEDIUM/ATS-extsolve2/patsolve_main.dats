@@ -35,6 +35,9 @@ dynload
 dynload
 "patsolve_constraint3_s2vvar.dats"
 //
+dynload
+"patsolve_constraint3_s2exp.dats"
+//
 (* ****** ****** *)
 
 implement

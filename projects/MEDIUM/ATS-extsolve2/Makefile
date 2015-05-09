@@ -74,6 +74,7 @@ SOURCES_DATS= \
   patsolve_constraint3_s2cst.dats \
   patsolve_constraint3_s2var.dats \
   patsolve_constraint3_s2vvar.dats \
+  patsolve_constraint3_s2exp.dats \
 
 ######
 
@@ -126,6 +127,9 @@ patsolve_constraint3_s2var_dats.o: \
 
 patsolve_constraint3_s2vvar_dats.o: \
   patsolve_constraint3_s2vvar.dats; $(PATSCC2) -c $<
+
+patsolve_constraint3_s2exp_dats.o: \
+  patsolve_constraint3_s2exp.dats; $(PATSCC2) -c $<
 
 ######
 #

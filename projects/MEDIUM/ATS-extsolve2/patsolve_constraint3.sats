@@ -252,4 +252,18 @@ s2exp = $rec{
 
 (* ****** ****** *)
 
+typedef s2explst = List0 (s2exp)
+
+(* ****** ****** *)
+//
+fun
+fprint_s2exp : fprint_type(s2exp)
+fun
+fprint_s2explst : fprint_type(s2explst)
+//
+overload fprint with fprint_s2exp
+overload fprint with fprint_s2explst
+//
+(* ****** ****** *)
+
 (* end of [patsolve_constraint3.sats] *)
