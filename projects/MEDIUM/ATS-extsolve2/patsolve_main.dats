@@ -33,7 +33,7 @@ dynload
 dynload
 "patsolve_constraint3_s2var.dats"
 dynload
-"patsolve_constraint3_s2Var.dats"
+"patsolve_constraint3_s2vvar.dats"
 //
 (* ****** ****** *)
 

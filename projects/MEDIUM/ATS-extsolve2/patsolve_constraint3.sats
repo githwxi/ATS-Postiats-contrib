@@ -234,6 +234,16 @@ fun tyreckind_is_flt_ext (knd: tyreckind): bool
 
 datatype
 s2exp_node =
+//
+  | S2Eint of (int)
+  | S2Eintinf of (string)
+//
+  | S2Ecst of (s2cst)
+  | S2Evar of (s2var)
+  | S2EVar of (s2Var)
+//
+  | S2Eignored of ((*void*))
+// end of [s2exp_node]
 
 where
 s2exp = $rec{
