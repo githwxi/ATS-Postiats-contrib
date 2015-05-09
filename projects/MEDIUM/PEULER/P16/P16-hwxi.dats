@@ -23,11 +23,11 @@ staload
 //
 (* ****** ****** *)
 //
-staload "./P16.sats"
 (*
+staload "./P16.sats"
+*)
 staload
 "{$LIBATSHWXI}/PEULER/PROJECT/P16/P16.sats"
-*)
 //
 (* ****** ****** *)
 
