@@ -59,7 +59,29 @@ in
   $UN.castvwtp0{s2var}((pfat, pfgc | p))
 end // end of [s2var_make]
 
+(* ****** ****** *)
+//
+(*
+implement
+s2var_get_srt (s2v) = !s2v.s2var_srt
+*)
+//
+implement
+s2var_get_name (s2v) = !s2v.s2var_name
+implement
+s2var_get_stamp (s2v) = !s2v.s2var_stamp
+//
+(* ****** ****** *)
+
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+fprint_s2var
+  (out, s2v) =
+  fprint! (out, s2v.name, "(", s2v.stamp, ")")
+// end of [fprint_s2var]
 
 (* ****** ****** *)
 

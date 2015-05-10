@@ -192,6 +192,16 @@ fun s2var_make_srt (s2rt): s2var
 //
 (* ****** ****** *)
 //
+fun
+s2var_get_name (s2var): symbol
+fun
+s2var_get_stamp (s2var): stamp
+//
+overload .name with s2var_get_name
+overload .stamp with s2var_get_stamp
+//
+(* ****** ****** *)
+//
 abstype
 s2Var_type = ptr
 //
@@ -209,6 +219,13 @@ fun
 fprint_s2Var: fprint_type(s2Var)
 //
 overload fprint with fprint_s2Var
+//
+(* ****** ****** *)
+//
+fun
+s2Var_get_stamp (s2Var): stamp
+//
+overload .stamp with s2Var_get_stamp
 //
 (* ****** ****** *)
 
