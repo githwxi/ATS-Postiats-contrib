@@ -113,6 +113,7 @@ case+ s2t0 of
 | S2RTfun (args, ret) => fprint (out, "S2RTfun()")
 | S2RTtup () => fprint (out, "S2RTtup()")
 | S2RTerr () => fprint (out, "S2RTerr()")
+| S2RTuninterp (str) => fprint! (out, "S2RTuninterp(", str, ")")
 //
 | S2RTignored () => fprint (out, "S2RTignored()")
 | S2RTuninterp(name) => fprint! (out, "S2RTuninterp(", name, ")")
