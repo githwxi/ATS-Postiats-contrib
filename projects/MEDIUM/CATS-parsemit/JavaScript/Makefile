@@ -59,6 +59,7 @@ SOURCES_DATS += catsparse_main_js.dats
 ######
 
 MYTARGET=atscc2js
+MYPORTDIR=MYPORTDIR
 
 ######
 
