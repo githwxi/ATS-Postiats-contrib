@@ -384,8 +384,8 @@ token_node =
 | T_ENDL of ()
 | T_SPACES of (string)
 //
-| T_COMMENT_line of () // line comment
-| T_COMMENT_block of () // block comment
+| T_COMMENT_line of (string) // line comment
+| T_COMMENT_block of (string) // block comment
 //
 | T_EOF of () // end-of-file
 //

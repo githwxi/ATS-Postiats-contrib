@@ -153,8 +153,8 @@ tok.token_node of
 | T_ENDL () => emit_ENDL (out)
 | T_SPACES (cs) => emit_text (out, cs)
 //
-| T_COMMENT_line () => emit_COMMENT_line (out)
-| T_COMMENT_block () => emit_COMMENT_block (out)
+| T_COMMENT_line _ => emit_COMMENT_line (out, tok)
+| T_COMMENT_block _ => emit_COMMENT_block (out, tok)
 //
 | T_INT (_, rep) => emit_text (out, rep)
 | T_FLOAT (_, rep) => emit_text (out, rep)

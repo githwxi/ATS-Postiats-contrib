@@ -479,11 +479,26 @@ end // end of [emit_SELboxrec]
 (* ****** ****** *)
 //
 implement
-emit_COMMENT_line (out) =
-  emit_text (out, "// COMMENT_line\n")
+emit_COMMENT_line
+  (out, tok) = let
+//
+val-
+T_COMMENT_line(str) = tok.token_node
+//
+in
+  emit_text (out, str)
+end // end of [emit_COMMENT_line]
 //
 implement
-emit_COMMENT_block (out) = ((*ignored*))
+emit_COMMENT_block
+  (out, tok) = let
+//
+val-
+T_COMMENT_block(str) = tok.token_node
+//
+in
+  emit_text (out, str)
+end // end of [emit_COMMENT_block]
 //
 (* ****** ****** *)
 

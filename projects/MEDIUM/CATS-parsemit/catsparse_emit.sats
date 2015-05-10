@@ -161,9 +161,9 @@ fun emit_f0decl : emit_type (f0decl)
 (* ****** ****** *)
 //
 fun
-emit_COMMENT_line (out: FILEref): void
+emit_COMMENT_line(out: FILEref, tok: token): void
 fun
-emit_COMMENT_block (out: FILEref): void
+emit_COMMENT_block(out: FILEref, tok: token): void
 //
 (* ****** ****** *)
 

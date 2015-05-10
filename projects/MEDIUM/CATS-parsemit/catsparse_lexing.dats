@@ -982,12 +982,12 @@ val () = position_incby (pos, 2)
 val nchr =
   testing_until_literal (buf, pos, STARSLASH)
 //
-val () = lexbuf_remove (buf, nchr + 2)
+val str = lexbuf_takeout (buf, nchr + 2)
 val loc = lexbufpos_get_location (buf, pos)
 val ((*void*)) = lexbuf_set_position (buf, pos)
 //
 in
-  token_make (loc, T_COMMENT_block)
+  token_make (loc, T_COMMENT_block(strptr2string(str)))
 end // end of [lexing_SLASHSTAR]
 
 (* ****** ****** *)
@@ -1005,11 +1005,11 @@ ftesting_seq0
 //
 // HX: Note that ENDL is not included
 //
-val () = lexbuf_remove (buf, nchr + 2)
+val str = lexbuf_takeout (buf, nchr + 2)
 val loc = lexbuf_getincby_location (buf, nchr + 2)
 //
 in
-  token_make (loc, T_COMMENT_line)
+  token_make (loc, T_COMMENT_line(strptr2string(str)))
 end // end of [lexing_SLASHSLASH]
 
 (* ****** ****** *)
@@ -1137,8 +1137,8 @@ case+
 tok.token_node of
 | T_ENDL () => lexbuf_get_token_skip (buf)
 | T_SPACES _ => lexbuf_get_token_skip (buf)
-| T_COMMENT_line () => lexbuf_get_token_skip (buf)
-| T_COMMENT_block () => lexbuf_get_token_skip (buf)
+| T_COMMENT_line _ => lexbuf_get_token_skip (buf)
+| T_COMMENT_block _ => lexbuf_get_token_skip (buf)
 | _ (*non-SKIP*) => tok
 //
 end // end of [lexing_get_token_skip]

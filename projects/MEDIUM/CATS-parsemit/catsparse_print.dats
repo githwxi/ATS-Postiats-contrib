@@ -272,10 +272,10 @@ case+ x0 of
 | T_SPACES (cs) =>
     fprint! (out, "SPACES(", ")")
 //
-| T_COMMENT_line () =>
-    fprint! (out, "COMMENTline(", ")")
-| T_COMMENT_block () =>
-    fprint! (out, "COMMENTblock(", ")")
+| T_COMMENT_line _ =>
+    fprint! (out, "COMMENTline(", "...", ")")
+| T_COMMENT_block _ =>
+    fprint! (out, "COMMENTblock(", "...", ")")
 //
 | T_EOF () => fprint! (out, "EOF(", ")")
 //

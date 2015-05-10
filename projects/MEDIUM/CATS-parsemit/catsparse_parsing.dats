@@ -1050,6 +1050,12 @@ fun loop
 //
 val tok = tokbuf_get_token_any (buf)
 //
+(*
+val () =
+println!
+  ("parse_extcode: loop: tok = ", tok)
+*)
+//
 in
 //
 case+
@@ -1117,7 +1123,7 @@ end // end of [loop]
 //
 in
   loop (buf, bt, err)
-end // end of [parse_extcode]
+end // end of [parse_closurerize]
 
 (* ****** ****** *)
 
