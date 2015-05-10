@@ -990,7 +990,7 @@ fun fprint_instr : fprint_type (instr)
 fun fprint_instrlst : fprint_type (instrlst)
 //
 overload fprint with fprint_instr
-overload fprint with fprint_instrlst
+overload fprint with fprint_instrlst of 10
 //
 (* ****** ****** *)
 

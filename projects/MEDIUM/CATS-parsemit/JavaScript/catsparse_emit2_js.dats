@@ -1095,10 +1095,10 @@ if knd > 0 then
 val () = emit_nspc (out, 2)
 val () = emit_text (out, "var funlab_js\n")
 //
+} (* end of [if] *) // end of [val]
+//
 val () = emit_nspc (out, 2)
 val () = emit_text (out, "var tmplab, tmplab_js\n")
-//
-} (* end of [if] *) // end of [val]
 //
 val () = emit_text (out, "//\n")
 //

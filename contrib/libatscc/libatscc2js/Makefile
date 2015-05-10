@@ -38,9 +38,19 @@ all:: ; \
 $(PATSOPT) -d ./DATS/gmatrixref.dats | $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 #
 #######
+#
+DATE=date
+ECHO=echo -n
+#
+all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2js_all.js
+all_in_one:: ; $(ECHO) '/*\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) 'Time of Generation:\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(DATE) | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) '*/\n\n' | $(CAT) - >>libatscc2js_all.js
+#
 
 all_in_one:: ; \
-$(CAT) >libatscc2js_all.js \
+$(CAT) >>libatscc2js_all.js \
 CATS/basics_cats.js \
 CATS/integer_cats.js \
 CATS/bool_cats.js \
@@ -63,6 +73,15 @@ output/DATS/arrayref_dats.js \
 output/DATS/matrixref_dats.js \
 output/DATS/gmatrixref_dats.js \
 
+#
+all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) '/* ****** ****** */' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2js_all.js
+#
+all_in_one:: ; $(ECHO) '\n/* ' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) 'end of [libatscc2js_all.js]' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) ' */\n' | $(CAT) - >>libatscc2js_all.js
+#
 #######
 #
 upload_source:: ; \

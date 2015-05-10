@@ -1499,14 +1499,31 @@ case+ xs of
   ) (* end of [list_cons] *)
 )
 //
-fun istailcal
+fun
+istailcal
 (
   inss: instrlst
 ) : bool = let
 //
-fun aux (x: instr): bool =
-(
-case+ x.instr_node of
+(*
+val () =
+fprintln!
+  (stdout_ref, "istailcal: inss = ", inss)
+*)
+//
+fun
+aux (x: instr): bool = let
+//
+(*
+val () =
+fprintln! (stdout_ref, "istailcal: aux: x = ", x)
+*)
+//
+in
+//
+case+
+x.instr_node
+of // case+
 | ATStailcalseq _ => true
 | ATSif (_, _then, _else) =>
     if auxlst (_then) then true else auxlstopt (_else)
@@ -1514,7 +1531,8 @@ case+ x.instr_node of
 | ATScaseofseq (inss) => auxlst (inss)
 | ATSfunbodyseq (inss) => auxlst (inss)
 | _(*rest-of-instr*) => false
-)
+//
+end // end of [aux]
 //
 and auxlst
   (xs: instrlst): bool =
@@ -1544,6 +1562,11 @@ fbody.f0body_node of
 | F0BODY
     (tds, inss) => let
     val nf = fcount (inss, 0)
+(*
+    val () =
+      fprintln! (stdout_ref, "f0body_classify: nf = ", nf)
+    // end of [val]
+*)
   in
     if nf >= 2 then 2 else (if istailcal (inss) then 1 else 0)
   end // end of [...]
