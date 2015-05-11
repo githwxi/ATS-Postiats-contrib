@@ -206,6 +206,7 @@ case+ x of
 //
 | ATSdynload () => pr "ATSdynload"
 | ATSdynloadset () => pr "ATSdynloadset"
+| ATSdynloadfcall () => pr "ATSdynloadfcall"
 | ATSdynloadflag_sta () => pr "ATSdynloadflag_sta"
 | ATSdynloadflag_ext () => pr "ATSdynloadflag_ext"
 | ATSdynloadflag_init () => pr "ATSdynloadflag_init"
@@ -523,6 +524,7 @@ ins0.instr_node of
 //
 | ATSdynload (dummy) => fprint! (out, "ATSdynload(", ")")
 | ATSdynloadset (flag) => fprint! (out, "ATSdynloadset(", flag, ")")
+| ATSdynloadfcall (fcall) => fprint! (out, "ATSdynloadfcall(", fcall, ")")
 | ATSdynloadflag_sta (flag) => fprint! (out, "ATSdynloadflag_sta(", flag, ")")
 | ATSdynloadflag_ext (flag) => fprint! (out, "ATSdynloadflag_ext(", flag, ")")
 | ATSdynloadflag_init (flag) => fprint! (out, "ATSdynloadflag_init(", flag, ")")

@@ -586,16 +586,19 @@ fun
 ATSINSdeadcode_fail_make (tok_kwd: token, tok_end: token): instr
 //
 (* ****** ****** *)
-
+//
 fun
 ATSdynload_make (tok_kwd: token, tok_end: token): instr
 fun
 ATSdynloadset_make (tok_kwd: token, id: i0de, tok_end: token): instr
 fun
+ATSdynloadfcall_make (tok_kwd: token, id: i0de, tok_end: token): instr
+//
+fun
 ATSdynloadflag_sta_make (tok_kwd: token, id: i0de, tok_end: token): instr
 fun
 ATSdynloadflag_ext_make (tok_kwd: token, id: i0de, tok_end: token): instr
-
+//
 (* ****** ****** *)
 //
 fun

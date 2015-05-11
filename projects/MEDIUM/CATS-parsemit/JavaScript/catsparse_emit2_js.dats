@@ -616,6 +616,14 @@ ins0.instr_node of
     ) (* end of [val] *)
   }
 //
+| ATSdynloadfcall (fcall) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = (
+      emit_tmpvar (out, fcall); emit_text (out, "(/*void*/) ; // dynloading")
+    ) (* end of [val] *)
+  }
+//
 | ATSdynloadflag_sta (flag) =>
   {
     val () = emit_nspc (out, ind)

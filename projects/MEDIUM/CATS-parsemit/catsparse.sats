@@ -319,6 +319,7 @@ keyword =
 //
   | ATSdynload of ()
   | ATSdynloadset of ()
+  | ATSdynloadfcall of ()
   | ATSdynloadflag_sta of ()
   | ATSdynloadflag_ext of ()
   | ATSdynloadflag_init of ()
@@ -966,6 +967,7 @@ instr_node =
 //
   | ATSdynload of int
   | ATSdynloadset of (i0de)
+  | ATSdynloadfcall of (i0de)
   | ATSdynloadflag_sta of (i0de)
   | ATSdynloadflag_ext of (i0de)
   | ATSdynloadflag_init of (i0de)

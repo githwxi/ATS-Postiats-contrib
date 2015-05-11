@@ -1443,6 +1443,32 @@ end // end of [ATSdynload_make]
 (* ****** ****** *)
 
 implement
+ATSdynloadset_make
+  (tok1, id, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSdynloadset(id))
+end // end of [ATSdynloadset]
+
+(* ****** ****** *)
+
+implement
+ATSdynloadfcall_make
+  (tok1, id, tok2) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSdynloadfcall(id))
+end // end of [ATSdynloadfcall]
+
+(* ****** ****** *)
+
+implement
 ATSdynloadflag_sta_make
   (tok1, id, tok2) = let
 //
@@ -1465,19 +1491,6 @@ val loc =
 in
   instr_make_node (loc, ATSdynloadflag_ext(id))
 end // end of [ATSdynloadflag_ext_make]
-
-(* ****** ****** *)
-
-implement
-ATSdynloadset_make
-  (tok1, id, tok2) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  instr_make_node (loc, ATSdynloadset(id))
-end // end of [ATSdynloadset]
 
 (* ****** ****** *)
 

@@ -217,6 +217,7 @@ val-~None_vt() = kwordins ("ATSINSdeadcode_fail", ATSINSdeadcode_fail)
 //
 val-~None_vt() = kwordins ("ATSdynload", ATSdynload)
 val-~None_vt() = kwordins ("ATSdynloadset", ATSdynloadset)
+val-~None_vt() = kwordins ("ATSdynloadfcall", ATSdynloadfcall)
 val-~None_vt() = kwordins ("ATSdynloadflag_sta", ATSdynloadflag_sta)
 val-~None_vt() = kwordins ("ATSdynloadflag_ext", ATSdynloadflag_ext)
 val-~None_vt() = kwordins ("ATSdynloadflag_init", ATSdynloadflag_init)
