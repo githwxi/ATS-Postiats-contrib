@@ -483,7 +483,8 @@ emit_COMMENT_line
   (out, tok) = let
 //
 val-
-T_COMMENT_line(str) = tok.token_node
+T_COMMENT_line
+  (str) = tok.token_node
 //
 in
   emit_text (out, str)
@@ -494,7 +495,8 @@ emit_COMMENT_block
   (out, tok) = let
 //
 val-
-T_COMMENT_block(str) = tok.token_node
+T_COMMENT_block
+  (str) = tok.token_node
 //
 in
   emit_text (out, str)

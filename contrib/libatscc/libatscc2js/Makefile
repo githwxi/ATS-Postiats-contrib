@@ -62,7 +62,9 @@ CATS/JSarray_cats.js \
 CATS/JSglobal_cats.js \
 CATS/Ajax/Ajax_cats.js \
 CATS/HTML/canvas-2d/canvas2d_cats.js \
-CATS/Bacon.js/baconjs_cats.js \
+
+all_in_one:: ; \
+$(CAT) >>libatscc2js_all.js \
 output/DATS/basics_dats.js \
 output/DATS/list_dats.js \
 output/DATS/option_dats.js \
