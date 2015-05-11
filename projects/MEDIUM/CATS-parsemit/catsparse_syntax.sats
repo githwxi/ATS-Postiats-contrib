@@ -637,12 +637,19 @@ fun d0ecl_assume
 fun
 d0ecl_dyncst_mac
   (tok_beg: token, name: i0de, tok_end: token): d0ecl
+//
 fun
 d0ecl_dyncst_extfun
 (
   tok_beg: token
 , name: i0de, arg: s0explst, res: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_dyncst_extfun]
+//
+fun
+d0ecl_dyncst_valdec
+(
+  tok_beg: token, name: i0de, s0e: s0exp, tok_end: token
+) : d0ecl // end of [d0ecl_dyncst_valdec]
 //
 (* ****** ****** *)
 //

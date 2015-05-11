@@ -1732,8 +1732,22 @@ d0ecl_dyncst_extfun
 val loc = tok1.token_loc ++ tok2.token_loc
 //
 in
-  d0ecl_make_node (loc, D0Cdyncst_extfun (name, s0es, s0e))
+//
+d0ecl_make_node(loc, D0Cdyncst_extfun(name, s0es, s0e))
+//
 end // end of [d0ecl_dyncst_extfun]
+
+(* ****** ****** *)
+
+implement
+d0ecl_dyncst_valdec
+  (tok1, name, d0c_type, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdyncst_valdec(name, d0c_type))
+end // end of [d0ecl_dyncst_valdec]
 
 (* ****** ****** *)
 

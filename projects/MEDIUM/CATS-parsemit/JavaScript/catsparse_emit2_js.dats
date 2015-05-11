@@ -939,6 +939,7 @@ d0c.d0ecl_node of
 //
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
+| D0Cdyncst_valdec _ => ()
 //
 | D0Cextcode (toks) =>
   {

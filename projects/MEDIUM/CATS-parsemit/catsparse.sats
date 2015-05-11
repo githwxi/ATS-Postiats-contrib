@@ -204,6 +204,7 @@ keyword =
   | ATSassume of ()
 //
   | ATSdyncst_mac of ()
+//
   | ATSdyncst_extfun of ()
 //
   | ATSdyncst_valimp of ()
@@ -1038,7 +1039,10 @@ d0ecl_node =
   | D0Cassume of i0de // HX: assume ...
 //
   | D0Cdyncst_mac of i0de
+//
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
+//
+  | D0Cdyncst_valdec of (i0de, s0exp)
 //
   | D0Cextcode of (tokenlst)
 //

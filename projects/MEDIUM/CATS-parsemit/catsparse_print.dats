@@ -83,6 +83,7 @@ case+ x of
 | ATSassume () => pr "ATSassume"
 //
 | ATSdyncst_mac () => pr "ATSdyncst_mac"
+//
 | ATSdyncst_extfun () => pr "ATSdyncst_extfun"
 //
 | ATSdyncst_valimp () => pr "ATSdyncst_valimp"
@@ -667,8 +668,12 @@ x.d0ecl_node of
 //
 | D0Cdyncst_mac (name) =>
     fprint! (out, "D0Cdyncst_mac(", name, ")")
+//
 | D0Cdyncst_extfun (name, s0es, s0e) =>
     fprint! (out, "D0Cdyncst_extfun(", name, ")")
+//
+| D0Cdyncst_valdec (name, s0e) =>
+    fprint! (out, "D0Cdyncst_valdec(", name, ")")
 //
 | D0Cextcode _ =>
     fprint! (out, "D0Cextcode(", "...", ")")
