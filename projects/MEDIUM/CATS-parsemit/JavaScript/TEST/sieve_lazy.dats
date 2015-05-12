@@ -28,6 +28,11 @@ staload
 //
 (* ****** ****** *)
 
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "sieve_lazy_main"
+
+(* ****** ****** *)
+
 #define :: stream_cons
 #define cons stream_cons
 #define nil stream_nil
@@ -72,15 +77,17 @@ end // end of [nth]
 
 (* ****** ****** *)
 //
-extern 
-fun
-main0_js (): void = "mac#"
-//
+extern
+val 
+thePrimes : stream(int)
 implement
-main0_js ((*void*)) =
-{
+thePrimes = sieve (from(2))
 //
-val ps = sieve (from(2))
+(* ****** ****** *)
+//
+val () = {
+//
+val ps = thePrimes
 //
 val () = println! ("primes[0] = ", nth(ps, 0))
 val () = println! ("primes[1] = ", nth(ps, 1))
@@ -96,7 +103,7 @@ val () = println! ("primes[9] = ", nth(ps, 9))
 val () = println! ("primes[100] = ", nth(ps, 100))
 val () = println! ("primes[1000] = ", nth(ps, 1000))
 //
-} (* end of [main0_js] *)
+} (* end of [val] *)
 //
 (* ****** ****** *)
 
@@ -121,7 +128,7 @@ eval(fs.readFileSync('./libatscc2js/DATS/stream_dats.js').toString());
 
 %{$
 //
-main0_js()
+sieve_lazy_main(/*void*/);
 //
 %} // end of [%{$]
 
