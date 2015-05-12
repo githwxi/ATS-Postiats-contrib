@@ -24,6 +24,8 @@ $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PHP) -o ./output/DATS/stream_dats.php
 all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PHP) -o ./output/DATS/intrange_dats.php -i
 all:: ; \
+$(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2PHP) -o ./output/DATS/arrayref_dats.php -i
+all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PHP) -o ./output/DATS/reference_dats.php -i
 
 #######
@@ -66,6 +68,7 @@ output/DATS/list_dats.php \
 output/DATS/option_dats.php \
 output/DATS/stream_dats.php \
 output/DATS/intrange_dats.php \
+output/DATS/arrayref_dats.php \
 output/DATS/reference_dats.php \
 
 #
