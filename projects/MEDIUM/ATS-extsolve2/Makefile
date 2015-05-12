@@ -68,6 +68,7 @@ SOURCES_SATS= \
 
 SOURCES_DATS= \
   patsolve_main.dats \
+  patsolve_parsing.dats \
   patsolve_cnstrnt_stamp.dats \
   patsolve_cnstrnt_symbol.dats \
   patsolve_cnstrnt_location.dats \
@@ -130,6 +131,10 @@ patsolve_cnstrnt_s2vvar_dats.o: \
 
 patsolve_cnstrnt_s2exp_dats.o: \
   patsolve_cnstrnt_s2exp.dats; $(PATSCC2) -c $<
+
+######
+
+patsolve_parsing_dats.o: patsolve_parsing.dats; $(PATSCC2) -c $<
 
 ######
 #

@@ -940,7 +940,13 @@ d0c.d0ecl_node of
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
 | D0Cdyncst_valdec _ => ()
-| D0Cdyncst_valimp _ => ()
+| D0Cdyncst_valimp (id, s0e) =>
+  {
+    val () = emit_ENDL (out)
+    val () =
+      (emit_text (out, "var "); emit_i0de (out, id))
+    val () = emit_text (out, "\n")
+  }
 //
 | D0Cextcode (toks) =>
   {

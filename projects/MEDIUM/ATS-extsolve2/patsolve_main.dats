@@ -39,6 +39,10 @@ dynload
 "patsolve_cnstrnt_s2exp.dats"
 //
 (* ****** ****** *)
+//
+dynload "patsolve_parsing.dats"
+//
+(* ****** ****** *)
 
 implement
 main0 (argc, argv) =
