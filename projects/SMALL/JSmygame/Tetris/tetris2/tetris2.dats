@@ -5,12 +5,12 @@
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "tetris__"
+ATS_STATIC_PREFIX "tetris2_"
 //
 (* ****** ****** *)
 
 #define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "tetris_initize"
+#define ATS_DYNLOADNAME "tetris2_initize"
 
 (* ****** ****** *)
 //
@@ -24,6 +24,9 @@ staload (*opened*) "./tetris.sats"
 (* ****** ****** *)
 //
 #include "{$LIBATSCC2JS}/staloadall.hats"
+//
+staload
+"{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
 //
 (* ****** ****** *)
 //
@@ -260,23 +263,6 @@ end // end of [then]
 //
 (* ****** ****** *)
 //
-(*
-//
-// HX-2015-05-11:
-// This works, too!
-//
-dynload "tetris_block.dats"
-dynload "tetris_piece.dats"
-dynload "tetris_keyboard.dats"
-dynload "tetris_gameboard.dats"
-*)
-val () = tetris_block_initize()
-val () = tetris_piece_initize()
-val () = tetris_keyboard_initize()
-val () = tetris_gameboard_initize()
-//
-(* ****** ****** *)
-//
 implement
 theGame_play() =
 if
@@ -306,5 +292,23 @@ theGame_stop() =
 }
 //
 (* ****** ****** *)
+//
+local
+#include "./tetris2_block.dats"
+in (*nothing*) end
+//
+local
+#include "./tetris2_piece.dats"
+in (*nothing*) end
+//
+local
+#include "./tetris2_keyboard.dats"
+in (*nothing*) end
+//
+local
+#include "./tetris2_gameboard.dats"
+in (*nothing*) end
+//
+(* ****** ****** *)
 
-(* end of [tetris.dats] *)
+(* end of [tetris2.dats] *)

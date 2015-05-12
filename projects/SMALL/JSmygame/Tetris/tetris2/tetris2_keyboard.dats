@@ -3,33 +3,6 @@
 *)
 
 (* ****** ****** *)
-
-#define
-ATS_STATIC_PREFIX "tetris_keyboard__"
-
-(* ****** ****** *)
-
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "tetris_keyboard_initize"
-
-(* ****** ****** *)
-//
-#include
-"share/atspre_define.hats"
-//
-(* ****** ****** *)
-//
-staload (*opened*) "./tetris.sats"
-//
-(* ****** ****** *)
-//
-#include
-"{$LIBATSCC2JS}/staloadall.hats"
-//
-staload
-"{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
-//
-(* ****** ****** *)
 //
 abstype JSevent
 //
@@ -172,4 +145,4 @@ end // end of [local]
 
 (* ****** ****** *)
     
-(* end of [tetris_keyboard.dats] *)
+(* end of [tetris2_keyboard.dats] *)
