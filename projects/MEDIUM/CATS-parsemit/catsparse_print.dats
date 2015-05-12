@@ -86,8 +86,8 @@ case+ x of
 //
 | ATSdyncst_extfun () => pr "ATSdyncst_extfun"
 //
-| ATSdyncst_valimp () => pr "ATSdyncst_valimp"
 | ATSdyncst_valdec () => pr "ATSdyncst_valdec"
+| ATSdyncst_valimp () => pr "ATSdyncst_valimp"
 //
 | TYPEDEF () => pr "typedef"
 //
@@ -674,6 +674,8 @@ x.d0ecl_node of
 //
 | D0Cdyncst_valdec (name, s0e) =>
     fprint! (out, "D0Cdyncst_valdec(", name, ")")
+| D0Cdyncst_valimp (name, s0e) =>
+    fprint! (out, "D0Cdyncst_valimp(", name, ")")
 //
 | D0Cextcode _ =>
     fprint! (out, "D0Cextcode(", "...", ")")

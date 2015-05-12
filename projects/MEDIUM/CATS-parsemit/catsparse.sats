@@ -207,8 +207,8 @@ keyword =
 //
   | ATSdyncst_extfun of ()
 //
-  | ATSdyncst_valimp of ()
   | ATSdyncst_valdec of ()
+  | ATSdyncst_valimp of ()
 //
   | ATStmpdec of ()
   | ATStmpdec_void of ()
@@ -1043,6 +1043,7 @@ d0ecl_node =
   | D0Cdyncst_extfun of (i0de, s0explst, s0exp)
 //
   | D0Cdyncst_valdec of (i0de, s0exp)
+  | D0Cdyncst_valimp of (i0de, s0exp)
 //
   | D0Cextcode of (tokenlst)
 //

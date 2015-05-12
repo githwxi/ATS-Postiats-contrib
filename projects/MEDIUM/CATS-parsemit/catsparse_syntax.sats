@@ -650,6 +650,11 @@ d0ecl_dyncst_valdec
 (
   tok_beg: token, name: i0de, s0e: s0exp, tok_end: token
 ) : d0ecl // end of [d0ecl_dyncst_valdec]
+fun
+d0ecl_dyncst_valimp
+(
+  tok_beg: token, name: i0de, s0e: s0exp, tok_end: token
+) : d0ecl // end of [d0ecl_dyncst_valimp]
 //
 (* ****** ****** *)
 //

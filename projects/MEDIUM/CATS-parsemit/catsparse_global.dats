@@ -98,10 +98,11 @@ val-~None_vt() = kwordins ("ATSstatic", ATSstatic)
 val-~None_vt() = kwordins ("ATSassume", ATSassume)
 //
 val-~None_vt() = kwordins ("ATSdyncst_mac", ATSdyncst_mac)
+//
 val-~None_vt() = kwordins ("ATSdyncst_extfun", ATSdyncst_extfun)
 //
-val-~None_vt() = kwordins ("ATSdyncst_valimp", ATSdyncst_valimp)
 val-~None_vt() = kwordins ("ATSdyncst_valdec", ATSdyncst_valdec)
+val-~None_vt() = kwordins ("ATSdyncst_valimp", ATSdyncst_valimp)
 //
 val-~None_vt() = kwordins ("ATStmpdec", ATStmpdec)
 val-~None_vt() = kwordins ("ATStmpdec_void", ATStmpdec_void)

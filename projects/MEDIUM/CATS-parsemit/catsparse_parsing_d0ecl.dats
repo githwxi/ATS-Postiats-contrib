@@ -317,6 +317,22 @@ tok.token_node of
     // end of [if]
   end // end of [ATSdyncst_valdec]
 //
+| T_KWORD(ATSdyncst_valimp()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
+    val ent6 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
+  in
+    if err = err0
+      then d0ecl_dyncst_valimp (tok, ent2, ent4, ent5)
+      else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSdyncst_valimp]
+//
 | T_KWORD(ATSextcode_beg()) => let
     val bt = 0
     val () = incby1 ()

@@ -1752,6 +1752,18 @@ end // end of [d0ecl_dyncst_valdec]
 (* ****** ****** *)
 
 implement
+d0ecl_dyncst_valimp
+  (tok1, name, d0v_type, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdyncst_valimp(name, d0v_type))
+end // end of [d0ecl_dyncst_valimp]
+
+(* ****** ****** *)
+
+implement
 d0ecl_typedef
   (tok, tyrec, id) = let
 //
