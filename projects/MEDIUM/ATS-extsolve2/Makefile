@@ -62,19 +62,19 @@ INCLUDE += -I$(PATSHOMEQ)/ccomp/runtime
 ######
 
 SOURCES_SATS= \
-  patsolve_constraint3.sats \
+  patsolve_cnstrnt.sats \
 
 ######
 
 SOURCES_DATS= \
   patsolve_main.dats \
-  patsolve_constraint3_stamp.dats \
-  patsolve_constraint3_symbol.dats \
-  patsolve_constraint3_location.dats \
-  patsolve_constraint3_s2cst.dats \
-  patsolve_constraint3_s2var.dats \
-  patsolve_constraint3_s2vvar.dats \
-  patsolve_constraint3_s2exp.dats \
+  patsolve_cnstrnt_stamp.dats \
+  patsolve_cnstrnt_symbol.dats \
+  patsolve_cnstrnt_location.dats \
+  patsolve_cnstrnt_s2cst.dats \
+  patsolve_cnstrnt_s2var.dats \
+  patsolve_cnstrnt_s2vvar.dats \
+  patsolve_cnstrnt_s2exp.dats \
 
 ######
 
@@ -101,8 +101,8 @@ patsolve: $(OBJECTS) ; \
 #
 ######
 
-patsolve_constraint3_sats.o: \
-  patsolve_constraint3.sats; $(PATSCC) -c $<
+patsolve_cnstrnt_sats.o: \
+  patsolve_cnstrnt.sats; $(PATSCC) -c $<
 
 ######
 
@@ -110,26 +110,26 @@ patsolve_main_dats.o: patsolve_main.dats; $(PATSCC2) -c $<
 
 ######
 
-patsolve_constraint3_stamp_dats.o: \
-  patsolve_constraint3_stamp.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_stamp_dats.o: \
+  patsolve_cnstrnt_stamp.dats; $(PATSCC2) -c $<
 
-patsolve_constraint3_symbol_dats.o: \
-  patsolve_constraint3_symbol.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_symbol_dats.o: \
+  patsolve_cnstrnt_symbol.dats; $(PATSCC2) -c $<
 
-patsolve_constraint3_location_dats.o: \
-  patsolve_constraint3_location.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_location_dats.o: \
+  patsolve_cnstrnt_location.dats; $(PATSCC2) -c $<
 
-patsolve_constraint3_s2cst_dats.o: \
-  patsolve_constraint3_s2cst.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_s2cst_dats.o: \
+  patsolve_cnstrnt_s2cst.dats; $(PATSCC2) -c $<
 
-patsolve_constraint3_s2var_dats.o: \
-  patsolve_constraint3_s2var.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_s2var_dats.o: \
+  patsolve_cnstrnt_s2var.dats; $(PATSCC2) -c $<
 
-patsolve_constraint3_s2vvar_dats.o: \
-  patsolve_constraint3_s2vvar.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_s2vvar_dats.o: \
+  patsolve_cnstrnt_s2vvar.dats; $(PATSCC2) -c $<
 
-patsolve_constraint3_s2exp_dats.o: \
-  patsolve_constraint3_s2exp.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_s2exp_dats.o: \
+  patsolve_cnstrnt_s2exp.dats; $(PATSCC2) -c $<
 
 ######
 #

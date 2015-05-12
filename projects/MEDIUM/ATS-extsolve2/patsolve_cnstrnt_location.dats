@@ -18,8 +18,7 @@
 //
 (* ****** ****** *)
 //
-staload
-"./patsolve_constraint3.sats"
+staload "./patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
 
@@ -39,4 +38,4 @@ fprint_location
 
 (* ****** ****** *)
 
-(* end of [patsolve_constraint3_location.dats] *)
+(* end of [patsolve_cnstrnt_location.dats] *)

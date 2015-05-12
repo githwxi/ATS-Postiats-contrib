@@ -18,11 +18,10 @@
 //
 (* ****** ****** *)
 //
-staload UN =
-"prelude/SATS/unsafe.sats"
-//
 staload
-"./patsolve_constraint3.sats"
+UN = "prelude/SATS/unsafe.sats"
+//
+staload "./patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
 
@@ -85,4 +84,4 @@ fprint_s2var
 
 (* ****** ****** *)
 
-(* end of [patsolve_constraint3_s2var.dats] *)
+(* end of [patsolve_cnstrnt_s2var.dats] *)

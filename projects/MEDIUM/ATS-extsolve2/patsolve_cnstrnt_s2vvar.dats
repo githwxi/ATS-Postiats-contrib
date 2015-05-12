@@ -18,8 +18,7 @@
 //
 (* ****** ****** *)
 //
-staload
-"./patsolve_constraint3.sats"
+staload "./patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
 
@@ -53,4 +52,4 @@ fprint_s2Var
 
 (* ****** ****** *)
 
-(* end of [patsolve_constraint3_s2vvar.dats] *)
+(* end of [patsolve_cnstrnt_s2vvar.dats] *)

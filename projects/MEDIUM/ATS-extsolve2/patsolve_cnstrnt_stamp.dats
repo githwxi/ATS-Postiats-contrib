@@ -18,8 +18,7 @@
 //
 (* ****** ****** *)
 //
-staload
-"./patsolve_constraint3.sats"
+staload "./patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
 
@@ -76,4 +75,4 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [patsolve_constraint3_stamp.dats] *)
+(* end of [patsolve_cnstrnt_stamp.dats] *)
