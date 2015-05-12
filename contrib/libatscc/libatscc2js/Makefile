@@ -76,13 +76,10 @@ output/DATS/matrixref_dats.js \
 output/DATS/gmatrixref_dats.js \
 
 #
-all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2js_all.js
-all_in_one:: ; $(ECHO) '/* ****** ****** */' | $(CAT) - >>libatscc2js_all.js
-all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2js_all.js
-#
-all_in_one:: ; $(ECHO) '\n/* ' | $(CAT) - >>libatscc2js_all.js
-all_in_one:: ; $(ECHO) 'end of [libatscc2js_all.js]' | $(CAT) - >>libatscc2js_all.js
-all_in_one:: ; $(ECHO) ' */\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; \
+  $(ECHO) '\n/* ****** ****** */\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; \
+  $(ECHO) '\n/* end of [libatscc2js_all.js] */\n' | $(CAT) - >>libatscc2js_all.js
 #
 #######
 #
