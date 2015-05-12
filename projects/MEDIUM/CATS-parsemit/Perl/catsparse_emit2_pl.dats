@@ -281,8 +281,7 @@ ins0.instr_node of
 | ATSreturn_void (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "return#_void")
-    val () = emit_SEMICOLON (out)
+    val () = emit_text (out, "return;#_void")
   }
 //
 | ATSINSlab (lab) =>
@@ -460,10 +459,20 @@ ins0.instr_node of
 | ATSdynloadset (flag) =>
   {
     val () = emit_nspc (out, ind)
+    val () = fprint! (out, "#ATSdynloadset(", flag, ")")
+    val () = emit_nspc (out, ind)
     val () =
     (
-      emit_global (out, flag); emit_text (out, " = 1 ; #dynflag is set")
+      emit_global (out, flag); emit_text (out, " = 1; #flag set")
     )
+  }
+//
+| ATSdynloadfcall (fcall) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () =
+      (emit_tmpvar (out, fcall); emit_text (out, "(); #dynloading"))
+    // end of [val]
   }
 //
 | ATSdynloadflag_sta (flag) =>
@@ -716,6 +725,8 @@ d0c.d0ecl_node of
 //
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
+| D0Cdyncst_valdec _ => ()
+| D0Cdyncst_valimp _ => ()
 //
 | D0Cextcode (toks) =>
   {

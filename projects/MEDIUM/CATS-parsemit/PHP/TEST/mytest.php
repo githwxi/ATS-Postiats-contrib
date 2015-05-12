@@ -9,6 +9,7 @@ include './multable_dats.php';
 include './twice_dats.php';
 include './rtfind_dats.php';
 include './rtfind2_dats.php';
+include './queens_dats.php';
 include './refcount_dats.php';
 include './sieve_lazy_dats.php';
 //
@@ -40,6 +41,8 @@ multable_test();
 twice_test();
 rtfind_test();
 rtfind2_test();
+//
+queens_main0_php();
 //
 refcount_dynload(); refcount_test();
 //

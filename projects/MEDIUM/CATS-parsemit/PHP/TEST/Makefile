@@ -96,6 +96,14 @@ cleanall:: ; $(RMF) rtfind2_dats.php
 ######
 
 all:: \
+queens_dats.php
+queens_dats.php: queens.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
+cleanall:: ; $(RMF) queens_dats.php
+
+######
+
+all:: \
 refcount_dats.php
 refcount_dats.php: refcount.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PHP) -o $@

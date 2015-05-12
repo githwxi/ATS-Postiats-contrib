@@ -509,12 +509,12 @@ end // end of [emit_SELboxrec]
 implement
 emit_COMMENT_line
   (out, tok) =
-  emit_text (out, "#COMMENT_line(...)\n")
+  emit_text (out, "#COMMENT_line(...)")
 //
 implement
 emit_COMMENT_block
   (out, tok) =
-  emit_text (out, "#COMMENT_block(...)\n")
+  emit_text (out, "#COMMENT_block(...)")
 //
 (* ****** ****** *)
 

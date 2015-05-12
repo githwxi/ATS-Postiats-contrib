@@ -994,9 +994,20 @@ ins0.instr_node of
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "#ATSdynloadset\n")
+    val () = emit_nspc (out, ind)
     val () = (
-      emit_nspc (out, ind); emit_tmpvar (out, flag); emit_text (out, " = 1")
+      emit_tmpvar (out, flag); emit_text (out, " = 1")
     ) (* end of [val] *)
+  }
+//
+| ATSdynloadfcall (fcall) =>
+  {
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "#ATSdynloadfcall\n")
+    val () = emit_nspc (out, ind)
+    val () =
+      (emit_tmpvar (out, fcall); emit_text (out, "()"))
+    // end of [val]
   }
 //
 | ATSdynloadflag_sta (flag) =>
@@ -1268,6 +1279,8 @@ d0c0.d0ecl_node of
 //
 | D0Cdyncst_mac _ => ()
 | D0Cdyncst_extfun _ => ()
+| D0Cdyncst_valdec _ => ()
+| D0Cdyncst_valimp _ => ()
 //
 | D0Cstatmp
     (tmp, opt) =>
