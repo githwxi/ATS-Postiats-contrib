@@ -63,9 +63,8 @@ all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2pl_all.pl
 all_in_one:: ; $(ECHO) '## ###### ###### ##' | $(CAT) - >>libatscc2pl_all.pl
 all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2pl_all.pl
 #
-all_in_one:: ; $(ECHO) '\n## ' | $(CAT) - >>libatscc2pl_all.pl
-all_in_one:: ; $(ECHO) 'end of [libatscc2pl_all.pl]' | $(CAT) - >>libatscc2pl_all.pl
-all_in_one:: ; $(ECHO) ' ##\n' | $(CAT) - >>libatscc2pl_all.pl
+all_in_one:: ; \
+  $(ECHO) '\n## end of [libatscc2pl_all.pl] ##\n' | $(CAT) - >>libatscc2pl_all.pl
 #
 #######
 
