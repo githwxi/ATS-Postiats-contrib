@@ -938,29 +938,34 @@ d0c.d0ecl_node of
   }
 //
 | D0Cdyncst_mac _ => ()
+//
 | D0Cdyncst_extfun _ => ()
+//
 | D0Cdyncst_valdec _ => ()
-| D0Cdyncst_valimp (id, s0e) =>
-  {
+//
+| D0Cdyncst_valimp
+    (id, s0e) => {
     val () = emit_ENDL (out)
-    val () =
-      (emit_text (out, "var "); emit_i0de (out, id))
+    val () = (
+      emit_text (out, "var "); emit_i0de (out, id)
+    ) (* end of [val] *)
     val () = emit_text (out, "\n")
   }
 //
-| D0Cextcode (toks) =>
+| D0Cextcode(toks) =>
   {
     val () = emit_ENDL (out)
     val () =
       emit_text (out, ATSEXTCODE_BEG)
+    // end of [val]
     val () = emit_extcode (out, toks) // HX: verbatim output
     val () =
       emit_text (out, ATSEXTCODE_END)
+    // end of [val]
     val ((*void*)) = emit_newline (out)
   } (* end of [D0Cextcode] *)
 //
-| D0Cstatmp
-    (tmp, opt) =>
+| D0Cstatmp(tmp, opt) =>
   {
     val () = emit_ENDL (out)
     val () = (
@@ -984,11 +989,12 @@ d0c.d0ecl_node of
     val () = emit_closurerize (out, fl, env, arg, res)
   }
 //
-| D0Cdynloadflag_init (flag) =>
+| D0Cdynloadflag_init
+    (flag) =>
   (
     emit_text (out, "// dynloadflag_init\n");
     emit_text (out, "var "); emit_tmpvar (out, flag); emit_text (out, " = 0;\n")
-  )
+  ) (* end of [D0Cdynloadflag_init] *)
 //
 end // end of [emit_d0ecl]
 
