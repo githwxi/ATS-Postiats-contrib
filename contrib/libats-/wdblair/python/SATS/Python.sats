@@ -1,12 +1,17 @@
-%{#
-#include "contrib/libats-/wdblair/python/CATS/Python.cats"
-%}
 
 (**
   Will Blair
 
   October 2014
 *)
+
+(* ****** ****** *)
+
+%{#
+#include "libats-/wdblair/python/CATS/Python.cats"
+%} // end of [%{#]
+
+(* ****** ****** *)
 
 abstype PyObject = ptr
 
