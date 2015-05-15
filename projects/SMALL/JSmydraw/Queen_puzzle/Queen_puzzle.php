@@ -234,11 +234,11 @@ draw_queen
 val rgb = "rgb(240, 240, 200)"
 val ((*void*)) = ctx.fillStyle(rgb)
 //
-val xc = (p1.x+p2.x+p3.x+p4.x)/4
-val yc = (p1.y+p2.y+p3.y+p4.y)/4
+val xc = (p1.x()+p2.x()+p3.x()+p4.x())/4
+val yc = (p1.y()+p2.y()+p3.y()+p4.y())/4
 //
-val dx = ((p1.x+p2.x)-(p3.x+p4.x))/2
-val dy = ((p1.y+p2.y)-(p3.y+p4.y))/2
+val dx = ((p1.x()+p2.x())-(p3.x()+p4.x()))/2
+val dy = ((p1.y()+p2.y())-(p3.y()+p4.y()))/2
 //
 val rad = 0.425*JSmath_sqrt(dx*dx+dy*dy)
 //
@@ -276,10 +276,10 @@ val rgb = "rgb("+c+","+c+","+c+")"
 val ((*void*)) = ctx.fillStyle(rgb)
 //
 val () = ctx.beginPath()
-val () = ctx.moveTo(p1.x, p1.y)
-val () = ctx.lineTo(p2.x, p2.y)
-val () = ctx.lineTo(p3.x, p3.y)
-val () = ctx.lineTo(p4.x, p4.y)
+val () = ctx.moveTo(p1.x(), p1.y())
+val () = ctx.lineTo(p2.x(), p2.y())
+val () = ctx.lineTo(p3.x(), p3.y())
+val () = ctx.lineTo(p4.x(), p4.y())
 val () = ctx.closePath()
 //
 val ((*void*)) = ctx.fill((*void*))

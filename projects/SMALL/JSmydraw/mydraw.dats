@@ -105,10 +105,10 @@ overload - with sub_ppv
 //
 implement
 add_pvp (p, v) =
-  point_make_xy (p.x + v.x, p.y + v.y)
+  point_make_xy (p.x() + v.x(), p.y() + v.y())
 implement
 sub_ppv (p1, p2) =
-  vector_make_xy (p1.x - p2.x, p1.y - p2.y)
+  vector_make_xy (p1.x() - p2.x(), p1.y() - p2.y())
 //
 (* ****** ****** *)
 //
@@ -122,10 +122,10 @@ sub_vvv (v1: vector, v2: vector): vector
 //
 implement
 add_vvv (v1, v2) =
-  vector_make_xy (v1.x + v2.x, v1.y + v2.y)
+  vector_make_xy (v1.x() + v2.x(), v1.y() + v2.y())
 implement
 sub_vvv (v1, v2) =
-  vector_make_xy (v1.x - v2.x, v1.y - v2.y)
+  vector_make_xy (v1.x() - v2.x(), v1.y() - v2.y())
 //
 (* ****** ****** *)
 //
@@ -143,9 +143,9 @@ overload / with div_vkv
 (* ****** ****** *)
 //
 implement
-mul_kvv (k, v) = vector_make_xy (k * v.x, k * v.y)
+mul_kvv (k, v) = vector_make_xy (k * v.x(), k * v.y())
 implement
-div_vkv (v, k) = vector_make_xy (v.x / k, v.y / k)
+div_vkv (v, k) = vector_make_xy (v.x() / k, v.y() / k)
 //
 (* ****** ****** *)
 
