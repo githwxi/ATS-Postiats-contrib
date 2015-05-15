@@ -21,12 +21,15 @@ assume
 board_type = mtrxszref (int)
 
 (* ****** ****** *)
-
+//
 implement
-board_nrow (board) = sz2i(g1ofg0(board.nrow))
+board_nrow
+  (board) = sz2i(g1ofg0(board.nrow()))
+//
 implement
-board_ncol (board) = sz2i(g1ofg0(board.ncol))
-
+board_ncol
+  (board) = sz2i(g1ofg0(board.ncol()))
+//
 (* ****** ****** *)
 
 implement
