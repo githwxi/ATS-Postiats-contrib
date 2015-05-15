@@ -11,24 +11,25 @@
 
 (* ****** ****** *)
 
-#define ATS_DYNLOADFLAG 0 (* no run-time dynloading *)
+#define
+ATS_DYNLOADFLAG 0 (* no dynloading *)
+
+(* ****** ****** *)
+
+%{^
+//
+#define \
+JSMN_STRICT 1
+//
+#include "./jsmn.c"
+//
+%} // end of [%{^]
 
 (* ****** ****** *)
 
 local
-in
-%{
-#define JSMN_STRICT 1
-
-#include "jsmn.c"
-%}
-end
-
-
-local
-in
-#include "contrib/libats-/wdblair/jsmn/DATS/jsmn.dats"
-end
+#include "libats-/wdblair/jsmn/DATS/jsmn.dats"
+in (*nothing*) end
 
 (* ****** ****** *)
 
