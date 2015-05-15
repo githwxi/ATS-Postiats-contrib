@@ -40,7 +40,7 @@ a:t@ype
 implement
 {a}(*tmp*)
 mergesort (A) =
-  mergesort2<a> (A, 0, sz2i(A.size))
+  mergesort2<a> (A, 0, sz2i(A.size()))
 //
 (* ****** ****** *)
 //
@@ -195,7 +195,7 @@ draw_array0
   cr: !xr1, A: array0 (int)
 ) : void = let
 //
-val n = A.size
+val n = A.size()
 //
 fun
 loop{l:agz}

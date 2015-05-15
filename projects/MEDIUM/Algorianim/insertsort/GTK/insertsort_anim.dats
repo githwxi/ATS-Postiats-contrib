@@ -216,7 +216,7 @@ end // end of [mydraw_bargraph$color]
 implement
 mydraw_bargraph$height<> (i) = 1.0 * (ASZ[i]+1) / MYMAX
 //
-val asz = ASZ.size
+val asz = ASZ.size()
 val asz = sz2i (asz)
 val asz = ckastloc_gintGt (asz, 0)
 //

@@ -50,7 +50,7 @@ array0_msort2
 implement
 {a}(*tmp*)
 array0_msort (A) =
-  array0_msort2<a> (A, 0, sz2i(A.size))
+  array0_msort2<a> (A, 0, sz2i(A.size()))
 
 (* ****** ****** *)
 

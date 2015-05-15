@@ -29,10 +29,14 @@ staload _ = "libats/ML/DATS/list0.dats"
 staload _ = "libats/ML/DATS/array0.dats"
 //
 (* ****** ****** *)
-
+//
+#define
+HTML_targetloc
+"$PATSHOMERELOC/contrib/HTML-emscripten"
+//
 staload "{$HTML}/SATS/document.sats"
-staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
-
+staload "{$HTML}/canvas-2d/SATS/canvas2d.sats"
+//
 (* ****** ****** *)
 
 (*
@@ -106,7 +110,7 @@ end else () // end of [if]
 (* ****** ****** *)
 
 implement
-gcompare_val<int>
+gcompare_val_val<int>
   (x1, x2) = g0int_compare_int (x1, x2)
 // end of [gcompare_val]
 
@@ -141,7 +145,7 @@ fun loop
   k1: size_t, k2: size_t
 ) : size_t =
   if k2 < last then let
-    val sgn = gcompare_val<a> (pivot, A[k2])
+    val sgn = gcompare_val_val<a> (pivot, A[k2])
   in
     if sgn <= 0
       then loop (k1, succ(k2))
@@ -296,7 +300,7 @@ val () = A[j] := tmp
 }
 //
 in
-  qsort<int> (A, i2sz(0), A.size)
+  qsort<int> (A, i2sz(0), A.size())
 end // end of [intqsort]
 
 (* ****** ****** *)
@@ -320,8 +324,8 @@ draw_array0{l}
   cnv, A, W, H, range, p
 ) = let
 //
-val n = A.size
-val asz = A.size
+val n = A.size()
+val asz = A.size()
 val sx = g0i2f(W) / $UN.cast{double}(asz)
 val sy = g0i2f(H) / $UN.cast{double}(MYMAX)
 val (pf | ()) = canvas2d_save (cnv)

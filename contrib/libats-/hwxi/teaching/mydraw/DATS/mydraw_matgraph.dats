@@ -105,7 +105,7 @@ mydraw_matgraph$draw_cell
 {
   val c = mydraw_matgraph$color (i, j)
   val () = mydraw_quadrilateral (p1, p2, p3, p4)
-  val ((*void*)) = mydraw_fill_set_rgb (c.r, c.g, c.b)
+  val ((*void*)) = mydraw_fill_set_rgb (c.r(), c.g(), c.b())
   val ((*void*)) = mydraw_fill ((*void*))
 } (* end of [mydraw_matgraph$draw_cell] *)
 

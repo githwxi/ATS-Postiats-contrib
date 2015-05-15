@@ -179,7 +179,7 @@ local
 implement
 array_tabulate$fopr<int> (i) = A0[i]
 in(*in-of-local*)
-val ASZ = arrszref_tabulate<int> (A0.size)
+val ASZ = arrszref_tabulate<int> (A0.size())
 end // end of [local]
 
 extern
@@ -190,7 +190,7 @@ ASZ_reset () =
 {
 var i: size_t
 val () = !ind := 0
-val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
+val () = for (i := i2sz(0); i < A0.size(); i := succ(i)) ASZ[i] := A0[i]
 val () = !theExchlst2 := xs0
 } (* end of [ASZ_reset] *)
 
@@ -281,7 +281,7 @@ mydraw_bargraph$color<> (i) = colorgen (ASZ[i])
 implement
 mydraw_bargraph$height<> (i) = 1.0 * (ASZ[i]+1) / MYMAX
 //
-val asz = ASZ.size
+val asz = ASZ.size()
 val asz = sz2i (asz)
 val asz = ckastloc_gintGt (asz, 0)
 //

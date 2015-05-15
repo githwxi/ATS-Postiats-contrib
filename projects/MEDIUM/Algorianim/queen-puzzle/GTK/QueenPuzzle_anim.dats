@@ -268,11 +268,11 @@ mydraw_matgraph$draw_cell
 //
 } (* end of [mydraw_matgraph$draw_cell] *)
 //
-val nrow = MSZ.nrow
+val nrow = MSZ.nrow()
 val nrow = g1ofg0(nrow)
 val () = assertloc (nrow > 0)
 val nrow = sz2i (nrow)
-val ncol = MSZ.ncol
+val ncol = MSZ.ncol()
 val ncol = g1ofg0(ncol)
 val () = assertloc (ncol > 0)
 val ncol = sz2i (ncol)

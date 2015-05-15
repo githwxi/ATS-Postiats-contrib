@@ -97,7 +97,7 @@ a:t@ype
 implement
 {a}(*tmp*)
 mergesort (A) =
-  mergesort2<a> (A, 0, sz2i(A.size))
+  mergesort2<a> (A, 0, sz2i(A.size()))
 //
 (* ****** ****** *)
 //
@@ -289,7 +289,7 @@ val () = srandom_with_time ()
 //
 var i: size_t
 val () = !xy0 := ((~1, 0))
-val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
+val () = for (i := i2sz(0); i < A0.size(); i := succ(i)) ASZ[i] := A0[i]
 val () = !theCirclst2 := xys0
 //
 } (* end of [ASZ_reset] *)
@@ -381,7 +381,7 @@ mydraw_bargraph$color<> (i) = colorgen (ASZ[i])
 implement
 mydraw_bargraph$height<> (i) = 1.0 * (ASZ[i]+1) / MYMAX
 //
-val asz = ASZ.size
+val asz = ASZ.size()
 val asz = sz2i (asz)
 val asz = ckastloc_gintGt (asz, 0)
 //

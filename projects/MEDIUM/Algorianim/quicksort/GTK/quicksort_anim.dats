@@ -207,7 +207,9 @@ array0_swap<myint>
 }
 //
 in
-  qsort<myint> (A, i2sz(0), A.size)
+//
+qsort<myint> (A, i2sz(0), A.size())
+//
 end // end of [intqsort]
 
 (* ****** ****** *)
@@ -222,7 +224,7 @@ draw_array0
   cr: !xr1, A: array0 (myint)
 ) : void = let
 //
-val n = A.size
+val n = A.size()
 //
 fun
 loop{l:agz}
