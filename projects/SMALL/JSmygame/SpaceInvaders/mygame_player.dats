@@ -71,8 +71,8 @@ player_fire_bullet
 //
 val blt = bullet_new(0)
 //
-val () = blt.x := player.x
-val () = blt.y := player.y - YPLAYER/2
+val () = blt.x := player.x()
+val () = blt.y := player.y() - YPLAYER/2
 //
 val () = theStage_addChild(blt)
 //

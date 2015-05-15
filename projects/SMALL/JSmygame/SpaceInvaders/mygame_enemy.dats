@@ -71,8 +71,8 @@ enemy_fire_bullet
 //
 val blt = bullet_new(1)
 //
-val () = blt.x := enemy.x
-val () = blt.y := enemy.y + YENEMY/2
+val () = blt.x := enemy.x()
+val () = blt.y := enemy.y() + YENEMY/2
 //
 val () = theStage_addChild(blt)
 //
