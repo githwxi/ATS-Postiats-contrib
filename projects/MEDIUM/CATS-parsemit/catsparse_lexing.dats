@@ -941,7 +941,7 @@ if i <= 0
     val c = int2char0(i)
     val () = position_incby_char (pos, c)
   in
-    if c != lit.head
+    if c != lit.head()
       then let
         val () =
         if (c != ENDL) then
@@ -954,7 +954,7 @@ if i <= 0
         loop (buf, pos, lit0, n0, succ(nchr))
       end // end of [then]
       else (
-        loop (buf, pos, lit.tail, pred(n), succ(nchr))
+        loop (buf, pos, lit.tail(), pred(n), succ(nchr))
       ) (* end of [else] *)
   end // end of [else]
 //

@@ -45,12 +45,23 @@ PATSCC=$(PATSHOMEQ)/bin/patscc
 PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
-
+#
 CFLAGS :=
-
+CFLAGS += -DATS_MEMALLOC_LIBC
+#
+CFLAGS2 :=
+CFLAGS2 += \
+-IIATS ${PATSHOMERELOC}/contrib
+CFLAGS2 += \
+$(shell pkg-config --cflags json-c)
+#
 ######
 
 LDFLAGS :=
+LDFLAGS += $(shell pkg-config --libs json-c)
+
+######
+
 EXTRAFLAGS :=
 
 ######
@@ -68,6 +79,7 @@ SOURCES_SATS= \
 
 SOURCES_DATS= \
   patsolve_main.dats \
+  patsolve_commarg.dats \
   patsolve_parsing.dats \
   patsolve_cnstrnt_stamp.dats \
   patsolve_cnstrnt_symbol.dats \
@@ -93,7 +105,8 @@ OBJECTS += $(OBJECTS_DATS_O)
 
 ######
 
-PATSCC2 = $(PATSCC) -DATS_MEMALLOC_LIBC
+PATSCC2 = $(PATSCC) $(CFLAGS)
+PATSCC3 = $(PATSCC) $(CFLAGS) $(CFLAGS2)
 
 ######
 #
@@ -102,14 +115,17 @@ patsolve: $(OBJECTS) ; \
 #
 ######
 
+patsolve_main_sats.o: \
+  patsolve_main.sats; $(PATSCC) -c $<
+patsolve_main_dats.o: \
+  patsolve_main.dats; $(PATSCC2) -c $<
+patsolve_commarg_dats.o: \
+  patsolve_commarg.dats; $(PATSCC2) -c $<
+
+######
+
 patsolve_cnstrnt_sats.o: \
   patsolve_cnstrnt.sats; $(PATSCC) -c $<
-
-######
-
-patsolve_main_dats.o: patsolve_main.dats; $(PATSCC2) -c $<
-
-######
 
 patsolve_cnstrnt_stamp_dats.o: \
   patsolve_cnstrnt_stamp.dats; $(PATSCC2) -c $<
@@ -134,7 +150,7 @@ patsolve_cnstrnt_s2exp_dats.o: \
 
 ######
 
-patsolve_parsing_dats.o: patsolve_parsing.dats; $(PATSCC2) -c $<
+patsolve_parsing_dats.o: patsolve_parsing.dats; $(PATSCC3) -c $<
 
 ######
 #

@@ -679,7 +679,7 @@ implement
 fprint_webox_width
   (out, wbx) = let
 //
-val w = wbx.width
+val w = wbx.width()
 //
 in
 //
@@ -687,7 +687,7 @@ if w >= 0
 then fprintln! (out, "width: ", w, "px;")
 else let
 //
-val pw = wbx.pwidth
+val pw = wbx.pwidth()
 //
 in
   if pw >= 0
@@ -704,7 +704,7 @@ implement
 fprint_webox_height
   (out, wbx) = let
 //
-val h = wbx.height
+val h = wbx.height()
 //
 in
 //
@@ -712,7 +712,7 @@ if h >= 0
 then fprintln! (out, "height: ", h, "px;")
 else let
 //
-val ph = wbx.pheight
+val ph = wbx.pheight()
 //
 in
   if ph >= 0
@@ -729,7 +729,7 @@ implement
 fprint_webox_color
   (out, wbx) = let
 //
-val clr = wbx.color
+val clr = wbx.color()
 //
 in
 //
@@ -745,7 +745,7 @@ implement
 fprint_webox_bgcolor
   (out, wbx) = let
 //
-val clr = wbx.bgcolor
+val clr = wbx.bgcolor()
 //
 in
 //
@@ -784,13 +784,13 @@ case+ wbxs of
     if i > 0
       then fprint (out, ", ")
     // end of [if]
-    val () = fprint (out, wbx.name)
+    val () = fprint (out, wbx.name())
   in
     auxlst (out, wbxs, i+1)
   end // end of [list_cons]
 )
 //
-val name = wbx0.name
+val name = wbx0.name()
 //
 val () =
 fprint! (out, "#", name, " {\n")
@@ -799,12 +799,14 @@ val () = fprint_string (out, "/*")
 val () = fprint_string (out, "\nparent: ")
 val () = (
 //
-case+ wbx0.parent of
-| None () => () | Some (wbx) => fprint (out, wbx.name)
+case+
+wbx0.parent()
+of // case+
+| None () => () | Some (wbx) => fprint (out, wbx.name())
 //
 ) (* end of [val] *)
 val () = fprint_string (out, "\nchildren: ")
-val () = auxlst (out, wbx0.children, 0(*i*))
+val () = auxlst (out, wbx0.children(), 0(*i*))
 val ((*closing*)) = fprint_string (out, "\n*/\n")
 //
 val () = fprint_webox_width (out, wbx0)
@@ -823,7 +825,7 @@ implement
 fprint_webox_css_all
   (out, x0) = let
 //
-val xs = x0.children
+val xs = x0.children()
 val () = fprint_weboxlst_css_all (out, xs)
 val () = if isneqz (xs) then fprint_newline (out)
 //
@@ -896,7 +898,7 @@ implement
 fprint_webox_html
   (out, wbx0) = let
 //
-val name = wbx0.name
+val name = wbx0.name()
 //
 val () =
 fprint!
@@ -904,21 +906,21 @@ fprint!
   out, "<div id=\"", name, "\">\n"
 ) (* end of [val] *)
 //
-val wbxs = wbx0.children
+val wbxs = wbx0.children()
 //
 val () = (
 //
 if
 isneqz(wbxs)
 then let
-  val ts = wbx0.tabstyle
+  val ts = wbx0.tabstyle()
   val pcs = webox_get_percentlst (wbx0)
 in
-  fprint (out, wbx0.content);
+  fprint (out, wbx0.content());
   fprint_weboxlst_html (out, ts, pcs, wbxs)
 end // end of [then]
 else let
-  val msg = wbx0.content
+  val msg = wbx0.content()
 in
   if isneqz(msg)
     then fprint (out, msg)
@@ -941,9 +943,9 @@ implement
 fprint_weboxlst_html
   (out, ts, pcs, wbxs) = let
 //
-val isbox = ts.isbox
-val ishbox = ts.ishbox
-val isvbox = ts.isvbox
+val isbox = ts.isbox()
+val ishbox = ts.ishbox()
+val isvbox = ts.isvbox()
 //
 fun
 loop{i:nat}

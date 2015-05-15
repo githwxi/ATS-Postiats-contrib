@@ -138,7 +138,7 @@ implement{a}
 vector3d_diff
   (res, l, r) = let
 //
-macdef gsub = gsub_val<a>
+macdef gsub = gsub_val_val<a>
 //
 prval (
 ) = __assert (res) where
