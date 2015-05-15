@@ -107,7 +107,7 @@ Piece_update_mat
 , mymat: matrixref(int, PDIM, PDIM)
 ) : void = let
 //
-val M1 = P.mat1
+val M1 = P.mat1()
 //
 in
 //
@@ -367,8 +367,8 @@ implement
 Piece_repos_blocks
   (piece) = let
 //
-val M1 = piece.mat1
-val x0 = piece.x and y0 = piece.y
+val M1 = piece.mat1()
+val x0 = piece.x() and y0 = piece.y()
 //
 fun
 block_repos
@@ -394,7 +394,7 @@ implement
 Piece_stage_blocks
   (piece) = let
 //
-val M1 = piece.mat1
+val M1 = piece.mat1()
 //
 in
 //
@@ -462,10 +462,10 @@ implement
 Piece_xmove_l
   (piece) = let
 //
-val x = piece.x and y = piece.y
+val x = piece.x() and y = piece.y()
 //
 val
-test = Piece_mat_collide_at(piece.mat1, x-1, y)
+test = Piece_mat_collide_at(piece.mat1(), x-1, y)
 //
 in
 //
@@ -479,10 +479,10 @@ implement
 Piece_xmove_r
   (piece) = let
 //
-val x = piece.x and y = piece.y
+val x = piece.x() and y = piece.y()
 //
 val
-test = Piece_mat_collide_at(piece.mat1, x+1, y)
+test = Piece_mat_collide_at(piece.mat1(), x+1, y)
 //
 in
 //
@@ -496,10 +496,10 @@ implement
 Piece_ymove_dn
   (piece) = let
 //
-val x = piece.x and y = piece.y
+val x = piece.x() and y = piece.y()
 //
 val
-test = Piece_mat_collide_at(piece.mat1, x, y+1)
+test = Piece_mat_collide_at(piece.mat1(), x, y+1)
 //
 in
 //
@@ -513,14 +513,14 @@ implement
 Piece_lrotate
   (piece) = let
 //
-val M1 = piece.mat1
-val M2 = piece.mat2
+val M1 = piece.mat1()
+val M2 = piece.mat2()
 //
 val () =
   matrixref_lrotate_to(M1, M2, PDIM, PDIM)
 //
 val
-test = Piece_mat_collide_at (M2, piece.x, piece.y)
+test = Piece_mat_collide_at (M2, piece.x(), piece.y())
 //
 in
 //
@@ -536,14 +536,14 @@ implement
 Piece_rrotate
   (piece) = let
 //
-val M1 = piece.mat1
-val M2 = piece.mat2
+val M1 = piece.mat1()
+val M2 = piece.mat2()
 //
 val () =
   matrixref_rrotate_to(M1, M2, PDIM, PDIM)
 //
 val
-test = Piece_mat_collide_at (M2, piece.x, piece.y)
+test = Piece_mat_collide_at (M2, piece.x(), piece.y())
 //
 in
 //
@@ -568,7 +568,7 @@ Piece_start_out
 val x = (GCOLS-PDIM)/2
 //
 val test =
-  Piece_mat_collide_at(P0.mat1, x, 0)
+  Piece_mat_collide_at(P0.mat1(), x, 0)
 //
 val () =
 if not(test) then
@@ -598,9 +598,9 @@ implement
 Piece_dump_blocks
   (piece) = let
 //
-val x = piece.x
-val y = piece.y
-val M1 = piece.mat1
+val x = piece.x()
+val y = piece.y()
+val M1 = piece.mat1()
 //
 fun
 fwork(
@@ -671,7 +671,7 @@ implement
 Piece_stageNP_blocks
   (piece) = let
 //
-val M1 = piece.mat1
+val M1 = piece.mat1()
 //
 in
 //
@@ -695,7 +695,7 @@ implement
 Piece_unstageNP_blocks
   (piece) = let
 //
-val M1 = piece.mat1
+val M1 = piece.mat1()
 //
 in
 //
@@ -721,7 +721,7 @@ implement
 Piece_reposNP_blocks
   (piece) = let
 //
-val M1 = piece.mat1
+val M1 = piece.mat1()
 //
 fun
 block_repos

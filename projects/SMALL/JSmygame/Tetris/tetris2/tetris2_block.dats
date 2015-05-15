@@ -44,7 +44,7 @@ Block_new () =
 //
 implement
 Block_drop1(b) =
-  if isneqz(b) then b.y := (b.y/20 + 1)
+  if isneqz(b) then b.y := (b.y()/20 + 1)
 //
 implement
 Block_unstage(b) =
