@@ -59,7 +59,7 @@ implement
 the_d2varmap_insert
   (d2v0) = let
 //
-val k0 = d2v0.stamp
+val k0 = d2v0.stamp()
 val (vbox(pf) | p) = ref_get_viewptr (the_d2varmap)
 val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, d2v0))
 //

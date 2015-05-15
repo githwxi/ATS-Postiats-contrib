@@ -29,7 +29,7 @@ gene_make_symbol (x) = x
 
 implement
 fprint_gene
-  (out, gn) = fprint_string (out, gn.name)
+  (out, gn) = fprint_string (out, gn.name())
 // end of [fprint_gene]
 
 implement

@@ -207,7 +207,7 @@ loop{n:nat} .<n>.
 in
 //
 if string_isnot_empty (key)
-  then loop (key.tail, symbol_lor (symbol_lsl (res, 2), $UN.cast{a}(mychar2int(key[0])))) else res
+  then loop (key.tail(), symbol_lor (symbol_lsl (res, 2), $UN.cast{a}(mychar2int(key[0])))) else res
 //
 end // end of [if]
 //

@@ -204,7 +204,9 @@ fun loop
       val ev =
       genes_meanvar (gx, emap, smap)
       val () =
-      if ev.gexp < mean then (mean := ev.gexp; stdev := ev.gvar)
+      if ev.gexp() < mean
+        then (mean := ev.gexp(); stdev := ev.gvar())
+      // end of [if] // end of [val]
     in
       loop (gxs, mean, stdev)
     end (* end of [cons] *)

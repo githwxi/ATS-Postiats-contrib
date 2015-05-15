@@ -234,7 +234,7 @@ case+ tok of
 | TOKide (sym) => ans where
   {
     val ans =
-    strcasecmp (sym.name, "AND") = 0
+    strcasecmp (sym.name(), "AND") = 0
     val () = (
     if ans
       then getaft (pf | t2knr) else unget (pf | t2knr)
@@ -257,7 +257,7 @@ case+ tok of
 | TOKide (sym) => ans where
   {
     val ans =
-    strcasecmp (sym.name, "OR") = 0
+    strcasecmp (sym.name(), "OR") = 0
     val () = (
     if ans
       then getaft (pf | t2knr) else unget (pf | t2knr)

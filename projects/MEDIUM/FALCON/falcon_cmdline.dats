@@ -45,7 +45,7 @@ dynload "./falcon_algorithm1.dats"
 //
 implement
 fprint_val<expvar>
-  (out, x) = fprint! (out, x.gexp, "\t", x.gvar)
+  (out, x) = fprint! (out, x.gexp(), "\t", x.gvar())
 //
 (* ****** ****** *)
 
