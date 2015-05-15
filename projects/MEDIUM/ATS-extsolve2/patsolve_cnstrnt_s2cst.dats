@@ -79,7 +79,7 @@ end // end of [local]
 implement
 fprint_s2cst
   (out, s2c) =
-  fprint! (out, s2c.name, "(", s2c.stamp, ")")
+  fprint! (out, s2c.name(), "(", s2c.stamp(), ")")
 // end of [fprint_s2cst]
 
 (* ****** ****** *)
