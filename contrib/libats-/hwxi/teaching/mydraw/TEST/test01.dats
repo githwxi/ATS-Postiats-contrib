@@ -29,7 +29,7 @@ implement{
 //
 val () = mydraw_new_path ()
 val () = mydraw_triangle (p1, p2, p3)
-val () = mydraw_fill_set_rgb (clr.r, clr.g, clr.b)
+val () = mydraw_fill_set_rgb (clr.r(), clr.g(), clr.b())
 val () = mydraw_fill ()
 val () = mydraw_close_path ()
 //

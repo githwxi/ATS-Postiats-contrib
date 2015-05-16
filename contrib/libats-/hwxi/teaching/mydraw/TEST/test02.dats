@@ -39,7 +39,7 @@ fun loop
     val () = mydraw_new_path ()
     val (
     ) = mydraw_rectangle (pul, 1.0, 1.0)
-    val () = mydraw_fill_set_rgb (clr1.r, clr1.g, clr1.b)
+    val () = mydraw_fill_set_rgb (clr1.r(), clr1.g(), clr1.b())
     val () = mydraw_fill ()
     val () = mydraw_close_path ()
   in
