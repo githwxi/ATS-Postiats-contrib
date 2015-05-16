@@ -9,16 +9,8 @@
 
 (* ****** ****** *)
 //
-%{#
-//
-#ifdef CHARPTR
-#define CHARPTR
-typedef char *charptr ;
-#endif // #ifndef
-//
-%} ; // end of [%{#]
-//
-abstype charptr = $extype"charptr"
+abstype
+charptr = $extype"atstype_string"
 //
 (* ****** ****** *)
 
