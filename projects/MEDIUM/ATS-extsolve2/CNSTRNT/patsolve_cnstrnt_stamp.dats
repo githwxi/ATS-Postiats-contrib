@@ -13,16 +13,18 @@
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_staload.hats"
-//
-(* ****** ****** *)
-//
-staload "./patsolve_cnstrnt.sats"
+staload
+"libats/SATS/hashfun.sats"
+staload
+_(*anon*) = "libats/DATS/hashfun.dats"
 //
 (* ****** ****** *)
 
 assume stamp_t0ype = int
+
+(* ****** ****** *)
+
+implement stamp_make(x) = x
 
 (* ****** ****** *)
 
@@ -31,6 +33,13 @@ fprint_stamp
   (out, loc) = fprint_int (out, loc)
 // end of [fprint_stamp]
 
+(* ****** ****** *)
+//
+implement
+hash_stamp(x) =
+$UNSAFE.cast{ulint}
+  (inthash_jenkins($UNSAFE.cast{uint32}(x)))
+//
 (* ****** ****** *)
 //
 implement
@@ -49,27 +58,27 @@ compare_stamp_stamp(x1, x2) = g0int_compare (x1, x2)
 
 local
 //
-var theCount: stamp = 0
-val theCount =
-  ref_make_viewptr{stamp}(view@theCount | addr@theCount)
+var mycnt: stamp = 0
+val mycnt =
+  ref_make_viewptr{stamp}(view@mycnt | addr@mycnt)
 //
 in
 //
 implement
-theStamp_getinc
+the_stamp_getinc
   ((*void*)) = n0 where
 {
-  val n0 = theCount[]
-  val () = theCount[] := n0 + 1
+  val n0 = mycnt[]
+  val () = mycnt[] := n0 + 1
 }
 //
 implement
-theStamp_update
+the_stamp_update
   (n) = let
-  val n0 = theCount[]
+  val n0 = mycnt[]
 in
-  if n0 <= n then theCount[] := n+1
-end // end of [theStamp_update]
+  if n0 <= n then mycnt[] := n+1
+end // end of [the_stamp_update]
 //
 end // end of [local]
 

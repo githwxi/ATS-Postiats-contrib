@@ -12,20 +12,6 @@
 *)
 
 (* ****** ****** *)
-//
-#include
-"share/atspre_staload.hats"
-//
-(* ****** ****** *)
-//
-staload "./patsolve_cnstrnt.sats"
-//
-(* ****** ****** *)
-
-implement
-fprint_val<symbol> = fprint_symbol
-
-(* ****** ****** *)
 
 local
 

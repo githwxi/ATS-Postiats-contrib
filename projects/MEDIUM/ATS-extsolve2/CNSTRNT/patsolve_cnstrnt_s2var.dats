@@ -12,18 +12,6 @@
 *)
 
 (* ****** ****** *)
-//
-#include
-"share/atspre_staload.hats"
-//
-(* ****** ****** *)
-//
-staload
-UN = "prelude/SATS/unsafe.sats"
-//
-staload "./patsolve_cnstrnt.sats"
-//
-(* ****** ****** *)
 
 typedef
 s2var_struct = @{

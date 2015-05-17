@@ -22,8 +22,17 @@ typedef stamp = stamp_t0ype
 //
 fun
 fprint_stamp: fprint_type(stamp)
+//
 overload fprint with fprint_stamp
 //
+(* ****** ****** *)
+
+fun stamp_make(int): stamp
+
+(* ****** ****** *)
+
+fun hash_stamp(stamp):<> ulint
+
 (* ****** ****** *)
 //
 fun
@@ -39,9 +48,9 @@ overload compare with compare_stamp_stamp
 //
 (* ****** ****** *)
 //
-fun theStamp_getinc(): stamp
+fun the_stamp_getinc(): stamp
 //
-fun theStamp_update(n: stamp): void
+fun the_stamp_update(n: stamp): void
 //
 (* ****** ****** *)
 
@@ -114,7 +123,8 @@ datatype s2rt =
 //
   | S2RTfun of (s2rtlst(*args*), s2rt (*res*))
 //
-  | S2RTerr of ((*void*))
+  | S2RTnamed of (symbol)
+//
   | S2RTignored of ((*void*))
 //
 // end of [datatype]
@@ -152,7 +162,7 @@ overload fprint with fprint_s2cst
 //
 fun
 s2cst_make
-  (s2rt, symbol, stamp): s2cst
+  (symbol, s2rt, stamp): s2cst
 //
 fun s2cst_get_srt (s2cst): s2rt
 fun s2cst_get_name (s2cst): symbol
@@ -186,7 +196,7 @@ overload fprint with fprint_s2var
 //
 fun
 s2var_make
-  (s2rt, symbol, stamp): s2var
+  (symbol, s2rt, stamp): s2var
 //
 fun s2var_make_srt (s2rt): s2var
 //
@@ -283,4 +293,4 @@ overload fprint with fprint_s2explst
 //
 (* ****** ****** *)
 
-(* end of [patsolve_constraint3.sats] *)
+(* end of [patsolve_cnstrnt.sats] *)

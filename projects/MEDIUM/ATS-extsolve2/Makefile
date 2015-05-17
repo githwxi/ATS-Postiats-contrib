@@ -74,20 +74,15 @@ INCLUDE += -I$(PATSHOMEQ)/ccomp/runtime
 
 SOURCES_SATS= \
   patsolve_cnstrnt.sats \
+  patsolve_parsing.sats \
 
 ######
 
 SOURCES_DATS= \
   patsolve_main.dats \
   patsolve_commarg.dats \
+  patsolve_cnstrnt.dats \
   patsolve_parsing.dats \
-  patsolve_cnstrnt_stamp.dats \
-  patsolve_cnstrnt_symbol.dats \
-  patsolve_cnstrnt_location.dats \
-  patsolve_cnstrnt_s2cst.dats \
-  patsolve_cnstrnt_s2var.dats \
-  patsolve_cnstrnt_s2vvar.dats \
-  patsolve_cnstrnt_s2exp.dats \
 
 ######
 
@@ -124,32 +119,12 @@ patsolve_commarg_dats.o: \
 
 ######
 
-patsolve_cnstrnt_sats.o: \
-  patsolve_cnstrnt.sats; $(PATSCC) -c $<
-
-patsolve_cnstrnt_stamp_dats.o: \
-  patsolve_cnstrnt_stamp.dats; $(PATSCC2) -c $<
-
-patsolve_cnstrnt_symbol_dats.o: \
-  patsolve_cnstrnt_symbol.dats; $(PATSCC2) -c $<
-
-patsolve_cnstrnt_location_dats.o: \
-  patsolve_cnstrnt_location.dats; $(PATSCC2) -c $<
-
-patsolve_cnstrnt_s2cst_dats.o: \
-  patsolve_cnstrnt_s2cst.dats; $(PATSCC2) -c $<
-
-patsolve_cnstrnt_s2var_dats.o: \
-  patsolve_cnstrnt_s2var.dats; $(PATSCC2) -c $<
-
-patsolve_cnstrnt_s2vvar_dats.o: \
-  patsolve_cnstrnt_s2vvar.dats; $(PATSCC2) -c $<
-
-patsolve_cnstrnt_s2exp_dats.o: \
-  patsolve_cnstrnt_s2exp.dats; $(PATSCC2) -c $<
+patsolve_cnstrnt_sats.o: patsolve_cnstrnt.sats; $(PATSCC) -c $<
+patsolve_cnstrnt_dats.o: patsolve_cnstrnt.dats; $(PATSCC2) -c $<
 
 ######
 
+patsolve_parsing_sats.o: patsolve_parsing.sats; $(PATSCC3) -c $<
 patsolve_parsing_dats.o: patsolve_parsing.dats; $(PATSCC3) -c $<
 
 ######
@@ -174,6 +149,8 @@ RMF=rm -f
 ######
 
 cleanats:: ; $(RMF) *~
+cleanats:: ; $(RMF) CNSTRNT/*~
+cleanats:: ; $(RMF) PARSING/*~
 cleanats:: ; $(RMF) *_?ats.o
 cleanats:: ; $(RMF) *_?ats.c
 

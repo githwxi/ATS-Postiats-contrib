@@ -12,15 +12,6 @@
 *)
 
 (* ****** ****** *)
-//
-#include
-"share/atspre_staload.hats"
-//
-(* ****** ****** *)
-//
-staload "./patsolve_cnstrnt.sats"
-//
-(* ****** ****** *)
 
 typedef
 s2Var_struct = @{

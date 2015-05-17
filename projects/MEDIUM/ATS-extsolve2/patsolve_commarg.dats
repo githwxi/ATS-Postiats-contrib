@@ -81,15 +81,19 @@ in
 case+ arg of
 //
 | "-h" => let
+    val ca =
+      CAhelp(arg)
     val res0 =
-      cons_vt(CAhelp(arg), res0)
+      cons_vt(ca, res0)
     // end of [val]
   in
     aux(argc, argv, i+1, res0)
   end // end of ...
 | "--help" => let
+    val ca =
+      CAhelp(arg)
     val res0 =
-      cons_vt(CAhelp(arg), res0)
+      cons_vt(ca, res0)
     // end of [val]
   in
     aux(argc, argv, i+1, res0)

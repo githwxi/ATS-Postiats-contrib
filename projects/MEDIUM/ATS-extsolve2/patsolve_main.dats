@@ -22,30 +22,7 @@ staload "./patsolve_main.sats"
 
 (* ****** ****** *)
 //
-dynload
-"patsolve_cnstrnt_stamp.dats"
-//
-(* ****** ****** *)
-//
-dynload
-"patsolve_cnstrnt_symbol.dats"
-//
-(* ****** ****** *)
-//
-dynload
-"patsolve_cnstrnt_location.dats"
-//
-(* ****** ****** *)
-//
-dynload
-"patsolve_cnstrnt_s2cst.dats"
-dynload
-"patsolve_cnstrnt_s2var.dats"
-dynload
-"patsolve_cnstrnt_s2vvar.dats"
-//
-dynload
-"patsolve_cnstrnt_s2exp.dats"
+dynload "patsolve_cnstrnt.dats"
 //
 (* ****** ****** *)
 //
