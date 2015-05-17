@@ -80,6 +80,7 @@ SOURCES_SATS= \
 
 SOURCES_DATS= \
   patsolve_main.dats \
+  patsolve_mylib.dats \
   patsolve_commarg.dats \
   patsolve_cnstrnt.dats \
   patsolve_parsing.dats \
@@ -110,12 +111,16 @@ patsolve: $(OBJECTS) ; \
 #
 ######
 
-patsolve_main_sats.o: \
-  patsolve_main.sats; $(PATSCC) -c $<
-patsolve_main_dats.o: \
-  patsolve_main.dats; $(PATSCC2) -c $<
-patsolve_commarg_dats.o: \
-  patsolve_commarg.dats; $(PATSCC2) -c $<
+patsolve_main_sats.o: patsolve_main.sats; $(PATSCC) -c $<
+patsolve_main_dats.o: patsolve_main.dats; $(PATSCC2) -c $<
+
+######
+
+patsolve_mylib_dats.o: patsolve_mylib.dats; $(PATSCC3) -c $<
+
+######
+
+patsolve_commarg_dats.o: patsolve_commarg.dats; $(PATSCC2) -c $<
 
 ######
 

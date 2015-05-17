@@ -29,6 +29,19 @@ s2Var_type =
 in (* in-of-local *)
 
 implement
+s2Var_make(stamp) = let
+//
+val [l:addr] (
+  pfat, pfgc | p
+) = ptr_alloc<s2Var_struct> ()
+//
+val () = p->s2Var_stamp := stamp
+//
+in
+  $UN.castvwtp0{s2Var}((pfat, pfgc | p))
+end // end of [s2Var_make]
+
+implement
 s2Var_get_stamp (s2V) = !s2V.s2Var_stamp
 
 end // end of [local]

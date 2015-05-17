@@ -225,6 +225,10 @@ vtypedef s2Varopt_vt = Option_vt (s2Var)
 //
 (* ****** ****** *)
 //
+fun s2Var_make(stamp): s2Var
+//
+(* ****** ****** *)
+//
 fun
 fprint_s2Var: fprint_type(s2Var)
 //
@@ -290,6 +294,11 @@ fprint_s2explst : fprint_type(s2explst)
 //
 overload fprint with fprint_s2exp
 overload fprint with fprint_s2explst
+//
+(* ****** ****** *)
+//
+fun
+s2exp_make_node (s2rt, s2exp_node): s2exp
 //
 (* ****** ****** *)
 
