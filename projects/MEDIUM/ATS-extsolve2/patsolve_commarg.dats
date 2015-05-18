@@ -17,6 +17,11 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+//
+staload
+STDIO = "libc/SATS/stdio.sats"
+//
+(* ****** ****** *)
 
 staload "./patsolve_main.sats"
 
@@ -139,22 +144,21 @@ list_vt_reverse
 end // end of [patsolve_cmdline]
 
 (* ****** ****** *)
-
-fun
-patsolve_help() =
-{
 //
-val () = prerrln! ("patsolve_help: ...")
+extern fun patsolve_help(): void
+extern fun patsolve_input(): void
+extern fun patsolve_gitem(string): void
+extern fun patsolve_input_arg(string): void
 //
-} (* end of [patsolve_help] *)
-
 (* ****** ****** *)
 
 typedef
 state_struct =
 @{
 //
-  fopen_inp= int
+  nerr= int
+, input= int
+, fopen_inp= int
 , inpfil_ref= FILEref
 //
 } (* end of [state_struct] *)
@@ -166,14 +170,24 @@ local
 var
 the_state: state_struct?
 //
+val () = the_state.nerr := 0
+//
+val () = the_state.input := 0
+//
 val () = the_state.fopen_inp := 0
 val () = the_state.inpfil_ref := stdin_ref
+//
+in (* in-of-local *)
 //
 val
 the_state
   : ref(state_struct) =
   ref_make_viewptr(view@the_state | addr@the_state)
 //
+end // end of [local]
+
+(* ****** ****** *)
+
 fun
 process_arg
   (x: commarg): void = let
@@ -186,18 +200,22 @@ fprintln!
 in
 //
 case+ x of
+//
 | CAhelp _ => patsolve_help ()
+//
+| CAinput _ => patsolve_input ()
+//
+| CAgitem(str) => patsolve_gitem(str)
+//
 (*
-| CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
-| CAinput(str) => fprint! (out, "CAinput(", str, ")")
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
 *)
 | _ (*rest-of-CA*) => ()
 //
 end // end of [process_arg]
-//
-in (* in-of-local *)
+
+(* ****** ****** *)
 
 implement
 patsolve_commarglst
@@ -219,7 +237,73 @@ case+ xs of
 //
 end // end of [patsolve_commarglst]
 
-end // end of [local]
+(* ****** ****** *)
+
+implement
+patsolve_help() =
+{
+//
+val () =
+prerrln!
+  ("patsolve_help: ...")
+//
+} (* end of [patsolve_help] *)
+
+(* ****** ****** *)
+
+implement
+patsolve_input() =
+{
+//
+val () =
+prerrln!
+  ("patsolve_input: ...")
+//
+val () = !the_state.input := 1
+//
+} (* end of [patsolve_input] *)
+
+(* ****** ****** *)
+
+implement
+patsolve_gitem(arg) = let
+//
+val () =
+prerrln!
+  ("patsolve_gitem: arg = ", arg)
+//
+macdef input() = (!the_state.input > 0)
+//
+in
+//
+case+ 0 of
+| _ when
+    input() =>
+  (
+    patsolve_input_arg(arg)
+  )
+| _ (*unrecognized*) => ()
+//
+end (* end of [patsolve_gitem] *)
+
+(* ****** ****** *)
+
+implement
+patsolve_input_arg
+  (path) = let
+//
+val opt =
+fileref_open_opt(path, file_mode_r)
+//
+in
+//
+case+ opt of
+| ~Some_vt(filr) =>
+    !the_state.inpfil_ref := filr
+  // end of [Some_vt]
+| ~None_vt((*void*)) => ()
+//
+end // end of [patsolve_input_arg]
 
 (* ****** ****** *)
 

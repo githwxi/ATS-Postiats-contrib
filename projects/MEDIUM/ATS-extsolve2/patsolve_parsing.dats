@@ -226,6 +226,50 @@ end // end of [parse_constraints]
 end // end of [local]
 
 (* ****** ****** *)
+
+implement
+patsolve_fileref
+  (inp) = let
+//
+#define DP 1024 // depth
+//
+val tokener =
+  json_tokener_new_ex (DP)
+val ((*void*)) =
+  assertloc(json_tokener2ptr(tokener) > 0)
+//
+val cs =
+  fileref_get_file_string (inp)
+//
+val jso = let
+//
+val cs2 = $UN.strptr2string(cs)
+val len = g1u2i(string_length(cs2))
+//
+in
+  json_tokener_parse_ex (tokener, cs2, len)
+end // end of [val]
+//
+val ((*freed*)) = strptr_free (cs)
+val ((*freed*)) = json_tokener_free (tokener)
+//
+val jsnv = json_object2val0 (jso)
+//
+(*
+val out = stdout_ref
+//
+val () =
+fprint! (out, "jsnv=", jsnv)
+val () = fprint_newline (out)
+*)
+//
+val () = parse_constraints (jsnv)
+//
+in
+  // nothing
+end // end of [patsolve_fileref]
+
+(* ****** ****** *)
 //
 local
 //
