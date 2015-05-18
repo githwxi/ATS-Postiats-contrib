@@ -170,14 +170,68 @@ implement
 parse_s2explst(xs) = parse_list(xs, parse_s2exp)
 //
 (* ****** ****** *)
+
+local
+
+fun
+aux_s2cstmap
+(
+  opt: jsnvopt_vt
+) : void =
+(
+case+ opt of
+| ~Some_vt(jsnv) => let
+    val-JSONarray(xs) = jsnv
+  in
+    list_app_fun<jsonval>
+      (xs, lam x => ignoret(parse_s2cst(x)))
+  end // end of [Some_vt]
+| ~None_vt((*void*)) => ()
+)
+
+fun
+aux_s2varmap
+(
+  opt: jsnvopt_vt
+) : void =
+(
+case+ opt of
+| ~Some_vt(jsnv) => let
+    val-JSONarray(xs) = jsnv
+  in
+    list_app_fun<jsonval>
+      (xs, lam x => ignoret(parse_s2var(x)))
+  end // end of [Some_vt]
+| ~None_vt((*void*)) => ()
+)
+
+in (* in-of-local *)
+
+implement
+parse_constraints
+  (jsnv0) = let
+//
+val opt1 = jsnv0["s2cstmap"]
+val opt2 = jsnv0["s2varmap"]
+//
+val ((*void*)) = aux_s2cstmap(opt1)
+val ((*void*)) = aux_s2varmap(opt2)
+//
+val-~Some_vt(c3nstrbody) = jsnv0["c3nstrbody"]
+//
+in
+  // nothing
+end // end of [parse_constraints]
+
+end // end of [local]
+
+(* ****** ****** *)
 //
 local
 //
 #include
-"./PARSING/patsolve_parsing_s2rt.dats"
+"./PARSING/patsolve_parsing_s2rt.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -185,10 +239,8 @@ end // end of [local]
 local
 //
 #include
-"./PARSING/patsolve_parsing_s2cst.dats"
+"./PARSING/patsolve_parsing_s2cst.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -196,10 +248,8 @@ end // end of [local]
 local
 //
 #include
-"./PARSING/patsolve_parsing_s2var.dats"
+"./PARSING/patsolve_parsing_s2var.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -207,10 +257,8 @@ end // end of [local]
 local
 //
 #include
-"./PARSING/patsolve_parsing_s2vvar.dats"
+"./PARSING/patsolve_parsing_s2vvar.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -218,10 +266,8 @@ end // end of [local]
 local
 //
 #include
-"./PARSING/patsolve_parsing_s2exp.dats"
+"./PARSING/patsolve_parsing_s2exp.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)

@@ -117,4 +117,8 @@ fun parse_s2explst (jsnv: jsonval): s2explst
 
 (* ****** ****** *)
 
+fun parse_constraints (jsnv: jsonval): void
+
+(* ****** ****** *)
+
 (* end of [patsolve_parsing.sats] *)

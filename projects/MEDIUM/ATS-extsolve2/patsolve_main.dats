@@ -41,7 +41,13 @@ main0 (argc, argv) =
 val () =
 println! ("Hello from patsolve!")
 //
-val arglst = patsolve_cmdline (argc, argv)
+val arglst =
+  patsolve_cmdline (argc, argv)
+//
+// HX: skipping argv[0]
+//
+val-~list_vt_cons(arg, arglst) = arglst
+//
 val ((*void*)) = patsolve_commarglst (arglst)
 //
 } (* end of [main] *)

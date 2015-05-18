@@ -140,23 +140,86 @@ end // end of [patsolve_cmdline]
 
 (* ****** ****** *)
 
+fun
+patsolve_help() =
+{
+//
+val () = prerrln! ("patsolve_help: ...")
+//
+} (* end of [patsolve_help] *)
+
+(* ****** ****** *)
+
+typedef
+state_struct =
+@{
+//
+  fopen_inp= int
+, inpfil_ref= FILEref
+//
+} (* end of [state_struct] *)
+
+(* ****** ****** *)
+
+local
+//
+var
+the_state: state_struct?
+//
+val () = the_state.fopen_inp := 0
+val () = the_state.inpfil_ref := stdin_ref
+//
+val
+the_state
+  : ref(state_struct) =
+  ref_make_viewptr(view@the_state | addr@the_state)
+//
+fun
+process_arg
+  (x: commarg): void = let
+//
+val () =
+fprintln!
+  (stdout_ref, "patsolve_commarglst: process_arg: x = ", x)
+// end of [val]
+//
+in
+//
+case+ x of
+| CAhelp _ => patsolve_help ()
+(*
+| CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
+| CAinput(str) => fprint! (out, "CAinput(", str, ")")
+| CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
+| CAscript(str) => fprint! (out, "CAscript(", str, ")")
+*)
+| _ (*rest-of-CA*) => ()
+//
+end // end of [process_arg]
+//
+in (* in-of-local *)
+
 implement
 patsolve_commarglst
   (xs) = let
+(*
+val () = println! ("patsolve_commarglst")
+*)
 in
 //
 case+ xs of
-| ~list_vt_nil () => ()
-| ~list_vt_cons (x, xs) => let
-    val () =
-    fprintln!
-      (stdout_ref, "patsolve_commarglst: x = ", x)
-    // end of [val]
+| ~list_vt_nil
+    ((*void*)) => ()
+| ~list_vt_cons
+    (x, xs) => let
+    val () = process_arg(x)
   in
     patsolve_commarglst (xs)
   end // end of [list_vt_cons]
 //
 end // end of [patsolve_commarglst]
+
+end // end of [local]
 
 (* ****** ****** *)
 
