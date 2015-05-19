@@ -319,5 +319,14 @@ local
 end // end of [local]
 //
 (* ****** ****** *)
+//
+local
+//
+#include
+"./PARSING/patsolve_parsing_s3itm.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
 
 (* end of [patsolve_parsing.dats] *)

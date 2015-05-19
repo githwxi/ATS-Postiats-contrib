@@ -52,10 +52,14 @@ fun
 aux_S2Evar
 (
   x0: jsonval
-) : s2exp_node =
-(
-  S2Evar(parse_s2var(x0))
-) (* end of [aux_S2Evar] *)
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S2Evar(parse_s2var(x))
+end (* end of [aux_S2Evar] *)
 
 in (* in-of-local *)
 

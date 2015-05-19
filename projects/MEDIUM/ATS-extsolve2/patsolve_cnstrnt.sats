@@ -304,8 +304,8 @@ s2exp_make_node (s2rt, s2exp_node): s2exp
 
 datatype s3itm =
   | S3ITMsvar of s2var
-  | S3ITMhypo of h3ypo
   | S3ITMsVar of s2Var
+  | S3ITMhypo of h3ypo
   | S3ITMcnstr of c3nstr
   | S3ITMcnstr_ref of (loc_t, c3nstropt)
   | S3ITMdisj of s3itmlstlst

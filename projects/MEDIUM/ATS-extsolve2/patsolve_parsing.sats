@@ -116,6 +116,20 @@ fun parse_s2exp (jsnv: jsonval): s2exp
 fun parse_s2explst (jsnv: jsonval): s2explst
 
 (* ****** ****** *)
+
+fun parse_s3itm (jsnv: jsonval): s3itm
+fun parse_s3itmlst (jsnv: jsonval): s3itmlst
+fun parse_s3itmlstlst (jsnv: jsonval): s3itmlstlst
+
+(* ****** ****** *)
+
+fun parse_h3ypo (jsnv: jsonval): h3ypo
+
+(* ****** ****** *)
+
+fun parse_c3nstr (jsnv: jsonval): c3nstr
+
+(* ****** ****** *)
 //
 fun parse_constraints (jsnv: jsonval): void
 //
