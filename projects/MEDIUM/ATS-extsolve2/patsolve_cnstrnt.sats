@@ -129,7 +129,7 @@ datatype s2rt =
 //
 // end of [datatype]
 
-where s2rtlst = List0 (s2rt)
+where s2rtlst = List0(s2rt)
 
 (* ****** ****** *)
 //
@@ -145,11 +145,11 @@ s2cst_type = ptr
 //
 typedef s2cst = s2cst_type
 //
-typedef s2cstlst = List0 (s2cst)
-vtypedef s2cstlst_vt = List0_vt (s2cst)
+typedef s2cstlst = List0(s2cst)
+vtypedef s2cstlst_vt = List0_vt(s2cst)
 //
-typedef s2cstopt = Option (s2cst)
-vtypedef s2cstopt_vt = Option_vt (s2cst)
+typedef s2cstopt = Option(s2cst)
+vtypedef s2cstopt_vt = Option_vt(s2cst)
 //
 (* ****** ****** *)
 //
@@ -179,11 +179,11 @@ s2var_type = ptr
 //
 typedef s2var = s2var_type
 //
-typedef s2varlst = List0 (s2var)
-vtypedef s2varlst_vt = List0_vt (s2var)
+typedef s2varlst = List0(s2var)
+vtypedef s2varlst_vt = List0_vt(s2var)
 //
-typedef s2varopt = Option (s2var)
-vtypedef s2varopt_vt = Option_vt (s2var)
+typedef s2varopt = Option(s2var)
+vtypedef s2varopt_vt = Option_vt(s2var)
 //
 (* ****** ****** *)
 //
@@ -217,11 +217,11 @@ s2Var_type = ptr
 //
 typedef s2Var = s2Var_type
 //
-typedef s2Varlst = List0 (s2Var)
-vtypedef s2Varlst_vt = List0_vt (s2Var)
+typedef s2Varlst = List0(s2Var)
+vtypedef s2Varlst_vt = List0_vt(s2Var)
 //
-typedef s2Varopt = Option (s2Var)
-vtypedef s2Varopt_vt = Option_vt (s2Var)
+typedef s2Varopt = Option(s2Var)
+vtypedef s2Varopt_vt = Option_vt(s2Var)
 //
 (* ****** ****** *)
 //
@@ -299,6 +299,72 @@ overload fprint with fprint_s2explst
 //
 fun
 s2exp_make_node (s2rt, s2exp_node): s2exp
+//
+(* ****** ****** *)
+
+datatype s3itm =
+  | S3ITMsvar of s2var
+  | S3ITMhypo of h3ypo
+  | S3ITMsVar of s2Var
+  | S3ITMcnstr of c3nstr
+  | S3ITMcnstr_ref of (loc_t, c3nstropt)
+  | S3ITMdisj of s3itmlstlst
+// end of [s3item]
+
+and h3ypo_node =
+  | H3YPOprop of s2exp
+  | H3YPObind of (s2var, s2exp)
+  | H3YPOeqeq of (s2exp, s2exp)
+// end of [h3ypo_node]
+
+and c3nstr_node =
+  | C3NSTRprop of s2exp
+  | C3NSTRitmlst of s3itmlst
+// end of [c3nstr_node]
+
+where
+//
+s3itmlst = List0(s3itm)
+//
+and s3itmlstlst = List0(s3itmlst)
+//
+and h3ypo =
+  $rec{ h3ypo_loc= loc_t, h3ypo_node= h3ypo_node }
+//
+and c3nstr =
+  $rec{ c3nstr_loc= loc_t, c3nstr_node= c3nstr_node }
+//
+and c3nstropt = Option(c3nstr)
+
+(* ****** ****** *)
+//
+fun
+fprint_s3itm: fprint_type(s3itm)
+fun
+fprint_s3itmlst: fprint_type(s3itmlst)
+fun
+fprint_s3itmlstlst: fprint_type(s3itmlstlst)
+//
+overload fprint with fprint_s3itm
+overload fprint with fprint_s3itmlst of 10
+overload fprint with fprint_s3itmlstlst of 20
+//
+(* ****** ****** *)
+//
+fun
+fprint_h3ypo: fprint_type(h3ypo)
+//
+overload fprint with fprint_h3ypo
+//
+(* ****** ****** *)
+//
+fun
+fprint_c3nstr: fprint_type(c3nstr)
+fun
+fprint_c3nstropt: fprint_type(c3nstropt)
+//
+overload fprint with fprint_c3nstr
+overload fprint with fprint_c3nstropt of 10
 //
 (* ****** ****** *)
 

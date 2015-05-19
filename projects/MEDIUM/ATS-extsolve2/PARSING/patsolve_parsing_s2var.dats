@@ -58,7 +58,7 @@ parse_s2var
 //
 val-
 ~Some_vt
-  (jsnv) = jsnv0["s2cst_stamp"]
+  (jsnv) = jsnv0["s2var_stamp"]
 //
 val stamp = parse_stamp (jsnv)
 //

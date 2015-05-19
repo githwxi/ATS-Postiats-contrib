@@ -43,6 +43,15 @@ implement
 fprint_val<s2exp> = fprint_s2exp
 
 (* ****** ****** *)
+
+implement
+fprint_val<s3itm> = fprint_s3itm
+implement
+fprint_val<h3ypo> = fprint_h3ypo
+implement
+fprint_val<c3nstr> = fprint_c3nstr
+
+(* ****** ****** *)
 //
 local
 //
@@ -114,6 +123,39 @@ local
 //
 #include
 "./CNSTRNT/patsolve_cnstrnt_s2exp.dats"
+//
+in
+  // nothing
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./CNSTRNT/patsolve_cnstrnt_s3itm.dats"
+//
+in
+  // nothing
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./CNSTRNT/patsolve_cnstrnt_h3ypo.dats"
+//
+in
+  // nothing
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./CNSTRNT/patsolve_cnstrnt_c3nstr.dats"
 //
 in
   // nothing
