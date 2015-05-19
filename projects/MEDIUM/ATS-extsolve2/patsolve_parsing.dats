@@ -41,6 +41,10 @@ staload "./patsolve_cnstrnt.sats"
 staload "./patsolve_parsing.sats"
 
 (* ****** ****** *)
+
+staload _(*anon*) = "libc/DATS/string.dats"
+
+(* ****** ****** *)
 //
 implement
 $HTR.hash_key<stamp> (x) = hash_stamp(x)
@@ -228,7 +232,7 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-patsolve_fileref
+parse_fileref_constraints
   (inp) = let
 //
 #define DP 1024 // depth
@@ -255,19 +259,19 @@ val ((*freed*)) = json_tokener_free (tokener)
 //
 val jsnv = json_object2val0 (jso)
 //
-(*
+// (*
 val out = stdout_ref
 //
 val () =
 fprint! (out, "jsnv=", jsnv)
 val () = fprint_newline (out)
-*)
+// *)
 //
 val () = parse_constraints (jsnv)
 //
 in
   // nothing
-end // end of [patsolve_fileref]
+end // end of [parse_fileref_constraints]
 
 (* ****** ****** *)
 //

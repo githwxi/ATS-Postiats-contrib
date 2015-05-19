@@ -120,7 +120,7 @@ patsolve_mylib_dats.o: patsolve_mylib.dats; $(PATSCC3) -c $<
 
 ######
 
-patsolve_commarg_dats.o: patsolve_commarg.dats; $(PATSCC2) -c $<
+patsolve_commarg_dats.o: patsolve_commarg.dats; $(PATSCC3) -c $<
 
 ######
 

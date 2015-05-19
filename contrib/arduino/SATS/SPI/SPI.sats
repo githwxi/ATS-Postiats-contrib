@@ -5,8 +5,7 @@
 (* ****** ****** *)
 
 %{#
-#include \
-"arduino/CATS/SPI/SPI.cats"
+#include "arduino/CATS/SPI/SPI.cats"
 %} // end of [%{#]
 
 (* ****** ****** *)

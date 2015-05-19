@@ -24,6 +24,7 @@ STDIO = "libc/SATS/stdio.sats"
 (* ****** ****** *)
 
 staload "./patsolve_main.sats"
+staload "./patsolve_parsing.sats"
 
 (* ****** ****** *)
 
@@ -150,6 +151,8 @@ extern fun patsolve_input(): void
 extern fun patsolve_gitem(string): void
 extern fun patsolve_input_arg(string): void
 //
+extern fun patsolve_commarglst_finalize(): void
+//
 (* ****** ****** *)
 
 typedef
@@ -226,14 +229,16 @@ val () = println! ("patsolve_commarglst")
 in
 //
 case+ xs of
-| ~list_vt_nil
-    ((*void*)) => ()
 | ~list_vt_cons
     (x, xs) => let
     val () = process_arg(x)
   in
     patsolve_commarglst (xs)
   end // end of [list_vt_cons]
+//
+| ~list_vt_nil
+    ((*void*)) => patsolve_commarglst_finalize ()
+  // end of [list_vt_nil]
 //
 end // end of [patsolve_commarglst]
 
@@ -299,11 +304,48 @@ in
 //
 case+ opt of
 | ~Some_vt(filr) =>
-    !the_state.inpfil_ref := filr
-  // end of [Some_vt]
-| ~None_vt((*void*)) => ()
+  {
+//
+    val n0 = !the_state.fopen_inp
+    val () = !the_state.fopen_inp := 1
+//
+    val f0 = !the_state.inpfil_ref
+    val () = if n0 > 0 then fileref_close(f0)
+    val () = !the_state.inpfil_ref := filr
+//
+    val () = parse_fileref_constraints(filr)
+//
+  } (* end of [Some_vt] *)
+//
+| ~None_vt((*void*)) =>
+  {
+//
+    val n0 = !the_state.fopen_inp
+    val () = !the_state.fopen_inp := 0
+//
+    val f0 = !the_state.inpfil_ref
+    val () = if n0 > 0 then fileref_close(f0)
+    val () = !the_state.inpfil_ref := stdin_ref
+//
+    val () =
+    prerrln!
+      ("The file [", path, "] cannot be opened for read!")
+    // end of [val]
+//
+  } (* end of [None_vt] *)
 //
 end // end of [patsolve_input_arg]
+
+(* ****** ****** *)
+
+implement
+patsolve_commarglst_finalize
+  ((*void*)) =
+{
+  val n0 = !the_state.fopen_inp
+  val f0 = !the_state.inpfil_ref
+  val () = if n0 > 0 then fileref_close(f0)
+} (* end of [patsolve_commarglst_finalize] *)
 
 (* ****** ****** *)
 
