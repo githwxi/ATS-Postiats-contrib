@@ -45,6 +45,10 @@ PATSCC=$(PATSHOMEQ)/bin/patscc
 PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
+
+all::
+
+######
 #
 CFLAGS :=
 CFLAGS += -DATS_MEMALLOC_LIBC
@@ -105,6 +109,8 @@ PATSCC2 = $(PATSCC) $(CFLAGS)
 PATSCC3 = $(PATSCC) $(CFLAGS) $(CFLAGS2)
 
 ######
+#
+all:: patsolve
 #
 patsolve: $(OBJECTS) ; \
   $(PATSCC) $(INCLUDE) -o $@ $^ $(LDFLAGS) $(EXTRAFLAGS)

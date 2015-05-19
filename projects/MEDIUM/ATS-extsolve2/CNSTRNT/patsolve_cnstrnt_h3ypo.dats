@@ -14,6 +14,14 @@
 (* ****** ****** *)
 
 implement
+h3ypo_make_node
+  (loc, node) = '{
+  h3ypo_loc= loc, h3ypo_node= node
+} (* end of [h3ypo_make_node] *)
+
+(* ****** ****** *)
+
+implement
 fprint_h3ypo
   (out, h3p) =
 (

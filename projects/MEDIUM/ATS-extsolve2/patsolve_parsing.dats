@@ -328,5 +328,23 @@ local
 end // end of [local]
 //
 (* ****** ****** *)
+//
+local
+//
+#include
+"./PARSING/patsolve_parsing_h3ypo.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./PARSING/patsolve_parsing_c3nstr.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
 
 (* end of [patsolve_parsing.dats] *)

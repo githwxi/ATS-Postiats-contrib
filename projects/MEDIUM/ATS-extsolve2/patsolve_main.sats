@@ -13,6 +13,10 @@
 
 (* ****** ****** *)
 
+#define ATS_PACKNAME "PATSOLVE_MAIN"
+
+(* ****** ****** *)
+
 datatype
 commarg =
   | CAhelp of (string)

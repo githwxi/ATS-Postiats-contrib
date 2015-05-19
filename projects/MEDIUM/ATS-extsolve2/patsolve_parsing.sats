@@ -13,6 +13,10 @@
 
 (* ****** ****** *)
 //
+#define ATS_PACKNAME "PATSOLVE_PARSING"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 //

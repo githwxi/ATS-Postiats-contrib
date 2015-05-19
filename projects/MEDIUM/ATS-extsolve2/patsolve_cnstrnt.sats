@@ -13,6 +13,10 @@
 
 (* ****** ****** *)
 //
+#define ATS_PACKNAME "PATSOLVE_CNSTRNT"
+//
+(* ****** ****** *)
+//
 abst0ype
 stamp_t0ype = int
 //
@@ -154,15 +158,17 @@ vtypedef s2cstopt_vt = Option_vt(s2cst)
 (* ****** ****** *)
 //
 fun
+s2cst_make
+  (symbol, s2rt, stamp): s2cst
+//
+(* ****** ****** *)
+//
+fun
 fprint_s2cst: fprint_type(s2cst)
 //
 overload fprint with fprint_s2cst
 //
 (* ****** ****** *)
-//
-fun
-s2cst_make
-  (symbol, s2rt, stamp): s2cst
 //
 fun s2cst_get_srt (s2cst): s2rt
 fun s2cst_get_name (s2cst): symbol
@@ -188,17 +194,15 @@ vtypedef s2varopt_vt = Option_vt(s2var)
 (* ****** ****** *)
 //
 fun
-fprint_s2var: fprint_type(s2var)
-//
-overload fprint with fprint_s2var
+s2var_make
+  (symbol, s2rt, stamp): s2var
 //
 (* ****** ****** *)
 //
 fun
-s2var_make
-  (symbol, s2rt, stamp): s2var
+fprint_s2var: fprint_type(s2var)
 //
-fun s2var_make_srt (s2rt): s2var
+overload fprint with fprint_s2var
 //
 (* ****** ****** *)
 //
@@ -288,17 +292,17 @@ typedef s2explst = List0 (s2exp)
 (* ****** ****** *)
 //
 fun
+s2exp_make_node (s2rt, s2exp_node): s2exp
+//
+(* ****** ****** *)
+//
+fun
 fprint_s2exp : fprint_type(s2exp)
 fun
 fprint_s2explst : fprint_type(s2explst)
 //
 overload fprint with fprint_s2exp
 overload fprint with fprint_s2explst
-//
-(* ****** ****** *)
-//
-fun
-s2exp_make_node (s2rt, s2exp_node): s2exp
 //
 (* ****** ****** *)
 
@@ -336,6 +340,16 @@ and c3nstr =
 //
 and c3nstropt = Option(c3nstr)
 
+(* ****** ****** *)
+//
+fun
+h3ypo_make_node (loc_t, h3ypo_node): h3ypo
+//
+(* ****** ****** *)
+//
+fun
+c3nstr_make_node (loc_t, c3nstr_node): c3nstr
+//
 (* ****** ****** *)
 //
 fun

@@ -56,10 +56,8 @@ fprint_val<c3nstr> = fprint_c3nstr
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_stamp.dats"
+"./CNSTRNT/patsolve_cnstrnt_stamp.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -67,10 +65,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_symbol.dats"
+"./CNSTRNT/patsolve_cnstrnt_symbol.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -78,10 +74,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_location.dats"
+"./CNSTRNT/patsolve_cnstrnt_location.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -89,10 +83,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_s2cst.dats"
+"./CNSTRNT/patsolve_cnstrnt_s2cst.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -100,10 +92,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_s2var.dats"
+"./CNSTRNT/patsolve_cnstrnt_s2var.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -111,10 +101,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_s2vvar.dats"
+"./CNSTRNT/patsolve_cnstrnt_s2vvar.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -122,10 +110,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_s2exp.dats"
+"./CNSTRNT/patsolve_cnstrnt_s2exp.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -133,10 +119,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_s3itm.dats"
+"./CNSTRNT/patsolve_cnstrnt_s3itm.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -144,10 +128,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_h3ypo.dats"
+"./CNSTRNT/patsolve_cnstrnt_h3ypo.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)
@@ -155,10 +137,8 @@ end // end of [local]
 local
 //
 #include
-"./CNSTRNT/patsolve_cnstrnt_c3nstr.dats"
+"./CNSTRNT/patsolve_cnstrnt_c3nstr.dats" in (*nothing*)
 //
-in
-  // nothing
 end // end of [local]
 //
 (* ****** ****** *)

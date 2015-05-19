@@ -14,6 +14,14 @@
 (* ****** ****** *)
 
 implement
+c3nstr_make_node
+  (loc, node) = '{
+  c3nstr_loc= loc, c3nstr_node= node
+} (* end of [c3nstr_make_node] *)
+
+(* ****** ****** *)
+
+implement
 fprint_c3nstr
   (out, c3t) =
 (
