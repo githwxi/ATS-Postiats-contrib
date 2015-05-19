@@ -548,7 +548,6 @@ ins0.instr_node of
     val () = emit2_instrlst (out, ind, inss)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "// ATStailcalseq_end")
-  
   } (* end of [ATStailcalseq] *)
 //
 | ATSINSmove_tlcal (tmp, d0e) =>
