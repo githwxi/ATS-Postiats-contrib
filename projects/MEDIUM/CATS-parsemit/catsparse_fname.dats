@@ -32,6 +32,11 @@ filename_stdin = FNAME ("__STDIN__")
 (* ****** ****** *)
 
 implement
+filename_make(fname) = FNAME(fname)
+
+(* ****** ****** *)
+
+implement
 fprint_filename
   (out, fil) = let
 //

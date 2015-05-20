@@ -179,8 +179,11 @@ atscc2js_basename
   (state, fname) = let
 //
 val inp =
-  $STDIO.fopen (fname, file_mode_r)
-val p_inp = $STDIO.ptrcast(inp)
+$STDIO.fopen(fname, file_mode_r)
+val p_inp = $STDIO.ptrcast (inp)
+//
+val fil = filename_make(fname)
+val ((*void*)) = the_filename_push(fil)
 //
 in
 //
@@ -332,7 +335,12 @@ case+ arglst of
     if wait0 then (
       if state.ncomarg = 0
         then atscc2js_usage ("atscc2js")
-        else atscc2js_fileref (state, stdin_ref)
+        else let
+          val () =
+          the_filename_push(filename_stdin)
+        in
+          atscc2js_fileref (state, stdin_ref)
+        end // end of [else]
     ) (* end of [if] *)
   end // end of [list_nil]
 //

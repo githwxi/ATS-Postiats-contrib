@@ -64,15 +64,19 @@ val () = println! ("ptoken_fun: tok = ", tok)
 *)
 //
 in
-  if f (tok.token_node) then let
-    val () = tokbuf_incby1 (buf) in tok
-  end else let
-    val loc = tok.token_loc
-    val () = err := err + 1
-    val () = the_parerrlst_add_ifnbt (bt, loc, enode)
-  in
-    token_null ()
-  end // end of [_]
+//
+if
+f(tok.token_node)
+then let
+  val () = tokbuf_incby1 (buf) in tok
+end // end of [then]
+else let
+  val loc = tok.token_loc
+  val () = err := err + 1
+  val () = the_parerrlst_add_ifnbt (bt, loc, enode)
+in
+  token_null ()
+end // end of [else]
 //
 end // end of [ptoken_fun]
 
@@ -1213,8 +1217,9 @@ parse_from_fileref
   (inp) = let
 //
 var buf: tokbuf
+//
 val () =
-  tokbuf_initize_fileref (buf, inp)
+tokbuf_initize_fileref (buf, inp)
 //
 val d0cs = parse_from_tokbuf (buf)
 //
