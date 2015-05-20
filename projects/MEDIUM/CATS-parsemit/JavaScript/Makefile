@@ -26,6 +26,7 @@ SOURCES_SATS += catsparse.sats
 SOURCES_SATS += catsparse_syntax.sats
 SOURCES_SATS += catsparse_parsing.sats
 SOURCES_SATS += catsparse_emit.sats
+SOURCES_SATS += catsparse_typedef.sats
 
 ######
 #

@@ -12,21 +12,9 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "./catsparse.sats" // opened
-
-(* ****** ****** *)
 //
-extern
-fun
-typedef_insert
-  (name: symbol, def: tyrec): void
-//
-(* ****** ****** *)
-//
-extern
-fun
-typedef_search_opt (name: symbol): Option_vt (tyrec)
+staload "./catsparse.sats"
+staload "./catsparse_typedef.sats"
 //
 (* ****** ****** *)
 

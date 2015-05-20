@@ -33,6 +33,10 @@ THE SOFTWARE.
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
+
+#define ATS_PACKNAME "CATSPARSE"
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"

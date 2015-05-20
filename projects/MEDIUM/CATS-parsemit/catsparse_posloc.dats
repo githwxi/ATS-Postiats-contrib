@@ -29,7 +29,6 @@ val () = pos.pos_nrow := pos.pos_nrow + 1
 } (* end of [position_byrow] *)
 
 (* ****** ****** *)
-
 //
 implement
 position_incby1

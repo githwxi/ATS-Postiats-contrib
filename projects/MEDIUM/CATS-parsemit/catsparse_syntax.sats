@@ -7,8 +7,13 @@
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
+//
+#define
+ATS_PACKNAME "CATSPARSE_SYNTAX"
+//
+(* ****** ****** *)
 
-staload "./catsparse.sats"
+staload "./catsparse.sats" // opened
 
 (* ****** ****** *)
 //

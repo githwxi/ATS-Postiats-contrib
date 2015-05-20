@@ -27,7 +27,7 @@ staload "./catsparse_emit.sats"
 //
 (* ****** ****** *)
 //
-staload "./catsparse_typedef.dats"
+staload "./catsparse_typedef.sats"
 //
 (* ****** ****** *)
 
