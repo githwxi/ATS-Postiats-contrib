@@ -21,8 +21,9 @@ script:
   # Building ATS2
   - export PATSHOME=${HOME}/ATS2-srcfrg
   - export PATH=${PATH}:${PATSHOME}/bin
-  - cd ${PATSHOME} && ./configure && make
+  - (cd ${PATSHOME} && ./configure && make)
   # Testing extensively
-  - make -C ${TRAVIS_BUILD_DIR} -f Makefile_test testall
+  - cd ${TRAVIS_BUILD_DIR}
+  - make -f Makefile_test testall
 after_script:
   - date
