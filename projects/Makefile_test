@@ -16,10 +16,8 @@ SUBDIRS += SMALL/gtkcairotimer
 
 SUBDIRS += MEDIUM/FALCON
 SUBDIRS += MEDIUM/SHOOTOUT/ATS2
-SUBDIRS += MEDIUM/CATS-parsemit/PHP
-SUBDIRS += MEDIUM/CATS-parsemit/Perl
-SUBDIRS += MEDIUM/CATS-parsemit/Python
-SUBDIRS += MEDIUM/CATS-parsemit/JavaScript
+SUBDIRS += MEDIUM/CATS-parsemit
+SUBDIRS += MEDIUM/CATS-atscc2js
 
 ######
 #
