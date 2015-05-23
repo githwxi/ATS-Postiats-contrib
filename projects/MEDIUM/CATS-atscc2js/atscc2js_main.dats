@@ -40,7 +40,8 @@ catsparse_mylib_dynload() where
 {
 //
 extern
-fun catsparse_mylib_dynload(): void = "ext#"
+fun
+catsparse_mylib_dynload(): void = "ext#"
 //
 } (* end of [val] *)
 //
@@ -49,7 +50,8 @@ catsparse_include_all_dynload() where
 {
 //
 extern
-fun catsparse_include_all_dynload(): void = "ext#"
+fun
+catsparse_include_all_dynload(): void = "ext#"
 //
 } (* end of [val] *)
 //
@@ -137,8 +139,8 @@ implement
 atscc2js_fileref
   (state, inp) = let
 //
-val out =
-  outchan_get_fileref (state.outchan)
+val oc = state.outchan
+val out = outchan_get_fileref (oc)
 //
 val d0cs = parse_from_fileref (inp)
 //
@@ -159,6 +161,8 @@ end // end of [atscc2js_fileref]
 
 (* ****** ****** *)
 //
+macdef fopen = $STDIO.fopen
+//
 extern
 fun
 atscc2js_basename
@@ -171,7 +175,8 @@ atscc2js_basename
   (state, fname) = let
 //
 val inp =
-  $STDIO.fopen (fname, file_mode_r)
+  fopen (fname, file_mode_r)
+//
 val p_inp = $STDIO.ptrcast(inp)
 //
 in
@@ -181,7 +186,9 @@ p_inp > 0
 then let
 //
 val inp =
-$UNSAFE.castvwtp0{FILEref}(inp)
+  $UNSAFE.castvwtp0{FILEref}(inp)
+val ((*void*)) =
+  the_filename_push(filename_make(fname))
 //
 in
   atscc2js_fileref (state, inp)

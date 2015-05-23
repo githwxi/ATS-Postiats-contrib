@@ -87,6 +87,11 @@ val filename_stdin : fil_t
 
 (* ****** ****** *)
 //
+fun
+filename_make (path: string): fil_t
+//
+(* ****** ****** *)
+//
 fun print_filename : (fil_t) -> void
 fun prerr_filename : (fil_t) -> void
 fun fprint_filename : fprint_type (fil_t)

@@ -41,7 +41,8 @@ catsparse_mylib_dynload() where
 {
 //
 extern
-fun catsparse_mylib_dynload(): void = "ext#"
+fun
+catsparse_mylib_dynload(): void = "ext#"
 //
 } (* end of [val] *)
 //
@@ -50,7 +51,8 @@ catsparse_include_all_dynload() where
 {
 //
 extern
-fun catsparse_include_all_dynload(): void = "ext#"
+fun
+catsparse_include_all_dynload(): void = "ext#"
 //
 } (* end of [val] *)
 //
@@ -160,6 +162,8 @@ end // end of [atscc2php_fileref]
 
 (* ****** ****** *)
 //
+macdef fopen = $STDIO.fopen
+//
 extern
 fun
 atscc2php_basename
@@ -172,7 +176,8 @@ atscc2php_basename
   (state, fname) = let
 //
 val inp =
-  $STDIO.fopen (fname, file_mode_r)
+  fopen (fname, file_mode_r)
+//
 val p_inp = $STDIO.ptrcast(inp)
 //
 in
@@ -182,7 +187,9 @@ p_inp > 0
 then let
 //
 val inp =
-$UNSAFE.castvwtp0{FILEref}(inp)
+  $UNSAFE.castvwtp0{FILEref}(inp)
+val ((*void*)) =
+  the_filename_push(filename_make(fname))
 //
 in
   atscc2php_fileref (state, inp)

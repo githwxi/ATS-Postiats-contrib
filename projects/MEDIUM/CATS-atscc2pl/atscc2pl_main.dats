@@ -144,7 +144,7 @@ atscc2pl_fileref
   (state, inp) = let
 //
 val out =
-outchan_get_fileref (state.outchan)
+outchan_get_fileref(state.outchan)
 //
 val d0cs = parse_from_fileref (inp)
 //
@@ -164,6 +164,8 @@ end // end of [atscc2pl_fileref]
 
 (* ****** ****** *)
 //
+macdef fopen = $STDIO.fopen
+//
 extern
 fun
 atscc2pl_basename
@@ -176,7 +178,8 @@ atscc2pl_basename
   (state, fname) = let
 //
 val inp =
-  $STDIO.fopen (fname, file_mode_r)
+  fopen (fname, file_mode_r)
+//
 val p_inp = $STDIO.ptrcast(inp)
 //
 in
@@ -186,7 +189,9 @@ p_inp > 0
 then let
 //
 val inp =
-$UNSAFE.castvwtp0{FILEref}(inp)
+  $UNSAFE.castvwtp0{FILEref}(inp)
+val ((*void*)) =
+  the_filename_push(filename_make(fname))
 //
 in
   atscc2pl_fileref (state, inp)
