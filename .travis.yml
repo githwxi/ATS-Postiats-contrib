@@ -6,6 +6,7 @@ before_install:
   - cat /proc/cpuinfo
   # Install pkgs
   - ${TRAVIS_BUILD_DIR}/travis-ci/installpkg.sh
+  - cd ${HOME}
   # Download ATS2
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-srcfrg
   # Seting-up ATS2-contrib
