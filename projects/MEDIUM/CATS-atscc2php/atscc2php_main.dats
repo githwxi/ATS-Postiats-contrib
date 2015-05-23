@@ -1,11 +1,12 @@
 (* ****** ****** *)
 //
-// atscc2php
+// Atscc2php:
+// from ATS to PHP
 //
 (* ****** ****** *)
 //
 // HX-2014-08-28: start
-// HX-2014-05-22: restructure
+// HX-2015-05-22: restructure
 //
 (* ****** ****** *)
 //

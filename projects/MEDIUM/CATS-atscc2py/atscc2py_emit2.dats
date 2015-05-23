@@ -1,10 +1,12 @@
 (* ****** ****** *)
 //
-// CATS-parsemit-python
+// Atscc2py:
+// from ATS to Python
 //
 (* ****** ****** *)
 //
 // HX-2014-08-04: start
+// HX-2015-05-23: restructure
 //
 (* ****** ****** *)
 //

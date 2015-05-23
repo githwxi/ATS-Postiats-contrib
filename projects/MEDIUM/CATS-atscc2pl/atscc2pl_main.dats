@@ -1,10 +1,12 @@
 (* ****** ****** *)
 //
-// CATS-parsemit-python
+// Atscc2pl
+// from ATS to Perl
 //
 (* ****** ****** *)
 //
-// HX-2014-07-02: start
+// HX-2014-11-08: start
+// HX-2015-05-23: restructure
 //
 (* ****** ****** *)
 //
@@ -20,51 +22,47 @@ STDIO =
 "{$PATSLIBC}/SATS/stdio.sats"
 //
 (* ****** ****** *)
-
-staload "./catsparse.sats"
-staload "./catsparse_parsing.sats"
-staload "./catsparse_emit.sats"
-
-(* ****** ****** *)
 //
-dynload "./catsparse_mylib.dats"
+staload
+STDIO = "{$PATSLIBC}/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //
-dynload "./catsparse_error.dats"
+#define
+CATSPARSEMIT_targetloc "./.CATS-parsemit"
 //
-dynload "./catsparse_print.dats"
+(* ****** ****** *)
 //
-dynload "./catsparse_symbol.dats"
+staload "{$CATSPARSEMIT}/catsparse.sats"
 //
-dynload "./catsparse_fname.dats"
-dynload "./catsparse_posloc.dats"
+staload "{$CATSPARSEMIT}/catsparse_parsing.sats"
 //
-dynload "./catsparse_global.dats"
+staload "{$CATSPARSEMIT}/catsparse_emit.sats"
 //
-dynload "./catsparse_syntax.dats"
+(* ****** ****** *)
 //
-dynload "./catsparse_lexerr.dats"
-dynload "./catsparse_lexbuf.dats"
-dynload "./catsparse_lexing.dats"
+val () =
+catsparse_mylib_dynload() where
+{
 //
-dynload "./catsparse_tokbuf.dats"
+extern
+fun catsparse_mylib_dynload(): void = "ext#"
 //
-dynload "./catsparse_parerr.dats"
-dynload "./catsparse_parsing.dats"
-dynload "./catsparse_parsing_d0exp.dats"
-dynload "./catsparse_parsing_d0ecl.dats"
-dynload "./catsparse_parsing_instr.dats"
+} (* end of [val] *)
+//
+val () =
+catsparse_include_all_dynload() where
+{
+//
+extern
+fun catsparse_include_all_dynload(): void = "ext#"
+//
+} (* end of [val] *)
 //
 (* ****** ****** *)
 
-dynload "./catsparse_emit.dats"
-dynload "./catsparse_typedef.dats"
-
-(* ****** ****** *)
-
-dynload "./catsparse_emit_py.dats"
-dynload "./catsparse_emit2_py.dats"
+dynload "./atscc2pl_emit.dats"
+dynload "./atscc2pl_emit2.dats"
 
 (* ****** ****** *)
 //
@@ -138,15 +136,15 @@ end // end of [cmdstate_set_outchan]
 //
 extern
 fun
-atscc2py_fileref
+atscc2pl_fileref
   (state: &cmdstate >> _, filr: FILEref): void
 //
 implement
-atscc2py_fileref
+atscc2pl_fileref
   (state, inp) = let
 //
 val out =
-  outchan_get_fileref (state.outchan)
+outchan_get_fileref (state.outchan)
 //
 val d0cs = parse_from_fileref (inp)
 //
@@ -162,17 +160,19 @@ val ((*flusing*)) = emit_newline (out)
 //
 in
   // nothing
-end // end of [atscc2py_fileref]
+end // end of [atscc2pl_fileref]
 
 (* ****** ****** *)
 //
 extern
 fun
-atscc2py_basename
-  (state: &cmdstate >> _, fname: string): void
+atscc2pl_basename
+(
+  state: &cmdstate >> _, fname: string
+) : void // end-of-fun
 //
 implement
-atscc2py_basename
+atscc2pl_basename
   (state, fname) = let
 //
 val inp =
@@ -189,7 +189,7 @@ val inp =
 $UNSAFE.castvwtp0{FILEref}(inp)
 //
 in
-  atscc2py_fileref (state, inp)
+  atscc2pl_fileref (state, inp)
 end // end of [then]
 else let
 //
@@ -203,7 +203,7 @@ in
   // nothing
 end // end of [else]
 //
-end // end of [atscc2py_basename]
+end // end of [atscc2pl_basename]
 
 (* ****** ****** *)
 
@@ -273,7 +273,7 @@ comarg_warning (str) = {
 (* ****** ****** *)
   
 fun
-atscc2py_usage
+atscc2pl_usage
   (cmd: string): void = {
 //
 val () =
@@ -302,7 +302,7 @@ println! ("  -h : for printing out this help usage")
 val () =
 println! ("  --help : for printing out this help usage")
 //
-} (* end of [atscc2py_usage] *)
+} (* end of [atscc2pl_usage] *)
   
 (* ****** ****** *)
 
@@ -328,8 +328,8 @@ case+ arglst of
   in
     if wait0 then (
       if state.ncomarg = 0
-        then atscc2py_usage ("atscc2py")
-        else atscc2py_fileref (state, stdin_ref)
+        then atscc2pl_usage ("atscc2pl")
+        else atscc2pl_fileref (state, stdin_ref)
     ) (* end of [if] *)
   end // end of [list_nil]
 //
@@ -364,7 +364,7 @@ case+ arg of
         process_cmdline2_COMARGkey2 (state, arglst, key)
     | COMARGkey (_, fname) => let
         val () = state.ninputfile := nif + 1
-        val () = atscc2py_basename (state, fname(*input*))
+        val () = atscc2pl_basename (state, fname(*input*))
       in
         process_cmdline (state, arglst)
       end // end of [COMARGkey]
@@ -417,7 +417,7 @@ case+ key of
   } (* end of [-o] *)
 //
 | "-h" => {
-    val () = atscc2py_usage ("atscc2py")
+    val () = atscc2pl_usage ("atscc2pl")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [-h] *)
@@ -452,7 +452,7 @@ case+ key of
   } (* end of [--output] *)
 //
 | "--help" => {
-    val () = atscc2py_usage ("atscc2py")
+    val () = atscc2pl_usage ("atscc2pl")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [--help] *)
@@ -544,7 +544,7 @@ main0 (argc, argv) =
 val () =
 prerrln!
 (
-  "Hello from atscc2py!"
+  "Hello from atscc2pl!"
 ) (* end of [val] *)
 //
 //
@@ -570,14 +570,14 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = println! ("atscc2py: there is a reported error.")
+  val () = prerrln! ("atscc2pl: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = println! ("atscc2py: there are mutiple reported errors.")
+  val () = prerrln! ("atscc2pl: there are mutiple reported errors.")
 in
   // nothing
 end // end of [then]
@@ -585,11 +585,11 @@ else () // end of [else]
 //
 (*
 val () =
-prerrln! ("Good-bye from atscc2py!")
+prerrln! ("Good-bye from atscc2pl!")
 *)
 //
 } (* end of [main0] *)
 
 (* ****** ****** *)
 
-(* end of [catsparse_main_py.dats] *)
+(* end of [atscc2pl_main.dats] *)

@@ -1,10 +1,12 @@
 (* ****** ****** *)
 //
-// Atscc2js: from ATS to JS
+// Atscc2js:
+// from ATS to JavaScript
 //
 (* ****** ****** *)
 //
 // HX-2014-08-20: start
+// HX-2015-05-21: restructure
 //
 (* ****** ****** *)
 //
