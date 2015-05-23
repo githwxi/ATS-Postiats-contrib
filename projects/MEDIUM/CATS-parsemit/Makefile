@@ -21,10 +21,10 @@ $(PATSOPT) -o ./CATS/catsparse_include_all_dats.c --dynamic $<
 #
 testall:: \
 catsparse_mylib.dats; \
-$(PATSOPT) -o /tmp/catsparse_mylib_dats.c --dynamic $<
+$(PATSOPT) -o ./CATS/catsparse_mylib_dats.c --dynamic $<
 testall:: \
 catsparse_include_all.dats; \
-$(PATSOPT) -o /tmp/catsparse_include_all_dats.c --dynamic $<
+$(PATSOPT) -o ./CATS/catsparse_include_all_dats.c --dynamic $<
 #
 ######
 
