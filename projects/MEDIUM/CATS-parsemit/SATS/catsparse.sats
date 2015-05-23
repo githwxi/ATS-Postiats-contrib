@@ -328,6 +328,7 @@ keyword =
   | ATSdynloadflag_sta of ()
   | ATSdynloadflag_ext of ()
   | ATSdynloadflag_init of ()
+  | ATSdynloadflag_minit of ()
 //
   | ATSclosurerize_beg of ()
   | ATSclosurerize_end of ()
@@ -976,6 +977,7 @@ instr_node =
   | ATSdynloadflag_sta of (i0de)
   | ATSdynloadflag_ext of (i0de)
   | ATSdynloadflag_init of (i0de)
+  | ATSdynloadflag_minit of (i0de)
 //
 // end of [instr_node]
 //

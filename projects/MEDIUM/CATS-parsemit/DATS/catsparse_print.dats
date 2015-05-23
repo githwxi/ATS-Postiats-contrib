@@ -211,6 +211,7 @@ case+ x of
 | ATSdynloadflag_sta () => pr "ATSdynloadflag_sta"
 | ATSdynloadflag_ext () => pr "ATSdynloadflag_ext"
 | ATSdynloadflag_init () => pr "ATSdynloadflag_init"
+| ATSdynloadflag_minit () => pr "ATSdynloadflag_minit"
 //
 | ATSclosurerize_beg () => pr "ATSclosurerize_beg"
 | ATSclosurerize_end () => pr "ATSclosurerize_end"

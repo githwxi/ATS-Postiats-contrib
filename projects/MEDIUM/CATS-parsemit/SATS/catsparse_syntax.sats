@@ -707,6 +707,10 @@ fun
 d0ecl_dynloadflag_init
   (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
 //
+fun
+d0ecl_dynloadflag_minit
+  (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
+//
 (* ****** ****** *)
 
 (* end of [catsparse_syntax.sats] *)
