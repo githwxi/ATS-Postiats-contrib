@@ -1847,6 +1847,16 @@ in
   d0ecl_make_node (loc, D0Cdynloadflag_init (flag))
 end // end of [d0ecl_dynloadflag_init]
 
+implement
+d0ecl_dynloadflag_minit
+  (tok1, flag, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynloadflag_minit (flag))
+end // end of [d0ecl_dynloadflag_minit]
+
 (* ****** ****** *)
 
 (* end of [catsparse_syntax.dats] *)

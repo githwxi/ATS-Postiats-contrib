@@ -1062,6 +1062,7 @@ d0ecl_node =
     ) (* end of [D0Cclosurerize] *)
 //
   | D0Cdynloadflag_init of (i0de)
+  | D0Cdynloadflag_minit of (i0de)
 //
 // end of [d0ecl_node]
 
