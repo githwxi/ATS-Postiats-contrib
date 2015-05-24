@@ -114,6 +114,20 @@ in
 end (* end of [aux_S2EVar] *)
 
 fun
+aux_S2Eeqeq
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x_1, xs) = xs
+val-list_cons (x_2, xs) = xs
+//
+in
+  S2Eeqeq(parse_s2exp(x_1), parse_s2exp(x_2))
+end (* end of [aux_S2Eeqeq] *)
+
+fun
 aux_S2Eapp
 (
   x0: jsonval
@@ -164,6 +178,8 @@ case+ name of
 | "S2Evar" => aux_S2Evar(jsnv2)
 //
 | "S2EVar" => aux_S2EVar(jsnv2)
+//
+| "S2Eeqeq" => aux_S2Eeqeq(jsnv2)
 //
 | "S2Eapp" => aux_S2Eapp(jsnv2)
 //

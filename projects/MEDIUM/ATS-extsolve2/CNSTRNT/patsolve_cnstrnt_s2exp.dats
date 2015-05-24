@@ -37,6 +37,9 @@ of // case+
 | S2Evar(s2v) => fprint! (out, "S2Evar(", s2v, ")")
 | S2EVar(s2V) => fprint! (out, "S2EVar(", s2V, ")")
 //
+| S2Eeqeq(s2e1, s2e2) =>
+    fprint! (out, "S2Eeqeq(", s2e1, ", ", s2e2, ")")
+//
 | S2Eapp(s2e_fun, s2es_arg) =>
     fprint! (out, "S2Eapp(", s2e_fun, "; ", s2es_arg)
 //

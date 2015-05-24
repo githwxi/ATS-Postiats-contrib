@@ -296,6 +296,8 @@ s2exp_node =
 | S2Evar of (s2var)
 | S2EVar of (s2Var)
 //
+| S2Eeqeq of (s2exp, s2exp)
+//
 | S2Eapp of (s2exp, s2explst)
 | S2Emetdec of
     (s2explst(*met*), s2explst(*bound*)) // strictly decreasing
