@@ -24,6 +24,7 @@ STDIO = "libc/SATS/stdio.sats"
 (* ****** ****** *)
 
 staload "./patsolve_main.sats"
+staload "./patsolve_cnstrnt.sats"
 staload "./patsolve_parsing.sats"
 
 (* ****** ****** *)
@@ -313,7 +314,12 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
-    val () = parse_fileref_constraints(filr)
+    val c3t = parse_fileref_constraints(filr)
+//
+    val () =
+    fprintln!
+      (stdout_ref, "patsolve_input_arg: c3t = ", c3t)
+    // end of [fprint]
 //
   } (* end of [Some_vt] *)
 //

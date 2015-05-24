@@ -47,13 +47,17 @@ s2Var_get_stamp (s2V) = !s2V.s2Var_stamp
 end // end of [local]
 
 (* ****** ****** *)
-
+//
+//
+implement
+print_s2Var(s2V) = fprint_s2Var(stdout_ref, s2V)
+//
 implement
 fprint_s2Var
   (out, s2V) =
   fprint! (out, "s2Var(", s2V.stamp(), ")")
 // end of [fprint_s2Var]
-
+//
 (* ****** ****** *)
 
 (* end of [patsolve_cnstrnt_s2vvar.dats] *)

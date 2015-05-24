@@ -64,7 +64,11 @@ typedef symbol = symbol_type
 (* ****** ****** *)
 //
 fun
+print_symbol: symbol -> void
+fun
 fprint_symbol: fprint_type(symbol)
+//
+overload print with print_symbol
 overload fprint with fprint_symbol
 //
 (* ****** ****** *)
@@ -138,8 +142,11 @@ where s2rtlst = List0(s2rt)
 (* ****** ****** *)
 //
 fun
+print_s2rt : s2rt -> void
+fun
 fprint_s2rt: fprint_type(s2rt)
 //
+overload print with print_s2rt
 overload fprint with fprint_s2rt
 //
 (* ****** ****** *)
@@ -164,8 +171,11 @@ s2cst_make
 (* ****** ****** *)
 //
 fun
+print_s2cst: s2cst -> void
+fun
 fprint_s2cst: fprint_type(s2cst)
 //
+overload print with print_s2cst
 overload fprint with fprint_s2cst
 //
 (* ****** ****** *)
@@ -200,17 +210,23 @@ s2var_make
 (* ****** ****** *)
 //
 fun
+print_s2var: s2var -> void
+fun
 fprint_s2var: fprint_type(s2var)
 //
+overload print with print_s2var
 overload fprint with fprint_s2var
 //
 (* ****** ****** *)
 //
 fun
+s2var_get_srt (s2var): s2rt
+fun
 s2var_get_name (s2var): symbol
 fun
 s2var_get_stamp (s2var): stamp
 //
+overload .srt with s2var_get_srt
 overload .name with s2var_get_name
 overload .stamp with s2var_get_stamp
 //
@@ -234,8 +250,11 @@ fun s2Var_make(stamp): s2Var
 (* ****** ****** *)
 //
 fun
+print_s2Var: s2Var -> void
+fun
 fprint_s2Var: fprint_type(s2Var)
 //
+overload print with print_s2Var
 overload fprint with fprint_s2Var
 //
 (* ****** ****** *)
@@ -270,14 +289,19 @@ fun tyreckind_is_flt_ext (knd: tyreckind): bool
 datatype
 s2exp_node =
 //
-  | S2Eint of (int)
-  | S2Eintinf of (string)
+| S2Eint of (int)
+| S2Eintinf of (string)
 //
-  | S2Ecst of (s2cst)
-  | S2Evar of (s2var)
-  | S2EVar of (s2Var)
+| S2Ecst of (s2cst)
+| S2Evar of (s2var)
+| S2EVar of (s2Var)
 //
-  | S2Eignored of ((*void*))
+| S2Eapp of (s2exp, s2explst)
+| S2Emetdec of
+    (s2explst(*met*), s2explst(*bound*)) // strictly decreasing
+  // end of [S2Emetdec]
+//
+| S2Eignored of ((*void*))
 // end of [s2exp_node]
 
 where
@@ -285,9 +309,7 @@ s2exp = $rec{
   s2exp_srt= s2rt, s2exp_node= s2exp_node
 } (* end of [s2exp] *)
 
-(* ****** ****** *)
-
-typedef s2explst = List0 (s2exp)
+and s2explst = List0 (s2exp)
 
 (* ****** ****** *)
 //
@@ -302,7 +324,7 @@ fun
 fprint_s2explst : fprint_type(s2explst)
 //
 overload fprint with fprint_s2exp
-overload fprint with fprint_s2explst
+overload fprint with fprint_s2explst of 10
 //
 (* ****** ****** *)
 

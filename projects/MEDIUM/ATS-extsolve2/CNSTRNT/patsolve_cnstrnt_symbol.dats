@@ -25,6 +25,11 @@ in (* in-of-local *)
 end // end of [local]
 
 (* ****** ****** *)
+//
+implement
+print_symbol(x) = fprint_symbol(stdout_ref, x)
+//
+(* ****** ****** *)
 
 local
 //
@@ -45,11 +50,17 @@ in (*in-of-local*)
 implement
 fprint_symbol
 (
-  out, SYMBOL(name, cnt)
-) =
-(
+  out, sym
+) = let
+//
+val+SYMBOL(name, cnt) = sym
+//
+in
+  fprint! (out, name)
+(*
   fprint! (out, "SYMBOL(", name, ", ", cnt, ")")
-)
+*)
+end // end of [fprint_symbol]
 
 (* ****** ****** *)
 //

@@ -59,7 +59,20 @@ val-list_cons (x, xs) = xs
 //
 in
   C3NSTRprop(parse_s2exp(x))
-end (* end of [aux_C3NSTR] *)
+end (* end of [aux_C3NSTRprop] *)
+
+fun
+aux_C3NSTRitmlst
+(
+  x0: jsonval
+) : c3nstr_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  C3NSTRitmlst(parse_s3itmlst(x))
+end (* end of [aux_C3NSTRitmlst] *)
 
 in (* in-of-local *)
 
@@ -77,6 +90,8 @@ in
 case+ name of
 //
 | "C3NSTRprop" => aux_C3NSTRprop(jsnv2)
+//
+| "C3NSTRitmlst" => aux_C3NSTRitmlst(jsnv2)
 //
 | _(*unrecognized*) =>
    let val () = assertloc(false) in exit(1) end

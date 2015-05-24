@@ -113,6 +113,34 @@ in
   S2EVar(parse_s2Var(x))
 end (* end of [aux_S2EVar] *)
 
+fun
+aux_S2Eapp
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x_fun, xs) = xs
+val-list_cons (x_arg, xs) = xs
+//
+in
+  S2Eapp(parse_s2exp(x_fun), parse_s2explst(x_arg))
+end (* end of [aux_S2Eapp] *)
+
+fun
+aux_S2Emetdec
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x_met, xs) = xs
+val-list_cons (x_bound, xs) = xs
+//
+in
+  S2Emetdec(parse_s2explst(x_met), parse_s2explst(x_bound))
+end (* end of [aux_S2Emetdec] *)
+
 in (* in-of-local *)
 
 implement
@@ -137,7 +165,22 @@ case+ name of
 //
 | "S2EVar" => aux_S2EVar(jsnv2)
 //
-| _(*unrecognized*) => S2Eignored()
+| "S2Eapp" => aux_S2Eapp(jsnv2)
+//
+| "S2Emetdec" => aux_S2Emetdec(jsnv2)
+//
+| "S2Eignored" => S2Eignored(*void*)
+//
+| _(*unrecognized*) => 
+  let
+    val () =
+    prerrln!
+      ("parse_s2exp_node: ", name)
+    // end of [val]
+    val ((*exit*)) = assertloc(false)
+  in
+    exit(1)
+  end // end of [unrecognized]
 //
 end // end of [parse_s2exp_node]
 

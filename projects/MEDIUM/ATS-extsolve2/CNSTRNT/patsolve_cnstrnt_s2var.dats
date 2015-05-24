@@ -32,7 +32,7 @@ in (* in of [local] *)
 
 implement
 s2var_make
-  (srt, name, stamp) = let
+  (name, srt, stamp) = let
 //
 val [l:addr] (
   pfat, pfgc | p
@@ -48,10 +48,8 @@ end // end of [s2var_make]
 
 (* ****** ****** *)
 //
-(*
 implement
 s2var_get_srt (s2v) = !s2v.s2var_srt
-*)
 //
 implement
 s2var_get_name (s2v) = !s2v.s2var_name
@@ -63,13 +61,16 @@ s2var_get_stamp (s2v) = !s2v.s2var_stamp
 end // end of [local]
 
 (* ****** ****** *)
-
+//
+implement
+print_s2var(s2v) = fprint_s2var(stdout_ref, s2v)
+//
 implement
 fprint_s2var
   (out, s2v) =
-  fprint! (out, s2v.name(), "(", s2v.stamp(), ")")
+  fprint! (out, s2v.name(), "(", s2v.srt(), ")")
 // end of [fprint_s2var]
-
+//
 (* ****** ****** *)
 
 (* end of [patsolve_cnstrnt_s2var.dats] *)

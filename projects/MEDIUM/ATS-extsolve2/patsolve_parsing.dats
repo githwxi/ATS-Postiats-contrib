@@ -171,7 +171,19 @@ parse_s2Varlst(xs) = parse_list(xs, parse_s2Var)
 (* ****** ****** *)
 //
 implement
-parse_s2explst(xs) = parse_list(xs, parse_s2exp)
+parse_s2explst(jsnv) = parse_list(jsnv, parse_s2exp)
+//
+(* ****** ****** *)
+//
+implement
+parse_s3itmlst(jsnv) = parse_list(jsnv, parse_s3itm)
+implement
+parse_s3itmlstlst(jsnv) = parse_list(jsnv, parse_s3itmlst)
+//
+(* ****** ****** *)
+//
+implement
+parse_c3nstropt(jsnv) = parse_option(jsnv, parse_c3nstr)
 //
 (* ****** ****** *)
 
@@ -218,13 +230,25 @@ parse_constraints
 val opt1 = jsnv0["s2cstmap"]
 val opt2 = jsnv0["s2varmap"]
 //
+val () =
+println!
+(
+  "parse_constraints: aux_s2cstmap"
+) (* end of [val] *)
 val ((*void*)) = aux_s2cstmap(opt1)
+//
+val () =
+println!
+(
+  "parse_constraints: aux_s2varmap"
+) (* end of [val] *)
 val ((*void*)) = aux_s2varmap(opt2)
 //
-val-~Some_vt(c3nstrbody) = jsnv0["c3nstrbody"]
+val-
+~Some_vt(jsnv) = jsnv0["c3nstrbody"]
 //
 in
-  // nothing
+  parse_c3nstr(jsnv)
 end // end of [parse_constraints]
 
 end // end of [local]
@@ -267,10 +291,8 @@ fprint! (out, "jsnv=", jsnv)
 val () = fprint_newline (out)
 // *)
 //
-val () = parse_constraints (jsnv)
-//
 in
-  // nothing
+  parse_constraints (jsnv)
 end // end of [parse_fileref_constraints]
 
 (* ****** ****** *)

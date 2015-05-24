@@ -132,12 +132,13 @@ fun parse_h3ypo (jsnv: jsonval): h3ypo
 (* ****** ****** *)
 
 fun parse_c3nstr (jsnv: jsonval): c3nstr
+fun parse_c3nstropt (jsnv: jsonval): c3nstropt
 
 (* ****** ****** *)
 //
-fun parse_constraints (jsnv: jsonval): void
+fun parse_constraints (jsnv: jsonval): c3nstr
 //
-fun parse_fileref_constraints (filr: FILEref): void
+fun parse_fileref_constraints (filr: FILEref): c3nstr
 //
 (* ****** ****** *)
 

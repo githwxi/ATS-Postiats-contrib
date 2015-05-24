@@ -36,6 +36,8 @@ fprint_val<symbol> = fprint_symbol
 (* ****** ****** *)
 
 implement
+fprint_val<s2rt> = fprint_s2rt
+implement
 fprint_val<s2cst> = fprint_s2cst
 implement
 fprint_val<s2var> = fprint_s2var
@@ -75,6 +77,15 @@ local
 //
 #include
 "./CNSTRNT/patsolve_cnstrnt_location.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./CNSTRNT/patsolve_cnstrnt_s2rt.dats" in (*nothing*)
 //
 end // end of [local]
 //

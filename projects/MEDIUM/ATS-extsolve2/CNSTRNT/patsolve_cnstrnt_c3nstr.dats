@@ -30,9 +30,9 @@ case
 c3t.c3nstr_node
 of // case+
 | C3NSTRprop(s2e) =>
-    fprintln! (out, "C3NSTRprop(", s2e, ")")
+    fprint! (out, "C3NSTRprop(", s2e, ")")
 | C3NSTRitmlst(s3is) =>
-    fprintln! (out, "C3NSTRitmlst(", s3is, ")")
+    fprint! (out, "C3NSTRitmlst(", s3is, ")")
 //
 ) (* end of [fprint_c3nstr] *)
 

@@ -37,6 +37,12 @@ of // case+
 | S2Evar(s2v) => fprint! (out, "S2Evar(", s2v, ")")
 | S2EVar(s2V) => fprint! (out, "S2EVar(", s2V, ")")
 //
+| S2Eapp(s2e_fun, s2es_arg) =>
+    fprint! (out, "S2Eapp(", s2e_fun, "; ", s2es_arg)
+//
+| S2Emetdec(s2es_met, s2es_bound) =>
+    fprint! (out, "S2Emetdec(", s2es_met, "; ", s2es_bound)
+//
 | S2Eignored((*void*)) => fprint! (out, "S2Eignored()")
 //
 end // end of [fprint_s2exp]
