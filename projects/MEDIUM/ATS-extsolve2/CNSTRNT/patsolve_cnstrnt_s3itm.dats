@@ -19,12 +19,12 @@ fprint_s3itm
 (
 //
 case s3i of
-| S3ITMsvar(s2v) => fprintln! (out, "S3ITMsvar(", s2v, ")")
-| S3ITMsVar(s2V) => fprintln! (out, "S3ITMsVar(", s2V, ")")
-| S3ITMhypo(h3p) => fprintln! (out, "S3ITMhypo(", h3p, ")")
-| S3ITMcnstr(c3t) => fprintln! (out, "S3ITMcnstr(", c3t, ")")
-| S3ITMcnstr_ref(loc, opt) => fprintln! (out, "S3ITMcnstr_ref(", opt, ")")
-| S3ITMdisj (s3iss) => fprintln! (out, "S3ITMdisj(", s3iss, ")")
+| S3ITMsvar(s2v) => fprint! (out, "S3ITMsvar(", s2v, ")")
+| S3ITMsVar(s2V) => fprint! (out, "S3ITMsVar(", s2V, ")")
+| S3ITMhypo(h3p) => fprint! (out, "S3ITMhypo(", h3p, ")")
+| S3ITMcnstr(c3t) => fprint! (out, "S3ITMcnstr(", c3t, ")")
+| S3ITMcnstr_ref(loc, opt) => fprint! (out, "S3ITMcnstr_ref(", opt, ")")
+| S3ITMdisj (s3iss) => fprint! (out, "S3ITMdisj(", s3iss, ")")
 //
 ) (* end of [fprint_s3itm] *)
 

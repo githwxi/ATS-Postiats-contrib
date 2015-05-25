@@ -283,13 +283,9 @@ val ((*freed*)) = json_tokener_free (tokener)
 //
 val jsnv = json_object2val0 (jso)
 //
-// (*
-val out = stdout_ref
-//
-val () =
-fprint! (out, "jsnv=", jsnv)
-val () = fprint_newline (out)
-// *)
+(*
+val () = fprintln! (stdout_ref, "jsnv=", jsnv)
+*)
 //
 in
   parse_constraints (jsnv)

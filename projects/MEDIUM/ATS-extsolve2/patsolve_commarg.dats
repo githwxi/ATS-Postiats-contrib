@@ -314,12 +314,15 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
-    val c3t = parse_fileref_constraints(filr)
+    val c3t0 = parse_fileref_constraints(filr)
 //
     val () =
-    fprintln!
-      (stdout_ref, "patsolve_input_arg: c3t = ", c3t)
-    // end of [fprint]
+    fprint! (
+      stdout_ref
+    , "patsolve_input_arg: c3t0 =\n"
+    ) (* end of [fprint] *)
+    val () = fpprint_c3nstr(stdout_ref, c3t0)
+    val () = fprint_newline (stdout_ref)
 //
   } (* end of [Some_vt] *)
 //

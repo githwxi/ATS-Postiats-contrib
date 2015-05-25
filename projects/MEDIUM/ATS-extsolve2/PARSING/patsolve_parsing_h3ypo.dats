@@ -23,11 +23,13 @@ implement
 parse_h3ypo
   (jsnv0) = let
 //
+(*
 val () =
 println!
 (
   "parse_h3ypo: jsnv0 = ", jsnv0
 ) (* end of [val] *)
+*)
 //
 val-JSONobject(lxs) = jsnv0
 val () = assertloc(length(lxs) >= 2)

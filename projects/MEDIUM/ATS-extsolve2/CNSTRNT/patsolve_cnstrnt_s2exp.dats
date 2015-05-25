@@ -41,10 +41,10 @@ of // case+
     fprint! (out, "S2Eeqeq(", s2e1, ", ", s2e2, ")")
 //
 | S2Eapp(s2e_fun, s2es_arg) =>
-    fprint! (out, "S2Eapp(", s2e_fun, "; ", s2es_arg)
+    fprint! (out, "S2Eapp(", s2e_fun, "; ", s2es_arg, ")")
 //
 | S2Emetdec(s2es_met, s2es_bound) =>
-    fprint! (out, "S2Emetdec(", s2es_met, "; ", s2es_bound)
+    fprint! (out, "S2Emetdec(", s2es_met, "; ", s2es_bound, ")")
 //
 | S2Eignored((*void*)) => fprint! (out, "S2Eignored()")
 //

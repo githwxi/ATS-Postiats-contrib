@@ -14,6 +14,17 @@ fact_dats.cnstr
 fact_dats.cnstr: \
 fact.dats; $(PATSOPT) -tc --constraint-export -o $@ -d $<
 #
+cleanall:: ; $(RMF) fact_dats.cnstr
+#
+######
+#
+all:: \
+fact2_dats.cnstr
+fact2_dats.cnstr: \
+fact2.dats; $(PATSOPT) -tc --constraint-export -o $@ -d $<
+#
+cleanall:: ; $(RMF) fact2_dats.cnstr
+#
 ######
 
 RMF=rm -f
@@ -25,7 +36,6 @@ clean:: ; $(RMF) *~
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) fact_dats.cnstr
 
 ######
 

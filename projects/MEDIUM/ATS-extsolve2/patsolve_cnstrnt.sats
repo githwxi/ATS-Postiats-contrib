@@ -405,5 +405,12 @@ overload fprint with fprint_c3nstr
 overload fprint with fprint_c3nstropt of 10
 //
 (* ****** ****** *)
+//
+// HX-2015-05-25:
+// pretty-printing
+//
+fun fpprint_c3nstr: fprint_type(c3nstr)
+//
+(* ****** ****** *)
 
 (* end of [patsolve_cnstrnt.sats] *)

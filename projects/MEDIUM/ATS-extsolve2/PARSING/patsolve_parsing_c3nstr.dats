@@ -23,11 +23,13 @@ implement
 parse_c3nstr
   (jsnv0) = let
 //
+(*
 val () =
 println!
 (
   "parse_c3nstr: jsnv0 = ", jsnv0
 ) (* end of [val] *)
+*)
 //
 val-JSONobject(lxs) = jsnv0
 val () = assertloc(length(lxs) >= 2)
