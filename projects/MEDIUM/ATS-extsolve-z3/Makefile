@@ -107,6 +107,20 @@ $(PATSCC) \
   $(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS) -lgc
 #
 ######
+#
+PATSOLVE_source=\
+$(PATSHOMERELOC)/projects/MEDIUM/CATS-parsemit
+#
+pkgreloc:: ; \
+$(CPF) $(PATSOLVE_source)/patsolve_cnstrnt.sats $(PATSOLVE)/.
+pkgreloc:: ; \
+$(CPF) $(PATSOLVE_source)/patsolve_parsing.sats $(PATSOLVE)/.
+pkgreloc:: ; \
+$(CPF) $(PATSOLVE_source)/CATS/patsolve_cnstrnt_dats.c $(PATSOLVE)/.
+pkgreloc:: ; \
+$(CPF) $(PATSOLVE_source)/CATS/patsolve_parsing_dats.c $(PATSOLVE)/.
+#
+######
 
 CPF=cp -f
 RMF=rm -f
