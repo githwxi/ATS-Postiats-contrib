@@ -303,6 +303,8 @@ s2exp_node =
     (s2explst(*met*), s2explst(*bound*)) // strictly decreasing
   // end of [S2Emetdec]
 //
+| S2Einvar of (s2exp)
+//
 | S2Eignored of ((*void*))
 // end of [s2exp_node]
 

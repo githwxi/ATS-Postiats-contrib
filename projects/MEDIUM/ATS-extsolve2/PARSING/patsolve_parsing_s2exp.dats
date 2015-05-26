@@ -157,6 +157,19 @@ in
   S2Emetdec(parse_s2explst(x_met), parse_s2explst(x_bound))
 end (* end of [aux_S2Emetdec] *)
 
+fun
+aux_S2Einvar
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S2Einvar(parse_s2exp(x))
+end (* end of [aux_S2Einvar] *)
+
 in (* in-of-local *)
 
 implement
@@ -186,6 +199,8 @@ case+ name of
 | "S2Eapp" => aux_S2Eapp(jsnv2)
 //
 | "S2Emetdec" => aux_S2Emetdec(jsnv2)
+//
+| "S2Einvar" => aux_S2Einvar(jsnv2)
 //
 | "S2Eignored" => S2Eignored(*void*)
 //
