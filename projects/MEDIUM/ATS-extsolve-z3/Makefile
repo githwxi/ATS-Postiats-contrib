@@ -109,7 +109,7 @@ $(PATSCC) \
 ######
 #
 PATSOLVE_source=\
-$(PATSHOMERELOC)/projects/MEDIUM/CATS-parsemit
+$(PATSHOMERELOC)/projects/MEDIUM/ATS-extsolve
 #
 pkgreloc:: ; \
 $(CPF) $(PATSOLVE_source)/patsolve_cnstrnt.sats $(PATSOLVE)/.

@@ -139,6 +139,15 @@ patsolve_parsing_sats.o: patsolve_parsing.sats; $(PATSCC3) -c $<
 patsolve_parsing_dats.o: patsolve_parsing.dats; $(PATSCC3) -c $<
 
 ######
+
+DATS_C:: \
+patsolve_cnstrnt.dats; \
+$(PATSOPT) -o CATS/patsolve_cnstrnt_dats.c --dynamic $<
+DATS_C:: \
+patsolve_parsing.dats; \
+$(PATSOPT) -o CATS/patsolve_parsing_dats.c --dynamic $<
+
+######
 #
 -include .depend
 #
