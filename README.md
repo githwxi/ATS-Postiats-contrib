@@ -1,6 +1,4 @@
- [![Build Status]
-====================
-
+# ATS-Postiats-contrib
 ATS-Postiats-contrib, also referred to as ATS2-contrib, is primarily for
 packages contributed to ATS-Postiats.
 
