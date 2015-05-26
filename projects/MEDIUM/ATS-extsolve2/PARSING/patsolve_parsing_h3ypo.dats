@@ -63,6 +63,34 @@ in
   H3YPOprop(parse_s2exp(x))
 end (* end of [aux_H3YPOprop] *)
 
+fun
+aux_H3YPObind
+(
+  x0: jsonval
+) : h3ypo_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x_1, xs) = xs
+val-list_cons (x_2, xs) = xs
+//
+in
+  H3YPObind(parse_s2var(x_1), parse_s2exp(x_2))
+end (* end of [aux_H3YPObind] *)
+
+fun
+aux_H3YPOeqeq
+(
+  x0: jsonval
+) : h3ypo_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x_1, xs) = xs
+val-list_cons (x_2, xs) = xs
+//
+in
+  H3YPOeqeq(parse_s2exp(x_1), parse_s2exp(x_2))
+end (* end of [aux_H3YPOeqeq] *)
+
 in (* in-of-local *)
 
 implement
@@ -79,6 +107,8 @@ in
 case+ name of
 //
 | "H3YPOprop" => aux_H3YPOprop(jsnv2)
+| "H3YPObind" => aux_H3YPObind(jsnv2)
+| "H3YPOeqeq" => aux_H3YPOeqeq(jsnv2)
 //
 | _(*unrecognized*) =>
    let val () = assertloc(false) in exit(1) end

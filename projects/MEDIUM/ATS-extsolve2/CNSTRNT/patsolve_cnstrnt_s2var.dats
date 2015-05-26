@@ -63,13 +63,21 @@ end // end of [local]
 (* ****** ****** *)
 //
 implement
-print_s2var(s2v) = fprint_s2var(stdout_ref, s2v)
+print_s2var
+  (s2v) = fprint_s2var(stdout_ref, s2v)
 //
+implement
+fprint_s2var
+  (out, s2v) = fprint! (out, s2v.name())
+// end of [fprint_s2var]
+//
+(*
 implement
 fprint_s2var
   (out, s2v) =
   fprint! (out, s2v.name(), "(", s2v.srt(), ")")
 // end of [fprint_s2var]
+*)
 //
 (* ****** ****** *)
 
