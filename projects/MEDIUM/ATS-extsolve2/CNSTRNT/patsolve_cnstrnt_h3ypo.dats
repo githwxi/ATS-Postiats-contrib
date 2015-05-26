@@ -37,7 +37,7 @@ of // case+
     fprint! (out, "H3YPObind(", s2v1, " -> ", s2e2, ")")
 //
 | H3YPOeqeq(s2e1, s2e2) =>
-    fprint! (out, "H3YPObind(", s2e1, " == ", s2e2, ")")
+    fprint! (out, "H3YPOeqeq(", s2e1, " == ", s2e2, ")")
 //
 ) (* end of [fprint_h3ypo] *)
 
