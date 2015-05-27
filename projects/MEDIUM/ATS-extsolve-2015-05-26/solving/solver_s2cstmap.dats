@@ -58,7 +58,7 @@ fun hash_symbol (string):<> ulint = "ext#"
 
 implement
 $HT.hash_key<symbol> (sym) = let
-    val str = $effmask_all (sym.string)
+    val str = $effmask_all (sym.string())
     val h = hash_symbol (str)
 in
     h
@@ -110,8 +110,8 @@ local
 fun
 formula_make_uninterp
   (env: &smtenv, s2c: s2cst, s2es: s2explst): formula = let
-  val srt =  s2c.srt
-  val func = s2c.name
+  val srt =  s2c.srt()
+  val func = s2c.name()
   val _args = s2rt_fun_get_args (srt)
   
   implement 
@@ -149,7 +149,7 @@ implement
 formula_make_s2cst_s2explst
   (env, s2c, s2es) = let
   val (pf, fpf | p) = $UN.ref_vtake (the_funcdict)
-  val sym = s2c.name
+  val sym = s2c.name()
   val r = $HT.hashtbl_search_ref (!p, sym)
 in
     if cptr_isnot_null (r) then let
@@ -161,7 +161,7 @@ in
     
     else let
         val slv = smtenv_get_solver (env)
-        val ssym = sym.string
+        val ssym = sym.string()
     in
         if macro_exists (slv, ssym) then let
 

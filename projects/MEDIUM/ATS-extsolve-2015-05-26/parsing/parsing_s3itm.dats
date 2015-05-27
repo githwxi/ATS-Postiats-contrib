@@ -58,7 +58,7 @@ fun
 parse_S3ITMsvar
   (jsv0:jsonval): s3itm = let
   
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2v = parse_s2var (jsv0[0])
 
 in
@@ -71,7 +71,7 @@ fun
 parse_S3ITMhypo
   (jsv0:jsonval): s3itm = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val h3p = parse_h3ypo (jsv0[0])
 
 in
@@ -84,7 +84,7 @@ fun
 parse_S3ITMsVar
   (jsv0:jsonval): s3itm = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2V = parse_s2Var (jsv0[0])
 //
 in
@@ -97,7 +97,7 @@ fun
 parse_S3ITMcnstr
   (jsv0:jsonval): s3itm = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val c3t = parse_c3nstr (jsv0[0])
 
 in
@@ -110,7 +110,7 @@ fun
 parse_S3ITMcnstr_ref
   (jsv0:jsonval): s3itm = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 
 val loc = parse_location (jsv0[0])
 val opt = parse_c3nstropt (jsv0[1])
@@ -125,7 +125,7 @@ fun
 parse_S3ITMdisj
   (jsv0:jsonval): s3itm = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s3iss = parse_s3itmlstlst (jsv0[0])
 
 in

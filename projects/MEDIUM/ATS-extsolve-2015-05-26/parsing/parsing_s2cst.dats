@@ -65,7 +65,7 @@ implement
 the_s2cstmap_insert
   (s2c0) = {
 
-val k0 = s2c0.stamp
+val k0 = s2c0.stamp()
 val (vbox(pf) | p) = ref_get_viewptr (the_s2cstmap)
 val-~None_vt ((*void*)) = $effmask_ref (
     $FM.funmap_insert_opt (!p, k0, s2c0)

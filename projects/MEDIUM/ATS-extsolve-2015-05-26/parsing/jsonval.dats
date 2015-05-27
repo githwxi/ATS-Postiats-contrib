@@ -212,12 +212,12 @@ end // end of [local]
 *)
 implement{}
 jsonval_is_int (jsv) =
-  if jsv.type != JSMN_PRIMITIVE then
+  if jsv.type() != JSMN_PRIMITIVE then
     false
   else let
-    val [n:int] n = g1ofg0(jsv.size)
+    val [n:int] n = g1ofg0(jsv.size())
     val () = assertloc (n >= 0)
-    val src = $UN.cast{string(n)} (jsv.string)
+    val src = $UN.cast{string(n)} (jsv.string())
 
     fun loop {i:nat | i <= n} (src: string(n), i: int i): bool =
       if i = n then
@@ -235,7 +235,7 @@ jsonval_is_int (jsv) =
    end
 
 implement{}
-jsonval_is_string (jsv) = jsv.type = JSMN_STRING
+jsonval_is_string (jsv) = jsv.type() = JSMN_STRING
 
 (**
   Need to search for "true" or "false" at its token
@@ -243,21 +243,21 @@ jsonval_is_string (jsv) = jsv.type = JSMN_STRING
 *)
 implement{}
 jsonval_is_bool (jsv) =
-  jsv.type = JSMN_PRIMITIVE andalso 
-    (strncmp("true", jsv.string, i2sz(4)) = 0 orelse
-     strncmp("false", jsv.string, i2sz(4)) = 0)
+  jsv.type() = JSMN_PRIMITIVE andalso 
+    (strncmp("true", jsv.string(), i2sz(4)) = 0 orelse
+     strncmp("false", jsv.string(), i2sz(4)) = 0)
 
 implement{}
-jsonval_is_array (jsv) = jsv.type = JSMN_ARRAY
+jsonval_is_array (jsv) = jsv.type() = JSMN_ARRAY
 
 implement{}
-jsonval_is_object (jsv) = jsv.type = JSMN_OBJECT
+jsonval_is_object (jsv) = jsv.type() = JSMN_OBJECT
 
 (* ****** ****** *)
 
 implement{}
 int_of_jsonval (jsv) = let
-    val str = jsv.string
+    val str = jsv.string()
     val i = strtol (str, 10)
 in
     $UN.cast{int} (i)
@@ -265,7 +265,7 @@ end
 
 implement{}
 bool_of_jsonval (jsv) = let
-    val str = jsv.string
+    val str = jsv.string()
 in
     strcmp (str, "true") = 0
 end
@@ -275,15 +275,15 @@ end
 implement{}
 jsonval_get_string (jsv) = let
   val src = jsonval_src ()
-  val buf = add_ptr_bsz($UN.cast{ptr}(src), g0i2u(jsv.start))
+  val buf = add_ptr_bsz($UN.cast{ptr}(src), g0i2u(jsv.start()))
 in
   $UN.cast{string} (buf)
 end
 
 implement{}
 jsonval_get_copy_string (jsv) = let
-    val str = jsv.string
-    val size = g1ofg0(jsv.ending - jsv.start)
+    val str = jsv.string()
+    val size = g1ofg0(jsv.ending() - jsv.start())
     
     val () = assertloc(size >= 0)
     val size = i2sz(size)
@@ -297,8 +297,8 @@ end
 
 implement{}
 jsonval_get_string_unsafe (jsv) = let
-    val str = jsv.string
-    val size = jsv.ending - jsv.start
+    val str = jsv.string()
+    val size = jsv.ending() - jsv.start()
     
     val p = $UN.cast{ptr} (str)
     val pend = add_ptr_bsz (p, g0i2u(size))
@@ -312,7 +312,7 @@ jsonval_size (jsv) = jsmntok_size (jsv)
 
 implement{}
 jsonval_array_get_at_exn (jsv, i) = let
-  val () = assertloc(i >= 0 andalso i < jsv.size)
+  val () = assertloc(i >= 0 andalso i < jsv.size())
   val p = $UN.cast{ptr} (jsv)
   
   fun loop (jsv: jsonval, j:int, n:int): int =
@@ -323,7 +323,7 @@ jsonval_array_get_at_exn (jsv, i) = let
           val ofs =  g0i2u(n)*sizeof<jsmntok_t>
           val nextjsv = $UN.cast{jsonval} (add_ptr_bsz(p, ofs))
       in
-          loop (jsv, succ(j), n + nextjsv.numtokens)
+          loop (jsv, succ(j), n + nextjsv.numtokens())
       end
       
   val j = loop (jsv, 0, 1)
@@ -339,16 +339,16 @@ jsonval_object_get_key_exn (jsv, label) = let
      (**
      val () = 
         if ~jsonval_is_object (jsv) then {
-            val () = println! ("Expected object but found: ", jsv.type)
+            val () = println! ("Expected object but found: ", jsv.type())
 	    val () = println! ("Looking for label:", label)
             val () = println! ("Token starts @  ", jsv.start)
-            val () = println! ("Data:", jsv.string_unsafe)
+            val () = println! ("Data:", jsv.string_unsafe())
         }
      *)
     val () = assertloc (jsonval_is_object (jsv))
 
     fun loop (jsv: jsonval, i:int, n:int): jsonval =
-         if i = jsv.size then let
+         if i = jsv.size() then let
             val () = prerrln! ("key ", label, " not found")
          in
              exit(1)
@@ -361,27 +361,27 @@ jsonval_object_get_key_exn (jsv, label) = let
              val () = 
                  if ~jsonval_is_string (keyjsv) then begin
                      println! ("Key is not string! While looking for key ", label);
-                     println! ("Found type: ", keyjsv.type);
+                     println! ("Found type: ", keyjsv.type());
                      println! ("ofs = ", n);
                      println! ("start =", keyjsv.start);
                  end
              *)    
              val () = assertloc (jsonval_is_string (keyjsv))
-             val key = keyjsv.string
+             val key = keyjsv.string()
              val ofs = g0i2u(n+1)*sizeof<jsmntok_t>
              val valjsv = $UN.cast{jsonval} (add_ptr_bsz(p, ofs))
          in
             if strncmp (key, label, length (label)) = 0 then let
                (**
                val () = println! ("Found value for key ", label)
-               val () = println! ("JSON key is ", keyjsv.string_unsafe)
-               val () = println! ("JSON value is ", valjsv.string_unsafe)
+               val () = println! ("JSON key is ", keyjsv.string_unsafe())
+               val () = println! ("JSON value is ", valjsv.string_unsafe())
                *)
             in 
                valjsv
             end
             else let
-               val valsize = valjsv.numtokens
+               val valsize = valjsv.numtokens()
                (**
                val () = println! ("object_get_key: at offset ", n)
                val () = println! ("object_get_key: at key i=", i)
@@ -402,25 +402,25 @@ jsonval_object_has_key (jsv, label) = let
     (**
     val () = 
         if ~jsonval_is_object (jsv) then {
-            val () = println! ("Expected object but found: ", jsv.type)
+            val () = println! ("Expected object but found: ", jsv.type())
 	    val () = println! ("Looking for label:", label)
             val () = println! ("Token starts @  ", jsv.start)
-            val () = println! ("Data:", jsv.string_unsafe)
+            val () = println! ("Data:", jsv.string_unsafe())
         }
     *)
     val () = assertloc (jsonval_is_object (jsv))
     
     fun loop (jsv: jsonval, i:int, n:int): bool =
-        if i = jsv.size then
+        if i = jsv.size() then
             false
         else let
              val p = $UN.cast{ptr} (jsv)
              val ofs = g0i2u(n)*sizeof<jsmntok_t>
              val keyjsv = $UN.cast{jsonval} (add_ptr_bsz (p, ofs))
              val () = assertloc (jsonval_is_string (keyjsv))
-             val key = keyjsv.string
+             val key = keyjsv.string()
              val targetlen = length (label)
-             val srclen = keyjsv.ending - keyjsv.start
+             val srclen = keyjsv.ending() - keyjsv.start()
         in
             if targetlen = srclen andalso 
                    strncmp (key, label, length (label)) = 0 then
@@ -429,7 +429,7 @@ jsonval_object_has_key (jsv, label) = let
                 val ofs = g0i2u(n+1)*sizeof<jsmntok_t>
                 val valjsv = $UN.cast{jsonval} (add_ptr_bsz(p, ofs))
             in
-                loop (jsv, succ(i), n+1+valjsv.numtokens)
+                loop (jsv, succ(i), n+1+valjsv.numtokens())
             end
         end
 in
@@ -451,7 +451,7 @@ jsonval_array_map (jsv0) = let
     fun loop (
         jsv: jsonval, i:int, n: int, rs: List0_vt (a)
     ): List0_vt (a) =
-        if i = jsv.size then
+        if i = jsv.size() then
             list_vt_reverse (rs)
         else let
             val pjs = $UN.cast{ptr} (jsv)
@@ -464,7 +464,7 @@ jsonval_array_map (jsv0) = let
             *) 
             val x = jsonval_parse<a> (jsvi)
          in
-             loop (jsv, succ(i), n+jsvi.numtokens, x :: rs)
+             loop (jsv, succ(i), n+jsvi.numtokens(), x :: rs)
          end
 in
     loop (jsv0, 0, 1, nil)

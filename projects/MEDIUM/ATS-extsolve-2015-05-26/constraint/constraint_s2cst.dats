@@ -111,19 +111,19 @@ end // end of [local]
 implement
 fprint_s2cst
   (out, s2c) =
-  fprint! (out, s2c.name, "(", s2c.stamp, ")")
+  fprint! (out, s2c.name(), "(", s2c.stamp(), ")")
 // end of [fprint_s2cst]
 
 (* ****** ****** *)
 
 implement
 compare_s2cst_s2cst
-  (s2c1, s2c2) = compare (s2c1.stamp, s2c2.stamp)
+  (s2c1, s2c2) = compare (s2c1.stamp(), s2c2.stamp())
 // end of [compare_s2cst_s2cst]
 
 implement
 equal_s2cst_s2cst
-  (s2c1, s2c2) = s2c1.stamp = s2c2.stamp
+  (s2c1, s2c2) = s2c1.stamp() = s2c2.stamp()
 // end of [equal_s2cst_s2cst]
 
 implement

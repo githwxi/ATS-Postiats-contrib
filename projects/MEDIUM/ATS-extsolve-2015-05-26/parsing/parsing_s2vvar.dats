@@ -62,7 +62,7 @@ implement
 the_s2Varmap_insert
   (s2V0) = let
 //
-val k0 = s2V0.stamp
+val k0 = s2V0.stamp()
 val (vbox(pf) | p) = ref_get_viewptr (the_s2Varmap)
 val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, s2V0))
 //

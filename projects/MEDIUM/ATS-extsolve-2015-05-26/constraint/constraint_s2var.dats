@@ -102,14 +102,14 @@ end // end of [local]
 implement
 fprint_s2var
   (out, s2v) =
-  fprint! (out, s2v.name, "(", s2v.stamp, ")")
+  fprint! (out, s2v.name(), "(", s2v.stamp(), ")")
 // end of [fprint_s2var]
 
 (* ****** ****** *)
 
 implement
 compare_s2var_s2var
-  (s2v1, s2v2) = compare (s2v1.stamp, s2v2.stamp)
+  (s2v1, s2v2) = compare (s2v1.stamp(), s2v2.stamp())
 // end of [compare_s2var_s2var]
 
 (* ****** ****** *)

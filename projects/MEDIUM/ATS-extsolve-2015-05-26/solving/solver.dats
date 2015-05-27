@@ -80,13 +80,6 @@ c3nstr_solve_itmlst_disj (
 ) : int(*status*) // end of [c3nstr_solve_itmlst_disj]
 
 extern fun
-c3nstr_solve_itmlst (
-  loc0: loc_t
-, env: &smtenv
-, s3is: s3itmlst, unsolved: &uint, err: &int
-) : int(*status*) // end of [c3nstr_solve_itmlst]
-
-extern fun
 c3nstr_solve_errmsg (c3t: c3nstr, unsolved: uint): int
 
 implement 

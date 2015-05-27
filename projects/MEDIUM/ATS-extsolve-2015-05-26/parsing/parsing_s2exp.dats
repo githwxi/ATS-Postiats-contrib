@@ -110,7 +110,7 @@ fun
 parse_S2Eint
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 
 in
   S2Eint (parse_int (jsv0[0]))
@@ -120,7 +120,7 @@ fun
 parse_S2Eintinf
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 
 in
   S2Eintinf (parse_string (jsv0[0]))
@@ -130,7 +130,7 @@ fun
 parse_S2Ecst
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2c = parse_s2cst (jsv0[0])
 
 in
@@ -141,7 +141,7 @@ fun
 parse_S2Evar
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2v = parse_s2var (jsv0[0])
 
 in
@@ -152,7 +152,7 @@ fun
 parse_S2EVar
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2V = parse_s2Var (jsv0[0])
 
 in
@@ -163,7 +163,7 @@ fun
 parse_S2Eeqeq
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 val l = parse_s2exp (jsv0[0])
 val r = parse_s2exp (jsv0[1])
 
@@ -175,7 +175,7 @@ fun
 parse_S2Eapp
   (jsv0: jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 val s2e_fun = parse_s2exp (jsv0[0])
 val s2es_arg = parse_s2explst (jsv0[1])
 
@@ -187,7 +187,7 @@ fun
 parse_S2Emetdec
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 val met = parse_s2explst (jsv0[0])
 val bound = parse_s2explst (jsv0[1])
 
@@ -199,7 +199,7 @@ fun
 parse_S2Esizeof
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2e = parse_s2exp (jsv0[0])
 
 in
@@ -210,7 +210,7 @@ fun
 parse_S2Etop
   (jsv0:jsonval): s2exp_node = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 val knd = parse_int (jsv0[0])
 val s2e = parse_s2exp (jsv0[1])
 

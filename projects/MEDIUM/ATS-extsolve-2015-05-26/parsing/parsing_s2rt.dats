@@ -50,7 +50,7 @@ fun
 parse_S2RTbas
   (jsv0: jsonval): s2rt = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 //
 // val () = println! ("Trying to parse base sort!")
 val srt = parse_string (jsv0[0])
@@ -99,7 +99,7 @@ fun
 parse_S2RTfun
   (jsv0:jsonval): s2rt = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 val args = parse_s2rtlst (jsv0[0])
 //
 val ret = parse_s2rt (jsv0[1])

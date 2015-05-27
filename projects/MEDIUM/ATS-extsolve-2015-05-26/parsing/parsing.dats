@@ -54,7 +54,7 @@ end // end of [parse_int]
 
 implement{}
 parse_string
-  (jsv0) = jsv0.string_unsafe
+  (jsv0) = jsv0.string_unsafe()
 
 (* ****** ****** *)
 
@@ -69,7 +69,7 @@ end // end of [parse_stamp]
 
 implement{}
 parse_symbol (jsv0) = let
-  val name = jsv0.string_unsafe
+  val name = jsv0.string_unsafe()
 in
   symbol_make (name)
 end // end of [parse_symbol]
@@ -79,7 +79,7 @@ end // end of [parse_symbol]
 
 implement{}
 parse_location (jsv0) = let
-  val strloc = jsv0.string_unsafe
+  val strloc = jsv0.string_unsafe()
 in
   location_make (strloc)
 end // end of [parse_location]
@@ -106,7 +106,7 @@ val () = fprintln!
   (stdout_ref, "parse_option: jsv0 = ", jsv0)
 *)
 in
-    if jsv0.size = 0 then
+    if jsv0.size() = 0 then
         None ()
     else let
         val jsv = jsv0[0]

@@ -70,7 +70,7 @@ fun
 parse_H3YPOprop
   (jsv0:jsonval): h3ypo_node = let
 
-val () = assertloc (jsv0.size >= 1)
+val () = assertloc (jsv0.size() >= 1)
 val s2e = parse_s2exp (jsv0[0])
 
 in
@@ -81,7 +81,7 @@ fun
 parse_H3YPObind
   (jsv0:jsonval): h3ypo_node = let
 
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 val s2v = parse_s2var (jsv0[0])
 val s2e = parse_s2exp (jsv0[1])
 
@@ -93,7 +93,7 @@ fun
 parse_H3YPOeqeq
   (jsv0:jsonval): h3ypo_node = let
   
-val () = assertloc (jsv0.size >= 2)
+val () = assertloc (jsv0.size() >= 2)
 
 val s2e1 = parse_s2exp (jsv0[0])
 val s2e2 = parse_s2exp (jsv0[1])

@@ -86,7 +86,7 @@ end // end of [local]
 implement
 fprint_s2Var
   (out, s2V) =
-  fprint! (out, "s2Var(", s2V.stamp, ")")
+  fprint! (out, "s2Var(", s2V.stamp(), ")")
 // end of [fprint_s2Var]
 
 (* ****** ****** *)

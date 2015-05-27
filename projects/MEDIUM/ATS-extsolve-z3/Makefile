@@ -93,14 +93,13 @@ SOURCES_CATS= \
 
 SOURCES_DATS :=
 SOURCES_DATS += patsolve_z3_main.dats
-SOURCES_DATS += patsolve_z3_commarg.dats
 SOURCES_DATS += patsolve_z3_solving.dats
 
 ######
 #
 all:: \
-patsolve_z3
-patsolve_z3: \
+patsolve-z3
+patsolve-z3: \
 $(SOURCES_DATS); \
 $(PATSCC) \
   -DATS_MEMALLOC_GCBDW -O2 -o $@ \

@@ -36,7 +36,7 @@ end where {
 fun
 parse_S2ZEvar 
   (jsv0: jsonval): s2zexp = let
-    val () = assertloc (jsv0.size >= 1)
+    val () = assertloc (jsv0.size() >= 1)
     val s2v = parse_s2var (jsv0[0])
 //
 in
