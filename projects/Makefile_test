@@ -30,6 +30,10 @@ for i in $(SUBDIRS); \
 #
 ######
 
+testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
+
+######
+
 testall:: ; $(MAKE) -C MEDIUM/CATS-parsemit -f Makefile testall
 
 ######

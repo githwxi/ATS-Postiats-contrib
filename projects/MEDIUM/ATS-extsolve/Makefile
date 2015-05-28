@@ -164,6 +164,11 @@ endif
 #
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
