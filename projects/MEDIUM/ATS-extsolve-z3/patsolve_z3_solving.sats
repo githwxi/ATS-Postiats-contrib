@@ -91,12 +91,8 @@ formula_make_s2exp(env: !smtenv, s2p: s2exp): form
 //
 (* ****** ****** *)
 
-fun
-c3nstr_solve_main 
-(
-  env: !smtenv
-, c3t: c3nstr, unsolved : &uint >> _, nerr: &int >> _
-) : int // end of [c3nstr_solve_main]
+fun{}
+c3nstr_z3_solve (c3t: c3nstr): void
 
 (* ****** ****** *)
 
