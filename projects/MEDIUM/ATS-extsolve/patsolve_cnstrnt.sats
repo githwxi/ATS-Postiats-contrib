@@ -122,6 +122,9 @@ datatype s2rt =
   | S2RTaddr of ()
   | S2RTbool of ()
 //
+  | S2RTreal of ()
+  | S2RTstring of ()
+//
   | S2RTcls of ()
 //
   | S2RTtup of ((*void*))
@@ -139,6 +142,15 @@ datatype s2rt =
 
 where s2rtlst = List0(s2rt)
 
+(* ****** ****** *)
+//
+fun s2rt_int((*void*)): s2rt
+fun s2rt_addr((*void*)): s2rt
+fun s2rt_bool((*void*)): s2rt
+//
+fun s2rt_real((*void*)): s2rt
+fun s2rt_string((*void*)): s2rt
+//
 (* ****** ****** *)
 //
 fun
@@ -320,6 +332,9 @@ and s2explst = List0 (s2exp)
 fun
 s2exp_make_node (s2rt, s2exp_node): s2exp
 //
+fun s2exp_var (s2v: s2var): s2exp
+fun s2exp_eqeq (s2e1: s2exp, s2e2: s2exp): s2exp
+//
 (* ****** ****** *)
 //
 fun
@@ -413,6 +428,10 @@ overload fprint with fprint_c3nstropt of 10
 //
 fun fpprint_c3nstr: fprint_type(c3nstr)
 //
+(* ****** ****** *)
+
+fun s2exp_make_h3ypo(h3p: h3ypo): s2exp
+
 (* ****** ****** *)
 
 (* end of [patsolve_cnstrnt.sats] *)

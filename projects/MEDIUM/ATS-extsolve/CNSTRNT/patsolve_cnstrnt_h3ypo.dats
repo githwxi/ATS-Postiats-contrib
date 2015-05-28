@@ -43,4 +43,23 @@ of // case+
 
 (* ****** ****** *)
 
+implement
+s2exp_make_h3ypo
+  (h3p) = let
+in
+//
+case+
+h3p.h3ypo_node of
+  | H3YPOprop s2p => s2p
+  | H3YPObind
+      (s2v1, s2e2) =>
+    (
+      s2exp_eqeq (s2exp_var(s2v1), s2e2)
+    ) (* end of [H3YPObind] *)
+  | H3YPOeqeq (s2e1, s2e2) => s2exp_eqeq (s2e1, s2e2)
+//
+end (* end of [s2exp_make_h3ypo] *)
+
+(* ****** ****** *)
+
 (* end of [patsolve_cnstrnt_h3ypo.dats] *)

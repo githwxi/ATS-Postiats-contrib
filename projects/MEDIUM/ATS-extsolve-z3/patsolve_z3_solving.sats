@@ -10,10 +10,13 @@
 #define
 PATSOLVE_targetloc "./.ATS-extsolve"
 //
-(* ****** ****** *)
-//
 staload "{$PATSOLVE}/patsolve_cnstrnt.sats"
 //
+(* ****** ****** *)
+
+fun{}
+c3nstr_z3_solve (c3nstr): void
+
 (* ****** ****** *)
 //
 absvtype sort = ptr
@@ -32,6 +35,10 @@ fun sort_make_bool (): sort
 fun sort_make_real (): sort
 
 (* ****** ****** *)
+
+fun sort_make_s2rt (s2rt): sort
+
+(* ****** ****** *)
 //
 fun
 formula_make_int
@@ -41,6 +48,11 @@ formula_make_int
 
 fun formula_make_true  (): form
 fun formula_make_false (): form
+
+(* ****** ****** *)
+
+fun formula_make_int (i: int): form
+fun formula_make_intrep (rep: string): form
 
 (* ****** ****** *)
 //
@@ -80,10 +92,14 @@ absvtype smtenv_vtype
 vtypedef smtenv = smtenv_vtype
 
 (* ****** ****** *)
-
+//
 fun
-smtenv_formula_solve (!smtenv, form): bool
- 
+smtenv_add_s2var
+  (env: !smtenv, s2v: s2var): void
+fun
+smtenv_add_s2exp
+  (env: !smtenv, s2e: s2exp): void
+//
 (* ****** ****** *)
 //
 fun
@@ -91,9 +107,9 @@ formula_make_s2exp(env: !smtenv, s2p: s2exp): form
 //
 (* ****** ****** *)
 
-fun{}
-c3nstr_z3_solve (c3t: c3nstr): void
-
+fun
+smtenv_formula_solve (!smtenv, form): bool
+ 
 (* ****** ****** *)
 
 (* end of [patsolve_z3_solving.sats] *)

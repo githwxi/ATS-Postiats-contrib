@@ -13,6 +13,15 @@
 
 (* ****** ****** *)
 //
+implement s2rt_int() = S2RTint()
+implement s2rt_addr() = S2RTaddr()
+implement s2rt_bool() = S2RTbool()
+//
+implement s2rt_real() = S2RTreal()
+implement s2rt_string() = S2RTstring()
+//
+(* ****** ****** *)
+//
 implement
 print_s2rt(s2t) = fprint_s2rt(stdout_ref, s2t)
 //
@@ -26,6 +35,9 @@ case+ s2t of
 | S2RTint() => fprint! (out, "S2RTint()")
 | S2RTaddr() => fprint! (out, "S2RTaddr()")
 | S2RTbool() => fprint! (out, "S2RTbool()")
+//
+| S2RTreal() => fprint! (out, "S2RTreal()")
+| S2RTstring() => fprint! (out, "S2RTstring()")
 //
 | S2RTcls() => fprint! (out, "S2RTcls()")
 //

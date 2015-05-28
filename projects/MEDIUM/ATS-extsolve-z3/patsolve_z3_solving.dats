@@ -47,22 +47,6 @@ smtenv_pop
 //
 extern
 fun
-smtenv_add_s2var
-  (env: !smtenv, s2v: s2var): void
-extern
-fun
-smtenv_add_s2exp
-  (env: !smtenv, s2e: s2exp): void
-//
-extern
-fun
-s2exp_make_h3ypo
-  (env: !smtenv, h3p: h3ypo): s2exp
-//
-(* ****** ****** *)
-//
-extern
-fun
 c3nstr_solve_errmsg
   (c3t: c3nstr, unsolved: uint): int
 //
@@ -182,7 +166,7 @@ case+ s3is of
       c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
     end // end of [S3ITMsvar]
   | S3ITMhypo (h3p) => let
-      val s2p = s2exp_make_h3ypo (env, h3p)
+      val s2p = s2exp_make_h3ypo (h3p)
       val ((*void*)) = smtenv_add_s2exp (env, s2p)
     in
       c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
@@ -350,9 +334,21 @@ case+ 0 of
     val () = (
       prerrln! ": please inspect the above reported error message(s) for information."
     ) (* end of [val] *)
-  } // end of [_ when unsolved > 0]
+  } (* end of [_ when unsolved > 0] *)
 //
 end // end of [c3nstr_z3_solve]
+
+(* ****** ****** *)
+
+#define PATSOLVE_Z3_SOLVING 1
+
+(* ****** ****** *)
+
+local
+//
+#include "./SOLVING/patsolve_z3_solving_smt.dats"
+//
+in (*nothing*) end // end of [local]
 
 (* ****** ****** *)
 
