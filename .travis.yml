@@ -4,6 +4,9 @@ sudo: required
 before_install:
   - date
   - cat /proc/cpuinfo
+  - apt-cache search json-c
+  - apt-cache search libjson-c
+  - apt-cache search libjson-c-dev
   # Install pkgs
   - ${TRAVIS_BUILD_DIR}/travis-ci/installpkg.sh
   - cd ${HOME}
