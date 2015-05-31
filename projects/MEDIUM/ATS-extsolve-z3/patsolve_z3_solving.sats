@@ -30,97 +30,100 @@ absvtype func_decl = ptr
 //
 (* ****** ****** *)
 //
-fun sort_make_int (): sort
-fun sort_make_bool (): sort
+fun sort_int (): sort
+fun sort_bool (): sort
 //
-fun sort_make_real (): sort
+fun sort_real (): sort
 (*
-fun sort_make_string (): sort
+fun sort_string (): sort
 *)
+//
+fun sort_error (): sort
 //
 (* ****** ****** *)
 
 fun sort_make_s2rt (s2rt): sort
 
 (* ****** ****** *)
-//
-fun
-formula_make_int
-  (i: int, srt: !sort): form
-//
-(* ****** ****** *)
 
-fun formula_make_true  (): form
-fun formula_make_false (): form
+fun formula_true (): form
+fun formula_false (): form
 
 (* ****** ****** *)
 
-fun
-formula_make_int (i: int): form
-fun
-formula_make_intrep (rep: string): form
+fun formula_int (i: int): form
+fun formula_intrep (rep: string): form
 
 (* ****** ****** *)
 //
-fun
-formula_make_eqeq
-  (s2e1: form, s2e2: form): form
+fun formula_not (form): form
+//
+fun formula_beq (form, form): form
+fun formula_bneq (form, form): form
+//
+fun formula_disj (form, form): form
+fun formula_conj (form, form): form
+fun formula_impl (form, form): form
+//  
+(* ****** ****** *)
+//
+fun formula_ineg (form): form
+fun formula_iadd (form, form): form
+fun formula_isub (form, form): form
+fun formula_imul (form, form): form
+fun formula_idiv (form, form): form
+//
+fun formula_ilt (form, form): form
+fun formula_ilte (form, form): form
+fun formula_igt (form, form): form
+fun formula_igte (form, form): form
+fun formula_ieq (form, form): form
+fun formula_ineq (form, form): form
 //
 (* ****** ****** *)
 //
-fun
-formula_make_app
-  (f: func_decl, args: formlst): form
-//
-(* ****** ****** *)
-
-fun 
-func_decl_make
-(
-  name: string, domain: sortlst, range: sort
-) : func_decl // end of [func_decl_make]
-
-(* ****** ****** *)
-//
-fun formula_make_not (form): form
-//
-fun formula_make_beq (form, form): form
-fun formula_make_bneq (form, form): form
-//
-fun formula_make_disj (form, form): form
-fun formula_make_conj (form, form): form
-fun formula_make_impl (form, form): form
-//
-fun formula_make_ineg (form): form
-fun formula_make_iadd (form, form): form
-fun formula_make_isub (form, form): form
-fun formula_make_imul (form, form): form
-fun formula_make_idiv (form, form): form
-//
-fun formula_make_ilt (form, form): form
-fun formula_make_ilte (form, form): form
-fun formula_make_igt (form, form): form
-fun formula_make_igte (form, form): form
-fun formula_make_ieq (form, form): form
-fun formula_make_ineq (form, form): form
+fun formula_error((*void*)): form
 //
 (* ****** ****** *)
 //
 fun
-formula_make_cond
+formula_cond
 (
   f_cond: form, f_then: form, f_else: form
-) : form // end of [formula_make_cond]
+) : form // end of [formula_cond]
 //
 (* ****** ****** *)
-
-fun formula_make_s2cst (s2c: s2cst): form
-
+//
+fun
+formula_eqeq (s2e1: form, s2e2: form): form
+//
+(* ****** ****** *)
+//
+fun
+formula_fdapp(f: func_decl, args: formlst): form
+//
+(* ****** ****** *)
+//
+fun 
+func_decl_make
+  (name: string, domain: sortlst, range: sort): func_decl
+//
 (* ****** ****** *)
 
 absvtype smtenv_vtype
 vtypedef smtenv = smtenv_vtype
 
+(* ****** ****** *)
+//
+fun
+smtenv_create(): smtenv
+fun
+smtenv_destroy(env: smtenv): void
+//
+fun
+smtenv_set_verbose
+  (env: !smtenv, verbose: bool): void
+//
 (* ****** ****** *)
 //
 fun
@@ -133,7 +136,16 @@ smtenv_add_s2exp
 (* ****** ****** *)
 //
 fun
-formula_make_s2exp(env: !smtenv, s2p: s2exp): form
+formula_make_s2cst
+  (env: !smtenv, s2c: s2cst): form
+//
+fun
+formula_make_s2exp
+  (env: !smtenv, s2p: s2exp): form
+//
+fun
+formula_make_s2cst_s2explst
+  (env: !smtenv, s2c: s2cst, s2ps: s2explst): form
 //
 (* ****** ****** *)
 

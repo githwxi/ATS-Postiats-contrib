@@ -287,20 +287,6 @@ in
 end // end of [c3nstr_solve_main]
 
 (* ****** ****** *)
-//
-extern
-fun
-smtenv_create(): smtenv
-extern
-fun
-smtenv_destroy(env: smtenv): void
-//
-extern
-fun
-smtenv_set_verbose
-  (env: !smtenv, verbose: bool): void
-//
-(* ****** ****** *)
 
 implement
 {}(*tmp*)
@@ -346,9 +332,31 @@ end // end of [c3nstr_z3_solve]
 
 local
 //
-#include "./SOLVING/patsolve_z3_solving_smt.dats"
+#include "./SOLVING/patsolve_z3_solving_sort.dats"
 //
-in (*nothing*) end // end of [local]
+in
+  // nothing
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include "./SOLVING/patsolve_z3_solving_form.dats"
+//
+in
+  // nothing
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include "./SOLVING/patsolve_z3_solving_smtenv.dats"
+//
+in
+  // nothing
+end // end of [local]
 
 (* ****** ****** *)
 
