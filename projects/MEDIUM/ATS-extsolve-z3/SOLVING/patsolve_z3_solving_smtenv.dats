@@ -42,9 +42,42 @@ assume smtenv_vtype = smtenv
 assume smtenv_push_v = unit_v
 
 (* ****** ****** *)
-
+//
 extern
-fun s2varlst_vt_free(s2varlst_vt): void
+fun
+smtenv_s2varlst_vt_free(s2varlst_vt): void
+//
+(* ****** ****** *)
+
+implement
+smtenv_s2varlst_vt_free
+  (s2vs) = loop(s2vs) where
+{
+//
+fun
+loop
+(
+  s2vs: s2varlst_vt
+) : void = (
+//
+case+ s2vs of
+| ~list_vt_nil() => ()
+| ~list_vt_cons(s2v, s2vs) => let
+    val (fpf | ctx) = the_Z3_context_vget()
+    val () =
+    Z3_dec_ref
+    (
+      ctx
+    , $UN.castvwtp0{Z3_ast}(s2var_get_payload(s2v))
+    ) (* end of [Z3_dec_ref] *)
+    prval ((*void*)) = fpf(ctx)
+  in
+    loop(s2vs)
+  end // end of [list_vt_cons]
+//
+) (* end of [loop] *)
+//
+} (* end of [smtenv_s2varlst_vt_free] *)
 
 (* ****** ****** *)
 
@@ -65,7 +98,7 @@ val ((*void*)) =
 prval ((*void*)) = fpf(ctx)
 //
 val s2vs = env_s.smtenv_s2varlst
-val ((*void*)) = s2varlst_vt_free(s2vs)
+val ((*void*)) = smtenv_s2varlst_vt_free(s2vs)
 val-~list_vt_cons(s2vs, s2vss) = env_s.smtenv_s2varlstlst
 //
 val ((*void*)) = env_s.smtenv_s2varlst := s2vs

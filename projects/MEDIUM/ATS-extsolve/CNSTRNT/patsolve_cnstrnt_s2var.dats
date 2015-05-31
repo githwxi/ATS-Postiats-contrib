@@ -42,6 +42,7 @@ val [l:addr] (
 val () = p->s2var_srt := srt
 val () = p->s2var_name := name
 val () = p->s2var_stamp := stamp
+val () = p->s2var_payload := the_null_ptr
 //
 in
   $UN.castvwtp0{s2var}((pfat, pfgc | p))
