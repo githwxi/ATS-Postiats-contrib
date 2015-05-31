@@ -18,6 +18,7 @@ s2var_struct = @{
   s2var_srt= s2rt
 , s2var_name= symbol
 , s2var_stamp= stamp
+, s2var_payload= ptr
 } (* end of [s2var_struct] *)
 
 (* ****** ****** *)
@@ -55,6 +56,13 @@ implement
 s2var_get_name (s2v) = !s2v.s2var_name
 implement
 s2var_get_stamp (s2v) = !s2v.s2var_stamp
+//
+(* ****** ****** *)
+//
+implement
+s2var_get_payload(s2v) = !s2v.s2var_payload
+implement
+s2var_set_payload(s2v, x0) = !s2v.s2var_payload := x0
 //
 (* ****** ****** *)
 

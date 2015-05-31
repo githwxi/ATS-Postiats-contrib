@@ -244,6 +244,11 @@ overload .stamp with s2var_get_stamp
 //
 (* ****** ****** *)
 //
+fun s2var_get_payload(s2var): ptr
+fun s2var_set_payload(s2var, payload: ptr): void
+//
+(* ****** ****** *)
+//
 abstype
 s2Var_type = ptr
 //
