@@ -81,10 +81,14 @@ fun formula_impl (form, form): form
 (* ****** ****** *)
 //
 fun formula_ineg (form): form
+//
 fun formula_iadd (form, form): form
 fun formula_isub (form, form): form
+//
 fun formula_imul (form, form): form
+//
 fun formula_idiv (form, form): form
+fun formula_ndiv (form, form): form
 //
 fun formula_ilt (form, form): form
 fun formula_ilte (form, form): form

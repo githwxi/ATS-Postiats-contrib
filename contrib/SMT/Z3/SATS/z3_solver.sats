@@ -120,7 +120,7 @@ Z3_solver_assert
 fun Z3_solver_check 
 (
   ctx: !Z3_context, s: !Z3_solver
-): Z3_ibool = "mac#" // end of [Z3_solver_check]
+): Z3_lbool = "mac#" // end of [Z3_solver_check]
 
 (* ****** ****** *)
 

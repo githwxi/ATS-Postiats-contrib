@@ -50,7 +50,32 @@ fun
 Z3_mk_add{n:int}
 (
   ctx: !Z3_context
-, xs: &array (Z3_ast, n), n: int(n)
+, n: int(n), xs: &array (Z3_ast, n)
+) : Z3_ast = "mac#%" // end-of-fun
+
+fun
+Z3_mk_sub{n:int}
+(
+  ctx: !Z3_context
+, n: int(n), xs: &array (Z3_ast, n)
+) : Z3_ast = "mac#%" // end-of-fun
+
+(* ****** ****** *)
+
+fun
+Z3_mk_mul{n:int}
+(
+  ctx: !Z3_context
+, n: int(n), xs: &array (Z3_ast, n)
+) : Z3_ast = "mac#%" // end-of-fun
+
+(* ****** ****** *)
+
+fun
+Z3_mk_div{n:int}
+(
+  ctx: !Z3_context
+, arg0: !Z3_ast, arg1: !Z3_ast
 ) : Z3_ast = "mac#%" // end-of-fun
 
 (* ****** ****** *)
@@ -67,6 +92,8 @@ Z3_mk_le
   ctx: !Z3_context, left: !Z3_ast, right: !Z3_ast
 ) : Z3_ast = "mac#%" // end of [Z3_mk_le]
 
+macdef Z3_mk_lte = Z3_mk_le
+
 (* ****** ****** *)
 
 fun
@@ -80,6 +107,8 @@ Z3_mk_ge
 (
   ctx: !Z3_context, left: !Z3_ast, right: !Z3_ast
 ) : Z3_ast = "mac#%" // end of [Z3_mk_ge]
+
+macdef Z3_mk_gte = Z3_mk_ge
 
 (* ****** ****** *)
 //
@@ -116,6 +145,15 @@ fun Z3_mk_add_dynarray
 (
   ctx: !Z3_context, xs: dynarray (Z3_ast)
 ) : Z3_ast = "mac#%" // end of [Z3_mk_add_dynarray]
+*)
+
+(* ****** ****** *)
+
+(*
+fun Z3_mk_sub_dynarray
+(
+  ctx: !Z3_context, xs: dynarray (Z3_ast)
+) : Z3_ast = "mac#%" // end of [Z3_mk_sub_dynarray]
 *)
 
 (* ****** ****** *)

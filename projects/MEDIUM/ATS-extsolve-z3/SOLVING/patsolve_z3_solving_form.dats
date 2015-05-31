@@ -210,6 +210,27 @@ formula_imul
 } (* end of [formula_imul] *)
 
 (* ****** ****** *)
+//
+implement
+formula_idiv
+  (s2e1, s2e2) = res where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+    Z3_mk_div (ctx, s2e1, s2e2)
+  // end of [val]
+  val () = Z3_dec_ref(ctx, s2e1)
+  val () = Z3_dec_ref(ctx, s2e2)
+  prval ((*void*)) = fpf(ctx)
+} (* end of [formula_idiv] *)
+//
+implement
+formula_ndiv
+  (s2e1, s2e2) = formula_idiv(s2e1, s2e2)
+//
+(* ****** ****** *)
 
 implement
 formula_ilt
