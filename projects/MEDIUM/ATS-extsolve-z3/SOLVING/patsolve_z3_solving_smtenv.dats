@@ -17,6 +17,8 @@ PATSOLVE_Z3_SOLVING
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
+staload "./patsolve_z3_solving_ctx.dats"
+//
 (* ****** ****** *)
 
 datavtype
@@ -74,6 +76,13 @@ smtenv_push
   (env) = let
 //
 val+@SMTENV(env_s) = env
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val () = Z3_solver_push (ctx, solve)
+//
+prval ((*void*)) = fpf(ctx)
 //
 val s2vs = env_s.smtenv_s2varlst
 val s2vss = env_s.smtenv_s2varlstlst

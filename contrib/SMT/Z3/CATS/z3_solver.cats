@@ -62,6 +62,11 @@ atscntrb_Z3_solver_dec_ref Z3_solver_dec_ref
 
 /* ****** ****** */
 
+#define atscntrb_Z3_solver_pop Z3_solver_pop
+#define atscntrb_Z3_solver_push Z3_solver_push
+
+/* ****** ****** */
+
 #define atscntrb_Z3_solver_check Z3_solver_check
 #define atscntrb_Z3_solver_assert Z3_solver_assert
 
