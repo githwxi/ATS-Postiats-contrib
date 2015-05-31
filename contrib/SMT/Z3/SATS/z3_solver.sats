@@ -119,7 +119,7 @@ fun Z3_solver_pop
 fun Z3_solver_push
 (
   ctx: !Z3_context, s: !Z3_solver
-) : void = "mac%#" // end of [Z3_solver_push]
+) : void = "mac#%" // end of [Z3_solver_push]
 
 (* ****** ****** *)
 
