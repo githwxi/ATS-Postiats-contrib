@@ -17,6 +17,48 @@ PATSOLVE_Z3_SOLVING
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
+staload "./patsolve_z3_solving_ctx.dats"
+//
+(* ****** ****** *)
+
+assume sort_vtype = Z3_sort
+
+(* ****** ****** *)
+//
+implement 
+sort_int () = res where
+{
+  val (fpf | ctx) = 
+    the_Z3_context_vget()
+  // end of [val]
+  val res = Z3_mk_int_sort (ctx)
+  prval ((*void*)) = fpf (ctx)
+}
+//
+(* ****** ****** *)
+//
+implement 
+sort_bool () = res where
+{
+  val (fpf | ctx) = 
+    the_Z3_context_vget()
+  // end of [val]
+  val res = Z3_mk_bool_sort (ctx)
+  prval ((*void*)) = fpf (ctx)
+}
+//
+(* ****** ****** *)
+//
+implement 
+sort_real () = res where
+{
+  val (fpf | ctx) = 
+    the_Z3_context_vget()
+  // end of [val]
+  val res = Z3_mk_real_sort (ctx)
+  prval ((*void*)) = fpf (ctx)
+}
+//
 (* ****** ****** *)
 
 implement

@@ -67,7 +67,9 @@ atscntrb_Z3_get_version( \
 ATSinline()
 Z3_ast
 atscntrb_Z3_inc_ref
-  (Z3_ast a) { Z3_inc_ref (a); return a ; }
+(
+  Z3_ast ast
+) { Z3_inc_ref(ast); return ast ; }
 // end of [atscntrb_Z3_inc_ref]
 */
 ATSinline()
@@ -75,10 +77,13 @@ Z3_ast
 atscntrb_Z3_inc_ref
 (
   Z3_context ctx, Z3_ast ast
-) { Z3_inc_ref (ctx, ast); return ast ; }
+) { Z3_inc_ref(ctx, ast); return ast ; }
+
+/* ****** ****** */
 
 /*
-#define atscntrb_Z3_dec_ref(ast) Z3_dec_ref(ast)
+#define \
+atscntrb_Z3_dec_ref(ast) Z3_dec_ref(ast)
 */
 #define \
 atscntrb_Z3_dec_ref(ctx, ast) Z3_dec_ref(ctx, ast)
