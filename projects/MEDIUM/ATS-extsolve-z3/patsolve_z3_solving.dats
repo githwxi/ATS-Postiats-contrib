@@ -15,8 +15,16 @@
 (* ****** ****** *)
 //
 #define
+Z3_targetloc
+"$PATSHOMERELOC/contrib/SMT/Z3"
+//
+#define
 PATSOLVE_targetloc "./.ATS-extsolve"
 //
+(* ****** ****** *)
+
+staload "{$Z3}/SATS/z3.sats"
+
 (* ****** ****** *)
 //
 staload
