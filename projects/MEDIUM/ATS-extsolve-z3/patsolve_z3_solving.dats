@@ -368,4 +368,14 @@ end // end of [local]
 
 (* ****** ****** *)
 
+local
+//
+#include "./SOLVING/patsolve_z3_solving_interp.dats"
+//
+in
+  // nothing
+end // end of [local]
+
+(* ****** ****** *)
+
 (* end of [patsolve_z3_solving.dats] *)

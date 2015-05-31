@@ -166,6 +166,16 @@ formula_make_s2cst_s2explst
 //
 (* ****** ****** *)
 
+absview smtenv_push_v
+
+(* ****** ****** *)
+//
+fun smtenv_pop (smtenv_push_v | !smtenv): void
+//
+fun smtenv_push (env: !smtenv): (smtenv_push_v | void)
+//
+(* ****** ****** *)
+
 fun
 smtenv_formula_solve (!smtenv, form): bool
  
