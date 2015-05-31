@@ -56,6 +56,14 @@ prval unit_v() = pf
 //
 val+@SMTENV(env_s) = env
 //
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val ((*void*)) =
+  Z3_solver_pop (ctx, env_s.smtenv_solver, 1u)
+//
+prval ((*void*)) = fpf(ctx)
+//
 val s2vs = env_s.smtenv_s2varlst
 val ((*void*)) = s2varlst_vt_free(s2vs)
 val-~list_vt_cons(s2vs, s2vss) = env_s.smtenv_s2varlstlst
@@ -80,7 +88,8 @@ val+@SMTENV(env_s) = env
 val (fpf | ctx) =
   the_Z3_context_vget()
 //
-val () = Z3_solver_push (ctx, solve)
+val ((*void*)) =
+  Z3_solver_push (ctx, env_s.smtenv_solver)
 //
 prval ((*void*)) = fpf(ctx)
 //
