@@ -29,11 +29,15 @@ vtypedef formlst = List0_vt (form)
 absvtype func_decl = ptr
 //
 (* ****** ****** *)
-
+//
 fun sort_make_int (): sort
 fun sort_make_bool (): sort
+//
 fun sort_make_real (): sort
-
+(*
+fun sort_make_string (): sort
+*)
+//
 (* ****** ****** *)
 
 fun sort_make_s2rt (s2rt): sort
@@ -51,9 +55,17 @@ fun formula_make_false (): form
 
 (* ****** ****** *)
 
-fun formula_make_int (i: int): form
-fun formula_make_intrep (rep: string): form
+fun
+formula_make_int (i: int): form
+fun
+formula_make_intrep (rep: string): form
 
+(* ****** ****** *)
+//
+fun
+formula_make_eqeq
+  (s2e1: form, s2e2: form): form
+//
 (* ****** ****** *)
 //
 fun
@@ -72,9 +84,27 @@ func_decl_make
 //
 fun formula_make_not (form): form
 //
+fun formula_make_beq (form, form): form
+fun formula_make_bneq (form, form): form
+//
 fun formula_make_disj (form, form): form
 fun formula_make_conj (form, form): form
 fun formula_make_impl (form, form): form
+//
+fun formula_make_ineg (form): form
+fun formula_make_iadd (form, form): form
+fun formula_make_isub (form, form): form
+fun formula_make_imul (form, form): form
+fun formula_make_idiv (form, form): form
+//
+fun formula_make_ilt (form, form): form
+fun formula_make_ilte (form, form): form
+fun formula_make_igt (form, form): form
+fun formula_make_igte (form, form): form
+fun formula_make_ieq (form, form): form
+fun formula_make_ineq (form, form): form
+//
+(* ****** ****** *)
 //
 fun
 formula_make_cond

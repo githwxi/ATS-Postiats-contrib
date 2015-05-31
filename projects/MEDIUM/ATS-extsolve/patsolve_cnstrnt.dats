@@ -55,6 +55,15 @@ fprint_val<c3nstr> = fprint_c3nstr
 
 (* ****** ****** *)
 //
+implement
+print_s2exp
+  (x) = fprint_s2exp(stdout_ref, x)
+implement
+print_s2explst
+  (xs) = fprint_s2explst(stdout_ref, xs)
+//
+(* ****** ****** *)
+//
 local
 //
 #include

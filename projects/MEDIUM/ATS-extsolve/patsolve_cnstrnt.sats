@@ -338,6 +338,14 @@ fun s2exp_eqeq (s2e1: s2exp, s2e2: s2exp): s2exp
 (* ****** ****** *)
 //
 fun
+print_s2exp(s2exp): void
+fun
+print_s2explst(s2explst): void
+//
+overload print with print_s2exp
+overload print with print_s2explst
+//
+fun
 fprint_s2exp : fprint_type(s2exp)
 fun
 fprint_s2explst : fprint_type(s2explst)
