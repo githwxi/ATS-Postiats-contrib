@@ -99,6 +99,7 @@ SOURCES_CATS= \
 
 SOURCES_DATS :=
 SOURCES_DATS += patsolve_z3_main.dats
+SOURCES_DATS += patsolve_z3_mylib.dats
 SOURCES_DATS += patsolve_z3_solving.dats
 
 ######

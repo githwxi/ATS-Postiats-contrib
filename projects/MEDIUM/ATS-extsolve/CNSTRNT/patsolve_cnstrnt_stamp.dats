@@ -28,6 +28,10 @@ implement stamp_make(x) = x
 
 (* ****** ****** *)
 
+implement stamp_get_int(x) = x
+
+(* ****** ****** *)
+
 implement
 fprint_stamp
   (out, loc) = fprint_int (out, loc)

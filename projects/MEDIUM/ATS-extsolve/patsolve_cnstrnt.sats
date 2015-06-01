@@ -35,6 +35,10 @@ fun stamp_make(int): stamp
 
 (* ****** ****** *)
 
+fun stamp_get_int(stamp): int
+
+(* ****** ****** *)
+
 fun hash_stamp(stamp):<> ulint
 
 (* ****** ****** *)

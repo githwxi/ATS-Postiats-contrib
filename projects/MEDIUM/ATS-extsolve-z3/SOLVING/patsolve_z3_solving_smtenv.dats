@@ -140,4 +140,94 @@ end // end of [smtenv_push]
 
 (* ****** ****** *)
 
+implement
+smtenv_add_s2var
+  (env, s2v0) = let
+//
+val+@SMTENV(env_s) = env
+val s2vs = env_s.smtenv_s2varlst
+val ((*void*)) =
+  env_s.smtenv_s2varlst := cons_vt(s2v0, s2vs)
+prval ((*void*)) = fold@(env)
+//
+val name = s2v0.name()
+val name = symbol_get_name(name)
+val name = string0_copy(name)
+//
+val stamp =
+  stamp_get_int(s2v0.stamp())
+//
+val stamp = g0int2string(stamp)
+//
+val name2 =
+string0_append
+  ($UN.strptr2string(name), $UN.strptr2string(stamp))
+//
+val () = strptr_free(name)
+val () = strptr_free(stamp)
+//
+val ty = sort_make_s2rt(s2v0.srt())
+val ty = $UN.castvwtp0{Z3_sort}(ty)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val
+sym =
+Z3_mk_string_symbol
+  (ctx, $UN.strptr2string(name2))
+//
+val ast = Z3_mk_const(ctx, sym, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val () = strptr_free(name2)
+//
+in
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(ast))
+end // end of [smtenv_add_s2var]
+
+(* ****** ****** *)
+
+implement
+smtenv_add_s2exp
+  (env, s2p0) = let
+//
+val s2p0 =
+  formula_make_s2exp(env, s2p0)
+//
+val s2p0 = $UN.castvwtp0{Z3_ast}(s2p0)
+//
+val+@SMTENV(env_s) = env
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val ((*void*)) =
+  Z3_solver_assert(ctx, env_s.smtenv_solver, s2p0)
+//
+prval ((*void*)) = fpf(ctx)
+//
+prval ((*void*)) = fold@(env)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val () = Z3_dec_ref(ctx, s2p0)
+//
+prval ((*void*)) = fpf(ctx)
+//
+in
+  // nothing
+end // end of [smtenv_add_s2exp]
+
+(* ****** ****** *)
+
 (* end of [patsolve_z3_solving_smtenv.dats] *)
