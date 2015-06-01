@@ -38,6 +38,7 @@ val () = patsolve_parsing__dynload() where
 //
 (* ****** ****** *)
 
+dynload "./patsolve_z3_commarg.dats"
 dynload "./patsolve_z3_solving.dats"
 
 (* ****** ****** *)
@@ -47,7 +48,7 @@ main0 (argc, argv) =
 {
 //
 val () =
-println! ("Hello from patsolve-z3!")
+println! ("Hello from [patsolve_z3]!")
 //
 } (* end of [main] *)
 

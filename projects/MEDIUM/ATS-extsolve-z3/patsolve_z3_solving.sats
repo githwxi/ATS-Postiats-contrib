@@ -8,6 +8,11 @@
 (* ****** ****** *)
 //
 #define
+ATS_PACKNAME "PATSOLVE_Z3_SOLVING"
+//
+(* ****** ****** *)
+//
+#define
 Z3_targetloc
 "$PATSHOMERELOC/contrib/SMT/Z3"
 #define

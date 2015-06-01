@@ -12,9 +12,9 @@
 *)
 
 (* ****** ****** *)
-
-#define ATS_PACKNAME "PATSOLVE_MAIN"
-
+//
+#define ATS_PACKNAME "PATSOLVE_COMMARG"
+//
 (* ****** ****** *)
 
 datatype
@@ -55,4 +55,4 @@ patsolve_commarglst(arglst: commarglst_vt): void
 // 
 (* ****** ****** *)
 
-(* end of [patsolve_main.sats] *)
+(* end of [patsolve_commarg.sats] *)

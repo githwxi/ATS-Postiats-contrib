@@ -18,7 +18,7 @@
 //
 (* ****** ****** *)
 
-staload "./patsolve_main.sats"
+staload "./patsolve_commarg.sats"
 
 (* ****** ****** *)
 //

@@ -31,7 +31,7 @@ STDIO = "libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
 
-staload "./patsolve_main.sats"
+staload "./patsolve_commarg.sats"
 staload "./patsolve_cnstrnt.sats"
 staload "./patsolve_parsing.sats"
 
