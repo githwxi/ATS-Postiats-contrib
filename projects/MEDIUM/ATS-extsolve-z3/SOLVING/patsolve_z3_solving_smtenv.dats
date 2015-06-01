@@ -230,4 +230,48 @@ end // end of [smtenv_add_s2exp]
 
 (* ****** ****** *)
 
+implement
+smtenv_formula_solve
+  (env, s2p0) = let
+//
+val+@SMTENV(env_s) = env
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val () =
+Z3_solver_push
+  (ctx, env_s.smtenv_solver)
+//
+val s2p1 = formula_not(s2p0)
+val s2p1 = $UN.castvwtp0{Z3_ast}(s2p1)
+//
+val () =
+Z3_solver_assert
+  (ctx, env_s.smtenv_solver, s2p1)
+//
+val ans =
+Z3_solver_check(ctx, env_s.smtenv_solver)
+//
+val ((*freed*)) = Z3_dec_ref(ctx, s2p1)
+//
+val () =
+Z3_solver_pop
+  (ctx, env_s.smtenv_solver, 1u)
+//
+prval ((*void*)) = fpf(ctx)
+//
+prval ((*void*)) = fold@(env)
+//
+in
+//
+case+ 0 of
+| _ when ans = Z3_L_TRUE => ~1
+| _ when ans = Z3_L_FALSE => 1
+| _ (*when ans = Z3_L_UNDEF*) => 0
+//
+end (* end of [smtenv_formula_solve] *)
+
+(* ****** ****** *)
+
 (* end of [patsolve_z3_solving_smtenv.dats] *)

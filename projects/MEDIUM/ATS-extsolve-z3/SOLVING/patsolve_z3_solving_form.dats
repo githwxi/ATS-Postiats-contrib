@@ -355,6 +355,20 @@ formula_eqeq
 (* ****** ****** *)
 
 implement
+formula_error() = res where
+{
+//
+  val () =
+    prerrln! ("formula_error()")
+  // end of [val]
+  val ((*exit*)) = assertloc(false)
+  val res = formula_false((*void*))
+//
+} (* end of [formula_error] *)
+
+(* ****** ****** *)
+
+implement
 formula_make_s2exp
   (env, s2e0) = let
 //

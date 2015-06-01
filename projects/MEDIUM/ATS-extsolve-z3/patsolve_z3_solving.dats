@@ -135,13 +135,9 @@ c3nstr_solve_prop
 val s2p =
   formula_make_s2exp (env, s2p)
 //
-val ans =
-  smtenv_formula_solve (env, s2p)
 //
 in
-//
-if ans then ~1(*solved*) else 0 (*unsolved*)
-//
+  smtenv_formula_solve (env, s2p)
 end // end of [c3nstr_solve_prop]
 
 (* ****** ****** *)

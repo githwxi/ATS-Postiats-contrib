@@ -175,10 +175,10 @@ fun smtenv_pop (smtenv_push_v | !smtenv): void
 fun smtenv_push (env: !smtenv): (smtenv_push_v | void)
 //
 (* ****** ****** *)
-
+//
 fun
-smtenv_formula_solve (!smtenv, form): bool
- 
+smtenv_formula_solve(!smtenv, form): Z3_lbool
+// 
 (* ****** ****** *)
 
 (* end of [patsolve_z3_solving.sats] *)

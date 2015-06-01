@@ -62,6 +62,19 @@ sort_real () = res where
 (* ****** ****** *)
 
 implement
+sort_error() = res where
+{
+//
+  val () =
+  prerrln! ("sort_error()")
+  val ((*exit*)) = assertloc(false)
+  val res = sort_int ((*void*))
+//
+} (* end of [sort_error] *)
+
+(* ****** ****** *)
+
+implement
 sort_make_s2rt(s2t0) = let
 //
 val () =
