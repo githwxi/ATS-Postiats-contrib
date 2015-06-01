@@ -23,9 +23,6 @@ implement s2rt_string() = S2RTstring()
 (* ****** ****** *)
 //
 implement
-print_s2rt(s2t) = fprint_s2rt(stdout_ref, s2t)
-//
-implement
 fprint_s2rt
   (out, s2t) =
 (

@@ -62,13 +62,16 @@ sort_real () = res where
 (* ****** ****** *)
 
 implement
-sort_error() = res where
+sort_error
+  (s2t0) = res where
 {
 //
-  val () =
-  prerrln! ("sort_error()")
-  val ((*exit*)) = assertloc(false)
-  val res = sort_int ((*void*))
+val () =
+prerrln!
+  ("sort_error: s2t0 = ", s2t0)
+//
+val () = assertloc(false)
+val res = sort_error(s2t0)
 //
 } (* end of [sort_error] *)
 
@@ -93,7 +96,7 @@ case+ s2t0 of
 | S2RTstring() => sort_string()
 *)
 //
-| _(*unrecognized*) => sort_error()
+| _(*unrecognized*) => sort_error(s2t0)
 //
 end (* end of [sort_make_s2rt] *)
 

@@ -32,6 +32,7 @@ staload "{$PATSOLVE}/patsolve_parsing.sats"
 (* ****** ****** *)
 
 staload "./patsolve_z3_commarg.sats"
+staload "./patsolve_z3_solving.sats"
 
 (* ****** ****** *)
 
@@ -322,6 +323,7 @@ case+ opt of
 //
     val c3t0 = parse_fileref_constraints(filr)
 //
+(*
     val () =
     fprint! (
       stdout_ref
@@ -329,6 +331,9 @@ case+ opt of
     ) (* end of [fprint] *)
     val () = fpprint_c3nstr(stdout_ref, c3t0)
     val () = fprint_newline (stdout_ref)
+*)
+//
+    val () = c3nstr_z3_solve (c3t0)
 //
   } (* end of [Some_vt] *)
 //

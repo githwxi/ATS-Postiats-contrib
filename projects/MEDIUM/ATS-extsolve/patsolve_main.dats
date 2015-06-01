@@ -57,7 +57,7 @@ main0 (argc, argv) =
 {
 //
 val () =
-println! ("Hello from patsolve!")
+println! ("Hello from [patsolve]!")
 //
 val arglst =
   patsolve_cmdline (argc, argv)

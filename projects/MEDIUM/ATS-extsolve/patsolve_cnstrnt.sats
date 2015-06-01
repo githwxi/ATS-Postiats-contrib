@@ -157,12 +157,12 @@ fun s2rt_string((*void*)): s2rt
 //
 (* ****** ****** *)
 //
-fun
-print_s2rt : s2rt -> void
-fun
-fprint_s2rt: fprint_type(s2rt)
+fun print_s2rt : s2rt -> void
+and prerr_s2rt : s2rt -> void
+fun fprint_s2rt: fprint_type(s2rt)
 //
 overload print with print_s2rt
+overload prerr with print_s2rt
 overload fprint with fprint_s2rt
 //
 (* ****** ****** *)
@@ -346,18 +346,20 @@ fun s2exp_eqeq (s2e1: s2exp, s2e2: s2exp): s2exp
 //
 (* ****** ****** *)
 //
-fun
-print_s2exp(s2exp): void
-fun
-print_s2explst(s2explst): void
+fun print_s2exp(s2exp): void
+and prerr_s2exp(s2exp): void
 //
 overload print with print_s2exp
-overload print with print_s2explst
+overload prerr with prerr_s2exp
 //
-fun
-fprint_s2exp : fprint_type(s2exp)
-fun
-fprint_s2explst : fprint_type(s2explst)
+fun print_s2explst(s2explst): void
+and prerr_s2explst(s2explst): void
+//
+overload print with print_s2explst
+overload prerr with prerr_s2explst
+//
+fun fprint_s2exp : fprint_type(s2exp)
+fun fprint_s2explst : fprint_type(s2explst)
 //
 overload fprint with fprint_s2exp
 overload fprint with fprint_s2explst of 10

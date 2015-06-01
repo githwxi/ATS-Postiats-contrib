@@ -22,15 +22,12 @@ PATSOLVE_targetloc "./.ATS-extsolve"
 //
 staload "{$Z3}/SATS/z3.sats"
 //
-(* ****** ****** *)
-//
 staload "{$PATSOLVE}/patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
-
-fun{}
-c3nstr_z3_solve (c3nstr): void
-
+//
+fun c3nstr_z3_solve(c3nstr): void
+//
 (* ****** ****** *)
 //
 absvtype sort_vtype = ptr
@@ -55,13 +52,12 @@ fun sort_real (): sort
 (*
 fun sort_string (): sort
 *)
-//
-fun sort_error (): sort
-//
 (* ****** ****** *)
-
+//
+fun sort_error (s2rt): sort
+//
 fun sort_make_s2rt (s2rt): sort
-
+//
 (* ****** ****** *)
 
 fun formula_true (): form
@@ -101,10 +97,6 @@ fun formula_igt (form, form): form
 fun formula_igte (form, form): form
 fun formula_ieq (form, form): form
 fun formula_ineq (form, form): form
-//
-(* ****** ****** *)
-//
-fun formula_error((*void*)): form
 //
 (* ****** ****** *)
 //
@@ -154,6 +146,11 @@ smtenv_add_s2var
 fun
 smtenv_add_s2exp
   (env: !smtenv, s2e: s2exp): void
+//
+(* ****** ****** *)
+//
+fun
+formula_error(s2e0: s2exp): form
 //
 (* ****** ****** *)
 //

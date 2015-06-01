@@ -291,7 +291,6 @@ end // end of [c3nstr_solve_main]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 c3nstr_z3_solve
   (c3t0) = let
 //

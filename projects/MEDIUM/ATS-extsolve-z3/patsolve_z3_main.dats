@@ -17,6 +17,10 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+
+staload "./patsolve_z3_commarg.sats"
+
+(* ****** ****** *)
 //
 (*
 dynload "patsolve_cnstrnt.dats"
@@ -48,7 +52,17 @@ main0 (argc, argv) =
 {
 //
 val () =
-println! ("Hello from [patsolve_z3]!")
+println!
+  ("Hello from [patsolve_z3]!")
+//
+val arglst =
+  patsolve_z3_cmdline (argc, argv)
+//
+// HX: skipping argv[0]
+//
+val-~list_vt_cons(arg, arglst) = arglst
+//
+val ((*void*)) = patsolve_z3_commarglst (arglst)
 //
 } (* end of [main] *)
 

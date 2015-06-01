@@ -62,13 +62,23 @@ implement
 fprint_val<c3nstr> = fprint_c3nstr
 
 (* ****** ****** *)
+
+implement
+print_s2rt(x) = fprint_s2rt(stdout_ref, x)
+implement
+prerr_s2rt(x) = fprint_s2rt(stderr_ref, x)
+
+(* ****** ****** *)
 //
 implement
-print_s2exp
-  (x) = fprint_s2exp(stdout_ref, x)
+print_s2exp(x) = fprint_s2exp(stdout_ref, x)
 implement
-print_s2explst
-  (xs) = fprint_s2explst(stdout_ref, xs)
+prerr_s2exp(x) = fprint_s2exp(stderr_ref, x)
+//
+implement
+print_s2explst(xs) = fprint_s2explst(stdout_ref, xs)
+implement
+prerr_s2explst(xs) = fprint_s2explst(stderr_ref, xs)
 //
 (* ****** ****** *)
 //

@@ -355,14 +355,16 @@ formula_eqeq
 (* ****** ****** *)
 
 implement
-formula_error() = res where
+formula_error
+  (s2e0) = res where
 {
 //
-  val () =
-    prerrln! ("formula_error()")
-  // end of [val]
-  val ((*exit*)) = assertloc(false)
-  val res = formula_false((*void*))
+val () =
+prerrln!
+  ("formula_error: s2e0 = ", s2e0)
+//
+val () = assertloc(false)
+val res = formula_error(s2e0)
 //
 } (* end of [formula_error] *)
 
@@ -393,7 +395,7 @@ of // case+
       formula_make_s2exp(env, s2e2) in formula_eqeq (s2e1, s2e2)
   end // end of [S2Eeqeq]
 //
-| _ (*unrecognized*) => formula_error()
+| _ (*unrecognized*) => formula_error(s2e0)
 //
 end // end of [formula_make_s2exp]
 

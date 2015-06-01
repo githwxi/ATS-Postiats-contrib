@@ -37,15 +37,13 @@ smtenv_s2varlstlst = List0_vt(s2varlst_vt)
 } (* end of [smtenv_struct] *)
 
 (* ****** ****** *)
-
-assume smtenv_vtype = smtenv
-assume smtenv_push_v = unit_v
-
-(* ****** ****** *)
 //
 extern
 fun
 smtenv_s2varlst_vt_free(s2varlst_vt): void
+extern
+fun
+smtenv_s2varlstlst_vt_free(List0_vt(s2varlst_vt)): void
 //
 (* ****** ****** *)
 
@@ -78,6 +76,74 @@ case+ s2vs of
 ) (* end of [loop] *)
 //
 } (* end of [smtenv_s2varlst_vt_free] *)
+
+(* ****** ****** *)
+
+implement
+smtenv_s2varlstlst_vt_free
+  (xss) =
+(
+case+ xss of
+| ~list_vt_nil() => ()
+| ~list_vt_cons(xs, xss) =>
+  (
+    smtenv_s2varlst_vt_free(xs);
+    smtenv_s2varlstlst_vt_free(xss)
+  )
+) (* smtenv_s2varlstlst_vt_free *)
+
+(* ****** ****** *)
+
+assume smtenv_vtype = smtenv
+assume smtenv_push_v = unit_v
+
+(* ****** ****** *)
+
+implement
+smtenv_create
+  () = env where
+{
+//
+val env = SMTENV(_)
+val+SMTENV(env_s) = env
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val
+solver = Z3_mk_solver(ctx)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val () = env_s.smtenv_solver := solver
+val () = env_s.smtenv_s2varlst := nil_vt()
+val () = env_s.smtenv_s2varlstlst := nil_vt()
+//
+prval () = fold@(env)
+//
+} (* end of [smtenv_create] *)
+
+(* ****** ****** *)
+
+implement
+smtenv_destroy
+  (env) = let
+//
+val+~SMTENV(env_s) = env
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val () = Z3_solver_dec_ref(ctx, env_s.smtenv_solver)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val () = smtenv_s2varlst_vt_free(env_s.smtenv_s2varlst)
+val () = smtenv_s2varlstlst_vt_free(env_s.smtenv_s2varlstlst)
+//
+in
+  // nothing
+end // end of [smtenv_destroy]
 
 (* ****** ****** *)
 
