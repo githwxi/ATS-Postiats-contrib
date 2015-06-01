@@ -129,7 +129,7 @@ prval ((*void*)) = fpf(ctx)
 val s2vs = env_s.smtenv_s2varlst
 val s2vss = env_s.smtenv_s2varlstlst
 //
-val ((*void*)) = env_s.smtenv_s2varlst := nil_vt
+val ((*void*)) = env_s.smtenv_s2varlst := nil_vt()
 val ((*void*)) = env_s.smtenv_s2varlstlst := cons_vt(s2vs, s2vss)
 //
 prval ((*folded*)) = fold@(env)

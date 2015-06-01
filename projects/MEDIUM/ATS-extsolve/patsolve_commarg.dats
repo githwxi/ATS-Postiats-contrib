@@ -13,6 +13,14 @@
 
 (* ****** ****** *)
 //
+#define ATS_MAINATSFLAG 1
+//
+#define
+ATS_DYNLOADNAME
+"patsolve_commarg__dynload"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
 //

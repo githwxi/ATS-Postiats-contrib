@@ -47,6 +47,16 @@ ATSCNTRB_SMT_Z3_Z3_HEADER
 (* ****** ****** *)
 
 fun
+Z3_mk_unary_minus
+(
+  ctx: !Z3_context, arg: !Z3_ast
+) : Z3_ast = "mac#%" // end-of-fun
+
+macdef Z3_mk_neg = Z3_mk_unary_minus
+
+(* ****** ****** *)
+
+fun
 Z3_mk_add{n:int}
 (
   ctx: !Z3_context

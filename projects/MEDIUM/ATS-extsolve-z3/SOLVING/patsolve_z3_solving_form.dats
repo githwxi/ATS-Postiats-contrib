@@ -161,6 +161,23 @@ formula_impl
 (* ****** ****** *)
 
 implement
+formula_ineg
+  (s2e1) = res where
+{
+//
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+  Z3_mk_unary_minus (ctx, s2e1)
+  val () = Z3_dec_ref(ctx, s2e1)
+  prval ((*void*)) = fpf(ctx)
+//
+} (* end of [formula_ineg] *)
+
+(* ****** ****** *)
+
+implement
 formula_iadd
   (s2e1, s2e2) = res where
 {
@@ -318,6 +335,23 @@ formula_ineq
   (s2e1, s2e2) =
   formula_not(formula_ieq(s2e1, s2e2))
 //
+(* ****** ****** *)
+
+implement
+formula_eqeq
+  (s2e1, s2e2) = res where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+    Z3_mk_eq (ctx, s2e1, s2e2)
+  // end of [val]
+  val () = Z3_dec_ref(ctx, s2e1)
+  val () = Z3_dec_ref(ctx, s2e2)
+  prval ((*void*)) = fpf(ctx)
+} (* end of [formula_eqeq] *)
+
 (* ****** ****** *)
 
 implement

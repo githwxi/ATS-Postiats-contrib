@@ -127,7 +127,7 @@ func_decl_make
 //
 (* ****** ****** *)
 
-absvtype smtenv_vtype
+absvtype smtenv_vtype = ptr
 vtypedef smtenv = smtenv_vtype
 
 (* ****** ****** *)

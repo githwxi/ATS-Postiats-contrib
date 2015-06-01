@@ -34,6 +34,19 @@
 
 ATSinline()
 Z3_ast
+atscntrb_Z3_mk_unary_minus
+  (Z3_context ctx, Z3_ast arg)
+{
+  return
+  atscntrb_Z3_inc_ref(
+    ctx, Z3_mk_unary_minus(ctx, arg)
+  ) ; // end of [return]
+} // end of [atscntrb_Z3_mk_unary_minus]
+
+/* ****** ****** */
+
+ATSinline()
+Z3_ast
 atscntrb_Z3_mk_add
   (Z3_context ctx, int n, Z3_ast *args)
 {

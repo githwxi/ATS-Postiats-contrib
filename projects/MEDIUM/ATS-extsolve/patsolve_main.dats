@@ -22,15 +22,33 @@ staload "./patsolve_main.sats"
 
 (* ****** ****** *)
 //
+(*
 dynload "patsolve_cnstrnt.dats"
+*)
+val () = patsolve_cnstrnt__dynload() where
+{
+  extern fun patsolve_cnstrnt__dynload(): void = "ext#"
+}
 //
 (* ****** ****** *)
 //
+(*
 dynload "patsolve_parsing.dats"
+*)
+val () = patsolve_parsing__dynload() where
+{
+  extern fun patsolve_parsing__dynload(): void = "ext#"
+}
 //
 (* ****** ****** *)
 //
+(*
 dynload "patsolve_commarg.dats"
+*)
+val () = patsolve_commarg__dynload() where
+{
+  extern fun patsolve_commarg__dynload(): void = "ext#"
+}
 //
 (* ****** ****** *)
 

@@ -53,15 +53,21 @@ CFLAGS :=
 CFLAGS += -DATS_MEMALLOC_LIBC
 #
 CFLAGS2 :=
-CFLAGS2 += \
--IIATS ${PATSHOMERELOC}/contrib
-CFLAGS2 += \
-$(shell pkg-config --cflags json-c)
+CFLAGS2 +=-DATS_MEMALLOC_LIBC
+CFLAGS2 +=-I${PATSHOMERELOC}/contrib
+CFLAGS2 +=-I${PATSHOMERELOC}/contrib/SMT
+CFLAGS2 += $(shell pkg-config --cflags json-c)
 #
+######
+
+PATSCC2=$(PATSCC) $(CFLAGS2)
+
 ######
 
 LDFLAGS :=
 LDFLAGS += $(shell pkg-config --libs json-c)
+LDFLAGS +=-lz3
+LDFLAGS +=-lgc
 
 ######
 
@@ -96,15 +102,23 @@ SOURCES_DATS += patsolve_z3_main.dats
 SOURCES_DATS += patsolve_z3_solving.dats
 
 ######
+
+TARGETS_DATS_O = \
+  $(patsubst %.dats, %_dats.o, $(SOURCES_DATS))
+
+######
 #
 all:: \
 patsolve-z3
 patsolve-z3: \
-$(SOURCES_DATS); \
-$(PATSCC) \
-  -DATS_MEMALLOC_GCBDW -O2 -o $@ \
-  $(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS) -lgc
+$(TARGETS_DATS_O); \
+$(PATSCC2) -O2 -o $@ \
+  $(SOURCES_SATS) $(SOURCES_CATS) $(TARGETS_DATS_O) $(LDFLAGS)
 #
+######
+
+%_dats.o: %.dats; $(PATSCC2) -c $<
+
 ######
 #
 -include .depend

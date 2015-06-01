@@ -38,18 +38,16 @@ staload "./patsolve_z3_solving.sats"
 //
 (* ****** ****** *)
 //
-absview
-smtenv_push_v
-//
-extern
-fun
-smtenv_push
-  (env: !smtenv): (smtenv_push_v | void)
-//
-extern
-fun
-smtenv_pop
-  (pf: smtenv_push_v | env: !smtenv): void
+implement
+fprint_val<s2cst> = fprint_s2cst
+implement
+fprint_val<s2var> = fprint_s2var
+implement
+fprint_val<s2Var> = fprint_s2Var
+implement
+fprint_val<s2exp> = fprint_s2exp
+implement
+fprint_val<s3itm> = fprint_s3itm
 //
 (* ****** ****** *)
 //
@@ -335,6 +333,16 @@ end // end of [c3nstr_z3_solve]
 (* ****** ****** *)
 
 #define PATSOLVE_Z3_SOLVING 1
+
+(* ****** ****** *)
+
+local
+//
+#include "./SOLVING/patsolve_z3_solving_ctx.dats"
+//
+in
+  // nothing
+end // end of [local]
 
 (* ****** ****** *)
 

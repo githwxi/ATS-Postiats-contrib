@@ -17,6 +17,30 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+//
+(*
+dynload "patsolve_cnstrnt.dats"
+*)
+val () = patsolve_cnstrnt__dynload() where
+{
+  extern fun patsolve_cnstrnt__dynload(): void = "ext#"
+}
+//
+(* ****** ****** *)
+//
+(*
+dynload "patsolve_parsing.dats"
+*)
+val () = patsolve_parsing__dynload() where
+{
+  extern fun patsolve_parsing__dynload(): void = "ext#"
+}
+//
+(* ****** ****** *)
+
+dynload "./patsolve_z3_solving.dats"
+
+(* ****** ****** *)
 
 implement
 main0 (argc, argv) =
