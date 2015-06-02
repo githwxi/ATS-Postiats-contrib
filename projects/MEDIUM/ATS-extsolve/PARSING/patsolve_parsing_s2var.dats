@@ -85,9 +85,11 @@ case+ s2vopt of
 //
     val s2v = s2var_make (sym, s2t, stamp)
 //
+(*
     val ((*void*)) =
       println! ("parse_s2var: s2v = ", s2v)
     // end of [val]
+*)
 //
     val ((*void*)) = the_s2varmap_insert (s2v)
 //

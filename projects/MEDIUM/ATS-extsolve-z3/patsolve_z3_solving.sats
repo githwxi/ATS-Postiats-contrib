@@ -159,6 +159,10 @@ formula_make_s2cst
   (env: !smtenv, s2c: s2cst): form
 //
 fun
+formula_make_s2var
+  (env: !smtenv, s2v: s2var): form
+//
+fun
 formula_make_s2exp
   (env: !smtenv, s2p: s2exp): form
 //
@@ -176,7 +180,9 @@ s2cinterp =
   | S2CINTbuiltin_0 of (() -> form)
   | S2CINTbuiltin_1 of (form -> form)
   | S2CINTbuiltin_2 of ((form, form) -> form)
+(*
   | S2CINTbuiltin_lst of ((formlst) -> form)
+*)
 //
 (* ****** ****** *)
 //
@@ -195,6 +201,14 @@ absview smtenv_push_v
 fun smtenv_pop (smtenv_push_v | !smtenv): void
 //
 fun smtenv_push (env: !smtenv): (smtenv_push_v | void)
+//
+(* ****** ****** *)
+
+fun the_s2cinterp_initize(): void
+
+(* ****** ****** *)
+//
+fun s2cst_get_s2cinterp(s2cst): s2cinterp
 //
 (* ****** ****** *)
 //

@@ -87,11 +87,11 @@ case+ s2copt of
 //
     val s2c = s2cst_make (sym, s2t, stamp)
 //
-// (*
+(*
     val ((*void*)) =
       println! ("parse_s2cst: s2c = ", s2c)
     // end of [val]
-// *)
+*)
 //
     val ((*void*)) = the_s2cstmap_insert (s2c)
 //

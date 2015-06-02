@@ -19,6 +19,7 @@
 (* ****** ****** *)
 
 staload "./patsolve_z3_commarg.sats"
+staload "./patsolve_z3_solving.sats"
 
 (* ****** ****** *)
 //
@@ -55,14 +56,16 @@ val () =
 println!
   ("Hello from [patsolve_z3]!")
 //
+val () = the_s2cinterp_initize()
+//
 val arglst =
   patsolve_z3_cmdline (argc, argv)
 //
 // HX: skipping argv[0]
 //
-val-~list_vt_cons(arg, arglst) = arglst
+val-~list_vt_cons(_, arglst) = arglst
 //
-val ((*void*)) = patsolve_z3_commarglst (arglst)
+val () = patsolve_z3_commarglst(arglst)
 //
 } (* end of [main] *)
 

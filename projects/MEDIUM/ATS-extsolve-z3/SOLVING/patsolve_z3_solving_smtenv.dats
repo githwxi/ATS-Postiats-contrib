@@ -332,8 +332,8 @@ prval ((*void*)) = fold@(env)
 in
 //
 case+ 0 of
-| _ when ans = Z3_L_TRUE => ~1
-| _ when ans = Z3_L_FALSE => 1
+| _ when ans = Z3_L_TRUE => 1
+| _ when ans = Z3_L_FALSE => ~1
 | _ (*when ans = Z3_L_UNDEF*) => 0
 //
 end (* end of [smtenv_formula_solve] *)
