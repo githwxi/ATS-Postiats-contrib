@@ -205,6 +205,11 @@ overload .name with s2cst_get_name
 overload .stamp with s2cst_get_stamp
 //
 (* ****** ****** *)
+
+fun s2cst_get_payload(s2cst): ptr
+fun s2cst_set_payload(s2cst, payload: ptr): void
+
+(* ****** ****** *)
 //
 abstype
 s2var_type = ptr

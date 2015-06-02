@@ -19,6 +19,9 @@ s2cst_struct = @{
 , s2cst_name= symbol
 , s2cst_stamp= stamp
 , s2cst_supcls= List0 (s2exp)
+//
+, s2cst_payload= ptr
+//
 } (* end of [s2cst_struct] *)
 
 (* ****** ****** *)
@@ -42,7 +45,9 @@ val [l:addr] (
 val () = p->s2cst_srt := srt
 val () = p->s2cst_name := name
 val () = p->s2cst_stamp := stamp
-val () = p->s2cst_supcls := list_nil ()
+val () = p->s2cst_supcls := list_nil()
+//
+val () = p->s2cst_payload := the_null_ptr
 //
 in
   $UN.castvwtp0{s2cst}((pfat, pfgc | p))
@@ -58,6 +63,13 @@ s2cst_get_name (s2c) = !s2c.s2cst_name
 implement
 s2cst_get_stamp (s2c) = !s2c.s2cst_stamp
 //
+(* ****** ****** *)
+  
+implement
+s2cst_get_payload (s2c) = !s2c.s2cst_payload
+implement
+s2cst_set_payload (s2c, x) = (!s2c.s2cst_payload := x)
+
 (* ****** ****** *)
 
 end // end of [local]
