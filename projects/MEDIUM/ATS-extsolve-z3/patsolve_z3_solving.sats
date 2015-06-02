@@ -167,6 +167,26 @@ formula_make_s2cst_s2explst
   (env: !smtenv, s2c: s2cst, s2ps: s2explst): form
 //
 (* ****** ****** *)
+//
+datatype
+s2cinterp =
+//
+  | S2CINTnone of ()
+//
+  | S2CINTbuiltin_0 of (() -> form)
+  | S2CINTbuiltin_1 of (form -> form)
+  | S2CINTbuiltin_2 of ((form, form) -> form)
+  | S2CINTbuiltin_lst of ((formlst) -> form)
+//
+(* ****** ****** *)
+//
+fun print_s2cinterp (s2cinterp): void
+fun fprint_s2cinterp : fprint_type(s2cinterp)
+//
+overload print with print_s2cinterp
+overload fprint with fprint_s2cinterp
+//
+(* ****** ****** *)
 
 absview smtenv_push_v
 
