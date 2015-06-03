@@ -71,14 +71,22 @@ fun formula_intrep (rep: string): form
 (* ****** ****** *)
 //
 fun formula_not (form): form
-//
-fun formula_beq (form, form): form
-fun formula_bneq (form, form): form
-//
 fun formula_disj (form, form): form
 fun formula_conj (form, form): form
 fun formula_impl (form, form): form
-//  
+//
+fun formula_bneg (form): form
+//
+fun formula_badd (form, form): form
+fun formula_bmul (form, form): form
+//
+fun formula_blt (form, form): form
+fun formula_blte (form, form): form
+fun formula_bgt (form, form): form
+fun formula_bgte (form, form): form
+fun formula_beq (form, form): form
+fun formula_bneq (form, form): form
+//
 (* ****** ****** *)
 //
 fun formula_ineg (form): form

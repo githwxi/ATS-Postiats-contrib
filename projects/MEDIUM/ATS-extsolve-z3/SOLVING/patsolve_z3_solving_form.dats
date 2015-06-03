@@ -76,30 +76,6 @@ formula_intrep(rep) = i2 where
 (* ****** ****** *)
 
 implement
-formula_beq
-  (s2e1, s2e2) = res where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_eq (ctx, s2e1, s2e2)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
-  prval ((*void*)) = fpf(ctx)
-} (* end of [formula_beq] *)
-
-(* ****** ****** *)
-//
-implement
-formula_bneq
-  (s2e1, s2e2) =
-  formula_not(formula_beq(s2e1, s2e2))
-//
-(* ****** ****** *)
-
-implement
 formula_not
   (s2e1) = res where
 {
@@ -158,6 +134,63 @@ formula_impl
   prval ((*void*)) = fpf(ctx)
 } (* end of [formula_impl] *)
 
+(* ****** ****** *)
+//
+implement
+formula_bneg(s2e) = formula_not(s2e)
+//
+implement
+formula_badd
+  (s2e1, s2e2) = formula_disj(s2e1, s2e2)
+//
+implement
+formula_bmul
+  (s2e1, s2e2) = formula_conj(s2e1, s2e2)
+//
+(* ****** ****** *)
+//
+implement
+formula_blt
+  (s2e1, s2e2) =
+  formula_conj(formula_not(s2e1), s2e2)
+//
+implement
+formula_blte
+  (s2e1, s2e2) = formula_impl(s2e1, s2e2)
+//
+implement
+formula_bgt
+  (s2e1, s2e2) =
+  formula_conj(s2e1, formula_not(s2e2))
+//
+implement
+formula_bgte
+  (s2e1, s2e2) = formula_impl(s2e2, s2e1)
+//
+(* ****** ****** *)
+
+implement
+formula_beq
+  (s2e1, s2e2) = res where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+    Z3_mk_eq (ctx, s2e1, s2e2)
+  // end of [val]
+  val () = Z3_dec_ref(ctx, s2e1)
+  val () = Z3_dec_ref(ctx, s2e2)
+  prval ((*void*)) = fpf(ctx)
+} (* end of [formula_beq] *)
+
+(* ****** ****** *)
+//
+implement
+formula_bneq
+  (s2e1, s2e2) =
+  formula_not(formula_beq(s2e1, s2e2))
+//
 (* ****** ****** *)
 
 implement

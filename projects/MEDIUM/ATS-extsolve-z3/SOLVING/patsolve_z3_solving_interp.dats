@@ -118,12 +118,17 @@ macdef insert = s2cinterp_insert
 val () = insert("true_bool", S2CINTbuiltin_0(formula_true))
 val () = insert("false_bool", S2CINTbuiltin_0(formula_false))
 //
+val () = insert("neg_bool", S2CINTbuiltin_1(formula_bneg))
+//
+val () = insert("add_bool_bool", S2CINTbuiltin_2(formula_badd))
+val () = insert("mul_bool_bool", S2CINTbuiltin_2(formula_bmul))
+//
+val () = insert("lt_bool_bool", S2CINTbuiltin_2(formula_blt))
+val () = insert("lte_bool_bool", S2CINTbuiltin_2(formula_blte))
+val () = insert("gt_bool_bool", S2CINTbuiltin_2(formula_bgt))
+val () = insert("gte_bool_bool", S2CINTbuiltin_2(formula_bgte))
 val () = insert("eq_bool_bool", S2CINTbuiltin_2(formula_beq))
 val () = insert("neq_bool_bool", S2CINTbuiltin_2(formula_bneq))
-//
-val () = insert("neg_bool", S2CINTbuiltin_1(formula_not))
-val () = insert("add_bool_bool", S2CINTbuiltin_2(formula_disj))
-val () = insert("mul_bool_bool", S2CINTbuiltin_2(formula_conj))
 //
 val () = insert("neg_int", S2CINTbuiltin_1(formula_ineg))
 //
