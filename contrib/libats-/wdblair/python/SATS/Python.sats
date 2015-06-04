@@ -1,6 +1,17 @@
+
+(**
+  Will Blair
+
+  October 2014
+*)
+
+(* ****** ****** *)
+
 %{#
-#include "contrib/libats-/wdblair/python/CATS/Python.cats"
-%}
+#include "libats-/wdblair/python/CATS/Python.cats"
+%} // end of [%{#]
+
+(* ****** ****** *)
 
 abstype PyObject = ptr
 
@@ -33,7 +44,9 @@ fun Py_InitModule (string, ptr): PyObject = "mac#"
 (* ****** ****** *)
 
 fun PyImport_Import (PyObject): PyObject = "mac#"
+fun PyImport_ImportModule (string): PyObject = "mac#"
 fun PyImport_AddModule (string): PyObject = "mac#"
+
 
 (* ****** ****** *)
 

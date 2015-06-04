@@ -1,0 +1,21 @@
+#
+# A simple Makefile for testing
+#
+
+######
+
+SUBDIRS :=
+
+SUBDIRS += CATS-atscc2js
+SUBDIRS += CATS-atscc2py
+SUBDIRS += CATS-atscc2php
+SUBDIRS += CATS-atscc2pl
+
+######
+#
+testall:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i -f Makefile testall; done
+#
+######
+
+###### end of [Makefile_test] #######

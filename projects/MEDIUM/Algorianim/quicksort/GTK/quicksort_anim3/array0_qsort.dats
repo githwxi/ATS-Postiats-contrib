@@ -120,7 +120,7 @@ in
 if
 i < j
 then let
-  val sgn = gcompare_val<a> (A[i], pivot)
+  val sgn = gcompare_val_val<a> (A[i], pivot)
 in
 //
 if sgn < 0
@@ -140,7 +140,7 @@ in
 if
 i < j
 then let
-  val sgn = gcompare_val<a> (pivot, A[j-1])
+  val sgn = gcompare_val_val<a> (pivot, A[j-1])
 in
 //
 if sgn <= 0

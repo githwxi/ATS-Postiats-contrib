@@ -116,7 +116,7 @@ in
 if isnot then let
   var alloc: GtkAllocation
   val () = gtk_widget_get_allocation (darea, alloc)
-  val () = gtk_widget_queue_draw_area (darea, (gint)0, (gint)0, alloc.width, alloc.height)
+  val () = gtk_widget_queue_draw_area (darea, gint(0), gint(0), alloc.width, alloc.height)
 in
   GTRUE // HX: [ftimeout] continues
 end else
@@ -139,18 +139,18 @@ implement{
 val vbox0 =
 gtk_box_new
 (
-  GTK_ORIENTATION_VERTICAL(*orient*), (gint)10(*spacing*)
+  GTK_ORIENTATION_VERTICAL(*orient*), gint(10)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (vbox0) > 0)
 //
 val hbox1 =
 gtk_box_new
 (
-  GTK_ORIENTATION_HORIZONTAL(*orient*), (gint)0(*spacing*)
+  GTK_ORIENTATION_HORIZONTAL(*orient*), gint(0)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (hbox1) > 0)
 val () =
-gtk_box_pack_start (vbox0, hbox1, GFALSE, GFALSE, (guint)0)
+gtk_box_pack_start (vbox0, hbox1, GFALSE, GFALSE, guint(0))
 val () = g_object_unref (hbox1)
 //
 val darea2 =
@@ -158,23 +158,28 @@ gtk_drawing_area_new ((*void*))
 val p_darea2 = ptrcast (darea2)
 val () = assertloc (p_darea2 > 0)
 val () =
-gtk_box_pack_start (vbox0, darea2, GTRUE(*expand*), GTRUE(*fill*), (guint)0)
-val _sid = g_signal_connect
+gtk_box_pack_start
+  (vbox0, darea2, GTRUE(*expand*), GTRUE(*fill*), guint(0))
+val _sid =
+g_signal_connect
 (
-  darea2, (gsignal)"draw", G_CALLBACK(fexpose), (gpointer)NULL
-)
+  darea2, (gsignal)"draw", G_CALLBACK(fexpose), gpointer(NULL)
+) (* end of [val] *)
+//
 val int = gtkcairotimer_timeout_interval ()
-val _rid = g_timeout_add ((guint)int, (GSourceFunc)ftimeout, (gpointer)p_darea2)
+val _rid =
+g_timeout_add
+  (guint(int), (GSourceFunc)ftimeout, gpointer(p_darea2))
 val () = g_object_unref (darea2)
 //
 val hbox3 =
 gtk_box_new
 (
-  GTK_ORIENTATION_HORIZONTAL(*orient*), (gint)0(*spacing*)
+  GTK_ORIENTATION_HORIZONTAL(*orient*), gint(0)(*spacing*)
 ) (* end of [val] *)
 val () = assertloc (ptrcast (hbox3) > 0)
 val () =
-gtk_box_pack_start (vbox0, hbox3, GFALSE, GFALSE, (guint)0)
+gtk_box_pack_start (vbox0, hbox3, GFALSE, GFALSE, guint(0))
 val () = g_object_unref (hbox3)
 //
 in

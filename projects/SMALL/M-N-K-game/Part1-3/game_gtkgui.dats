@@ -84,8 +84,8 @@ button_create
 ) : GtkButton1 = let
 //
 val res =
-gtk_button_new_with_label ((gstring)msg)
-val ((*void*)) = assertloc (ptrcast (res) > 0)
+gtk_button_new_with_label(gstring(msg))
+val ((*void*)) = assertloc(ptrcast (res) > 0)
 //
 fun f
 (
@@ -126,8 +126,8 @@ fun loop
       then let
         val btn = button_create (" ", i, j)
         val () =
-        gtk_widget_set_size_request (btn, (gint)(YUNIT), (gint)(XUNIT))
-        val () = gtk_box_pack_start (hbox, btn, GTRUE, GTRUE, (guint)0)
+        gtk_widget_set_size_request (btn, gint(YUNIT), gint(XUNIT))
+        val () = gtk_box_pack_start (hbox, btn, GTRUE, GTRUE, guint(0))
       in
         gtk_widget_show_unref (btn)
       end // end of [then]
@@ -138,8 +138,8 @@ fun loop
         ) : string
         val lab = label_create (msg)
         val () =
-        gtk_widget_set_size_request (lab, (gint)(YUNIT), (gint)(XUNIT))
-        val () = gtk_box_pack_start (hbox, lab, GTRUE, GTRUE, (guint)0)
+        gtk_widget_set_size_request (lab, gint(YUNIT), gint(XUNIT))
+        val () = gtk_box_pack_start (hbox, lab, GTRUE, GTRUE, guint(0))
       in
         gtk_widget_show_unref (lab)
       end // end of [then]
@@ -151,7 +151,7 @@ fun loop
 val hbox =
 gtk_box_new
 (
-  GTK_ORIENTATION_HORIZONTAL, (gint)0
+  GTK_ORIENTATION_HORIZONTAL, gint(0)
 ) (* end of [val] *)
 val () = assertloc (ptrcast(hbox) > 0)
 //
@@ -174,7 +174,7 @@ fun loop
 (
   if i < m then let
     val hbox = row_create (board, i)
-    val () = gtk_box_pack_start (vbox, hbox, GTRUE, GTRUE, (guint)0)
+    val () = gtk_box_pack_start (vbox, hbox, GTRUE, GTRUE, guint(0))
     val () = gtk_widget_show_unref (hbox)
   in
     loop (vbox, m, i + 1)
@@ -184,7 +184,7 @@ fun loop
 val vbox =
 gtk_box_new
 (
-  GTK_ORIENTATION_VERTICAL, (gint)0
+  GTK_ORIENTATION_VERTICAL, gint(0)
 ) (* end of [val] *)
 val () = assertloc (ptrcast(vbox) > 0)
 //
@@ -223,9 +223,10 @@ val p_window = ptrcast(widget)
 val () = $WINDOW.set (p_window)
 val ((*void*)) = assertloc (p_window > 0)
 val ((*void*)) =
-  gtk_window_set_default_size (widget, (gint)(M*YUNIT), (gint)(N*XUNIT))
+gtk_window_set_default_size
+  (widget, gint(M*YUNIT), gint(N*XUNIT))
 val ((*void*)) =
-  gtk_window_set_title (widget, (gstring)"M-N-K-game")
+gtk_window_set_title (widget, gstring"M-N-K-game")
 //
 in
   widget
@@ -241,7 +242,9 @@ window_handle_destroy
 val id =
 g_signal_connect
 (
-  window, (gsignal)"destroy", G_CALLBACK(gtk_main_quit), (gpointer)NULL
+  window
+, (gsignal)"destroy"
+, G_CALLBACK(gtk_main_quit), gpointer(NULL)
 ) (* end of [val] *)
 //
 } (* end of [window_handle_destroy] *)
@@ -259,7 +262,8 @@ fun f (x: GtkWindow1): gboolean =
 val id =
 g_signal_connect
 (
-  window, (gsignal)"delete-event", G_CALLBACK(f), (gpointer)NULL
+  window
+, (gsignal)"delete-event", G_CALLBACK(f), gpointer(NULL)
 ) (* end of [val] *)
 //
 } (* end of [window_handle_delete_event] *)
@@ -276,7 +280,7 @@ val window = window_create ()
 //
 val thePanel = thePanel_create ()
 val () = gtk_container_add (window, thePanel)
-val () = gtk_container_set_border_width (window, (guint)10)
+val () = gtk_container_set_border_width (window, guint(10))
 val () = gtk_widget_show_unref (thePanel)
 //
 val () = window_handle_destroy (window)

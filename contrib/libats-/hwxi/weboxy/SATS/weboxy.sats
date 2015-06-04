@@ -8,12 +8,10 @@
 *)
 
 (* ****** ****** *)
-
-%{#
-typedef char *charptr ;
-%} ;
-abstype charptr = $extype"charptr"
-
+//
+abstype
+charptr = $extype"atstype_string"
+//
 (* ****** ****** *)
 
 abstype webox_type = ptr

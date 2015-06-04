@@ -16,25 +16,44 @@ RMF=rm -f
 ######
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/basics.dats | $(ATSCC2JS) -o ./output/DATS/basics_dats.js -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2JS) -o ./output/DATS/list_dats.js -i
+all:: ; \
+$(PATSOPT) -d ./DATS/option.dats | $(ATSCC2JS) -o ./output/DATS/option_dats.js -i
 all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2JS) -o ./output/DATS/stream_dats.js -i
 all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2JS) -o ./output/DATS/intrange_dats.js -i
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2JS) -o ./output/DATS/reference_dats.js -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2JS) -o ./output/DATS/arrayref_dats.js -i
 all:: ; \
 $(PATSOPT) -d ./DATS/matrixref.dats | $(ATSCC2JS) -o ./output/DATS/matrixref_dats.js -i
 all:: ; \
-$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2JS) -o ./output/DATS/reference_dats.js -i
+$(PATSOPT) -d ./DATS/gmatrixref.dats | $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 #
 #######
+#
+DATE=date
+ECHO=echo -n
+#
+all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2js_all.js
+all_in_one:: ; $(ECHO) '/*\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) 'Time of Generation:\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(DATE) | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; $(ECHO) '*/\n\n' | $(CAT) - >>libatscc2js_all.js
+#
 
 all_in_one:: ; \
-$(CAT) >libatscc2js_all.js \
+$(CAT) >>libatscc2js_all.js \
 CATS/basics_cats.js \
 CATS/integer_cats.js \
+CATS/bool_cats.js \
 CATS/float_cats.js \
 CATS/string_cats.js \
 CATS/JSmath_cats.js \
@@ -43,13 +62,25 @@ CATS/JSarray_cats.js \
 CATS/JSglobal_cats.js \
 CATS/Ajax/Ajax_cats.js \
 CATS/HTML/canvas-2d/canvas2d_cats.js \
+
+all_in_one:: ; \
+$(CAT) >>libatscc2js_all.js \
+output/DATS/basics_dats.js \
 output/DATS/list_dats.js \
+output/DATS/option_dats.js \
 output/DATS/stream_dats.js \
 output/DATS/intrange_dats.js \
+output/DATS/reference_dats.js \
 output/DATS/arrayref_dats.js \
 output/DATS/matrixref_dats.js \
-output/DATS/reference_dats.js \
+output/DATS/gmatrixref_dats.js \
 
+#
+all_in_one:: ; \
+  $(ECHO) '\n/* ****** ****** */\n' | $(CAT) - >>libatscc2js_all.js
+all_in_one:: ; \
+  $(ECHO) '\n/* end of [libatscc2js_all.js] */\n' | $(CAT) - >>libatscc2js_all.js
+#
 #######
 #
 upload_source:: ; \

@@ -27,13 +27,6 @@ s.add (
     ForAll (a, sizeof (a) > 0)
 )
 
-l, sz = Ints ("l sz")
-
-
-#s.add (
-#  ForAll ([l, i, sz], Implies (And(sz > 0, i >= 0, l >= 0), (((l + i * sz) - l) / sz == i)))
-#)
-
 # Undefined Section of an Array
 
 s.add (
@@ -87,10 +80,6 @@ s.add (
     ForAll ([A, i, j], drop(A, i)[j] == A[i+j])
 )
 
-s.add (
-    ForAll ([A,B,x,m], Implies(cons(x, B) == drop(A, m), B == drop(A, m+1)))
-)
-
 # Insert
 
 insert = Function ('stampseq_insert', StampSeqSort(), IntSort(),
@@ -113,37 +102,6 @@ s.add (
     ForAll([A, B, m, n , i], append(A,m,B,n)[i] == If(i < m, A[i], B[i - m]))
 )
 
-# Permutation
-
-permutation = Function ('stampseq_permutation',
-                        StampSeqSort(), StampSeqSort(),
-                        IntSort(), BoolSort())
-
-C = Array("C", IntSort(), IntSort())
-
-s.add (
-    ForAll([A, n], permutation(A, A, n) == True)
-)
-
-s.add (
-    ForAll([A, B, C, n], 
-                Implies (
-                               And(permutation(A, B, n), permutation(B, C, n)), permutation(A, C, n)
-                 )
-     )
-)
-
-s.add(
-     ForAll([A, B, C, x, i, n], 
-                 Implies (
-                                And(0 <= i, i < n-1, A == cons (x, B),
-                                        permutation (B, C, n-1)
-                                ),
-                                permutation (A, insert (C, i, x), n)
-                  )
-     )
-)
-
 # Sorting
 
 def stampseq_sorted (xs, n):
@@ -157,43 +115,12 @@ def stampseq_sorted (xs, n):
         xs[i] <= xs[j])
     )
 
-# for any sequence xs, ordered(xs) means that the entire sequence
-# is ordered.
+# This axiom is important for proving the ptr_offset method, but I think asserting
+# it generally to Z3 causes proof times to go up too high. I want to be able to
+# bind this assertion only in the scope of an individual function...
 
-ordered = Function ('stampseq_ordered', StampSeqSort(), BoolSort())
+#l , i = Ints ('l i')
 
-s.add (
-    ordered(nil())
-)
-
-s.add (
-    ForAll(x, ordered(cons(x, nil())))
-)
-
-s.add (
-    ForAll(x, ordered(insert(nil(), 0, x)))
-)
-
-s.add (
-    ForAll([A, x], Implies(And (x <= A[0], ordered(A)),
-                           ordered(insert(A,0,x)))
-    )
-)
-
-s.add (
-    ForAll([A,B,x], Implies (And (ordered(A), A == cons(x, B)),
-                             ordered (B)
-                    )
-    )
-)
-
-s.add (
-    ForAll([A, B, x, y, i], Implies(And (ordered(A),
-                                         ordered(insert(B, i, y)),
-                                         A == cons (x, B),
-                                         x <= y
-                                    ),
-                                    ordered (insert(A, i+1, y))
-                            )
-    )
-)
+#s.add (
+#    ForAll([l, i, a], Implies(i >= 0, ((l+(i*sizeof(a)))-l)/sizeof(a) == i))
+#)

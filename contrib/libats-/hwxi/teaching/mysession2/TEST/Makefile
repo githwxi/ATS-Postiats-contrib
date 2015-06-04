@@ -40,6 +40,15 @@ cleanall:: ; $(RMF) mergesort
 
 ######
 
+all:: \
+mergesort2
+mergesort2: \
+mergesort2.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+cleanall:: ; $(RMF) mergesort2
+
+######
+
 RMF=rm -f
 
 ######

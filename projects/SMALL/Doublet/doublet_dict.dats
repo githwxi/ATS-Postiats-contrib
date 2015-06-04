@@ -78,7 +78,7 @@ in
 end // end of [hash_key]
 //
 implement
-gequal_val<strarr> (str1, str2) = (str1 = str2)
+gequal_val_val<strarr> (str1, str2) = (str1 = str2)
 //
 implement(itm)
 hashtbl_linprb_keyitm_is_null<strarr,itm> (kx) = ($UN.cast2ptr(kx.0) = 0)

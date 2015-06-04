@@ -257,12 +257,17 @@ d2exp_ifopt
   d2exp_make_node (loc, D2Eifopt (_test, _then, _else))
 //
 (* ****** ****** *)
-
+//
+implement
+d2exp_sing
+  (loc, d2e) = d2exp_make_node (loc, D2Esing(d2e))
+// end of [d2exp_sing]
+//
 implement
 d2exp_list
   (loc, d2es) = d2exp_make_node (loc, D2Elist(d2es))
 // end of [d2exp_list]
-
+//
 (* ****** ****** *)
 //
 implement

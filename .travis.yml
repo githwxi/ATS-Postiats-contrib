@@ -1,28 +1,23 @@
 os:
   - linux
+sudo: required
 before_install:
   - date
   - cat /proc/cpuinfo
+  # Install pkgs
+  - ${TRAVIS_BUILD_DIR}/travis-ci/installpkg.sh
   - cd ${HOME}
-  - sudo apt-get -qq -y update
-  - sudo apt-get -qq -y install libgc-dev
-  - sudo apt-get -qq -y install libgmp-dev
-  # For contrib/GTK/
-  - sudo apt-get -qq -y install libgtk-3-dev
-  # For contrib/libev/
-  - sudo apt-get -qq -y install libev-dev
-  # For contrib/jansson/
-  - sudo apt-get -qq -y install libjansson-dev
   # Download ATS2
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-srcfrg
-  # Seting-up ATS2 contrib
+  # Seting-up ATS2-contrib
   - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
   # Building ATS2
   - export PATSHOME=${HOME}/ATS2-srcfrg
   - export PATH=${PATH}:${PATSHOME}/bin
-  - cd ${PATSHOME} && ./configure && make
+  - (cd ${PATSHOME} && ./configure && make all)
   # Testing extensively
-  - make -C ${TRAVIS_BUILD_DIR} -f Makefile_test testall
+  - cd ${TRAVIS_BUILD_DIR}
+  - make -f Makefile_test testall
 after_script:
   - date

@@ -98,7 +98,7 @@ implement{
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
-  val () = cairo_move_to (cr, p.x, p.y)
+  val () = cairo_move_to (cr, p.x(), p.y())
   prval ((*void*)) = fpf (cr)
 in
   // nothing
@@ -122,7 +122,7 @@ implement{
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
-  val () = cairo_line_to (cr, p.x, p.y)
+  val () = cairo_line_to (cr, p.x(), p.y())
   prval ((*void*)) = fpf (cr)
 in
   // nothing
@@ -146,7 +146,7 @@ implement{
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
-  val () = cairo_rel_line_to (cr, v.x, v.y)
+  val () = cairo_rel_line_to (cr, v.x(), v.y())
   prval ((*void*)) = fpf (cr)
 in
   // nothing
@@ -171,7 +171,7 @@ implement{
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
-  val () = cairo_rectangle (cr, pul.x, pul.y, w, h)
+  val () = cairo_rectangle (cr, pul.x(), pul.y(), w, h)
   prval ((*void*)) = fpf (cr)
 in
   // nothing
@@ -185,7 +185,7 @@ implement{
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
-  val () = cairo_arc (cr, pc.x, pc.y, rad, ang1, ang2)
+  val () = cairo_arc (cr, pc.x(), pc.y(), rad, ang1, ang2)
   prval ((*void*)) = fpf (cr)
 in
   // nothing
@@ -197,7 +197,7 @@ implement{
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
-  val () = cairo_arc_negative (cr, pc.x, pc.y, rad, ang1, ang2)
+  val () = cairo_arc_negative (cr, pc.x(), pc.y(), rad, ang1, ang2)
   prval ((*void*)) = fpf (cr)
 in
   // nothing
@@ -210,7 +210,7 @@ implement{
     fpf | cr
   ) = mydraw_get0_cairo<> ()
   val () = cairo_new_sub_path (cr)
-  val () = cairo_arc (cr, pc.x, pc.y, rad, 0.0, 2*PI)
+  val () = cairo_arc (cr, pc.x(), pc.y(), rad, 0.0, 2*PI)
   prval ((*void*)) = fpf (cr)
 in
   // nothing

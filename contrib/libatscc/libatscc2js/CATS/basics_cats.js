@@ -38,6 +38,8 @@ function
 ATSCKpat_char(tmp, given) { return (tmp === given); }
 function
 ATSCKpat_float(tmp, given) { return (tmp === given); }
+function
+ATSCKpat_string(tmp, given) { return (tmp === given); }
 
 /* ****** ****** */
 

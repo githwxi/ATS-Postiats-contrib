@@ -4,7 +4,12 @@
 
 ######
 
+MAKE=make
+
+######
+
 SUBDIRS :=
+
 SUBDIRS += SMALL/Socket
 SUBDIRS += SMALL/Coroutine
 SUBDIRS += SMALL/Doublet
@@ -16,14 +21,25 @@ SUBDIRS += SMALL/gtkcairotimer
 
 SUBDIRS += MEDIUM/FALCON
 SUBDIRS += MEDIUM/SHOOTOUT/ATS2
-SUBDIRS += MEDIUM/ATS-parse-emit/PHP
-SUBDIRS += MEDIUM/ATS-parse-emit/JavaScript
 
 ######
 #
 testall:: ; \
-for i in $(SUBDIRS); do $(MAKE) -C $$i -f Makefile testall; done
+for i in $(SUBDIRS); \
+  do $(MAKE) -C $$i -f Makefile testall; done
 #
+######
+#
+# testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
+#
+######
+
+testall:: ; $(MAKE) -C MEDIUM/CATS-parsemit -f Makefile testall
+
+######
+
+testall:: ; $(MAKE) -C MEDIUM/CATS-atsccomp -f Makefile_test testall
+
 ######
 
 ###### end of [Makefile_test] ######

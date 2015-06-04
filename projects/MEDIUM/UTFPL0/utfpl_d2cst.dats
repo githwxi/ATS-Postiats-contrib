@@ -84,14 +84,15 @@ end // end of [local]
 implement
 fprint_d2cst
   (out, d2c) =
-  fprint! (out, d2c.name, "(", d2c.stamp, ")")
-// end of [fprint_d2cst]
+(
+  fprint! (out, d2c.name(), "(", d2c.stamp(), ")")
+) (* end of [fprint_d2cst] *)
 
 (* ****** ****** *)
 
 implement
 compare_d2cst_d2cst
-  (d2c1, d2c2) = compare (d2c1.stamp, d2c2.stamp)
+  (d2c1, d2c2) = compare (d2c1.stamp(), d2c2.stamp())
 // end of [compare_d2cst_d2cst]
 
 (* ****** ****** *)

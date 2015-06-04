@@ -119,4 +119,4 @@ fun utfpleval_fileref (inp: FILEref): void
 
 (* ****** ****** *)
 
-(* end of [utfpleval.dats] *)
+(* end of [utfpleval.sats] *)

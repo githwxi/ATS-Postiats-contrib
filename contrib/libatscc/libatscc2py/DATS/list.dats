@@ -18,6 +18,14 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_list_"
 //
 (* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
@@ -54,14 +62,6 @@ implement
 print_list_sep
   (xs, sep) = fprint_list_sep<a> (stdout, xs, sep)
 //
-(* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-%} // end of [%{^]
-
 (* ****** ****** *)
 
 (* end of [list.dats] *)

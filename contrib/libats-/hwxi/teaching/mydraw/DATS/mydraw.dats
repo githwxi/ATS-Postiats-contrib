@@ -59,9 +59,9 @@ end // end of [local]
 (* ****** ****** *)
 
 implement{}
-point_hshift (p, x) = point_make (p.x + x, p.y)
+point_hshift (p, x) = point_make (p.x() + x, p.y())
 implement{}
-point_vshift (p, y) = point_make (p.x, p.y + y)
+point_vshift (p, y) = point_make (p.x(), p.y() + y)
 
 (* ****** ****** *)
 
@@ -83,53 +83,53 @@ end // end of [local]
 (* ****** ****** *)
 
 implement{
-} dotprod (v1, v2) = v1.x * v2.x + v1.y * v2.y
+} dotprod (v1, v2) = v1.x() * v2.x() + v1.y() * v2.y()
 
 (* ****** ****** *)
 
 implement{}
 sub_point_point
-  (p1, p2) = vector_make (p1.x - p2.x, p1.y - p2.y)
+  (p1, p2) = vector_make (p1.x() - p2.x(), p1.y() - p2.y())
 // end of [sub_point_point]
 
 (* ****** ****** *)
 
 implement{}
 add_point_vector
-  (p1, v2) = point_make (p1.x + v2.x, p1.y + v2.y)
+  (p1, v2) = point_make (p1.x() + v2.x(), p1.y() + v2.y())
 // end of [add_point_vector]
 implement{}
 sub_point_vector
-  (p1, v2) = point_make (p1.x - v2.x, p1.y - v2.y)
+  (p1, v2) = point_make (p1.x() - v2.x(), p1.y() - v2.y())
 // end of [sub_point_vector]
 
 (* ****** ****** *)
 
 implement{}
 add_vector_vector
-  (v1, v2) = vector_make (v1.x + v2.x, v1.y + v2.y)
+  (v1, v2) = vector_make (v1.x() + v2.x(), v1.y() + v2.y())
 // end of [add_vector_vector]
 implement{}
 sub_vector_vector
-  (v1, v2) = vector_make (v1.x - v2.x, v1.y - v2.y)
+  (v1, v2) = vector_make (v1.x() - v2.x(), v1.y() - v2.y())
 // end of [sub_vector_vector]
 
 (* ****** ****** *)
 //
 implement{}
 mul_scalar_vector
-  (k, v) = vector_make (k * v.x, k * v.y)
+  (k, v) = vector_make (k * v.x(), k * v.y())
 //
 implement{}
 div_vector_scalar (v, k) = let
-  val _1k = 1.0 / k in vector_make (_1k * v.x, _1k * v.y)
+  val _1k = 1.0 / k in vector_make (_1k * v.x(), _1k * v.y())
 end // end of [div_vector_scalar]
 //
 (* ****** ****** *)
 
 implement{}
 vector_length (v) = let
-  val x = v.x and y = v.y in $M.sqrt (x*x + y*y)
+  val x = v.x() and y = v.y() in $M.sqrt (x*x + y*y)
 end // end of [vector_length]
 
 (* ****** ****** *)
@@ -137,7 +137,7 @@ end // end of [vector_length]
 implement{}
 vector_rotate
   (v, delta) = let
-  val dx = v.x and dy = v.y
+  val dx = v.x() and dy = v.y()
   val c0 = $M.cos (delta) and s0 = $M.sin (delta)
 in
   vector_make (c0 * dx - s0 * dy, s0 * dx + c0 * dy)
@@ -165,7 +165,7 @@ end // end of [local]
 
 implement{}
 color_complement (clr) =
-  color_make (1.0 - clr.r, 1.0 - clr.g, 1.0 - clr.b)
+  color_make (1.0 - clr.r(), 1.0 - clr.g(), 1.0 - clr.b())
 // end of [color_complement]
 
 (* ****** ****** *)

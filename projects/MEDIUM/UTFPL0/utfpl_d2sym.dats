@@ -57,10 +57,11 @@ end // end of [let]
 end // end of [local]
 
 (* ****** ****** *)
-
+//
 implement
-fprint_d2sym (out, d2s) = fprint! (out, d2s.name)
-
+fprint_d2sym
+  (out, d2s) = fprint! (out, d2s.name())
+//
 (* ****** ****** *)
 
 (* end of [utfpl_d2sym.dats] *)

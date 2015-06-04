@@ -36,12 +36,12 @@ staload "{$JSONC}/SATS/json.sats"
 staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
-
+//
 implement VALtrue = VALint(1)
 implement VALfalse = VALint(0)
-
+//
 implement VALvoid = VALint(0)
-
+//
 (* ****** ****** *)
 
 implement

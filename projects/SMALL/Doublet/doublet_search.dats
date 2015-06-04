@@ -65,7 +65,7 @@ implement
 node_test
   (nxs) =
 (
-  nxs.head = doublet_get_target ()
+  nxs.head() = doublet_get_target ()
 ) (* end of [node_test] *)
 
 (* ****** ****** *)
@@ -75,7 +75,7 @@ typedef wordset = set (word)
 (* ****** ****** *)
 
 implement
-gcompare_val<strarr> = strarr_compare
+gcompare_val_val<strarr> = strarr_compare
 
 (* ****** ****** *)
 //
@@ -178,8 +178,11 @@ case+ ws of
   end // end of [list_vt_cons]
 )
 //
-var visited: wordset = visited
-val ((*void*)) = loop (nxs, visited, word_get_friends (nx0.head))
+var
+visited: wordset = visited
+//
+val ((*void*)) =
+  loop (nxs, visited, word_get_friends (nx0.head()))
 //
 in
   visited

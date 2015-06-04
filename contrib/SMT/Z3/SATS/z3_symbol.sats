@@ -49,7 +49,7 @@ ATSCNTRB_SMT_Z3_Z3_HEADER
 (*
 Z3_symbol
 Z3_mk_int_symbol (__in Z3_context c, __in int i)
-Create a Z3 symbol using an integer.
+Create a Z3 symbol using an integer in [0, 2^30).
 *)
 fun Z3_mk_int_symbol
   (ctx: !Z3_context, i: int): Z3_symbol = "mac#%"

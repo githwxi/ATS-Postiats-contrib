@@ -16,9 +16,12 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload UN = $UNSAFE
-
+//
+staload
+UNISTD = "libc/SATS/unistd.sats"
+//
 (* ****** ****** *)
 //
 staload
@@ -367,6 +370,8 @@ val () = assertloc (a0 >= 0)
 val () = assertloc (a1 >= 0)
 //
 val () = println! (a0, " + ", a1, " = ", add_int_int(a0, a1))
+//
+val _(*left*) = $UNISTD.usleep(100000u)
 //
 } (* end of [main0] *)
 

@@ -68,9 +68,11 @@ fun v2df_get_snd (dd: v2df): double = "mac#%"
 //
 symintr v2df_make
 //
-fun v2df_make_int_int
+fun
+v2df_make_int_int
   (i0: int, i1: int): v2df = "mac#%"
-fun v2df_make_double_double
+fun
+v2df_make_double_double
   (d0: double, d1: double): v2df = "mac#%"
 //
 overload v2df_make with v2df_make_int_int
@@ -78,13 +80,17 @@ overload v2df_make with v2df_make_double_double
 //
 (* ****** ****** *)
 //
-fun add_v2df_v2df
+fun
+add_v2df_v2df
   (dd0: v2df, dd1: v2df): v2df = "mac#%"
-fun sub_v2df_v2df
+fun
+sub_v2df_v2df
   (dd0: v2df, dd1: v2df): v2df = "mac#%"
-fun mul_v2df_v2df
+fun
+mul_v2df_v2df
   (dd0: v2df, dd1: v2df): v2df = "mac#%"
-fun div_v2df_v2df
+fun
+div_v2df_v2df
   (dd0: v2df, dd1: v2df): v2df = "mac#%"
 //
 overload + with add_v2df_v2df of 0

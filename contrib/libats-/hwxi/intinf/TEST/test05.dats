@@ -31,9 +31,8 @@ implement
 {a}(*tmp*)
 gfact (x) = let
 //
-macdef gmul = gmul_val<a>
-//
 macdef gint = gnumber_int<a>
+macdef gmul = gmul_val_val<a>
 //
 in
 //

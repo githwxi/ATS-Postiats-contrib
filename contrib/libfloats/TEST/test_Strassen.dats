@@ -85,7 +85,8 @@ LAgmat_gemm_strassen2
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 mul11_LAgmat_LAgmat
   (A, B) = C where
 {
@@ -114,7 +115,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 LAgmat_gemm_strassen
   {mo}{n}
 (
@@ -166,7 +168,8 @@ end // end of [LAgmat_gemm_strassen]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 LAgmat_gemm_strassen2
   {mo}{p,q,r}
 (

@@ -133,6 +133,23 @@ end // end of [list_length]
 (* ****** ****** *)
 
 implement
+list_get_at
+  {a}(xs, i) = (
+//
+if
+(i = 0)
+then let
+  val+list_cons(x, xs) = xs in x
+end // end of [then]
+else let
+  val+list_cons(_, xs) = xs in list_get_at(xs, i-1)
+end // end of [else]
+//
+) (* end of [list_get_at] *)
+
+(* ****** ****** *)
+
+implement
 list_append
   (xs, ys) = let
 //
@@ -180,6 +197,86 @@ case+ xs of
 in
   loop (xs, ys)
 end // end of [list_reverse_append]
+
+(* ****** ****** *)
+
+implement
+list_take(xs, i) =
+(
+//
+if
+i > 0
+then let
+  val+list_cons(x, xs) = xs
+in
+  list_cons(x, list_take(xs, i-1))
+end // end of [then]
+else list_nil() // end of [else]
+//
+) (* end of [list_take] *)
+
+implement
+list_drop(xs, i) =
+(
+//
+if
+i > 0
+then let
+  val+list_cons(_, xs) = xs in list_drop(xs, i-1)
+end // end of [then]
+else xs // end of [else]
+//
+) (* end of [list_drop] *)
+
+(* ****** ****** *)
+
+implement
+list_split_at
+  (xs, i) =
+(
+  $tup(list_take(xs, i), list_drop(xs, i))
+) (* end of [list_split_at] *)
+
+(* ****** ****** *)
+
+implement
+list_insert_at
+  (xs, i, x0) = (
+//
+if
+(i > 0)
+then let
+  val+list_cons (x, xs) = xs
+in
+  list_cons (x, list_insert_at (xs, i-1, x0))
+end // end of [then]
+else list_cons (x0, xs)
+//
+) (* end of [list_insert_at] *)
+  
+(* ****** ****** *)
+
+implement
+list_remove_at
+  (xs, i) = let
+//
+val+list_cons (x, xs) = xs
+//
+in
+//
+if
+(i > 0)
+then let
+//
+val $tup(x_rem, xs) =
+  list_remove_at (xs, i-1)
+//
+in
+  $tup(x_rem, list_cons (x, xs))
+end // end of [then]
+else $tup(x, xs) // end of [else]
+//
+end (* end of [list_remove_at] *)
 
 (* ****** ****** *)
 //

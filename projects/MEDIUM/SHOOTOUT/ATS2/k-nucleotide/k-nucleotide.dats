@@ -199,7 +199,7 @@ loop{n:nat} .<n>.
 in
 //
 if string_isnot_empty (key)
-  then loop (key.tail, symbol_lor (symbol_lsl (res, 2), $UN.cast{a}(mychar2int(key[0])))) else res
+  then loop (key.tail(), symbol_lor (symbol_lsl (res, 2), $UN.cast{a}(mychar2int(key[0])))) else res
 //
 end // end of [if]
 //
@@ -624,9 +624,9 @@ end // end of [write_count]
 (* ****** ****** *)
 //
 implement
-gequal_val<uint32> (x1, x2) = (x1 = x2)
+gequal_val_val<uint32> (x1, x2) = (x1 = x2)
 implement
-gequal_val<uint64> (x1, x2) = (x1 = x2)
+gequal_val_val<uint64> (x1, x2) = (x1 = x2)
 //
 (* ****** ****** *)
 

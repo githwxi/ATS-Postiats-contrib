@@ -81,7 +81,7 @@ implement{
   val (
     fpf | ctx
   ) = mydraw_get0_canvas2d<> ()
-  val () = canvas2d_moveTo (ctx, p.x, p.y)
+  val () = canvas2d_moveTo (ctx, p.x(), p.y())
   prval ((*void*)) = fpf (ctx)
 in
   // nothing
@@ -105,7 +105,7 @@ implement{
   val (
     fpf | ctx
   ) = mydraw_get0_canvas2d<> ()
-  val () = canvas2d_lineTo (ctx, p.x, p.y)
+  val () = canvas2d_lineTo (ctx, p.x(), p.y())
   prval ((*void*)) = fpf (ctx)
 in
   // nothing
@@ -130,7 +130,7 @@ implement{
   val (
     fpf | ctx
   ) = mydraw_get0_canvas2d<> ()
-  val () = canvas2d_rect (ctx, pul.x, pul.y, w, h)
+  val () = canvas2d_rect (ctx, pul.x(), pul.y(), w, h)
   prval ((*void*)) = fpf (ctx)
 in
   // nothing
@@ -144,7 +144,7 @@ implement{
   val (
     fpf | ctx
   ) = mydraw_get0_canvas2d<> ()
-  val () = canvas2d_arc (ctx, pc.x, pc.y, rad, ang1, ang2, true)
+  val () = canvas2d_arc (ctx, pc.x(), pc.y(), rad, ang1, ang2, true)
   prval ((*void*)) = fpf (ctx)
 in
   // nothing
@@ -156,7 +156,7 @@ implement{
   val (
     fpf | ctx
   ) = mydraw_get0_canvas2d<> ()
-  val () = canvas2d_arc (ctx, pc.x, pc.y, rad, ang1, ang2, false)
+  val () = canvas2d_arc (ctx, pc.x(), pc.y(), rad, ang1, ang2, false)
   prval ((*void*)) = fpf (ctx)
 in
   // nothing

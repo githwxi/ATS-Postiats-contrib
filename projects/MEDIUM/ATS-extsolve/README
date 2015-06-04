@@ -1,0 +1,12 @@
+##
+## ATS-extsolve:
+## For solving ATS-constraints
+## with external SMT-solvers
+##
+
+######
+
+This one is built on top of the earlier
+work by Will Blair (wdblairATcsDOTbuDOTedu)
+
+###### end of [README] ######

@@ -111,16 +111,28 @@ Z3_solver_get_model
 
 (* ****** ****** *)
 
+fun Z3_solver_pop 
+(
+  ctx: !Z3_context, s: !Z3_solver, depth: uint
+): void = "mac#%" // end of [Z3_solver_pop]
+
+fun Z3_solver_push
+(
+  ctx: !Z3_context, s: !Z3_solver
+) : void = "mac#%" // end of [Z3_solver_push]
+
+(* ****** ****** *)
+
 fun
 Z3_solver_assert
 (
   ctx: !Z3_context, s: !Z3_solver, f: !Z3_ast
-): void = "mac#" // end of [Z3_solver_assert]
+): void = "mac#%" // end of [Z3_solver_assert]
 
 fun Z3_solver_check 
 (
   ctx: !Z3_context, s: !Z3_solver
-): Z3_ibool = "mac#" // end of [Z3_solver_check]
+): Z3_lbool = "mac#%" // end of [Z3_solver_check]
 
 (* ****** ****** *)
 

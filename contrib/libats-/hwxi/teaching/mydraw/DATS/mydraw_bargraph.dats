@@ -35,9 +35,11 @@ fun{
 ) : void // end of [mydraw_bargraph]
 //
 extern
-fun{} mydraw_bargraph$color (i: intGte(0)): color
+fun{}
+mydraw_bargraph$color (i: intGte(0)): color
 extern
-fun{} mydraw_bargraph$height (i: intGte(0)): double
+fun{}
+mydraw_bargraph$height (i: intGte(0)): double
 //
 (* ****** ****** *)
 
@@ -72,7 +74,7 @@ if ht > 0.0 then
   mydraw_quadrilateral
     (p1, p1_new, p1_new+ht*(p4_new-p1_new), p1+ht*(p4-p1))
   val clr = mydraw_bargraph$color (i)
-  val ((*void*)) = mydraw_fill_set_rgb (clr.r, clr.g, clr.b)
+  val ((*void*)) = mydraw_fill_set_rgb (clr.r(), clr.g(), clr.b())
   val ((*void*)) = mydraw_fill ((*void*))
 } (* end of [if] *)
 //

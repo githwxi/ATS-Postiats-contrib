@@ -19,8 +19,13 @@ ATS_STATIC_PREFIX "_ats2jspre_arrayref_"
 //
 (* ****** ****** *)
 //
-staload UN =
-  "prelude/SATS/unsafe.sats"
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
@@ -32,7 +37,15 @@ staload "./../SATS/JSarray.sats"
 //
 (* ****** ****** *)
 //
+staload "./../SATS/intrange.sats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/arrayref.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/arrayref.dats"
 //
 (* ****** ****** *)
 //
@@ -74,26 +87,36 @@ arrayref_set_at
 end // end of [arrayref_set_at]
 
 (* ****** ****** *)
-
-implement
-arrayref_foreach_cloref
-  {a}(A, n, f) = let
 //
-fun
-loop
-{i:nat}
-(
-  i: int(i)
-) : void =
-(
-  if i < n
-    then (f(i); loop(i+1)) else ()
-  // end of [if]
-) (* end of [loop] *)
+// Array-with-size
+//
+(* ****** ****** *)
+//
+implement
+arrszref_make_arrayref
+  {a}(A, n) = $UN.cast{arrszref(a)}(A)
+//
+(* ****** ****** *)
+//
+implement
+arrszref_size{a}(A) = let
+  val A = $UN.cast{JSarray(a)}(A)
 in
-  loop(0)
-end // end of [arrayref_foreach_cloref]
-
+  $UN.cast{intGte(0)}(JSarray_length(A))
+end // end of [arrszref_size]
+//
+(* ****** ****** *)
+//
+implement
+arrszref_get_at{a}(A, i) = let
+  val A = $UN.cast{JSarray(a)}(A) in JSarray_get_at(A, i)
+end // end of [arrszref_get_at]
+//
+implement
+arrszref_set_at{a}(A, i, x) = let
+  val A = $UN.cast{JSarray(a)}(A) in JSarray_set_at(A, i, x)
+end // end of [arrszref_set_at]
+//
 (* ****** ****** *)
 
 (* end of [arrayref.dats] *)

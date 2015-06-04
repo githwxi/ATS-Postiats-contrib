@@ -130,7 +130,7 @@ qsort_partition
 implement
 {a}(*tmp*)
 quicksort (A) =
-  quicksort2 (A, i2sz(0), A.size)
+  quicksort2 (A, i2sz(0), A.size())
 //
 (* ****** ****** *)
 
@@ -171,7 +171,7 @@ fun loop
   k1: size_t, k2: size_t
 ) : size_t =
   if k2 < last then let
-    val sgn = gcompare_val<a> (pivot, A[k2])
+    val sgn = gcompare_val_val<a> (pivot, A[k2])
   in
     if sgn <= 0
       then loop (k1, succ(k2))
@@ -278,7 +278,7 @@ val () = srandom_with_time ()
 //
 var i: size_t
 val () = !xy0 := ((~1, 0))
-val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
+val () = for (i := i2sz(0); i < A0.size(); i := succ(i)) ASZ[i] := A0[i]
 val () = !theExchlst2 := xys0
 //
 } (* end of [ASZ_reset] *)
@@ -370,7 +370,7 @@ mydraw_bargraph$color<> (i) = colorgen (ASZ[i])
 implement
 mydraw_bargraph$height<> (i) = 1.0 * (ASZ[i]+1) / MYMAX
 //
-val asz = ASZ.size
+val asz = ASZ.size()
 val asz = sz2i (asz)
 val asz = ckastloc_gintGt (asz, 0)
 //

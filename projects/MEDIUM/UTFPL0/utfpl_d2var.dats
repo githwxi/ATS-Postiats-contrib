@@ -115,14 +115,15 @@ end // end of [local]
 implement
 fprint_d2var
   (out, d2v) =
-  fprint! (out, d2v.name, "(", d2v.stamp, ")")
-// end of [fprint_d2var]
+(
+  fprint! (out, d2v.name(), "(", d2v.stamp(), ")")
+) (* end of [fprint_d2var] *)
 
 (* ****** ****** *)
 
 implement
 compare_d2var_d2var
-  (d2v1, d2v2) = compare (d2v1.stamp, d2v2.stamp)
+  (d2v1, d2v2) = compare (d2v1.stamp(), d2v2.stamp())
 // end of [compare_d2var_d2var]
 
 (* ****** ****** *)

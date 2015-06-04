@@ -16,6 +16,11 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+
+staload
+UNISTD = "libc/SATS/unistd.sats"
+
+(* ****** ****** *)
 //
 staload "./../SATS/basis.sats"
 staload "./../SATS/co-list.sats"
@@ -198,6 +203,37 @@ else () // end of [else]
 //
 (* ****** ****** *)
 
+fun
+wait_for_closing
+  (N: int): void = let
+//
+fun log (N: int, n: int, i: int): int =
+  if n >= N then i else log(N, n+n, i+1)
+//
+fun
+loop
+(
+  n: int
+) : void =
+if
+n > 0
+then let
+  val _ = $UNISTD.usleep(250000u)
+  val () = fprint(stdout_ref, ".")
+  val () = fileref_flush(stdout_ref)
+in
+  loop (n-1)
+end (* end of [if] *)
+//
+val () = loop(3+log(N/8, 1, 0))
+val () = fprint_newline (stdout_ref)
+//
+in
+  // nothing
+end // end of [wait_for_closing]
+
+(* ****** ****** *)
+
 implement
 main0(argc, argv) =
 {
@@ -221,6 +257,14 @@ val () = fprint_primes(out, N, chn)
 //
 val () = channeg_list_nil(chn)
 val () = channeg_nil_close(chn)
+//
+val () =
+print!
+(
+  "Waiting for the created threads to finish"
+) (* end of [val] *)
+//
+val () = wait_for_closing(N)
 //
 } (* end of [main0] *)
 

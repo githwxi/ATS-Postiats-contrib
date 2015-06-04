@@ -14,12 +14,19 @@ staload "./basics_php.sats"
 (* ****** ****** *)
 //
 staload "./SATS/integer.sats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/float.sats"
 staload "./SATS/string.sats"
 //
 (* ****** ****** *)
 //
 staload "./SATS/print.sats"
+staload _ = "./DATS/print.dats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/filebas.sats"
 //
 (* ****** ****** *)

@@ -1,8 +1,8 @@
 (* ****** ****** *)
-
+//
 #include
-"../share/utfpl_symintr.hats"
-
+"./../share/utfpl_symintr.hats"
+//
 (* ****** ****** *)
 
 fun fcopy

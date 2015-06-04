@@ -334,6 +334,7 @@ and d2exp_node =
       d2exp(*test*), d2exp(*then*), d2expopt(*else*)
     ) (* end of [D2Eifopt] *)
 //
+  | D2Esing of (d2exp)
   | D2Elist of (d2explst)
 //
   | D2Etup of (d2explst)
@@ -494,6 +495,7 @@ fun d2exp_ifopt
 
 (* ****** ****** *)
 
+fun d2exp_sing (loc: loc_t, d2e: d2exp): d2exp
 fun d2exp_list (loc: loc_t, d2es: d2explst): d2exp
 
 (* ****** ****** *)

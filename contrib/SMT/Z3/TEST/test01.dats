@@ -30,6 +30,7 @@ val solver =
 val () = Z3_tactic_dec_ref (ctx, qflia)
 //
 val sint = Z3_mk_int_sort(ctx)
+//
 val _1 = Z3_mk_int (ctx, 1, sint)
 val _2 = Z3_mk_int (ctx, 2, sint)
 val _x = Z3_mk_fresh_const (ctx, "x", sint)
@@ -45,6 +46,7 @@ val _2x_2y = Z3_mk_add2 (ctx, _2x, _2y)
 val _2x_2y_eq_1 = Z3_mk_eq (ctx, _2x_2y, _1)
 //
 val () = Z3_solver_assert (ctx, solver, _2x_2y_eq_1)
+val () = assertloc(Z3_solver_check (ctx, solver) = Z3_L_FALSE)
 //
 val _ = Z3_dec_ref (ctx, _1)
 val _ = Z3_dec_ref (ctx, _2)

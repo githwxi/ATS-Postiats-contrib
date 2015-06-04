@@ -1,0 +1,9 @@
+[tetris2]:
+
+This is an all-in-one version of [tetris].
+
+This version demonstrates that one can re-assemble code in ATS2 in a highly
+flexible manner. The design of ATS2 puts a great emphasis on code mobility,
+which is a key indication of the support for code reuse.
+
+###### end of [README] ######

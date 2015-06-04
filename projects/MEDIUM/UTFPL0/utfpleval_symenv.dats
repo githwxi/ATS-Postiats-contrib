@@ -53,7 +53,7 @@ implement
 the_d2symmap_find
   (d2s) = let
 //
-val sym = d2s.name in hashtbl_search (mymap, sym.name)
+val sym = d2s.name() in hashtbl_search (mymap, sym.name())
 //
 end // end of [the_d2symmap_add]
 
@@ -65,11 +65,11 @@ implement
 the_d2symmap_add
   (d2s, def) = let
 //
-val sym = d2s.name
+val sym = d2s.name()
 //
 in
 //
-the_d2symmap_add_name (sym.name, def)
+the_d2symmap_add_name (sym.name(), def)
 //
 end // end of [the_d2symmap_add]
 

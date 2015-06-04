@@ -54,6 +54,16 @@ cleanall:: ; $(RMF) test01
 
 ######
 
+all:: \
+test02
+test02: \
+test02.dats ; $(PATSCC) $(INCLUDE) -o $@ $< $(LDFLAGS) -lz3
+regress:: \
+test02; ./test02
+cleanall:: ; $(RMF) test02
+
+######
+
 RMF=rm -f
 
 ######

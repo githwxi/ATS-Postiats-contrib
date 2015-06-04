@@ -79,7 +79,7 @@ $extype"tblent_t"
 
 typedef tblent = tblent_t
 
-viewtypedef
+vtypedef
 symtbl (
   sz:int, n:int, l:addr
 ) = @{
@@ -259,7 +259,7 @@ symtbl_clear (tbl) = let
 val (vbox pf_tbl | p_tbl) = tbl
 //
 in
-
+//
 tblent_array_clear (p_tbl->view_arr |  p_tbl->ptr, p_tbl->size);
 p_tbl->nitm := 0
 //

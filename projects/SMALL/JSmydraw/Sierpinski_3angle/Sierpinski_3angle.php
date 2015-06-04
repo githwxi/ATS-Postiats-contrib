@@ -112,9 +112,9 @@ draw3p<>
 //
 val pf = ctx.save()
 val () = ctx.beginPath()
-val () = ctx.moveTo (p1.x, p1.y)
-val () = ctx.lineTo (p2.x, p2.y)
-val () = ctx.lineTo (p3.x, p3.y)
+val () = ctx.moveTo (p1.x(), p1.y())
+val () = ctx.lineTo (p2.x(), p2.y())
+val () = ctx.lineTo (p3.x(), p3.y())
 val () = ctx.closePath()
 val () = ctx.fill()
 val () = ctx.restore (pf.0 | (*none*))

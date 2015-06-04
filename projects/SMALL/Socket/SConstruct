@@ -9,7 +9,7 @@ import os
 
 ######
 
-OS_PATH = os.environ['PATH']
+OS_PATH= os.environ['PATH']
 PATSHOME= os.environ['PATSHOME']
 PATSHOMERELOC= os.environ['PATSHOMERELOC']
 

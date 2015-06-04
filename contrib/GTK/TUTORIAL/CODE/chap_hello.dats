@@ -85,7 +85,7 @@ val widget =
   gtk_window_new (GTK_WINDOW_TOPLEVEL)
 val ((*void*)) = assertloc (ptrcast(widget) > 0)
 val ((*void*)) =
-  gtk_window_set_title (widget, (gstring)"Hello, world")
+  gtk_window_set_title (widget, gstring("Hello, world"))
 //
 in
   widget
@@ -97,9 +97,9 @@ implement
 button_create () = let
 //
 val widget =
-  gtk_button_new_with_label ((gstring)"Hello, world")
+gtk_button_new_with_label(gstring("Hello, world"))
 //
-val ((*void*)) = assertloc (ptrcast(widget) > 0)
+val ((*void*)) = assertloc(ptrcast(widget) > 0)
 //
 in
   widget
@@ -112,7 +112,7 @@ window_add_button
   (window, button) = let
 //
 val () =
-gtk_container_set_border_width (window, (guint)10)
+gtk_container_set_border_width (window, guint(10))
 //
 in
 //
@@ -132,7 +132,7 @@ fun f (): void = println! ("Hello, world")
 val id =
 g_signal_connect
 (
-  button, (gsignal)"clicked", G_CALLBACK(f), (gpointer)NULL
+  button, (gsignal)"clicked", G_CALLBACK(f), gpointer(NULL)
 ) (* end of [val] *)
 //
 } (* end of [button_handle_clicked] *)
@@ -147,7 +147,7 @@ window_handle_destroy
 val id =
 g_signal_connect
 (
-  window, (gsignal)"destroy", G_CALLBACK(gtk_main_quit), (gpointer)NULL
+  window, gsignal("destroy"), G_CALLBACK(gtk_main_quit), gpointer(NULL)
 ) (* end of [val] *)
 //
 } (* end of [window_handle_destroy] *)
@@ -165,7 +165,7 @@ fun f (x: GtkWindow1): gboolean =
 val id =
 g_signal_connect
 (
-  window, (gsignal)"delete-event", G_CALLBACK(f), (gpointer)NULL
+  window, gsignal("delete-event"), G_CALLBACK(f), gpointer(NULL)
 ) (* end of [val] *)
 //
 } (* end of [window_handle_delete_event] *)

@@ -50,6 +50,13 @@ myclock1-2_dats.c: myclock1-2.dats; $(PATSOPT) -o $@ -d $<
 myclock1-2_dats.js: myclock1-2_dats.c; $(ATSCC2JS) -o $@ -i $<
 
 ######
+
+all:: \
+myclock2_dats.js
+myclock2_dats.c: myclock2.dats; $(PATSOPT) -o $@ -d $<
+myclock2_dats.js: myclock2_dats.c; $(ATSCC2JS) -o $@ -i $<
+
+######
 #
 upload_demo:: \
 upload_myclock0
@@ -69,6 +76,12 @@ upload_myclock1-2: ; \
 scp myclock1-2.html myclock1-2_dats.js \
   ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSclock/.
 #
+upload_demo:: \
+upload_myclock2
+upload_myclock2: ; \
+scp myclock2.html myclock2_dats.js \
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/SMALL/JSclock/.
+#
 ######
 
 RMF=rm -f
@@ -81,10 +94,12 @@ clean:: ; $(RMF) *~
 clean:: ; $(RMF) myclock0_dats.c
 clean:: ; $(RMF) myclock1_dats.c
 clean:: ; $(RMF) myclock1-2_dats.c
+clean:: ; $(RMF) myclock2_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) myclock0.js myclock0.js.map
 cleanall:: ; $(RMF) myclock1.js myclock1.js.map
 cleanall:: ; $(RMF) myclock1-2_dats.js
+cleanall:: ; $(RMF) myclock2_dats.js
 
 ###### end of [Makefile] ######

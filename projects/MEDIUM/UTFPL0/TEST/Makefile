@@ -49,12 +49,12 @@ RMF=rm -f
 clean:: ; $(RMF) *~
 
 cleanall:: clean
-cleanall:: ; $(RMF) -f test01_utfpl.json
-cleanall:: ; $(RMF) -f test02_utfpl.json
-cleanall:: ; $(RMF) -f test03_utfpl.json
-cleanall:: ; $(RMF) -f test04_utfpl.json
-cleanall:: ; $(RMF) -f test05_utfpl.json
-cleanall:: ; $(RMF) -f test06_utfpl.json
-cleanall:: ; $(RMF) -f queens_utfpl.json
+cleanall:: ; $(RMF) test01_utfpl.json
+cleanall:: ; $(RMF) test02_utfpl.json
+cleanall:: ; $(RMF) test03_utfpl.json
+cleanall:: ; $(RMF) test04_utfpl.json
+cleanall:: ; $(RMF) test05_utfpl.json
+cleanall:: ; $(RMF) test06_utfpl.json
+cleanall:: ; $(RMF) queens_utfpl.json
 
 ###### end of [Makefile] ######

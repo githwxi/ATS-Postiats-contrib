@@ -59,7 +59,7 @@ implement
 the_d2cstmap_insert
   (d2c0) = let
 //
-val k0 = d2c0.stamp
+val k0 = d2c0.stamp()
 val (vbox(pf) | p) = ref_get_viewptr (the_d2cstmap)
 val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, d2c0))
 //

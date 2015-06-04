@@ -260,7 +260,7 @@ fun auxind
 (
   A: &array(t, n), i: int, j: natLt(n)
 ) : natLt(n) =
-  if A.[j].cprob_lookup < (float)i
+  if A.[j].cprob_lookup < float(i)
     then auxind (A, i, $UN.cast{natLt(n)}(j+1)) else j
 // end of [auxind]
 //

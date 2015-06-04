@@ -60,6 +60,8 @@ val r_obj = ref_make_viewptr{objptr0}(pf_obj | p_obj)
 
 in (* in of [local] *)
 
+(* ****** ****** *)
+
 implement
 initset (x_init) =
 {
@@ -91,6 +93,8 @@ exchange (x_new) = x_current where
   val (vbox pf | p) = ref_get_viewptr (r_obj)
   val x_current = !p; val ((*void*)) = !p := x_new
 } // end of [where] (* end of [initset] *)
+
+(* ****** ****** *)
 
 end // end of [local]
 

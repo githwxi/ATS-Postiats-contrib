@@ -57,7 +57,7 @@ implement
 gvector_foreach$fwork<a><tenv>
   (x, env) =
 (
-  env := gadd_val<a2> (env, blas$gnorm2<a><a2> (x))
+  env := gadd_val_val<a2> (env, blas$gnorm2<a><a2> (x))
 )
 //
 var env: tenv = gnumber_int<a2>(0)
@@ -88,7 +88,7 @@ gvector_foreach$fwork<a><tenv>
   (x, env) = let
 //
 val x2 = blas$gnorm<a><a2> (x)
-val isgt = ggt_val<a2> (x2, $UN.ptr1_get<a2> (p_max))
+val isgt = ggt_val_val<a2> (x2, $UN.ptr1_get<a2> (p_max))
 val (
 ) = if isgt then
 (
@@ -132,7 +132,7 @@ implement
 gvector_foreach2$fwork<a,a><tenv>
   (x, y, env) =
 (
-  env := gadd_val<a> (env, blas_inner$fmul<a> (x, y))
+  env := gadd_val_val<a> (env, blas_inner$fmul<a> (x, y))
 )
 //
 var env: tenv = gnumber_int<a>(0)
@@ -150,7 +150,7 @@ blas_inner_u
   (V1, V2, n, d1, d2) = let
 //
 implement
-blas_inner$fmul<a> (x, y) = gmul_val<a> (x, y)
+blas_inner$fmul<a> (x, y) = gmul_val_val<a> (x, y)
 //
 in
   blas_inner (V1, V2, n, d1, d2)
@@ -163,7 +163,7 @@ blas_inner_c
 //
 implement
 blas_inner$fmul<a> (x, y) = let
-  val x_ = gconjugate_val<a> (x) in gmul_val<a> (x_, y)
+  val x_ = gconjugate_val<a> (x) in gmul_val_val<a> (x_, y)
 end // end of [blas_inner_c]
 //
 in
@@ -183,7 +183,7 @@ gvector_foreach$cont (x, env) = true
 //
 implement(env)
 gvector_foreach$fwork<a><env>
-  (x, env) = x := gmul_val<a> (alpha, x)
+  (x, env) = x := gmul_val_val<a> (alpha, x)
 //
 val _(*n*) = gvector_foreach<a> (X, n, dx)
 //

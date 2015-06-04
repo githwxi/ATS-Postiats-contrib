@@ -23,6 +23,9 @@ staload
 //
 (* ****** ****** *)
 //
+(*
+staload "./P1.sats"
+*)
 staload
 "{$LIBATSHWXI}/PEULER/PROJECT/P1/P1.sats"
 //

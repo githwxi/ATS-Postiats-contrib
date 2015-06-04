@@ -24,8 +24,6 @@ Even if we assume that i *n + j < m * n in the SMT
 script, the SMT solver cannot decide this entirely
 on its own.
 
-*)
-
 fun {a:t@ype}
 matrix_get {m,n:nat} {i,j:nat | i < m; j < n} (
     mat: !matrix(a, m, n), i: int i, n: int n, j: int j

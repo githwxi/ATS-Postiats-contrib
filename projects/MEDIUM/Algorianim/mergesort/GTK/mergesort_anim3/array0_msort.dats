@@ -50,7 +50,7 @@ array0_msort2
 implement
 {a}(*tmp*)
 array0_msort (A) =
-  array0_msort2<a> (A, 0, sz2i(A.size))
+  array0_msort2<a> (A, 0, sz2i(A.size()))
 
 (* ****** ****** *)
 
@@ -162,7 +162,8 @@ if
 i < split && split < j
 then let
 //
-val sgn = gcompare_val<a> (A[i], A[split])
+val sgn =
+  gcompare_val_val<a> (A[i], A[split])
 //
 in
 //

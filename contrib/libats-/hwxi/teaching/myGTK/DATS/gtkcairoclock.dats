@@ -135,10 +135,12 @@ prval () = minus_addback (fpf_win, win | darea)
 //
 in
 //
-if isnot then let
+if
+isnot
+then let
   var alloc: GtkAllocation
   val () = gtk_widget_get_allocation (darea, alloc)
-  val () = gtk_widget_queue_draw_area (darea, (gint)0, (gint)0, alloc.width, alloc.height)
+  val () = gtk_widget_queue_draw_area (darea, gint(0), gint(0), alloc.width, alloc.height)
 in
   GTRUE // HX: [ftimeout] continues
 end else
@@ -164,12 +166,14 @@ val win0 =
 val win0 = win0 // HX: fix the master type
 //
 val () = assertloc (ptrcast(win0) > 0)
-val () = gtk_window_set_default_size (win0, (gint)400, (gint)400)
+val () = gtk_window_set_default_size (win0, gint(400), gint(400))
 //
 val opt = gtkcairoclock_title ()
 val issome = stropt_is_some(opt)
 val () =
-if issome then let
+if
+issome
+then let
   val title = stropt_unsome (opt)
 in
   gtk_window_set_title (win0, gstring(title))
@@ -181,24 +185,39 @@ val p_darea = gobjref2ptr (darea)
 val () = assertloc (p_darea > 0)
 val () = gtk_container_add (win0, darea)
 //
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  darea, (gsignal)"draw", G_CALLBACK(fexpose), (gpointer)nullp
-)
+  darea
+, (gsignal)"draw"
+, G_CALLBACK(fexpose), gpointer(nullp)
+) (* end of [val] *)
+//
 val () = g_object_unref (darea)
 //
-val _sid = g_signal_connect
+val _sid =
+g_signal_connect
 (
-  win0, (gsignal)"destroy", G_CALLBACK(on_destroy), (gpointer)nullp
-)
-val _sid = g_signal_connect
+  win0
+, (gsignal)"destroy"
+, G_CALLBACK(on_destroy), gpointer(nullp)
+) (* end of [val] *)
+val _sid =
+g_signal_connect
 (
-  win0, (gsignal)"delete-event", G_CALLBACK(on_delete_event), (gpointer)nullp
-)
+  win0
+, (gsignal)"delete-event"
+, G_CALLBACK(on_delete_event), gpointer(nullp)
+) (* end of [val] *)
 //
 val int =
-  gtkcairoclock_timeout_interval ()
-val _rid = g_timeout_add ((guint)int, (GSourceFunc)ftimeout, (gpointer)p_darea)
+  gtkcairoclock_timeout_interval()
+//
+val _rid =
+g_timeout_add
+(
+  guint(int), (GSourceFunc)ftimeout, gpointer(p_darea)
+) (* end of [val] *)
 //
 val () = gtk_widget_show_all (win0)
 //
@@ -206,7 +225,7 @@ val () = g_object_unref (win0) // HX: refcount of [win0] decreases from 2 to 1
 //
 val ((*void*)) = gtk_main ((*void*))
 //
-} // end of [gtkcairoclock_main]
+} (* end of [gtkcairoclock_main] *)
 
 (* ****** ****** *)
 

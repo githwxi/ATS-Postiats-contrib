@@ -26,6 +26,17 @@ ats2jspre_JSarray_pair(x1, x2) { return [x1, x2]; }
 /* ****** ****** */
 
 function
+ats2jspre_JSarray_copy_arrayref(A, n)
+{
+//
+  var A2 = new Array(n);
+  for (var i = 0; i < n; i += 1) A2[i] = A[i]; return A2;
+//
+} // end of [ats2jspre_JSarray_copy_arrayref]
+
+/* ****** ****** */
+
+function
 ats2jspre_JSarray_get_at(A, i) { return A[i]; }
 function
 ats2jspre_JSarray_set_at(A, i, x) { A[i] = x; return; }

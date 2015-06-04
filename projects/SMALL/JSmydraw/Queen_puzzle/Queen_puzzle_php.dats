@@ -139,10 +139,10 @@ overload - with sub_ppv
 //
 implement
 add_pvp (p, v) =
-  point_make_xy (p.x + v.x, p.y + v.y)
+  point_make_xy (p.x() + v.x(), p.y() + v.y())
 implement
 sub_ppv (p1, p2) =
-  vector_make_xy (p1.x - p2.x, p1.y - p2.y)
+  vector_make_xy (p1.x() - p2.x(), p1.y() - p2.y())
 //
 (* ****** ****** *)
 //
@@ -156,10 +156,10 @@ sub_vvv (v1: vector, v2: vector): vector
 //
 implement
 add_vvv (v1, v2) =
-  vector_make_xy (v1.x + v2.x, v1.y + v2.y)
+  vector_make_xy (v1.x() + v2.x(), v1.y() + v2.y())
 implement
 sub_vvv (v1, v2) =
-  vector_make_xy (v1.x - v2.x, v1.y - v2.y)
+  vector_make_xy (v1.x() - v2.x(), v1.y() - v2.y())
 //
 (* ****** ****** *)
 //
@@ -177,9 +177,9 @@ overload / with div_vkv
 (* ****** ****** *)
 //
 implement
-mul_kvv (k, v) = vector_make_xy (k * v.x, k * v.y)
+mul_kvv (k, v) = vector_make_xy (k * v.x(), k * v.y())
 implement
-div_vkv (v, k) = vector_make_xy (v.x / k, v.y / k)
+div_vkv (v, k) = vector_make_xy (v.x() / k, v.y() / k)
 //
 (* ****** ****** *)
 
@@ -547,11 +547,11 @@ draw_queen
 val rgb = "rgb(240, 240, 200)"
 val ((*void*)) = ctx.fillStyle(rgb)
 //
-val xc = (p1.x+p2.x+p3.x+p4.x)/4
-val yc = (p1.y+p2.y+p3.y+p4.y)/4
+val xc = (p1.x()+p2.x()+p3.x()+p4.x())/4
+val yc = (p1.y()+p2.y()+p3.y()+p4.y())/4
 //
-val dx = ((p1.x+p2.x)-(p3.x+p4.x))/2
-val dy = ((p1.y+p2.y)-(p3.y+p4.y))/2
+val dx = ((p1.x()+p2.x())-(p3.x()+p4.x()))/2
+val dy = ((p1.y()+p2.y())-(p3.y()+p4.y()))/2
 //
 val rad = 0.425*JSmath_sqrt(dx*dx+dy*dy)
 //
@@ -589,10 +589,10 @@ val rgb = "rgb("+c+","+c+","+c+")"
 val ((*void*)) = ctx.fillStyle(rgb)
 //
 val () = ctx.beginPath()
-val () = ctx.moveTo(p1.x, p1.y)
-val () = ctx.lineTo(p2.x, p2.y)
-val () = ctx.lineTo(p3.x, p3.y)
-val () = ctx.lineTo(p4.x, p4.y)
+val () = ctx.moveTo(p1.x(), p1.y())
+val () = ctx.lineTo(p2.x(), p2.y())
+val () = ctx.lineTo(p3.x(), p3.y())
+val () = ctx.lineTo(p4.x(), p4.y())
 val () = ctx.closePath()
 //
 val ((*void*)) = ctx.fill((*void*))

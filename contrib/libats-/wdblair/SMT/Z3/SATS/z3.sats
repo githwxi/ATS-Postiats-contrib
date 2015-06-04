@@ -40,7 +40,7 @@
 (* ****** ****** *)
 
 %{#
-#include "contrib/libats-/wdblair/SMT/Z3/CATS/z3.cats"
+#include "libats-/wdblair/SMT/Z3/CATS/z3.cats"
 %} // end of [%{#]
 
 (* ****** ****** *)

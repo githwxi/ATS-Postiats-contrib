@@ -18,6 +18,18 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_reference_"
 //
 (* ****** ****** *)
+
+%{^
+######
+#
+from ats2pypre_basics_cats import *
+#
+from ats2pypre_PYlist_cats import *
+#
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 staload
 UN = "prelude/SATS/unsafe.sats"
@@ -56,18 +68,6 @@ implement
 ref_set_elt{a}(r, x) = let
   val r = $UN.cast{PYlist(a)}(r) in PYlist_set_at(r, 0, x)
 end // end of [ref_set_elt]
-
-(* ****** ****** *)
-
-%{^
-######
-#
-from ats2pypre_basics_cats import *
-#
-from ats2pypre_PYlist_cats import *
-#
-######
-%} // end of [%{^]
 
 (* ****** ****** *)
 

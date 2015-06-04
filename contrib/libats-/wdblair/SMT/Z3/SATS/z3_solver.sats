@@ -129,7 +129,8 @@ fun Z3_solver_check
 
 (* ****** ****** *)
 
-fun Z3_solver_push
+fun
+Z3_solver_push
 (
   ctx: !Z3_context, s: !Z3_solver
 ): void = "mac#" // end of [Z3_solver_push]
