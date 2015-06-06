@@ -24,6 +24,32 @@ staload "./patsolve_z3_solving_ctx.dats"
 assume sort_vtype = Z3_sort
 
 (* ****** ****** *)
+
+implement
+sort_decref
+  (ty) = () where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val () = Z3_sort_dec_ref(ctx, ty)
+  prval ((*void*)) = fpf(ctx)
+}
+
+(* ****** ****** *)
+
+implement
+sort_incref
+  (ty) = ty2 where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val ty2 = Z3_sort_inc_ref(ctx, ty)
+  prval ((*void*)) = fpf(ctx)
+}
+
+(* ****** ****** *)
 //
 implement 
 sort_int () = res where

@@ -26,6 +26,32 @@ assume form_vtype = Z3_ast
 (* ****** ****** *)
 
 implement
+formula_decref
+  (ast) = () where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val () = Z3_dec_ref(ctx, ast)
+  prval ((*void*)) = fpf(ctx)
+}
+
+(* ****** ****** *)
+
+implement
+formula_incref
+  (ast) = ast2 where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val ast2 = Z3_inc_ref(ctx, ast)
+  prval ((*void*)) = fpf(ctx)
+}
+
+(* ****** ****** *)
+
+implement
 formula_true() = tt where
 {
   val (fpf | ctx) =
@@ -448,6 +474,8 @@ in
 *)
 end // end of [aux_S2Ecst]
 
+(* ****** ****** *)
+
 fun
 aux_S2Evar
 (
@@ -459,6 +487,8 @@ val-S2Evar(s2v) = s2e0.s2exp_node
 in
   formula_make_s2var(env, s2v)
 end // end of [aux_S2Evar]
+
+(* ****** ****** *)
 
 fun
 aux_S2Eapp
@@ -512,6 +542,67 @@ of // case+
 //
 end // end of [aux_S2Eapp]
 
+(* ****** ****** *)
+
+fun
+aux_S2Emetdec
+(
+  env: !smtenv, s2e0: s2exp
+) : form = let
+//
+val-
+S2Emetdec
+  (s2es_met, s2es_bnd) = s2e0.s2exp_node
+//
+(*
+val () =
+println!
+  ("aux_S2Emetdec: s2es_met = ", s2es_met)
+//
+val () =
+println!
+  ("aux_S2Emetdec: s2es_bnd = ", s2es_bnd)
+*)
+//
+fun
+auxlst
+(
+  env: !smtenv
+, s2es10: s2explst
+, s2es20: s2explst
+) : form =
+(
+case+ s2es10 of
+| list_nil
+    ((*void*)) => formula_false()
+| list_cons
+    (s2e1, s2es1) => let
+    val-
+    list_cons
+      (s2e2, s2es2) = s2es20
+    // end of [val]
+    val s2e1 =
+      formula_make_s2exp (env, s2e1)
+    val s2e2 =
+      formula_make_s2exp (env, s2e2)
+  in
+    case+ s2es1 of
+    | list_nil _ => formula_ilt(s2e1, s2e2)
+    | list_cons _ => let
+        val s2e1_ = formula_incref (s2e1)
+        val s2e2_ = formula_incref (s2e2)
+        val s2e_ilt = formula_ilt(s2e1, s2e2) 
+        val s2e_ilte = formula_ilte(s2e1_, s2e2_)
+      in
+        formula_disj(s2e_ilt, formula_conj(s2e_ilte, auxlst(env, s2es1, s2es2)))
+      end // end of [list_cons]
+  end // end of [list_cons]
+)
+//
+in
+  auxlst(env, s2es_met, s2es_bnd)
+end // end of [aux_S2Emetdec]
+
 in (* in-of-local *)
 
 implement
@@ -543,6 +634,8 @@ of // case+
   end // end of [S2Eeqeq]
 //
 | S2Eapp _ => aux_S2Eapp (env, s2e0)
+//
+| S2Emetdec _ => aux_S2Emetdec (env, s2e0)
 //
 | _ (*unrecognized*) => formula_error(s2e0)
 //
