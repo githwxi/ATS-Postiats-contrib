@@ -86,16 +86,28 @@ sort_real () = res where
 }
 //
 (* ****** ****** *)
+
+implement
+sort_mk_cls () = sort_mk_abstract("cls")
+implement
+sort_mk_eff () = sort_mk_abstract("eff")
+
+(* ****** ****** *)
 //
 implement
 sort_mk_type () = sort_mk_abstract("type")
 implement
-sort_mk_t0ype () = sort_mk_abstract("t0ype")
+sort_mk_vtype () = sort_mk_abstract("type")
 //
 implement
-sort_mk_vtype () = sort_mk_abstract("type")
+sort_mk_t0ype () = sort_mk_abstract("t0ype")
 implement
 sort_mk_vt0ype () = sort_mk_abstract("t0ype")
+//
+implement
+sort_mk_prop () = sort_mk_abstract("prop")
+implement
+sort_mk_view () = sort_mk_abstract("prop")
 //
 implement
 sort_mk_tkind () = sort_mk_abstract("tkind")
@@ -158,10 +170,16 @@ case+ s2t0 of
 | S2RTstring() => sort_string()
 *)
 //
+| S2RTcls() => sort_mk_cls()
+| S2RTeff() => sort_mk_eff()
+//
 | S2RTtype() => sort_mk_type()
-| S2RTt0ype() => sort_mk_t0ype()
 | S2RTvtype() => sort_mk_vtype()
+| S2RTt0ype() => sort_mk_t0ype()
 | S2RTvt0ype() => sort_mk_vt0ype()
+//
+| S2RTprop() => sort_mk_prop()
+| S2RTview() => sort_mk_view()
 //
 | S2RTtkind() => sort_mk_tkind()
 //

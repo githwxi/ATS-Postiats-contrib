@@ -61,12 +61,20 @@ fun sort_real (): sort
 fun sort_string (): sort
 *)
 (* ****** ****** *)
+
+fun sort_mk_cls (): sort
+fun sort_mk_eff (): sort
+
+(* ****** ****** *)
 //
 fun sort_mk_type (): sort
-fun sort_mk_t0ype (): sort
-//
 fun sort_mk_vtype (): sort
+//
+fun sort_mk_t0ype (): sort
 fun sort_mk_vt0ype (): sort
+//
+fun sort_mk_prop (): sort
+fun sort_mk_view (): sort
 //
 fun sort_mk_tkind (): sort
 //

@@ -33,6 +33,9 @@ case+ name of
 | "addr" => S2RTaddr()
 | "bool" => S2RTbool()
 //
+| "cls" => S2RTeff()
+| "eff" => S2RTeff()
+//
 | "type" => S2RTtype()
 | "t@ype" => S2RTt0ype()
 | "t0ype" => S2RTt0ype()
@@ -40,6 +43,9 @@ case+ name of
 | "viewtype" => S2RTvtype()
 | "viewt@ype" => S2RTvt0ype()
 | "viewt0ype" => S2RTvt0ype()
+//
+| "prop" => S2RTprop()
+| "view" => S2RTview()
 //
 | "tkind" => S2RTtkind()
 //

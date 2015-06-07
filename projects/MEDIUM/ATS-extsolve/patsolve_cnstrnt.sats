@@ -133,6 +133,7 @@ datatype s2rt =
   | S2RTstring of ()
 //
   | S2RTcls of ()
+  | S2RTeff of ()
 //
   | S2RTtup of ((*void*))
 //
@@ -141,6 +142,9 @@ datatype s2rt =
 //
   | S2RTt0ype of ((*void*))
   | S2RTvt0ype of ((*void*))
+//
+  | S2RTprop of ((*void*))
+  | S2RTview of ((*void*))
 //
   | S2RTtkind of ((*void*))
 //

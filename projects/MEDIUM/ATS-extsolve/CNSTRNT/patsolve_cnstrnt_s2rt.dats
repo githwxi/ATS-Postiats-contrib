@@ -24,16 +24,23 @@ implement s2rt_string() = S2RTstring()
 
 implement
 s2rt_is_impred
-  (s2t0) =
-(
+  (s2t0) = (
+//
 case+ s2t0 of
 | S2RTtype() => true
 | S2RTvtype() => true 
+//
 | S2RTt0ype() => true
 | S2RTvt0ype() => true
+//
+| S2RTprop() => true
+| S2RTview() => true
+//
 | S2RTfun(_, s2t_res) => s2rt_is_impred(s2t_res)
+//
 | _(*rest-of-S2RT*) => false
-)
+//
+) (* end of [s2rt_is_impred] *)
 
 (* ****** ****** *)
 //
@@ -52,6 +59,7 @@ case+ s2t of
 | S2RTstring() => fprint! (out, "S2RTstring()")
 //
 | S2RTcls() => fprint! (out, "S2RTcls()")
+| S2RTeff() => fprint! (out, "S2RTeff()")
 //
 | S2RTtup() => fprint! (out, "S2RTtup()")
 //
@@ -60,6 +68,9 @@ case+ s2t of
 //
 | S2RTvtype() => fprint! (out, "S2RTvtype()")
 | S2RTvt0ype() => fprint! (out, "S2RTvt0ype()")
+//
+| S2RTprop() => fprint! (out, "S2RTprop()")
+| S2RTview() => fprint! (out, "S2RTview()")
 //
 | S2RTtkind() => fprint! (out, "S2RTtkind()")
 //
