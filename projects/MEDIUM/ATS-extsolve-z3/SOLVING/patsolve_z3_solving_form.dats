@@ -609,9 +609,27 @@ in
 //
 case+ s2ci of
 //
-| S2CINTnone() =>
+| S2CINTnone() => let
+    val s2e = 
     formula_make_s2cst_fresh(env, s2c0)
-  // end of [S2CINTnone]
+    val s2e_ = formula_incref(s2e)
+    val s2e =
+    S2CINTsome($UN.castvwtp0{ptr}(s2e))
+    val ((*void*)) =
+      s2cst_set_payload(s2c0, $UN.cast{ptr}(s2e))
+    // end of [val]
+  in
+    s2e_
+  end // end of [S2CINTnone]
+//
+| S2CINTsome(ptr) => let
+    val s2e =
+      $UN.castvwtp0{form}(ptr)
+    val s2e_ = formula_incref(s2e)
+    prval () = $UN.cast2void(s2e)
+  in
+    s2e_
+  end // end of [S2CINTsome]
 //
 | S2CINTbuiltin_0(f) => f((*void*))
 //
@@ -821,6 +839,9 @@ of // case+
     | S2CINTnone() =>
         formula_error(s2e0)
       // end of [S2CINTnone]
+    | S2CINTsome _ =>
+        formula_error(s2e0)
+      // end of [S2CINTsome]
     | S2CINTbuiltin_0(f) => f()
     | S2CINTbuiltin_1(f) => let
         val-

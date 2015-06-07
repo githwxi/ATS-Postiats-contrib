@@ -31,6 +31,8 @@ case+ x of
 //
 | S2CINTnone() => fprint! (out, "S2CINTnone()")
 //
+| S2CINTsome _ => fprint! (out, "S2CINTsome(...)")
+//
 | S2CINTbuiltin_0 _ => fprint! (out, "S2CINTbuiltin_0(...)")
 | S2CINTbuiltin_1 _ => fprint! (out, "S2CINTbuiltin_1(...)")
 | S2CINTbuiltin_2 _ => fprint! (out, "S2CINTbuiltin_2(...)")

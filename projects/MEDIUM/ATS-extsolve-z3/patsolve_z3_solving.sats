@@ -253,6 +253,7 @@ datatype
 s2cinterp =
 //
   | S2CINTnone of ()
+  | S2CINTsome of (ptr)
 //
   | S2CINTbuiltin_0 of (() -> form)
   | S2CINTbuiltin_1 of (form -> form)
