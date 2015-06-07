@@ -167,63 +167,6 @@ formula_impl
 } (* end of [formula_impl] *)
 
 (* ****** ****** *)
-//
-implement
-formula_bneg(s2e) = formula_not(s2e)
-//
-implement
-formula_badd
-  (s2e1, s2e2) = formula_disj(s2e1, s2e2)
-//
-implement
-formula_bmul
-  (s2e1, s2e2) = formula_conj(s2e1, s2e2)
-//
-(* ****** ****** *)
-//
-implement
-formula_blt
-  (s2e1, s2e2) =
-  formula_conj(formula_not(s2e1), s2e2)
-//
-implement
-formula_blte
-  (s2e1, s2e2) = formula_impl(s2e1, s2e2)
-//
-implement
-formula_bgt
-  (s2e1, s2e2) =
-  formula_conj(s2e1, formula_not(s2e2))
-//
-implement
-formula_bgte
-  (s2e1, s2e2) = formula_impl(s2e2, s2e1)
-//
-(* ****** ****** *)
-
-implement
-formula_beq
-  (s2e1, s2e2) = res where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_eq (ctx, s2e1, s2e2)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
-  prval ((*void*)) = fpf(ctx)
-} (* end of [formula_beq] *)
-
-(* ****** ****** *)
-//
-implement
-formula_bneq
-  (s2e1, s2e2) =
-  formula_not(formula_beq(s2e1, s2e2))
-//
-(* ****** ****** *)
 
 implement
 formula_ineg
@@ -403,7 +346,60 @@ formula_ineq
 (* ****** ****** *)
 
 implement
-formula_eqeq
+formula_imax
+  (s2e1, s2e2) = let
+  val s2e1_ = formula_incref(s2e1)
+  val s2e2_ = formula_incref(s2e2)
+in
+  formula_cond(formula_igte(s2e1, s2e2), s2e1_, s2e2_)
+end // end of [formula_imax]
+
+implement
+formula_imin
+  (s2e1, s2e2) = let
+  val s2e1_ = formula_incref(s2e1)
+  val s2e2_ = formula_incref(s2e2)
+in
+  formula_cond(formula_ilte(s2e1, s2e2), s2e1_, s2e2_)
+end // end of [formula_imin]
+
+(* ****** ****** *)
+//
+implement
+formula_bneg(s2e) = formula_not(s2e)
+//
+implement
+formula_badd
+  (s2e1, s2e2) = formula_disj(s2e1, s2e2)
+//
+implement
+formula_bmul
+  (s2e1, s2e2) = formula_conj(s2e1, s2e2)
+//
+(* ****** ****** *)
+//
+implement
+formula_blt
+  (s2e1, s2e2) =
+  formula_conj(formula_not(s2e1), s2e2)
+//
+implement
+formula_blte
+  (s2e1, s2e2) = formula_impl(s2e1, s2e2)
+//
+implement
+formula_bgt
+  (s2e1, s2e2) =
+  formula_conj(s2e1, formula_not(s2e2))
+//
+implement
+formula_bgte
+  (s2e1, s2e2) = formula_impl(s2e2, s2e1)
+//
+(* ****** ****** *)
+
+implement
+formula_beq
   (s2e1, s2e2) = res where
 {
   val (fpf | ctx) =
@@ -415,7 +411,63 @@ formula_eqeq
   val () = Z3_dec_ref(ctx, s2e1)
   val () = Z3_dec_ref(ctx, s2e2)
   prval ((*void*)) = fpf(ctx)
+} (* end of [formula_beq] *)
+
+(* ****** ****** *)
+//
+implement
+formula_bneq
+  (s2e1, s2e2) =
+  formula_not(formula_beq(s2e1, s2e2))
+//
+(* ****** ****** *)
+
+implement
+formula_eqeq
+  (s2e1, s2e2) = res where
+{
+//
+(*
+val () = println! ("formula_eqeq: enter")
+*)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+// end of [val]
+val res =
+  Z3_mk_eq (ctx, s2e1, s2e2)
+// end of [val]
+val () = Z3_dec_ref(ctx, s2e1)
+val () = Z3_dec_ref(ctx, s2e2)
+prval ((*void*)) = fpf(ctx)
+//
+(*
+val () = println! ("formula_eqeq: leave")
+*)
+//
 } (* end of [formula_eqeq] *)
+
+(* ****** ****** *)
+
+implement
+formula_cond
+(
+  s2e0, s2e1, s2e2
+) = res where
+{
+//
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+    Z3_mk_ite (ctx, s2e0, s2e1, s2e2)
+  // end of [val]
+  val () = Z3_dec_ref(ctx, s2e0)
+  val () = Z3_dec_ref(ctx, s2e1)
+  val () = Z3_dec_ref(ctx, s2e2)
+  prval ((*void*)) = fpf(ctx)
+//
+} (* end of [formula_cond] *)
 
 (* ****** ****** *)
 
@@ -472,9 +524,28 @@ implement
 formula_make_s2var
   (env, s2v0) = let
 //
+(*
+val () =
+println!
+(
+ "formula_make_s2var: s2v0 = ", s2v0
+) (* end of [val] *)
+val () =
+println!
+(
+ "formula_make_s2var: s2v0.stamp = ", s2v0.stamp()
+) (* end of [val] *)
+*)
+//
 val
 ptr =
 s2var_get_payload(s2v0)
+//
+in
+//
+if
+ptr > 0
+then let
 //
 val
 ast =
@@ -492,7 +563,61 @@ prval ((*void*)) = $UN.cast2void(ast)
 //
 in
   $UN.castvwtp0{form}(ast2)
+end // end of [then]
+else (
+  formula_make_s2var_fresh(env, s2v0)
+) (* end of [else] *)
+//
 end // end of [formula_make_s2var]
+
+(* ****** ****** *)
+
+implement
+formula_make_s2var_fresh
+  (env, s2v0) = ast where
+{
+//
+val name = s2v0.name()
+val name = symbol_get_name(name)
+val name = string0_copy(name)
+//
+val stamp =
+  stamp_get_int(s2v0.stamp())
+//
+val stamp = g0int2string(stamp)
+//
+val name2 =
+string0_append
+  ($UN.strptr2string(name), $UN.strptr2string(stamp))
+//
+val () = strptr_free(name)
+val () = strptr_free(stamp)
+//
+val ty = sort_make_s2rt(s2v0.srt())
+val ty = $UN.castvwtp0{Z3_sort}(ty)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val
+sym =
+Z3_mk_string_symbol
+  (ctx, $UN.strptr2string(name2))
+//
+val ast = Z3_mk_const(ctx, sym, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val () = strptr_free(name2)
+//
+} (* end of [formula_make_s2var_fresh] *)
 
 (* ****** ****** *)
 
@@ -660,9 +785,11 @@ implement
 formula_make_s2exp
   (env, s2e0) = let
 //
+(*
 val () =
 println!
   ("formula_make_s2exp: s2e0 = ", s2e0)
+*)
 //
 in
 //

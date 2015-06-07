@@ -94,6 +94,13 @@ fun formula_intrep (rep: string): form
 
 (* ****** ****** *)
 //
+fun formula_not (form): form
+fun formula_disj (form, form): form
+fun formula_conj (form, form): form
+fun formula_impl (form, form): form
+//
+(* ****** ****** *)
+//
 fun formula_ineg (form): form
 //
 fun formula_iadd (form, form): form
@@ -112,11 +119,11 @@ fun formula_ieq (form, form): form
 fun formula_ineq (form, form): form
 //
 (* ****** ****** *)
-//
-fun formula_not (form): form
-fun formula_disj (form, form): form
-fun formula_conj (form, form): form
-fun formula_impl (form, form): form
+
+fun formula_imax (form, form): form
+fun formula_imin (form, form): form
+
+(* ****** ****** *)
 //
 fun formula_bneg (form): form
 //
@@ -197,6 +204,9 @@ formula_make_s2cst
 //
 fun
 formula_make_s2var
+  (env: !smtenv, s2v: s2var): form
+fun
+formula_make_s2var_fresh
   (env: !smtenv, s2v: s2var): form
 //
 fun

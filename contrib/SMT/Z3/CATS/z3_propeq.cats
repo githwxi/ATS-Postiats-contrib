@@ -104,6 +104,16 @@ atscntrb_Z3_mk_implies
 
 /* ****** ****** */
 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_ite
+  (Z3_context ctx, Z3_ast a0, Z3_ast a1, Z3_ast a2)
+{
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_ite(ctx, a0, a1, a2)) ;
+} // end of [atscntrb_Z3_mk_ite]
+
+/* ****** ****** */
+
 #endif // end of [Z3_Z3_PROPEQ_CATS]
 
 /* ****** ****** */

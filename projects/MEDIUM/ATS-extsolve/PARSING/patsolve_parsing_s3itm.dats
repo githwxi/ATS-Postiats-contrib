@@ -81,6 +81,21 @@ in
   S3ITMcnstr_ref(parse_location(x_loc), parse_c3nstropt(x_opt))
 end (* end of [aux_S3ITMcnstropt] *)
 
+(* ****** ****** *)
+
+fun
+aux_S3ITMdisj
+(
+  x0: jsonval
+) : s3itm = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S3ITMdisj(parse_s3itmlstlst(x))
+end // end of [aux_S3ITMdisj]
+
 in (* in-of-local *)
 
 implement
@@ -112,6 +127,8 @@ case+ name of
 | "S3ITMcnstr" => aux_S3ITMcnstr(jsnv2)
 //
 | "S3ITMcnstr_ref" => aux_S3ITMcnstr_ref(jsnv2)
+//
+| "S3ITMdisj" => aux_S3ITMdisj(jsnv2)
 //
 | _(*unrecognized*) =>
   let

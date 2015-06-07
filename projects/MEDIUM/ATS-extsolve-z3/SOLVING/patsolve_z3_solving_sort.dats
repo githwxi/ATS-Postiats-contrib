@@ -98,7 +98,12 @@ implement
 sort_mk_vt0ype () = sort_mk_abstract("t0ype")
 //
 (* ****** ****** *)
-
+//
+(*
+implement
+sort_mk_abstract(name) = sort_int()
+*)
+//
 implement
 sort_mk_abstract
   (name) = res where
@@ -110,7 +115,7 @@ sort_mk_abstract
   val res = Z3_mk_uninterpreted_sort (ctx, sym)
   prval ((*void*)) = fpf (ctx)
 }
-
+//
 (* ****** ****** *)
 
 implement

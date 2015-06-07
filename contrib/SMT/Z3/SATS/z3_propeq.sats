@@ -81,18 +81,25 @@ fun Z3_mk_not
 (* ****** ****** *)
 
 fun Z3_mk_or2
-  (ctx: !Z3_context, a1: !Z3_ast, a2: !Z3_ast): Z3_ast = "mac#%"
+  (ctx: !Z3_context, a0: !Z3_ast, a1: !Z3_ast): Z3_ast = "mac#%"
 // end of [Z3_mk_or2]
 
 fun Z3_mk_and2
-  (ctx: !Z3_context, a1: !Z3_ast, a2: !Z3_ast): Z3_ast = "mac#%"
+  (ctx: !Z3_context, a0: !Z3_ast, a1: !Z3_ast): Z3_ast = "mac#%"
 // end of [Z3_mk_and2]
 
 (* ****** ****** *)
 
 fun Z3_mk_implies
-  (ctx: !Z3_context, a1: !Z3_ast, a2: !Z3_ast): Z3_ast = "mac#%"
+  (ctx: !Z3_context, a0: !Z3_ast, a1: !Z3_ast): Z3_ast = "mac#%"
 // end of [Z3_mk_implies]
+
+(* ****** ****** *)
+
+fun Z3_mk_ite // if-then-else
+(
+  ctx: !Z3_context, a_cond: !Z3_ast, a_then: !Z3_ast, a_else: !Z3_ast
+) : Z3_ast = "mac#%" // end-of-function
 
 (* ****** ****** *)
 

@@ -44,6 +44,20 @@ fprint_val<symbol> = fprint_symbol
 (* ****** ****** *)
 
 implement
+print_stamp(x) = fprint_stamp(stdout_ref, x)
+implement
+prerr_stamp(x) = fprint_stamp(stderr_ref, x)
+
+(* ****** ****** *)
+//
+implement
+print_symbol(x) = fprint_symbol(stdout_ref, x)
+implement
+prerr_symbol(x) = fprint_symbol(stderr_ref, x)
+//
+(* ****** ****** *)
+
+implement
 fprint_val<s2rt> = fprint_s2rt
 implement
 fprint_val<s2cst> = fprint_s2cst
@@ -72,7 +86,6 @@ prerr_s2rt(x) = fprint_s2rt(stderr_ref, x)
 //
 implement
 print_s2cst(x) = fprint_s2cst(stdout_ref, x)
-//
 implement
 prerr_s2cst(x) = fprint_s2cst(stderr_ref, x)
 //

@@ -24,9 +24,12 @@ typedef stamp = stamp_t0ype
 //
 (* ****** ****** *)
 //
-fun
-fprint_stamp: fprint_type(stamp)
+fun print_stamp: stamp -> void
+and prerr_stamp: stamp -> void
+fun fprint_stamp: fprint_type(stamp)
 //
+overload print with print_stamp
+overload prerr with prerr_stamp
 overload fprint with fprint_stamp
 //
 (* ****** ****** *)
@@ -67,12 +70,12 @@ typedef symbol = symbol_type
 
 (* ****** ****** *)
 //
-fun
-print_symbol: symbol -> void
-fun
-fprint_symbol: fprint_type(symbol)
+fun print_symbol: symbol -> void
+and prerr_symbol: symbol -> void
+fun fprint_symbol: fprint_type(symbol)
 //
 overload print with print_symbol
+overload prerr with prerr_symbol
 overload fprint with fprint_symbol
 //
 (* ****** ****** *)

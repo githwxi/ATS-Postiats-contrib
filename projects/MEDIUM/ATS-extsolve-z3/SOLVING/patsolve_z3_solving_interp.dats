@@ -137,6 +137,9 @@ val () = insert("gte_int_int", S2CINTbuiltin_2(formula_igte))
 val () = insert("eq_int_int", S2CINTbuiltin_2(formula_ieq))
 val () = insert("neq_int_int", S2CINTbuiltin_2(formula_ineq))
 //
+val () = insert("max_int_int", S2CINTbuiltin_2(formula_imax))
+val () = insert("min_int_int", S2CINTbuiltin_2(formula_imin))
+//
 val () = insert("neg_bool", S2CINTbuiltin_1(formula_bneg))
 //
 val () = insert("add_bool_bool", S2CINTbuiltin_2(formula_badd))

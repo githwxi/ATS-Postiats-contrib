@@ -216,45 +216,7 @@ val ((*void*)) =
   env_s.smtenv_s2varlst := cons_vt(s2v0, s2vs)
 prval ((*void*)) = fold@(env)
 //
-val name = s2v0.name()
-val name = symbol_get_name(name)
-val name = string0_copy(name)
-//
-val stamp =
-  stamp_get_int(s2v0.stamp())
-//
-val stamp = g0int2string(stamp)
-//
-val name2 =
-string0_append
-  ($UN.strptr2string(name), $UN.strptr2string(stamp))
-//
-val () = strptr_free(name)
-val () = strptr_free(stamp)
-//
-val ty = sort_make_s2rt(s2v0.srt())
-val ty = $UN.castvwtp0{Z3_sort}(ty)
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val
-sym =
-Z3_mk_string_symbol
-  (ctx, $UN.strptr2string(name2))
-//
-val ast = Z3_mk_const(ctx, sym, ty)
-//
-prval ((*void*)) = fpf(ctx)
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
-//
-prval ((*void*)) = fpf(ctx)
-//
-val () = strptr_free(name2)
+val ast = formula_make_s2var_fresh(env, s2v0)
 //
 in
   s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(ast))

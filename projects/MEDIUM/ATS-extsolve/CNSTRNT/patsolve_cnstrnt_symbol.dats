@@ -25,11 +25,6 @@ in (* in-of-local *)
 end // end of [local]
 
 (* ****** ****** *)
-//
-implement
-print_symbol(x) = fprint_symbol(stdout_ref, x)
-//
-(* ****** ****** *)
 
 local
 //
