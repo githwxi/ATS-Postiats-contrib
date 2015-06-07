@@ -168,7 +168,7 @@ and prerr_s2rt : s2rt -> void
 fun fprint_s2rt: fprint_type(s2rt)
 //
 overload print with print_s2rt
-overload prerr with print_s2rt
+overload prerr with prerr_s2rt
 overload fprint with fprint_s2rt
 //
 (* ****** ****** *)
