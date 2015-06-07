@@ -164,17 +164,6 @@ formula_sizeof_t0ype (s2e_t0ype: form): form
 (* ****** ****** *)
 //
 fun
-formula_fdapp_0(fd: func_decl): form
-fun
-formula_fdapp_1(fd: func_decl, arg: form): form
-fun
-formula_fdapp_2(fd: func_decl, a0: form, a1: form): form
-fun
-formula_fdapp_lst(fd: func_decl, args: formlst): form
-//
-(* ****** ****** *)
-//
-fun
 func_decl_0
   (name: string, res: sort): func_decl
 fun
@@ -187,6 +176,17 @@ func_decl_2
 fun
 func_decl_make
   (name: string, domain: sortlst, range: sort): func_decl
+//
+(* ****** ****** *)
+//
+fun
+formula_fdapp_0(fd: func_decl): form
+fun
+formula_fdapp_1(fd: func_decl, arg: form): form
+fun
+formula_fdapp_2(fd: func_decl, a0: form, a1: form): form
+fun
+formula_fdapp_list(fd: func_decl, args: formlst): form
 //
 (* ****** ****** *)
 
@@ -242,6 +242,9 @@ formula_make_s2var_fresh
 fun
 formula_make_s2exp
   (env: !smtenv, s2p: s2exp): form
+fun
+formulas_make_s2explst
+  (env: !smtenv, s2ps: s2explst): formlst
 //
 fun
 formula_make_s2cst_s2explst
@@ -258,17 +261,27 @@ s2cinterp =
   | S2CINTbuiltin_0 of (() -> form)
   | S2CINTbuiltin_1 of (form -> form)
   | S2CINTbuiltin_2 of ((form, form) -> form)
-(*
-  | S2CINTbuiltin_lst of ((formlst) -> form)
-*)
+//
+  | S2CINTbuiltin_list of ((formlst) -<cloref1> form)
+//
 //
 (* ****** ****** *)
 //
 fun print_s2cinterp (s2cinterp): void
+and prerr_s2cinterp (s2cinterp): void
 fun fprint_s2cinterp : fprint_type(s2cinterp)
 //
 overload print with print_s2cinterp
+overload prerr with prerr_s2cinterp
 overload fprint with fprint_s2cinterp
+//
+(* ****** ****** *)
+//
+fun
+s2cst_get_s2cinterp(s2cst): s2cinterp
+//
+fun
+s2cfun_initize_s2cinterp(s2c: s2cst): void
 //
 (* ****** ****** *)
 
@@ -284,10 +297,6 @@ fun smtenv_push (env: !smtenv): (smtenv_push_v | void)
 
 fun the_s2cinterp_initize(): void
 
-(* ****** ****** *)
-//
-fun s2cst_get_s2cinterp(s2cst): s2cinterp
-//
 (* ****** ****** *)
 //
 fun

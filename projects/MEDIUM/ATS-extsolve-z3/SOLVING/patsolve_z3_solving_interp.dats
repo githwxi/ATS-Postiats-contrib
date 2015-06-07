@@ -23,6 +23,10 @@ implement
 print_s2cinterp
   (x) = fprint_s2cinterp(stdout_ref, x)
 implement
+prerr_s2cinterp
+  (x) = fprint_s2cinterp(stderr_ref, x)
+//
+implement
 fprint_s2cinterp
   (out, x) = let
 in
@@ -37,9 +41,7 @@ case+ x of
 | S2CINTbuiltin_1 _ => fprint! (out, "S2CINTbuiltin_1(...)")
 | S2CINTbuiltin_2 _ => fprint! (out, "S2CINTbuiltin_2(...)")
 //
-(*
-| S2CINTbuiltin_lst _ => fprint! (out, "S2CINTbuiltin_lst(...)")
-*)
+| S2CINTbuiltin_list _ => fprint! (out, "S2CINTbuiltin_list(...)")
 //
 end // end of [fprint_s2cinterp]
 //

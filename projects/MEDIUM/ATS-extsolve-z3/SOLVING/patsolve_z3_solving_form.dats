@@ -789,6 +789,43 @@ val () = strptr_free(name2)
 
 (* ****** ****** *)
 
+implement
+s2cfun_initize_s2cinterp
+  (s2c0) = let
+//
+val name = s2c0.name()
+val name = symbol_get_name(name)
+//
+val s2t0 = s2c0.srt()
+val-S2RTfun(s2ts_arg, s2t_res) = s2t0
+(*
+val arity = list_length(s2ts_arg)
+*)
+//
+val
+fopr = lam
+(
+  xs: formlst
+) : form =<cloref1> let
+//
+val range = sort_make_s2rt(s2t_res)
+//
+val domain =
+  list_map_fun<s2rt><sort>(s2ts_arg, sort_make_s2rt)
+// end of [val]
+//
+val fd0 = func_decl_make(name, domain, range)
+//
+in
+  formula_fdapp_list(fd0, xs)
+end // end of [fopr]
+//
+in
+  s2cst_set_payload(s2c0, $UN.cast{ptr}(S2CINTbuiltin_list(fopr)))
+end // end of [s2cfun_initize_s2cinterp]
+
+(* ****** ****** *)
+
 local
 
 fun
@@ -825,7 +862,8 @@ aux_S2Eapp
   env: !smtenv, s2e0: s2exp
 ) : form = let
 //
-val-S2Eapp(s2e_fun, s2es_arg) = s2e0.s2exp_node
+val-S2Eapp
+  (s2e_fun, s2es_arg) = s2e0.s2exp_node
 //
 in
 //
@@ -833,15 +871,11 @@ case+
 s2e_fun.s2exp_node
 of // case+
 | S2Ecst(s2c) => let
-    val s2ci = s2cst_get_s2cinterp(s2c)
+    val s2ci =
+      s2cst_get_s2cinterp(s2c)
+    // end of [val]
   in
     case+ s2ci of
-    | S2CINTnone() =>
-        formula_error(s2e0)
-      // end of [S2CINTnone]
-    | S2CINTsome _ =>
-        formula_error(s2e0)
-      // end of [S2CINTsome]
     | S2CINTbuiltin_0(f) => f()
     | S2CINTbuiltin_1(f) => let
         val-
@@ -866,9 +900,19 @@ of // case+
       in
         f(s2e1, s2e2)
       end // end of [S2CINTbuiltin_2]
-(*
-    | S2CINTbuiltin_lst(f) => formula_error(s2e0)
-*)
+//
+    | S2CINTbuiltin_list(f) =>
+        f(formulas_make_s2explst(env, s2es_arg))
+      // end of [S2CINTbuiltin_list]
+//
+    | S2CINTsome _ => formula_error(s2e0)
+//
+    | S2CINTnone() =>
+        aux_S2Eapp(env, s2e0) where
+      {
+        val ((*void*)) = s2cfun_initize_s2cinterp(s2c)
+      } (* [S2CINTnone] *)
+//
   end // end of [S2Ecst]
 | _(*non-S2Ecst*) => formula_error(s2e0)
 //
@@ -1029,6 +1073,25 @@ of // case+
 end // end of [formula_make_s2exp]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+formulas_make_s2explst
+  (env, s2es) = (
+//
+case+ s2es of
+| list_nil
+    ((*void*)) => list_vt_nil()
+| list_cons
+    (s2e, s2es) => let
+    val s2e = formula_make_s2exp(env, s2e)
+    val s2es = formulas_make_s2explst(env, s2es)
+  in
+    list_vt_cons(s2e, s2es)
+  end // end of [list_cons]
+//
+) (* end of [formulas_make_s2explst] *)
 
 (* ****** ****** *)
 
