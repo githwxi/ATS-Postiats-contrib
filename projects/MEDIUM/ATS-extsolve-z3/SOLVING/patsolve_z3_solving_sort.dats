@@ -137,8 +137,10 @@ val res = sort_error(s2t0)
 implement
 sort_make_s2rt(s2t0) = let
 //
+(*
 val () =
 println! ("sort_make: s2t0 = ", s2t0)
+*)
 //
 in
 //
