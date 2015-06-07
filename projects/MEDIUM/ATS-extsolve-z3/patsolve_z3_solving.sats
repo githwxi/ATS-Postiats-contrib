@@ -228,6 +228,9 @@ overload formula_error with formula_error_s2exp
 fun
 formula_make_s2cst
   (env: !smtenv, s2c: s2cst): form
+fun
+formula_make_s2cst_fresh
+  (env: !smtenv, s2c: s2cst): form
 //
 fun
 formula_make_s2var

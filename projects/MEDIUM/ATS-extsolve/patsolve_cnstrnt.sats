@@ -165,6 +165,11 @@ fun s2rt_string((*void*)): s2rt
 //
 (* ****** ****** *)
 //
+fun
+s2rt_is_impred(s2t: s2rt): bool
+//
+(* ****** ****** *)
+//
 fun print_s2rt : s2rt -> void
 and prerr_s2rt : s2rt -> void
 fun fprint_s2rt: fprint_type(s2rt)
@@ -356,11 +361,16 @@ and s2explst = List0 (s2exp)
 (* ****** ****** *)
 //
 fun
-s2exp_make_node (s2rt, s2exp_node): s2exp
+s2exp_make_node
+  (s2t: s2rt, node: s2exp_node): s2exp
 //
 fun s2exp_var (s2v: s2var): s2exp
 fun s2exp_eqeq (s2e1: s2exp, s2e2: s2exp): s2exp
 //
+(* ****** ****** *)
+
+fun s2exp_is_impred (s2e: s2exp): bool
+
 (* ****** ****** *)
 //
 fun print_s2exp(s2exp): void

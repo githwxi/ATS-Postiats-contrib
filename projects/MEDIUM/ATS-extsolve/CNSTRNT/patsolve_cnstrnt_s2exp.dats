@@ -29,6 +29,12 @@ s2exp_eqeq(s2e1, s2e2) =
   s2exp_make_node(s2rt_bool(), S2Eeqeq(s2e1, s2e2))
 //
 (* ****** ****** *)
+//
+implement
+s2exp_is_impred
+  (s2e0) = s2rt_is_impred(s2e0.s2exp_srt)
+//
+(* ****** ****** *)
 
 implement
 fprint_s2exp
