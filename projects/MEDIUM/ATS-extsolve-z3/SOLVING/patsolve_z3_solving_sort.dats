@@ -86,6 +86,32 @@ sort_real () = res where
 }
 //
 (* ****** ****** *)
+//
+implement
+sort_mk_type () = sort_mk_abstract("type")
+implement
+sort_mk_t0ype () = sort_mk_abstract("t0ype")
+//
+implement
+sort_mk_vtype () = sort_mk_abstract("type")
+implement
+sort_mk_vt0ype () = sort_mk_abstract("t0ype")
+//
+(* ****** ****** *)
+
+implement
+sort_mk_abstract
+  (name) = res where
+{
+  val (fpf | ctx) = 
+    the_Z3_context_vget()
+  // end of [val]
+  val sym = Z3_mk_string_symbol (ctx, name)
+  val res = Z3_mk_uninterpreted_sort (ctx, sym)
+  prval ((*void*)) = fpf (ctx)
+}
+
+(* ****** ****** *)
 
 implement
 sort_error
@@ -121,6 +147,11 @@ case+ s2t0 of
 (*
 | S2RTstring() => sort_string()
 *)
+//
+| S2RTtype() => sort_mk_type()
+| S2RTt0ype() => sort_mk_t0ype()
+| S2RTvtype() => sort_mk_vtype()
+| S2RTvt0ype() => sort_mk_vt0ype()
 //
 | _(*unrecognized*) => sort_error(s2t0)
 //

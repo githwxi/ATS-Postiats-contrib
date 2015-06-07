@@ -33,6 +33,14 @@ case+ name of
 | "addr" => S2RTaddr()
 | "bool" => S2RTbool()
 //
+| "type" => S2RTtype()
+| "t@ype" => S2RTt0ype()
+| "t0ype" => S2RTt0ype()
+//
+| "viewtype" => S2RTvtype()
+| "viewt@ype" => S2RTvt0ype()
+| "viewt0ype" => S2RTvt0ype()
+//
 | _(*rest*) => S2RTnamed(symbol_make_name(name))
 //
 end // end of [aux_S2RTbas]

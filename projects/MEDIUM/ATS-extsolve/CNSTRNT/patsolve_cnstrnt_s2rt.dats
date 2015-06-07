@@ -43,6 +43,9 @@ case+ s2t of
 | S2RTtype() => fprint! (out, "S2RTtype()")
 | S2RTt0ype() => fprint! (out, "S2RTt0ype()")
 //
+| S2RTvtype() => fprint! (out, "S2RTvtype()")
+| S2RTvt0ype() => fprint! (out, "S2RTvt0ype()")
+//
 | S2RTfun
     (s2ts_arg, s2t_res) =>
   fprint! (

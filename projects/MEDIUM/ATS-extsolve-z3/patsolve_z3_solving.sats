@@ -62,11 +62,27 @@ fun sort_string (): sort
 *)
 (* ****** ****** *)
 //
+fun sort_mk_type (): sort
+fun sort_mk_t0ype (): sort
+//
+fun sort_mk_vtype (): sort
+fun sort_mk_vt0ype (): sort
+//
+(* ****** ****** *)
+
+fun sort_mk_abstract(name: string): sort
+
+(* ****** ****** *)
+//
 fun sort_error (s2rt): sort
+//
+(* ****** ****** *)
 //
 fun sort_make_s2rt (s2rt): sort
 //
 (* ****** ****** *)
+
+fun formula_null (): form
 
 fun formula_true (): form
 fun formula_false (): form
@@ -76,25 +92,6 @@ fun formula_false (): form
 fun formula_int (i: int): form
 fun formula_intrep (rep: string): form
 
-(* ****** ****** *)
-//
-fun formula_not (form): form
-fun formula_disj (form, form): form
-fun formula_conj (form, form): form
-fun formula_impl (form, form): form
-//
-fun formula_bneg (form): form
-//
-fun formula_badd (form, form): form
-fun formula_bmul (form, form): form
-//
-fun formula_blt (form, form): form
-fun formula_blte (form, form): form
-fun formula_bgt (form, form): form
-fun formula_bgte (form, form): form
-fun formula_beq (form, form): form
-fun formula_bneq (form, form): form
-//
 (* ****** ****** *)
 //
 fun formula_ineg (form): form
@@ -113,6 +110,25 @@ fun formula_igt (form, form): form
 fun formula_igte (form, form): form
 fun formula_ieq (form, form): form
 fun formula_ineq (form, form): form
+//
+(* ****** ****** *)
+//
+fun formula_not (form): form
+fun formula_disj (form, form): form
+fun formula_conj (form, form): form
+fun formula_impl (form, form): form
+//
+fun formula_bneg (form): form
+//
+fun formula_badd (form, form): form
+fun formula_bmul (form, form): form
+//
+fun formula_blt (form, form): form
+fun formula_blte (form, form): form
+fun formula_bgt (form, form): form
+fun formula_bgte (form, form): form
+fun formula_beq (form, form): form
+fun formula_bneq (form, form): form
 //
 (* ****** ****** *)
 //
@@ -166,7 +182,12 @@ smtenv_add_s2exp
 (* ****** ****** *)
 //
 fun
-formula_error(s2e0: s2exp): form
+formula_error_s2cst(s2c0: s2cst): form
+fun
+formula_error_s2exp(s2e0: s2exp): form
+//
+overload formula_error with formula_error_s2cst
+overload formula_error with formula_error_s2exp
 //
 (* ****** ****** *)
 //

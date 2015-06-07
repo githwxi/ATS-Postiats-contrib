@@ -50,6 +50,12 @@ formula_incref
 }
 
 (* ****** ****** *)
+//
+implement
+formula_null
+  ((*void*)) = formula_int(0)
+//
+(* ****** ****** *)
 
 implement
 formula_true() = tt where
@@ -414,7 +420,21 @@ formula_eqeq
 (* ****** ****** *)
 
 implement
-formula_error
+formula_error_s2cst
+  (s2c0) = res where
+{
+//
+val () =
+prerrln!
+  ("formula_error: s2c0 = ", s2c0)
+//
+val () = assertloc(false)
+val res = formula_error_s2cst(s2c0)
+//
+} (* end of [formula_error_s2cst] *)
+
+implement
+formula_error_s2exp
   (s2e0) = res where
 {
 //
@@ -423,9 +443,28 @@ prerrln!
   ("formula_error: s2e0 = ", s2e0)
 //
 val () = assertloc(false)
-val res = formula_error(s2e0)
+val res = formula_error_s2exp(s2e0)
 //
-} (* end of [formula_error] *)
+} (* end of [formula_error_s2exp] *)
+
+(* ****** ****** *)
+
+implement
+formula_make_s2cst
+  (env, s2c0) = let
+//
+val s2ci = s2cst_get_s2cinterp(s2c0)
+//
+in
+//
+  case+ s2ci of
+  | S2CINTnone() =>
+      formula_error(s2c0)
+    // end of [S2CINTnone]
+  | S2CINTbuiltin_0(f) => f()
+  | _(*rest-of-S2CINT*) => formula_error(s2c0)
+//
+end // end of [formula_make_s2cst]
 
 (* ****** ****** *)
 
@@ -468,10 +507,7 @@ aux_S2Ecst
 val-S2Ecst(s2c) = s2e0.s2exp_node
 //
 in
-  formula_error(s2e0)
-(*
   formula_make_s2cst(env, s2c)
-*)
 end // end of [aux_S2Ecst]
 
 (* ****** ****** *)
@@ -603,6 +639,21 @@ in
   auxlst(env, s2es_met, s2es_bnd)
 end // end of [aux_S2Emetdec]
 
+(* ****** ****** *)
+
+fun
+aux_S2Einvar
+(
+  env: !smtenv, s2e0: s2exp
+) : form = let
+//
+val-
+S2Einvar(s2e) = s2e0.s2exp_node
+//
+in
+  formula_make_s2exp(env, s2e)
+end // end of [aux_S2Einvar]
+
 in (* in-of-local *)
 
 implement
@@ -636,6 +687,8 @@ of // case+
 | S2Eapp _ => aux_S2Eapp (env, s2e0)
 //
 | S2Emetdec _ => aux_S2Emetdec (env, s2e0)
+//
+| S2Einvar(s2e) => aux_S2Einvar (env, s2e0)
 //
 | _ (*unrecognized*) => formula_error(s2e0)
 //

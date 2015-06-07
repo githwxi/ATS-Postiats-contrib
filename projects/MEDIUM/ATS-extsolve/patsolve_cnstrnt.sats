@@ -134,7 +134,10 @@ datatype s2rt =
   | S2RTtup of ((*void*))
 //
   | S2RTtype of ((*void*))
+  | S2RTvtype of ((*void*))
+//
   | S2RTt0ype of ((*void*))
+  | S2RTvt0ype of ((*void*))
 //
   | S2RTfun of (s2rtlst(*args*), s2rt (*res*))
 //
@@ -186,12 +189,12 @@ s2cst_make
 //
 (* ****** ****** *)
 //
-fun
-print_s2cst: s2cst -> void
-fun
-fprint_s2cst: fprint_type(s2cst)
+fun print_s2cst: s2cst -> void
+and prerr_s2cst: s2cst -> void
+fun fprint_s2cst: fprint_type(s2cst)
 //
 overload print with print_s2cst
+overload prerr with prerr_s2cst
 overload fprint with fprint_s2cst
 //
 (* ****** ****** *)
