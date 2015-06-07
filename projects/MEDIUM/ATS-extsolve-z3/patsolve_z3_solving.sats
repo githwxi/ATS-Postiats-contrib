@@ -68,6 +68,8 @@ fun sort_mk_t0ype (): sort
 fun sort_mk_vtype (): sort
 fun sort_mk_vt0ype (): sort
 //
+fun sort_mk_tkind (): sort
+//
 (* ****** ****** *)
 
 fun sort_mk_abstract(name: string): sort
@@ -119,10 +121,14 @@ fun formula_ieq (form, form): form
 fun formula_ineq (form, form): form
 //
 (* ****** ****** *)
-
+//
+fun formula_iabs (form): form
+//
+fun formula_isgn (form): form
+//
 fun formula_imax (form, form): form
 fun formula_imin (form, form): form
-
+//
 (* ****** ****** *)
 //
 fun formula_bneg (form): form

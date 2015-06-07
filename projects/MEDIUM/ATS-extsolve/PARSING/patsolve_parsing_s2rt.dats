@@ -41,6 +41,8 @@ case+ name of
 | "viewt@ype" => S2RTvt0ype()
 | "viewt0ype" => S2RTvt0ype()
 //
+| "tkind" => S2RTtkind()
+//
 | _(*rest*) => S2RTnamed(symbol_make_name(name))
 //
 end // end of [aux_S2RTbas]

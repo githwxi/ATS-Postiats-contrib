@@ -347,6 +347,35 @@ formula_ineq
 (* ****** ****** *)
 
 implement
+formula_iabs
+  (s2e) = let
+  val _0_ = formula_int(0)
+  val s2e_1 = formula_incref(s2e)
+  val s2e_2 = formula_ineg(formula_incref(s2e))
+in
+  formula_cond(formula_igte(s2e, _0_), s2e_1, s2e_2)
+end // end of [formula_iabs]
+
+(* ****** ****** *)
+
+implement
+formula_isgn
+  (s2e) = let
+  val s2e_ = formula_incref(s2e)
+  val s2e_gtz = formula_igt(s2e, formula_int(0))
+  val s2e_ltz = formula_ilt(s2e_, formula_int(0))
+in
+//
+formula_cond
+(
+  s2e_gtz, formula_int(1), formula_cond(s2e_ltz, formula_int(~1), formula_int(0))
+)
+//
+end // end of [formula_isgn
+
+(* ****** ****** *)
+
+implement
 formula_imax
   (s2e1, s2e2) = let
   val s2e1_ = formula_incref(s2e1)

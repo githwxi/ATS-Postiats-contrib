@@ -142,6 +142,8 @@ datatype s2rt =
   | S2RTt0ype of ((*void*))
   | S2RTvt0ype of ((*void*))
 //
+  | S2RTtkind of ((*void*))
+//
   | S2RTfun of (s2rtlst(*args*), s2rt (*res*))
 //
   | S2RTnamed of (symbol)

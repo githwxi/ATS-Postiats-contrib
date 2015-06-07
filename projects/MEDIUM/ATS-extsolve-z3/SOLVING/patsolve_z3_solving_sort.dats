@@ -97,6 +97,9 @@ sort_mk_vtype () = sort_mk_abstract("type")
 implement
 sort_mk_vt0ype () = sort_mk_abstract("t0ype")
 //
+implement
+sort_mk_tkind () = sort_mk_abstract("tkind")
+//
 (* ****** ****** *)
 //
 (*
@@ -159,6 +162,8 @@ case+ s2t0 of
 | S2RTt0ype() => sort_mk_t0ype()
 | S2RTvtype() => sort_mk_vtype()
 | S2RTvt0ype() => sort_mk_vt0ype()
+//
+| S2RTtkind() => sort_mk_tkind()
 //
 | _(*unrecognized*) => sort_error(s2t0)
 //
