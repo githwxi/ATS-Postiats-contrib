@@ -49,11 +49,16 @@ of // case+
 | S2Eeqeq(s2e1, s2e2) =>
     fprint! (out, "S2Eeqeq(", s2e1, ", ", s2e2, ")")
 //
+| S2Esizeof(s2e) => fprint! (out, "S2Esizeof(", s2e, ")")
+//
 | S2Eapp(s2e_fun, s2es_arg) =>
     fprint! (out, "S2Eapp(", s2e_fun, "; ", s2es_arg, ")")
 //
 | S2Emetdec(s2es_met, s2es_bound) =>
     fprint! (out, "S2Emetdec(", s2es_met, "; ", s2es_bound, ")")
+//
+| S2Etop(knd, s2e) =>
+    fprint! (out, "S2Etop(", knd, ", ", s2e, ")")
 //
 | S2Einvar(s2e) => fprint! (out, "S2Einvar(", s2e, ")")
 //

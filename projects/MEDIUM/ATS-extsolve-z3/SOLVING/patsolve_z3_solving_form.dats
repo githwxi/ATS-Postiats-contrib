@@ -22,6 +22,7 @@ staload "./patsolve_z3_solving_ctx.dats"
 (* ****** ****** *)
 
 assume form_vtype = Z3_ast
+assume func_decl_vtype = Z3_func_decl
 
 (* ****** ****** *)
 
@@ -423,6 +424,28 @@ formula_bneq
 (* ****** ****** *)
 
 implement
+formula_cond
+(
+  s2e0, s2e1, s2e2
+) = res where
+{
+//
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+    Z3_mk_ite (ctx, s2e0, s2e1, s2e2)
+  // end of [val]
+  val () = Z3_dec_ref(ctx, s2e0)
+  val () = Z3_dec_ref(ctx, s2e1)
+  val () = Z3_dec_ref(ctx, s2e2)
+  prval ((*void*)) = fpf(ctx)
+//
+} (* end of [formula_cond] *)
+
+(* ****** ****** *)
+
+implement
 formula_eqeq
   (s2e1, s2e2) = res where
 {
@@ -450,24 +473,70 @@ val () = println! ("formula_eqeq: leave")
 (* ****** ****** *)
 
 implement
-formula_cond
-(
-  s2e0, s2e1, s2e2
-) = res where
+formula_sizeof_t0ype
+  (s2e) = let
+//
+val r = sort_int()
+val a = sort_mk_t0ype()
+//
+val fd =
+  func_decl_1("sizeof_t0ype", a, r)
+//
+in
+  formula_fdapp_1(fd, s2e)
+end // end of [formula_sizeof]
+
+(* ****** ****** *)
+
+implement
+func_decl_1
+  (name, arg, res) = let
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+// end of [val]
+//
+val
+sym =
+Z3_mk_string_symbol(ctx, name)
+//
+val arg = $UN.castvwtp0{Z3_sort}(arg)
+val res = $UN.castvwtp0{Z3_sort}(res)
+//
+val
+fd1 =
+Z3_mk_func_decl_1(ctx, sym, arg, res)
+//
+val ((*void*)) = Z3_sort_dec_ref(ctx, arg)
+val ((*void*)) = Z3_sort_dec_ref(ctx, res)
+//
+prval ((*void*)) = fpf(ctx)
+//
+in
+  fd1
+end // end of [func_decl_1]
+
+(* ****** ****** *)
+
+implement
+formula_fdapp_1
+  (fd, arg) = res where
 {
 //
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_ite (ctx, s2e0, s2e1, s2e2)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e0)
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
-  prval ((*void*)) = fpf(ctx)
+val (fpf | ctx) =
+  the_Z3_context_vget()
+// end of [val]
 //
-} (* end of [formula_cond] *)
+val res = Z3_mk_app_1 (ctx, fd, arg)
+//
+val () =
+  Z3_func_decl_dec_ref(ctx, fd)
+//
+val ((*void*)) = Z3_dec_ref(ctx, arg)
+//
+prval ((*void*)) = fpf(ctx)
+//
+} (* end of [formula_fdapp_1] *)
 
 (* ****** ****** *)
 
@@ -767,6 +836,21 @@ end // end of [aux_S2Emetdec]
 (* ****** ****** *)
 
 fun
+aux_S2Etop
+(
+  env: !smtenv, s2e0: s2exp
+) : form = let
+//
+val-
+S2Etop(_, s2e) = s2e0.s2exp_node
+//
+in
+  formula_make_s2exp(env, s2e)
+end // end of [aux_S2Etop]
+
+(* ****** ****** *)
+
+fun
 aux_S2Einvar
 (
   env: !smtenv, s2e0: s2exp
@@ -778,6 +862,23 @@ S2Einvar(s2e) = s2e0.s2exp_node
 in
   formula_make_s2exp(env, s2e)
 end // end of [aux_S2Einvar]
+
+(* ****** ****** *)
+
+fun
+aux_S2Esizeof
+(
+  env: !smtenv, s2e0: s2exp
+) : form = let
+//
+val-
+S2Esizeof(s2e) = s2e0.s2exp_node
+//
+val s2e = formula_make_s2exp(env, s2e)
+//
+in
+  formula_sizeof_t0ype(s2e)
+end // end of [aux_S2Esizeof]
 
 in (* in-of-local *)
 
@@ -815,7 +916,11 @@ of // case+
 //
 | S2Emetdec _ => aux_S2Emetdec (env, s2e0)
 //
+| S2Etop(_, s2e) => aux_S2Etop (env, s2e0)
+//
 | S2Einvar(s2e) => aux_S2Einvar (env, s2e0)
+//
+| S2Esizeof(s2e) => aux_S2Esizeof (env, s2e0)
 //
 | _ (*unrecognized*) => formula_error(s2e0)
 //

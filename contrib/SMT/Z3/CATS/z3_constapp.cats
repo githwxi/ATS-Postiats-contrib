@@ -44,6 +44,128 @@ atscntrb_Z3_mk_fresh_const(ctx, prefix, ty) \
 
 /* ****** ****** */
 
+ATSinline()
+Z3_func_decl
+atscntrb_Z3_mk_func_decl
+(
+  Z3_context ctx
+, Z3_symbol sym
+, int n, Z3_sort *args, Z3_sort res
+)
+{
+  Z3_func_decl
+  fd = Z3_mk_func_decl(ctx, sym, n, args, res);
+  Z3_inc_ref(ctx, Z3_func_decl_to_ast(ctx, fd));
+  return fd;
+} // end of [atscntrb_Z3_mk_func_decl]
+
+/* ****** ****** */
+
+ATSinline()
+Z3_func_decl
+atscntrb_Z3_mk_func_decl_0
+(
+  Z3_context ctx
+, Z3_symbol sym, Z3_sort res
+)
+{
+  return
+  atscntrb_Z3_mk_func_decl(ctx, sym, 0, (Z3_sort*)0, res);
+}
+
+ATSinline()
+Z3_func_decl
+atscntrb_Z3_mk_func_decl_1
+(
+  Z3_context ctx
+, Z3_symbol sym, Z3_sort arg, Z3_sort res
+)
+{
+  Z3_sort args[1] = {arg};
+  return atscntrb_Z3_mk_func_decl(ctx, sym, 1, args, res);
+}
+
+ATSinline()
+Z3_func_decl
+atscntrb_Z3_mk_func_decl_2
+(
+  Z3_context ctx
+, Z3_symbol sym, Z3_sort arg0, Z3_sort arg1, Z3_sort res
+)
+{
+  Z3_sort args[2] = {arg0, arg1};
+  return atscntrb_Z3_mk_func_decl(ctx, sym, 2, args, res);
+}
+
+/* ****** ****** */
+
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_app
+(
+  Z3_context ctx
+, Z3_func_decl fd, int n, Z3_ast *args
+)
+{
+  Z3_ast
+  ast = Z3_mk_app(ctx, fd, n, args);
+  return atscntrb_Z3_inc_ref(ctx, ast);
+} // end of [atscntrb_Z3_mk_app]
+
+/* ****** ****** */
+
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_app_0
+(
+  Z3_context ctx
+, Z3_func_decl fd
+)
+{
+  return
+  atscntrb_Z3_mk_app(ctx, fd, 0, (Z3_ast*)0);
+}
+
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_app_1
+(
+  Z3_context ctx
+, Z3_func_decl fd, Z3_ast arg
+)
+{
+  Z3_ast args[1] = {arg};
+  return atscntrb_Z3_mk_app(ctx, fd, 1, args);
+}
+
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_app_2
+(
+  Z3_context ctx
+, Z3_func_decl fd, Z3_ast a0, Z3_ast a1
+)
+{
+  Z3_ast args[2] = {a0, a1};
+  return atscntrb_Z3_mk_app(ctx, fd, 2, args);
+}
+
+/* ****** ****** */
+//
+#define \
+atscntrb_Z3_func_decl_dec_ref(ctx, fd) \
+  atscntrb_Z3_dec_ref(ctx, Z3_func_decl_to_ast(ctx, fd))
+//
+ATSinline()
+Z3_func_decl
+atscntrb_Z3_func_decl_inc_ref
+  (Z3_context ctx, Z3_func_decl fd)
+{
+  Z3_inc_ref(ctx, Z3_func_decl_to_ast(ctx, fd)); return fd;
+}
+//
+/* ****** ****** */
+
 #endif // end of [Z3_Z3_CONSTAPP_CATS]
 
 /* ****** ****** */

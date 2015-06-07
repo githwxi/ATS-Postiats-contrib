@@ -151,13 +151,34 @@ fun
 formula_eqeq (s2e1: form, s2e2: form): form
 //
 (* ****** ****** *)
+
+fun
+formula_sizeof_t0ype (s2e_t0ype: form): form
+
+(* ****** ****** *)
 //
 fun
-formula_fdapp(f: func_decl, args: formlst): form
+formula_fdapp_0(fd: func_decl): form
+fun
+formula_fdapp_1(fd: func_decl, arg: form): form
+fun
+formula_fdapp_2(fd: func_decl, a0: form, a1: form): form
+fun
+formula_fdapp_lst(fd: func_decl, args: formlst): form
 //
 (* ****** ****** *)
 //
-fun 
+fun
+func_decl_0
+  (name: string, res: sort): func_decl
+fun
+func_decl_1
+  (name: string, arg: sort, res: sort): func_decl
+fun
+func_decl_2
+  (name: string, a0: sort, a1: sort, res: sort): func_decl
+//
+fun
 func_decl_make
   (name: string, domain: sortlst, range: sort): func_decl
 //

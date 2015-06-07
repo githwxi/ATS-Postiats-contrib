@@ -130,6 +130,19 @@ in
 end (* end of [aux_S2Eeqeq] *)
 
 fun
+aux_S2Esizeof
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S2Esizeof(parse_s2exp(x))
+end (* end of [aux_S2Esizeof] *)
+
+fun
 aux_S2Eapp
 (
   x0: jsonval
@@ -156,6 +169,20 @@ val-list_cons (x_bound, xs) = xs
 in
   S2Emetdec(parse_s2explst(x_met), parse_s2explst(x_bound))
 end (* end of [aux_S2Emetdec] *)
+
+fun
+aux_S2Etop
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+//
+in
+  S2Etop(parse_int(x1), parse_s2exp(x2))
+end (* end of [aux_S2Etop] *)
 
 fun
 aux_S2Einvar
@@ -196,9 +223,13 @@ case+ name of
 //
 | "S2Eeqeq" => aux_S2Eeqeq(jsnv2)
 //
+| "S2Esizeof" => aux_S2Esizeof(jsnv2)
+//
 | "S2Eapp" => aux_S2Eapp(jsnv2)
 //
 | "S2Emetdec" => aux_S2Emetdec(jsnv2)
+//
+| "S2Etop" => aux_S2Etop(jsnv2)
 //
 | "S2Einvar" => aux_S2Einvar(jsnv2)
 //
