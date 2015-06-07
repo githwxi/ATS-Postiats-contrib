@@ -536,8 +536,8 @@ val
 fd1 =
 Z3_mk_func_decl_1(ctx, sym, arg, res)
 //
-val ((*void*)) = Z3_sort_dec_ref(ctx, arg)
 val ((*void*)) = Z3_sort_dec_ref(ctx, res)
+val ((*void*)) = Z3_sort_dec_ref(ctx, arg)
 //
 prval ((*void*)) = fpf(ctx)
 //
@@ -566,6 +566,122 @@ val ((*void*)) = Z3_dec_ref(ctx, arg)
 prval ((*void*)) = fpf(ctx)
 //
 } (* end of [formula_fdapp_1] *)
+
+(* ****** ****** *)
+
+fun
+Z3_dec_ref_arrayptr
+  {n:int}
+(
+  ctx: !Z3_context
+, args: arrayptr(Z3_ast, n), n: int(n)
+) : void = let
+//
+fun
+loop
+(
+  ctx: !Z3_context, p: ptr, i: int
+) : void = (
+//
+if
+i < n
+then let
+//
+val () =
+Z3_dec_ref
+  (ctx, $UN.ptr0_get<Z3_ast>(p))
+//
+in
+  loop (ctx, ptr0_succ<Z3_ast>(p), i+1)
+end // end of [then]
+else () // end of [else]
+//
+) (* end of [loop] *)
+//
+val () = loop(ctx, ptrcast(args), 0)
+//
+in
+  arrayptr_free($UN.castvwtp0{arrayptr(ptr, n)}(args))
+end // end of [Z3_dec_ref_arrayptr]
+
+(* ****** ****** *)
+
+implement
+func_decl_list
+  (name, args, res) = let
+//
+val n = length(args)
+//
+prval
+[n:int] EQINT() = eqint_make_gint(n)
+//
+val args =
+  arrayptr_make_list_vt(n, args)
+//
+val res =
+  $UN.castvwtp0{Z3_sort}(res)
+val args =
+  $UN.castvwtp0{arrayptr(Z3_sort, n)}(args)
+//
+val
+( pfarr
+| p_args) =
+  arrayptr_takeout_viewptr(args)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+// end of [val]
+val
+sym = Z3_mk_string_symbol(ctx, name)
+val
+fdl = Z3_mk_func_decl(ctx, sym, n, !p_args, res)
+//
+prval () = arrayptr_addback(pfarr | args)
+//
+val res = $UN.castvwtp0{Z3_ast}(res)
+val args = $UN.castvwtp0{arrayptr(Z3_ast, n)}(args)
+//
+val ((*void*)) = Z3_dec_ref(ctx, res)
+val ((*void*)) = Z3_dec_ref_arrayptr(ctx, args, n)
+//
+prval ((*void*)) = fpf(ctx)
+//
+in
+  fdl
+end // end of [func_decl_list]
+
+(* ****** ****** *)
+
+implement
+formula_fdapp_list
+  (fd, args) = res where
+{
+//
+val n = length(args)
+val args =
+  arrayptr_make_list_vt(n, args)
+//
+val
+( pfarr
+| p_args) =
+  arrayptr_takeout_viewptr(args)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+// end of [val]
+//
+val res = Z3_mk_app (ctx, fd, n, !p_args)
+//
+val () =
+  Z3_func_decl_dec_ref(ctx, fd)
+//
+prval () = arrayptr_addback(pfarr | args)
+//
+val ((*void*)) = Z3_dec_ref_arrayptr(ctx, args, n)
+//
+prval ((*void*)) = fpf(ctx)
+//
+} (* end of [formula_fdapp_list] *)
 
 (* ****** ****** *)
 
@@ -814,7 +930,7 @@ val domain =
   list_map_fun<s2rt><sort>(s2ts_arg, sort_make_s2rt)
 // end of [val]
 //
-val fd0 = func_decl_make(name, domain, range)
+val fd0 = func_decl_list(name, domain, range)
 //
 in
   formula_fdapp_list(fd0, xs)

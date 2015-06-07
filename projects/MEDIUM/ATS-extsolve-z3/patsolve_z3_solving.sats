@@ -174,7 +174,7 @@ func_decl_2
   (name: string, a0: sort, a1: sort, res: sort): func_decl
 //
 fun
-func_decl_make
+func_decl_list
   (name: string, domain: sortlst, range: sort): func_decl
 //
 (* ****** ****** *)
