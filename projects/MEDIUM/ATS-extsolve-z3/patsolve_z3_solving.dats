@@ -68,8 +68,27 @@ unsolved = 0u
 then let
   val out = stderr_ref
   val loc = c3t.c3nstr_loc
+  val c3tk = c3t.c3nstr_kind
 in
-  fprintln! (out, "Unsolved constraint @ ", loc, ":", c3t);
+//
+case+ c3tk of
+| C3TKmain() =>
+  (
+    fprintln! (out, "UnsolvedConstraint(main)@", loc, ":", c3t)
+  )
+| C3TKtermet_isnat() =>
+  (
+    fprintln! (out, "UnsolvedConstraint(termet_isnat)@", loc, ":", c3t)
+  )
+| C3TKtermet_isdec() =>
+  (
+    fprintln! (out, "UnsolvedConstraint(termet_isdec)@", loc, ":", c3t)
+  )
+| _(*rest-of-C3TK*) =>
+  (
+    fprintln! (out, "UnsolvedConstraint(unclassified)@", loc, ":", c3t)
+  )
+//
 end // end of [then]
 //
 ) (* end of [val] *)

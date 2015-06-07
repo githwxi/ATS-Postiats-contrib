@@ -371,6 +371,40 @@ overload fprint with fprint_s2explst of 10
 //
 (* ****** ****** *)
 
+abstype d2var_type = ptr
+typedef d2var = d2var_type
+
+(* ****** ****** *)
+
+datatype
+caskind =
+  | CK_case // case
+  | CK_case_pos // case+
+  | CK_case_neg // case-
+// end of [caskind]
+
+datatype
+c3nstrkind =
+//
+  | C3TKmain of () // generic
+//
+  | C3TKcase_exhaustiveness of (caskind)
+//
+  | C3TKtermet_isnat of () // term. metric welfounded
+  | C3TKtermet_isdec of () // term. metric decreasing
+//
+  | C3TKsome_fin of (d2var, s2exp(*fin*), s2exp)
+  | C3TKsome_lvar of (d2var, s2exp(*lvar*), s2exp)
+  | C3TKsome_vbox of (d2var, s2exp(*vbox*), s2exp)
+//
+  | C3TKlstate of () // lstate merge
+  | C3TKlstate_var of (d2var) // lstate merge for d2var
+//
+  | C3TKloop of (int) // HX: ~1/0/1: enter/break/continue
+//
+  | C3TKignored of () // HX-2015-06-06: ignored c3nstrkind
+// end of [c3nstrkind]
+
 datatype s3itm =
   | S3ITMsvar of s2var
   | S3ITMsVar of s2Var
@@ -395,13 +429,21 @@ where
 //
 s3itmlst = List0(s3itm)
 //
-and s3itmlstlst = List0(s3itmlst)
+and
+s3itmlstlst = List0(s3itmlst)
 //
-and h3ypo =
-  $rec{ h3ypo_loc= loc_t, h3ypo_node= h3ypo_node }
+and
+h3ypo = $rec{
+  h3ypo_loc= loc_t
+, h3ypo_node= h3ypo_node
+} (* end of [h3ypo] *)
 //
-and c3nstr =
-  $rec{ c3nstr_loc= loc_t, c3nstr_node= c3nstr_node }
+and
+c3nstr = $rec{
+  c3nstr_loc= loc_t
+, c3nstr_kind= c3nstrkind
+, c3nstr_node= c3nstr_node
+} (* end of [c3nstr] *)
 //
 and c3nstropt = Option(c3nstr)
 
@@ -413,7 +455,8 @@ h3ypo_make_node (loc_t, h3ypo_node): h3ypo
 (* ****** ****** *)
 //
 fun
-c3nstr_make_node (loc_t, c3nstr_node): c3nstr
+c3nstr_make_node
+  (loc: loc_t, knd: c3nstrkind, c3nstr_node): c3nstr
 //
 (* ****** ****** *)
 //

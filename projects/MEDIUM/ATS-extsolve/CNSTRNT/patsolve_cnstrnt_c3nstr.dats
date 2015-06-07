@@ -15,8 +15,11 @@
 
 implement
 c3nstr_make_node
-  (loc, node) = '{
-  c3nstr_loc= loc, c3nstr_node= node
+(
+  loc, c3tk, node
+) = '{
+  c3nstr_loc= loc
+, c3nstr_kind= c3tk, c3nstr_node= node
 } (* end of [c3nstr_make_node] *)
 
 (* ****** ****** *)

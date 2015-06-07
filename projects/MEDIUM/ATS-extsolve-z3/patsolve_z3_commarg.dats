@@ -41,12 +41,20 @@ fprint_commarg
   (out, ca) =
 (
 case+ ca of
+//
 | CAhelp(str) => fprint! (out, "CAhelp(", str, ")")
+//
 | CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
+//
 | CAinput(str) => fprint! (out, "CAinput(", str, ")")
+//
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
+//
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
-)
+//
+| CAargend((*void*)) => fprint! (out, "CAargend(", ")")
+//
+) (* end of [fprint_commarg] *)
 
 (* ****** ****** *)
 
@@ -145,10 +153,11 @@ else res0 // end of [else]
 //
 end // end of [aux]
 //
+val args = aux(argc, argv, 0, nil_vt)
+//
 in
 //
-list_vt_reverse
-  (aux(argc, argv, 0, nil_vt(*void*)))
+list_vt_reverse(list_vt_cons(CAargend(), args))
 //
 end // end of [patsolve_z3_cmdline]
 
@@ -158,6 +167,8 @@ extern fun patsolve_z3_help(): void
 extern fun patsolve_z3_input(): void
 extern fun patsolve_z3_gitem(string): void
 extern fun patsolve_z3_input_arg(string): void
+//
+extern fun patsolve_z3_argend((*void*)): void
 //
 extern fun patsolve_z3_commarglst_finalize(): void
 //
@@ -222,6 +233,8 @@ case+ x of
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
 *)
+| CAargend() => patsolve_z3_argend ()
+//
 | _ (*rest-of-CA*) => ()
 //
 end // end of [process_arg]
@@ -321,7 +334,9 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
-    val c3t0 = parse_fileref_constraints(filr)
+    val c3t0 =
+      parse_fileref_constraints(filr)
+    // end of [val]
 //
 (*
     val () =
@@ -333,7 +348,7 @@ case+ opt of
     val () = fprint_newline (stdout_ref)
 *)
 //
-    val () = c3nstr_z3_solve (c3t0)
+    val ((*void*)) = c3nstr_z3_solve(c3t0)
 //
   } (* end of [Some_vt] *)
 //
@@ -355,6 +370,23 @@ case+ opt of
   } (* end of [None_vt] *)
 //
 end // end of [patsolve_z3_input_arg]
+
+(* ****** ****** *)
+
+implement
+patsolve_z3_argend
+  ((*void*)) = () where
+{
+//
+val inp = stdin_ref
+//
+val c3t0 =
+  parse_fileref_constraints(inp)
+// end of [val]
+//
+val ((*void*)) = c3nstr_z3_solve(c3t0)
+//
+} (* end of [patsolve_z3_argend] *)
 
 (* ****** ****** *)
 

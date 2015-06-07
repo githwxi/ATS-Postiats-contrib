@@ -15,6 +15,12 @@
 //
 extern
 fun
+parse_c3nstrkind (jsonval): c3nstrkind
+//
+(* ****** ****** *)
+//
+extern
+fun
 parse_c3nstr_node (jsonval): c3nstr_node
 //
 (* ****** ****** *)
@@ -32,19 +38,45 @@ println!
 *)
 //
 val-JSONobject(lxs) = jsnv0
-val () = assertloc(length(lxs) >= 2)
+val () = assertloc(length(lxs) >= 3)
 //
 val+list_cons(lx, lxs) = lxs
 val loc = parse_location (lx.1)
+//
+val+list_cons(lx, lxs) = lxs
+val c3tk = parse_c3nstrkind (lx.1)
 //
 val+list_cons(lx, lxs) = lxs
 val node = parse_c3nstr_node (lx.1)
 //
 in
 //
-  c3nstr_make_node (loc, node)
+  c3nstr_make_node (loc, c3tk, node)
 //
 end // end of [parse_c3nstr]
+
+(* ****** ****** *)
+
+implement
+parse_c3nstrkind
+  (jsnv0) = let
+//
+val-JSONobject(lxs) = jsnv0
+//
+val-list_cons (lx, lxs) = lxs
+val name = lx.0 and jsnv2 = lx.1
+//
+in
+//
+case+ name of
+| "C3NSTRKmain" => C3TKmain()
+//
+| "C3NSTRKtermet_isnat" => C3TKtermet_isnat()
+| "C3NSTRKtermet_isdec" => C3TKtermet_isdec()
+//
+| _(*rest-of-c3nstrkind*) => C3TKignored((*void*))
+//
+end // end of [parse_c3nstrkind]
 
 (* ****** ****** *)
 

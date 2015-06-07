@@ -25,6 +25,7 @@ commarg =
   | CAinput of (string)
   | CAoutput of (string)
   | CAscript of (string)
+  | CAargend of ((*void*))
 // end of [commarg]
 
 (* ****** ****** *)
