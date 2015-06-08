@@ -104,7 +104,8 @@ parse_string
 (* ****** ****** *)
 
 implement
-parse_stamp (jsnv0) = let
+parse_stamp
+  (jsnv0) = let
 //
 val-JSONint(lli) = jsnv0 in stamp_make($UN.cast{int}(lli))
 //
@@ -113,16 +114,52 @@ end // end of [parse_stamp]
 (* ****** ****** *)
 
 implement
-parse_symbol (jsnv0) = let
-  val-JSONstring(name) = jsnv0 in symbol_make_name (name)
+parse_symbol
+  (jsnv0) = let
+//
+val-JSONstring(name) = jsnv0 in symbol_make_name (name)
+//
 end // end of [parse_symbol]
 
 (* ****** ****** *)
 
 implement
-parse_location (jsnv0) = let
-  val-JSONstring(strloc) = jsnv0 in location_make (strloc)
+parse_location
+  (jsnv0) = let
+//
+val-JSONstring(strloc) = jsnv0 in location_make (strloc)
+//
 end // end of [parse_location]
+
+(* ****** ****** *)
+
+implement
+parse_tyreckind
+  (jsnv0) = let
+//
+val-JSONobject(lxs) = jsnv0
+//
+val-list_cons (lx, lxs) = lxs
+val name = lx.0 and jsnv2 = lx.1
+//
+in
+//
+case+ name of
+//
+| "TYRECKINDbox" => TYRECKINDbox()
+| "TYRECKINDbox_lin" => TYRECKINDbox_lin()
+//
+| "TYRECKINDflt0" => TYRECKINDflt0()
+| "TYRECKINDflt1" => TYRECKINDflt1(parse_stamp(jsnv2))
+| "TYRECKINDflt_ext" => TYRECKINDflt_ext(parse_string(jsnv2))
+//
+| _(*unrecognized*) => let
+    val () =
+      prerrln! ("parse_tyreckind: name = ", name) in exit(1)
+    // end of [val]
+  end // end of [_(*unrecognized*)]
+//
+end // end of [parse_tyreckind]
 
 (* ****** ****** *)
 

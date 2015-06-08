@@ -152,7 +152,7 @@ datatype s2rt =
 //
   | S2RTnamed of (symbol)
 //
-  | S2RTignored of ((*void*))
+  | S2RTerror of ((*void*))
 //
 // end of [datatype]
 
@@ -269,6 +269,10 @@ overload .name with s2var_get_name
 overload .stamp with s2var_get_stamp
 //
 (* ****** ****** *)
+
+fun s2var_is_impred (s2v: s2var): bool
+
+(* ****** ****** *)
 //
 fun s2var_get_payload(s2var): ptr
 fun s2var_set_payload(s2var, payload: ptr): void
@@ -328,6 +332,19 @@ fun tyreckind_is_flt1 (knd: tyreckind): bool
 fun tyreckind_is_flt_ext (knd: tyreckind): bool
 //
 (* ****** ****** *)
+//
+fun
+print_tyreckind : tyreckind -> void
+and
+prerr_tyreckind : tyreckind -> void
+fun
+fprint_tyreckind : fprint_type(tyreckind)
+//
+overload print with print_tyreckind
+overload prerr with prerr_tyreckind
+overload fprint with fprint_tyreckind
+//
+(* ****** ****** *)
 
 datatype
 s2exp_node =
@@ -352,7 +369,9 @@ s2exp_node =
 //
 | S2Einvar of (s2exp)
 //
-| S2Eignored of ((*void*))
+| S2Etyrec of (tyreckind)
+//
+| S2Eerror of ((*void*))
 // end of [s2exp_node]
 
 where
@@ -362,6 +381,11 @@ s2exp = $rec{
 
 and s2explst = List0 (s2exp)
 
+(* ****** ****** *)
+//
+typedef s2expopt = Option(s2exp)
+vtypedef s2expopt_vt = Option_vt(s2exp)
+//
 (* ****** ****** *)
 //
 fun
@@ -521,10 +545,6 @@ overload fprint with fprint_c3nstropt of 10
 //
 fun fpprint_c3nstr: fprint_type(c3nstr)
 //
-(* ****** ****** *)
-
-fun s2exp_make_h3ypo(h3p: h3ypo): s2exp
-
 (* ****** ****** *)
 
 (* end of [patsolve_cnstrnt.sats] *)

@@ -259,6 +259,52 @@ end // end of [smtenv_add_s2exp]
 (* ****** ****** *)
 
 implement
+smtenv_add_h3ypo
+  (env, h3p0) = let
+//
+(*
+val () =
+fprintln!
+(
+  stdout_ref
+, "smtenv_add_h3ypo: h3p0 = ", h3p0
+) (* end of [val] *)
+*)
+//
+in
+//
+case+
+h3p0.h3ypo_node of
+| H3YPOprop s2p =>
+    smtenv_add_s2exp(env, s2p)
+  // end of [H3YPOprop]
+//
+| H3YPObind
+    (s2v1, s2e2) => let
+  in
+    if s2var_is_impred(s2v1)
+      then ()
+      else let
+        val s2p =
+        s2exp_eqeq
+          (s2exp_var(s2v1), s2e2)
+        // end of [val]
+      in
+        smtenv_add_s2exp(env, s2p)
+      end // end of [else]
+  end // end of [H3YPObind]
+//
+| H3YPOeqeq
+    (s2e1, s2e2) =>
+  (
+    smtenv_add_s2exp(env, s2exp_eqeq(s2e1, s2e2))
+  ) (* end of [H3YPOeqeq] *)
+//
+end // end of [smtenv_add_h3ypo]
+
+(* ****** ****** *)
+
+implement
 smtenv_formula_solve
   (env, s2p0) = let
 //

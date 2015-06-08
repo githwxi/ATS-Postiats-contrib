@@ -183,28 +183,28 @@ case+ s3is of
     (s3i, s3is) =>
   (
   case+ s3i of
-  | S3ITMsvar (s2v) => let
+  | S3ITMsvar(s2v) => let
       val () = smtenv_add_s2var (env, s2v)
     in
       c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
     end // end of [S3ITMsvar]
-  | S3ITMhypo (h3p) => let
-      val s2p = s2exp_make_h3ypo (h3p)
-      val ((*void*)) = smtenv_add_s2exp (env, s2p)
+  | S3ITMhypo(h3p) => let
+      val () = smtenv_add_h3ypo(env, h3p)
     in
       c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
     end // end of [S3ITMhypo]
-  | S3ITMsVar (s2V) =>
+  | S3ITMsVar(s2V) =>
       c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
-  | S3ITMcnstr c3t =>
+  | S3ITMcnstr(c3t) =>
       c3nstr_solve_itmlst_cnstr (loc0, env, s3is, c3t, unsolved, nerr)
   | S3ITMcnstr_ref
-      (loc1, ctr) => (
-      case+ ctr of
+      (loc1, opt) =>
+    (
+      case+ opt of
+      | None() => ~1(*solved*)
       | Some(c3t) =>
           c3nstr_solve_itmlst_cnstr (loc1, env, s3is, c3t, unsolved, nerr)
         // end of [Some]
-      | None((*void*)) => ~1(*solved*)
     ) (* end of [S3ITMcnstr] *)
   | S3ITMdisj (s3iss_disj) =>
       c3nstr_solve_itmlst_disj (loc0, env, s3is, s3iss_disj, unsolved, nerr)

@@ -220,6 +220,9 @@ smtenv_add_s2var
 fun
 smtenv_add_s2exp
   (env: !smtenv, s2e: s2exp): void
+fun
+smtenv_add_h3ypo
+  (env: !smtenv, h3p: h3ypo): void
 //
 (* ****** ****** *)
 //

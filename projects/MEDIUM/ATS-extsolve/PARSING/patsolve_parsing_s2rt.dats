@@ -91,7 +91,7 @@ case+ lx.0 of
 //
 | "S2RTfun" => aux_S2RTfun (lx.1)
 //
-| _(*rest-of-S2RT*) => S2RTignored((*void*))
+| _(*rest-of-S2RT*) => S2RTerror((*void*))
 //
 end // end of [parse_s2rt]
 

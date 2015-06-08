@@ -37,6 +37,28 @@ s2exp_is_impred
 (* ****** ****** *)
 
 implement
+fprint_tyreckind
+  (out, knd) = (
+//
+case+ knd of
+//
+| TYRECKINDbox() =>
+    fprint! (out, "TYRECKINDbox(", ")")
+| TYRECKINDbox_lin() =>
+    fprint! (out, "TYRECKINDbox_lin(", ")")
+//
+| TYRECKINDflt0() =>
+    fprint! (out, "TYRECKINDflt0(", ")")
+| TYRECKINDflt1(stamp) =>
+    fprint! (out, "TYRECKINDflt1(", stamp, ")")
+| TYRECKINDflt_ext (name) =>
+    fprint! (out, "TYRECKINDflt_ext(", name, ")")
+//
+) (* end of [fprint_tyreckind] *)
+
+(* ****** ****** *)
+
+implement
 fprint_s2exp
   (out, s2e) = let
 in
@@ -68,7 +90,9 @@ of // case+
 //
 | S2Einvar(s2e) => fprint! (out, "S2Einvar(", s2e, ")")
 //
-| S2Eignored((*void*)) => fprint! (out, "S2Eignored()")
+| S2Etyrec(knd) => fprint! (out, "S2Etyrec(", knd, ")")
+//
+| S2Eerror((*void*)) => fprint! (out, "S2Eerror()")
 //
 end // end of [fprint_s2exp]
 

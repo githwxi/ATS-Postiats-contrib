@@ -56,6 +56,13 @@ implement
 prerr_symbol(x) = fprint_symbol(stderr_ref, x)
 //
 (* ****** ****** *)
+//
+implement
+print_tyreckind(x) = fprint_tyreckind(stdout_ref, x)
+implement
+prerr_tyreckind(x) = fprint_tyreckind(stderr_ref, x)
+//
+(* ****** ****** *)
 
 implement
 fprint_val<s2rt> = fprint_s2rt

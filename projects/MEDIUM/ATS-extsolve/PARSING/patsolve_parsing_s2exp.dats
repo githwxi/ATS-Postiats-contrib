@@ -197,6 +197,19 @@ in
   S2Einvar(parse_s2exp(x))
 end (* end of [aux_S2Einvar] *)
 
+fun
+aux_S2Etyrec
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S2Etyrec(parse_tyreckind(x))
+end (* end of [aux_S2Einvar] *)
+
 in (* in-of-local *)
 
 implement
@@ -233,7 +246,12 @@ case+ name of
 //
 | "S2Einvar" => aux_S2Einvar(jsnv2)
 //
-| "S2Eignored" => S2Eignored(*void*)
+| "S2Etyrec" => aux_S2Etyrec(jsnv2)
+//
+| "S2Euni" => S2Eerror(*void*)
+| "S2Eexi" => S2Eerror(*void*)
+//
+| "S2Eignored" => S2Eerror(*void*)
 //
 | _(*unrecognized*) => 
   let

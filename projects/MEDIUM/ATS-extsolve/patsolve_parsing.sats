@@ -58,6 +58,11 @@ fun parse_symbol (jsnv: jsonval): symbol
 fun parse_location (jsnv: jsonval): loc_t
 
 (* ****** ****** *)
+//
+fun
+parse_tyreckind (jsnv: jsonval): tyreckind
+//
+(* ****** ****** *)
 
 fun{
 a:t@ype

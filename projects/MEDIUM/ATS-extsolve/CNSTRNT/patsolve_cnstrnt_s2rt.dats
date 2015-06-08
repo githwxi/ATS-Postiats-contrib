@@ -84,7 +84,7 @@ case+ s2t of
     (sym) =>fprint! (out, "S2RTnamed(", sym, ")")
   // end of [S2RTnamed]
 //
-| S2RTignored() => fprint! (out, "S2RTignored()")
+| S2RTerror() => fprint! (out, "S2RTerror()")
 //
 ) (* end of [fprint_s2rt] *)
 //
