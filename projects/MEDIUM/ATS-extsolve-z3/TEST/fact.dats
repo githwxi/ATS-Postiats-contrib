@@ -53,10 +53,11 @@ implement
 main0(argc, argv) =
 {
 //
-val n = 10
 val n =
 (
-  if (argc >= 2) then g0string2int(argv[1]) else n
+if (argc >= 2)
+  then g0string2int(argv[1]) else 10
+// end of [if]
 ) : int // end of [val]
 //
 val n = g1ofg0(n)

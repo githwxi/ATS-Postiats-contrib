@@ -25,6 +25,12 @@ cleanall:: ; $(RMF) fact
 #
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
