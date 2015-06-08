@@ -14,6 +14,9 @@ SUBDIRS += CATS-atscc2pl
 ######
 #
 testall:: ; \
+$(MAKE) -C ./../CATS-parsemit DATS_C
+#
+testall:: ; \
 for i in $(SUBDIRS); do $(MAKE) -C $$i -f Makefile testall; done
 #
 ######
