@@ -38,16 +38,23 @@ staload "./patsolve_parsing.sats"
 (* ****** ****** *)
 
 implement
-fprint_commarg
-  (out, ca) =
-(
+fprint_commarg(out, ca) = (
+//
 case+ ca of
+//
 | CAhelp(str) => fprint! (out, "CAhelp(", str, ")")
+//
 | CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
+//
 | CAinput(str) => fprint! (out, "CAinput(", str, ")")
+//
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
+//
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
-)
+//
+| CAargend((*void*)) => fprint! (out, "CAargend(", ")")
+//
+) (* end of [fprint_commarg] *)
 
 (* ****** ****** *)
 
@@ -146,10 +153,11 @@ else res0 // end of [else]
 //
 end // end of [aux]
 //
+val args = aux(argc, argv, 0, nil_vt)
+//
 in
 //
-list_vt_reverse
-  (aux(argc, argv, 0, nil_vt(*void*)))
+list_vt_reverse(list_vt_cons(CAargend(), args))
 //
 end // end of [patsolve_cmdline]
 
@@ -159,6 +167,8 @@ extern fun patsolve_help(): void
 extern fun patsolve_input(): void
 extern fun patsolve_gitem(string): void
 extern fun patsolve_input_arg(string): void
+//
+extern fun patsolve_argend((*void*)): void
 //
 extern fun patsolve_commarglst_finalize(): void
 //
@@ -204,10 +214,14 @@ fun
 process_arg
   (x: commarg): void = let
 //
+(*
 val () =
 fprintln!
-  (stdout_ref, "patsolve_commarglst: process_arg: x = ", x)
-// end of [val]
+(
+  stdout_ref
+, "patsolve_commarglst: process_arg: x = ", x
+) (* end of [val] *)
+*)
 //
 in
 //
@@ -223,6 +237,8 @@ case+ x of
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
 *)
+| CAargend() => patsolve_argend ()
+//
 | _ (*rest-of-CA*) => ()
 //
 end // end of [process_arg]
@@ -324,12 +340,16 @@ case+ opt of
 //
     val c3t0 = parse_fileref_constraints(filr)
 //
+(*
     val () =
     fprint! (
       stdout_ref
     , "patsolve_input_arg: c3t0 =\n"
     ) (* end of [fprint] *)
-    val () = fpprint_c3nstr(stdout_ref, c3t0)
+*)
+    val () =
+      fpprint_c3nstr(stdout_ref, c3t0)
+    // end of [val]
     val () = fprint_newline (stdout_ref)
 //
   } (* end of [Some_vt] *)
@@ -352,6 +372,26 @@ case+ opt of
   } (* end of [None_vt] *)
 //
 end // end of [patsolve_input_arg]
+
+(* ****** ****** *)
+
+implement
+patsolve_argend
+  ((*void*)) = () where
+{
+//
+val inp = stdin_ref
+//
+val c3t0 =
+  parse_fileref_constraints(inp)
+// end of [val]
+//
+val () =
+  fpprint_c3nstr(stdout_ref, c3t0)
+//
+val () = fprint_newline (stdout_ref)
+//
+} (* end of [patsolve_argend] *)
 
 (* ****** ****** *)
 
