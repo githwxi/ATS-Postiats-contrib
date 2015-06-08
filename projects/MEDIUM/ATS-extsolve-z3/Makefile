@@ -154,6 +154,11 @@ $(CPF) $(PATSOLVE_source)/CATS/patsolve_parsing_dats.c $(PATSOLVE)/.
 #
 ######
 
+build:: pkgreloc
+build:: patsolve_z3
+
+######
+
 testall:: all
 testall:: cleanall
 
