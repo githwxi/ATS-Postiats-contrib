@@ -154,6 +154,11 @@ $(CPF) $(PATSOLVE_source)/CATS/patsolve_parsing_dats.c $(PATSOLVE)/.
 #
 ######
 
+testall:: all
+testall:: cleanall
+
+######
+
 CPF=cp -f
 RMF=rm -f
 

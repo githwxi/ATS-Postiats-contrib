@@ -769,9 +769,17 @@ val stamp =
 //
 val stamp = g0int2string(stamp)
 //
-val name2 =
-string0_append
-  ($UN.strptr2string(name), $UN.strptr2string(stamp))
+var
+strarr =
+@[string](
+  $UN.strptr2string(name)
+, "(", $UN.strptr2string(stamp), ")"
+) (* var *)
+//
+val
+name2 =
+stringarr_concat
+  ($UN.cast{arrayref(string,4)}(addr@strarr), i2sz(4))
 //
 val () = strptr_free(name)
 val () = strptr_free(stamp)
@@ -870,9 +878,17 @@ val stamp =
 //
 val stamp = g0int2string(stamp)
 //
-val name2 =
-string0_append
-  ($UN.strptr2string(name), $UN.strptr2string(stamp))
+var
+strarr =
+@[string](
+  $UN.strptr2string(name)
+, "(", $UN.strptr2string(stamp), ")"
+) (* var *)
+//
+val
+name2 =
+stringarr_concat
+  ($UN.cast{arrayref(string,4)}(addr@strarr), i2sz(4))
 //
 val () = strptr_free(name)
 val () = strptr_free(stamp)
@@ -902,6 +918,51 @@ prval ((*void*)) = fpf(ctx)
 val () = strptr_free(name2)
 //
 } (* end of [formula_make_s2var_fresh] *)
+
+(* ****** ****** *)
+
+implement
+formula_make_s2Var_fresh
+  (env, s2V0, s2t0) = ast where
+{
+//
+val stamp =
+  stamp_get_int(s2V0.stamp())
+//
+val stamp = g0int2string(stamp)
+//
+val
+name2 =
+string0_append
+  ("s2Var$", $UN.strptr2string(stamp))
+//
+val () = strptr_free(stamp)
+//
+val ty = sort_make_s2rt(s2t0)
+val ty = $UN.castvwtp0{Z3_sort}(ty)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val
+sym =
+Z3_mk_string_symbol
+  (ctx, $UN.strptr2string(name2))
+//
+val ast = Z3_mk_const(ctx, sym, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+//
+val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+val () = strptr_free(name2)
+//
+} (* end of [formula_make_s2Var_fresh] *)
 
 (* ****** ****** *)
 
@@ -969,6 +1030,21 @@ val-S2Evar(s2v) = s2e0.s2exp_node
 in
   formula_make_s2var(env, s2v)
 end // end of [aux_S2Evar]
+
+(* ****** ****** *)
+
+fun
+aux_S2EVar
+(
+  env: !smtenv, s2e0: s2exp
+) : form = let
+//
+val s2t = s2e0.s2exp_srt
+val-S2EVar(s2V) = s2e0.s2exp_node
+//
+in
+  formula_make_s2Var_fresh(env, s2V, s2t)
+end // end of [aux_S2EVar]
 
 (* ****** ****** *)
 
@@ -1166,6 +1242,8 @@ of // case+
 | S2Ecst _ => aux_S2Ecst(env, s2e0)
 | S2Evar _ => aux_S2Evar(env, s2e0)
 //
+| S2EVar _ => aux_S2EVar(env, s2e0)
+//
 | S2Eeqeq
     (s2e1, s2e2) => let
     val s2e1 =
@@ -1178,11 +1256,11 @@ of // case+
 //
 | S2Emetdec _ => aux_S2Emetdec (env, s2e0)
 //
-| S2Etop(_, s2e) => aux_S2Etop (env, s2e0)
+| S2Etop _=> aux_S2Etop (env, s2e0)
 //
-| S2Einvar(s2e) => aux_S2Einvar (env, s2e0)
+| S2Einvar _ => aux_S2Einvar (env, s2e0)
 //
-| S2Esizeof(s2e) => aux_S2Esizeof (env, s2e0)
+| S2Esizeof _ => aux_S2Esizeof (env, s2e0)
 //
 | _ (*unrecognized*) => formula_error(s2e0)
 //

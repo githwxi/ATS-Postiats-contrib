@@ -251,6 +251,12 @@ formula_make_s2var_fresh
   (env: !smtenv, s2v: s2var): form
 //
 fun
+formula_make_s2Var_fresh
+  (env: !smtenv, s2V: s2Var, s2t: s2rt): form
+//
+(* ****** ****** *)
+//
+fun
 formula_make_s2exp
   (env: !smtenv, s2p: s2exp): form
 fun

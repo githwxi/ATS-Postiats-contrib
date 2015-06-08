@@ -247,12 +247,12 @@ s2var_make
 //
 (* ****** ****** *)
 //
-fun
-print_s2var: s2var -> void
-fun
-fprint_s2var: fprint_type(s2var)
+fun print_s2var: s2var -> void
+and prerr_s2var: s2var -> void
+fun fprint_s2var: fprint_type(s2var)
 //
 overload print with print_s2var
+overload prerr with prerr_s2var
 overload fprint with fprint_s2var
 //
 (* ****** ****** *)
@@ -296,12 +296,12 @@ fun s2Var_make(stamp): s2Var
 //
 (* ****** ****** *)
 //
-fun
-print_s2Var: s2Var -> void
-fun
-fprint_s2Var: fprint_type(s2Var)
+fun print_s2Var: s2Var -> void
+and prerr_s2Var: s2Var -> void
+fun fprint_s2Var: fprint_type(s2Var)
 //
 overload print with print_s2Var
+overload prerr with prerr_s2Var
 overload fprint with fprint_s2Var
 //
 (* ****** ****** *)

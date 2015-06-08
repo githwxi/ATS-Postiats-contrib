@@ -48,10 +48,6 @@ end // end of [local]
 
 (* ****** ****** *)
 //
-//
-implement
-print_s2Var(s2V) = fprint_s2Var(stdout_ref, s2V)
-//
 implement
 fprint_s2Var
   (out, s2V) =

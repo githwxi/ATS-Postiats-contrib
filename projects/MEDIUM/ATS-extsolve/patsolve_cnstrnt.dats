@@ -99,6 +99,18 @@ prerr_s2cst(x) = fprint_s2cst(stderr_ref, x)
 (* ****** ****** *)
 //
 implement
+print_s2var(x) = fprint_s2var(stdout_ref, x)
+implement
+prerr_s2var(x) = fprint_s2var(stderr_ref, x)
+//
+implement
+print_s2Var(x) = fprint_s2Var(stdout_ref, x)
+implement
+prerr_s2Var(x) = fprint_s2Var(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
 print_s2exp(x) = fprint_s2exp(stdout_ref, x)
 implement
 prerr_s2exp(x) = fprint_s2exp(stderr_ref, x)

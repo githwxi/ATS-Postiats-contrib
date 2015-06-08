@@ -21,9 +21,9 @@ atspre:: ; \
 $(PATSOPT) -tc --constraint-export \
   -d $(PATSHOME)/prelude/DATS/integer.dats | $(PATSOLVE) -i
 #
-# atspre:: ; \
-# $(PATSOPT) -tc --constraint-export \
-#   -d $(PATSHOME)/prelude/DATS/pointer.dats | $(PATSOLVE) -i
+atspre:: ; \
+$(PATSOPT) -tc --constraint-export \
+  -d $(PATSHOME)/prelude/DATS/pointer.dats | $(PATSOLVE) -i
 #
 atspre:: ; \
 $(PATSOPT) -tc --constraint-export \
