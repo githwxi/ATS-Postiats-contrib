@@ -37,9 +37,8 @@ staload "./patsolve_z3_solving.sats"
 (* ****** ****** *)
 
 implement
-fprint_commarg
-  (out, ca) =
-(
+fprint_commarg(out, ca) = (
+//
 case+ ca of
 //
 | CAhelp(str) => fprint! (out, "CAhelp(", str, ")")
@@ -214,10 +213,14 @@ fun
 process_arg
   (x: commarg): void = let
 //
+(*
 val () =
 fprintln!
-  (stdout_ref, "patsolve_z3_commarglst: process_arg: x = ", x)
-// end of [val]
+(
+  stdout_ref
+, "patsolve_z3_commarglst: process_arg: x = ", x
+) (* end of [val] *)
+*)
 //
 in
 //
@@ -281,9 +284,11 @@ implement
 patsolve_z3_input() =
 {
 //
+(*
 val () =
 prerrln!
   ("patsolve_z3_input: ...")
+*)
 //
 val () = !the_state.input := 1
 //
@@ -318,7 +323,8 @@ implement
 patsolve_z3_input_arg
   (path) = let
 //
-val opt =
+val
+opt =
 fileref_open_opt(path, file_mode_r)
 //
 in

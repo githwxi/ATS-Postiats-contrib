@@ -183,6 +183,10 @@ case+ s2t0 of
 //
 | S2RTtkind() => sort_mk_tkind()
 //
+| S2RTnamed(sym) =>
+    sort_mk_abstract(sym.name())
+  // end of [S2RTnamed]
+//
 | _(*rest-of-S2RT*) => sort_error(s2t0)
 //
 end (* end of [sort_make_s2rt] *)
