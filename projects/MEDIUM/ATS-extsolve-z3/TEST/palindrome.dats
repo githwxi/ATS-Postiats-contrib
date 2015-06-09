@@ -1,5 +1,14 @@
 (* ****** ****** *)
 //
+// Proving that
+// append(xs, reverse(xs)) is a palindrome
+//
+(* ****** ****** *)
+//  
+// Author: HX-2015-06-09
+//
+(* ****** ****** *)
+//
 staload
 "libats/SATS/ilist_prf.sats"
 //
