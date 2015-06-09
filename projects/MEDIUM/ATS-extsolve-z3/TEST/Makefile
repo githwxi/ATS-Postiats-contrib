@@ -39,6 +39,14 @@ cleanall:: ; $(RMF) fact
 #
 ######
 
+all:: \
+palindrome
+palindrome:: \
+palindrome.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+
+######
+
 testall:: all
 testall:: regress
 testall:: cleanall

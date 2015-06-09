@@ -29,7 +29,7 @@ fib
 //
 fun
 loop
-{i:nat | i <= n}
+{i:nat|i <= n} .<n-i>.
 (
   ni: int(n-i)
 , f0: int(fib(i)), f1: int(fib(i+1))
@@ -50,8 +50,7 @@ else (
 //
 ) (* end of [loop] *)
 //
-prval () = fib_bas0()
-prval () = fib_bas1()
+prval () = fib_bas0() and () = fib_bas1()
 //
 in
   loop{0}(n, 0, 1)
