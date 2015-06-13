@@ -66,11 +66,11 @@ Z3_mk_uninterpreted_sort
 //
 fun
 Z3_sort_inc_ref{l:addr}
-  (ctx: !Z3_context, srt: !Z3_sort(l)): Z3_sort(l) = "mac#%"
+  (ctx: !Z3_context, ty: !Z3_sort(l)): Z3_sort(l) = "mac#%"
 // end of [Z3_sort_inc_ref]
 //
 fun
-Z3_sort_dec_ref(ctx: !Z3_context, srt: Z3_sort): void = "mac#%"
+Z3_sort_dec_ref(ctx: !Z3_context, ty: Z3_sort): void = "mac#%"
 //
 (* ****** ****** *)
 

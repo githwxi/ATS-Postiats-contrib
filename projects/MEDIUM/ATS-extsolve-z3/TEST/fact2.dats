@@ -11,10 +11,10 @@ stacst fact: int -> int
 //
 extern
 praxi
-fact_bas(): [fact(0)==1] void
+fact_bas(): [fact(0)==1] unit_p
 extern
 praxi
-fact_ind{n:pos}(): [fact(n)==n*fact(n-1)] void
+fact_ind{n:pos}(): [fact(n)==n*fact(n-1)] unit_p
 //
 (* ****** ****** *)
 //
@@ -25,6 +25,9 @@ fact
   n: int(n)
 ) : int(fact(n)) = let
 //
+prval () = $solver_assert(fact_bas)
+prval () = $solver_assert(fact_ind)
+//
 fun
 loop
 {n:nat}
@@ -33,14 +36,7 @@ loop
   n: int(n), r: int(r)
 ) : int(fact(n)*r) = (
 //
-if
-n = 0
-then let
-  prval () = fact_bas() in (r)
-end // end of [then]
-else let
-  prval () = fact_ind{n}() in loop(n-1, n*r)
-end // end of [else]
+if n = 0 then (r) else loop(n-1, n*r)
 //
 ) (* end of [loop] *)
 //
@@ -70,4 +66,4 @@ val () = println! ("fact(", n, ") = ", fact(n))
 
 (* ****** ****** *)
 
-(* end of [fact.dats] *)
+(* end of [fact2.dats] *)

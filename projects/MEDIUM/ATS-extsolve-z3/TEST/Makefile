@@ -25,6 +25,20 @@ cleanall:: ; $(RMF) fib
 #
 ######
 #
+all:: fib2
+#
+fib2:: fib2.dats; $(PATSCC) --constraint-ignore -o $@ $<
+#
+fib2:: \
+fib2.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+#
+regress:: fib2; ./fib2 20
+#
+cleanall:: ; $(RMF) fib2
+#
+######
+#
 all:: fact
 #
 fact:: fact.dats; $(PATSCC) --constraint-ignore -o $@ $<
@@ -36,6 +50,20 @@ $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 regress:: fact; ./fact 10
 #
 cleanall:: ; $(RMF) fact
+#
+######
+#
+all:: fact2
+#
+fact2:: fact2.dats; $(PATSCC) --constraint-ignore -o $@ $<
+#
+fact2:: \
+fact2.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+#
+regress:: fact2; ./fact2 10
+#
+cleanall:: ; $(RMF) fact2
 #
 ######
 

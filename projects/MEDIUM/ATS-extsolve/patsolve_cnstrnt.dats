@@ -58,6 +58,13 @@ prerr_symbol(x) = fprint_symbol(stderr_ref, x)
 (* ****** ****** *)
 //
 implement
+print_label(x) = fprint_label(stdout_ref, x)
+implement
+prerr_label(x) = fprint_label(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
 print_tyreckind(x) = fprint_tyreckind(stdout_ref, x)
 implement
 prerr_tyreckind(x) = fprint_tyreckind(stderr_ref, x)
@@ -72,6 +79,8 @@ implement
 fprint_val<s2var> = fprint_s2var
 implement
 fprint_val<s2exp> = fprint_s2exp
+implement
+fprint_val<labs2exp> = fprint_labs2exp
 
 (* ****** ****** *)
 
@@ -144,6 +153,15 @@ local
 //
 #include
 "./CNSTRNT/patsolve_cnstrnt_location.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./CNSTRNT/patsolve_cnstrnt_label.dats" in (*nothing*)
 //
 end // end of [local]
 //

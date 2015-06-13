@@ -110,6 +110,12 @@ fun formula_conj (form, form): form
 fun formula_impl (form, form): form
 //
 (* ****** ****** *)
+
+fun formula_conj_list (formlst): form
+fun formula_conj_list1 (formlst, form): form
+fun formula_impl_list1 (formlst, form): form
+
+(* ****** ****** *)
 //
 fun formula_ineg (form): form
 //
@@ -208,9 +214,14 @@ smtenv_create(): smtenv
 fun
 smtenv_destroy(env: smtenv): void
 //
+(* ****** ****** *)
+//
 fun
-smtenv_set_verbose
-  (env: !smtenv, verbose: bool): void
+s2var_pop_payload(s2var): form
+fun
+s2var_top_payload(s2var): form
+fun
+s2var_push_payload(s2var, form): void
 //
 (* ****** ****** *)
 //
@@ -258,14 +269,17 @@ formula_make_s2Var_fresh
 //
 fun
 formula_make_s2exp
-  (env: !smtenv, s2p: s2exp): form
+  (env: !smtenv, s2e: s2exp): form
 fun
 formulas_make_s2explst
-  (env: !smtenv, s2ps: s2explst): formlst
+  (env: !smtenv, s2es: s2explst): formlst
+fun
+formulas_make_labs2explst
+  (env: !smtenv, ls2es: labs2explst): formlst
 //
 fun
 formula_make_s2cst_s2explst
-  (env: !smtenv, s2c: s2cst, s2ps: s2explst): form
+  (env: !smtenv, s2c: s2cst, s2es: s2explst): form
 //
 (* ****** ****** *)
 //

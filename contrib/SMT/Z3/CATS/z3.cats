@@ -110,6 +110,10 @@ atscntrb_Z3_dec_ref(ctx, ast) Z3_dec_ref(ctx, ast)
 
 /* ****** ****** */
 
+#include "z3_quantifier.cats"
+
+/* ****** ****** */
+
 #include "./z3_arithmetic.cats"
 
 /* ****** ****** */

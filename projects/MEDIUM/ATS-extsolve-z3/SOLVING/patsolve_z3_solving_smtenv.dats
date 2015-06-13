@@ -21,6 +21,67 @@ staload "./patsolve_z3_solving_ctx.dats"
 //
 (* ****** ****** *)
 
+implement
+s2var_pop_payload
+  (s2v0) = ast where
+{
+//
+val asts =
+  s2var_get_payload(s2v0)
+val asts =
+  $UN.castvwtp0{List1_vt(form)}(asts)
+//
+val+~list_vt_cons(ast, asts) = asts
+//
+val ((*void*)) =
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
+//
+} (* end of [s2var_pop_payload] *)
+//
+(* ****** ****** *)
+
+implement
+s2var_top_payload
+  (s2v0) = let
+//
+val asts =
+  s2var_get_payload(s2v0)
+val asts =
+  $UN.castvwtp0{List1_vt(Z3_ast)}(asts)
+//
+val+list_vt_cons(ast, _) = asts
+//
+val (
+  fpf | ctx
+) = the_Z3_context_vget()
+//
+val ast2 = Z3_inc_ref(ctx, ast)
+//
+prval ((*void*)) = fpf(ctx)
+//
+prval ((*void*)) = $UN.cast2void(asts)
+//
+in
+  $UN.castvwtp0{form}(ast2)
+end // end of [s2var_top_payload]
+
+(* ****** ****** *)
+
+implement
+s2var_push_payload
+  (s2v0, ast) = let
+//
+val asts =
+  s2var_get_payload(s2v0)
+val asts =
+  list_vt_cons(ast, $UN.castvwtp0{formlst}(asts))
+//
+in
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
+end (* end of [s2var_push_payload] *)
+
+(* ****** ****** *)
+
 datavtype
 smtenv =
 SMTENV of (smtenv_struct)
@@ -59,15 +120,15 @@ loop
 ) : void = (
 //
 case+ s2vs of
-| ~list_vt_nil() => ()
-| ~list_vt_cons(s2v, s2vs) => let
+| ~list_vt_nil
+    ((*void*)) => ()
+| ~list_vt_cons
+    (s2v, s2vs) => let
+//
+    val ast = s2var_pop_payload(s2v)
+    val ast = $UN.castvwtp0{Z3_ast}(ast)
     val (fpf | ctx) = the_Z3_context_vget()
-    val () =
-    Z3_dec_ref
-    (
-      ctx
-    , $UN.castvwtp0{Z3_ast}(s2var_get_payload(s2v))
-    ) (* end of [Z3_dec_ref] *)
+    val ((*freed*)) = Z3_dec_ref(ctx, ast)
     prval ((*void*)) = fpf(ctx)
   in
     loop(s2vs)
@@ -213,13 +274,14 @@ smtenv_add_s2var
 val+@SMTENV(env_s) = env
 val s2vs = env_s.smtenv_s2varlst
 val ((*void*)) =
-  env_s.smtenv_s2varlst := cons_vt(s2v0, s2vs)
+  env_s.smtenv_s2varlst := list_vt_cons(s2v0, s2vs)
 prval ((*void*)) = fold@(env)
 //
-val ast = formula_make_s2var_fresh(env, s2v0)
+val ast =
+  formula_make_s2var_fresh(env, s2v0)
 //
 in
-  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(ast))
+  s2var_push_payload(s2v0, ast)
 end // end of [smtenv_add_s2var]
 
 (* ****** ****** *)

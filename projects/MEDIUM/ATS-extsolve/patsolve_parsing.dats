@@ -80,6 +80,15 @@ implement
 jsonval_get_field
   (jsnv, key) = let
 //
+(*
+val () =
+println!
+  ("jsonval_get_field: jsnv = ", jsnv)
+//
+val () =
+println! ("jsonval_get_field: key = ", key)
+*)
+//
 typedef key = string
 typedef itm = jsonval
 //
@@ -221,6 +230,11 @@ parse_s2explst(jsnv) = parse_list(jsnv, parse_s2exp)
 (* ****** ****** *)
 //
 implement
+parse_labs2explst(jsnv) = parse_list(jsnv, parse_labs2exp)
+//
+(* ****** ****** *)
+//
+implement
 parse_s3itmlst(jsnv) = parse_list(jsnv, parse_s3itm)
 implement
 parse_s3itmlstlst(jsnv) = parse_list(jsnv, parse_s3itmlst)
@@ -340,6 +354,15 @@ in
   parse_constraints (jsnv)
 end // end of [parse_fileref_constraints]
 
+(* ****** ****** *)
+//
+local
+//
+#include
+"./PARSING/patsolve_parsing_label.dats" in (*nothing*)
+//
+end // end of [local]
+//
 (* ****** ****** *)
 //
 local

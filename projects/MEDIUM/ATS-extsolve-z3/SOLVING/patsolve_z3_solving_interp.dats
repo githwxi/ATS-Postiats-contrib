@@ -170,6 +170,10 @@ val () = insert("gte_addr_addr", S2CINTbuiltin_2(formula_igte))
 val () = insert("eq_addr_addr", S2CINTbuiltin_2(formula_ieq))
 val () = insert("neq_addr_addr", S2CINTbuiltin_2(formula_ineq))
 //
+(*
+val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))
+*)
+//
 } (* end of [the_s2cinterp_initize] *)
 
 end // end of [local]

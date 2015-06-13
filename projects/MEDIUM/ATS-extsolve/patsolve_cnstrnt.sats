@@ -122,6 +122,21 @@ overload fprint with fprint_location
 fun location_make (rep: string): loc_t
 //
 (* ****** ****** *)
+//
+datatype label =
+  LABint of int | LABsym of symbol
+//  
+(* ****** ****** *)
+//
+fun print_label : label -> void
+and prerr_label : label -> void
+fun fprint_label : fprint_type(label)
+//
+overload print with print_label
+overload prerr with prerr_label
+overload fprint with fprint_label
+//
+(* ****** ****** *)
 
 datatype s2rt =
 //
@@ -345,7 +360,7 @@ overload prerr with prerr_tyreckind
 overload fprint with fprint_tyreckind
 //
 (* ****** ****** *)
-
+//
 datatype
 s2exp_node =
 //
@@ -369,18 +384,33 @@ s2exp_node =
 //
 | S2Einvar of (s2exp)
 //
-| S2Etyrec of (tyreckind)
+| S2Efun of (int(*npf*), s2explst, s2exp)
 //
-| S2Eerror of ((*void*))
+| S2Euni of
+    (s2varlst, s2explst(*s2ps*), s2exp(*scope*))
+| S2Eexi of
+    (s2varlst, s2explst(*s2ps*), s2exp(*scope*))
+//
+| S2Etyrec of (tyreckind, int(*npf*), labs2explst)
+//
+| S2Eextype of (symbol)
+| S2Eextkind of (symbol)
+//
+| S2Eerror of ((*for-error-indication*))
 // end of [s2exp_node]
-
+//
+and
+labs2exp =
+  SLABELED of (label, s2exp)
+//
 where
 s2exp = $rec{
   s2exp_srt= s2rt, s2exp_node= s2exp_node
 } (* end of [s2exp] *)
-
+//
 and s2explst = List0 (s2exp)
-
+and labs2explst = List0 (labs2exp)
+//
 (* ****** ****** *)
 //
 typedef s2expopt = Option(s2exp)
@@ -419,6 +449,12 @@ fun fprint_s2explst : fprint_type(s2explst)
 overload fprint with fprint_s2exp
 overload fprint with fprint_s2explst of 10
 //
+fun fprint_labs2exp : fprint_type(labs2exp)
+fun fprint_labs2explst : fprint_type(labs2explst)
+//
+overload fprint with fprint_labs2exp
+overload fprint with fprint_labs2explst of 10
+//
 (* ****** ****** *)
 
 abstype d2var_type = ptr
@@ -452,6 +488,8 @@ c3nstrkind =
 //
   | C3TKloop of (int) // HX: ~1/0/1: enter/break/continue
 //
+  | C3TKsolver of (int) // HX: knd=0/1: solassert/solverify
+//
   | C3TKignored of () // HX-2015-06-06: ignored c3nstrkind
 // end of [c3nstrkind]
 
@@ -462,6 +500,8 @@ datatype s3itm =
   | S3ITMcnstr of c3nstr
   | S3ITMcnstr_ref of (loc_t, c3nstropt)
   | S3ITMdisj of s3itmlstlst
+//
+  | S3ITMsolassert of (s2exp) // HX: $solver_assert
 // end of [s3item]
 
 and h3ypo_node =
@@ -473,6 +513,7 @@ and h3ypo_node =
 and c3nstr_node =
   | C3NSTRprop of s2exp
   | C3NSTRitmlst of s3itmlst
+  | C3NSTRsolverify of (s2exp) // HX: $solver_verify
 // end of [c3nstr_node]
 
 where

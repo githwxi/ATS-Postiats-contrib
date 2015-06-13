@@ -1,5 +1,7 @@
 (* ****** ****** *)
 //
+// ATS-extsolve-z3:
+//
 // Proving that
 // append(xs, reverse(xs)) is a palindrome
 //
@@ -20,6 +22,8 @@ append: (ilist, ilist) -> ilist
 stacst reverse: (ilist) -> ilist
 //
 (* ****** ****** *)
+//
+// A list xs is a palindrome if xs = reverse(xs):
 //
 propdef
 isPalindrome(xs: ilist) = ILISTEQ(xs, reverse(xs))

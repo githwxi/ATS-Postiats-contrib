@@ -105,9 +105,9 @@ implement
 sort_mk_vt0ype () = sort_mk_abstract("t0ype")
 //
 implement
-sort_mk_prop () = sort_mk_abstract("prop")
+sort_mk_prop () = sort_bool()
 implement
-sort_mk_view () = sort_mk_abstract("prop")
+sort_mk_view () = sort_bool()
 //
 implement
 sort_mk_tkind () = sort_mk_abstract("tkind")

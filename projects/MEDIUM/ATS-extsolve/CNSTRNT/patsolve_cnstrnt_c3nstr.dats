@@ -34,8 +34,12 @@ c3t.c3nstr_node
 of // case+
 | C3NSTRprop(s2e) =>
     fprint! (out, "C3NSTRprop(", s2e, ")")
+//
 | C3NSTRitmlst(s3is) =>
     fprint! (out, "C3NSTRitmlst(", s3is, ")")
+//
+| C3NSTRsolverify(s2e_prop) =>
+    fprint! (out, "C3NSTRsolverify(", s2e_prop, ")")
 //
 ) (* end of [fprint_c3nstr] *)
 
@@ -95,9 +99,15 @@ of // case+
     val () =
     fprint! (out, "C3NSTRitmlst(\n")
     val () = aux_s3itmlst(ind+2, s3is)
-    val () = (
-      aux_indent (ind); fprint! (out, ") (* C3NSTRitmlst *)")
+    val () =
+    (
+      aux_indent (ind); fprint (out, ") (* C3NSTRitmlst *)")
     ) (* end of [val] *)
+  }
+//
+| C3NSTRsolverify(s2e_prop) =>
+  {
+    val () = fprint! (out, "C3NSTRsolverify(", s2e_prop, ")")
   }
 //
 end (* end of [aux_c3nstr] *)
@@ -113,9 +123,12 @@ val () = aux_indent(ind)
 in
 //
 case+ s3i0 of
+//
 | S3ITMsvar(s2v) => fprint! (out, "S3ITMsvar(", s2v, ")")
 | S3ITMsVar(s2V) => fprint! (out, "S3ITMsVar(", s2V, ")")
+//
 | S3ITMhypo(h3p) => fprint! (out, "S3ITMhypo(", h3p, ")")
+//
 | S3ITMcnstr(c3t) =>
   {
     val () =
@@ -129,7 +142,10 @@ case+ s3i0 of
 | S3ITMcnstr_ref
     (loc, opt) => fprint! (out, "S3ITMcnstr_ref(", opt, ")")
   // end of [S3ITMcnstr_ref]
-| S3ITMdisj (s3iss) => fprint! (out, "S3ITMdisj(", s3iss, ")")
+//
+| S3ITMdisj(s3iss) => fprint! (out, "S3ITMdisj(", s3iss, ")")
+//
+| S3ITMsolassert(s2e) => fprint! (out, "S3ITMsolassert(", s2e, ")")
 //
 end // end of [aux_s3itm]
 //

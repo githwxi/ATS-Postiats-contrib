@@ -90,7 +90,19 @@ of // case+
 //
 | S2Einvar(s2e) => fprint! (out, "S2Einvar(", s2e, ")")
 //
-| S2Etyrec(knd) => fprint! (out, "S2Etyrec(", knd, ")")
+| S2Efun(nof, s2es, s2e) =>
+    fprint! (out, "S2Efun(", s2es, "; ", s2e, ")")
+//
+| S2Euni(s2vs, s2ps, s2e) =>
+    fprint! (out, "S2Euni(", s2vs, "; ", s2ps, "; ", s2e, ")")
+| S2Eexi(s2vs, s2ps, s2e) =>
+    fprint! (out, "S2Eexi(", s2vs, "; ", s2ps, "; ", s2e, ")")
+//
+| S2Etyrec(knd, npf, s2es_elt) =>
+    fprint! (out, "S2Etyrec(", knd, "; ", s2es_elt, ")")
+//
+| S2Eextype(name) => fprint! (out, "S2Eextype(", name, ")")
+| S2Eextkind(name) => fprint! (out, "S2Eextkind(", name, ")")
 //
 | S2Eerror((*void*)) => fprint! (out, "S2Eerror()")
 //
@@ -108,6 +120,31 @@ fprint_list$sep<> (out) = fprint_string (out, ", ")
 in
   fprint_list<s2exp> (out, s2es)
 end // end of [fprint_s2explst]
+
+(* ****** ****** *)
+
+implement
+fprint_labs2exp
+  (out, ls2e) = let
+//
+val+SLABELED(l, s2e) = ls2e
+//
+in
+  fprint! (out, l, "->", s2e)
+end // end of [fprint_labs2exp]
+
+(* ****** ****** *)
+
+implement
+fprint_labs2explst
+  (out, ls2es) = let
+//
+implement
+fprint_list$sep<> (out) = fprint_string (out, ", ")
+//
+in
+  fprint_list<labs2exp> (out, ls2es)
+end // end of [fprint_labs2explst]
 
 (* ****** ****** *)
 
