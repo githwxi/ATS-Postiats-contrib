@@ -20,12 +20,13 @@ praxi
 fib_ind2{n:int | n >= 2}(): [fib(n)==fib(n-1)+fib(n-2)] void
 //
 (* ****** ****** *)
-//
+
 fun
 fib
-{n:nat}
-  (n: int(n))
-: int(fib(n)) = let
+{n:nat} .<n>.
+(
+  n: int(n)
+) : int(fib(n)) = let
 //
 fun
 loop

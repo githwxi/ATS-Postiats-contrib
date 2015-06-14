@@ -20,12 +20,13 @@ praxi
 fib_ind2{n:int | n >= 2}(): [fib(n)==fib(n-1)+fib(n-2)] unit_p
 //
 (* ****** ****** *)
-//
+
 fun
 fib
-{n:nat}
-  (n: int(n))
-: int(fib(n)) = let
+{n:nat} .<>.
+(
+  n: int(n)
+) : int(fib(n)) = let
 //
 val () = $solver_assert(fib_bas0)
 val () = $solver_assert(fib_bas1)

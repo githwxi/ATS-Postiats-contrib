@@ -17,7 +17,7 @@ praxi
 fact_ind{n:pos}(): [fact(n)==n*fact(n-1)] unit_p
 //
 (* ****** ****** *)
-//
+
 fun
 fact
 {n:nat}

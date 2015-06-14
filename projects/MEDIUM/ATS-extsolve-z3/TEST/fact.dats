@@ -17,7 +17,7 @@ praxi
 fact_ind{n:pos}(): [fact(n)==n*fact(n-1)] void
 //
 (* ****** ****** *)
-//
+
 fun
 fact
 {n:nat}
