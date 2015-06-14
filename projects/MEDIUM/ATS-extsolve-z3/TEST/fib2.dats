@@ -28,9 +28,9 @@ fib
   n: int(n)
 ) : int(fib(n)) = let
 //
-val () = $solver_assert(fib_bas0)
-val () = $solver_assert(fib_bas1)
-val () = $solver_assert(fib_ind2)
+prval () = $solver_assert(fib_bas0)
+prval () = $solver_assert(fib_bas1)
+prval () = $solver_assert(fib_ind2)
 //
 fun
 loop
