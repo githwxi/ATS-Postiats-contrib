@@ -68,6 +68,14 @@ cleanall:: ; $(RMF) fact2
 ######
 
 all:: \
+gflist
+gflist:: \
+gflist.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+
+######
+
+all:: \
 palindrome
 palindrome:: \
 palindrome.dats; \
