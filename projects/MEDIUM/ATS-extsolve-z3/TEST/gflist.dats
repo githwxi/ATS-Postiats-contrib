@@ -111,10 +111,7 @@ lemma_set_at_1
 
 (* ****** ****** *)
 
-extern
-fun
-{a:t@ype}
-gflist_length{xs:ilist}(xs: gflist(a, xs)): int(length(xs))
+sortdef ilist1 = {xs: ilist | length(xs) >= 1}
 
 (* ****** ****** *)
 //
@@ -124,6 +121,56 @@ prval () = $solver_assert(lemma_length_1)
 *)
 prval () = $solver_assert(lemma_length_isnat)
 //
+(* ****** ****** *)
+//
+extern
+fun
+{a:t@ype}
+gflist_head
+{xs:ilist1}
+  (xs: gflist(a, xs)): stamped_t(a, head(xs))
+//
+extern
+fun
+{a:t@ype}
+gflist_tail
+{xs:ilist1}(xs: gflist(a, xs)): gflist(a, tail(xs))
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+gflist_head
+  {xs}(xs) = x where
+{
+//
+val+
+gflist_cons{a}{x}{xs}(x, xs) = xs
+//
+prval unit_p() = lemma_head{x}{xs}((*void*))
+//
+} (* end of [gflist_head] *)
+//
+implement
+{a}(*tmp*)
+gflist_tail
+  {xs}(xs) = xs where
+{
+//
+val+
+gflist_cons{a}{x}{xs}(x, xs) = xs
+//
+prval ILISTEQ() = lemma_tail{x}{xs}((*void*))
+//
+} (* end of [gflist_tail] *)
+//
+(* ****** ****** *)
+
+extern
+fun
+{a:t@ype}
+gflist_length{xs:ilist}(xs: gflist(a, xs)): int(length(xs))
+
 (* ****** ****** *)
 
 implement
