@@ -209,7 +209,7 @@ case+ s2es_arg of
     formula_conj(formula_conj_list(s2es_arg), s2e_res)
   // end of [list_vt_cons]
 //
-end // end of [formula_conj_list]
+end // end of [formula_conj_list1]
 
 implement
 formula_impl_list1
@@ -222,7 +222,7 @@ case+ s2es_arg of
     formula_impl(formula_conj_list(s2es_arg), s2e_res)
   // end of [list_vt_cons]
 //
-end // end of [formula_impl_list]
+end // end of [formula_impl_list1]
 
 (* ****** ****** *)
 
@@ -1439,7 +1439,7 @@ val
 s2e_body = (
 //
 if
-knd = 0
+knd > 0
 then formula_impl_list1(s2ps, s2e_body)
 else formula_conj_list1(s2ps, s2e_body)
 //
@@ -1489,9 +1489,9 @@ case+ s2vs of
     val s2ps = formulas_make_s2explst (env, s2ps)
     val s2e_body = formula_make_s2exp (env, s2e_body)
   in
-    if knd = 0
-      then formula_conj_list1(s2ps, s2e_body)
-      else formula_impl_list1(s2ps, s2e_body)
+    if knd > 0
+      then formula_impl_list1(s2ps, s2e_body)
+      else formula_conj_list1(s2ps, s2e_body)
     // end of [if]
   end // end of [list_nil()]
 //
@@ -1556,7 +1556,7 @@ val (fpf | ctx) =
   the_Z3_context_vget()
 //
 val syms = auxlst1 (ctx, s2vs)
-val s2ts = auxlst2 (ctx, s2vs, 0)
+val s2ts = auxlst2 (ctx, s2vs, 0(*index*))
 //
 prval ((*void*)) = fpf(ctx)
 //
