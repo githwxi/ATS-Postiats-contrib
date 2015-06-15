@@ -126,4 +126,43 @@ stadef revappend = ilist_revappend
 //
 (* ****** ****** *)
 
+stacst
+ilist_lsplit : (ilist, int) -> ilist
+stacst
+ilist_rsplit : (ilist, int) -> ilist
+stacst
+ilist_subseq : (ilist, int, int) -> ilist
+
+(* ****** ****** *)
+
+stadef lsplit = ilist_lsplit
+stadef rsplit = ilist_rsplit
+stadef subseq = ilist_subseq
+
+(* ****** ****** *)
+
+praxi
+lemma_split_unsplit
+  {xs:ilist}
+  {i:nat | i <= length(xs)}
+(
+) : ILISTEQ(append(lsplit(xs, i), rsplit(xs, i)), xs)
+
+(* ****** ****** *)
+//
+praxi
+lemma_length_lsplit
+  {xs:ilist}
+  {i:nat | i <= length(xs)}
+(
+) : [length(lsplit(xs,i)) == i] unit_p
+praxi
+lemma_length_rsplit
+  {xs:ilist}
+  {i:nat | i <= length(xs)}
+(
+) : [i+length(rsplit(xs,i)) == length(xs)] unit_p
+//
+(* ****** ****** *)
+
 (* end of [ilist.sats] *)

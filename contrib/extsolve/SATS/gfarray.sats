@@ -24,6 +24,31 @@ gfarray_v
 // end of [gfarray_v]
 
 (* ****** ****** *)
+
+prfun
+gfarray_v_split
+  {a:vt0p}
+  {l:addr}
+  {xs:ilist}
+  {i:nat | i <= length(xs)}
+(
+  pf: gfarray_v(a, l, xs)
+) :
+(
+  gfarray_v(a, l, lsplit(xs, i))
+, gfarray_v(a, l+i*sizeof(a), rsplit(xs, i))
+) (* end of [gfarray_v_split] *)
+
+prfun
+gfarray_v_unsplit
+  {a:vt0p}
+  {l:addr}
+  {xs1,xs2:ilist}
+(
+  gfarray_v(a, l, xs1), gfarray_v(a, l+length(xs1)*sizeof(a), xs2)
+) : gfarray_v(a, l, append(xs1, xs2)) // end-of-prfun
+
+(* ****** ****** *)
 //
 fun
 {a:t@ype}
