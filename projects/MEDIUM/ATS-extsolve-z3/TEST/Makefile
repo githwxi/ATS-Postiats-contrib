@@ -76,6 +76,14 @@ $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 ######
 
 all:: \
+gfarray_insort
+gfarray_insort:: \
+gfarray_insort.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+
+######
+
+all:: \
 palindrome
 palindrome:: \
 palindrome.dats; \
