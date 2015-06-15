@@ -68,9 +68,9 @@ cleanall:: ; $(RMF) fact2
 ######
 
 all:: \
-gflist
-gflist:: \
-gflist.dats; \
+gflist_insort
+gflist_insort:: \
+gflist_insort.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 
 ######
