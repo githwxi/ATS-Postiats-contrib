@@ -583,6 +583,28 @@ end (* end of [Piece_rrotate] *)
 
 (* ****** ****** *)
 //
+implement
+thePiece_xmove_l() =
+  ignoret(Piece_xmove_l(thePiece_get()))
+//
+(* ****** ****** *)
+//
+implement
+thePiece_xmove_r() =
+  ignoret(Piece_xmove_r(thePiece_get()))
+//
+(* ****** ****** *)
+//
+implement
+thePiece_lrotate() =
+  ignoret(Piece_lrotate(thePiece_get()))
+//
+implement
+thePiece_rrotate() =
+  ignoret(Piece_rrotate(thePiece_get()))
+//
+(* ****** ****** *)
+//
 extern
 fun
 Piece_start_out
@@ -790,9 +812,11 @@ val P1 = theNextPiece[]
 //
 val () = Piece_start_out(P1)
 //
+val status = theGameStatus_get()
+//
 in
 //
-if(theGameStatus_get() > 0) then
+if(status != 0) then
 {
  val () = thePiece[] := P1
  val () = theNextPiece[] := P0
@@ -800,6 +824,7 @@ if(theGameStatus_get() > 0) then
  val () = Piece_reposNP_blocks(P0)
  val () = Piece_stageNP_blocks(P0)
  val () = Piece_unstageNP_blocks(P1)
+ val () = if (status < 0) then theGame_auto_piece(P1)
 }
 //
 end // end of [thePiece_theNextPiece_update]

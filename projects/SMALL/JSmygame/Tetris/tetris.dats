@@ -114,6 +114,11 @@ theStageNP_removeChild(x)
 //
 (* ****** ****** *)
 
+implement
+theGame_auto_piece(P) = ()
+
+(* ****** ****** *)
+
 local
 //
 val
@@ -221,11 +226,14 @@ extern
 fun
 thePiece_handle_if(): void = "mac#"
 implement
-thePiece_handle_if() =
-(
+thePiece_handle_if() = let
+//
+val status = theGameStatus_get()
+//
+in
 //
 if
-theGameStatus_get() > 0
+status != 0
 then let
   val rowdel = theGameBoard_rowdel_one()
 in
@@ -256,7 +264,7 @@ end // end of [else]
 //
 end // end of [then]
 //
-) (* end of [thePiece_handle_if] *)
+end (* end of [thePiece_handle_if] *)
 //
 (* ****** ****** *)
 //
@@ -278,10 +286,12 @@ val () = tetris_gameboard_initize()
 (* ****** ****** *)
 //
 implement
-theGame_play() =
-if
-(theGameStatus_get() = 0)
-then
+theGame_play() = let
+//
+val status = theGameStatus_get()
+//
+val () =
+if (status = 0) then
 {
 //
   val () = theGameBoard_clear()
@@ -293,7 +303,37 @@ then
 //
   val () = $extfcall(void, "theScore_reset", 0)
 //
-}
+} (* end of [if] *) // end of [val]
+//
+in
+  if (status < 0) then theGameStatus_set(1)
+end // end of [theGame_play]
+//
+(* ****** ****** *)
+//
+implement
+theGame_auto() = let
+//
+val status = theGameStatus_get()
+//
+val () =
+if (status = 0) then
+{
+//
+  val () = theGameBoard_clear()
+  val () = theGameStatus_set(~1)
+//
+  val () = thePiece_theNextPiece_update()
+//
+  val () = theScore_reset_delta()
+//
+  val () = $extfcall(void, "theScore_reset", 0)
+//
+} (* end of [if] *) // end of [val]
+//
+in
+  if (status > 0) then theGameStatus_set(~1)
+end // end of [theGame_auto]
 //
 (* ****** ****** *)
 //

@@ -39,7 +39,12 @@ typedef GameBoard = GameBoard_type
 (* ****** ****** *)
 //
 fun theGame_play(): void = "mac#"
+fun theGame_auto(): void = "mac#"
 fun theGame_stop(): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun theGame_auto_piece(Piece): void = "mac#"
 //
 (* ****** ****** *)
 
@@ -62,6 +67,14 @@ fun thePiece_set (Piece): void = "mac#"
 //
 fun theNextPiece_get (): Piece = "mac#"
 fun theNextPiece_set (Piece): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun thePiece_xmove_l(): void
+fun thePiece_xmove_r(): void
+//
+fun thePiece_lrotate(): void
+fun thePiece_rrotate(): void
 //
 (* ****** ****** *)
 
