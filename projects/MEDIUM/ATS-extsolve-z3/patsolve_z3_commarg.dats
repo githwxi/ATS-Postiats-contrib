@@ -178,7 +178,11 @@ state_struct =
 @{
 //
   nerr= int
+//
 , input= int
+//
+, ninput= int
+//
 , fopen_inp= int
 , inpfil_ref= FILEref
 //
@@ -194,6 +198,7 @@ the_state: state_struct?
 val () = the_state.nerr := 0
 //
 val () = the_state.input := 0
+val () = the_state.ninput := 0
 //
 val () = the_state.fopen_inp := 0
 val () = the_state.inpfil_ref := stdin_ref
@@ -308,11 +313,11 @@ macdef input() = (!the_state.input > 0)
 in
 //
 case+ 0 of
-| _ when
-    input() =>
-  (
-    patsolve_z3_input_arg(arg)
-  )
+| _ when input() =>
+  {
+    val () = patsolve_z3_input_arg(arg)
+    val () = !the_state.ninput := !the_state.ninput+1
+  }
 | _ (*unrecognized*) => ()
 //
 end (* end of [patsolve_z3_gitem] *)
@@ -381,18 +386,25 @@ end // end of [patsolve_z3_input_arg]
 
 implement
 patsolve_z3_argend
-  ((*void*)) = () where
-{
+  ((*void*)) = let
 //
-val inp = stdin_ref
+macdef test() =
+  (!the_state.input > 0 && !the_state.ninput = 0)
 //
-val c3t0 =
-  parse_fileref_constraints(inp)
-// end of [val]
+in
 //
-val ((*void*)) = c3nstr_z3_solve(c3t0)
+case+ 0 of
+| _ when
+    test() =>
+  {
+    val inp = stdin_ref
+    val c3t0 =
+    parse_fileref_constraints(inp)
+    val ((*void*)) = c3nstr_z3_solve(c3t0)
+  }
+| _ (*rest*) => ((*ignored*))
 //
-} (* end of [patsolve_z3_argend] *)
+end (* end of [patsolve_z3_argend] *)
 
 (* ****** ****** *)
 

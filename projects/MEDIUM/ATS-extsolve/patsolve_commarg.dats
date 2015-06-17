@@ -179,7 +179,10 @@ state_struct =
 @{
 //
   nerr= int
+//
 , input= int
+, ninput= int
+//
 , fopen_inp= int
 , inpfil_ref= FILEref
 //
@@ -195,6 +198,7 @@ the_state: state_struct?
 val () = the_state.nerr := 0
 //
 val () = the_state.input := 0
+val () = the_state.ninput := 0
 //
 val () = the_state.fopen_inp := 0
 val () = the_state.inpfil_ref := stdin_ref
@@ -309,9 +313,10 @@ in
 case+ 0 of
 | _ when
     input() =>
-  (
-    patsolve_input_arg(arg)
-  )
+  {
+    val () = patsolve_input_arg(arg)
+    val () = !the_state.input := !the_state.input + 1
+  }
 | _ (*unrecognized*) => ()
 //
 end (* end of [patsolve_gitem] *)
@@ -377,21 +382,27 @@ end // end of [patsolve_input_arg]
 
 implement
 patsolve_argend
-  ((*void*)) = () where
-{
+  ((*void*)) = let
 //
-val inp = stdin_ref
+macdef test() =
+  (!the_state.input > 0 && !the_state.ninput = 0)
 //
-val c3t0 =
-  parse_fileref_constraints(inp)
-// end of [val]
+in
 //
-val () =
-  fpprint_c3nstr(stdout_ref, c3t0)
+case+ 0 of
+| _ when
+    test() =>
+  {
+    val inp = stdin_ref
+    val c3t0 =
+    parse_fileref_constraints(inp)
+    val () =
+    fpprint_c3nstr(stdout_ref, c3t0)
+    val () = fprint_newline (stdout_ref)
+  }
+| _ (*rest*) => ((*ignored*))
 //
-val () = fprint_newline (stdout_ref)
-//
-} (* end of [patsolve_argend] *)
+end (* end of [patsolve_argend] *)
 
 (* ****** ****** *)
 
