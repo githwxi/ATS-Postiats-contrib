@@ -97,12 +97,17 @@ function
 ats2jspre_mtrxszref_make_matrixref
   (M, m, n)
 {
-  return { matrix= M, nrow= m, ncol= n };
+  return { matrix: M, nrow: m, ncol: n };
 }
 //
 function
-ats2jspre_mtrxszref_get_at(i, j)
-  (MSZ)
+ats2jspre_mtrxszref_get_nrow(MSZ) { return MSZ.nrow; }
+function
+ats2jspre_mtrxszref_get_ncol(MSZ) { return MSZ.ncol; }
+//
+function
+ats2jspre_mtrxszref_get_at
+  (MSZ, i, j)
 {
   var nrow = MSZ.nrow;
   var ncol = MSZ.ncol;
@@ -114,8 +119,8 @@ ats2jspre_mtrxszref_get_at(i, j)
 }
 //
 function
-ats2jspre_mtrxszref_set_at(i, j, x)
-  (MSZ)
+ats2jspre_mtrxszref_set_at
+  (MSZ, i, j, x)
 {
   var nrow = MSZ.nrow;
   var ncol = MSZ.ncol;

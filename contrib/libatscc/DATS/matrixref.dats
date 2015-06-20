@@ -50,5 +50,38 @@ mtrxszref_make_elt
 ) (* end of [mtrxszref_make_elt] *)
 //
 (* ****** ****** *)
+//
+implement
+mtrxszref_exists_cloref
+  (MSZ, ftest) = let
+  val m = MSZ.nrow()
+  val n = MSZ.ncol()
+in
+  int2_exists_cloref(m, n, $UN.cast{cfun2(int,int,bool)}(ftest))
+end // end of [mtrxszref_exists_cloref]
+//
+(* ****** ****** *)
+//
+implement
+mtrxszref_forall_cloref
+  (MSZ, ftest) = let
+  val m = MSZ.nrow()
+  val n = MSZ.ncol()
+in
+  int2_forall_cloref(m, n, $UN.cast{cfun2(int,int,bool)}(ftest))
+end // end of [mtrxszref_forall_cloref]
+//
+(* ****** ****** *)
+//
+implement
+mtrxszref_foreach_cloref
+  (MSZ, fwork) = let
+  val m = MSZ.nrow()
+  val n = MSZ.ncol()
+in
+  int2_foreach_cloref(m, n, $UN.cast{cfun2(int,int,void)}(fwork))
+end // end of [mtrxszref_foreach_cloref]
+//
+(* ****** ****** *)
 
 (* end of [matrixref.dats] *)

@@ -46,6 +46,15 @@ tetris_keyboard_dats.js: tetris_keyboard_dats.c; $(ATSCC2JS) -o $@ -i $<
 ######
 #
 all:: \
+tetris_autoplay_dats.js
+#
+tetris_autoplay_dats.c: \
+tetris_autoplay.dats; $(PATSCC) -ccats tetris_autoplay.dats
+tetris_autoplay_dats.js: tetris_autoplay_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+######
+#
+all:: \
 tetris_gameboard_dats.js
 #
 tetris_gameboard_dats.c: \
@@ -60,6 +69,7 @@ tetris_dats.c: tetris.sats
 tetris_block_dats.c: tetris.sats
 tetris_piece_dats.c: tetris.sats
 tetris_keyboard_dats.c: tetris.sats
+tetris_autoplay_dats.c: tetris.sats
 tetris_gameboard_dats.c: tetris.sats
 #
 ######

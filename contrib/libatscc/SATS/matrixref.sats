@@ -80,5 +80,47 @@ mtrxszref_make_matrixref
 // end of [mtrxszref_make_matrixref]
 //
 (* ****** ****** *)
+//
+fun
+mtrxszref_get_nrow{a:t0p}(mtrxszref(a)): intGte(0) = "mac#%"
+fun
+mtrxszref_get_ncol{a:t0p}(mtrxszref(a)): intGte(0) = "mac#%"
+//
+overload .nrow with mtrxszref_get_nrow of 100
+overload .ncol with mtrxszref_get_ncol of 100
+//
+(* ****** ****** *)
+//
+fun
+mtrxszref_get_at
+  {a:t0p}(mtrxszref(a), i: int, j: int): a = "mac#%"
+fun
+mtrxszref_set_at
+  {a:t0p}(mtrxszref(a), i: int, j: int, x: a): void = "mac#%"
+//
+(* ****** ****** *)
+
+overload [] with mtrxszref_get_at of 100
+overload [] with mtrxszref_set_at of 100
+
+(* ****** ****** *)
+//
+fun
+mtrxszref_exists_cloref
+  {a:t@ype}
+  (mtrxszref(a), ftest: (int, int) -<cloref1> bool): bool = "mac#%"
+//
+fun
+mtrxszref_forall_cloref
+  {a:t@ype}
+  (mtrxszref(a), ftest: (int, int) -<cloref1> bool): bool = "mac#%"
+//
+(* ****** ****** *)
+fun
+mtrxszref_foreach_cloref
+  {a:t@ype}
+  (mtrxszref(a), fwork: (int, int) -<cloref1> void): void = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [matrixref.sats] *)

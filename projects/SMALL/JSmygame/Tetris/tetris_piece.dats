@@ -32,10 +32,6 @@ staload (*opened*) "./tetris.sats"
 //
 (* ****** ****** *)
 
-#define PDIM 4
-
-(* ****** ****** *)
-
 (*
 assume
 Piece_type = $rec{
@@ -830,6 +826,22 @@ if(status != 0) then
 end // end of [thePiece_theNextPiece_update]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+thePiece_iforeach
+  (fwork) = let
+//
+val P0 = thePiece_get()
+val M1 = Piece_get_mat1(P0)
+//
+in
+//
+matrixref_foreach_cloref
+  (M1, PDIM, PDIM, lam(i, j) => fwork(i, j, isneqz(M1[i,PDIM,j])))
+//
+end // end of [thePiece_iforeach]
 
 (* ****** ****** *)
 

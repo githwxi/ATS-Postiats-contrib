@@ -30,6 +30,7 @@ typedef Piece = Piece_type
 //
 (* ****** ****** *)
 //
+#define PDIM 4
 #define GROWS 24
 #define GCOLS 15
 //
@@ -44,7 +45,8 @@ fun theGame_stop(): void = "mac#"
 //
 (* ****** ****** *)
 //
-fun theGame_auto_piece(Piece): void = "mac#"
+fun
+theGame_auto_piece(Piece): void = "mac#"
 //
 (* ****** ****** *)
 
@@ -88,6 +90,12 @@ fun thePiece_dump_blocks(): void = "mac#"
 
 fun thePiece_theNextPiece_update(): void = "mac#"
 
+(* ****** ****** *)
+//
+fun
+thePiece_iforeach
+  (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
+//
 (* ****** ****** *)
 //
 fun
@@ -206,6 +214,7 @@ theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
 fun tetris_block_initize(): void = "mac#"
 fun tetris_piece_initize(): void = "mac#"
 fun tetris_keyboard_initize(): void = "mac#"
+fun tetris_autoplay_initize(): void = "mac#"
 fun tetris_gameboard_initize(): void = "mac#"
 
 (* ****** ****** *)

@@ -276,11 +276,13 @@ end (* end of [thePiece_handle_if] *)
 dynload "tetris_block.dats"
 dynload "tetris_piece.dats"
 dynload "tetris_keyboard.dats"
+dynload "tetris_autoplay.dats"
 dynload "tetris_gameboard.dats"
 *)
 val () = tetris_block_initize()
 val () = tetris_piece_initize()
 val () = tetris_keyboard_initize()
+val () = tetris_autoplay_initize()
 val () = tetris_gameboard_initize()
 //
 (* ****** ****** *)
