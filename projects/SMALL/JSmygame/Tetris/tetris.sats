@@ -92,6 +92,7 @@ fun thePiece_theNextPiece_update(): void = "mac#"
 //
 fun
 theGameBoard_get(): GameBoard = "mac#"
+//
 fun
 theGameBoard_set_at
   (x: int, y: int, Block): void = "mac#"
@@ -184,6 +185,12 @@ fun theGameBoard_rowdel_one(): bool = "mac#"
 fun
 GameBoard_isset_at
   (GameBoard, x:int, y:int): bool = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theGameBoard_iforeach
+  (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
 //
 (* ****** ****** *)
 //

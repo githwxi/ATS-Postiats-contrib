@@ -63,6 +63,13 @@ arrayref_foreach_cloref
 // HX: array-with-size
 //
 (* ****** ****** *)
+//
+fun
+arrszref_make_elt
+  {a:t@ype}{n:nat}
+  (int(n), a): arrszref(a) = "mac#%"
+//
+(* ****** ****** *)
 
 fun
 arrszref_make_arrayref

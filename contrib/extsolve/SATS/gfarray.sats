@@ -9,7 +9,13 @@
 staload "./ilist.sats"
 
 (* ****** ****** *)
+//
+absvt@ype
+gfarray(a:vt@ype+, xs: ilist) // = array(a, length(xs))
+//
+(* ****** ****** *)
 
+(*
 dataview
 gfarray_v
 (
@@ -22,6 +28,12 @@ gfarray_v
       (stamped_vt (a, x) @ l, gfarray_v (a, l+sizeof(a), xs))
     // end of [gfarray_v_cons]
 // end of [gfarray_v]
+*)
+
+(* ****** ****** *)
+
+viewdef
+gfarray_v(a:vt0p, l0:addr, xs:ilist) = gfarray(a, xs) @ l0
 
 (* ****** ****** *)
 
@@ -53,10 +65,9 @@ gfarray_v_unsplit
 fun
 {a:t@ype}
 gfarray_get_at
-{l:addr}
 {xs:ilist}
 {i:nat | i < length(xs)}
-  (pf: !gfarray_v(a, l, xs) | p: ptr(l), i: size_t(i)): stamped_t(a, get_at(xs, i))
+  (A: &gfarray(a, xs), i: int(i)): stamped_t(a, get_at(xs, i))
 //
 fun
 {a:t@ype}
@@ -65,7 +76,7 @@ gfarray_set_at
 {xs:ilist}{x0:elt}
 {i:nat | i < length(xs)}
 (
-  pf: !gfarray_v(a, l, xs) >> gfarray_v(a, l, set_at(xs, i, x0)) | p: ptr(l), i: size_t(i), x0: stamped_t(a, x0)
+  A: &gfarray(a, xs) >> gfarray(a, set_at(xs, i, x0)), i: int(i), x0: stamped_t(a, x0)
 ) : void // end of [gfarray_set_at]
 //
 (* ****** ****** *)

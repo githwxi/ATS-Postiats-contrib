@@ -136,9 +136,10 @@ insort
 ) : [ys:ilist | sort2(xs, ys)] gflist(a, ys) =
 (
 case+ xs of
-| gflist_nil() => gflist_nil()
+| gflist_nil
+    ((*void*)) => gflist_nil()
 | gflist_cons
-    {a}{x1}{xs2}(x1, xs2) => let
+    {..}{x1}{xs2}(x1, xs2) => let
     prval
     unit_p() =
     lemma_length_1{x1}{xs2}()

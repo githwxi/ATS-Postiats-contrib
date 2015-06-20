@@ -37,5 +37,18 @@ matrixref_foreach_cloref
 )
 //
 (* ****** ****** *)
+//
+// HX: matrix-with-size
+//
+(* ****** ****** *)
+//
+implement
+mtrxszref_make_elt
+  (m, n, x0) =
+(
+  mtrxszref_make_matrixref(matrixref_make_elt(m, n, x0), m, n)
+) (* end of [mtrxszref_make_elt] *)
+//
+(* ****** ****** *)
 
 (* end of [matrixref.dats] *)
