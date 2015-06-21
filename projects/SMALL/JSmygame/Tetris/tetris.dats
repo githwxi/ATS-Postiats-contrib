@@ -114,11 +114,6 @@ theStageNP_removeChild(x)
 //
 (* ****** ****** *)
 
-implement
-theGame_auto_piece(P) = ()
-
-(* ****** ****** *)
-
 local
 //
 val

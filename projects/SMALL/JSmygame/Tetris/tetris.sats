@@ -44,11 +44,6 @@ fun theGame_auto(): void = "mac#"
 fun theGame_stop(): void = "mac#"
 //
 (* ****** ****** *)
-//
-fun
-theGame_auto_piece(Piece): void = "mac#"
-//
-(* ****** ****** *)
 
 fun theGameStatus_get(): int = "mac#"
 fun theGameStatus_set(int): void = "mac#"
@@ -90,12 +85,6 @@ fun thePiece_dump_blocks(): void = "mac#"
 
 fun thePiece_theNextPiece_update(): void = "mac#"
 
-(* ****** ****** *)
-//
-fun
-thePiece_iforeach
-  (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
-//
 (* ****** ****** *)
 //
 fun
@@ -196,18 +185,27 @@ GameBoard_isset_at
 //
 (* ****** ****** *)
 //
-fun
-theGameBoard_iforeach
-  (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
-//
-(* ****** ****** *)
-//
 fun Piece_dump_blocks(Piece): void = "mac#"
 //
 (* ****** ****** *)
 //
 fun
 theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theGameBoard_iforeach
+  (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theGame_autoplay_piece(Piece): void = "mac#"
+//
+fun
+Piece_iforeach
+  (Piece, fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
 //
 (* ****** ****** *)
 

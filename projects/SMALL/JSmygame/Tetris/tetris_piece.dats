@@ -820,7 +820,7 @@ if(status != 0) then
  val () = Piece_reposNP_blocks(P0)
  val () = Piece_stageNP_blocks(P0)
  val () = Piece_unstageNP_blocks(P1)
- val () = if (status < 0) then theGame_auto_piece(P1)
+ val () = if (status < 0) then theGame_autoplay_piece(P1)
 }
 //
 end // end of [thePiece_theNextPiece_update]
@@ -830,10 +830,9 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-thePiece_iforeach
-  (fwork) = let
+Piece_iforeach
+  (P0, fwork) = let
 //
-val P0 = thePiece_get()
 val M1 = Piece_get_mat1(P0)
 //
 in
@@ -841,7 +840,7 @@ in
 matrixref_foreach_cloref
   (M1, PDIM, PDIM, lam(i, j) => fwork(i, j, isneqz(M1[i,PDIM,j])))
 //
-end // end of [thePiece_iforeach]
+end // end of [Piece_iforeach]
 
 (* ****** ****** *)
 
