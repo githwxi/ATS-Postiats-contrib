@@ -27,6 +27,19 @@ staload (*opened*) "./tetris.sats"
 //
 (* ****** ****** *)
 //
+fun
+power
+(
+  x: int, n: int
+): int = (
+//
+if n >= 2
+  then x * power(x, n-1) else (if n >= 1 then x else 1)
+//
+) (* end of [power] *)
+//
+(* ****** ****** *)
+//
 typedef
 matrix0(a:t@ype) = mtrxszref(a)
 //
@@ -81,7 +94,7 @@ theAutoBoard_isset_at
 (* ****** ****** *)
 
 fun
-theAutoBoard_eval
+theAutoBoard_eval1
   ((*void*)): double = let
 //
 fun
@@ -114,8 +127,92 @@ else loop1(i+1, res)
 //
 in
   loop1 (0, 0.0)
-end // end of [theAutoBoard_eval]
+end // end of [theAutoBoard_eval1]
 
+(* ****** ****** *)
+
+fun
+theAutoBoard_eval2
+  ((*void*)): double = let
+//
+fun
+loop1
+(
+  i: int, res: double
+) : double =
+(
+if i < GCOLS
+  then loop2(i, 0, res) else res
+)
+//
+and
+loop2
+(
+  i: int, j: int, res: double
+) : double =
+(
+//
+if
+j < GROWS
+then (
+//
+if theAutoBoard[i,j] > 0
+  then loop3(i, j+1, 0, res) else loop2(i, j+1, res)
+//
+) else loop1(i+1, res)
+//
+) (* end of [loop2] *)
+//
+and
+loop3
+(
+  i: int, j: int, n: int, res: double
+) : double =
+(
+//
+if
+j < GROWS
+then (
+//
+if theAutoBoard[i,j] > 0
+  then loop3(i, j+1, n+1, res) else loop4(i, j, n+1, res)
+//
+) else loop1(i+1, res)
+//
+) (* end of [loop3] *)
+//
+and
+loop4
+(
+  i: int, j: int, n: int, res: double
+) : double =
+(
+//
+if
+j < GROWS
+then (
+//
+if theAutoBoard[i,j] > 0
+  then loop4(i, j+1, n, res)
+  else loop4(i, j+1, n, res + (n+GROWS-j)*GROWS)
+//
+) else loop1(i+1, res)
+//
+) (* end of [loop3] *)
+//
+in
+  loop1 (0, 0.0)
+end // end of [theAutoBoard_eval2]
+
+(* ****** ****** *)
+//
+fun
+theAutoBoard_eval_all
+  ((*void*)): double =
+(
+  theAutoBoard_eval1() + theAutoBoard_eval2()
+)
+//
 (* ****** ****** *)
 
 fun
@@ -253,7 +350,7 @@ in
 //
 if y1 < 0 then ss else let
   val () = theAutoPiece_dump_at(x1, y1)
-  val score = theAutoBoard_eval((*void*))
+  val score = theAutoBoard_eval_all((*void*))
 (*
   val () = alert("auxmin_l: score = " + String(score))
 *)
@@ -287,7 +384,7 @@ in
 //
 if y1 < 0 then ss else let
   val () = theAutoPiece_dump_at(x1, y1)
-  val score = theAutoBoard_eval((*void*))
+  val score = theAutoBoard_eval_all((*void*))
 (*
   val () = alert("auxmin_r: score = " + String(score))
 *)

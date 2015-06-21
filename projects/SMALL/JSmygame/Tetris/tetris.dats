@@ -328,8 +328,17 @@ if (status = 0) then
 //
 } (* end of [if] *) // end of [val]
 //
+val () =
+if (status > 0) then
+{
+//
+val () = theGameStatus_set(~1)
+val () = theGame_autoplay_piece(thePiece_get())
+//
+} (* end of [if] *) // end of [val]
+//
 in
-  if (status > 0) then theGameStatus_set(~1)
+  // nothing
 end // end of [theGame_auto]
 //
 (* ****** ****** *)
