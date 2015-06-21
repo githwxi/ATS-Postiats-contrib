@@ -17,6 +17,9 @@ ATS_STATIC_PREFIX "tetris_autoplay__"
 #include
 "share/atspre_define.hats"
 //
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
 staload (*opened*) "./tetris.sats"
@@ -437,6 +440,31 @@ end // end of [theAutoplay_eval]
 (* ****** ****** *)
 
 fun
+autoplay_rot
+(
+  P0: Piece, rot: int
+) : void =
+(
+case+ rot of
+| _ when rot = 1 =>
+  {
+    val _ = Piece_rrotate(P0)
+  }
+| _ when rot = ~1 =>
+  {
+    val _ = Piece_lrotate(P0)
+  }
+| _ when rot = 2 =>
+  {
+    val _ = Piece_rrotate(P0)
+    val _ = Piece_rrotate(P0)
+  }
+| _ (* rot = 0 *) => ()
+)
+
+(* ****** ****** *)
+
+fun
 autoplay_xmv
   (P0: Piece, xmv: int) = let
 //
@@ -465,31 +493,6 @@ end (* end of [autoplay_xmv] *)
 (* ****** ****** *)
 
 fun
-autoplay_rot
-(
-  P0: Piece, rot: int
-) : void =
-(
-case+ rot of
-| _ when rot = 1 =>
-  {
-    val _ = Piece_rrotate(P0)
-  }
-| _ when rot = ~1 =>
-  {
-    val _ = Piece_lrotate(P0)
-  }
-| _ when rot = 2 =>
-  {
-    val _ = Piece_rrotate(P0)
-    val _ = Piece_rrotate(P0)
-  }
-| _ (* rot = 0 *) => ()
-)
-
-(* ****** ****** *)
-
-fun
 autoplay_rotxmv
 (
   P0: Piece
@@ -500,6 +503,186 @@ autoplay_rotxmv
   val () = autoplay_xmv (P0, xmv)
   val () = theGameTQuota_delta_space()
 }
+
+(* ****** ****** *)
+
+#define DONE 0
+#define XMV_L 1
+#define XMV_R 2
+#define ROT_L 3
+#define ROT_R 4
+
+(* ****** ****** *)
+
+local
+
+typedef
+fact = () -<cloref1> void
+
+val
+theFact =
+ref{fact}($UN.cast{fact}(0))
+
+val
+theROTXMVlist =
+arrszref_make_elt{int}(GCOLS+2, 0)
+
+fun
+fact_spawn(fact: fact) = theFact[] := fact
+
+fun
+theROTXMVlist_add_end
+  (i: int): int = let
+  val () = theROTXMVlist[i] := DONE
+in
+  i+1
+end // end of [theROTXMVlist_add_end]
+
+fun
+theROTXMVlist_add_rot
+  (rot: int, i: int): int =
+(
+case+ rot of
+| _ when
+    rot =  1 => i+1 where
+  {
+    val () = theROTXMVlist[i] := ROT_R
+  }
+| _ when
+    rot = ~1 => i+1 where
+  {
+    val () = theROTXMVlist[i] := ROT_L
+  }
+| _ when
+    rot =  2 => i+2 where
+  {
+    val () = theROTXMVlist[i+0] := ROT_R
+    val () = theROTXMVlist[i+1] := ROT_R
+  }
+| _ (* rot = 0 *) => i
+)
+
+fun
+theROTXMVlist_add_xmv
+  (xmv: int, i: int): int =
+(
+//
+case+ 0 of
+| _ when xmv > 0 => let
+    val () =
+      theROTXMVlist[i] := XMV_R
+    // end of [val]
+  in
+    theROTXMVlist_add_xmv (xmv-1, i+1)
+  end
+| _ when xmv < 0 => let
+    val () =
+      theROTXMVlist[i] := XMV_L
+    // end of [val]
+  in
+    theROTXMVlist_add_xmv (xmv+1, i+1)
+  end
+| _ (* xmv = 0 *) => i
+//
+) (* end of [theROTXMVlist_add_xmv] *)
+
+fun
+theROTXMVlist_add_rotxmv
+(
+  rot: int, xmv: int, i: int
+) : int = let
+//
+  val i = theROTXMVlist_add_rot(rot, i)
+  val i = theROTXMVlist_add_xmv(xmv, i)
+//
+in
+  theROTXMVlist_add_end(i)
+end // end of [theROTXMVlist_add_rotxmv]
+
+fun
+theROTXMVlist_autoplay
+  (P0: Piece, i: int) = let
+//
+val act = theROTXMVlist[i]
+//
+(*
+val () = alert("theROTXMVlist_autoplay:i="+String(i)+";act="+String(act))
+*)
+//
+in
+//
+case 0 of
+//
+| _ when
+    (act = ROT_L) => let
+    val acted = Piece_lrotate(P0)
+  in
+    if acted then
+      fact_spawn (lam() => theROTXMVlist_autoplay(P0, i+1))
+    // end of [if]
+  end // end of [ROT_L]
+//
+| _ when
+    (act = ROT_R) => let
+    val acted = Piece_rrotate(P0)
+  in
+    if acted then
+      fact_spawn (lam() => theROTXMVlist_autoplay(P0, i+1))
+    // end of [if]
+  end // end of [ROT_R]
+//
+| _ when
+    (act = XMV_L) => let
+    val acted = Piece_xmove_l(P0)
+  in
+    if acted then
+      fact_spawn (lam() => theROTXMVlist_autoplay(P0, i+1))
+    // end of [if]
+  end // end of [XMV_L]
+//
+| _ when
+    (act = XMV_R) => let
+    val acted = Piece_xmove_r(P0)
+  in
+    if acted then
+      fact_spawn (lam() => theROTXMVlist_autoplay(P0, i+1))
+    // end of [if]
+  end // end of [XMV_R]
+//
+| _(* DONE *) => theGameTQuota_delta_space()
+//
+end // end of [theROTXMVlist_autoplay]
+
+in (* in-of-local *)
+
+fun
+autoplay2_rotxmv
+(
+  P0: Piece
+, xmv: int, rot: int
+) : void = let
+//
+val
+_(*i*) =
+theROTXMVlist_add_rotxmv
+  (rot, xmv, 0)
+//
+in
+  theROTXMVlist_autoplay(P0, 0)
+end // end of [autoplay2_rotxmv]
+
+implement
+theAutoplay_fact
+  ((*void*)) = let
+  val fact = theFact[]
+  val ((*void*)) =
+    theFact[] := $UN.cast{fact}(0)
+  // end of [val]
+in
+  if $UN.cast{int}(fact) != 0 then fact()
+end // end of [theAutoplay_fact]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -529,7 +712,10 @@ in
 //
 case+ ss of
 | SITSCORE0() => ()
+(*
 | SITSCORE1(score, xmv, rot) => autoplay_rotxmv(P0, xmv, rot)
+*)
+| SITSCORE1(score, xmv, rot) => autoplay2_rotxmv(P0, xmv, rot)
 //
 end // end of [theGame_autoplay_piece]
 

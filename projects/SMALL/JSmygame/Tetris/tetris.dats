@@ -49,6 +49,7 @@ var theStageNP = 0;
 function
 theGame_tick(event)
 {
+  theAutoplay_fact();
   thePiece_handle_if();
   theStage.update(); theStageNP.update(); return;
 }

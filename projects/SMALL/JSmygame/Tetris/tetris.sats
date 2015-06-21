@@ -190,7 +190,16 @@ fun Piece_dump_blocks(Piece): void = "mac#"
 (* ****** ****** *)
 //
 fun
-theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
+theKeyDowns_handle
+  (fwork: int -<cloref1> void): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theAutoplay_fact(): void = "mac#"
+//
+fun
+theGame_autoplay_piece(Piece): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -199,9 +208,6 @@ theGameBoard_iforeach
   (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
 //
 (* ****** ****** *)
-//
-fun
-theGame_autoplay_piece(Piece): void = "mac#"
 //
 fun
 Piece_iforeach
