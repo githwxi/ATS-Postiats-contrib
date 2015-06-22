@@ -119,14 +119,12 @@ loop2
 //
 if
 j < GROWS
-then let
-  val res =
-    res + theAutoBoard[i,j] * power(GROWS-j, 2)
-  // end of [val]
-in
-  loop2(i, j+1, res)
-end // end of [then]
-else loop1(i+1, res)
+then (
+  if theAutoBoard[i,j] = 0
+    then loop2 (i, j+1, res)
+    else loop2 (i, j+1, res + power(GROWS-j, 2))
+  // end of [if]
+) else loop1(i+1, res)
 //
 ) (* end of [loop2] *)
 //
@@ -161,8 +159,8 @@ if
 j < GROWS
 then (
 //
-if theAutoBoard[i,j] > 0
-  then loop3(i, j+1, 0, res) else loop2(i, j+1, res)
+if theAutoBoard[i,j] = 0
+  then loop2(i, j+1, res) else loop3(i, j+1, 0, res)
 //
 ) else loop1(i+1, res)
 //
@@ -199,7 +197,7 @@ then (
 //
 if theAutoBoard[i,j] > 0
   then loop4(i, j+1, n, res)
-  else loop4(i, j+1, n, res + power(GROWS-j, 2)*GROWS)
+  else loop4(i, j+1, n, res + n + power(GROWS-j, 2)*GCOLS)
 //
 ) else loop1(i+1, res)
 //
