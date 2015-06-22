@@ -120,7 +120,9 @@ loop2
 if
 j < GROWS
 then let
-  val res = res + theAutoBoard[i,j] * (GROWS-j)
+  val res =
+    res + theAutoBoard[i,j] * power(GROWS-j, 2)
+  // end of [val]
 in
   loop2(i, j+1, res)
 end // end of [then]
@@ -197,7 +199,7 @@ then (
 //
 if theAutoBoard[i,j] > 0
   then loop4(i, j+1, n, res)
-  else loop4(i, j+1, n, res + (n+GROWS-j)*GROWS)
+  else loop4(i, j+1, n, res + power(GROWS-j, 2)*GROWS)
 //
 ) else loop1(i+1, res)
 //
@@ -208,12 +210,51 @@ in
 end // end of [theAutoBoard_eval2]
 
 (* ****** ****** *)
+
+fun
+theAutoBoard_eval3
+  ((*void*)): double = let
+//
+fun
+auxful
+(
+  j: int, i: int
+) : bool =
+(
+//
+if
+i < GCOLS
+then (
+  if (theAutoBoard[i,j] > 0) then auxful(j, i+1) else false
+) else true // end of [if]
+//
+) (* end of [auxful] *)
+//
+fun
+loop(j: int, res: double): double =
+(
+if
+j < GROWS
+then (
+  if auxful(j, 0)
+    then loop(j+1, res + power(GROWS-j, 2)*GCOLS) else loop(j+1, res)
+  // end of [if]
+) else res // end of [if]
+)
+//
+in
+  loop(0, 0.0)
+end // end of [theAutoBoard_eval3]
+
+(* ****** ****** *)
 //
 fun
 theAutoBoard_eval_all
   ((*void*)): double =
-(
-  theAutoBoard_eval1() + theAutoBoard_eval2()
+( 0
++ theAutoBoard_eval1()
++ theAutoBoard_eval2()
+- theAutoBoard_eval3()
 )
 //
 (* ****** ****** *)
@@ -316,8 +357,8 @@ case+ ss1 of
         val xmv1 = abs(xmv1)
         val xmv2 = abs(xmv2)
       in
-        if xmv1 < xmv2
-          then true else (if xmv1 > xmv2 then false else (abs(rot1) <= abs(rot2)))
+        if xmv1 > xmv2
+          then true else (if xmv1 < xmv2 then false else (abs(rot1) <= abs(rot2)))
         // end of [if]
       end // end of [score1 = score2]
   ) (* end of [SITSCORE1] *)
