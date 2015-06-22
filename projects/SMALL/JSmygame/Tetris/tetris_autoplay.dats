@@ -52,11 +52,85 @@ val
 theAutoBoard =
   mtrxszref_make_elt{int}(GCOLS, GROWS, 0)
 //
+(* ****** ****** *)
+//
+fun
+theAutoBoard_rowful_at
+  (y0: int): bool = let
+//
+fun loop(x: int): bool =
+(
+  if x < GCOLS then
+    (if theAutoBoard[x, y0] > 0 then loop(x+1) else false)
+  else true // end of [if]
+)
+//
+in
+  loop(0)
+end // end of [theAutoBoard_rowful_at]
+//
+fun
+theAutoBoard_rowdel_at
+  (y0: int): void = let
+//
+fun
+auxcol(x: int, y: int): void =
+(
+if
+y > 0
+then let
+  val () =
+    theAutoBoard[x, y] := theAutoBoard[x, y-1]
+in
+  auxcol(x, y-1)
+end // end of [then]
+else (theAutoBoard[x, y] := 0)
+)
+//
+fun loop(x: int): void =
+  if x < GCOLS then (auxcol(x, y0); loop(x+1)) else ()
+//
+in
+  loop(0)
+end // end of [theAutoBoard_rowdel_at]
+//
+(* ****** ****** *)
+
+fun
+theAutoBoard_rowdel_all
+  ((*void*)): void = let
+//
+fun loop (y: int): void =
+(
+if
+y < GROWS
+then let
+  val isful = theAutoBoard_rowful_at(y)
+  val ((*void*)) = if isful then theAutoBoard_rowdel_at(y)
+in
+  loop(y+1)
+end // end of [then]
+else () // end of [else]
+)
+//
+in
+  loop(0)
+end // end of [theAutoBoard_rowdel_all]
+//
+(* ****** ****** *)
+
 fun
 theAutoBoard_update() =
+{
+//
+val () =
 theGameBoard_iforeach
   (lam(i, j, b) => theAutoBoard[i,j] := bool2int0(b))
 //
+val () = theAutoBoard_rowdel_all()
+//
+} (* end of [theAutoBoard_update] *)
+
 (* ****** ****** *)
 //
 #define PDIM1 (PDIM-1)

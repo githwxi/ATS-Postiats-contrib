@@ -49,9 +49,14 @@ var theStageNP = 0;
 function
 theGame_tick(event)
 {
+//
   theAutoplay_fact();
   thePiece_handle_if();
-  theStage.update(); theStageNP.update(); return;
+//
+  theStage.update();
+  theStageNP.update();
+//
+  return;
 }
 //
 function
@@ -231,7 +236,10 @@ in
 if
 status != 0
 then let
-  val rowdel = theGameBoard_rowdel_one()
+//
+val
+rowdel = theGameBoard_rowdel_one()
+//
 in
 //
 if
