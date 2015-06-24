@@ -65,15 +65,15 @@ rest of the README is about using emscripten to compile into JS the C code
 generated from some ATS source.
 
 You need to install clang and the [emscripten][download-emscripten]
-compiler. If you want to run your compiled javascript programs from a
-console, you can run them from node.js, which emscripten requires.
+compiler. If you want to run your compiled JS programs from a console, you
+can run them from node.js, which emscripten requires.
 
 ## Hello, world!
 
 After installing emscripten, you'll now have a C/C++ compiler that outputs
-javascript.  For ATS, we'll mostly concerned with the C functionality
-provided by emcc. Make sure emcc is in your path, and try the following
-small example
+JS code.  For ATS, we'll mostly concerned with the C functionality provided
+by emcc. Make sure emcc is in your path, and try the following small
+example
 
     implement main0 () = {
       val () = println! "Hello, world!"
@@ -115,9 +115,9 @@ the following declaration.
 This designates "update_display" to be externally defined. This means that
 the C compiler will generate a stub for it and let the linker resolve it to
 the correct symbol. We can tell emscripten to look for this symbol in a
-special javascript file we designate as a library.  To get a good idea of
-how this works, check out the library.js file in this directory that wraps
-the HTML5 Canvas API with functions ATS can understand.
+special JS file we designate as a library.  To get a good idea of how this
+works, check out the library.js file in this directory that wraps the HTML5
+Canvas API with functions ATS can understand.
 
 To make a library.js for the simple update display example, add the
 following to it
