@@ -56,12 +56,17 @@ statically that would otherwise be difficult and error-prone to do.
 
 ## Dependencies
 
-First, you'll need  the latest ATS compiler which you  can find on the
-ATS [website][download-ats].
+You will need the latest ATS compiler which you can find on the ATS
+[website][download-ats].
 
-Next, install clang and the [emscripten][download-emscripten] compiler. If
-you want to run your compiled javascript programs from a console, you can
-run them from node.js, which emscripten requires.
+You can employ either atscc2js or emscripten for the purpose of generating
+JS code from ATS source. Using atscc2js is mostly straightforward, and the
+rest of the README is about using emscripten to compile into JS the C code
+generated from some ATS source.
+
+You need to install clang and the [emscripten][download-emscripten]
+compiler. If you want to run your compiled javascript programs from a
+console, you can run them from node.js, which emscripten requires.
 
 ## Hello, world!
 
