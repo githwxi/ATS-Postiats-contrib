@@ -239,4 +239,4 @@ compilation.
 
 [download-ats]: http://www.ats-lang.org/DOWNLOAD/#ATS_packages
 [download-emscripten]: http://github.com/kripken/emscripten
-[running-clock]: http://www.ats-lang.org/COMPILED/doc/PROJECT/SMALL/JSclock/myclock0.html
+[running-clock]: http://ats-lang.sourceforge.net/COMPILED/doc/PROJECT/SMALL/JSclock/myclock0.html
