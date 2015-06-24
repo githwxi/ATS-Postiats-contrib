@@ -56,7 +56,7 @@ statically that would otherwise be difficult and error-prone to do.
 
 ## Dependencies
 
-You will need the latest ATS compiler which you can find on the ATS
+Of course, you need the latest ATS compiler which you can find on the ATS
 [website][download-ats].
 
 You can employ either atscc2js or emscripten for the purpose of generating
