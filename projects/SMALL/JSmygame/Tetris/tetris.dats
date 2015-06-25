@@ -64,6 +64,7 @@ theGame_initize()
 {
   theStage = new createjs.Stage("theGameCanvas_main");
   theStageNP = new createjs.Stage("theGameCanvas_np"); // theNextPiece
+  createjs.Ticker.setInterval(25); // FPS=1000/25=40
   createjs.Ticker.addEventListener("tick", theGame_tick);
 }
 //
