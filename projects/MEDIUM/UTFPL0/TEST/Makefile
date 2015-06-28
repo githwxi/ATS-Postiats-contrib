@@ -36,10 +36,10 @@ all:: test06_utfpl.json
 all:: queens_utfpl.json
 
 ######
-
+#
 %_utfpl.json: %.utfpl ; \
-  $(PATSOPT) --jsonize-2 --jsonize-2 -o $@ -d $<
-
+  $(PATSOPT) --jsonize-2 -o $@ -d $<
+#
 ######
 
 RMF=rm -f
