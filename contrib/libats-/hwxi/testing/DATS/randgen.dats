@@ -114,7 +114,7 @@ if n > 0 then let
 val () =
   res := cons_vt{a}{0} (_, _)
 // end of [val]
-val+ list_vt_cons (x, res1) = res
+val+list_vt_cons (x, res1) = res
 val () = randgen_ref<a> (x)
 val () = loop (pred (n), res1)
 //

@@ -1,0 +1,12 @@
+#
+# README for testing
+#
+
+######
+#
+HX-2015-06-28:
+#
+Note that randgen-functions have all been
+moved into prelude/grandom.
+#
+###### end of [README] ######
