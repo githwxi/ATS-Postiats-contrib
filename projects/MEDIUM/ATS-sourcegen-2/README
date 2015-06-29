@@ -2,15 +2,27 @@
 #
 # HX-2015-06-28:
 #
-# For generating ATS sourced
+# For generating ATS source
+#
+######
+#
+# datacontag
+# dataconame
+# --codespec "tree0:datacontag[tree0_datacontag]()"
+# --codespec "tree0:dataconame[tree0_dataconame]()"
 #
 ######
 #
 # fprint/unfprint
 #
+# --codespec "tree0:traverse[fprint](out:FILEref)"
+#
 ######
 #
 # jsonize/unjsonize
+#
+# --codespec "tree0:traverse[jsonize]()"
+# --codespec "tree0:traverse[unjsonize]()"
 #
 ######
 #
