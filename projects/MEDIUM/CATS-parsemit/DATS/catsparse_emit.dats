@@ -41,6 +41,9 @@ implement
 emit_COLON (out) = emit_text (out, ":")
 //
 implement
+emit_COMMA (out) = emit_text (out, ",")
+//
+implement
 emit_SEMICOLON (out) = emit_text (out, ";")
 //
 (* ****** ****** *)
@@ -114,6 +117,9 @@ if ind > 0 then
 //
 implement
 emit_int (out, x) = fprint_int (out, x)
+//
+implement
+emit_char (out, x) = fprint_char (out, x)
 //
 implement
 emit_text (out, x) = fprint_string (out, x)

@@ -317,26 +317,33 @@ ins0.instr_node of
     d0e, inss, inssopt
   ) => let
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if")
-    val () = emit_LPAREN (out)
+    val () = emit_text (out, "if\n")
+    val () = emit_nspc (out, ind+2)
     val () = emit_d0exp (out, d0e)
-    val () = emit_RPAREN (out)
-    val () = emit_text (out, " {\n")
-    val () = emit2_instrlst (out, ind+2, inss)
+    val () = emit_text (out, " ->\n")
+    val () = emit2_instrlst (out, ind+4, inss)
+    val () = emit_nspc (out, ind+4)
+    val () = emit_text (out, "ats2erlpre_if_then;\n")
   in
     case+ inssopt of
     | None _ =>
       {
+        val () = emit_nspc (out, ind+2)
+        val () = emit_text (out, " true ->\n")
+        val () = emit_nspc (out, ind+4)
+        val () = emit_text (out, "ats2erlpre_if_else\n")
         val () = emit_nspc (out, ind)
-        val () = emit_text (out, "} // endif")
+        val ((*closing*)) = emit_text (out, "end, %% endif")
       } (* end of [None] *)
     | Some (inss) =>
       {
+        val () = emit_nspc (out, ind+2)
+        val () = emit_text (out, "true ->\n")
+        val () = emit2_instrlst (out, ind+4, inss)
+        val () = emit_nspc (out, ind+4)
+        val () = emit_text (out, "ats2erlpre_if_else\n")
         val () = emit_nspc (out, ind)
-        val () = emit_text (out, "} else {\n")
-        val () = emit2_instrlst (out, ind+2, inss)
-        val () = emit_nspc (out, ind)
-        val ((*closing*)) = emit_text (out, "} // endif")
+        val ((*closing*)) = emit_text (out, "end, %% endif")
       } (* end of [Some] *)
   end // end of [ATSif]
 //
@@ -455,7 +462,7 @@ ins0.instr_node of
 | ATSINSflab (flab) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ")
+    val () = emit_text (out, "%% ")
     val () = emit_label (out, flab)
   } (* end of [ATSINSflab] *)
 //
@@ -472,7 +479,7 @@ ins0.instr_node of
 | ATSINSfreeclo (d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ")
+    val () = emit_text (out, "%% ")
     val () = emit_text (out, "ATSINSfreeclo")
     val () = emit_LPAREN (out)
     val () = emit_d0exp (out, d0e)
@@ -482,7 +489,7 @@ ins0.instr_node of
 | ATSINSfreecon (d0e) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "// ")
+    val () = emit_text (out, "%% ")
     val () = emit_text (out, "ATSINSfreecon")
     val () = emit_LPAREN (out)
     val () = emit_d0exp (out, d0e)
@@ -492,24 +499,27 @@ ins0.instr_node of
 //
 | ATSINSmove (tmp, d0e) =>
   {
-    val () = emit_nspc (out, ind)
+    val () =
+      emit_nspc (out, ind)
     val () = (
       emit_tmpvar (out, tmp);
       emit_text (out, " = "); emit_d0exp (out, d0e)
     ) (* end of [val] *)
-    val () = emit_SEMICOLON (out)
+    val () = emit_COMMA (out)
   } (* end of [ATSINSmove] *)
 //
 | ATSINSmove_void
     (tmp, d0e(*command*)) => let
     val () = emit_nspc (out, ind)
   in
-    case+ d0e.d0exp_node of
+    case+
+    d0e.d0exp_node
+    of // case+
     | ATSPMVempty _ =>
         emit_text (out, "// ATSINSmove_void")
       // end of [ATSempty]
     | _ (*non-ATSPMVempty*) =>
-        (emit_d0exp (out, d0e); emit_SEMICOLON (out))
+        (emit_d0exp (out, d0e); emit_COMMA (out))
       // end of [non-ATSPMVempty]
   end (* end of [ATSINSmove_void] *)
 //
@@ -519,16 +529,17 @@ ins0.instr_node of
     val () = emit_tmpvar (out, tmp)
     val () = emit_text (out, " = ")
     val () = emit_text (out, "null")
-    val () = emit_SEMICOLON (out)
+    val () = emit_COMMA (out)
   }
 | ATSINSmove_con0 (tmp, tag) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_tmpvar (out, tmp)
-    val () = (
+    val () =
+    (
       emit_text (out, " = "); emit_PMVint (out, tag)
     ) (* end of [val] *)
-    val () = emit_SEMICOLON (out)
+    val () = emit_COMMA (out)
   }
 //
 | ATSINSmove_con1 _ =>

@@ -249,7 +249,29 @@ val () = (
 //
 implement
 emit_tmpvar
-  (out, tmp) = emit_i0de (out, tmp)
+  (out, tmp) = let
+//
+val
+sym = tmp.i0de_sym
+val
+name =
+g1ofg0(symbol_get_name(sym))
+//
+in
+//
+if
+isneqz(name)
+then let
+  val p0 = string2ptr(name)
+  val c0 = $UN.ptr0_get<char>(p0)
+  val p1 = ptr0_succ<char>(p0)
+  val name1 = $UN.cast{string}(p1)
+in
+  emit_char(out, toupper(c0)); emit_text(out, name1)
+end // end of [then]
+else () // end of [else]
+//
+end // end of [emit_tmpvar]
 //
 (* ****** ****** *)
 
