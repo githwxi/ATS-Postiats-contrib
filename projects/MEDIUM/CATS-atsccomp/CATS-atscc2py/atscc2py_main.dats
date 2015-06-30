@@ -149,7 +149,9 @@ val () = emit_time_stamp (out)
 val ((*void*)) = emit_toplevel (out, d0cs)
 //
 val () = emit_text (out, "######\n")
+val () = emit_text (out, "##\n")
 val () = emit_text (out, "## end-of-compilation-unit")
+val () = emit_text (out, "\n##")
 val () = emit_text (out, "\n######")
 //
 val ((*flusing*)) = emit_newline (out)

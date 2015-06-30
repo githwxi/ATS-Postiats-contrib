@@ -147,10 +147,11 @@ val () = emit_time_stamp (out)
 //
 val ((*void*)) = emit_toplevel (out, d0cs)
 //
-val () =
-emit_text (out, "\n/* ****** ****** */\n")
-val () =
-emit_text (out, "\n/* end-of-compilation-unit */")
+val () = emit_text (out, "%%%%%%\n")
+val () = emit_text (out, "%%\n")
+val () = emit_text (out, "%% end-of-compilation-unit")
+val () = emit_text (out, "\n%%")
+val () = emit_text (out, "\n%%%%%%")
 //
 val ((*flusing*)) = emit_newline (out)
 //
@@ -486,7 +487,7 @@ comarg_parse
 //
 fun
 loop
-  {n,i:nat | i <= n} .<n-i>.
+{n,i:nat | i <= n} .<n-i>.
 (
   str: string n, n: int n, i: int i
 ) :<> comarg = 
@@ -514,11 +515,12 @@ comarglst_parse
 //
 fun
 loop
-  {i,j:nat | i <= n} .<n-i>.
+{i,j:nat | i <= n} .<n-i>.
 (
   argv: !argv(n), i: int(i), res: list_vt(comarg, j)
 ) : list_vt (comarg, n-i+j) =
 (
+//
 if i < argc
   then let
     val res = list_vt_cons (comarg_parse (argv[i]), res)
