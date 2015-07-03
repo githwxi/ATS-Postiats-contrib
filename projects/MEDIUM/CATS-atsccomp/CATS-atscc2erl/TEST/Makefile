@@ -50,7 +50,7 @@ RMRF=rm -rf
 ######
 
 libatscc2erl:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2erl/libatscc2erl_cats.hrl libatscc2erl/.
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2erl/libatscc2erl_all.hrl libatscc2erl/.
 
 ######
 
@@ -61,6 +61,6 @@ clean:: ; $(RMF) *~
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.c
 cleanall:: ; $(RMF) *_?ats.beam
-cleanall:: ; $(RMRF) libatscc2erl/libatscc2erl_cats.hrl
+cleanall:: ; $(RMRF) libatscc2erl/libatscc2erl_all.hrl
 
 ###### end of [Makefile] ######
