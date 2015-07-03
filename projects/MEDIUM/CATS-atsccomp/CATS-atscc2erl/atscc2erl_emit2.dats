@@ -914,12 +914,12 @@ in
 end // end of [emit2_ATSINSmove_lazyeval]
 
 (* ****** ****** *)
-
+//
 #define
-ATSEXTCODE_BEG "/* ATSextcode_beg() */"
+ATSEXTCODE_BEG "%%\n%% ATSextcode_beg()\n%%"
 #define
-ATSEXTCODE_END "/* ATSextcode_end() */"
-
+ATSEXTCODE_END "%%\n%% ATSextcode_end()\n%%"
+//
 (* ****** ****** *)
 
 implement
