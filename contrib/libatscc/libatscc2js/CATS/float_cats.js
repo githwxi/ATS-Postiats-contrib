@@ -114,4 +114,12 @@ ats2jspre_neq_double_double(x, y) { return (x !== y); }
 
 /* ****** ****** */
 
+function
+ats2jspre_compare_double_double(x, y)
+{
+  if (x < y) return -1; else if (x > y) return 1; else return 0;
+}
+
+/* ****** ****** */
+
 /* end of [float_cats.js] */

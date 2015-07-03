@@ -1,8 +1,8 @@
 %%
 %%%%%%
 %
-% HX-2014-08:
-% for JavaScript code
+% HX-2015-07:
+% for Erlang code
 % translated from ATS
 %
 %%%%%%
@@ -101,10 +101,6 @@ ats2jspre_eq_int1_int1(X, Y) -> (X =:= Y).
 fun
 ats2jspre_neq_int1_int1(X, Y) -> (X =/= Y).
 
-%% ****** ****** %%
-%%
-%% HX: for unsigned integers
-%%
 %% ****** ****** %%
 
 %% end of [integer_cats.hrl] %%
