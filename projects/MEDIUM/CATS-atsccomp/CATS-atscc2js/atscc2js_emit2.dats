@@ -1135,9 +1135,10 @@ val () = emit_text (out, "//\n")
 val () = (
 //
 case+ knd of
+| 0 => emit_f0body_0 (out, fbody)
 | 1 => emit_f0body_tlcal (out, fbody)
 | 2 => emit_f0body_tlcal2 (out, fbody)
-| _ (*0*) => emit_f0body_0 (out, fbody)
+| _ => let val () = assertloc(false) in (*nothing*) end
 //
 ) : void // end of [val]
 //

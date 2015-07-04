@@ -870,6 +870,10 @@ f0head = '{
 } (* end of [f0head] *)
 //
 (* ****** ****** *)
+
+typedef f0headopt = Option (f0head)
+
+(* ****** ****** *)
 //
 fun fprint_f0arg : fprint_type (f0arg)
 fun fprint_f0marg : fprint_type (f0marg)
@@ -885,6 +889,7 @@ overload fprint with fprint_f0head
 //
 fun
 f0marg_isneqz (f0ma: f0marg): bool
+//
 overload isneqz with f0marg_isneqz
 //
 (* ****** ****** *)
