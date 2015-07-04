@@ -17,9 +17,9 @@
 %% ****** ****** %%
 %%
 %%fun%%
-ats2jspre_neg_bool0(X) -> bnot(X).
+ats2jspre_neg_bool0(X) -> not(X).
 %%fun%%
-ats2jspre_neg_bool1(X) -> bnot(X).
+ats2jspre_neg_bool1(X) -> not(X).
 %%
 %% ****** ****** %%
 %%

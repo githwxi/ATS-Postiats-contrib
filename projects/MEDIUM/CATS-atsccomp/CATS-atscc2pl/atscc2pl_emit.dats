@@ -213,6 +213,19 @@ end // end of [emit_CSTSPmyloc]
 (* ****** ****** *)
 
 implement
+emit_ATSCKpat_int
+  (out, d0e, i) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_int(")
+  val () = (
+    emit_d0exp (out, d0e); emit_text (out, ", "); emit_d0exp (out, i); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_int] *)
+
+(* ****** ****** *)
+
+implement
 emit_ATSCKpat_con0
   (out, d0e, tag) =
 {
@@ -333,6 +346,9 @@ d0e0.d0exp_node of
     (_(*fid*), _(*s0e*), arg) => emit_d0exp (out, arg)
 //
 | ATSCSTSPmyloc (tok) => emit_CSTSPmyloc (out, tok)
+//
+| ATSCKpat_int
+    (d0e, int) => emit_ATSCKpat_int (out, d0e, int)
 //
 | ATSCKpat_con0
     (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)

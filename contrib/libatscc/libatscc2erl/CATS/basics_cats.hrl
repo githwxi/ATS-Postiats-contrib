@@ -16,11 +16,19 @@
 
 %% ****** ****** %%
 
-%%fun%%
-ats2erl_ATSCKiseqz(X) -> (X =:= 0).
-%%fun%%
-ats2erl_ATSCKisneqz(X) -> (X =/= 0).
+-define(ATSCKiseqz(X), X =:= 0).
+-define(ATSCKisneqz(X), X =/= 0).
 
+%% ****** ****** %%
+
+-define(ATSCKpat_int(X, I), X =:= I).
+
+%% ****** ****** %%
+%%
+%%fun%%
+atscc2erl_caseof_deadcode
+  (_FILE, _LINE) -> exit('atscc2erl_caseof_deadcode').
+%%
 %% ****** ****** %%
 
 %% end of [basics_cats.hrl] %%

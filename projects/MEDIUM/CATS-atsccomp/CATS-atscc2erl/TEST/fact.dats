@@ -46,8 +46,8 @@ fact (n) = if n > 0 then n * fact(n-1) else 1
 
 %{$
 mytest() ->
-  N = 10,
-  io:format("fact(~p) = ~p~n", [N, fact(N)])
+  N = 10
+, io:format("fact(~p) = ~p~n", [N, fact(N)])
 . %% mytest()
 %} // end of [%{$]
 

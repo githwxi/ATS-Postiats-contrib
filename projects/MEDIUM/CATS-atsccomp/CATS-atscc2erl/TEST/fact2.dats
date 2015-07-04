@@ -55,8 +55,8 @@ end // end of [fact]
 
 %{$
 mytest() ->
-  N = 10,
-  io:format("fact(~p) = ~p~n", [N, fact(N)])
+  N = 12
+, io:format("fact(~p) = ~p~n", [N, fact(N)])
 . %% mytest()
 %} // end of [%{$]
 

@@ -153,6 +153,8 @@ case+ x of
 | ATSINSflab () => pr "ATSINSflab"
 | ATSINSfgoto () => pr "ATSINSfgoto"
 //
+| ATSCKpat_int () => pr "ATSCKpat_int"
+//
 | ATSCKpat_con0 () => pr "ATSCKpat_con0"
 | ATSCKpat_con1 () => pr "ATSCKpat_con1"
 //
@@ -410,6 +412,9 @@ d0e.d0exp_node of
     fprint! (out, "ATSPMVcastfn(", fid, "; ", s0e, ";", arg, ")")
 //
 | ATSCSTSPmyloc (tok) => fprint! (out, "ATSCSTSPmyloc(", tok, ")")
+//
+| ATSCKpat_int (d0e, int) =>
+    fprint! (out, "ATSCKpat_int(", d0e, int, ")")
 //
 | ATSCKpat_con0 (d0e, tag) =>
     fprint! (out, "ATSCKpat_con0(", d0e, tag, ")")

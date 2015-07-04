@@ -367,6 +367,21 @@ end // end of [ATSCSTSPmyloc_make]
 (* ****** ****** *)
 
 implement
+ATSCKpat_int_make
+(
+  tok1, d0e, int, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKpat_int (d0e, int))
+end // end of [ATSCKpat_int_make]
+
+(* ****** ****** *)
+
+implement
 ATSCKpat_con0_make
 (
   tok1, d0e, tag, tok2

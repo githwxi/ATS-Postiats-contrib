@@ -358,21 +358,15 @@ ins0.instr_node of
     val () = emit_nspc (out, ind+2)
     val () = emit_d0exp (out, d0e)
     val () = emit_text (out, " ->\n")
-    val () = emit2_instrlst_sep (out, ind+4, inss, ";\n")
-(*
-    val () = emit_nspc (out, ind+4)
-    val () = emit_text (out, "%% if-then\n")
-*)
+    val () = emit2_instrlst_sep (out, ind+4, inss, "; %% if-then\n")
   in
     case+ inssopt of
     | None _ =>
       {
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "true ->\n")
-(*
         val () = emit_nspc (out, ind+4)
         val () = emit_text (out, "%% if-else\n")
-*)
         val () = emit_nspc (out, ind)
         val ((*closing*)) = emit_text (out, "end %% endif\n")
         val () = emit_nspc (out, ind)
@@ -381,11 +375,7 @@ ins0.instr_node of
       {
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "true ->\n")
-        val () = emit2_instrlst_sep (out, ind+4, inss, "\n")
-(*
-        val () = emit_nspc (out, ind+4)
-        val () = emit_text (out, "%% if-else\n")
-*)
+        val () = emit2_instrlst_sep (out, ind+4, inss, " %% if-else\n")
         val () = emit_nspc (out, ind)
         val ((*closing*)) = emit_text (out, "end %% endif\n")
         val () = emit_nspc (out, ind)
@@ -410,9 +400,9 @@ ins0.instr_node of
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if(!")
+    val () = emit_text (out, "if(not(")
     val () = emit_d0exp (out, d0e)
-    val ((*closing*)) = emit_text (out, ") ")
+    val ((*closing*)) = emit_text (out, ")) ")
     val () = emit_instr (out, ins)
   }
 //
@@ -431,35 +421,54 @@ ins0.instr_node of
     val () = the_branchlablst_set (tls)
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ATScaseofseq_beg")
-    val () = emit_ENDL (out)
+    val () = emit_text (out, "%% ATScaseofseq_beg\n")
+(*
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "Tmplab_erl = 1;")
-    val () = emit_ENDL (out)
+    val () = emit_text (out, "%% Tmplab_erl = 1;\n")
+*)
+(*
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%while(true) {")
-    val () = emit_ENDL (out)
+    val () = emit_text (out, "%while(true) {\n")
+*)
+//
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "Casefun =\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "fun (Casefun, Tmplab) ->\n")
+(*
     val () = emit_nspc (out, ind+2)
-    val () = emit_text (out, "Tmplab = Tmplab_erl; Tmplab_erl = 0;")
-    val () = emit_ENDL (out)
+    val () = emit_text (out, "%% Tmplab = Tmplab_erl; Tmplab_erl = 0;\n")
+*)
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "%switch(Tmplab) {\n")
+//
+    val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "case Tmplab of\n")
 //
     val () = emit2_branchseqlst (out, ind+4, inss)
 //
     val () = emit_nspc (out, ind+2)
+    val () = emit_text (out, "end %% endcase\n")
+    val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "%} // end-of-switch\n")
 //
+(*
     val () = emit_nspc (out, ind+2)
-    val () =
-      emit_text (out, "if (Tmplab_erl =:= 0) break;\n")
-    // end of [val]
+    val () = emit_text (out, "%% if (Tmplab_erl = 0) break;\n")
+*)
 //
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "end, %% endfun\n")
+(*
     val () = emit_nspc (out, ind)
     val ((*closing*)) = emit_text (out, "%} // endwhile\n")
+*)
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ATScaseofseq_end")
+    val () = emit_text (out, "Casefun(Casefun, 1)\n")
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "%% ATScaseofseq_end\n")
+    val () = emit_nspc (out, ind)
 //
     val () = the_branchlablst_unset ((*void*))
 //
@@ -496,12 +505,14 @@ ins0.instr_node of
 //
 | ATSINSgoto (lab) =>
   {
+//
     val () = emit_nspc (out, ind)
-    val () =
-      emit_text (out, "{ Tmplab_erl = ")
-    // end of [val]
-    val () = emit_tmplab_index (out, lab)
-    val ((*closing*)) = emit_text (out, "; break; }")
+    val () = emit_text (out, "Casefun")
+//
+    val () = emit_LPAREN (out)
+    val () = (emit_text (out, "Casefun, "); emit_tmplab_index (out, lab))
+    val () = emit_RPAREN (out)
+//
   } (* end of [ATSINSgoto] *)
 //
 | ATSINSflab (flab) =>
@@ -611,14 +622,7 @@ ins0.instr_node of
 | ATStailcalseq (inss) =>
   {
 //
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ATStailcalseq_beg\n")
-//
     val () = emit2_tailcalseqlst(out, ind, inss)
-//
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ATStailcalseq_end\n")
-    val () = emit_nspc (out, ind)
 //
   } (* end of [ATStailcalseq] *)
 //
@@ -823,8 +827,14 @@ case+ inss of
 //
     val () = auxseq (out, ind, ins)
 //
+(*
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "break;\n")
+*)
+//
+    val () = emit_ENDL (out)
+    val () = emit_nspc (out, ind)
+    val () = emit_text (out, ";\n")
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ATSbranchseq_end\n")
@@ -882,17 +892,16 @@ fhd.f0head_node of
 | F0HEAD
     (fid, f0ma, res) =>
   {
+//
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ")
 //
     val () = emit_i0de (out, fid)
-//
     val () = emit_LPAREN (out)
     val () = auxarglst (out, 0, inss)
     val () = emit_RPAREN (out)
 //
-    val () = emit_ENDL (out)
   } (* end of [F0HEAD] *)
 //
 end // end of [emit2_tailcalseqlst]

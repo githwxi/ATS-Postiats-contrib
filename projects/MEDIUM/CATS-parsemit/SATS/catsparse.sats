@@ -270,6 +270,8 @@ keyword =
 //
   | ATSCSTSPmyloc of ()
 //
+  | ATSCKpat_int of ()
+//
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
 //
@@ -784,6 +786,8 @@ d0exp_node =
   | ATSPMVcastfn of (i0de(*fun*), s0exp, d0exp(*arg*))
 //
   | ATSCSTSPmyloc of s0tring
+//
+  | ATSCKpat_int of (d0exp, d0exp)
 //
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))

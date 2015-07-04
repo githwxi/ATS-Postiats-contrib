@@ -25,6 +25,16 @@ cleanall::
 ######
 
 all:: \
+f91_dats.erl
+f91_dats.erl: f91.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+f91_dats.beam:: f91_dats.erl ; $(ERLC) $< 
+regress:: f91_dats.beam; $(ERL) -run f91_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) f91_dats.erl
+
+######
+
+all:: \
 fact_dats.erl
 fact_dats.erl: fact.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
@@ -45,12 +55,32 @@ cleanall:: ; $(RMF) fact2_dats.erl
 ######
 
 all:: \
+acker_dats.erl
+acker_dats.erl: acker.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+acker_dats.beam:: acker_dats.erl ; $(ERLC) $< 
+regress:: acker_dats.beam; $(ERL) -run acker_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) acker_dats.erl
+
+######
+
+all:: \
 isevn_dats.erl
 isevn_dats.erl: isevn.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 isevn_dats.beam:: isevn_dats.erl ; $(ERLC) $< 
 regress:: isevn_dats.beam; $(ERL) -run isevn_dats mytest -run init stop -noshell
 cleanall:: ; $(RMF) isevn_dats.erl
+
+######
+
+all:: \
+listlen_dats.erl
+listlen_dats.erl: listlen.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+listlen_dats.beam:: listlen_dats.erl ; $(ERLC) $< 
+regress:: listlen_dats.beam; $(ERL) -run listlen_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) listlen_dats.erl
 
 ######
 
