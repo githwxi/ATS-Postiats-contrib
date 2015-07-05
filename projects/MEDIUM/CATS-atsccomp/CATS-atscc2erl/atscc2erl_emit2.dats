@@ -80,6 +80,9 @@ end // end of [emit_tmpdeclst_initize]
 extern
 fun
 the_Casefunx_new (): int
+extern
+fun
+the_Casefunx_reset (): void
 //
 extern
 fun
@@ -137,11 +140,14 @@ in (* in-of-local *)
 
 implement
 the_Casefunx_new
-  () = fx where
+  ((*void*)) = fx where
 {
   val fx = !the_Casefunx
   val () = !the_Casefunx := fx+1 
 }
+
+implement
+the_Casefunx_reset() = !the_Casefunx := 1
 
 implement
 the_tmpdeclst_get () = !the_tmpdeclst
@@ -502,11 +508,7 @@ ins0.instr_node of
     val () = the_branchlablst_set (tls)
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ATScaseofseq_beg\n")
-(*
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% Tmplab_erl = 1;\n")
-*)
+    val () = emit_text (out, "begin\n")
 (*
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%while(true) {\n")
@@ -556,8 +558,7 @@ ins0.instr_node of
 //
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ATScaseofseq_end\n")
-    val () = emit_nspc (out, ind)
+    val () = emit_text (out, "end")
 //
     val () = the_branchlablst_unset ((*void*))
 //
@@ -1265,79 +1266,36 @@ end // end of [emit_typedef]
 extern
 fun
 emit_tyrec_d0explst
-  (FILEref, tyrec, d0explst): void
+  (FILEref, d0explst): void
 extern
 fun
 emit_tysum_d0explst
-  (FILEref, tyrec, tag: tokenopt, d0explst): void
+  (FILEref, tag: tokenopt, d0explst): void
 //
-local
-
-fun
-auxlst
-(
-  out: FILEref
-, i: int, tfs: tyfldlst, d0es: d0explst
-) : void = (
-//
-case+ tfs of
-| list_nil() => ()
-| list_cons(tf, tfs) => let
-    val () =
-    if i > 0
-      then emit_text(out, ", ")
-    // end of [val]
-(*
-    val+
-    TYFLD(id, _) = tf.tyfld_node
-    val () = emit_i0de(out, id)
-    val () = emit_text(out, "= ")
-*)
-    val-
-    list_cons(d0e, d0es) = d0es
-    val () = emit_d0exp(out, d0e)
-  in
-    auxlst (out, i+1, tfs, d0es)
-  end // end of [list_cons]
-) (* end of [auxlst] *)
-
-in (* in-of-local *)
-
 implement
 emit_tyrec_d0explst
-  (out, s0rec, d0es) =
+  (out, d0es) =
 (
-  auxlst(out, 0, s0rec.tyrec_node, d0es)
+  emit_d0explst (out, d0es)
 ) // end of [emit_tyrec_d0explst]
 
 implement
 emit_tysum_d0explst
-  (out, s0rec, opt, d0es) = let
-//
-  val tfs = s0rec.tyrec_node
-//
-in
+  (out, opt, d0es) = (
 //
 case+ opt of
 | None() =>
-    auxlst(out, 0, tfs, d0es)
+    emit_d0explst (out, d0es)
 | Some(tag) => let
-    val-list_cons(tf, tfs) = tfs
-(*
-    val+
-    TYFLD(id, _) = tf.tyfld_node
-    val () = emit_i0de(out, id)
-    val () = emit_text(out, "= ")
-*)
-    val () = emit_PMVint(out, tag)
+    val () =
+      emit_PMVint(out, tag)
+    // end of [val]
   in
-    auxlst(out, 1, tfs, d0es)
+    emit_d0explst_1 (out, d0es)
   end // end of [Some]
 //
-end // end of [emit_tysum_d0explst]
-
-end // end of [local]
-
+) // end of [emit_tysum_d0explst]
+//
 (* ****** ****** *)
 
 implement
@@ -1362,11 +1320,8 @@ case+ inss of
 //
 val-ATSINSmove_con1(inss) = ins0.instr_node
 //
-val-list_cons (ins, inss) = inss
-val-ATSINSmove_con1_new (tmp, s0e) = ins.instr_node  
-//
-val-S0Eide(name) = s0e.s0exp_node
-val-~Some_vt(s0rec) = typedef_search_opt (name)
+val-list_cons(ins, inss) = inss
+val-ATSINSmove_con1_new(tmp, _) = ins.instr_node  
 //
 var opt: tokenopt = None()
 //
@@ -1411,7 +1366,7 @@ val () = emit_SHARP (out)
 val () = emit_symbol (out, name)
 *)
 val () = emit_LBRACE (out)
-val () = emit_tysum_d0explst (out, s0rec, opt, d0es)
+val () = emit_tysum_d0explst (out, opt, d0es)
 val () = emit_RBRACE (out)
 //
 in
@@ -1442,11 +1397,8 @@ case+ inss of
 //
 val-ATSINSmove_boxrec(inss) = ins0.instr_node
 //
-val-list_cons (ins, inss) = inss
-val-ATSINSmove_boxrec_new (tmp, s0e) = ins.instr_node
-//
-val-S0Eide(name) = s0e.s0exp_node
-val-~Some_vt(s0rec) = typedef_search_opt (name)
+val-list_cons(ins, inss) = inss
+val-ATSINSmove_boxrec_new(tmp, _) = ins.instr_node
 //
 val d0es = getarglst (inss)
 //
@@ -1474,7 +1426,7 @@ val () = emit_SHARP (out)
 val () = emit_symbol (out, name)
 *)
 val () = emit_LBRACE (out)
-val () = emit_tyrec_d0explst (out, s0rec, d0es)
+val () = emit_tyrec_d0explst (out, d0es)
 val () = emit_RBRACE (out)
 //
 in
@@ -1733,17 +1685,24 @@ emit_f0body
 //
 val knd = f0body_classify (fbody)
 (*
+//
 val () =
-println! ("emit_f0body: knd = ", knd)
+println!
+  ("emit_f0body: knd = ", knd)
+//
 *)
 //
-val tmpdecs =
-  f0body_get_tmpdeclst (fbody)
-val inss_body =
-  f0body_get_bdinstrlst (fbody)
+val () = the_Casefunx_reset ()
 //
-val () = the_tmpdeclst_set (tmpdecs)
-val () = the_funbodylst_set (inss_body)
+val
+tmpdecs =
+f0body_get_tmpdeclst(fbody)
+val () = the_tmpdeclst_set(tmpdecs)
+//
+val
+inss_body =
+f0body_get_bdinstrlst(fbody)
+val () = the_funbodylst_set(inss_body)
 //
 val () = emit_text (out, "%{\n")
 //
@@ -1987,6 +1946,11 @@ end // end of [emit_f0body_tlcal2]
 implement
 emit_f0decl
   (out, fdec) = let
+//
+(*
+val () = println!("emit_f0decl")
+*)
+//
 in
 //
 case+

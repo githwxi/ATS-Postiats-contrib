@@ -33,6 +33,11 @@
 -define(ATSCKptriscons(X), X =/= atscc2erl_nil).
 
 %% ****** ****** %%
+
+-define(ATSSELcon(P, I), element(I+1, P)).
+-define(ATSSELboxrec(P, I), element(I+1, P)).
+
+%% ****** ****** %%
 %%
 -define(ATSINSmove_void(), atscc2erl_void).
 %%

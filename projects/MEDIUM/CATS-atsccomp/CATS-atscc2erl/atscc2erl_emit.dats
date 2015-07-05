@@ -482,12 +482,16 @@ val-~Some_vt(s0rec) = typedef_search_opt(name)
 val tupi = tyrec_labsel(s0rec, id.i0de_sym)
 //
 val () =
-emit_text (out, "element")
+emit_text
+  (out, "?ATSSELcon")
 //
 val () = emit_LPAREN (out)
-val () = emit_int (out, tupi+1)
-val () = emit_text (out, ", ")
-val () = emit_d0exp (out, d0rec)
+//
+val () =
+(
+  emit_d0exp (out, d0rec); emit_text (out, ", "); emit_int (out, tupi)
+) (* end of [val] *)
+//
 val () = emit_RPAREN (out)
 //
 in
@@ -524,12 +528,16 @@ val-~Some_vt(s0rec) = typedef_search_opt(name)
 val tupi = tyrec_labsel(s0rec, id.i0de_sym)
 //
 val () =
-emit_text (out, "element")
+emit_text
+  (out, "?ATSSELboxrec")
 //
 val () = emit_LPAREN (out)
-val () = emit_int (out, tupi+1)
-val () = emit_text (out, ", ")
-val () = emit_d0exp (out, d0rec)
+//
+val () =
+(
+  emit_d0exp (out, d0rec); emit_text (out, ", "); emit_int (out, tupi)
+) (* end of [val] *)
+//
 val () = emit_RPAREN (out)
 //
 in

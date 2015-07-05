@@ -127,12 +127,13 @@ $(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2erl/libatscc2erl_all.hrl li
 ######
 
 clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
+clean:: ; $(RMF) *_?ats.erl
+clean:: ; $(RMF) *_?ats.beam
 
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) *_?ats.c
-cleanall:: ; $(RMF) *_?ats.beam
 cleanall:: ; $(RMRF) libatscc2erl/libatscc2erl_all.hrl
 
 ###### end of [Makefile] ######
