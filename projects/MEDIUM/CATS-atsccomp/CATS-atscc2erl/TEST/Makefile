@@ -89,7 +89,7 @@ queens_dats.erl
 queens_dats.erl: queens.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 queens_dats.beam:: queens_dats.erl ; $(ERLC) $< 
-regress:: queens_dats.beam; $(ERL) -run queens_dats mytest -run init stop -noshell
+regress:: queens_dats.beam; $(ERL) -run queens_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) queens_dats.erl
 
 ######

@@ -1160,8 +1160,65 @@ typedef tyrec = '{
 //
 extern
 fun
+emit_tyrec
+  (FILEref, tyrec): void
+//
+implement
+emit_tyrec
+  (out, s0rec) = let
+//
+fun
+auxlst
+(
+  i: int, tfs: tyfldlst
+) : void =
+(
+case+ tfs of
+| list_nil() => ()
+| list_cons(tf, tfs) => let
+    val+TYFLD(id, _) = tf.tyfld_node
+    val () =
+      if i > 0 then emit_text(out, ", ")
+    // end of [val]
+    val () = emit_i0de(out, id)
+  in
+    auxlst (i+1, tfs)
+  end // end of [list_cons]
+)
+//
+val () = emit_LBRACE(out)
+val () = auxlst(0, s0rec.tyrec_node)
+val () = emit_RBRACE(out)
+//
+in
+  // nothing
+end // end of [emit_tyrec]
+//
+extern
+fun
+emit_typedef
+  (FILEref, i0de, tyrec): void
+//
+implement
+emit_typedef
+  (out, id, s0rec) = let
+//
+val () = emit_text(out, "-record")
+//
+val () = emit_LPAREN(out)
+val () = emit_i0de(out, id)
+val () = emit_text(out, ", ")
+val () = emit_tyrec(out, s0rec)
+val () = emit_RPAREN(out)
+val () = emit_text(out, ".\n")
+//
+in
+end // end of [emit_typedef]
+//
+extern
+fun
 emit_tyrec_d0explst
-  (out: FILEref, s0rec: tyrec, d0es: d0explst): void
+  (FILEref, tyrec, d0explst): void
 //
 implement
 emit_tyrec_d0explst
@@ -1181,10 +1238,9 @@ case+ tfs of
     val () =
       if i > 0 then emit_text(out, ", ")
     // end of [val]
-    val () = emit_symbol(out, id.i0de_sym)
-    val () =
-      (emit_text(out, "= "); emit_d0exp(out, d0e))
-    // end of [val]
+    val () = emit_i0de(out, id)
+    val () = emit_text(out, "= ")
+    val () = emit_d0exp(out, d0e)
   in
     auxlst (i+1, tfs, d0es)
   end // end of [list_cons]
@@ -1399,9 +1455,14 @@ d0c.d0ecl_node of
 | D0Cifdef _ => ()
 | D0Cifndef _ => ()
 //
-| D0Ctypedef (id, def) =>
+| D0Ctypedef
+    (id, def) => let
+    val () =
+      emit_typedef(out, id, def)
+    // end of [val]
+  in
     typedef_insert (id.i0de_sym, def)
-  // end of [D0Ctypedef]
+  end // end of [D0Ctypedef]
 //
 | D0Cassume (id) =>
   {

@@ -33,6 +33,7 @@ CATS/basics_cats.hrl \
 CATS/integer_cats.hrl \
 CATS/bool_cats.hrl \
 CATS/float_cats.hrl \
+CATS/print_cats.hrl \
 
 #
 all_in_one:: ; \

@@ -60,19 +60,6 @@
 %} // end of [%{]
 
 (* ****** ****** *)
-
-%{^
-%%fun%%
-atspre_print_int(X) -> io:format("~B", [X]).
-%%fun%%
-atspre_print_string(X) -> io:format("~s", [X]).
-%%fun%%
-atspre_print_newline() -> io:format("~n", []).
-%%tyrec%%
--record(postiats_tyrec_0, {atslab__0, atslab__1, atslab__2, atslab__3, atslab__4, atslab__5, atslab__6, atslab__7}).
-%} // end of [%{]
-
-(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"

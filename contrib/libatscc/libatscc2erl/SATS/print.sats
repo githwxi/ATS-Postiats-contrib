@@ -1,17 +1,17 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into Erlang
 *)
 
 (* ****** ****** *)
 //
 // HX: prefix for external names
 //
-#define ATS_EXTERN_PREFIX "ats2jspre_"
+#define ATS_EXTERN_PREFIX "ats2erlpre_"
 //
 (* ****** ****** *)
 
-staload "./../basics_js.sats"
+staload "./../basics_erl.sats"
 
 (* ****** ****** *)
 
@@ -29,8 +29,6 @@ fun print_double : double -> void = "mac#%"
 //
 fun
 print_string : string -> void = "mac#%"
-fun
-fprint_string (JSfile, string): void = "mac#%"
 //
 (* ****** ****** *)
 
@@ -48,23 +46,10 @@ overload print with print_double of 100
 overload print with print_string of 100
 
 (* ****** ****** *)
-//
+//  
 fun
 {a:t0p}
 print_val (x: a): void = "mac#%"
-//
-fun
-{a:t0p}
-fprint_val (JSfile, x: a): void = "mac#%"
-//  
-(* ****** ****** *)
-//
-// HX-2014-09-19:
-// these are implemented in
-// CATS/PRINT/print_store_cats.js
-//
-fun the_print_store_join (): string = "mac#%"
-fun the_print_store_clear : () -> void = "mac#%"
 //
 (* ****** ****** *)
 

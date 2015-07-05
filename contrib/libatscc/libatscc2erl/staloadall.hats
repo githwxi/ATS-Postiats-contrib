@@ -21,6 +21,10 @@ staload "./SATS/bool.sats"
 staload "./SATS/float.sats"
 //
 (* ****** ****** *)
+
+staload "./SATS/print.sats"
+
+(* ****** ****** *)
 //
 staload "./SATS/list.sats"
 staload _ = "./DATS/list.dats"
