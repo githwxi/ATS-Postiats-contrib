@@ -25,6 +25,10 @@
 
 %% ****** ****** %%
 
+-define(ATSCKpat_con0(X, I), X =:= I).
+
+%% ****** ****** %%
+
 -define(ATSCKptrisnil(X), X =:= atscc2erl_nil).
 -define(ATSCKptriscons(X), X =/= atscc2erl_nil).
 

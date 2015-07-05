@@ -104,6 +104,16 @@ cleanall:: ; $(RMF) listmap_dats.erl
 
 ######
 
+all:: \
+weekday_dats.erl
+weekday_dats.erl: weekday.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+weekday_dats.beam:: weekday_dats.erl ; $(ERLC) $< 
+regress:: weekday_dats.beam; $(ERL) -run weekday_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) weekday_dats.erl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f
