@@ -261,6 +261,28 @@ val () = (
 } (* end of [emit_ATSCKpat_con1] *)
 
 (* ****** ****** *)
+
+implement
+emit_ATSCKptrisnil
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "?ATSCKptrisnil(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptrisnil] *)
+
+implement
+emit_ATSCKptriscons
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "?ATSCKptriscons(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptriscons] *)
+
+(* ****** ****** *)
 //
 implement
 emit_tmpvar
@@ -361,6 +383,9 @@ d0e0.d0exp_node of
     (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
 | ATSCKpat_con1
     (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
+//
+| ATSCKptrisnil(d0e) => emit_ATSCKptrisnil (out, d0e)
+| ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 | ATSSELrecsin _ => emit_SELrecsin (out, d0e0)

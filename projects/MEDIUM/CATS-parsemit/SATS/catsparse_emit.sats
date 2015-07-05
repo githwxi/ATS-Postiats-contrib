@@ -134,6 +134,11 @@ emit_ATSCKpat_con1
   (out: FILEref, d0e: d0exp, tag: int): void
 //
 (* ****** ****** *)
+//
+fun emit_ATSCKptrisnil (FILEref, d0exp): void
+fun emit_ATSCKptriscons (FILEref, d0exp): void
+//
+(* ****** ****** *)
 
 fun emit_i0de : emit_type (i0de)
 fun emit_label : emit_type (label)

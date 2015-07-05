@@ -248,6 +248,28 @@ emit_ATSCKpat_con1
 } (* end of [emit_ATSCKpat_con1] *)
 
 (* ****** ****** *)
+
+implement
+emit_ATSCKptrisnil
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "?ATSCKptrisnil(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptrisnil] *)
+
+implement
+emit_ATSCKptriscons
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "?ATSCKptriscons(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptriscons] *)
+
+(* ****** ****** *)
 //
 implement
 emit_tmpvar

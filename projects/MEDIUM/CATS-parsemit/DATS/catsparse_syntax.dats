@@ -414,6 +414,34 @@ in
 end // end of [ATSCKpat_con1_make]
 
 (* ****** ****** *)
+//
+implement
+ATSCKptrisnil_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKptrisnil (d0e))
+end // end of [ATSCKptrisnil_make]
+//
+implement
+ATSCKptriscons_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKptriscons (d0e))
+end // end of [ATSCKptriscons_make]
+//
+(* ****** ****** *)
 
 implement
 ATSSELcon_make
