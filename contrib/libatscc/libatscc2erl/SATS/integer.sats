@@ -18,7 +18,12 @@
 fun
 abs_int0 : int -> int = "mac#%"
 //
+fun
+abs_int1 :
+  {i:int} (int(i)) -> int(abs(i)) = "mac#%"
+//
 overload abs with abs_int0 of 100
+overload abs with abs_int1 of 100
 //
 (* ****** ****** *)
 //

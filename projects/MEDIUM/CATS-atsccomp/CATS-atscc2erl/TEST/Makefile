@@ -84,6 +84,16 @@ cleanall:: ; $(RMF) listlen_dats.erl
 
 ######
 
+all:: \
+queens_dats.erl
+queens_dats.erl: queens.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+queens_dats.beam:: queens_dats.erl ; $(ERLC) $< 
+regress:: queens_dats.beam; $(ERL) -run queens_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) queens_dats.erl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f

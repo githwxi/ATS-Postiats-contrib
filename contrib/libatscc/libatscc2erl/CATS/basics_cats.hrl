@@ -25,6 +25,10 @@
 
 %% ****** ****** %%
 %%
+-define(ATSINSmove_void(), atscc2erl_void).
+%%
+%% ****** ****** %%
+%%
 %%fun%%
 atscc2erl_caseof_deadcode
   (_FILE, _LINE) -> exit('atscc2erl_caseof_deadcode').

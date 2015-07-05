@@ -21,6 +21,13 @@
 %% ****** ****** %%
 %%
 %%fun%%
+ats2erlpre_abs_int0(X) -> abs(X).
+%%fun%%
+ats2erlpre_abs_int1(X) -> abs(X).
+%%
+%% ****** ****** %%
+%%
+%%fun%%
 ats2erlpre_neg_int0(X) -> ( -X ).
 %%fun%%
 ats2erlpre_neg_int1(X) -> ( -X ).
@@ -42,13 +49,22 @@ ats2erlpre_pred_int1(X) -> (X - 1).
 %% ****** ****** %%
 %%
 %%fun%%
+ats2erlpre_half_int0(X) -> (X div 2).
+%%fun%%
+ats2erlpre_half_int1(X) -> (X div 2).
+%%
+%% ****** ****** %%
+%%
+%%fun%%
 ats2erlpre_add_int0_int0(X, Y) -> (X + Y).
 %%fun%%
 ats2erlpre_sub_int0_int0(X, Y) -> (X - Y).
 %%fun%%
 ats2erlpre_mul_int0_int0(X, Y) -> (X * Y).
 %%fun%%
-ats2erlpre_div_int0_int0(X, Y) -> (X / Y).
+ats2erlpre_div_int0_int0(X, Y) -> (X div Y).
+%%fun%%
+ats2erlpre_mod_int0_int0(X, Y) -> (X rem Y).
 %%
 %% ****** ****** %%
 %%
@@ -59,7 +75,9 @@ ats2erlpre_sub_int1_int1(X, Y) -> (X - Y).
 %%fun%%
 ats2erlpre_mul_int1_int1(X, Y) -> (X * Y).
 %%fun%%
-ats2erlpre_div_int1_int1(X, Y) -> (X / Y).
+ats2erlpre_div_int1_int1(X, Y) -> (X div Y).
+%%fun%%
+ats2erlpre_mod_int1_int1(X, Y) -> (X rem Y).
 %%
 %% ****** ****** %%
 %%
