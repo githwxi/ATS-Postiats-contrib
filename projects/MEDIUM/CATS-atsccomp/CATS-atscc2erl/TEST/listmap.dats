@@ -9,6 +9,7 @@
 #define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
+
 %{^
 %%
 -module(listlen_dats).
@@ -18,6 +19,7 @@
 -compile(nowarn_unused_function).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
+%%
 %} // end of [%{]
 
 (* ****** ****** *)
