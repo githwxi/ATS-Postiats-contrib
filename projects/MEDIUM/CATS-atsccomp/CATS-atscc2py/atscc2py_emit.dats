@@ -223,7 +223,8 @@ emit_ATSCKpat_int
   val () =
   emit_text (out, "ATSCKpat_int(")
   val () = (
-    emit_d0exp (out, d0e); emit_text (out, ", "); emit_d0exp (out, i); emit_RPAREN (out)
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_d0exp (out, i); emit_RPAREN (out)
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_int] *)
 
@@ -236,7 +237,8 @@ emit_ATSCKpat_con0
   val () =
   emit_text (out, "ATSCKpat_con0(")
   val () = (
-    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_con0] *)
 
@@ -247,21 +249,22 @@ emit_ATSCKpat_con1
   val () =
   emit_text (out, "ATSCKpat_con1(")
   val () = (
-    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_con1] *)
 
 (* ****** ****** *)
 
 implement
-emit_ATSCKptrisnil
+emit_ATSCKptrisnull
   (out, d0e) =
 {
 //
-val () = emit_text (out, "ATSCKptrisnil(")
+val () = emit_text (out, "ATSCKptrisnull(")
 val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
 //
-} (* end of [emit_ATSCKptrisnil] *)
+} (* end of [emit_ATSCKptrisnull] *)
 
 implement
 emit_ATSCKptriscons
@@ -352,7 +355,7 @@ d0e0.d0exp_node of
 | ATSCKpat_con1
     (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
 //
-| ATSCKptrisnil(d0e) => emit_ATSCKptrisnil (out, d0e)
+| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull (out, d0e)
 | ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)

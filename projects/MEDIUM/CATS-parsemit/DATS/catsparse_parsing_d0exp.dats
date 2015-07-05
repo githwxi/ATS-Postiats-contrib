@@ -321,7 +321,7 @@ tok.token_node of
     // end of [if]
   end // end of [ATSCKpat_con1]
 //
-| T_KWORD(ATSCKptrisnil()) => let
+| T_KWORD(ATSCKptrisnull()) => let
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
@@ -330,10 +330,10 @@ tok.token_node of
   in
     if err = err0
       then (
-        ATSCKptrisnil_make (tok, ent2, ent3)
+        ATSCKptrisnull_make (tok, ent2, ent3)
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
-  end // end of [ATSCKptrisnil]
+  end // end of [ATSCKptrisnull]
 //
 | T_KWORD(ATSCKptriscons()) => let
     val bt = 0

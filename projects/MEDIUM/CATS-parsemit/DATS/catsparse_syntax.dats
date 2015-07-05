@@ -416,7 +416,7 @@ end // end of [ATSCKpat_con1_make]
 (* ****** ****** *)
 //
 implement
-ATSCKptrisnil_make
+ATSCKptrisnull_make
 (
   tok1, d0e, tok2
 ) = let
@@ -425,8 +425,8 @@ val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  d0exp_make_node (loc, ATSCKptrisnil (d0e))
-end // end of [ATSCKptrisnil_make]
+  d0exp_make_node (loc, ATSCKptrisnull (d0e))
+end // end of [ATSCKptrisnull_make]
 //
 implement
 ATSCKptriscons_make

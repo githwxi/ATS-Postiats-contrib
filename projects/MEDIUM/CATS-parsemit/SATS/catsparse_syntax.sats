@@ -194,7 +194,7 @@ ATSCKpat_con1_make
 (* ****** ****** *)
 //
 fun
-ATSCKptrisnil_make
+ATSCKptrisnull_make
   (tok_kwd: token, d0e: d0exp, tok_end: token): d0exp
 fun
 ATSCKptriscons_make

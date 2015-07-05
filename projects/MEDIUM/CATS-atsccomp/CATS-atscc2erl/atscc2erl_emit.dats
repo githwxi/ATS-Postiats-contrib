@@ -306,14 +306,14 @@ val () = (
 (* ****** ****** *)
 
 implement
-emit_ATSCKptrisnil
+emit_ATSCKptrisnull
   (out, d0e) =
 {
 //
-val () = emit_text (out, "?ATSCKptrisnil(")
+val () = emit_text (out, "?ATSCKptrisnull(")
 val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
 //
-} (* end of [emit_ATSCKptrisnil] *)
+} (* end of [emit_ATSCKptrisnull] *)
 
 implement
 emit_ATSCKptriscons
@@ -430,7 +430,7 @@ d0e0.d0exp_node of
 | ATSCKpat_con1
     (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
 //
-| ATSCKptrisnil(d0e) => emit_ATSCKptrisnil (out, d0e)
+| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull (out, d0e)
 | ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
@@ -654,6 +654,42 @@ end // end of [emit_COMMENT_block]
 local
 
 fun
+aux0_cenv
+(
+  out: FILEref
+, s0es: s0explst
+) : void = let
+//
+fun
+auxlst
+(
+  i: int, s0es: s0explst
+) : void =
+(
+case+ s0es of
+| list_nil() => ()
+| list_cons
+    (_, s0es) => let
+    val () =
+      emit_text(out, ", ")
+    val () =
+    (
+      emit_text(out, "Cenv"); emit_int(out, i)
+    )
+  in
+    auxlst(i+1, s0es)
+  end // end of [auxlst]
+)
+//
+val () = emit_LBRACE(out)
+val () = (emit_text(out, "_"); auxlst(1, s0es))
+val () = emit_RBRACE(out)
+//
+in
+  // nothing
+end (* end of [aux0_cenv] *)
+
+fun
 aux0_arglst
 (
   out: FILEref
@@ -724,8 +760,7 @@ case+ s0es of
     // end of [val]
     val () =
     (
-      emit_text (out, "Cenv");
-      emit_LBRACKET (out); emit_int (out, i+1); emit_RBRACKET (out)
+      emit_text (out, "Cenv"); emit_int (out, i+1)
     ) (* end of [val] *)
   in
     aux1_envlst (out, s0es, i+1)
@@ -759,7 +794,7 @@ val () = emit_nspc (out, 2)
 val () = emit_text (out, "{")
 val () = emit_text (out, "fun(")
 //
-val () = emit_text (out, "Cenv")
+val () = aux0_cenv (out, s0es_env)
 val () = aux0_arglst (out, s0es_arg, 1, 0)
 //
 val () = emit_text (out, ") -> ")

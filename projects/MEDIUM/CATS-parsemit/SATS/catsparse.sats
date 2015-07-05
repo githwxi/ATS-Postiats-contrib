@@ -275,7 +275,7 @@ keyword =
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
 //
-  | ATSCKptrisnil of ()
+  | ATSCKptrisnull of ()
   | ATSCKptriscons of ()
 //
   | ATSSELcon of ()
@@ -795,7 +795,7 @@ d0exp_node =
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))
 //
-  | ATSCKptrisnil of (d0exp)
+  | ATSCKptrisnull of (d0exp)
   | ATSCKptriscons of (d0exp)
 //
   | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))

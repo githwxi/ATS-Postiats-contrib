@@ -30,5 +30,10 @@ staload "./SATS/list.sats"
 staload _ = "./DATS/list.dats"
 //
 (* ****** ****** *)
+//
+staload "./SATS/stream.sats"
+staload _ = "./DATS/stream.dats"
+//
+(* ****** ****** *)
 
 (* end of [staloadall.hats] *)
