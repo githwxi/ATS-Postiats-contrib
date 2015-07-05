@@ -41,7 +41,7 @@ end // end of [loop]
 //
 in
   loop (xs, 0)
-end // end of [intlistlen]
+end // end of [listlen]
 
 (* ****** ****** *)
 //

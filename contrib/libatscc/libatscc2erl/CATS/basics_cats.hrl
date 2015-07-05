@@ -24,6 +24,11 @@
 -define(ATSCKpat_int(X, I), X =:= I).
 
 %% ****** ****** %%
+
+-define(ATSCKptrisnil(X), X =:= atscc2erl_nil).
+-define(ATSCKptriscons(X), X =/= atscc2erl_nil).
+
+%% ****** ****** %%
 %%
 -define(ATSINSmove_void(), atscc2erl_void).
 %%

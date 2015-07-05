@@ -47,6 +47,10 @@
 *)
 
 (* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
 
 %{^
 %%
@@ -69,10 +73,6 @@
 #include
 "{$LIBATSCC2ERL}/staloadall.hats"
 //
-(* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
 (* ****** ****** *)
 
 #define N 8 // HX: this should not be changed!

@@ -775,7 +775,9 @@ case+ inss of
 | list_nil () => inss
 | list_cons (ins, inss2) =>
   (
-    case+ ins.instr_node of
+    case+
+    ins.instr_node
+    of // case+
     | ATSINSstore_con1_tag
         (tmp, tag) => let
         val () = opt := Some(tag) in inss2

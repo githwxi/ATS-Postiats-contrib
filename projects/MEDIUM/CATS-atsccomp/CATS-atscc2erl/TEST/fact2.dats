@@ -5,6 +5,10 @@
 // from ATS2 to Erlang
 //
 (* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
 
 %{^
 %%
@@ -18,10 +22,6 @@
 -include("./libatscc2erl/libatscc2erl_all.hrl").
 %} // end of [%{]
 
-(* ****** ****** *)
-//
-#define ATS_DYNLOADFLAG 0
-//
 (* ****** ****** *)
 //
 #include

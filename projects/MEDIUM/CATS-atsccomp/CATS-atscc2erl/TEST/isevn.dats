@@ -6,6 +6,10 @@
 //
 (* ****** ****** *)
 //
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 //
@@ -30,10 +34,6 @@ staload
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
 %} // end of [%{]
-
-(* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
 //

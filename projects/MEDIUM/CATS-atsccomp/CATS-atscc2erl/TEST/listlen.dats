@@ -1,9 +1,26 @@
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2015-07:
 // A running example
-// from ATS2 to Python3
+// from ATS2 to Erlang
 //
+(* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
+
+%{^
+%%
+-module(listlen_dats).
+%%
+-export([listlen/1,fromto/2]).
+%%
+-compile(nowarn_unused_function).
+%%
+-include("./libatscc2erl/libatscc2erl_all.hrl").
+%} // end of [%{]
+
 (* ****** ****** *)
 //
 #include
@@ -11,8 +28,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
+#include
+"{$LIBATSCC2ERL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -35,7 +52,8 @@ loop{i,j:nat} .<i>.
 in
 //
 case+ xs of
-| list_nil () => res | list_cons (_, xs) => loop (xs, res+1)
+| list_nil () => res
+| list_cons (_, xs) => loop (xs, res+1)
 //
 end // end of [loop]
 //
@@ -56,24 +74,6 @@ if m < n
   then list_cons (m, fromto (m+1, n)) else list_nil ()
 // end of [if]
 //
-(* ****** ****** *)
-
-%{^
-import sys
-sys.setrecursionlimit(1000000)
-######
-from ats2pypre_basics_cats import *
-from ats2pypre_integer_cats import *
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
-
-%{$
-xs = fromto(0, 10)
-print("listlen(", xs, ") =", listlen(xs))
-%} // end of [%{$]
-
 (* ****** ****** *)
 
 (* end of [listlen.dats] *)

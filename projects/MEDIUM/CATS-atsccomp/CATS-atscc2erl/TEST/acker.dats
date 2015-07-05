@@ -5,6 +5,10 @@
 // from ATS2 to Erlang
 //
 (* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
 
 %{^
 %%
@@ -28,10 +32,6 @@
 staload
 "{$LIBATSCC2ERL}/SATS/integer.sats"
 //
-(* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
 (* ****** ****** *)
 //
 extern

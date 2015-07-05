@@ -75,22 +75,32 @@ cleanall:: ; $(RMF) isevn_dats.erl
 ######
 
 all:: \
-listlen_dats.erl
-listlen_dats.erl: listlen.dats ; \
-$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
-listlen_dats.beam:: listlen_dats.erl ; $(ERLC) $< 
-regress:: listlen_dats.beam; $(ERL) -run listlen_dats mytest -run init stop -noshell
-cleanall:: ; $(RMF) listlen_dats.erl
-
-######
-
-all:: \
 queens_dats.erl
 queens_dats.erl: queens.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 queens_dats.beam:: queens_dats.erl ; $(ERLC) $< 
 regress:: queens_dats.beam; $(ERL) -run queens_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) queens_dats.erl
+
+######
+
+all:: \
+listlen_dats.erl
+listlen_dats.erl: listlen.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+listlen_dats.beam:: listlen_dats.erl ; $(ERLC) $< 
+#regress:: listlen_dats.beam; $(ERL) -run listlen_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) listlen_dats.erl
+
+######
+
+all:: \
+listmap_dats.erl
+listmap_dats.erl: listmap.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+listmap_dats.beam:: listmap_dats.erl ; $(ERLC) $< 
+#regress:: listmap_dats.beam; $(ERL) -run listmap_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) listmap_dats.erl
 
 ######
 

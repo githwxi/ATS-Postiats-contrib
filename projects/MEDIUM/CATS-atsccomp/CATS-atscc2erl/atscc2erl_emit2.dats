@@ -79,6 +79,10 @@ end // end of [emit_tmpdeclst_initize]
 //
 extern
 fun
+the_Casefunx_new (): int
+//
+extern
+fun
 the_tmpdeclst_get (): tmpdeclst
 extern
 fun
@@ -118,6 +122,8 @@ the_branchlablst_unset ((*void*)): void
 
 local
 //
+val the_Casefunx = ref<int> (1)
+//
 val the_tmpdeclst = ref<tmpdeclst> (list_nil)
 //
 val the_f0headopt = ref<f0headopt> (None())
@@ -128,6 +134,14 @@ val the_funbodylst = ref<instrlst> (list_nil)
 val the_branchlablstlst = ref<List0(labelist)> (list_nil)
 //
 in (* in-of-local *)
+
+implement
+the_Casefunx_new
+  () = fx where
+{
+  val fx = !the_Casefunx
+  val () = !the_Casefunx := fx+1 
+}
 
 implement
 the_tmpdeclst_get () = !the_tmpdeclst
@@ -301,26 +315,32 @@ val () = emit_RPAREN(out)
 //
 extern
 fun
-emit_Casefunx (out: FILEref): void
+emit_Casefunx
+  (out: FILEref, x: int): void
 extern
 fun
-emit_Casefunx2 (out: FILEref, tli: int): void
+emit_Casefunx2
+  (out: FILEref, x: int, tli: int): void
 //
 implement
-emit_Casefunx (out) =
-  emit_text(out, "Casefunx")
+emit_Casefunx (out, x) =
+  (emit_text(out, "Casefunx"); emit_int(out, x))
 //
 implement
 emit_Casefunx2
-  (out, tli) = () where
+  (out, x, tli) = () where
 {
 //
-val () = emit_Casefunx(out)
+val () =
+  emit_Casefunx(out, x)
 //
 val () = emit_LPAREN(out)
-val () = emit_Casefunx(out)
-val () = emit_text(out, ", ")
-val () = emit_int (out, tli)
+//
+val () =
+(
+  emit_Casefunx(out, x); emit_text(out, ", "); emit_int (out, tli)
+) (* end of [val] *)
+//
 val () = emit_RPAREN(out)
 //
 } (* end of [emit_Casefunx2] *)
@@ -492,9 +512,11 @@ ins0.instr_node of
     val () = emit_text (out, "%while(true) {\n")
 *)
 //
+    val fx = the_Casefunx_new()
+//
     val () = emit_nspc (out, ind)
     val () =
-      (emit_Casefunx (out); emit_text (out, " =\n"))
+      (emit_Casefunx (out, fx); emit_text (out, " =\n"))
     // end of [val]
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "fun (Casefun, Tmplab) ->\n")
@@ -530,7 +552,7 @@ ins0.instr_node of
 //
 //
     val () = emit_nspc (out, ind)
-    val () = emit_Casefunx2 (out, 1)
+    val () = emit_Casefunx2 (out, fx, 1)
 //
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
@@ -653,23 +675,44 @@ ins0.instr_node of
       // end of [non-ATSPMVempty]
   end (* end of [ATSINSmove_void] *)
 //
-| ATSINSmove_nil
-    (tmp) =>
+| ATSINSmove_nil(tmp) =>
   {
+//
     val () = emit_nspc (out, ind)
-    val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_text (out, "null")
-  }
-| ATSINSmove_con0
-    (tmp, tag) =>
-  {
-    val () = emit_nspc (out, ind)
-    val () = emit_tmpvar (out, tmp)
+//
+    val
+    isret =
+      tmpvar_is_tmpret (tmp.i0de_sym)
+    // end of [val]
     val () =
-    (
-      emit_text (out, " = "); emit_PMVint (out, tag)
-    ) (* end of [val] *)
+    if not(isret) then
+    {
+      val () = emit_tmpvar (out, tmp)
+      val () = emit_text (out, " = ")
+    } (* end of [val] *)
+//
+    val () = emit_text (out, "atscc2erl_nil")
+//
+  }
+//
+| ATSINSmove_con0(tmp, tag) =>
+  {
+//
+    val () = emit_nspc (out, ind)
+//
+    val
+    isret =
+      tmpvar_is_tmpret (tmp.i0de_sym)
+    // end of [val]
+    val () =
+    if not(isret) then
+    {
+      val () = emit_tmpvar (out, tmp)
+      val () = emit_text (out, " = ")
+    } (* end of [val] *)
+//
+    val () = emit_PMVint (out, tag)
+//
   }
 //
 | ATSINSmove_con1 _ =>
@@ -683,14 +726,15 @@ ins0.instr_node of
 | ATSINSmove_lazyeval _ =>
     emit2_ATSINSmove_lazyeval (out, ind, ins0)
 //
-| ATStailcalseq (inss) =>
+| ATStailcalseq(inss) =>
   {
 //
     val () = emit2_tailcalseqlst(out, ind, inss)
 //
   } (* end of [ATStailcalseq] *)
 //
-| ATSINSmove_tlcal (tmp, d0e) =>
+| ATSINSmove_tlcal
+    (tmp, d0e) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ")
@@ -700,7 +744,8 @@ ins0.instr_node of
     // val () = emit_SEMICOLON (out)
   } (* end of [ATSINSmove_tlcal] *)
 //
-| ATSINSargmove_tlcal (tmp1, tmp2) =>
+| ATSINSargmove_tlcal
+    (tmp1, tmp2) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ")
@@ -710,7 +755,8 @@ ins0.instr_node of
     // val () = emit_SEMICOLON (out)
   } (* end of [ATSINSargmove_tlcal] *)
 //
-| ATSINSextvar_assign (ext, d0e_r) =>
+| ATSINSextvar_assign
+    (ext, d0e_r) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ")
@@ -719,7 +765,8 @@ ins0.instr_node of
     val () = emit_d0exp (out, d0e_r)
     val () = emit_SEMICOLON (out)
   }
-| ATSINSdyncst_valbind (d2c, d0e_r) =>
+| ATSINSdyncst_valbind
+    (d2c, d0e_r) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ")
@@ -729,7 +776,7 @@ ins0.instr_node of
     val () = emit_SEMICOLON (out)
   }
 //
-| ATSINScaseof_fail (errmsg) =>
+| ATSINScaseof_fail(errmsg) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "ATSINScaseof_fail")
@@ -738,20 +785,20 @@ ins0.instr_node of
     val () = emit_RPAREN (out)
     val () = emit_SEMICOLON (out)
   }
-| ATSINSdeadcode_fail (__tok__) =>
+| ATSINSdeadcode_fail(__tok__) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "ATSINSdeadcode_fail()")
     val () = emit_SEMICOLON (out)
   }
 //
-| ATSdynload (dummy) =>
+| ATSdynload(dummy) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "%% ATSdynload()")
   }
 //
-| ATSdynloadset (flag) =>
+| ATSdynloadset(flag) =>
   {
     val () = emit_nspc (out, ind)
     val () = (
@@ -759,7 +806,7 @@ ins0.instr_node of
     ) (* end of [val] *)
   }
 //
-| ATSdynloadfcall (fcall) =>
+| ATSdynloadfcall(fcall) =>
   {
     val () = emit_nspc (out, ind)
     val () = (
@@ -767,12 +814,12 @@ ins0.instr_node of
     ) (* end of [val] *)
   }
 //
-| ATSdynloadflag_sta (flag) =>
+| ATSdynloadflag_sta(flag) =>
   {
     val () = emit_nspc (out, ind)
     val () = fprint! (out, "%% ATSdynloadflag_sta(", flag, ")")
   }
-| ATSdynloadflag_ext (flag) =>
+| ATSdynloadflag_ext(flag) =>
   {
     val () = emit_nspc (out, ind)
     val () = fprint! (out, "%% ATSdynloadflag_ext(", flag, ")")
@@ -1219,36 +1266,77 @@ extern
 fun
 emit_tyrec_d0explst
   (FILEref, tyrec, d0explst): void
+extern
+fun
+emit_tysum_d0explst
+  (FILEref, tyrec, tag: tokenopt, d0explst): void
 //
-implement
-emit_tyrec_d0explst
-  (out, s0rec, d0es) = let
-//
+local
+
 fun
 auxlst
 (
-  i: int, tfs: tyfldlst, d0es: d0explst
-) : void =
-(
+  out: FILEref
+, i: int, tfs: tyfldlst, d0es: d0explst
+) : void = (
+//
 case+ tfs of
 | list_nil() => ()
 | list_cons(tf, tfs) => let
-    val-list_cons(d0e, d0es) = d0es
-    val+TYFLD(id, _) = tf.tyfld_node
     val () =
-      if i > 0 then emit_text(out, ", ")
+    if i > 0
+      then emit_text(out, ", ")
     // end of [val]
+(*
+    val+
+    TYFLD(id, _) = tf.tyfld_node
     val () = emit_i0de(out, id)
     val () = emit_text(out, "= ")
+*)
+    val-
+    list_cons(d0e, d0es) = d0es
     val () = emit_d0exp(out, d0e)
   in
-    auxlst (i+1, tfs, d0es)
+    auxlst (out, i+1, tfs, d0es)
   end // end of [list_cons]
-)
+) (* end of [auxlst] *)
+
+in (* in-of-local *)
+
+implement
+emit_tyrec_d0explst
+  (out, s0rec, d0es) =
+(
+  auxlst(out, 0, s0rec.tyrec_node, d0es)
+) // end of [emit_tyrec_d0explst]
+
+implement
+emit_tysum_d0explst
+  (out, s0rec, opt, d0es) = let
+//
+  val tfs = s0rec.tyrec_node
 //
 in
-  auxlst(0, s0rec.tyrec_node, d0es)
-end // end of [emit_tyrec_d0explst]
+//
+case+ opt of
+| None() =>
+    auxlst(out, 0, tfs, d0es)
+| Some(tag) => let
+    val-list_cons(tf, tfs) = tfs
+(*
+    val+
+    TYFLD(id, _) = tf.tyfld_node
+    val () = emit_i0de(out, id)
+    val () = emit_text(out, "= ")
+*)
+    val () = emit_PMVint(out, tag)
+  in
+    auxlst(out, 1, tfs, d0es)
+  end // end of [Some]
+//
+end // end of [emit_tysum_d0explst]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -1275,7 +1363,10 @@ case+ inss of
 val-ATSINSmove_con1(inss) = ins0.instr_node
 //
 val-list_cons (ins, inss) = inss
-val-ATSINSmove_con1_new (tmp, _) = ins.instr_node  
+val-ATSINSmove_con1_new (tmp, s0e) = ins.instr_node  
+//
+val-S0Eide(name) = s0e.s0exp_node
+val-~Some_vt(s0rec) = typedef_search_opt (name)
 //
 var opt: tokenopt = None()
 //
@@ -1295,26 +1386,33 @@ case+ inss of
 ) : instrlst
 //
 val d0es = getarglst (inss)
+//
 val () = emit_nspc (out, ind)
-val () = emit_tmpvar (out, tmp)
+//
+val isret =
+  tmpvar_is_tmpret (tmp.i0de_sym)
+// end of [val]
+//
+val () =
+if
+not(isret)
+then
+{
+//
+val () =
+  emit_tmpvar (out, tmp)
+//
 val () = emit_text (out, " = ")
-val () = emit_LBRACKET (out)
-val () =
-(
-case+ opt of
-| None () => ()
-| Some (tag) => emit_PMVint (out, tag)
-) : void // end of [val]
-val () =
-(
-case+ opt of
-| None _ => emit_d0explst (out, d0es)
-| Some _ => emit_d0explst_1 (out, d0es)
-) : void // end of [val]
 //
-val () = emit_RBRACKET (out)
+} (* end of [val] *)
 //
-val () = emit_SEMICOLON (out)
+(*
+val () = emit_SHARP (out)
+val () = emit_symbol (out, name)
+*)
+val () = emit_LBRACE (out)
+val () = emit_tysum_d0explst (out, s0rec, opt, d0es)
+val () = emit_RBRACE (out)
 //
 in
   // nothing
@@ -1371,8 +1469,10 @@ val () = emit_text (out, " = ")
 //
 } (* end of [val] *)
 //
+(*
 val () = emit_SHARP (out)
 val () = emit_symbol (out, name)
+*)
 val () = emit_LBRACE (out)
 val () = emit_tyrec_d0explst (out, s0rec, d0es)
 val () = emit_RBRACE (out)
@@ -1457,9 +1557,11 @@ d0c.d0ecl_node of
 //
 | D0Ctypedef
     (id, def) => let
+(*
     val () =
       emit_typedef(out, id, def)
     // end of [val]
+*)
   in
     typedef_insert (id.i0de_sym, def)
   end // end of [D0Ctypedef]

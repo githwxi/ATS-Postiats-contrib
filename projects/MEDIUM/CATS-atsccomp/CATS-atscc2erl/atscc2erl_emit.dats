@@ -476,17 +476,19 @@ val-
 ATSSELcon
   (d0rec, s0e, id) = d0e.d0exp_node
 //
-val-S0Eide (name) = s0e.s0exp_node
-val-~Some_vt (s0rec) = typedef_search_opt (name)
+val-S0Eide(name) = s0e.s0exp_node
+val-~Some_vt(s0rec) = typedef_search_opt(name)
 //
-val index = tyrec_labsel (s0rec, id.i0de_sym)
+val tupi = tyrec_labsel(s0rec, id.i0de_sym)
 //
 val () =
-  emit_d0exp (out, d0rec)
+emit_text (out, "element")
 //
-val () = emit_LBRACKET (out)
-val () = emit_int (out, index)
-val () = emit_RBRACKET (out)
+val () = emit_LPAREN (out)
+val () = emit_int (out, tupi+1)
+val () = emit_text (out, ", ")
+val () = emit_d0exp (out, d0rec)
+val () = emit_RPAREN (out)
 //
 in
   // nothing
@@ -517,19 +519,18 @@ ATSSELboxrec
   (d0rec, s0e, id) = d0e.d0exp_node
 //
 val-S0Eide(name) = s0e.s0exp_node
-val-~Some_vt(s0rec) = typedef_search_opt (name)
+val-~Some_vt(s0rec) = typedef_search_opt(name)
 //
-(*
-val index = tyrec_labsel (s0rec, id.i0de_sym)
-*)
+val tupi = tyrec_labsel(s0rec, id.i0de_sym)
 //
 val () =
-  emit_d0exp (out, d0rec)
+emit_text (out, "element")
 //
-val () = emit_text (out, "#")
-val () = emit_symbol (out, name)
-val () = emit_text (out, ".")
-val () = emit_symbol (out, id.i0de_sym)
+val () = emit_LPAREN (out)
+val () = emit_int (out, tupi+1)
+val () = emit_text (out, ", ")
+val () = emit_d0exp (out, d0rec)
+val () = emit_RPAREN (out)
 //
 in
   // nothing
