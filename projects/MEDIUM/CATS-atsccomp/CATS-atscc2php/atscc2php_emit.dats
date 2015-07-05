@@ -375,6 +375,9 @@ d0e0.d0exp_node of
 | ATSCKpat_con1
     (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
 //
+| ATSCKptrisnil(d0e) => emit_ATSCKptrisnil (out, d0e)
+| ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
+//
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 | ATSSELrecsin _ => emit_SELrecsin (out, d0e0)
 | ATSSELboxrec _ => emit_SELboxrec (out, d0e0)
