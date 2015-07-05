@@ -1597,6 +1597,17 @@ end // end of [emit_d0ecl]
 (* ****** ****** *)
 //
 extern
+fun
+emit_f0ide
+  : emit_type (i0de) = "ext#atscc2erl_emit_f0ide"
+extern
+fun
+emit_flabel
+  : emit_type (label) = "ext#atscc2erl_emit_flabel"
+//
+(* ****** ****** *)
+//
+extern
 fun emit_f0arg : emit_type (f0arg)
 extern
 fun emit_f0marg : emit_type (f0marg)
@@ -1667,7 +1678,7 @@ fhd.f0head_node of
     (fid, f0ma, res) =>
   {
 //
-    val () = emit_i0de (out, fid)
+    val () = emit_f0ide (out, fid)
 //
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)

@@ -241,7 +241,7 @@ tok.token_node of
         ATSPMVcfunlab_make (tok, ent2, ent4, ent6, ent7)
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
-  end // end of [ATSPMVfunlab]
+  end // end of [ATSPMVcfunlab]
 //
 | T_KWORD(ATSPMVcastfn()) => let
     val bt = 0

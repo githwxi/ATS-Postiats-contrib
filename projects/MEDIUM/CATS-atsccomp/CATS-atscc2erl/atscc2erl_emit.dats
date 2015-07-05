@@ -183,24 +183,67 @@ emit_PMVextval
 //
 (* ****** ****** *)
 //
+extern
+fun
+emit_f0ide
+  : emit_type (i0de) = "ext#atscc2erl_emit_f0ide"
+extern
+fun
+emit_flabel
+  : emit_type (label) = "ext#atscc2erl_emit_flabel"
+//
+implement
+emit_f0ide
+  (out, fid) = let
+//
+val sym = fid.i0de_sym
+val name = symbol_get_name(sym)
+//
+val c0 =
+  $UN.ptr0_get<char> (string2ptr(name))
+//
+val () = if c0 = '_' then emit_text(out, "f")
+//
+in
+  emit_symbol(out, sym)
+end // end of [emit_f0ide]
+//
+implement
+emit_flabel
+  (out, flab) = emit_f0ide (out, flab)
+//
+(* ****** ****** *)
+//
 implement
 emit_PMVfunlab
-  (out, flab) = emit_label (out, flab)
+  (out, flab) =
+{
+//
+val () =
+  emit_text(out, "fun ")
+//
+val () =
+  emit_flabel(out, flab)
+//
+val () = emit_text(out, "/1")
+//
+} (* end of [emit_PMVfunlab] *)
 //
 (* ****** ****** *)
 
 implement
 emit_PMVcfunlab
-  (out, fl, d0es) =
+  (out, flab, d0es_env) =
 {
 //
 val () =
-  emit_label (out, fl)
+emit_flabel (out, flab)
+//
 val () =
   emit_text (out, "__closurerize")
 //
 val () = emit_LPAREN (out)
-val () = emit_d0explst (out, d0es)
+val () = emit_d0explst (out, d0es_env)
 val () = emit_RPAREN (out)
 //
 } (* end of [emit_PMVcfunlab] *)
@@ -299,12 +342,15 @@ in
 if
 isneqz(name)
 then let
+//
   val p0 = string2ptr(name)
-  val c0 = $UN.ptr0_get<char>(p0)
+  val C0 = toupper($UN.ptr0_get<char>(p0))
+//
   val p1 = ptr0_succ<char>(p0)
   val name1 = $UN.cast{string}(p1)
+//
 in
-  emit_char(out, toupper(c0)); emit_text(out, name1)
+  emit_char(out, C0); emit_text(out, name1)
 end // end of [then]
 else () // end of [else]
 //
@@ -327,7 +373,7 @@ d0e0.d0exp_node of
 //
 | D0Eappid (fid, d0es) =>
   {
-    val () = emit_i0de (out, fid)
+    val () = emit_f0ide (out, fid)
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
@@ -409,11 +455,19 @@ d0e0.d0exp_node of
   } (* end of [ATSextmcall] *)
 //
 | ATSfunclo_fun
-    (d0e, _(*arg*), _(*res*)) => emit_d0exp (out, d0e)
-| ATSfunclo_clo
-    (d0e, _(*arg*), _(*res*)) =>
   (
-    emit_d0exp (out, d0e);
+    d0e_fun, _(*arg*), _(*res*)
+  ) =>
+  (
+    emit_d0exp (out, d0e_fun)
+  )
+//
+| ATSfunclo_clo
+  (
+    d0e_fun, _(*arg*), _(*res*)
+  ) =>
+  (
+    emit_d0exp (out, d0e_fun);
     emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
   ) (* end of [ATSfunclo_clo] *)
 //
@@ -605,21 +659,25 @@ aux0_arglst
   out: FILEref
 , s0es: s0explst
 , n0: int, i: int
-) : void =
-(
+) : void = (
+//
 case+ s0es of
-| list_nil () => ()
+| list_nil
+    ((*void*)) => ()
 | list_cons
     (s0e, s0es) => let
     val () =
-    if n0+i > 0 then emit_text (out, ", ")
+    if n0+i > 0
+      then emit_text (out, ", ")
+    // end of [val]
     val () =
     (
-      emit_text (out, "arg"); emit_int (out, i)
+      emit_text (out, "XArg"); emit_int (out, i)
     ) (* end of [val] *)
   in
     aux0_arglst (out, s0es, n0, i+1)
   end // end of [list_cons]
+//
 ) (* end of [aux0_arglst] *)
 
 fun
@@ -628,21 +686,24 @@ aux0_envlst
   out: FILEref
 , s0es: s0explst
 , n0: int, i: int
-) : void =
-(
+) : void = (
+//
 case+ s0es of
 | list_nil () => ()
 | list_cons
     (s0e, s0es) => let
     val () =
-    if n0+i > 0 then emit_text (out, ", ")
+    if n0+i > 0
+      then emit_text (out, ", ")
+    // end of [val]
     val () =
     (
-      emit_text (out, "env"); emit_int (out, i)
+      emit_text (out, "XEnv"); emit_int (out, i)
     ) (* end of [val] *)
   in
     aux0_envlst (out, s0es, n0, i+1)
   end // end of [list_cons]
+//
 ) (* end of [aux0_envlst] *)
 
 fun
@@ -653,14 +714,17 @@ aux1_envlst
 ) : int =
 (
 case+ s0es of
-| list_nil () => (i)
+| list_nil
+    ((*void*)) => (i)
 | list_cons
     (s0e, s0es) => let
     val () =
-    if i > 0 then emit_text (out, ", ")
+    if i > 0
+      then emit_text (out, ", ")
+    // end of [val]
     val () =
     (
-      emit_text (out, "cenv");
+      emit_text (out, "Cenv");
       emit_LBRACKET (out); emit_int (out, i+1); emit_RBRACKET (out)
     ) (* end of [val] *)
   in
@@ -673,7 +737,7 @@ in (* in-of-local *)
 implement
 emit_closurerize
 (
-  out, fl, env, arg, res
+  out, flab, env, arg, res
 ) = let
 //
 val-S0Elist(s0es_env) = env.s0exp_node
@@ -682,34 +746,35 @@ val-S0Elist(s0es_arg) = arg.s0exp_node
 val () = emit_ENDL (out)
 //
 val () =
-emit_text (out, "function\n")
-val () = emit_label (out, fl)
+emit_text (out, "%%fun%%\n")
+val () = emit_flabel (out, flab)
 val () =
 emit_text (out, "__closurerize(")
 val () = aux0_envlst (out, s0es_env, 0, 0)
 val ((*closing*)) = emit_text (out, ")\n")
 //
-val ((*opening*)) = emit_text (out, "{\n")
+val ((*opening*)) = emit_text (out, "%{\n")
 //
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "return [")
-val () = emit_text (out, "function(")
+val () = emit_text (out, "{")
+val () = emit_text (out, "fun(")
 //
-val () = emit_text (out, "cenv")
+val () = emit_text (out, "Cenv")
 val () = aux0_arglst (out, s0es_arg, 1, 0)
 //
-val () = emit_text (out, ") { return ")
+val () = emit_text (out, ") -> ")
 //
-val () = emit_label (out, fl)
+val () = emit_flabel (out, flab)
+//
 val () = emit_LPAREN (out)
 val n0 = aux1_envlst (out, s0es_env, 0)
 val () = aux0_arglst (out, s0es_arg, n0, 0)
 val () = emit_RPAREN (out)
 //
-val ((*closing*)) = emit_text (out, "; }")
+val () = emit_text (out, " end")
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, "];\n}\n")
+val ((*closing*)) = emit_text (out, "}.\n%}\n")
 //
 val ((*flushing*)) = emit_newline (out)
 //
