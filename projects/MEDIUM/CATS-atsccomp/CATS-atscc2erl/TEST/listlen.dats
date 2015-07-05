@@ -14,7 +14,9 @@
 %%
 -module(listlen_dats).
 %%
--export([listlen/1,fromto/2]).
+-export([listlen/1]).
+%%
+-export( [mytest/0] ).
 %%
 -compile(nowarn_unused_function).
 %%
@@ -75,6 +77,15 @@ if m < n
   then list_cons (m, fromto (m+1, n)) else list_nil ()
 // end of [if]
 //
+(* ****** ****** *)
+
+%{$
+mytest() ->
+  N = 10
+, io:format("listlen(fromto(0, ~p)) = ~p~n", [N, listlen(fromto(0, N))])
+. %% mytest()
+%} // end of [%{$]
+
 (* ****** ****** *)
 
 (* end of [listlen.dats] *)
