@@ -213,6 +213,50 @@ end // end of [emit_CSTSPmyloc]
 (* ****** ****** *)
 
 implement
+emit_ATSCKiseqz
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKiseqz(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKiseqz] *)
+
+implement
+emit_ATSCKisneqz
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKisneqz(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKisneqz] *)
+
+(* ****** ****** *)
+
+implement
+emit_ATSCKptriscons
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKptriscons(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptriscons] *)
+
+implement
+emit_ATSCKptrisnull
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKptrisnull(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptrisnull] *)
+
+(* ****** ****** *)
+
+implement
 emit_ATSCKpat_int
   (out, d0e, i) =
 {
@@ -249,28 +293,6 @@ emit_ATSCKpat_con1
     emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_con1] *)
-
-(* ****** ****** *)
-
-implement
-emit_ATSCKptrisnull
-  (out, d0e) =
-{
-//
-val () = emit_text (out, "ATSCKptrisnull(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKptrisnull] *)
-
-implement
-emit_ATSCKptriscons
-  (out, d0e) =
-{
-//
-val () = emit_text (out, "ATSCKptriscons(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKptriscons] *)
 
 (* ****** ****** *)
 //
@@ -380,8 +402,10 @@ d0e0.d0exp_node of
 | ATSCKpat_con1
     (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
 //
-| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull (out, d0e)
+| ATSCKiseqz(d0e) => emit_ATSCKiseqz (out, d0e)
+| ATSCKisneqz(d0e) => emit_ATSCKisneqz (out, d0e)
 | ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
+| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull (out, d0e)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 | ATSSELrecsin _ => emit_SELrecsin (out, d0e0)
