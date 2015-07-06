@@ -365,6 +365,62 @@ in
 end // end of [ATSCSTSPmyloc_make]
 
 (* ****** ****** *)
+//
+implement
+ATSCKiseqz_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKiseqz (d0e))
+end // end of [ATSCKiseqz_make]
+//
+implement
+ATSCKisneqz_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKisneqz (d0e))
+end // end of [ATSCKisneqz_make]
+//
+(* ****** ****** *)
+//
+implement
+ATSCKptriscons_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKptriscons (d0e))
+end // end of [ATSCKptriscons_make]
+//
+implement
+ATSCKptrisnull_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKptrisnull (d0e))
+end // end of [ATSCKptrisnull_make]
+//
+(* ****** ****** *)
 
 implement
 ATSCKpat_int_make
@@ -413,34 +469,6 @@ in
   d0exp_make_node (loc, ATSCKpat_con1 (d0e, tag))
 end // end of [ATSCKpat_con1_make]
 
-(* ****** ****** *)
-//
-implement
-ATSCKptrisnull_make
-(
-  tok1, d0e, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  d0exp_make_node (loc, ATSCKptrisnull (d0e))
-end // end of [ATSCKptrisnull_make]
-//
-implement
-ATSCKptriscons_make
-(
-  tok1, d0e, tok2
-) = let
-//
-val loc =
-  tok1.token_loc ++ tok2.token_loc
-//
-in
-  d0exp_make_node (loc, ATSCKptriscons (d0e))
-end // end of [ATSCKptriscons_make]
-//
 (* ****** ****** *)
 
 implement

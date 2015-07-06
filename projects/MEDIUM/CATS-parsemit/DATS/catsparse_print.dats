@@ -153,13 +153,14 @@ case+ x of
 | ATSINSflab () => pr "ATSINSflab"
 | ATSINSfgoto () => pr "ATSINSfgoto"
 //
-| ATSCKpat_int () => pr "ATSCKpat_int"
+| ATSCKiseqz () => pr "ATSCKiseqz"
+| ATSCKisneqz () => pr "ATSCKisneqz"
+| ATSCKptriscons () => pr "ATSCKptriscons"
+| ATSCKptrisnull () => pr "ATSCKptrisnull"
 //
+| ATSCKpat_int () => pr "ATSCKpat_int"
 | ATSCKpat_con0 () => pr "ATSCKpat_con0"
 | ATSCKpat_con1 () => pr "ATSCKpat_con1"
-//
-| ATSCKptrisnull () => pr "ATSCKptrisnull"
-| ATSCKptriscons () => pr "ATSCKptriscons"
 //
 | ATSSELcon () => pr "ATSSELcon"
 | ATSSELrecsin () => pr "ATSSELrecsin"
@@ -416,16 +417,17 @@ d0e.d0exp_node of
 //
 | ATSCSTSPmyloc (tok) => fprint! (out, "ATSCSTSPmyloc(", tok, ")")
 //
+| ATSCKiseqz(d0e) => fprint! (out, "ATSCKiseqz(", d0e, ")")
+| ATSCKisneqz(d0e) => fprint! (out, "ATSCKisneqz(", d0e, ")")
+| ATSCKptriscons(d0e) => fprint! (out, "ATSCKptriscons(", d0e, ")")
+| ATSCKptrisnull(d0e) => fprint! (out, "ATSCKptrisnull(", d0e, ")")
+//
 | ATSCKpat_int (d0e, int) =>
     fprint! (out, "ATSCKpat_int(", d0e, int, ")")
-//
 | ATSCKpat_con0 (d0e, tag) =>
     fprint! (out, "ATSCKpat_con0(", d0e, tag, ")")
 | ATSCKpat_con1 (d0e, tag) =>
     fprint! (out, "ATSCKpat_con1(", d0e, tag, ")")
-//
-| ATSCKptrisnull(d0e) => fprint! (out, "ATSCKptrisnull(", d0e, ")")
-| ATSCKptriscons(d0e) => fprint! (out, "ATSCKptriscons(", d0e, ")")
 //
 | ATSSELcon (d0e, s0e, lab) =>
     fprint! (out, "ATSSELcon(", d0e, ";", s0e, ";", lab, ")")

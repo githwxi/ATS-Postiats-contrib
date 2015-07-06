@@ -273,6 +273,62 @@ tok.token_node of
     // end of [if]
   end // end of [ATSCSTSPmyloc]
 //
+| T_KWORD(ATSCKiseqz()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKiseqz_make (tok, ent2, ent3)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKiseqz]
+//
+| T_KWORD(ATSCKisneqz()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKisneqz_make (tok, ent2, ent3)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKisneqz]
+//
+| T_KWORD(ATSCKptriscons()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKptriscons_make (tok, ent2, ent3)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKptriscons]
+//
+| T_KWORD(ATSCKptrisnull()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKptrisnull_make (tok, ent2, ent3)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKptrisnull]
+//
 | T_KWORD(ATSCKpat_int()) => let
     val bt = 0
     val () = incby1 ()
@@ -320,34 +376,6 @@ tok.token_node of
       ) else tokbuf_set_ntok_null (buf, n0)
     // end of [if]
   end // end of [ATSCKpat_con1]
-//
-| T_KWORD(ATSCKptrisnull()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
-    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
-  in
-    if err = err0
-      then (
-        ATSCKptrisnull_make (tok, ent2, ent3)
-      ) else tokbuf_set_ntok_null (buf, n0)
-    // end of [if]
-  end // end of [ATSCKptrisnull]
-//
-| T_KWORD(ATSCKptriscons()) => let
-    val bt = 0
-    val () = incby1 ()
-    val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
-    val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
-  in
-    if err = err0
-      then (
-        ATSCKptriscons_make (tok, ent2, ent3)
-      ) else tokbuf_set_ntok_null (buf, n0)
-    // end of [if]
-  end // end of [ATSCKptriscons]
 //
 | T_KWORD(ATSSELcon()) => let
     val bt = 0

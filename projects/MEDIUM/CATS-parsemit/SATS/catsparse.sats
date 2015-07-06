@@ -270,13 +270,14 @@ keyword =
 //
   | ATSCSTSPmyloc of ()
 //
-  | ATSCKpat_int of ()
+  | ATSCKiseqz of ()
+  | ATSCKisneqz of ()
+  | ATSCKptriscons of ()
+  | ATSCKptrisnull of ()
 //
+  | ATSCKpat_int of ()
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
-//
-  | ATSCKptrisnull of ()
-  | ATSCKptriscons of ()
 //
   | ATSSELcon of ()
   | ATSSELrecsin of ()
@@ -790,13 +791,14 @@ d0exp_node =
 //
   | ATSCSTSPmyloc of s0tring
 //
-  | ATSCKpat_int of (d0exp, d0exp)
+  | ATSCKiseqz of (d0exp)
+  | ATSCKisneqz of (d0exp)
+  | ATSCKptriscons of (d0exp)
+  | ATSCKptrisnull of (d0exp)
 //
+  | ATSCKpat_int of (d0exp, d0exp)
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))
-//
-  | ATSCKptrisnull of (d0exp)
-  | ATSCKptriscons of (d0exp)
 //
   | ATSSELcon of (d0exp, s0exp(*tysum*), i0de(*lab*))
   | ATSSELrecsin of (d0exp, s0exp(*tyrec*), i0de(*lab*))

@@ -119,11 +119,17 @@ fun emit_PMVcfunlab
 //
 (* ****** ****** *)
 //
+fun emit_ATSCKiseqz (FILEref, d0exp): void
+fun emit_ATSCKisneqz (FILEref, d0exp): void
+//
+fun emit_ATSCKptriscons (FILEref, d0exp): void
+fun emit_ATSCKptrisnull (FILEref, d0exp): void
+//
+(* ****** ****** *)
+//
 fun
 emit_ATSCKpat_int
   (out: FILEref, d0e: d0exp, i: d0exp): void
-//
-(* ****** ****** *)
 //
 fun
 emit_ATSCKpat_con0
@@ -132,11 +138,6 @@ emit_ATSCKpat_con0
 fun
 emit_ATSCKpat_con1
   (out: FILEref, d0e: d0exp, tag: int): void
-//
-(* ****** ****** *)
-//
-fun emit_ATSCKptrisnull (FILEref, d0exp): void
-fun emit_ATSCKptriscons (FILEref, d0exp): void
 //
 (* ****** ****** *)
 
