@@ -54,4 +54,8 @@ atscc2erl_caseof_deadcode
 %%
 %% ****** ****** %%
 
+-define(ATSINScaseof_fail(ERRMSG), exit({'atscc2err_caseof_fail', ERRMSG})).
+
+%% ****** ****** %%
+
 %% end of [basics_cats.hrl] %%

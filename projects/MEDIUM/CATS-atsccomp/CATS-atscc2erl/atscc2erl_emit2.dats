@@ -475,10 +475,11 @@ ins0.instr_node of
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% if(")
+    val () = emit_text (out, "if(")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ") ")
+    val () = emit_text (out, ") -> ")
     val () = emit_instr (out, ins)
+    val () = emit_text (out, "; true -> atscc2erl_void end")
   }
 //
 | ATSifnthen (d0e, inss) =>
@@ -487,10 +488,11 @@ ins0.instr_node of
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% if(not(")
+    val () = emit_text (out, "if(not(")
     val () = emit_d0exp (out, d0e)
-    val ((*closing*)) = emit_text (out, ")) ")
+    val () = emit_text (out, ")) -> ")
     val () = emit_instr (out, ins)
+    val () = emit_text (out, "; true -> atscc2erl_void end")
   }
 //
 | ATSbranchseq (inss) =>
@@ -779,18 +781,21 @@ ins0.instr_node of
 //
 | ATSINScaseof_fail(errmsg) =>
   {
+//
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "ATSINScaseof_fail")
-    val () = emit_LPAREN (out)
-    val () = emit_PMVstring (out, errmsg)
-    val () = emit_RPAREN (out)
-    val () = emit_SEMICOLON (out)
+//
+    val () =
+      emit_text (out, "?ATSINScaseof_fail")
+    val () =
+    (
+      emit_LPAREN (out); emit_PMVstring (out, errmsg); emit_RPAREN (out)
+    ) (* end of [val] *)
+//
   }
 | ATSINSdeadcode_fail(__tok__) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "ATSINSdeadcode_fail()")
-    val () = emit_SEMICOLON (out)
+    val () = emit_text (out, "?ATSINSdeadcode_fail()")
   }
 //
 | ATSdynload(dummy) =>
@@ -1444,15 +1449,30 @@ ATSINSmove_delay
   (tmp, s0e, thunk) = ins0.instr_node
 //
 val () = emit_nspc (out, ind)
-val () = emit_tmpvar (out, tmp)
+//
+val isret =
+  tmpvar_is_tmpret (tmp.i0de_sym)
+// end of [val]
+//
+val () =
+if
+not(isret)
+then
+{
+//
+val () =
+  emit_tmpvar (out, tmp)
+//
 val () = emit_text (out, " = ")
 //
-val () = emit_LBRACKET (out)
+} (* end of [val] *)
+//
+val () =
+  emit_text (out, "?ATSlazyval")
 val () =
 (
-  emit_int (out, 0); emit_text (out, ", "); emit_d0exp (out, thunk)
+  emit_LPAREN (out); emit_d0exp (out, thunk); emit_RPAREN (out)
 ) (* end of [val] *)
-val () = emit_RBRACKET (out)
 //
 in
   // nothing
@@ -1469,16 +1489,29 @@ ATSINSmove_lazyeval
   (tmp, s0e, lazyval) = ins0.instr_node
 //
 val () = emit_nspc (out, ind)
-val () = emit_text (out, "ATSPMVlazyval_eval")
-val () = emit_text (out, "(")
-val () = emit_d0exp (out, lazyval)
-val () = emit_text (out, "); ")
-val () = emit_tmpvar (out, tmp)
+//
+val isret =
+  tmpvar_is_tmpret (tmp.i0de_sym)
+// end of [val]
+//
+val () =
+if
+not(isret)
+then
+{
+//
+val () =
+  emit_tmpvar (out, tmp)
+//
 val () = emit_text (out, " = ")
-val () = emit_d0exp (out, lazyval)
+//
+} (* end of [val] *)
+//
+val () =
+  emit_text (out, "?ATSlazyval_eval")
 val () =
 (
-  emit_text (out, "["); emit_int (out, 1); emit_text (out, "];")
+  emit_LPAREN (out); emit_d0exp (out, lazyval); emit_RPAREN (out)
 ) (* end of [val] *)
 //
 in

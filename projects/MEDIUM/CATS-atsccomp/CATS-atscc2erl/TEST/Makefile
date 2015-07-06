@@ -99,7 +99,7 @@ listmap_dats.erl
 listmap_dats.erl: listmap.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 listmap_dats.beam:: listmap_dats.erl ; $(ERLC) $< 
-#regress:: listmap_dats.beam; $(ERL) -run listmap_dats mytest -run init stop -noshell
+regress:: listmap_dats.beam; $(ERL) -run listmap_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) listmap_dats.erl
 
 ######
@@ -119,7 +119,7 @@ rtfind_dats.erl
 rtfind_dats.erl: rtfind.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 rtfind_dats.beam:: rtfind_dats.erl ; $(ERLC) $< 
-regress:: rtfind_dats.beam; $(ERL) -run rtfind_dats main0_erl -run init stop -noshell
+#regress:: rtfind_dats.beam; $(ERL) -run rtfind_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) rtfind_dats.erl
 
 ######
@@ -129,7 +129,7 @@ rtfind2_dats.erl
 rtfind2_dats.erl: rtfind2.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 rtfind2_dats.beam:: rtfind2_dats.erl ; $(ERLC) $< 
-regress:: rtfind2_dats.beam; $(ERL) -run rtfind2_dats main0_erl -run init stop -noshell
+#regress:: rtfind2_dats.beam; $(ERL) -run rtfind2_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) rtfind2_dats.erl
 
 ######
@@ -141,16 +141,6 @@ $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 twice_dats.beam:: twice_dats.erl ; $(ERLC) $< 
 regress:: twice_dats.beam; $(ERL) -run twice_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) twice_dats.erl
-
-######
-
-all:: \
-sieve_lazy_dats.erl
-sieve_lazy_dats.erl: sieve_lazy.dats ; \
-$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
-sieve_lazy_dats.beam:: sieve_lazy_dats.erl ; $(ERLC) $< 
-#regress:: sieve_lazy_dats.beam; $(ERL) -run sieve_lazy_dats main0_erl -run init stop -noshell
-cleanall:: ; $(RMF) sieve_lazy_dats.erl
 
 ######
 
@@ -169,6 +159,7 @@ $(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2erl/libatscc2erl_all.hrl li
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.c
 clean:: ; $(RMF) *_?ats.beam
+clean:: ; $(RMF) erl_crash.dump
 
 ######
 
