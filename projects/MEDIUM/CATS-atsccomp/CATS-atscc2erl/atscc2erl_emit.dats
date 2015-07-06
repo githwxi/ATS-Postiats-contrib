@@ -216,18 +216,7 @@ emit_flabel
 //
 implement
 emit_PMVfunlab
-  (out, flab) =
-{
-//
-val () =
-  emit_text(out, "fun ")
-//
-val () =
-  emit_flabel(out, flab)
-//
-val () = emit_text(out, "/1")
-//
-} (* end of [emit_PMVfunlab] *)
+  (out, flab) = emit_flabel (out, flab)
 //
 (* ****** ****** *)
 
@@ -237,7 +226,7 @@ emit_PMVcfunlab
 {
 //
 val () =
-emit_flabel (out, flab)
+  emit_flabel (out, flab)
 //
 val () =
   emit_text (out, "__closurerize")
@@ -358,6 +347,18 @@ end // end of [emit_tmpvar]
 //
 (* ****** ****** *)
 
+fun
+s0exp_get_arity
+  (s0e: s0exp): int =
+(
+case+
+s0e.s0exp_node
+of // case+
+| S0Elist(s0es) => list_length(s0es) | _ => ~1
+) (* end of [s0exp_get_arity] *)
+
+(* ****** ****** *)
+
 implement
 emit_d0exp
   (out, d0e0) = let
@@ -456,20 +457,31 @@ d0e0.d0exp_node of
 //
 | ATSfunclo_fun
   (
-    d0e_fun, _(*arg*), _(*res*)
+    d0e_fun, s0e_arg, _(*res*)
   ) =>
-  (
-    emit_d0exp (out, d0e_fun)
-  )
+  {
+    val () =
+    emit_text
+      (out, "?ATSfunclo_fun")
+    // end of [val]
+    val () =
+    (
+      emit_LPAREN (out); emit_d0exp (out, d0e_fun); emit_RPAREN (out)
+    ) (* end of [val] *)
+  } (* end of [ATSfunclo_fun] *)
 //
 | ATSfunclo_clo
   (
     d0e_fun, _(*arg*), _(*res*)
   ) =>
-  (
-    emit_d0exp (out, d0e_fun);
-    emit_LBRACKET (out); emit_int (out, 0); emit_RBRACKET (out)
-  ) (* end of [ATSfunclo_clo] *)
+  {
+    val () =
+    emit_text(out, "?ATSfunclo_clo")
+    val () =
+    (
+      emit_LPAREN (out); emit_d0exp (out, d0e_fun); emit_RPAREN (out)
+    ) (* end of [val] *)
+  } (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]
 
@@ -786,7 +798,7 @@ val () = emit_flabel (out, flab)
 val () =
 emit_text (out, "__closurerize(")
 val () = aux0_envlst (out, s0es_env, 0, 0)
-val ((*closing*)) = emit_text (out, ")\n")
+val ((*closing*)) = emit_text (out, ") -> \n")
 //
 val ((*opening*)) = emit_text (out, "%{\n")
 //

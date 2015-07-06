@@ -38,6 +38,11 @@
 -define(ATSSELboxrec(P, I), element(I+1, P)).
 
 %% ****** ****** %%
+
+-define(ATSfunclo_fun(F), (F)).
+-define(ATSfunclo_clo(X), (element(1, X))).
+
+%% ****** ****** %%
 %%
 -define(ATSINSmove_void(), atscc2erl_void).
 %%

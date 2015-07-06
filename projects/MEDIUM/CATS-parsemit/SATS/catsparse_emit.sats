@@ -135,7 +135,7 @@ emit_ATSCKpat_con1
 //
 (* ****** ****** *)
 //
-fun emit_ATSCKptrisnil (FILEref, d0exp): void
+fun emit_ATSCKptrisnull (FILEref, d0exp): void
 fun emit_ATSCKptriscons (FILEref, d0exp): void
 //
 (* ****** ****** *)
