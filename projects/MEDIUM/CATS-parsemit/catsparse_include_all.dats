@@ -43,6 +43,7 @@ local #include "./DATS/catsparse_parsing_instr.dats" in (*nothing*) end
 //
 local #include "./DATS/catsparse_emit.dats" in (*nothing*) end
 local #include "./DATS/catsparse_typedef.dats" in (*nothing*) end
+local #include "./DATS/catsparse_fundecl.dats" in (*nothing*) end
 //
 (* ****** ****** *)
 

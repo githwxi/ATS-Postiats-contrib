@@ -515,8 +515,10 @@ implement
 emit_SELcon
   (out, d0e) = let
 //
-val-ATSSELcon
-  (d0rec, s0e, id) = d0e.d0exp_node
+val-
+ATSSELcon
+(d0rec, s0e, id) = d0e.d0exp_node
+//
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //
@@ -539,8 +541,9 @@ implement
 emit_SELrecsin
   (out, d0e) = let
 //
-val-ATSSELrecsin
-  (d0rec, s0e, id) = d0e.d0exp_node
+val-
+ATSSELrecsin
+(d0rec, s0e, id) = d0e.d0exp_node
 //
 in
   emit_d0exp (out, d0rec)
@@ -552,8 +555,10 @@ implement
 emit_SELboxrec
   (out, d0e) = let
 //
-val-ATSSELboxrec
-  (d0rec, s0e, id) = d0e.d0exp_node
+val-
+ATSSELboxrec
+(d0rec, s0e, id) = d0e.d0exp_node
+//
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //

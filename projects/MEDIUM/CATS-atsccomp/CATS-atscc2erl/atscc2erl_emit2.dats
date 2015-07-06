@@ -31,6 +31,7 @@ staload "{$CATSPARSEMIT}/catsparse_syntax.sats"
 staload "{$CATSPARSEMIT}/catsparse_emit.sats"
 //
 staload "{$CATSPARSEMIT}/catsparse_typedef.sats"
+staload "{$CATSPARSEMIT}/catsparse_fundecl.sats"
 //
 (* ****** ****** *)
 //
@@ -1548,7 +1549,9 @@ d0c.d0ecl_node of
     // end of [val]
 *)
   in
+(*
     typedef_insert (id.i0de_sym, def)
+*)
   end // end of [D0Ctypedef]
 //
 | D0Cassume (id) =>
@@ -2034,7 +2037,52 @@ emit_toplevel
   (out, d0cs) = let
 //
 fun
-loop
+aux1
+(
+  d0c: d0ecl
+) : void = (
+//
+case+
+d0c.d0ecl_node
+of // case+
+//
+| D0Ctypedef
+    (id, def) =>
+  (
+    typedef_insert (id.i0de_sym, def)
+  )
+//
+| D0Cfundecl
+    (fk, f0d) => 
+  (
+    case+ f0d.f0decl_node of
+    | F0DECLnone (fhd) => f0head_insert(fhd)
+    | F0DECLsome (fhd, _) => f0head_insert(fhd)
+  )
+//
+| _(* rest-of-D0C *) => ()
+//
+) (* end of [aux1] *)
+//
+fun
+auxlst1
+(
+  d0cs: d0eclist
+) : void =
+(
+//
+case+ d0cs of
+| list_nil () => ()
+| list_cons
+    (d0c, d0cs) =>
+  (
+    aux1 (d0c); auxlst1 (d0cs)
+  ) // end of [list_cons]
+//
+)
+//
+fun
+auxlst2
 (
   out: FILEref, d0cs: d0eclist
 ) : void =
@@ -2048,13 +2096,16 @@ case+ d0cs of
       emit_d0ecl (out, d0c)
     // end of [val]
   in
-    loop (out, d0cs)
+    auxlst2 (out, d0cs)
   end // end of [list_cons]
 //
 )
 //
+val () = auxlst1 (d0cs)
+val () = auxlst2 (out, d0cs)
+//
 in
-  loop (out, d0cs)
+  // nothing
 end // end of [emit_toplevel]
 
 (* ****** ****** *)

@@ -31,6 +31,7 @@ staload "{$CATSPARSEMIT}/catsparse_syntax.sats"
 staload "{$CATSPARSEMIT}/catsparse_emit.sats"
 //
 staload "{$CATSPARSEMIT}/catsparse_typedef.sats"
+staload "{$CATSPARSEMIT}/catsparse_fundecl.sats"
 //
 (* ****** ****** *)
 
@@ -185,6 +186,36 @@ emit_PMVextval
 //
 extern
 fun
+f0ide_get_arity (fid: i0de): int
+//
+implement
+f0ide_get_arity
+  (fid) = let
+//
+val
+opt =
+f0head_search_opt(fid.i0de_sym)
+//
+in
+//
+case+ opt of
+| ~None_vt() => ~1
+| ~Some_vt(fhd) =>
+  (
+    case+
+    fhd.f0head_node
+    of // case+
+    | F0HEAD(fid, fma, _) =>
+        list_length (fma.f0marg_node)
+      // end of [F0HEAD]
+  ) (* end of [Some_vt] *)
+//
+end // end of [f0ide_get_arity]
+//
+(* ****** ****** *)
+//
+extern
+fun
 emit_f0ide
   : emit_type (i0de) = "ext#atscc2erl_emit_f0ide"
 extern
@@ -216,7 +247,16 @@ emit_flabel
 //
 implement
 emit_PMVfunlab
-  (out, flab) = emit_flabel (out, flab)
+  (out, flab) =
+{
+//
+val n0 = f0ide_get_arity(flab)
+//
+val () = emit_text(out, "fun ")
+val () = emit_flabel (out, flab)
+val () = (emit_text(out, "/"); emit_int(out, n0))
+//
+} (* end of [emit_PMVfunlab] *)
 //
 (* ****** ****** *)
 

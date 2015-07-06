@@ -119,7 +119,7 @@ rtfind_dats.erl
 rtfind_dats.erl: rtfind.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 rtfind_dats.beam:: rtfind_dats.erl ; $(ERLC) $< 
-#regress:: rtfind_dats.beam; $(ERL) -run rtfind_dats main0_erl -run init stop -noshell
+regress:: rtfind_dats.beam; $(ERL) -run rtfind_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) rtfind_dats.erl
 
 ######
@@ -129,7 +129,7 @@ rtfind2_dats.erl
 rtfind2_dats.erl: rtfind2.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 rtfind2_dats.beam:: rtfind2_dats.erl ; $(ERLC) $< 
-#regress:: rtfind2_dats.beam; $(ERL) -run rtfind2_dats main0_erl -run init stop -noshell
+regress:: rtfind2_dats.beam; $(ERL) -run rtfind2_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) rtfind2_dats.erl
 
 ######
