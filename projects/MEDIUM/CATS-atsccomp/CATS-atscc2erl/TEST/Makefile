@@ -89,7 +89,7 @@ listlen_dats.erl
 listlen_dats.erl: listlen.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 listlen_dats.beam:: listlen_dats.erl ; $(ERLC) $< 
-regress:: listlen_dats.beam; $(ERL) -run listlen_dats mytest -run init stop -noshell
+regress:: listlen_dats.beam; $(ERL) -run listlen_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) listlen_dats.erl
 
 ######

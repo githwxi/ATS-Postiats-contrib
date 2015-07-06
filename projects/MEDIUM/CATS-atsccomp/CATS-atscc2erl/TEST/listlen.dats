@@ -14,7 +14,7 @@
 %%
 -module(listlen_dats).
 %%
--export( [mytest/0] ).
+-export([main0_erl/0]).
 %%
 -compile(nowarn_unused_function).
 %%
@@ -78,7 +78,7 @@ if m < n
 (* ****** ****** *)
 
 %{$
-mytest() ->
+main0_erl() ->
   N = 10
 , io:format("listlen(fromto(0, ~p)) = ~p~n", [N, listlen(fromto(0, N))])
 . %% mytest()
