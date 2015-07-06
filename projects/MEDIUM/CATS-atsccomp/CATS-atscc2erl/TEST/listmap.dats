@@ -12,9 +12,9 @@
 
 %{^
 %%
--module(listlen_dats).
+-module(listmap_dats).
 %%
--export([listmap/2,fromto/2]).
+-export([main0_erl/0]).
 %%
 -compile(nowarn_unused_function).
 %%
@@ -50,9 +50,9 @@ fromto
   : (int, int) -> List0 (int) = "mac#fromto"
 //
 implement
-fromto (m, n) =
+fromto(m, n) =
 if m < n
-  then list_cons (m, fromto (m+1, n)) else list_nil ()
+  then list_cons(m, fromto(m+1, n)) else list_nil()
 // end of [if]
 //
 (* ****** ****** *)
@@ -68,6 +68,35 @@ in
   list_map{int}{int} (xs, lam x => m * n * x)
 end // end of [mytest]
 //
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+print_list(xs) = let
+//
+val sep = ", "
+//
+fun
+loop
+(
+  i: int, xs: List(a)
+) : void =
+(
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) => let
+    val () =
+    if i > 0 then print(sep)
+    val () = print_val<a> (x)
+  in
+    loop (i+1, xs)
+  end // end of [list_cons]
+)
+//
+in
+  loop (0, xs)
+end // end of [print_list]
+
 (* ****** ****** *)
 
 extern

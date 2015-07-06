@@ -14,8 +14,6 @@
 %%
 -module(listlen_dats).
 %%
--export([listlen/1]).
-%%
 -export( [mytest/0] ).
 %%
 -compile(nowarn_unused_function).

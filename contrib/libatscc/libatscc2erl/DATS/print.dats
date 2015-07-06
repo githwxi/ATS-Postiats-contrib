@@ -19,9 +19,6 @@ ATS_STATIC_PREFIX "_ats2erlpre_print_"
 //
 (* ****** ****** *)
 //
-#include
-"./../staloadall.hats"
-//
 staload "./../SATS/print.sats"
 //
 (* ****** ****** *)
