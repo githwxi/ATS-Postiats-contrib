@@ -15,24 +15,27 @@ ATS_STATIC_PREFIX "_libats2erl_session_list_"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
-#include
-"{$LIBATSCC2ERL}/staloadall.hats"
+#include "share/atspre_define.hats"
+#include "{$LIBATSCC2ERL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
-staload UN =
-  "prelude/SATS/unsafe.sats"
+staload
+UN =
+"prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/co-list.sats"
+staload
+"./../SATS/basis.sats"
 //
 (* ****** ****** *)
-
-staload "./basis_chan2.dats"
-
+//
+staload
+"./../SATS/co-list.sats" // session-typed
+//
+staload "./basis_chan2.dats" // un-session-typed
+//
 (* ****** ****** *)
 
 implement

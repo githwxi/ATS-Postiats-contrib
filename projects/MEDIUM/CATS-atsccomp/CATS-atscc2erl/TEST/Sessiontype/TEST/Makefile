@@ -35,6 +35,16 @@ cleanall:: ; $(RMF) sieve_dats.erl
 
 ######
 
+all:: \
+bitstr_dats.erl
+bitstr_dats.erl: bitstr.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+bitstr_dats.beam:: bitstr_dats.erl ; $(ERLC) $< 
+regress:: bitstr_dats.beam; $(ERL) -run bitstr_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) bitstr_dats.erl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f

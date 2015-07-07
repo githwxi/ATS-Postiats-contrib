@@ -11,28 +11,31 @@
 #define
 ATS_EXTERN_PREFIX "libats2erl_session_"
 #define
-ATS_STATIC_PREFIX "_libats2erl_session_list_"
+ATS_STATIC_PREFIX "_libats2erl_session_sslist_"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
-#include
-"{$LIBATSCC2ERL}/staloadall.hats"
+#include "share/atspre_define.hats"
+#include "{$LIBATSCC2ERL}/staloadall.hats"
 //
 (* ****** ****** *)
 //
-staload UN =
-  "prelude/SATS/unsafe.sats"
+staload
+UN =
+"prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/list.sats"
+staload
+"./../SATS/basis.sats"
 //
 (* ****** ****** *)
-
-staload "./basis_chan2.dats"
-
+//
+staload
+"./../SATS/list.sats" // session-typed
+//
+staload "./basis_chan2.dats" // un-session-typed
+//
 (* ****** ****** *)
 
 implement
@@ -98,4 +101,4 @@ end // end of [channeg_list]
 
 (* ****** ****** *)
 
-(* end of [list.dats] *)
+(* end of [sslist.dats] *)
