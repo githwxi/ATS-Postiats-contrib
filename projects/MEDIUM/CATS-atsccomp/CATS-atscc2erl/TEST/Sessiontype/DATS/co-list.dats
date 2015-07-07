@@ -42,8 +42,9 @@ implement
 chanpos_list
   (chpos) = let
 //
-val chpos2 =
-  $UN.castvwtp1{chanpos2}(chpos)
+val
+chpos2 =
+$UN.castvwtp1{chanpos2}(chpos)
 //
 val tag = chanpos2_recv{int}(chpos2)
 //
