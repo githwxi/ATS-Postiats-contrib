@@ -21,6 +21,7 @@ ATS_STATIC_PREFIX "_bitstr_"
 %%
 -export([main0_erl/0]).
 %%
+-compile(nowarn_shadow_vars).
 -compile(nowarn_unused_function).
 %%
 -export([ats2erlpre_cloref1_app/2]).
@@ -362,7 +363,7 @@ main0_erl () =
 {
 //
 val a0 = 123456789
-val a1 = 123456789
+val a1 = 987654321
 //
 val () = println! (a0, " + ", a1, " = ", add_int_int(a0, a1))
 //
