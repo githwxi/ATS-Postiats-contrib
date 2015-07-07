@@ -20,6 +20,7 @@ ATSCC2ERL=./../atscc2erl
 ######
 
 all::
+regress::
 cleanall::
 
 ######

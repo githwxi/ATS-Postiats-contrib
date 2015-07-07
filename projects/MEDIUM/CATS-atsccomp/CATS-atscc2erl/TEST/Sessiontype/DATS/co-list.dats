@@ -1,44 +1,55 @@
 (*
-** Co-lists
+** Co-Lists
 *)
 
 (* ****** ****** *)
+
+#define ATS_DYNLOADFLAG 0
+
+(* ****** ****** *)
 //
-staload
-UN =
-"prelude/SATS/unsafe.sats"
+#define
+ATS_EXTERN_PREFIX "libats2erl_session_"
+#define
+ATS_STATIC_PREFIX "_libats2erl_session_list_"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/basis.sats"
+#include
+"share/atspre_define.hats"
+#include
+"{$LIBATSCC2ERL}/staloadall.hats"
+//
+(* ****** ****** *)
+//
+staload UN =
+  "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
 //
 staload "./../SATS/co-list.sats"
 //
 (* ****** ****** *)
-//
+
 staload "./basis_chan2.dats"
-//
+
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 chanpos_list
   (chpos) = let
 //
-vtypedef
-chan2 = channel2(ptr)
+val chpos2 =
+  $UN.castvwtp1{chanpos2}(chpos)
 //
-val chan2 =
-  $UN.castvwtp1{chan2}(chpos)
+val tag = chanpos2_recv{int}(chpos2)
 //
-val tag = channel2_recv_val (chan2)
-//
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chpos2)
 //
 in
 //
 if
-iseqz(tag)
+(tag=0)
 then let
   prval () = $UN.castview2void(chpos) in chanpos_list_nil()
 end // end of [then]
@@ -51,22 +62,18 @@ end // end of [chanpos_list]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 channeg_list_nil
   (chneg) = () where
 {
 //
-vtypedef
-chan2 = channel2(ptr)
-//
 val
-chan2 =
-$UN.castvwtp1{chan2}(chneg)
+chneg2 =
+$UN.castvwtp1{channeg2}(chneg)
 //
-val () = 
-channel2_send (chan2, $UN.int2ptr(0))
+val () =
+  channeg2_recv{int}(chneg2, 0)
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chneg2)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -75,21 +82,18 @@ prval () = $UN.castview2void(chneg)
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 channeg_list_cons
   (chneg) = () where
 {
 //
-vtypedef
-chan2 = channel2(ptr)
+val
+chneg2 =
+$UN.castvwtp1{channeg2}(chneg)
 //
-val chan2 =
-  $UN.castvwtp1{chan2}(chneg)
+val () =
+  channeg2_recv{int}(chneg2, 1)
 //
-val ((*void*)) =
-  channel2_send (chan2, $UN.int2ptr(1))
-//
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chneg2)
 //
 prval () = $UN.castview2void(chneg)
 //

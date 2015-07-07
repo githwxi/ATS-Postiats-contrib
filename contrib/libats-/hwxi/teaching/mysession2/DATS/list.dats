@@ -11,9 +11,11 @@ UN =
 (* ****** ****** *)
 //
 staload
- "./../SATS/basis.sats"
+  "./../SATS/basis.sats"
 //
 staload "./../SATS/list.sats"
+//
+(* ****** ****** *)
 //
 staload "./basis_chan2.dats"
 //

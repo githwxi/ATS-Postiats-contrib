@@ -40,7 +40,7 @@
 %% ****** ****** %%
 
 -define(ATSfunclo_fun(F), (F)).
--define(ATSfunclo_clo(X), (element(1, X))).
+-define(ATSfunclo_clo(F), (element(1, F))).
 
 %% ****** ****** %%
 %%
@@ -55,6 +55,13 @@ atscc2erl_caseof_deadcode
 %% ****** ****** %%
 
 -define(ATSINScaseof_fail(ERRMSG), exit({'atscc2err_caseof_fail', ERRMSG})).
+
+%% ****** ****** %%
+
+ats2erlpre_cloref0_app(F) -> ?ATSfunclo_clo(F)(F).
+ats2erlpre_cloref1_app(F, X1) -> ?ATSfunclo_clo(F)(F, X1).
+ats2erlpre_cloref2_app(F, X1, X2) -> ?ATSfunclo_clo(F)(F, X1, X2).
+ats2erlpre_cloref3_app(F, X1, X2, X3) -> ?ATSfunclo_clo(F)(F, X1, X2, X3).
 
 %% ****** ****** %%
 

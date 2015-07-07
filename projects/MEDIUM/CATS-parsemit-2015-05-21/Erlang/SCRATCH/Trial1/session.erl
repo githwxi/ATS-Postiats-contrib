@@ -27,7 +27,7 @@
 %
 %%%%%%
 %
-% A positive channel is {Chpos}
+% A positive channel is Chpos
 % A negative channel is a pair {Chpos, Chneg}
 %
 %%%%%%
