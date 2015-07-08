@@ -194,6 +194,12 @@ ATSCKpat_int_make
 ) : d0exp // end-of-fun
 //
 fun
+ATSCKpat_bool_make
+(
+  tok_kwd: token, d0e: d0exp, bool: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
 ATSCKpat_con0_make
 (
   tok_kwd: token, d0e: d0exp, tag: signed, tok_end: token

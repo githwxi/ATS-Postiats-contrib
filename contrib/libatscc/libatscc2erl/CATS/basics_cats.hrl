@@ -22,6 +22,7 @@
 %% ****** ****** %%
 
 -define(ATSCKpat_int(X, I), X =:= I).
+-define(ATSCKpat_bool(X, I), X =:= I).
 
 %% ****** ****** %%
 

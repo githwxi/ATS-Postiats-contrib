@@ -129,15 +129,19 @@ fun emit_ATSCKptrisnull (FILEref, d0exp): void
 //
 fun
 emit_ATSCKpat_int
-  (out: FILEref, d0e: d0exp, i: d0exp): void
+  (out: FILEref, d0e: d0exp, i0: d0exp): void
+//
+fun
+emit_ATSCKpat_bool
+  (out: FILEref, d0e: d0exp, b0: d0exp): void
 //
 fun
 emit_ATSCKpat_con0
-  (out: FILEref, d0e: d0exp, tag: int): void
+  (out: FILEref, d0e: d0exp, ctag: int): void
 //
 fun
 emit_ATSCKpat_con1
-  (out: FILEref, d0e: d0exp, tag: int): void
+  (out: FILEref, d0e: d0exp, ctag: int): void
 //
 (* ****** ****** *)
 

@@ -276,6 +276,7 @@ keyword =
   | ATSCKptrisnull of ()
 //
   | ATSCKpat_int of ()
+  | ATSCKpat_bool of ()
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
 //
@@ -797,6 +798,7 @@ d0exp_node =
   | ATSCKptrisnull of (d0exp)
 //
   | ATSCKpat_int of (d0exp, d0exp)
+  | ATSCKpat_bool of (d0exp, d0exp)
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))
 //
