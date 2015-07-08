@@ -391,11 +391,22 @@ val x3 = queue_deq (Q0)
 val () = println! ("x3(3) = ", x3)
 //
 val () = queue_enq (Q0, 5)
+val () = queue_enq (Q0, 6)
+val () = queue_enq (Q0, 7)
 //
 val x4 = queue_deq (Q0)
 val () = println! ("x4(4) = ", x4)
 val x5 = queue_deq (Q0)
 val () = println! ("x5(5) = ", x5)
+val x6 = queue_deq (Q0)
+val () = println! ("x7(6) = ", x6)
+//
+val () = queue_enq (Q0, 8)
+//
+val x7 = queue_deq (Q0)
+val () = println! ("x7(7) = ", x7)
+val x8 = queue_deq (Q0)
+val () = println! ("x8(8) = ", x8)
 //
 val ((*freed*)) = queue_free_nil{int}(Q0)
 //
