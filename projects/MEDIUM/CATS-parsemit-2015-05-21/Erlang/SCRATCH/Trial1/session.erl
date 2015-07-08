@@ -67,7 +67,7 @@ chpos_chneg_connect_pn
   %% io:format("chpos_chneg_connect_pn: Chpos1 = ~p~n", [Chpos1]),
   %% io:format("chpos_chneg_connect_pn: Chposneg2 = ~p~n", [Chposneg2]),
   {Chpos2, Chneg2} = Chposneg2,
-  X = chpos_recv(Chpos1), Chpos2 ! {Chneg2, X},
+  X = chpos_recv(Chpos1), Chneg2 ! {Chpos2, X},
   %% io:format("chpos_chneg_connect_pn: X = ~p~n", [X]),
   if
     (X==chneg_close) ->

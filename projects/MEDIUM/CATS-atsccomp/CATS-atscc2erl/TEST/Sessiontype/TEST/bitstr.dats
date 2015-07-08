@@ -88,63 +88,30 @@ fserv{n:nat}
 if
 n > 0
 then let
-  val n2 = half(n)
-  val bit =
-  (
-    if n = 2*n2 then B0 else B1
-  ) : bit // end of [val]
-  val () = chanpos_list_cons (chp)
-  val ((*void*)) = chanpos_send{bit}(chp, bit)
+//
+val n2 = half(n)
+val bit =
+(
+  if n = 2*n2 then B0 else B1
+) : bit // end of [val]
+val () = chanpos_list_cons (chp)
+val ((*void*)) = chanpos_send{bit}(chp, bit)
+//
 in
   fserv (n2, chp)
 end // end of [then]
 else let
-  val () = chanpos_list_nil (chp) in chanpos_nil_wait(chp)
+//
+val () = chanpos_list_nil(chp) in chanpos_nil_wait(chp)
+//
 end // end of [else]
 //
 ) (* end of [fserv] *)
 //
 in
-  channeg_create{sslist(bit)}(llam(chp) => fserv (n, chp))
+  channeg_create{sslist(bit)}(llam(chp) => fserv(n, chp))
 end // end of [int2bits]
 
-(* ****** ****** *)
-//
-(*
-extern
-fun
-{a:vt0p}
-chanposneg_link_list
-(
-  chp: chanpos(sslist(a)), chn: channeg(sslist(a))
-) : void // end of [chanposneg_link_list]
-//
-implement
-{a}(*tmp*)
-chanposneg_link_list
-  (chp, chn) = let
-//
-val opt = channeg_list (chn)
-//
-in
-//
-case+ opt of
-| ~channeg_list_nil(chn) =>
-  {
-    val () = chanpos_list_nil(chp)
-    val () = chanpos_nil_wait(chp)
-    val () = channeg_nil_close(chn)
-  }
-| ~channeg_list_cons(chn) =>
-  {
-    val () = chanpos_list_cons(chp)
-    val () = chanpos_send(chp, channeg_send_val(chn))
-    val () = chanposneg_link_list(chp, chn)
-  }
-//
-end // end of [chanposneg_link_list]
-*)
-//
 (* ****** ****** *)
 //
 extern

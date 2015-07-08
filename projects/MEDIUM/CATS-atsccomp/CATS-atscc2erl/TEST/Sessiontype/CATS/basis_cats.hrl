@@ -51,8 +51,11 @@ libats2erl_session_chanpos_xfer() ->
 %%
 libats2erl_session_chanposneg_link
   (Chpos1, Chposneg2) ->
-  Chneg1 = self(),
-  spawn(?MODULE, libats2erl_session_chanposneg_link_np, [Chpos1, Chneg1, Chposneg2]),
+  spawn(
+    ?MODULE
+  , libats2erl_session_chanposneg_link_np
+  , [Chpos1, self(), Chposneg2]
+  ), %% spawn
   libats2erl_session_chanposneg_link_pn(Chpos1, Chposneg2).
 %%
 libats2erl_session_chanposneg_link_pn
@@ -61,15 +64,17 @@ libats2erl_session_chanposneg_link_pn
 %%io:format("libats2erl_session_chanposneg_link_pn: Chpos1 = ~p~n", [Chpos1]),
 %%io:format("libats2erl_session_chanposneg_link_pn: Chposneg2 = ~p~n", [Chposneg2]),
 %%
-  {Chpos2, Chneg2} = Chposneg2,
-  X = libats2erl_session_chanpos_recv(Chpos1), Chpos2 ! {Chneg2, X},
+  X = libats2erl_session_chanpos_recv(Chpos1),
 %%
 %%io:format("libats2erl_session_chanposneg_link_pn: X = ~p~n", [X]),
 %%
+  {Chpos2, Chneg2} = Chposneg2,
   if
     (X=:=libats2erl_session_channeg_close) ->
-      Chpos1 ! libats2erl_session_chanpos_xfer_close;
+      Chpos1 ! libats2erl_session_chanpos_xfer_close,
+      Chpos2 ! {Chneg2, libats2erl_session_channeg_close};
     true ->
+      Chneg2 ! {Chpos2, X},
       libats2erl_session_chanposneg_link_pn(Chpos1, Chposneg2)
   end.
 %%
@@ -85,7 +90,7 @@ libats2erl_session_chanposneg_link_np
 %%io:format("libats2erl_session_chanposneg_link_np: X = ~p~n", [X]),
 %%
   if
-    (X=:=libats2erl_session_channeg_close) ->
+    (X =:=libats2erl_session_channeg_close) ->
       libats2erl_session_channeg_nil_close(Chposneg2);
     true ->
       Chpos1 ! {Chneg1, X},

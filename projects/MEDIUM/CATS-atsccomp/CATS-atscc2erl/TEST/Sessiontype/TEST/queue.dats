@@ -6,12 +6,14 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-
-#define
-ATS_EXTERN_PREFIX "queue_"
-#define
-ATS_STATIC_PREFIX "_queue_"
-
+//
+(*
+#define ATS_PACKNAME "queue"
+*)
+//
+#define ATS_EXTERN_PREFIX "queue_"
+#define ATS_STATIC_PREFIX "_queue_"
+//
 (* ****** ****** *)
 
 %{^
@@ -56,7 +58,7 @@ staload "./../DATS/basis_chan2.dats"
 //
 datatype
 ssque(a:t@ype, int) =
-  | ssque_deq(a, 0) of ()
+  | ssque_nil(a, 0) of ()
   | {n:pos}
     ssque_deq(a, n) of (snd(a), ssque(a,n-1))
   | {n:nat}
@@ -91,16 +93,16 @@ extern
 fun
 channeg_ssque_nil
   {a:vt@ype}
-  (!channeg(ssque(a,0)) >> channeg(nil)): void
+  (!channeg(ssque(a,0)) >> channeg(nil)): void = "mac#%"
 extern
 fun
 channeg_ssque_deq
   {a:vt@ype}{n:pos}
-  (!channeg(ssque(a,n)) >> channeg(chsnd(a)::ssque(a,n-1))): void
+  (!channeg(ssque(a,n)) >> channeg(chsnd(a)::ssque(a,n-1))): void = "mac#%"
 and
 channeg_ssque_enq
   {a:vt@ype}{n:nat}
-  (!channeg(ssque(a,n)) >> channeg(chrcv(a)::ssque(a,n+1))): void
+  (!channeg(ssque(a,n)) >> channeg(chrcv(a)::ssque(a,n+1))): void = "mac#%"
 //
 (* ****** ****** *)
   
@@ -118,8 +120,9 @@ in
 //
 case+ tag of
 | 0 => let
+    prval () = $UN.prop_assert{n==0}()
     prval () =
-    $UN.castview2void(chpos) in chanpos_ssque_enq()
+    $UN.castview2void(chpos) in chanpos_ssque_nil()
   end // end of [prval]
 | 1 => let
     prval () = $UN.prop_assert{n > 0}()
@@ -194,26 +197,70 @@ prval () = $UN.castview2void(chneg)
 } (* end of [channeg_ssque_enq] *)
 
 (* ****** ****** *)
+
+extern
+fun
+chanposneg_link_ssque
+  {a:vt0p}{n:nat}
+(
+  chp: chanpos(ssque(a, n))
+, chn: channeg(ssque(a, n))
+) : void // end of [chanposneg_link_ssque]
+//
+implement
+chanposneg_link_ssque
+  {a}(chp, chn) = let
+//
+val opt = chanpos_ssque(chp)
+//
+in
+//
+case+ opt of
+| chanpos_ssque_nil() =>
+  {
+//
+    val () = chanpos_nil_wait(chp)
+//
+    val () = channeg_ssque_nil(chn)
+    val () = channeg_nil_close(chn)
+//
+  }
+| chanpos_ssque_deq() =>
+  {
+    val () = channeg_ssque_deq(chn)
+    val () = chanpos_send{a}(chp, channeg_send{a}(chn))
+    val () = chanposneg_link_ssque(chp, chn)
+  }
+| chanpos_ssque_enq() =>
+  {
+    val () = channeg_ssque_enq(chn)
+    val () = channeg_recv{a}(chn, chanpos_recv{a}(chp))
+    val () = chanposneg_link_ssque(chp, chn)
+  }
+//
+end // end of [chanposneg_link_ssque]
+
+(* ****** ****** *)
 //
 extern
 fun
-queue_nil{a:vt0p}((*void*)): channeg(ssque(a, 0))
+queue_nil{a:vt0p}(): channeg(ssque(a, 0)) = "mac#%"
 //
 extern
 fun
-queue_free_nil{a:vt0p}(channeg(ssque(a, 0))): void
+queue_free_nil{a:vt0p}(channeg(ssque(a, 0))): void = "mac#%"
 //
 extern
 fun
 queue_deq
   {a:vt0p}{n:pos}
-  (que: !channeg(ssque(a,n)) >> channeg(ssque(a,n-1))): (a)
+  (que: !channeg(ssque(a,n)) >> channeg(ssque(a,n-1))): (a) = "mac#%"
 //
 extern
 fun
 queue_enq
   {a:vt0p}{n:nat}
-  (que: !channeg(ssque(a,n)) >> channeg(ssque(a,n+1)), x0: a): void
+  (que: !channeg(ssque(a,n)) >> channeg(ssque(a,n+1)), x0: a): void = "mac#%"
 //
 (* ****** ****** *)
 
@@ -261,6 +308,9 @@ case+ opt of
     val () = chanpos_send{a}(chp, x)
   in
     chanposneg_link (chp, chn)
+(*
+    chanposneg_link_ssque (chp, chn)
+*)
   end // end of [chanpos_ssque_deq]
 | chanpos_ssque_enq() => let
     val y = chanpos_recv{a}(chp)
@@ -328,24 +378,24 @@ val () = queue_enq (Q0, 1)
 val () = queue_enq (Q0, 2)
 //
 val x0 = queue_deq (Q0)
-val () = println! ("x0 = ", x0)
+val () = println! ("x0(0) = ", x0)
 val x1 = queue_deq (Q0)
-val () = println! ("x1 = ", x1)
+val () = println! ("x1(1) = ", x1)
 //
 val () = queue_enq (Q0, 3)
 val () = queue_enq (Q0, 4)
 //
 val x2 = queue_deq (Q0)
-val () = println! ("x2 = ", x2)
+val () = println! ("x2(2) = ", x2)
 val x3 = queue_deq (Q0)
-val () = println! ("x3 = ", x3)
+val () = println! ("x3(3) = ", x3)
 //
 val () = queue_enq (Q0, 5)
 //
 val x4 = queue_deq (Q0)
-val () = println! ("x4 = ", x4)
+val () = println! ("x4(4) = ", x4)
 val x5 = queue_deq (Q0)
-val () = println! ("x5 = ", x5)
+val () = println! ("x5(5) = ", x5)
 //
 val ((*freed*)) = queue_free_nil{int}(Q0)
 //
