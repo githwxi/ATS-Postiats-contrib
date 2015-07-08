@@ -21,7 +21,7 @@ scratch02_test2() -> client2().
 server() ->
   receive
     Client ->
-    Chpos = spawn(session, chpos_transfer, []),
+    Chpos = spawn(session, chpos_xfer, []),
     Chneg = spawn(?MODULE, server_session, [Chpos]),
     Client ! {server, {Chpos, Chneg}},
     server()

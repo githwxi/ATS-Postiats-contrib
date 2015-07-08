@@ -10,7 +10,7 @@
 myservice_primes() ->
   receive
     Client ->
-    Chpos = spawn(session, chpos_transfer, []),
+    Chpos = spawn(session, chpos_xfer, []),
     Chneg = spawn(?MODULE, myservice_primes_fserv, [Chpos]),
     Client ! {myservice_primes, {Chpos, Chneg}},
     myservice_primes()

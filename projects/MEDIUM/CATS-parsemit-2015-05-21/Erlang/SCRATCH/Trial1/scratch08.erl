@@ -74,7 +74,7 @@ scratch08_test2(N1, N2) ->
 %%%%%%
 
 succ_bits(Bitlst) ->
-  Chpos = spawn(session, chpos_transfer, []),
+  Chpos = spawn(session, chpos_xfer, []),
   Chneg = spawn(?MODULE, succ_bits_fserv, [Chpos, Bitlst]),
   {Chpos, Chneg}.
 
@@ -104,7 +104,7 @@ succ_bits_fserv(Chpos, Bitlst) ->
 
 add_bits_bits
   (Bits1, Bits2) ->
-  Chpos = spawn(session, chpos_transfer, []),
+  Chpos = spawn(session, chpos_xfer, []),
   Chneg = spawn(?MODULE, add_bits_bits_fserv, [Chpos, Bits1, Bits2]),
   {Chpos, Chneg}.
 
