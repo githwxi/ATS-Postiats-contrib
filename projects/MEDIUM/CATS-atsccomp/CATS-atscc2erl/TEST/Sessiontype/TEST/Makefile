@@ -55,6 +55,16 @@ cleanall:: ; $(RMF) queue_dats.erl
 
 ######
 
+all:: \
+queue2_dats.erl
+queue2_dats.erl: queue2.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+queue2_dats.beam:: queue2_dats.erl ; $(ERLC) $< 
+regress:: queue2_dats.beam; $(ERL) -run queue2_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) queue2_dats.erl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f

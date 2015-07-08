@@ -20,7 +20,7 @@ staload "./basis.sats"
 datatype
 sslist (a:vt@ype) =
 | sslist_nil of (nil)
-| sslist_cons of (chsnd(a) :: sslist(a))
+| sslist_cons of (chsnd(a)::sslist(a))
 *)
 //
 abstype sslist(a:vt@ype)
@@ -31,7 +31,7 @@ datatype
 channeg_list
   (a:vt@ype, type) =
 | channeg_list_nil(a, nil) of ()
-| channeg_list_cons(a, chsnd(a) :: sslist(a)) of ()
+| channeg_list_cons(a, chsnd(a)::sslist(a)) of ()
 //
 (* ****** ****** *)
 //

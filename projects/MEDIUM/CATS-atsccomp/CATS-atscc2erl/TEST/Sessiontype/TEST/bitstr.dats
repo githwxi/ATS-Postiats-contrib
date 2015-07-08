@@ -7,12 +7,12 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-
-#define
-ATS_EXTERN_PREFIX "bitstr_"
-#define
-ATS_STATIC_PREFIX "_bitstr_"
-
+//
+#define ATS_PACKNAME "bitstr"
+//
+#define ATS_EXTERN_PREFIX "bitstr_"
+#define ATS_STATIC_PREFIX "_bitstr_"
+//
 (* ****** ****** *)
 
 %{^
@@ -308,7 +308,7 @@ succ_int(x) =
 //
 extern
 fun
-add_int_int (intGte(0), intGte(0)): intGte(0)
+add_int_int(intGte(0), intGte(0)): intGte(0)
 //
 (* ****** ****** *)
 //
