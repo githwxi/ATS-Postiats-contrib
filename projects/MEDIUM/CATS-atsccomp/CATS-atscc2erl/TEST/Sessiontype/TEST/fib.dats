@@ -86,7 +86,7 @@ end // end of [channeg_fib]
 
 (* ****** ****** *)
 
-extern 
+extern
 fun
 main0_erl
 (

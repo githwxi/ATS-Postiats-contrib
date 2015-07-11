@@ -91,7 +91,7 @@ implement
 main0_erl () =
 {
 //
-val N = 10
+val N = 100
 //
 val chn = channeg_fact(N)
 val ans = channeg_send(chn)
