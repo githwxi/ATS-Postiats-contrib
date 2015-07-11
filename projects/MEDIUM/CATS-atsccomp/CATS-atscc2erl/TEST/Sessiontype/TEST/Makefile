@@ -26,6 +26,26 @@ cleanall::
 ######
 
 all:: \
+fib_dats.erl
+fib_dats.erl: fib.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+fib_dats.beam:: fib_dats.erl ; $(ERLC) $< 
+regress:: fib_dats.beam; $(ERL) -run fib_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) fib_dats.erl
+
+######
+
+all:: \
+fact_dats.erl
+fact_dats.erl: fact.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+fact_dats.beam:: fact_dats.erl ; $(ERLC) $< 
+regress:: fact_dats.beam; $(ERL) -run fact_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) fact_dats.erl
+
+######
+
+all:: \
 sieve_dats.erl
 sieve_dats.erl: sieve.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@

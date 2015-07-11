@@ -308,9 +308,6 @@ case+ opt of
     val () = chanpos_send{a}(chp, x)
   in
     chanposneg_link (chp, chn)
-(*
-    chanposneg_link_ssque (chp, chn)
-*)
   end // end of [chanpos_ssque_deq]
 | chanpos_ssque_enq() => let
     val y = chanpos_recv{a}(chp)
