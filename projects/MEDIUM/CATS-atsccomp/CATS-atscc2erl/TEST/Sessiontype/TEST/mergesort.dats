@@ -391,22 +391,44 @@ main0_erl () =
 #define :: list_cons
 #define cons list_cons
 //
+typedef T = int
+//
 val xs =
 (
   3::9::8::2::5
-::7::4::6::0::1::nil{int}()
+::7::4::6::0::1::nil{T}()
 )
 //
 val () =
 print! ("xs(bef) =\n")
-val () = print_list<int> (xs)
+val () = print_list<T> (xs)
 val () = print_newline()
 //
-val xs = mergesort<int> (xs)
+val xs = mergesort<T> (xs)
 //
 val () =
 print! ("xs(aft) =\n")
-val () = print_list<int> (xs)
+val () = print_list<T> (xs)
+val () = print_newline()
+//
+typedef T = double
+//
+val xs =
+(
+  3.0::9.0::8.0::2.0::5.0
+::7.0::4.0::6.0::0.0::1.0::nil{T}()
+)
+//
+val () =
+print! ("xs(bef) =\n")
+val () = print_list<T> (xs)
+val () = print_newline()
+//
+val xs = mergesort<T> (xs)
+//
+val () =
+print! ("xs(aft) =\n")
+val () = print_list<T> (xs)
 val () = print_newline()
 //
 } (* end of [main0] *)

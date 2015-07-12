@@ -99,7 +99,7 @@ val () = chanpos_list_cons (chp)
 val ((*void*)) = chanpos_send{bit}(chp, bit)
 //
 in
-  fserv (n2, chp)
+  fserv(n2, chp)
 end // end of [then]
 else let
 //
@@ -157,7 +157,7 @@ case+ opt of
       then let
         val () = chanpos_send (chp, B0)
       in
-        fserv (chp, chn)
+        fserv(chp, chn)
       end // end of [then]
       else let
         val () = chanpos_send (chp, B1)
@@ -169,7 +169,7 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  channeg_create{sslist(bit)}(llam(chp) => fserv (chp, chn))
+  channeg_create{sslist(bit)}(llam(chp) => fserv(chp, chn))
 end // end of [succ_bits]
   
 (* ****** ****** *)
@@ -225,12 +225,12 @@ case+ opt1 of
       in
         case+ b1_ of
         | 0 => (
-            chanpos_send (chp, b2); fserv (chp, chn1, chn2)
+            chanpos_send (chp, b2); fserv(chp, chn1, chn2)
           ) (* end of [0] *)
         | 1 => (
             case+ b2_ of
-            | 0 => (chanpos_send (chp, B1); fserv (chp, chn1, chn2))
-            | 1 => (chanpos_send (chp, B0); fserv (chp, chn1, succ_bits(chn2)))
+            | 0 => (chanpos_send (chp, B1); fserv(chp, chn1, chn2))
+            | 1 => (chanpos_send (chp, B0); fserv(chp, chn1, succ_bits(chn2)))
           ) (* end of [1] *)
       end // end of [channeg_list_cons]
   end // end of [channeg_list_cons]
@@ -238,7 +238,7 @@ case+ opt1 of
 end // end of [fserv]
 //
 in
-  channeg_create{sslist(bit)}(llam(chp) => fserv (chp, chn1, chn2))
+  channeg_create{sslist(bit)}(llam(chp) => fserv(chp, chn1, chn2))
 end // end of [add_bits_bits]
 
 (* ****** ****** *)
