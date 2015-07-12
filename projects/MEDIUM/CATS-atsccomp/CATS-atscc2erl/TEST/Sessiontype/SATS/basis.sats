@@ -80,4 +80,38 @@ channeg_create{ss:type}
 //
 (* ****** ****** *)
 
+symintr channel_send
+overload channel_send with chanpos_send
+overload channel_send with channeg_recv
+
+(* ****** ****** *)
+
+symintr channel_recv
+overload channel_recv with chanpos_recv
+overload channel_recv with channeg_send
+
+(* ****** ****** *)
+
+symintr channel_close
+overload channel_close with chanpos_nil_wait
+overload channel_close with channeg_nil_close
+
+(* ****** ****** *)
+//
+macdef
+channel_send_close
+  (chx, x0) = (
+//
+let val chx = ,(chx) in channel_send(chx, ,(x0)); channel_close(chx) end
+//
+) (* end of [channel_send_close] *)
+//
+(* ****** ****** *)
+//
+macdef
+channel_recv_close(chx) =
+let val chx = ,(chx); val x0 = channel_recv(chx) in channel_close(chx); x0 end
+//
+(* ****** ****** *)
+
 (* end of [basis.sats] *)

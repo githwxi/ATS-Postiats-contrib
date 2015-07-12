@@ -51,10 +51,11 @@ contrib/zlog/zlog-latest-stable/
 contrib/libatscc/libatscc2py/output/*_cats.py
 contrib/libatscc/libatscc2py/output/*_dats.py
 #
-contrib/libatscc/libatscc2pl/output/DATS/*_dats.pl
-#
 contrib/libatscc/libatscc2js/output/DATS/*_dats.js
 #
+contrib/libatscc/libatscc2erl/output/DATS/*_dats.hrl
+#
+contrib/libatscc/libatscc2pl/output/DATS/*_dats.pl
 contrib/libatscc/libatscc2php/output/DATS/*_dats.php
 #
 ######

@@ -112,7 +112,7 @@ fun gte_int0_int0: (int, int) -> bool = "mac#%"
 fun eq_int0_int0: (int, int) -> bool = "mac#%"
 fun neq_int0_int0: (int, int) -> bool = "mac#%"
 //
-fun compare_int0_int0: (int, int) -> int = "mac#"
+fun compare_int0_int0: (int, int) -> int = "mac#%"
 //
 fun lt_int1_int1
   : {i,j:int} (int(i), int(j)) -> bool(i < j) = "mac#%"
@@ -181,7 +181,7 @@ fun gte_uint0_uint0: (uint, uint) -> bool = "mac#%"
 fun eq_uint0_uint0: (uint, uint) -> bool = "mac#%"
 fun neq_uint0_uint0: (uint, uint) -> bool = "mac#%"
 //
-fun compare_uint0_uint0: (uint, uint) -> int = "mac#"
+fun compare_uint0_uint0: (uint, uint) -> int = "mac#%"
 //
 (* ****** ****** *)
 //

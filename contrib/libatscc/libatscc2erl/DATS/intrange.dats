@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2erlpre_"
 #define
-ATS_STATIC_PREFIX "_ats2erlpre_stream_"
+ATS_STATIC_PREFIX "_ats2erlpre_intrange_"
 //
 (* ****** ****** *)
 //
@@ -25,23 +25,21 @@ ATS_STATIC_PREFIX "_ats2erlpre_stream_"
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
-//
-(* ****** ****** *)
+  "./../basics_erl.sats"
 //
 staload
-"./../SATS/integer.sats"
+  "./../SATS/integer.sats"
 //
-staload "./../SATS/print.sats"
+staload "./../SATS/list.sats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/intrange.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/intrange.dats"
 //
 (* ****** ****** *)
 
-staload "./../SATS/stream.sats"
-
-(* ****** ****** *)
-//
-#include "{$LIBATSCC}/DATS/stream.dats"
-//
-(* ****** ****** *)
-
-(* end of [stream.dats] *)
+(* end of [intrange.dats] *)

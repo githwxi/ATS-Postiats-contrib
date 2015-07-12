@@ -32,7 +32,7 @@ $(CPF) ./CATS/filebas_cats.py ./output/ats2pypre_filebas_cats.py
 all:: ; \
 $(CPF) ./CATS/PYlist_cats.py ./output/ats2pypre_PYlist_cats.py
 
-#######
+######
 
 all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
@@ -43,6 +43,6 @@ $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2PY) -o ./output/ats2pypre_arrayref_
 all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/ats2pypre_reference_dats.py -i
 
-#######
+######
 
 ###### end of [Makefile] ######

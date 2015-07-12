@@ -66,15 +66,15 @@ all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2pl_all.pl
 all_in_one:: ; \
   $(ECHO) '\n## end of [libatscc2pl_all.pl] ##\n' | $(CAT) - >>libatscc2pl_all.pl
 #
-#######
+######
 
 clean:: ; $(RMF) *~ */*~
 
-#######
+######
 
 cleanall:: clean
 cleanall:: ; $(RMF) libatscc2pl_all.pl
 
-#######
+######
 
 ###### end of [Makefile] ######

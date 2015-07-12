@@ -94,4 +94,17 @@ HelloWorld3_rest =
 
 (* ****** ****** *)
 
+stadef Seller = 0
+stadef Buyer1 = 1
+stadef Buyer2 = 2
+
+(*
+trans(Buyer1, Seller, book(title))
+trans(Seller, Buyer1, book(price))
+trans(Buyer1, Buyer2, quote(contribution)
+mtrans(Buyer2, [Buyer1,Seller], mtagging(...))
+*)
+
+(* ****** ****** *)
+
 (* end of [multi-party.dats] *)

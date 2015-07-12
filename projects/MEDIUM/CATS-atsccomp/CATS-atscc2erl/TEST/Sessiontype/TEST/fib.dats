@@ -1,5 +1,5 @@
 (*
-** Erathosthene's sieve
+** Fibonacci numbers
 *)
 
 (* ****** ****** *)
@@ -53,16 +53,6 @@ channeg_fib
   (n:int): channeg(chsnd(int)::nil)
 //
 (* ****** ****** *)
-//
-macdef
-chanpos_send_close(chp, x) =
-  let val chp = ,(chp) in chanpos_send(chp, ,(x)); chanpos_nil_wait(chp) end
-//
-macdef
-channeg_send_close(chn) =
-  let val chn = ,(chn); val x = channeg_send(chn) in channeg_nil_close(chn); x end
-//
-(* ****** ****** *)
 
 implement
 channeg_fib(n) = let
@@ -70,13 +60,13 @@ channeg_fib(n) = let
 fun
 fserv
 (chp: chanpos(chsnd(int)::nil)): void =
-chanpos_send_close
+channel_send_close
 ( chp
 , if n >= 2 then let
     val chn1 = channeg_fib(n-1)
     val chn2 = channeg_fib(n-2)
   in
-    channeg_send_close(chn1) + channeg_send_close(chn2)
+    channel_recv_close(chn1) + channel_recv_close(chn2)
   end else (n) // end of [if]
 ) (* end of [chanpos_send_close] *)
 //

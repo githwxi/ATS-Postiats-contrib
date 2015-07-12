@@ -16,8 +16,8 @@ ATS_EXTERN_PREFIX "ats2erlpre_"
 #include
 "share/atspre_define.hats"
 //
-#include "{$LIBATSCC}/SATS/stream.sats"
+#include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)
 
-(* end of [stream.sats] *)
+(* end of [intrange.sats] *)

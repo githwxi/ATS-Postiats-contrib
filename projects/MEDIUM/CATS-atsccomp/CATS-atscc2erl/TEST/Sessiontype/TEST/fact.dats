@@ -1,5 +1,5 @@
 (*
-** Erathosthene's sieve
+** Factorials
 *)
 
 (* ****** ****** *)
@@ -53,16 +53,6 @@ channeg_fact
   (n:int): channeg(chsnd(int)::nil)
 //
 (* ****** ****** *)
-//
-macdef
-chanpos_send_close(chp, x) =
-  let val chp = ,(chp) in chanpos_send(chp, ,(x)); chanpos_nil_wait(chp) end
-//
-macdef
-channeg_send_close(chn) =
-  let val chn = ,(chn); val x = channeg_send(chn) in channeg_nil_close(chn); x end
-//
-(* ****** ****** *)
 
 implement
 channeg_fact(n) = let
@@ -71,7 +61,7 @@ fun
 fserv
 (chp: chanpos(chsnd(int)::nil)): void =
 (
-  chanpos_send_close(chp, if n > 0 then n * channeg_send_close(channeg_fact(n-1)) else 1)
+  channel_send_close(chp, if n > 0 then n * channel_recv_close(channeg_fact(n-1)) else 1)
 )
 //
 in
