@@ -22,6 +22,7 @@
 %%
 -export([main0_erl/0]).
 %%
+-compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
 %%
 -export([ats2erlpre_cloref1_app/2]).
