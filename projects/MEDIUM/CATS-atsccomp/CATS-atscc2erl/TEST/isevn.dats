@@ -30,6 +30,7 @@ staload
 -export([isodd/1]).
 -export([mytest/0]).
 %%
+-compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
@@ -38,7 +39,7 @@ staload
 
 (* ****** ****** *)
 //
-fun isevn_ (n: int): bool =
+fnx isevn_ (n: int): bool =
   if n > 0 then isodd_(n-1) else true
 and isodd_ (n: int): bool =
   if n > 0 then isevn_(n-1) else false

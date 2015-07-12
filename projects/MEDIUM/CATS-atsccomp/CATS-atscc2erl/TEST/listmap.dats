@@ -16,6 +16,7 @@
 %%
 -export([main0_erl/0]).
 %%
+-compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
@@ -33,6 +34,12 @@
 "{$LIBATSCC2ERL}/staloadall.hats"
 //
 (* ****** ****** *)
+//
+extern
+fun
+list_map
+  {a:t0p}{b:t0p}{n:int}
+  (xs: list(INV(a), n), f: cfun(a, b)): list (b, n)
 //
 implement
 list_map (xs, f) =

@@ -22,15 +22,15 @@
 %% ****** ****** %%
 
 -define(ATSCKpat_int(X, I), X =:= I).
--define(ATSCKpat_bool(X, I), X =:= I).
+-define(ATSCKpat_bool(X, B), X =:= B).
 
 %% ****** ****** %%
 
--define(ATSCKpat_con0(X, I), X =:= I).
+-define(ATSCKpat_con0(X, TAG), X =:= TAG).
 
 %% ****** ****** %%
 
--define(ATSCKptrisnil(X), X =:= atscc2erl_nil).
+-define(ATSCKptrisnull(X), X =:= atscc2erl_nil).
 -define(ATSCKptriscons(X), X =/= atscc2erl_nil).
 
 %% ****** ****** %%
@@ -55,8 +55,13 @@ atscc2erl_caseof_deadcode
 %%
 %% ****** ****** %%
 
--define(ATSINScaseof_fail(ERRMSG), exit({'atscc2err_caseof_fail', ERRMSG})).
+-define(ATSINScaseof_fail(ERRMSG), exit({'atscc2erl_caseof_fail', ERRMSG})).
 
+%% ****** ****** %%
+%%
+%%fun%%
+atspre_lazy2cloref(Arg) -> exit('atspre_lazy2cloref').
+%%
 %% ****** ****** %%
 
 ats2erlpre_cloref0_app(F) -> ?ATSfunclo_clo(F)(F).

@@ -101,4 +101,59 @@ end // end of [channeg_list]
 
 (* ****** ****** *)
 
-(* end of [sslist.dats] *)
+implement
+list2sslist{a}(xs) = let
+//
+fun
+fserv
+(
+  chp: chanpos(sslist(a)), xs: List(a)
+) : void =
+(
+case+ xs of
+| list_nil() => let
+    val () =
+    chanpos_list_nil(chp) in chanpos_nil_wait(chp)
+  end // end of [list_nil]
+| list_cons(x, xs) => let
+    val () =
+    chanpos_list_cons(chp)
+    val () = chanpos_send{a}(chp, x) in fserv(chp, xs)
+  end // end of [list_cons]
+)
+//
+in
+  channeg_create(llam(chp) => fserv(chp, xs))
+end // end of [list2sslist]
+
+(* ****** ****** *)
+
+implement
+sslist2list
+  {a}(chn) = let
+//
+fun
+loop
+(
+  chn: channeg(sslist(a)), xs: List0(a)
+) : List0(a) = let
+//
+val opt = channeg_list(chn)
+//
+in
+//
+case+ opt of
+| channeg_list_nil() => (channeg_nil_close(chn); xs)
+| channeg_list_cons() => let
+    val x = channeg_send(chn) in loop(chn, list_cons(x, xs))
+  end // end of [channeg_list_cons]
+//
+end // end of [loop]
+//
+in
+  list_reverse(loop(chn, list_nil(*void*)))
+end // end of [sslist2list]
+
+(* ****** ****** *)
+
+(* end of [list.dats] *)

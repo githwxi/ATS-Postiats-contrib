@@ -16,6 +16,7 @@
 %%
 -export([main0_erl/0]).
 %%
+-compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").

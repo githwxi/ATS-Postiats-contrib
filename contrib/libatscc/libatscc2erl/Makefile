@@ -26,7 +26,7 @@ $(PATSOPT2) \
 all:: ; \
 $(PATSOPT2) -d ./DATS/list.dats | $(ATSCC2ERL) -o ./output/DATS/list_dats.hrl -i
 all:: ; \
-$(PATSOPT2) -d ./DATS/list.dats | $(ATSCC2ERL) -o ./output/DATS/option_dats.hrl -i
+$(PATSOPT2) -d ./DATS/option.dats | $(ATSCC2ERL) -o ./output/DATS/option_dats.hrl -i
 all:: ; \
 $(PATSOPT2) -d ./DATS/intrange.dats | $(ATSCC2ERL) -o ./output/DATS/intrange_dats.hrl -i
 #
