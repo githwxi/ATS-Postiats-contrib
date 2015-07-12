@@ -1,8 +1,12 @@
 (* ****** ****** *)
 //
 // HX-2015-07-11:
-// let the multi-party start!
+// let the multi-party begin!
 //
+(* ****** ****** *)
+
+staload "libats/SATS/ilist_prf.sats"
+
 (* ****** ****** *)
 
 (*
@@ -15,7 +19,12 @@ Bob -> Alice: {
 
 (* ****** ****** *)
 
-datasort party = // abstract
+sortdef party = int
+
+(* ****** ****** *)
+
+abstype
+tagging(party, party, type)
 
 (* ****** ****** *)
 //
@@ -30,19 +39,59 @@ trans_end(p1: party, p2: party) // p1->p2
 abstype Time
 
 (* ****** ****** *)
+
+stadef A = 0
+stadef B = 1
+stadef C = 2
+
+(* ****** ****** *)
 //
 datatype
-HelloWorld
-(Bob:party, Alice:party) =
-| HelloWorld(Bob, Alice) of
-    (trans(Bob, Alice, String), HelloWorld2(Bob, Alice))
+HelloWorld2 =
+| HelloWorld2 of
+  ( trans(B, A, String)
+  , tagging(B, A, HelloWorld2_rest)
+  )
 //
 and
-HelloWorld2
-(Bob:party, Alice:party) =
-  | HelloWorld2_Time of (trans(Alice, Bob, Time), trans_end(Alice, Bob))
-  | HelloWorld2_Greet of (trans(Alice, Bob, String), trans_end(Alice, Bob))
+HelloWorld2_rest =
+| HelloWorld2_rest_Time of
+    (trans(A, B, Time), trans_end(A, B))
+| HelloWorld2_rest_Greet of
+    (trans(A, B, String), trans_end(A, B))
 //
+(* ****** ****** *)
+
+sortdef parties = ilist
+
+abstype
+mtrans(party, parties, a:vt@ype)
+abstype
+mtrans_end(p: party, ps: parties)
+
+(* ****** ****** *)
+
+abstype mtagging(party, parties, type)
+
+(* ****** ****** *)
+
+stadef AC = ilist_cons(A, ilist_cons(C, ilist_nil))
+
+(* ****** ****** *)
+
+datatype
+HelloWorld3 =
+| HelloWorld3 of
+  ( trans(B, A, String)
+  , trans(B, C, String)
+  , mtagging(B, AC, HelloWorld3_rest)
+  )
+
+and
+HelloWorld3_rest =
+  | HelloWorld3_rest_A of (trans(A, B, Time), trans_end(A, B))
+  | HelloWorld3_rest_C of (trans(C, B, Time), trans_end(C, B))
+
 (* ****** ****** *)
 
 (* end of [multi-party.dats] *)
