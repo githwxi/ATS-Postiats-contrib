@@ -58,6 +58,13 @@ atscc2erl_caseof_deadcode
 -define(ATSINScaseof_fail(ERRMSG), exit({'atscc2erl_caseof_fail', ERRMSG})).
 
 %% ****** ****** %%
+
+%%fun%%
+ats2erlpre_string2atom(S) -> list_to_atom(S).
+%%fun%%
+ats2erlpre_atom2string(S) -> atom_to_list(S).
+
+%% ****** ****** %%
 %%
 %%fun%%
 atspre_lazy2cloref(Arg) -> exit('atspre_lazy2cloref').

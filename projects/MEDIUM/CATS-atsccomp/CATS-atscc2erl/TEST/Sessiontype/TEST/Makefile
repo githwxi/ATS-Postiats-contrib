@@ -30,7 +30,8 @@ fib_dats.erl
 fib_dats.erl: fib.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 fib_dats.beam:: fib_dats.erl ; $(ERLC) $< 
-regress:: fib_dats.beam; $(ERL) +P 1000000 -run fib_dats main0_erl -run init stop -noshell
+regress:: fib_dats.beam; \
+$(ERL) +P 1000000 -run fib_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) fib_dats.erl
 
 ######

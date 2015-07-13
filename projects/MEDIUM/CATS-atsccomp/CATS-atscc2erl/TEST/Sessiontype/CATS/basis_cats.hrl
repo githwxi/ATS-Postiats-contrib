@@ -110,20 +110,84 @@ libats2erl_session_channeg_create
   {Chpos, Chneg}.
 %%
 %%%%%%
-
+%%
+%% HX-2015-07-04:
+%% This is all for internal use!
+%%
 libats2erl_session_chanpos2_send
   (Chpos, X) ->
   libats2erl_session_chanpos_send(Chpos, X).
 libats2erl_session_channeg2_recv
   (Chposneg, X) ->
   libats2erl_session_channeg_recv(Chposneg, X).
-
-%%%%%%
-
+%%
 libats2erl_session_chanpos2_recv
   (Chpos) -> libats2erl_session_chanpos_recv(Chpos).
 libats2erl_session_channeg2_send
   (Chposneg) -> libats2erl_session_channeg_send(Chposneg).
+%%
+%%%%%%
+%%
+%% Service creation and request
+%%
+%%%%%%
+%%
+libats2erl_session_chansrv_create
+  (Fserv) ->
+  spawn(
+    ?MODULE, libats2erl_session_chansrv_create_loop, [Fserv]
+  ). %% spawn
+libats2erl_session_chansrv_create_loop
+  (Fserv) ->
+  receive
+    {Client} ->
+      Chposneg = libats2erl_session_channeg_create(Fserv),
+      Client ! Chposneg,
+      libats2erl_session_chansrv_create_loop(Fserv)
+  end.
+%%
+libats2erl_session_chansrv_request
+  (Chsrv) ->
+  Chsrv ! {self()},
+  receive Chposneg = {_Chpos, _Chneg} -> Chposneg end.
+%%
+%% HX: For convenience: chansrv2
+%%
+libats2erl_session_channeg_create2
+  (Fserv, Env) ->
+  Chpos = spawn(?MODULE, libats2erl_session_chanpos_xfer, []),
+  Chneg = spawn(?MODULE, ats2erlpre_cloref2_app, [Fserv, Env, Chpos]),
+%%
+%%io:format("libats2erl_session_channeg_create2: Chpos = ~p~n", [Chpos]),
+%%io:format("libats2erl_session_channeg_create2: Chneg = ~p~n", [Chneg]),
+%%
+  {Chpos, Chneg}.
+%%
+libats2erl_session_chansrv2_create
+  (Fserv) ->
+  spawn(
+    ?MODULE, libats2erl_session_chansrv2_create_loop, [Fserv]
+  ). %% spawn
+libats2erl_session_chansrv2_create_loop
+  (Fserv) ->
+  receive
+    {Client, Env} ->
+      Chposneg = libats2erl_session_channeg_create2(Fserv, Env),
+      Client ! Chposneg,
+      libats2erl_session_chansrv2_create_loop(Fserv)
+  end.
+%%
+libats2erl_session_chansrv2_request
+  (Env, Chsrv) ->
+  Chsrv ! {self(), Env},
+  receive Chposneg = {_Chpos, _Chneg} -> Chposneg end.
+%%
+%%%%%%
+
+libats2erl_session_chansrv_register
+  (Name, Chsrv) -> register(Name, Chsrv).
+libats2erl_session_chansrv2_register
+  (Name, Chsrv) -> register(Name, Chsrv).
 
 %%%%%%
 

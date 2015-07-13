@@ -20,6 +20,29 @@ ATS_EXTERN_PREFIX "ats2erlpre_"
 //
 (* ****** ****** *)
 //
+abstype pid_type
+typedef pid = pid_type
+//
+abstype atom_type
+typedef atom = atom_type
+//
+(* ****** ****** *)
+//
+fun
+string2atom(string): atom = "mac#%"
+fun
+atom2string(x: atom): string = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+whereis(name: atom): Option(pid) = "mac#%"
+//
+fun
+register(name: atom, pid: pid): void = "mac#%"
+//
+(* ****** ****** *)
+//
 fun
 cloref0_app{b:t0p}(cfun0(b)): b = "mac#%"
 //

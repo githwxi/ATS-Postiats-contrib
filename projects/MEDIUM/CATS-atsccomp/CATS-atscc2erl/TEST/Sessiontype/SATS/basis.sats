@@ -13,13 +13,21 @@ ATS_EXTERN_PREFIX "libats2erl_session_"
 //
 (* ****** ****** *)
 //
-abstype chsnd (a:vt@ype)
-abstype chrcv (a:vt@ype)
+#include
+"share/atspre_define.hats"
+//
+staload
+"{$LIBATSCC2ERL}/basics_erl.sats"
+//
+(* ****** ****** *)
+//
+abstype chsnd(a:vt@ype)
+abstype chrcv(a:vt@ype)
 //
 (* ****** ****** *)
 
 abstype chnil
-abstype chcons (a:type, ss:type)
+abstype chcons(a:type, ss:type)
 
 (* ****** ****** *)
 //
@@ -30,8 +38,8 @@ stadef cons = chcons
 //
 (* ****** ****** *)
 
-absvtype chanpos (type) = ptr
-absvtype channeg (type) = ptr
+absvtype chanpos(type) = ptr
+absvtype channeg(type) = ptr
 
 (* ****** ****** *)
 //
@@ -111,6 +119,49 @@ let val chx = ,(chx) in channel_send(chx, ,(x0)); channel_close(chx) end
 macdef
 channel_recv_close(chx) =
 let val chx = ,(chx); val x0 = channel_recv(chx) in channel_close(chx); x0 end
+//
+(* ****** ****** *)
+
+abstype chansrv(ss:type) = ptr
+abstype chansrv2(env:vt@ype, ss:type) = ptr
+
+(* ****** ****** *)
+//
+fun
+chansrv_create{ss:type}
+(
+  fserv: chanpos(ss) -<cloref1> void
+) : chansrv(ss) = "mac#%" // end-of-fun
+//
+fun
+chansrv_request
+  {ss:type}
+  (chsrv: chansrv(ss)): channeg(ss) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+chansrv2_create
+  {env:vt0p}{ss:type}
+(
+  fserv: (env, chanpos(ss)) -<cloref1> void
+) : chansrv2(env, ss) = "mac#%" // end-of-fun
+//
+fun
+chansrv2_request
+  {env:vt0p}{ss:type}
+  (env, chansrv2(env, ss)): channeg(ss) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+chansrv_register
+  {ss:type}
+  (name: atom, chsrv: chansrv(ss)): void = "mac#%"
+fun
+chansrv2_register
+  {env:vt0p}{ss:type}
+  (name: atom, chsrv: chansrv2(env, ss)): void = "mac#%"
 //
 (* ****** ****** *)
 

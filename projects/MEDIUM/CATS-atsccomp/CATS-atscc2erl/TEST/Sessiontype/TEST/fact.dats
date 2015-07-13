@@ -25,9 +25,12 @@ ATS_STATIC_PREFIX "_fact_"
 -compile(nowarn_unused_function).
 %%
 -export([ats2erlpre_cloref1_app/2]).
+-export([ats2erlpre_cloref2_app/3]).
 -export([libats2erl_session_chanpos_xfer/0]).
 -export([libats2erl_session_chanposneg_link_pn/2]).
 -export([libats2erl_session_chanposneg_link_np/3]).
+-export([libats2erl_session_chansrv_create_loop/1]).
+-export([libats2erl_session_chansrv2_create_loop/1]).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
 -include("./libatscc2erl/Sessiontype_mylibats2erl_all.hrl").
@@ -43,6 +46,12 @@ ATS_STATIC_PREFIX "_fact_"
 "{$LIBATSCC2ERL}/staloadall.hats"
 //
 (* ****** ****** *)
+
+staload
+UN =
+"prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
 //
 staload "./../SATS/basis.sats"
 //
@@ -51,7 +60,9 @@ staload "./../SATS/basis.sats"
 extern
 fun
 channeg_fact
-  (n:int): channeg(chsnd(int)::nil)
+(
+  n:int
+) : channeg(chsnd(int)::nil)
 //
 (* ****** ****** *)
 
@@ -60,15 +71,50 @@ channeg_fact(n) = let
 //
 fun
 fserv
-(chp: chanpos(chsnd(int)::nil)): void =
 (
-  channel_send_close(chp, if n > 0 then n * channel_recv_close(channeg_fact(n-1)) else 1)
-)
+  chp: chanpos(chsnd(int)::nil)
+) : void =
+channel_send_close
+( chp
+, if n > 0
+    then n * channel_recv_close(channeg_fact(n-1))
+    else 1
+  // end-of-if
+) (* channel_send_close *)
 //
 in
   channeg_create(llam(chp) => fserv(chp))
 end // end of [channeg_fact]
 
+(* ****** ****** *)
+//
+typedef
+chansrv2_fact =
+chansrv2(int, chsnd(int)::nil)
+//
+extern
+fun
+chansrv2_fact(): chansrv2_fact
+//
+(* ****** ****** *)
+//
+implement
+chansrv2_fact() =
+chansrv2_create
+  (lam(n, chp) => chanposneg_link(chp, channeg_fact(n)))
+//
+(* ****** ****** *)
+
+macdef
+FACT_SERVICE = $extval(atom, "'FACT_SERVICE'")
+
+(* ****** ****** *)
+//
+fun
+fact(n: int): int = 
+channel_recv_close
+  (chansrv2_request(n, $UN.cast{chansrv2_fact}(FACT_SERVICE)))
+//
 (* ****** ****** *)
 
 extern 
@@ -82,13 +128,13 @@ implement
 main0_erl () =
 {
 //
-val N = 100
+val () =
+chansrv2_register(FACT_SERVICE, chansrv2_fact())
 //
-val chn = channeg_fact(N)
-val ans = channeg_send(chn)
-val ((*void*)) = channeg_nil_close(chn)
-//
-val ((*void*)) = println! ("channeg_fact(", N, ") = ", ans)
+val N = 10
+val ((*void*)) = println! ("fact(", N, ") = ", fact(N))
+val N = 12
+val ((*void*)) = println! ("fact(", N, ") = ", fact(N))
 //
 } (* end of [main0_erl] *)
 
