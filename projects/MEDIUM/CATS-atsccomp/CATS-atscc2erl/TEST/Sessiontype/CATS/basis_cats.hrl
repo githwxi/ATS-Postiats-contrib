@@ -132,26 +132,26 @@ libats2erl_session_channeg2_send
 %%
 %%%%%%
 %%
-libats2erl_session_chansrv_create
+libats2erl_session_chansrvc_create
   (Fserv) ->
   spawn(
-    ?MODULE, libats2erl_session_chansrv_create_loop, [Fserv]
+    ?MODULE, libats2erl_session_chansrvc_create_loop, [Fserv]
   ). %% spawn
-libats2erl_session_chansrv_create_loop
+libats2erl_session_chansrvc_create_loop
   (Fserv) ->
   receive
     {Client} ->
       Chposneg = libats2erl_session_channeg_create(Fserv),
       Client ! Chposneg,
-      libats2erl_session_chansrv_create_loop(Fserv)
+      libats2erl_session_chansrvc_create_loop(Fserv)
   end.
 %%
-libats2erl_session_chansrv_request
-  (Chsrv) ->
-  Chsrv ! {self()},
+libats2erl_session_chansrvc_request
+  (Chsrvc) ->
+  Chsrvc ! {self()},
   receive Chposneg = {_Chpos, _Chneg} -> Chposneg end.
 %%
-%% HX: For convenience: chansrv2
+%% HX: For convenience: chansrvc2
 %%
 libats2erl_session_channeg_create2
   (Fserv, Env) ->
@@ -163,32 +163,30 @@ libats2erl_session_channeg_create2
 %%
   {Chpos, Chneg}.
 %%
-libats2erl_session_chansrv2_create
+libats2erl_session_chansrvc2_create
   (Fserv) ->
   spawn(
-    ?MODULE, libats2erl_session_chansrv2_create_loop, [Fserv]
+    ?MODULE, libats2erl_session_chansrvc2_create_loop, [Fserv]
   ). %% spawn
-libats2erl_session_chansrv2_create_loop
+libats2erl_session_chansrvc2_create_loop
   (Fserv) ->
   receive
     {Client, Env} ->
       Chposneg = libats2erl_session_channeg_create2(Fserv, Env),
       Client ! Chposneg,
-      libats2erl_session_chansrv2_create_loop(Fserv)
+      libats2erl_session_chansrvc2_create_loop(Fserv)
   end.
 %%
-libats2erl_session_chansrv2_request
-  (Env, Chsrv) ->
-  Chsrv ! {self(), Env},
+libats2erl_session_chansrvc2_request
+  (Env, Chsrvc) ->
+  Chsrvc ! {self(), Env},
   receive Chposneg = {_Chpos, _Chneg} -> Chposneg end.
 %%
-%%%%%%
-
-libats2erl_session_chansrv_register
-  (Name, Chsrv) -> register(Name, Chsrv).
-libats2erl_session_chansrv2_register
-  (Name, Chsrv) -> register(Name, Chsrv).
-
+%% HX: For registering (persistent) services
+%%
+libats2erl_session_chansrvc_register(Name, Ch) -> register(Name, Ch).
+libats2erl_session_chansrvc2_register(Name, Ch) -> register(Name, Ch).
+%%
 %%%%%%
 
 %%%%%% end of [basis_cats.hrl] %%%%%%

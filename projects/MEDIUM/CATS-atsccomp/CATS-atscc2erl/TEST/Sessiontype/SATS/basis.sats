@@ -121,47 +121,52 @@ channel_recv_close(chx) =
 let val chx = ,(chx); val x0 = channel_recv(chx) in channel_close(chx); x0 end
 //
 (* ****** ****** *)
-
-abstype chansrv(ss:type) = ptr
-abstype chansrv2(env:vt@ype, ss:type) = ptr
-
+//
+abstype
+chansrvc(ss:type) = ptr
+abstype
+chansrvc2(env:vt@ype, ss:type) = ptr
+//
+stadef service = chansrvc
+stadef service = chansrvc2
+//
 (* ****** ****** *)
 //
 fun
-chansrv_create{ss:type}
+chansrvc_create{ss:type}
 (
   fserv: chanpos(ss) -<cloref1> void
-) : chansrv(ss) = "mac#%" // end-of-fun
+) : chansrvc(ss) = "mac#%" // end-of-fun
 //
 fun
-chansrv_request
+chansrvc_request
   {ss:type}
-  (chsrv: chansrv(ss)): channeg(ss) = "mac#%"
+  (chsrv: chansrvc(ss)): channeg(ss) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-chansrv2_create
+chansrvc2_create
   {env:vt0p}{ss:type}
 (
   fserv: (env, chanpos(ss)) -<cloref1> void
-) : chansrv2(env, ss) = "mac#%" // end-of-fun
+) : chansrvc2(env, ss) = "mac#%" // end-of-fun
 //
 fun
-chansrv2_request
+chansrvc2_request
   {env:vt0p}{ss:type}
-  (env, chansrv2(env, ss)): channeg(ss) = "mac#%"
+  (env, chansrvc2(env, ss)): channeg(ss) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-chansrv_register
+chansrvc_register
   {ss:type}
-  (name: atom, chsrv: chansrv(ss)): void = "mac#%"
+  (name: atom, chsrv: chansrvc(ss)): void = "mac#%"
 fun
-chansrv2_register
+chansrvc2_register
   {env:vt0p}{ss:type}
-  (name: atom, chsrv: chansrv2(env, ss)): void = "mac#%"
+  (name: atom, chsrv: chansrvc2(env, ss)): void = "mac#%"
 //
 (* ****** ****** *)
 

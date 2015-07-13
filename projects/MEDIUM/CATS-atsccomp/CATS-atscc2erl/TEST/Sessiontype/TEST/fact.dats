@@ -29,8 +29,8 @@ ATS_STATIC_PREFIX "_fact_"
 -export([libats2erl_session_chanpos_xfer/0]).
 -export([libats2erl_session_chanposneg_link_pn/2]).
 -export([libats2erl_session_chanposneg_link_np/3]).
--export([libats2erl_session_chansrv_create_loop/1]).
--export([libats2erl_session_chansrv2_create_loop/1]).
+-export([libats2erl_session_chansrvc_create_loop/1]).
+-export([libats2erl_session_chansrvc2_create_loop/1]).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
 -include("./libatscc2erl/Sessiontype_mylibats2erl_all.hrl").
@@ -46,14 +46,12 @@ ATS_STATIC_PREFIX "_fact_"
 "{$LIBATSCC2ERL}/staloadall.hats"
 //
 (* ****** ****** *)
-
-staload
-UN =
-"prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
 //
 staload "./../SATS/basis.sats"
+//
+(* ****** ****** *)
+//
+staload UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
@@ -89,19 +87,12 @@ end // end of [channeg_fact]
 (* ****** ****** *)
 //
 typedef
-chansrv2_fact =
-chansrv2(int, chsnd(int)::nil)
+service_fact =
+service(int, chsnd(int)::nil)
 //
 extern
 fun
-chansrv2_fact(): chansrv2_fact
-//
-(* ****** ****** *)
-//
-implement
-chansrv2_fact() =
-chansrv2_create
-  (lam(n, chp) => chanposneg_link(chp, channeg_fact(n)))
+service_fact(): service_fact
 //
 (* ****** ****** *)
 
@@ -110,10 +101,19 @@ FACT_SERVICE = $extval(atom, "'FACT_SERVICE'")
 
 (* ****** ****** *)
 //
+implement
+service_fact() =
+chansrvc2_create
+  (lam(n, chp) => chanposneg_link(chp, channeg_fact(n)))
+//
+(* ****** ****** *)
+//
 fun
 fact(n: int): int = 
 channel_recv_close
-  (chansrv2_request(n, $UN.cast{chansrv2_fact}(FACT_SERVICE)))
+(
+  chansrvc2_request(n, $UN.cast{service_fact}(FACT_SERVICE))
+)
 //
 (* ****** ****** *)
 
@@ -129,7 +129,7 @@ main0_erl () =
 {
 //
 val () =
-chansrv2_register(FACT_SERVICE, chansrv2_fact())
+chansrvc2_register(FACT_SERVICE, service_fact())
 //
 val N = 10
 val ((*void*)) = println! ("fact(", N, ") = ", fact(N))
