@@ -286,7 +286,7 @@ case+ opt of
     val
     x_fst = chanpos_recv{a}(chp)
   in
-    fserv2 (x_fst, queue_nil(), chp)
+    fserv2(x_fst, queue_nil(), chp)
   end // end of [chanpos_ssque_enq]
 //
 end // end of [fserv]
@@ -321,7 +321,7 @@ case+ opt of
 end // end of [fserv2]
 //
 in
-  channeg_create(llam (chp) => fserv (chp))
+  channeg_create(llam(chp) => fserv(chp))
 end // end of [queue_nil]
 
 (* ****** ****** *)

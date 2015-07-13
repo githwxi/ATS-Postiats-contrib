@@ -7,7 +7,10 @@
 
 PATSOPT=$(PATSHOME)/bin/patsopt
 PATSOPT2=$(PATSOPT) --tlcalopt-disable
-ATSCC2ERL=$(PATSHOME)/bin/atscc2erl
+
+######
+
+ATSCC2ERL=./../../atscc2erl
 
 ######
 

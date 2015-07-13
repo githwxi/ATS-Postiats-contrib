@@ -695,7 +695,7 @@ ins0.instr_node of
       val () = emit_text (out, " = ")
     } (* end of [val] *)
 //
-    val () = emit_text (out, "atscc2erl_nil")
+    val () = emit_text (out, "atscc2erl_null")
 //
   }
 //

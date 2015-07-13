@@ -30,8 +30,8 @@
 
 %% ****** ****** %%
 
--define(ATSCKptrisnull(X), X =:= atscc2erl_nil).
--define(ATSCKptriscons(X), X =/= atscc2erl_nil).
+-define(ATSCKptrisnull(X), X =:= atscc2erl_null).
+-define(ATSCKptriscons(X), X =/= atscc2erl_null).
 
 %% ****** ****** %%
 
