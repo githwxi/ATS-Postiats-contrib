@@ -66,6 +66,16 @@ cleanall:: ; $(RMF) fact3_dats.erl
 ######
 
 all:: \
+fact4_dats.erl
+fact4_dats.erl: fact4.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+fact4_dats.beam:: fact4_dats.erl ; $(ERLC) $< 
+regress:: fact4_dats.beam; $(ERL) -run fact4_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) fact4_dats.erl
+
+######
+
+all:: \
 acker_dats.erl
 acker_dats.erl: acker.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
