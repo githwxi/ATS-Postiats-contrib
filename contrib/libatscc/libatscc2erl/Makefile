@@ -51,6 +51,7 @@ CATS/integer_cats.hrl \
 CATS/bool_cats.hrl \
 CATS/float_cats.hrl \
 CATS/print_cats.hrl \
+CATS/reference_cats.hrl \
 
 all_in_one:: ; \
 $(CAT) >>libatscc2erl_all.hrl \

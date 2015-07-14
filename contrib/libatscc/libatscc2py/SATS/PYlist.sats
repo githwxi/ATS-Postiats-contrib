@@ -21,15 +21,15 @@ staload "./../basics_py.sats"
 //
 fun
 PYlist_nil
-  {a:t0p} (): PYlist(a) = "mac#"
+  {a:vt0p} (): PYlist(a) = "mac#"
 //
 fun
 PYlist_sing
-  {a:t0p} (x: a): PYlist(a) = "mac#"
+  {a:vt0p} (x: a): PYlist(a) = "mac#"
 //
 fun
 PYlist_pair
-  {a:t0p} (x1: a, x2: a): PYlist(a) = "mac#"
+  {a:vt0p} (x1: a, x2: a): PYlist(a) = "mac#"
 //
 (* ****** ****** *)
 //
@@ -41,54 +41,58 @@ PYlist_make_elt
 //
 fun
 PYlist_is_nil
-  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+  {a:vt0p} (xs: PYlist(a)): bool = "mac#"
 //
 fun
 PYlist_is_cons
-  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+  {a:vt0p} (xs: PYlist(a)): bool = "mac#"
 //
 fun
 PYlist_isnot_nil
-  {a:t0p} (xs: PYlist(a)): bool = "mac#"
+  {a:vt0p} (xs: PYlist(a)): bool = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-PYlist_length{a:t0p}(PYlist(a)): int = "mac#"
+PYlist_length{a:vt0p}(PYlist(a)): int = "mac#"
 //
 (* ****** ****** *)
 //
 fun
 PYlist_get_at
   {a:t0p}(xs: PYlist(a), i: int): a = "mac#"
-//
 fun
 PYlist_set_at
-  {a:t0p}(xs: PYlist(a), i: int, x: a): void = "mac#"
+  {a:t0p}(xs: PYlist(a), i: int, x0: a): void = "mac#"
+//
+fun
+PYlist_exch_at
+  {a:vt0p}(xs: PYlist(a), i: int, x0: a): (a) = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-PYlist_copy{a:t0p}(PYlist(a)): PYlist(a) = "mac#"
+PYlist_copy
+  {a:t0p}(PYlist(a)): PYlist(a) = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-PYlist_append{a:t0p}
-  (xs1: PYlist(a), x2: a): void = "mac#"
+PYlist_append
+  {a:vt0p}(xs1: PYlist(a), x2: a): void = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-PYlist_extend{a:t0p}
-  (xs1: PYlist(a), xs2: PYlist(a)): void = "mac#"
+PYlist_extend
+  {a:t0p}(xs1: PYlist(a), xs2: PYlist(a)): void = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-PYlist_pop_0{a:t0p} (xs: PYlist(a)): (a) = "mac#"
+PYlist_pop_0{a:vt0p} (xs: PYlist(a)): (a) = "mac#"
 fun
-PYlist_pop_1{a:t0p} (xs: PYlist(a), i: intGte(0)): (a) = "mac#"
+PYlist_pop_1{a:vt0p} (xs: PYlist(a), i: intGte(0)): (a) = "mac#"
 //
 symintr PYlist_pop
 overload PYlist_pop with PYlist_pop_0
@@ -97,13 +101,13 @@ overload PYlist_pop with PYlist_pop_1
 (* ****** ****** *)
 //
 fun
-PYlist_insert{a:t0p}
+PYlist_insert{a:vt0p}
   (xs: PYlist(a), i: intGte(0), x: a): void = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-PYlist_reverse{a:t0p} (xs: PYlist(a)): void = "mac#"
+PYlist_reverse{a:vt0p} (xs: PYlist(a)): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -135,9 +139,9 @@ PYlist_reduce
 (* ****** ****** *)
 //
 fun
-PYlist2list{a:t0p} (xs: PYlist (a)): List0 (a) = "mac#"
+PYlist2list{a:t0p} (xs: PYlist (a)): List0_vt(a) = "mac#"
 fun
-PYlist2list_rev{a:t0p} (xs: PYlist (a)): List0 (a) = "mac#"
+PYlist2list_rev{a:t0p} (xs: PYlist (a)): List0_vt(a) = "mac#"
 //
 (* ****** ****** *)
 

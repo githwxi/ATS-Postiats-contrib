@@ -24,7 +24,7 @@ abstype PLfilr
 
 (* ****** ****** *)
 
-abstype PLarray(a:t@ype)
+abstype PLarray(a:vt@ype)
 
 (* ****** ****** *)
 //

@@ -19,7 +19,7 @@ ATS_STATIC_PREFIX "test01__"
 (* ****** ****** *)
 
 val () = repeat(3, $delay(println!("Hello, world!")))
-val () = foreach(3, lam(i) =<cloref1> println!(i, ": Hello, world!"))
+val () = (3).foreach()(lam(i) =<cloref1> println!(i, ": Hello, world!"))
 
 (* ****** ****** *)
 

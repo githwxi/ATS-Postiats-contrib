@@ -11,6 +11,12 @@
 %%
 %%%%%%
 %%
+%% HX-2015-07:
+%% A serious limitation with this implementation:
+%% it is unable to support chanposneg_link efficiently
+%%
+%%%%%%
+%%
 %% A positive channel is a pid: Chpos
 %% A negative channel is a pair of pids: {Chpos, Chneg}
 %%

@@ -53,7 +53,7 @@ abstype JSobj // generic
 //
 abstype JSdate // new Date()
 //
-abstype JSarray(a:t@ype)
+abstype JSarray(a:vt@ype)
 //
 abstype JSregexp // new RegExp()
 //

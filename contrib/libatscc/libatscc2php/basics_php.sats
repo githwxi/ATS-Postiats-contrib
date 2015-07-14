@@ -52,10 +52,10 @@ overload isneqz with PHPfilp_isnot_null
 //
 (* ****** ****** *)
 //
-abstype PHPref(a:t@ype) // reference
+abstype PHPref(a:vt@ype) // reference
 //
-abstype PHParray(a:t@ype) // risk on your own!!!
-abstype PHParref(a:t@ype) // reference to PHParray
+abstype PHParray(a:vt@ype) // risk on your own!!!
+abstype PHParref(a:vt@ype) // reference to PHParray
 //
 (* ****** ****** *)
 //

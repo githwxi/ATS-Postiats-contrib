@@ -97,7 +97,7 @@ service_fact(): service_fact
 (* ****** ****** *)
 
 macdef
-FACT_SERVICE = $extval(atom, "'FACT_SERVICE'")
+SERVICE_FACT = $extval(atom, "'SERVICE_FACT'")
 
 (* ****** ****** *)
 //
@@ -112,7 +112,7 @@ fun
 fact(n: int): int = 
 channel_recv_close
 (
-  chansrvc2_request(n, $UN.cast{service_fact}(FACT_SERVICE))
+  chansrvc2_request(n, $UN.cast{service_fact}(SERVICE_FACT))
 )
 //
 (* ****** ****** *)
@@ -129,7 +129,7 @@ main0_erl () =
 {
 //
 val () =
-chansrvc2_register(FACT_SERVICE, service_fact())
+chansrvc2_register(SERVICE_FACT, service_fact())
 //
 val N = 10
 val ((*void*)) = println! ("fact(", N, ") = ", fact(N))

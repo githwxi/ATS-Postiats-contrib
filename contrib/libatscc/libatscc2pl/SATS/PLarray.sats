@@ -18,11 +18,11 @@ staload "./../basics_pl.sats"
 (* ****** ****** *)
 //
 fun
-PLarray_nil{a:t0p}(): PLarray(a) = "mac#%"
+PLarray_nil{a:vt0p}(): PLarray(a) = "mac#%"
 fun
-PLarray_sing{a:t0p}(a): PLarray(a) = "mac#%"
+PLarray_sing{a:vt0p}(a): PLarray(a) = "mac#%"
 fun
-PLarray_pair{a:t0p}(a, a): PLarray(a) = "mac#%"
+PLarray_pair{a:vt0p}(a, a): PLarray(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -33,19 +33,25 @@ fun
 PLarray_set_at
   {a:t@ype}(PLarray(a), int, a): void = "mac#%"
 //
+fun
+PLarray_exch_at
+  {a:vt@ype}(PLarray(a), int, x0: a): (a) = "mac#%"
+//
 (* ****** ****** *)
 //
 fun
-PLarray_length{a:t@ype}(PLarray(a)): int = "mac#%"
+PLarray_length{a:vt0p}(PLarray(a)): int = "mac#%"
 //
 (* ****** ****** *)
 //
 symintr PLarray_pop_0
 //
 fun
-PLarray_pop_0{a:t@ype}(A: PLarray(a)): a = "mac#%"
+PLarray_pop_0
+  {a:vt0p}(A: PLarray(a)): a = "mac#%"
 fun
-PLarray_pop_1{a:t@ype}(A: PLarray(a), i: int): a = "mac#%"
+PLarray_pop_1
+  {a:vt0p}(A: PLarray(a), i: int): a = "mac#%"
 //
 overload PLarray_pop with PLarray_pop_0
 overload PLarray_pop with PLarray_pop_1
@@ -53,36 +59,36 @@ overload PLarray_pop with PLarray_pop_1
 (* ****** ****** *)
 //
 fun
-PLarray_push{a:t@ype}(A: PLarray(a), x: a): int = "mac#%"
+PLarray_push
+  {a:vt0p}(A: PLarray(a), x: a): int = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-PLarray_extend{a:t@ype}(PLarray(a), a): void = "mac#%"
+PLarray_extend{a:vt0p}(PLarray(a), a): void = "mac#%"
 //
 (* ****** ****** *)
 
 fun
-PLarray_reverse{a:t@ype}(PLarray(a)): void = "mac#%"
+PLarray_reverse{a:vt0p}(PLarray(a)): void = "mac#%"
 
 (* ****** ****** *)
 //
 fun
-PLarray_copy{a:t@ype}(PLarray(a)): PLarray(a) = "mac#%"
+PLarray_copy{a:t0p}(PLarray(a)): PLarray(a) = "mac#%"
 fun
-PLarray_revcopy{a:t@ype}(PLarray(a)): PLarray(a) = "mac#%"
+PLarray_revcopy{a:t0p}(PLarray(a)): PLarray(a) = "mac#%"
 //
 (* ****** ****** *)
-//
-symintr PLarray_append
 //
 fun
 PLarray_append_2
-  {a:t@ype}(PLarray(a), PLarray(a)): PLarray(a) = "mac#%"
+  {a:t0p}(PLarray(a), PLarray(a)): PLarray(a) = "mac#%"
 fun
 PLarray_append_3
-  {a:t@ype}(PLarray(a), PLarray(a), PLarray(a)): PLarray(a) = "mac#%"
+  {a:t0p}(PLarray(a), PLarray(a), PLarray(a)): PLarray(a) = "mac#%"
 //
+symintr PLarray_append
 overload PLarray_append with PLarray_append_2
 overload PLarray_append with PLarray_append_3
 //
