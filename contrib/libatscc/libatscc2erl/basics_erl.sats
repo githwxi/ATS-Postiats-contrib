@@ -66,4 +66,4 @@ overload cloref_app with cloref3_app
 //
 (* ****** ****** *)
 
-(* end of [basics_js.sats] *)
+(* end of [basics_erl.sats] *)

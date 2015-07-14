@@ -52,10 +52,12 @@ abstype PYfile
 // HX-2014-08:
 // invariant constructors!
 //
-abstype PYlist (a:vt@ype)
+abstype PYlist(a:vt@ype)
 //
-abstype PYset  (a:vt@ype)
-abstype PYdict (a:vt@ype)
+(*
+abstype PYset  (a:t@ype)
+abstype PYdict (a:t@ype)
+*)
 //
 (* ****** ****** *)
 //

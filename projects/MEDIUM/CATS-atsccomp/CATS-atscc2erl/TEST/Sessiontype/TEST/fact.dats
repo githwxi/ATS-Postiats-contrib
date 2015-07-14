@@ -117,7 +117,7 @@ channel_recv_close
 //
 (* ****** ****** *)
 
-extern 
+extern
 fun
 main0_erl
 (
