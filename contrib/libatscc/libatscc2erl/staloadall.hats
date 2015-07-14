@@ -38,5 +38,9 @@ staload _ = "./DATS/stream.dats"
 *)
 //
 (* ****** ****** *)
+//
+staload "./SATS/reference.sats"
+//
+(* ****** ****** *)
 
 (* end of [staloadall.hats] *)
