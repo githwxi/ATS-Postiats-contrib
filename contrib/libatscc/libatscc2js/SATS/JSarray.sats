@@ -64,17 +64,17 @@ JSarray_reverse{a:vt0p}(A: JSarray(a)): void = "mac#%"
 (* ****** ****** *)
 //
 fun
-JSarray_copy{a:t0p}(JSarray(a)): JSarray(a) = "mac#%"
+JSarray_copy{a:t@ype}(JSarray(a)): JSarray(a) = "mac#%"
 //
 fun
 JSarray_copy_arrayref
-  {a:t0p}{n:int}
+  {a:t@ype}{n:int}
   (A: arrayref(a, n), asz: int(n)): JSarray(a) = "mac#"
 //
 (* ****** ****** *)
 //
 fun
-JSarray_concat{a:t0p}
+JSarray_concat{a:t@ype}
   (A1: JSarray(a), A2: JSarray(a)): JSarray(a) = "mac#%"
 //
 (* ****** ****** *)
@@ -91,16 +91,16 @@ JSarray_takeout_at
 //
 fun
 JSarray_remove_at
-  {a:t0p}(A: JSarray(a), ofs: int): void = "mac#%"
+  {a:t@ype}(A: JSarray(a), ofs: int): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 JSarray_join
-  {a:t0p}(JSarray(a)): string = "mac#%"
+  {a:t@ype}(JSarray(a)): string = "mac#%"
 fun
 JSarray_join_sep
-  {a:t0p}(JSarray(a), sep: string): string = "mac#%"
+  {a:t@ype}(JSarray(a), sep: string): string = "mac#%"
 //
 (* ****** ****** *)
 //

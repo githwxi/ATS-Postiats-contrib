@@ -12,13 +12,13 @@
 
 %{^
 %%
--module(fact4_dats).
+-module(fact5_dats).
 %%
 -export([fact/1]).
 -export([mytest/0]).
 %%
--export([ats2erlpre_ref_server_proc/1]).
--export([ats2erlpre_ref_server_proc2/0]).
+-export([ats2erlpre_ref_vt_server_proc/1]).
+-export([ats2erlpre_ref_vt_server_proc2/0]).
 %%
 -compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
@@ -51,20 +51,20 @@ fact (n) = let
 fun
 loop
 (
-  n: int, res: ref(int)
+  n: int, res: ref_vt(int)
 ) : int =
 if n > 0
 then let
 //
-val (pf | r) = ref_takeout(res)
-val ((*void*)) = ref_addback(pf | res, n * r)
+val (pf | r) = ref_vt_takeout(res)
+val ((*void*)) = ref_vt_addback(pf | res, n * r)
 //
 in
   loop(n-1, res)
 end // end of [then]
-else res[] // end of [else]
+else ref_vt_getfree_elt(res) // end of [else]
 //
-val res = ref{int}(1)
+val res = ref_vt{int}(1)
 //
 in
   loop (n, res)
@@ -81,4 +81,4 @@ mytest() ->
 
 (* ****** ****** *)
 
-(* end of [fact4.dats] *)
+(* end of [fact5.dats] *)

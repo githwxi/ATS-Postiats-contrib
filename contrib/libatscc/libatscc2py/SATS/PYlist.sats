@@ -73,15 +73,17 @@ PYlist_exch_at
 //
 fun
 PYlist_copy
-  {a:t0p}(PYlist(a)): PYlist(a) = "mac#"
+  {a:t@ype}(PYlist(a)): PYlist(a) = "mac#"
 //
 (* ****** ****** *)
+//
+// HX-2015-07:
+// Note that [append] and [extend] are used
+// in precisely the opposite manner as in ATS
 //
 fun
 PYlist_append
   {a:vt0p}(xs1: PYlist(a), x2: a): void = "mac#"
-//
-(* ****** ****** *)
 //
 fun
 PYlist_extend
@@ -90,9 +92,11 @@ PYlist_extend
 (* ****** ****** *)
 //
 fun
-PYlist_pop_0{a:vt0p} (xs: PYlist(a)): (a) = "mac#"
+PYlist_pop_0
+  {a:vt0p}(xs: PYlist(a)): (a) = "mac#"
 fun
-PYlist_pop_1{a:vt0p} (xs: PYlist(a), i: intGte(0)): (a) = "mac#"
+PYlist_pop_1
+  {a:vt0p}(xs: PYlist(a), i: intGte(0)): (a) = "mac#"
 //
 symintr PYlist_pop
 overload PYlist_pop with PYlist_pop_0
