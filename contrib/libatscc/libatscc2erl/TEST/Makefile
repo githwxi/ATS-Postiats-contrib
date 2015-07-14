@@ -24,6 +24,7 @@ test01_dats.c: test01.dats; $(PATSOPT2) -o $@ -d $<
 test01_dats.erl: test01_dats.c; $(ATSCC2ERL) -o $@ -i $<
 test01_dats.beam:: test01_dats.erl ; $(ERL) -compile $<
 regress:: test01_dats.beam; $(ERL) -run test01_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) test01_dats.erl
 
 ######
 
@@ -33,6 +34,13 @@ test02_dats.c: test02.dats; $(PATSOPT2) -o $@ -d $<
 test02_dats.erl: test02_dats.c; $(ATSCC2ERL) -o $@ -i $<
 test02_dats.beam:: test02_dats.erl ; $(ERL) -compile $< 
 regress:: test02_dats.beam; $(ERL) -run test02_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) test02_dats.erl
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
@@ -47,7 +55,6 @@ cleanall:: ; $(RMF) *_?ats.beam
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) *_?ats.erl
 
 ######
 
