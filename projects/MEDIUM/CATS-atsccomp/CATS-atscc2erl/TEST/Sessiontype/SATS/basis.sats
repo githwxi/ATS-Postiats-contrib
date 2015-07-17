@@ -85,6 +85,10 @@ chanposneg_link
 fun
 channeg_create{ss:type}
   (fserv: chanpos(ss) -<lincloptr1> void): channeg(ss) = "mac#%"
+fun
+channeg_createnv
+  {env:t0p}{ss:type}
+  (fserv: (env, chanpos(ss)) -<lincloptr1> void, env): channeg(ss) = "mac#%"
 //
 (* ****** ****** *)
 

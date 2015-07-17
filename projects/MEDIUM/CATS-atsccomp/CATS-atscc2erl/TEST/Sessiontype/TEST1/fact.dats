@@ -29,8 +29,8 @@ ATS_STATIC_PREFIX "_fact_"
 -export([libats2erl_session_chanpos_xfer/0]).
 -export([libats2erl_session_chanposneg_link_pn/2]).
 -export([libats2erl_session_chanposneg_link_np/3]).
--export([libats2erl_session_chansrvc_create_loop/1]).
--export([libats2erl_session_chansrvc2_create_loop/1]).
+-export([libats2erl_session_chansrvc_create_server/1]).
+-export([libats2erl_session_chansrvc2_create_server/1]).
 %%
 -include("./libatscc2erl/libatscc2erl_all.hrl").
 -include("./libatscc2erl/Sessiontype_mylibats2erl_all.hrl").
