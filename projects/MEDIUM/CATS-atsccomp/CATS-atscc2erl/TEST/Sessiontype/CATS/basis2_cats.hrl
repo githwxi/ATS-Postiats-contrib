@@ -66,6 +66,17 @@ libats2erl_session_chque_remove
   Chque ! {self(), chque_remove},
   receive {Chque, Opt} -> Opt end.
 %%
+libats2erl_session_chque_remove_close
+  (Chque) ->
+  Chque ! {self(), chque_remove},
+  receive
+    {Chque, Opt} ->
+    case Opt of
+      {chque_close} -> atscc2erl_void;
+      {chque_qinsert, Chque2} -> libats2erl_session_chque_remove_close(Chque2)
+    end
+  end.
+%%
 libats2erl_session_chque_close
   (Chque) -> Chque ! {self(), chque_close}.
 libats2erl_session_chque_insert
@@ -100,11 +111,9 @@ libats2erl_session_chanpos_server_recv
   Opt =
   libats2erl_session_chque_remove(Chq1),
   case Opt of
-    {chque_close} -> %% terminated
-      libats2erl_session_chque_close(Chq0),
-      {chque_close} =
-      libats2erl_session_chque_remove(Chq0),
-      Client ! {self()};
+    {chque_close} -> %% Chq1 terminated
+      Client ! {self()},
+      libats2erl_session_chque_close(Chq0);
     {chque_insert, X} ->
       Client ! {self(), X},
       libats2erl_session_chanpos_server(Chq0, Chq1);
@@ -138,7 +147,8 @@ libats2erl_session_channeg_server
   receive
     {_, channeg_close} ->
       %% Asynchronous
-      libats2erl_session_chque_close(Chq1);
+      libats2erl_session_chque_close(Chq1),
+      libats2erl_session_chque_remove_close(Chq0);
     {_, channeg_recv, X} ->
       %% Asynchronous
       libats2erl_session_chque_insert(Chq1, X),
