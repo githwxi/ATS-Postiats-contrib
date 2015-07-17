@@ -135,6 +135,8 @@ val N = 10
 val ((*void*)) = println! ("fact(", N, ") = ", fact(N))
 val N = 12
 val ((*void*)) = println! ("fact(", N, ") = ", fact(N))
+val N = 100
+val ((*void*)) = println! ("fact(", N, ") = ", fact(N))
 //
 } (* end of [main0_erl] *)
 

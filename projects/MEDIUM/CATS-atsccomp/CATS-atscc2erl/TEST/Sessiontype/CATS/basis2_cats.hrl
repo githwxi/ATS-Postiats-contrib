@@ -226,7 +226,8 @@ libats2erl_session_chansrvc_create_server
 %%
 libats2erl_session_chansrvc_request
   (Chsrvc) ->
-  Chsrvc ! {self()}, receive {_Chsrvc, Chneg} -> Chneg end.
+  Chsrvc ! {self()},
+  receive {_Chsrvc_, Chneg} -> Chneg end.
 %%
 libats2erl_session_chansrvc_register
   (Service_name, Chsrvc) -> register(Service_name, Chsrvc).
@@ -255,7 +256,8 @@ libats2erl_session_chansrvc2_create_server
 %%
 libats2erl_session_chansrvc2_request
   (Env, Chsrvc) ->
-  Chsrvc ! {self(), Env}, receive {_Chsrvc, Chneg} -> Chneg end.
+  Chsrvc ! {self(), Env},
+  receive {_Chsrvc_, Chneg} -> Chneg end.
 %%
 libats2erl_session_chansrvc2_register
   (Service_name, Chsrvc) -> register(Service_name, Chsrvc).
