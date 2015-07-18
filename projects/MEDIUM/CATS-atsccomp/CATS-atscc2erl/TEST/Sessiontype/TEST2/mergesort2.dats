@@ -128,10 +128,10 @@ fserv1
 , n2: int(n2), chn2: channeg(ssarray(a, n2))
 ) : void = let
 //
-prval () =
-  chanpos_array_cons (chp)
-//
 val opt2 = (n2 = 0)
+//
+prval() =
+  chanpos_array_cons(chp)
 //
 in
 //
