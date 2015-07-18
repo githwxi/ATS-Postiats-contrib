@@ -23,12 +23,12 @@ ssarray(a:vt@ype, n:int)
 //
 (* ****** ****** *)
 //
-fun{}
+fun
 chanpos_arrsz
   {a:vt0p}{n:nat}
   (!chanpos(ssarrsz(a)) >> chanpos(ssarray(a, n)), int(n)): void
 //
-fun{}
+fun
 channeg_arrsz
   {a:vt0p}
   (!channeg(ssarrsz(a)) >> channeg(ssarray(a, n))): #[n:nat] int(n)

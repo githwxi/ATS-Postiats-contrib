@@ -39,7 +39,6 @@ staload "./basis_chan2.dats" // un-session-typed
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 chanpos_arrsz
   {a}{n}(chp, n) = let
 //
@@ -55,7 +54,6 @@ end // end of [chanpos_arrsz]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 channeg_arrsz
   {a}(chn) = asz where
 {
@@ -176,34 +174,53 @@ channeg_array_takeout_list
   {a}{n}{i}(chn, i) = let
 //
 vtypedef
-chan(n:int) =
-  channeg(ssarray(a, n))
+chan(n:int) = channeg(ssarray(a, n))
+//
+fun
+revapp
+{i,j:nat}
+(
+  xs: list_vt(a, i)
+, ys: list_vt(a, j)
+) : list_vt(a, i+j) =
+(
+case+ xs of
+| ~nil_vt() => ys
+| ~cons_vt(x, xs) =>
+    revapp(xs, list_vt_cons{a}(x, ys))
+  // end of [cons_vt]
+) (* end of [revapp] *)
 //
 fun
 loop
 {n:int}
 {i,j:nat | i <= n}
 (
-  chn: !chan(n) >> chan(n-i)
+  chn:
+  !chan(n) >> chan(n-i)
 , i: int(i), res: list_vt(a, j)
-) : list_vt(a, i+j) =
-(
+) : list_vt(a, i+j) = (
 //
 if
 i > 0
 then let
-  prval() =
+//
+prval() =
   channeg_array_cons(chn)
-  val x0 = channeg_send{a}(chn)
+//
+val x0 = channeg_send{a}(chn)
+//
 in
-  loop (chn, i-1, list_vt_cons(x0, res))
+//
+loop(chn, i-1, list_vt_cons(x0, res))
+//
 end // end of [then]
 else res // end of [else]
 //
 ) (* end of [loop] *)
 //
 in
-  loop (chn, i, list_vt_nil)
+  revapp(loop(chn, i, list_vt_nil), list_vt_nil)
 end // end of [channeg_array_takeout_list]
 
 (* ****** ****** *)
