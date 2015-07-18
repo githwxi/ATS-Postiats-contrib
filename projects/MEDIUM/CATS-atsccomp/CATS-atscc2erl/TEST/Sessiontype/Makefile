@@ -26,6 +26,9 @@ $(PATSOPT2) -d ./DATS/list.dats | $(ATSCC2ERL) -o ./output/DATS/list_dats.hrl -i
 all:: ; \
 $(PATSOPT2) -d ./DATS/co-list.dats | $(ATSCC2ERL) -o ./output/DATS/co-list_dats.hrl -i
 #
+all:: ; \
+$(PATSOPT2) -d ./DATS/array.dats | $(ATSCC2ERL) -o ./output/DATS/array_dats.hrl -i
+#
 ######
 #
 DATE=date
@@ -45,6 +48,7 @@ $(CAT) >>mylibats2erl1_all.hrl \
 CATS/basis1_cats.hrl \
 output/DATS/list_dats.hrl \
 output/DATS/co-list_dats.hrl \
+output/DATS/array_dats.hrl \
 
 #
 all1_in_one:: ; \
@@ -71,6 +75,7 @@ $(CAT) >>mylibats2erl2_all.hrl \
 CATS/basis2_cats.hrl \
 output/DATS/list_dats.hrl \
 output/DATS/co-list_dats.hrl \
+output/DATS/array_dats.hrl \
 
 #
 all2_in_one:: ; \

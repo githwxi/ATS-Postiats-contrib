@@ -96,6 +96,16 @@ cleanall:: ; $(RMF) mergesort_dats.erl
 
 ######
 
+all:: \
+mergesort2_dats.erl
+mergesort2_dats.erl: mergesort2.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+mergesort2_dats.beam:: mergesort2_dats.erl ; $(ERLC) $< 
+regress:: mergesort2_dats.beam; $(ERL) -run mergesort2_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) mergesort2_dats.erl
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f
