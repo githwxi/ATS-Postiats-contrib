@@ -364,6 +364,48 @@ queue_enq
 ) (* end of [queue_enq] *)
 
 (* ****** ****** *)
+//
+extern
+fun
+queue_map_cloref
+  {a:t0p}{b:t0p}{n:nat}
+(
+  que: channeg(ssque(a,n)), n: int(n), f: (a) -<cloref1> b
+) : channeg(ssque(b,n)) // end-of-function
+//
+(* ****** ****** *)
+
+implement
+queue_map_cloref
+  {a}{b}{n}(que, n, f) = let
+//
+fun
+loop{i,j:nat}
+(
+  que: channeg(ssque(a, i))
+, i: int(i), res: channeg(ssque(b, j))
+) : channeg(ssque(b, i+j)) =
+(
+//
+if
+i > 0
+then let
+  val x = queue_deq(que)
+  val () = queue_enq(res, f(x))
+in
+  loop(que, i-1, res)
+end // end of [then]
+else let
+  val () = queue_free_nil(que) in res
+end // end of [else]
+//
+) (* end of [loop] *)
+//
+in
+  loop(que, n, queue_nil())
+end // end of [queue_map_cloref]
+
+(* ****** ****** *)
 
 extern 
 fun
@@ -417,15 +459,16 @@ val x6 = queue_deq (Q0)
 val () = println! ("x7(6) = ", x6)
 //
 val () = queue_enq (Q0, 8)
+val Q1 = queue_map_cloref{int}{int}(Q0, 2, lam(x) => 2 * x)
 //
-val x7 = queue_top (Q0)
+val x7 = queue_top (Q1)
 val () = println! ("x7(7) = ", x7)
-val x7 = queue_deq (Q0)
+val x7 = queue_deq (Q1)
 val () = println! ("x7(7) = ", x7)
-val x8 = queue_deq (Q0)
+val x8 = queue_deq (Q1)
 val () = println! ("x8(8) = ", x8)
 //
-val ((*freed*)) = queue_free_nil{int}(Q0)
+val ((*freed*)) = queue_free_nil{int}(Q1)
 //
 } (* end of [main0] *)
 
