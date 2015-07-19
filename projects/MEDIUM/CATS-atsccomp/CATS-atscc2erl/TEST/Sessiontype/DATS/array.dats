@@ -212,7 +212,7 @@ val x0 = channeg_send{a}(chn)
 //
 in
 //
-loop(chn, i-1, list_vt_cons(x0, res))
+loop(chn, i-1, list_vt_cons{a}(x0, res))
 //
 end // end of [then]
 else res // end of [else]

@@ -37,6 +37,17 @@ cleanall:: ; $(RMF) fib_dats.erl
 ######
 
 all:: \
+fib2_dats.erl
+fib2_dats.erl: fib2.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+fib2_dats.beam:: fib2_dats.erl ; $(ERLC) $< 
+regress:: fib2_dats.beam; \
+$(ERL) +P 1000000 -run fib2_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) fib2_dats.erl
+
+######
+
+all:: \
 fact_dats.erl
 fact_dats.erl: fact.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
