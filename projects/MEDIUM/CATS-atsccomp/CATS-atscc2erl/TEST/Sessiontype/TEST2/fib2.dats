@@ -48,42 +48,6 @@ staload "./../SATS/basis.sats"
 //
 (* ****** ****** *)
 //
-(*
-
-{n:nat}
-chrcv(int(n)) ::
-[r:int]
-chsnd(FIB(n, r), int(r)) :: nil
-
-*)
-
-(*
-//
-chanpos({...} chsnd(...)) -> [...] chanpos(chsnd(...))
-chanpos([...] chsnd(...)) -> {...} chanpos(chsnd(...))
-chanpos({...} chrcv(...)) -> [...] chanpos(chrcv(...))
-chanpos([...] chrcv(...)) -> {...} chanpos(chrcv(...))
-//
-channeg({...} chsnd(...)) -> {...} channeg(chsnd(...))
-channeg([...] chsnd(...)) -> [...] channeg(chsnd(...))
-channeg({...} chrcv(...)) -> {...} channeg(chrcv(...))
-channeg([...] chrcv(...)) -> [...] channeg(chrcv(...))
-//
-*)
-
-(*
-//
-macdef
-chanpos_qout(x) = $quantout_neg(chanpos_id(,(x)), 0)
-//
-macdef
-channeg_qout(x) =
-  let prval () = channeg_id(,(x)) in $quantout_pos(x, 0) end
-//
-*)
-
-(* ****** ****** *)
-//
 dataprop
 FIB(int, int) =
 | FIBbas0 (0, 0) of ()
@@ -121,7 +85,10 @@ prval
 //
 fun
 fserv
-(chp: chanpos(chsnd(int(r))::nil)): void = let
+(
+  chp: chanpos(chsnd(int(r))::nil)
+) : void = let
+//
 val r = (
 //
 if

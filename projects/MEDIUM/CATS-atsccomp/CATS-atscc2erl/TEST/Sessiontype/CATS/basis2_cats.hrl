@@ -145,16 +145,13 @@ libats2erl_session_channeg
 libats2erl_session_channeg_server
   (Chq0, Chq1) ->
   receive
-    {_, channeg_close} ->
-      %% Asynchronous
-      libats2erl_session_chque_close(Chq1),
-      libats2erl_session_chque_remove_close(Chq0);
     {_, channeg_recv, X} ->
       %% Asynchronous
       libats2erl_session_chque_insert(Chq1, X),
       libats2erl_session_channeg_server(Chq0, Chq1);
     {Client, channeg_send} ->
       libats2erl_session_channeg_server_send(Chq0, Chq1, Client);
+    {Client, channeg_close} -> Client ! {self(), {Chq0, Chq1}};
     {Client, chanposneg_link} -> Client ! {self(), {Chq0, Chq1}}
   end.
 libats2erl_session_channeg_server_send
@@ -171,12 +168,18 @@ libats2erl_session_channeg_server_send
 %%
 libats2erl_session_channeg_recv
   (Chneg, X) ->
-  Chneg ! {self(), channeg_recv, X}, atscc2erl_void.
+  Chneg!{self(), channeg_recv, X}, atscc2erl_void.
 libats2erl_session_channeg_send
   (Chneg) ->
-  Chneg ! {self(), channeg_send}, receive {Chneg, X} -> X end.
+  Chneg!{self(), channeg_send}, receive {Chneg, X} -> X end.
+%%
 libats2erl_session_channeg_nil_close
-  (Chneg) -> Chneg ! {self(), channeg_close}, atscc2erl_void.
+  (Chneg) ->
+  Chneg!{self(), channeg_close},
+  receive {Chneg, {Chq0, Chq1}} ->
+    libats2erl_session_chque_close(Chq1),
+    libats2erl_session_chque_remove_close(Chq0)
+  end.
 %%
 %%%%%%
 %%
