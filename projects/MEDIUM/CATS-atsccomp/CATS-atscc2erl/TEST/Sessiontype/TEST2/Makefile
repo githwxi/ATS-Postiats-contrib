@@ -116,6 +116,18 @@ regress:: mergesort2_dats.beam; $(ERL) -run mergesort2_dats main0_erl -run init 
 cleanall:: ; $(RMF) mergesort2_dats.erl
 
 ######
+#
+# MPST: multi-party session
+#
+all:: \
+MPST_S0B1B2_dats.erl
+MPST_S0B1B2_dats.erl: MPST_S0B1B2.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+MPST_S0B1B2_dats.beam:: MPST_S0B1B2_dats.erl ; $(ERLC) $< 
+regress:: MPST_S0B1B2_dats.beam; $(ERL) -run MPST_S0B1B2_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) MPST_S0B1B2_dats.erl
+#
+######
 
 CPF=cp -f
 CPRF=cp -rf

@@ -1,3 +1,10 @@
+(* ****** ****** *)
+//
+// MPST:
+// For supporting
+// multi-party sessions
+//
+(* ****** ****** *)
 //
 staload
 "libats/SATS/ilist_prf.sats"
@@ -16,14 +23,16 @@ stadef nil = chnil
 stadef :: = chcons
 stadef cons = chcons
 //
-abstype trans
+(* ****** ****** *)
+//
+abstype chtrans
 (
   source: int, target: int, data: vt@ype
 )
-abstype trans_end(int)
+abstype chtrans_end(int)
 //
-abstype
-mtrans(int, ilist, t@ype)
+stadef trans = chtrans
+stadef trans_end = chtrans_end
 //
 (* ****** ****** *)
 //
