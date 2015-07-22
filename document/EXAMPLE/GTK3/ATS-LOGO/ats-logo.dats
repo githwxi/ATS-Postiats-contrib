@@ -139,13 +139,13 @@ case+ x of
 //
 end // end of [mydraw_matgraph$color]
 //
-val nrow = MSZ.nrow
+val nrow = MSZ.nrow()
 val nrow = g1ofg0(nrow)
-val () = assertloc (nrow > 0)
-val nrow = sz2i (nrow)
-val ncol = MSZ.ncol
+val () = assertloc(nrow > 0)
+val nrow = sz2i(nrow)
+val ncol = MSZ.ncol()
 val ncol = g1ofg0(ncol)
-val () = assertloc (ncol > 0)
+val () = assertloc(ncol > 0)
 val ncol = sz2i (ncol)
 //
 in

@@ -5,6 +5,19 @@
 
 (* ****** ****** *)
 
+#define ATS_DYNLOADFLAG 0
+
+(* ****** ****** *)
+//
+(*
+#define ATS_PACKNAME "S0B1B2"
+*)
+//
+#define ATS_EXTERN_PREFIX "S0B1B2_"
+#define ATS_STATIC_PREFIX "_S0B1B2_"
+//
+(* ****** ****** *)
+
 staload "./MPST.sats"
 
 (* ****** ****** *)

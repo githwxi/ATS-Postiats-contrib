@@ -1,5 +1,5 @@
 (*
-** Session Co-List
+** Session Co-List (Dyadic)
 *)
 
 (* ****** ****** *)

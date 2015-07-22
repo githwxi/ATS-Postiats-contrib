@@ -94,7 +94,7 @@ libats2erl_session_mchannel_server_recv
   case Opt of
     {chque_close, Id1} -> %% Chq terminated
       Client ! {self()},
-      libats2erl_session_chque_close(Chqs, Id1);
+      libats2erl_session_chque_close(Chq0);
     {chque_insert, Id1, X} ->
       Client ! {self(), X},
       libats2erl_session_channel_server(Chqs, Id);
@@ -102,14 +102,16 @@ libats2erl_session_mchannel_server_recv
 %%
 libats2erl_session_channel_send
   (Chan, Id1, Id2, X) ->
-  Chan ! {self(), channel_send, Id2, X}.
+  %%Asynchronous
+  Chan!{self(), channel_send, Id2, X}.
 libats2erl_session_channel_recv
   (Chan, Id1, Id2) ->
-  Chan ! {self(), channel_recv, Id1}, receive {Chan, X} -> X end.
+  Chan!{self(), channel_recv, Id1}, receive {Chan, X} -> X end.
 libats2erl_session_channel_nil_wait
   (Chan, Id1) ->
-  Chan ! {self(), channel_recv, Id1}, receive {Chan} -> atscc2erl_void end.
+  Chan!{self(), channel_recv, Id1},
+  receive {Chan} -> atscc2erl_void end.
 libats2erl_session_channel_nil_close
   (Chan, Id1) ->
-  Chan ! {self(), channel_close}, receive {Chan} -> atscc2erl_void end.
+  Chan!{self(), channel_close}, receive {Chan, Chqs} -> atscc2erl_void end.
 %%

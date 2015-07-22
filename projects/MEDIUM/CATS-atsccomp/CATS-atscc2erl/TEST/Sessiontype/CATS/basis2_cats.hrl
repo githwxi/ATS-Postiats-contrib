@@ -123,12 +123,11 @@ libats2erl_session_chanpos_server_recv
 %%
 libats2erl_session_chanpos_send
   (Chpos, X) ->
+  %%Asynchronous
   Chpos ! {self(), chanpos_send, X}.
-libats2erl_session_chanpos_recv
-  (Chpos) ->
+libats2erl_session_chanpos_recv(Chpos) ->
   Chpos ! {self(), chanpos_recv}, receive {Chpos, X} -> X end.
-libats2erl_session_chanpos_nil_wait
-  (Chpos) ->
+libats2erl_session_chanpos_nil_wait(Chpos) ->
   Chpos ! {self(), chanpos_recv}, receive {Chpos} -> atscc2erl_void end.
 %%
 %%%%%%
@@ -168,17 +167,15 @@ libats2erl_session_channeg_server_send
 %%
 libats2erl_session_channeg_recv
   (Chneg, X) ->
+  %%Asynchronous
   Chneg!{self(), channeg_recv, X}, atscc2erl_void.
-libats2erl_session_channeg_send
-  (Chneg) ->
+libats2erl_session_channeg_send(Chneg) ->
   Chneg!{self(), channeg_send}, receive {Chneg, X} -> X end.
 %%
-libats2erl_session_channeg_nil_close
-  (Chneg) ->
+libats2erl_session_channeg_nil_close(Chneg) ->
   Chneg!{self(), channeg_close},
   receive {Chneg, {Chq0, Chq1}} ->
-    libats2erl_session_chque_close(Chq1),
-    libats2erl_session_chque_remove_close(Chq0)
+    libats2erl_session_chque_close(Chq1), libats2erl_session_chque_remove_close(Chq0)
   end.
 %%
 %%%%%%

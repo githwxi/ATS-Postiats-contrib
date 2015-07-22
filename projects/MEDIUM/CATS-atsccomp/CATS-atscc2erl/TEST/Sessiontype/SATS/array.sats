@@ -1,5 +1,5 @@
 (*
-** Session Array
+** Session Array (Dyadic)
 *)
 
 (* ****** ****** *)

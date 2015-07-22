@@ -1,6 +1,7 @@
 (*
 ** Atscc2erl:
-** Basis for session-types
+** A basis for
+** dyadic session-types
 *)
 
 (* ****** ****** *)
@@ -13,11 +14,13 @@ ATS_EXTERN_PREFIX "libats2erl_session_"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+local
 //
-staload
-"{$LIBATSCC2ERL}/basics_erl.sats"
+#include "share/atspre_define.hats"
+//
+in
+  staload "{$LIBATSCC2ERL}/basics_erl.sats"
+end // end of [local]
 //
 (* ****** ****** *)
 //
@@ -33,14 +36,13 @@ abstype chcons(a:type, ss:type)
 //
 stadef nil = chnil
 //
-stadef :: = chcons
-stadef cons = chcons
+stadef :: = chcons and cons = chcons
 //
 (* ****** ****** *)
-
-absvtype chanpos(type) = ptr
-absvtype channeg(type) = ptr
-
+//
+absvtype
+chanpos(type) = ptr and channeg(type) = ptr
+//
 (* ****** ****** *)
 //
 fun
