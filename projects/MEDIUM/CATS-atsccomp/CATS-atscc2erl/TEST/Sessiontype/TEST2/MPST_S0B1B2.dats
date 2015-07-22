@@ -18,7 +18,8 @@
 //
 (* ****** ****** *)
 
-staload "./MPST.sats"
+staload
+"./../SATS/MPST/MPST.sats"
 
 (* ****** ****** *)
 
@@ -186,4 +187,4 @@ Buyer2b(ch) =
 //
 (* ****** ****** *)
 
-(* end of [S0B1B2.dats] *)
+(* end of [MPST_S0B1B2.dats] *)
