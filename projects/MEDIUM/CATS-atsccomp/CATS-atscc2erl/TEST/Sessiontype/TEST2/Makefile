@@ -124,7 +124,7 @@ MPST_S0B1B2_dats.erl
 MPST_S0B1B2_dats.erl: MPST_S0B1B2.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 MPST_S0B1B2_dats.beam:: MPST_S0B1B2_dats.erl ; $(ERLC) $< 
-regress:: MPST_S0B1B2_dats.beam; $(ERL) -run MPST_S0B1B2_dats main0_erl -run init stop -noshell
+#regress:: MPST_S0B1B2_dats.beam; $(ERL) -run MPST_S0B1B2_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) MPST_S0B1B2_dats.erl
 #
 ######
