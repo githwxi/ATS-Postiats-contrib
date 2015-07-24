@@ -129,6 +129,12 @@ cleanall:: ; $(RMF) MPST_S0B1B2_dats.erl
 #
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 CPF=cp -f
 CPRF=cp -rf
 RMF=rm -f
