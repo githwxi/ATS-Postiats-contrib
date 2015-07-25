@@ -18,8 +18,8 @@ staload
 //
 extern
 fun
-listlen
-  : {a:t@ype} List0 (a) -> int = "mac#listlen"
+listlen{a:t0p}
+  : List0 (a) -> int = "mac#listlen"
 //
 implement
 listlen{a}
@@ -41,7 +41,7 @@ end // end of [loop]
 //
 in
   loop (xs, 0)
-end // end of [intlistlen]
+end // end of [listlen]
 
 (* ****** ****** *)
 //

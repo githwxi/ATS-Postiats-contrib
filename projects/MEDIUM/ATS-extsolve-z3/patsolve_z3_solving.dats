@@ -14,6 +14,11 @@
 //
 (* ****** ****** *)
 //
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
 #define
 Z3_targetloc
 "$PATSHOMERELOC/contrib/SMT/Z3"
@@ -50,6 +55,15 @@ implement
 fprint_val<s3itm> = fprint_s3itm
 //
 (* ****** ****** *)
+
+extern
+fun
+c3nstr_solve_main 
+(
+  env: !smtenv, c3t: c3nstr, unsolved : &uint >> _, nerr: &int >> _
+) : int(*status*) // end of [c3nstr_solve_main]
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -68,8 +82,27 @@ unsolved = 0u
 then let
   val out = stderr_ref
   val loc = c3t.c3nstr_loc
+  val c3tk = c3t.c3nstr_kind
 in
-  fprintln! (out, "Unsolved constraint @ ", loc, ":", c3t);
+//
+case+ c3tk of
+| C3TKmain() =>
+  (
+    fprintln! (out, "UnsolvedConstraint(main)@", loc, ":", c3t)
+  )
+| C3TKtermet_isnat() =>
+  (
+    fprintln! (out, "UnsolvedConstraint(termet_isnat)@", loc, ":", c3t)
+  )
+| C3TKtermet_isdec() =>
+  (
+    fprintln! (out, "UnsolvedConstraint(termet_isdec)@", loc, ":", c3t)
+  )
+| _(*rest-of-C3TK*) =>
+  (
+    fprintln! (out, "UnsolvedConstraint(unclassified)@", loc, ":", c3t)
+  )
+//
 end // end of [then]
 //
 ) (* end of [val] *)
@@ -108,7 +141,8 @@ c3nstr_solve_itmlst_cnstr
 
 (* ****** ****** *)
 
-extern fun
+extern
+fun
 c3nstr_solve_itmlst_disj
 (
   loc0: loc_t, env: !smtenv
@@ -119,10 +153,11 @@ c3nstr_solve_itmlst_disj
 
 extern
 fun
-c3nstr_solve_main 
+c3nstr_solve_solverify
 (
-  env: !smtenv, c3t: c3nstr, unsolved : &uint >> _, nerr: &int >> _
-) : int(*status*) // end of [c3nstr_solve_main]
+  loc0: loc_t
+, env: !smtenv, s2e_prop: s2exp, nerr: &int >> _
+) : int (*status*) // end-of-function
 
 (* ****** ****** *)
 
@@ -164,32 +199,38 @@ case+ s3is of
     (s3i, s3is) =>
   (
   case+ s3i of
-  | S3ITMsvar (s2v) => let
-      val () = smtenv_add_s2var (env, s2v)
+  | S3ITMsvar(s2v) => let
+      val () = smtenv_add_s2var(env, s2v)
     in
-      c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
+      c3nstr_solve_itmlst(loc0, env, s3is, unsolved, nerr)
     end // end of [S3ITMsvar]
-  | S3ITMhypo (h3p) => let
-      val s2p = s2exp_make_h3ypo (h3p)
-      val ((*void*)) = smtenv_add_s2exp (env, s2p)
+  | S3ITMhypo(h3p) => let
+      val () = smtenv_add_h3ypo(env, h3p)
     in
-      c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
+      c3nstr_solve_itmlst(loc0, env, s3is, unsolved, nerr)
     end // end of [S3ITMhypo]
-  | S3ITMsVar (s2V) =>
-      c3nstr_solve_itmlst (loc0, env, s3is, unsolved, nerr)
-  | S3ITMcnstr c3t =>
-      c3nstr_solve_itmlst_cnstr (loc0, env, s3is, c3t, unsolved, nerr)
+  | S3ITMsVar(s2V) =>
+      c3nstr_solve_itmlst(loc0, env, s3is, unsolved, nerr)
+  | S3ITMcnstr(c3t) =>
+      c3nstr_solve_itmlst_cnstr(loc0, env, s3is, c3t, unsolved, nerr)
   | S3ITMcnstr_ref
-      (loc1, ctr) => (
-      case+ ctr of
+      (loc_ref, opt) =>
+    (
+      case+ opt of
+      | None() => ~1(*solved*)
       | Some(c3t) =>
-          c3nstr_solve_itmlst_cnstr (loc1, env, s3is, c3t, unsolved, nerr)
-        // end of [Some]
-      | None((*void*)) => ~1(*solved*)
+        c3nstr_solve_itmlst_cnstr(loc_ref, env, s3is, c3t, unsolved, nerr)
     ) (* end of [S3ITMcnstr] *)
-  | S3ITMdisj (s3iss_disj) =>
-      c3nstr_solve_itmlst_disj (loc0, env, s3is, s3iss_disj, unsolved, nerr)
-    // end of [S3ITMdisj]
+  | S3ITMdisj(s3iss_disj) =>
+    (
+      c3nstr_solve_itmlst_disj(loc0, env, s3is, s3iss_disj, unsolved, nerr)
+    ) (* end of [S3ITMdisj] *)
+  | S3ITMsolassert
+      (s2e_prop) => let
+      val () = smtenv_add_s2exp(env, s2e_prop)
+    in
+      c3nstr_solve_itmlst(loc0, env, s3is, unsolved, nerr)
+    end // end of [S3ITMsolassert]
   ) // end of [list_cons]
 //
 end // end of [c3nstr_solve_itmlst]
@@ -247,6 +288,22 @@ end // end of [c3nstr_solve_itmlst_disj]
 (* ****** ****** *)
 
 implement
+c3nstr_solve_solverify
+(
+  loc0, env, s2e_prop, nerr
+) = let
+//
+val s2e_prop =
+  formula_make_s2exp (env, s2e_prop)
+//
+//
+in
+  smtenv_formula_solve (env, s2e_prop)
+end // end of [c3nstr_solve_solverify]
+
+(* ****** ****** *)
+
+implement
 c3nstr_solve_main
 (
   env, c3t, unsolved, nerr
@@ -261,12 +318,14 @@ var status: int =
 //
 case+
 c3t.c3nstr_node of
-| C3NSTRprop s2p =>
+| C3NSTRprop(s2p) =>
     c3nstr_solve_prop(loc0, env, s2p, nerr)
   // end of [C3NSTRprop]
-| C3NSTRitmlst s3is =>
+| C3NSTRitmlst(s3is) =>
     c3nstr_solve_itmlst(loc0, env, s3is, unsolved, nerr)
   // end of [C3NSTRitmlst]
+| C3NSTRsolverify(s2e_prop) =>
+    c3nstr_solve_solverify(loc0, env, s2e_prop, nerr)
 //
 ) : int // end of [val]
 //

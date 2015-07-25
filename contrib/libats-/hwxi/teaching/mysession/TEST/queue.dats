@@ -106,8 +106,9 @@ in
 //
 case+ tag of
 | 0 => let
+    prval () = $UN.prop_assert{n==0}()
     prval () =
-    $UN.castview2void(chan2) in chanpos_ssque_enq(chan2)
+    $UN.castview2void(chan2) in chanpos_ssque_nil(chan2)
   end // end of [prval]
 | 1 => let
     prval () = $UN.prop_assert{n > 0}()

@@ -59,6 +59,15 @@ fun parse_location (jsnv: jsonval): loc_t
 
 (* ****** ****** *)
 
+fun parse_label (jsnv: jsonval): label
+
+(* ****** ****** *)
+//
+fun
+parse_tyreckind (jsnv: jsonval): tyreckind
+//
+(* ****** ****** *)
+
 fun{
 a:t@ype
 } parse_list
@@ -118,6 +127,11 @@ fun parse_s2Varlst (jsnv: jsonval): s2Varlst
 
 fun parse_s2exp (jsnv: jsonval): s2exp
 fun parse_s2explst (jsnv: jsonval): s2explst
+
+(* ****** ****** *)
+
+fun parse_labs2exp (jsnv: jsonval): labs2exp
+fun parse_labs2explst (jsnv: jsonval): labs2explst
 
 (* ****** ****** *)
 

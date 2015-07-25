@@ -26,7 +26,7 @@ val-list_cons (x, xs) = xs
 //
 in
   S3ITMsvar(parse_s2var(x))
-end (* end of [aux_S3ITMsvar] *)
+end (* aux_S3ITMsvar *)
 
 fun
 aux_S3ITMsVar
@@ -39,7 +39,7 @@ val-list_cons (x, xs) = xs
 //
 in
   S3ITMsVar(parse_s2Var(x))
-end (* end of [aux_S3ITMsVar] *)
+end (* aux_S3ITMsVar *)
 
 fun
 aux_S3ITMhypo
@@ -52,7 +52,7 @@ val-list_cons (x, xs) = xs
 //
 in
   S3ITMhypo(parse_h3ypo(x))
-end (* end of [aux_S3ITMhypo] *)
+end (* aux_S3ITMhypo *)
 
 fun
 aux_S3ITMcnstr
@@ -65,7 +65,7 @@ val-list_cons (x, xs) = xs
 //
 in
   S3ITMcnstr(parse_c3nstr(x))
-end (* end of [aux_S3ITMcnstr] *)
+end (* aux_S3ITMcnstr *)
 
 fun
 aux_S3ITMcnstr_ref
@@ -79,7 +79,37 @@ val-list_cons (x_opt, xs) = xs
 //
 in
   S3ITMcnstr_ref(parse_location(x_loc), parse_c3nstropt(x_opt))
-end (* end of [aux_S3ITMcnstropt] *)
+end (* aux_S3ITMcnstropt *)
+
+(* ****** ****** *)
+
+fun
+aux_S3ITMdisj
+(
+  x0: jsonval
+) : s3itm = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S3ITMdisj(parse_s3itmlstlst(x))
+end // (* aux_S3ITMdisj *)
+
+(* ****** ****** *)
+
+fun
+aux_S3ITMsolassert
+(
+  x0: jsonval
+) : s3itm = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S3ITMsolassert(parse_s2exp(x))
+end (* aux_S3ITMsolassert *)
 
 in (* in-of-local *)
 
@@ -112,6 +142,10 @@ case+ name of
 | "S3ITMcnstr" => aux_S3ITMcnstr(jsnv2)
 //
 | "S3ITMcnstr_ref" => aux_S3ITMcnstr_ref(jsnv2)
+//
+| "S3ITMdisj" => aux_S3ITMdisj(jsnv2)
+//
+| "S3ITMsolassert" => aux_S3ITMsolassert(jsnv2)
 //
 | _(*unrecognized*) =>
   let

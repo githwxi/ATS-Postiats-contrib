@@ -48,12 +48,15 @@ overload print with print_double of 100
 overload print with print_string of 100
 
 (* ****** ****** *)
-  
-fun{a:t0p}
+//
+fun
+{a:t0p}
 print_val (x: a): void = "mac#%"
-fun{a:t0p}
+//
+fun
+{a:t0p}
 fprint_val (JSfile, x: a): void = "mac#%"
-  
+//  
 (* ****** ****** *)
 //
 // HX-2014-09-19:

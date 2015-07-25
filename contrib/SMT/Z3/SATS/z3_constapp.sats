@@ -62,7 +62,80 @@ fun Z3_mk_fresh_const
 (
   ctx: !Z3_context, prfix: Z3_string, ty: !Z3_sort
 ) : Z3_ast = "mac#%" // end of [Z3_mk_fresh_const]
+
+(* ****** ****** *)
+
+fun
+Z3_mk_func_decl
+  {n:nat}
+(
+  ctx: !Z3_context
+, sym: Z3_symbol, n: int(n)
+, domain: &RD(array(Z3_sort, n)), range: !Z3_sort
+) : Z3_func_decl = "mac#%" // end-of-function
+
+(* ****** ****** *)
+
+fun
+Z3_mk_func_decl_0
+(
+  ctx: !Z3_context
+, sym: Z3_symbol, res: !Z3_sort
+) : Z3_func_decl = "mac#%" // end-of-function
+
+fun
+Z3_mk_func_decl_1
+(
+  ctx: !Z3_context
+, sym: Z3_symbol, arg: !Z3_sort, res: !Z3_sort
+) : Z3_func_decl = "mac#%" // end-of-function
+
+fun
+Z3_mk_func_decl_2
+(
+  ctx: !Z3_context
+, sym: Z3_symbol, a0: !Z3_sort, a1: !Z3_sort, r: !Z3_sort
+) : Z3_func_decl = "mac#%" // end-of-function
+
+(* ****** ****** *)
   
+fun
+Z3_mk_app{n:nat}
+(
+  ctx: !Z3_context
+, fd: !Z3_func_decl, n: int(n), args: &RD(array(Z3_ast, n))
+) : Z3_ast = "mac#%" // end-of-fun
+  
+(* ****** ****** *)
+
+fun
+Z3_mk_app_0
+(
+  ctx: !Z3_context, fd: !Z3_func_decl
+) : Z3_ast = "mac#%" // end-of-fun
+
+fun
+Z3_mk_app_1
+(
+  ctx: !Z3_context, fd: !Z3_func_decl, arg: !Z3_ast
+) : Z3_ast = "mac#%" // end of [Z3_mk_app_1]
+
+fun
+Z3_mk_app_2
+(
+  ctx: !Z3_context, fd: !Z3_func_decl, a0: !Z3_ast, a1: !Z3_ast
+) : Z3_ast = "mac#%" // end of [Z3_mk_app_2]
+
+(* ****** ****** *)
+//
+fun
+Z3_func_decl_inc_ref{l:addr}
+  (ctx: !Z3_context, fd: !Z3_func_decl(l)): Z3_func_decl(l) = "mac#%"
+// end of [Z3_func_decl_inc_ref]
+//
+fun
+Z3_func_decl_dec_ref(ctx: !Z3_context, fd: Z3_func_decl): void = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [z3_constapp.sats] *)

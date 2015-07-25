@@ -23,6 +23,8 @@ all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PL) -o ./output/DATS/stream_dats.pl -i
 all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PL) -o ./output/DATS/intrange_dats.pl -i
+all:: ; \
+$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PL) -o ./output/DATS/reference_dats.pl -i
 
 ######
 #
@@ -57,6 +59,7 @@ output/DATS/list_dats.pl \
 output/DATS/option_dats.pl \
 output/DATS/stream_dats.pl \
 output/DATS/intrange_dats.pl \
+output/DATS/reference_dats.pl \
 
 #
 all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2pl_all.pl
@@ -66,15 +69,15 @@ all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2pl_all.pl
 all_in_one:: ; \
   $(ECHO) '\n## end of [libatscc2pl_all.pl] ##\n' | $(CAT) - >>libatscc2pl_all.pl
 #
-#######
+######
 
 clean:: ; $(RMF) *~ */*~
 
-#######
+######
 
 cleanall:: clean
 cleanall:: ; $(RMF) libatscc2pl_all.pl
 
-#######
+######
 
 ###### end of [Makefile] ######

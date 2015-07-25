@@ -74,16 +74,16 @@ fun symbol_get_name (symbol): string
 
 (* ****** ****** *)
 //
-datatype label =
-  | LABint of int | LABsym of symbol
-//
-(* ****** ****** *)
-//
 fun
 compare_symbol_symbol
   (x1: symbol, x2: symbol):<> int
 //
 overload compare with compare_symbol_symbol
+//
+(* ****** ****** *)
+//
+datatype label =
+  | LABint of int | LABsym of symbol
 //
 (* ****** ****** *)
 

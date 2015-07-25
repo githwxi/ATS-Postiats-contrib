@@ -37,16 +37,23 @@ staload "./patsolve_z3_solving.sats"
 (* ****** ****** *)
 
 implement
-fprint_commarg
-  (out, ca) =
-(
+fprint_commarg(out, ca) = (
+//
 case+ ca of
+//
 | CAhelp(str) => fprint! (out, "CAhelp(", str, ")")
+//
 | CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
+//
 | CAinput(str) => fprint! (out, "CAinput(", str, ")")
+//
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
+//
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
-)
+//
+| CAargend((*void*)) => fprint! (out, "CAargend(", ")")
+//
+) (* end of [fprint_commarg] *)
 
 (* ****** ****** *)
 
@@ -145,10 +152,11 @@ else res0 // end of [else]
 //
 end // end of [aux]
 //
+val args = aux(argc, argv, 0, nil_vt)
+//
 in
 //
-list_vt_reverse
-  (aux(argc, argv, 0, nil_vt(*void*)))
+list_vt_reverse(list_vt_cons(CAargend(), args))
 //
 end // end of [patsolve_z3_cmdline]
 
@@ -159,6 +167,8 @@ extern fun patsolve_z3_input(): void
 extern fun patsolve_z3_gitem(string): void
 extern fun patsolve_z3_input_arg(string): void
 //
+extern fun patsolve_z3_argend((*void*)): void
+//
 extern fun patsolve_z3_commarglst_finalize(): void
 //
 (* ****** ****** *)
@@ -168,7 +178,11 @@ state_struct =
 @{
 //
   nerr= int
+//
 , input= int
+//
+, ninput= int
+//
 , fopen_inp= int
 , inpfil_ref= FILEref
 //
@@ -184,6 +198,7 @@ the_state: state_struct?
 val () = the_state.nerr := 0
 //
 val () = the_state.input := 0
+val () = the_state.ninput := 0
 //
 val () = the_state.fopen_inp := 0
 val () = the_state.inpfil_ref := stdin_ref
@@ -203,10 +218,14 @@ fun
 process_arg
   (x: commarg): void = let
 //
+(*
 val () =
 fprintln!
-  (stdout_ref, "patsolve_z3_commarglst: process_arg: x = ", x)
-// end of [val]
+(
+  stdout_ref
+, "patsolve_z3_commarglst: process_arg: x = ", x
+) (* end of [val] *)
+*)
 //
 in
 //
@@ -222,6 +241,8 @@ case+ x of
 | CAoutput(str) => fprint! (out, "CAoutput(", str, ")")
 | CAscript(str) => fprint! (out, "CAscript(", str, ")")
 *)
+| CAargend() => patsolve_z3_argend ()
+//
 | _ (*rest-of-CA*) => ()
 //
 end // end of [process_arg]
@@ -268,9 +289,11 @@ implement
 patsolve_z3_input() =
 {
 //
+(*
 val () =
 prerrln!
   ("patsolve_z3_input: ...")
+*)
 //
 val () = !the_state.input := 1
 //
@@ -290,11 +313,11 @@ macdef input() = (!the_state.input > 0)
 in
 //
 case+ 0 of
-| _ when
-    input() =>
-  (
-    patsolve_z3_input_arg(arg)
-  )
+| _ when input() =>
+  {
+    val () = patsolve_z3_input_arg(arg)
+    val () = !the_state.ninput := !the_state.ninput+1
+  }
 | _ (*unrecognized*) => ()
 //
 end (* end of [patsolve_z3_gitem] *)
@@ -305,7 +328,8 @@ implement
 patsolve_z3_input_arg
   (path) = let
 //
-val opt =
+val
+opt =
 fileref_open_opt(path, file_mode_r)
 //
 in
@@ -321,7 +345,9 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
-    val c3t0 = parse_fileref_constraints(filr)
+    val c3t0 =
+      parse_fileref_constraints(filr)
+    // end of [val]
 //
 (*
     val () =
@@ -333,7 +359,7 @@ case+ opt of
     val () = fprint_newline (stdout_ref)
 *)
 //
-    val () = c3nstr_z3_solve (c3t0)
+    val ((*void*)) = c3nstr_z3_solve(c3t0)
 //
   } (* end of [Some_vt] *)
 //
@@ -355,6 +381,30 @@ case+ opt of
   } (* end of [None_vt] *)
 //
 end // end of [patsolve_z3_input_arg]
+
+(* ****** ****** *)
+
+implement
+patsolve_z3_argend
+  ((*void*)) = let
+//
+macdef test() =
+  (!the_state.input > 0 && !the_state.ninput = 0)
+//
+in
+//
+case+ 0 of
+| _ when
+    test() =>
+  {
+    val inp = stdin_ref
+    val c3t0 =
+    parse_fileref_constraints(inp)
+    val ((*void*)) = c3nstr_z3_solve(c3t0)
+  }
+| _ (*rest*) => ((*ignored*))
+//
+end (* end of [patsolve_z3_argend] *)
 
 (* ****** ****** *)
 

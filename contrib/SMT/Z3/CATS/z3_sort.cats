@@ -71,11 +71,31 @@ atscntrb_Z3_mk_real_sort
 
 /* ****** ****** */
 
-#define \
-atscntrb_Z3_sort_inc_ref atscntrb_Z3_inc_ref 
-#define \
-atscntrb_Z3_sort_dec_ref atscntrb_Z3_dec_ref
+ATSinline()
+Z3_sort
+atscntrb_Z3_mk_uninterpreted_sort
+  (Z3_context ctx, Z3_symbol name)
+{
+  Z3_sort ty =
+  Z3_mk_uninterpreted_sort(ctx, name);
+  Z3_inc_ref(ctx, Z3_sort_to_ast(ctx, ty));
+  return ty;
+} // end of [atscntrb_Z3_mk_uninterpreted_sort]
 
+/* ****** ****** */
+//
+#define \
+atscntrb_Z3_sort_dec_ref(ctx, ty) \
+  atscntrb_Z3_dec_ref(ctx, Z3_sort_to_ast(ctx, ty))
+//
+ATSinline()
+Z3_sort
+atscntrb_Z3_sort_inc_ref
+  (Z3_context ctx, Z3_sort ty)
+{
+  Z3_inc_ref(ctx, Z3_sort_to_ast(ctx, ty)); return ty;
+}
+//
 /* ****** ****** */
 
 #endif // end of [Z3_Z3_SORT_CATS]

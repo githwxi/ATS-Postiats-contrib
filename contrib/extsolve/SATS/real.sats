@@ -1,6 +1,5 @@
 (*
-** For reasoning
-** about real numbers
+** For reasoning on real numbers
 *)
 
 (* ****** ****** *)

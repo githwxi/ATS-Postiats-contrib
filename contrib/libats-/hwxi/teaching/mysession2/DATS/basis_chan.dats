@@ -91,9 +91,11 @@ queue_make(cap) =
 //
 implement
 {a}(*tmp*)
-queue_free_exn(que) = let
+queue_free_exn
+  (que) = let
 //
-val () = assertloc(deqarray_is_nil(que))
+val () =
+assertloc(deqarray_is_nil(que))
 //
 in
   deqarray_free_nil(que)

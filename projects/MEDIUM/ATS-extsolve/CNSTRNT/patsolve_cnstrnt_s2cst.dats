@@ -77,10 +77,6 @@ end // end of [local]
 (* ****** ****** *)
 //
 implement
-print_s2cst
-  (s2c) = fprint_s2cst(stdout_ref, s2c)
-//
-implement
 fprint_s2cst
   (out, s2c) = fprint! (out, s2c.name())
 //

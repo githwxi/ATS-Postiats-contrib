@@ -41,7 +41,7 @@ matrixref_exists_cloref
   {a:t@ype}{m,n:int}
 (
   matrixref(a, m, n)
-, m: int(m), n: int(n), ftest: (natLt(m), natLt(n)) -<cloref1> bool
+, int(m), int(n), ftest: (natLt(m), natLt(n)) -<cloref1> bool
 ) : bool = "mac#%" // end-of-fun
 //
 fun
@@ -49,7 +49,7 @@ matrixref_forall_cloref
   {a:t@ype}{m,n:int}
 (
   matrixref(a, m, n)
-, m: int(m), n: int(n), ftest: (natLt(m), natLt(n)) -<cloref1> bool
+, int(m), int(n), ftest: (natLt(m), natLt(n)) -<cloref1> bool
 ) : bool = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
@@ -59,8 +59,67 @@ matrixref_foreach_cloref
   {a:t@ype}{m,n:int}
 (
   matrixref(a, m, n)
-, m: int(m), n: int(n), fwork: (natLt(m), natLt(n)) -<cloref1> void
+, int(m), int(n), fwork: (natLt(m), natLt(n)) -<cloref1> void
 ) : void = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+// HX: matrix-with-size
+//
+(* ****** ****** *)
+//
+fun
+mtrxszref_make_elt
+  {a:t0p}{m,n:nat}
+  (int(m), int(n), x0: a): mtrxszref(a) = "mac#%"
+//
+fun
+mtrxszref_make_matrixref
+  {a:t0p}{m,n:int}
+  (matrixref(a, m, n), int(m), int(n)): mtrxszref(a) = "mac#%"
+// end of [mtrxszref_make_matrixref]
+//
+(* ****** ****** *)
+//
+fun
+mtrxszref_get_nrow{a:t0p}(mtrxszref(a)): intGte(0) = "mac#%"
+fun
+mtrxszref_get_ncol{a:t0p}(mtrxszref(a)): intGte(0) = "mac#%"
+//
+overload .nrow with mtrxszref_get_nrow of 100
+overload .ncol with mtrxszref_get_ncol of 100
+//
+(* ****** ****** *)
+//
+fun
+mtrxszref_get_at
+  {a:t0p}(mtrxszref(a), i: int, j: int): a = "mac#%"
+fun
+mtrxszref_set_at
+  {a:t0p}(mtrxszref(a), i: int, j: int, x: a): void = "mac#%"
+//
+(* ****** ****** *)
+
+overload [] with mtrxszref_get_at of 100
+overload [] with mtrxszref_set_at of 100
+
+(* ****** ****** *)
+//
+fun
+mtrxszref_exists_cloref
+  {a:t@ype}
+  (mtrxszref(a), ftest: (int, int) -<cloref1> bool): bool = "mac#%"
+//
+fun
+mtrxszref_forall_cloref
+  {a:t@ype}
+  (mtrxszref(a), ftest: (int, int) -<cloref1> bool): bool = "mac#%"
+//
+(* ****** ****** *)
+fun
+mtrxszref_foreach_cloref
+  {a:t@ype}
+  (mtrxszref(a), fwork: (int, int) -<cloref1> void): void = "mac#%"
 //
 (* ****** ****** *)
 

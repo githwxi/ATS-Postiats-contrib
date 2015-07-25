@@ -91,4 +91,48 @@ end // end of [matrixref_set_at]
 
 (* ****** ****** *)
 
+%{^
+//
+function
+ats2jspre_mtrxszref_make_matrixref
+  (M, m, n)
+{
+  return { matrix: M, nrow: m, ncol: n };
+}
+//
+function
+ats2jspre_mtrxszref_get_nrow(MSZ) { return MSZ.nrow; }
+function
+ats2jspre_mtrxszref_get_ncol(MSZ) { return MSZ.ncol; }
+//
+function
+ats2jspre_mtrxszref_get_at
+  (MSZ, i, j)
+{
+  var nrow = MSZ.nrow;
+  var ncol = MSZ.ncol;
+  if (i < 0) throw new RangeError("mtrxszref_get_at");
+  if (i >= nrow) throw new RangeError("mtrxszref_get_at");
+  if (j < 0) throw new RangeError("mtrxszref_get_at");
+  if (j >= ncol) throw new RangeError("mtrxszref_get_at");
+  return MSZ.matrix[i*ncol+j];
+}
+//
+function
+ats2jspre_mtrxszref_set_at
+  (MSZ, i, j, x)
+{
+  var nrow = MSZ.nrow;
+  var ncol = MSZ.ncol;
+  if (i < 0) throw new RangeError("mtrxszref_set_at");
+  if (i >= nrow) throw new RangeError("mtrxszref_set_at");
+  if (j < 0) throw new RangeError("mtrxszref_set_at");
+  if (j >= ncol) throw new RangeError("mtrxszref_set_at");
+  return (MSZ.matrix[i*ncol+j] = x);
+}
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
+
 (* end of [matrixref.dats] *)

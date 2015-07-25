@@ -27,6 +27,7 @@ fun emit_ENDL : FILEref -> void
 fun emit_SPACE : FILEref -> void
 //
 fun emit_COLON : FILEref -> void
+fun emit_COMMA : FILEref -> void
 fun emit_SEMICOLON : FILEref -> void
 //
 fun emit_AMPER : FILEref -> void
@@ -67,6 +68,10 @@ emit_nspc
 (* ****** ****** *)
 
 fun emit_int : emit_type (int)
+
+(* ****** ****** *)
+
+fun emit_char : emit_type (char)
 
 (* ****** ****** *)
 
@@ -114,13 +119,29 @@ fun emit_PMVcfunlab
 //
 (* ****** ****** *)
 //
+fun emit_ATSCKiseqz (FILEref, d0exp): void
+fun emit_ATSCKisneqz (FILEref, d0exp): void
+//
+fun emit_ATSCKptriscons (FILEref, d0exp): void
+fun emit_ATSCKptrisnull (FILEref, d0exp): void
+//
+(* ****** ****** *)
+//
+fun
+emit_ATSCKpat_int
+  (out: FILEref, d0e: d0exp, i0: d0exp): void
+//
+fun
+emit_ATSCKpat_bool
+  (out: FILEref, d0e: d0exp, b0: d0exp): void
+//
 fun
 emit_ATSCKpat_con0
-  (out: FILEref, d0e: d0exp, tag: int): void
+  (out: FILEref, d0e: d0exp, ctag: int): void
 //
 fun
 emit_ATSCKpat_con1
-  (out: FILEref, d0e: d0exp, tag: int): void
+  (out: FILEref, d0e: d0exp, ctag: int): void
 //
 (* ****** ****** *)
 

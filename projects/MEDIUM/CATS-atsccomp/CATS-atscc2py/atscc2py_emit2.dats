@@ -1697,9 +1697,10 @@ val () = emit_branchmaplst (out, inss_caseof)
 in
 //
 case+ knd of
+| 0 => emit_f0body_0 (out, fbody)
 | 1 => emit_f0body_tlcal (out, fbody)
 | 2 => emit_f0body_tlcal2 (out, fbody)
-| _ (*0*) => emit_f0body_0 (out, fbody)
+| _ => let val () = assertloc(false) in (*nothing*) end
 //
 end // end of [emit_f0body]
 

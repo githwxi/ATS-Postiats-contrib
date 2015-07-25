@@ -65,9 +65,21 @@ end // end of [ref_get_elt]
 (* ****** ****** *)
 
 implement
-ref_set_elt{a}(r, x) = let
-  val r = $UN.cast{PYlist(a)}(r) in PYlist_set_at(r, 0, x)
+ref_set_elt{a}(r, x0) = let
+  val r = $UN.cast{PYlist(a)}(r) in PYlist_set_at(r, 0, x0)
 end // end of [ref_set_elt]
+
+(* ****** ****** *)
+
+implement
+ref_exch_elt{a}(r, x0) = let
+  val r =
+    $UN.cast{PYlist(a?)}(r)
+  // end of [val]
+  val x1 = PYlist_get_at(r, 0)
+in
+  PYlist_set_at(r, 0, $UN.castvwtp0{a?}(x0)); $UN.castvwtp0{a}(x1)
+end // end of [ref_exch_elt]
 
 (* ****** ****** *)
 

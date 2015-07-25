@@ -213,24 +213,96 @@ end // end of [emit_CSTSPmyloc]
 (* ****** ****** *)
 
 implement
+emit_ATSCKiseqz
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKiseqz(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKiseqz] *)
+
+implement
+emit_ATSCKisneqz
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKisneqz(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKisneqz] *)
+
+(* ****** ****** *)
+
+implement
+emit_ATSCKptriscons
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKptriscons(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptriscons] *)
+
+implement
+emit_ATSCKptrisnull
+  (out, d0e) =
+{
+//
+val () = emit_text (out, "ATSCKptrisnull(")
+val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
+//
+} (* end of [emit_ATSCKptrisnull] *)
+
+(* ****** ****** *)
+
+implement
+emit_ATSCKpat_int
+  (out, d0e, i0) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_int(")
+  val () = (
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_d0exp (out, i0); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_int] *)
+
+implement
+emit_ATSCKpat_bool
+  (out, d0e, b0) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_bool(")
+  val () = (
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_d0exp (out, b0); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_bool] *)
+
+(* ****** ****** *)
+
+implement
 emit_ATSCKpat_con0
-  (out, d0e, tag) =
+  (out, d0e, ctag) =
 {
   val () =
   emit_text (out, "ATSCKpat_con0(")
   val () = (
-    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_int (out, ctag); emit_RPAREN (out)
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_con0] *)
 
 implement
 emit_ATSCKpat_con1
-  (out, d0e, tag) =
+  (out, d0e, ctag) =
 {
   val () =
   emit_text (out, "ATSCKpat_con1(")
   val () = (
-    emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, tag); emit_RPAREN (out)
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_int (out, ctag); emit_RPAREN (out)
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_con1] *)
 
@@ -332,10 +404,20 @@ d0e0.d0exp_node of
 //
 | ATSCSTSPmyloc (tok) => emit_CSTSPmyloc (out, tok)
 //
+| ATSCKpat_int
+    (d0e, int) => emit_ATSCKpat_int (out, d0e, int)
+| ATSCKpat_bool
+    (d0e, bool) => emit_ATSCKpat_bool (out, d0e, bool)
+//
 | ATSCKpat_con0
-    (d0e, tag) => emit_ATSCKpat_con0 (out, d0e, tag)
+    (d0e, ctag) => emit_ATSCKpat_con0 (out, d0e, ctag)
 | ATSCKpat_con1
-    (d0e, tag) => emit_ATSCKpat_con1 (out, d0e, tag)
+    (d0e, ctag) => emit_ATSCKpat_con1 (out, d0e, ctag)
+//
+| ATSCKiseqz(d0e) => emit_ATSCKiseqz (out, d0e)
+| ATSCKisneqz(d0e) => emit_ATSCKisneqz (out, d0e)
+| ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
+| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull (out, d0e)
 //
 | ATSSELcon _ => emit_SELcon (out, d0e0)
 | ATSSELrecsin _ => emit_SELrecsin (out, d0e0)
@@ -447,8 +529,10 @@ implement
 emit_SELcon
   (out, d0e) = let
 //
-val-ATSSELcon
-  (d0rec, s0e, id) = d0e.d0exp_node
+val-
+ATSSELcon
+(d0rec, s0e, id) = d0e.d0exp_node
+//
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //
@@ -471,8 +555,9 @@ implement
 emit_SELrecsin
   (out, d0e) = let
 //
-val-ATSSELrecsin
-  (d0rec, s0e, id) = d0e.d0exp_node
+val-
+ATSSELrecsin
+(d0rec, s0e, id) = d0e.d0exp_node
 //
 in
   emit_d0exp (out, d0rec)
@@ -484,8 +569,10 @@ implement
 emit_SELboxrec
   (out, d0e) = let
 //
-val-ATSSELboxrec
-  (d0rec, s0e, id) = d0e.d0exp_node
+val-
+ATSSELboxrec
+(d0rec, s0e, id) = d0e.d0exp_node
+//
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //

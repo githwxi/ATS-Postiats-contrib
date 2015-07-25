@@ -25,6 +25,11 @@ arrayref_set_at
   {a:t@ype}{n:int}
   (arrayref(a, n), natLt(n), a): void = "mac#%"
 //
+fun
+arrayref_exch_at
+  {a:vt@ype}{n:int}
+  (arrayref(a, n), natLt(n), x0: a): (a) = "mac#%"
+//
 (* ****** ****** *)
 
 overload [] with arrayref_get_at of 100
@@ -63,6 +68,13 @@ arrayref_foreach_cloref
 // HX: array-with-size
 //
 (* ****** ****** *)
+//
+fun
+arrszref_make_elt
+  {a:t@ype}{n:nat}
+  (int(n), a): arrszref(a) = "mac#%"
+//
+(* ****** ****** *)
 
 fun
 arrszref_make_arrayref
@@ -84,7 +96,11 @@ arrszref_get_at
 //
 fun
 arrszref_set_at
-  {a:t0p}(A: arrszref(a), i: int, x: a): void = "mac#%"
+  {a:t0p}(A: arrszref(a), i: int, x0: a): void = "mac#%"
+//
+fun
+arrszref_exch_at
+  {a:vt0p}(A: arrszref(a), i: int, x0: a): (a) = "mac#%"
 //
 (* ****** ****** *)
 

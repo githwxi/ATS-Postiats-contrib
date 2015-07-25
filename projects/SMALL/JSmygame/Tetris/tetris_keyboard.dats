@@ -70,28 +70,6 @@ end // end of [local]
 #define KSPACE 32
 
 (* ****** ****** *)
-//
-fun
-thePiece_xmove_l() =
-  ignoret(Piece_xmove_l(thePiece_get()))
-//
-(* ****** ****** *)
-//
-fun
-thePiece_xmove_r() =
-  ignoret(Piece_xmove_r(thePiece_get()))
-//
-(* ****** ****** *)
-//
-fun
-thePiece_lrotate() =
-  ignoret(Piece_lrotate(thePiece_get()))
-//
-fun
-thePiece_rrotate() =
-  ignoret(Piece_rrotate(thePiece_get()))
-//
-(* ****** ****** *)
 
 local
 
@@ -140,12 +118,17 @@ if k > 0 then thePiece_xmove_r()
 end // end of [aux_right]
 
 (* ****** ****** *)
-
+//
 fun
-aux_space(): void =
-{
-  val () = theGameTQuota_delta_space()
-}
+aux_space(): void = let
+//
+val k = theGameStatus_get()
+//
+in
+//
+if k > 0 then theGameTQuota_delta_space()
+//
+end // end of [aux_space]
 
 (* ****** ****** *)
 
@@ -156,8 +139,10 @@ case+ 0 of
 //
 | _ when c = KUP => aux_up()
 | _ when c = KDOWN => aux_down()
+//
 | _ when c = KLEFT => aux_left()
 | _ when c = KRIGHT => aux_right()
+//
 | _ when c = KSPACE => aux_space()
 //
 | _ (* ignored *) => ()

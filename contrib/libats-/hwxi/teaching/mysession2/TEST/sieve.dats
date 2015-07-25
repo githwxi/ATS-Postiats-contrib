@@ -88,7 +88,7 @@ end // end of [ints_from]
 
 implement
 ints_filter
-  (chn, n) = let
+  (chn, n0) = let
 //
 fun
 getfst
@@ -96,11 +96,13 @@ getfst
   chn: !channeg(sslist(int))
 ) : int = let
 //
-val () = channeg_list_cons(chn)
+val () =
+  channeg_list_cons(chn)
+//
 val fst = channeg_send_val(chn)
 //
 in
-  if fst mod n > 0 then fst else getfst(chn)
+  if fst mod n0 > 0 then fst else getfst(chn)
 end // end of [getfst]
 //
 fun

@@ -262,4 +262,27 @@ theGameBoard_rowdel_one
 //
 (* ****** ****** *)
 
+implement
+theGameBoard_iforeach
+  (fwork) = let
+//
+val board =
+  theGameBoard_get()
+//
+fun loop1(i: int): void =
+  if i < GCOLS
+    then (loop2(i, 0); loop1(i+1)) else ()
+  // end of [if]
+and loop2(i: int, j: int): void =
+  if j < GROWS
+    then (fwork(i, j, GameBoard_isset_at(board, i, j)); loop2(i, j+1))
+    else ()
+  // end of [if]
+//
+in
+  loop1(0)
+end // end of [the_GameBoard_iforeach]
+
+(* ****** ****** *)
+
 (* end of [tetris_gameboard.dats] *)

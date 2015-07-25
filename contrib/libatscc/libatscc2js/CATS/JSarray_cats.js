@@ -35,12 +35,18 @@ ats2jspre_JSarray_copy_arrayref(A, n)
 } // end of [ats2jspre_JSarray_copy_arrayref]
 
 /* ****** ****** */
-
+//
 function
-ats2jspre_JSarray_get_at(A, i) { return A[i]; }
+ats2jspre_JSarray_get_at
+  (A, i) { return A[i]; }
 function
-ats2jspre_JSarray_set_at(A, i, x) { A[i] = x; return; }
-
+ats2jspre_JSarray_set_at
+  (A, i, x0) { A[i] = x0; return; }
+//
+function
+ats2jspre_JSarray_exch_at
+  (A, i, x0) { var x1 = A[i]; A[i] = x0; return x1; }
+//
 /* ****** ****** */
 //
 function

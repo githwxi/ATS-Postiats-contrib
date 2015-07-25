@@ -170,19 +170,47 @@ ATSCSTSPmyloc_make
 ) : d0exp // end-of-fun
 //
 (* ****** ****** *)
-
+//
+fun
+ATSCKiseqz_make
+  (tok_kwd: token, d0e: d0exp, tok_end: token): d0exp
+fun
+ATSCKisneqz_make
+  (tok_kwd: token, d0e: d0exp, tok_end: token): d0exp
+//
+fun
+ATSCKptriscons_make
+  (tok_kwd: token, d0e: d0exp, tok_end: token): d0exp
+fun
+ATSCKptrisnull_make
+  (tok_kwd: token, d0e: d0exp, tok_end: token): d0exp
+//
+(* ****** ****** *)
+//
+fun
+ATSCKpat_int_make
+(
+  tok_kwd: token, d0e: d0exp, int: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
+ATSCKpat_bool_make
+(
+  tok_kwd: token, d0e: d0exp, bool: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
 fun
 ATSCKpat_con0_make
 (
   tok_kwd: token, d0e: d0exp, tag: signed, tok_end: token
 ) : d0exp // end-of-fun
-
+//
 fun
 ATSCKpat_con1_make
 (
   tok_kwd: token, d0e: d0exp, tag: signed, tok_end: token
 ) : d0exp // end-of-fun
-
+//
 (* ****** ****** *)
 //
 fun

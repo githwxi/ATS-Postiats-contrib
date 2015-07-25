@@ -10,7 +10,7 @@
 myservice_int2bits() ->
   receive
     Client ->
-    Chpos = spawn(session, chpos_transfer, []),
+    Chpos = spawn(session, chpos_xfer, []),
     Chneg = spawn(?MODULE, myservice_int2bits_fserv, [Chpos]),
     Client ! {myservice_int2bits, {Chpos, Chneg}},
     myservice_int2bits()

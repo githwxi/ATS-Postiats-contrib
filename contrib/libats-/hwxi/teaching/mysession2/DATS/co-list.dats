@@ -10,9 +10,13 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./basis_chan2.dats"
+staload "./../SATS/basis.sats"
 //
 staload "./../SATS/co-list.sats"
+//
+(* ****** ****** *)
+//
+staload "./basis_chan2.dats"
 //
 (* ****** ****** *)
 

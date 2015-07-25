@@ -10,7 +10,7 @@
 myservice_ints() ->
   receive
     Client ->
-    Chpos = spawn(session, chpos_transfer, []),
+    Chpos = spawn(session, chpos_xfer, []),
     Chneg = spawn(?MODULE, myservice_ints_fserv, [Chpos, 0]),
     Client ! {myservice_ints, {Chpos, Chneg}},
     myservice_ints()

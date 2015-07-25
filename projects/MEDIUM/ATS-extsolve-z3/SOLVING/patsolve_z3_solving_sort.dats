@@ -24,6 +24,32 @@ staload "./patsolve_z3_solving_ctx.dats"
 assume sort_vtype = Z3_sort
 
 (* ****** ****** *)
+
+implement
+sort_decref
+  (ty) = () where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val () = Z3_sort_dec_ref(ctx, ty)
+  prval ((*void*)) = fpf(ctx)
+}
+
+(* ****** ****** *)
+
+implement
+sort_incref
+  (ty) = ty2 where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val ty2 = Z3_sort_inc_ref(ctx, ty)
+  prval ((*void*)) = fpf(ctx)
+}
+
+(* ****** ****** *)
 //
 implement 
 sort_int () = res where
@@ -62,6 +88,52 @@ sort_real () = res where
 (* ****** ****** *)
 
 implement
+sort_mk_cls () = sort_mk_abstract("cls")
+implement
+sort_mk_eff () = sort_mk_abstract("eff")
+
+(* ****** ****** *)
+//
+implement
+sort_mk_type () = sort_mk_abstract("type")
+implement
+sort_mk_vtype () = sort_mk_abstract("type")
+//
+implement
+sort_mk_t0ype () = sort_mk_abstract("t0ype")
+implement
+sort_mk_vt0ype () = sort_mk_abstract("t0ype")
+//
+implement
+sort_mk_prop () = sort_bool()
+implement
+sort_mk_view () = sort_bool()
+//
+implement
+sort_mk_tkind () = sort_mk_abstract("tkind")
+//
+(* ****** ****** *)
+//
+(*
+implement
+sort_mk_abstract(name) = sort_int()
+*)
+//
+implement
+sort_mk_abstract
+  (name) = res where
+{
+  val (fpf | ctx) = 
+    the_Z3_context_vget()
+  // end of [val]
+  val sym = Z3_mk_string_symbol (ctx, name)
+  val res = Z3_mk_uninterpreted_sort (ctx, sym)
+  prval ((*void*)) = fpf (ctx)
+}
+//
+(* ****** ****** *)
+
+implement
 sort_error
   (s2t0) = res where
 {
@@ -80,8 +152,10 @@ val res = sort_error(s2t0)
 implement
 sort_make_s2rt(s2t0) = let
 //
+(*
 val () =
 println! ("sort_make: s2t0 = ", s2t0)
+*)
 //
 in
 //
@@ -96,7 +170,24 @@ case+ s2t0 of
 | S2RTstring() => sort_string()
 *)
 //
-| _(*unrecognized*) => sort_error(s2t0)
+| S2RTcls() => sort_mk_cls()
+| S2RTeff() => sort_mk_eff()
+//
+| S2RTtype() => sort_mk_type()
+| S2RTvtype() => sort_mk_vtype()
+| S2RTt0ype() => sort_mk_t0ype()
+| S2RTvt0ype() => sort_mk_vt0ype()
+//
+| S2RTprop() => sort_mk_prop()
+| S2RTview() => sort_mk_view()
+//
+| S2RTtkind() => sort_mk_tkind()
+//
+| S2RTnamed(sym) =>
+    sort_mk_abstract(sym.name())
+  // end of [S2RTnamed]
+//
+| _(*rest-of-S2RT*) => sort_error(s2t0)
 //
 end (* end of [sort_make_s2rt] *)
 

@@ -365,20 +365,104 @@ in
 end // end of [ATSCSTSPmyloc_make]
 
 (* ****** ****** *)
-
+//
 implement
-ATSCKpat_con0_make
+ATSCKiseqz_make
 (
-  tok1, d0e, tag, tok2
+  tok1, d0e, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
-val+SIGNED (_, tag) = tag
+in
+  d0exp_make_node (loc, ATSCKiseqz (d0e))
+end // end of [ATSCKiseqz_make]
+//
+implement
+ATSCKisneqz_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
 //
 in
-  d0exp_make_node (loc, ATSCKpat_con0 (d0e, tag))
+  d0exp_make_node (loc, ATSCKisneqz (d0e))
+end // end of [ATSCKisneqz_make]
+//
+(* ****** ****** *)
+//
+implement
+ATSCKptriscons_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKptriscons (d0e))
+end // end of [ATSCKptriscons_make]
+//
+implement
+ATSCKptrisnull_make
+(
+  tok1, d0e, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKptrisnull (d0e))
+end // end of [ATSCKptrisnull_make]
+//
+(* ****** ****** *)
+
+implement
+ATSCKpat_int_make
+(
+  tok1, d0e, int, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKpat_int (d0e, int))
+end // end of [ATSCKpat_int_make]
+
+implement
+ATSCKpat_bool_make
+(
+  tok1, d0e, bool, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKpat_bool (d0e, bool))
+end // end of [ATSCKpat_bool_make]
+
+(* ****** ****** *)
+
+implement
+ATSCKpat_con0_make
+(
+  tok1, d0e, ctag, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+val+SIGNED (_, ctag) = ctag
+//
+in
+  d0exp_make_node (loc, ATSCKpat_con0 (d0e, ctag))
 end // end of [ATSCKpat_con0_make]
 
 (* ****** ****** *)
@@ -386,16 +470,16 @@ end // end of [ATSCKpat_con0_make]
 implement
 ATSCKpat_con1_make
 (
-  tok1, d0e, tag, tok2
+  tok1, d0e, ctag, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
-val+SIGNED (_, tag) = tag
+val+SIGNED (_, ctag) = ctag
 //
 in
-  d0exp_make_node (loc, ATSCKpat_con1 (d0e, tag))
+  d0exp_make_node (loc, ATSCKpat_con1 (d0e, ctag))
 end // end of [ATSCKpat_con1_make]
 
 (* ****** ****** *)
@@ -1146,14 +1230,14 @@ end // end of [ATSINSmove_nil_make]
 implement
 ATSINSmove_con0_make
 (
-  tok1, tmp, tag, tok2
+  tok1, tmp, ctag, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSmove_con0 (tmp, tag))
+  instr_make_node (loc, ATSINSmove_con0 (tmp, ctag))
 end // end of [ATSINSmove_con0_make]
 
 (* ****** ****** *)
@@ -1191,15 +1275,15 @@ end // end of [ATSINSmove_con1_new_make]
 implement
 ATSINSstore_con1_tag_make
 (
-  tok1, tmp, tag, tok2
+  tok1, tmp, ctag, tok2
 ) = let
 //
 val loc =
   tok1.token_loc ++ tok2.token_loc
 //
 in
-  instr_make_node (loc, ATSINSstore_con1_tag (tmp, tag))
-end // end of [ATSINSstore_con1_tag_make]
+  instr_make_node (loc, ATSINSstore_con1_tag (tmp, ctag))
+end // end of [ATSINSstore_con1_ctag_make]
 
 (* ****** ****** *)
 

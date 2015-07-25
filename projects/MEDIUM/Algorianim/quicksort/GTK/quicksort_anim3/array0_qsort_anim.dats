@@ -145,7 +145,7 @@ val () = srandom_with_time ()
 //
 var i: size_t
 val () = !xy0 := ((~1, 0))
-val () = for (i := i2sz(0); i < A0.size; i := succ(i)) ASZ[i] := A0[i]
+val () = for (i := i2sz(0); i < A0.size(); i := succ(i)) ASZ[i] := A0[i]
 val () = !theExchlst2 := xys0
 //
 } (* end of [ASZ_reset] *)
@@ -237,9 +237,8 @@ mydraw_bargraph$color<> (i) = colorgen (ASZ[i])
 implement
 mydraw_bargraph$height<> (i) = 1.0 * (ASZ[i]+1) / MYMAX
 //
-val asz = ASZ.size
-val asz = sz2i (asz)
-val asz = ckastloc_gintGt (asz, 0)
+val asz = sz2i(ASZ.size())
+val asz = ckastloc_gintGt(asz, 0)
 //
 in
   mydraw_bargraph (asz, p1, p2, p3, p4)

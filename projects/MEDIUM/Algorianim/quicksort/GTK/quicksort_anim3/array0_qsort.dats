@@ -33,24 +33,22 @@ end // end of [randint]
 typedef int2 = (int, int)
 
 (* ****** ****** *)
-
+//
 extern
 fun{a:t@ype}
 array0_qsort (A: array0(a)): list0 (int2)
-
-(* ****** ****** *)
-
+//
 extern
 fun{a:t@ype}
 array0_qsort2
   (A: array0(a), i: int, j: int): list0 (int2)
-
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
 array0_qsort (A) =
-  array0_qsort2<a> (A, 0, sz2i(A.size))
+  array0_qsort2<a> (A, 0, sz2i(A.size()))
 
 (* ****** ****** *)
 //

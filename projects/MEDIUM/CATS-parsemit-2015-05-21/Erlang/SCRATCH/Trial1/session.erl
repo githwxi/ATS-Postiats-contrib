@@ -11,7 +11,7 @@
 -export([chpos_recv_close/1]).
 -export([chneg_recv_close/1]).
 %
--export([chpos_transfer/0]).
+-export([chpos_xfer/0]).
 %
 -export([chpos_chneg_connect/2]).
 -export([chpos_chneg_connect_pn/2]).
@@ -27,7 +27,7 @@
 %
 %%%%%%
 %
-% A positive channel is {Chpos}
+% A positive channel is Chpos
 % A negative channel is a pair {Chpos, Chneg}
 %
 %%%%%%
@@ -41,17 +41,17 @@ chneg_send({Chpos, Chneg}) ->
   Chpos ! {self()}, receive {Chneg, X} -> X end.
 chneg_recv({Chpos, Chneg}, X) -> Chneg ! {Chpos, X}.
 chneg_recv_close({Chpos, Chneg}) ->
-  Chneg ! {Chpos, chneg_close}, Chpos ! chpos_transfer_close.
+  Chneg ! {Chpos, chneg_close}, Chpos ! chpos_xfer_close.
 %
 %%%%%%
 %
-chpos_transfer() ->
+chpos_xfer() ->
   receive
     {Client} ->
     receive
-      ChposX = {_Chpos, _X} -> Client ! ChposX, chpos_transfer()
+      ChposX = {_Chpos, _X} -> Client ! ChposX, chpos_xfer()
     end;
-    chpos_transfer_close -> 0
+    chpos_xfer_close -> 0
   end.
 %
 %%%%%%
@@ -66,13 +66,16 @@ chpos_chneg_connect_pn
   (Chpos1, Chposneg2) ->
   %% io:format("chpos_chneg_connect_pn: Chpos1 = ~p~n", [Chpos1]),
   %% io:format("chpos_chneg_connect_pn: Chposneg2 = ~p~n", [Chposneg2]),
+  X = chpos_recv(Chpos1),
   {Chpos2, Chneg2} = Chposneg2,
-  X = chpos_recv(Chpos1), Chpos2 ! {Chneg2, X},
+
   %% io:format("chpos_chneg_connect_pn: X = ~p~n", [X]),
   if
     (X==chneg_close) ->
-      Chpos1 ! chpos_transfer_close;
+      Chpos1 ! chpos_xfer_close,
+      Chpos2 ! {Chneg2, chneg_close};
     true ->
+      Chneg2 ! {Chpos2, X},
       chpos_chneg_connect_pn(Chpos1, Chposneg2)
   end.
 %

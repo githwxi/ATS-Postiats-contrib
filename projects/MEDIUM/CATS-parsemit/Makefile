@@ -3,28 +3,26 @@
 #
 ######
 
+PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
-all:: \
-catsparse_mylib.dats; \
-$(PATSOPT) -o ./CATS/catsparse_mylib_dats.c --dynamic $<
+all:: DATS_C
 
 ######
 
-all:: \
+DATS_C:: \
+catsparse_mylib.dats; \
+$(PATSOPT) -o ./CATS/catsparse_mylib_dats.c --dynamic $<
+DATS_C:: \
 catsparse_include_all.dats; \
 $(PATSOPT) -o ./CATS/catsparse_include_all_dats.c --dynamic $<
 
 ######
 #
-testall:: \
-catsparse_mylib.dats; \
-$(PATSOPT) -o ./CATS/catsparse_mylib_dats.c --dynamic $<
-testall:: \
-catsparse_include_all.dats; \
-$(PATSOPT) -o ./CATS/catsparse_include_all_dats.c --dynamic $<
+testall:: all
+testall:: cleanall
 #
 ######
 

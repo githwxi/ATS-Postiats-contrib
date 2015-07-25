@@ -64,6 +64,12 @@ s2var_get_stamp (s2v) = !s2v.s2var_stamp
 (* ****** ****** *)
 //
 implement
+s2var_is_impred
+  (s2v) = s2rt_is_impred(!s2v.s2var_srt)
+//
+(* ****** ****** *)
+//
+implement
 s2var_get_payload(s2v) = !s2v.s2var_payload
 implement
 s2var_set_payload(s2v, x) = (!s2v.s2var_payload := x)
@@ -73,10 +79,6 @@ s2var_set_payload(s2v, x) = (!s2v.s2var_payload := x)
 end // end of [local]
 
 (* ****** ****** *)
-//
-implement
-print_s2var
-  (s2v) = fprint_s2var(stdout_ref, s2v)
 //
 implement
 fprint_s2var

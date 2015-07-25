@@ -30,13 +30,6 @@ staload "./../SATS/reference.sats"
 //
 (* ****** ****** *)
 //
-(*
-assume
-ref_vt0ype_type(a:t@ype) = PYlist(a)
-*)
-//
-(* ****** ****** *)
-//
 implement
 ref (x) = ref_make_elt (x)
 //

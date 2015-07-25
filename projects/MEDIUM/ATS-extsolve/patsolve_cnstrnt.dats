@@ -44,6 +44,34 @@ fprint_val<symbol> = fprint_symbol
 (* ****** ****** *)
 
 implement
+print_stamp(x) = fprint_stamp(stdout_ref, x)
+implement
+prerr_stamp(x) = fprint_stamp(stderr_ref, x)
+
+(* ****** ****** *)
+//
+implement
+print_symbol(x) = fprint_symbol(stdout_ref, x)
+implement
+prerr_symbol(x) = fprint_symbol(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
+print_label(x) = fprint_label(stdout_ref, x)
+implement
+prerr_label(x) = fprint_label(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
+print_tyreckind(x) = fprint_tyreckind(stdout_ref, x)
+implement
+prerr_tyreckind(x) = fprint_tyreckind(stderr_ref, x)
+//
+(* ****** ****** *)
+
+implement
 fprint_val<s2rt> = fprint_s2rt
 implement
 fprint_val<s2cst> = fprint_s2cst
@@ -51,6 +79,8 @@ implement
 fprint_val<s2var> = fprint_s2var
 implement
 fprint_val<s2exp> = fprint_s2exp
+implement
+fprint_val<labs2exp> = fprint_labs2exp
 
 (* ****** ****** *)
 
@@ -68,6 +98,25 @@ print_s2rt(x) = fprint_s2rt(stdout_ref, x)
 implement
 prerr_s2rt(x) = fprint_s2rt(stderr_ref, x)
 
+(* ****** ****** *)
+//
+implement
+print_s2cst(x) = fprint_s2cst(stdout_ref, x)
+implement
+prerr_s2cst(x) = fprint_s2cst(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
+print_s2var(x) = fprint_s2var(stdout_ref, x)
+implement
+prerr_s2var(x) = fprint_s2var(stderr_ref, x)
+//
+implement
+print_s2Var(x) = fprint_s2Var(stdout_ref, x)
+implement
+prerr_s2Var(x) = fprint_s2Var(stderr_ref, x)
+//
 (* ****** ****** *)
 //
 implement
@@ -104,6 +153,15 @@ local
 //
 #include
 "./CNSTRNT/patsolve_cnstrnt_location.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
+//
+local
+//
+#include
+"./CNSTRNT/patsolve_cnstrnt_label.dats" in (*nothing*)
 //
 end // end of [local]
 //

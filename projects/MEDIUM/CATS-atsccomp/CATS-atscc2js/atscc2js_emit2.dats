@@ -775,7 +775,9 @@ case+ inss of
 | list_nil () => inss
 | list_cons (ins, inss2) =>
   (
-    case+ ins.instr_node of
+    case+
+    ins.instr_node
+    of // case+
     | ATSINSstore_con1_tag
         (tmp, tag) => let
         val () = opt := Some(tag) in inss2
@@ -1135,9 +1137,10 @@ val () = emit_text (out, "//\n")
 val () = (
 //
 case+ knd of
+| 0 => emit_f0body_0 (out, fbody)
 | 1 => emit_f0body_tlcal (out, fbody)
 | 2 => emit_f0body_tlcal2 (out, fbody)
-| _ (*0*) => emit_f0body_0 (out, fbody)
+| _ => let val () = assertloc(false) in (*nothing*) end
 //
 ) : void // end of [val]
 //

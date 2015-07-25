@@ -158,6 +158,13 @@ val-~None_vt() = kwordins ("ATSPMVcastfn", ATSPMVcastfn)
 //
 val-~None_vt() = kwordins ("ATSCSTSPmyloc", ATSCSTSPmyloc)
 //
+val-~None_vt() = kwordins ("ATSCKiseqz", ATSCKiseqz)
+val-~None_vt() = kwordins ("ATSCKisneqz", ATSCKisneqz)
+val-~None_vt() = kwordins ("ATSCKptriscons", ATSCKptriscons)
+val-~None_vt() = kwordins ("ATSCKptrisnull", ATSCKptrisnull)
+//
+val-~None_vt() = kwordins ("ATSCKpat_int", ATSCKpat_int)
+val-~None_vt() = kwordins ("ATSCKpat_bool", ATSCKpat_bool)
 val-~None_vt() = kwordins ("ATSCKpat_con0", ATSCKpat_con0)
 val-~None_vt() = kwordins ("ATSCKpat_con1", ATSCKpat_con1)
 //

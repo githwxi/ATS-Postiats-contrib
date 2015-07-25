@@ -56,19 +56,24 @@ statically that would otherwise be difficult and error-prone to do.
 
 ## Dependencies
 
-First, you'll need  the latest ATS compiler which you  can find on the
-ATS [website][download-ats].
+Of course, you need the latest ATS compiler which you can find on the ATS
+[website][download-ats].
 
-Next, install clang and the [emscripten][download-emscripten] compiler. If
-you want to run your compiled javascript programs from a console, you can
-run them from node.js, which emscripten requires.
+You can employ either atscc2js or emscripten for the purpose of generating
+JS code from ATS source. Using atscc2js is mostly straightforward, and the
+rest of the README is about using emscripten to compile into JS the C code
+generated from some ATS source.
+
+You need to install clang and the [emscripten][download-emscripten]
+compiler. If you want to run your compiled JS programs from a console, you
+can run them from node.js, which emscripten requires.
 
 ## Hello, world!
 
 After installing emscripten, you'll now have a C/C++ compiler that outputs
-javascript.  For ATS, we'll mostly concerned with the C functionality
-provided by emcc. Make sure emcc is in your path, and try the following
-small example
+JS code.  For ATS, we'll mostly concerned with the C functionality provided
+by emcc. Make sure emcc is in your path, and try the following small
+example
 
     implement main0 () = {
       val () = println! "Hello, world!"
@@ -110,9 +115,9 @@ the following declaration.
 This designates "update_display" to be externally defined. This means that
 the C compiler will generate a stub for it and let the linker resolve it to
 the correct symbol. We can tell emscripten to look for this symbol in a
-special javascript file we designate as a library.  To get a good idea of
-how this works, check out the library.js file in this directory that wraps
-the HTML5 Canvas API with functions ATS can understand.
+special JS file we designate as a library.  To get a good idea of how this
+works, check out the library.js file in this directory that wraps the HTML5
+Canvas API with functions ATS can understand.
 
 To make a library.js for the simple update display example, add the
 following to it
@@ -239,4 +244,4 @@ compilation.
 
 [download-ats]: http://www.ats-lang.org/DOWNLOAD/#ATS_packages
 [download-emscripten]: http://github.com/kripken/emscripten
-[running-clock]: http://www.ats-lang.org/COMPILED/doc/PROJECT/SMALL/JSclock/myclock0.html
+[running-clock]: http://ats-lang.sourceforge.net/COMPILED/doc/PROJECT/SMALL/JSclock/myclock0.html

@@ -33,6 +33,22 @@ case+ name of
 | "addr" => S2RTaddr()
 | "bool" => S2RTbool()
 //
+| "cls" => S2RTeff()
+| "eff" => S2RTeff()
+//
+| "type" => S2RTtype()
+| "t@ype" => S2RTt0ype()
+| "t0ype" => S2RTt0ype()
+//
+| "viewtype" => S2RTvtype()
+| "viewt@ype" => S2RTvt0ype()
+| "viewt0ype" => S2RTvt0ype()
+//
+| "prop" => S2RTprop()
+| "view" => S2RTview()
+//
+| "tkind" => S2RTtkind()
+//
 | _(*rest*) => S2RTnamed(symbol_make_name(name))
 //
 end // end of [aux_S2RTbas]
@@ -75,7 +91,7 @@ case+ lx.0 of
 //
 | "S2RTfun" => aux_S2RTfun (lx.1)
 //
-| _(*rest-of-S2RT*) => S2RTignored((*void*))
+| _(*rest-of-S2RT*) => S2RTerror((*void*))
 //
 end // end of [parse_s2rt]
 

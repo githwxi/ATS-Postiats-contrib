@@ -130,6 +130,19 @@ in
 end (* end of [aux_S2Eeqeq] *)
 
 fun
+aux_S2Esizeof
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x, xs) = xs
+//
+in
+  S2Esizeof(parse_s2exp(x))
+end (* end of [aux_S2Esizeof] *)
+
+fun
 aux_S2Eapp
 (
   x0: jsonval
@@ -158,6 +171,20 @@ in
 end (* end of [aux_S2Emetdec] *)
 
 fun
+aux_S2Etop
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+//
+in
+  S2Etop(parse_int(x1), parse_s2exp(x2))
+end (* end of [aux_S2Etop] *)
+
+fun
 aux_S2Einvar
 (
   x0: jsonval
@@ -169,6 +196,92 @@ val-list_cons (x, xs) = xs
 in
   S2Einvar(parse_s2exp(x))
 end (* end of [aux_S2Einvar] *)
+
+fun
+aux_S2Efun
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+val-list_cons (x3, xs) = xs
+//
+in
+  S2Efun(parse_int(x1), parse_s2explst(x2), parse_s2exp(x3))
+end (* end of [aux_S2Efun] *)
+
+fun
+aux_S2Euni
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+val-list_cons (x3, xs) = xs
+//
+in
+  S2Euni(parse_s2varlst(x1), parse_s2explst(x2), parse_s2exp(x3))
+end (* end of [aux_S2Euni] *)
+
+fun
+aux_S2Eexi
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+val-list_cons (x3, xs) = xs
+//
+in
+  S2Eexi(parse_s2varlst(x1), parse_s2explst(x2), parse_s2exp(x3))
+end (* end of [aux_S2Eexi] *)
+
+fun
+aux_S2Etyrec
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+val-list_cons (x3, xs) = xs
+//
+in
+  S2Etyrec(parse_tyreckind(x1), parse_int(x2), parse_labs2explst(x3))
+end (* end of [aux_S2Etyrec] *)
+
+fun
+aux_S2Eextype
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+//
+in
+  S2Eextype(parse_symbol(x1))
+end (* end of [aux_S2Eextype] *)
+
+fun
+aux_S2Eextkind
+(
+  x0: jsonval
+) : s2exp_node = let
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+//
+in
+  S2Eextkind(parse_symbol(x1))
+end (* end of [aux_S2Eextkind] *)
 
 in (* in-of-local *)
 
@@ -196,13 +309,27 @@ case+ name of
 //
 | "S2Eeqeq" => aux_S2Eeqeq(jsnv2)
 //
+| "S2Esizeof" => aux_S2Esizeof(jsnv2)
+//
 | "S2Eapp" => aux_S2Eapp(jsnv2)
 //
 | "S2Emetdec" => aux_S2Emetdec(jsnv2)
 //
+| "S2Etop" => aux_S2Etop(jsnv2)
+//
 | "S2Einvar" => aux_S2Einvar(jsnv2)
 //
-| "S2Eignored" => S2Eignored(*void*)
+| "S2Efun" => aux_S2Efun(jsnv2)
+//
+| "S2Euni" => aux_S2Euni(jsnv2)
+| "S2Eexi" => aux_S2Eexi(jsnv2)
+//
+| "S2Etyrec" => aux_S2Etyrec(jsnv2)
+//
+| "S2Eextype" => aux_S2Eextype(jsnv2)
+| "S2Eextkind" => aux_S2Eextkind(jsnv2)
+//
+| "S2Eignored" => S2Eerror(*void*)
 //
 | _(*unrecognized*) => 
   let
@@ -216,6 +343,65 @@ case+ name of
   end // end of [unrecognized]
 //
 end // end of [parse_s2exp_node]
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
+fun
+aux_SLABELED
+(
+  x0: jsonval
+) : labs2exp = let
+//
+(*
+val () =
+println!
+(
+  "parse_labs2exp: aux_SLABELED: x0 = ", x0
+) (* end of [val] *)
+*)
+//
+val-JSONarray(xs) = x0
+val-list_cons (x1, xs) = xs
+val-list_cons (x2, xs) = xs
+val-list_cons (x3, xs) = xs
+//
+in
+  SLABELED(parse_label(x1), parse_s2exp(x3))
+end (* end of [aux_SLABELED] *)
+
+in (* in-of-local *)
+
+implement
+parse_labs2exp
+  (jsnv0) = let
+//
+val-JSONobject(lxs) = jsnv0
+//
+val-list_cons (lx, lxs) = lxs
+val name = lx.0 and jsnv2 = lx.1
+//
+in
+//
+case+ name of
+//
+| "SL0ABELED" => aux_SLABELED(jsnv2)
+//
+| _(*unrecognized*) => 
+  let
+    val () =
+    prerrln!
+      ("parse_labs2exp: ", name)
+    // end of [val]
+    val ((*exit*)) = assertloc(false)
+  in
+    exit(1)
+  end // end of [unrecognized]
+//
+end // end of [parse_labs2exp]
 
 end // end of [local]
 

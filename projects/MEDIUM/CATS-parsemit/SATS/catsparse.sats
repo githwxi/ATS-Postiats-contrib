@@ -270,6 +270,13 @@ keyword =
 //
   | ATSCSTSPmyloc of ()
 //
+  | ATSCKiseqz of ()
+  | ATSCKisneqz of ()
+  | ATSCKptriscons of ()
+  | ATSCKptrisnull of ()
+//
+  | ATSCKpat_int of ()
+  | ATSCKpat_bool of ()
   | ATSCKpat_con0 of ()
   | ATSCKpat_con1 of ()
 //
@@ -785,6 +792,13 @@ d0exp_node =
 //
   | ATSCSTSPmyloc of s0tring
 //
+  | ATSCKiseqz of (d0exp)
+  | ATSCKisneqz of (d0exp)
+  | ATSCKptriscons of (d0exp)
+  | ATSCKptrisnull of (d0exp)
+//
+  | ATSCKpat_int of (d0exp, d0exp)
+  | ATSCKpat_bool of (d0exp, d0exp)
   | ATSCKpat_con0 of (d0exp, int(*tag*))
   | ATSCKpat_con1 of (d0exp, int(*tag*))
 //
@@ -870,6 +884,10 @@ f0head = '{
 } (* end of [f0head] *)
 //
 (* ****** ****** *)
+
+typedef f0headopt = Option (f0head)
+
+(* ****** ****** *)
 //
 fun fprint_f0arg : fprint_type (f0arg)
 fun fprint_f0marg : fprint_type (f0marg)
@@ -885,6 +903,7 @@ overload fprint with fprint_f0head
 //
 fun
 f0marg_isneqz (f0ma: f0marg): bool
+//
 overload isneqz with f0marg_isneqz
 //
 (* ****** ****** *)

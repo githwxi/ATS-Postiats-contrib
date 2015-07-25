@@ -21,6 +21,67 @@ staload "./patsolve_z3_solving_ctx.dats"
 //
 (* ****** ****** *)
 
+implement
+s2var_pop_payload
+  (s2v0) = ast where
+{
+//
+val asts =
+  s2var_get_payload(s2v0)
+val asts =
+  $UN.castvwtp0{List1_vt(form)}(asts)
+//
+val+~list_vt_cons(ast, asts) = asts
+//
+val ((*void*)) =
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
+//
+} (* end of [s2var_pop_payload] *)
+//
+(* ****** ****** *)
+
+implement
+s2var_top_payload
+  (s2v0) = let
+//
+val asts =
+  s2var_get_payload(s2v0)
+val asts =
+  $UN.castvwtp0{List1_vt(Z3_ast)}(asts)
+//
+val+list_vt_cons(ast, _) = asts
+//
+val (
+  fpf | ctx
+) = the_Z3_context_vget()
+//
+val ast2 = Z3_inc_ref(ctx, ast)
+//
+prval ((*void*)) = fpf(ctx)
+//
+prval ((*void*)) = $UN.cast2void(asts)
+//
+in
+  $UN.castvwtp0{form}(ast2)
+end // end of [s2var_top_payload]
+
+(* ****** ****** *)
+
+implement
+s2var_push_payload
+  (s2v0, ast) = let
+//
+val asts =
+  s2var_get_payload(s2v0)
+val asts =
+  list_vt_cons(ast, $UN.castvwtp0{formlst}(asts))
+//
+in
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
+end (* end of [s2var_push_payload] *)
+
+(* ****** ****** *)
+
 datavtype
 smtenv =
 SMTENV of (smtenv_struct)
@@ -59,15 +120,15 @@ loop
 ) : void = (
 //
 case+ s2vs of
-| ~list_vt_nil() => ()
-| ~list_vt_cons(s2v, s2vs) => let
+| ~list_vt_nil
+    ((*void*)) => ()
+| ~list_vt_cons
+    (s2v, s2vs) => let
+//
+    val ast = s2var_pop_payload(s2v)
+    val ast = $UN.castvwtp0{Z3_ast}(ast)
     val (fpf | ctx) = the_Z3_context_vget()
-    val () =
-    Z3_dec_ref
-    (
-      ctx
-    , $UN.castvwtp0{Z3_ast}(s2var_get_payload(s2v))
-    ) (* end of [Z3_dec_ref] *)
+    val ((*freed*)) = Z3_dec_ref(ctx, ast)
     prval ((*void*)) = fpf(ctx)
   in
     loop(s2vs)
@@ -213,51 +274,14 @@ smtenv_add_s2var
 val+@SMTENV(env_s) = env
 val s2vs = env_s.smtenv_s2varlst
 val ((*void*)) =
-  env_s.smtenv_s2varlst := cons_vt(s2v0, s2vs)
+  env_s.smtenv_s2varlst := list_vt_cons(s2v0, s2vs)
 prval ((*void*)) = fold@(env)
 //
-val name = s2v0.name()
-val name = symbol_get_name(name)
-val name = string0_copy(name)
-//
-val stamp =
-  stamp_get_int(s2v0.stamp())
-//
-val stamp = g0int2string(stamp)
-//
-val name2 =
-string0_append
-  ($UN.strptr2string(name), $UN.strptr2string(stamp))
-//
-val () = strptr_free(name)
-val () = strptr_free(stamp)
-//
-val ty = sort_make_s2rt(s2v0.srt())
-val ty = $UN.castvwtp0{Z3_sort}(ty)
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val
-sym =
-Z3_mk_string_symbol
-  (ctx, $UN.strptr2string(name2))
-//
-val ast = Z3_mk_const(ctx, sym, ty)
-//
-prval ((*void*)) = fpf(ctx)
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
-//
-prval ((*void*)) = fpf(ctx)
-//
-val () = strptr_free(name2)
+val ast =
+  formula_make_s2var_fresh(env, s2v0)
 //
 in
-  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(ast))
+  s2var_push_payload(s2v0, ast)
 end // end of [smtenv_add_s2var]
 
 (* ****** ****** *)
@@ -293,6 +317,52 @@ prval ((*void*)) = fpf(ctx)
 in
   // nothing
 end // end of [smtenv_add_s2exp]
+
+(* ****** ****** *)
+
+implement
+smtenv_add_h3ypo
+  (env, h3p0) = let
+//
+(*
+val () =
+fprintln!
+(
+  stdout_ref
+, "smtenv_add_h3ypo: h3p0 = ", h3p0
+) (* end of [val] *)
+*)
+//
+in
+//
+case+
+h3p0.h3ypo_node of
+| H3YPOprop s2p =>
+    smtenv_add_s2exp(env, s2p)
+  // end of [H3YPOprop]
+//
+| H3YPObind
+    (s2v1, s2e2) => let
+  in
+    if s2var_is_impred(s2v1)
+      then ()
+      else let
+        val s2p =
+        s2exp_eqeq
+          (s2exp_var(s2v1), s2e2)
+        // end of [val]
+      in
+        smtenv_add_s2exp(env, s2p)
+      end // end of [else]
+  end // end of [H3YPObind]
+//
+| H3YPOeqeq
+    (s2e1, s2e2) =>
+  (
+    smtenv_add_s2exp(env, s2exp_eqeq(s2e1, s2e2))
+  ) (* end of [H3YPOeqeq] *)
+//
+end // end of [smtenv_add_h3ypo]
 
 (* ****** ****** *)
 

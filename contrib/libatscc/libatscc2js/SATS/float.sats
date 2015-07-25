@@ -140,5 +140,13 @@ overload != with neq_double_double of 100
 overload <> with neq_double_double of 100
 //
 (* ****** ****** *)
+//
+fun
+compare_double_double
+  (x1: double, x2: double): Sgn = "mac#%"
+//
+overload compare with compare_double_double of 100
+//
+(* ****** ****** *)
 
 (* end of [float.sats] *)

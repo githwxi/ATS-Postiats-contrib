@@ -28,7 +28,7 @@ $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2PHP) -o ./output/DATS/arrayref_dats
 all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PHP) -o ./output/DATS/reference_dats.php -i
 
-#######
+######
 #
 DATE=date
 ECHO=echo -n
@@ -80,15 +80,15 @@ all_in_one:: ; \
 #
 all_in_one:: ; $(ECHO) '?>\n' | $(CAT) - >>libatscc2php_all.php
 #
-#######
+######
 
 clean:: ; $(RMF) *~ */*~
 
-#######
+######
 
 cleanall:: clean
 cleanall:: ; $(RMF) libatscc2php_all.php
 
-#######
+######
 
 ###### end of [Makefile] ######

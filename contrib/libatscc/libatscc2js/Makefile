@@ -37,7 +37,7 @@ $(PATSOPT) -d ./DATS/matrixref.dats | $(ATSCC2JS) -o ./output/DATS/matrixref_dat
 all:: ; \
 $(PATSOPT) -d ./DATS/gmatrixref.dats | $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 #
-#######
+######
 #
 DATE=date
 ECHO=echo -n
@@ -81,7 +81,7 @@ all_in_one:: ; \
 all_in_one:: ; \
   $(ECHO) '\n/* end of [libatscc2js_all.js] */\n' | $(CAT) - >>libatscc2js_all.js
 #
-#######
+######
 #
 upload_source:: ; \
 scp -r basics_js.sats staloadall.hats CATS SATS DATS \
@@ -95,15 +95,15 @@ upload_DATS_JS:: ; \
 scp output/DATS/*_dats.js \
   ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/DATS/.
 #
-#######
+######
 
 clean:: ; $(RMF) *~ */*~
 
-#######
+######
 
 cleanall:: clean
 cleanall:: ; $(RMF) libatscc2js_all.js
 
-#######
+######
 
 ###### end of [Makefile] ######

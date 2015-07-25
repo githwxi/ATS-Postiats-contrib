@@ -36,10 +36,16 @@ var
 the_context : Z3_context
 //  
 val config = Z3_mk_config ()
+(*
+val config_ = $UN.castvwtp1{ptr}(config)
+*)
 //
 val ((*void*)) =
 (
   the_context := Z3_mk_context_rc (config)
+(*
+  the_context := $extfcall(Z3_context, "Z3_mk_context", config_)
+*)
 ) (* end of [val] *)
 //
 val ((*void*)) = Z3_del_config (config)

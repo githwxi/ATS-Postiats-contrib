@@ -30,6 +30,7 @@ typedef Piece = Piece_type
 //
 (* ****** ****** *)
 //
+#define PDIM 4
 #define GROWS 24
 #define GCOLS 15
 //
@@ -39,6 +40,7 @@ typedef GameBoard = GameBoard_type
 (* ****** ****** *)
 //
 fun theGame_play(): void = "mac#"
+fun theGame_auto(): void = "mac#"
 fun theGame_stop(): void = "mac#"
 //
 (* ****** ****** *)
@@ -64,6 +66,14 @@ fun theNextPiece_get (): Piece = "mac#"
 fun theNextPiece_set (Piece): void = "mac#"
 //
 (* ****** ****** *)
+//
+fun thePiece_xmove_l(): void
+fun thePiece_xmove_r(): void
+//
+fun thePiece_lrotate(): void
+fun thePiece_rrotate(): void
+//
+(* ****** ****** *)
 
 fun thePiece_start_out(): void = "mac#"
 
@@ -79,6 +89,7 @@ fun thePiece_theNextPiece_update(): void = "mac#"
 //
 fun
 theGameBoard_get(): GameBoard = "mac#"
+//
 fun
 theGameBoard_set_at
   (x: int, y: int, Block): void = "mac#"
@@ -179,13 +190,35 @@ fun Piece_dump_blocks(Piece): void = "mac#"
 (* ****** ****** *)
 //
 fun
-theKeyDowns_handle(fwork: int -<cloref1> void): void = "mac#"
+theKeyDowns_handle
+  (fwork: int -<cloref1> void): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theAutoplay_fact(): void = "mac#"
+//
+fun
+theGame_autoplay_piece(Piece): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theGameBoard_iforeach
+  (fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+Piece_iforeach
+  (Piece, fwork: (int(*i*), int(*j*), bool) -<cloref1> void): void = "mac#"
 //
 (* ****** ****** *)
 
 fun tetris_block_initize(): void = "mac#"
 fun tetris_piece_initize(): void = "mac#"
 fun tetris_keyboard_initize(): void = "mac#"
+fun tetris_autoplay_initize(): void = "mac#"
 fun tetris_gameboard_initize(): void = "mac#"
 
 (* ****** ****** *)

@@ -63,6 +63,58 @@ int_foreach_cloref
 (* ****** ****** *)
 //
 implement
+int_exists_method
+  (n) = lam(f) => int_exists_cloref(n, f)
+implement
+int_forall_method
+  (n) = lam(f) => int_forall_cloref(n, f)
+//
+implement
+int_foreach_method
+  (n) = lam(f) => int_foreach_cloref(n, f)
+//
+(* ****** ****** *)
+//
+implement
+int_foldleft_cloref
+  {res}(n, ini, f) =
+  intrange_foldleft_cloref{res}(0, n, ini, f)
+//
+implement
+int_foldleft_method
+  {res}(n, tres) =
+  lam(ini, f) => int_foldleft_cloref{res}(n, ini, f)
+//
+(* ****** ****** *)
+//
+implement
+int_list_map_cloref
+  {a}{n}(n, fopr) = let
+//
+fun
+aux
+{ i:nat
+| i <= n
+} (i: int(i)): list(a, n-i) =
+(
+if i < n
+  then list_cons(fopr(i), aux(i+1))
+  else list_nil()
+// end of [if]
+)
+//
+in
+  aux(0)
+end // end of [int_list_map_cloref]
+//
+implement
+int_list_map_method
+  {a}{n}(n, tres) =
+  lam(fopr) => int_list_map_cloref{a}{n}(n, fopr)
+//
+(* ****** ****** *)
+//
+implement
 int2_exists_cloref
   (n1, n2, f) =
 (
@@ -150,6 +202,34 @@ in
   loop (l, r, f)
 end // end of [intrange_foreach_cloref]
 
+(* ****** ****** *)
+
+implement
+intrange_foldleft_cloref
+  {res}(l, r, ini, fopr) = let
+//
+fun
+loop
+(
+  l: int, r: int
+, ini: res, f: cfun2(res, int, res)
+) : res = (
+//
+if l < r then loop (l+1, r, f(ini, l), f) else ini
+//
+) (* end of [loop] *)
+//
+in
+  loop (l, r, ini, fopr)
+end // end of [intrange_foldleft_cloref]
+
+(* ****** ****** *)
+//
+implement
+intrange_foldleft_method
+  {res}( $tup(l, r), tres ) =
+  lam(ini, f) => intrange_foldleft_cloref{res}(l, r, ini, f)
+//
 (* ****** ****** *)
 
 implement

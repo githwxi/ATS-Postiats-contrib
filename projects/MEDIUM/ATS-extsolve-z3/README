@@ -1,0 +1,12 @@
+#
+# README for ATS-extsolve-z3
+#
+
+######
+
+For now, please use the following
+command-line to build [patsolve_z3]:
+
+make -C ../ATS-extsolve; make build
+
+###### end of [Makefile] ######
