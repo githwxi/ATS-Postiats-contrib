@@ -221,4 +221,63 @@ end // end of [funarray_insert_r]
 
 (* ****** ****** *)
 
+implement
+funarray_remove_l
+  {a}{n}(A) = let
+//
+fun
+rem_l
+{n:pos} .<n>.
+(
+  t0: bt (a, n)
+) : $tup(bt (a, n-1), a) =
+(
+case+ t0 of
+| B(x, E(), _) => $tup(E(), x)
+| B(xl, tl, tr) =>> let
+    val $tup(tl, x0) = rem_l(tl) in $tup(B(xl, tr, tl), x0) 
+  end // end of [lorem]
+)
+//
+in
+  rem_l(A)
+end // end of [funarray_remove_l]
+
+(* ****** ****** *)
+
+implement
+funarray_remove_r
+  {a}{n}(A, n) = let
+//
+fun
+rem_r
+{n:pos} .<n>.
+(
+  t0: bt (a, n), n: int n
+) : $tup(bt (a, n-1), a) = let
+//
+val n2 = n / 2; val+ B (x, tl, tr) = t0
+//
+in
+//
+case+ tl of
+| E() => $tup(E(), x)
+| B _ =>
+  if n > n2 + n2
+    then let
+      val $tup(tr, x0) = rem_r(tr, n2) in $tup(B(x, tl, tr), x0)
+    end // end of [then]
+    else let
+      val $tup(tl, x0) = rem_r(tl, n2) in $tup(B(x, tl, tr), x0)
+    end // end of [else]
+  // end of [if]
+//
+end // end of [rem_r]
+//
+in
+  rem_r(A, n)
+end // end of [funarray_remove_r]
+
+(* ****** ****** *)
+
 (* end of [funarray.dats] *)

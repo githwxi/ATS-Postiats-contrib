@@ -63,7 +63,7 @@ funarray_remove_l
 fun
 funarray_remove_r
   {a:t0p}{n:pos}
-  (A: funarray(INV(a), n)): $tup(funarray(a, n-1), a) = "mac#%"
+  (A: funarray(INV(a), n), n: int(n)): $tup(funarray(a, n-1), a) = "mac#%"
 //
 (* ****** ****** *)
 
