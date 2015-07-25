@@ -52,7 +52,7 @@ funarray_insert_l
 fun
 funarray_insert_r
   {a:t0p}{n:int}
-  (A: funarray(INV(a), n), x: a): funarray(a, n+1) = "mac#%"
+  (A: funarray(INV(a), n), n: int(n), x: a): funarray(a, n+1) = "mac#%"
 //
 (* ****** ****** *)
 //

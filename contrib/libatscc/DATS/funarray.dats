@@ -81,7 +81,7 @@ case+ t0 of
   // end of [size]
 ) (* end of [size] *)
 //
-val () = lemma_funarray_param(A)
+prval() = lemma_funarray_param(A)
 //
 in
   size(A)
@@ -159,6 +159,65 @@ end // end of [else]
 in
   set_at(A, i, x0)
 end // end of [funarray_set_at]
+
+(* ****** ****** *)
+
+implement
+funarray_insert_l
+  {a}{n}(A, x0) = let
+//
+fun
+ins_l
+{n:nat} .<n>.
+(
+  t0: bt (a, n), x0: a
+) :<> bt (a, n+1) =
+(
+case+ t0 of
+| E () => B (x0, E (), E ())
+| B (x, tl, tr) => B (x0, ins_l (tr, x), tl)
+) (* end of [ins_l] *)
+//
+prval() = lemma_funarray_param(A)
+//
+in
+  ins_l(A, x0)
+end // end of [funarray_insert_l]
+
+(* ****** ****** *)
+
+implement
+funarray_insert_r
+  {a}{n}(A, n, x0) = let
+//
+fun
+ins_r
+{n:nat} .<n>.
+(
+  t0: bt (a, n), n: int n, x0: a
+) : bt (a, n+1) =
+(
+//
+if
+n > 0
+then let
+  val n2 = n / 2
+  val+B(x, tl, tr) = t0
+in
+  if n > n2 + n2
+    then B(x, ins_r (tl, n2, x0), tr)
+    else B(x, tl, ins_r (tr, n2-1, x0))
+  // end of [if]
+end // end of [then]
+else B (x0, E (), E ())
+//
+) (* end of [ins_r] *)
+//
+prval() = lemma_funarray_param(A)
+//
+in
+  ins_r(A, n, x0)
+end // end of [funarray_insert_r]
 
 (* ****** ****** *)
 
