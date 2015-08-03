@@ -244,7 +244,7 @@ LAgmat_make_arrayptr
   (mo, A, m, n) = let
 //
 val pA = $UN.castvwtp0{ptr}(A)
-val src = refcnt_make<ptr> (pA)
+val src = refcnt_make_elt<ptr> (pA)
 //
 val ld =
 (
@@ -260,7 +260,7 @@ LAgmat_make_matrixptr
   (M, m, n) = let
 //
 val pM = $UN.castvwtp0{ptr}(M)
-val src = refcnt_make<ptr> (pM)
+val src = refcnt_make_elt<ptr> (pM)
 //
 in
   LAGMAT (1u(*rfc*), src, pM, MORDrow, m, n, n)
