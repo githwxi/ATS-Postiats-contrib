@@ -202,6 +202,7 @@ overload fprint with fprint_s2rt
 abstype
 s2rtdat_type = ptr
 typedef s2rtdat = s2rtdat_type
+typedef s2rtdatlst = List(s2rtdat)
 
 (* ****** ****** *)
 //
@@ -259,9 +260,16 @@ overload .stamp with s2cst_get_stamp
 //
 (* ****** ****** *)
 
-fun s2cst_get_payload(s2cst): ptr
-fun s2cst_set_payload(s2cst, payload: ptr): void
+fun
+s2cst_get_payload(s2cst): ptr
+fun
+s2cst_set_payload(s2cst, payload: ptr): void
 
+(* ****** ****** *)
+//
+fun
+s2rtdat_make(symbol, stamp, s2cstlst): s2rtdat
+//
 (* ****** ****** *)
 //
 abstype

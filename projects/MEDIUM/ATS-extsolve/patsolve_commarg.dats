@@ -277,9 +277,10 @@ implement
 patsolve_help() =
 {
 //
+(*
 val () =
-prerrln!
-  ("patsolve_help: ...")
+prerrln! ("patsolve_help: ...")
+*)
 //
 } (* end of [patsolve_help] *)
 
@@ -289,9 +290,10 @@ implement
 patsolve_input() =
 {
 //
+(*
 val () =
-prerrln!
-  ("patsolve_input: ...")
+prerrln! ("patsolve_input: ...")
+*)
 //
 val () = !the_state.input := 1
 //
@@ -302,9 +304,11 @@ val () = !the_state.input := 1
 implement
 patsolve_gitem(arg) = let
 //
+(*
 val () =
 prerrln!
   ("patsolve_gitem: arg = ", arg)
+*)
 //
 macdef input() = (!the_state.input > 0)
 //
@@ -315,7 +319,7 @@ case+ 0 of
     input() =>
   {
     val () = patsolve_input_arg(arg)
-    val () = !the_state.input := !the_state.input + 1
+    val () = !the_state.ninput := !the_state.ninput+1
   }
 | _ (*unrecognized*) => ()
 //
@@ -343,15 +347,17 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
-    val c3t0 = parse_fileref_constraints(filr)
+    val c3t0 =
+      parse_fileref_constraints(filr)
+    // end of [val]
 //
 (*
     val () =
     fprint! (
-      stdout_ref
-    , "patsolve_input_arg: c3t0 =\n"
+      stdout_ref, "patsolve_input_arg: c3t0 =\n"
     ) (* end of [fprint] *)
 *)
+//
     val () =
       fpprint_c3nstr(stdout_ref, c3t0)
     // end of [val]
@@ -384,6 +390,10 @@ implement
 patsolve_argend
   ((*void*)) = let
 //
+(*
+val () = println! ("patsolve_argend")
+*)
+//
 macdef test() =
   (!the_state.input > 0 && !the_state.ninput = 0)
 //
@@ -395,9 +405,11 @@ case+ 0 of
   {
     val inp = stdin_ref
     val c3t0 =
-    parse_fileref_constraints(inp)
+      parse_fileref_constraints(inp)
+    // end of [val]
     val () =
-    fpprint_c3nstr(stdout_ref, c3t0)
+      fpprint_c3nstr(stdout_ref, c3t0)
+    // end of [val]
     val () = fprint_newline (stdout_ref)
   }
 | _ (*rest*) => ((*ignored*))
