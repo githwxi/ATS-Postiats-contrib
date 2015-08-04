@@ -198,6 +198,27 @@ overload prerr with prerr_s2rt
 overload fprint with fprint_s2rt
 //
 (* ****** ****** *)
+
+abstype
+s2rtdat_type = ptr
+typedef s2rtdat = s2rtdat_type
+
+(* ****** ****** *)
+//
+fun s2rtdat_get_name (s2rtdat): symbol
+fun s2rtdat_get_stamp (s2rtdat): stamp
+//
+(* ****** ****** *)
+//
+fun print_s2rtdat : s2rtdat -> void
+and prerr_s2rtdat : s2rtdat -> void
+fun fprint_s2rtdat: fprint_type(s2rtdat)
+//
+overload print with print_s2rtdat
+overload prerr with prerr_s2rtdat
+overload fprint with fprint_s2rtdat
+//
+(* ****** ****** *)
 //
 abstype
 s2cst_type = ptr
