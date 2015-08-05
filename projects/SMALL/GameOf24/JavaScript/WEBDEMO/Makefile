@@ -4,8 +4,12 @@
 
 ######
 
-all:: upload_html
-all:: upload_rest
+all:: upload
+
+######
+
+upload:: upload_html
+upload:: upload_rest
 
 ######
 #
