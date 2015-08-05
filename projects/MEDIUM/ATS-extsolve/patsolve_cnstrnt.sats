@@ -268,6 +268,8 @@ s2cst_set_payload(s2cst, payload: ptr): void
 (* ****** ****** *)
 //
 fun
+s2rtdat_get_sconlst (s2rtdat): s2cstlst
+fun
 s2rtdat_make(symbol, stamp, s2cstlst): s2rtdat
 //
 (* ****** ****** *)

@@ -129,6 +129,8 @@ implement
 s2rtdat_get_name (s2td) = !s2td.s2rtdat_name
 implement
 s2rtdat_get_stamp (s2td) = !s2td.s2rtdat_stamp
+implement
+s2rtdat_get_sconlst (s2td) = !s2td.s2rtdat_sconlst
 
 end // end of [local]
 
@@ -136,8 +138,14 @@ end // end of [local]
 //
 implement
 fprint_s2rtdat
-  (out, s2td) =
-  fprint_symbol(out, s2rtdat_get_name(s2td))
+  (out, s2td) = let
+//
+val name = s2rtdat_get_name(s2td)
+val s2cs = s2rtdat_get_sconlst(s2td)
+//
+in
+  fprint_symbol(out, name); fprint! (out, "(", s2cs, ")")
+end // end of [fprint_s2rtdat]
 //
 (* ****** ****** *)
 

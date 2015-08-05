@@ -25,6 +25,12 @@ cleanall:: ; $(RMF) gflist_dats.cnstr
 #
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
