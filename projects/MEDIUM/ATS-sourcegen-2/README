@@ -7,9 +7,10 @@
 ######
 #
 # datacontag
+# --codespec "tree0:datacontag()"
+#
 # dataconame
-# --codespec "tree0:datacontag[tree0_datacontag]()"
-# --codespec "tree0:dataconame[tree0_dataconame]()"
+# --codespec "tree0:dataconame()"
 #
 ######
 #
