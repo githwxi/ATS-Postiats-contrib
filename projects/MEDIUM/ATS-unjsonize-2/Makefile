@@ -21,6 +21,14 @@ RMF=rm -f
 
 ######
 
+clean:: ; $(RMF) *~
+
+######
+
+cleanall:: clean
+
+######
+
 cleanall:: ; $(RMF) ./CATS/patsunj2_mylib_dats.c
 cleanall:: ; $(RMF) ./CATS/patsunj2_include_all_dats.c
 
