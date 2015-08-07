@@ -129,6 +129,10 @@ patsunj2_commarg_dats.o: patsunj2_commarg.dats; $(PATSCC3) -c $<
 
 ######
 
+patsunj2_synent2_sats.o: patsunj2_synent2.sats; $(PATSCC) -c $<
+
+######
+
 patsunj2_parsing_sats.o: patsunj2_parsing.sats; $(PATSCC3) -c $<
 patsunj2_parsing_dats.o: patsunj2_parsing.dats; $(PATSCC3) -c $<
 
@@ -165,8 +169,6 @@ RMF=rm -f
 ######
 
 cleanats:: ; $(RMF) *~
-cleanats:: ; $(RMF) CNSTRNT/*~
-cleanats:: ; $(RMF) PARSING/*~
 cleanats:: ; $(RMF) *_?ats.o
 cleanats:: ; $(RMF) *_?ats.c
 
