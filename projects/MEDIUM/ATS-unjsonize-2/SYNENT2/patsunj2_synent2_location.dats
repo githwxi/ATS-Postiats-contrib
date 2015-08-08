@@ -1,16 +1,15 @@
-(*
-** ATS-extsolve:
-** For solving ATS-constraints
-** with external SMT-solvers
-*)
-
 (* ****** ****** *)
-
+//
+// ATS-unjsonize-2
+//
+(* ****** ****** *)
+//
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
+** HX-2015-08-07: start
 *)
-
+//
 (* ****** ****** *)
 
 assume location_type = string
@@ -29,4 +28,4 @@ fprint_location
 
 (* ****** ****** *)
 
-(* end of [patsolve_cnstrnt_location.dats] *)
+(* end of [patsunj2_synent2_location.dats] *)

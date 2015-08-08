@@ -1,16 +1,15 @@
-(*
-** ATS-extsolve:
-** For solving ATS-constraints
-** with external SMT-solvers
-*)
-
 (* ****** ****** *)
-
+//
+// ATS-unjsonize-2
+//
+(* ****** ****** *)
+//
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
+** HX-2015-08-07: start
 *)
-
+//
 (* ****** ****** *)
 
 implement
@@ -30,4 +29,4 @@ case+ lab of
 
 (* ****** ****** *)
 
-(* end of [patsolve_cnstrnt_label.dats] *)
+(* end of [patsunj2_synent2_label.dats] *)
