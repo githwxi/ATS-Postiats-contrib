@@ -43,8 +43,13 @@ jsonval_get_field
 overload [] with jsonval_get_field
 //
 (* ****** ****** *)
+//
+staload
+"./patsunj2_synent2.sats"
+//
+(* ****** ****** *)
 
-staload "./patsunj2_synent2.sats"
+fun hash_stamp(stamp):<> ulint
 
 (* ****** ****** *)
 

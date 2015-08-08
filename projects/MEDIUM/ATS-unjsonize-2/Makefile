@@ -86,6 +86,7 @@ SOURCES_DATS= \
   patsunj2_main.dats \
   patsunj2_mylib.dats \
   patsunj2_commarg.dats \
+  patsunj2_synent2.dats \
   patsunj2_parsing.dats \
 
 ######
@@ -130,6 +131,7 @@ patsunj2_commarg_dats.o: patsunj2_commarg.dats; $(PATSCC3) -c $<
 ######
 
 patsunj2_synent2_sats.o: patsunj2_synent2.sats; $(PATSCC) -c $<
+patsunj2_synent2_dats.o: patsunj2_synent2.dats; $(PATSCC3) -c $<
 
 ######
 
