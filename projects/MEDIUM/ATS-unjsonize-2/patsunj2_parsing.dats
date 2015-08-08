@@ -16,7 +16,7 @@
 //
 #define
 ATS_DYNLOADNAME
-"patsolve_parsing__dynload"
+"patsunj2_parsing__dynload"
 //
 (* ****** ****** *)
 //

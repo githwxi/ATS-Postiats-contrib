@@ -22,9 +22,21 @@ staload "./patsunj2_commarg.sats"
 (* ****** ****** *)
 //
 (*
+dynload "patsunj2_synent2.dats"
+*)
+val () =
+patsunj2_synent2__dynload() where
+{
+  extern fun patsunj2_synent2__dynload(): void = "ext#"
+}
+//
+(* ****** ****** *)
+//
+(*
 dynload "patsunj2_parsing.dats"
 *)
-val () = patsunj2_parsing__dynload() where
+val () =
+patsunj2_parsing__dynload() where
 {
   extern fun patsunj2_parsing__dynload(): void = "ext#"
 }
@@ -34,7 +46,8 @@ val () = patsunj2_parsing__dynload() where
 (*
 dynload "patsunj2_commarg.dats"
 *)
-val () = patsunj2_commarg__dynload() where
+val () =
+patsunj2_commarg__dynload() where
 {
   extern fun patsunj2_commarg__dynload(): void = "ext#"
 }
