@@ -39,6 +39,34 @@ staload UN = $UNSAFE
 staload "./patsunj2_synent2.sats"
 
 (* ****** ****** *)
+//
+implement
+fprint_val<stamp> = fprint_stamp
+implement
+fprint_val<symbol> = fprint_symbol
+//
+(* ****** ****** *)
+
+implement
+print_stamp(x) = fprint_stamp(stdout_ref, x)
+implement
+prerr_stamp(x) = fprint_stamp(stderr_ref, x)
+
+(* ****** ****** *)
+//
+implement
+print_symbol(x) = fprint_symbol(stdout_ref, x)
+implement
+prerr_symbol(x) = fprint_symbol(stderr_ref, x)
+//
+(* ****** ****** *)
+//
+implement
+print_label(x) = fprint_label(stdout_ref, x)
+implement
+prerr_label(x) = fprint_label(stderr_ref, x)
+//
+(* ****** ****** *)
 
 local
 //
@@ -53,6 +81,24 @@ local
 //
 #include
 "./SYNENT2/patsunj2_synent2_symbol.dats" in (*nothing*)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include
+"./SYNENT2/patsunj2_synent2_label.dats" in (*nothing*)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include
+"./SYNENT2/patsunj2_synent2_location.dats" in (*nothing*)
 //
 end // end of [local]
 

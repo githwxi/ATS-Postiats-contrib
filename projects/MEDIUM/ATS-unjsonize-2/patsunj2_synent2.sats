@@ -58,7 +58,7 @@ fun the_stamp_update(n: stamp): void
 //
 (* ****** ****** *)
 
-abstype symbol_type
+abstype symbol_type = ptr
 typedef symbol = symbol_type
 
 (* ****** ****** *)
@@ -98,7 +98,22 @@ overload compare with compare_symbol_symbol
 //
 (* ****** ****** *)
 //
-abstype location_type
+datatype label =
+  | LABint of int | LABsym of symbol
+//
+(* ****** ****** *)
+//
+fun print_label: label -> void
+and prerr_label: label -> void
+fun fprint_label: fprint_type(label)
+//
+overload print with print_label
+overload prerr with prerr_label
+overload fprint with fprint_label
+//
+(* ****** ****** *)
+//
+abstype location_type = ptr
 //
 typedef loc_t = location_type
 typedef location = location_type
@@ -113,11 +128,6 @@ overload fprint with fprint_location
 (* ****** ****** *)
 //
 fun location_make (rep: string): loc_t
-//
-(* ****** ****** *)
-//
-datatype label =
-  | LABint of int | LABsym of symbol
 //
 (* ****** ****** *)
 
@@ -158,7 +168,7 @@ where s2rtlst = List0(s2rt)
 
 (* ****** ****** *)
 
-abstype s2cst_type
+abstype s2cst_type = ptr
 typedef s2cst = s2cst_type
 typedef s2cstlst = List0(s2cst)
 
@@ -168,7 +178,7 @@ fun fprint_s2cst: fprint_type(s2cst)
 
 (* ****** ****** *)
 
-abstype s2var_type
+abstype s2var_type = ptr
 typedef s2var = s2var_type
 typedef s2varlst = List0(s2var)
 
@@ -178,19 +188,19 @@ fun fprint_s2var: fprint_type(s2var)
 
 (* ****** ****** *)
 
-abstype d2con_type
+abstype d2con_type = ptr
 typedef d2con = d2con_type
 typedef d2conlst = List0(d2con)
 
 (* ****** ****** *)
 
-abstype d2cst_type
+abstype d2cst_type = ptr
 typedef d2cst = d2cst_type
 typedef d2cstlst = List0(d2cst)
 
 (* ****** ****** *)
 
-abstype d2var_type
+abstype d2var_type = ptr
 typedef d2var = d2var_type
 typedef d2varlst = List0(d2var)
 
