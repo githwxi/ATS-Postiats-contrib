@@ -71,4 +71,17 @@ case+ s2t of
 //
 (* ****** ****** *)
 
+implement
+fprint_s2rtlst
+  (out, s2ts) = let
+//
+implement
+fprint_list$sep<> (out) = fprint_string (out, ", ")
+//
+in
+  fprint_list<s2rt> (out, s2ts)
+end // end of [fprint_s2rtlst]
+
+(* ****** ****** *)
+
 (* end of [patsunj2_synent2_s2rt.dats] *)

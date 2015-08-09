@@ -30,8 +30,16 @@ STDIO = "libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
 
-staload "./patsunj2_commarg.sats"
 staload "./patsunj2_parsing.sats"
+
+(* ****** ****** *)
+
+staload "./patsunj2_synent2.sats"
+staload _ = "./patsunj2_synent2.dats"
+
+(* ****** ****** *)
+
+staload "./patsunj2_commarg.sats"
 
 (* ****** ****** *)
 

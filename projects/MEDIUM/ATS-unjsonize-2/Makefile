@@ -125,11 +125,6 @@ patsunj2_mylib_dats.o: patsunj2_mylib.dats; $(PATSCC3) -c $<
 
 ######
 
-patsunj2_commarg_sats.o: patsunj2_commarg.sats; $(PATSCC) -c $<
-patsunj2_commarg_dats.o: patsunj2_commarg.dats; $(PATSCC3) -c $<
-
-######
-
 patsunj2_synent2_sats.o: patsunj2_synent2.sats; $(PATSCC) -c $<
 patsunj2_synent2_dats.o: patsunj2_synent2.dats; $(PATSCC3) -c $<
 
@@ -137,6 +132,11 @@ patsunj2_synent2_dats.o: patsunj2_synent2.dats; $(PATSCC3) -c $<
 
 patsunj2_parsing_sats.o: patsunj2_parsing.sats; $(PATSCC3) -c $<
 patsunj2_parsing_dats.o: patsunj2_parsing.dats; $(PATSCC3) -c $<
+
+######
+
+patsunj2_commarg_sats.o: patsunj2_commarg.sats; $(PATSCC) -c $<
+patsunj2_commarg_dats.o: patsunj2_commarg.dats; $(PATSCC3) -c $<
 
 ######
 

@@ -51,16 +51,20 @@ implement
 fprint_val<loc_t> = fprint_location
 //
 (* ****** ****** *)
-
+//
 implement
 fprint_val<s2rt> = fprint_s2rt
+//
 implement
 fprint_val<s2cst> = fprint_s2cst
 implement
 fprint_val<s2var> = fprint_s2var
+//
 implement
 fprint_val<s2exp> = fprint_s2exp
-
+implement
+fprint_val<labs2exp> = fprint_labs2exp
+//
 (* ****** ****** *)
 
 implement
@@ -163,7 +167,7 @@ end // end of [local]
 local
 //
 #include
-"./SYNENT2/patsunj2_synent2_d2ecp.dats" in (*nothing*)
+"./SYNENT2/patsunj2_synent2_d2ecl.dats" in (*nothing*)
 //
 end // end of [local]
 

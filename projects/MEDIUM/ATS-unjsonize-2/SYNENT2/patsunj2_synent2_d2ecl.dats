@@ -13,6 +13,17 @@
 (* ****** ****** *)
 
 implement
+fprint_d2ecl
+  (out, d2c0) = let
+in
+//
+fprint (out, "D2C...")
+//
+end // end of [fprint_d2ecl]
+
+(* ****** ****** *)
+
+implement
 fprint_d2eclist
   (out, d2cs) = let
 //

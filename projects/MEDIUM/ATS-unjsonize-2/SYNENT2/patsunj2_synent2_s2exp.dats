@@ -31,14 +31,23 @@ s2exp_eqeq(s2e1, s2e2) =
 //
 (* ****** ****** *)
 
+implement
+fprint_s2exp
+  (out, s2e0) = let
+in
+  fprint(out, "S2E...")
+end // end of [fprint_s2exp]
+
+(* ****** ****** *)
+
 (*
 implement
 fprint_s2exp
-  (out, s2e) = let
+  (out, s2e0) = let
 in
 //
 case+
-s2e.s2exp_node
+s2e0.s2exp_node
 of // case+
 //
 | S2Eint(i) => fprint! (out, "S2Eint(", i, ")")

@@ -376,7 +376,7 @@ d2ecl_node =
 where
 d2ecl = $rec{
 //
-d2exp_loc= loc_t
+d2ecl_loc= loc_t
 ,
 d2ecl_node= d2ecl_node
 //

@@ -13,6 +13,17 @@
 (* ****** ****** *)
 
 implement
+fprint_d2exp
+  (out, d2e0) = let
+in
+//
+  fprint (out, "D2E...")
+//
+end // end of [fprint_d2exp]
+
+(* ****** ****** *)
+
+implement
 fprint_d2explst
   (out, d2es) = let
 //
