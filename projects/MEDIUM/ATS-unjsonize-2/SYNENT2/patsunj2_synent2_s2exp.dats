@@ -123,4 +123,4 @@ end // end of [fprint_labs2explst]
 
 (* ****** ****** *)
 
-(* end of [patsolve_cnstrnt_s2exp.dats] *)
+(* end of [patsunj2_synent2_s2exp.dats] *)

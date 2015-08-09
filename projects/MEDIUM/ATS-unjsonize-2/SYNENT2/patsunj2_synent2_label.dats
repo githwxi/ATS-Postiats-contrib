@@ -11,6 +11,11 @@
 *)
 //
 (* ****** ****** *)
+//
+implement
+print_label(x) = fprint_label(stdout_ref, x)
+//
+(* ****** ****** *)
 
 implement
 fprint_label
@@ -19,11 +24,9 @@ fprint_label
 //
 case+ lab of
 //
-| LABint(int) =>
-    fprint! (out, "LABint(", int, ")")
+| LABint(int) => fprint! (out, "LABint(", int, ")")
 //
-| LABsym(sym) =>
-    fprint! (out, "LABsym(", sym, ")")
+| LABsym(sym) => fprint! (out, "LABsym(", sym, ")")
 //
 ) (* end of [fprint_label] *)
 

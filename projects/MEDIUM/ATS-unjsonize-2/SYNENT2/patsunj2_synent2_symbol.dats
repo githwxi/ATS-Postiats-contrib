@@ -86,6 +86,12 @@ case+ opt of
 end // end of [symbol_make_name]
 
 (* ****** ****** *)
+//
+implement
+print_symbol(x) =
+  fprint_symbol(stdout_ref, x)
+//
+(* ****** ****** *)
 
 implement
 eq_symbol_symbol

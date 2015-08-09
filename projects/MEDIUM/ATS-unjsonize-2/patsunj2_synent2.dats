@@ -45,23 +45,38 @@ fprint_val<stamp> = fprint_stamp
 implement
 fprint_val<symbol> = fprint_symbol
 implement
+fprint_val<label> = fprint_label
+//
+implement
 fprint_val<loc_t> = fprint_location
 //
 (* ****** ****** *)
 
 implement
-print_stamp(x) = fprint_stamp(stdout_ref, x)
+fprint_val<s2rt> = fprint_s2rt
+implement
+fprint_val<s2cst> = fprint_s2cst
+implement
+fprint_val<s2var> = fprint_s2var
+implement
+fprint_val<s2exp> = fprint_s2exp
 
 (* ****** ****** *)
-//
+
 implement
-print_symbol(x) = fprint_symbol(stdout_ref, x)
-//
+fprint_val<d2con> = fprint_d2con
+implement
+fprint_val<d2cst> = fprint_d2cst
+implement
+fprint_val<d2var> = fprint_d2var
+implement
+fprint_val<d2exp> = fprint_d2exp
+
 (* ****** ****** *)
-//
+
 implement
-print_label(x) = fprint_label(stdout_ref, x)
-//
+fprint_val<d2ecl> = fprint_d2ecl
+
 (* ****** ****** *)
 
 local
@@ -131,6 +146,24 @@ local
 //
 #include
 "./SYNENT2/patsunj2_synent2_s2exp.dats" in (*nothing*)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include
+"./SYNENT2/patsunj2_synent2_d2exp.dats" in (*nothing*)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include
+"./SYNENT2/patsunj2_synent2_d2ecp.dats" in (*nothing*)
 //
 end // end of [local]
 

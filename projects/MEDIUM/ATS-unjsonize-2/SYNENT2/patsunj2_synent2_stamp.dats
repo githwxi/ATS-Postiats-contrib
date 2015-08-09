@@ -32,9 +32,12 @@ implement stamp_get_int(x) = x
 (* ****** ****** *)
 
 implement
-fprint_stamp
-  (out, loc) = fprint_int (out, loc)
-// end of [fprint_stamp]
+print_stamp(x) = fprint_stamp(stdout_ref, x)
+
+(* ****** ****** *)
+
+implement
+fprint_stamp(out, loc) = fprint_int (out, loc)
 
 (* ****** ****** *)
 //
