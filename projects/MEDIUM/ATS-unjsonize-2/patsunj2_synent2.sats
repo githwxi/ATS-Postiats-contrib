@@ -16,6 +16,10 @@ stamp_t0ype = int
 typedef stamp = stamp_t0ype
 //
 (* ****** ****** *)
+
+fun stamp_make(int): stamp
+
+(* ****** ****** *)
 //
 fun print_stamp: stamp -> void
 and prerr_stamp: stamp -> void
@@ -25,10 +29,6 @@ overload print with print_stamp
 overload prerr with prerr_stamp
 overload fprint with fprint_stamp
 //
-(* ****** ****** *)
-
-fun stamp_make(int): stamp
-
 (* ****** ****** *)
 
 fun stamp_get_int(stamp): int
@@ -63,6 +63,11 @@ typedef symbol = symbol_type
 
 (* ****** ****** *)
 //
+fun
+symbol_make_name (string): symbol
+//
+(* ****** ****** *)
+//
 fun print_symbol: symbol -> void
 and prerr_symbol: symbol -> void
 fun fprint_symbol: fprint_type(symbol)
@@ -71,11 +76,6 @@ overload print with print_symbol
 overload prerr with prerr_symbol
 overload fprint with fprint_symbol
 //
-(* ****** ****** *)
-
-fun
-symbol_make_name (string): symbol
-
 (* ****** ****** *)
 //
 fun
@@ -120,14 +120,14 @@ typedef location = location_type
 //
 (* ****** ****** *)
 //
+fun location_make (rep: string): loc_t
+//
+(* ****** ****** *)
+//
 fun
 fprint_location: fprint_type(loc_t)
 //
 overload fprint with fprint_location
-//
-(* ****** ****** *)
-//
-fun location_make (rep: string): loc_t
 //
 (* ****** ****** *)
 
@@ -173,9 +173,31 @@ typedef s2cst = s2cst_type
 typedef s2cstlst = List0(s2cst)
 
 (* ****** ****** *)
-
+//
+fun
+s2cst_make
+  (symbol, s2rt, stamp): s2cst
+//
+(* ****** ****** *)
+//
+fun print_s2cst: s2cst -> void
+and prerr_s2cst: s2cst -> void
 fun fprint_s2cst: fprint_type(s2cst)
-
+//
+overload print with print_s2cst
+overload prerr with prerr_s2cst
+overload fprint with fprint_s2cst
+//
+(* ****** ****** *)
+//
+fun s2cst_get_srt (s2cst): s2rt
+fun s2cst_get_name (s2cst): symbol
+fun s2cst_get_stamp (s2cst): stamp
+//
+overload .srt with s2cst_get_srt
+overload .name with s2cst_get_name
+overload .stamp with s2cst_get_stamp
+//
 (* ****** ****** *)
 
 abstype s2var_type = ptr
@@ -183,9 +205,34 @@ typedef s2var = s2var_type
 typedef s2varlst = List0(s2var)
 
 (* ****** ****** *)
-
+//
+fun
+s2var_make
+  (symbol, s2rt, stamp): s2var
+//
+(* ****** ****** *)
+//
+fun print_s2var: s2var -> void
+and prerr_s2var: s2var -> void
 fun fprint_s2var: fprint_type(s2var)
-
+//
+overload print with print_s2var
+overload prerr with prerr_s2var
+overload fprint with fprint_s2var
+//
+(* ****** ****** *)
+//
+fun
+s2var_get_srt (s2var): s2rt
+fun
+s2var_get_name (s2var): symbol
+fun
+s2var_get_stamp (s2var): stamp
+//
+overload .srt with s2var_get_srt
+overload .name with s2var_get_name
+overload .stamp with s2var_get_stamp
+//
 (* ****** ****** *)
 
 abstype d2con_type = ptr
