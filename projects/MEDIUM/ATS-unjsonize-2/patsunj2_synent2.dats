@@ -107,6 +107,15 @@ end // end of [local]
 local
 //
 #include
+"./SYNENT2/patsunj2_synent2_s2rt.dats" in (*nothing*)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include
 "./SYNENT2/patsunj2_synent2_s2cst.dats" in (*nothing*)
 //
 end // end of [local]
@@ -117,6 +126,15 @@ local
 //
 #include
 "./SYNENT2/patsunj2_synent2_s2var.dats" in (*nothing*)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+//
+#include
+"./SYNENT2/patsunj2_synent2_s2exp.dats" in (*nothing*)
 //
 end // end of [local]
 

@@ -234,6 +234,65 @@ overload .name with s2var_get_name
 overload .stamp with s2var_get_stamp
 //
 (* ****** ****** *)
+//
+datatype
+s2exp_node =
+  | S2Ecst of s2cst
+  | S2Evar of s2var
+// end of [s2exp_node]
+//
+and
+labs2exp =
+  SLABELED of (label, s2exp)
+//
+where
+s2exp = $rec{
+//
+s2exp_loc= loc_t
+,
+s2exp_node= s2exp_node
+//
+} (* end of [s2exp] *)
+//
+and s2explst = List0 (s2exp)
+and labs2explst = List0 (labs2exp)
+//
+(* ****** ****** *)
+//
+fun
+s2exp_make_node
+  (s2t: s2rt, node: s2exp_node): s2exp
+//
+fun s2exp_var (s2v: s2var): s2exp
+fun s2exp_eqeq (s2e1: s2exp, s2e2: s2exp): s2exp
+//
+(* ****** ****** *)
+//
+fun print_s2exp(s2exp): void
+and prerr_s2exp(s2exp): void
+//
+overload print with print_s2exp
+overload prerr with prerr_s2exp
+//
+fun print_s2explst(s2explst): void
+and prerr_s2explst(s2explst): void
+//
+overload print with print_s2explst
+overload prerr with prerr_s2explst
+//
+fun fprint_s2exp : fprint_type(s2exp)
+fun fprint_s2explst : fprint_type(s2explst)
+//
+overload fprint with fprint_s2exp
+overload fprint with fprint_s2explst of 10
+//
+fun fprint_labs2exp : fprint_type(labs2exp)
+fun fprint_labs2explst : fprint_type(labs2explst)
+//
+overload fprint with fprint_labs2exp
+overload fprint with fprint_labs2explst of 10
+//
+(* ****** ****** *)
 
 abstype d2con_type = ptr
 typedef d2con = d2con_type
@@ -250,25 +309,6 @@ typedef d2cstlst = List0(d2cst)
 abstype d2var_type = ptr
 typedef d2var = d2var_type
 typedef d2varlst = List0(d2var)
-
-(* ****** ****** *)
-
-datatype
-s2exp_node =
-  | S2Ecst of s2cst
-  | S2Evar of s2var
-// end of [s2exp_node]
-
-where
-s2exp = $rec{
-//
-s2exp_loc= loc_t
-,
-s2exp_node= s2exp_node
-//
-} (* end of [s2exp] *)
-
-and s2explst = List0(s2exp)
 
 (* ****** ****** *)
 
