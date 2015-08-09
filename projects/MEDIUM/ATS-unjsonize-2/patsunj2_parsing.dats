@@ -176,5 +176,14 @@ in
 end // end of [parse_option]
 
 (* ****** ****** *)
+//
+local
+//
+#include
+"./PARSING/patsunj2_parsing_label.dats" in (*nothing*)
+//
+end // end of [local]
+//
+(* ****** ****** *)
 
 (* end of [patsunj2_parsing.dats] *)

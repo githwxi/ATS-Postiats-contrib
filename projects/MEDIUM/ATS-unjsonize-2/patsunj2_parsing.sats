@@ -100,7 +100,11 @@ fun parse_d2explst (jsnv: jsonval): d2explst
 (* ****** ****** *)
 
 fun parse_d2ecl (jsnv: jsonval): d2ecl
-fun parse_d2ecllst (jsnv: jsonval): d2eclist
+fun parse_d2eclist (jsnv: jsonval): d2eclist
+
+(* ****** ****** *)
+
+fun parse_fileref_d2eclist (filr: FILEref): d2eclist
 
 (* ****** ****** *)
 

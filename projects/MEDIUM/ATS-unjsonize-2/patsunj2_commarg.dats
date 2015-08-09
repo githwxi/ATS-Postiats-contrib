@@ -345,6 +345,10 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
+    val d2cs = parse_fileref_d2eclist(filr)
+    val ((*void*)) = fprint(stdout_ref, d2cs)
+    val ((*void*)) = fprint_newline (stdout_ref)
+//
   } (* end of [Some_vt] *)
 //
 | ~None_vt((*void*)) =>
