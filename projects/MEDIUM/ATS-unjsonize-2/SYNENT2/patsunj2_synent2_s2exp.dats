@@ -20,12 +20,14 @@ s2exp_make_node
 
 (* ****** ****** *)
 //
+(*
 implement
 s2exp_var(s2v) =
   s2exp_make_node(s2v.srt(), S2Evar(s2v))
 implement
 s2exp_eqeq(s2e1, s2e2) =
   s2exp_make_node(s2rt_bool(), S2Eeqeq(s2e1, s2e2))
+*)
 //
 (* ****** ****** *)
 

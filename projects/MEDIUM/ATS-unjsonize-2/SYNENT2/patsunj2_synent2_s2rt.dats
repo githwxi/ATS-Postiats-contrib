@@ -12,35 +12,17 @@
 //
 (* ****** ****** *)
 //
+(*
 implement s2rt_int() = S2RTint()
 implement s2rt_addr() = S2RTaddr()
 implement s2rt_bool() = S2RTbool()
+*)
 //
+(*
 implement s2rt_real() = S2RTreal()
 implement s2rt_string() = S2RTstring()
+*)
 //
-(* ****** ****** *)
-
-implement
-s2rt_is_impred
-  (s2t0) = (
-//
-case+ s2t0 of
-| S2RTtype() => true
-| S2RTvtype() => true 
-//
-| S2RTt0ype() => true
-| S2RTvt0ype() => true
-//
-| S2RTprop() => true
-| S2RTview() => true
-//
-| S2RTfun(_, s2t_res) => s2rt_is_impred(s2t_res)
-//
-| _(*rest-of-S2RT*) => false
-//
-) (* end of [s2rt_is_impred] *)
-
 (* ****** ****** *)
 //
 implement

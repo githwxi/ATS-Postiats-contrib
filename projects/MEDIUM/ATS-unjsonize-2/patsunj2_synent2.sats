@@ -22,11 +22,9 @@ fun stamp_make(int): stamp
 (* ****** ****** *)
 //
 fun print_stamp: stamp -> void
-and prerr_stamp: stamp -> void
 fun fprint_stamp: fprint_type(stamp)
 //
 overload print with print_stamp
-overload prerr with prerr_stamp
 overload fprint with fprint_stamp
 //
 (* ****** ****** *)
@@ -69,11 +67,9 @@ symbol_make_name (string): symbol
 (* ****** ****** *)
 //
 fun print_symbol: symbol -> void
-and prerr_symbol: symbol -> void
 fun fprint_symbol: fprint_type(symbol)
 //
 overload print with print_symbol
-overload prerr with prerr_symbol
 overload fprint with fprint_symbol
 //
 (* ****** ****** *)
@@ -104,11 +100,9 @@ datatype label =
 (* ****** ****** *)
 //
 fun print_label: label -> void
-and prerr_label: label -> void
 fun fprint_label: fprint_type(label)
 //
 overload print with print_label
-overload prerr with prerr_label
 overload fprint with fprint_label
 //
 (* ****** ****** *)
@@ -125,8 +119,11 @@ fun location_make (rep: string): loc_t
 (* ****** ****** *)
 //
 fun
+print_location: (loc_t) -> void
+fun
 fprint_location: fprint_type(loc_t)
 //
+overload print with print_location
 overload fprint with fprint_location
 //
 (* ****** ****** *)
@@ -167,6 +164,20 @@ datatype s2rt =
 where s2rtlst = List0(s2rt)
 
 (* ****** ****** *)
+//
+fun print_s2rt : (s2rt) -> void
+fun print_s2rtlst : (s2rtlst) -> void
+//
+overload print with print_s2rt
+overload print with print_s2rtlst of 10
+//
+fun fprint_s2rt : fprint_type(s2rt)
+fun fprint_s2rtlst : fprint_type(s2rtlst)
+//
+overload fprint with fprint_s2rt
+overload fprint with fprint_s2rtlst of 10
+//
+(* ****** ****** *)
 
 abstype s2cst_type = ptr
 typedef s2cst = s2cst_type
@@ -181,11 +192,9 @@ s2cst_make
 (* ****** ****** *)
 //
 fun print_s2cst: s2cst -> void
-and prerr_s2cst: s2cst -> void
 fun fprint_s2cst: fprint_type(s2cst)
 //
 overload print with print_s2cst
-overload prerr with prerr_s2cst
 overload fprint with fprint_s2cst
 //
 (* ****** ****** *)
@@ -213,11 +222,9 @@ s2var_make
 (* ****** ****** *)
 //
 fun print_s2var: s2var -> void
-and prerr_s2var: s2var -> void
 fun fprint_s2var: fprint_type(s2var)
 //
 overload print with print_s2var
-overload prerr with prerr_s2var
 overload fprint with fprint_s2var
 //
 (* ****** ****** *)
@@ -248,7 +255,7 @@ labs2exp =
 where
 s2exp = $rec{
 //
-s2exp_loc= loc_t
+s2exp_srt= s2rt
 ,
 s2exp_node= s2exp_node
 //
@@ -268,17 +275,11 @@ fun s2exp_eqeq (s2e1: s2exp, s2e2: s2exp): s2exp
 //
 (* ****** ****** *)
 //
-fun print_s2exp(s2exp): void
-and prerr_s2exp(s2exp): void
+fun print_s2exp : (s2exp) -> void
+fun print_s2explst : (s2explst) -> void
 //
 overload print with print_s2exp
-overload prerr with prerr_s2exp
-//
-fun print_s2explst(s2explst): void
-and prerr_s2explst(s2explst): void
-//
-overload print with print_s2explst
-overload prerr with prerr_s2explst
+overload print with print_s2explst of 10
 //
 fun fprint_s2exp : fprint_type(s2exp)
 fun fprint_s2explst : fprint_type(s2explst)
@@ -300,16 +301,36 @@ typedef d2conlst = List0(d2con)
 
 (* ****** ****** *)
 
+fun fprint_d2con : fprint_type(d2con)
+
+(* ****** ****** *)
+
 abstype d2cst_type = ptr
 typedef d2cst = d2cst_type
 typedef d2cstlst = List0(d2cst)
 
+(* ****** ****** *)
+//
+fun print_d2cst : (d2cst) -> void
+fun fprint_d2cst : fprint_type(d2cst)
+//
+overload print with print_d2cst
+overload fprint with fprint_d2cst
+//
 (* ****** ****** *)
 
 abstype d2var_type = ptr
 typedef d2var = d2var_type
 typedef d2varlst = List0(d2var)
 
+(* ****** ****** *)
+//
+fun print_d2var : (d2var) -> void
+fun fprint_d2var : fprint_type(d2var)
+//
+overload print with print_d2var
+overload fprint with fprint_d2var
+//
 (* ****** ****** *)
 
 datatype
@@ -330,6 +351,20 @@ d2exp_node= d2exp_node
 and d2explst = List0(d2exp)
 
 (* ****** ****** *)
+//
+fun print_d2exp : (d2exp) -> void
+fun print_d2explst : (d2explst) -> void
+//
+overload print with print_d2exp
+overload print with print_d2explst of 10
+//
+fun fprint_d2exp : fprint_type(d2exp)
+fun fprint_d2explst : fprint_type(d2explst)
+//
+overload fprint with fprint_d2exp
+overload fprint with fprint_d2explst of 10
+//
+(* ****** ****** *)
 
 datatype
 d2ecl_node =
@@ -349,6 +384,20 @@ d2ecl_node= d2ecl_node
 
 and d2eclist = List0(d2ecl)
 
+(* ****** ****** *)
+//
+fun print_d2ecl : (d2ecl) -> void
+fun print_d2eclist : (d2eclist) -> void
+//
+overload print with print_d2ecl
+overload print with print_d2eclist of 10
+//
+fun fprint_d2ecl : fprint_type(d2ecl)
+fun fprint_d2eclist : fprint_type(d2eclist)
+//
+overload fprint with fprint_d2ecl
+overload fprint with fprint_d2eclist of 10
+//
 (* ****** ****** *)
 
 (* end of [pats_synent2.sats] *)

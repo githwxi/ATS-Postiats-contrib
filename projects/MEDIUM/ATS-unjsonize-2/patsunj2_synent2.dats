@@ -44,27 +44,23 @@ implement
 fprint_val<stamp> = fprint_stamp
 implement
 fprint_val<symbol> = fprint_symbol
+implement
+fprint_val<loc_t> = fprint_location
 //
 (* ****** ****** *)
 
 implement
 print_stamp(x) = fprint_stamp(stdout_ref, x)
-implement
-prerr_stamp(x) = fprint_stamp(stderr_ref, x)
 
 (* ****** ****** *)
 //
 implement
 print_symbol(x) = fprint_symbol(stdout_ref, x)
-implement
-prerr_symbol(x) = fprint_symbol(stderr_ref, x)
 //
 (* ****** ****** *)
 //
 implement
 print_label(x) = fprint_label(stdout_ref, x)
-implement
-prerr_label(x) = fprint_label(stderr_ref, x)
 //
 (* ****** ****** *)
 
