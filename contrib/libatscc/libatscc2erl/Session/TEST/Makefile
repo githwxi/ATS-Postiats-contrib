@@ -26,6 +26,28 @@ cleanall::
 ######
 
 all:: \
+fib_dats.erl
+fib_dats.erl: fib.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+fib_dats.beam:: fib_dats.erl ; $(ERLC) $< 
+regress:: fib_dats.beam; \
+$(ERL) +P 1000000 -run fib_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) fib_dats.erl
+
+######
+
+all:: \
+fib2_dats.erl
+fib2_dats.erl: fib2.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+fib2_dats.beam:: fib2_dats.erl ; $(ERLC) $< 
+regress:: fib2_dats.beam; \
+$(ERL) +P 1000000 -run fib2_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) fib2_dats.erl
+
+######
+
+all:: \
 fact_dats.erl
 fact_dats.erl: fact.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
@@ -52,6 +74,26 @@ $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 bitstr_dats.beam:: bitstr_dats.erl ; $(ERLC) $< 
 regress:: bitstr_dats.beam; $(ERL) -run bitstr_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) bitstr_dats.erl
+
+######
+
+all:: \
+mergesort_dats.erl
+mergesort_dats.erl: mergesort.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+mergesort_dats.beam:: mergesort_dats.erl ; $(ERLC) $< 
+regress:: mergesort_dats.beam; $(ERL) -run mergesort_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) mergesort_dats.erl
+
+######
+
+all:: \
+mergesort2_dats.erl
+mergesort2_dats.erl: mergesort2.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+mergesort2_dats.beam:: mergesort2_dats.erl ; $(ERLC) $< 
+regress:: mergesort2_dats.beam; $(ERL) -run mergesort2_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) mergesort2_dats.erl
 
 ######
 
