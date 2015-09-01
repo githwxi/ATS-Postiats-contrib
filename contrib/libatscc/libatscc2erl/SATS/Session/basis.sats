@@ -34,10 +34,14 @@ abstype chcons(a:type, ss:type)
 
 (* ****** ****** *)
 //
-stadef nil = chnil
+stadef :: = chcons // infix oper
 //
-stadef :: = chcons and cons = chcons
-//
+(* ****** ****** *)
+
+abstype ssdisj(ss:type)
+abstype ssconj(ss:type)
+abstype ssdisj_nil and ssconj_nil
+
 (* ****** ****** *)
 //
 absvtype
@@ -73,8 +77,8 @@ channeg_send
 //
 (* ****** ****** *)
 //
-fun chanpos_nil_wait (chp: chanpos(nil)): void = "mac#%"
-fun channeg_nil_close (chn: channeg(nil)): void = "mac#%"
+fun chanpos_nil_wait (chp: chanpos(chnil)): void = "mac#%"
+fun channeg_nil_close (chn: channeg(chnil)): void = "mac#%"
 //
 (* ****** ****** *)
 //
