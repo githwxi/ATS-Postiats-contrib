@@ -32,8 +32,8 @@ ATS_STATIC_PREFIX "_fact_"
 -export([libats2erl_session_chansrvc_create_server/1]).
 -export([libats2erl_session_chansrvc2_create_server/1]).
 %%
--include("./libatscc2erl/libatscc2erl_all.hrl").
--include("./libatscc2erl/Sessiontype_mylibats2erl_all.hrl").
+-include("./../../libatscc2erl_all.hrl").
+-include("./../../Session/mylibats2erl_all.hrl").
 %%
 %} // end of [%{]
 

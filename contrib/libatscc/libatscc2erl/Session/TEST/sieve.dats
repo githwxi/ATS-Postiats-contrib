@@ -29,8 +29,8 @@ ATS_STATIC_PREFIX "_sieve_"
 -export([libats2erl_session_chanpos_server/2]).
 -export([libats2erl_session_channeg_server/2]).
 %%
--include("./libatscc2erl/libatscc2erl_all.hrl").
--include("./libatscc2erl/Sessiontype_mylibats2erl_all.hrl").
+-include("./../../libatscc2erl_all.hrl").
+-include("./../../Session/mylibats2erl_all.hrl").
 %%
 %} // end of [%{]
 
