@@ -78,6 +78,16 @@ cleanall:: ; $(RMF) bitstr_dats.erl
 ######
 
 all:: \
+queue_dats.erl
+queue_dats.erl: queue.dats ; \
+$(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+queue_dats.beam:: queue_dats.erl ; $(ERLC) $< 
+regress:: queue_dats.beam; $(ERL) -run queue_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) queue_dats.erl
+
+######
+
+all:: \
 mergesort_dats.erl
 mergesort_dats.erl: mergesort.dats ; \
 $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
