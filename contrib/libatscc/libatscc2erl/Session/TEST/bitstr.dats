@@ -38,21 +38,14 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
+"./../../staloadall.hats"
 //
-#include
-"{$LIBATSCC2ERL}/staloadall.hats"
+staload "./../SATS/basis.sats"
+staload "./../SATS/sslist.sats"
 //
 (* ****** ****** *)
 //
 staload UN = "prelude/SATS/unsafe.sats"
-//
-(* ****** ****** *)
-//
-staload
-"./../../SATS/Session/basis.sats"
-staload
-"./../../SATS/Session/sslist.sats"
 //
 (* ****** ****** *)
 //

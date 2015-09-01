@@ -26,10 +26,8 @@ UN =
 //
 (* ****** ****** *)
 //
-staload
-"./../../SATS/Session/basis.sats"
-staload
-"./../../SATS/Session/co-sslist.sats"
+staload "./../SATS/basis.sats"
+staload "./../SATS/co-sslist.sats"
 //
 (* ****** ****** *)
 //
@@ -54,10 +52,10 @@ in
 if
 (tag=0)
 then let
-  prval () = $UN.castview2void(chpos) in chanpos_list_nil()
+  prval () = $UN.castview2void(chpos) in chanpos_sslist_nil()
 end // end of [then]
 else let
-  prval () = $UN.castview2void(chpos) in chanpos_list_cons()
+  prval () = $UN.castview2void(chpos) in chanpos_sslist_cons()
 end // end of [else]
 //
 end // end of [chanpos_list]

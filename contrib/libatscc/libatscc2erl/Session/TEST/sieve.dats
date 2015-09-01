@@ -37,15 +37,10 @@ ATS_STATIC_PREFIX "_sieve_"
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
+"./../../staloadall.hats"
 //
-#include
-"{$LIBATSCC2ERL}/staloadall.hats"
-//
-(* ****** ****** *)
-//
-staload "./../../SATS/Session/basis.sats"
-staload "./../../SATS/Session/co-sslist.sats"
+staload "./../SATS/basis.sats"
+staload "./../SATS/co-sslist.sats"
 //
 (* ****** ****** *)
 

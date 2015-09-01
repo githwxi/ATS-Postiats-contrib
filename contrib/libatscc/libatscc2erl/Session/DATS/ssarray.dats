@@ -26,11 +26,8 @@ UN =
 //
 (* ****** ****** *)
 //
-staload
-"./../../SATS/Session/basis.sats"
-//
-staload
-"./../../SATS/Session/ssarray.sats"
+staload "./../SATS/basis.sats"
+staload "./../SATS/ssarray.sats"
 //
 (* ****** ****** *)
 //

@@ -40,18 +40,14 @@ ATS_STATIC_PREFIX "_fact_"
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
+"./../../staloadall.hats"
 //
-#include
-"{$LIBATSCC2ERL}/staloadall.hats"
-//
-(* ****** ****** *)
-//
-staload UN = "prelude/SATS/unsafe.sats"
+staload "./../SATS/basis.sats"
 //
 (* ****** ****** *)
 //
-staload "./../../SATS/Session/basis.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
