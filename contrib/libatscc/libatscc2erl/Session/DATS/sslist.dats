@@ -72,6 +72,16 @@ prval () = $UN.castview2void(chpos)
 (* ****** ****** *)
 
 implement
+chanpos_sslist_nil_wait
+  (chp) = let
+//
+val () = chanpos_sslist_nil(chp) in chanpos_nil_wait(chp)
+//
+end // end of [chanpos_sslist_nil_wait]
+
+(* ****** ****** *)
+
+implement
 channeg_sslist
   (chneg) = let
 //

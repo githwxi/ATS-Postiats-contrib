@@ -96,11 +96,9 @@ val ((*void*)) = chanpos_send{bit}(chp, bit)
 in
   fserv(n2, chp)
 end // end of [then]
-else let
-//
-val () = chanpos_sslist_nil(chp) in chanpos_nil_wait(chp)
-//
-end // end of [else]
+else (
+  chanpos_sslist_nil_wait(chp)
+) (* end of [else] *)
 //
 ) (* end of [fserv] *)
 //
@@ -136,8 +134,8 @@ case+ opt of
       chanpos_sslist_cons(chp)
     val () =
       chanpos_send{bit}(chp, B1)
-    val () = chanpos_sslist_nil(chp)
-    val () = chanpos_nil_wait(chp)
+    val () =
+      chanpos_sslist_nil_wait(chp)
     val () = channeg_nil_close(chn)
   in
     // nothing
@@ -197,7 +195,9 @@ in
 //
 case+ opt1 of
 | channeg_sslist_nil() => let
-    val () = channeg_nil_close(chn1)
+    val () =
+      channeg_nil_close(chn1)
+    // end of [val]
   in
     chanposneg_link (chp, chn2)
   end // end of [channeg_sslist_nil]
@@ -209,7 +209,9 @@ case+ opt1 of
   in
     case+ opt2 of
     | channeg_sslist_nil() => let
-        val () = channeg_nil_close(chn2)
+        val () =
+          channeg_nil_close(chn2)
+        // end of [val]
       in
         chanposneg_link (chp, chn1)
       end // end of [channeg_sslist_nil]

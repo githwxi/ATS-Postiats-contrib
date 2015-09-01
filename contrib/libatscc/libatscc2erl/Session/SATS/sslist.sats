@@ -51,6 +51,11 @@ chanpos_sslist_cons
 (* ****** ****** *)
 //
 fun
+chanpos_sslist_nil_wait{a:vt0p}(chp: chanpos(ssdisj(sslist(a)))): void
+//
+(* ****** ****** *)
+//
+fun
 channeg_sslist{a:vt0p}
   (!channeg(ssdisj(sslist(a))) >> channeg(ss)): #[ss:type] channeg_sslist(a, ss) = "mac#%"
 //
