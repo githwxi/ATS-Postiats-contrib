@@ -102,4 +102,14 @@ prval () = $UN.castview2void(chneg)
 
 (* ****** ****** *)
 
+implement
+channeg_sslist_nil_close
+  (chn) = let
+//
+val () = channeg_sslist_nil(chn) in channeg_nil_close(chn)
+//
+end // end of [channeg_sslist_nil_close]
+
+(* ****** ****** *)
+
 (* end of [co-sslist.dats] *)

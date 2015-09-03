@@ -103,6 +103,20 @@ overload << with asl_int0_int1 of 110
 overload >> with asr_int0_int1 of 110
 //
 (* ****** ****** *)
+
+fun lnot_int0 : (int) -> int = "mac#%"
+fun lor_int0_int0 : (int, int) -> int = "mac#%"
+fun lxor_int0_int0 : (int, int) -> int = "mac#%"
+fun land_int0_int0 : (int, int) -> int = "mac#%"
+
+(* ****** ****** *)
+//
+overload lnot with lnot_int0 of 100
+overload lor with lor_int0_int0 of 100
+overload lxor with lxor_int0_int0 of 100
+overload land with land_int0_int0 of 100
+//
+(* ****** ****** *)
 //
 fun lt_int0_int0: (int, int) -> bool = "mac#%"
 fun lte_int0_int0: (int, int) -> bool = "mac#%"
@@ -156,7 +170,10 @@ overload <> with neq_int1_int1 of 120
 //
 (* ****** ****** *)
 //
-fun add_uint0_uint0: (uint, uint) -> uint = "mac#%"
+fun succ_uint0 : uint -> uint = "mac#%"
+fun pred_uint0 : uint -> uint = "mac#%"
+//
+fun add_uint0_uint0 : (uint, uint) -> uint = "mac#%"
 fun sub_uint0_uint0 : (uint, uint) -> uint = "mac#%"
 fun mul_uint0_uint0 : (uint, uint) -> uint = "mac#%"
 fun div_uint0_uint0 : (uint, uint) -> uint = "mac#%"
@@ -164,12 +181,43 @@ fun mod_uint0_uint0 : (uint, uint) -> uint = "mac#%"
 //
 (* ****** ****** *)
 //
+overload succ with succ_uint0
+overload pred with pred_uint0
+//
 overload + with add_uint0_uint0 of 100
 overload - with sub_uint0_uint0 of 100
 overload * with mul_uint0_uint0 of 100
 overload / with div_uint0_uint0 of 100
 overload % with mod_uint0_uint0 of 100
 overload mod with mod_uint0_uint0 of 100
+//
+(* ****** ****** *)
+//
+fun
+lsl_uint0_int1
+  : (uint, intGte(0)) -> int = "mac#%"
+fun
+lsr_uint0_int1
+  : (uint, intGte(0)) -> int = "mac#%"
+//
+(* ****** ****** *)
+//
+overload << with lsl_uint0_int1 of 110
+overload >> with lsr_uint0_int1 of 110
+//
+(* ****** ****** *)
+//
+fun lnot_uint0 : (uint) -> uint = "mac#%"
+fun lor_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun lxor_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+fun land_uint0_uint0 : (uint, uint) -> uint = "mac#%"
+//
+(* ****** ****** *)
+//
+overload lnot with lnot_uint0 of 100
+overload lor with lor_uint0_uint0 of 100
+overload lxor with lxor_uint0_uint0 of 100
+overload land with land_uint0_uint0 of 100
 //
 (* ****** ****** *)
 //

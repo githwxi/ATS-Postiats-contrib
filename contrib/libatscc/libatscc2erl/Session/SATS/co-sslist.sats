@@ -37,17 +37,30 @@ chanpos_sslist
 //
 fun
 chanpos_sslist{a:vt0p}
-  (!chanpos(ssconj(sslist(a))) >> chanpos(ss)): #[ss:type] chanpos_sslist(a, ss) = "mac#%"
+(
+  !chanpos(ssconj(sslist(a))) >> chanpos(ss)
+) : #[ss:type] chanpos_sslist(a, ss) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 channeg_sslist_nil
-  {a:vt0p}(!channeg(ssconj(sslist(a))) >> channeg(chnil)): void = "mac#%"
+  {a:vt0p}
+(
+  !channeg(ssconj(sslist(a))) >> channeg(chnil)
+) : void = "mac#%" // end-of-function
 fun
 channeg_sslist_cons
-  {a:vt0p}(!channeg(ssconj(sslist(a))) >> channeg(chsnd(a)::ssconj(sslist(a)))): void = "mac#%"
+  {a:vt0p}
+(
+  !channeg(ssconj(sslist(a))) >> channeg(chsnd(a)::ssconj(sslist(a)))
+) : void = "mac#%" // end-of-function
 //
+(* ****** ****** *)
+
+fun
+channeg_sslist_nil_close{a:vt0p}(channeg(ssconj(sslist(a)))): void
+
 (* ****** ****** *)
 
 (* end of [co-sslist.sats] *)

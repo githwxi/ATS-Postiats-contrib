@@ -84,7 +84,7 @@ case+ opt of
 | chanpos_sslist_nil() =>
   (
     chanpos_nil_wait(chp);
-    channeg_sslist_nil(chn); channeg_nil_close(chn)
+    channeg_sslist_nil_close(chn)
   )
 | chanpos_sslist_cons() => let
     val () =
@@ -164,7 +164,7 @@ case+ opt of
 | chanpos_sslist_nil() =>
   (
     chanpos_nil_wait(chp);
-    channeg_sslist_nil(chn); channeg_nil_close(chn)
+    channeg_sslist_nil_close(chn)
   )
 | chanpos_sslist_cons() =>
   (
@@ -218,12 +218,11 @@ implement
 main0_erl () =
 {
 //
-val chn = primes_gen()
-val ((*void*)) = print_primes(10, chn)
+val
+chn = primes_gen()
 //
-val () = channeg_sslist_nil(chn)
-//
-val ((*void*)) = channeg_nil_close(chn)
+val () = print_primes(10, chn)
+val () = channeg_sslist_nil_close(chn)
 //
 } (* end of [main0_erl] *)
 
