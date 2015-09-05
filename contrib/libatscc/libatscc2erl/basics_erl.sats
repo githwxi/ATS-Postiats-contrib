@@ -27,6 +27,11 @@ abstype atom_type
 typedef atom = atom_type
 //
 (* ****** ****** *)
+
+abstype ERLlist_type(a:t@ype)
+typedef ERLlist(a:t@ype) = ERLlist_type(a)
+
+(* ****** ****** *)
 //
 fun
 string2atom(string): atom = "mac#%"
