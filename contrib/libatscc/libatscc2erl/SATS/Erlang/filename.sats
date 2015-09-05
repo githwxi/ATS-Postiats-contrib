@@ -4,6 +4,14 @@
 
 (* ****** ****** *)
 //
+// HX-2015-09:
+// prefix for external names
+//
+#define
+ATS_EXTERN_PREFIX "ats2erlibc_filename_"
+//
+(* ****** ****** *)
+//
 staload
 "./../../basics_erl.sats"
 //
