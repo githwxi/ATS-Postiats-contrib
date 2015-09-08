@@ -27,6 +27,11 @@ abstype atom_type
 typedef atom = atom_type
 //
 (* ****** ****** *)
+
+abstype binary_type
+typedef binary = binary_type
+
+(* ****** ****** *)
 //
 fun
 string2atom(string): atom = "mac#%"
