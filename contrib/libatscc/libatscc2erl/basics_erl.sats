@@ -32,6 +32,11 @@ abstype binary_type
 typedef binary = binary_type
 
 (* ****** ****** *)
+
+abstype ERLlist_type(a:t@ype)
+typedef ERLlist(a:t@ype) = ERLlist_type(a)
+
+(* ****** ****** *)
 //
 fun
 string2atom(string): atom = "mac#%"
