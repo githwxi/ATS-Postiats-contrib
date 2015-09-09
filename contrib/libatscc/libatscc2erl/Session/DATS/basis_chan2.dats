@@ -38,4 +38,3 @@ channeg2_send{a:vt0p}(chneg: !channeg2): (a) = "mac#%"
 (* ****** ****** *)
 
 (* end of [basis_chan2.dats] *)
-

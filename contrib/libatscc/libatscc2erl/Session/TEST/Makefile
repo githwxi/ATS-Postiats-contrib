@@ -56,6 +56,20 @@ regress:: fact_dats.beam; $(ERL) -run fact_dats main0_erl -run init stop -noshel
 cleanall:: ; $(RMF) fact_dats.erl
 
 ######
+#
+all:: \
+fact_server_dats.erl
+fact_server_dats.erl: \
+fact_server.dats ; $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+cleanall:: ; $(RMF) fact_server_dats.erl
+#
+all:: \
+fact_client_dats.erl
+fact_client_dats.erl: \
+fact_client.dats ; $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
+cleanall:: ; $(RMF) fact_client_dats.erl
+#
+######
 
 all:: \
 sieve_dats.erl
