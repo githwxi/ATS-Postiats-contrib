@@ -17,7 +17,7 @@ ATS_STATIC_PREFIX "_fact_client_"
 
 %{^
 %%
--module(fact_dats).
+-module(fact_client_dats).
 %%
 -export([main0_erl/0]).
 %%

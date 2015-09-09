@@ -63,6 +63,8 @@ fact_server_dats.erl: \
 fact_server.dats ; $(PATSOPT2) -d $< | $(ATSCC2ERL) -o $@
 cleanall:: ; $(RMF) fact_server_dats.erl
 #
+# erl -name fact_server -setcookie fact -kernel inet_dist_listen_min 50000 inet_dist_listen_max 50100
+#
 all:: \
 fact_client_dats.erl
 fact_client_dats.erl: \

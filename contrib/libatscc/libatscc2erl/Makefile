@@ -33,7 +33,7 @@ $(PATSOPT2) -d ./DATS/intrange.dats | $(ATSCC2ERL) -o ./output/DATS/intrange_dat
 ######
 #
 DATE=date
-ECHO=echo -n
+ECHO=echo -e -n
 #
 all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2erl_all.hrl
 all_in_one:: ; $(ECHO) '%%' | $(CAT) - >>libatscc2erl_all.hrl

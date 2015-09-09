@@ -17,9 +17,7 @@ ATS_STATIC_PREFIX "_fact_server_"
 
 %{^
 %%
--module(fact_dats).
-%%
--export([main0_erl/0]).
+-module(fact_server_dats).
 %%
 -compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
