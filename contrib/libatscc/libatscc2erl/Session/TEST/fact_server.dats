@@ -19,8 +19,12 @@ ATS_STATIC_PREFIX "_fact_server_"
 %%
 -module(fact_server_dats).
 %%
+-export([main0_erl/0]).
+%%
 -compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
+%%
+-export([service_fact/0]).
 %%
 -export([ats2erlpre_cloref1_app/2]).
 -export([ats2erlpre_cloref2_app/3]).
@@ -57,7 +61,7 @@ typedef
 service_fact = service(ssfact)
 //
 extern
-fun service_fact(): service_fact = "mac#%"
+fun service_fact(): service_fact = "mac#"
 //
 (* ****** ****** *)
 
@@ -85,6 +89,23 @@ in
   chansrvc_create(lam(chp) => fserv(chp))
 end // end of [service_fact]
 //
+(* ****** ****** *)
+
+extern
+fun
+main0_erl
+(
+// argumentless
+) : void = "mac#"
+//
+implement
+main0_erl () =
+{
+//
+val () = chansrvc_register(SERVICE_FACT, service_fact())
+//
+} (* end of [main0_erl] *)
+
 (* ****** ****** *)
 
 (* end of [fact_server.dats] *)
