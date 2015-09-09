@@ -27,8 +27,7 @@ fun print_double : double -> void = "mac#%"
 
 (* ****** ****** *)
 //
-fun
-print_string : string -> void = "mac#%"
+fun print_string : string -> void = "mac#%"
 //
 (* ****** ****** *)
 

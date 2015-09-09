@@ -19,6 +19,8 @@ ATS_STATIC_PREFIX "_ats2erlpre_print_"
 //
 (* ****** ****** *)
 //
+staload "./../basics_erl.sats"
+//
 staload "./../SATS/print.sats"
 //
 (* ****** ****** *)

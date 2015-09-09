@@ -31,8 +31,8 @@ $(PATSOPT2) -d ./DATS/ssarray.dats | $(ATSCC2ERL) -o ./output/DATS/ssarray_dats.
 #
 ######
 #
-DATE=date
-ECHO=echo -e -n
+DATE=/bin/date
+ECHO=/bin/echo -en
 #
 all_in_one:: ; $(ECHO) | $(CAT) - >mylibats2erl_all.hrl
 all_in_one:: ; $(ECHO) '%%' | $(CAT) - >>mylibats2erl_all.hrl
