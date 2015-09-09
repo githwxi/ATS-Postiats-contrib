@@ -32,10 +32,27 @@ abstype binary_type
 typedef binary = binary_type
 
 (* ****** ****** *)
-
-abstype ERLlist_type(a:t@ype)
-typedef ERLlist(a:t@ype) = ERLlist_type(a)
-
+//
+abstype
+ERLlist_type(a:t@ype)
+//
+typedef
+ERLlist(a:t@ype) = ERLlist_type(a)
+//
+(* ****** ****** *)
+//
+(*
+typedef string = ERLlist(char)
+*)
+//
+(* ****** ****** *)
+//
+abstype
+ERLmap_type(k:t@ype, x:t@ype)
+//
+typedef
+ERLmap(k:t@ype, x:t@ype) = ERLmap_type(k, x)
+//
 (* ****** ****** *)
 //
 fun
