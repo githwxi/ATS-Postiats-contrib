@@ -66,7 +66,7 @@ implement
 fact_client(n) = let
 //
 val chn = 
-  chansrvc_request($UN.cast{service_fact}($tup(SERVICE_NODE,SERVICE_FACT)))
+  chansrvc_request($UN.cast{service_fact}($tup(SERVICE_FACT,SERVICE_NODE)))
 //
 val () = channel_send(chn, n)
 val result = channel_recv(chn)
