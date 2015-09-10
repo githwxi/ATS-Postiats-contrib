@@ -39,8 +39,8 @@ $(PATSOPT) -d ./DATS/gmatrixref.dats | $(ATSCC2JS) -o ./output/DATS/gmatrixref_d
 #
 ######
 #
-DATE=date
-ECHO=echo -n
+DATE=/bin/date
+ECHO=/bin/echo -en
 #
 all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2js_all.js
 all_in_one:: ; $(ECHO) '/*\n' | $(CAT) - >>libatscc2js_all.js
