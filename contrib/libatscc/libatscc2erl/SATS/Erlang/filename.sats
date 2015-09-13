@@ -17,21 +17,87 @@ staload
 //
 (* ****** ****** *)
 
+typedef name = string
 typedef filename = string
 
 (* ****** ****** *)
 //
 fun
-absname(filename): filename = "mac#%"
+absname_1(Filename: name): filename = "mac#%"
+fun
+absname_2(Filename: name, Dir: name): filename = "mac#%"
+//
+(* ****** ****** *)
+
+overload absname with absname_1
+overload absname with absname_2
+
+(* ****** ****** *)
+//
+fun
+absname_join
+  (Dir: name, Filename: name): filename = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-basename(filename): filename = "mac#%"
+basename_1(Filename: name): filename = "mac#%"
+fun
+basename_2(Filename: name, Ext: name): filename = "mac#%"
 //
 (* ****** ****** *)
 
-fun split(filename): ERLlist(string) = "mac#%"
+overload basename with basename_1
+overload basename with basename_2
+
+(* ****** ****** *)
+
+fun
+dirname(Filename: name): filename = "mac#%"
+
+(* ****** ****** *)
+
+fun
+extension(Filename: name): filename = "mac#%"
+
+(* ****** ****** *)
+
+(*
+fun
+flatten (Filename: name): filename = "mac#%"
+*)
+
+(* ****** ****** *)
+//
+fun join_1
+  (Components: ERLlist(name)): filename = "mac#%"
+//
+fun join_2
+  (Filename1: name, Filename2: name): filename = "mac#%"
+//
+(* ****** ****** *)
+
+fun pathtype(Path: name): atom = "mac#%"
+
+(* ****** ****** *)
+
+fun nativename(Path: name): filename = "mac#%"
+
+(* ****** ****** *)
+//
+fun
+rootname_1(Filename: name): filename = "mac#%"
+fun
+rootname_2(Filename: name, Ext: name): filename = "mac#%"
+//
+(* ****** ****** *)
+
+overload rootname with rootname_1
+overload rootname with rootname_2
+
+(* ****** ****** *)
+
+fun split(filename): ERLlist(name) = "mac#%"
 
 (* ****** ****** *)
 
