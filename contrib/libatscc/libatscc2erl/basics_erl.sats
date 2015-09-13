@@ -33,6 +33,11 @@ typedef binary = binary_type
 
 (* ****** ****** *)
 //
+abstype ERLval_type
+typedef ERLval = ERLval_type
+//
+(* ****** ****** *)
+//
 abstype
 ERLlist_type(a:t@ype)
 //
