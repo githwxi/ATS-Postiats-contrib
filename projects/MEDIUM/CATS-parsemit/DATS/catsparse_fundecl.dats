@@ -71,7 +71,7 @@ F0HEAD(fid, _, _) = fhd.f0head_node
 //
 val
 opt =
-$F0HEAD.insert_opt(fid.i0de_sym, fhd)
+$F0HEAD.insert_opt(fid.i0dex_sym, fhd)
 //
 in
 //

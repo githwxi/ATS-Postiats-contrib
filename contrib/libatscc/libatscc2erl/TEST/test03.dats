@@ -84,8 +84,12 @@ ats2rename_opt
   $UN.cast{name_all}("test03_dats.erl"), $UN.cast{name_all}("test03_dats_.erl")
 ) (* end of [val] *)
 //
-val binary = ats2read_file_opt($UN.cast{name_all}("test03.dats"))
-val ((*void*)) = println! ("read_file(\"test03.dats\") = ", $UN.cast{ERLval}(binary))
+val-
+Some
+binary =
+  ats2read_file_opt($UN.cast{name_all}("test03.dats"))
+val string = $extfcall(string, "binary:bin_to_list", binary)
+val ((*void*)) = println! ("read_file(\"test03.dats\") = ", $UN.cast{ERLval}(string))
 //
 } (* end of [main0_erl] *)
 

@@ -311,17 +311,16 @@ fprint_token
 } (* end of [fprint_token] *)
 //
 (* ****** ****** *)
-
+//
 implement
-print_i0de (x) = fprint (stdout_ref, x)
+print_i0de(x) = fprint(stdout_ref, x)
 implement
-prerr_i0de (x) = fprint (stderr_ref, x)
-
-(* ****** ****** *)
-
+prerr_i0de(x) = fprint(stderr_ref, x)
+//
 implement
-fprint_i0de (out, x) = fprint (out, x.i0de_sym)
-
+fprint_i0de
+  (out, x) = fprint (out, x.i0dex_sym)
+//
 (* ****** ****** *)
 
 implement

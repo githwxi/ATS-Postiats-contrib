@@ -313,7 +313,7 @@ emit_tmpvar
   (out, tmp) = let
 //
 val isloc =
-  tmpvar_is_local (tmp.i0de_sym)
+  tmpvar_is_local (tmp.i0dex_sym)
 //
 in
 //
@@ -514,7 +514,7 @@ case+ xs of
 | list_cons (x, xs) => let
     val TYFLD (id, s0e) = x.tyfld_node
   in
-    if lab = id.i0de_sym then i else loop (xs, i+1)
+    if lab = id.i0dex_sym then i else loop (xs, i+1)
   end // end of [list_cons
 | list_nil ((*void*)) => ~1(*error*)
 )
@@ -536,7 +536,7 @@ ATSSELcon
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //
-val index = tyrec_labsel (s0rec, id.i0de_sym)
+val index = tyrec_labsel (s0rec, id.i0dex_sym)
 //
 val () =
   emit_d0exp (out, d0rec)
@@ -576,7 +576,7 @@ ATSSELboxrec
 val-S0Eide (name) = s0e.s0exp_node
 val-~Some_vt (s0rec) = typedef_search_opt (name)
 //
-val index = tyrec_labsel (s0rec, id.i0de_sym)
+val index = tyrec_labsel (s0rec, id.i0dex_sym)
 //
 val () =
   emit_d0exp (out, d0rec)

@@ -54,6 +54,7 @@ regress_test03
 regress_test03:: \
 test03_dats.beam; $(ERL) -run test03_dats main0_erl -run init stop -noshell
 cleanall:: ; $(RMF) test03_dats.erl
+cleanall:: ; $(RMF) test03_dats_.erl
 
 ######
 
@@ -70,6 +71,7 @@ RMF=rm -f
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.c
 cleanall:: ; $(RMF) *_?ats.beam
+cleanall:: ; $(RMF) erl_crash.dump
 
 ######
 

@@ -584,7 +584,7 @@ end // end of [parse_signed]
 (* ****** ****** *)
 
 implement
-parse_i0de
+parse_i0dex
   (buf, bt, err) = let
 //
 val tok =
@@ -599,24 +599,24 @@ case+
 tok.token_node of
 //
 | T_IDENT_alp (x) => let
-    val () = incby1 () in i0de_make_string (loc, x)
+    val () = incby1 () in i0dex_make_string (loc, x)
   end // end of [T_IDENT_alp]
 //
 | _ => let
     val () = err := err + 1
-    val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_i0de)
+    val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_i0dex)
   in
     synent_null ()
   end // end of [_]
 //
-end // end of [parse_i0de]
+end // end of [parse_i0dex]
 
 (* ****** ****** *)
 //
 implement
 parse_label
   (buf, bt, err) =
-  parse_i0de (buf, bt, err)
+  parse_i0dex (buf, bt, err)
 //
 (* ****** ****** *)
 
@@ -642,7 +642,7 @@ case+ 0 of
 | _ when
     ptest_fun
     (
-      buf, parse_i0de, ent
+      buf, parse_i0dex, ent
     ) => let
     val bt = 0
     val id = synent_decode2{i0de}(ent)
@@ -764,7 +764,7 @@ tok.token_node of
 //
 | _ (*rest*) => let
     val ent1 = parse_s0exp (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
     if err = err0
@@ -902,12 +902,12 @@ case+ 0 of
 //
 | _ when ptest_fun
   (
-    buf, parse_i0de, ent
+    buf, parse_i0dex, ent
   ) => let
     val ent2 = synent_decode2{i0de}(ent)
   in
     f0arg_some (ent1, ent2)
-  end // end of [parse_i0de]
+  end // end of [parse_i0dex]
 //
 | _ (*none*) => f0arg_none (ent1)
 //
@@ -968,7 +968,7 @@ val err0 = err
 val ntok0 = tokbuf_get_ntok (buf)
 //
 val ent1 = parse_s0exp (buf, bt, err)
-val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
 val ent3 = pif_fun (buf, bt, err, parse_f0marg, err0)
 //
 in

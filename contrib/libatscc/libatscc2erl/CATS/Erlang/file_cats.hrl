@@ -20,7 +20,7 @@ ats2erlibc_filename_all2string
   (X) ->
   case X of
     _ when is_list(X) -> X;
-    _ when is_binary(X) -> bin_to_list(X)
+    _ when is_binary(X) -> binary:bin_to_list(X)
   end.
 %%
 %% ****** ****** %%

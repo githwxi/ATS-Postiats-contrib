@@ -221,7 +221,7 @@ implement
 funlab_get_index
   (fl0) = let
 //
-val n0 = fl0.i0de_sym
+val n0 = fl0.i0dex_sym
 //
 fun
 auxlst
@@ -239,7 +239,7 @@ case+ xs of
     | ATSfunbodyseq _ => let
         val fl = funbodyseq_get_funlab (x)
       in
-        if n0 = fl.i0de_sym then i else auxlst (xs, i+1)
+        if n0 = fl.i0dex_sym then i else auxlst (xs, i+1)
       end // end of [ATSfunbodyseq]
     | _ (*non-ATSfunbody*) => auxlst (xs, i)
   ) (* end of [list_cons] *)
@@ -256,7 +256,7 @@ implement
 tmplab_get_index
   (lab0) = let
 //
-val n0 = lab0.i0de_sym
+val n0 = lab0.i0dex_sym
 //
 fun
 auxlst
@@ -269,7 +269,7 @@ case+ xs of
     ((*error*)) => ~1
   // end of [list_nil]
 | list_cons (x, xs) =>
-  if n0 = x.i0de_sym
+  if n0 = x.i0dex_sym
     then i else auxlst (xs, i+1)
   // end of [list_cons]
 )
@@ -649,7 +649,7 @@ ins0.instr_node of
     val () = emit_nspc (out, ind)
 //
     val isret =
-      tmpvar_is_tmpret (tmp.i0de_sym)
+      tmpvar_is_tmpret (tmp.i0dex_sym)
     // end of [val]
 //
     val () =
@@ -686,7 +686,7 @@ ins0.instr_node of
 //
     val
     isret =
-      tmpvar_is_tmpret (tmp.i0de_sym)
+      tmpvar_is_tmpret (tmp.i0dex_sym)
     // end of [val]
     val () =
     if not(isret) then
@@ -706,7 +706,7 @@ ins0.instr_node of
 //
     val
     isret =
-      tmpvar_is_tmpret (tmp.i0de_sym)
+      tmpvar_is_tmpret (tmp.i0dex_sym)
     // end of [val]
     val () =
     if not(isret) then
@@ -1351,7 +1351,7 @@ val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
 //
 val isret =
-  tmpvar_is_tmpret (tmp.i0de_sym)
+  tmpvar_is_tmpret (tmp.i0dex_sym)
 // end of [val]
 //
 val () =
@@ -1411,7 +1411,7 @@ val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
 //
 val isret =
-  tmpvar_is_tmpret (tmp.i0de_sym)
+  tmpvar_is_tmpret (tmp.i0dex_sym)
 // end of [val]
 //
 val () =
@@ -1452,7 +1452,7 @@ ATSINSmove_delay
 val () = emit_nspc (out, ind)
 //
 val isret =
-  tmpvar_is_tmpret (tmp.i0de_sym)
+  tmpvar_is_tmpret (tmp.i0dex_sym)
 // end of [val]
 //
 val () =
@@ -1492,7 +1492,7 @@ ATSINSmove_lazyeval
 val () = emit_nspc (out, ind)
 //
 val isret =
-  tmpvar_is_tmpret (tmp.i0de_sym)
+  tmpvar_is_tmpret (tmp.i0dex_sym)
 // end of [val]
 //
 val () =
@@ -1550,7 +1550,7 @@ d0c.d0ecl_node of
 *)
   in
 (*
-    typedef_insert (id.i0de_sym, def)
+    typedef_insert (id.i0dex_sym, def)
 *)
   end // end of [D0Ctypedef]
 //
@@ -2049,7 +2049,7 @@ of // case+
 | D0Ctypedef
     (id, def) =>
   (
-    typedef_insert (id.i0de_sym, def)
+    typedef_insert (id.i0dex_sym, def)
   )
 //
 | D0Cfundecl

@@ -696,7 +696,7 @@ signed = SIGNED of (loc_t, int)
 
 typedef
 i0de = '{
-  i0de_loc= loc_t, i0de_sym= symbol
+  i0dex_loc= loc_t, i0dex_sym= symbol
 } (* end of [i0de] *)
 
 (* ****** ****** *)

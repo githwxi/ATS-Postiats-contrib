@@ -714,7 +714,7 @@ d0c.d0ecl_node of
 | D0Cifndef _ => ()
 //
 | D0Ctypedef (id, def) =>
-    typedef_insert (id.i0de_sym, def)
+    typedef_insert (id.i0dex_sym, def)
   // end of [D0Ctypedef]
 //
 | D0Cassume (id) =>

@@ -37,9 +37,9 @@ fun synent_isnot_null {a:type} (x: a):<> bool
 (* ****** ****** *)
 //
 fun
-i0de_make_sym (loc: loc_t, sym: symbol): i0de
+i0dex_make_sym (loc: loc_t, sym: symbol): i0de
 fun
-i0de_make_string (loc: loc_t, name: string): i0de
+i0dex_make_string (loc: loc_t, name: string): i0de
 //
 (* ****** ****** *)
 

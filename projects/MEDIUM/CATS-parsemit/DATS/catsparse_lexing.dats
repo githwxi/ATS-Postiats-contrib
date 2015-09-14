@@ -80,8 +80,9 @@ in
   | _ when ('A' <= c andalso c <= 'Z') => true
   | _ when ('0' <= c andalso c <= '9') => true
   | _ when c = '_' => true
-  | _ when c = '\'' => true
   | _ when c = '$' => true
+  | _ when c = ':' => true
+  | _ when c = '\'' => true
   | _ (*rest-of-char*) => false
 end (* end of [IDENTRST_test] *)
 
