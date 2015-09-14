@@ -95,6 +95,15 @@ ats2list_dir_all_opt
 (* ****** ****** *)
 //
 fun
+ats2make_dir(Dir: name_all): bool = "mac#%"
+//
+fun
+ats2make_link
+  (Existing: name_all, New: name_all): bool = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 ats2read_file_opt
   (Filename: name_all): Option(binary) = "mac#%"
 //
@@ -103,6 +112,11 @@ ats2read_file_opt
 fun
 ats2rename_opt // ok/error: true/false
   (Source: name_all, Destination: name_all): bool = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+ats2set_cwd(Dir: name): bool = "mac#%" // ok/error: true/false
 //
 (* ****** ****** *)
 

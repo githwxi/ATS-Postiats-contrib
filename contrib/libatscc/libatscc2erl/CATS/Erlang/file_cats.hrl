@@ -73,6 +73,29 @@ ats2erlibc_file_ats2list_dir_all_opt
   end.
 %%
 %% ****** ****** %%
+%%
+%%fun%%
+ats2erlibc_file_ats2make_dir
+  (Dir) ->
+  case
+  file:make_dir(Dir)
+  of %% of-case
+    ok -> true; {error, _Reason_} -> false
+  end. %% end-case
+%%
+%% ****** ****** %%
+%%
+%%fun%%
+ats2erlibc_file_ats2make_link
+  (Existing, New) ->
+  case
+  file:make_link(Existing, New)
+  of %% of-case
+    ok -> true; {error, _Reason_} -> false
+  end. %% end-case
+%%
+%% ****** ****** %%
+%%
 %%fun%%
 ats2erlibc_file_ats2read_file_opt
   (Filename) ->
@@ -87,11 +110,23 @@ ats2erlibc_file_ats2read_file_opt
   end.
 %%
 %% ****** ****** %%
+%%
 %%fun%%
 ats2erlibc_file_ats2rename_opt
   (Src, Dst) ->
   case
   file:rename(Src, Dst)
+  of %% of-case
+    ok -> true; {error, _Reason_} -> false
+  end. %% end-case
+%%
+%% ****** ****** %%
+%%
+%%fun%%
+ats2erlibc_file_ats2set_cwd_opt
+  (Dir) ->
+  case
+  file:set_cwd(Dir)
   of %% of-case
     ok -> true; {error, _Reason_} -> false
   end. %% end-case
