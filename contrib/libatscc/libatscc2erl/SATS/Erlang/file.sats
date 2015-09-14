@@ -95,10 +95,13 @@ ats2list_dir_all_opt
 (* ****** ****** *)
 //
 fun
-ats2make_dir(Dir: name_all): bool = "mac#%"
+ats2make_dir_opt(Dir: name_all): bool = "mac#%"
 //
 fun
-ats2make_link
+ats2make_link_opt
+  (Existing: name_all, New: name_all): bool = "mac#%"
+fun
+ats2make_symlink_opt
   (Existing: name_all, New: name_all): bool = "mac#%"
 //
 (* ****** ****** *)

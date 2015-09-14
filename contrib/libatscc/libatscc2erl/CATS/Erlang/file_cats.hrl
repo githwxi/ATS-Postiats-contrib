@@ -75,7 +75,7 @@ ats2erlibc_file_ats2list_dir_all_opt
 %% ****** ****** %%
 %%
 %%fun%%
-ats2erlibc_file_ats2make_dir
+ats2erlibc_file_ats2make_dir_opt
   (Dir) ->
   case
   file:make_dir(Dir)
@@ -86,10 +86,19 @@ ats2erlibc_file_ats2make_dir
 %% ****** ****** %%
 %%
 %%fun%%
-ats2erlibc_file_ats2make_link
+ats2erlibc_file_ats2make_link_opt
   (Existing, New) ->
   case
   file:make_link(Existing, New)
+  of %% of-case
+    ok -> true; {error, _Reason_} -> false
+  end. %% end-case
+%%
+%%fun%%
+ats2erlibc_file_ats2make_symlink_opt
+  (Existing, New) ->
+  case
+  file:make_symlink(Existing, New)
   of %% of-case
     ok -> true; {error, _Reason_} -> false
   end. %% end-case
