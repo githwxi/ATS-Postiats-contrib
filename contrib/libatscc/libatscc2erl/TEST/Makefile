@@ -38,6 +38,16 @@ cleanall:: ; $(RMF) test02_dats.erl
 
 ######
 
+all:: \
+test03_dats.erl
+test03_dats.c: test03.dats; $(PATSOPT2) -o $@ -d $<
+test03_dats.erl: test03_dats.c; $(ATSCC2ERL) -o $@ -i $<
+test03_dats.beam:: test03_dats.erl ; $(ERL) -compile $< 
+regress:: test03_dats.beam; $(ERL) -run test03_dats main0_erl -run init stop -noshell
+cleanall:: ; $(RMF) test03_dats.erl
+
+######
+
 testall:: all
 testall:: regress
 testall:: cleanall

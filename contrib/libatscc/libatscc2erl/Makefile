@@ -55,6 +55,10 @@ CATS/reference_cats.hrl \
 
 all_in_one:: ; \
 $(CAT) >>libatscc2erl_all.hrl \
+CATS/Erlang/file_cats.hrl \
+
+all_in_one:: ; \
+$(CAT) >>libatscc2erl_all.hrl \
 output/DATS/basics_dats.hrl \
 output/DATS/list_dats.hrl \
 output/DATS/option_dats.hrl \

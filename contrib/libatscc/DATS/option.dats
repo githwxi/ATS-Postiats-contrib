@@ -15,6 +15,13 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 implement
+option_some(x) = Some(x)
+implement
+option_none((*void*)) = None(*void*)
+//
+(* ****** ****** *)
+//
+implement
 option_is_some(opt) =
 (
   case+ opt of Some _ => true | None () => false
