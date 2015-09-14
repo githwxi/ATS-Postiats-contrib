@@ -87,5 +87,15 @@ ats2erlibc_file_ats2read_file_opt
   end.
 %%
 %% ****** ****** %%
+%%fun%%
+ats2erlibc_file_ats2rename_opt
+  (Src, Dst) ->
+  case
+  file:rename(Src, Dst)
+  of %% of-case
+    ok -> true; {error, _Reason_} -> false
+  end. %% end-case
+%%
+%% ****** ****** %%
 
 %% end of [file_cats.hrl] %%

@@ -73,6 +73,17 @@ ats2list_dir_all_opt
 val fnames2 = $UN.cast{ERLval}(fnames)
 val ((*void*)) = println! ("file:list_dir_all(", fname, ") = ", fnames2)
 //
+val-true =
+ats2rename_opt
+(
+  $UN.cast{name_all}("test03_dats.erl"), $UN.cast{name_all}("test03_dats_.erl")
+) (* end of [val] *)
+val-false =
+ats2rename_opt
+(
+  $UN.cast{name_all}("test03_dats.erl"), $UN.cast{name_all}("test03_dats_.erl")
+) (* end of [val] *)
+//
 val binary = ats2read_file_opt($UN.cast{name_all}("test03.dats"))
 val ((*void*)) = println! ("read_file(\"test03.dats\") = ", $UN.cast{ERLval}(binary))
 //

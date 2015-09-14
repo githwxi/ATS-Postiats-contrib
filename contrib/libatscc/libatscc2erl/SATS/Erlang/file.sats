@@ -95,7 +95,14 @@ ats2list_dir_all_opt
 (* ****** ****** *)
 //
 fun
-ats2read_file_opt(Filename: name_all): Option(binary) = "mac#%"
+ats2read_file_opt
+  (Filename: name_all): Option(binary) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+ats2rename_opt // ok/error: true/false
+  (Source: name_all, Destination: name_all): bool = "mac#%"
 //
 (* ****** ****** *)
 
