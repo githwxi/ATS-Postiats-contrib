@@ -8,9 +8,9 @@ SUBDIRS :=
 
 SUBDIRS += CATS-atscc2js
 SUBDIRS += CATS-atscc2erl
-SUBDIRS += CATS-atscc2php
-SUBDIRS += CATS-atscc2py
 SUBDIRS += CATS-atscc2pl
+SUBDIRS += CATS-atscc2py
+SUBDIRS += CATS-atscc2php
 
 ######
 #
