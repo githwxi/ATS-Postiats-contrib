@@ -86,6 +86,11 @@ overload ats2get_cwd_opt with ats2get_cwd_1_opt
 (* ****** ****** *)
 //
 fun
+ats2del_dir_opt(Dir: name_all): bool = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 ats2list_dir_opt
   (Dir: name_all): Option(ERLlist(filename)) = "mac#%"
 fun

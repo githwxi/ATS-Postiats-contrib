@@ -47,6 +47,17 @@ ats2erlibc_file_ats2get_cwd_1_opt
 %% ****** ****** %%
 %%
 %%fun%%
+ats2erlibc_file_ats2del_dir_opt
+  (Dir) ->
+  case
+  file:del_dir(Dir)
+  of %% of-case
+    ok -> true; {error, _Reason_} -> false
+  end. %% end-case
+%%
+%% ****** ****** %%
+%%
+%%fun%%
 ats2erlibc_file_ats2list_dir_opt
   (Dir) ->
   case
