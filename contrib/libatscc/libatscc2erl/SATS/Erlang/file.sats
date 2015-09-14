@@ -58,8 +58,13 @@ abstype file_info_option
 (* ****** ****** *)
 //
 castfn
-filename2string: filename -<fun> string
+filename2string: filename -> string
 //
+(* ****** ****** *)
+
+fun
+filename_all2string: filename_all -> string = "mac#%"
+
 (* ****** ****** *)
 //
 fun print_filename: filename -> void = "mac#%"
