@@ -165,6 +165,8 @@ val-~None_vt() = kwordins ("ATSCKptrisnull", ATSCKptrisnull)
 //
 val-~None_vt() = kwordins ("ATSCKpat_int", ATSCKpat_int)
 val-~None_vt() = kwordins ("ATSCKpat_bool", ATSCKpat_bool)
+val-~None_vt() = kwordins ("ATSCKpat_string", ATSCKpat_string)
+//
 val-~None_vt() = kwordins ("ATSCKpat_con0", ATSCKpat_con0)
 val-~None_vt() = kwordins ("ATSCKpat_con1", ATSCKpat_con1)
 //

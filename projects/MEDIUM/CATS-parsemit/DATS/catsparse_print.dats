@@ -160,6 +160,8 @@ case+ x of
 //
 | ATSCKpat_int () => pr "ATSCKpat_int"
 | ATSCKpat_bool () => pr "ATSCKpat_bool"
+| ATSCKpat_string () => pr "ATSCKpat_string"
+//
 | ATSCKpat_con0 () => pr "ATSCKpat_con0"
 | ATSCKpat_con1 () => pr "ATSCKpat_con1"
 //
@@ -426,6 +428,9 @@ d0e.d0exp_node of
     fprint! (out, "ATSCKpat_int(", d0e, int, ")")
 | ATSCKpat_bool (d0e, bool) =>
     fprint! (out, "ATSCKpat_bool(", d0e, bool, ")")
+| ATSCKpat_string (d0e, string) =>
+    fprint! (out, "ATSCKpat_string(", d0e, string, ")")
+//
 | ATSCKpat_con0 (d0e, ctag) =>
     fprint! (out, "ATSCKpat_con0(", d0e, ctag, ")")
 | ATSCKpat_con1 (d0e, ctag) =>

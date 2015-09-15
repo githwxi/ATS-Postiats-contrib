@@ -136,6 +136,10 @@ emit_ATSCKpat_bool
   (out: FILEref, d0e: d0exp, b0: d0exp): void
 //
 fun
+emit_ATSCKpat_string
+  (out: FILEref, d0e: d0exp, s0: d0exp): void
+//
+fun
 emit_ATSCKpat_con0
   (out: FILEref, d0e: d0exp, ctag: int): void
 //

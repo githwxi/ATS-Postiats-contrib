@@ -453,6 +453,19 @@ in
   d0exp_make_node (loc, ATSCKpat_bool (d0e, bool))
 end // end of [ATSCKpat_bool_make]
 
+implement
+ATSCKpat_string_make
+(
+  tok1, d0e, string, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKpat_string (d0e, string))
+end // end of [ATSCKpat_string_make]
+
 (* ****** ****** *)
 
 implement

@@ -26,6 +26,10 @@
 
 %% ****** ****** %%
 
+-define(ATSCKpat_string(X, S), X =:= S).
+
+%% ****** ****** %%
+
 -define(ATSCKpat_con0(X, TAG), X =:= TAG).
 -define(ATSCKpat_con1(X, TAG), (is_tuple(X) andalso (element(1, X) =:= TAG))).
 
