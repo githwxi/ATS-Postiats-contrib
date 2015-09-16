@@ -37,15 +37,26 @@ abstype chcons(a:type, ss:type)
 stadef :: = chcons // infix oper
 //
 (* ****** ****** *)
-
+//
+abstype ssnot(ss:type)
+//
 abstype ssdisj(ss:type)
 abstype ssconj(ss:type)
 abstype ssdisj_nil and ssconj_nil
-
+//
 (* ****** ****** *)
 //
 absvtype
 chanpos(type) = ptr and channeg(type) = ptr
+//
+(* ****** ****** *)
+//
+prfun
+chanpos_not{ss:type}
+  (!chanpos(ssnot(ss)) >> channeg(ss)): void
+prfun
+channeg_not{ss:type}
+  (!channeg(ssnot(ss)) >> chanpos(ss)): void
 //
 (* ****** ****** *)
 //
