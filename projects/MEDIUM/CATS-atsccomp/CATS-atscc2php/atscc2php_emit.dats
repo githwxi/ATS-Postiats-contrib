@@ -280,6 +280,18 @@ emit_ATSCKpat_bool
   ) (* end of [val] *)
 } (* end of [emit_ATSCKpat_bool] *)
 
+implement
+emit_ATSCKpat_string
+  (out, d0e, s0) =
+{
+  val () =
+  emit_text (out, "ATSCKpat_string(")
+  val () = (
+    emit_d0exp (out, d0e);
+    emit_text (out, ", "); emit_d0exp (out, s0); emit_RPAREN (out)
+  ) (* end of [val] *)
+} (* end of [emit_ATSCKpat_string] *)
+
 (* ****** ****** *)
 
 implement
@@ -408,6 +420,8 @@ d0e0.d0exp_node of
     (d0e, int) => emit_ATSCKpat_int (out, d0e, int)
 | ATSCKpat_bool
     (d0e, bool) => emit_ATSCKpat_bool (out, d0e, bool)
+| ATSCKpat_string
+    (d0e, string) => emit_ATSCKpat_string (out, d0e, string)
 //
 | ATSCKpat_con0
     (d0e, ctag) => emit_ATSCKpat_con0 (out, d0e, ctag)
