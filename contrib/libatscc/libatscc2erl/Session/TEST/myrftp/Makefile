@@ -41,17 +41,8 @@ MYRFTPD: \
 myrftp_server_dats.beam; \
 $(ERL) -sname myrftpd@localhost -setcookie cs520
 #
-MYRFTPD_STOP: \
-myrftpd_stop.beam ; \
-$(ERL) \
-  -noinput -noshell \
-  -sname myrftpd_stop@localhost \
-  -setcookie cs520 -run myrftpd_stop main0_erl -run init stop
-#
-myrftpd_stop.beam: ; \
-$(ERLC) myrftpd_stop.erl
-#
-cleanall:: ; $(RMF) myrftpd_stop.beam
+# Then do:
+# myrftp_server_dats:main0_erl()
 #
 ######
 #
@@ -61,10 +52,11 @@ cleanall:: ; $(RMF) myrftp_client_dats.beam
 #
 MYRFTP_TEST: \
 myrftp_client_dats.beam; \
-$(ERL) \
-  -noinput -noshell \
-  -sname myrftp_client@localhost \
-  -setcookie cs520 -run myrftp_client_dats main0_erl
+$(ERL) -noinput \
+  -sname myrftp_client@localhost -setcookie cs520
+#
+# Then do:
+# myrftp_client_dats:main0_erl()
 #
 ######
 
