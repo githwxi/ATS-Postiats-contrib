@@ -21,10 +21,11 @@ ATS_STATIC_PREFIX "_myrftp_"
 %%
 -export([main0_erl/0]).
 %%
--export([myrftp_ls/0]).
--export([myrftp_cd/1]).
--export([myrftp_get/1]).
--export([myrftp_quit/0]).
+-export([myrftp_ls0/0]).
+-export([myrftp_ls1/1]).
+-export([myrftp_cd1/1]).
+-export([myrftp_get1/1]).
+-export([myrftp_quit0/0]).
 %%
 -compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
@@ -76,53 +77,65 @@ vtypedef chanpos_ssftp = chanpos(ssdisj(ssftp))
 //
 extern
 fun
-myrftp_server_ls(!chanpos_ssftp): ERLval
+myrftp_server_ls0(!chanpos_ssftp): ERLval
 extern
 fun
-myrftp_server_cd(!chanpos_ssftp, Dir: string): ERLval
+myrftp_server_ls1(!chanpos_ssftp, Dir: string): ERLval
 extern
 fun
-myrftp_server_get(!chanpos_ssftp, Filename: string): ERLval
+myrftp_server_cd1(!chanpos_ssftp, Dir: string): ERLval
 extern
 fun
-myrftp_server_quit(chanpos_ssftp): void
+myrftp_server_get1(!chanpos_ssftp, Filename: string): ERLval
+extern
+fun
+myrftp_server_quit0(chanpos_ssftp): void // HX: terminated
 //
 (* ****** ****** *)
 //
 implement
-myrftp_server_ls(chp) = let
+myrftp_server_ls0(chp) = let
 //
-val () = chanpos_ssftp_ls(chp) in channel_recv(chp)
+val () = chanpos_ssftp_ls0(chp) in channel_recv(chp)
 //
-end // end of [myrftp_server_ls]
+end // end of [myrftp_server_ls0]
 //
 (* ****** ****** *)
 
 implement
-myrftp_server_cd(chp, Dir) = let
+myrftp_server_ls1(chp, Dir) = let
 //
-val () = chanpos_ssftp_cd(chp, Dir) in channel_recv(chp)
+val () = chanpos_ssftp_ls1(chp, Dir) in channel_recv(chp)
 //
-end // end of [myrftp_server_cd]
+end // end of [myrftp_server_ls1]
 
 (* ****** ****** *)
 
 implement
-myrftp_server_get(chp, Filename) = let
+myrftp_server_cd1(chp, Dir) = let
+//
+val () = chanpos_ssftp_cd1(chp, Dir) in channel_recv(chp)
+//
+end // end of [myrftp_server_cd1]
+
+(* ****** ****** *)
+
+implement
+myrftp_server_get1(chp, Filename) = let
 //
 val () =
-  chanpos_ssftp_get(chp, Filename) in channel_recv(chp)
+  chanpos_ssftp_get1(chp, Filename) in channel_recv(chp)
 //
-end // end of [myftp_server_get]
+end // end of [myftp_server_get1]
 
 (* ****** ****** *)
 
 implement
-myrftp_server_quit(chp) = let
+myrftp_server_quit0(chp) = let
 //
-val () = chanpos_ssftp_quit(chp) in chanpos_nil_wait(chp)
+val () = chanpos_ssftp_quit0(chp) in chanpos_nil_wait(chp)
 //
-end // end of [myftp_server_quit]
+end // end of [myftp_server_quit0]
 
 (* ****** ****** *)
 //
@@ -145,17 +158,22 @@ the_chanpos_addback
 (* ****** ****** *)
 //
 extern
-fun myrftp_ls(): ERLval = "mac#"
+fun
+myrftp_ls0(): ERLval = "mac#"
 //
 extern
 fun
-myrftp_cd(Dir: string): ERLval = "mac#"
+myrftp_ls1(Dir: string): ERLval = "mac#"
 //
 extern
 fun
-myrftp_get(Fil: string): ERLval = "mac#"
+myrftp_cd1(Dir: string): ERLval = "mac#"
 //
-extern fun myrftp_quit(): ERLval = "mac#"
+extern
+fun
+myrftp_get1(Fil: string): ERLval = "mac#"
+//
+extern fun myrftp_quit0(): ERLval = "mac#"
 //
 (* ****** ****** *)
 //
@@ -166,7 +184,7 @@ ERROR$MYRFTP_CHANNEL_NONE =
 (* ****** ****** *)
 
 implement
-myrftp_ls
+myrftp_ls0
   () = let
 //
 val (pf | opt) = the_chanpos_takeout()
@@ -176,7 +194,7 @@ in
 case+ opt of
 | Some_vt(chp) => let
     val res =
-      myrftp_server_ls(chp)
+      myrftp_server_ls0(chp)
     // end of [val]
   in
     the_chanpos_addback(pf | opt); res
@@ -184,12 +202,12 @@ case+ opt of
 | None_vt((*void*)) =>
     (the_chanpos_addback(pf | opt); ERROR$MYRFTP_CHANNEL_NONE)
 //
-end // end of [myrftp_ls]
+end // end of [myrftp_ls0]
 
 (* ****** ****** *)
 
 implement
-myrftp_cd
+myrftp_ls1
   (Dir) = let
 //
 val (pf | opt) = the_chanpos_takeout()
@@ -199,7 +217,7 @@ in
 case+ opt of
 | Some_vt(chp) => let
     val res =
-      myrftp_server_cd(chp, Dir)
+      myrftp_server_ls1(chp, Dir)
     // end of [val]
   in
     the_chanpos_addback(pf | opt); res
@@ -207,12 +225,35 @@ case+ opt of
 | None_vt((*void*)) =>
     (the_chanpos_addback(pf | opt); ERROR$MYRFTP_CHANNEL_NONE)
 //
-end // end of [myrftp_cd]
+end // end of [myrftp_ls1]
 
 (* ****** ****** *)
 
 implement
-myrftp_get
+myrftp_cd1
+  (Dir) = let
+//
+val (pf | opt) = the_chanpos_takeout()
+//
+in
+//
+case+ opt of
+| Some_vt(chp) => let
+    val res =
+      myrftp_server_cd1(chp, Dir)
+    // end of [val]
+  in
+    the_chanpos_addback(pf | opt); res
+  end // end of [Some_vt]
+| None_vt((*void*)) =>
+    (the_chanpos_addback(pf | opt); ERROR$MYRFTP_CHANNEL_NONE)
+//
+end // end of [myrftp_cd1]
+
+(* ****** ****** *)
+
+implement
+myrftp_get1
   (Filename) = let
 //
 val (pf | opt) = the_chanpos_takeout()
@@ -222,7 +263,7 @@ in
 case+ opt of
 | Some_vt(chp) => let
     val res =
-      myrftp_server_get(chp, Filename)
+      myrftp_server_get1(chp, Filename)
     // end of [val]
   in
     the_chanpos_addback(pf | opt); res
@@ -230,12 +271,12 @@ case+ opt of
 | None_vt((*void*)) =>
     (the_chanpos_addback(pf | opt); ERROR$MYRFTP_CHANNEL_NONE)
 //
-end // end of [myrftp_get]
+end // end of [myrftp_get1]
 
 (* ****** ****** *)
 
 implement
-myrftp_quit
+myrftp_quit0
   () = let
 //
 val (pf | opt) = the_chanpos_takeout()
@@ -245,7 +286,7 @@ in
 case+ opt of
 | ~Some_vt(chp) => let
     val () =
-      myrftp_server_quit(chp)
+      myrftp_server_quit0(chp)
     // end of [val]
     val opt = None_vt((*void*))
   in
@@ -257,7 +298,7 @@ case+ opt of
     the_chanpos_addback(pf | opt); ERROR$MYRFTP_CHANNEL_NONE
   end // end of [None_vt]
 //
-end // end of [myrftp_quit]
+end // end of [myrftp_quit0]
 
 (* ****** ****** *)
 //

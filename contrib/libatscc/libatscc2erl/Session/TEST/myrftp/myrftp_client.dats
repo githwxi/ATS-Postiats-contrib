@@ -71,11 +71,11 @@ myrftp_client(channeg(ssdisj(ssftp))): void
 (* ****** ****** *)
 
 implement
-myrftp_client(chp) = let
+myrftp_client(chn) = let
 //
 val () = println! ("myrftp_client: enter")
 //
-val opt = channeg_ssftp(chp)
+val opt = channeg_ssftp(chn)
 //
 val () = println! ("myrftp_client: opt = ", $UN.castvwtp1{ERLval}(opt))
 //
@@ -83,32 +83,40 @@ in
 //
 case+ opt of
 //
-| ~channeg_ssftp_ls() => let
+| ~channeg_ssftp_ls0() => let
     val Dir = "."
     val res =
       $extfcall(ERLval, "file:list_dir", Dir)
     // end of [val]
   in
-    channel_send(chp, res); myrftp_client(chp)
+    channel_send(chn, res); myrftp_client(chn)
   end // end of [channeg_ssftp_ls]
 //
-| ~channeg_ssftp_cd(Dir) => let
+| ~channeg_ssftp_ls1(Dir) => let
+    val res =
+      $extfcall(ERLval, "file:list_dir", Dir)
+    // end of [val]
+  in
+    channel_send(chn, res); myrftp_client(chn)
+  end // end of [channeg_ssftp_ls]
+//
+| ~channeg_ssftp_cd1(Dir) => let
     val res =
       $extfcall(ERLval, "file:set_cwd", Dir)
     // end of [val]
   in
-    channel_send(chp, res); myrftp_client(chp)
+    channel_send(chn, res); myrftp_client(chn)
   end // end of [channeg_ssftp_cd]
 //
-| ~channeg_ssftp_get(Filename) => let
+| ~channeg_ssftp_get1(Filename) => let
     val res =
       $extfcall(ERLval, "file:read_file", Filename)
     // end of [val]
   in
-    channel_send(chp, res); myrftp_client(chp)
+    channel_send(chn, res); myrftp_client(chn)
   end // end of [channeg_ssftp_get]
 //
-| ~channeg_ssftp_quit() => channeg_nil_close(chp)
+| ~channeg_ssftp_quit0() => channeg_nil_close(chn)
 //
 end // end of [myrftp_client]
 
