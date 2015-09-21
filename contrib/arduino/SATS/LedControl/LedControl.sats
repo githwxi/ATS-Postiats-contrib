@@ -33,10 +33,13 @@ LedControl
 ) : LedControl_ptr = "mac#" // end-of-fun
 //
 (* ****** ****** *)
-
+//
 fun
-LedControl_getDeviceCount(): int = "mac#"
-
+LedControl_getDeviceCount
+  (lc: LedControl_ptr): int = "mac#"
+//
+overload .getDeviceCount with LedControl_getDeviceCount
+//
 (* ****** ****** *)
 //
 fun
