@@ -184,9 +184,71 @@ end // end of [loop_cols]
 
 (* ****** ****** *)
 //
+(*
+void single() {
+  for(int row=0;row<8;row++) {
+    for(int col=0;col<8;col++) {
+      delay(delaytime);
+      lc.setLed(0,row,col,true);
+      delay(delaytime);
+      for(int i=0;i<col;i++) {
+        lc.setLed(0,row,col,false);
+        delay(delaytime);
+        lc.setLed(0,row,col,true);
+        delay(delaytime);
+      }
+    }
+  }
+}
+*)
 extern
 fun
-loop_single(LedControl_ptr): void = "mac#"
+loop_single
+(
+  LedControl_ptr
+) : void = "mac#"
+implement
+loop_single(lc) = let
+//
+fun
+doWork
+(
+  row: int, col: int
+) : void =
+{
+val () = delay(DELAY_TIME)
+val () = lc.setLed(0,row,col,true)
+val () = delay(DELAY_TIME)
+} (* end of [doWork] *)
+//
+fun
+loop_doWork
+(
+  row: int, col: int, i: int
+) : void = (
+//
+if
+i < col
+then (
+  lc.setLed
+  (
+    0, row, col, false
+  ) ; doWork(row, col) ;
+  loop_doWork(row, col, i+1)
+) (* end of [then] *)
+//
+) (* end of [loop] *)
+//
+implement(env)
+intrange2_foreach$fwork<env>
+  (row, col, env) =
+(
+  doWork(row, col); loop_doWork(row, col, 0)
+)
+//
+in
+  intrange2_foreach(0, 8, 0, 8)
+end // end of [loop_single]
 //
 (* ****** ****** *)
 //
