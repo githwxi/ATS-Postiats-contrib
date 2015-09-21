@@ -21,6 +21,10 @@ abstype LedControl_ptr = ptr
 //
 (* ****** ****** *)
 //
+typedef byte = $extype"byte"
+//
+(* ****** ****** *)
+//
 fun
 LedControl
 (
@@ -63,7 +67,8 @@ overload .setIntensity with LedControl_setIntensity
 (* ****** ****** *)
 //
 fun
-LedControl_clearDisplay(addr: int): void = "mac#"
+LedControl_clearDisplay
+  (lc: LedControl_ptr, addr: int): void = "mac#"
 //
 overload .clearDisplay with LedControl_clearDisplay
 //
@@ -72,7 +77,8 @@ overload .clearDisplay with LedControl_clearDisplay
 fun
 LedControl_setLed
 (
-  addr: int, row: int, col: int, state: bool
+  LedControl_ptr
+, addr: int, row: int, col: int, state: bool
 ) : void = "mac#" // end of [LedControl_setLed]
 //
 overload .setLed with LedControl_setLed // overload
@@ -81,7 +87,9 @@ overload .setLed with LedControl_setLed // overload
 //
 fun
 LedControl_setRow
-  (addr: int, row: int, value: byte): void = "mac#"
+(
+  LedControl_ptr, addr: int, row: int, value: byte
+) : void = "mac#" // end of [LedControl_setRow]
 //
 overload .setRow with LedControl_setRow // overload
 //
@@ -89,7 +97,9 @@ overload .setRow with LedControl_setRow // overload
 //
 fun
 LedControl_setColumn
-  (addr: int, col: int, value: byte): void = "mac#"
+(
+  LedControl_ptr, addr: int, col: int, value: byte
+) : void = "mac#" // end of [LedControl_setColumn]
 //
 overload .setColumn with LedControl_setColumn // overload
 //
@@ -98,7 +108,8 @@ overload .setColumn with LedControl_setColumn // overload
 fun
 LedControl_setChar
 (
-  addr: int, digit: int, value: char, dp: bool
+  LedControl_ptr
+, addr: int, digit: int, value: char, dp: bool
 ) : void = "mac#" // end of [LedControl_setDigit]
 //
 overload .setChar with LedControl_setChar // overload
@@ -106,7 +117,8 @@ overload .setChar with LedControl_setChar // overload
 fun
 LedControl_setDigit
 (
-  addr: int, digit: int, value: byte, dp: bool
+  LedControl_ptr
+, addr: int, digit: int, value: byte, dp: bool
 ) : void = "mac#" // end of [LedControl_setDigit]
 //
 overload .setDigit with LedControl_setDigit // overload
