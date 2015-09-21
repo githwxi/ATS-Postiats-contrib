@@ -60,7 +60,7 @@ LedControl_setChar(led, addr, digit, value, dp) \
   (static_cast<LedControl*>(led))->setChar(addr, digit, value, dp)
 #define \
 LedControl_setDigit(led, addr, digit, value, dp) \
-  (static_cast<LedControl*>(led))->setDigut(addr, digit, value, dp)
+  (static_cast<LedControl*>(led))->setDigit(addr, digit, value, dp)
 //
 /* ****** ****** */
 
