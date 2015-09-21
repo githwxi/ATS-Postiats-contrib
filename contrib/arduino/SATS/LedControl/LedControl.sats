@@ -1,5 +1,5 @@
 (*
-** LiquidCrystal library
+** LedControl library
 *)
 
 (* ****** ****** *)

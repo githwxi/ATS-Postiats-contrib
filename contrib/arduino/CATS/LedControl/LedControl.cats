@@ -20,19 +20,47 @@ LedControl_getDeviceCount(led) \
 /* ****** ****** */
 //
 #define \
-LedControl_shutdown(led) (static_cast<LedControl*>(led))->shutdown()
+LedControl_shutdown(led, addr, status) \
+  (static_cast<LedControl*>(led))->shutdown(addr, status)
 //
 /* ****** ****** */
 //
 #define \
-LedControl_setScanLimit(led) (static_cast<LedControl*>(led))->setScanLimit()
+LedControl_setScanLimit(led, addr, limit) \
+  (static_cast<LedControl*>(led))->setScanLimit(addr, limit)
 #define \
-LedControl_setIntensity(led) (static_cast<LedControl*>(led))->setIntensity()
+LedControl_setIntensity(led, addr, value) \
+  (static_cast<LedControl*>(led))->setIntensity(addr, value)
 //
 /* ****** ****** */
 //
 #define \
-LedControl_clearDisplay(led) (static_cast<LedControl*>(led))->clearDisplay()
+LedControl_clearDisplay(led, addr) \
+  (static_cast<LedControl*>(led))->clearDisplay(addr)
+//
+/* ****** ****** */
+//
+#define \
+LedControl_setLed(led, addr, row, col, state) \
+  (static_cast<LedControl*>(led))->setLed(addr, row, col, state)
+//
+/* ****** ****** */
+//
+#define \
+LedControl_setRow(led, addr, row, value) \
+  (static_cast<LedControl*>(led))->setRow(addr, row, value)
+#define \
+LedControl_setColumn(led, addr, col, value) \
+  (static_cast<LedControl*>(led))->setColumn(addr, col, value)
+//
+/* ****** ****** */
+//
+#define \
+LedControl_setChar(led, addr, digit, value, dp) \
+  (static_cast<LedControl*>(led))->setChar(addr, digit, value, dp)
+#define \
+LedControl_setDigit(led, addr, digit, value, dp) \
+  (static_cast<LedControl*>(led))->setDigut(addr, digit, value, dp)
 //
 /* ****** ****** */
 
