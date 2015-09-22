@@ -38,7 +38,8 @@ fun
 LedControl_getDeviceCount
   (lc: LedControl_ptr): int = "mac#"
 //
-overload .getDeviceCount with LedControl_getDeviceCount
+overload
+.getDeviceCount with LedControl_getDeviceCount
 //
 (* ****** ****** *)
 //

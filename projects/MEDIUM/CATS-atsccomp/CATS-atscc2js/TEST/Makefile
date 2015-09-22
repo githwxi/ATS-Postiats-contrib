@@ -4,7 +4,7 @@
 
 ######
 
-NODEJS=node
+NODEJS=nodejs
 
 ######
 
@@ -145,6 +145,16 @@ $(PATSOPT) -d $< | $(ATSCC2JS) -o $@
 twice:: twice_dats.js ; $(NODEJS) twice_dats.js
 regress:: twice
 cleanall:: ; $(RMF) twice_dats.js
+
+######
+
+all:: \
+F-algebra_dats.js
+F-algebra_dats.js: F-algebra.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+F-algebra:: F-algebra_dats.js ; $(NODEJS) F-algebra_dats.js
+regress:: F-algebra
+cleanall:: ; $(RMF) F-algebra_dats.js
 
 ######
 

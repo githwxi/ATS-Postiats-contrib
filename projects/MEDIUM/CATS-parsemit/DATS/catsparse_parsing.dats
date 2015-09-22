@@ -103,6 +103,11 @@ val tok = tokbuf_get_token (buf)
 //
 macdef incby1 () = tokbuf_incby1 (buf)
 //
+(*
+val () =
+println! ("ptest_SRPif0: tok = ", tok)
+*)
+//
 in
 //
 case+
@@ -142,6 +147,10 @@ case+ 0 of
 | _ (*non-SRPif0*) => let
     val tok = tokbuf_get_token (buf)
     val ((*void*)) = tokbuf_incby1 (buf)
+(*
+    val ((*void*)) =
+      println! ("pskip_SRPif0: tok = ", tok)
+*)
   in
     case+ tok.token_node of
     | T_EOF () => ()

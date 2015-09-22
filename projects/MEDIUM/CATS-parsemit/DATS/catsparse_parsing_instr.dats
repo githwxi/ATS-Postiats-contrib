@@ -47,7 +47,7 @@ tok.token_node of
 //
 | _ when
     ptest_SRPif0 (buf) => let
-    val () = incby1 ()
+    val bt = 0
     val () = pskip_SRPif0 (buf, 1(*level*))
   in
     parse_instr (buf, bt, err)
