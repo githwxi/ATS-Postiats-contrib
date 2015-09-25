@@ -80,7 +80,7 @@ overload fprint with fprint_object
 fun
 class_getmtd(class, symbol): method
 fun
-class_setmtd(class, symbol, m0: method): void
+class_setmtd(class, symbol, m0: method): bool
 //
 (* ****** ****** *)
 //
