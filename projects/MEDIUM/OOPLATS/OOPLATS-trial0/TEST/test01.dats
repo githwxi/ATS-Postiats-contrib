@@ -19,10 +19,11 @@ val-
 ~Some_vt(string_class) = theEnv_get_class("string_class")
 //
 (* ****** ****** *)
-
+//
 val Int1 = object_new_int(1)
-val Int2 = object_msg_eval(Int1, "+", $list{object}(Int1))
-
+val Int1_val: value = VALobject(Int1)
+val Int2_val: value = object_evalmsg(Int1, "+", $list{value}(Int1_val))
+//
 (* ****** ****** *)
 
 (* end of [test01.dats] *)
