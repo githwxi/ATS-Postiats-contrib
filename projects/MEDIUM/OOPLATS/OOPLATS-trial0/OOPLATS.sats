@@ -4,8 +4,11 @@
 
 (* ****** ****** *)
 
+(*
 abstype symbol_type
 typedef symbol = symbol_type
+*)
+typedef symbol = string
 
 (* ****** ****** *)
 
@@ -43,13 +46,13 @@ fun object_get_state(object): object_state
 (* ****** ****** *)
 //
 fun
-object_get_var(object, string): Option_vt(var)
+object_get_var(object, symbol): Option_vt(var)
 fun
-object_set_var(object, string, data: object): bool
+object_set_var(object, symbol, data: object): bool
 //
 (* ****** ****** *)
 
-fun theEnv_get_class(string): Option_vt(class)
+fun theEnv_get_class(symbol): Option_vt(class)
 
 (* ****** ****** *)
 
