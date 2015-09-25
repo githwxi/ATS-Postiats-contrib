@@ -41,6 +41,7 @@ fun object_new_string(string): object
 (* ****** ****** *)
 
 fun object_get_class(object): class
+overload .class with object_get_class
 
 (* ****** ****** *)
 //
@@ -55,6 +56,13 @@ typedef valuelst = List0 (value)
 //
 (* ****** ****** *)
 //
+datatype method =
+  | MTDnil of ()
+  | MTDfun of (valuelst -> value)
+  | MTDclo of (valuelst -<cloref1> value)
+//
+(* ****** ****** *)
+//
 fun print_value : value -> void
 fun fprint_value: fprint_type(value)
 //
@@ -66,6 +74,13 @@ overload fprint with fprint_value
 //
 overload print with print_object
 overload fprint with fprint_object
+//
+(* ****** ****** *)
+//
+fun
+class_getmtd(class, symbol): method
+fun
+class_setmtd(class, symbol, m0: method): void
 //
 (* ****** ****** *)
 //

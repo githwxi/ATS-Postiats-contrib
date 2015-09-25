@@ -63,4 +63,23 @@ end // end of [object_setvar]
 
 (* ****** ****** *)
 
+implement
+object_evalmsg
+  (obj, name, args) = let
+//
+val
+mtd =
+class_getmtd(obj.class(), name)
+//
+in
+//
+case+ mtd of
+| MTDnil() => VALnil()
+| MTDfun(f_fun) => f_fun(args)
+| MTDclo(f_clo) => f_clo(args)
+//
+end // end of [object_evalmsg]
+
+(* ****** ****** *)
+
 (* end of [OOPLATS_object.dats] *)
