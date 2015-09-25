@@ -27,10 +27,6 @@ typedef object = object_type
 
 (* ****** ****** *)
 
-abstype object_state = ptr
-
-(* ****** ****** *)
-
 fun class_get_vars (class): class_vars
 fun class_get_methods (class): class_methods
 
@@ -45,7 +41,6 @@ fun object_new_string(string): object
 (* ****** ****** *)
 
 fun object_get_class(object): class
-fun object_get_state(object): object_state
 
 (* ****** ****** *)
 //
