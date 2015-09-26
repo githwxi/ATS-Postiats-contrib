@@ -60,6 +60,20 @@ typedef valuelst = List0 (value)
 //
 (* ****** ****** *)
 //
+fun{}
+toval_int(x: int): value
+fun{}
+toval_double(x: double): value
+fun{}
+toval_string(x: string): value
+//
+symintr toval
+overload toval with toval_int
+overload toval with toval_double
+overload toval with toval_string
+//
+(* ****** ****** *)
+//
 datatype method =
   | MTDnil of ()
   | MTDfun of (valuelst -> value)
@@ -94,10 +108,30 @@ fun
 object_setvar(object, symbol, v0: value): bool
 //
 (* ****** ****** *)
-
+//
 fun
-object_evalmsg(object, symbol, valuelst): value
-
+object_evalmsg_0
+  (object, symbol): value
+fun
+object_evalmsg_1
+  (object, symbol, v: value): value
+fun
+object_evalmsg_2
+  (object, symbol, v1: value, v2: value): value
+fun
+object_evalmsg_3
+  (object, symbol, v1: value, v2: value, v3: value): value
+//
+fun
+object_evalmsg_lst
+  (object, symbol, vs: valuelst): value
+//
+overload .evalmsg with object_evalmsg_0
+overload .evalmsg with object_evalmsg_1
+overload .evalmsg with object_evalmsg_2
+overload .evalmsg with object_evalmsg_3
+overload .evalmsg with object_evalmsg_lst
+//
 (* ****** ****** *)
 
 fun theEnv_get_class(symbol): Option_vt(class)

@@ -2,6 +2,9 @@
 #
 # For testing LedControl
 #
+# Ported by Hongwei Xi from the source at
+# https://github.com/wayoda/LedControl/tree/master/examples/LCDemoMatrix
+#
 *)
 (* ****** ****** *)
 
@@ -121,17 +124,17 @@ end // end of [loop_rows]
 (* ****** ****** *)
 
 (*
-void rows() {
-  for(int row=0;row<8;row++) {
+void columns() {
+  for(int col=0;col<8;col++) {
     delay(delaytime);
-    lc.setRow(0,row,B10100000);
+    lc.setColumn(0,col,B10100000);
     delay(delaytime);
-    lc.setRow(0,row,(byte)0);
-    for(int i=0;i<row;i++) {
+    lc.setColumn(0,col,(byte)0);
+    for(int i=0;i<col;i++) {
       delay(delaytime);
-      lc.setRow(0,row,B10100000);
+      lc.setColumn(0,col,B10100000);
       delay(delaytime);
-      lc.setRow(0,row,(byte)0);
+      lc.setColumn(0,col,(byte)0);
     }
   }
 }
