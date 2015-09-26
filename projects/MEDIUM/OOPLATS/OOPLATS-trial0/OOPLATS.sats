@@ -52,6 +52,10 @@ datatype value =
   | VALstring of string
   | VALobject of object
 //
+(*
+  | {a:type} VALboxed of (a)
+*)
+//
 typedef valuelst = List0 (value)
 //
 (* ****** ****** *)
