@@ -51,12 +51,19 @@ chanpos(type) = ptr and channeg(type) = ptr
 //
 (* ****** ****** *)
 //
+(*
+//
+// HX-2015-09-16:
+// This is currently not supported
+// due to chanpos/channeg being not symmetric
+//
 prfun
-chanpos_not{ss:type}
+lemma_chanpos_not{ss:type}
   (!chanpos(ssnot(ss)) >> channeg(ss)): void
 prfun
-channeg_not{ss:type}
+lemma_channeg_not{ss:type}
   (!channeg(ssnot(ss)) >> chanpos(ss)): void
+*)
 //
 (* ****** ****** *)
 //
