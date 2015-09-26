@@ -2,6 +2,9 @@
 #
 # For testing LedControl
 #
+# Ported by Hongwei Xi from the source at
+# https://github.com/wayoda/LedControl/tree/master/examples/LCDemoMatrix
+#
 *)
 (* ****** ****** *)
 
