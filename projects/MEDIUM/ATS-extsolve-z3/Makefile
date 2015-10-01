@@ -60,7 +60,11 @@ CFLAGS2 += $(shell pkg-config --cflags json-c)
 #
 ######
 
-PATSCC2=$(PATSCC) $(CFLAGS2)
+EXTRA_CFLAGS :=
+
+######
+
+PATSCC2=$(PATSCC) $(CFLAGS2) $(EXTRA_CFLAGS)
 
 ######
 
@@ -68,10 +72,6 @@ LDFLAGS :=
 LDFLAGS += $(shell pkg-config --libs json-c)
 LDFLAGS +=-lz3
 LDFLAGS +=-lgc
-
-######
-
-EXTRAFLAGS :=
 
 ######
 
