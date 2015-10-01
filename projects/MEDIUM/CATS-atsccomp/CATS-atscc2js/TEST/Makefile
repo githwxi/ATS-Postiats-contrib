@@ -149,16 +149,6 @@ cleanall:: ; $(RMF) twice_dats.js
 ######
 
 all:: \
-F-algebra_dats.js
-F-algebra_dats.js: F-algebra.dats ; \
-$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
-F-algebra:: F-algebra_dats.js ; $(NODEJS) F-algebra_dats.js
-regress:: F-algebra
-cleanall:: ; $(RMF) F-algebra_dats.js
-
-######
-
-all:: \
 queens_dats.js
 queens_dats.js: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2JS) -o $@

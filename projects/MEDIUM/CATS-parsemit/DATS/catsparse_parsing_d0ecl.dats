@@ -184,7 +184,9 @@ tok.token_node of
 //
 | _ when
     ptest_SRPif0 (buf) => let
-    val bt = 0
+(*
+    val bt = 0 // HX-2015-09-30: fixed
+*)
     val () = pskip_SRPif0 (buf, 1(*level*))
   in
     parse_d0ecl (buf, bt, err)
@@ -203,6 +205,8 @@ tok.token_node of
         val () = incby1 () in d0ecl_include (tok, tok2)
       end // end of [T_IDENT_alp]
     | _ (*error*) => tokbuf_set_ntok_null (buf, n0) 
+
+
   end // end of [SRPinclude]
 //
 | T_KWORD(SRPifdef()) => let
