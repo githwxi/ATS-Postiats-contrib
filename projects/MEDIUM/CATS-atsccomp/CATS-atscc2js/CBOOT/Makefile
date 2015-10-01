@@ -17,12 +17,7 @@ all::
 
 ######
 
-CBOOT:: ; $(CPF) catsparse_sats.c CBOOT/.
-CBOOT:: ; $(CPF) atscc2js_*_dats.c CBOOT/.
-
-######
-
-CATSPARSEMIT=./.CATS-parsemit
+CATSPARSEMIT=./../.CATS-parsemit
 
 ######
 
@@ -31,22 +26,21 @@ SOURCES_DATS += atscc2js_main.dats
 SOURCES_DATS += atscc2js_emit.dats
 SOURCES_DATS += atscc2js_emit2.dats
 
-SOURCES_SATS :=
-SOURCES_SATS += $(CATSPARSEMIT)/catsparse.sats
-
 SOURCES_CATS :=
+SOURCES_CATS += catsparse_sats.c
 SOURCES_CATS += $(CATSPARSEMIT)/catsparse_mylib_dats.c
 SOURCES_CATS += $(CATSPARSEMIT)/catsparse_include_all_dats.c
+
+######
+
+SOURCES_DATS_C := $(patsubst %.dats, %_dats.c, $(SOURCES_DATS))
 
 ######
 #
 all:: \
 atscc2js
-atscc2js: \
-$(SOURCES_DATS); \
-$(PATSCC) \
-  -DATS_MEMALLOC_GCBDW -O2 -o $@ \
-  $(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS) -lgc
+atscc2js: ; \
+$(PATSCC) -DATS_MEMALLOC_GCBDW -O2 -o $@ $(SOURCES_DATS_C) $(SOURCES_CATS) -lgc
 #
 ######
 
@@ -77,13 +71,10 @@ testall:: cleanall
 
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
-clean:: ; $(RMF) catsparse_sats.c
-clean:: ; $(RMF) atscc2js_*_?ats.c
 
 ######
 
 cleanall:: clean
 cleanall:: ; $(RMF) ./atscc2js
-cleanall:: ; $(RMF) ./.CATS-parsemit/*
 
 ###### end of [Makefile] ######
