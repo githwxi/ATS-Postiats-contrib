@@ -107,31 +107,44 @@ fun takeout_atend_opt ((*void*)): Option_vt (T)
 
 local
 //
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 staload "libats/SATS/deqarray.sats"
 staload _ = "libats/DATS/deqarray.dats"
-//
-staload UN = "prelude/SATS/unsafe.sats"
 //
 #define
 CAPACITY (CAPACITY1-1)
 //
 local
-var _array = @[T][CAPACITY1]()
-in (*in-of-local*)
-val the_arrayptr =
-$UN.castvwtp0{arrayptr(T?,CAPACITY1)}((view@_array | addr@_array))
+//
+var
+_array_ =
+@[T][CAPACITY1]()
+//
+in(*in-of-local*)
+val
+theArrayptr =
+$UN.castvwtp0{arrayptr(T?,CAPACITY1)}((view@_array_ | addr@_array_))
 end // end of [local]
 //
 local
-val cap = CAPACITY
-var _struct: deqarray_tsize // uninitized
+val
+cap = CAPACITY
+var
+_struct_
+: deqarray_tsize (*uninitized*)
+//
 in (*in-of-local*)
-val (pfngc | the_deqarray) =
-deqarray_make_ngc__tsz{T}(view@_struct | addr@_struct, the_arrayptr, i2sz(cap), sizeof<T>)
+val
+(pfngc|theDQA0) =
+deqarray_make_ngc__tsz{T}(view@_struct_ | addr@_struct_, theArrayptr, i2sz(cap), sizeof<T>)
 end // end of [local]
 //
-vtypedef DQA = [n:nat] deqarray(T, CAPACITY, n)
-val the_deqarray_ptr = $UN.castvwtp0{ptr}((pfngc | the_deqarray))
+vtypedef
+DQA = [n:nat] deqarray(T, CAPACITY, n)
+//
+val theDQA0_ptr = $UN.castvwtp0{ptr}((pfngc | theDQA0))
 //
 in (* in-of-local *)
 
@@ -140,7 +153,7 @@ get_size () = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_get_size (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -151,7 +164,7 @@ get_capacity () = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_get_capacity (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -164,7 +177,7 @@ is_nil () = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_is_nil (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -175,7 +188,7 @@ isnot_nil () = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_isnot_nil (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -188,7 +201,7 @@ is_full () = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_is_full (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -199,7 +212,7 @@ isnot_full () = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_isnot_full (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -212,7 +225,7 @@ insert_atbeg
   (x0, res) = let
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val isnot = deqarray_isnot_full (dqa)
 //
 in
@@ -243,7 +256,7 @@ insert_atbeg_exn(x0) = () where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 //
 val ((*void*)) = (
 //
@@ -263,7 +276,7 @@ insert_atbeg_opt(x0) = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_insert_atbeg_opt (dqa, x0)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -276,7 +289,7 @@ insert_atend
   (x0, res) = let
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val isnot = deqarray_isnot_full (dqa)
 //
 in
@@ -307,7 +320,7 @@ insert_atend_exn(x0) = () where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 //
 val ((*void*)) = (
 //
@@ -327,7 +340,7 @@ insert_atend_opt(x0) = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_insert_atend_opt (dqa, x0)
 prval ((*void*)) = $UN.cast2void (dqa)
 //
@@ -339,7 +352,7 @@ implement
 takeout_atbeg(x0) = let
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val isnot = deqarray_isnot_nil (dqa)
 //
 in
@@ -370,7 +383,7 @@ takeout_atbeg_exn() = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 //
 val res = (
 //
@@ -388,10 +401,12 @@ prval ((*void*)) = $UN.cast2void (dqa)
 implement
 takeout_atbeg_opt() = res where
 {
+//
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val res = deqarray_takeout_atbeg_opt (dqa)
 prval ((*void*)) = $UN.cast2void (dqa)
+//
 } (* end of [takeout_atbeg_opt] *)
 
 (* ****** ****** *)
@@ -400,7 +415,7 @@ implement
 takeout_atend(x0) = let
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 val isnot = deqarray_isnot_nil (dqa)
 //
 in
@@ -416,7 +431,7 @@ if isnot
   end // end of [then]
   else let
     prval ((*void*)) = opt_none{T}(x0)
-    prval ((*void*)) = $UN.cast2void (dqa)
+    prval ((*void*)) = $UN.cast2void(dqa)
   in
     false
   end // end of [else]
@@ -431,13 +446,13 @@ takeout_atend_exn() = res where
 {
 //
 val dqa =
-$UN.castvwtp0{DQA}(the_deqarray_ptr)
+$UN.castvwtp0{DQA}(theDQA0_ptr)
 //
 val res = (
 //
 if
 deqarray_isnot_nil(dqa)
-then deqarray_takeout_atend (dqa)
+then deqarray_takeout_atend(dqa)
 else $raise GDEQARRAYtakeout((*void*))
 //
 ) : T // end of [val]
@@ -451,9 +466,11 @@ takeout_atend_opt() = res where
 {
 //
 val dqa =
-  $UN.castvwtp0{DQA}(the_deqarray_ptr)
+  $UN.castvwtp0{DQA}(theDQA0_ptr)
 //
-val res = deqarray_takeout_atend_opt (dqa)
+val res =
+  deqarray_takeout_atend_opt (dqa)
+//
 prval ((*void*)) = $UN.cast2void (dqa)
 //
 } (* end of [takeout_atend_opt] *)
