@@ -33,17 +33,20 @@ UN = "prelude/SATS/unsafe.sats"
 #define LCD_WIDTH 16
 
 (* ****** ****** *)
-
-val g_str_atsrun = "<ATS running!>"
-val g_str_message = "\
+//
+val
+g_str_atsrun = "<ATS running!>"
+//
+val
+g_str_message = "\
 ATS is a statically typed programming language that \
 unifies implementation with formal specification. It \
 is equipped with a highly expressive type system rooted \
 in the framework Applied Type System, which gives the \
 language its name. In particular, both dependent types \
 and linear types are available in ATS.\
-" // end of [g_str_message]
-
+" (* end of [g_str_message] *)
+//
 (* ****** ****** *)
 //
 extern
