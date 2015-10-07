@@ -34,11 +34,20 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-val
-g_str_atsrun = "<ATS running!>"
+extern
+fun
+FLASH{n:int}
+  (x: string(n)): string(n) = "mac#F"
+//
+(* ****** ****** *)
 //
 val
-g_str_message = "\
+g_str_atsrun =
+FLASH"<ATS running!>"
+//
+val
+g_str_message = FLASH
+"\
 ATS is a statically typed programming language that \
 unifies implementation with formal specification. It \
 is equipped with a highly expressive type system rooted \
