@@ -10,7 +10,7 @@ staload "./../OOPLATS.sats"
 abstype symbol(t@ype)
 
 (* ****** ****** *)
-
+//
 extern
 val
 symbol$print :
