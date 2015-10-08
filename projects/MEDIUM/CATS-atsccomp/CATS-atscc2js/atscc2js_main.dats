@@ -538,9 +538,16 @@ in
 end // end of [comarglst_parse]
 
 (* ****** ****** *)
-
+//
+extern
+fun
+atscc2js_main0
+  {n:pos}
+  (argc: int(n), argv: !argv(n)): void
+//
 implement
-main0 (argc, argv) =
+atscc2js_main0
+  (argc, argv) =
 {
 //
 val () =
@@ -590,7 +597,22 @@ val () =
 prerrln! ("Good-bye from atscc2js!")
 *)
 //
+} (* end of [atscc2js_main0] *)
+//
+(* ****** ****** *)
+
+#ifndef
+ATSCC2JS_MAIN_NONE
+//
+implement
+main0 (argc, argv) =
+{
+//
+val () = atscc2js_main0(argc, argv)
+//
 } (* end of [main0] *)
+//
+#endif // ifndef(ATSCC2JS_MAIN_NONE)
 
 (* ****** ****** *)
 
