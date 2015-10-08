@@ -142,6 +142,18 @@ ats2jspre_neq_int1_int1(x, y) { return (x !== y); }
 
 /* ****** ****** */
 //
+function
+ats2jspre_max_int0_int0(x, y) { return (x >= y) ? x : y ; }
+function
+ats2jspre_min_int0_int0(x, y) { return (x <= y) ? x : y ; }
+//
+function
+ats2jspre_max_int1_int1(x, y) { return (x >= y) ? x : y ; }
+function
+ats2jspre_min_int1_int1(x, y) { return (x <= y) ? x : y ; }
+//
+/* ****** ****** */
+//
 // HX: for unsigned integers
 //
 /* ****** ****** */
