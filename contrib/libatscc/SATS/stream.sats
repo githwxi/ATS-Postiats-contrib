@@ -49,14 +49,14 @@ stream_tabulate_cloref
 fun
 stream2cloref_exn
   {a:t0p}
-  (xs: stream(a)): cfun(a) = "mac#%"
+  (xs: stream(INV(a))): cfun(a) = "mac#%"
 fun
 stream2cloref_opt
   {a:t0p}
-  (xs: stream(a)): cfun(Option_vt(a)) = "mac#%"
+  (xs: stream(INV(a))): cfun(Option_vt(a)) = "mac#%"
 fun
 stream2cloref_last
-  {a:t0p}(xs: stream(a), last: a): cfun(a) = "mac#%"
+  {a:t0p}(xs: stream(INV(a)), last: a): cfun(a) = "mac#%"
 //
 (* ****** ****** *)
 

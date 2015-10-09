@@ -55,25 +55,43 @@ staload "./../../SATS/Bacon.js/baconjs_ext.sats"
 //
 (*
 fun
-EStream_zip_stream_cfun
-  {a,b:t0p}{c:t0p}
+EStream_scan_stream_opt
+  {a,b,c:t0p}
 (
-  xs: EStream(a)
-, ys: stream(b), y0: b, fopr: cfun(a, b, c)
-) : EStream(c) = "mac#%" // end-of-function
+  xs: EStream(b)
+, ini: a, ys: stream(c), fopr: cfun(a, b, c, Option_vt(a))
+) : Property(a) = "mac#%" // end-of-function
 *)
 //
 implement
-EStream_zip_stream_cfun
-  {a,b}{c}
-  (xs, ys, y0, fopr) = let
+EStream_scan_stream_opt
+  {a,b,c}
+  (xs, ini, ys, fopr) = let
 //
-val fys =
-  stream2cloref_last(ys, y0)
+val rys = ref{stream(c)}(ys)
+//
+val
+fopr2 = lam
+(
+  ini: a, x: b
+) : a =<cloref1> let
+  val ys = rys[]
+in
+//
+case+ !ys of
+| stream_nil() => ini
+| stream_cons(y, ys) => let
+    val opt = fopr(ini, x, y)
+  in
+    case+ opt of
+    | ~None_vt() => ini | ~Some_vt(ini) => (rys[] := ys; ini)
+  end // end of [stream_cons]
+//
+end // end of [fopr2]
 //
 in
-  EStream_map(xs, lam(x) =<cloref1> fopr(x, fys()))
-end // end of [EStream_zip_stream_cfun]
+  EStream_scan(xs, ini, fopr2)
+end // end of [EStream_scan_stream_opt]
 //
 (* ****** ****** *)
 
