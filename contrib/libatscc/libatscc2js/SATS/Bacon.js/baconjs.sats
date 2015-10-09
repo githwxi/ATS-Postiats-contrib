@@ -58,22 +58,31 @@ Bacon_never
 (* ****** ****** *)
 //
 fun
+Bacon_delay
+  {a:t0p}
+  (delay: intGte(0), x: a): EStream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 Bacon_interval
   {a:t0p}(int: intGte(0), x: a): EStream(a) = "mac#%"
 //
 fun
-Bacon_repeatedly{a:t0p}
+Bacon_repeatedly
+  {a:t0p}
   (int: intGte(0), xs: JSarray(a)): EStream(a) = "mac#%"
 //
 fun
-Bacon_sequentially{a:t0p}
+Bacon_sequentially
+  {a:t0p}
   (int: intGte(0), xs: JSarray(a)): EStream(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-Bacon_repeat
-  {a:t0p}(fopr: cfun(EStream(a))): EStream(a) = "mac#%"
+Bacon_repeat{a:t0p}
+  (fopr: cfun(intGte(0), EStream(a))): EStream(a) = "mac#%"
 //
 (* ****** ****** *)
 //

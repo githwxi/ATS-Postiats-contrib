@@ -22,6 +22,9 @@ function
 ats2js_bacon_Bacon_never() { return Bacon.never(); }
 //
 function
+ats2js_bacon_Bacon_later(delay, x) { return Bacon.later(delay, x); }
+//
+function
 ats2js_bacon_Bacon_interval
   (int, x) { return Bacon.interval(int, x); }
 //
@@ -36,7 +39,7 @@ ats2js_bacon_Bacon_sequentially
 function
 ats2js_bacon_Bacon_repeat(fopr)
 {
-  return Bacon.repeat(function(){return ats2jspre_cloref0_app(fopr);});
+  return Bacon.repeat(function(i){return ats2jspre_cloref1_app(fopr, i);});
 }
 //
 /* ****** ****** */
