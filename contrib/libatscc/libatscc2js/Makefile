@@ -104,7 +104,7 @@ $(ECHO) '\n/* end of [libatscc2js_all.js] */\n' | $(CAT) - >>libatscc2js_all.js
 #
 libatscc2js_baconjs_all:: ; \
 $(CAT) \
->>libatscc2js_baconjs_all.js \
+>libatscc2js_baconjs_all.js \
 CATS/Bacon.js/baconjs_cats.js \
 output/DATS/Bacon.js/baconjs_ext_dats.js
 #

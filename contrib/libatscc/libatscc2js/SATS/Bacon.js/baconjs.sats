@@ -276,13 +276,13 @@ overload .sampledBy with Property_sampledBy_property
 //
 fun
 Property_sampledBy_estream_cfun
-  {a,b,c:t0p}
+  {a,b:t0p}{c:t0p}
 (
   Property(a), EStream(b), cfun(a, b, c)
 ) : EStream(c) = "mac#%" // end-of-function
 fun
 Property_sampledBy_property_cfun
-  {a,b,c:t0p}
+  {a,b:t0p}{c:t0p}
 (
   Property(a), Property(b), cfun(a, b, c)
 ) : Property(c) = "mac#%" // end-of-function
@@ -296,7 +296,7 @@ overload .sampledBy with Property_sampledBy_property_cfun
 //
 fun
 EStream_zip_estream_cfun
-  {a,b,c:t0p}
+  {a,b:t0p}{c:t0p}
 (
   xs: EStream(a), ys: EStream(b), cfun(a, b, c)
 ) : EStream(c) = "mac#%" // end-of-function

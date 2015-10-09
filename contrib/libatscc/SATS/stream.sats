@@ -41,7 +41,22 @@ stream_filter_cloref
 //
 fun
 stream_tabulate_cloref
-  {a:t0p}(f: intGte(0) -<cloref1> a): stream(a) = "mac#%"
+  {a:t0p}
+  (f: intGte(0) -<cloref1> a): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream2cloref_exn
+  {a:t0p}
+  (xs: stream(a)): cfun(a) = "mac#%"
+fun
+stream2cloref_opt
+  {a:t0p}
+  (xs: stream(a)): cfun(Option_vt(a)) = "mac#%"
+fun
+stream2cloref_last
+  {a:t0p}(xs: stream(a), last: a): cfun(a) = "mac#%"
 //
 (* ****** ****** *)
 

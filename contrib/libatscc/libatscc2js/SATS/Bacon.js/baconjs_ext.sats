@@ -46,8 +46,14 @@ staload "./baconjs.sats"
 (* ****** ****** *)
 //
 fun
-Bacon_stream
-  {a:t0p}(xs: stream(a)): EStream(a) = "mac#%"
+EStream_zip_stream_cfun
+  {a,b:t0p}{c:t0p}
+(
+  xs: EStream(a), ys: stream(b), y0: b, fopr: cfun(a, b, c)
+) : EStream(c) = "mac#%" // end-of-function
+//
+overload zip with EStream_zip_stream_cfun
+overload .zip with EStream_zip_stream_cfun
 //
 (* ****** ****** *)
 
