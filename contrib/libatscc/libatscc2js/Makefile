@@ -15,6 +15,11 @@ RMF=rm -f
 SCPR=scp -r
 
 ######
+
+all::
+all_in_one::
+
+######
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/basics.dats | \
@@ -53,6 +58,11 @@ all:: ; \
 $(PATSOPT) -d ./DATS/Bacon.js/baconjs_ext.dats | \
 $(ATSCC2JS) -o ./output/DATS/Bacon.js/baconjs_ext_dats.js -i
 #
+######
+
+all_in_one:: libatscc2js_all
+all_in_one:: libatscc2js_baconjs_all
+
 ######
 #
 DATE=/bin/date
