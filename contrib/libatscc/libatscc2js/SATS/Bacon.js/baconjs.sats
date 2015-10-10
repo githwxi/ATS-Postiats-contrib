@@ -41,11 +41,23 @@ staload
 //
 (* ****** ****** *)
 //
+(*
+For Opaque values
+*)
+abstype Value = ptr
+//
 abstype Event = ptr
-abstype EStream(a:t@ype) = ptr
 //
-abstype Property(a:t@ype) = ptr
+abstype
+EStream(a:t@ype) = ptr // invariant!
+abstype
+Property(a:t@ype) = ptr // invariant!
 //
+(* ****** ****** *)
+
+fun Bacon_more(): Value = "mac#%"
+fun Bacon_noMore(): Value = "mac#%"
+
 (* ****** ****** *)
 //
 fun
@@ -306,6 +318,28 @@ EStream_zip_estream_cfun
 //
 overload zip with EStream_zip_estream_cfun
 overload .zip with EStream_zip_estream_cfun
+//
+(* ****** ****** *)
+//
+// HX-2015-10-10:
+// Bus: an estream
+// onto which values can be pushed
+//
+fun
+Bacon_new_bus{a:t0p}(): EStream(a) = "mac#%"
+//
+fun
+EStream_bus_push
+  {a:t0p}(bus: EStream(a), x0: a): void = "mac#%"
+fun
+EStream_bus_plug
+  {a:t0p}(bus: EStream(a), xs: EStream(a)): void = "mac#%"
+//
+overload push with EStream_bus_push
+overload plug with EStream_bus_plug
+//
+overload .push with EStream_bus_push
+overload .plug with EStream_bus_plug
 //
 (* ****** ****** *)
 
