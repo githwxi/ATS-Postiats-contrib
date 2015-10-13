@@ -103,13 +103,13 @@ Bacon_repeat{a:t0p}
 //
 fun
 EStream_map
-  {a,b:t0p}
+  {a:t0p}{b:t0p}
 (
   xs: EStream(a), fopr: cfun(a, b)
 ) : EStream(b) = "mac#%" // end-of-fun
 fun
 Property_map
-  {a,b:t0p}
+  {a:t0p}{b:t0p}
 (
   xs: Property(a), fopr: cfun(a, b)
 ) : Property(b) = "mac#%" // end-of-fun
@@ -123,7 +123,7 @@ overload .map with Property_map
 //
 fun
 EStream_map_property
-  {a,b:t0p}
+  {a:t0p}{b:t0p}
 (
   xs: EStream(a), ys: Property(b)
 ) : EStream(b) = "mac#%" // end-of-fun
@@ -188,13 +188,13 @@ overload .merge with EStream_merge3
 //
 fun
 Bacon_combineWith2
-  {a,b,c:t0p}
+  {a,b:t0p}{c:t0p}
 (
   Property(a), Property(b), cfun(a, b, c)
 ) : Property(c) = "mac#%" // end-of-function
 fun
 Bacon_combineWith3
-  {a,b,c,d:t0p}
+  {a,b,c:t0p}{d:t0p}
 (
   Property(a), Property(b), Property(c), cfun(a, b, c, d)
 ) : Property(d) = "mac#%" // end-of-function
