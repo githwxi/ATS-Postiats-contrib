@@ -13,6 +13,12 @@ staload
 CML = "./../../SATS/CML/CML.sats"
 //
 (* ****** ****** *)
+//
+extern
+fun
+primes{n:nat} : (int(n)) -> list(int, n)
+//
+(* ****** ****** *)
 
 stadef chan = $CML.chan
 
@@ -71,4 +77,24 @@ end // end of [sieve]
 
 (* ****** ****** *)
 
-(* end of [test01.dats] *)
+implement
+primes{n}(n) = let
+//
+val ch = sieve()
+//
+fun
+loop{i,j:nat | i+j==n}
+  (i: int(i), res: list(int, j)): list(int, n) =
+(
+  case+ i of
+  | 0 => list_reverse(res)
+  | _ =>> loop(i-1, cons($CML.recv(ch), res))
+)
+//
+in
+  loop(n, nil)
+end // end of [primes]
+
+(* ****** ****** *)
+
+(* end of [primes.dats] *)
