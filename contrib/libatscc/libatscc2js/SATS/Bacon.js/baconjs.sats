@@ -70,7 +70,7 @@ Bacon_never
 (* ****** ****** *)
 //
 fun
-Bacon_delay
+Bacon_later
   {a:t0p}
   (ms: intGte(0), x: a): EStream(a) = "mac#%"
 //
