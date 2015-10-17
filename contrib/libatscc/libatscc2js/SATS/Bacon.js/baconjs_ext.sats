@@ -45,16 +45,41 @@ staload "./baconjs.sats"
 //
 (* ****** ****** *)
 //
+abstype
+EValue(a:t@ype) = ptr // updated by EStream
+//
+(* ****** ****** *)
+//
 fun
 EStream_scan_stream_opt
   {a,b,c:t0p}
 (
   xs: EStream(b)
-, ini: a, ys: stream(c), fopr: cfun(a, b, c, Option_vt(a))
+, ini: a, ys: stream(c)
+, fopr: cfun(a, b, c, Option_vt(a))
 ) : Property(a) = "mac#%" // end-of-function
 //
 overload scan with EStream_scan_stream_opt
 overload .scan with EStream_scan_stream_opt
+//
+(* ****** ****** *)
+//
+fun
+EValue_get_elt
+  {a:t0p}
+  (x: EValue(a)): (a) = "mac#%"
+//
+overload [] with EValue_get_elt
+//
+fun
+EValue_make_property
+  {a:t0p}(Property(a)): EValue(a) = "mac#%"
+fun
+EValue_make_estream_scan
+  {a,b:t0p}
+(
+  x0: a, ys: EStream(b), fopr: cfun(a, b, a)
+) : EValue(a) = "mac#%" // EValue_make_estream_scan
 //
 (* ****** ****** *)
 

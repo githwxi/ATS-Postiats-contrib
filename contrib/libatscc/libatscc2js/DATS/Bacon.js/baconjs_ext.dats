@@ -84,7 +84,8 @@ case+ !ys of
     val opt = fopr(ini, x, y)
   in
     case+ opt of
-    | ~None_vt() => ini | ~Some_vt(ini) => (rys[] := ys; ini)
+    | ~None_vt() => ini
+    | ~Some_vt(ini) => (rys[] := ys; ini)
   end // end of [stream_cons]
 //
 end // end of [fopr2]
@@ -93,6 +94,73 @@ in
   EStream_scan(xs, ini, fopr2)
 end // end of [EStream_scan_stream_opt]
 //
+(* ****** ****** *)
+//
+(*
+fun
+EValue_get_elt
+  {a:t0p}
+  (x: EValue(a)): (a) = "mac#%"
+*)
+implement
+EValue_get_elt
+  {a}(eval) =
+  ref_get_elt($UN.cast{ref(a)}(eval))
+//
+(* ****** ****** *)
+//
+(*
+fun
+EValue_make_property
+  {a:t0p}(Property(a)): EValue(a) = "mac#%"
+*)
+//
+implement
+EValue_make_property
+  {a}(xs) = let
+//
+val x0 =
+  $UN.cast{a}(0)
+//
+val
+xref = ref{a}(x0)
+//
+val ((*void*)) =
+Property_onValue
+  (xs, lam(x) =<cloref1> xref[] := x)
+//
+in
+  $UN.cast{EValue(a)}(xref)
+end // end of [EValue_make_property]
+  
+(* ****** ****** *)
+//
+(*
+fun
+EValue_make_estream_scan
+  {a,b:t0p}
+(
+  x0: a, ys: EStream(b), fopr: cfun(a, b, a)
+) : EValue(a) = "mac#%" // EValue_make_estream_scan
+*)
+//
+implement
+EValue_make_estream_scan
+  {a,b}
+  (x0, ys, fopr) = let
+//
+val
+xref = ref{a}(x0)
+//
+val ((*void*)) =
+EStream_onValue(ys
+, lam(y) =<cloref1> xref[] := fopr(xref[], y)
+) (* end of [val] *)
+//
+in
+  $UN.cast{EValue(a)}(xref)
+end // end of [EValue_make_estream_scan]
+
 (* ****** ****** *)
 
 (* end of [baconjs_ext.dats] *)
