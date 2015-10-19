@@ -4,7 +4,7 @@
 
 ######
 
-NODEJS=node
+NODEJS=nodejs
 
 ######
 
