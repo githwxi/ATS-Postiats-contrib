@@ -42,7 +42,6 @@ GameOf24.h: GameOf24.class ; javah GameOf24
 # GameOf24_dats.o: GameOf24.dats; $(PATSCC2) -I$(JNIincl) -DATS_MEMALLOC_GCBDW -fPIC -c $<
 # libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl -L$(PATSLIB) -lgc -latslib
 #
-#
 # HX-2014-11-13: not working yet
 #
 GameOf24_gcj:: \
@@ -56,11 +55,26 @@ libGameOf24_dats.so: GameOf24_dats.o ; gcc -shared -o $@ -Wl,-soname,$@ $< -ldl 
 #
 ######
 
+regress:: ; \
+java -Djava.library.path=. GameOf24
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
 
-cleanall:: clean
+cleanats:: ; $(RMF) GameOf24_dats.c
+
+######
+
+cleanall:: cleanats
 cleanall:: ; $(RMF) GameOf24.h
 cleanall:: ; $(RMF) GameOf24.class
 cleanall:: ; $(RMF) libGameOf24_dats.so
