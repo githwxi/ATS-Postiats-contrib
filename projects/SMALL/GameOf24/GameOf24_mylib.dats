@@ -26,4 +26,4 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [mylib.dats] *)
+(* end of [GameOf24_mylib.dats] *)
