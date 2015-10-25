@@ -81,12 +81,27 @@ atspre_lazy2cloref(Arg) -> exit('atspre_lazy2cloref').
 %% Commenting out
 %% implementation in basics.dats
 %%
-ats2erlpre_cloref0_app(F) -> ?ATSfunclo_clo(F)(F).
-ats2erlpre_cloref1_app(F, X1) -> ?ATSfunclo_clo(F)(F, X1).
-ats2erlpre_cloref2_app(F, X1, X2) -> ?ATSfunclo_clo(F)(F, X1, X2).
-ats2erlpre_cloref3_app(F, X1, X2, X3) -> ?ATSfunclo_clo(F)(F, X1, X2, X3).
+ats2erlpre_cloref0_app
+  (F) -> ?ATSfunclo_clo(F)(F).
+ats2erlpre_cloref1_app
+  (F, X1) -> ?ATSfunclo_clo(F)(F, X1).
+ats2erlpre_cloref2_app
+  (F, X1, X2) -> ?ATSfunclo_clo(F)(F, X1, X2).
+ats2erlpre_cloref3_app
+  (F, X1, X2, X3) -> ?ATSfunclo_clo(F)(F, X1, X2, X3).
 %%
 
+%% ****** ****** %%
+%%
+ats2erlpre_cloref2fun0(F) ->
+  fun() -> ats2erlpre_cloref0_app(F) end.
+ats2erlpre_cloref2fun1(F) ->
+  fun(X1) -> ats2erlpre_cloref1_app(F, X1) end.
+ats2erlpre_cloref2fun2(F) ->
+  fun(X1, X2) -> ats2erlpre_cloref2_app(F, X1, X2) end.
+ats2erlpre_cloref2fun3(F) ->
+  fun(X1, X2, X3) -> ats2erlpre_cloref3_app(F, X1, X2, X3) end.
+%%
 %% ****** ****** %%
 
 %% end of [basics_cats.hrl] %%
