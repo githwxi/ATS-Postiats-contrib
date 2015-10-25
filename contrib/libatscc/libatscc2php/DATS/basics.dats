@@ -15,7 +15,16 @@ ATS_STATIC_PREFIX "_ats2phppre_basics_"
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
 staload "./../basics_php.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/basics.dats"
 //
 (* ****** ****** *)
 

@@ -153,17 +153,25 @@ ats2jspre_assert_errmsg_bool1
 /* ****** ****** */
 //
 function
-ats2jspre_cloref2fun0
-  (cfun0) { return function(){return cfun0();}; }
+ats2jspre_cloref2fun0(cfun0)
+{
+  return function(){return ats2jspre_cloref0_app(cfun0);};
+}
 function
-ats2jspre_cloref2fun1
-  (cfun1) { return function(x){return cfun1(x);}; }
+ats2jspre_cloref2fun1(cfun1)
+{
+  return function(x){return ats2jspre_cloref1_app(cfun1,x);};
+}
 function
-ats2jspre_cloref2fun2
-  (cfun2) { return function(x1,x2){return cfun2(x1,x2);}; }
+ats2jspre_cloref2fun2(cfun2)
+{
+  return function(x1,x2){return ats2jspre_cloref2_app(cfun2,x1,x2);};
+}
 function
-ats2jspre_cloref2fun3
-  (cfun3) { return function(x1,x2,x3){return cfun3(x1,x2,x3);}; }
+ats2jspre_cloref2fun3(cfun3)
+{
+  return function(x1,x2,x3){return ats2jspre_cloref2_app(cfun3,x1,x2,x3);};
+}
 //
 /* ****** ****** */
 
