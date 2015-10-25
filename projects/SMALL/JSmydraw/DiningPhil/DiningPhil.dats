@@ -30,6 +30,45 @@ staload
 //
 (* ****** ****** *)
 //
+(*
+extern
+fun
+setTimeout
+(
+  fwork: cfun0(void), ntime: double
+) : void = "mac#" // end-of-function
+//
+implement
+setTimeout
+(
+  fwork, ntime
+) = (
+//
+$extfcall
+( void
+, "setTimeout"
+, cloref2fun0(fwork), ntime
+) (* $extfcall *)
+//
+) (* end of [setTimeout] *)
+*)
+//
+macdef
+setTimeout
+  (fwork, ntime) =
+(
+//
+$extfcall
+( void
+, "setTimeout"
+, cloref2fun0(,(fwork)), ,(ntime)
+) (* $extfcall *)
+//
+) (* end of [setTimeout] *)
+
+//
+(* ****** ****** *)
+//
 #define NPHIL 5
 typedef nphil = natLt(NPHIL)
 //
@@ -37,24 +76,6 @@ typedef nphil = natLt(NPHIL)
 //
 extern
 fun theCtx2d_get(): canvas2d = "mac#"
-//
-(* ****** ****** *)
-//
-extern
-fun
-cloref_app
-(
-  fwork: () -<cloref1> void
-) : void = "mac#" // endfun
-//
-implement cloref_app(fwork) = fwork()
-//
-extern
-fun
-setTimeout_cloref
-(
-  fwork: () -<cloref1> void, ntime: double
-) : void = "mac#" // end-of-function
 //
 (* ****** ****** *)
 //
@@ -119,7 +140,7 @@ val ntime = rand_int2(500, 2500)
 //
 in
 //
-setTimeout_cloref(lam() => phil_think_end(id), ntime)
+setTimeout(lam() => phil_think_end(id), ntime)
 //
 end // end of [phil_think_beg]
 //
@@ -145,8 +166,8 @@ in
 //
 if
 lfork = 0
-then setTimeout_cloref(lam() => phil_dine_lfork(id), ntime)
-else setTimeout_cloref(lam() => phil_dine_rfork(id), ntime)
+then setTimeout(lam() => phil_dine_lfork(id), ntime)
+else setTimeout(lam() => phil_dine_rfork(id), ntime)
 //
 end // end of [phil_dine_lfork]
 //
@@ -163,8 +184,8 @@ in
 //
 if
 rfork = 0
-then setTimeout_cloref(lam() => phil_dine_rfork(id), ntime)
-else setTimeout_cloref(lam() => phil_dine_finish(id), ntime)
+then setTimeout(lam() => phil_dine_rfork(id), ntime)
+else setTimeout(lam() => phil_dine_finish(id), ntime)
 //
 end // end of [phil_dine_rfork]
 
@@ -319,12 +340,6 @@ DininingPhil_initize()
 function
 DininingPhil_initize() { alert("DininingPhil_initize"); }
 */
-//
-function
-setTimeout_cloref(fwork, ntime)
-{
-  setTimeout(function(){cloref_app(fwork);return;}, ntime); return;
-}
 //
 jQuery(document).ready(function(){DininingPhil_initize();});
 //
