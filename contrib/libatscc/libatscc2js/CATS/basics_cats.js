@@ -151,5 +151,20 @@ ats2jspre_assert_errmsg_bool1
   (tfv, errmsg) { if (!tfv) throw new Error(errmsg); return; }
 //
 /* ****** ****** */
+//
+function
+ats2jspre_cloref2fun0
+  (cfun0) { return function(){return cfun0();}; }
+function
+ats2jspre_cloref2fun1
+  (cfun1) { return function(x){return cfun1(x);}; }
+function
+ats2jspre_cloref2fun2
+  (cfun2) { return function(x1,x2){return cfun2(x1,x2);}; }
+function
+ats2jspre_cloref2fun3
+  (cfun3) { return function(x1,x2,x3){return cfun3(x1,x2,x3);}; }
+//
+/* ****** ****** */
 
 /* end of [basics_cats.js] */
