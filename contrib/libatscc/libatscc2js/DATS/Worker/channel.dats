@@ -40,6 +40,11 @@ staload
 "./../../basics_js.sats"
 //
 (* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
 
 %{^
 //
@@ -80,6 +85,30 @@ typedef channeg = channeg_type
 
 (* ****** ****** *)
 //
+abstype
+wkmsg_type(a:t@ype+)
+//
+typedef
+wkmsg(a:t0p) = wkmsg_type(a)
+//
+(* ****** ****** *)
+//
+extern
+fun{a:t0p}
+wkmsg_parse(wkmsg(INV(a))): (a)
+//
+(* ****** ****** *)
+//
+implement
+wkmsg_parse<int> (msg) =
+  $extfcall(int, "parseInt", $UN.cast{string}(msg))
+//
+implement
+wkmsg_parse<double> (msg) =
+  $extfcall(double, "parseFloat", $UN.cast{string}(msg))
+//
+(* ****** ****** *)
+//
 typedef
 wkcont0() = cfun1(chanpos, void)
 typedef
@@ -91,7 +120,7 @@ extern
 fun
 chanpos_recv
   {a:t0p}
-  (chanpos, k0: wkcont1(a)): void = "mac#%"
+  (chanpos, k0: wkcont1(wkmsg(a))): void = "mac#%"
 extern
 fun
 chanpos_send

@@ -25,10 +25,16 @@
 <h1>For testing worker-based channels</h1>
 
 <center>
+<input
+ ID="theArg1" type="text" maxlength="8"
+></input>
+<input
+ ID="theArg2" type="text" maxlength="8"
+></input>
 <button
- ID="theInput"
- type="button" onclick="theInput_button_onclick()"
->input</button>
+ ID="theTrigger"
+ type="button" onclick="theTrigger_onclick()"
+>trigger-rpc</button>
 </center>
 
 <script>
@@ -40,9 +46,17 @@ if (!myworker) { alert('Creating of myworker failed!'); }
 myworker.onmessage = function(e){ alert(e.data); return; };
 
 function
-theInput_button_onclick()
+theTrigger_onclick()
 {
-  alert('theInput_button_onclick'); myworker.postMessage(5); return;
+  var
+  arg1 =
+  document.getElementById('theArg1').value;
+  var
+  arg2 =
+  document.getElementById('theArg2').value;
+  myworker.postMessage(arg1);
+  myworker.postMessage(arg2);
+  return;
 }
 </script>
 

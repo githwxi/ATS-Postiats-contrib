@@ -42,17 +42,20 @@ end // end of [rpc_fserv]
 *)
 
 (* ****** ****** *)
-
+//
 extern
 fun
-rpc_server
-  {a1,a2:t@ype}{b:t@ype}
-  (ch: chanpos, f: (a1, a2) -> b): void
+{a1,a2:t0p}{b:t0p}
+rpc_server(ch: chanpos, f: (a1, a2) -> b): void
 //
 implement
-rpc_server
 {a1,a2}{b}
-  (ch, f) = (
+rpc_server
+  (ch, f) = let
+//
+macdef p(x) = wkmsg_parse(,(x))
+//
+in
 //
 chanpos_recv{a1}
 ( ch
@@ -60,16 +63,26 @@ chanpos_recv{a1}
   chanpos_recv{a2}
   ( ch
   , lam(ch, e2) =>
-    chanpos_send{b}(ch, f(e1, e2), lam(ch) => rpc_server(ch, f))
+    chanpos_send{b}
+    (
+      ch, f(p(e1), p(e2)), lam(ch) => rpc_server(ch, f)
+    )
   )
 )
 //
-) (* end of [rpc_server] *)
+end (* end of [rpc_server] *)
 
 (* ****** ****** *)
-
-val () = rpc_server{int,int}{int}($UN.cast{chanpos}(0), lam(x, y) => x + y)
-
+//
+(*
+typedef T = int
+*)
+//
+typedef T = double
+//
+val ((*void*)) =
+  rpc_server<T,T><T>($UN.cast{chanpos}(0), lam(x, y) => x * y)
+//
 (* ****** ****** *)
 
 %{$
