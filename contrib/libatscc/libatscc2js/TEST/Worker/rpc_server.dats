@@ -45,8 +45,13 @@ end // end of [rpc_fserv]
 //
 extern
 fun
-{a1,a2:t0p}{b:t0p}
-rpc_server(ch: chanpos, f: (a1, a2) -> b): void
+{a1
+,a2:t0p}
+{b0:t0p}
+rpc_server
+(
+  chanpos, f: (a1, a2) -> b0
+): void // end-of-function
 //
 implement
 {a1,a2}{b}
@@ -64,8 +69,8 @@ chanpos_recv{a1}
   ( ch
   , lam(ch, e2) =>
     chanpos_send{b}
-    (
-      ch, f(p(e1), p(e2)), lam(ch) => rpc_server(ch, f)
+    ( ch
+    , f(p(e1), p(e2)), lam(ch) => rpc_server(ch, f)
     )
   )
 )
