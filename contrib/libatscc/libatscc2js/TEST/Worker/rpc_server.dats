@@ -27,66 +27,36 @@ UN = "prelude/SATS/unsafe.sats"
 "./../../DATS/Worker/channel.dats"
 //
 (* ****** ****** *)
-
-(*
+//
 fun
-rpc_fserv(ch, f) = let
-//
-val e1 = chanpos_recv(ch)
-val e2 = chanpos_recv(ch)
-val () = chanpos_send(ch, f(e1, e2))
-//
-in
-  rpc_fserv(ch)
-end // end of [rpc_fserv]
-*)
-
-(* ****** ****** *)
-//
-extern
-fun
-{a1
-,a2:t0p}
-{b0:t0p}
-rpc_server
+list0_add
 (
-  chanpos, f: (a1, a2) -> b0
-): void // end-of-function
-//
-implement
-{a1,a2}{b}
-rpc_server
-  (ch, f) = let
-//
-macdef p(x) = wkmsg_parse(,(x))
-//
-in
-//
-chanpos_recv{a1}
-( ch
-, lam(ch, e1) =>
-  chanpos_recv{a2}
-  ( ch
-  , lam(ch, e2) =>
-    chanpos_send{b}
-    ( ch
-    , f(p(e1), p(e2)), lam(ch) => rpc_server(ch, f)
-    )
-  )
+  xs: list0(int)
+) : int =
+(
+  case+ xs of
+  | list0_nil() => 0
+  | list0_cons(x, xs) => x + list0_add(xs)
 )
 //
-end (* end of [rpc_server] *)
-
 (* ****** ****** *)
 //
+typedef ARG = list0(int) and RES = int
+//
+local
+//
 (*
-typedef T = int
+implement
+{a}{b}
+rpc_server_cont(ch, f) = self_close()
 *)
 //
-typedef T = double
+in
 //
 val ((*void*)) =
-  rpc_server<T,T><T>($UN.cast{chanpos}(0), lam(x, y) => x * y)
+  rpc_server<ARG><RES>($UN.cast{chanpos}(0), lam(xs) => list0_add(xs))
+//
+end // end of [local]
 //
 (* ****** ****** *)
 

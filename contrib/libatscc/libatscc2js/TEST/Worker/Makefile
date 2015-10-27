@@ -2,11 +2,12 @@
 # A simple Makefile
 #
 ######
-
+#
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
+#
 ATSCC2JS=$(PATSHOME)/bin/atscc2js
-
+#
 ######
 
 all:: rpc_server_dats_.js

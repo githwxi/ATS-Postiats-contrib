@@ -54,9 +54,7 @@ theTrigger_onclick()
   var
   arg2 =
   document.getElementById('theArg2').value;
-  myworker.postMessage(arg1);
-  myworker.postMessage(arg2);
-  return;
+  return myworker.postMessage([arg1, [arg2, null]]);
 }
 </script>
 
