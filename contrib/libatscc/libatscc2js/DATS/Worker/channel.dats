@@ -50,94 +50,39 @@ staload "libats/ML/SATS/basis.sats"
 
 (* ****** ****** *)
 
-%{^
-//
-var
-theWorker_cont;
-//
-onmessage =
-function(e)
-{
-  var k0 = theWorker_cont;
-  return ats2jspre_cloref2_app(k0, 0, e.data);
-}
-//
-function
-ats2js_worker_chanpos_recv
-  (ch, k0)
-{
-  theWorker_cont = k0; return;
-}
-function
-ats2js_worker_chanpos_send
-  (ch, x0, k0)
-{
-  postMessage(x0); ats2jspre_cloref1_app(k0, 0); return;
-}
-//
-%} // end of [%{^]
+staload "./../../SATS/Worker/channel.sats"
 
-(* ****** ****** *)
-
-abstype chanpos_type
-abstype channeg_type
-
-(* ****** ****** *)
-
-typedef chanpos = chanpos_type
-typedef channeg = channeg_type
-
-(* ****** ****** *)
-//
-abstype
-wkmsg_type(a:t@ype+)
-//
-typedef
-wkmsg(a:t0p) = wkmsg_type(a)
-//
-(* ****** ****** *)
-//
-extern
-fun{a:t0p}
-wkmsg_parse(wkmsg(INV(a))): (a)
-//
 (* ****** ****** *)
 //
 implement
-wkmsg_parse<int> (msg) =
-  $extfcall(int, "parseInt", $UN.cast{string}(msg))
-//
-implement
-wkmsg_parse<double> (msg) =
-  $extfcall(double, "parseFloat", $UN.cast{string}(msg))
-//
-(* ****** ****** *)
-
-implement
-(a:t@ype
-,b:t0ype)
-wkmsg_parse<$tup(a,b)>
-  (msg) = let
-//
-val
-msg =
-$UN.cast{$tup(wkmsg(a),wkmsg(b))}(msg)
-//
+chmsg_parse<int>(msg) = let
+  val msg = $UN.cast{string}(msg)
 in
-  $tup(wkmsg_parse<a>(msg.0), wkmsg_parse<b>(msg.1))
-end // end of [wkmsg_parse<$tup(a,b)>]
-
+  $extfcall(int, "parseInt", msg)
+end // end of [chmsg_parse<int>]
+//
+implement
+chmsg_parse<double>(msg) = let
+  val msg = $UN.cast{string}(msg)
+in
+  $extfcall(double, "parseFloat", msg)
+end // end of [chmsg_parse<double>]
+//
+(* ****** ****** *)
+//
+implement
+chmsg_parse<string>(msg) = $UN.cast{string}(msg)
+//
 (* ****** ****** *)
 
 implement
 (a:t@ype)
-wkmsg_parse<list0(a)>
-  (msg) = let
+chmsg_parse<list0(a)>(msg) = let
 //
 fun
 aux{n:nat}
 (
-  xs: list(wkmsg(a), n)
+  xs: list(chmsg(a), n)
 ) : list0(a) =
 (
 case+ xs of
@@ -149,7 +94,7 @@ case+ xs of
 | list_cons
     (x, xs) => let
     val x =
-      wkmsg_parse<a>(x)
+      chmsg_parse<a>(x)
     // end of [val]
   in
     list0_cons(x, aux(xs))
@@ -158,101 +103,40 @@ case+ xs of
 )
 //
 in
-  aux($UN.cast{List0(wkmsg(a))}(msg))
-end // end of [wkmsg_parse<list0(a)>]
+  aux($UN.cast{List0(chmsg(a))}(msg))
+end // end of [chmsg_parse<list0(a)>]
 
-(* ****** ****** *)
-//
-typedef
-wkcont0() = cfun1(chanpos, void)
-typedef
-wkcont1(a:t0p) = cfun2(chanpos, a, void)
-//
-(* ****** ****** *)
-//
-extern
-fun
-self_close((*void*)): void = "mac#%"
-%{^
-//
-function
-ats2js_worker_self_close() { return self.close(); }
-//
-%} // end of [%{^]
-//
-(* ****** ****** *)
-//
-extern
-fun
-chanpos_send
-  {a:t0p}
-  (chanpos, x0: a, k0: wkcont0()): void = "mac#%"
-//
-extern
-fun
-chanpos_recv
-  {a:t0p}
-  (chanpos, k0: wkcont1(wkmsg(a))): void = "mac#%"
-//
-(* ****** ****** *)
-//
-extern
-fun
-{a:t0p}
-{b:t0p}
-rpc_server
-  (chanpos, fopr: (a) -<cloref1> b): void = "mac#%"
-//
-extern
-fun
-{a:t0p}
-{b:t0p}
-rpc_server_cont
-  (chanpos, fopr: (a) -<cloref1> b): void = "mac#%"
-//
 (* ****** ****** *)
 
 implement
-{a}{b}
-rpc_server
-  (ch, f) = let
+(a:t@ype
+,b:t0ype)
+chmsg_parse<$tup(a,b)>(msg) = let
 //
-(*
-val () = println! ("rpc_server")
-*)
+val
+msg =
+$UN.cast{$tup(chmsg(a),chmsg(b))}(msg)
 //
 in
-//
-chanpos_recv{a}
-( ch
-, lam(ch, e) =>
-  chanpos_send{b}
-  ( ch
-  , f(wkmsg_parse<a>(e))
-  , lam(ch) => rpc_server_cont(ch, f)
-  )
-)
-//
-end (* end of [rpc_server] *)
+  $tup(chmsg_parse<a>(msg.0), chmsg_parse<b>(msg.1))
+end // end of [chmsg_parse<$tup(a,b)>]
 
 (* ****** ****** *)
-//
-// HX: looping
-//
+
 implement
-{a}{b}
-rpc_server_cont = rpc_server<a><b>
+(a:t@ype
+,b:t0ype
+,c:t0ype)
+chmsg_parse<$tup(a,b,c)>(msg) = let
 //
-(* ****** ****** *)
-(*
+val
+msg =
+$UN.cast{$tup(chmsg(a),chmsg(b),chmsg(c))}(msg)
 //
-// HX: one-time service
-//
-implement
-{a}{b}
-rpc_server_cont(ch, f) = self_close()
-*)
-//
+in
+  $tup(chmsg_parse<a>(msg.0), chmsg_parse<b>(msg.1), chmsg_parse<c>(msg.2))
+end // end of [chmsg_parse<$tup(a,b,c)>]
+
 (* ****** ****** *)
 
 (* end of [channel.dats] *)

@@ -37,26 +37,11 @@
 >trigger-rpc</button>
 </center>
 
+<script src="./rpc_client_dats.js"></script>
+
 <script>
-var
-myworker = new Worker("./rpc_server_dats_.js");
-
-if (!myworker) { alert('Creating of myworker failed!'); }
-
-myworker.onmessage = function(e){ alert(e.data); return; };
-
-function
-theTrigger_onclick()
-{
-  var
-  arg1 =
-  document.getElementById('theArg1').value;
-  var
-  arg2 =
-  document.getElementById('theArg2').value;
-  return myworker.postMessage([arg1, [arg2, null]]);
-}
 </script>
+
 
 </body>
 

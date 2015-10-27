@@ -18,13 +18,21 @@ ATS_DYNLOADNAME "theWorker_start"
   
 (* ****** ****** *)
 
+staload "libats/ML/SATS/basis.sats"
+
+(* ****** ****** *)
+
 staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-#include
+staload
+"./../../SATS/Worker/channel.sats"
+staload
 "./../../DATS/Worker/channel.dats"
+#include
+"./../../DATS/Worker/chanpos.dats"
 //
 (* ****** ****** *)
 //
@@ -48,7 +56,7 @@ local
 (*
 implement
 {a}{b}
-rpc_server_cont(ch, f) = self_close()
+rpc_server_cont(ch, f) = chanpos_close(ch)
 *)
 //
 in
