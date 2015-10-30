@@ -84,7 +84,7 @@ ats2js_worker_chanpos_close(chp) { return self.close(); }
 implement
 {a}{b}
 rpc_server
-  (chp, f) = let
+  (chp, fopr) = let
 //
 (*
 val () = println! ("rpc_server")
@@ -97,8 +97,8 @@ chanpos_recv{a}
 , lam(chp, e) =>
   chanpos_send{b}
   ( chp
-  , f(chmsg_parse<a>(e))
-  , lam(chp) => rpc_server_cont(chp, f)
+  , fopr(chmsg_parse<a>(e))
+  , lam(chp) => rpc_server_cont(chp, fopr)
   )
 )
 //
@@ -118,7 +118,7 @@ rpc_server_cont = rpc_server<a><b>
 //
 implement
 {a}{b}
-rpc_server_cont(chp, f) = chanpos_close(chp)
+rpc_server_cont(chp, fopr) = chanpos_close(chp)
 *)
 //
 (* ****** ****** *)

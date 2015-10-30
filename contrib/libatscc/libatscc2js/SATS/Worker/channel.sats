@@ -135,7 +135,13 @@ rpc_server_cont
   (chanpos, fopr: (a) -<cloref1> b): void = "mac#%"
 //
 (* ****** ****** *)
-
-
+//
+fun
+{a:t0p}
+{b:t0p}
+rpc_client
+  (channeg, a, (b) -<cloref1> void): void = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [channel.sats] *)

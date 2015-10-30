@@ -70,18 +70,16 @@ theTrigger_onclick_
   (chn, arg1, arg2) = let
 //
 val
-args = cons(arg1, cons(arg2, nil))
+args =
+cons(arg1, cons(arg2, nil))
+//
+typedef stringlst = List0(string)
 //
 in
 //
-channeg_recv
-( chn
-, args
-, lam(chn) =>
-  channeg_send
-  ( chn
-  , lam(chn, res) => alert(String(arg1) + " + " + String(arg2) + " = " + String(res))
-  )
+rpc_client<stringlst><int>
+(
+  chn, args, lam(res) => alert(arg1 + " + " + arg2 + " = " + String(res))
 )
 //
 end // end of [theTrigger_onclick_]

@@ -82,4 +82,29 @@ ats2js_worker_channeg_recv(chn, x0, k0)
 //
 (* ****** ****** *)
 
+implement
+{a}{b}
+rpc_client
+  (chn, arg, fopr) = let
+//
+(*
+val () = println! ("rpc_client")
+*)
+//
+in
+//
+channeg_recv{a}
+( chn
+, arg
+, lam(chn) =>
+  channeg_send{b}
+  ( chn
+  , lam(chn, e) => fopr(chmsg_parse<b>(e))
+  )
+)
+//
+end (* end of [rpc_client] *)
+
+(* ****** ****** *)
+
 (* end of [channeg.dats] *)
