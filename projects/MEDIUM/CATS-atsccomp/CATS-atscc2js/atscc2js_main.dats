@@ -17,6 +17,11 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_DYNLOADNAME "libatscc2js_dynload"
+//
+(* ****** ****** *)
+//
 staload
 STDIO = "{$PATSLIBC}/SATS/stdio.sats"
 //
@@ -543,7 +548,10 @@ extern
 fun
 atscc2js_main0
   {n:pos}
-  (argc: int(n), argv: !argv(n)): void
+(
+  argc: int(n), argv: !argv(n)
+) : void =
+  "ext#libatscc2js_atscc2js_main0"
 //
 implement
 atscc2js_main0
@@ -551,10 +559,7 @@ atscc2js_main0
 {
 //
 val () =
-prerrln!
-(
-  "Hello from atscc2js!"
-) (* end of [val] *)
+  prerrln! ("Hello from atscc2js!")
 //
 //
 val arglst =
@@ -579,14 +584,16 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = prerrln! ("atscc2js: there is a reported error.")
+  val () =
+  prerrln! ("atscc2js: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = prerrln! ("atscc2js: there are mutiple reported errors.")
+  val () =
+  prerrln! ("atscc2js: there are some reported errors.")
 in
   // nothing
 end // end of [then]

@@ -40,33 +40,14 @@ SOURCES_DATS_C := $(patsubst %.dats, %_dats.c, $(SOURCES_DATS))
 all:: \
 atscc2js
 atscc2js: ; \
-$(PATSCC) -DATS_MEMALLOC_GCBDW -O2 -o $@ $(SOURCES_DATS_C) $(SOURCES_CATS) -lgc
+$(PATSCC) -O2 -o $@ \
+  $(SOURCES_DATS_C) $(SOURCES_CATS) -DATS_MEMALLOC_GCBDW -lgc
 #
 ######
 
 CPF=cp -f
 RMF=rm -f
 
-######
-#
-CATSPARSEMIT_source=\
-$(PATSHOMERELOC)/projects/MEDIUM/CATS-parsemit
-#
-pkgreloc:: ; \
-$(CPF) $(CATSPARSEMIT_source)/SATS/catsparse.sats $(CATSPARSEMIT)/.
-pkgreloc:: ; \
-$(CPF) $(CATSPARSEMIT_source)/SATS/catsparse_*.sats $(CATSPARSEMIT)/.
-pkgreloc:: ; \
-$(CPF) $(CATSPARSEMIT_source)/CATS/catsparse_*_dats.c $(CATSPARSEMIT)/.
-#
-######
-#
-build:: pkgreloc
-build:: atscc2js
-#
-testall:: build
-testall:: cleanall
-#
 ######
 
 clean:: ; $(RMF) *~
