@@ -10,20 +10,14 @@
 
 (* ****** ****** *)
 //
-staload
-UN =
-"prelude/SATS/unsafe.sats"
-//
-staload
-_ = "prelude/DATS/unsafe.dats"
+#include
+"share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-_ = "prelude/DATS/list.dats"
-staload
-_ = "prelude/DATS/array.dats"
-
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 staload
