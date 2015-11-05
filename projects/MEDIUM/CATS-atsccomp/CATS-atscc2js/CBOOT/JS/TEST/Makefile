@@ -28,9 +28,13 @@ all::
 
 ######
 
-all:: test_libatsopt
-test_libatsopt:: libatsopt_ext.js
-test_libatsopt:: test_libatsopt_dats.js
+all:: test_libatscc2js
+test_libatscc2js:: libatscc2js_ext.js
+test_libatscc2js:: test_libatscc2js_dats.js
+
+all:: wktest_libatscc2js
+wktest_libatscc2js:: libatscc2js_ext_worker.js
+wktest_libatscc2js:: wktest_libatscc2js_dats.js
 
 ######
 #
@@ -46,16 +50,31 @@ LIBATSCC2JS_EXPORTS += , '_libatscc2js_comarglst_cons'
 #
 LIBATSCC2JS_EXPORTS += , '_libatscc2js_atscc2js_main0_arglst'
 #
-libatsopt_ext.js: ; \
+libatscc2js_ext.js: ; \
 $(CCOMP) \
   -I$(PATSHOME) \
   -I$(PATSRUNTIME) \
-  --pre-js ./libatsopt_pre.js \
-  --preload-file ./PATSHOME@/PATSHOME \
+  --pre-js ./libatscc2js_pre.js \
+  --preload-file ./ATSCC2JS@/ATSCC2JS \
   -s ASSERTIONS=1 \
   -s ALLOW_MEMORY_GROWTH=1 \
   -s EXPORTED_FUNCTIONS="[$(LIBATSCC2JS_EXPORTS)]" \
-  -O2 $(CFLAGS) -o $@ ./../libatsopt_ext.o
+  -O2 $(CFLAGS) -o $@ ./../libatscc2js_ext.o
+#
+libatscc2js_ext_worker.js: \
+libatscc2js_pre.js \
+libatscc2js_worker_dats.js ; \
+$(CCOMP) \
+  -I$(PATSHOME) \
+  -I$(PATSRUNTIME) \
+  --pre-js ./libatscc2js_pre.js \
+  --pre-js ${LIBATSCC2JS}/libatscc2js_all.js \
+  --post-js ./libatscc2js_worker_dats.js \
+  --preload-file ./ATSCC2JS@/ATSCC2JS \
+  -s ASSERTIONS=1 \
+  -s ALLOW_MEMORY_GROWTH=1 \
+  -s EXPORTED_FUNCTIONS="[$(LIBATSCC2JS_EXPORTS)]" \
+  -O2 $(CFLAGS) -o $@ ./../libatscc2js_ext.o
 #
 ######
 
@@ -64,6 +83,18 @@ test_libatscc2js.dats; $(PATSOPT) -o $@ -d $<
 test_libatscc2js_dats.js: \
 test_libatscc2js_dats.c; $(ATSCC2JS) -o $@ -i $<
 
+######
+#
+libatscc2js_worker_dats.c: \
+libatscc2js_worker.dats; $(PATSOPT) -o $@ -d $<
+libatscc2js_worker_dats.js: \
+libatscc2js_worker_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+wktest_libatscc2js_dats.c: \
+wktest_libatscc2js.dats; $(PATSOPT) -o $@ -d $<
+wktest_libatscc2js_dats.js: \
+wktest_libatscc2js_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
 ######
 #
 %_sats.c: %.sats ; $(ATSCC2JS) -o $@ --static $<
@@ -83,5 +114,6 @@ cleanall:: ; rm -f libatscc2js_ext.js
 cleanall:: ; rm -f libatscc2js_ext.data
 cleanall:: ; rm -f libatscc2js_ext.js.mem
 cleanall:: ; rm -f test_libatscc2js_dats.js
+cleanall:: ; rm -f wktest_libatscc2js_dats.js
 #
 ###### end of [Makefile] ######

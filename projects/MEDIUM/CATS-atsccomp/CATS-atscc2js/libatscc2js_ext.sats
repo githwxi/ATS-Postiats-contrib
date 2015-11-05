@@ -79,6 +79,16 @@ libatscc2js_dynload
   ((*initialize*)): void = "ext#libatscc2js_dynload"
 //
 (* ****** ****** *)
+
+datatype
+atscc2jsres =
+ATSCC2JSRES of
+(
+  int(*nerr*)
+, string(*stdout*), string(*stderr*)
+)
+
+(* ****** ****** *)
 //
 fun
 atscc2js_main0_arglst

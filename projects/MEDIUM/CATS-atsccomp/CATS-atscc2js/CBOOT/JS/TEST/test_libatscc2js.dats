@@ -115,14 +115,14 @@ comarg_postfil(x) = _comarg_postfil(emcc_string(x))
 %{^
 //
 function
-theExample_dats_get_value()
+theExample_dats_c_get_value()
 {
-  return document.getElementById("theExample_dats").value;
+  return document.getElementById("theExample_dats_c").value;
 }
 function
-theExample_dats_c_set_value(code)
+theExample_dats_js_set_value(code)
 {
-  return document.getElementById("theExample_dats_c").value = code;
+  return document.getElementById("theExample_dats_js").value = code;
 }
 //
 function
@@ -135,10 +135,10 @@ theExample_atscc2js_optstr_get_value()
 //
 extern
 fun
-theExample_dats_get_value(): string = "mac#"
+theExample_dats_c_get_value(): string = "mac#"
 extern
 fun
-theExample_dats_c_set_value(code: string): void = "mac#"
+theExample_dats_js_set_value(code: string): void = "mac#"
 //
 extern
 fun
@@ -156,7 +156,8 @@ theExample_atscc2js_getarg
   ((*void*)) = let
 //
 val
-code = theExample_dats_get_value()
+code =
+theExample_dats_c_get_value()
 //
 val
 comarg = comarg_strinp(code)
@@ -242,15 +243,15 @@ $extfcall
 //
 val () =
   if (nerr = 0)
-    then theExample_dats_c_set_value(stdout)
+    then theExample_dats_js_set_value(stdout)
   // end of [if]
 val () =
   if (nerr > 0)
-    then theExample_dats_c_set_value(stderr)
+    then theExample_dats_js_set_value(stderr)
   // end of [if]
 //
 val () = if nerr = 0 then alert("Atscc2js finished normally!")
-val () = if nerr >= 2 then alert("Atscc2js encountered an error!")
+val () = if nerr >= 1 then alert("Atscc2js encountered an error!")
 val () = if nerr >= 2 then alert("Atscc2js encountered some errors!")
 //
 } (* end of [theExample_atscc2js_arglst] *)

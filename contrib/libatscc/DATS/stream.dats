@@ -6,7 +6,7 @@
 
 (*
 //
-staload "./../SATS/list.sats"
+staload "./../SATS/stream.sats"
 //
 staload UN = "prelude/SATS/unsafe.sats"
 //

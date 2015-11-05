@@ -16,4 +16,12 @@ RMRF=rm -rf
 
 ######
 
+clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
+clean:: ; $(RMF) *_?ats.o
+
+######
+
+cleanall:: clean
+
 ###### end of [Makefile] ######
