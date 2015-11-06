@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<h1>Try ATS in your browser!</h1>
+<h1>Try ATS in your browser</h1>
 <hr></hr>
 <div>
 <button
@@ -36,7 +36,7 @@
 <input
  id="Patsopt_optstr"
  type="text"
- value="--typecheck -d" size="24"
+ value="--dynamic" size="24"
 ></input>
 <input
  id="Atscc2js_box"
@@ -69,29 +69,74 @@
 //
 // Yes, you can edit
 //
-(*
-#include
-"share/atspre_define.hats"
-#include
-"{$LIBATSCC2JS}/staloadall.hats"
-*)
+(* ****** ****** *)
 //
-extern
-fun
-fact{n:nat}(n: int(n)): int
+// Eratosthenes Sieve
 //
-implement
-fact(n) =
-  if n > 0 then n * fact(n-1) else 1
-//
-val N = 10
-val () = println! ("fact(", N, ") = ", fact(N))
-val N = 12
-val () = println! ("fact(", N, ") = ", fact(N))
-//
-/* ****** ****** */
+(* ****** ****** *)
 
-/* end-of-program */
+#define cons stream_cons
+
+(* ****** ****** *)
+
+fun
+from{n:int}
+(
+  n: int(n)
+) : stream (int) = $delay(cons(n, from(n+1)))
+
+(* ****** ****** *)
+
+fun sieve
+(
+  ns: stream int
+) :<!laz>
+  stream(int) = $delay
+(
+let
+  val-cons(n, ns) = !ns
+in
+  cons(n, sieve(stream_filter_cloref(ns, lam x => x % n > 0)))
+end : stream_con (int)
+) (* end of [sieve] *)
+
+(* ****** ****** *)
+//
+fun
+nth{a:t@ype}
+(
+  xs: stream(INV(a)), n: int
+) : a = let
+//
+val-cons (x, xs) = !xs
+//
+in
+  if n > 0 then nth(xs, n-1) else x
+end // end of [nth]
+//
+overload [] with nth of 1000
+//
+(* ****** ****** *)
+//
+val primes = sieve(from(2))
+//
+val () = println! ("primes[0] = ", primes[0])
+val () = println! ("primes[1] = ", primes[1])
+val () = println! ("primes[2] = ", primes[2])
+val () = println! ("primes[3] = ", primes[3])
+val () = println! ("primes[4] = ", primes[4])
+val () = println! ("primes[5] = ", primes[5])
+val () = println! ("primes[6] = ", primes[6])
+val () = println! ("primes[7] = ", primes[7])
+val () = println! ("primes[8] = ", primes[8])
+//
+val () = println! ("primes[100] = ", primes[100])
+val () = println! ("primes[1000] = ", primes[1000])
+//
+(* ****** ****** *)
+
+(* end-of-program-unit *)
+
 </textarea>
 </td>
 <td>
