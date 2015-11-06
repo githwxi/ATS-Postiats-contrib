@@ -20,10 +20,13 @@ inputform_dats.js: \
 inputform_dats.c; $(ATSCC2JS) -o $@ -i $<
 
 ######
-
+#
 CPF=cp -f
+CPRF=cp -rf
+#
 RMF=rm -f
-
+RMRF=rm -rf
+#
 ######
 #
 pkgreloc:: ; \
@@ -37,6 +40,11 @@ $(CPF) $(PATSHOMERELOC)/projects/MEDIUM/CATS-atsccomp/CATS-atscc2js/CBOOT/JS/TES
 pkgreloc:: ; \
 $(CPF) $(PATSHOMERELOC)/projects/MEDIUM/CATS-atsccomp/CATS-atscc2js/CBOOT/JS/TEST/libatscc2js_ext_worker.js.mem .
 #
+pkgreloc:: ; \
+$(CPRF) $(PATSHOME)/utils/libatsopt/JS/TEST/PATSHOME .
+pkgreloc:: ; \
+$(CPRF) $(PATSHOMERELOC)/projects/MEDIUM/CATS-atsccomp/CATS-atscc2js/CBOOT/JS/TEST/ATSCC2JS .
+#
 ######
 
 clean:: ; $(RMF) *~
@@ -44,13 +52,17 @@ clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) *_?ats.c
 
 ######
-
+#
 cleanall:: clean
+#
 cleanall:: ; $(RMF) inputform_dats.js
 cleanall:: ; $(RMF) libatsopt_ext_worker.js
 cleanall:: ; $(RMF) libatsopt_ext_worker.data
 cleanall:: ; $(RMF) libatsopt_ext_worker.js.mem
 cleanall:: ; $(RMF) libatscc2js_ext_worker.js
 cleanall:: ; $(RMF) libatscc2js_ext_worker.js.mem
-
+#
+cleanall:: ; $(RMRF) PATSHOME
+cleanall:: ; $(RMRF) ATSCC2JS
+#
 ###### end of [Makefile] ######
