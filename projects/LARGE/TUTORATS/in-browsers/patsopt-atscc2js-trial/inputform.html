@@ -32,10 +32,12 @@
 >Patsopt</button>
 <input
  id="Patsopt_optstr"
- type="text" value="--typecheck -d" size=24
+ type="text"
+ value="--typecheck -d" size="24"
 ></input>
 <input
- id="Atscc2js_box" type="checkbox"
+ id="Atscc2js_box"
+ type="checkbox" checked="true"
 ></input>
 <button
  id="Atscc2js_button"
@@ -43,7 +45,8 @@
  onclick="Atscc2js_button_onclick()"
 >Atscc2js</button>
 <input
- id="Evaluate_box" type="checkbox"
+ id="Evaluate_box"
+ type="checkbox" checked="true"
 ></input>
 <button
  id="Evaluate_button"
@@ -104,10 +107,14 @@ val () = println! ("fact(", N, ") = ", fact(N))
 <td></td>
 <td align="right">
 <input
- id="Patsopt_output_box" type="checkbox"
+ id="Patsopt_output_box"
+ type="checkbox"
+ onclick="Patsopt_output_box_onclick()"
 >Patsopt-out</input>
 <input
- id="Atscc2js_output_box" type="checkbox"
+ id="Atscc2js_output_box"
+ type="checkbox" checked="true"
+ onclick="Atscc2js_output_box_onclick()"
 >Atscc2js-out</input>
 </td>
 <td width="10%"></td>

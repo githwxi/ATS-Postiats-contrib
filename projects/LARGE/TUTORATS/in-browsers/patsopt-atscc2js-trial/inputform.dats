@@ -36,12 +36,12 @@ document_checkbox : string -> checkbox = "mac#"
 function
 document_button(name)
 {
-  return document.getElementById("name");
+  return document.getElementById(name);
 }
 function
 document_checkbox(name)
 {
-  return document.getElementById("name");
+  return document.getElementById(name);
 }
 %} // end of [%{^]
 //
@@ -68,6 +68,21 @@ case+ out of
 extern
 fun
 checkbox_test(checkbox): bool = "mac#"
+extern
+fun
+checkbox_turn_on(checkbox): void = "mac#"
+extern
+fun
+checkbox_turn_off(checkbox): void = "mac#"
+//
+%{^
+function
+checkbox_test(box) { return box.checked; }
+function
+checkbox_turn_on(box) { return (box.checked = true); }
+function
+checkbox_turn_off(box) { return (box.checked = false); }
+%} // end of [%{^]
 //
 (* ****** ****** *)
 //
@@ -115,6 +130,27 @@ Patsopt_output_text_set(value)
 //
 (* ****** ****** *)
 //
+extern
+fun
+Patsopt_button_onclick(): void = "mac#"
+extern
+fun
+Atscc2js_button_onclick(): void = "mac#"
+extern
+fun
+Evaluate_button_onclick(): void = "mac#"
+//
+(* ****** ****** *)
+//
+extern
+fun
+Patsopt_output_box_onclick(): void = "mac#"
+extern
+fun
+Atscc2js_output_box_onclick(): void = "mac#"
+//
+(* ****** ****** *)
+//
 val Patsopt_button = document_button"Patsopt_button"
 //
 val Atscc2js_box = document_checkbox"Atscc2js_box"
@@ -122,6 +158,22 @@ val Atscc2js_button = document_button"Atscc2js_button"
 //
 val Evaluate_box = document_checkbox"Evaluate_box"
 val Evaluate_button = document_button"Evaluate_button"
+//
+(* ****** ****** *)
+//
+extern
+fun
+Patsopt_optstr_get(): string = "mac#"
+//
+%{^
+//
+function
+Patsopt_optstr_get()
+{
+  return document.getElementById("Patsopt_optstr").value;
+}
+//
+%} // end of [%{^]
 //
 (* ****** ****** *)
 //
@@ -141,6 +193,14 @@ Atscc2js_output_box = document_checkbox"Atscc2js_output_box"
 //
 (* ****** ****** *)
 //
+%{^
+function
+Patsopt_input_get()
+{
+  return document.getElementById("Patsopt_input_text").value;
+}
+%} // end of [%{^]
+//
 implement
 Patsopt_output_get() = Patsopt_output_ref[]
 implement
@@ -154,22 +214,6 @@ Patsopt_output_set(out) =
     then Patsopt_output_text_set(outstring2string(out))
   // end of [if]
 }
-//
-(* ****** ****** *)
-//
-extern
-fun
-Patsopt_optstr_get(): string = "mac#"
-//
-%{^
-//
-function
-Patsopt_optstr_get()
-{
-  return document.getElementById("Patsopt_optstr").value;
-}
-//
-%} // end of [%{^]
 //
 (* ****** ****** *)
 //
@@ -193,6 +237,98 @@ Atscc2js_output_set(out) =
 
 implement
 Evaluate_input_get() = Atscc2js_output_get()
+
+(* ****** ****** *)
+
+implement
+Patsopt_button_onclick
+  ((*void*)) = let
+//
+val () =
+  alert("Patsopt_button_onclick")
+//
+val input = Patsopt_input_get()
+val output = outstring$stdout(input)
+val ((*void*)) = Patsopt_output_set(output)
+//
+in
+  if checkbox_test(Atscc2js_box) then Atscc2js_button_onclick()
+end // end of [Patsopt_button_onclick]
+
+implement
+Atscc2js_button_onclick
+  ((*void*)) = let
+//
+val () =
+  alert("Atscc2js_button_onclick")
+//
+val input = Atscc2js_input_get()
+val ((*void*)) = Atscc2js_output_set(input)
+//
+in
+  if checkbox_test(Evaluate_box) then Evaluate_button_onclick()
+end // end of [Atscc2js_button_onclick]
+
+implement
+Evaluate_button_onclick
+  ((*void*)) = let
+//
+val () =
+  alert("Evaluate_button_onclick")
+//
+in
+end // end of [Evaluate_button_onclick]
+
+(* ****** ****** *)
+
+implement
+Patsopt_output_box_onclick
+  ((*void*)) = let
+//
+val test =
+  checkbox_test(Patsopt_output_box)
+//
+val ((*void*)) =
+  if test then
+    checkbox_turn_off(Atscc2js_output_box)
+  // end of [if]
+//
+val ((*void*)) =
+  if test then
+    Patsopt_output_text_set
+      (outstring2string(Patsopt_output_get()))
+    // Patsopt_output_text_set
+  // end of [if]
+//
+val ((*void*)) =
+  if not(test) then Patsopt_output_text_set("")
+//
+in
+end // end of [Patsopt_output_box_onclick]
+
+implement
+Atscc2js_output_box_onclick
+  ((*void*)) = let
+//
+val test =
+  checkbox_test(Atscc2js_output_box)
+//
+val ((*void*)) =
+  if test then
+    checkbox_turn_off(Patsopt_output_box)
+//
+val ((*void*)) =
+  if test then
+    Patsopt_output_text_set
+      (outstring2string(Atscc2js_output_get()))
+    // Patsopt_output_text_set
+  // end of [if]
+//
+val ((*void*)) =
+  if not(test) then Patsopt_output_text_set("")
+//
+in
+end // end of [Atscc2js_output_box_onclick]
 
 (* ****** ****** *)
 
