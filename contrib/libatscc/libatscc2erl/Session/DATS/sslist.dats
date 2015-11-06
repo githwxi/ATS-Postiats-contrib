@@ -44,7 +44,7 @@ val
 chpos2 =
 $UN.castvwtp1{chanpos2}(chpos)
 //
-val () = chanpos2_send{int}(chpos2, 0)
+val () = chanpos2_send{int}(chpos2, 0(*nil*))
 //
 prval () = $UN.cast2void(chpos2)
 prval () = $UN.castview2void(chpos)
@@ -62,7 +62,7 @@ val
 chpos2 =
 $UN.castvwtp1{chanpos2}(chpos)
 //
-val () = chanpos2_send{int}(chpos2, 1)
+val () = chanpos2_send{int}(chpos2, 1(*cons*))
 //
 prval () = $UN.cast2void(chpos2)
 prval () = $UN.castview2void(chpos)
