@@ -24,12 +24,27 @@ abstype button
 abstype checkbox
 
 (* ****** ****** *)
-
+//
 extern
-fun button : string -> button = "mac#"
+fun
+document_button : string -> button = "mac#"
 extern
-fun checkbox : string -> checkbox = "mac#"
-
+fun
+document_checkbox : string -> checkbox = "mac#"
+//
+%{^
+function
+document_button(name)
+{
+  return document.getElementById("name");
+}
+function
+document_checkbox(name)
+{
+  return document.getElementById("name");
+}
+%} // end of [%{^]
+//
 (* ****** ****** *)
 //
 datatype
@@ -100,13 +115,13 @@ Patsopt_output_text_set(value)
 //
 (* ****** ****** *)
 //
-val Patsopt_button = button"Patsopt_button"
+val Patsopt_button = document_button"Patsopt_button"
 //
-val Atscc2js_box = checkbox"Atscc2js_box"
-val Atscc2js_button = button"Atscc2js_button"
+val Atscc2js_box = document_checkbox"Atscc2js_box"
+val Atscc2js_button = document_button"Atscc2js_button"
 //
-val Evaluate_box = checkbox"Evaluate_box"
-val Evaluate_button = button"Evaluate_button"
+val Evaluate_box = document_checkbox"Evaluate_box"
+val Evaluate_button = document_button"Evaluate_button"
 //
 (* ****** ****** *)
 //
@@ -120,9 +135,9 @@ Atscc2js_output_ref =
 (* ****** ****** *)
 //
 val
-Patsopt_output_box = checkbox"Patsopt_output_box"
+Patsopt_output_box = document_checkbox"Patsopt_output_box"
 val
-Atscc2js_output_box = checkbox"Atscc2js_output_box"
+Atscc2js_output_box = document_checkbox"Atscc2js_output_box"
 //
 (* ****** ****** *)
 //
