@@ -121,15 +121,6 @@ val
 arglst = list_cons(comarg, arglst)
 //
 val
-comarg =
-COMARGprefil
-(
-  "#include \"share/atspre_staload.hats\""
-)
-val
-arglst = list_cons(comarg, arglst)
-//
-val
 delim = " "
 val
 optstr =

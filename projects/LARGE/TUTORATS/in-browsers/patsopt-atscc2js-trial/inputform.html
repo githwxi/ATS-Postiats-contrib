@@ -17,6 +17,9 @@
   src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
 </script>
 <script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_print_store_cats.js">
+</script>
+<script
   src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_baconjs_all.js">
 </script>
 </head>
@@ -68,7 +71,9 @@
 //
 (*
 #include
-"share/atspre_staload.hats"
+"share/atspre_define.hats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 *)
 //
 extern
@@ -79,14 +84,10 @@ implement
 fact(n) =
   if n > 0 then n * fact(n-1) else 1
 //
-implement
-main0() =
-{
-//
 val N = 10
 val () = println! ("fact(", N, ") = ", fact(N))
-//
-} (* end of [main0] *)
+val N = 12
+val () = println! ("fact(", N, ") = ", fact(N))
 //
 /* ****** ****** */
 
