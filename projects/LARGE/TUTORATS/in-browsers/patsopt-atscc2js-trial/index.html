@@ -26,6 +26,37 @@
 
 <body>
 <h1>Try ATS in your browser</h1>
+<p>
+This server-less service is entirely done in client-side JS.
+</p>
+<ul>
+<li>
+Patsopt is the command for compiling ATS source code into C.
+The JS-version of Patsopt used here is generated with the help of Emscripten.
+<li>
+Atscc2js is the command for compiling C code generated from ATS source into Js.
+The JS-version of Atscc2js used here is generated with the help of Emscripten.
+</ul>
+<p>
+The GUI for trying-ATS-in-your-browser is largely intuitive:
+</p>
+<ul>
+<li>
+The input box following the button Patsopt is for
+passing options to Patsopt.
+<li>
+If the box in front of the button Atscc2js is checked,
+then the C code produced by calling Patsopt is automatically compiled
+by Atscc2js.
+<li>
+If the box in front of the button Evaluate is checked,
+then the JS code produced by calling Atscc2js is automatically evaluated
+(by the browser).
+<li>
+The boxes of the names Patsopt-out and Atscc2js-out (at the lower
+right corner) can be checked to choose whether the output produced by
+Patsopt or Atscc2js should be displayed in the right window.
+</ul>
 <hr></hr>
 <div>
 <button
@@ -129,8 +160,12 @@ val () = println! ("primes[5] = ", primes[5])
 val () = println! ("primes[6] = ", primes[6])
 val () = println! ("primes[7] = ", primes[7])
 val () = println! ("primes[8] = ", primes[8])
+val () = println! ("primes[9] = ", primes[9])
+//
+val () = println! ("primes[10] = ", primes[10])
 //
 val () = println! ("primes[100] = ", primes[100])
+//
 val () = println! ("primes[1000] = ", primes[1000])
 //
 (* ****** ****** *)

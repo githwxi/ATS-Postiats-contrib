@@ -137,6 +137,9 @@ Evaluate_input_get(): outstring = "mac#"
 extern
 fun
 Patsopt_output_text_set(string): void = "mac#"
+extern
+fun
+Patsopt_output_text_reset((*void*)): void = "mac#"
 //
 %{^
 function
@@ -145,6 +148,9 @@ Patsopt_output_text_set(value)
   return document.getElementById("Patsopt_output_text").value = value
 }
 %} // end of [%{^]
+//
+implement
+Patsopt_output_text_reset() = Patsopt_output_text_set("")
 //
 (* ****** ****** *)
 //
@@ -302,11 +308,17 @@ val () =
   alert("Patsopt_button_onclick")
 *)
 //
+val () =
+  Patsopt_output_text_set("Patsopt is being called...")
+//
 fun
 fpost
 (
   nerr: int, output: outstring
 ) : void = let
+  val () =
+    Patsopt_output_text_reset()
+  // end of [val]
   val () = Patsopt_output_set(output)
 in
   if checkbox_test(Atscc2js_box) then Atscc2js_button_onclick()
@@ -329,11 +341,17 @@ val () =
   alert("Atscc2js_button_onclick")
 *)
 //
+val () =
+  Patsopt_output_text_set("Atscc2js is being called...")
+//
 fun
 fpost
 (
   nerr: int, output: outstring
 ) : void = let
+  val () =
+    Patsopt_output_text_reset()
+  // end of [val]
   val () = Atscc2js_output_set(output)
 in
   if checkbox_test(Evaluate_box) then Evaluate_button_onclick()
