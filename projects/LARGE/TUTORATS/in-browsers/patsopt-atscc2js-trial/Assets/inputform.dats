@@ -551,7 +551,7 @@ val
 chn =
 channeg_new_file
 (
-  "./libatsopt_ext_worker.js"
+  "./Assets/libatsopt_ext_worker.js"
 ) (* end of [val] *)
 //
 (*
@@ -701,7 +701,7 @@ val
 chn =
 channeg_new_file
 (
-  "./libatscc2js_ext_worker.js"
+  "./Assets/libatscc2js_ext_worker.js"
 ) (* end of [val] *)
 //
 (*
