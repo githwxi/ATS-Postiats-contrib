@@ -87,6 +87,20 @@ ats2jspre_div_int1_int1(x, y) { return ats2jspre_div_int0_int0(x, y); }
 /* ****** ****** */
 
 function
+ats2jspre_pow_int0_int1(x, y)
+{
+  var res = 1;
+  while(y >= 2)
+  {
+    if (y%2 > 0) res *= x;
+    x = x * x; y = Math.floor(y/2);
+  }
+  return (y > 0) ? (x * res) : res;
+}
+
+/* ****** ****** */
+
+function
 ats2jspre_asl_int0_int1(x, y) { return (x << y); }
 function
 ats2jspre_asr_int0_int1(x, y) { return (x >> y); }

@@ -3,19 +3,19 @@
 // RPC based on WebWorker
 //
 (* ****** ****** *)
-
+//
 #define
 ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME "theWorker_start"
-
+//
 (* ****** ****** *)
-  
+//  
 #include
 "share/atspre_define.hats"
 #include
 "{$LIBATSCC2JS}/staloadall.hats"
-  
+//
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"

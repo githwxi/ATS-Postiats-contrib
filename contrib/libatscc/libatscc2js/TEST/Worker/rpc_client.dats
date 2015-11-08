@@ -34,14 +34,22 @@ staload
 (* ****** ****** *)
 
 %{^
-
+//
 var
-myworker = new Worker("./rpc_server_dats_.js");
-
-if (!myworker) { alert('Creating of myworker failed!'); }
-
-myworker.onmessage = function(e){ alert(e.data); return; };
-
+myworker =
+  new Worker("./rpc_server_dats_.js");
+//
+if (myworker)
+{
+  myworker.onmessage =
+  function(e){ alert(e.data); return; };
+}
+//
+if (!myworker)
+{
+  alert('Creating of myworker failed!');
+}
+//
 function
 theTrigger_onclick()
 {
@@ -53,7 +61,7 @@ theTrigger_onclick()
   document.getElementById('theArg2').value;
   return theTrigger_onclick_(myworker, arg1, arg2);
 }
-
+//
 %} // end of [%{^]
 
 (* ****** ****** *)

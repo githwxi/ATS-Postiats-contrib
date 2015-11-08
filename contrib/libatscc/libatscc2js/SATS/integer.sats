@@ -91,6 +91,14 @@ overload / with div_int1_int1 of 120
 (* ****** ****** *)
 //
 fun
+pow_int0_int1
+  : (int, intGte(0)) -> int = "mac#%"
+//
+overload ** with pow_int0_int1 of 110
+//
+(* ****** ****** *)
+//
+fun
 asl_int0_int1
   : (int, intGte(0)) -> int = "mac#%"
 fun

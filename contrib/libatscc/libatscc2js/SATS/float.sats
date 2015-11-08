@@ -74,6 +74,14 @@ overload / with div_int_double of 100
 overload / with div_double_int of 100
 
 (* ****** ****** *)
+//
+fun
+pow_double_int1
+  : (doubel, intGte(0)) -> double = "mac#%"
+//
+overload ** with pow_double_int1 of 110
+//
+(* ****** ****** *)
 
 typedef
 float_aop_type = (double, double) -> double
