@@ -32,9 +32,9 @@ NPATH (int, int, int) =
 (* ****** ****** *)
 //
 prfun
-lemma_m0{m:nat}{r:int}(NPATH(m, 0, r)): [r==0] void
+lemma_m0{m:nat}{r:int}(NPATH(m, 0, r)): [r==1] void
 prfun
-lemma_0n{n:nat}{r:int}(NPATH(0, n, r)): [r==0] void
+lemma_0n{n:nat}{r:int}(NPATH(0, n, r)): [r==1] void
 //
 (* ****** ****** *)
 //
