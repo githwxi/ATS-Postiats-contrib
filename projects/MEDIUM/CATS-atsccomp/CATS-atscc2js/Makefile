@@ -105,6 +105,7 @@ clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) catsparse_sats.c
 clean:: ; $(RMF) atscc2js_*_?ats.c
+clean:: ; $(RMF) libatscc2js_ext_?ats.c
 
 ######
 

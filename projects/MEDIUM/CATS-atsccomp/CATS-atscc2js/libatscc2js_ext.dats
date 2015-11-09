@@ -370,4 +370,4 @@ end // end of [atscc2js_main0_arglst]
 //
 (* ****** ****** *)
 
-(* end of [libatsopt_ext.dats] *)
+(* end of [libatscc2js_ext.dats] *)
