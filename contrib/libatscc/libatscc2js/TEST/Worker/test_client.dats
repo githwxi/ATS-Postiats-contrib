@@ -50,6 +50,11 @@ theResult_get()
 {
   return parseInt(document.getElementById('theResult').value);
 }
+function
+theResult_set(value)
+{
+  document.getElementById('theResult').value = value;
+}
 //
 %} // end of [%{^]
 
@@ -154,6 +159,9 @@ val () =
   $extfcall(void, "theArg1_set", a1)
 val () =
   $extfcall(void, "theArg2_set", a2)
+//
+val () =
+  $extfcall(void, "theResult_set", "")
 //
 val
 Reply_ =
