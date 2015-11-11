@@ -141,7 +141,7 @@ EValue_make_estream_scan
   {a,b:t0p}
 (
   x0: a, ys: EStream(b), fopr: cfun(a, b, a)
-) : EValue(a) = "mac#%" // EValue_make_estream_scan
+) : EValue(a) = "mac#%" // end-of-fun
 *)
 //
 implement

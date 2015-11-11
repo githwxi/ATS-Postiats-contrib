@@ -201,16 +201,16 @@ libats2erl_session_chanposneg_link
 %%
 %%%%%%
 %%
-libats2erl_session_chanpos2_send
+libats2erl_session_chanpos0_send
   (Chpos, X) ->
   libats2erl_session_chanpos_send(Chpos, X).
-libats2erl_session_channeg2_recv
+libats2erl_session_channeg0_recv
   (Chneg, X) ->
   libats2erl_session_channeg_recv(Chneg, X).
 %%
-libats2erl_session_chanpos2_recv
+libats2erl_session_chanpos0_recv
   (Chpos) -> libats2erl_session_chanpos_recv(Chpos).
-libats2erl_session_channeg2_send
+libats2erl_session_channeg0_send
   (Chneg) -> libats2erl_session_channeg_send(Chneg).
 %%
 %%%%%%

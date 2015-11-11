@@ -51,7 +51,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 staload "./../SATS/basis.sats"
-staload "./../DATS/basis_chan2.dats"
+staload "./../DATS/basis_chan0.dats"
 
 (* ****** ****** *)
 //
@@ -125,10 +125,13 @@ chanpos_ssque
   {a}{n}(chpos) = let
 //
 val
-chpos2 = $UN.castvwtp1{chanpos2}(chpos)
-val tag = chanpos2_recv{natLt(4)}(chpos2)
+chpos0 =
+$UN.castvwtp1{chanpos0}(chpos)
 //
-prval () = $UN.cast2void(chpos2)
+val tag =
+  chanpos0_recv{natLt(4)}(chpos0)
+//
+prval () = $UN.cast2void(chpos0)
 //
 in
 //
@@ -163,13 +166,13 @@ channeg_ssque_nil
 {
 //
 val
-chneg2 =
-$UN.castvwtp1{channeg2}(chneg)
+chneg0 =
+$UN.castvwtp1{channeg0}(chneg)
 //
 val () =
-  channeg2_recv{int}(chneg2, 0)
+  channeg0_recv{int}(chneg0, 0)
 //
-prval () = $UN.cast2void(chneg2)
+prval () = $UN.cast2void(chneg0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -183,13 +186,13 @@ channeg_ssque_deq
 {
 //
 val
-chneg2 =
-$UN.castvwtp1{channeg2}(chneg)
+chneg0 =
+$UN.castvwtp1{channeg0}(chneg)
 //
 val () =
-  channeg2_recv{int}(chneg2, 1)
+  channeg0_recv{int}(chneg0, 1)
 //
-prval () = $UN.cast2void(chneg2)
+prval () = $UN.cast2void(chneg0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -203,13 +206,13 @@ channeg_ssque_top
 {
 //
 val
-chneg2 =
-$UN.castvwtp1{channeg2}(chneg)
+chneg0 =
+$UN.castvwtp1{channeg0}(chneg)
 //
 val () =
-  channeg2_recv{int}(chneg2, 2)
+  channeg0_recv{int}(chneg0, 2)
 //
-prval () = $UN.cast2void(chneg2)
+prval () = $UN.cast2void(chneg0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -223,13 +226,13 @@ channeg_ssque_enq
 {
 //
 val
-chneg2 =
-$UN.castvwtp1{channeg2}(chneg)
+chneg0 =
+$UN.castvwtp1{channeg0}(chneg)
 //
 val () =
-  channeg2_recv{int}(chneg2, 3)
+  channeg0_recv{int}(chneg0, 3)
 //
-prval () = $UN.cast2void(chneg2)
+prval () = $UN.cast2void(chneg0)
 //
 prval () = $UN.castview2void(chneg)
 //

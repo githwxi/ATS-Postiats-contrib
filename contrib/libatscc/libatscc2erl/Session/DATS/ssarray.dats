@@ -31,7 +31,8 @@ staload "./../SATS/ssarray.sats"
 //
 (* ****** ****** *)
 //
-staload "./basis_chan2.dats" // un-session-typed
+staload
+"./basis_chan0.dats" // un-typed channels
 //
 (* ****** ****** *)
 

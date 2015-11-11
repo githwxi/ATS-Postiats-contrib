@@ -14,27 +14,27 @@ ATS_EXTERN_PREFIX "libats2erl_session_"
 //
 (* ****** ****** *)
 
-absvtype chanpos2 = ptr
-absvtype channeg2 = ptr
+absvtype chanpos0 = ptr
+absvtype channeg0 = ptr
 
 (* ****** ****** *)
 //
 extern
 fun
-chanpos2_send
-  {a:vt0p}(chpos: !chanpos2, x: a): void = "mac#%"
+chanpos0_send
+  {a:vt0p}(chpos: !chanpos0, x: a): void = "mac#%"
 and
-channeg2_recv
-  {a:vt0p}(chneg: !channeg2, x: a): void = "mac#%"
+channeg0_recv
+  {a:vt0p}(chneg: !channeg0, x: a): void = "mac#%"
 //
 (* ****** ****** *)
 //
 extern
 fun
-chanpos2_recv{a:vt0p}(chpos: !chanpos2): (a) = "mac#%"
+chanpos0_recv{a:vt0p}(chpos: !chanpos0): (a) = "mac#%"
 and
-channeg2_send{a:vt0p}(chneg: !channeg2): (a) = "mac#%"
+channeg0_send{a:vt0p}(chneg: !channeg0): (a) = "mac#%"
 //
 (* ****** ****** *)
 
-(* end of [basis_chan2.dats] *)
+(* end of [basis_chan0.dats] *)

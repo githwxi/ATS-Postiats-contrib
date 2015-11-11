@@ -31,7 +31,8 @@ staload "./../SATS/co-sslist.sats"
 //
 (* ****** ****** *)
 //
-staload "./basis_chan2.dats" // un-session-typed
+staload
+"./basis_chan0.dats" // un-typed channels
 //
 (* ****** ****** *)
 
@@ -40,12 +41,12 @@ chanpos_sslist
   (chpos) = let
 //
 val
-chpos2 =
-$UN.castvwtp1{chanpos2}(chpos)
+chpos0 =
+$UN.castvwtp1{chanpos0}(chpos)
 //
-val tag = chanpos2_recv{int}(chpos2)
+val tag = chanpos0_recv{int}(chpos0)
 //
-prval () = $UN.cast2void(chpos2)
+prval () = $UN.cast2void(chpos0)
 //
 in
 //
@@ -68,13 +69,13 @@ channeg_sslist_nil
 {
 //
 val
-chneg2 =
-$UN.castvwtp1{channeg2}(chneg)
+chneg0 =
+$UN.castvwtp1{channeg0}(chneg)
 //
 val () =
-  channeg2_recv{int}(chneg2, 0)
+  channeg0_recv{int}(chneg0, 0)
 //
-prval () = $UN.cast2void(chneg2)
+prval () = $UN.cast2void(chneg0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -88,13 +89,13 @@ channeg_sslist_cons
 {
 //
 val
-chneg2 =
-$UN.castvwtp1{channeg2}(chneg)
+chneg0 =
+$UN.castvwtp1{channeg0}(chneg)
 //
 val () =
-  channeg2_recv{int}(chneg2, 1)
+  channeg0_recv{int}(chneg0, 1)
 //
-prval () = $UN.cast2void(chneg2)
+prval () = $UN.cast2void(chneg0)
 //
 prval () = $UN.castview2void(chneg)
 //
