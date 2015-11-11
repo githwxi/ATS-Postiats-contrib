@@ -92,10 +92,10 @@ val () = println! ("rpc_server")
 //
 in
 //
-chanpos_recv{a}
+chanpos0_recv{a}
 ( chp
 , lam(chp, e) =>
-  chanpos_send{b}
+  chanpos0_send{b}
   ( chp
   , fopr(chmsg_parse<a>(e))
   , lam(chp) => rpc_server_cont(chp, fopr)

@@ -53,25 +53,22 @@ chmsg(a:t0p) = chmsg_type(a)
 //
 (* ****** ****** *)
 //
-abstype chanpos_type
-abstype channeg_type
-//
-typedef chanpos = chanpos_type
-typedef channeg = channeg_type
+abstype chanpos()
+abstype channeg()
 //
 (* ****** ****** *)
 //
 typedef
-chpcont0() = cfun1(chanpos, void)
+chpcont0() = cfun1(chanpos(), void)
 typedef
-chpcont1(a:t0p) = cfun2(chanpos, a, void)
+chpcont1(a:t0p) = cfun2(chanpos(), a, void)
 //
 (* ****** ****** *)
 //
 typedef
-chncont0() = cfun1(channeg, void)
+chncont0() = cfun1(channeg(), void)
 typedef
-chncont1(a:t0p) = cfun2(channeg, a, void)
+chncont1(a:t0p) = cfun2(channeg(), a, void)
 //
 (* ****** ****** *)
 //
@@ -81,44 +78,44 @@ chmsg_parse(chmsg(INV(a))): (a)
 (* ****** ****** *)
 
 fun
-chanpos_close(chanpos): void = "mac#%"
+chanpos0_close(chanpos()): void = "mac#%"
 
 (* ****** ****** *)
 //
 fun
-chanpos_send
+chanpos0_send
   {a:t0p}
 (
-  chanpos, x0: a, k0: chpcont0()
+  chanpos(), x0: a, k0: chpcont0()
 ) : void = "mac#%" // end-of-fun
 //
 fun
-chanpos_recv
+chanpos0_recv
   {a:t0p}
-  (chanpos, k0: chpcont1(chmsg(a))): void = "mac#%"
+  (chanpos(), k0: chpcont1(chmsg(a))): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-channeg_new_file
-  (file: string): channeg = "mac#%"
+channeg0_new_file
+  (file: string): channeg() = "mac#%"
 //
 fun
-channeg_close(channeg): void = "mac#%"
+channeg0_close(channeg()): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-channeg_recv
+channeg0_recv
   {a:t0p}
 (
-  channeg, x0: a, k0: chncont0()
+  channeg(), x0: a, k0: chncont0()
 ) : void = "mac#%" // end-of-fun
 //
 fun
-channeg_send
+channeg0_send
   {a:t0p}
-  (channeg, k0: chncont1(chmsg(a))): void = "mac#%"
+  (channeg(), k0: chncont1(chmsg(a))): void = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -126,13 +123,13 @@ fun
 {a:t0p}
 {b:t0p}
 rpc_server
-  (chanpos, fopr: (a) -<cloref1> b): void = "mac#%"
+  (chanpos(), fopr: (a) -<cloref1> b): void = "mac#%"
 //
 fun
 {a:t0p}
 {b:t0p}
 rpc_server_cont
-  (chanpos, fopr: (a) -<cloref1> b): void = "mac#%"
+  (chanpos(), fopr: (a) -<cloref1> b): void = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -140,7 +137,62 @@ fun
 {a:t0p}
 {b:t0p}
 rpc_client
-  (channeg, a, (b) -<cloref1> void): void = "mac#%"
+  (channeg(), a, (b) -<cloref1> void): void = "mac#%"
+//
+(* ****** ****** *)
+//
+abstype chsnd(a:vt@ype)
+abstype chrcv(a:vt@ype)
+//
+abstype chnil
+abstype chcons(a:type, ss:type)
+//
+stadef :: = chcons
+//
+(* ****** ****** *)
+
+absvtype chanpos(ss:type)
+absvtype channeg(ss:type)
+
+(* ****** ****** *)
+//
+typedef
+chpcont0(ss:type) = cfun1(chanpos(ss), void)
+typedef
+chpcont1(ss:type, a:t0p) = cfun2(chanpos(ss), a, void)
+//
+typedef
+chncont0(ss:type) = cfun1(channeg(ss), void)
+typedef
+chncont1(ss:type, a:t0p) = cfun2(channeg(ss), a, void)
+//
+(* ****** ****** *)
+//
+fun
+chanpos1_send
+  {a:t0p}{ss:type}
+(
+  chanpos(chsnd(a)::ss), x0: a, k0: chpcont0(ss)
+) : void = "mac#%" // end-of-fun
+//
+fun
+chanpos1_recv
+  {a:t0p}{ss:type}
+  (chanpos(chrcv(a)::ss), k0: chpcont1(ss, chmsg(a))): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+channeg1_recv
+  {a:t0p}{ss:type}
+(
+  channeg(chrcv(a)::ss), x0: a, k0: chncont0(ss)
+) : void = "mac#%" // end-of-fun
+//
+fun
+channeg1_send
+  {a:t0p}{ss:type}
+  (channeg(chsnd(a)::ss), k0: chncont1(ss, chmsg(a))): void = "mac#%"
 //
 (* ****** ****** *)
 

@@ -93,11 +93,11 @@ val () = println! ("rpc_client")
 //
 in
 //
-channeg_recv{a}
+channeg0_recv{a}
 ( chn
 , arg
 , lam(chn) =>
-  channeg_send{b}
+  channeg0_send{b}
   ( chn
   , lam(chn, e) => fopr(chmsg_parse<b>(e))
   )
