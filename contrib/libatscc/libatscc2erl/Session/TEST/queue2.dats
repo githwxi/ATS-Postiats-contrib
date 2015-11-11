@@ -49,10 +49,26 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
+//
 staload "./../SATS/basis.sats"
-staload "./../DATS/basis_chan0.dats"
-
+//
+(* ****** ****** *)
+//
+staload
+CHAN0 = "./../DATS/basis_chan0.dats"
+//
+macdef
+chanpos0_send = $CHAN0.chanpos0_send
+macdef
+chanpos0_recv = $CHAN0.chanpos0_recv
+macdef
+channeg0_recv = $CHAN0.channeg0_recv
+macdef
+channeg0_send = $CHAN0.channeg0_send
+//
+vtypedef chanpos0 = $CHAN0.chanpos()
+vtypedef channeg0 = $CHAN0.channeg()
+//
 (* ****** ****** *)
 //
 (*
