@@ -56,16 +56,29 @@ function(event)
 }
 //
 function
-ats2js_worker_chanpos_recv
+ats2js_worker_chanpos0_recv
   (chp, k0)
 {
   theWorker_cont = k0; return;
 }
 function
-ats2js_worker_chanpos_send
+ats2js_worker_chanpos0_send
   (chp, x0, k0)
 {
   postMessage(x0); return ats2jspre_cloref1_app(k0, 0);
+}
+//
+function
+ats2js_worker_chanpos1_recv
+  (chp, k0)
+{
+  return ats2js_worker_chanpos0_recv(chp, k0);
+}
+function
+ats2js_worker_chanpos1_send
+  (chp, x0, k0)
+{
+  return ats2js_worker_chanpos0_send(chp, x0, k0);
 }
 //
 %} // end of [%{^]
@@ -75,7 +88,9 @@ ats2js_worker_chanpos_send
 %{^
 //
 function
-ats2js_worker_chanpos_close(chp) { return self.close(); }
+ats2js_worker_chanpos0_close(chp) { return self.close(); }
+function
+ats2js_worker_chanpos1_close(chp) { return self.close(); }
 //
 %} // end of [%{^]
 //
@@ -118,7 +133,7 @@ rpc_server_cont = rpc_server<a><b>
 //
 implement
 {a}{b}
-rpc_server_cont(chp, fopr) = chanpos_close(chp)
+rpc_server_cont(chp, fopr) = chanpos0_close(chp)
 *)
 //
 (* ****** ****** *)

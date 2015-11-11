@@ -98,10 +98,10 @@ chanpos0_recv
 //
 fun
 channeg0_new_file
-  (file: string): channeg() = "mac#%"
+  (filename: string): channeg() = "mac#%"
 //
 fun
-channeg0_close(channeg()): void = "mac#%"
+channeg0_close(channeg((*nil*))): void = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -193,6 +193,10 @@ fun
 channeg1_send
   {a:t0p}{ss:type}
   (channeg(chsnd(a)::ss), k0: chncont1(ss, chmsg(a))): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun channeg1_close(channeg(chnil)): void = "mac#%"
 //
 (* ****** ****** *)
 

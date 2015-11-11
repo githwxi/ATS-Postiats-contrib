@@ -46,7 +46,7 @@ staload "./../../SATS/Worker/channel.sats"
 %{^
 //
 function
-ats2js_worker_channeg_new_file
+ats2js_worker_channeg0_new_file
   (file) { var ch = new Worker(file); return ch; }
 //
 %} // end of [%{^]
@@ -56,7 +56,9 @@ ats2js_worker_channeg_new_file
 %{^
 //
 function
-ats2js_worker_channeg_close(ch) { return ch.terminate(); }
+ats2js_worker_channeg0_close(ch) { return ch.terminate(); }
+function
+ats2js_worker_channeg1_close(ch) { return ch.terminate(); }
 //
 %} // end of [%{^]
 //
@@ -65,7 +67,7 @@ ats2js_worker_channeg_close(ch) { return ch.terminate(); }
 %{^
 //
 function
-ats2js_worker_channeg_send(chn, k0)
+ats2js_worker_channeg0_send(chn, k0)
 {
   chn.onmessage =
   function(event)
@@ -73,9 +75,22 @@ ats2js_worker_channeg_send(chn, k0)
   return/*void*/;
 }
 function
-ats2js_worker_channeg_recv(chn, x0, k0)
+ats2js_worker_channeg0_recv(chn, x0, k0)
 {
   chn.postMessage(x0); return ats2jspre_cloref1_app(k0, chn);
+}
+//
+function
+ats2js_worker_chanpos1_send
+  (chp, k0)
+{
+  return ats2js_worker_chanpos0_send(chp, k0);
+}
+function
+ats2js_worker_chanpos1_recv
+  (chp, x0, k0)
+{
+  return ats2js_worker_chanpos0_recv(chp, x0, k0);
 }
 //
 %} // end of [%{^]
