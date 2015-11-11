@@ -81,16 +81,16 @@ ats2js_worker_channeg0_recv(chn, x0, k0)
 }
 //
 function
-ats2js_worker_chanpos1_send
+ats2js_worker_channeg1_send
   (chp, k0)
 {
-  return ats2js_worker_chanpos0_send(chp, k0);
+  return ats2js_worker_channeg0_send(chp, k0);
 }
 function
-ats2js_worker_chanpos1_recv
+ats2js_worker_channeg1_recv
   (chp, x0, k0)
 {
-  return ats2js_worker_chanpos0_recv(chp, x0, k0);
+  return ats2js_worker_channeg0_recv(chp, x0, k0);
 }
 //
 %} // end of [%{^]

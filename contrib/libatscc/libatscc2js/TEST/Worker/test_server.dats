@@ -35,37 +35,45 @@ staload
 "./../../DATS/Worker/chanpos.dats"
 //
 (* ****** ****** *)
-//
-fun
-list0_add
-(
-  xs: list0(int)
-) : int =
-(
-  case+ xs of
-  | list0_nil() => 0
-  | list0_cons(x, xs) => x + list0_add(xs)
-)
-//
+
+staload "./test_prot.sats"
+
 (* ****** ****** *)
+
+val () =
+{
 //
-typedef ARG = list0(int) and RES = int
-//
-local
-//
-(*
-implement
-{a}{b}
-rpc_server_cont(ch, f) = chanpos_close(ch)
-*)
-//
-in
+val chp =
+$UN.castvwtp0{chanpos(sstest0)}(0)
 //
 val ((*void*)) =
-  rpc_server<ARG><RES>($UN.cast{chanpos()}(0), lam(xs) => list0_add(xs))
+chanpos1_recv
+(
+chp
+,
+lam(chp, _) => let
+  val a1 = double2int(100*JSmath_random())
+  val a2 = double2int(100*JSmath_random())
+in
+  chanpos1_send
+  ( chp, a1
+  , lam(chp) =>
+    chanpos1_send
+    ( chp, a2
+    , lam(chp) =>
+      chanpos1_recv
+      ( chp
+      , lam(chp, res) =>
+        chanpos1_send
+        ( chp, (chmsg_parse(res) = a1 * a2), lam(chp) => chanpos1_close(chp))
+      )
+    )
+  )
+end // end of [lam]
+) (* end of [chanpos1_recv] *)
 //
-end // end of [local]
-//
+} (* end of [val] *)
+
 (* ****** ****** *)
 
 %{$
@@ -76,4 +84,4 @@ theWorker_start();
 
 (* ****** ****** *)
 
-(* end of [rpc_server.dats] *)
+(* end of [test_server.dats] *)

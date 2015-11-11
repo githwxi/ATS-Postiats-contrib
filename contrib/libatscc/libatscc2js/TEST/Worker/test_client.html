@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>rpc_client</title>
+  <title>test_client</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
@@ -25,20 +25,53 @@
 <h1>For testing worker-based channels</h1>
 
 <center>
+<table>
+
+<tr>
+<td
+ align="center"
+><button
+ ID="Start"
+ type="button"
+ onclick="Start_onclick()"
+>Start!</button></td>
+<tr>
+
+<tr>
+<td align="center">Arg1</td>
+<td>
 <input
  ID="theArg1" type="text" maxlength="8"
 ></input>
-+
+</td>
+</tr>
+
+<tr>
+<td align="center">Arg2</td>
+<td>
 <input
  ID="theArg2" type="text" maxlength="8"
 ></input>
+</td>
+</tr>
+
+<tr>
+<td>
 <button
- ID="theTrigger"
- type="button" onclick="theTrigger_onclick()"
->trigger-rpc</button>
+ ID="AnswerIt"
+ type="button" onclick="AnswerIt_onclick()"
+>AnswerIt</button>
+</td>
+<td>
+<input
+ ID="theResult" type="text" maxlength="8"
+></input>
+</td>
+</tr>
+
 </center>
 
-<script src="./rpc_client_dats.js"></script>
+<script src="./test_client_dats.js"></script>
 
 </body>
 

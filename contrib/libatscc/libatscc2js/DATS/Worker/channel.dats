@@ -69,6 +69,11 @@ in
 end // end of [chmsg_parse<double>]
 //
 (* ****** ****** *)
+
+implement
+chmsg_parse<bool>(msg) = $UN.cast{bool}(msg)
+
+(* ****** ****** *)
 //
 implement
 chmsg_parse<string>(msg) = $UN.cast{string}(msg)

@@ -196,6 +196,7 @@ channeg1_send
 //
 (* ****** ****** *)
 //
+fun chanpos1_close(chanpos(chnil)): void = "mac#%"
 fun channeg1_close(channeg(chnil)): void = "mac#%"
 //
 (* ****** ****** *)

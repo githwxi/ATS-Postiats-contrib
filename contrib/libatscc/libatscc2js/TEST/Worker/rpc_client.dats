@@ -70,7 +70,7 @@ extern
 fun
 theTrigger_onclick_
 (
-  channeg, arg1: string, arg2: string
+  channeg(), arg1: string, arg2: string
 ) : void = "mac#" // endfun
 //
 implement
