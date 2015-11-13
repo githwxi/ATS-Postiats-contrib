@@ -150,6 +150,22 @@ abstype chcons(a:type, ss:type)
 stadef :: = chcons
 //
 (* ****** ****** *)
+//
+(*
+abstype ssnot(ss:type)
+*)
+//
+abstype ssconj(ss:type)
+abstype ssdisj(ss:type)
+//
+abstype ssdisj_nil and ssconj_nil
+//
+(* ****** ****** *)
+
+abstype ssrepeat0(ss:type)
+abstype ssrepeat1(ss:type)
+
+(* ****** ****** *)
 
 absvtype chanpos(ss:type)
 absvtype channeg(ss:type)
