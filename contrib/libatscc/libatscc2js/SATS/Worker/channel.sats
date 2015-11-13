@@ -92,7 +92,9 @@ chanpos0_send
 fun
 chanpos0_recv
   {a:t0p}
-  (chanpos(), k0: chpcont1(chmsg(a))): void = "mac#%"
+(
+  chanpos(), k0: chpcont1(chmsg(a))
+) : void = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -115,7 +117,9 @@ channeg0_recv
 fun
 channeg0_send
   {a:t0p}
-  (channeg(), k0: chncont1(chmsg(a))): void = "mac#%"
+(
+  channeg(), k0: chncont1(chmsg(a))
+) : void = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -194,7 +198,9 @@ chanpos1_send
 fun
 chanpos1_recv
   {a:t0p}{ss:type}
-  (chanpos(chrcv(a)::ss), k0: chpcont1(ss, chmsg(a))): void = "mac#%"
+(
+  chanpos(chrcv(a)::ss), k0: chpcont1(ss, chmsg(a))
+) : void = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -208,7 +214,9 @@ channeg1_recv
 fun
 channeg1_send
   {a:t0p}{ss:type}
-  (channeg(chsnd(a)::ss), k0: chncont1(ss, chmsg(a))): void = "mac#%"
+(
+  channeg(chsnd(a)::ss), k0: chncont1(ss, chmsg(a))
+) : void = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
