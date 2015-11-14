@@ -273,9 +273,24 @@ fun{}
 chanpos1_repeat_conj
   {ss:type}
 (
-  chanpos(ssrepeat(ss))
+  chanpos(ssconj(ssrepeat(ss)))
 , k0: chpcont0_nil, fserv: chanpos_nullify(ss)
 ) : void // end of [chanpos1_repeat_conj]
+//
+fun{}
+channeg1_repeat_conj
+  {ss:type}
+(
+  channeg(ssconj(ssrepeat(ss)))
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
+) : void // end of [channeg1_repeat_conj]
+//
+fun{}
+channeg1_repeat_conj$choose((*void*)): natLt(2)
+fun{}
+chanpos1_repeat_conj$fwork_tag(tag: int): void
+fun{}
+channeg1_repeat_conj$fwork_tag(tag: int): void
 //
 (* ****** ****** *)
 //
@@ -283,7 +298,7 @@ fun{}
 chanpos1_repeat_disj
   {ss:type}
 (
-  chanpos(ssrepeat(ss))
+  chanpos(ssdisj(ssrepeat(ss)))
 , k0: chpcont0_nil, fserv: chanpos_nullify(ss)
 ) : void // end of [chanpos1_repeat_disj]
 //
@@ -291,12 +306,16 @@ fun{}
 channeg1_repeat_disj
   {ss:type}
 (
-  channeg(ssrepeat(ss))
-, k0: chpcont0_nil, fserv: channeg_nullify(ss)
+  channeg(ssdisj(ssrepeat(ss)))
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_repeat_disj]
 //
 fun{}
 chanpos1_repeat_disj$choose((*void*)): natLt(2)
+fun{}
+chanpos1_repeat_disj$fwork_tag(tag: int): void
+fun{}
+channeg1_repeat_disj$fwork_tag(tag: int): void
 //
 (* ****** ****** *)
 

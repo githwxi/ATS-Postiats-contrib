@@ -159,10 +159,63 @@ chanpos1_append
 fserv1
 (
   $UN.castvwtp0{chanpos(ss1)}(chp)
-, $UN.castvwtp0{chpcont0_nil}(lam(chp:chanpos(ss2)) => fserv2(chp, k0))
+, $UN.castvwtp0{chpcont0_nil}(lam(chp:chanpos(ss2)) =<cloref1> fserv2(chp, k0))
 ) (* end of [fserv1] *)
 //
 ) (* end of [chanpos1_append] *)
+//
+(* ****** ****** *)
+(*
+fun{}
+chanpos1_repeat_conj
+  {ss:type}
+(
+  chanpos(ssconj(ssrepeat(ss)))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_repeat_conj]
+*)
+//
+implement
+{}(*tmp*)
+chanpos1_repeat_conj
+  {ss}(chp, k0, fserv) = let
+//
+typedef
+loop =
+$d2ctype
+  (chanpos1_repeat_conj<>)
+//
+fun
+loop: loop =
+lam(chp, k0, fserv) => let
+  val chp0 =
+    $UN.castvwtp0{chanpos()}(chp)
+  // end of [val]
+in
+//
+chanpos0_recv
+  {int}
+(
+  chp0
+, lam(chp0, tag0) => let
+    val tag0 =
+      chmsg_parse<int>(tag0)
+    // end of [val]
+    val ((*void*)) =
+      chanpos1_repeat_conj$fwork_tag(tag0)
+    // end of [val]
+  in
+    case+ tag0 of
+    | 0 => k0($UN.castvwtp0(chp0))
+    | _ => fserv($UN.castvwtp0(chp0), lam(chp) => loop($UN.castvwtp0(chp), k0, fserv))
+  end // end of [lam]
+) (* end of [chanpos0_send] *)
+//
+end // end of [loop]
+//
+in
+  loop(chp, k0, fserv)
+end // end of [chanpos1_repeat_conj]
 //
 (* ****** ****** *)
 (*
@@ -195,6 +248,9 @@ lam(chp, k0, fserv) => let
   val tag0 =
     chanpos1_repeat_disj$choose()
   // end of [val]
+  val ((*void*)) =
+    chanpos1_repeat_disj$fwork_tag(tag0)
+  // end of [val]
 in
 //
 case+
@@ -207,6 +263,7 @@ tag0 of
     chp0, tag0
   , lam(chp0) =>
       fserv($UN.castvwtp0(chp0), lam(chp) => loop($UN.castvwtp0(chp), k0, fserv))
+    // end of [lam]
   ) (* end of [1] *)
 //
 end // end of [loop]
@@ -215,6 +272,12 @@ in
   loop(chp, k0, fserv)
 end // end of [chanpos1_repeat_disj]]
 //
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+chanpos1_repeat_disj$fwork_tag(tag) = () // nothing is done by default
+
 (* ****** ****** *)
 
 (* end of [chanpos.dats] *)
