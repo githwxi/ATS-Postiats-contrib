@@ -257,11 +257,15 @@ in
 end // end of [channeg1_repeat_disj]
 //
 (* ****** ****** *)
-
+//
+implement
+{}(*tmp*)
+channeg1_repeat_conj$fwork_tag(tag) = () // nothing is done by default
+//
 implement
 {}(*tmp*)
 channeg1_repeat_disj$fwork_tag(tag) = () // nothing is done by default
-
+//
 (* ****** ****** *)
 
 (* end of [channeg.dats] *)

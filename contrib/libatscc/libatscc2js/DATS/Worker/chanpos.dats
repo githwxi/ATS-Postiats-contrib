@@ -273,11 +273,15 @@ in
 end // end of [chanpos1_repeat_disj]]
 //
 (* ****** ****** *)
-
+//
+implement
+{}(*tmp*)
+chanpos1_repeat_conj$fwork_tag(tag) = () // nothing is done by default
+//
 implement
 {}(*tmp*)
 chanpos1_repeat_disj$fwork_tag(tag) = () // nothing is done by default
-
+//
 (* ****** ****** *)
 
 (* end of [chanpos.dats] *)
