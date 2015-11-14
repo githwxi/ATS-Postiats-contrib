@@ -103,7 +103,7 @@ AnswerIt_do_set(fclo)
 (* ****** ****** *)
 //
 staload
-PROTOCOL = "./test_prot.sats"
+PROTOCOL = "./test2_prot.sats"
 //
 typedef sstest1 = $PROTOCOL.sstest1
 typedef sstest2 = $PROTOCOL.sstest2
@@ -118,11 +118,20 @@ StartIt(): void = "mac#"
 extern
 fun
 PostRep
-  (channeg(chnil), yn: bool): void = "mac#"
+(
+  channeg(chnil), k0: chncont0_nil, yn: bool
+) : void = "mac#" // end-of-fun
 extern
 fun
 ReplyIt
-  (channeg(sstest1), a1: int, a2: int): void = "mac#"
+(
+  channeg(sstest1), k0: chncont0_nil, a1: int, a2: int
+) : void = "mac#" // end-of-fun
+//
+extern
+fun
+StartIt_aft
+  (chn: channeg(ssdisj(ssrepeat(sstest2)))): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -131,34 +140,60 @@ StartIt() = let
 //
 val
 chn =
-channeg0_new_file("./test_server_dats_.js")
+channeg0_new_file("./test2_server_dats_.js")
 //
 val
 chn = $UN.castvwtp0{channeg(sstest3)}(chn)
 //
 in
 //
-channeg1_recv
-( chn, 0
-, lam(chn) =>
-  channeg1_send
-  ( chn
-  , lam(chn, a1) =>
-    channeg1_send
-    ( chn
-    , lam(chn, a2) =>
-      ReplyIt(chn, chmsg_parse(a1), chmsg_parse(a2))
-    )
-  )
-)
+channeg1_recv(chn, 0, lam(chn) => StartIt_aft(chn))
 //
 end // end of [Start_onclick]
 
 (* ****** ****** *)
 
 implement
+StartIt_aft
+  (chn) = let
+//
+val k0 =
+lam(chn: channeg_nil) =<cloref1>
+  let extvar "Started" = false in channeg1_close(chn) end
+//
+// (*
+implement
+channeg1_repeat_disj$fwork_tag<>
+  (tag) =
+(
+  alert("fwork_tag: tag = " + String(tag))
+)
+// *)
+//
+in
+//
+channeg1_repeat_disj
+(
+  chn, k0
+, lam(chn, k0) =>
+  channeg1_send
+  ( chn
+  , lam(chn, a1) =>
+    channeg1_send
+    ( chn
+    , lam(chn, a2) =>
+      ReplyIt(chn, k0, chmsg_parse(a1), chmsg_parse(a2))
+    )
+  )
+)
+//
+end // end of [StartIt_aft]
+
+(* ****** ****** *)
+
+implement
 ReplyIt
-  (chn, a1, a2) = let
+  (chn, k0, a1, a2) = let
 //
 val () =
   $extfcall(void, "theArg1_set", a1)
@@ -179,7 +214,7 @@ channeg1_recv
 , lam(chn) =>
   channeg1_send
   ( chn
-  , lam(chn, yn) => PostRep(chn, chmsg_parse(yn))
+  , lam(chn, yn) => PostRep(chn, k0, chmsg_parse(yn))
   )
 )
 //
@@ -197,12 +232,9 @@ end // end of [ReplyIt]
 (* ****** ****** *)
 
 implement
-PostRep(chn, yn) = let
-  val () =
-    channeg1_close(chn)
-  // end of [val]
+PostRep(chn, k0, yn) = let
 //
-  extvar "Started" = false;
+  val () = k0(chn)
 //
 in
   if yn
@@ -213,4 +245,4 @@ end // end of [PostRep]
 
 (* ****** ****** *)
 
-(* end of [test_client.dats] *)
+(* end of [test2_client.dats] *)

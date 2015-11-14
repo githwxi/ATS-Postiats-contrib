@@ -25,11 +25,11 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload
-"./../../SATS/Worker/channel.sats"
+"{$LIBATSCC2JS}/SATS/Worker/channel.sats"
 staload
-"./../../DATS/Worker/channel.dats"
+"{$LIBATSCC2JS}/DATS/Worker/channel.dats"
 #include
-"./../../DATS/Worker/channeg.dats"
+"{$LIBATSCC2JS}/DATS/Worker/channeg.dats"
 //
 (* ****** ****** *)
 
@@ -54,6 +54,14 @@ function
 theResult_set(value)
 {
   document.getElementById('theResult').value = value;
+}
+//
+function
+theArg1Arg2Result_clear()
+{
+  document.getElementById('theArg1').value = "";
+  document.getElementById('theArg2').value = "";
+  document.getElementById('theResult').value = "";
 }
 //
 %} // end of [%{^]
@@ -103,7 +111,7 @@ AnswerIt_do_set(fclo)
 (* ****** ****** *)
 //
 staload
-PROTOCOL = "./test_prot.sats"
+PROTOCOL = "./test3_prot.sats"
 //
 typedef sstest1 = $PROTOCOL.sstest1
 typedef sstest2 = $PROTOCOL.sstest2
@@ -118,11 +126,26 @@ StartIt(): void = "mac#"
 extern
 fun
 PostRep
-  (channeg(chnil), yn: bool): void = "mac#"
+(
+  channeg(chnil), k0: chncont0_nil, n: int, yn: bool
+) : void = "mac#" // end-of-fun
 extern
 fun
 ReplyIt
-  (channeg(sstest1), a1: int, a2: int): void = "mac#"
+(
+  channeg(sstest1), k0: chncont0_nil, n: int, a1: int, a2: int
+) : void = "mac#" // end-of-fun
+extern
+fun
+ReplyIt_repeat
+(
+  channeg(ssdisj(ssrepeat(sstest1))), k0: chncont0_nil, a1: int, a2: int
+) : void = "mac#" // end-of-fun
+//
+extern
+fun
+StartIt_aft
+  (chn: channeg(ssdisj(ssrepeat(sstest2)))): void
 //
 (* ****** ****** *)
 //
@@ -131,34 +154,63 @@ StartIt() = let
 //
 val
 chn =
-channeg0_new_file("./test_server_dats_.js")
+channeg0_new_file("./test3_server_dats_.js")
 //
 val
 chn = $UN.castvwtp0{channeg(sstest3)}(chn)
 //
 in
 //
-channeg1_recv
-( chn, 0
-, lam(chn) =>
-  channeg1_send
-  ( chn
-  , lam(chn, a1) =>
-    channeg1_send
-    ( chn
-    , lam(chn, a2) =>
-      ReplyIt(chn, chmsg_parse(a1), chmsg_parse(a2))
-    )
-  )
-)
+channeg1_recv(chn, 0, lam(chn) => StartIt_aft(chn))
 //
 end // end of [Start_onclick]
 
 (* ****** ****** *)
 
 implement
+StartIt_aft
+  (chn) = let
+//
+val k0 =
+lam(chn: channeg_nil) =<cloref1>
+  let extvar "Started" = false in channeg1_close(chn) end
+//
+implement
+channeg1_repeat_disj$fwork_tag<>
+  (tag) =
+(
+  if tag = 0 then
+  {
+    val () =
+    $extfcall(void, "theArg1Arg2Result_clear")
+    val () = alert("The session of multiplcation test is over!")
+  }
+)
+//
+in
+//
+channeg1_repeat_disj
+(
+  chn, k0
+, lam(chn, k0) =>
+  channeg1_send
+  ( chn
+  , lam(chn, a1) =>
+    channeg1_send
+    ( chn
+    , lam(chn, a2) =>
+      ReplyIt_repeat(chn, k0, chmsg_parse(a1), chmsg_parse(a2))
+    )
+  )
+)
+//
+end // end of [StartIt_aft]
+
+(* ****** ****** *)
+
+implement
 ReplyIt
-  (chn, a1, a2) = let
+  (chn, k0, n, a1, a2) = let
 //
 val () =
   $extfcall(void, "theArg1_set", a1)
@@ -179,7 +231,7 @@ channeg1_recv
 , lam(chn) =>
   channeg1_send
   ( chn
-  , lam(chn, yn) => PostRep(chn, chmsg_parse(yn))
+  , lam(chn, yn) => PostRep(chn, k0, n, chmsg_parse(yn))
   )
 )
 //
@@ -197,20 +249,45 @@ end // end of [ReplyIt]
 (* ****** ****** *)
 
 implement
-PostRep(chn, yn) = let
-  val () =
-    channeg1_close(chn)
-  // end of [val]
+PostRep(chn, k0, n, yn) = let
 //
-  extvar "Started" = false;
+  val () = k0(chn)
 //
 in
   if yn
     then alert("The replied answer is right :)")
-    else alert("The replied answer is wrong :(")
+    else (if n >= 3 then alert("The replied answer is wrong :("))
   // end of [if]
 end // end of [PostRep]
 
 (* ****** ****** *)
 
-(* end of [test_client.dats] *)
+implement
+ReplyIt_repeat
+  (chn, k0, a1, a2) = let
+//
+val N = ref{int}(0)
+//
+implement
+channeg1_repeat_disj$fwork_tag<>
+  (tag) = let
+  val n = N[]
+  val () = N[] := n + 1
+in
+  case+ tag of
+  | 0 => ()
+  | _ => if n > 0 then alert("Please try gain!")
+end // end of ...
+//
+in
+//
+channeg1_repeat_disj
+(
+  chn, k0, lam(chn, k0) => ReplyIt(chn, k0, N[], a1, a2)
+)
+//
+end (* end of [ReplyIt_repeat] *)
+
+(* ****** ****** *)
+
+(* end of [test3_client.dats] *)

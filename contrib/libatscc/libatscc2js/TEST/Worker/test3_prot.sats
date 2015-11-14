@@ -19,12 +19,14 @@ chnil(*sstest1*)
 typedef
 sstest2 =
 chsnd(int) ::
-chsnd(int) :: sstest1
+chsnd(int) ::
+ssdisj(ssrepeat(sstest1))
 //
 typedef
-sstest3 = chrcv(int) :: sstest2
+sstest3 =
+chrcv(int) :: ssdisj(ssrepeat(sstest2))
 //
 (* ****** ****** *)
 
-(* end of [test_prot.sats] *)
+(* end of [test3_prot.sats] *)
 
