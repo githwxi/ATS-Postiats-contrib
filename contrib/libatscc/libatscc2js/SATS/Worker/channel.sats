@@ -165,9 +165,14 @@ abstype ssdisj(ss:type)
 abstype ssdisj_nil and ssconj_nil
 //
 (* ****** ****** *)
+//
+abstype
+ssappend
+  (ss1:type, ss2:type)
+//
+(* ****** ****** *)
 
-abstype ssrepeat0(ss:type)
-abstype ssrepeat1(ss:type)
+abstype ssrepeat(ss:type)
 
 (* ****** ****** *)
 
@@ -186,6 +191,11 @@ chncont0(ss:type) = cfun1(channeg(ss), void)
 typedef
 chncont1(ss:type, a:t0p) = cfun2(channeg(ss), a, void)
 //
+(* ****** ****** *)
+
+typedef chpcont0_nil = chpcont0(chnil)
+typedef chncont0_nil = chncont0(chnil)
+
 (* ****** ****** *)
 //
 fun
@@ -220,8 +230,73 @@ channeg1_send
 //
 (* ****** ****** *)
 //
-fun chanpos1_close(chanpos(chnil)): void = "mac#%"
-fun channeg1_close(channeg(chnil)): void = "mac#%"
+vtypedef
+chanpos_nil = chanpos(chnil)
+vtypedef
+channeg_nil = channeg(chnil)
+//
+(* ****** ****** *)
+//
+fun chanpos1_close(chanpos_nil): void = "mac#%"
+fun channeg1_close(channeg_nil): void = "mac#%"
+//
+(* ****** ****** *)
+//
+typedef
+chanpos_nullify(ss:type) =
+  (chanpos(ss), chpcont0_nil) -<cloref1> void
+typedef
+channeg_nullify(ss:type) =
+  (channeg(ss), chncont0_nil) -<cloref1> void
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_append
+  {ss1,ss2:type}
+(
+  chanpos(ssappend(ss1,ss2)), k0: chpcont0_nil
+, fserv1: chanpos_nullify(ss1), fserv2: chanpos_nullify(ss2)
+) : void // end of [chanpos1_append]
+//
+fun{}
+channeg1_append
+  {ss1,ss2:type}
+(
+  channeg(ssappend(ss1,ss2)), k0: chncont0_nil
+, fserv1: channeg_nullify(ss1), fserv2: channeg_nullify(ss2)
+) : void // end of [channeg1_append]
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_repeat_conj
+  {ss:type}
+(
+  chanpos(ssrepeat(ss))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_repeat_conj]
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_repeat_disj
+  {ss:type}
+(
+  chanpos(ssrepeat(ss))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_repeat_disj]
+//
+fun{}
+channeg1_repeat_disj
+  {ss:type}
+(
+  channeg(ssrepeat(ss))
+, k0: chpcont0_nil, fserv: channeg_nullify(ss)
+) : void // end of [channeg1_repeat_disj]
+//
+fun{}
+chanpos1_repeat_disj$choose((*void*)): natLt(2)
 //
 (* ****** ****** *)
 

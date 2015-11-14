@@ -33,48 +33,47 @@ channeg_append
 //
 (* ****** ****** *)
 //
-abstype ssrepeat0(ss:type)
-abstype ssrepeat1(ss:type)
+abstype ssrepeat(ss:type)
 //
 (* ****** ****** *)
 //
 fun{}
-chanpos_repeat0_conj
+chanpos_repeat_conj
   {ss:type}
 (
-  chp: !chanpos(ssconj(ssrepeat0(ss))) >> chanpos(chnil)
+  chp: !chanpos(ssconj(ssrepeat(ss))) >> chanpos(chnil)
 , fserv: (!chanpos(ss) >> chanpos(chnil)) -<cloptr1> void
-) : void // end of [chanpos_repeat0_conj]
+) : void // end of [chanpos_repeat_conj]
 //
 fun{}
-channeg_repeat0_conj
+channeg_repeat_conj
   {ss:type}
 (
-  chp: !channeg(ssconj(ssrepeat0(ss))) >> channeg(chnil)
+  chp: !channeg(ssconj(ssrepeat(ss))) >> channeg(chnil)
 , fserv: (!channeg(ss) >> channeg(chnil)) -<cloptr1> void
-) : void // end of [channeg_repeat0_conj]
+) : void // end of [channeg_repeat_conj]
 //
 fun{}
-channeg_repeat0_conj$choose((*void*)): natLt(2)
+channeg_repeat_conj$choose((*void*)): natLt(2)
 //
 (* ****** ****** *)
 //
 fun{}
-chanpos_repeat0_disj{ss:type}
+chanpos_repeat_disj{ss:type}
 (
-  chp: !chanpos(ssdisj(ssrepeat0(ss))) >> chanpos(chnil)
+  chp: !chanpos(ssdisj(ssrepeat(ss))) >> chanpos(chnil)
 , fserv: (!chanpos(ss) >> chanpos(chnil)) -<cloptr1> void
-) : void // end of [chanpos_repeat0_disj]
+) : void // end of [chanpos_repeat_disj]
 //
 fun{}
-chanpos_repeat0_disj$choose((*void*)): natLt(2)
+chanpos_repeat_disj$choose((*void*)): natLt(2)
 //
 fun{}
-channeg_repeat0_disj{ss:type}
+channeg_repeat_disj{ss:type}
 (
-  chp: !channeg(ssdisj(ssrepeat0(ss))) >> channeg(chnil)
+  chp: !channeg(ssdisj(ssrepeat(ss))) >> channeg(chnil)
 , fserv: (!channeg(ss) >> channeg(chnil)) -<cloptr1> void
-) : void // end of [channeg_repeat0_disj]
+) : void // end of [channeg_repeat_disj]
 //
 (* ****** ****** *)
 

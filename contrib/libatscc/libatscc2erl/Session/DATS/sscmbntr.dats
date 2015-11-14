@@ -89,7 +89,7 @@ end // end of [channeg_append]
 
 implement
 {}(*tmp*)
-chanpos_repeat0_conj
+chanpos_repeat_conj
   (chp, fserv) =
   loop(chp, fserv) where
 {
@@ -97,7 +97,7 @@ chanpos_repeat0_conj
 typedef
 loop =
 $d2ctype
-  (chanpos_repeat0_conj<>)
+  (chanpos_repeat_conj<>)
 //
 fun
 loop: loop =
@@ -132,13 +132,13 @@ case+ tag0 of
 //
 end // end of [loop]
 //
-} (* end of [chanpos_repeat0_conj] *)
+} (* end of [chanpos_repeat_conj] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-channeg_repeat0_conj
+channeg_repeat_conj
   (chn, fserv) =
   loop(chn, fserv) where
 {
@@ -146,7 +146,7 @@ channeg_repeat0_conj
 typedef
 loop =
 $d2ctype
-  (channeg_repeat0_conj<>)
+  (channeg_repeat_conj<>)
 //
 fun
 loop: loop =
@@ -155,7 +155,7 @@ lam(chn, fserv) => let
     $UN.castvwtp1{channeg()}(chn)
   // end of [val]
   val tag0 =
-    channeg_repeat0_conj$choose()
+    channeg_repeat_conj$choose()
   // end of [val]
   val ((*void*)) = 
     $CHAN0.channeg0_recv{int}(chn0, tag0)
@@ -184,13 +184,13 @@ case+ tag0 of
 //
 end // end of [loop]
 //
-} (* end of [channeg_repeat0_conj] *)
+} (* end of [channeg_repeat_conj] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-chanpos_repeat0_disj
+chanpos_repeat_disj
   (chp, fserv) =
   loop(chp, fserv) where
 {
@@ -198,7 +198,7 @@ chanpos_repeat0_disj
 typedef
 loop =
 $d2ctype
-  (chanpos_repeat0_disj<>)
+  (chanpos_repeat_disj<>)
 //
 fun
 loop: loop =
@@ -207,7 +207,7 @@ lam(chp, fserv) => let
     $UN.castvwtp1{chanpos()}(chp)
   // end of [val]
   val tag0 =
-    chanpos_repeat0_disj$choose()
+    chanpos_repeat_disj$choose()
   // end of [val]
   val ((*void*)) = 
     $CHAN0.chanpos0_send{int}(chp0, tag0)
@@ -236,13 +236,13 @@ case+ tag0 of
 //
 end // end of [loop]
 //
-} (* end of [chanpos_repeat0_disj] *)
+} (* end of [chanpos_repeat_disj] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-channeg_repeat0_disj
+channeg_repeat_disj
   (chn, fserv) =
   loop(chn, fserv) where
 {
@@ -250,7 +250,7 @@ channeg_repeat0_disj
 typedef
 loop =
 $d2ctype
-  (channeg_repeat0_disj<>)
+  (channeg_repeat_disj<>)
 //
 fun
 loop: loop =
@@ -285,7 +285,7 @@ case+ tag0 of
 //
 end // end of [loop]
 //
-} (* end of [channeg_repeat0_disj] *)
+} (* end of [channeg_repeat_disj] *)
 
 (* ****** ****** *)
 

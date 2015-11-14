@@ -137,5 +137,84 @@ rpc_server_cont(chp, fopr) = chanpos0_close(chp)
 *)
 //
 (* ****** ****** *)
+//
+(*
+fun{}
+chanpos1_append
+  {ss1,ss2:type}
+(
+  chanpos(ssappend(ss1,ss2)), k0: chpcont0_nil
+, fserv1: chanpos_nullify(ss1), fserv2: chanpos_nullify(ss2)
+) : void // end of [chanpos1_append]
+*)
+//
+implement
+{}(*tmp*)
+chanpos1_append
+  {ss1,ss2}
+(
+  chp, k0, fserv1, fserv2
+) = (
+//
+fserv1
+(
+  $UN.castvwtp0{chanpos(ss1)}(chp)
+, $UN.castvwtp0{chpcont0_nil}(lam(chp:chanpos(ss2)) => fserv2(chp, k0))
+) (* end of [fserv1] *)
+//
+) (* end of [chanpos1_append] *)
+//
+(* ****** ****** *)
+(*
+//
+fun{}
+chanpos1_repeat_disj
+  {ss:type}
+(
+  chanpos(ssrepeat(ss))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_repeat_disj]
+//
+*)
+//
+implement
+{}(*tmp*)
+chanpos1_repeat_disj
+  {ss}(chp, k0, fserv) = let
+//
+typedef
+loop =
+$d2ctype
+  (chanpos1_repeat_disj<>)
+//
+fun
+loop: loop =
+lam(chp, k0, fserv) => let
+  val chp0 =
+    $UN.castvwtp0{chanpos()}(chp)
+  val tag0 =
+    chanpos1_repeat_disj$choose()
+  // end of [val]
+in
+//
+case+
+tag0 of
+| 0 =>
+  chanpos0_send{int}(chp0, tag0, $UN.cast{chpcont0()}(k0))
+| 1 =>
+  chanpos0_send{int}
+  (
+    chp0, tag0
+  , lam(chp0) =>
+      fserv($UN.castvwtp0(chp0), lam(chp) => loop($UN.castvwtp0(chp), k0, fserv))
+  ) (* end of [1] *)
+//
+end // end of [loop]
+//
+in
+  loop(chp, k0, fserv)
+end // end of [chanpos1_repeat_disj]]
+//
+(* ****** ****** *)
 
 (* end of [chanpos.dats] *)
