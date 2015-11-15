@@ -5,13 +5,11 @@
 ######
 
 SUBDIRS :=
-SUBDIRS += contrib
-SUBDIRS += projects
-SUBDIRS += document
+SUBDIRS += EXAMPLE/CA-HSR2
 
 ######
 #
-testall: ; \
+testall:: ; \
 for i in $(SUBDIRS); \
   do $(MAKE) -C $$i -f Makefile_test testall; done
 #
