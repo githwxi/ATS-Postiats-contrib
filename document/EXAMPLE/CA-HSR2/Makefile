@@ -74,6 +74,12 @@ cleanall:: ; $(RMF) program-1-14.exe
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) *_?ats.c
