@@ -152,6 +152,92 @@ fserv1
 //
 (*
 fun{}
+channeg1_option_conj
+  {ss:type}
+(
+  channeg(ssconj(ssoption(ss)))
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
+) : void // end of [channeg1_option_conj]
+*)
+//
+implement
+{}(*tmp*)
+channeg1_option_conj
+  {ss}(chn, k0, fserv) = let
+//
+val chn0 = $UN.castvwtp0{channeg()}(chn)
+val tag0 = channeg1_option_conj$choose()
+val ((*void*)) = channeg1_option_conj$fwork_tag(tag0)
+//
+in
+//
+case+
+tag0 of
+| 0 =>
+  channeg0_recv{int}(chn0, tag0, $UN.cast{chncont0()}(k0))
+| 1 =>
+  channeg0_recv{int}
+  (
+    chn0, tag0, lam(chn0) => fserv($UN.castvwtp0(chn0), k0)
+  ) (* end of [1] *)
+//
+end // end of [channeg1_option_conj]]
+//
+(* ****** ****** *)
+//
+(*
+fun{}
+channeg1_option_disj
+  {ss:type}
+(
+  channeg(ssoption(ss))
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
+) : void // end of [channeg1_option_disj]
+*)
+//
+implement
+{}(*tmp*)
+channeg1_option_disj
+  {ss}(chn, k0, fserv) = let
+//
+val chn0 = $UN.castvwtp0{channeg()}(chn)
+//
+in
+//
+channeg0_send
+  {int}
+(
+  chn0
+, lam(chn0, tag0) => let
+    val tag0 =
+      chmsg_parse<int>(tag0)
+    // end of [val]
+    val ((*void*)) =
+      channeg1_option_disj$fwork_tag(tag0)
+    // end of [val]
+  in
+    case+ tag0 of
+    | 0 => k0($UN.castvwtp0(chn0))
+    | _ => fserv($UN.castvwtp0(chn0), k0)
+  end // end of [lam]
+) (* end of [channeg0_send] *)
+//
+end // end of [channeg1_option_disj]
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+channeg1_option_conj$fwork_tag(tag) = () // nothing is done by default
+//
+implement
+{}(*tmp*)
+channeg1_option_disj$fwork_tag(tag) = () // nothing is done by default
+//
+(* ****** ****** *)
+//
+(*
+fun{}
 channeg1_repeat_conj
   {ss:type}
 (
@@ -210,7 +296,7 @@ channeg1_repeat_disj
   {ss:type}
 (
   channeg(ssrepeat(ss))
-, k0: chpcont0_nil, fserv: channeg_nullify(ss)
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_repeat_disj]
 *)
 //

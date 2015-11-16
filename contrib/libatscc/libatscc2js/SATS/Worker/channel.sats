@@ -154,6 +154,10 @@ abstype chcons(a:type, ss:type)
 stadef :: = chcons
 //
 (* ****** ****** *)
+
+stadef chsing(x:type) = chcons(x, chnil)
+
+(* ****** ****** *)
 //
 (*
 abstype ssnot(ss:type)
@@ -172,6 +176,7 @@ ssappend
 //
 (* ****** ****** *)
 
+abstype ssoption(ss:type)
 abstype ssrepeat(ss:type)
 
 (* ****** ****** *)
@@ -266,6 +271,54 @@ channeg1_append
   channeg(ssappend(ss1,ss2)), k0: chncont0_nil
 , fserv1: channeg_nullify(ss1), fserv2: channeg_nullify(ss2)
 ) : void // end of [channeg1_append]
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_option_conj
+  {ss:type}
+(
+  chanpos(ssconj(ssoption(ss)))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_option_conj]
+fun{}
+channeg1_option_conj
+  {ss:type}
+(
+  channeg(ssconj(ssoption(ss)))
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
+) : void // end of [channeg1_option_conj]
+//
+fun{}
+channeg1_option_conj$choose((*void*)): natLt(2)
+fun{}
+chanpos1_option_conj$fwork_tag(tag: int): void
+fun{}
+channeg1_option_conj$fwork_tag(tag: int): void
+//
+(* ****** ****** *)
+
+fun{}
+chanpos1_option_disj
+  {ss:type}
+(
+  chanpos(ssdisj(ssoption(ss)))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_option_disj]
+fun{}
+channeg1_option_disj
+  {ss:type}
+(
+  channeg(ssdisj(ssoption(ss)))
+, k0: chncont0_nil, fserv: channeg_nullify(ss)
+) : void // end of [channeg1_option_disj]
+//
+fun{}
+chanpos1_option_disj$choose((*void*)): natLt(2)
+fun{}
+chanpos1_option_disj$fwork_tag(tag: int): void
+fun{}
+channeg1_option_disj$fwork_tag(tag: int): void
 //
 (* ****** ****** *)
 //
