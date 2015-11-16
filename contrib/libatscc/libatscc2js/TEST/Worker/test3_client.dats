@@ -276,7 +276,7 @@ channeg1_repeat_disj$fwork_tag<>
 in
   case+ tag of
   | 0 => ()
-  | _ => if n > 0 then alert("Please try gain!")
+  | _ => if n > 0 then alert("Please try again!")
 end // end of ...
 //
 in
