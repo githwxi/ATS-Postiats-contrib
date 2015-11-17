@@ -175,7 +175,7 @@ case+
 tag0 of
 | 0 =>
   channeg0_recv{int}(chn0, tag0, $UN.cast{chncont0()}(k0))
-| 1 =>
+| _ =>
   channeg0_recv{int}
   (
     chn0, tag0, lam(chn0) => fserv($UN.castvwtp0(chn0), k0)
@@ -273,7 +273,7 @@ case+
 tag0 of
 | 0 =>
   channeg0_recv{int}(chn0, tag0, $UN.cast{chncont0()}(k0))
-| 1 =>
+| _ =>
   channeg0_recv{int}
   (
     chn0, tag0

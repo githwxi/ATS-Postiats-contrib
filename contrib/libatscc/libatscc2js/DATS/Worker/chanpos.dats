@@ -332,7 +332,7 @@ case+
 tag0 of
 | 0 =>
   chanpos0_send{int}(chp0, tag0, $UN.cast{chpcont0()}(k0))
-| 1 =>
+| _ =>
   chanpos0_send{int}
   (
     chp0, tag0
