@@ -46,9 +46,14 @@ abstype ssdisj_nil and ssconj_nil
 //
 (* ****** ****** *)
 //
-absvtype
-chanpos(type) = ptr and channeg(type) = ptr
+absvtype chanpos(type) = ptr
+absvtype channeg(type) = ptr
 //
+(* ****** ****** *)
+
+vtypedef chanpos_nil = chanpos(chnil)
+vtypedef channeg_nil = channeg(chnil)
+
 (* ****** ****** *)
 //
 (*

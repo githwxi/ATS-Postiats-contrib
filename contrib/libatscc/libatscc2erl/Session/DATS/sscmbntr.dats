@@ -108,18 +108,23 @@ lam(chp, fserv) => let
   val tag0 =
     $CHAN0.chanpos0_recv{natLt(2)}(chp0)
   // end of [val]
+  val ((*void*)) =
+    chanpos_repeat_conj$fwork_tag<>(tag0)
+  // end of [val]
 in
 //
 case+ tag0 of
+//
 | 0 => let
     prval () =
       $UN.cast2void(chp0)
     prval () =
-      $UN.castvwtp2void{chanpos(chnil)}(chp)
+      $UN.castvwtp2void{chanpos_nil}(chp)
     // end of [val]
   in
     cloptr_free($UN.castvwtp0{cloptr(void)}(fserv))
   end // end of [0]
+//
 | 1 => let
     val chp1 =
       $UN.castvwtp0(chp0)
@@ -157,21 +162,29 @@ lam(chn, fserv) => let
   val tag0 =
     channeg_repeat_conj$choose()
   // end of [val]
+  val ((*void*)) =
+    channeg_repeat_conj$fwork_tag<>(tag0)
+  // end of [val]
   val ((*void*)) = 
     $CHAN0.channeg0_recv{int}(chn0, tag0)
   // end of [val]
 in
 //
 case+ tag0 of
+//
 | 0 => let
     prval () =
       $UN.cast2void(chn0)
     prval () =
-      $UN.castvwtp2void{channeg(chnil)}(chn)
+      $UN.castvwtp2void{channeg_nil}(chn)
+    // end of [val]
+    val ((*void*)) =
+      channeg_repeat_conj$fwork_tag<>(tag0)
     // end of [val]
   in
     cloptr_free($UN.castvwtp0{cloptr(void)}(fserv))
   end // end of [0]
+//
 | 1 => let
     val chn1 =
       $UN.castvwtp0(chn0)
@@ -186,6 +199,15 @@ end // end of [loop]
 //
 } (* end of [channeg_repeat_conj] *)
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+chanpos_repeat_conj$fwork_tag(tag0) = ()
+implement
+{}(*tmp*)
+channeg_repeat_conj$fwork_tag(tag0) = ()
+//
 (* ****** ****** *)
 
 implement
@@ -209,6 +231,9 @@ lam(chp, fserv) => let
   val tag0 =
     chanpos_repeat_disj$choose()
   // end of [val]
+  val ((*void*)) =
+    chanpos_repeat_disj$fwork_tag<>(tag0)
+  // end of [val]
   val ((*void*)) = 
     $CHAN0.chanpos0_send{int}(chp0, tag0)
   // end of [val]
@@ -219,7 +244,7 @@ case+ tag0 of
     prval () =
       $UN.cast2void(chp0)
     prval () =
-      $UN.castvwtp2void{chanpos(chnil)}(chp)
+      $UN.castvwtp2void{chanpos_nil}(chp)
     // end of [val]
   in
     cloptr_free($UN.castvwtp0{cloptr(void)}(fserv))
@@ -261,6 +286,9 @@ lam(chn, fserv) => let
   val tag0 =
     $CHAN0.channeg0_send{natLt(2)}(chn0)
   // end of [val]
+  val ((*void*)) =
+    channeg_repeat_disj$fwork_tag<>(tag0)
+  // end of [val]
 in
 //
 case+ tag0 of
@@ -268,7 +296,7 @@ case+ tag0 of
     prval () =
       $UN.cast2void(chn0)
     prval () =
-      $UN.castvwtp2void{channeg(chnil)}(chn)
+      $UN.castvwtp2void{channeg_nil}(chn)
     // end of [val]
   in
     cloptr_free($UN.castvwtp0{cloptr(void)}(fserv))
@@ -287,6 +315,15 @@ end // end of [loop]
 //
 } (* end of [channeg_repeat_disj] *)
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+chanpos_repeat_disj$fwork_tag(tag0) = ()
+implement
+{}(*tmp*)
+channeg_repeat_disj$fwork_tag(tag0) = ()
+//
 (* ****** ****** *)
 
 (* end of [sscmbntr.dats] *)
