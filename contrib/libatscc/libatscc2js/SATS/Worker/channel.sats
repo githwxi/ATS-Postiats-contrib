@@ -345,6 +345,9 @@ chanpos1_repeat_conj$fwork_tag(tag: int): void
 fun{}
 channeg1_repeat_conj$fwork_tag(tag: int): void
 //
+fun{}
+channeg1_repeat_conj$spawn(() -<lincloptr1> void): void
+//
 (* ****** ****** *)
 //
 fun{}

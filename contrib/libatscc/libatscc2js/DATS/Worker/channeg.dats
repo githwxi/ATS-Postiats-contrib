@@ -278,14 +278,17 @@ tag0 of
   (
     chn0, tag0
   , lam(chn0) =>
-      fserv($UN.castvwtp0(chn0), lam(chn) => loop($UN.castvwtp0(chn), k0, fserv))
+    fserv (
+      $UN.castvwtp0(chn0)
+    , lam(chn) => channeg1_repeat_conj$spawn(llam() => loop($UN.castvwtp0(chn), k0, fserv))
+    ) (*fserv*)
     // end of [lam]
   ) (* end of [1] *)
 //
 end // end of [loop]
 //
 in
-  loop(chn, k0, fserv)
+  channeg1_repeat_conj$spawn(llam() => loop(chn, k0, fserv))
 end // end of [channeg1_repeat_conj]]
 //
 (* ****** ****** *)
