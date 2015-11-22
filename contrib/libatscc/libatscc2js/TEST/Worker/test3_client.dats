@@ -32,6 +32,22 @@ staload
 "{$LIBATSCC2JS}/DATS/Worker/channeg.dats"
 //
 (* ****** ****** *)
+//
+extern
+fun
+theOutput_show(string): void = "mac#"
+//
+%{^
+//
+function
+theOutput_show(msg)
+{
+  document.getElementById('theOutput_text').innerHTML = msg;
+}
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
 
 %{^
 //
@@ -78,7 +94,10 @@ Start_onclick()
 {
   if (!Started)
   {
-    Started = true; return StartIt();
+    Started = true;
+    theOutput_show(
+      "The multiplication test is still in progress..."
+    ); return StartIt();
   } else
   {
     alert ('The session is in progress!'); return;
@@ -163,7 +182,7 @@ in
 //
 channeg1_recv(chn, 0, lam(chn) => StartIt_aft(chn))
 //
-end // end of [Start_onclick]
+end // end of [StartIt]
 
 (* ****** ****** *)
 
@@ -183,7 +202,8 @@ channeg1_repeat_disj$fwork_tag<>
   {
     val () =
     $extfcall(void, "theArg1Arg2Result_clear")
-    val () = alert("The session of multiplcation test is over!")
+    val () =
+    theOutput_show("The session of multiplication test is over!")
   }
 )
 //

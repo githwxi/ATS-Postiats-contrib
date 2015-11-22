@@ -130,6 +130,11 @@ ats2jspre_toString(obj) { return obj.toString(); }
 /* ****** ****** */
 
 function
+ats2jspre_console_log(obj) { return console.log(obj); }
+
+/* ****** ****** */
+
+function
 ats2jspre_lazy2cloref(lazyval) { return lazyval[1]; }
 
 /* ****** ****** */

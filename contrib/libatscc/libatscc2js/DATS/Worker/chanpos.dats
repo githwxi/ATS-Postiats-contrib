@@ -240,6 +240,16 @@ tag0 of
 end // end of [chanpos1_option_disj]]
 //
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+chanpos1_option_conj$fwork_tag(tag) = () // nothing is done by default
+//
+implement
+{}(*tmp*)
+chanpos1_option_disj$fwork_tag(tag) = () // nothing is done by default
+//
+(* ****** ****** *)
 (*
 fun{}
 chanpos1_repeat_conj

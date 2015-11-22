@@ -74,8 +74,14 @@ fun typeof{a:t@ype}(a): string = "mac#%"
 // HX-2014-09:
 // it returns obj.toString()
 //
-fun toString{a:t@ype}(obj: a): string = "mac#%"
+fun
+toString{a:t@ype}(obj: a): string = "mac#%"
 //
+(* ****** ****** *)
+
+fun
+console_log{a:t@ype}(obj: a): string = "mac#%"
+
 (* ****** ****** *)
 //
 fun

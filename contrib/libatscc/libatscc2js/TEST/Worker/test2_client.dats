@@ -33,7 +33,15 @@ staload
 //
 (* ****** ****** *)
 
+extern
+fun console_log(string): void = "mac#"
+
+(* ****** ****** *)
+
 %{^
+//
+function
+console_log(x) { return console.log(x); }
 //
 function
 theArg1_set(a1)
@@ -166,7 +174,7 @@ implement
 channeg1_repeat_disj$fwork_tag<>
   (tag) =
 (
-  alert("fwork_tag: tag = " + String(tag))
+  console_log("fwork_tag: tag = " + String(tag))
 )
 // *)
 //
