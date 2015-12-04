@@ -35,6 +35,9 @@ all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | \
 $(ATSCC2JS) -o ./output/DATS/stream_dats.js -i
 all:: ; \
+$(PATSOPT) -d ./DATS/gvalue.dats | \
+$(ATSCC2JS) -o ./output/DATS/gvalue_dats.js -i
+all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | \
 $(ATSCC2JS) -o ./output/DATS/intrange_dats.js -i
 #
@@ -86,6 +89,7 @@ CATS/integer_cats.js \
 CATS/bool_cats.js \
 CATS/float_cats.js \
 CATS/string_cats.js \
+CATS/gvalue_cats.js \
 CATS/JSmath_cats.js \
 CATS/JSdate_cats.js \
 CATS/JSarray_cats.js \
@@ -99,6 +103,7 @@ output/DATS/basics_dats.js \
 output/DATS/list_dats.js \
 output/DATS/option_dats.js \
 output/DATS/stream_dats.js \
+output/DATS/gvalue_dats.js \
 output/DATS/intrange_dats.js \
 output/DATS/reference_dats.js \
 output/DATS/arrayref_dats.js \

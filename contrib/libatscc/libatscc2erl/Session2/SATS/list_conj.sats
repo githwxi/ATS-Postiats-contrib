@@ -18,39 +18,42 @@ staload "./basis.sats"
 //
 (*
 datatype
-sslist (a:vt@ype) =
-| sslist_nil of (chnil)
-| sslist_cons of (chsnd(a)::ssconj(sslist(a)))
+list (a:vt@ype) =
+| list_nil of (chnil)
+| list_cons of
+    (chsnd(a)::ssconj(list(a)))
+  // list_cons
 *)
 //
-abstype list_conj(a:vt@ype)
+abstype
+list_conj(a:vt@ype) // = ssconj(list(a))
 //
 (* ****** ****** *)
 //
 datatype
-chanpos_sslist
+chanpos_list
   (a:vt@ype, type) =
-| chanpos_sslist_nil(a, chnil) of ()
-| chanpos_sslist_cons(a, chsnd(a)::list_conj(a)) of ()
+| chanpos_list_nil(a, chnil) of ()
+| chanpos_list_cons(a, chsnd(a)::list_conj(a)) of ()
 //
 (* ****** ****** *)
 //
 fun
-chanpos_sslist{a:vt0p}
+chanpos_list{a:vt0p}
 (
   !chanpos(list_conj(a)) >> chanpos(ss)
-) : #[ss:type] chanpos_sslist(a, ss) = "mac#%"
+) : #[ss:type] chanpos_list(a, ss) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-channeg_sslist_nil
+channeg_list_nil
   {a:vt0p}
 (
   !channeg(list_conj(a)) >> channeg(chnil)
 ) : void = "mac#%" // end-of-function
 fun
-channeg_sslist_cons
+channeg_list_cons
   {a:vt0p}
 (
   !channeg(list_conj(a)) >> channeg(chsnd(a)::list_conj(a))
@@ -59,7 +62,7 @@ channeg_sslist_cons
 (* ****** ****** *)
 
 fun
-channeg_sslist_nil_close{a:vt0p}(channeg(list_conj(a))): void
+channeg_list_nil_close{a:vt0p}(channeg(list_conj(a))): void
 
 (* ****** ****** *)
 

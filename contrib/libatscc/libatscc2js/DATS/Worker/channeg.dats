@@ -165,9 +165,12 @@ implement
 channeg1_option_conj
   {ss}(chn, k0, fserv) = let
 //
-val chn0 = $UN.castvwtp0{channeg()}(chn)
-val tag0 = channeg1_option_conj$choose()
-val ((*void*)) = channeg1_option_conj$fwork_tag(tag0)
+val chn0 =
+  $UN.castvwtp0{channeg()}(chn)
+val tag0 =
+  channeg1_option_conj$choose()
+val ((*void*)) =
+  channeg1_option_conj$fwork_tag<>(tag0)
 //
 in
 //
@@ -213,7 +216,7 @@ channeg0_send
       chmsg_parse<int>(tag0)
     // end of [val]
     val ((*void*)) =
-      channeg1_option_disj$fwork_tag(tag0)
+      channeg1_option_disj$fwork_tag<>(tag0)
     // end of [val]
   in
     case+ tag0 of
@@ -265,7 +268,7 @@ lam(chn, k0, fserv) => let
     channeg1_repeat_conj$choose()
   // end of [val]
   val ((*void*)) =
-    channeg1_repeat_conj$fwork_tag(tag0)
+    channeg1_repeat_conj$fwork_tag<>(tag0)
   // end of [val]
 in
 //
@@ -330,7 +333,7 @@ channeg0_send
       chmsg_parse<int>(tag0)
     // end of [val]
     val ((*void*)) =
-      channeg1_repeat_disj$fwork_tag(tag0)
+      channeg1_repeat_disj$fwork_tag<>(tag0)
     // end of [val]
   in
     case+ tag0 of

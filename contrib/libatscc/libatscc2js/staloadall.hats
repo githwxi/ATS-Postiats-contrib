@@ -21,6 +21,8 @@ staload "./SATS/bool.sats"
 staload "./SATS/float.sats"
 staload "./SATS/string.sats"
 //
+staload "./SATS/gvalue.sats"
+//
 (* ****** ****** *)
 //
 staload "./SATS/list.sats"

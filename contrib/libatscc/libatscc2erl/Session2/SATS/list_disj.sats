@@ -28,36 +28,36 @@ abstype list_disj(a:vt@ype)
 (* ****** ****** *)
 //
 datatype
-channeg_sslist
+channeg_list
   (a:vt@ype, type) =
-| channeg_sslist_nil(a, chnil) of ()
-| channeg_sslist_cons(a, chsnd(a)::list_disj(a)) of ()
+| channeg_list_nil(a, chnil) of ()
+| channeg_list_cons(a, chsnd(a)::list_disj(a)) of ()
 //
 (* ****** ****** *)
 //
 fun
-chanpos_sslist_nil
+chanpos_list_nil
   {a:vt0p}
 (
   !chanpos(list_disj(a)) >> chanpos(chnil)
-) : void = "mac#%" // end of [chanpos_sslist_nil]
+) : void = "mac#%" // end of [chanpos_list_nil]
 fun
-chanpos_sslist_cons
+chanpos_list_cons
   {a:vt0p}
 (
   !chanpos(list_disj(a)) >> chanpos(chsnd(a)::list_disj(a))
-) : void = "mac#%" // end of [chanpos_sslist_cons]
+) : void = "mac#%" // end of [chanpos_list_cons]
 //
 (* ****** ****** *)
 //
 fun
-chanpos_sslist_nil_wait{a:vt0p}(chp: chanpos(list_disj(a))): void
+chanpos_list_nil_wait{a:vt0p}(chp: chanpos(list_disj(a))): void
 //
 (* ****** ****** *)
 //
 fun
-channeg_sslist{a:vt0p}
-  (!channeg(list_disj(a)) >> channeg(ss)): #[ss:type] channeg_sslist(a, ss) = "mac#%"
+channeg_list{a:vt0p}
+  (!channeg(list_disj(a)) >> channeg(ss)): #[ss:type] channeg_list(a, ss) = "mac#%"
 //
 (* ****** ****** *)
 //

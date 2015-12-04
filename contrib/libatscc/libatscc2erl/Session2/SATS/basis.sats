@@ -206,8 +206,6 @@ chansrvc2_register
 //
 abstype ssnot(ss:type)
 //
-(* ****** ****** *)
-//
 abstype
 ssdisj(ss:type) and ssdisj_nil 
 abstype

@@ -333,6 +333,12 @@ lam(chp, k0, fserv) => let
   val tag0 =
     chanpos1_repeat_disj$choose()
   // end of [val]
+(*
+  val () = console_log
+  (
+    "chanpos1_repeat_disj: loop: tag0 = " + String(tag0)
+  )
+*)
   val ((*void*)) =
     chanpos1_repeat_disj$fwork_tag(tag0)
   // end of [val]

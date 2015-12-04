@@ -44,6 +44,11 @@ staload
 "libats/ML/SATS/basis.sats"
 //
 (* ****** ****** *)
+
+stadef cfun0 = cfun0
+stadef cfun1 = cfun1
+
+(* ****** ****** *)
 //
 abstype
 chmsg_type(a:t@ype+)
@@ -163,6 +168,8 @@ stadef chsing(x:type) = chcons(x, chnil)
 abstype ssnot(ss:type)
 *)
 //
+(* ****** ****** *)
+//
 abstype ssconj(ss:type)
 abstype ssdisj(ss:type)
 //
@@ -171,14 +178,37 @@ abstype ssdisj_nil and ssconj_nil
 (* ****** ****** *)
 //
 abstype
-ssappend
-  (ss1:type, ss2:type)
+ssappend(ss1:type, ss2:type)
 //
 (* ****** ****** *)
-
+//
 abstype ssoption(ss:type)
+//
+typedef
+ssoption_conj
+  (ss:type) = ssconj(ssoption(ss))
+typedef
+ssoption_disj
+  (ss:type) = ssdisj(ssoption(ss))
+//
+(* ****** ****** *)
+//
 abstype ssrepeat(ss:type)
-
+//
+typedef
+ssrepeat_conj
+  (ss:type) = ssconj(ssrepeat(ss))
+typedef
+ssrepeat_disj
+  (ss:type) = ssdisj(ssrepeat(ss))
+//
+(* ****** ****** *)
+//
+abstype
+sschoose_conj(ss1:type, ss2:type)
+abstype
+sschoose_disj(ss1:type, ss2:type)
+//
 (* ****** ****** *)
 
 absvtype chanpos(ss:type)
@@ -247,6 +277,17 @@ fun channeg1_close(channeg_nil): void = "mac#%"
 //
 (* ****** ****** *)
 //
+(*
+overload channel1_send with chanpos1_send
+overload channel1_recv with chanpos1_recv
+overload channel1_send with channeg1_recv
+overload channel1_recv with channeg1_send
+overload channel1_close with chanpos1_close
+overload channel1_close with channeg1_close
+*)
+//
+(* ****** ****** *)
+//
 typedef
 chanpos_nullify(ss:type) =
   (chanpos(ss), chpcont0_nil) -<cloref1> void
@@ -278,14 +319,14 @@ fun{}
 chanpos1_option_conj
   {ss:type}
 (
-  chanpos(ssconj(ssoption(ss)))
+  chanpos(ssoption_conj(ss))
 , k0: chpcont0_nil, fserv: chanpos_nullify(ss)
 ) : void // end of [chanpos1_option_conj]
 fun{}
 channeg1_option_conj
   {ss:type}
 (
-  channeg(ssconj(ssoption(ss)))
+  channeg(ssoption_conj(ss))
 , k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_option_conj]
 //
@@ -302,14 +343,14 @@ fun{}
 chanpos1_option_disj
   {ss:type}
 (
-  chanpos(ssdisj(ssoption(ss)))
+  chanpos(ssoption_disj(ss))
 , k0: chpcont0_nil, fserv: chanpos_nullify(ss)
 ) : void // end of [chanpos1_option_disj]
 fun{}
 channeg1_option_disj
   {ss:type}
 (
-  channeg(ssdisj(ssoption(ss)))
+  channeg(ssoption_disj(ss))
 , k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_option_disj]
 //
@@ -326,7 +367,7 @@ fun{}
 chanpos1_repeat_conj
   {ss:type}
 (
-  chanpos(ssconj(ssrepeat(ss)))
+  chanpos(ssrepeat_conj(ss))
 , k0: chpcont0_nil, fserv: chanpos_nullify(ss)
 ) : void // end of [chanpos1_repeat_conj]
 //
@@ -334,7 +375,7 @@ fun{}
 channeg1_repeat_conj
   {ss:type}
 (
-  channeg(ssconj(ssrepeat(ss)))
+  channeg(ssrepeat_conj(ss))
 , k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_repeat_conj]
 //
@@ -354,7 +395,7 @@ fun{}
 chanpos1_repeat_disj
   {ss:type}
 (
-  chanpos(ssdisj(ssrepeat(ss)))
+  chanpos(ssrepeat_disj(ss))
 , k0: chpcont0_nil, fserv: chanpos_nullify(ss)
 ) : void // end of [chanpos1_repeat_disj]
 //
@@ -362,7 +403,7 @@ fun{}
 channeg1_repeat_disj
   {ss:type}
 (
-  channeg(ssdisj(ssrepeat(ss)))
+  channeg(ssrepeat_disj(ss))
 , k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_repeat_disj]
 //
@@ -372,6 +413,56 @@ fun{}
 chanpos1_repeat_disj$fwork_tag(tag: int): void
 fun{}
 channeg1_repeat_disj$fwork_tag(tag: int): void
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_choose_conj
+  {ss1,ss2:type}
+(
+  chanpos(sschoose_conj(ss1,ss2))
+, k0: chpcont0_nil, f1: chanpos_nullify(ss1), f2: chanpos_nullify(ss2)
+) : void // end of [chanpos1_choose_conj]
+//
+fun{}
+channeg1_choose_conj
+  {ss1,ss2:type}
+(
+  channeg(sschoose_conj(ss1,ss2))
+, k0: chncont0_nil, f1: channeg_nullify(ss1), f2: channeg_nullify(ss2)
+) : void // end of [channeg1_choose_cons]
+//
+fun{}
+channeg1_choose_conj$choose((*void*)): natLt(2)
+fun{}
+chanpos1_choose_conj$fwork_tag(tag: int): void
+fun{}
+channeg1_choose_conj$fwork_tag(tag: int): void
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_choose_disj
+  {ss1,ss2:type}
+(
+  chanpos(sschoose_disj(ss1,ss2))
+, k0: chpcont0_nil, f1: chanpos_nullify(ss1), f2: chanpos_nullify(ss2)
+) : void // end of [chanpos1_choose_disj]
+//
+fun{}
+channeg1_choose_disj
+  {ss1,ss2:type}
+(
+  channeg(sschoose_disj(ss1,ss2))
+, k0: chncont0_nil, f1: channeg_nullify(ss1), f2: channeg_nullify(ss2)
+) : void // end of [channeg1_choose_cons]
+//
+fun{}
+chanpos1_choose_disj$choose((*void*)): natLt(2)
+fun{}
+chanpos1_choose_disj$fwork_tag(tag: int): void
+fun{}
+channeg1_choose_disj$fwork_tag(tag: int): void
 //
 (* ****** ****** *)
 
