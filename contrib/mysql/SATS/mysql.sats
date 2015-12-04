@@ -67,14 +67,17 @@ vtypedef MYSQLRESptr0 = [l:addr] MYSQLRESptr (l)
 vtypedef MYSQLRESptr1 = [l:addr| l > null] MYSQLRESptr (l)
 
 (* ****** ****** *)
-
-absvtype MYSQLFIELDptr (l1:addr, l2:addr) = ptr
+//
+absvtype
+MYSQLFIELDptr (l1:addr, l2:addr) = ptr
+//
 vtypedef
 MYSQLFIELDptr0 (l1:addr) = [l2:addr] MYSQLFIELDptr (l1, l2)
 vtypedef
 MYSQLFIELDptr1 (l1:addr) = [l2:addr| l2 > null] MYSQLFIELDptr (l1, l2)
-
+//
 (* ****** ****** *)
+//
 /*
 typedef char **MYSQLROW;
 */
@@ -83,9 +86,9 @@ vtypedef
 MYSQLROW0 (l1:addr) = [l2:addr] MYSQLROW (l1, l2)
 vtypedef
 MYSQLROW1 (l1:addr) = [l2:addr| l2 > null] MYSQLROW (l1, l2)
-
+//
 (* ****** ****** *)
-
+//
 absvtype
 MYSQLROWLEN (l1:addr, l2:addr) = ptr
 vtypedef
@@ -94,7 +97,7 @@ MYSQLROWLEN0
 vtypedef
 MYSQLROWLEN1
   (l1:addr) = [l2:addr| l2 > null] MYSQLROWLEN (l1, l2)
-
+//
 (* ****** ****** *)
 //
 castfn
@@ -119,42 +122,42 @@ overload ptrcast with MYSQLROW2ptr
 abstype query = string
 
 (* ****** ****** *)
-
+//
 symintr free_null
-
+//
 prfun mysql_free_null
   {l:addr | l <= null} (x: MYSQLptr (l)):<> void
 overload free_null with mysql_free_null
-
+//
 prfun mysqlres_free_null
   {l:addr | l <= null} (x: MYSQLRESptr (l)):<> void
 overload free_null with mysqlres_free_null
-
+//
 prfun mysqlrow_free_null
   {l1,l2:addr | l2 <= null} (x: MYSQLROW (l1, l2)):<> void
 overload free_null with mysqlrow_free_null
-
+//
 prfun mysqlfield_free_null
   {l1,l2:addr | l2 <= null} (x: MYSQLFIELDptr (l1, l2)):<> void
 overload free_null with mysqlfield_free_null
-
+//
 (* ****** ****** *)
-
+//
 symintr mysql_init
-
+//
 fun mysql_init0 ((*null*)): MYSQLptr0 = "mac#%"
 fun mysql_init0_exn ((*null*)): MYSQLptr1 = "mac#%"
 fun mysql_init1 {l:agz} (x: !MYSQLptr (l)): ptr (l) = "mac#%"
-
+//
 overload mysql_init with mysql_init0
 overload mysql_init with mysql_init1
-
+//
 (* ****** ****** *)
 
 fun mysql_close (x: MYSQLptr0): void = "mac#%"
 
 (* ****** ****** *)
-
+//
 /*
 MYSQL*
 mysql_real_connect(
@@ -180,9 +183,9 @@ mysql_real_connect
 , clientflag: ulint
 ) : Ptrnull (l) = "mac#%"
 // end of [mysql_real_connect]
-
+//
 (* ****** ****** *)
-
+//
 /*
 my_bool mysql_change_user
   (MYSQL *mysql, const char *user, const char *passwd, const char *db);
@@ -195,32 +198,32 @@ mysql_change_user
 , passwd: NSH(stropt)
 , dbname: NSH(stropt)
 ) : int(*bool*) = "mac#%"
-
+//
 (* ****** ****** *)
-
+//
 /*
 int mysql_ping(MYSQL *mysql);
 */
 fun mysql_ping (mysql: !MYSQLptr1): int = "mac#%"
-
+//
 (* ****** ****** *)
-
+//
 /*
 my_bool mysql_commit (MYSQL *mysql);
 */
 fun mysql_commit (mysql: !MYSQLptr1): int = "mac#%"
-
+//
 (* ****** ****** *)
-
+//
 /*
 int mysql_query(MYSQL *mysql, const char *q);
 */
 fun mysql_query
   (mysql: !MYSQLptr1, q: query): int(*err*) = "mac#%"
 // end of [mysql_query]
-
+//
 (* ****** ****** *)
-
+//
 /*
 int mysql_create_db
   (MYSQL *mysql, const char *db);
@@ -228,16 +231,16 @@ int mysql_create_db
 (*
 // HX-2012-08: it is deprecated; use mysql_query instead
 *)
-
+//
 /*
 int mysql_drop_db (MYSQL *mysql, const char *db)
 */
 (*
 // HX-2012-08: it is deprecated; use mysql_query instead
 *)
-
+//
 (* ****** ****** *)
-
+//
 /*
 MYSQL_RES*
 mysql_list_dbs(MYSQL *mysql, const char *wild)
@@ -246,7 +249,7 @@ fun mysql_list_dbs
   {l:agz} (
   mysql: !MYSQLptr l, wild: NSH(stropt)
 ) : MYSQLRESptr0 = "mac#%" // endfun
-
+//
 /*
 MYSQL_RES*
 mysql_list_fields
@@ -257,7 +260,7 @@ fun mysql_list_fields
   mysql: !MYSQLptr l
 , table: NSH(string), wild: NSH(stropt)
 ) : MYSQLRESptr0 = "mac#%" // endfun
-
+//
 (* ****** ****** *)
 
 fun mysql_field_count (mysql: !MYSQLptr1): uint = "mac#%"
