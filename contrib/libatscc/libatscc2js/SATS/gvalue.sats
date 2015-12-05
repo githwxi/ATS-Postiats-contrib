@@ -38,6 +38,8 @@ datatype gvalue =
 //
   | GVstring of (string)
 //
+  | GVobject of (JSobj)
+//
   | GVlist of gvlist
   | GVarray of gvarray
   | GVhashtbl of gvhashtbl
