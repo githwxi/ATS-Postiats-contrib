@@ -380,6 +380,8 @@ channeg1_repeat_conj
 ) : void // end of [channeg1_repeat_conj]
 //
 fun{}
+channeg1_repeat_conj$init((*void*)): void
+fun{}
 channeg1_repeat_conj$choose((*void*)): natLt(2)
 fun{}
 chanpos1_repeat_conj$fwork_tag(tag: int): void
@@ -407,6 +409,8 @@ channeg1_repeat_disj
 , k0: chncont0_nil, fserv: channeg_nullify(ss)
 ) : void // end of [channeg1_repeat_disj]
 //
+fun{}
+chanpos1_repeat_disj$init((*void*)): void
 fun{}
 chanpos1_repeat_disj$choose((*void*)): natLt(2)
 fun{}

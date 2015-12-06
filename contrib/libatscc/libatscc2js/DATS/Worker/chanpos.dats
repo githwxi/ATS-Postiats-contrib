@@ -359,11 +359,17 @@ tag0 of
 //
 end // end of [loop]
 //
+val () = chanpos1_repeat_disj$init<>()
+//
 in
   loop(chp, k0, fserv)
 end // end of [chanpos1_repeat_disj]]
 //
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+chanpos1_repeat_disj$init() = () // nothing is done by default
 //
 implement
 {}(*tmp*)
