@@ -331,7 +331,7 @@ channeg1_option_conj
 ) : void // end of [channeg1_option_conj]
 //
 fun{}
-channeg1_option_conj$choose((*void*)): natLt(2)
+channeg1_option_conj$choose(): natLt(2)
 fun{}
 chanpos1_option_conj$fwork_tag(tag: int): void
 fun{}
@@ -355,7 +355,7 @@ channeg1_option_disj
 ) : void // end of [channeg1_option_disj]
 //
 fun{}
-chanpos1_option_disj$choose((*void*)): natLt(2)
+chanpos1_option_disj$choose(): natLt(2)
 fun{}
 chanpos1_option_disj$fwork_tag(tag: int): void
 fun{}
@@ -380,9 +380,13 @@ channeg1_repeat_conj
 ) : void // end of [channeg1_repeat_conj]
 //
 fun{}
-channeg1_repeat_conj$init((*void*)): void
+chanpos1_repeat_conj$init(): void
 fun{}
-channeg1_repeat_conj$choose((*void*)): natLt(2)
+channeg1_repeat_conj$init(): void
+//
+fun{}
+channeg1_repeat_conj$choose(): natLt(2)
+//
 fun{}
 chanpos1_repeat_conj$fwork_tag(tag: int): void
 fun{}
@@ -410,9 +414,13 @@ channeg1_repeat_disj
 ) : void // end of [channeg1_repeat_disj]
 //
 fun{}
-chanpos1_repeat_disj$init((*void*)): void
+chanpos1_repeat_disj$init(): void
 fun{}
-chanpos1_repeat_disj$choose((*void*)): natLt(2)
+channeg1_repeat_disj$init(): void
+//
+fun{}
+chanpos1_repeat_disj$choose(): natLt(2)
+//
 fun{}
 chanpos1_repeat_disj$fwork_tag(tag: int): void
 fun{}

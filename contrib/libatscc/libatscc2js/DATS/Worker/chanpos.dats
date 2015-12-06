@@ -298,6 +298,8 @@ chanpos0_recv
 //
 end // end of [loop]
 //
+val () = chanpos1_repeat_conj$init<>()
+//
 in
   loop(chp, k0, fserv)
 end // end of [chanpos1_repeat_conj]
@@ -369,7 +371,11 @@ end // end of [chanpos1_repeat_disj]]
 //
 implement
 {}(*tmp*)
-chanpos1_repeat_disj$init() = () // nothing is done by default
+chanpos1_repeat_conj$init() = () // nothing is done by default
+//
+implement
+{}(*tmp*)
+channeg1_repeat_disj$init() = () // nothing is done by default
 //
 implement
 {}(*tmp*)

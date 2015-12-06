@@ -346,6 +346,8 @@ channeg0_send
 //
 end // end of [loop]
 //
+val () = channeg1_repeat_disj$init<>()
+//
 in
   loop(chn, k0, fserv)
 end // end of [channeg1_repeat_disj]
@@ -355,6 +357,10 @@ end // end of [channeg1_repeat_disj]
 implement
 {}(*tmp*)
 channeg1_repeat_conj$init() = () // nothing is done by default
+//
+implement
+{}(*tmp*)
+channeg1_repeat_disj$init() = () // nothing is done by default
 //
 implement
 {}(*tmp*)
