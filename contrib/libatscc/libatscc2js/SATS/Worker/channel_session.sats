@@ -95,8 +95,10 @@ channeg1_session_append
 , ssn2: channeg_session(ss2)
 ) : channeg_session(ssappend(ss1, ss2))
 //
+(*
 overload ssappend with chanpos1_session_append
 overload ssappend with channeg1_session_append
+*)
 //
 (* ****** ****** *)
 //
