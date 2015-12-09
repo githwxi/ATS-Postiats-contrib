@@ -183,16 +183,25 @@ end // end of [chanpos1_session_recv_cloref]
 (* ****** ****** *)
 
 implement
-chanpos1_session_run_close
-  (ss0) = let
+chanpos1_session_run
+  (ss0, chp, kx0) = let
 //
 val
 fnullify =
-chanpos1_session_decode(ss0)
+chanpos1_session_decode(ss0) in fnullify(chp, kx0)
 //
-in
-  fnullify($UN.castvwtp0(0), lam(chp) => chanpos1_close(chp))
-end // end of [chanpos1_session_run_close]
+end // end of [chanpos1_session_run]
+
+(* ****** ****** *)
+
+implement
+chanpos1_session_run_close
+  (ss0, chp) =
+(
+//
+chanpos1_session_run(ss0, chp, lam(chp) => chanpos1_close(chp))
+//
+) // end of [chanpos1_session_run_close]
 
 (* ****** ****** *)
 

@@ -208,12 +208,12 @@ end // end of [chanpos1_option_conj]
 //
 (*
 fun{}
-channeg1_option_disj
+chanpos1_option_disj
   {ss:type}
 (
-  channeg(ssdisj(ssoption(ss)))
-, k0: chpcont0_nil, fserv: channeg_nullify(ss)
-) : void // end of [channeg1_option_disj]
+  chanpos(ssdisj(ssoption(ss)))
+, k0: chpcont0_nil, fserv: chanpos_nullify(ss)
+) : void // end of [chanpos1_option_disj]
 *)
 //
 implement
@@ -375,7 +375,7 @@ chanpos1_repeat_conj$init() = () // nothing is done by default
 //
 implement
 {}(*tmp*)
-channeg1_repeat_disj$init() = () // nothing is done by default
+chanpos1_repeat_disj$init() = () // nothing is done by default
 //
 implement
 {}(*tmp*)

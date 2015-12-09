@@ -67,6 +67,18 @@ chanpos1_session_cons
 //
 (* ****** ****** *)
 //
+fun
+channeg1_session_nil(): channeg_session(chnil)
+//
+fun{}
+channeg1_session_cons
+  {a:type}{ss:type}
+(
+  channeg_session(chsing(a)), channeg_session(ss)
+) : channeg_session(a::ss)
+//
+(* ****** ****** *)
+//
 fun{}
 chanpos1_session_append
   {ss1,ss2:type}
@@ -163,19 +175,46 @@ a:t@ype
 //
 (* ****** ****** *)
 //
+fun{
+a:t@ype
+} channeg1_session_recv_cloref
+  (cfun0(a)): channeg_session(chrcv(a)::chnil)
+fun{
+a:t@ype
+} channeg1_session_send_cloref
+  (cfun1(a, void)): channeg_session(chsnd(a)::chnil)
+//
+(* ****** ****** *)
+//
 // HX-2105-12-03:
 // [chanpos1_session_run]
 // should be called only once in a worker
 //
 fun
+chanpos1_session_run
+  {ss:type}
+(
+  chanpos_session(ss)
+, chp: chanpos(ss), kx0: chpcont0_nil(*void*)
+) : void = "mac#%"
+//
+fun
 chanpos1_session_run_close
-  {ss:type}(chanpos_session(ss)): void = "mac#%"
+  {ss:type}(chanpos_session(ss), chanpos(ss)): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
+channeg1_session_run
+  {ss:type}
+(
+  channeg_session(ss)
+, chn: channeg(ss), kx0: chncont0_nil(*void*)
+) : void = "mac#%"
+//
+fun
 channeg1_session_run_close
-  {ss:type}(channeg_session(ss)): void = "mac#%"
+  {ss:type}(channeg_session(ss), channeg(ss)): void = "mac#%"
 //
 (* ****** ****** *)
 
