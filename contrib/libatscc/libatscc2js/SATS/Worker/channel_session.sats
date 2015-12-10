@@ -95,10 +95,41 @@ channeg1_session_append
 , ssn2: channeg_session(ss2)
 ) : channeg_session(ssappend(ss1, ss2))
 //
-(*
-overload ssappend with chanpos1_session_append
-overload ssappend with channeg1_session_append
-*)
+(* ****** ****** *)
+//
+fun{}
+chanpos1_session_choose_conj
+  {ss0,ss1:type}
+(
+  ssp0: chanpos_session(ss0)
+, ssp1: chanpos_session(ss1)
+) : chanpos_session(sschoose_conj(ss0,ss1))
+//
+fun{}
+channeg1_session_choose_conj
+  {ss0,ss1:type}
+(
+  ssn0: channeg_session(ss0)
+, ssn1: channeg_session(ss1)
+) : channeg_session(sschoose_conj(ss0,ss1))
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_session_choose_disj
+  {ss0,ss1:type}
+(
+  ssp0: chanpos_session(ss0)
+, ssp1: chanpos_session(ss1)
+) : chanpos_session(sschoose_disj(ss0,ss1))
+//
+fun{}
+channeg1_session_choose_disj
+  {ss0,ss1:type}
+(
+  ssn0: channeg_session(ss0)
+, ssn1: channeg_session(ss1)
+) : channeg_session(sschoose_disj(ss0,ss1))
 //
 (* ****** ****** *)
 //

@@ -316,6 +316,55 @@ channeg1_append
 (* ****** ****** *)
 //
 fun{}
+chanpos1_choose_conj
+  {ss1,ss2:type}
+(
+  chanpos(sschoose_conj(ss1,ss2)), k0: chpcont0_nil
+, fserv1: chanpos_nullify(ss1), fserv2: chanpos_nullify(ss2)
+) : void // end of [chanpos1_choose_conj]
+//
+fun{}
+channeg1_choose_conj
+  {ss1,ss2:type}
+(
+  channeg(sschoose_conj(ss1,ss2)), k0: chncont0_nil
+, fserv1: channeg_nullify(ss1), fserv2: channeg_nullify(ss2)
+) : void // end of [channeg1_choose_conj]
+//
+fun{}
+channeg1_choose_conj$choose(): natLt(2)
+fun{}
+chanpos1_choose_conj$fwork_tag(tag: int): void
+fun{}
+channeg1_choose_conj$fwork_tag(tag: int): void
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_choose_disj
+  {ss1,ss2:type}
+(
+  chanpos(sschoose_disj(ss1,ss2)), k0: chpcont0_nil
+, fserv1: chanpos_nullify(ss1), fserv2: chanpos_nullify(ss2)
+) : void // end of [chanpos1_choose_disj]
+fun{}
+channeg1_choose_disj
+  {ss1,ss2:type}
+(
+  channeg(sschoose_disj(ss1,ss2)), k0: chncont0_nil
+, fserv1: channeg_nullify(ss1), fserv2: channeg_nullify(ss2)
+) : void // end of [channeg1_choose_disj]
+//
+fun{}
+chanpos1_choose_disj$choose(): natLt(2)
+fun{}
+chanpos1_choose_disj$fwork_tag(tag: int): void
+fun{}
+channeg1_choose_disj$fwork_tag(tag: int): void
+//
+(* ****** ****** *)
+//
+fun{}
 chanpos1_option_conj
   {ss:type}
 (
@@ -338,7 +387,7 @@ fun{}
 channeg1_option_conj$fwork_tag(tag: int): void
 //
 (* ****** ****** *)
-
+//
 fun{}
 chanpos1_option_disj
   {ss:type}
