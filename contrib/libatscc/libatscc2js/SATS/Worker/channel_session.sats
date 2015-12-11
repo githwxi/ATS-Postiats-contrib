@@ -55,8 +55,57 @@ channeg_session(ss:type)
 //
 (* ****** ****** *)
 //
+fun{
+a:t@ype
+} chanpos1_session_send
+(
+  cfun0(a) // getting data
+) : chanpos_session(chsnd(a)::chnil)
+fun{
+a:t@ype
+} chanpos1_session_recv
+(
+  cfun1(a, void) // setting data
+) : chanpos_session(chrcv(a)::chnil)
+//
+(* ****** ****** *)
+//
+fun{
+a:t@ype
+} channeg1_session_recv
+(
+  cfun0(a) // getting data
+) : channeg_session(chrcv(a)::chnil)
+fun{
+a:t@ype
+} channeg1_session_send
+(
+  cfun1(a, void) // setting data
+) : channeg_session(chsnd(a)::chnil)
+//
+(* ****** ****** *)
+//
+fun{}
+chanpos1_session_initize
+  {ss:type}
+(
+  fwork: cfun0(void), ssp: chanpos_session(ss)
+) : chanpos_session(ss)
+//
+fun{}
+channeg1_session_initize
+  {ss:type}
+(
+  fwork: cfun0(void), ssn: channeg_session(ss)
+) : channeg_session(ss)
+//
+(* ****** ****** *)
+//
 fun
-chanpos1_session_nil(): chanpos_session(chnil)
+chanpos1_session_nil
+(
+// argumentless
+) : chanpos_session(chnil)
 //
 fun{}
 chanpos1_session_cons
@@ -68,7 +117,10 @@ chanpos1_session_cons
 (* ****** ****** *)
 //
 fun
-channeg1_session_nil(): channeg_session(chnil)
+channeg1_session_nil
+(
+// argumentless
+) : channeg_session(chnil)
 //
 fun{}
 channeg1_session_cons
@@ -197,33 +249,11 @@ channeg1_session_repeat_disj
 //
 (* ****** ****** *)
 //
-fun{
-a:t@ype
-} chanpos1_session_send_cloref
-  (cfun0(a)): chanpos_session(chsnd(a)::chnil)
-fun{
-a:t@ype
-} chanpos1_session_recv_cloref
-  (cfun1(a, void)): chanpos_session(chrcv(a)::chnil)
-//
-(* ****** ****** *)
-//
-fun{
-a:t@ype
-} channeg1_session_recv_cloref
-  (cfun0(a)): channeg_session(chrcv(a)::chnil)
-fun{
-a:t@ype
-} channeg1_session_send_cloref
-  (cfun1(a, void)): channeg_session(chsnd(a)::chnil)
-//
-(* ****** ****** *)
-//
 // HX-2105-12-03:
 // [chanpos1_session_run]
 // should be called only once in a worker
 //
-fun
+fun{}
 chanpos1_session_run
   {ss:type}
 (
@@ -231,13 +261,13 @@ chanpos1_session_run
 , chp: chanpos(ss), kx0: chpcont0_nil(*void*)
 ) : void = "mac#%"
 //
-fun
+fun{}
 chanpos1_session_run_close
   {ss:type}(chanpos_session(ss), chanpos(ss)): void = "mac#%"
 //
 (* ****** ****** *)
 //
-fun
+fun{}
 channeg1_session_run
   {ss:type}
 (
@@ -245,7 +275,7 @@ channeg1_session_run
 , chn: channeg(ss), kx0: chncont0_nil(*void*)
 ) : void = "mac#%"
 //
-fun
+fun{}
 channeg1_session_run_close
   {ss:type}(channeg_session(ss), channeg(ss)): void = "mac#%"
 //

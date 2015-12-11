@@ -54,6 +54,78 @@ channeg1_session_decode{ss:type}
   : channeg_session(ss) -<fun0> channeg_nullify(ss)
 //
 (* ****** ****** *)
+
+implement
+{a}(*tmp*)
+channeg1_session_recv
+  (fwork) = let
+(*
+//
+val () =
+  println! ("channeg1_session_recv")
+//
+*)
+in
+//
+channeg1_session_encode(
+//
+lam(chn, k0) => channeg1_recv(chn, fwork((*void*)), k0)
+//
+) (* channeg1_session_encode *)
+//
+end // end of [channeg1_session_recv]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+channeg1_session_send
+  (fwork) = let
+(*
+//
+val () =
+  println! ("channeg1_session_send")
+//
+*)
+in
+//
+channeg1_session_encode(
+//
+lam(chn, k0) =>
+  channeg1_send
+  ( chn
+  , lam(chn, msg) => let val () = fwork(chmsg_parse<a>(msg)) in k0(chn) end
+  ) (* channeg1_send *)
+//
+) (* channeg1_session_encode *)
+//
+end // end of [channeg1_session_send]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+channeg1_session_initize
+  (fwork, ssn) = let  
+//
+val
+fnullify =
+channeg1_session_decode(ssn)
+//
+in
+//
+channeg1_session_encode
+(
+//
+lam(chn, k0) => let
+  val () = fwork((*bef*)) in fnullify(chn, k0)
+end // end of [let]
+//
+) (* channeg1_session_encode *)
+//
+end // end of [channneg1_session_initize]
+
+(* ****** ****** *)
 //
 implement
 channeg1_session_nil() =
@@ -135,54 +207,7 @@ end // end of [channeg1_session_repeat_disj]
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-channeg1_session_recv_cloref
-  (fwork) = let
-(*
-//
-val () =
-  println! ("channeg1_session_recv_cloref")
-//
-*)
-in
-//
-channeg1_session_encode(
-//
-lam(chn, k0) => channeg1_recv(chn, fwork((*void*)), k0)
-//
-) (* channeg1_session_encode *)
-//
-end // end of [channeg1_session_recv_cloref]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-channeg1_session_send_cloref
-  (fwork) = let
-(*
-//
-val () =
-  println! ("channeg1_session_send_cloref")
-//
-*)
-in
-//
-channeg1_session_encode(
-//
-lam(chn, k0) =>
-  channeg1_send
-  ( chn
-  , lam(chn, msg) => let val () = fwork(chmsg_parse<a>(msg)) in k0(chn) end
-  ) (* channeg1_send *)
-//
-) (* channeg1_session_encode *)
-//
-end // end of [channeg1_session_send_cloref]
-
-(* ****** ****** *)
-
-implement
+{}(*tmp*)
 channeg1_session_run
   (ss0, chn, kx0) = let
 //
@@ -195,6 +220,7 @@ end // end of [channeg1_session_run]
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 channeg1_session_run_close
   (ss0, chn) =
 (

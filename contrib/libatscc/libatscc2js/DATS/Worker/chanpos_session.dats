@@ -54,6 +54,78 @@ chanpos1_session_decode{ss:type}
   : chanpos_session(ss) -<fun0> chanpos_nullify(ss)
 //
 (* ****** ****** *)
+
+implement
+{a}(*tmp*)
+chanpos1_session_send
+  (fwork) = let
+(*
+//
+val () =
+  println! ("chanpos1_session_send")
+//
+*)
+in
+//
+chanpos1_session_encode(
+//
+lam(chp, k0) => chanpos1_send(chp, fwork((*void*)), k0)
+//
+) (* chanpos1_session_encode *)
+//
+end // end of [chanpos1_session_send]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+chanpos1_session_recv
+  (fwork) = let
+(*
+//
+val () =
+  println! ("chanpos1_session_recv")
+//
+*)
+in
+//
+chanpos1_session_encode(
+//
+lam(chp, k0) =>
+  chanpos1_recv
+  ( chp
+  , lam(chp, msg) => let val () = fwork(chmsg_parse<a>(msg)) in k0(chp) end
+  ) (* chanpos1_recv *)
+//
+) (* chanpos1_session_encode *)
+//
+end // end of [chanpos1_session_recv]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+chanpos1_session_initize
+  (fwork, ssp) = let  
+//
+val
+fnullify =
+chanpos1_session_decode(ssp)
+//
+in
+//
+chanpos1_session_encode
+(
+//
+lam(chp, k0) => let
+  val () = fwork((*bef*)) in fnullify(chp, k0)
+end // end of [let]
+//
+) (* chanpos1_session_encode *)
+//
+end // end of [channpos1_session_initize]
+  
+(* ****** ****** *)
 //
 implement
 chanpos1_session_nil() =
@@ -135,54 +207,7 @@ end // end of [chanpos1_session_repeat_disj]
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-chanpos1_session_send_cloref
-  (fwork) = let
-(*
-//
-val () =
-  println! ("chanpos1_session_send_cloref")
-//
-*)
-in
-//
-chanpos1_session_encode(
-//
-lam(chp, k0) => chanpos1_send(chp, fwork((*void*)), k0)
-//
-) (* chanpos1_session_encode *)
-//
-end // end of [chanpos1_session_send_cloref]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-chanpos1_session_recv_cloref
-  (fwork) = let
-(*
-//
-val () =
-  println! ("chanpos1_session_recv_cloref")
-//
-*)
-in
-//
-chanpos1_session_encode(
-//
-lam(chp, k0) =>
-  chanpos1_recv
-  ( chp
-  , lam(chp, msg) => let val () = fwork(chmsg_parse<a>(msg)) in k0(chp) end
-  ) (* chanpos1_recv *)
-//
-) (* chanpos1_session_encode *)
-//
-end // end of [chanpos1_session_recv_cloref]
-
-(* ****** ****** *)
-
-implement
+{}(*tmp*)
 chanpos1_session_run
   (ss0, chp, kx0) = let
 //
@@ -195,6 +220,7 @@ end // end of [chanpos1_session_run]
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 chanpos1_session_run_close
   (ss0, chp) =
 (
