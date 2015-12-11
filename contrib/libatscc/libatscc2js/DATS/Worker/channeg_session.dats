@@ -126,6 +126,29 @@ end // end of [let]
 end // end of [channneg1_session_initize]
 
 (* ****** ****** *)
+
+implement
+{}(*tmp*)
+channeg1_session_finalize
+  (ssn, fwork) = let  
+//
+val
+fnullify =
+channeg1_session_decode(ssn)
+//
+in
+//
+channeg1_session_encode
+(
+//
+lam(chn, k0) =>
+  fnullify(chn, lam(chn) => let val () = fwork() in k0(chn) end)
+//
+) (* channeg1_session_encode *)
+//
+end // end of [channneg1_session_finalize]
+
+(* ****** ****** *)
 //
 implement
 channeg1_session_nil() =

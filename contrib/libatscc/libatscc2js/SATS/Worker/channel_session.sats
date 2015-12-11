@@ -101,6 +101,22 @@ channeg1_session_initize
 //
 (* ****** ****** *)
 //
+fun{}
+chanpos1_session_finalize
+  {ss:type}
+(
+  ssp: chanpos_session(ss), fwork: cfun0(void)
+) : chanpos_session(ss)
+//
+fun{}
+channeg1_session_finalize
+  {ss:type}
+(
+  ssn: channeg_session(ss), fwork: cfun0(void)
+) : channeg_session(ss)
+//
+(* ****** ****** *)
+//
 fun
 chanpos1_session_nil
 (

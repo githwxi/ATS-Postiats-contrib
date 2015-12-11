@@ -126,6 +126,29 @@ end // end of [let]
 end // end of [channpos1_session_initize]
   
 (* ****** ****** *)
+
+implement
+{}(*tmp*)
+chanpos1_session_finalize
+  (ssp, fwork) = let  
+//
+val
+fnullify =
+chanpos1_session_decode(ssp)
+//
+in
+//
+chanpos1_session_encode
+(
+//
+lam(chp, k0) =>
+  fnullify(chp, lam(chp) => let val () = fwork() in k0(chp) end)
+//
+) (* chanpos1_session_encode *)
+//
+end // end of [channpos1_session_finalize]
+
+(* ****** ****** *)
 //
 implement
 chanpos1_session_nil() =
