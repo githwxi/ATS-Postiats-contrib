@@ -25,6 +25,62 @@ overload not with neg_bool0 of 100
 overload not with neg_bool1 of 110
 //
 (* ****** ****** *)
+
+fun add_bool0_bool0
+  (b1: bool, b2: bool):<> bool = "mac#%"
+overload + with add_bool0_bool0 of 100
+
+fun
+add_bool0_bool1
+  {b2:bool}
+(
+  b1: bool, b2: bool b2
+) :<> [b1:bool] bool(b1 || b2) = "mac#%"
+overload + with add_bool0_bool1 of 110
+
+fun
+add_bool1_bool0
+  {b1:bool}
+(
+  b1: bool b1, b2: bool
+) :<> [b2:bool] bool(b1 || b2) = "mac#%"
+overload + with add_bool1_bool0 of 110
+
+fun
+add_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool(b1 || b2) = "mac#%"
+overload + with add_bool1_bool1 of 120
+
+(* ****** ****** *)
+
+fun mul_bool0_bool0
+  (b1: bool, b2: bool):<> bool = "mac#%"
+overload * with mul_bool0_bool0 of 100
+
+fun
+mul_bool0_bool1
+  {b2:bool}
+(
+  b1: bool, b2: bool b2
+) :<> [b1:bool] bool(b1 && b2) = "mac#%"
+overload * with mul_bool0_bool1 of 110
+
+fun
+mul_bool1_bool0
+  {b1:bool}
+(
+  b1: bool b1, b2: bool
+) :<> [b2:bool] bool(b1 && b2) = "mac#%"
+overload * with mul_bool1_bool0 of 110
+
+fun
+mul_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool(b1 && b2) = "mac#%"
+overload * with mul_bool1_bool1 of 120
+
+(* ****** ****** *)
 //
 fun
 eq_bool0_bool0 : (bool, bool) -> bool = "mac#%"
