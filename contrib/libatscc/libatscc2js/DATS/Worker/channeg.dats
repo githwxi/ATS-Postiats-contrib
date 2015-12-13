@@ -150,15 +150,69 @@ fserv1
 //
 (* ****** ****** *)
 //
-(*
-fun{}
-channeg1_option_conj
-  {ss:type}
+implement
+{}(*tmp*)
+channeg1_choose_conj
+  {ss0,ss1}
+  (chn, k0, fserv0, fserv1) = let
+//
+val chn0 =
+  $UN.castvwtp0{channeg()}(chn)
+val tag0 =
+  channeg1_choose_conj$choose()
+val ((*void*)) =
+  channeg1_choose_conj$fwork_tag<>(tag0)
+//
+in
+//
+case+
+tag0 of
+| 0 =>
+  channeg0_recv{int}
+  (
+    chn0, tag0, lam(chn0) => fserv0($UN.castvwtp0(chn0), k0)
+  ) (* end of [0] *)
+| _ =>
+  channeg0_recv{int}
+  (
+    chn0, tag0, lam(chn0) => fserv1($UN.castvwtp0(chn0), k0)
+  ) (* end of [1] *)
+//
+end // end of [channeg1_choose_conj]]
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+channeg1_choose_disj
+  {ss0,ss1}
+  (chn, k0, fserv0, fserv1) = let
+//
+val chn0 = $UN.castvwtp0{channeg()}(chn)
+//
+in
+//
+channeg0_send
+  {int}
 (
-  channeg(ssconj(ssoption(ss)))
-, k0: chncont0_nil, fserv: channeg_nullify(ss)
-) : void // end of [channeg1_option_conj]
-*)
+  chn0
+, lam(chn0, tag0) => let
+    val tag0 =
+      chmsg_parse<int>(tag0)
+    // end of [val]
+    val ((*void*)) =
+      channeg1_choose_disj$fwork_tag<>(tag0)
+    // end of [val]
+  in
+    case+ tag0 of
+    | 0 => fserv0($UN.castvwtp0(chn0), k0)
+    | _ => fserv1($UN.castvwtp0(chn0), k0)
+  end // end of [lam]
+) (* end of [channeg0_send] *)
+//
+end // end of [channeg1_choose_disj]
+//
+(* ****** ****** *)
 //
 implement
 {}(*tmp*)
@@ -187,16 +241,6 @@ tag0 of
 end // end of [channeg1_option_conj]]
 //
 (* ****** ****** *)
-//
-(*
-fun{}
-channeg1_option_disj
-  {ss:type}
-(
-  channeg(ssoption(ss))
-, k0: chncont0_nil, fserv: channeg_nullify(ss)
-) : void // end of [channeg1_option_disj]
-*)
 //
 implement
 {}(*tmp*)
