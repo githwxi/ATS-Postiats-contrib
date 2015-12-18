@@ -48,6 +48,8 @@ ats2jspre_mul_bool1_bool1(x, y) { return (x && y); }
 /* ****** ****** */
 //
 function
+ats2jspre_eq_bool0_bool0(x, y) { return (x === y); }
+function
 ats2jspre_neq_bool0_bool0(x, y) { return (x !== y); }
 //
 function
