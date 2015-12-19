@@ -30,6 +30,13 @@ end // end of [theDictionary]
 
 (* ****** ****** *)
 
+local
+
+assume
+word_type = gvhashtbl
+
+in (* in-of-local *)
+
 implement
 {}(*tmp*)
 word_create
@@ -46,6 +53,28 @@ val () =
   w0["spelling"] := GVstring(spelling)
 //
 } (* end of [word_create] *)
+
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+word_add_synonym
+  (w0, rep) =
+(
+  gvhashtbl_push_atkey(w0, "synonym", GVstring(rep))
+)
+//
+implement
+{}(*tmp*)
+word_add_antonym
+  (w0, rep) =
+(
+  gvhashtbl_push_atkey(w0, "antonym", GVstring(rep))
+)
+//
+(* ****** ****** *)
+
+end // end of [local]
 
 (* ****** ****** *)
 

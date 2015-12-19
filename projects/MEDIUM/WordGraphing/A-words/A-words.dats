@@ -1,6 +1,11 @@
 (* ****** ****** *)
 
+#ifdef
+INCLUDED
+#then
+#else
 staload "./../words.sats"
+#endif
 
 (* ****** ****** *)
 

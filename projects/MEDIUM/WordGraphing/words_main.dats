@@ -7,11 +7,17 @@
 
 (* ****** ****** *)
 
+#define INCLUDED 1
+
+(* ****** ****** *)
+
 #include "./words.dats"
 
 (* ****** ****** *)
 
 #include "./A-words/A-words.dats"
+#include "./R-words/R-words.dats"
+#include "./S-words/S-words.dats"
 
 (* ****** ****** *)
 
