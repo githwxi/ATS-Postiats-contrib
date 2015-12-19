@@ -9,14 +9,14 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
-all:: words_main
-regress: words_main; ./$<
-cleanall:: ; $(RMF) words_main
+all:: words_all
+regress: words_all; ./$<
+cleanall:: ; $(RMF) words_all
 
 ######
 
-words_main: \
-words_main.dats ; \
+words_all: \
+words_all.dats ; \
 $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $< -latslib
 
 ######
