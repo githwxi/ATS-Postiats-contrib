@@ -14,18 +14,24 @@
 //
 (* ****** ****** *)
 
-typedef word = gvhashtbl
-typedef wordlst = list0(word)
-
-(* ****** ****** *)
-
-val theDictionary : hashtbl(string, word)
+typedef
+word = gvhashtbl
+typedef
+wordlst = list0(word)
 
 (* ****** ****** *)
 //
-fun word_create(string): word
+val
+theDictionary
+  : hashtbl(string, word)
 //
-fun word_create_add(string): word
+(* ****** ****** *)
+//
+fun{}
+word_create(string): word
+//
+fun{}
+word_create_add(string): word
 //
 (* ****** ****** *)
 
