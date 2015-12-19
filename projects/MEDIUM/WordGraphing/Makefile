@@ -9,9 +9,21 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
+all:: words_main
+regress: words_main; ./$<
+cleanall:: ; $(RMF) words_main
+
+######
+
 words_main: \
 words_main.dats ; \
 $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $< -latslib
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
@@ -26,6 +38,5 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) words_main
 
 ###### end of [Makefile] ######

@@ -16,8 +16,17 @@
 (* ****** ****** *)
 
 #include "./A-words/A-words.dats"
+#include "./B-words/B-words.dats"
+#include "./C-words/C-words.dats"
+#include "./D-words/D-words.dats"
+#include "./J-words/J-words.dats"
+#include "./P-words/P-words.dats"
 #include "./R-words/R-words.dats"
 #include "./S-words/S-words.dats"
+
+(* ****** ****** *)
+
+#include "./Zoe-new-words-addition.dats"
 
 (* ****** ****** *)
 
