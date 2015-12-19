@@ -25,7 +25,7 @@ let
 val INITCAP = 1024
 //
 in
-  hashtbl_make_nil<string,word>(i2sz(INITCAP))
+  dynarray_make_nil<word>(i2sz(INITCAP))
 end // end of [theDictionary]
 
 (* ****** ****** *)
@@ -57,8 +57,8 @@ word_create_add
 //
 val w0 =
   word_create(spelling)
-val-~None_vt() =
-  hashtbl_insert(theDictionary, spelling, w0)
+//
+val-~None_vt() = theDictionary.insend(w0)
 //
 } (* end of [word_create_add] *)
 

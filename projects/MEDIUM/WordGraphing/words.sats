@@ -21,9 +21,14 @@ wordlst = list0(word)
 
 (* ****** ****** *)
 //
+(*
 val
 theDictionary
   : hashtbl(string, word)
+*)
+//
+val
+theDictionary : dynarray(word)
 //
 (* ****** ****** *)
 //
