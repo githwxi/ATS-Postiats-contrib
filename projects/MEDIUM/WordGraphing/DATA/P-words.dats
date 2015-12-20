@@ -166,6 +166,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("plausible")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("plumage")
 //
 } // end of [val]
