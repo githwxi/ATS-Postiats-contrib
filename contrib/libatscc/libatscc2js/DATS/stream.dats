@@ -29,8 +29,9 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload
-"./../SATS/integer.sats"
+staload "./../SATS/integer.sats"
+//
+(* ****** ****** *)
 //
 staload "./../SATS/print.sats"
 //

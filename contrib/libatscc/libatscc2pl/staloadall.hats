@@ -41,6 +41,11 @@ staload _ = "./DATS/list.dats"
 //
 (* ****** ****** *)
 //
+staload "./SATS/option.sats"
+staload _ = "./DATS/option.dats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/stream.sats"
 staload _ = "./DATS/stream.dats"
 //
@@ -48,6 +53,10 @@ staload _ = "./DATS/stream.dats"
 //
 staload "./SATS/intrange.sats"
 //
+(* ****** ****** *)
+
+staload "./SATS/reference.sats"
+
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)
