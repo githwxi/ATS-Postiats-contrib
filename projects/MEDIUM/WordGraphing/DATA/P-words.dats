@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("pabulum")
 //
+val () =
+word_add_meaning(w0, "bland or insipid intellectual fare, entertainment, etc.; pap.")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -23,6 +26,17 @@ val () =
 //
 val w0 =
 word_create_add("palpable")
+//
+val () =
+word_add_meaning(w0, "so intense as to be almost touched or felt.")
+val () =
+word_add_meaning(w0, "clear to the mind or plain to see.")
+//
+val () =
+word_add_synonym(w0, "perceptible")
+//
+val () =
+word_add_antonym(w0, "imperceptible")
 //
 } // end of [val]
 

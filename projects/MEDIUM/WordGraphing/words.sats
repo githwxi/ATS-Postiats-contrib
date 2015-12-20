@@ -30,8 +30,7 @@ wordlst = list0(word)
 //
 (* ****** ****** *)
 //
-val
-theDictionary: dict
+val theDict: dict
 //
 (* ****** ****** *)
 //
@@ -45,10 +44,25 @@ overload .size with dict_get_size
 //
 fun
 // fun{}
+dict_search_word_exn
+  (dict, string): word
+fun
+// fun{}
+dict_search_word_opt
+  (dict, string): Option_vt(word)
+//
+overload [] with dict_search_word_exn
+overload .search with dict_search_word_opt
+//
+(* ****** ****** *)
+fun
+// fun{}
 dict_insert_word
   (dict, word): Option_vt(word)
 //
 overload .insert with dict_insert_word
+//
+(* ****** ****** *)
 //
 fun
 // fun{}

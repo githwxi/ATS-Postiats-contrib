@@ -83,9 +83,9 @@ then (
   | _ (* rest *) => ((*void*))
 ) (* end of [then] *)
 //
-val nw = theDictionary.size()
+val nw = theDict.size()
 //
-val ws = dict_get_wordlst(theDictionary)
+val ws = dict_get_wordlst(theDict)
 //
 val ws =
 list0_mergesort
@@ -106,7 +106,7 @@ if _all_ then
 val () = println! ("(*")
 //
 val () =
-  println! ("theDictionary.size() = ", nw)
+  println! ("theDict.size() = ", nw)
 //
 val () = println! ("*)")
 val () = println! ("\n(* ****** ****** *)\n")

@@ -1,5 +1,5 @@
 (*
-theDictionary.size() = 290
+theDict.size() = 290
 *)
 
 (* ****** ****** *)
@@ -261,11 +261,7 @@ val w0 =
 word_create_add("barracuda")
 //
 val () =
-word_add_meaning(w0, "\
-Barracuda is a ray-finned fish known for its large size and \
-fearsome appearance. Its body is long, fairly compressed, and covered \
-with small, smooth scales.\
-")
+word_add_meaning(w0, "Barracuda is a ray-finned fish known for its large size and fearsome appearance. Its body is long, fairly compressed, and covered with small, smooth scales.")
 //
 } // end of [val]
 
@@ -1882,6 +1878,9 @@ val () =
 val w0 =
 word_create_add("pabulum")
 //
+val () =
+word_add_meaning(w0, "bland or insipid intellectual fare, entertainment, etc.; pap.")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -1901,6 +1900,17 @@ val () =
 //
 val w0 =
 word_create_add("palpable")
+//
+val () =
+word_add_meaning(w0, "so intense as to be almost touched or felt.")
+val () =
+word_add_meaning(w0, "clear to the mind or plain to see.")
+//
+val () =
+word_add_synonym(w0, "perceptible")
+//
+val () =
+word_add_antonym(w0, "imperceptible")
 //
 } // end of [val]
 
@@ -2943,6 +2953,12 @@ val w0 =
 word_create_add("writh")
 //
 } // end of [val]
+
+(* ****** ****** *)
+
+(*
+Duplicated entries:
+*)
 
 (* ****** ****** *)
 

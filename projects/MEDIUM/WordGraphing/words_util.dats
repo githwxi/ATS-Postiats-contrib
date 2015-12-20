@@ -40,6 +40,40 @@ dict_get_size
 
 implement
 // {}(*tmp*)
+dict_search_word_opt
+  (dict, spelling) =
+(
+  hashtbl_search<key,itm>(dict, spelling)
+)
+
+implement
+// {}(*tmp*)
+dict_search_word_exn
+  (dict, spelling) = let
+//
+val opt =
+  hashtbl_search<key,itm>(dict, spelling)
+//
+in
+//
+case+ opt of
+| ~Some_vt w0 => w0
+| ~None_vt () => let
+    val () =
+    prerrln!
+      ("dict_search_word_exn: ", spelling)
+    // end of [val]
+    val () =
+      assertloc(false) // HX: abnormal exit
+    // end of [val]
+  in
+    exit(1){word}
+  end // end of [None_vt]
+//
+end // end of [dict_search_word_exn]
+
+implement
+// {}(*tmp*)
 dict_insert_word
   (dict, word) =
 (
@@ -55,14 +89,14 @@ dict_get_wordlst
 )
 
 implement
-theDictionary =
+theDict =
 let
 //
 val INITCAP = 1024
 //
 in
   hashtbl_make_nil<string,word>(i2sz(INITCAP))
-end // end of [theDictionary]
+end // end of [theDict]
 
 end // end of [local]
 
@@ -192,7 +226,7 @@ word_create_add
 val w0 =
   word_create(spelling)
 //
-val-~None_vt() = theDictionary.insert(w0)
+val-~None_vt() = theDict.insert(w0)
 //
 } (* end of [word_create_add] *)
 
