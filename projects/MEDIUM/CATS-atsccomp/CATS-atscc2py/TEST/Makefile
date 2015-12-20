@@ -204,6 +204,7 @@ cleanall:: ; $(RMF) sieve_lazy_dats.py
 ######
 
 testall:: all
+testall:: libatscc2py
 testall:: regress
 testall:: cleanall
 
