@@ -65,11 +65,12 @@ val w0 =
 word_create_add("deity")
 //
 val () =
+word_add_meaning(w0, "a god or goddess")
+//
+val () =
 word_add_synonym(w0, "god")
 val () =
 word_add_synonym(w0, "goddess")
-val () =
-word_add_synonym(w0, "a god or goddess")
 //
 } // end of [val]
 

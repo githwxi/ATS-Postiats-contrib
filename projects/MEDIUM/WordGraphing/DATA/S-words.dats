@@ -325,7 +325,7 @@ val w0 =
 word_create_add("spartan")
 //
 val () =
-word_add_synonym(w0, "showing a lack of comfort")
+word_add_meaning(w0, "showing a lack of comfort")
 //
 } // end of [val]
 

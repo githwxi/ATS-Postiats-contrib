@@ -49,7 +49,7 @@ val w0 =
 word_create_add("panoramic")
 //
 val () =
-word_add_synonym(w0, "a wide view")
+word_add_meaning(w0, "a wide view")
 //
 } // end of [val]
 
@@ -62,7 +62,7 @@ val w0 =
 word_create_add("papal")
 //
 val () =
-word_add_synonym(w0, "relating to the head of a church")
+word_add_meaning(w0, "relating to the head of a church")
 //
 } // end of [val]
 
@@ -165,6 +165,9 @@ val w0 =
 word_create_add("placid")
 //
 val () =
+word_add_meaning(w0, "with little movement or activity")
+//
+val () =
 word_add_synonym(w0, "calm")
 val () =
 word_add_synonym(w0, "quiet")
@@ -174,8 +177,6 @@ val () =
 word_add_synonym(w0, "sleepy")
 val () =
 word_add_synonym(w0, "tranquil")
-val () =
-word_add_synonym(w0, "with little movement or activity")
 //
 val () =
 word_add_antonym(w0, "bustling")
@@ -211,7 +212,7 @@ val w0 =
 word_create_add("plunder")
 //
 val () =
-word_add_synonym(w0, "to steal goods from")
+word_add_meaning(w0, "to steal goods from")
 //
 } // end of [val]
 
