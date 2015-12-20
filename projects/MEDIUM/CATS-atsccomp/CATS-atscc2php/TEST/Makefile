@@ -18,11 +18,6 @@ cleanall::
 
 ######
 
-RMF=rm -f
-RMRF=rm -rf
-
-######
-
 all:: \
 fact_dats.php
 fact_dats.php: fact.dats ; \
@@ -119,19 +114,30 @@ cleanall:: ; $(RMF) sieve_lazy_dats.php
 
 ######
 
-all:: mytest
-mytest:: mytest.php; php -f mytest.php
+regress:: \
+mytestall
+mytestall:: mytestall.php; php -f mytestall.php
 
 ######
 
-CPF=cp -rf
+testall:: all
+testall:: regress
+testall:: cleanall
 
+######
+#
+CPF=cp -f
+CPRF=cp -rf
+#
+RMF=rm -f
+RMRF=rm -rf
+#
 ######
 
 libatscc2php:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
 libatscc2php:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
 
 ######
 
