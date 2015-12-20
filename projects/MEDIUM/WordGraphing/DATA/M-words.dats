@@ -124,6 +124,9 @@ val () =
 val w0 =
 word_create_add("motif")
 //
+val () =
+word_add_synonym(w0, "a decorative image with patterns")
+//
 } // end of [val]
 
 (* ****** ****** *)

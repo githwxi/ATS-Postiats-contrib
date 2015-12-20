@@ -64,6 +64,9 @@ val () =
 val w0 =
 word_create_add("flamenco")
 //
+val () =
+word_add_synonym(w0, "a style of Spanish music with singing and dancing")
+//
 } // end of [val]
 
 (* ****** ****** *)

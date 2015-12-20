@@ -94,6 +94,9 @@ val () =
 val w0 =
 word_create_add("grotto")
 //
+val () =
+word_add_synonym(w0, "a fake cave in a park or garden")
+//
 } // end of [val]
 
 (* ****** ****** *)

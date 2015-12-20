@@ -917,6 +917,8 @@ val () =
 word_add_synonym(w0, "god")
 val () =
 word_add_synonym(w0, "goddess")
+val () =
+word_add_synonym(w0, "a god or goddess")
 //
 } // end of [val]
 
@@ -1228,6 +1230,9 @@ val () =
 val w0 =
 word_create_add("flamenco")
 //
+val () =
+word_add_synonym(w0, "a style of Spanish music with singing and dancing")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -1468,6 +1473,9 @@ val () =
 val w0 =
 word_create_add("grotto")
 //
+val () =
+word_add_synonym(w0, "a fake cave in a park or garden")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -1677,6 +1685,9 @@ val () =
 //
 val w0 =
 word_create_add("juxtapose")
+//
+val () =
+word_add_synonym(w0, "put two things closely together")
 //
 } // end of [val]
 
@@ -1958,6 +1969,9 @@ val () =
 val w0 =
 word_create_add("motif")
 //
+val () =
+word_add_synonym(w0, "a decorative image with patterns")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -2102,6 +2116,9 @@ val () =
 val w0 =
 word_create_add("panoramic")
 //
+val () =
+word_add_synonym(w0, "a wide view")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -2111,6 +2128,9 @@ val () =
 //
 val w0 =
 word_create_add("papal")
+//
+val () =
+word_add_synonym(w0, "relating to the head of a church")
 //
 } // end of [val]
 
@@ -2222,6 +2242,8 @@ val () =
 word_add_synonym(w0, "sleepy")
 val () =
 word_add_synonym(w0, "tranquil")
+val () =
+word_add_synonym(w0, "with little movement or activity")
 //
 val () =
 word_add_antonym(w0, "bustling")
@@ -2255,6 +2277,9 @@ val () =
 //
 val w0 =
 word_create_add("plunder")
+//
+val () =
+word_add_synonym(w0, "to steal goods from")
 //
 } // end of [val]
 
@@ -2798,6 +2823,9 @@ val () =
 //
 val w0 =
 word_create_add("spartan")
+//
+val () =
+word_add_synonym(w0, "showing a lack of comfort")
 //
 } // end of [val]
 
