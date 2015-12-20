@@ -222,6 +222,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("slump")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("slunk")
 //
 } // end of [val]

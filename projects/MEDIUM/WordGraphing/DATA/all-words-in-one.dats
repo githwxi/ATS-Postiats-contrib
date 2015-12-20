@@ -1,5 +1,5 @@
 (*
-theDictionary.size() = 288
+theDictionary.size() = 290
 *)
 
 (* ****** ****** *)
@@ -1753,6 +1753,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("mock")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("mope")
 //
 } // end of [val]
@@ -2451,6 +2461,16 @@ val () =
 //
 val w0 =
 word_create_add("slosh")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("slump")
 //
 } // end of [val]
 

@@ -102,6 +102,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("mock")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("mope")
 //
 } // end of [val]
