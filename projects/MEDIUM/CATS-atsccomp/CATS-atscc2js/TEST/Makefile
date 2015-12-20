@@ -23,11 +23,6 @@ cleanall::
 
 ######
 
-RMF=rm -f
-RMRF=rm -rf
-
-######
-
 all:: \
 fact_dats.js
 fact_dats.js: fact.dats ; \
@@ -202,8 +197,19 @@ cleanall:: ; $(RMF) process_test_dats.js
 
 ######
 
-CPRF=cp -rf
+testall:: all
+testall:: libatscc2js
+testall:: regress
+testall:: cleanall
 
+######
+#
+CPF=cp -f
+CPRF=cp -rf
+#
+RMF=rm -f
+RMRF=rm -rf
+#
 ######
 #
 libatscc2js:: ; \
