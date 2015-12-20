@@ -143,9 +143,9 @@ PYlist_reduce
 (* ****** ****** *)
 //
 fun
-PYlist2list{a:t0p} (xs: PYlist (a)): List0_vt(a) = "mac#"
+PYlist2list{a:t0p} (xs: PYlist(a)): List0(a) = "mac#"
 fun
-PYlist2list_rev{a:t0p} (xs: PYlist (a)): List0_vt(a) = "mac#"
+PYlist2list_rev{a:t0p} (xs: PYlist(a)): List0(a) = "mac#"
 //
 (* ****** ****** *)
 
