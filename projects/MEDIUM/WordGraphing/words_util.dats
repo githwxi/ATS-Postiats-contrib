@@ -302,23 +302,19 @@ implement
 wordlst_split_a2z
   (ws) = let
 //
-fun
+fnx
 loop (
   c0: int, ws: wordlst
 ) : void = let
 //
-val c1 =
-  int2char0(c0)
-//
-val () = assertloc('a' <= c1 && c1 <= 'z')
-//
-val C1 = toupper(c1)
-val C1 = string_sing($UN.cast{charNZ}(C1))
+val c1 = int2char0(c0)
+val () = assertloc('A' <= c1 && c1 <= 'Z')
+val c1 = string_sing($UN.cast{charNZ}(c1))
 //
 val dir = "DATA/"
 //
 val fname =
-  strptr2string(string0_append(C1, "-words.dats"))
+  strptr2string(string0_append(c1, "-words.dats"))
 //
 val dir_fname = strptr2string(string0_append(dir, fname))
 //
@@ -340,8 +336,11 @@ loop2 (
 //
 local
 implement
-wordlst_process$cont<>(w) =
-  c0 = $UN.ptr0_get<char>(string2ptr(w.spelling()))
+wordlst_process$cont<>(w) = 
+(
+  c0 = toupper(string_char(w.spelling()))
+)
+//
 implement
 wordlst_process$fwork<>(w) = fprint_word_code(outfil, w)
 in
@@ -354,12 +353,72 @@ val () =
 val () = fileref_close(outfil)
 //
 in
-  if int2char0(c0) < 'z' then loop(c0+1, ws) else ()
+  if int2char0(c0) < 'Z' then loop(c0+1, ws) else ()
 end // end of [loop2]
 //
 in
-  loop(char2int0('a'), ws)
+  loop(char2int0('A'), ws)
 end // end of [wordlst_split_a2z]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+wordlst_get_duplicates
+  (ws) = let
+//
+fun
+loop0
+(
+  ws: wordlst, res: wordlst
+) : wordlst =
+(
+  case+ ws of
+  | list0_nil() => res
+  | list0_cons(w, ws) => loop1(ws, w, res)
+)
+//
+and
+loop1
+(
+  ws: wordlst, w0: word, res: wordlst
+) : wordlst =
+(
+  case+ ws of
+  | list0_nil() => res
+  | list0_cons(w1, ws) => let
+      val sgn = compare(w0, w1)
+    in
+      if sgn = 0
+        then let
+          val res = cons0(w1, cons0(w0, res))
+        in
+          loop2 (ws, w1, res)
+        end // end of [then]
+        else loop1(ws, w1, res)
+    end // end of [list_cons]
+)
+//
+and
+loop2
+(
+  ws: wordlst, w1: word, res: wordlst
+) : wordlst =
+(
+  case+ ws of
+  | list0_nil() => res
+  | list0_cons(w2, ws) => let
+      val sgn = compare(w1, w2)
+    in
+      if sgn = 0
+        then loop2(ws, w2, cons0(w2, res)) else loop1(ws, w2, res)
+      // end of [if]
+    end
+)
+//
+in
+  loop0(ws, list0_nil(*void*))
+end // end of [wordlst_get_duplicates]
 
 (* ****** ****** *)
 

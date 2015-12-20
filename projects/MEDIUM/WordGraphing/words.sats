@@ -105,4 +105,9 @@ wordlst_split_a2z(ws: wordlst): void
 //
 (* ****** ****** *)
 
+fun{}
+wordlst_get_duplicates(ws: wordlst): wordlst
+
+(* ****** ****** *)
+
 (* end of [words.sats] *)

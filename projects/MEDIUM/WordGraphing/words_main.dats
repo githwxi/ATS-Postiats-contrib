@@ -65,11 +65,6 @@ _all_: bool = false
 //
 val () =
 if
-argc = 1
-then (_all_ := true)
-//
-val () =
-if
 argc >= 2
 then (
   case+ argv[1] of
@@ -118,7 +113,16 @@ val () = println! ("\n(* ****** ****** *)\n")
 //
 val () = fprint_wordlst_code(stdout_ref, ws)
 //
-val () = println! ("(* end of [all-words-in-one.dats] *)")
+val ws_dup =
+  wordlst_get_duplicates(ws)
+//
+val ((*void*)) = println! ("(*")
+val ((*void*)) = println! ("Duplicated entries:")
+val ((*void*)) = list0_foreach(ws_dup, lam(w) => println! (w.spelling()))
+val ((*void*)) = println! ("*)")
+val () = println! ("\n(* ****** ****** *)\n")
+//
+val ((*void*)) = println! ("(* end of [all-words-in-one.dats] *)")
 //
 } (* end of [val] *)
 //
