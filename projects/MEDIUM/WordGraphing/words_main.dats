@@ -83,10 +83,10 @@ then (
   | _ (* rest *) => ((*void*))
 ) (* end of [then] *)
 //
-val nw =
-theDictionary.size()
+val nw = theDictionary.size()
 //
-val ws = theDictionary.listize0()
+val ws = dict_get_wordlst(theDictionary)
+//
 val ws =
 list0_mergesort
   (ws, lam(x, y) => $effmask_all(compare(x, y)))

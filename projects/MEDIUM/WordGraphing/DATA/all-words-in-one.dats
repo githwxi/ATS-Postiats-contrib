@@ -260,6 +260,13 @@ val () =
 val w0 =
 word_create_add("barracuda")
 //
+val () =
+word_add_meaning(w0, "\
+Barracuda is a ray-finned fish known for its large size and \
+fearsome appearance. Its body is long, fairly compressed, and covered \
+with small, smooth scales.\
+")
+//
 } // end of [val]
 
 (* ****** ****** *)

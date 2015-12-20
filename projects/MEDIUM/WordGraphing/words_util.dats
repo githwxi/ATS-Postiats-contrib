@@ -14,9 +14,45 @@
 //
 (* ****** ****** *)
 
+staload _(*anon*) = "libats/DATS/qlist.dats"
+staload _(*anon*) = "libats/DATS/linmap_list.dats"
+staload _(*anon*) = "libats/DATS/hashtbl_chain.dats"
+
+(* ****** ****** *)
+
 staload "./words.sats"
 
 (* ****** ****** *)
+
+local
+//
+typedef
+key = string and itm = word
+//
+assume dict_type = hashtbl(key, itm)
+//
+in (* in-of-local *)
+
+implement
+// {}(*tmp*)
+dict_get_size
+  (dict) = hashtbl_get_size(dict)
+
+implement
+// {}(*tmp*)
+dict_insert_word
+  (dict, word) =
+(
+  hashtbl_insert<key,itm>(dict, word.spelling(), word)
+)
+
+implement
+// {}(*tmp*)
+dict_get_wordlst
+  (dict) =
+(
+  list0_map(hashtbl_listize1<key,itm>(dict), lam(kw) => kw.1)
+)
 
 implement
 theDictionary =
@@ -25,8 +61,10 @@ let
 val INITCAP = 1024
 //
 in
-  dynarray_make_nil<word>(i2sz(INITCAP))
+  hashtbl_make_nil<string,word>(i2sz(INITCAP))
 end // end of [theDictionary]
+
+end // end of [local]
 
 (* ****** ****** *)
 
@@ -38,7 +76,7 @@ word_type = gvhashtbl
 in (* in-of-local *)
 
 implement
-{}(*tmp*)
+// {}(*tmp*)
 word_create
   (spelling) = w0 where
 {
@@ -59,32 +97,58 @@ val () =
 (* ****** ****** *)
 //
 implement
-{}(*tmp*)
+// {}(*tmp*)
 word_get_spelling(w0) =
   GVstring_uncons(w0["spelling"])
 //
 (* ****** ****** *)
 //
 implement
-{}(*tmp*)
-word_add_synonym
-  (w0, rep) =
+// {}(*tmp*)
+word_add_meaning
+  (w0, meaning) =
 (
-  gvhashtbl_push_atkey(w0, "synonym", GVstring(rep))
-)
-//
-implement
-{}(*tmp*)
-word_add_antonym
-  (w0, rep) =
-(
-  gvhashtbl_push_atkey(w0, "antonym", GVstring(rep))
+  gvhashtbl_push_atkey(w0, "meaning", GVstring(meaning))
 )
 //
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
+// {}(*tmp*)
+word_get_meanings
+  (w0) = let
+//
+val gv0 = w0["meaning"]
+//
+in
+//
+case- gv0 of
+| GVnil() => nil0() | GVlist(gvs) => gvs
+//
+end // end of [word_get_meanings]
+
+(* ****** ****** *)
+//
+implement
+// {}(*tmp*)
+word_add_synonym
+  (w0, synonym) =
+(
+  gvhashtbl_push_atkey(w0, "synonym", GVstring(synonym))
+)
+//
+implement
+// {}(*tmp*)
+word_add_antonym
+  (w0, antonym) =
+(
+  gvhashtbl_push_atkey(w0, "antonym", GVstring(antonym))
+)
+//
+(* ****** ****** *)
+
+implement
+// {}(*tmp*)
 word_get_synonyms
   (w0) = let
 //
@@ -100,7 +164,7 @@ end // end of [word_get_synonyms]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
+// {}(*tmp*)
 word_get_antonyms
   (w0) = let
 //
@@ -120,7 +184,7 @@ end // end of [local]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
+// {}(*tmp*)
 word_create_add
   (spelling) = w0 where
 {
@@ -128,14 +192,14 @@ word_create_add
 val w0 =
   word_create(spelling)
 //
-val-~None_vt() = theDictionary.insend(w0)
+val-~None_vt() = theDictionary.insert(w0)
 //
 } (* end of [word_create_add] *)
 
 (* ****** ****** *)
 //
 implement
-{}(*tmp*)
+// {}(*tmp*)
 compare_word_word
   (w0, w1) =
   compare(w0.spelling(), w1.spelling())
@@ -162,15 +226,37 @@ fprintln! (out, "  ", "antonyms: ", w0.antonyms())
 local
 
 fun
-fpr_synonym
+fpr_meaning
 (
-  out: FILEref, syn: string
+  out: FILEref, meaning: string
 ) : void = () where
 {
 //
 val () =
 fprintln!
-  (out, "val () =\nword_add_synonym(w0, \"", syn, "\")")
+  (out, "val () =\nword_add_meaning(w0, \"", meaning, "\")")
+//
+} (* end of [fpr_meaning] *)
+
+fun
+fpr_meanings
+(
+  out: FILEref, gvs: gvlist
+) : void =
+(
+  list0_foreach(gvs, lam(gv) => fpr_meaning(out, GVstring_uncons(gv)))
+)
+
+fun
+fpr_synonym
+(
+  out: FILEref, synonym: string
+) : void = () where
+{
+//
+val () =
+fprintln!
+  (out, "val () =\nword_add_synonym(w0, \"", synonym, "\")")
 //
 } (* end of [fpr_synonym] *)
 
@@ -186,13 +272,13 @@ fpr_synonyms
 fun
 fpr_antonym
 (
-  out: FILEref, ant: string
+  out: FILEref, antonym: string
 ) : void = () where
 {
 //
 val () =
 fprintln!
-  (out, "val () =\nword_add_antonym(w0, \"", ant, "\")")
+  (out, "val () =\nword_add_antonym(w0, \"", antonym, "\")")
 //
 } (* end of [fpr_antonym] *)
 
@@ -206,6 +292,7 @@ fpr_antonyms
 )
 
 in (* in-of-local *)
+
 implement
 {}(*tmp*)
 fprint_word_code
@@ -226,6 +313,12 @@ fprintln!
 )
 //
 val () = fprintln! (out, "//")
+//
+val xs = w0.meanings()
+val xs = list0_reverse(xs)
+val () = fpr_meanings(out, xs)
+val () =
+  if isneqz(xs) then fprintln! (out, "//")
 //
 val xs = w0.synonyms()
 val xs = list0_reverse(xs)
@@ -413,7 +506,7 @@ loop2
       if sgn = 0
         then loop2(ws, w2, cons0(w2, res)) else loop1(ws, w2, res)
       // end of [if]
-    end
+    end // end of [list0_cons]
 )
 //
 in
