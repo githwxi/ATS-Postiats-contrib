@@ -11,7 +11,7 @@
 
 (* ****** ****** *)
 
-#include "./words.dats"
+#include "./words_util.dats"
 
 (* ****** ****** *)
 
@@ -126,4 +126,4 @@ val () = println! ("(* end of [all-words-in-one.dats] *)")
 
 (* ****** ****** *)
 
-(* end of [words_all.dats] *)
+(* end of [words_main.dats] *)

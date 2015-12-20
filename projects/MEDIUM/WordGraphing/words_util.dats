@@ -363,4 +363,4 @@ end // end of [wordlst_split_a2z]
 
 (* ****** ****** *)
 
-(* end of [words.dats] *)
+(* end of [words_util.dats] *)
