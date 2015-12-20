@@ -84,6 +84,24 @@ fprint_word_text : fprint_type(word)
 //
 fun{}
 fprint_word_code : fprint_type(word)
+fun{}
+fprint_wordlst_code : fprint_type(wordlst)
+//
+(* ****** ****** *)
+//
+fun{}
+wordlst_process
+  (ws: wordlst): wordlst
+//
+fun{}
+wordlst_process$cont(w: word): bool
+fun{}
+wordlst_process$fwork(w: word): void
+//
+(* ****** ****** *)
+//
+fun{}
+wordlst_split_a2z(ws: wordlst): void
 //
 (* ****** ****** *)
 

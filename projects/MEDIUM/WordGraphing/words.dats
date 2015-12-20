@@ -183,6 +183,28 @@ fpr_synonyms
   list0_foreach(gvs, lam(gv) => fpr_synonym(out, GVstring_uncons(gv)))
 )
 
+fun
+fpr_antonym
+(
+  out: FILEref, ant: string
+) : void = () where
+{
+//
+val () =
+fprintln!
+  (out, "val () =\nword_add_antonym(w0, \"", ant, "\")")
+//
+} (* end of [fpr_antonym] *)
+
+fun
+fpr_antonyms
+(
+  out: FILEref, gvs: gvlist
+) : void =
+(
+  list0_foreach(gvs, lam(gv) => fpr_antonym(out, GVstring_uncons(gv)))
+)
+
 in (* in-of-local *)
 implement
 {}(*tmp*)
@@ -211,6 +233,12 @@ val () = fpr_synonyms(out, xs)
 val () =
   if isneqz(xs) then fprintln! (out, "//")
 //
+val xs = w0.antonyms()
+val xs = list0_reverse(xs)
+val () = fpr_antonyms(out, xs)
+val () =
+  if isneqz(xs) then fprintln! (out, "//")
+//
 val () =
   fprintln! (out, "} // end of [val]\n")
 val () =
@@ -219,6 +247,119 @@ val () =
 } (* end of [fprint_word_code] *)
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+fprint_wordlst_code
+  (out, ws) = let
+//
+implement
+wordlst_process$cont<>(w) = true
+implement
+wordlst_process$fwork<>(w) = fprint_word_code(out, w)
+//
+in
+  ignoret(wordlst_process(ws))
+end // end of [fprint_wordlst_code]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+wordlst_process(ws) = let
+//
+fun
+loop(ws: wordlst): wordlst =
+(
+case+ ws of
+| list0_cons
+    (w, ws2) => let
+    val cont =
+      wordlst_process$cont<>(w)
+    // end of [val]
+  in
+    if cont then (wordlst_process$fwork(w); loop(ws2)) else ws
+  end // end of [list0_cons]
+| list0_nil() => list0_nil()
+)
+//
+in
+  loop(ws)
+end // end of [wordlst_process]
+
+(* ****** ****** *)
+//
+staload
+UN =
+"prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+wordlst_split_a2z
+  (ws) = let
+//
+fun
+loop (
+  c0: int, ws: wordlst
+) : void = let
+//
+val c1 =
+  int2char0(c0)
+//
+val () = assertloc('a' <= c1 && c1 <= 'z')
+//
+val C1 = toupper(c1)
+val C1 = string_sing($UN.cast{charNZ}(C1))
+//
+val dir = "DATA/"
+//
+val fname =
+  strptr2string(string0_append(C1, "-words.dats"))
+//
+val dir_fname = strptr2string(string0_append(dir, fname))
+//
+val outfil = fileref_open_exn(dir_fname, file_mode_w)
+//
+in
+//
+  loop2(c0, ws, fname, outfil)
+//
+end // end of [loop]
+//
+and
+loop2 (
+  c0: int
+, ws: wordlst
+, fname: string
+, outfil: FILEref
+) : void = let
+//
+local
+implement
+wordlst_process$cont<>(w) =
+  c0 = $UN.ptr0_get<char>(string2ptr(w.spelling()))
+implement
+wordlst_process$fwork<>(w) = fprint_word_code(outfil, w)
+in
+val ws = wordlst_process(ws)
+end // end of [local]
+//
+val () =
+  fprintln! (outfil, "(* end of [", fname, "] *)")
+//
+val () = fileref_close(outfil)
+//
+in
+  if int2char0(c0) < 'z' then loop(c0+1, ws) else ()
+end // end of [loop2]
+//
+in
+  loop(char2int0('a'), ws)
+end // end of [wordlst_split_a2z]
 
 (* ****** ****** *)
 

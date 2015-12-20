@@ -256,7 +256,18 @@ val w0 =
 word_create_add("placid")
 //
 val () =
+word_add_synonym(w0, "calm")
+val () =
 word_add_synonym(w0, "quiet")
+val () =
+word_add_synonym(w0, "restful")
+val () =
+word_add_synonym(w0, "sleepy")
+val () =
+word_add_synonym(w0, "tranquil")
+//
+val () =
+word_add_antonym(w0, "bustling")
 //
 } // end of [val]
 
