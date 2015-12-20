@@ -55,8 +55,38 @@
 (* ****** ****** *)
 
 implement
-main0() = () where
+main0(argc, argv) = () where
 {
+//
+var
+_a2z_: bool = false
+var
+_all_: bool = false
+//
+val () =
+if
+argc = 1
+then (_all_ := true)
+//
+val () =
+if
+argc >= 2
+then (
+  case+ argv[1] of
+  | "-a2z" => _a2z_ := true
+  | "-all" => _all_ := true
+  | _ (* rest *) => ((*void*))
+) (* end of [then] *)
+//
+val () =
+if
+argc >= 3
+then (
+  case+ argv[2] of
+  | "-a2z" => _a2z_ := true
+  | "-all" => _all_ := true
+  | _ (* rest *) => ((*void*))
+) (* end of [then] *)
 //
 val nw =
 theDictionary.size()
@@ -67,8 +97,17 @@ list0_mergesort
   (ws, lam(x, y) => $effmask_all(compare(x, y)))
 //
 val () =
-wordlst_split_a2z(ws)
+if _a2z_ then
+{
 //
+val () =
+  wordlst_split_a2z(ws)
+//
+} (* end of [val] *)
+//
+val () =
+if _all_ then
+{
 val () = println! ("(*")
 //
 val () =
@@ -80,6 +119,8 @@ val () = println! ("\n(* ****** ****** *)\n")
 val () = fprint_wordlst_code(stdout_ref, ws)
 //
 val () = println! ("(* end of [all-words-in-one.dats] *)")
+//
+} (* end of [val] *)
 //
 } (* end of [main0] *)
 
