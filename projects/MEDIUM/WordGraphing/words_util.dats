@@ -232,9 +232,8 @@ case+ opt of
     val w0 = word_create(spelling)
     val-~None_vt() = theDict.insert(w0)
   }
-| ~Some_vt _ => w0 where
+| ~Some_vt w0 => w0 where
   {
-    val w0 = word_create(spelling)
     val () = prerrln! ("word_create_add: repeated: ", spelling)
   }
 //

@@ -113,6 +113,8 @@ val () = println! ("\n(* ****** ****** *)\n")
 //
 val () = fprint_wordlst_code(stdout_ref, ws)
 //
+(*
+//
 val ws_dup =
   wordlst_get_duplicates(ws)
 //
@@ -123,6 +125,8 @@ val ((*void*)) = println! ("*)")
 val () = println! ("\n(* ****** ****** *)\n")
 //
 val ((*void*)) = println! ("(* end of [all-words-in-one.dats] *)")
+//
+*)
 //
 } (* end of [val] *)
 //
