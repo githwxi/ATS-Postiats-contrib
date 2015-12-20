@@ -72,7 +72,12 @@ val () =
 {
 //
 val w0 =
-word_create_add("writh")
+word_create_add("writhe")
+//
+val () =
+word_add_meaning(w0, "make continual twisting, squirming movements or contortions of the body.")
+val () =
+word_add_meaning(w0, "respond with great emotional or physical discomfort to (a violent or unpleasant feeling or thought).")
 //
 } // end of [val]
 
