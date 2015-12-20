@@ -152,11 +152,19 @@ cleanall:: ; $(RMF) sieve_lazy_dats.pl
 
 ######
 
+testall:: all
+testall:: libatscc2pl
+testall:: regress
+testall:: cleanall
+
+######
+#
 CPF=cp -f
 CPRF=cp -rf
+#
 RMF=rm -f
 RMRF=rm -rf
-
+#
 ######
 
 libatscc2pl:: ; \
