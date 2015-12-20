@@ -77,6 +77,26 @@ val () =
 {
 //
 val w0 =
+word_create_add("delta")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("denim")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("derp")
 //
 } // end of [val]
@@ -148,6 +168,16 @@ val () =
 //
 val w0 =
 word_create_add("dowry")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("drone")
 //
 } // end of [val]
 

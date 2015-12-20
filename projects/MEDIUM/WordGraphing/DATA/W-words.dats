@@ -72,6 +72,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("woozy")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("writhe")
 //
 val () =

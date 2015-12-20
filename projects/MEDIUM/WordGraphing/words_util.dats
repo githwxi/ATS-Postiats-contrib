@@ -220,15 +220,25 @@ end // end of [local]
 implement
 // {}(*tmp*)
 word_create_add
-  (spelling) = w0 where
-{
+  (spelling) = let
 //
-val w0 =
-  word_create(spelling)
+val opt = theDict.search(spelling)
 //
-val-~None_vt() = theDict.insert(w0)
+in
 //
-} (* end of [word_create_add] *)
+case+ opt of
+| ~None_vt() => w0 where
+  {
+    val w0 = word_create(spelling)
+    val-~None_vt() = theDict.insert(w0)
+  }
+| ~Some_vt _ => w0 where
+  {
+    val w0 = word_create(spelling)
+    val () = prerrln! ("word_create_add: repeated: ", spelling)
+  }
+//
+end (* end of [word_create_add] *)
 
 (* ****** ****** *)
 //

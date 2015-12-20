@@ -12,6 +12,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("tatter")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("tearjerker")
 //
 } // end of [val]
@@ -113,6 +123,16 @@ val () =
 //
 val w0 =
 word_create_add("tubular")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("tuft")
 //
 } // end of [val]
 

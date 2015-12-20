@@ -152,6 +152,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("asphalt")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("aspirin")
 //
 } // end of [val]

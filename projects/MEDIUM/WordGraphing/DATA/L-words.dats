@@ -12,6 +12,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("lash")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("latte")
 //
 } // end of [val]
@@ -93,6 +103,16 @@ val () =
 //
 val w0 =
 word_create_add("lopside")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("lurch")
 //
 } // end of [val]
 

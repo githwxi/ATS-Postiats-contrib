@@ -102,6 +102,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("flourescent")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("flourish")
 //
 } // end of [val]

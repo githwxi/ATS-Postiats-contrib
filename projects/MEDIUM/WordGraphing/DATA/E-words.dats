@@ -62,6 +62,26 @@ val () =
 {
 //
 val w0 =
+word_create_add("evac")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("evade")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("evoke")
 //
 } // end of [val]

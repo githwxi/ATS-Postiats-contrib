@@ -102,6 +102,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("scraggly")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("scumbag")
 //
 } // end of [val]
@@ -202,7 +212,27 @@ val () =
 {
 //
 val w0 =
+word_create_add("sinister")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("skewer")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("slaver")
 //
 } // end of [val]
 
@@ -272,6 +302,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("sonar")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("spar")
 //
 } // end of [val]
@@ -323,6 +363,26 @@ val () =
 //
 val w0 =
 word_create_add("stammer")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("stark")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("sternum")
 //
 } // end of [val]
 

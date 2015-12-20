@@ -12,6 +12,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("callous")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("carcass")
 //
 } // end of [val]
@@ -62,7 +72,27 @@ val () =
 {
 //
 val w0 =
+word_create_add("churn")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("chutney")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("clamber")
 //
 } // end of [val]
 
@@ -162,6 +192,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("commune")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("compress")
 //
 } // end of [val]
@@ -183,6 +223,16 @@ val () =
 //
 val w0 =
 word_create_add("concur")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("coo")
 //
 } // end of [val]
 
@@ -283,6 +333,16 @@ val () =
 //
 val w0 =
 word_create_add("cubicle")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("customary")
 //
 } // end of [val]
 

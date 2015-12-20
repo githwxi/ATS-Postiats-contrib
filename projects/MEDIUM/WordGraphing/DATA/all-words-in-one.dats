@@ -1,5 +1,5 @@
 (*
-theDict.size() = 290
+theDict.size() = 320
 *)
 
 (* ****** ****** *)
@@ -158,6 +158,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("asphalt")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("aspirin")
 //
 } // end of [val]
@@ -258,10 +268,30 @@ val () =
 {
 //
 val w0 =
+word_create_add("barb")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("barracuda")
 //
 val () =
 word_add_meaning(w0, "Barracuda is a ray-finned fish known for its large size and fearsome appearance. Its body is long, fairly compressed, and covered with small, smooth scales.")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("barter")
 //
 } // end of [val]
 
@@ -322,6 +352,16 @@ val () =
 //
 val w0 =
 word_create_add("blanch")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("bleary")
 //
 } // end of [val]
 
@@ -461,6 +501,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("callous")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("carcass")
 //
 } // end of [val]
@@ -511,7 +561,27 @@ val () =
 {
 //
 val w0 =
+word_create_add("churn")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("chutney")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("clamber")
 //
 } // end of [val]
 
@@ -611,6 +681,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("commune")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("compress")
 //
 } // end of [val]
@@ -632,6 +712,16 @@ val () =
 //
 val w0 =
 word_create_add("concur")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("coo")
 //
 } // end of [val]
 
@@ -741,6 +831,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("customary")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("cypress")
 //
 } // end of [val]
@@ -817,6 +917,26 @@ val () =
 word_add_synonym(w0, "god")
 val () =
 word_add_synonym(w0, "goddess")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("delta")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("denim")
 //
 } // end of [val]
 
@@ -906,6 +1026,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("drone")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("dubious")
 //
 } // end of [val]
@@ -977,6 +1107,26 @@ val () =
 //
 val w0 =
 word_create_add("etiquette")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("evac")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("evade")
 //
 } // end of [val]
 
@@ -1107,6 +1257,16 @@ val () =
 //
 val w0 =
 word_create_add("fleet")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("flourescent")
 //
 } // end of [val]
 
@@ -1556,6 +1716,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("lash")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("latte")
 //
 } // end of [val]
@@ -1637,6 +1807,16 @@ val () =
 //
 val w0 =
 word_create_add("lopside")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("lurch")
 //
 } // end of [val]
 
@@ -2217,7 +2397,37 @@ val () =
 {
 //
 val w0 =
+word_create_add("reek")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("relish")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("revolt")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("ridge")
 //
 } // end of [val]
 
@@ -2367,6 +2577,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("scraggly")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("scumbag")
 //
 } // end of [val]
@@ -2467,7 +2687,27 @@ val () =
 {
 //
 val w0 =
+word_create_add("sinister")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("skewer")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("slaver")
 //
 } // end of [val]
 
@@ -2537,6 +2777,16 @@ val () =
 {
 //
 val w0 =
+word_create_add("sonar")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("spar")
 //
 } // end of [val]
@@ -2588,6 +2838,26 @@ val () =
 //
 val w0 =
 word_create_add("stammer")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("stark")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("sternum")
 //
 } // end of [val]
 
@@ -2671,6 +2941,16 @@ val () =
 //
 val w0 =
 word_create_add("tapestry")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("tatter")
 //
 } // end of [val]
 
@@ -2781,6 +3061,16 @@ val () =
 //
 val w0 =
 word_create_add("tubular")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("tuft")
 //
 } // end of [val]
 
@@ -2941,6 +3231,16 @@ val () =
 //
 val w0 =
 word_create_add("wombat")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("woozy")
 //
 } // end of [val]
 
