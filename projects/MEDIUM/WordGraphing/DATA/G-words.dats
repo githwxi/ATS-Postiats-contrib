@@ -14,6 +14,9 @@ val () =
 val w0 =
 word_create_add("glint")
 //
+val () =
+word_add_meaning(w0, "give out light")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -23,6 +26,9 @@ val () =
 //
 val w0 =
 word_create_add("gnaw")
+//
+val () =
+word_add_meaning(w0, "nibble at continuously")
 //
 } // end of [val]
 
@@ -116,6 +122,9 @@ val () =
 //
 val w0 =
 word_create_add("grungy")
+//
+val () =
+word_add_synonym(w0, "dirty")
 //
 } // end of [val]
 

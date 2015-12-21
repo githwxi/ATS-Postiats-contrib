@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("saber")
 //
+val () =
+word_add_meaning(w0, "a type of curved sword")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -74,6 +77,9 @@ val () =
 val w0 =
 word_create_add("scalpel")
 //
+val () =
+word_add_meaning(w0, "a knife used by a doctor")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -113,6 +119,9 @@ val () =
 //
 val w0 =
 word_create_add("scumbag")
+//
+val () =
+word_add_meaning(w0, "an unpleasant person")
 //
 } // end of [val]
 
@@ -325,7 +334,7 @@ val w0 =
 word_create_add("spartan")
 //
 val () =
-word_add_meaning(w0, "showing a lack of comfort")
+word_add_meaning(w0, "lack of comfort")
 //
 } // end of [val]
 
@@ -336,6 +345,9 @@ val () =
 //
 val w0 =
 word_create_add("spew")
+//
+val () =
+word_add_meaning(w0, "force out rapidly")
 //
 } // end of [val]
 
@@ -356,6 +368,9 @@ val () =
 //
 val w0 =
 word_create_add("stallion")
+//
+val () =
+word_add_meaning(w0, "an adult male horse")
 //
 } // end of [val]
 

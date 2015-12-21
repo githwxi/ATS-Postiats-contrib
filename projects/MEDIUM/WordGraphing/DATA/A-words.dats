@@ -34,6 +34,9 @@ val () =
 val w0 =
 word_create_add("acronym")
 //
+val () =
+word_add_meaning(w0, "an abbreviation")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -53,6 +56,9 @@ val () =
 //
 val w0 =
 word_create_add("alabaster")
+//
+val () =
+word_add_meaning(w0, "a white mineral")
 //
 } // end of [val]
 
@@ -144,6 +150,9 @@ val () =
 val w0 =
 word_create_add("asbesto")
 //
+val () =
+word_add_meaning(w0, "a mineral that is heat resistant and can be woven into a fabric")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -174,6 +183,9 @@ val () =
 val w0 =
 word_create_add("assail")
 //
+val () =
+word_add_meaning(w0, "make an attack on")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -184,6 +196,9 @@ val () =
 val w0 =
 word_create_add("astride")
 //
+val () =
+word_add_meaning(w0, "with a leg on each side of")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -193,6 +208,9 @@ val () =
 //
 val w0 =
 word_create_add("astrolobe")
+//
+val () =
+word_add_meaning(w0, "an instrument used for astronomy")
 //
 } // end of [val]
 

@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("dais")
 //
+val () =
+word_add_meaning(w0, "a low platform for a throne")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -130,7 +133,10 @@ val () =
 {
 //
 val w0 =
-word_create_add("dimples")
+word_create_add("dimple")
+//
+val () =
+word_add_meaning(w0, "a wrinkle in the skin")
 //
 } // end of [val]
 

@@ -114,6 +114,9 @@ val () =
 val w0 =
 word_create_add("trigger")
 //
+val () =
+word_add_meaning(w0, "a device that sets off something")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -163,6 +166,9 @@ val () =
 //
 val w0 =
 word_create_add("twinge")
+//
+val () =
+word_add_meaning(w0, "a brief experience of an emotion")
 //
 } // end of [val]
 

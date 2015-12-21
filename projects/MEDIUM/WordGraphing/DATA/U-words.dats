@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("underwent")
 //
+val () =
+word_add_meaning(w0, "experience")
+//
 } // end of [val]
 
 (* ****** ****** *)

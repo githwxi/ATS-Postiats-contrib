@@ -44,6 +44,9 @@ val () =
 val w0 =
 word_create_add("wistful")
 //
+val () =
+word_add_meaning(w0, "a feeling of regretful longing")
+//
 } // end of [val]
 
 (* ****** ****** *)

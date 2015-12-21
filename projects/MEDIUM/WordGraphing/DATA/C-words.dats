@@ -54,6 +54,9 @@ val () =
 val w0 =
 word_create_add("chamois")
 //
+val () =
+word_add_meaning(w0, "soft leather")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -103,6 +106,9 @@ val () =
 //
 val w0 =
 word_create_add("clatter")
+//
+val () =
+word_add_meaning(w0, "a rattling sound made when objects fall")
 //
 } // end of [val]
 
@@ -283,6 +289,9 @@ val () =
 //
 val w0 =
 word_create_add("crank")
+//
+val () =
+word_add_meaning(w0, "turn in order to start an engine")
 //
 } // end of [val]
 

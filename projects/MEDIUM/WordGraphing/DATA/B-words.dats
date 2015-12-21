@@ -107,6 +107,9 @@ val () =
 val w0 =
 word_create_add("blanch")
 //
+val () =
+word_add_meaning(w0, "make pale")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -206,6 +209,9 @@ val () =
 //
 val w0 =
 word_create_add("brittle")
+//
+val () =
+word_add_meaning(w0, "unpleasantly hard or sharp")
 //
 } // end of [val]
 

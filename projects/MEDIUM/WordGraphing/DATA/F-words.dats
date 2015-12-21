@@ -127,6 +127,9 @@ val () =
 val w0 =
 word_create_add("fluster")
 //
+val () =
+word_add_meaning(w0, "make someone nervous or confused")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -167,6 +170,9 @@ val () =
 val w0 =
 word_create_add("franchise")
 //
+val () =
+word_add_meaning(w0, "an authorization granted by a government or company to an individual or group enabling them to carry out specified commercial activities")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -176,6 +182,9 @@ val () =
 //
 val w0 =
 word_create_add("fray")
+//
+val () =
+word_add_meaning(w0, "a battle or fight")
 //
 } // end of [val]
 
@@ -196,6 +205,9 @@ val () =
 //
 val w0 =
 word_create_add("funnel")
+//
+val () =
+word_add_meaning(w0, "a tube used to guide liquid into an opening")
 //
 } // end of [val]
 

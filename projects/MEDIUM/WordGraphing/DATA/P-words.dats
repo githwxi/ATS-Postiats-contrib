@@ -31,6 +31,8 @@ val () =
 word_add_meaning(w0, "so intense as to be almost touched or felt.")
 val () =
 word_add_meaning(w0, "clear to the mind or plain to see.")
+val () =
+word_add_meaning(w0, "able to be touched or felt")
 //
 val () =
 word_add_synonym(w0, "perceptible")
@@ -212,7 +214,7 @@ val w0 =
 word_create_add("plunder")
 //
 val () =
-word_add_meaning(w0, "to steal goods from")
+word_add_meaning(w0, "rob or steal goods from")
 //
 } // end of [val]
 

@@ -34,6 +34,9 @@ val () =
 val w0 =
 word_create_add("meld")
 //
+val () =
+word_add_meaning(w0, "combine")
+//
 } // end of [val]
 
 (* ****** ****** *)

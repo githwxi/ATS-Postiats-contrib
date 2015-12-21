@@ -44,6 +44,9 @@ val () =
 val w0 =
 word_create_add("laurel")
 //
+val () =
+word_add_meaning(w0, "leaves woven into a crown")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -64,6 +67,9 @@ val () =
 val w0 =
 word_create_add("lib")
 //
+val () =
+word_add_meaning(w0, "a lie")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -73,6 +79,9 @@ val () =
 //
 val w0 =
 word_create_add("lint")
+//
+val () =
+word_add_meaning(w0, "blueish-gray")
 //
 } // end of [val]
 
@@ -94,6 +103,9 @@ val () =
 val w0 =
 word_create_add("lob")
 //
+val () =
+word_add_meaning(w0, "throw")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -103,6 +115,9 @@ val () =
 //
 val w0 =
 word_create_add("lopside")
+//
+val () =
+word_add_meaning(w0, "one side lower than the other")
 //
 } // end of [val]
 
