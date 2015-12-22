@@ -665,11 +665,14 @@ aux1_envlst
 ) : int =
 (
 case+ s0es of
-| list_nil () => (i)
+| list_nil
+    ((*void*)) => (i)
 | list_cons
     (s0e, s0es) => let
     val () =
-    if i > 0 then emit_text (out, ", ")
+    if i > 0
+      then emit_text (out, ", ")
+    // end of [if]
     val () =
     (
       emit_text (out, "cenv");
