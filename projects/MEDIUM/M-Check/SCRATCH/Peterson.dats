@@ -68,7 +68,7 @@ implement
 proctype$user() = let
 //
 val pid =
-  Promela$self_get_pid()
+  Promela$mypid()
 //
 val i = pid2int(pid)
 //

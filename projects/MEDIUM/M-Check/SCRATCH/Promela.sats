@@ -27,7 +27,7 @@ pid2int{i:nat}(pid(i)): int(i)
 (* ****** ****** *)
 //
 fun
-Promela$self_get_pid(): pid
+Promela$mypid(): pid
 //
 fun
 Promela$assert{b:bool}(bool(b)): [b==true] void
