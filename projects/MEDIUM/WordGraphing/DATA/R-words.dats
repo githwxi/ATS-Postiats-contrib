@@ -87,6 +87,9 @@ val () =
 val w0 =
 word_create_add("rucksack")
 //
+val () =
+word_add_meaning(w0, "a backpack used by hikers")
+//
 } // end of [val]
 
 (* ****** ****** *)

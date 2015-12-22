@@ -14,6 +14,9 @@ val () =
 val w0 =
 word_create_add("marlin")
 //
+val () =
+word_add_meaning(w0, "a large saltwater fish")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -23,6 +26,19 @@ val () =
 //
 val w0 =
 word_create_add("marquee")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("marsh")
+//
+val () =
+word_add_meaning(w0, "low wetland")
 //
 } // end of [val]
 
@@ -46,6 +62,9 @@ val () =
 //
 val w0 =
 word_create_add("meringue")
+//
+val () =
+word_add_meaning(w0, "a type of crispy sweet dessert made of eggs and sugar")
 //
 } // end of [val]
 
@@ -159,6 +178,9 @@ val () =
 //
 val w0 =
 word_create_add("mutton")
+//
+val () =
+word_add_meaning(w0, "sheep flesh")
 //
 } // end of [val]
 

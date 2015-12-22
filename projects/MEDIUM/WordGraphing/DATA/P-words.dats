@@ -126,6 +126,9 @@ val () =
 val w0 =
 word_create_add("pendulum")
 //
+val () =
+word_add_meaning(w0, "a weight hung so that it can swing freely")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -203,6 +206,9 @@ val () =
 val w0 =
 word_create_add("plumage")
 //
+val () =
+word_add_meaning(w0, "a collction of bird feathers")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -225,6 +231,9 @@ val () =
 //
 val w0 =
 word_create_add("plush")
+//
+val () =
+word_add_meaning(w0, "rich and expensive")
 //
 } // end of [val]
 
@@ -295,6 +304,9 @@ val () =
 //
 val w0 =
 word_create_add("prod")
+//
+val () =
+word_add_meaning(w0, "persuade someone to do something")
 //
 } // end of [val]
 
