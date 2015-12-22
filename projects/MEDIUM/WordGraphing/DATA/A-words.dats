@@ -110,6 +110,9 @@ val () =
 val w0 =
 word_create_add("antagonism")
 //
+val () =
+word_add_meaning(w0, "active unfriendliness")
+//
 } // end of [val]
 
 (* ****** ****** *)

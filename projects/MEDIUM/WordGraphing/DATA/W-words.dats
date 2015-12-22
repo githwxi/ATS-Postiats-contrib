@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("wallaby")
 //
+val () =
+word_add_meaning(w0, "a type of kangaroo")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -33,6 +36,19 @@ val () =
 //
 val w0 =
 word_create_add("wheeze")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("wisp")
+//
+val () =
+word_add_meaning(w0, "a small amount of something")
 //
 } // end of [val]
 

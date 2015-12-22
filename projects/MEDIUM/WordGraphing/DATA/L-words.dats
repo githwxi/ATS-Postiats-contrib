@@ -93,6 +93,9 @@ val () =
 val w0 =
 word_create_add("loafer")
 //
+val () =
+word_add_meaning(w0, "a type of shoe")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -138,6 +141,9 @@ val () =
 //
 val w0 =
 word_create_add("lush")
+//
+val () =
+word_add_meaning(w0, "beautiful")
 //
 } // end of [val]
 

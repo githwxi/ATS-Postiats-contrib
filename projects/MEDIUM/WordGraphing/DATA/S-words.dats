@@ -37,6 +37,9 @@ val () =
 val w0 =
 word_create_add("sandbar")
 //
+val () =
+word_add_meaning(w0, "wet sand built up")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -56,6 +59,9 @@ val () =
 //
 val w0 =
 word_create_add("sarcophagus")
+//
+val () =
+word_add_meaning(w0, "a stone coffin")
 //
 } // end of [val]
 
@@ -192,6 +198,9 @@ val () =
 //
 val w0 =
 word_create_add("sheath")
+//
+val () =
+word_add_meaning(w0, "a case for covering a blade")
 //
 } // end of [val]
 

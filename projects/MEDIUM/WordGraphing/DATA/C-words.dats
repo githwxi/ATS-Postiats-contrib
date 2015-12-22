@@ -44,6 +44,9 @@ val () =
 val w0 =
 word_create_add("cataract")
 //
+val () =
+word_add_meaning(w0, "a disease of the eye")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -56,6 +59,19 @@ word_create_add("chamois")
 //
 val () =
 word_add_meaning(w0, "soft leather")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("chir")
+//
+val () =
+word_add_meaning(w0, "make a shrill sound")
 //
 } // end of [val]
 
@@ -86,6 +102,9 @@ val () =
 //
 val w0 =
 word_create_add("chutney")
+//
+val () =
+word_add_meaning(w0, "an Indian sauce")
 //
 } // end of [val]
 
@@ -280,6 +299,9 @@ val () =
 val w0 =
 word_create_add("craggy")
 //
+val () =
+word_add_synonym(w0, "rough")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -323,6 +345,9 @@ val () =
 val w0 =
 word_create_add("crude")
 //
+val () =
+word_add_meaning(w0, "lacking completeness")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -362,6 +387,9 @@ val () =
 //
 val w0 =
 word_create_add("cypress")
+//
+val () =
+word_add_meaning(w0, "a type of evergreen tree")
 //
 } // end of [val]
 

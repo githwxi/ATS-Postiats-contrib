@@ -24,6 +24,9 @@ val () =
 val w0 =
 word_create_add("fend")
 //
+val () =
+word_add_meaning(w0, "to ward off")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -77,6 +80,9 @@ val () =
 val w0 =
 word_create_add("flay")
 //
+val () =
+word_add_meaning(w0, "strip the skin off")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -86,6 +92,9 @@ val () =
 //
 val w0 =
 word_create_add("fledge")
+//
+val () =
+word_add_meaning(w0, "to furnish")
 //
 } // end of [val]
 
@@ -195,6 +204,9 @@ val () =
 //
 val w0 =
 word_create_add("frazzle")
+//
+val () =
+word_add_meaning(w0, "tire out")
 //
 } // end of [val]
 

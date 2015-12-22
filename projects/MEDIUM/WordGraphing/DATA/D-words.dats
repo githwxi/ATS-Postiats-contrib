@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("dank")
 //
+val () =
+word_add_meaning(w0, "damp and often chilly")
+//
 } // end of [val]
 
 (* ****** ****** *)
