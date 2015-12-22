@@ -14,6 +14,9 @@ val () =
 val w0 =
 word_create_add("abrasive")
 //
+val () =
+word_add_synonym(w0, "harsh")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -23,6 +26,9 @@ val () =
 //
 val w0 =
 word_create_add("accost")
+//
+val () =
+word_add_meaning(w0, "approach boldly")
 //
 } // end of [val]
 

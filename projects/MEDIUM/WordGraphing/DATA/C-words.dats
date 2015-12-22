@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("cairn")
 //
+val () =
+word_add_meaning(w0, "stones built as a structure")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -189,6 +192,9 @@ val () =
 val w0 =
 word_create_add("cohort")
 //
+val () =
+word_add_meaning(w0, "a tenth of a legion")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -199,6 +205,9 @@ val () =
 val w0 =
 word_create_add("coil")
 //
+val () =
+word_add_meaning(w0, "rings")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -208,6 +217,9 @@ val () =
 //
 val w0 =
 word_create_add("commodity")
+//
+val () =
+word_add_meaning(w0, "a valuable thing")
 //
 } // end of [val]
 
@@ -238,6 +250,9 @@ val () =
 //
 val w0 =
 word_create_add("conch")
+//
+val () =
+word_add_meaning(w0, "a spiral shell")
 //
 } // end of [val]
 
@@ -278,6 +293,9 @@ val () =
 //
 val w0 =
 word_create_add("cosmo")
+//
+val () =
+word_add_meaning(w0, "the universe")
 //
 } // end of [val]
 
@@ -335,6 +353,9 @@ val () =
 val w0 =
 word_create_add("creme")
 //
+val () =
+word_add_meaning(w0, "something that's creamy")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -357,6 +378,9 @@ val () =
 //
 val w0 =
 word_create_add("crypt")
+//
+val () =
+word_add_meaning(w0, "a small space")
 //
 } // end of [val]
 

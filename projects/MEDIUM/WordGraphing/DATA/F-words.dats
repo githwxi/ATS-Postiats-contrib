@@ -2,7 +2,23 @@ val () =
 {
 //
 val w0 =
+word_create_add("falter")
+//
+val () =
+word_add_meaning(w0, "lose strength")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("fathom")
+//
+val () =
+word_add_meaning(w0, "understand after much thought")
 //
 } // end of [val]
 
@@ -37,6 +53,9 @@ val () =
 val w0 =
 word_create_add("fennel")
 //
+val () =
+word_add_meaning(w0, "a yellow flower in Europe")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -47,6 +66,9 @@ val () =
 val w0 =
 word_create_add("festoon")
 //
+val () =
+word_add_meaning(w0, "a chain of decoration")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -56,6 +78,9 @@ val () =
 //
 val w0 =
 word_create_add("fixate")
+//
+val () =
+word_add_meaning(w0, "develop an attachement to something")
 //
 } // end of [val]
 
@@ -105,6 +130,32 @@ val () =
 //
 val w0 =
 word_create_add("fleet")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("flinch")
+//
+val () =
+word_add_meaning(w0, "make a nervous movement")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("fling")
+//
+val () =
+word_add_meaning(w0, "throw with force")
 //
 } // end of [val]
 
@@ -168,6 +219,9 @@ val () =
 //
 val w0 =
 word_create_add("fragnant")
+//
+val () =
+word_add_meaning(w0, "having a good smell")
 //
 } // end of [val]
 

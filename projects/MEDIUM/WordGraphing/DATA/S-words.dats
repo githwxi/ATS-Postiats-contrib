@@ -139,6 +139,9 @@ val () =
 val w0 =
 word_create_add("seclude")
 //
+val () =
+word_add_meaning(w0, "keep away from other people")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -148,6 +151,9 @@ val () =
 //
 val w0 =
 word_create_add("sedative")
+//
+val () =
+word_add_meaning(w0, "a drug for sleep")
 //
 } // end of [val]
 
@@ -179,6 +185,9 @@ val () =
 val w0 =
 word_create_add("serenade")
 //
+val () =
+word_add_meaning(w0, "a piece of music")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -188,6 +197,9 @@ val () =
 //
 val w0 =
 word_create_add("shawl")
+//
+val () =
+word_add_meaning(w0, "cloth worn by women")
 //
 } // end of [val]
 
@@ -221,6 +233,9 @@ val () =
 //
 val w0 =
 word_create_add("shuttle")
+//
+val () =
+word_add_meaning(w0, "a cone holding thread for weaving")
 //
 } // end of [val]
 
@@ -262,6 +277,9 @@ val () =
 val w0 =
 word_create_add("slosh")
 //
+val () =
+word_add_meaning(w0, "move with a splashing sound")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -292,6 +310,9 @@ val () =
 val w0 =
 word_create_add("smote")
 //
+val () =
+word_add_meaning(w0, "strike with a firm blow")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -301,6 +322,9 @@ val () =
 //
 val w0 =
 word_create_add("smug")
+//
+val () =
+word_add_meaning(w0, "showing pride for one's achievements")
 //
 } // end of [val]
 
@@ -331,6 +355,9 @@ val () =
 //
 val w0 =
 word_create_add("spar")
+//
+val () =
+word_add_meaning(w0, "boxing")
 //
 } // end of [val]
 
@@ -367,6 +394,9 @@ val () =
 //
 val w0 =
 word_create_add("splint")
+//
+val () =
+word_add_meaning(w0, "something to support a broken bone")
 //
 } // end of [val]
 

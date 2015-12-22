@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("krill")
 //
+val () =
+word_add_meaning(w0, "a type of small common fish")
+//
 } // end of [val]
 
 (* ****** ****** *)

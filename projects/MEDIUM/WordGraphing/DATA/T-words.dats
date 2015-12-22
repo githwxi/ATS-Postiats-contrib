@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("tapestry")
 //
+val () =
+word_add_meaning(w0, "a piece with a picture woven from string")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -23,6 +26,9 @@ val () =
 //
 val w0 =
 word_create_add("tearjerker")
+//
+val () =
+word_add_meaning(w0, "a sad story")
 //
 } // end of [val]
 
@@ -104,6 +110,9 @@ val () =
 val w0 =
 word_create_add("tribunal")
 //
+val () =
+word_add_meaning(w0, "people settling dispute")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -126,6 +135,9 @@ val () =
 //
 val w0 =
 word_create_add("tubular")
+//
+val () =
+word_add_meaning(w0, "round and hollow like a tube")
 //
 } // end of [val]
 
