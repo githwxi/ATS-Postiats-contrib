@@ -92,6 +92,9 @@ val () =
 val w0 =
 word_create_add("billow")
 //
+val () =
+word_add_meaning(w0, "fill with air")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -184,6 +187,9 @@ val () =
 val w0 =
 word_create_add("bray")
 //
+val () =
+word_add_meaning(w0, "a harsh cry of a donkey")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -203,6 +209,9 @@ val () =
 //
 val w0 =
 word_create_add("breach")
+//
+val () =
+word_add_meaning(w0, "a whale rising through the water")
 //
 } // end of [val]
 

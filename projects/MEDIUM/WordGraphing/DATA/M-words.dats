@@ -79,6 +79,9 @@ val () =
 val w0 =
 word_create_add("miff")
 //
+val () =
+word_add_synonym(w0, "annoy")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -118,6 +121,9 @@ val () =
 //
 val w0 =
 word_create_add("mocha")
+//
+val () =
+word_add_meaning(w0, "a type of coffee")
 //
 } // end of [val]
 

@@ -50,6 +50,9 @@ val () =
 val w0 =
 word_create_add("erratic")
 //
+val () =
+word_add_synonym(w0, "unpredictable")
+//
 } // end of [val]
 
 (* ****** ****** *)

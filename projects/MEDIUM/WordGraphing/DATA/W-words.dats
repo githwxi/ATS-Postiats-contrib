@@ -61,6 +61,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("wimp")
+//
+val () =
+word_add_synonym(w0, "coward")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("wisp")
 //
 val () =

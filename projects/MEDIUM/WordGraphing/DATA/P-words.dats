@@ -290,6 +290,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("preach")
+//
+val () =
+word_add_meaning(w0, "give advice to someone")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("preachy")
 //
 } // end of [val]

@@ -218,6 +218,9 @@ val () =
 val w0 =
 word_create_add("commodity")
 //
+val () =
+word_add_meaning(w0, "a valuable thing")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -247,6 +250,9 @@ val () =
 //
 val w0 =
 word_create_add("conch")
+//
+val () =
+word_add_meaning(w0, "a spiral shell")
 //
 } // end of [val]
 
@@ -287,6 +293,9 @@ val () =
 //
 val w0 =
 word_create_add("cosmo")
+//
+val () =
+word_add_meaning(w0, "the universe")
 //
 } // end of [val]
 

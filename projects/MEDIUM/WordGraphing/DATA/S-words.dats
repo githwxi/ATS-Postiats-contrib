@@ -139,6 +139,9 @@ val () =
 val w0 =
 word_create_add("seclude")
 //
+val () =
+word_add_meaning(w0, "keep away from other people")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -182,6 +185,9 @@ val () =
 val w0 =
 word_create_add("serenade")
 //
+val () =
+word_add_meaning(w0, "a piece of music")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -191,6 +197,9 @@ val () =
 //
 val w0 =
 word_create_add("shawl")
+//
+val () =
+word_add_meaning(w0, "cloth worn by women")
 //
 } // end of [val]
 
@@ -224,6 +233,9 @@ val () =
 //
 val w0 =
 word_create_add("shuttle")
+//
+val () =
+word_add_meaning(w0, "a cone holding thread for weaving")
 //
 } // end of [val]
 
@@ -310,6 +322,9 @@ val () =
 //
 val w0 =
 word_create_add("smug")
+//
+val () =
+word_add_meaning(w0, "showing pride for one's achievements")
 //
 } // end of [val]
 

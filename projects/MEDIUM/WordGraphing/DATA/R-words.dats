@@ -70,6 +70,9 @@ val () =
 val w0 =
 word_create_add("ringlet")
 //
+val () =
+word_add_meaning(w0, "hair hanging in a curl")
+//
 } // end of [val]
 
 (* ****** ****** *)

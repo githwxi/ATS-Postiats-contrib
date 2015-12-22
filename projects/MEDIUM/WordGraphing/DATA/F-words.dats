@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("fathom")
 //
+val () =
+word_add_meaning(w0, "understand after much thought")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -50,6 +53,9 @@ val () =
 val w0 =
 word_create_add("fennel")
 //
+val () =
+word_add_meaning(w0, "a yellow flower in Europe")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -59,6 +65,9 @@ val () =
 //
 val w0 =
 word_create_add("festoon")
+//
+val () =
+word_add_meaning(w0, "a chain of decoration")
 //
 } // end of [val]
 
@@ -134,6 +143,19 @@ word_create_add("flinch")
 //
 val () =
 word_add_meaning(w0, "make a nervous movement")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("fling")
+//
+val () =
+word_add_meaning(w0, "throw with force")
 //
 } // end of [val]
 
