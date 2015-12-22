@@ -104,6 +104,9 @@ val () =
 val w0 =
 word_create_add("tribunal")
 //
+val () =
+word_add_meaning(w0, "people settling dispute")
+//
 } // end of [val]
 
 (* ****** ****** *)

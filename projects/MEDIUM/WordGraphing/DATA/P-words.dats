@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("pachinko")
 //
+val () =
+word_add_meaning(w0, "a Japanese form of pinball")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -76,6 +79,9 @@ val () =
 val w0 =
 word_create_add("paparazzi")
 //
+val () =
+word_add_meaning(w0, "a photographer who takes pictures of celebrities")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -96,6 +102,9 @@ val () =
 val w0 =
 word_create_add("patricide")
 //
+val () =
+word_add_meaning(w0, "the killing of one's father")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -115,6 +124,9 @@ val () =
 //
 val w0 =
 word_create_add("pedestal")
+//
+val () =
+word_add_meaning(w0, "the base of a structure")
 //
 } // end of [val]
 
@@ -208,6 +220,8 @@ word_create_add("plumage")
 //
 val () =
 word_add_meaning(w0, "a collction of bird feathers")
+val () =
+word_add_meaning(w0, "a collection of bird feathers")
 //
 } // end of [val]
 
@@ -265,6 +279,9 @@ val () =
 val w0 =
 word_create_add("poplar")
 //
+val () =
+word_add_meaning(w0, "a type of tall tree that grows in the Underworld")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -305,6 +322,8 @@ val () =
 val w0 =
 word_create_add("prod")
 //
+val () =
+word_add_meaning(w0, "persuade someone to do something")
 val () =
 word_add_meaning(w0, "persuade someone to do something")
 //

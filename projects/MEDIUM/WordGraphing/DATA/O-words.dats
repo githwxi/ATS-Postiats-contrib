@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("oblivion")
 //
+val () =
+word_add_meaning(w0, "extinction")
+//
 } // end of [val]
 
 (* ****** ****** *)

@@ -14,6 +14,9 @@ val () =
 val w0 =
 word_create_add("imminent")
 //
+val () =
+word_add_meaning(w0, "about to happen")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -24,6 +27,8 @@ val () =
 val w0 =
 word_create_add("infatuate")
 //
+val () =
+word_add_meaning(w0, "be inspired with admiration for")
 val () =
 word_add_meaning(w0, "be inspired with admiration for")
 //
@@ -62,6 +67,8 @@ word_create_add("intercede")
 //
 val () =
 word_add_meaning(w0, "take part in the interests of another")
+val () =
+word_add_meaning(w0, "take part on the interests of another")
 //
 } // end of [val]
 

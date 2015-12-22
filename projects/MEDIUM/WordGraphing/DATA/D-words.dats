@@ -60,6 +60,9 @@ val () =
 val w0 =
 word_create_add("defuse")
 //
+val () =
+word_add_meaning(w0, "make a situation less dangerous")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -107,6 +110,9 @@ val () =
 //
 val w0 =
 word_create_add("derp")
+//
+val () =
+word_add_meaning(w0, "a foolish or stupid person")
 //
 } // end of [val]
 

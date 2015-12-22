@@ -70,6 +70,22 @@ val () =
 val w0 =
 word_create_add("grapple")
 //
+val () =
+word_add_meaning(w0, "wrestle")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("grate")
+//
+val () =
+word_add_meaning(w0, "have an irritating effect")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -89,6 +105,9 @@ val () =
 //
 val w0 =
 word_create_add("grommet")
+//
+val () =
+word_add_meaning(w0, "cloth to protect a rope")
 //
 } // end of [val]
 

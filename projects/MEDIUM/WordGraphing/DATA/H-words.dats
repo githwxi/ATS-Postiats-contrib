@@ -67,6 +67,9 @@ val () =
 val w0 =
 word_create_add("husk")
 //
+val () =
+word_add_meaning(w0, "the outer cover of some fruits")
+//
 } // end of [val]
 
 (* ****** ****** *)

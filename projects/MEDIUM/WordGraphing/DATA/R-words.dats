@@ -47,6 +47,9 @@ val () =
 val w0 =
 word_create_add("revolt")
 //
+val () =
+word_add_meaning(w0, "cause to feel disgust")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -76,6 +79,9 @@ val () =
 //
 val w0 =
 word_create_add("roan")
+//
+val () =
+word_add_meaning(w0, "a animal having two colors in their fur")
 //
 } // end of [val]
 

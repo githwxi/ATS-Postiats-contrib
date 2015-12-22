@@ -14,6 +14,9 @@ val () =
 val w0 =
 word_create_add("ballad")
 //
+val () =
+word_add_meaning(w0, "a type of poem")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -210,6 +213,9 @@ val () =
 //
 val w0 =
 word_create_add("brim")
+//
+val () =
+word_add_meaning(w0, "almost overflowing")
 //
 } // end of [val]
 

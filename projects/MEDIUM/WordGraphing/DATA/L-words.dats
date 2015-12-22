@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("lapel")
 //
+val () =
+word_add_meaning(w0, "the side of a coat")
+//
 } // end of [val]
 
 (* ****** ****** *)
