@@ -41,6 +41,25 @@ cfun3(a1:t@ype, a2:t@ype, a3:t@ype, b:t@ype) = (a1, a2, a3) -<cloref1> b
 //
 fun
 {a:t@ype}
+kparser_fail(): kparser(a)
+//
+fun
+{a:t@ype}
+kparser_just(x: a): kparser(a)
+//
+(* ****** ****** *)
+
+fun
+{a:t@ype}
+kparser_satisfy
+(
+  kparser(a), test: cfun1(a, bool)
+) : kparser(a) // end-of-fun
+
+(* ****** ****** *)
+//
+fun
+{a:t@ype}
 {b:t@ype}
 kparser_seq1wth
 (

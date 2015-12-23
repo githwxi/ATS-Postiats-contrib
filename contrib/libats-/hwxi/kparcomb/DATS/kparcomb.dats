@@ -55,11 +55,48 @@ castfn
 kparser_decode{a:t@ype}(kparser(a)): parinp_nullify(a)
 //
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+kparser_fail() = 
+kparser_encode
+  (lam(inp, kont) => $raise ParFailExn())
+//
+implement
+{a}(*tmp*)
+kparser_just(x) = 
+  kparser_encode(lam(inp, kont) => kont(inp, x))
+//
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+kparser_satisfy
+  (kpar, test) = let
+//
+val kpar = kparser_decode(kpar)
+//
+in
+//
+kparser_encode(
+//
+lam(inp, kont) =>
+kpar
+( inp
+, lam(inp, x) =>
+  if test(x) then kont(inp, x) else $raise ParFailExn()
+)
+//
+) (* kparser_encode *)
+//
+end // end of [kparser_satisfy]
+
+(* ****** ****** *)
 
 implement
 {a}{b}
 kparser_seq1wth
-  (kp, f) = let
+  (kp, fopr) = let
 //
 val kp = kparser_decode(kp)
 //
@@ -67,7 +104,7 @@ in
 //
 kparser_encode(
 //
-lam(inp, kont) => kp(inp, lam(inp, x) => kont(inp, f(x)))
+lam(inp, kont) => kp(inp, lam(inp, x) => kont(inp, fopr(x)))
 //
 ) (* kparser_encode *)
 //
@@ -78,7 +115,7 @@ end // end of [kparser_seq1wth]
 implement
 {a1,a2}{b}
 kparser_seq2wth
-  (kp1, kp2, f) = let
+  (kp1, kp2, fopr) = let
 //
 val kp1 = kparser_decode(kp1)
 val kp2 = kparser_decode(kp2)
@@ -91,7 +128,7 @@ lam(inp, kont) =>
 kp1
 ( inp
 , lam(inp, x1) =>
-  kp2(inp, lam(inp, x2) => kont(inp, f(x1, x2)))
+  kp2(inp, lam(inp, x2) => kont(inp, fopr(x1, x2)))
 )
 //
 ) (* kparser_encode *)
@@ -103,7 +140,7 @@ end // end of [kparser_seq2wth]
 implement
 {a1,a2,a3}{b}
 kparser_seq3wth
-  (kp1, kp2, kp3, f) = let
+  (kp1, kp2, kp3, fopr) = let
 //
 val kp1 = kparser_decode(kp1)
 val kp2 = kparser_decode(kp2)
@@ -120,7 +157,7 @@ kp1
   kp2
   ( inp
   , lam(inp, x2) =>
-    kp3(inp, lam(inp, x3) => kont(inp, f(x1, x2, x3)))
+    kp3(inp, lam(inp, x3) => kont(inp, fopr(x1, x2, x3)))
   )
 )
 //
