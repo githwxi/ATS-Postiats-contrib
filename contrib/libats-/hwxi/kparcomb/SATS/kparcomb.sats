@@ -62,7 +62,7 @@ fun
 ,a2
 ,a3:t@ype
 }{b:t@ype}
-kparser_seq2wth
+kparser_seq3wth
 (
   kparser(a1)
 , kparser(a2)
