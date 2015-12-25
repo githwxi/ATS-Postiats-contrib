@@ -63,7 +63,18 @@ kparser_encode
 //
 extern
 castfn
-kparser_decode{a:t@ype}(kparser(a)): parinp_nullify(a)
+kparser_decode
+  {a:t@ype}(kp: kparser(a)): parinp_nullify(a)
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+parcont_fail(inp: parinp): parout
+//
+implement
+{}(*tmp*)
+parcont_fail(inp) = $raise ParFailExn()
 //
 (* ****** ****** *)
 //
@@ -71,7 +82,7 @@ implement
 {a}(*tmp*)
 kparser_fail() = 
 kparser_encode
-  (lam(inp, kont) => $raise ParFailExn())
+  (lam(inp, kont) => parcont_fail(inp))
 //
 implement
 {a}(*tmp*)
@@ -95,12 +106,67 @@ lam(inp, kont) =>
 kpar
 ( inp
 , lam(x, inp) =>
-  if test(x) then kont(x, inp) else $raise ParFailExn()
+  if test(x) then kont(x, inp) else parcont_fail(inp)
 )
 //
 ) (* kparser_encode *)
 //
 end // end of [kparser_satisfy]
+
+(* ****** ****** *)
+
+implement
+{a1,a2}
+kparser_join2
+  (kp1, kp2) = let
+//
+val kp1 = kparser_decode(kp1)
+val kp2 = kparser_decode(kp2)
+//
+in
+//
+kparser_encode(
+//
+lam(inp, kont) =>
+kp1
+( inp
+, lam(x1, inp) =>
+  kp2(inp, lam(x2, inp) => kont(@(x1, x2), inp))
+)
+//
+) (* kparser_encode *)
+//
+end // end of [kparser_join2]
+
+(* ****** ****** *)
+
+implement
+{a1,a2,a3}
+kparser_join3
+  (kp1, kp2, kp3) = let
+//
+val kp1 = kparser_decode(kp1)
+val kp2 = kparser_decode(kp2)
+val kp3 = kparser_decode(kp3)
+//
+in
+//
+kparser_encode(
+//
+lam(inp, kont) =>
+kp1
+( inp
+, lam(x1, inp) =>
+  kp2
+  ( inp
+  , lam(x2, inp) =>
+    kp3(inp, lam(x3, inp) => kont(@(x1, x2, x3), inp))
+  )
+)
+//
+) (* kparser_encode *)
+//
+end // end of [kparser_join3]
 
 (* ****** ****** *)
 
@@ -125,7 +191,7 @@ end // end of [kparser_fmap]
 
 implement
 {a1,a2}{b}
-kparser_join2wth
+kparser_fmap2
   (kp1, kp2, fopr) = let
 //
 val kp1 = kparser_decode(kp1)
@@ -144,13 +210,13 @@ kp1
 //
 ) (* kparser_encode *)
 //
-end // end of [kparser_join2wth]
+end // end of [kparser_fmap2]
 
 (* ****** ****** *)
 
 implement
 {a1,a2,a3}{b}
-kparser_join3wth
+kparser_fmap3
   (kp1, kp2, kp3, fopr) = let
 //
 val kp1 = kparser_decode(kp1)
@@ -174,7 +240,7 @@ kp1
 //
 ) (* kparser_encode *)
 //
-end // end of [kparser_join3wth]
+end // end of [kparser_fmap3]
 
 (* ****** ****** *)
 
@@ -251,6 +317,27 @@ end // end of [kparser_orelse]
 
 implement
 {a}(*tmp*)
+kparser_cloref
+  (fkp) = let
+(*
+val () =
+println! ("kparser_cloref")
+*)
+in
+//
+kparser_encode(
+//
+lam(inp, kont) =>
+  let val kp = kparser_decode(fkp()) in kp(inp, kont) end
+//
+) (* kparser_encode *)
+//
+end // end of [kparser_cloref]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
 kparser_repeat0
   (kpar) = let
 //
@@ -291,7 +378,7 @@ val () = println! ("kparser_repeat1")
 *)
 in
 //
-kparser_join2wth<a,List0(a)><List1(a)>
+kparser_fmap2<a,List0(a)><List1(a)>
   (kpar, kparser_repeat0<a>(kpar), lam(x, xs) => cons(x, xs))
 //
 end // end of [kparser_repeat1]
@@ -304,7 +391,7 @@ kparser_alpha
   ((*void*)) = let
   val kp = kparser_char<>()
 in
-  kparser_satisfy(kp, lam(c) => isalpha(c))
+  kparser_satisfy<char>(kp, lam(c) => isalpha(c))
 end // end of [kparser_alpha]
 
 (* ****** ****** *)
@@ -315,7 +402,7 @@ kparser_alnum
   ((*void*)) = let
   val kp = kparser_char<>()
 in
-  kparser_satisfy(kp, lam(c) => isalnum(c))
+  kparser_satisfy<char>(kp, lam(c) => isalnum(c))
 end // end of [kparser_alnum]
 
 (* ****** ****** *)
@@ -326,7 +413,7 @@ kparser_digit
   ((*void*)) = let
   val kp = kparser_char<>()
 in
-  kparser_satisfy(kp, lam(c) => isdigit(c))
+  kparser_satisfy<char>(kp, lam(c) => isdigit(c))
 end // end of [kparser_digit]
 
 (* ****** ****** *)

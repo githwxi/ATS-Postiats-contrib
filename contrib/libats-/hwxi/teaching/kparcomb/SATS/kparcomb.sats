@@ -24,7 +24,8 @@
 (* ****** ****** *)
 //
 abstype
-kparser_type(a:t@ype) = ptr
+kparser_type(a:t@ype+) = ptr
+//
 typedef
 kparser(a:t@ype) = kparser_type(a)
 //
@@ -61,10 +62,21 @@ kparser_satisfy
 fun
 {a1
 ,a2:t@ype}
-kparser_join
+kparser_join2
 (
   kparser(a1), kparser(a2)
 ) : kparser(@(a1, a2)) // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+{a1
+,a2
+,a3:t@ype}
+kparser_join3
+(
+  kparser(a1), kparser(a2), kparser(a3)
+) : kparser(@(a1, a2, a3)) // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -80,7 +92,7 @@ fun
 {a1
 ,a2:t@ype
 }{b:t@ype}
-kparser_join2wth
+kparser_fmap2
 (
   kparser(a1)
 , kparser(a2), f: cfun2(a1, a2, b)
@@ -112,7 +124,7 @@ fun
 ,a2
 ,a3:t@ype
 }{b:t@ype}
-kparser_join3wth
+kparser_fmap3
 (
   kparser(a1)
 , kparser(a2)
@@ -134,6 +146,13 @@ fun
 {a:t@ype}
 kparser_orelse
   (kp1: kparser(a), kp2: kparser(a)): kparser(a)
+//
+(* ****** ****** *)
+//
+fun
+{a:t@ype}
+kparser_cloref
+  (((*void*)) -<cloref1> kparser(a)): kparser(a)
 //
 (* ****** ****** *)
 //
