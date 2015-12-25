@@ -59,50 +59,122 @@ kparser_satisfy
 (* ****** ****** *)
 //
 fun
+{a1
+,a2:t@ype}
+kparser_join
+(
+  kparser(a1), kparser(a2)
+) : kparser(@(a1, a2)) // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
 {a:t@ype}
 {b:t@ype}
-kparser_seq1wth
+kparser_fmap
 (
-  kparser(a), cfun1(a, b)
+  kparser(a), f: cfun1(a, b)
 ) : kparser(b) // end-of-fun
 //
 fun
 {a1
 ,a2:t@ype
 }{b:t@ype}
-kparser_seq2wth
+kparser_join2wth
 (
   kparser(a1)
-, kparser(a2), cfun2(a1, a2, b)
+, kparser(a2), f: cfun2(a1, a2, b)
 ) : kparser(b) // end-of-fun
+//
+(* ****** ****** *)
+//
+fun{
+a1,a2:t@ype
+} kparser_first
+(
+  kp1: kparser(a1), kp2: kparser(a2)
+) : kparser(a1) // end-of-fun
+//
+fun{
+a1,a2:t@ype
+} kparser_second
+(
+  kp1: kparser(a1), kp2: kparser(a2)
+) : kparser(a2) // end-of-fun
+//
+overload << with kparser_first
+overload >> with kparser_second
+//
+(* ****** ****** *)
 //
 fun
 {a1
 ,a2
 ,a3:t@ype
 }{b:t@ype}
-kparser_seq3wth
+kparser_join3wth
 (
   kparser(a1)
 , kparser(a2)
-, kparser(a3), cfun3(a1, a2, a3, b)
+, kparser(a3), f: cfun3(a1, a2, a3, b)
 ) : kparser(b) // end-of-fun
 //
 (* ****** ****** *)
 //
-fun
-{a:t@ype}
-kparser_alter
-  (kparser(a), kparser(a)): kparser(a)
+fun{
+a1,a2,a3:t@ype
+} kparser_middle
+(
+  kparser(a1), kparser(a2), kparser(a3)
+) : kparser(a2) // end-of-fun
 //
 (* ****** ****** *)
 //
 fun
 {a:t@ype}
-kparser_repeat0(kparser(a)): kparser(List0(a))
+kparser_orelse
+  (kp1: kparser(a), kp2: kparser(a)): kparser(a)
+//
+(* ****** ****** *)
+//
 fun
 {a:t@ype}
-kparser_repeat1(kparser(a)): kparser(List1(a))
+kparser_repeat0(kp: kparser(a)): kparser(List0(a))
+fun
+{a:t@ype}
+kparser_repeat1(kp: kparser(a)): kparser(List1(a))
+//
+(* ****** ****** *)
+//
+// HX-2015-12
+// For parsing sequences of chars
+//
+(* ****** ****** *)
+//
+// HX-2015-12:
+// This one remains abstract
+//
+fun{}
+kparser_char((*void*)): kparser(char)
+//
+(* ****** ****** *)
+//
+fun{}
+kparser_alpha((*void*)): kparser(char)
+fun{}
+kparser_alnum((*void*)): kparser(char)
+fun{}
+kparser_digit((*void*)): kparser(char)
+//
+(* ****** ****** *)
+//
+fun{}
+kparser_litchar(c0: char): kparser(char)
+//
+(* ****** ****** *)
+//
+fun{}
+kparser_literal(lit: string): kparser(int)
 //
 (* ****** ****** *)
 

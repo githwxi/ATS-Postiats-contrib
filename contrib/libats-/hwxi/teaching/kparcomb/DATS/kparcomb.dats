@@ -23,14 +23,25 @@
 //
 (* ****** ****** *)
 
+(*
 staload "./../SATS/kparcomb.sats"
+*)
 
 (* ****** ****** *)
 //
 abstype
 parinp_type = ptr
+abstype
+parout_type = ptr
 //
 typedef parinp = parinp_type
+typedef parout = parout_type
+//
+(* ****** ****** *)
+//
+typedef
+parcont(a:t@ype) =
+  (a, parinp) -<cloref1> parout
 //
 (* ****** ****** *)
 
@@ -41,7 +52,7 @@ exception ParFailExn of ((*void*))
 typedef
 parinp_nullify
   (a:t@ype) =
-  (parinp, cfun2(parinp, a, void)) -> void
+  (parinp, parcont(a)) -<cloref1> parout
 //
 (* ****** ****** *)
 //
@@ -65,7 +76,7 @@ kparser_encode
 implement
 {a}(*tmp*)
 kparser_just(x) = 
-  kparser_encode(lam(inp, kont) => kont(inp, x))
+  kparser_encode(lam(inp, kont) => kont(x, inp))
 //
 (* ****** ****** *)
 
@@ -83,8 +94,8 @@ kparser_encode(
 lam(inp, kont) =>
 kpar
 ( inp
-, lam(inp, x) =>
-  if test(x) then kont(inp, x) else $raise ParFailExn()
+, lam(x, inp) =>
+  if test(x) then kont(x, inp) else $raise ParFailExn()
 )
 //
 ) (* kparser_encode *)
@@ -95,7 +106,7 @@ end // end of [kparser_satisfy]
 
 implement
 {a}{b}
-kparser_seq1wth
+kparser_fmap
   (kp, fopr) = let
 //
 val kp = kparser_decode(kp)
@@ -104,17 +115,17 @@ in
 //
 kparser_encode(
 //
-lam(inp, kont) => kp(inp, lam(inp, x) => kont(inp, fopr(x)))
+lam(inp, kont) => kp(inp, lam(x, inp) => kont(fopr(x), inp))
 //
 ) (* kparser_encode *)
 //
-end // end of [kparser_seq1wth]
+end // end of [kparser_fmap]
 
 (* ****** ****** *)
 
 implement
 {a1,a2}{b}
-kparser_seq2wth
+kparser_join2wth
   (kp1, kp2, fopr) = let
 //
 val kp1 = kparser_decode(kp1)
@@ -127,19 +138,19 @@ kparser_encode(
 lam(inp, kont) =>
 kp1
 ( inp
-, lam(inp, x1) =>
-  kp2(inp, lam(inp, x2) => kont(inp, fopr(x1, x2)))
+, lam(x1, inp) =>
+  kp2(inp, lam(x2, inp) => kont(fopr(x1, x2), inp))
 )
 //
 ) (* kparser_encode *)
 //
-end // end of [kparser_seq2wth]
+end // end of [kparser_join2wth]
 
 (* ****** ****** *)
 
 implement
 {a1,a2,a3}{b}
-kparser_seq3wth
+kparser_join3wth
   (kp1, kp2, kp3, fopr) = let
 //
 val kp1 = kparser_decode(kp1)
@@ -153,23 +164,73 @@ kparser_encode(
 lam(inp, kont) =>
 kp1
 ( inp
-, lam(inp, x1) =>
+, lam(x1, inp) =>
   kp2
   ( inp
-  , lam(inp, x2) =>
-    kp3(inp, lam(inp, x3) => kont(inp, fopr(x1, x2, x3)))
+  , lam(x2, inp) =>
+    kp3(inp, lam(x3, inp) => kont(fopr(x1, x2, x3), inp))
   )
 )
 //
 ) (* kparser_encode *)
 //
-end // end of [kparser_seq3wth]
+end // end of [kparser_join3wth]
+
+(* ****** ****** *)
+
+implement
+{a1,a2}
+kparser_first
+  (kp1, kp2) = let
+//
+val kp1 = kparser_decode(kp1)
+val kp2 = kparser_decode(kp2)
+//
+in
+//
+kparser_encode(
+//
+lam(inp, kont) =>
+kp1
+( inp
+, lam(x1, inp) =>
+  kp2(inp, lam(x2, inp) => kont(x1, inp))
+)
+//
+) (* kparser_encode *)
+//
+end // end of [kparser_first]
+
+(* ****** ****** *)
+
+implement
+{a1,a2}
+kparser_second
+  (kp1, kp2) = let
+//
+val kp1 = kparser_decode(kp1)
+val kp2 = kparser_decode(kp2)
+//
+in
+//
+kparser_encode(
+//
+lam(inp, kont) =>
+kp1
+( inp
+, lam(x1, inp) =>
+  kp2(inp, lam(x2, inp) => kont(x2, inp))
+)
+//
+) (* kparser_encode *)
+//
+end // end of [kparser_second]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-kparser_alter
+kparser_orelse
   (kp1, kp2) = let
 //
 val kp1 = kparser_decode(kp1)
@@ -184,7 +245,7 @@ lam(inp, kont) =>
 //
 ) (* kparser_encode *)
 //
-end // end of [kparser_alter]
+end // end of [kparser_orelse]
 
 (* ****** ****** *)
 
@@ -196,25 +257,27 @@ kparser_repeat0
 val kpar = kparser_decode(kpar)
 //
 fun
-aux
-( inp: parinp
-, kont: cfun2 (parinp, List0(a), void)
-) : void = let
+kaux
+( inp: parinp, kont: parcont(List0(a))
+) : parout = let
 //
 in
 //
 try
 kpar
 ( inp
-, lam(inp, x) =>
-  aux(inp, lam(inp, xs) => kont(inp, cons(x, xs)))
+, lam(x, inp) =>
+  kaux
+  ( inp
+  , lam(xs, inp) => kont(cons(x, xs), inp)
+  )
 )
-with ~ParFailExn() => kont(inp, nil())
+with ~ParFailExn() => kont(list_nil(), inp)
 //
 end // end of [aux]
 //
 in
-  kparser_encode(lam(inp, kont) => aux(inp, kont))
+  kparser_encode(lam(inp, kont) => kaux(inp, kont))
 end // end of [kparser_repeat0]
 
 (* ****** ****** *)
@@ -228,10 +291,78 @@ val () = println! ("kparser_repeat1")
 *)
 in
 //
-kparser_seq2wth<a,List0(a)><List1(a)>
+kparser_join2wth<a,List0(a)><List1(a)>
   (kpar, kparser_repeat0<a>(kpar), lam(x, xs) => cons(x, xs))
 //
 end // end of [kparser_repeat1]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+kparser_alpha
+  ((*void*)) = let
+  val kp = kparser_char<>()
+in
+  kparser_satisfy(kp, lam(c) => isalpha(c))
+end // end of [kparser_alpha]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+kparser_alnum
+  ((*void*)) = let
+  val kp = kparser_char<>()
+in
+  kparser_satisfy(kp, lam(c) => isalnum(c))
+end // end of [kparser_alnum]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+kparser_digit
+  ((*void*)) = let
+  val kp = kparser_char<>()
+in
+  kparser_satisfy(kp, lam(c) => isdigit(c))
+end // end of [kparser_digit]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+kparser_litchar
+  (c0) = let
+  val kp = kparser_char<>()
+in
+  kparser_satisfy<char>(kp, lam(c1) => c0 = c1)
+end // end of [kparser_litchar]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+kparser_literal
+  (lit) = let
+//
+val
+[n:int]
+lit = g1ofg0(lit)
+//
+val
+ncs = sz2i(string_length(lit))
+//
+fun
+loop(i: natLte(n)): kparser(int) =
+if i < ncs
+  then kparser_litchar(lit[i]) >> loop(i+1) else kparser_just(0)
+// end of [if]
+//
+in
+  loop(0)
+end // end of [kparser_literal]
 
 (* ****** ****** *)
 
