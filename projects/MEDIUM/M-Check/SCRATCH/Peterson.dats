@@ -37,42 +37,14 @@ proctype user()
 *)
 
 (* ****** ****** *)
-//
-abstype
-pid_type(i:int)
-//
-typedef
-pid(i:int) = pid_type(i)
-//
-typedef pid = [i:nat] pid(i)
-//
+
+staload "./Promela.sats"
+
 (* ****** ****** *)
 //
 extern
 fun
-pid2int{i:nat}(pid(i)): int(i)
-//
-(* ****** ****** *)
-//
-extern
-fun
-promela$self_get_pid(): pid
-//
-extern
-fun
-promela$assert{b:bool}(bool(b)): [b==true] void
-//
-(* ****** ****** *)
-  
-extern
-fun
-promela$wait_until(() -> bool): void
-  
-(* ****** ****** *)
-//
-extern
-fun
-proc$user(): void
+proctype$user(): void
 //
 //
 sortdef two = {a:nat | a < 2}
@@ -93,15 +65,15 @@ fun turn_set{i:two}(pid(i), int(1-i)): void
 (* ****** ****** *)
 
 implement
-proc$user() = let
+proctype$user() = let
 //
 val pid =
-  promela$self_get_pid()
+  Promela$mypid()
 //
 val i = pid2int(pid)
 //
 val ((*void*)) =
-  promela$assert((i = 0) + (i = 1))
+  Promela$assert((i=0)+(i=1))
 //
 fun
 loop
@@ -113,7 +85,7 @@ loop
   val i1 = 1 - i
   val () = turn_set(pid, i1)
   val () = flag_set(pid, i0, true)
-  val () = promela$wait_until(lam() => (flag_get(pid, i1)=false)+(turn_get()=i0))
+  val () = Promela$wait_until(lam() => (flag_get(pid, i1)=false)+(turn_get()=i0))
 //
 // This is a critial section
 //
@@ -122,7 +94,7 @@ loop
 //
 in
   loop()
-end // end of [proce$user]
+end // end of [proctype$user]
 
 (* ****** ****** *)
 
