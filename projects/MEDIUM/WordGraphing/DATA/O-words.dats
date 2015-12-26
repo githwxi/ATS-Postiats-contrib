@@ -43,6 +43,9 @@ val () =
 val w0 =
 word_create_add("ornate")
 //
+val () =
+word_add_meaning(w0, "highly decorated")
+//
 } // end of [val]
 
 (* ****** ****** *)

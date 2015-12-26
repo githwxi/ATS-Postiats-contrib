@@ -38,6 +38,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("enhance")
+//
+val () =
+word_add_synonym(w0, "increase")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("erald")
 //
 } // end of [val]
@@ -63,6 +76,9 @@ val () =
 val w0 =
 word_create_add("escapade")
 //
+val () =
+word_add_meaning(w0, "an adventure")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -86,6 +102,9 @@ val () =
 val w0 =
 word_create_add("evac")
 //
+val () =
+word_add_meaning(w0, "remove from a place of danger to a safe place")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -95,6 +114,9 @@ val () =
 //
 val w0 =
 word_create_add("evade")
+//
+val () =
+word_add_meaning(w0, "escape or avoid by cleverness or trickery")
 //
 } // end of [val]
 
@@ -106,6 +128,9 @@ val () =
 val w0 =
 word_create_add("evoke")
 //
+val () =
+word_add_meaning(w0, "recall a memory")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -116,6 +141,9 @@ val () =
 val w0 =
 word_create_add("exodus")
 //
+val () =
+word_add_meaning(w0, "a huge amount of people")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -125,6 +153,9 @@ val () =
 //
 val w0 =
 word_create_add("exuberant")
+//
+val () =
+word_add_meaning(w0, "full of energy")
 //
 } // end of [val]
 

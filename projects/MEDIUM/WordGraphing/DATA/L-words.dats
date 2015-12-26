@@ -27,6 +27,9 @@ val () =
 val w0 =
 word_create_add("latte")
 //
+val () =
+word_add_meaning(w0, "a type of coffee")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -36,6 +39,9 @@ val () =
 //
 val w0 =
 word_create_add("lattice")
+//
+val () =
+word_add_meaning(w0, "a structure used as a fence for support for climbing plants")
 //
 } // end of [val]
 
@@ -59,6 +65,9 @@ val () =
 //
 val w0 =
 word_create_add("leer")
+//
+val () =
+word_add_meaning(w0, "look in an unpleasant way")
 //
 } // end of [val]
 
@@ -134,6 +143,9 @@ val () =
 //
 val w0 =
 word_create_add("lurch")
+//
+val () =
+word_add_meaning(w0, "make an uncontrolled movement")
 //
 } // end of [val]
 

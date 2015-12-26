@@ -30,6 +30,9 @@ val () =
 val w0 =
 word_create_add("wallow")
 //
+val () =
+word_add_meaning(w0, "roll about")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -39,6 +42,9 @@ val () =
 //
 val w0 =
 word_create_add("wedgie")
+//
+val () =
+word_add_meaning(w0, "pulling someone's underwear")
 //
 } // end of [val]
 
@@ -65,6 +71,19 @@ word_create_add("wimp")
 //
 val () =
 word_add_synonym(w0, "coward")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("wince")
+//
+val () =
+word_add_meaning(w0, "make a expression because of pain")
 //
 } // end of [val]
 
@@ -102,6 +121,9 @@ val () =
 val w0 =
 word_create_add("womb")
 //
+val () =
+word_add_meaning(w0, "the part of a woman's body where a baby is born")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -112,6 +134,9 @@ val () =
 val w0 =
 word_create_add("wombat")
 //
+val () =
+word_add_meaning(w0, "an Australian small bear")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -121,6 +146,9 @@ val () =
 //
 val w0 =
 word_create_add("woozy")
+//
+val () =
+word_add_synonym(w0, "dizzy")
 //
 } // end of [val]
 

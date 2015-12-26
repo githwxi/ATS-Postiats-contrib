@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("mahogany")
 //
+val () =
+word_add_meaning(w0, "reddish brown wood")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -90,6 +93,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("mill")
+//
+val () =
+word_add_meaning(w0, "move around with confusion")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("milling")
 //
 } // end of [val]
@@ -102,6 +118,9 @@ val () =
 val w0 =
 word_create_add("mince")
 //
+val () =
+word_add_meaning(w0, "cutting up meat")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -111,6 +130,9 @@ val () =
 //
 val w0 =
 word_create_add("miso")
+//
+val () =
+word_add_meaning(w0, "paste made from soy beans")
 //
 } // end of [val]
 
@@ -145,6 +167,9 @@ val () =
 val w0 =
 word_create_add("mope")
 //
+val () =
+word_add_meaning(w0, "feeling sad")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -168,6 +193,9 @@ val () =
 val w0 =
 word_create_add("muffle")
 //
+val () =
+word_add_meaning(w0, "cover up sound to make it quieter")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -177,6 +205,9 @@ val () =
 //
 val w0 =
 word_create_add("murrelet")
+//
+val () =
+word_add_meaning(w0, "a small bird")
 //
 } // end of [val]
 

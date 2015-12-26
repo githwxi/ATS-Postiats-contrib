@@ -30,6 +30,9 @@ val () =
 val w0 =
 word_create_add("dapple")
 //
+val () =
+word_add_meaning(w0, "mark with spots")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -49,6 +52,9 @@ val () =
 //
 val w0 =
 word_create_add("defile")
+//
+val () =
+word_add_meaning(w0, "damage the appearance of")
 //
 } // end of [val]
 
@@ -91,6 +97,22 @@ val () =
 val w0 =
 word_create_add("delta")
 //
+val () =
+word_add_meaning(w0, "a triangle")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("denial")
+//
+val () =
+word_add_meaning(w0, "something that is not true")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -100,6 +122,9 @@ val () =
 //
 val w0 =
 word_create_add("denim")
+//
+val () =
+word_add_meaning(w0, "a hard cotton used for jeans")
 //
 } // end of [val]
 
@@ -123,6 +148,9 @@ val () =
 //
 val w0 =
 word_create_add("despondent")
+//
+val () =
+word_add_meaning(w0, "in low spirits")
 //
 } // end of [val]
 
@@ -185,7 +213,23 @@ val () =
 {
 //
 val w0 =
+word_create_add("disparage")
+//
+val () =
+word_add_meaning(w0, "of little worth")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("dowry")
+//
+val () =
+word_add_meaning(w0, "an amount of money brought on a marraige")
 //
 } // end of [val]
 
@@ -197,6 +241,9 @@ val () =
 val w0 =
 word_create_add("drone")
 //
+val () =
+word_add_meaning(w0, "speak in a dull tone")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -207,6 +254,9 @@ val () =
 val w0 =
 word_create_add("dubious")
 //
+val () =
+word_add_meaning(w0, "hesitating or doubting")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -216,6 +266,9 @@ val () =
 //
 val w0 =
 word_create_add("dwindle")
+//
+val () =
+word_add_meaning(w0, "become less in size")
 //
 } // end of [val]
 

@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("immerse")
 //
+val () =
+word_add_meaning(w0, "involve oneself deeply in")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -55,6 +58,9 @@ val () =
 val w0 =
 word_create_add("intensive")
 //
+val () =
+word_add_meaning(w0, "involving a lot of effort")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -78,7 +84,23 @@ val () =
 {
 //
 val w0 =
+word_create_add("interrogate")
+//
+val () =
+word_add_meaning(w0, "ask questions of")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("intrepid")
+//
+val () =
+word_add_meaning(w0, "fearless")
 //
 } // end of [val]
 

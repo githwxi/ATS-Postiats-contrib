@@ -6,6 +6,8 @@ word_create_add("pabulum")
 //
 val () =
 word_add_meaning(w0, "bland or insipid intellectual fare, entertainment, etc.; pap.")
+val () =
+word_add_meaning(w0, "plain entertainment")
 //
 } // end of [val]
 
@@ -115,6 +117,9 @@ val () =
 val w0 =
 word_create_add("peal")
 //
+val () =
+word_add_meaning(w0, "a loud bell ringing")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -151,6 +156,9 @@ val () =
 val w0 =
 word_create_add("penetrate")
 //
+val () =
+word_add_meaning(w0, "go through something with force")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -161,6 +169,9 @@ val () =
 val w0 =
 word_create_add("petrify")
 //
+val () =
+word_add_meaning(w0, "change into stone")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -170,6 +181,9 @@ val () =
 //
 val w0 =
 word_create_add("petulant")
+//
+val () =
+word_add_meaning(w0, "bad tempered")
 //
 } // end of [val]
 
@@ -207,6 +221,9 @@ val () =
 //
 val w0 =
 word_create_add("plausible")
+//
+val () =
+word_add_meaning(w0, "seeming reasonable")
 //
 } // end of [val]
 
@@ -258,6 +275,9 @@ val () =
 //
 val w0 =
 word_create_add("poise")
+//
+val () =
+word_add_meaning(w0, "be ready to do something")
 //
 } // end of [val]
 
@@ -315,6 +335,9 @@ val () =
 val w0 =
 word_create_add("precede")
 //
+val () =
+word_add_meaning(w0, "come before in time")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -324,6 +347,9 @@ val () =
 //
 val w0 =
 word_create_add("precipice")
+//
+val () =
+word_add_meaning(w0, "a very steep cliff")
 //
 } // end of [val]
 
@@ -349,6 +375,9 @@ val () =
 //
 val w0 =
 word_create_add("psyched")
+//
+val () =
+word_add_meaning(w0, "excited")
 //
 } // end of [val]
 

@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("tatter")
 //
+val () =
+word_add_meaning(w0, "a part torn and left hanging")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -40,6 +43,9 @@ val () =
 val w0 =
 word_create_add("tendon")
 //
+val () =
+word_add_meaning(w0, "a cord attaching a muscle to a bone")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -49,6 +55,9 @@ val () =
 //
 val w0 =
 word_create_add("throttle")
+//
+val () =
+word_add_meaning(w0, "attack by choking")
 //
 } // end of [val]
 
@@ -60,6 +69,9 @@ val () =
 val w0 =
 word_create_add("thud")
 //
+val () =
+word_add_meaning(w0, "a dull heavy sound")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -69,6 +81,9 @@ val () =
 //
 val w0 =
 word_create_add("tinny")
+//
+val () =
+word_add_meaning(w0, "a thin sound")
 //
 } // end of [val]
 
@@ -80,6 +95,9 @@ val () =
 val w0 =
 word_create_add("tirade")
 //
+val () =
+word_add_meaning(w0, "a long angry speech")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -90,6 +108,9 @@ val () =
 val w0 =
 word_create_add("toffee")
 //
+val () =
+word_add_meaning(w0, "a type of hard sweet which softens when chewed")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -99,6 +120,22 @@ val () =
 //
 val w0 =
 word_create_add("traipsing")
+//
+val () =
+word_add_meaning(w0, "walk about")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("trample")
+//
+val () =
+word_add_meaning(w0, "crush")
 //
 } // end of [val]
 
@@ -149,6 +186,9 @@ val () =
 val w0 =
 word_create_add("tuft")
 //
+val () =
+word_add_meaning(w0, "a bunch of hair")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -159,6 +199,9 @@ val () =
 val w0 =
 word_create_add("tusk")
 //
+val () =
+word_add_meaning(w0, "a long pointed tooth")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -168,6 +211,9 @@ val () =
 //
 val w0 =
 word_create_add("twilit")
+//
+val () =
+word_add_meaning(w0, "dimly lit up")
 //
 } // end of [val]
 

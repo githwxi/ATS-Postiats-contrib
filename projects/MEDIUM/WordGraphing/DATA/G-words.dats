@@ -28,6 +28,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("glum")
+//
+val () =
+word_add_meaning(w0, "feeling sad")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("gnaw")
 //
 val () =
@@ -108,6 +121,9 @@ val () =
 val w0 =
 word_create_add("groggy")
 //
+val () =
+word_add_meaning(w0, "weak because of sleep")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -144,6 +160,9 @@ val () =
 val w0 =
 word_create_add("grove")
 //
+val () =
+word_add_meaning(w0, "a group of trees")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -166,6 +185,9 @@ val () =
 //
 val w0 =
 word_create_add("gumption")
+//
+val () =
+word_add_meaning(w0, "having the ability to overcome difficulties")
 //
 } // end of [val]
 

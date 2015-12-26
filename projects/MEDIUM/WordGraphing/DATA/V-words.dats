@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("veneer")
 //
+val () =
+word_add_meaning(w0, "an appearance that covers someone's true feelings")
+//
 } // end of [val]
 
 (* ****** ****** *)

@@ -17,6 +17,9 @@ val () =
 val w0 =
 word_create_add("recede")
 //
+val () =
+word_add_meaning(w0, "move back")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -27,6 +30,9 @@ val () =
 val w0 =
 word_create_add("reek")
 //
+val () =
+word_add_meaning(w0, "smell strongly of")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -36,6 +42,9 @@ val () =
 //
 val w0 =
 word_create_add("relish")
+//
+val () =
+word_add_meaning(w0, "great enjoyment")
 //
 } // end of [val]
 
@@ -59,6 +68,9 @@ val () =
 //
 val w0 =
 word_create_add("ridge")
+//
+val () =
+word_add_meaning(w0, "a long narrow hilltop")
 //
 } // end of [val]
 
@@ -108,6 +120,9 @@ val () =
 //
 val w0 =
 word_create_add("rummy")
+//
+val () =
+word_add_meaning(w0, "a type of card game")
 //
 } // end of [val]
 

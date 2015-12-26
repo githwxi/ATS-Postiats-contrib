@@ -4,6 +4,22 @@ val () =
 val w0 =
 word_create_add("hailing")
 //
+val () =
+word_add_meaning(w0, "call out to someone")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("hallucinate")
+//
+val () =
+word_add_meaning(w0, "experience something that looks real but is actually just imaginary")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -14,6 +30,9 @@ val () =
 val w0 =
 word_create_add("heave")
 //
+val () =
+word_add_meaning(w0, "produce a sigh")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -23,6 +42,9 @@ val () =
 //
 val w0 =
 word_create_add("heifer")
+//
+val () =
+word_add_meaning(w0, "a cow")
 //
 } // end of [val]
 
@@ -72,6 +94,9 @@ val () =
 //
 val w0 =
 word_create_add("honeycake")
+//
+val () =
+word_add_meaning(w0, "someone that you love")
 //
 } // end of [val]
 

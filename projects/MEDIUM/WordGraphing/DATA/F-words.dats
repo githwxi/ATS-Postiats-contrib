@@ -30,6 +30,9 @@ val () =
 val w0 =
 word_create_add("faux")
 //
+val () =
+word_add_meaning(w0, "fake")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -131,6 +134,9 @@ val () =
 val w0 =
 word_create_add("fleet")
 //
+val () =
+word_add_meaning(w0, "move or pass quickly")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -167,6 +173,9 @@ val () =
 val w0 =
 word_create_add("flourescent")
 //
+val () =
+word_add_meaning(w0, "having the property to absorb light")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -176,6 +185,9 @@ val () =
 //
 val w0 =
 word_create_add("flourish")
+//
+val () =
+word_add_meaning(w0, "a bold action")
 //
 } // end of [val]
 
@@ -200,6 +212,9 @@ val () =
 val w0 =
 word_create_add("foghorn")
 //
+val () =
+word_add_meaning(w0, "something making a loud warning sound to ships in fog")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -209,6 +224,9 @@ val () =
 //
 val w0 =
 word_create_add("foolproof")
+//
+val () =
+word_add_meaning(w0, "not able to go wrong")
 //
 } // end of [val]
 
@@ -284,6 +302,9 @@ val () =
 //
 val w0 =
 word_create_add("furrow")
+//
+val () =
+word_add_meaning(w0, "marked with lines of wrinkles")
 //
 } // end of [val]
 

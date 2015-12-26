@@ -4,6 +4,9 @@ val () =
 val w0 =
 word_create_add("baffle")
 //
+val () =
+word_add_meaning(w0, "totally confused")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -26,6 +29,9 @@ val () =
 //
 val w0 =
 word_create_add("barb")
+//
+val () =
+word_add_meaning(w0, "a sharp protection")
 //
 } // end of [val]
 
@@ -52,6 +58,9 @@ val () =
 val w0 =
 word_create_add("barter")
 //
+val () =
+word_add_meaning(w0, "exchange goods without using money")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -61,6 +70,9 @@ val () =
 //
 val w0 =
 word_create_add("baseboard")
+//
+val () =
+word_add_meaning(w0, "a wooden board around the wall")
 //
 } // end of [val]
 
@@ -72,6 +84,9 @@ val () =
 val w0 =
 word_create_add("beseech")
 //
+val () =
+word_add_meaning(w0, "ask someone urgently")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -81,6 +96,9 @@ val () =
 //
 val w0 =
 word_create_add("bewilder")
+//
+val () =
+word_add_meaning(w0, "cause someone to be confused")
 //
 } // end of [val]
 
@@ -105,6 +123,9 @@ val () =
 val w0 =
 word_create_add("binky")
 //
+val () =
+word_add_meaning(w0, "a baby's doll")
+//
 } // end of [val]
 
 (* ****** ****** *)
@@ -127,6 +148,9 @@ val () =
 //
 val w0 =
 word_create_add("bleary")
+//
+val () =
+word_add_meaning(w0, "looking dull from tiredness")
 //
 } // end of [val]
 
