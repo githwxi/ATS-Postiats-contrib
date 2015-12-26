@@ -385,6 +385,19 @@ end // end of [kparser_repeat1]
 
 (* ****** ****** *)
 
+(*
+//
+implement{a}
+kparser_repeat0(kp) =
+kparser_orelse(
+  kparser_cloref<List0(a)>(lam() => kparser_repeat1<a>(kp)), kparser_just<List0(a)>(list_nil())
+) (* kparser_orelse *)
+)
+//
+*)
+
+(* ****** ****** *)
+
 implement
 {}(*tmp*)
 kparser_alpha

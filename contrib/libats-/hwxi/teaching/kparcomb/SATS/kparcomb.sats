@@ -54,7 +54,7 @@ fun
 {a:t@ype}
 kparser_satisfy
 (
-  kparser(a), test: cfun1(a, bool)
+  kparser(INV(a)), test: cfun1(a, bool)
 ) : kparser(a) // end-of-fun
 
 (* ****** ****** *)
@@ -64,7 +64,7 @@ fun
 ,a2:t@ype}
 kparser_join2
 (
-  kparser(a1), kparser(a2)
+  kparser(INV(a1)), kparser(INV(a2))
 ) : kparser(@(a1, a2)) // end-of-fun
 //
 (* ****** ****** *)
@@ -75,7 +75,7 @@ fun
 ,a3:t@ype}
 kparser_join3
 (
-  kparser(a1), kparser(a2), kparser(a3)
+  kparser(INV(a1)), kparser(INV(a2)), kparser(INV(a3))
 ) : kparser(@(a1, a2, a3)) // end-of-fun
 //
 (* ****** ****** *)
@@ -84,9 +84,7 @@ fun
 {a:t@ype}
 {b:t@ype}
 kparser_fmap
-(
-  kparser(a), f: cfun1(a, b)
-) : kparser(b) // end-of-fun
+  (kparser(INV(a)), fopr: cfun1(a, b)) : kparser(b)
 //
 fun
 {a1
@@ -94,8 +92,7 @@ fun
 }{b:t@ype}
 kparser_fmap2
 (
-  kparser(a1)
-, kparser(a2), f: cfun2(a1, a2, b)
+  kparser(INV(a1)), kparser(INV(a2)), fopr: cfun2(a1, a2, b)
 ) : kparser(b) // end-of-fun
 //
 (* ****** ****** *)
@@ -103,16 +100,12 @@ kparser_fmap2
 fun{
 a1,a2:t@ype
 } kparser_first
-(
-  kp1: kparser(a1), kp2: kparser(a2)
-) : kparser(a1) // end-of-fun
+  (kp1: kparser(INV(a1)), kp2: kparser(INV(a2))): kparser(a1)
 //
 fun{
 a1,a2:t@ype
 } kparser_second
-(
-  kp1: kparser(a1), kp2: kparser(a2)
-) : kparser(a2) // end-of-fun
+  (kp1: kparser(INV(a1)), kp2: kparser(INV(a2))): kparser(a2)
 //
 overload << with kparser_first
 overload >> with kparser_second
@@ -126,9 +119,10 @@ fun
 }{b:t@ype}
 kparser_fmap3
 (
-  kparser(a1)
-, kparser(a2)
-, kparser(a3), f: cfun3(a1, a2, a3, b)
+  kp1: kparser(INV(a1))
+, kp2: kparser(INV(a2))
+, kp3: kparser(INV(a3))
+, fopr: cfun3(a1, a2, a3, b)
 ) : kparser(b) // end-of-fun
 //
 (* ****** ****** *)
@@ -137,7 +131,9 @@ fun{
 a1,a2,a3:t@ype
 } kparser_middle
 (
-  kparser(a1), kparser(a2), kparser(a3)
+  kp1: kparser(INV(a1))
+, kp2: kparser(INV(a2))
+, kp3: kparser(INV(a3))
 ) : kparser(a2) // end-of-fun
 //
 (* ****** ****** *)
@@ -145,7 +141,7 @@ a1,a2,a3:t@ype
 fun
 {a:t@ype}
 kparser_orelse
-  (kp1: kparser(a), kp2: kparser(a)): kparser(a)
+  (kp1: kparser(INV(a)), kp2: kparser(a)): kparser(a)
 //
 (* ****** ****** *)
 //
@@ -158,10 +154,10 @@ kparser_cloref
 //
 fun
 {a:t@ype}
-kparser_repeat0(kp: kparser(a)): kparser(List0(a))
+kparser_repeat0(kp: kparser(INV(a))): kparser(List0(a))
 fun
 {a:t@ype}
-kparser_repeat1(kp: kparser(a)): kparser(List1(a))
+kparser_repeat1(kp: kparser(INV(a))): kparser(List1(a))
 //
 (* ****** ****** *)
 //
