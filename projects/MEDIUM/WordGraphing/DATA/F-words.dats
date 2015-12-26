@@ -41,6 +41,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("faze")
+//
+val () =
+word_add_meaning(w0, "disturb someone")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("fend")
 //
 val () =

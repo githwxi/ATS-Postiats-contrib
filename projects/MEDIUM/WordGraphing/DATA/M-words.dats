@@ -15,6 +15,32 @@ val () =
 {
 //
 val w0 =
+word_create_add("maiming")
+//
+val () =
+word_add_meaning(w0, "injure someone permanently")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("mare")
+//
+val () =
+word_add_meaning(w0, "a female horse")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("marlin")
 //
 val () =
@@ -54,6 +80,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("matron")
+//
+val () =
+word_add_meaning(w0, "a married woman")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("meld")
 //
 val () =
@@ -84,6 +123,19 @@ word_create_add("miff")
 //
 val () =
 word_add_synonym(w0, "annoy")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("mildew")
+//
+val () =
+word_add_meaning(w0, "a thin whitish coating on plants")
 //
 } // end of [val]
 
@@ -182,6 +234,19 @@ word_create_add("motif")
 //
 val () =
 word_add_meaning(w0, "a decorative image with patterns")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("mottle")
+//
+val () =
+word_add_meaning(w0, "mark with spots of color")
 //
 } // end of [val]
 

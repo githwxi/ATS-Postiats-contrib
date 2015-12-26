@@ -47,4 +47,30 @@ word_add_meaning(w0, "looking up")
 
 (* ****** ****** *)
 
+val () =
+{
+//
+val w0 =
+word_create_add("urchin")
+//
+val () =
+word_add_meaning(w0, "a mischevious young child")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("usurp")
+//
+val () =
+word_add_meaning(w0, "take a position of power by force")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
 (* end of [U-words.dats] *)

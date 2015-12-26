@@ -2,6 +2,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("bachelorette")
+//
+val () =
+word_add_meaning(w0, "a yound unmarried woman")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("baffle")
 //
 val () =
@@ -173,6 +186,32 @@ val () =
 {
 //
 val w0 =
+word_create_add("blowtorch")
+//
+val () =
+word_add_meaning(w0, "a device producing a hot flame")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("bombast")
+//
+val () =
+word_add_meaning(w0, "language with little meaning to impress people")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("bonfire")
 //
 } // end of [val]
@@ -200,6 +239,19 @@ word_create_add("bramble")
 //
 val () =
 word_add_meaning(w0, "a prickly shrub")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("brass")
+//
+val () =
+word_add_meaning(w0, "a yellow metal")
 //
 } // end of [val]
 

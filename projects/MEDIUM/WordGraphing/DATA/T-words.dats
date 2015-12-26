@@ -54,6 +54,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("tendril")
+//
+val () =
+word_add_meaning(w0, "a slender curl")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("throttle")
 //
 val () =
@@ -119,6 +132,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("toiletries")
+//
+val () =
+word_add_meaning(w0, "articles used for washing")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("traipsing")
 //
 val () =
@@ -149,6 +175,19 @@ word_create_add("tribunal")
 //
 val () =
 word_add_meaning(w0, "people settling dispute")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("trident")
+//
+val () =
+word_add_meaning(w0, "a 3 pointed spear")
 //
 } // end of [val]
 

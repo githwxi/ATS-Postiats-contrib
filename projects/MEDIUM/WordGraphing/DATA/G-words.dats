@@ -15,6 +15,32 @@ val () =
 {
 //
 val w0 =
+word_create_add("gladiator")
+//
+val () =
+word_add_meaning(w0, "a man trained to fight with weapons")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("glaze")
+//
+val () =
+word_add_meaning(w0, "cover with glass")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("glint")
 //
 val () =
@@ -162,6 +188,19 @@ word_create_add("grove")
 //
 val () =
 word_add_meaning(w0, "a group of trees")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("gruesome")
+//
+val () =
+word_add_meaning(w0, "extremely unpleasant")
 //
 } // end of [val]
 

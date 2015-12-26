@@ -28,10 +28,36 @@ val () =
 {
 //
 val w0 =
+word_create_add("recoil")
+//
+val () =
+word_add_meaning(w0, "suddenly sprin back in disgust")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("reek")
 //
 val () =
 word_add_meaning(w0, "smell strongly of")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("rekindle")
+//
+val () =
+word_add_meaning(w0, "revive something that has been lost")
 //
 } // end of [val]
 

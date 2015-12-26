@@ -147,6 +147,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("desnag")
+//
+val () =
+word_add_meaning(w0, "take out")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("despondent")
 //
 val () =

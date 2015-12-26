@@ -54,6 +54,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("whap")
+//
+val () =
+word_add_meaning(w0, "hit hard")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("wheeze")
 //
 val () =

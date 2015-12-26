@@ -77,6 +77,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("levin")
+//
+val () =
+word_add_meaning(w0, "lightning")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("lib")
 //
 val () =
@@ -133,6 +146,19 @@ word_create_add("lopside")
 //
 val () =
 word_add_meaning(w0, "one side lower than the other")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("lumber")
+//
+val () =
+word_add_meaning(w0, "move in a slow awkward way")
 //
 } // end of [val]
 

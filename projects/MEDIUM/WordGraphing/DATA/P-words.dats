@@ -115,6 +115,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("patron")
+//
+val () =
+word_add_meaning(w0, "a person who gives support")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("peal")
 //
 val () =
@@ -184,6 +197,19 @@ word_create_add("petulant")
 //
 val () =
 word_add_meaning(w0, "bad tempered")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("pillage")
+//
+val () =
+word_add_meaning(w0, "rob using violence")
 //
 } // end of [val]
 
@@ -388,6 +414,19 @@ val () =
 //
 val w0 =
 word_create_add("pulley")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("pulverize")
+//
+val () =
+word_add_meaning(w0, "defeat utterly")
 //
 } // end of [val]
 

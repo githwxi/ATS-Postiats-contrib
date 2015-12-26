@@ -67,6 +67,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("cay")
+//
+val () =
+word_add_meaning(w0, "a type of sound made by birds")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("chamois")
 //
 val () =
@@ -152,6 +165,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("clank")
+//
+val () =
+word_add_meaning(w0, "a loud sharp sound")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("clatter")
 //
 val () =
@@ -178,6 +204,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("clench")
+//
+val () =
+word_add_meaning(w0, "the hand closed in a tight ball")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("clod")
 //
 val () =
@@ -191,10 +230,36 @@ val () =
 {
 //
 val w0 =
+word_create_add("clog")
+//
+val () =
+word_add_meaning(w0, "block with wet water")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("clomp")
 //
 val () =
 word_add_meaning(w0, "walk heavily")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("cloven")
+//
+val () =
+word_add_meaning(w0, "the foot of a goat")
 //
 } // end of [val]
 
@@ -309,6 +374,19 @@ word_create_add("concur")
 //
 val () =
 word_add_meaning(w0, "agree")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("conquest")
+//
+val () =
+word_add_meaning(w0, "the control of a person")
 //
 } // end of [val]
 

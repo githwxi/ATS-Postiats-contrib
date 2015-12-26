@@ -2,6 +2,45 @@ val () =
 {
 //
 val w0 =
+word_create_add("elate")
+//
+val () =
+word_add_meaning(w0, "make someone very happy")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("embedded")
+//
+val () =
+word_add_meaning(w0, "fix firmly")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("embodiment")
+//
+val () =
+word_add_meaning(w0, "a visible form of an idea")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("engross")
 //
 val () =

@@ -64,6 +64,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("adorn")
+//
+val () =
+word_add_meaning(w0, "make more beautiful")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("alabaster")
 //
 val () =

@@ -90,6 +90,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("savagery")
+//
+val () =
+word_add_meaning(w0, "fierce or cruel")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("scalpel")
 //
 val () =
@@ -133,6 +146,19 @@ word_create_add("scraggly")
 //
 val () =
 word_add_synonym(w0, "untidy")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("scrunch")
+//
+val () =
+word_add_meaning(w0, "make a loud crunching noise")
 //
 } // end of [val]
 
@@ -250,6 +276,32 @@ word_create_add("sheath")
 //
 val () =
 word_add_meaning(w0, "a case for covering a blade")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("shimmer")
+//
+val () =
+word_add_meaning(w0, "shine with a soft light")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("shoehorn")
+//
+val () =
+word_add_meaning(w0, "force into a space")
 //
 } // end of [val]
 
@@ -598,6 +650,19 @@ word_create_add("sullen")
 //
 val () =
 word_add_meaning(w0, "bad tempered")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
+word_create_add("sumptuous")
+//
+val () =
+word_add_meaning(w0, "splendid and expensive looking")
 //
 } // end of [val]
 

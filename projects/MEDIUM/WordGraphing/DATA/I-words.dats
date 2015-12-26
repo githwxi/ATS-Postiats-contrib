@@ -43,6 +43,19 @@ val () =
 {
 //
 val w0 =
+word_create_add("infrared")
+//
+val () =
+word_add_meaning(w0, "a color with a wavelength above red")
+//
+} // end of [val]
+
+(* ****** ****** *)
+
+val () =
+{
+//
+val w0 =
 word_create_add("ingot")
 //
 val () =
