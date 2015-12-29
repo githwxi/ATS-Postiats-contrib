@@ -214,10 +214,6 @@ fun{}
 kparser_literal(lit: string): kparser(int)
 //
 (* ****** ****** *)
-
-(* end of [kparcomb.sats] *)
-
-(* ****** ****** *)
 //
 abstype
 parinp_type = ptr
@@ -656,6 +652,70 @@ if i < ncs
 in
   loop(0)
 end // end of [kparser_literal]
+
+(* ****** ****** *)
+
+#ifdef
+PARINP_EQ_LIST_CHAR
+//
+local
+//
+assume
+parinp_type =
+List0(char)
+//
+in (* in-of-local *)
+//
+implement
+{}(*tmp*)
+kparser_char
+  ((*void*)) =
+kparser_encode
+  {char}(
+//
+lam(inp, kont) =>
+(
+  case+ inp of
+  | list_cons(c, inp2) => kont(c, inp2) | list_nil() => $raise ParFailExn()
+)
+//
+) (* kparser_char *)
+//
+end // end of [local]
+//
+#endif // #ifdef PARINP_EQ_LIST_CHAR
+
+(* ****** ****** *)
+
+#ifdef
+PARINP_EQ_STREAM_CHAR
+//
+local
+//
+assume
+parinp_type =
+stream(char)
+//
+in (* in-of-local *)
+//
+implement
+{}(*tmp*)
+kparser_char
+  ((*void*)) =
+kparser_encode
+  {char}(
+//
+lam(inp, kont) =>
+(
+  case+ !inp of
+  | stream_cons(c, inp2) => kont(c, inp2) | stream_nil() => $raise ParFailExn()
+)
+//
+) (* kparser_char *)
+//
+end // end of [local]
+//
+#endif // #ifdef PARINP_EQ_STREAM_CHAR
 
 (* ****** ****** *)
 
