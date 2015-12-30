@@ -56,10 +56,37 @@ kparser_just(x: a): kparser(a)
 extern
 fun
 {a:t@ype}
+kparser_option
+(
+  kp: kparser(INV(a))
+) : kparser(Option(a)) // end-of-fun
+
+(* ****** ****** *)
+
+extern
+fun
+{a:t@ype}
 kparser_satisfy
 (
   kparser(INV(a)), test: cfun1(a, bool)
 ) : kparser(a) // end-of-fun
+
+(* ****** ****** *)
+
+extern
+fun
+{a:t@ype}
+kparser_skip_if
+(
+  kparser(INV(a)), test: cfun1(a, bool)
+) : kparser(int) // end-of-fun
+extern
+fun
+{a:t@ype}
+kparser_skip_ifnot
+(
+  kparser(INV(a)), test: cfun1(a, bool)
+) : kparser(int) // end-of-fun
 
 (* ****** ****** *)
 //
@@ -279,6 +306,31 @@ kparser_just(x) =
 
 implement
 {a}(*tmp*)
+kparser_option
+  (kpar) = let
+//
+val kpar = kparser_decode(kpar)
+//
+in
+//
+kparser_encode(
+//
+lam(inp, kont) => (
+try
+kpar
+( inp
+, lam(x, inp2) => kont(Some(x), inp2)
+) (* kpar *)
+with ~ParFailExn() => kont(None(), inp)
+) (* end of [lam] *)
+) (* kparser_encode *)
+//
+end // end of [kparser_option]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
 kparser_satisfy
   (kpar, test) = let
 //
@@ -299,6 +351,44 @@ kpar
 //
 end // end of [kparser_satisfy]
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+kparser_skip_if
+  (kpar, test) = let
+//
+val
+kpar = kparser_decode(kpar)
+//
+fun
+auxskip
+(
+  inp: parinp, kont: parcont(int)
+) : parout = let
+in
+//
+kpar
+( inp
+, lam(x, inp2) =>
+  if test(x)
+    then auxskip(inp2, kont) else kont(0, inp)
+  // end of [if]
+)
+//
+end // end of [auxskip]
+//
+in
+//
+kparser_encode(lam(inp, kont) => auxskip(inp, kont))
+//
+end // end of [kparser_skip_if]
+//
+implement
+{a}(*tmp*)
+kparser_skip_ifnot
+  (kpar, test) = kparser_skip_if<a>(kpar, lam(x) => ~test(x))
+//
 (* ****** ****** *)
 
 implement
