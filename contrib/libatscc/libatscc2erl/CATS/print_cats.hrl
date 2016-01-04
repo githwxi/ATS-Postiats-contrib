@@ -29,6 +29,9 @@ ats2erlpre_print_double(X) -> io:format("~f", [X]).
 ats2erlpre_print_string(X) -> io:format("~s", [X]).
 %%
 %%fun%%
+ats2erlpre_print_ERLval(X) -> io:format("~p", [X]).
+%%
+%%fun%%
 ats2erlpre_print_newline() -> io:format("~n", []).
 %%
 %% ****** ****** %%

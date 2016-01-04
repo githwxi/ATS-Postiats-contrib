@@ -34,7 +34,7 @@ ats2erlpre_ref_server_proc(X) ->
     {Client, set_elt, Y} ->
       Client ! {self(), atscc2erl_void}, ats2erlpre_ref_server_proc(Y);
     {Client, exch_elt, Y} ->
-      Client ! {self(), Y}, ats2erlpre_ref_server_proc(Y);
+      Client ! {self(), X}, ats2erlpre_ref_server_proc(Y);
     {Client, takeout} ->
       Client ! {self(), X}, ats2erlpre_ref_server_proc2()
   end.

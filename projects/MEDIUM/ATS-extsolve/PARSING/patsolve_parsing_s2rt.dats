@@ -99,4 +99,46 @@ end // end of [local]
 
 (* ****** ****** *)
 
+local
+//
+val
+the_s2rtdatmap = ref<s2rtdatlst>(list_nil)
+//
+extern
+fun
+the_s2rtdatmap_set
+  (s2rtdatlst): void = "ext#patsolve_the_s2rtdatmap_set"
+//
+in (* in-of-local *)
+
+implement
+the_s2rtdatmap_get() = !the_s2rtdatmap
+implement
+the_s2rtdatmap_set(s2tds) = !the_s2rtdatmap := s2tds
+
+end // end of [local]
+
+(* ****** ****** *)
+
+implement
+parse_s2rtdat
+  (jsnv0) = let
+//
+val-
+~Some_vt(x1) = jsnv0["s2rtdat_sym"]
+val-
+~Some_vt(x2) = jsnv0["s2rtdat_stamp"]
+val-
+~Some_vt(x3) = jsnv0["s2rtdat_sconlst"]
+//
+val name = parse_symbol (x1)
+val stamp = parse_stamp (x2)
+val s2cs0 = parse_s2cstlst (x3)
+//
+in
+  s2rtdat_make(name, stamp, s2cs0)
+end // end of [parse_s2rtdat]
+
+(* ****** ****** *)
+
 (* end of [patsolve_parsing_s2rt.dats] *)

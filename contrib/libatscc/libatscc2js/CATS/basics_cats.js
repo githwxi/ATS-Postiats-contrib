@@ -130,6 +130,11 @@ ats2jspre_toString(obj) { return obj.toString(); }
 /* ****** ****** */
 
 function
+ats2jspre_console_log(obj) { return console.log(obj); }
+
+/* ****** ****** */
+
+function
 ats2jspre_lazy2cloref(lazyval) { return lazyval[1]; }
 
 /* ****** ****** */
@@ -149,6 +154,47 @@ ats2jspre_assert_errmsg_bool0
 function
 ats2jspre_assert_errmsg_bool1
   (tfv, errmsg) { if (!tfv) throw new Error(errmsg); return; }
+//
+/* ****** ****** */
+//
+/*
+//
+// HX-2015-10-25:
+// Commenting out
+// implementation in basics.dats
+//
+*/
+function
+ats2jspre_cloref0_app(cf) { return cf[0](cf); }
+function
+ats2jspre_cloref1_app(cf, x) { return cf[0](cf, x); }
+function
+ats2jspre_cloref2_app(cf, x1, x2) { return cf[0](cf, x1, x2); }
+function
+ats2jspre_cloref3_app(cf, x1, x2, x3) { return cf[0](cf, x1, x2, x3); }
+//
+/* ****** ****** */
+//
+function
+ats2jspre_cloref2fun0(cf)
+{
+  return function(){return ats2jspre_cloref0_app(cf);};
+}
+function
+ats2jspre_cloref2fun1(cf)
+{
+  return function(x){return ats2jspre_cloref1_app(cf,x);};
+}
+function
+ats2jspre_cloref2fun2(cf)
+{
+  return function(x1,x2){return ats2jspre_cloref2_app(cf,x1,x2);};
+}
+function
+ats2jspre_cloref2fun3(cf)
+{
+  return function(x1,x2,x3){return ats2jspre_cloref2_app(cf,x1,x2,x3);};
+}
 //
 /* ****** ****** */
 

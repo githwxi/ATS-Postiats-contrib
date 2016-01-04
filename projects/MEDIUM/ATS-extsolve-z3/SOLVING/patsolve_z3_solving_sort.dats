@@ -100,9 +100,9 @@ implement
 sort_mk_vtype () = sort_mk_abstract("type")
 //
 implement
-sort_mk_t0ype () = sort_mk_abstract("t0ype")
+sort_mk_t0ype () = sort_mk_abstract("type")
 implement
-sort_mk_vt0ype () = sort_mk_abstract("t0ype")
+sort_mk_vt0ype () = sort_mk_abstract("type")
 //
 implement
 sort_mk_prop () = sort_bool()

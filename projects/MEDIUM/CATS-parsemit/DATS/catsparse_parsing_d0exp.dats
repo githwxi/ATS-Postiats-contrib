@@ -46,7 +46,7 @@ tok.token_node of
 | _ when
     ptest_fun
     (
-      buf, parse_i0de, ent
+      buf, parse_i0dex, ent
     ) => let
     val bt = 0
     val id = synent_decode2{i0de}(ent)
@@ -247,7 +247,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
@@ -361,6 +361,22 @@ tok.token_node of
     // end of [if]
   end // end of [ATSCKpat_bool]
 //
+| T_KWORD(ATSCKpat_string()) => let
+    val bt = 0
+    val () = incby1 ()
+    val ent1 = p_LPAREN (buf, bt, err)
+    val ent2 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
+    val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
+  in
+    if err = err0
+      then (
+        ATSCKpat_string_make (tok, ent2, ent4, ent5)
+      ) else tokbuf_set_ntok_null (buf, n0)
+    // end of [if]
+  end // end of [ATSCKpat_string]
+//
 | T_KWORD(ATSCKpat_con0()) => let
     val bt = 0
     val () = incby1 ()
@@ -465,7 +481,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_d0exparg, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)

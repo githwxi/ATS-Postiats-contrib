@@ -32,8 +32,8 @@ $(PATSOPT2) -d ./DATS/intrange.dats | $(ATSCC2ERL) -o ./output/DATS/intrange_dat
 #
 ######
 #
-DATE=date
-ECHO=echo -n
+DATE=/bin/date
+ECHO=/bin/echo -en
 #
 all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2erl_all.hrl
 all_in_one:: ; $(ECHO) '%%' | $(CAT) - >>libatscc2erl_all.hrl
@@ -52,6 +52,10 @@ CATS/bool_cats.hrl \
 CATS/float_cats.hrl \
 CATS/print_cats.hrl \
 CATS/reference_cats.hrl \
+
+all_in_one:: ; \
+$(CAT) >>libatscc2erl_all.hrl \
+CATS/Erlang/file_cats.hrl \
 
 all_in_one:: ; \
 $(CAT) >>libatscc2erl_all.hrl \

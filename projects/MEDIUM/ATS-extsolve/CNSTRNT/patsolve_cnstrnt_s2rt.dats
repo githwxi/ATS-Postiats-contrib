@@ -90,4 +90,63 @@ case+ s2t of
 //
 (* ****** ****** *)
 
+typedef
+s2rtdat_struct = @{
+//
+  s2rtdat_name= symbol
+, s2rtdat_stamp= stamp
+, s2rtdat_sconlst= List0 (s2cst)
+//
+} (* end of [s2rtdat_struct] *)
+
+(* ****** ****** *)
+
+local
+//
+assume
+s2rtdat_type =
+  ref (s2rtdat_struct)
+//
+in (* in of [local] *)
+
+implement
+s2rtdat_make
+  (name, stamp, s2cs) = let
+//
+val [l:addr] (
+  pfat, pfgc | p
+) = ptr_alloc<s2rtdat_struct> ()
+//
+val () = p->s2rtdat_name := name
+val () = p->s2rtdat_stamp := stamp
+val () = p->s2rtdat_sconlst := s2cs
+//
+in
+  $UN.castvwtp0{s2rtdat}((pfat, pfgc | p))
+end // end of [s2rtdat_make]
+
+implement
+s2rtdat_get_name (s2td) = !s2td.s2rtdat_name
+implement
+s2rtdat_get_stamp (s2td) = !s2td.s2rtdat_stamp
+implement
+s2rtdat_get_sconlst (s2td) = !s2td.s2rtdat_sconlst
+
+end // end of [local]
+
+(* ****** ****** *)
+//
+implement
+fprint_s2rtdat
+  (out, s2td) = let
+//
+val name = s2rtdat_get_name(s2td)
+val s2cs = s2rtdat_get_sconlst(s2td)
+//
+in
+  fprint_symbol(out, name); fprint! (out, "(", s2cs, ")")
+end // end of [fprint_s2rtdat]
+//
+(* ****** ****** *)
+
 (* end of [patsolve_cnstrnt_s2rt.dats] *)

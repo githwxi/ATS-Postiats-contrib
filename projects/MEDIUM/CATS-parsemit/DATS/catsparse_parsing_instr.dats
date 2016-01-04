@@ -47,7 +47,7 @@ tok.token_node of
 //
 | _ when
     ptest_SRPif0 (buf) => let
-    val () = incby1 ()
+    val bt = 0
     val () = pskip_SRPif0 (buf, 1(*level*))
   in
     parse_instr (buf, bt, err)
@@ -175,7 +175,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -187,7 +187,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -200,7 +200,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_COLON, err0)
   in
@@ -213,7 +213,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -226,7 +226,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_COLON, err0)
   in
@@ -239,7 +239,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -278,7 +278,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -295,7 +295,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -312,7 +312,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -327,7 +327,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, p_INT, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -358,7 +358,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -374,7 +374,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, p_INT, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -390,7 +390,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
@@ -425,7 +425,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -442,7 +442,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
@@ -477,7 +477,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
@@ -498,7 +498,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
@@ -517,7 +517,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_s0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_COMMA, err0)
@@ -536,7 +536,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -553,9 +553,9 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
-    val ent4 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent4 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent6 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -586,7 +586,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_COMMA, err0)
     val ent4 = pif_fun (buf, bt, err, parse_d0exp, err0)
     val ent5 = pif_fun (buf, bt, err, p_RPAREN, err0)
@@ -636,7 +636,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -648,7 +648,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -660,7 +660,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in
@@ -673,7 +673,7 @@ tok.token_node of
     val bt = 0
     val () = incby1 ()
     val ent1 = p_LPAREN (buf, bt, err)
-    val ent2 = pif_fun (buf, bt, err, parse_i0de, err0)
+    val ent2 = pif_fun (buf, bt, err, parse_i0dex, err0)
     val ent3 = pif_fun (buf, bt, err, p_RPAREN, err0)
     val ent4 = pif_fun (buf, bt, err, p_SEMICOLON, err0)
   in

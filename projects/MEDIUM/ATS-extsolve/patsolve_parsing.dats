@@ -213,6 +213,9 @@ end // end of [parse_option]
 implement
 parse_s2rtlst(xs) = parse_list(xs, parse_s2rt)
 //
+implement
+parse_s2rtdatlst(xs) = parse_list(xs, parse_s2rtdat)
+//
 (* ****** ****** *)
 //
 implement
@@ -280,6 +283,27 @@ case+ opt of
 | ~None_vt((*void*)) => ()
 )
 
+fun
+aux_s2rtdatmap
+(
+  opt: jsnvopt_vt
+) : void = let
+//
+extern
+fun
+the_s2rtdatmap_set
+  (s2rtdatlst): void = "ext#patsolve_the_s2rtdatmap_set"
+//
+in
+//
+case+ opt of
+| ~None_vt() => ()
+| ~Some_vt(jsnv) => let
+    val xs = parse_s2rtdatlst(jsnv) in the_s2rtdatmap_set(xs)
+  end // end o [Some_vt]
+//
+end // end of [aux_s2rtdatmap]
+
 in (* in-of-local *)
 
 implement
@@ -288,6 +312,7 @@ parse_constraints
 //
 val opt1 = jsnv0["s2cstmap"]
 val opt2 = jsnv0["s2varmap"]
+val opt3 = jsnv0["s2rtdatmap"]
 //
 (*
 val () =
@@ -306,6 +331,30 @@ println!
 ) (* end of [val] *)
 *)
 val ((*void*)) = aux_s2varmap(opt2)
+//
+(*
+val () =
+println!
+(
+  "parse_constraints: aux_s2rtdatmap"
+) (* end of [val] *)
+*)
+val ((*void*)) = aux_s2rtdatmap(opt3)
+//
+(*
+local
+//
+val xs = the_s2rtdatmap_get()
+implement
+fprint_val<s2rtdat> = fprint_s2rtdat
+//
+in (* in-of-local *)
+//
+val () =
+fprintln! (stdout_ref, "the_s2rtdatmap: ", xs)
+//
+end // end of [local]
+*)
 //
 val-
 ~Some_vt(jsnv) = jsnv0["c3nstrbody"]

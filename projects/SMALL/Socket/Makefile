@@ -51,5 +51,3 @@ cleanall:: ; $(RMF) tcpserver_daytime
 ######
 
 ###### end of [Makefile] ######
-
-

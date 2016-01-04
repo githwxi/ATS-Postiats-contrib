@@ -426,7 +426,7 @@ implement
 funlab_get_index
   (fl0) = let
 //
-val n0 = fl0.i0de_sym
+val n0 = fl0.i0dex_sym
 //
 fun
 auxlst
@@ -442,7 +442,7 @@ case+ xs of
     | ATSfunbodyseq _ => let
         val fl = funbodyseq_get_funlab (x)
       in
-        if n0 = fl.i0de_sym then i else auxlst (xs, i+1)
+        if n0 = fl.i0dex_sym then i else auxlst (xs, i+1)
       end // end of [ATSfunbodyseq]
     | _ (*non-ATSfunbody*) => auxlst (xs, i)
   ) (* end of [list_cons] *)
@@ -459,7 +459,7 @@ implement
 tmplab_get_index
   (lab0) = let
 //
-val n0 = lab0.i0de_sym
+val n0 = lab0.i0dex_sym
 //
 fun
 auxlst
@@ -470,7 +470,7 @@ auxlst
 case+ xs of
 | list_nil () => ~1(*error*)
 | list_cons (x, xs) =>
-    if n0 = x.i0de_sym then i else auxlst (xs, i+1)
+    if n0 = x.i0dex_sym then i else auxlst (xs, i+1)
   // end of [list_cons]
 )
 //
@@ -1270,7 +1270,7 @@ d0c0.d0ecl_node of
 | D0Cifndef _ => ()
 //
 | D0Ctypedef (id, def) =>
-    typedef_insert (id.i0de_sym, def)
+    typedef_insert (id.i0dex_sym, def)
 //
 | D0Cassume (id) =>
   {

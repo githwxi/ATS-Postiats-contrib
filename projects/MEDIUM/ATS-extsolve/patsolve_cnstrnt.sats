@@ -198,6 +198,28 @@ overload prerr with prerr_s2rt
 overload fprint with fprint_s2rt
 //
 (* ****** ****** *)
+
+abstype
+s2rtdat_type = ptr
+typedef s2rtdat = s2rtdat_type
+typedef s2rtdatlst = List(s2rtdat)
+
+(* ****** ****** *)
+//
+fun s2rtdat_get_name (s2rtdat): symbol
+fun s2rtdat_get_stamp (s2rtdat): stamp
+//
+(* ****** ****** *)
+//
+fun print_s2rtdat : s2rtdat -> void
+and prerr_s2rtdat : s2rtdat -> void
+fun fprint_s2rtdat: fprint_type(s2rtdat)
+//
+overload print with print_s2rtdat
+overload prerr with prerr_s2rtdat
+overload fprint with fprint_s2rtdat
+//
+(* ****** ****** *)
 //
 abstype
 s2cst_type = ptr
@@ -238,9 +260,18 @@ overload .stamp with s2cst_get_stamp
 //
 (* ****** ****** *)
 
-fun s2cst_get_payload(s2cst): ptr
-fun s2cst_set_payload(s2cst, payload: ptr): void
+fun
+s2cst_get_payload(s2cst): ptr
+fun
+s2cst_set_payload(s2cst, payload: ptr): void
 
+(* ****** ****** *)
+//
+fun
+s2rtdat_get_sconlst (s2rtdat): s2cstlst
+fun
+s2rtdat_make(symbol, stamp, s2cstlst): s2rtdat
+//
 (* ****** ****** *)
 //
 abstype

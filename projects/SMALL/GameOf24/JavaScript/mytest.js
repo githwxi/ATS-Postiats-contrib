@@ -26,7 +26,7 @@ eval(fs.readFileSync('./libatscc2js/CATS/Node.js/process_cats.js').toString());
 //
 /* ****** ****** */
 
-GameOf24_js_main0_js()
+var _ = GameOf24_js_main0_js();
 
 /* ****** ****** */
 

@@ -18,6 +18,12 @@ fact_ind{n:pos}(): [fact(n)==n*fact(n-1)] unit_p
 //
 (* ****** ****** *)
 
+(*
+//
+// HX:
+// it works with Z3-4.4.0
+// it does not work with Z3-4.4.0
+//
 fun
 fact
 {n:nat}
@@ -25,8 +31,8 @@ fact
   n: int(n)
 ) : int(fact(n)) = let
 //
-prval () = $solver_assert(fact_bas)
-prval () = $solver_assert(fact_ind)
+prval() = $solver_assert(fact_bas)
+prval() = $solver_assert(fact_ind)
 //
 fun
 loop
@@ -42,6 +48,36 @@ if n = 0 then (r) else loop(n-1, n*r)
 //
 in
   loop(n, 1)
+end // end of [fact]
+*)
+
+(* ****** ****** *)
+
+fun
+fact
+{n:nat}
+(
+  n: int(n)
+) : int(fact(n)) = let
+//
+prval() = $solver_assert(fact_bas)
+prval() = $solver_assert(fact_ind)
+//
+fun
+loop
+{ i:nat
+| i <= n
+} .<n-i>.
+(
+  i: int(i), r: int(fact(i))
+) : int(fact(n)) = (
+//
+if i < n then loop(i+1, (i+1)*r) else r
+//
+) (* end of [loop] *)
+//
+in
+  loop(0, 1)
 end // end of [fact]
 
 (* ****** ****** *)

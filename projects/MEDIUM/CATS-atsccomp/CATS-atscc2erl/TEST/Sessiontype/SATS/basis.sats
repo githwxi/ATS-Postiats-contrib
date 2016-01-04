@@ -129,7 +129,7 @@ let val chx = ,(chx); val x0 = channel_recv(chx) in channel_close(chx); x0 end
 (* ****** ****** *)
 //
 // HX-2015-07:
-// For persisten service
+// For persistent service
 //
 (* ****** ****** *)
 //

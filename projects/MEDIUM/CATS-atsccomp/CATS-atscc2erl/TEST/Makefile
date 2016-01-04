@@ -176,16 +176,18 @@ cleanall:: ; $(RMF) twice_dats.erl
 ######
 
 testall:: all
+tesstall: libatscc2erl
 testall:: regress
 testall:: cleanall
 
 ######
-
+#
 CPF=cp -f
 CPRF=cp -rf
+#
 RMF=rm -f
 RMRF=rm -rf
-
+#
 ######
 
 libatscc2erl:: ; \

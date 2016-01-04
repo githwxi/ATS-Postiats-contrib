@@ -134,10 +134,10 @@ emit_symbol (out, x) =
 //
 implement
 emit_i0de
-  (out, id) = emit_symbol (out, id.i0de_sym)
+  (out, id) = emit_symbol (out, id.i0dex_sym)
 implement
 emit_label
-  (out, lab) = emit_symbol (out, lab.i0de_sym)
+  (out, lab) = emit_symbol (out, lab.i0dex_sym)
 //
 (* ****** ****** *)
 

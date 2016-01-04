@@ -5,4 +5,10 @@
 # UN-jsonize level-2 syntax
 # (that is, level-2 internalizing)
 #
+######
+
+This package is needed by the following ones:
+
+1. ATS-sourcegen-2 (for static meta-programming)
+
 ###### end of [README] ######

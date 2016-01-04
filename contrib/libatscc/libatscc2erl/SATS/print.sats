@@ -27,12 +27,17 @@ fun print_double : double -> void = "mac#%"
 
 (* ****** ****** *)
 //
-fun
-print_string : string -> void = "mac#%"
+fun print_string : string -> void = "mac#%"
 //
 (* ****** ****** *)
 
+fun print_ERLval : (ERLval) -> void = "mac#%"
+
+(* ****** ****** *)
+
+(*
 fun print_obj{a:t0p}(obj: a): void = "mac#%"
+*)
 
 (* ****** ****** *)
 
@@ -44,6 +49,10 @@ overload print with print_int of 100
 overload print with print_bool of 100
 overload print with print_double of 100
 overload print with print_string of 100
+
+(* ****** ****** *)
+
+overload print with print_ERLval of 100
 
 (* ****** ****** *)
 //  

@@ -13,7 +13,7 @@
 staload "./GameOf24.sats"
 
 (* ****** ****** *)
-
+//
 (*
 //
 // HX-2014-09-12:
@@ -24,7 +24,7 @@ dynload "./GameOf24.sats"
 dynload "./GameOf24_card.dats"
 dynload "./GameOf24_cardset.dats"
 dynload "./GameOf24_solve.dats"
-
+//
 (* ****** ****** *)
 
 implement

@@ -23,7 +23,7 @@
 -compile(nowarn_unused_vars).
 -compile(nowarn_unused_function).
 %%
--include("./libatscc2erl/libatscc2erl_all.hrl").
+-include("$PATSHOMERELOC/contrib/libatscc/libatscc2erl/libatscc2erl_all.hrl").
 %%
 %} // end of [%{]
 

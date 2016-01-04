@@ -1,0 +1,18 @@
+#
+# For testing
+#
+
+######
+
+SUBDIRS :=
+SUBDIRS += EXAMPLE/CA-HSR2
+
+######
+#
+testall:: ; \
+for i in $(SUBDIRS); \
+  do $(MAKE) -C $$i -f Makefile_test testall; done
+#
+######
+
+###### end of [Makefile_test] ######

@@ -70,18 +70,22 @@ implement
 prerr_tyreckind(x) = fprint_tyreckind(stderr_ref, x)
 //
 (* ****** ****** *)
-
+//
 implement
 fprint_val<s2rt> = fprint_s2rt
+implement
+fprint_val<s2rtdat> = fprint_s2rtdat
+//
 implement
 fprint_val<s2cst> = fprint_s2cst
 implement
 fprint_val<s2var> = fprint_s2var
+//
 implement
 fprint_val<s2exp> = fprint_s2exp
 implement
 fprint_val<labs2exp> = fprint_labs2exp
-
+//
 (* ****** ****** *)
 
 implement
@@ -92,12 +96,17 @@ implement
 fprint_val<c3nstr> = fprint_c3nstr
 
 (* ****** ****** *)
-
+//
 implement
 print_s2rt(x) = fprint_s2rt(stdout_ref, x)
 implement
 prerr_s2rt(x) = fprint_s2rt(stderr_ref, x)
-
+//
+implement
+print_s2rtdat(x) = fprint_s2rtdat(stdout_ref, x)
+implement
+prerr_s2rtdat(x) = fprint_s2rtdat(stderr_ref, x)
+//
 (* ****** ****** *)
 //
 implement

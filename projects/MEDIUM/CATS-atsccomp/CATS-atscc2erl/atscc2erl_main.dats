@@ -16,6 +16,11 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_DYNLOADNAME"libatscc2erl_dynload"
+//
+(* ****** ****** *)
+//
 staload
 STDIO = "{$PATSLIBC}/SATS/stdio.sats"
 //
@@ -539,9 +544,18 @@ in
 end // end of [comarglst_parse]
 
 (* ****** ****** *)
-
+//
+extern
+fun
+atscc2erl_main0
+  {n:pos}
+(
+  argc: int(n), argv: !argv(n)
+) : void =
+  "ext#libatscc2erl_atscc2erl_main0"
+//
 implement
-main0 (argc, argv) =
+atscc2erl_main0 (argc, argv) =
 {
 //
 val () =
@@ -573,14 +587,16 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = prerrln! ("atscc2erl: there is a reported error.")
+  val () =
+  prerrln! ("atscc2erl: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = prerrln! ("atscc2erl: there are mutiple reported errors.")
+  val () =
+  prerrln! ("atscc2erl: there are some reported errors.")
 in
   // nothing
 end // end of [then]
@@ -591,7 +607,22 @@ val () =
 prerrln! ("Good-bye from atscc2erl!")
 *)
 //
+} (* end of [atscc2erl_main0] *)
+
+(* ****** ****** *)
+
+#ifndef
+ATSCC2ERL_MAIN_NONE
+//
+implement
+main0 (argc, argv) =
+{
+//
+val () = atscc2erl_main0(argc, argv)
+//
 } (* end of [main0] *)
+//
+#endif // ifndef(ATSCC2ERL_MAIN_NONE)
 
 (* ****** ****** *)
 

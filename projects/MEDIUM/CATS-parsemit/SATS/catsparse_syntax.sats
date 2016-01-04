@@ -37,9 +37,9 @@ fun synent_isnot_null {a:type} (x: a):<> bool
 (* ****** ****** *)
 //
 fun
-i0de_make_sym (loc: loc_t, sym: symbol): i0de
+i0dex_make_sym (loc: loc_t, sym: symbol): i0de
 fun
-i0de_make_string (loc: loc_t, name: string): i0de
+i0dex_make_string (loc: loc_t, name: string): i0de
 //
 (* ****** ****** *)
 
@@ -195,6 +195,12 @@ ATSCKpat_int_make
 //
 fun
 ATSCKpat_bool_make
+(
+  tok_kwd: token, d0e: d0exp, bool: d0exp, tok_end: token
+) : d0exp // end-of-fun
+//
+fun
+ATSCKpat_string_make
 (
   tok_kwd: token, d0e: d0exp, bool: d0exp, tok_end: token
 ) : d0exp // end-of-fun

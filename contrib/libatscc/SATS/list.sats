@@ -8,6 +8,15 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
+fun{}
+list_is_nil
+  {a:t0p}{n:int}(list(a, n)): bool(n==0)
+fun{}
+list_is_cons
+  {a:t0p}{n:int}(list(a, n)): bool(n > 0)
+//
+(* ****** ****** *)
+//
 fun
 list_make_intrange_2
   (l: int, r: int): List0(int) = "mac#%"

@@ -137,7 +137,7 @@ implement{}
 LAgvec_make_arrayptr
   (A, n) = let
   val pA = $UN.castvwtp0{ptr}(A)
-  val src = refcnt_make<ptr> (pA)
+  val src = refcnt_make_elt<ptr> (pA)
 in
   LAGVEC (1u(*rfc*), src, pA, n, 1)
 end // end of [LAgvec_make_arrayptr]

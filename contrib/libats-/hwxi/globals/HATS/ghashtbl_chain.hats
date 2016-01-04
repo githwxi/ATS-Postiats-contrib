@@ -106,9 +106,12 @@ staload _ = "libats/DATS/hashfun.dats"
 staload _ = "libats/DATS/linmap_list.dats"
 staload _ = "libats/DATS/hashtbl_chain.dats"
 //
-val the_hashtbl =
+val
+the_hashtbl =
   hashtbl_make_nil<key,itm> (i2sz(CAPACITY))
-val the_hashtbl_ptr = $UNSAFE.castvwtp0{ptr}(the_hashtbl)
+//
+val
+the_hashtbl_ptr = $UNSAFE.castvwtp0{ptr}(the_hashtbl)
 //
 vtypedef HTBL = hashtbl (key, itm)
 //

@@ -31,7 +31,7 @@ staload "./../SATS/reference.sats"
 (* ****** ****** *)
 //
 implement
-ref (x) = ref_make_elt (x)
+ref{a}(x) = ref_make_elt{a}(x)
 //
 implement
 ref_make_elt{a}(x) = $UN.cast{ref(a)}(PHPref_new(x))

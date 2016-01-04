@@ -115,7 +115,11 @@ card_val= v, card_node= CARDdiv (c1, c2)
 } end // end of [div_card_card]
 
 (* ****** ****** *)
-
+//
+(*
+#codegen2(fprint, card)
+*)
+//
 implement
 fprint_card
   (out, c0) = let
@@ -129,7 +133,7 @@ case+ c0.card_node of
 | CARDdiv (c1, c2) => fprint! (out, "CARDdiv(", c1, ", ", c2, ")")
 //
 end // end of [fprint_card]
-
+//
 (* ****** ****** *)
 
 implement
@@ -160,7 +164,7 @@ fun aux
 ) : void = let
 //
 macdef ins (x) =
-  ignoret(stringbuf_insert (sbf, ,(x)))
+  ignoret(stringbuf_insert(sbf, ,(x)))
 //
 in
 //

@@ -4,7 +4,7 @@
 
 ######
 
-NODEJS=node
+NODEJS=nodejs
 
 ######
 
@@ -20,11 +20,6 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 all::
 regress::
 cleanall::
-
-######
-
-RMF=rm -f
-RMRF=rm -rf
 
 ######
 
@@ -202,8 +197,19 @@ cleanall:: ; $(RMF) process_test_dats.js
 
 ######
 
-CPRF=cp -rf
+testall:: all
+testall:: libatscc2js
+testall:: regress
+testall:: cleanall
 
+######
+#
+CPF=cp -f
+CPRF=cp -rf
+#
+RMF=rm -f
+RMRF=rm -rf
+#
 ######
 #
 libatscc2js:: ; \

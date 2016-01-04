@@ -17,6 +17,11 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_DYNLOADNAME "libatscc2js_dynload"
+//
+(* ****** ****** *)
+//
 staload
 STDIO = "{$PATSLIBC}/SATS/stdio.sats"
 //
@@ -538,16 +543,23 @@ in
 end // end of [comarglst_parse]
 
 (* ****** ****** *)
-
+//
+extern
+fun
+atscc2js_main0
+  {n:pos}
+(
+  argc: int(n), argv: !argv(n)
+) : void =
+  "ext#libatscc2js_atscc2js_main0"
+//
 implement
-main0 (argc, argv) =
+atscc2js_main0
+  (argc, argv) =
 {
 //
 val () =
-prerrln!
-(
-  "Hello from atscc2js!"
-) (* end of [val] *)
+  prerrln! ("Hello from atscc2js!")
 //
 //
 val arglst =
@@ -572,14 +584,16 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = prerrln! ("atscc2js: there is a reported error.")
+  val () =
+  prerrln! ("atscc2js: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = prerrln! ("atscc2js: there are mutiple reported errors.")
+  val () =
+  prerrln! ("atscc2js: there are some reported errors.")
 in
   // nothing
 end // end of [then]
@@ -590,7 +604,22 @@ val () =
 prerrln! ("Good-bye from atscc2js!")
 *)
 //
+} (* end of [atscc2js_main0] *)
+//
+(* ****** ****** *)
+
+#ifndef
+ATSCC2JS_MAIN_NONE
+//
+implement
+main0 (argc, argv) =
+{
+//
+val () = atscc2js_main0(argc, argv)
+//
 } (* end of [main0] *)
+//
+#endif // ifndef(ATSCC2JS_MAIN_NONE)
 
 (* ****** ****** *)
 

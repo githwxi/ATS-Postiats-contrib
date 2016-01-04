@@ -1,7 +1,6 @@
 //
 // Selection sort
 //
-
 (* ****** ****** *)
 //
 // HX-2012-07-22:
@@ -13,12 +12,17 @@
 
 (* ****** ****** *)
 
+#include
+"share/atspre_staload.hats"
+
+(* ****** ****** *)
+
 staload "./program-1-2.sats"
 
 (* ****** ****** *)
 
 implement{a}
-SelectionSort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
+SelectionSort$cmp (x1, x2) = gcompare_ref_ref<a> (x1, x2)
 
 (* ****** ****** *)
 

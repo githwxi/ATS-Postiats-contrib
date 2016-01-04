@@ -112,7 +112,7 @@ if n > 0 then let
 prval (pf21, pf22) = gvector_v_uncons (pf2)
 prval (pf31, pf32) = gmatcol_v_uncons1 (pf3)
 //
-val alpha2 = gmul_val<a> (alpha, !p2)
+val alpha2 = gmul_val_val<a> (alpha, !p2)
 val (
 ) = blas_ax1y<a> (alpha2, !p1, !p3, m, d1, 1)
 val (

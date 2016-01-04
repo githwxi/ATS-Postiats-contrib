@@ -6,7 +6,7 @@
 
 (*
 //
-staload "./../SATS/list.sats"
+staload "./../SATS/stream.sats"
 //
 staload UN = "prelude/SATS/unsafe.sats"
 //
@@ -96,6 +96,76 @@ aux
 in
   aux(0)
 end // end of [stream_tabulate_cloref]
+
+(* ****** ****** *)
+
+implement
+stream2cloref_exn
+  {a}(xs) = let
+//
+val rxs =
+  ref{stream(a)}(xs)
+//
+in
+//
+lam() => let
+//
+val xs = rxs[]
+val-stream_cons(x, xs) = !xs
+//
+in
+  rxs[] := xs; x
+end // end of [lam]
+//
+end // end of [stream2cloref_exn]
+
+(* ****** ****** *)
+
+implement
+stream2cloref_opt
+  {a}(xs) = let
+//
+val rxs =
+  ref{stream(a)}(xs)
+//
+in
+//
+lam() => let
+  val xs = rxs[]
+in
+  case+ !xs of
+  | stream_nil() => None_vt()
+  | stream_cons(x, xs) => (rxs[] := xs; Some_vt(x))
+end // end of [lam]
+//
+end // end of [stream2cloref_opt]
+
+(* ****** ****** *)
+
+implement
+stream2cloref_last
+  {a}(xs, x0) = let
+//
+val rxs =
+  ref{stream(a)}(xs)
+//
+val rx0 = ref{a}(x0)
+//
+in
+//
+lam() => let
+  val xs = rxs[]
+in
+  case+ !xs of
+  | stream_nil
+      () => rx0[]
+    // end of [stream_nil]
+  | stream_cons
+      (x1, xs2) => (rxs[] := xs2; rx0[] := x1; x1)
+    // end of [stream_cons]
+end // end of [lam]
+//
+end // end of [stream2cloref]
 
 (* ****** ****** *)
 

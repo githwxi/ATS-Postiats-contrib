@@ -19,7 +19,16 @@ ATS_STATIC_PREFIX "_ats2erlpre_basics_"
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
 staload "./../basics_erl.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/basics.dats"
 //
 (* ****** ****** *)
 

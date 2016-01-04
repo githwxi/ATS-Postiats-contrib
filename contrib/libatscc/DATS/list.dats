@@ -15,6 +15,21 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 implement
+{}(*tmp*)
+list_is_nil(xs) =
+(
+case+ xs of list_nil() => true | _ =>> false
+)
+implement
+{}(*tmp*)
+list_is_cons(xs) =
+(
+case+ xs of list_cons _ => true | _ =>> false
+)
+//
+(* ****** ****** *)
+//
+implement
 list_make_intrange_2
   (l, r) = list_make_intrange_3 (l, r, 1)
 //

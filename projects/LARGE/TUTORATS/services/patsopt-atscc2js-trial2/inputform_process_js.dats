@@ -45,7 +45,7 @@ xmlhttp.onreadystatechange
 (
   lam((*void*)) =>
     if xmlhttp.is_ready_okay()
-      then patsopt_atscc2js_do_response (xmlhttp.responseText)
+      then patsopt_atscc2js_do_response (xmlhttp.responseText())
   // end of [lam]
 )
 //

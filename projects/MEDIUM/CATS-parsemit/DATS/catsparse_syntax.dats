@@ -55,14 +55,14 @@ synent_isnot_null (ent) = isneqz ($UN.cast2ptr(ent))
 (* ****** ****** *)
 //
 implement
-i0de_make_sym
-  (loc, sym) = '{ i0de_loc= loc, i0de_sym= sym }
+i0dex_make_sym
+  (loc, sym) = '{ i0dex_loc= loc, i0dex_sym= sym }
 //
 implement
-i0de_make_string
+i0dex_make_string
   (loc, name) = let
-  val sym = symbol_make (name) in i0de_make_sym (loc, sym)
-end // end of [i0de_make_string]
+  val sym = symbol_make (name) in i0dex_make_sym (loc, sym)
+end // end of [i0dex_make_string]
 //
 (* ****** ****** *)
 //
@@ -76,7 +76,7 @@ s0exp_make_node
 //
 implement
 s0exp_ide (loc, id) =
-  s0exp_make_node (loc, S0Eide (id.i0de_sym))
+  s0exp_make_node (loc, S0Eide (id.i0dex_sym))
 //
 implement
 s0exp_list (loc, s0es) = s0exp_make_node (loc, S0Elist (s0es))
@@ -85,7 +85,7 @@ implement
 s0exp_appid (id, s0e) = let
 //
 val loc =
-  id.i0de_loc ++ s0e.s0exp_loc
+  id.i0dex_loc ++ s0e.s0exp_loc
 //
 val-S0Elist (s0es) = s0e.s0exp_node
 //
@@ -108,19 +108,24 @@ d0exp_make_node
 (* ****** ****** *)
 //
 implement
-d0exp_ide (id) =
-  d0exp_make_node (id.i0de_loc, D0Eide (id))
+d0exp_ide (id) = let
+  val loc = id.i0dex_loc
+in
+  d0exp_make_node(loc, D0Eide(id))
+end // end of [d0exp_ide]
 //
 implement
 d0exp_list
   (loc, d0es) =
-  d0exp_make_node (loc, D0Elist (d0es))
+  d0exp_make_node (loc, D0Elist(d0es))
 //
 implement
 d0exp_appid
   (id, d0e_arg) = let
 //
-val loc = id.i0de_loc ++ d0e_arg.d0exp_loc
+val loc =
+  id.i0dex_loc ++ d0e_arg.d0exp_loc
+//
 val-D0Elist (d0es_arg) = d0e_arg.d0exp_node
 //
 in
@@ -448,6 +453,19 @@ in
   d0exp_make_node (loc, ATSCKpat_bool (d0e, bool))
 end // end of [ATSCKpat_bool_make]
 
+implement
+ATSCKpat_string_make
+(
+  tok1, d0e, string, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0exp_make_node (loc, ATSCKpat_string (d0e, string))
+end // end of [ATSCKpat_string_make]
+
 (* ****** ****** *)
 
 implement
@@ -634,7 +652,7 @@ implement
 tyfld_make
   (s0e, id) = let
 //
-val loc = s0e.s0exp_loc ++ id.i0de_loc
+val loc = s0e.s0exp_loc ++ id.i0dex_loc
 //
 in '{
   tyfld_loc= loc, tyfld_node= TYFLD (id, s0e)
@@ -673,7 +691,7 @@ val () = println! ("f0arg_some: s0e = ", s0e)
 *)
 //
 val loc =
-  s0e.s0exp_loc ++ id.i0de_loc
+  s0e.s0exp_loc ++ id.i0dex_loc
 //
 in '{
   f0arg_loc= loc
@@ -1851,7 +1869,7 @@ implement
 d0ecl_typedef
   (tok, tyrec, id) = let
 //
-val loc = tok.token_loc ++ id.i0de_loc
+val loc = tok.token_loc ++ id.i0dex_loc
 //
 in
   d0ecl_make_node (loc, D0Ctypedef (id, tyrec))

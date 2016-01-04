@@ -17,6 +17,12 @@ all::
 
 ######
 
+CBOOT:: ; $(CPF) catsparse_sats.c CBOOT/.
+CBOOT:: ; $(CPF) atscc2js_*_dats.c CBOOT/.
+CBOOT:: ; $(CPF) libatscc2js_*_dats.c CBOOT/.
+
+######
+
 CATSPARSEMIT=./.CATS-parsemit
 
 ######
@@ -39,9 +45,34 @@ all:: \
 atscc2js
 atscc2js: \
 $(SOURCES_DATS); \
-$(PATSCC) \
-  -DATS_MEMALLOC_GCBDW -O2 -o $@ \
-  $(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS) -lgc
+$(PATSCC) -DATS_MEMALLOC_GCBDW \
+  -O2 -o $@ $(SOURCES_DATS) $(SOURCES_SATS) $(SOURCES_CATS) -lgc
+#
+######
+#
+OBJECTS := \
+  catsparse_sats.o \
+  catsparse_mylib_dats.o \
+  catsparse_include_all_dats.o \
+  atscc2js_main_dats.o \
+  atscc2js_emit_dats.o \
+  atscc2js_emit2_dats.o \
+  libatscc2js_ext_dats.o \
+#
+libatscc2js.a: $(OBJECTS); $(AR) -r $@ $(OBJECTS)
+#
+######
+#
+catsparse_sats.o: \
+$(CATSPARSEMIT)/catsparse.sats; $(PATSCC) -O2 -c $<
+#
+catsparse_mylib_dats.o: \
+$(CATSPARSEMIT)/catsparse_mylib_dats.c; $(PATSCC) -O2 -c $<
+catsparse_include_all_dats.o: \
+$(CATSPARSEMIT)/catsparse_include_all_dats.c; $(PATSCC) -O2 -c $<
+#
+%_dats.o: %.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS ATSCC2JS_MAIN_NONE -O2 -c $<
 #
 ######
 
@@ -72,12 +103,15 @@ testall:: cleanall
 
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
-clean:: ; $(RMF) *_?ats.c
+clean:: ; $(RMF) catsparse_sats.c
+clean:: ; $(RMF) atscc2js_*_?ats.c
+clean:: ; $(RMF) libatscc2js_ext_?ats.c
 
 ######
 
 cleanall:: clean
 cleanall:: ; $(RMF) ./atscc2js
+cleanall:: ; $(RMF) ./libatscc2js.a
 cleanall:: ; $(RMF) ./.CATS-parsemit/*
 
 ###### end of [Makefile] ######

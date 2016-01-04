@@ -57,7 +57,8 @@ parerr_node =
   | PARERR_ATSINSmove_boxrec_end of ()
   | PARERR_ATSINSmove_fltrec_end of ()
 //
-  | PARERR_i0de of ()
+  | PARERR_i0dex of ()
+//
   | PARERR_s0exp of ()
   | PARERR_d0exp of ()
   | PARERR_d0ecl of ()
@@ -303,11 +304,15 @@ pskip_SRPif0{n:pos}
 //
 (* ****** ****** *)
 //
-fun parse_signed : parser (signed)
+fun
+parse_signed : parser (signed)
 //
 (* ****** ****** *)
 
-fun parse_i0de : parser (i0de)
+fun parse_i0dex : parser (i0de)
+
+(* ****** ****** *)
+
 fun parse_label : parser (label)
 
 (* ****** ****** *)

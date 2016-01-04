@@ -16,6 +16,8 @@ ATS_EXTERN_PREFIX "ats2erlpre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/basics.sats"
 //
 (* ****** ****** *)
@@ -25,6 +27,38 @@ typedef pid = pid_type
 //
 abstype atom_type
 typedef atom = atom_type
+//
+(* ****** ****** *)
+
+abstype binary_type
+typedef binary = binary_type
+
+(* ****** ****** *)
+//
+abstype ERLval_type
+typedef ERLval = ERLval_type
+//
+(* ****** ****** *)
+//
+abstype
+ERLlist_type(a:t@ype)
+//
+typedef
+ERLlist(a:t@ype) = ERLlist_type(a)
+//
+(* ****** ****** *)
+//
+(*
+typedef string = ERLlist(char)
+*)
+//
+(* ****** ****** *)
+//
+abstype
+ERLmap_type(k:t@ype, x:t@ype)
+//
+typedef
+ERLmap(k:t@ype, x:t@ype) = ERLmap_type(k, x)
 //
 (* ****** ****** *)
 //

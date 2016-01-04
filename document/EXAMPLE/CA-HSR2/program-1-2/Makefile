@@ -17,8 +17,8 @@ include $(PATSHOME)/share/atsmake-post.mk
 
 ######
 #
-# HX:
-# this example shows a straightforward way
+# HX-2013:
+# This example shows a straightforward way to using
 # one's own malloc/free.
 #
 ######

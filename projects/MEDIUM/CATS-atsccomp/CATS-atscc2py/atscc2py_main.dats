@@ -570,14 +570,16 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = println! ("atscc2py: there is a reported error.")
+  val () =
+  println! ("atscc2py: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = println! ("atscc2py: there are mutiple reported errors.")
+  val () =
+  println! ("atscc2py: there are some reported errors.")
 in
   // nothing
 end // end of [then]

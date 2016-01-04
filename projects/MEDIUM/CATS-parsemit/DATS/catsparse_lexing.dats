@@ -80,8 +80,9 @@ in
   | _ when ('A' <= c andalso c <= 'Z') => true
   | _ when ('0' <= c andalso c <= '9') => true
   | _ when c = '_' => true
-  | _ when c = '\'' => true
   | _ when c = '$' => true
+  | _ when c = ':' => true
+  | _ when c = '\'' => true
   | _ (*rest-of-char*) => false
 end (* end of [IDENTRST_test] *)
 
@@ -1139,7 +1140,7 @@ tok.token_node of
 | T_SPACES _ => lexbuf_get_token_skip (buf)
 | T_COMMENT_line _ => lexbuf_get_token_skip (buf)
 | T_COMMENT_block _ => lexbuf_get_token_skip (buf)
-| _ (*non-SKIP*) => tok
+| _ (*non-skip-token*) => tok
 //
 end // end of [lexing_get_token_skip]
 

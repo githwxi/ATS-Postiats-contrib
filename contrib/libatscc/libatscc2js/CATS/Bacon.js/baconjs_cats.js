@@ -17,9 +17,19 @@
 /* ****** ****** */
 //
 function
+ats2js_bacon_Bacon_more() { return Bacon.more; }
+function
+ats2js_bacon_Bacon_noMore() { return Bacon.noMore; }
+//
+/* ****** ****** */
+//
+function
 ats2js_bacon_Bacon_once(x) { return Bacon.once(x); }
 function
 ats2js_bacon_Bacon_never() { return Bacon.never(); }
+//
+function
+ats2js_bacon_Bacon_later(delay, x) { return Bacon.later(delay, x); }
 //
 function
 ats2js_bacon_Bacon_interval
@@ -36,7 +46,7 @@ ats2js_bacon_Bacon_sequentially
 function
 ats2js_bacon_Bacon_repeat(fopr)
 {
-  return Bacon.repeat(function(){return ats2jspre_cloref0_app(fopr);});
+  return Bacon.repeat(function(i){return ats2jspre_cloref1_app(fopr, i);});
 }
 //
 /* ****** ****** */
@@ -233,6 +243,18 @@ ats2js_bacon_EStream_zip_estream_cfun(xs, ys, f)
 {
   return xs.zip(ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);});
 }
+//
+/* ****** ****** */
+
+function
+ats2js_bacon_Bacon_new_bus() { return new Bacon.Bus(); }
+
+/* ****** ****** */
+//
+function
+ats2js_bacon_EStream_bus_push(bus, x0) { return bus.push(x0); }
+function
+ats2js_bacon_EStream_bus_plug(bus, xs) { return bus.plug(xs); }
 //
 /* ****** ****** */
 

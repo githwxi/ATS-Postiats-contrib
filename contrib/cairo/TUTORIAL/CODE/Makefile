@@ -72,13 +72,13 @@ cleanall:: ; $(RMF) tutprog_linejoin
 
 all:: illuwavy
 illuwavy: illuwavy.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS)
+  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< -lm $(XRLIBS)
 regress:: illuwavy; ./$<
 cleanall:: ; $(RMF) illuwavy
 
 all:: illucircmot
 illucircmot: illucircmot.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS)
+  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< -lm $(XRLIBS)
 regress:: illucircmot; ./$<
 cleanall:: ; $(RMF) illucircmot
 

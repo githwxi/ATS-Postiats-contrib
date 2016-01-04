@@ -577,14 +577,16 @@ val () =
 if
 state.nerror = 1
 then let
-  val () = prerrln! ("atscc2pl: there is a reported error.")
+  val () =
+  prerrln! ("atscc2pl: there is a reported error.")
 in
   // nothing
 end // end of [then]
 else if
 state.nerror >= 2
 then let
-  val () = prerrln! ("atscc2pl: there are mutiple reported errors.")
+  val () =
+  prerrln! ("atscc2pl: there are some reported errors.")
 in
   // nothing
 end // end of [then]

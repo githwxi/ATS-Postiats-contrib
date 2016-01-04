@@ -30,8 +30,8 @@ $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PHP) -o ./output/DATS/reference_da
 
 ######
 #
-DATE=date
-ECHO=echo -n
+DATE=/bin/date
+ECHO=/bin/echo -en
 #
 all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2php_all.php
 #

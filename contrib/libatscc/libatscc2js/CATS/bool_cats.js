@@ -24,6 +24,28 @@ ats2jspre_neg_bool1(x)
   { return (x ? false : true ); }
 //
 /* ****** ****** */
+
+function
+ats2jspre_add_bool0_bool0(x, y) { return (x || y); }
+function
+ats2jspre_add_bool0_bool1(x, y) { return (x || y); }
+function
+ats2jspre_add_bool1_bool0(x, y) { return (x || y); }
+function
+ats2jspre_add_bool1_bool1(x, y) { return (x || y); }
+
+/* ****** ****** */
+
+function
+ats2jspre_mul_bool0_bool0(x, y) { return (x && y); }
+function
+ats2jspre_mul_bool0_bool1(x, y) { return (x && y); }
+function
+ats2jspre_mul_bool1_bool0(x, y) { return (x && y); }
+function
+ats2jspre_mul_bool1_bool1(x, y) { return (x && y); }
+
+/* ****** ****** */
 //
 function
 ats2jspre_eq_bool0_bool0(x, y) { return (x === y); }

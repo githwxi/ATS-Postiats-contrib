@@ -88,6 +88,11 @@ fun parse_s2rt (jsnv: jsonval): s2rt
 fun parse_s2rtlst (jsnv: jsonval): s2rtlst
 
 (* ****** ****** *)
+
+fun parse_s2rtdat(jsnv: jsonval): s2rtdat
+fun parse_s2rtdatlst(jsnv: jsonval): s2rtdatlst
+
+(* ****** ****** *)
 //
 fun
 the_s2cstmap_search(stamp): s2cstopt_vt
@@ -108,6 +113,10 @@ the_s2Varmap_search(stamp): s2Varopt_vt
 //
 fun the_s2Varmap_insert (s2V: s2Var): void
 //
+(* ****** ****** *)
+
+fun the_s2rtdatmap_get((*void*)): s2rtdatlst
+
 (* ****** ****** *)
 
 fun parse_s2cst (jsnv: jsonval): s2cst

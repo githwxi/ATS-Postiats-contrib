@@ -42,6 +42,11 @@ implement
 main () = 0 where
 {
 //
+(*
+val () =
+println! ("Hello from Blink!")
+*)
+//
 val () = DDRB[DDB3] := 1
 //
 val () =
