@@ -1,3 +1,10 @@
+(*
+**
+** A small library for emitting HTML
+** Author: Artyom Shalkhakov (artyomDOTshalkhakovATgmailDOTcom)
+** Time: January, 2016
+**
+*)
 absvt@ype
 HTMLprint = @{
   tags= ptr

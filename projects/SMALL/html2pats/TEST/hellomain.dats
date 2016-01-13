@@ -1,3 +1,11 @@
+(*
+**
+** A simple example of
+** using html2pats for emitting HTML dynamically
+** Author: Artyom Shalkhakov (artyomDOTshalkhakovATgmailDOTcom)
+** Time: January, 2016
+**
+*)
 #define
 HTML2PATS_targetloc "$PATSHOMERELOC/projects/SMALL/html2pats"
 

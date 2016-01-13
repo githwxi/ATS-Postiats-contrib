@@ -3,6 +3,9 @@
 **
 ** For simplifying the task of writing HTML-producing functions
 ** in ATS/Postiats.
+** Author: Artyom Shalkhakov (artyomDOTshalkhakovATgmailDOTcom)
+** Time: January, 2016
+**
 *)
 
 (* ****** ****** *)

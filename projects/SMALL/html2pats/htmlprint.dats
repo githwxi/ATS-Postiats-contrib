@@ -1,14 +1,17 @@
+(*
+**
+** A small library for emitting HTML
+** Author: Artyom Shalkhakov (artyomDOTshalkhakovATgmailDOTcom)
+** Time: January, 2016
+**
+*)
 #include
 "share/atspre_staload.hats"
 
 staload
 "./htmlprint.sats"
 
-// TODO:
-// 1. extend with comments (combeg/comend): DONE
-// 2. extend with more printing functions (+ overloading and htmlprint_mac)
-// 3. provide string injection function (for raw output): DONE
-// 4. remove tag stack?
+// TODO: remove tag stack?
 datatype
 HTMLstate = HS_NONE | HS_COMMENT | HS_TAG | HS_ATTR | HS_TAGNAME
 
