@@ -219,7 +219,6 @@ xmlAttr_get_prev
 
 (* ****** ****** *)
 
-(*
 fun
 xmlAttr_get_parent
   {l1:agz} (node: !xmlAttrPtr(l1))
@@ -232,25 +231,20 @@ fun
 xmlAttr_get_last
   {l1:agz} (node: !xmlAttrPtr(l1))
 : [l2:agez] vtget0 (xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
-*)
 
 (* ****** ****** *)
 
-(*
 fun
 xmlAttr_get_doc
   {l1:agz} (node: !xmlAttrPtr(l1))
 : [l2:agz] vtget0 (xmlAttrPtr(l1), xmlDocPtr(l2)) = "mac#%"
-*)
 
 (* ****** ****** *)
 
-(*
 fun
 xmlAttr_get_ns
   {l1:agz} (node: !xmlAttrPtr(l1))
 : [l2:agez] vtget0 (xmlAttrPtr(l1), xmlNsPtr(l2)) = "mac#%"
-*)
 
 (* ****** ****** *)
 
@@ -264,12 +258,24 @@ overload __name with xmlAttr_get_name
 overload __type with xmlAttr_get_type
 overload __next with xmlAttr_get_next
 overload __prev with xmlAttr_get_prev
-(*
 overload __parent with xmlAttr_get_parent
 overload __children with xmlAttr_get_children
 overload __last with xmlAttr_get_last
-*)
 
+(* ****** ****** *)
+//
+fun eq_xmlElementType_xmlElementType (
+  xmlElementType
+, xmlElementType
+): bool = "mac#%"
+overload = with eq_xmlElementType_xmlElementType
+//
+fun neq_xmlElementType_xmlElementType (
+  xmlElementType
+, xmlElementType
+): bool = "mac#%"
+overload <> with neq_xmlElementType_xmlElementType
+//
 (* ****** ****** *)
 
 (*
@@ -386,6 +392,14 @@ fun xmlDocGetRootElement
 (* ****** ****** *)
 /*
 xmlChar*
+xmlNodeGetContent (const xmlNodePtr1 cur);
+*/
+fun
+xmlNodeGetContent (cur: !xmlNodePtr1): xmlStrptr0 = "mac#%"
+
+(* ****** ****** *)
+/*
+xmlChar*
 xmlNodeListGetString
   (xmlDocPtr doc, xmlNodePtr list, int inLine);
 */
@@ -394,6 +408,17 @@ xmlNodeListGetString
 (
   doc: !xmlDocPtr1, list: !xmlNodePtr0, inLine: int
 ) : xmlStrptr0 = "mac#%" // end-of-fun
+
+(* ****** ****** *)
+/*
+xmlChar*
+xmlGetProp (const xmlNodePtr node, const xmlCharPtr name);
+*/
+fun
+xmlGetProp
+(
+  node: !xmlNodePtr1, name: string
+): xmlStrptr0 = "mac#%" // end-of-fun
 
 (* ****** ****** *)
 
