@@ -15,8 +15,10 @@ PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 PATSCC=$(PATSHOMEQ)/bin/patscc
 PATSOPT=$(PATSHOMEQ)/bin/patsopt
-HTML2PATS=$(PATSHOMERELOC)/projects/SMALL/html2pats
-HTML2PATSBIN=$(HTML2PATS)/html2pats
+
+######
+
+HTML2PATS="./../html2pats"
 
 ######
 
@@ -35,8 +37,8 @@ cleanall::
 
 ######
 
-hello.hats: DATA/hello.html; \
-  $(HTML2PATSBIN) $< $@
+hello.hats: \
+DATA/hello.html; $(HTML2PATS) $< $@
 cleanall:: ; $(RMF) hello.hats
 
 all:: hellomain

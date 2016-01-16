@@ -6,9 +6,7 @@
 ** Time: January, 2016
 **
 *)
-#define
-HTML2PATS_targetloc "$PATSHOMERELOC/projects/SMALL/html2pats"
-
+#define HTML2PATS_targetloc "./.."
 staload "{$HTML2PATS}/htmlprint.sats"
 
 extern
