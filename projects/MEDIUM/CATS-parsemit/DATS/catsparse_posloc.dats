@@ -214,9 +214,9 @@ in '{
   fil= loc1.fil
 , beg_ntot= beg_ntot, beg_nrow= beg_nrow, beg_ncol= beg_ncol
 , end_ntot= end_ntot, end_nrow= end_nrow, end_ncol= end_ncol
-} end // end of [location_combine_main]
+} end // end of [auxmain]
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 location_combine

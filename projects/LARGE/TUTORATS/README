@@ -1,9 +1,9 @@
 TUTORATS:
 
-ATS is a full-fledged language that supports general purpose
-programming, and the core of ATS is a call-by-value functional
-language inspired by ML. Please visit http://www.ats-lang-org
-to find more on ATS.
+ATS is a full-fledged programming language that unifies
+implementation with formal specification, and the core of ATS is
+a call-by-value functional language inspired by ML. Please visit
+http://www.ats-lang-org to find more on ATS.
 
 The project TUTORATS focuses on the design and implementation of a
 tutorial system for ATS, helping teach/learn ATS in particular and
