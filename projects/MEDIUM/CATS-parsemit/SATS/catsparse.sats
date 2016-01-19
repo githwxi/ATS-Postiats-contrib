@@ -61,12 +61,15 @@ staload
 DA =
 "libats/SATS/dynarray.sats"
 //
-stadef dynarray = $DA.dynarray
+stadef dynarr = $DA.dynarray
 //
 (* ****** ****** *)
 //
 staload
-CS = "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
+CS =
+"{$LIBATSHWXI}\
+/cstream/SATS/cstream.sats"
+//
 stadef cstream = $CS.cstream
 //
 (* ****** ****** *)
@@ -596,7 +599,7 @@ vtypedef
 _tokbuf_vt0ype =
 @{
 //
-  tokbuf_tkbf = dynarray (token)
+  tokbuf_tkbf= dynarr(token)
 , tokbuf_ntok= size_t, tokbuf_lxbf= lexbuf
 //
 } (* end of [_tokbuf_vt0ype] *)
