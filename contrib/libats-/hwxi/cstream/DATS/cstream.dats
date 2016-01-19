@@ -221,7 +221,9 @@ cstream_tokenize_ident
   (cs0, c0, sbf) = let
 //
 fun isalnum_ (i: int): bool =
-  if isalnum (i) then true else (i = char2int0('_'))
+  if isalnum (i)
+    then true else (i = char2int0('_'))
+  // end of [if]
 //
 fun loop
 (
@@ -233,22 +235,29 @@ val i = cstream_get_char (cs0)
 //
 in
 //
-if i >= 0 then
+if
+i >= 0
+then
 (
-  if isalnum_ (i)
-    then let
-      val c = $UN.cast{charNZ}(i)
-      val _ =
-      $SBF.stringbuf_insert (sbf, c) in loop (cs0, sbf)
-    end // end-of-then
-    else (i) // end-of-else
-) else (i)
+//
+if
+isalnum_ (i)
+then let
+  val c = $UN.cast{charNZ}(i)
+  val _ =
+  $SBF.stringbuf_insert(sbf, c) in loop(cs0, sbf)
+end // end-of-then
+else (i) // end-of-else
+//
+) (* end of [then] *)
+else (i) // end of [else]
 //
 end // end of [tokener_get_ide]
 //
 val _ =
-$SBF.stringbuf_insert (sbf, $UN.cast{charNZ}(c0))
-val ((*void*)) = c0 := loop (cs0, sbf)
+  $SBF.stringbuf_insert(sbf, $UN.cast{charNZ}(c0))
+//
+val () = (c0 := loop (cs0, sbf))
 //
 in
   $SBF.stringbuf_truncout_all (sbf)

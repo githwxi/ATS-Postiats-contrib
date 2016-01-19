@@ -38,7 +38,7 @@
 
 (* ****** ****** *)
 
-staload "./../SATS/filename.sats"
+staload "./../SATS/lexingbuf.sats"
 
 (* ****** ****** *)
 
@@ -54,10 +54,10 @@ implement{} theCurDir_get () = "."
 implement{} theParDir_get () = ".."
 
 (* ****** ****** *)
-
+//
 implement
-filename_dummy () = filename_make ("", "", "")
-
+filename_dummy() = filename_make("", "", "")
+//
 (* ****** ****** *)
 
 implement
@@ -80,7 +80,8 @@ prerr_filename_full
 
 implement
 fprint_filename_full
-  (out, fil) = fprint_string (out, fil.fname_fullname)
+  (out, fil) =
+  fprint_string (out, fil.fname_fullname)
 // end of [fprint_filename_full]
 
 (* ****** ****** *)
@@ -92,23 +93,4 @@ filename_equal
 
 (* ****** ****** *)
 
-local
-
-val the_fname = let
-  val fil = filename_dummy ()
-in
-  ref_make_elt<fname_t> (fil)
-end (* end of [the_fname] *)
-
-val the_fnamelst = ref<fnamelst_t> (list_vt_nil)
-
-in (* in of local *)
-
-implement
-filename_get_current ((*void*)) = !the_fname
-
-end // end of [local]
-
-(* ****** ****** *)
-
-(* end of [filename.dats] *)
+(* end of [lexingbuf_fname.dats] *)

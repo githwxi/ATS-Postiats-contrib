@@ -38,8 +38,7 @@
 
 (* ****** ****** *)
 
-staload "./../SATS/filename.sats"
-staload "./../SATS/location.sats"
+staload "./../SATS/lexingbuf.sats"
 
 (* ****** ****** *)
 
@@ -75,7 +74,7 @@ location_type = $rec{
 //
 // file name
 //
-  fname= fname_t
+  fname= fil_t
 //
 // beginning char position
 //
