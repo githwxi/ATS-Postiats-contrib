@@ -167,14 +167,15 @@ in
 end // end of [tokener_get_int]
 
 (* ****** ****** *)
-
+//
 %{^
 #define LPAREN '('
 #define RPAREN ')'
 %}
+//
 macdef LPAREN = $extval (int, "LPAREN")
 macdef RPAREN = $extval (int, "RPAREN")
-
+//
 (* ****** ****** *)
 //
 extern
