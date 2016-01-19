@@ -39,14 +39,18 @@ staload "./cstream.sats"
 (* ****** ****** *)
 //
 staload
-SBF = "libats/SATS/stringbuf.sats"
+SBF =
+"libats/SATS/stringbuf.sats"
+//
 vtypedef stringbuf = $SBF.stringbuf
 //
 (* ****** ****** *)
-
-absvtype tokener_vtype(a:type) = ptr
-vtypedef tokener(a:type) = tokener_vtype(a)
-
+//
+absvtype
+tokener_vtype(a: type) = ptr
+vtypedef
+tokener(a: type) = tokener_vtype(a)
+//
 (* ****** ****** *)
 //
 fun{a:type}
