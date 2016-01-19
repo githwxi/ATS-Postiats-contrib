@@ -34,8 +34,8 @@ absvt@ype T
 
 (* ****** ****** *)
 
-extern fun isnil(): bool
-extern fun iscons(): bool
+extern fun is_nil(): bool
+extern fun is_cons(): bool
 
 (* ****** ****** *)
 //
@@ -80,26 +80,26 @@ in (* in of [local] *)
 (* ****** ****** *)
 
 implement
-isnil() = let
+is_nil() = let
 //
 val(vbox(pf)|p) =
   ref_get_viewptr(r_stack)
 // end of [val]
 in
   list_vt_is_nil(!p)
-end // end of [isnil]
+end // end of [is_nil]
 
 (* ****** ****** *)
 
 implement
-iscons() = let
+is_cons() = let
 //
 val(vbox(pf)|p) =
   ref_get_viewptr(r_stack)
 //
 in
   list_vt_is_cons(!p)
-end // end of [iscons]
+end // end of [is_cons]
 
 (* ****** ****** *)
 
