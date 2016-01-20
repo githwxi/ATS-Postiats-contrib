@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ats-dynargs="t, xs">
+  <head>
+    <title>Hello from HTML2PATS</title>
+    <style type="text/css">
+      .yes { color: red; }
+      .no { color: blue; }
+    </style>
+  </head>
+  <body>
+    <h1>Hello from HTML2PATS!</h1>
+    <p>HTML2PATS is a tool for converting HTML with embedded ATS2 code into ATS2 code</p>
+    <p>HTML2PATS can be used as a templating engine or as a
+    preprocessor (when memory safety &amp; runtime efficiency are
+    highly sought after). HTML2PATS can be thought of as a tool for
+    giving a nicer syntax to a class of functions for constructing
+    HTML (fragments).
+    </p>
+    <h2>Basic usage</h2>
+    <ul>
+      <li>Use <code>\$E</code> to expand it to the
+      expression <code>E</code>, where <code>E</code> stands for some
+      alphanumeric identifier. For instance: the value of
+      parameter <code>\$t</code> evaluates
+      to <strong>$t</strong>.</li>
+      <li>Use <code>\$\{E\}</code> if <code>E</code> stands for some
+      more complex expression. For instance, the
+      expression <code>\$\{(if t="" then "yes" else
+      "no"):string\}</code>, when evaluated in the context of
+      a <code>style</code> attribute, should make <span class='${(if
+      t="" then "yes" else "no"):string}'>this text</span> blue.</li>
+      <li>Use a backslash <code>\\</code> to escape a backslash, as
+      follows: <code>\\\\</code></li>
+    </ul>
+<!-- this is a comment, it should be left as-is -->
+    <p>Comments will be retained as-is.</p>
+    <p>The length of the passed-in list is ${length(xs)} (evaluated
+      using a function
+      call: <code>\$\{length(xs)\}</code>)</p>
+<p>Finally, it is possible to locally implement template
+functions.</p>
+<p>The <code>ats-call</code> tag is used to call a template function
+      (with specified template arguments listed in tmpargs and dynamic
+      arguments listed in dynargs). Below, <code>int;HTMLprint</code>
+  is translated to: <code>&lt;int&gt;&lt;HTMLprint&gt;</code>.</p>
+<p>The <code>ats-impl</code> tag is used for implementing a function
+template locally, only visible to the
+enclosing <code>ats-call</code>.</p>
+    <pre>
+      &lt;ats-call fun="list_vt_foreach_env" tmpargs="int;HTMLprint" dynargs="xs, out"&gt;
+	&lt;ats-impl tmp="list_vt_foreach\$fwork"
+		  tmpargs="int;HTMLprint" dynargs="x, out"&gt;
+	  &lt;li&gt;\$x&lt;/li&gt;
+	&lt;/ats-impl&gt;
+      &lt;/ats-call&gt;
+    </pre>
+    <p>For instance, the result of evaluating the above code fragment is given below:</p>
+    <ul>    
+      <ats-call fun="list_vt_foreach_env" tmpargs="int;HTMLprint" dynargs="xs, out">
+	<ats-impl tmp="list_vt_foreach$fwork"
+		  tmpargs="int;HTMLprint" dynargs="x, out">
+	  <li>$x</li>
+	</ats-impl>
+      </ats-call>
+    </ul>
+    <h2>Advanced usage</h2>
+    <p>It is possible to overload the symbol <code>htmlprint</code> in
+    ATS to provide HTML printers for user-defined data types. To be
+    covered elsewhere.</p>
+    <p>The API provided by the library <code>htmlprint</code> is
+    documented elsewhere (nowhere currently, to be precise).</p>
+    <p>A function <code>htmlprint_unsafe_inject</code> is provided
+    that allows for injecting strings as-is, with no escaping. Use at
+      your own risk.</p>
+    <h2>Author and license</h2>
+    <p>The license is 3-clause BSD.</p>
+    <p>Author: Artyom Shalkhakov (artyom DOT shalkhakov AT gmail DOT
+    com)</p>
+  </body>
+</html>
