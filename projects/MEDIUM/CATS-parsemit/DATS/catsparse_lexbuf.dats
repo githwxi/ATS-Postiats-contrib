@@ -23,8 +23,10 @@ staload "./../SATS/catsparse.sats"
 
 (* ****** ****** *)
 //
-staload _ = "libats/DATS/stringbuf.dats"
-staload _ = "{$LIBATSHWXI}/cstream/DATS/cstream.dats"
+staload _ =
+"libats/DATS/stringbuf.dats"
+staload _ =
+"{$LIBATSHWXI}/cstream/DATS/cstream.dats"
 //
 (* ****** ****** *)
 
@@ -35,7 +37,8 @@ atstyarr_field_undef(fname) fname[]
 
 (* ****** ****** *)
 
-assume lexbuf_vt0ype = _lexbuf_vt0ype
+assume
+lexbuf_vt0ype = _lexbuf_vt0ype
 
 (* ****** ****** *)
 
@@ -46,8 +49,10 @@ lexbuf_initize_string
 //
 #define BUFCAP 1024
 //
-val cs = $CS.cstream_make_string (inp)
-val sbf = $SBF.stringbuf_make_nil (i2sz(BUFCAP))
+val cs0 =
+$CS0.cstream_make_string (inp)
+val sbf =
+$SBF.stringbuf_make_nil (i2sz(BUFCAP))
 //
 val () = buf.lexbuf_ntot := 0
 val () = buf.lexbuf_nrow := 0
@@ -55,7 +60,7 @@ val () = buf.lexbuf_ncol := 0
 //
 val () = buf.lexbuf_nspace := 0
 //
-val () = buf.lexbuf_cstream := cs
+val () = buf.lexbuf_cstream := cs0
 //
 val () = buf.lexbuf_nback := 0
 val () = buf.lexbuf_stringbuf := sbf
@@ -71,8 +76,10 @@ lexbuf_initize_fileref
 //
 #define BUFCAP 1024
 //
-val cs = $CS.cstream_make_fileref (inp)
-val sbf = $SBF.stringbuf_make_nil (i2sz(BUFCAP))
+val cs0 =
+$CS0.cstream_make_fileref (inp)
+val sbf =
+$SBF.stringbuf_make_nil (i2sz(BUFCAP))
 //
 val () = buf.lexbuf_ntot := 0
 val () = buf.lexbuf_nrow := 0
@@ -80,7 +87,7 @@ val () = buf.lexbuf_ncol := 0
 //
 val () = buf.lexbuf_nspace := 0
 //
-val () = buf.lexbuf_cstream := cs
+val () = buf.lexbuf_cstream := cs0
 //
 val () = buf.lexbuf_nback := 0
 val () = buf.lexbuf_stringbuf := sbf
@@ -94,8 +101,10 @@ lexbuf_uninitize
   (buf) = () where
 {
 //
-val () = $CS.cstream_free (buf.lexbuf_cstream)
-val () = $SBF.stringbuf_free (buf.lexbuf_stringbuf)
+val () =
+$CS0.cstream_free (buf.lexbuf_cstream)
+val () =
+$SBF.stringbuf_free (buf.lexbuf_stringbuf)
 //
 } (* end of [lexbuf_uninitize] *)
 
@@ -190,20 +199,22 @@ implement
 lexbuf_get_char
   (buf) = let
 //
-val nb = g1ofg0 (buf.lexbuf_nback)
+val nb = g1ofg0(buf.lexbuf_nback)
 //
 in
 //
 if nb <= 0
 then let
-  val i = $CS.cstream_get_char (buf.lexbuf_cstream)
+  val i =
+    $CS0.cstream_get_char(buf.lexbuf_cstream)
+  // end of [val]
   val () =
   if i > 0 then
   {
     val c = int2char0(i)
     val c = $UN.cast{charNZ}(c)
     val _(*1*) =
-      $SBF.stringbuf_insert_char (buf.lexbuf_stringbuf, c)
+      $SBF.stringbuf_insert_char(buf.lexbuf_stringbuf, c)
     // end of [val]
   } (* end of [if] *) // end of [if]
 in

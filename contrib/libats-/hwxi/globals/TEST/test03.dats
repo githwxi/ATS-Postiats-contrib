@@ -43,7 +43,8 @@ val () = println! ("$S.get_top_exn() = ", $S.get_top_exn())
 val () = println! ("$S.pop_exn() = ", $S.pop_exn())
 val () = println! ("$S.pop_exn() = ", $S.pop_exn())
 //
-val () = println! ("$S.isnil((*void*)) = ", $S.isnil())
+val () = println! ("$S.is_nil((*void*)) = ", $S.is_nil())
+val () = println! ("$S.is_cons((*void*)) = ", $S.is_cons())
 //
 } (* end of [main0] *)
 

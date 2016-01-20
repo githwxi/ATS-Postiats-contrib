@@ -33,9 +33,10 @@ THE SOFTWARE.
 // HX-2014-07-02: start
 //
 (* ****** ****** *)
-
-#define ATS_PACKNAME "CATSPARSE"
-
+//
+#define
+ATS_PACKNAME "CATSPARSE"
+//
 (* ****** ****** *)
 //
 #include
@@ -50,24 +51,31 @@ fprint_type
 (* ****** ****** *)
 //
 staload
-SBF =
-"libats/SATS/stringbuf.sats"
-//
-stadef stringbuf = $SBF.stringbuf
-//
-(* ****** ****** *)
-//
-staload
 DA =
-"libats/SATS/dynarray.sats"
+"libats\
+/SATS/dynarray.sats"
 //
-stadef dynarray = $DA.dynarray
+stadef
+dynarray = $DA.dynarray
 //
 (* ****** ****** *)
 //
 staload
-CS = "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
-stadef cstream = $CS.cstream
+SBF =
+"libats\
+/SATS/stringbuf.sats"
+//
+stadef
+stringbuf = $SBF.stringbuf
+//
+(* ****** ****** *)
+//
+staload
+CS0 =
+"{$LIBATSHWXI}\
+/cstream/SATS/cstream.sats"
+//
+stadef cstream = $CS0.cstream
 //
 (* ****** ****** *)
 
@@ -596,7 +604,7 @@ vtypedef
 _tokbuf_vt0ype =
 @{
 //
-  tokbuf_tkbf = dynarray (token)
+  tokbuf_tkbf= dynarray(token)
 , tokbuf_ntok= size_t, tokbuf_lxbf= lexbuf
 //
 } (* end of [_tokbuf_vt0ype] *)

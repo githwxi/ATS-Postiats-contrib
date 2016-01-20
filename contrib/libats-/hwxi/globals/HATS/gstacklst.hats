@@ -34,27 +34,28 @@ absvt@ype T
 
 (* ****** ****** *)
 
-extern fun isnil (): bool
-extern fun iscons (): bool
+extern fun is_nil(): bool
+extern fun is_cons(): bool
 
 (* ****** ****** *)
-
-extern fun pop_exn (): T
-extern fun pop_opt (): Option_vt(T)
-extern fun push (x: T): void
-
+//
+extern fun pop_exn(): T
+extern fun pop_opt(): Option_vt(T)
+//
+extern fun push(x: T): void
+//
 extern fun pop_all (): List0_vt (T)
-
+//
 (* ****** ****** *)
 
-extern fun getref_top (): cPtr0 (T)
+extern fun getref_top(): cPtr0 (T)
 
 (* ****** ****** *)
 //
 // HX: these need to be implemented
 //
-extern fun get_top_exn (): T
-extern fun get_top_opt (): Option_vt(T)
+extern fun get_top_exn(): T
+extern fun get_top_opt(): Option_vt(T)
 //
 (* ****** ****** *)
 
@@ -63,12 +64,14 @@ local
 #include
 "share/atspre_staload.hats"
 //
-vtypedef TS = List0_vt (T)
+vtypedef TS = List0_vt(T)
 //
-var _stack: TS = list_vt_nil(*void*)
+var
+_stack: TS = list_vt_nil(*void*)
 //
-val r_stack =
-  ref_make_viewptr{TS}(view@_stack | addr@_stack)
+val
+r_stack =
+ref_make_viewptr{TS}(view@_stack | addr@_stack)
 //
 (* ****** ****** *)
 
@@ -77,56 +80,76 @@ in (* in of [local] *)
 (* ****** ****** *)
 
 implement
-isnil () = let
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
+is_nil() = let
+//
+val(vbox(pf)|p) =
+  ref_get_viewptr(r_stack)
+// end of [val]
 in
-  list_vt_is_nil (!p)
-end // end of [isnil]
-
-implement
-iscons () = let
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
-in
-  list_vt_is_cons (!p)
-end // end of [iscons]
+  list_vt_is_nil(!p)
+end // end of [is_nil]
 
 (* ****** ****** *)
 
 implement
-pop_exn () = x where
+is_cons() = let
+//
+val(vbox(pf)|p) =
+  ref_get_viewptr(r_stack)
+//
+in
+  list_vt_is_cons(!p)
+end // end of [is_cons]
+
+(* ****** ****** *)
+
+implement
+pop_exn() = x where
 {
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
-  val-~list_vt_cons (x, xs) = !p; val ((*void*)) = !p := xs
+//
+val (vbox(pf)|p) = ref_get_viewptr(r_stack)
+val-~list_vt_cons(x, xs) = !p; val ((*void*)) = !p := xs
+//
 } (* end of [pop_exn] *)
 
 (* ****** ****** *)
 
 implement
-pop_opt () = let
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
-in
+pop_opt() = let
+//
+val (vbox(pf)|p) = ref_get_viewptr(r_stack)
+//
+in (* in-of-let *)
 //
 case+ !p of
-| ~list_vt_cons (x, xs) =>
+| ~list_vt_cons
+    (x, xs) =>
     let val () = !p := (xs: TS) in Some_vt{T}(x) end
-|  list_vt_nil ((*void*)) => None_vt ()
+|  list_vt_nil((*void*)) => None_vt((*void*))
 //
 end // end of [pop_opt]
 
 (* ****** ****** *)
 
 implement
-pop_all () = res where
+pop_all() = res where
 {
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
-  val res = !p; val () = !p := list_vt_nil ((*void*))
+//
+val(vbox(pf)|p) =
+  ref_get_viewptr(r_stack)
+//
+val res = !p; val () = !p := list_vt_nil((*void*))
+//
 } (* end of [pop_all] *)
 
 (* ****** ****** *)
 
 implement
-push (x) = let
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
+push(x) = let
+//
+val(vbox(pf)|p) =
+  ref_get_viewptr(r_stack)
+// end of [val]
 in
   !p := list_vt_cons{T}(x, !p)
 end // end of [push]
@@ -134,29 +157,34 @@ end // end of [push]
 (* ****** ****** *)
 
 implement
-getref_top () = let
-  val (vbox(pf) | p) = ref_get_viewptr (r_stack)
-in
-  case+ !p of
-  | list_vt_nil
-      ((*void*)) => cptr_null()
-  | @list_vt_cons (x, _) => let
-      val res = addr@(x)
-      prval () = fold@(!p) in $UNSAFE.cast{cPtr1(T)}(res)
-    end // end of [list_cons]
+getref_top() = let
+//
+val (vbox(pf)|p) =
+  ref_get_viewptr(r_stack)
+//
+in (* in-of-let *)
+//
+case+ !p of
+| list_vt_nil
+    ((*void*)) => cptr_null()
+| @list_vt_cons(x, _) => let
+    val res = addr@(x)
+    prval () = fold@(!p) in $UNSAFE.cast{cPtr1(T)}(res)
+  end // end of [list_cons]
+//
 end // end of [getref_top]
 
 (* ****** ****** *)
 
 implement
-get_top_exn () = let
-  val p = getref_top ()
-  val () = assertloc (isneqz(p)) in $UNSAFE.cptr_get(p)
+get_top_exn() = let
+  val p = getref_top()
+  val () = assertloc(isneqz(p)) in $UNSAFE.cptr_get(p)
 end // end of [get_top_exn]
 
 implement
 get_top_opt () = let
-  val p = getref_top ()
+  val p = getref_top()
 in
   if isneqz(p) then Some_vt($UNSAFE.cptr_get(p)) else None_vt()
 end // end of [get_top_opt]

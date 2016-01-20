@@ -67,6 +67,11 @@ atscntrb_libxml2_xmlAttr_get_name(x) ((xmlChar*)(((xmlAttrPtr)(x))->name))
 //
 /* ****** ****** */
 //
+#define atscntrb_libxml2_eq_xmlElementType_xmlElementType(x, y) (atspre_g0int_eq_int ((x), (y)))
+#define atscntrb_libxml2_neq_xmlElementType_xmlElementType(x, y) (atspre_g0int_neq_int ((x), (y)))
+//
+/* ****** ****** */
+//
 #define \
 atscntrb_libxml2_xmlNode_get_type(x) (((xmlNodePtr)(x))->type)
 #define \
@@ -90,7 +95,9 @@ atscntrb_libxml2_xmlNode_get_name(x) ((xmlChar*)(((xmlNodePtr)(x))->name))
 
 /* ****** ****** */
 
+#define atscntrb_libxml2_xmlNodeGetContent xmlNodeGetContent
 #define atscntrb_libxml2_xmlNodeListGetString xmlNodeListGetString
+#define atscntrb_libxml2_xmlGetProp xmlGetProp
 
 /* ****** ****** */
 
