@@ -1,5 +1,6 @@
 (*
-**
+** Poorman's Drawing
+** Sierpinski triangles
 *)
 
 (* ****** ****** *)
