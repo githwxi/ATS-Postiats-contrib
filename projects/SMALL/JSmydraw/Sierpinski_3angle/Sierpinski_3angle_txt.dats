@@ -63,7 +63,7 @@ matrixref_foreach_cloref
   let
     val x = theCanvas[i,NCOL,j]
   in
-    print_string(if x = 0 then " " else "X"); if j=NCOL-1 then print_newline()
+    print_string(if x = 0 then " " else "*"); if j=NCOL-1 then print_newline()
   end // end of [let]
 ) (* end of [matrixref_foreach] *)
 //
