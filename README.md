@@ -7,7 +7,7 @@ The descriptions for various packages in ATS2-contrib may be found in
 various articles on the
 [wiki](https://github.com/githwxi/ATS-Postiats/wiki/contrib) for ATS2.
 Please consider documenting a package you use and share the documentation
-with the ats-lang community.
+with the ats-lang-users community.
 
 ## Build Status
 
