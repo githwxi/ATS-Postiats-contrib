@@ -1,4 +1,8 @@
 ######
+#
+# A simple Makefile
+#
+######
 
 PHP=php
 
