@@ -324,19 +324,21 @@ testing_symbolicseq0
 //
 extern
 fun
-lexing_IDENT_alp (buf: &lexbuf): token
+lexing_IDENT_alp
+  (buf: &lexbuf): token
 //
 implement
 lexing_IDENT_alp
   (buf) = let
 //
 val nchr =
-  testing_identrstseq0 (buf)
+  testing_identrstseq0(buf)
 val nchr1 = succ(nchr)
-val name = lexbuf_takeout (buf, nchr1)
-val name = strptr2string (name)
+val name = lexbuf_takeout(buf, nchr1)
+val name = strptr2string(name)
 //
-val loc = lexbuf_getincby_location (buf, nchr1)
+val loc =
+  lexbuf_getincby_location(buf, nchr1)
 //
 val kwd = keyword_search (name)
 //
@@ -347,7 +349,7 @@ case+ kwd of
 | KWORDnone () =>
     token_make (loc, T_IDENT_alp(name))
   // end of [KWORDnone]
-| _ (*keyword*) => token_make (loc, T_KWORD (kwd))
+| _ (*keyword*) => token_make (loc, T_KWORD(kwd))
 //
 end // end of [lexing_IDENT_alp]
 
@@ -355,7 +357,8 @@ end // end of [lexing_IDENT_alp]
 //
 extern
 fun
-lexing_IDENT_sym (buf: &lexbuf): token
+lexing_IDENT_sym
+  (buf: &lexbuf): token
 //
 implement
 lexing_IDENT_sym
