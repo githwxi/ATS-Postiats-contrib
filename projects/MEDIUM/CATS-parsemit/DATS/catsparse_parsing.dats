@@ -46,7 +46,10 @@ token_null
 implement
 tokbuf_set_ntok_null
   (buf, n0) = let
-  val () = tokbuf_set_ntok (buf, n0) in synent_null ()
+//
+val () =
+  tokbuf_set_ntok(buf, n0) in synent_null()
+//
 end // end of [tokbuf_set_ntok_null]
 
 (* ****** ****** *)
