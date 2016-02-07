@@ -65,14 +65,16 @@ fprint_token (out, x) =
 (
 case+ x of
 //
-| TOKide (ide) => fprint! (out, "TOKide(", ide, ")")
-| TOKint (int) => fprint! (out, "TOKint(", int, ")")
+| TOKide(ide) =>
+    fprint! (out, "TOKide(", ide, ")")
+| TOKint(int) =>
+    fprint! (out, "TOKint(", int, ")")
 //
-| TOKlparen () => fprint! (out, "TOKlparen(", ")")
-| TOKrparen () => fprint! (out, "TOKrparen(", ")")
+| TOKlparen() => fprint! (out, "TOKlparen(", ")")
+| TOKrparen() => fprint! (out, "TOKrparen(", ")")
 //
-| TOKerr (int) => fprint! (out, "TOKerr(", int, ")")
-| TOKeof ((*void*)) => fprint! (out, "TOKeof(", ")")
+| TOKerr(int) => fprint! (out, "TOKerr(", int, ")")
+| TOKeof((*void*)) => fprint! (out, "TOKeof(", ")")
 ) (* end of [fprint_token] *)
 
 (* ****** ****** *)
@@ -102,25 +104,31 @@ fun loop
 , sbf: !stringbuf
 ) : int = let
 //
-val i = cstream_get_char (cs0)
+val i = cstream_get_char(cs0)
 //
 in
 //
 if i >= 0 then
 (
-  if isalnum_ (i)
-    then let
-      val c = $UN.cast{charNZ}(i)
-      val _ =
-      stringbuf_insert (sbf, c) in loop (cs0, sbf)
-    end // end-of-then
-    else (i) // end-of-else
+//
+if
+isalnum_(i)
+then let
+//
+val c = $UN.cast{charNZ}(i)
+val _ =
+  stringbuf_insert (sbf, c) in loop (cs0, sbf)
+//
+end // end-of-then
+else (i) // end-of-else
+//
 ) else (i)
 //
 end // end of [tokener_get_ide]
 //
 val _ =
-stringbuf_insert (sbf, $UN.cast{charNZ}(i0))
+  stringbuf_insert (sbf, $UN.cast{charNZ}(i0))
+//
 val () = i0 := loop (cs0, sbf)
 //
 in

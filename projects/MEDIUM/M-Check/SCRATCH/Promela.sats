@@ -11,6 +11,11 @@
 //
 (* ****** ****** *)
 //
+sortdef
+two = {a:nat | a < 2}
+//
+(* ****** ****** *)
+//
 abstype
 pid_type(i:int)
 //

@@ -42,8 +42,6 @@ staload "./Promela.sats"
 
 (* ****** ****** *)
 //
-sortdef two = {a:nat | a < 2}
-//
 extern
 fun
 proctype$user{i:nat}(pid(i)): void
