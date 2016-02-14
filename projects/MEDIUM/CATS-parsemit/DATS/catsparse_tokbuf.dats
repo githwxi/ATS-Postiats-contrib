@@ -147,12 +147,12 @@ in
 //
 if
 isneqz(ptok)
-then $UN.cptr_get (ptok)
+then $UN.cptr_get<token>(ptok)
 else let
 //
-val tok = lexbuf_get_token_any (buf.tokbuf_lxbf)
+val tok = lexbuf_get_token_any(buf.tokbuf_lxbf)
 val ((*void*)) =
-  $DA.dynarray_insert_atend_exn (buf.tokbuf_tkbf, tok)
+  $DA.dynarray_insert_atend_exn(buf.tokbuf_tkbf, tok)
 //
 in
   tok
@@ -166,15 +166,15 @@ implement
 tokbuf_getinc_token
   (buf) = tok where
 {
-  val tok = tokbuf_get_token (buf)
-  val ((*void*)) = tokbuf_incby1 (buf)
+  val tok = tokbuf_get_token(buf)
+  val ((*void*)) = tokbuf_incby1(buf)
 } (* end of [tokbuf_getinc_token] *)
 
 (* ****** ****** *)
 
 implement
 tokbuf_get_location (buf) =
-  let val tok = tokbuf_get_token (buf) in tok.token_loc end
+  let val tok = tokbuf_get_token(buf) in tok.token_loc end
 // end of [tokbuf_get_location]
 
 (* ****** ****** *)

@@ -38,24 +38,28 @@ extern fun is_nil(): bool
 extern fun is_cons(): bool
 
 (* ****** ****** *)
+
+extern fun get_size(): intGte(0)
+
+(* ****** ****** *)
 //
 extern fun pop_exn(): T
 extern fun pop_opt(): Option_vt(T)
 //
 extern fun push(x: T): void
 //
-extern fun pop_all (): List0_vt (T)
+extern fun pop_all((*void*)): List0_vt(T)
 //
 (* ****** ****** *)
 
-extern fun getref_top(): cPtr0 (T)
+extern fun getref_top((*void*)): cPtr0(T)
 
 (* ****** ****** *)
 //
 // HX: these need to be implemented
 //
-extern fun get_top_exn(): T
-extern fun get_top_opt(): Option_vt(T)
+extern fun get_top_exn((*void*)): T
+extern fun get_top_opt((*void*)): Option_vt(T)
 //
 (* ****** ****** *)
 
@@ -100,6 +104,17 @@ val(vbox(pf)|p) =
 in
   list_vt_is_cons(!p)
 end // end of [is_cons]
+
+(* ****** ****** *)
+
+implement
+get_size() = let
+val(vbox(pf)|p) =
+  ref_get_viewptr(r_stack)
+//
+in
+  list_vt_length(!p)
+end // end of [get_size]
 
 (* ****** ****** *)
 

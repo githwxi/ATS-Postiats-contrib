@@ -659,13 +659,15 @@ end // end of [lexing_INT_hex]
 extern
 fun
 lexing_SPACES
-  (buf: &lexbuf): token
+  (buf: &lexbuf >> _): token
 //
 implement
 lexing_SPACES
   (buf) = let
 //
-val nchr = testing_blankseq0 (buf)
+val nchr =
+  testing_blankseq0(buf)
+//
 val nchr1 = nchr + 1
 val () = lexbuf_set_nspace (buf, nchr1)
 val spaces = lexbuf_takeout (buf, nchr1)
@@ -773,13 +775,13 @@ end // end of [lexing_SHARP]
 //
 extern
 fun
-lexing_SLASH (buf: &lexbuf): token
+lexing_SLASH(buf: &lexbuf): token
 extern
 fun
-lexing_SLASHSTAR (buf: &lexbuf): token
+lexing_SLASHSTAR(buf: &lexbuf): token
 extern
 fun
-lexing_SLASHSLASH (buf: &lexbuf): token
+lexing_SLASHSLASH(buf: &lexbuf): token
 //
 (* ****** ****** *)
 
@@ -787,7 +789,8 @@ implement
 lexing_SLASH
   (buf) = let
 //
-val i0 = lexbuf_get_char(buf)
+val i0 =
+  lexbuf_get_char(buf)
 //
 in
 //
@@ -801,13 +804,13 @@ in
 //
 case+ 0 of
 //
-| _ when c0 = '*' => lexing_SLASHSTAR (buf)
-| _ when c0 = '/' => lexing_SLASHSLASH (buf)
+| _ when c0 = '*' => lexing_SLASHSTAR(buf)
+| _ when c0 = '/' => lexing_SLASHSLASH(buf)
 //
-| _ (*rest-of-char*) => lexing_litchar (buf, T_SLASH)
+| _ (*rest-of-char*) => lexing_litchar(buf, T_SLASH)
 //
 end // end of [then]
-else lexing_litchar (buf, T_SLASH)
+else lexing_litchar(buf, T_SLASH)
 //
 end // end of [lexing_SLASH]
 
@@ -837,14 +840,14 @@ in
 if
 i > 0
 then let
-  val c = int2char0 (i)
-  val () = position_incby_char (pos, c)
-  val nchr = succ (nchr)
+  val c = int2char0(i)
+  val () = position_incby_char(pos, c)
+  val nchr = succ(nchr)
 in
   case+ 0 of
   | _ when c = quote => nchr
-  | _ when c = BACKSLASH => loop2 (buf, pos, nchr)
-  | _ (*rest-of-char*) => loop (buf, pos, nchr)
+  | _ when c = BACKSLASH => loop2(buf, pos, nchr)
+  | _ (*rest-of-char*) => loop(buf, pos, nchr)
 end // end of [then]
 else nchr // end of [else]
 //
@@ -863,18 +866,23 @@ in
 if
 i > 0
 then let
-  val c = int2char0 (i)
-  val () = position_incby_char (pos, c)
-  val nchr = succ (nchr)
+//
+val c = int2char0(i)
+val () = position_incby_char(pos, c)
+val nchr = succ(nchr)
+//
 in
-  loop (buf, pos, nchr)
+  loop(buf, pos, nchr)
 end // end of [then]
 else nchr // end of [else]
 //
 end // end of [loop2]
 //
 var pos: position
-val () = lexbuf_get_position (buf, pos)
+//
+val () =
+lexbuf_get_position (buf, pos)
+//
 val () = position_incby1 (pos)
 val nchr = loop (buf, pos, 0(*nchr*))
 val loc = lexbufpos_get_location (buf, pos)
@@ -888,22 +896,22 @@ val () = println! ("lexing_quote: strp = ", strp)
 *)
 //
 in
-  token_make (loc, T_STRING(strptr2string(strp)))
+  token_make(loc, T_STRING(strptr2string(strp)))
 end // end of [lexing_quote]
 
 (* ****** ****** *)
 //
 extern
 fun
-lexing_QUOTE (buf: &lexbuf): token
+lexing_QUOTE(buf: &lexbuf): token
 implement
-lexing_QUOTE (buf) = lexing_quote (buf, QUOTE)
+lexing_QUOTE(buf) = lexing_quote(buf, QUOTE)
 //
 extern
 fun
-lexing_DQUOTE (buf: &lexbuf): token
+lexing_DQUOTE(buf: &lexbuf): token
 implement
-lexing_DQUOTE (buf) = lexing_quote (buf, DQUOTE)
+lexing_DQUOTE(buf) = lexing_quote(buf, DQUOTE)
 //
 (* ****** ****** *)
 //
@@ -912,7 +920,7 @@ fun
 testing_until_literal
 (
   buf: &lexbuf >> _, pos: &position >> _, lit: string
-) : intGte(0)
+) : intGte(0) // end-of-function
 //
 implement
 testing_until_literal
@@ -936,14 +944,14 @@ in
 if
 n > 0
 then let
-  val i = lexbuf_get_char (buf)
+  val i = lexbuf_get_char(buf)
 in
 //
 if i <= 0
   then nchr
   else let
     val c = int2char0(i)
-    val () = position_incby_char (pos, c)
+    val () = position_incby_char(pos, c)
   in
     if c != lit.head()
       then let
@@ -951,14 +959,14 @@ if i <= 0
         if (c != ENDL) then
         {
           val np = sz2i(n0 - n)
-          val () = position_decby (pos, np)
-          val () = lexbuf_incby_nback (buf, np)
+          val () = position_decby(pos, np)
+          val () = lexbuf_incby_nback(buf, np)
         } (* end of [if] *)
       in
-        loop (buf, pos, lit0, n0, succ(nchr))
+        loop(buf, pos, lit0, n0, succ(nchr))
       end // end of [then]
       else (
-        loop (buf, pos, lit.tail(), pred(n), succ(nchr))
+        loop(buf, pos, lit.tail(), pred(n), succ(nchr))
       ) (* end of [else] *)
   end // end of [else]
 //
@@ -968,7 +976,7 @@ else nchr // end of [else]
 end // end of [loop]
 //
 in
-  loop (buf, pos, lit0, n0, 0)
+  loop(buf, pos, lit0, n0, 0)
 end // end of [testing_until_literal]
 
 (* ****** ****** *)
@@ -978,20 +986,23 @@ lexing_SLASHSTAR
   (buf) = let
 //
 var pos: position
-val () = lexbuf_get_position (buf, pos)
+//
+val () =
+  lexbuf_get_position(buf, pos)
+//
 val () = position_incby (pos, 2)
 //
 #define STARSLASH "*/"
 //
 val nchr =
-  testing_until_literal (buf, pos, STARSLASH)
+  testing_until_literal(buf, pos, STARSLASH)
 //
 val str = lexbuf_takeout (buf, nchr + 2)
 val loc = lexbufpos_get_location (buf, pos)
 val ((*void*)) = lexbuf_set_position (buf, pos)
 //
 in
-  token_make (loc, T_COMMENT_block(strptr2string(str)))
+  token_make(loc, T_COMMENT_block(strptr2string(str)))
 end // end of [lexing_SLASHSTAR]
 
 (* ****** ****** *)
@@ -1009,11 +1020,11 @@ ftesting_seq0
 //
 // HX: Note that ENDL is not included
 //
-val str = lexbuf_takeout (buf, nchr + 2)
-val loc = lexbuf_getincby_location (buf, nchr + 2)
+val str = lexbuf_takeout(buf, nchr + 2)
+val loc = lexbuf_getincby_location(buf, nchr + 2)
 //
 in
-  token_make (loc, T_COMMENT_line(strptr2string(str)))
+  token_make(loc, T_COMMENT_line(strptr2string(str)))
 end // end of [lexing_SLASHSLASH]
 
 (* ****** ****** *)
@@ -1026,7 +1037,7 @@ get_token_any
   buf: &lexbuf >> _
 ) : token = let
 //
-val i0 = lexbuf_get_char (buf)
+val i0 = lexbuf_get_char(buf)
 //
 in
 //
@@ -1041,59 +1052,59 @@ in
 case+ 0 of
 //
 | _ when
-    BLANK_test (i0) => lexing_SPACES (buf)
+    BLANK_test (i0) => lexing_SPACES(buf)
 //
 | _ when
-    IDENTFST_test (i0) => lexing_IDENT_alp (buf)
+    IDENTFST_test (i0) => lexing_IDENT_alp(buf)
 //
-| _ when c0 = ENDL => lexing_ENDL (buf)
-| _ when c0 = SHARP => lexing_SHARP (buf)
-| _ when i0 = SLASH => lexing_SLASH (buf)
+| _ when c0 = ENDL => lexing_ENDL(buf)
+| _ when c0 = SHARP => lexing_SHARP(buf)
+| _ when i0 = SLASH => lexing_SLASH(buf)
 //
 | _ when
-    SYMBOLIC_test (i0) => lexing_IDENT_sym (buf)
+    SYMBOLIC_test (i0) => lexing_IDENT_sym(buf)
 //
 | _ when DIGIT_test (i0) =>
   (
     if ZERO_test(i0)
       then let
-        val k = ftesting_one (buf, xX_test)
+        val k = ftesting_one(buf, xX_test)
       in
         if k = 0
-          then lexing_INT_oct (buf) else lexing_INT_hex (buf)
+          then lexing_INT_oct(buf) else lexing_INT_hex(buf)
         // end of [if]
       end // end of [then]
-      else lexing_INT_dec (buf)
+      else lexing_INT_dec(buf)
    )
 //
-| _ when i0 = COMMA => lexing_litchar (buf, T_COMMA)
-| _ when i0 = SEMICOLON => lexing_litchar (buf, T_SEMICOLON)
+| _ when i0 = COMMA => lexing_litchar(buf, T_COMMA)
+| _ when i0 = SEMICOLON => lexing_litchar(buf, T_SEMICOLON)
 //
-| _ when i0 = LPAREN => lexing_litchar (buf, T_LPAREN)
-| _ when i0 = RPAREN => lexing_litchar (buf, T_RPAREN)
-| _ when i0 = LBRACE => lexing_litchar (buf, T_LBRACE)
-| _ when i0 = RBRACE => lexing_litchar (buf, T_RBRACE)
-| _ when i0 = LBRACKET => lexing_litchar (buf, T_LBRACKET)
-| _ when i0 = RBRACKET => lexing_litchar (buf, T_RBRACKET)
+| _ when i0 = LPAREN => lexing_litchar(buf, T_LPAREN)
+| _ when i0 = RPAREN => lexing_litchar(buf, T_RPAREN)
+| _ when i0 = LBRACE => lexing_litchar(buf, T_LBRACE)
+| _ when i0 = RBRACE => lexing_litchar(buf, T_RBRACE)
+| _ when i0 = LBRACKET => lexing_litchar(buf, T_LBRACKET)
+| _ when i0 = RBRACKET => lexing_litchar(buf, T_RBRACKET)
 //
-| _ when i0 = QUOTE => lexing_QUOTE (buf)
-| _ when i0 = DQUOTE => lexing_DQUOTE (buf)
+| _ when i0 = QUOTE => lexing_QUOTE(buf)
+| _ when i0 = DQUOTE => lexing_DQUOTE(buf)
 //
 | _ (*rest-of-char*) => let
 //
 // HX: skipping the unrecognized char
 //
-    val () = lexbuf_remove_all (buf)
+    val () = lexbuf_remove_all(buf)
 //
-    val loc = lexbuf_getincby_location (buf, 1)
-    val err = lexerr_make (loc, LEXERR_UNSUPPORTED_char (c0))
+    val loc = lexbuf_getincby_location(buf, 1)
+    val err = lexerr_make (loc, LEXERR_UNSUPPORTED_char(c0))
     val ((*void*)) = prerrln! ("Warning(lex): ", err)
 (*
     val ((*inserted*)) = the_lexerrlst_insert (err)
 *)
 //
   in
-    lexbuf_get_token_any (buf)
+    lexbuf_get_token_any(buf)
   end // end of [rest-of-char]
 //
 end // end of [then]
