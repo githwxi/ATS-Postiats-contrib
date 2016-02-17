@@ -417,11 +417,13 @@ err > 0
 then (res := list_vt_nil)
 else let
   val () =
-    res := list_vt_cons{a}{0}(x, _)
-  // end of [val]
+  (
+    res :=
+    list_vt_cons{a}{0}(x, _)
+  ) // end of [val]
   val+list_vt_cons(_, res1) = res
   val ((*void*)) = loop (buf, res1, err)
-  prval () = fold@ (res)
+  prval ((*folded*)) = fold@ (res)
 in
   // nothing
 end // end of [else]

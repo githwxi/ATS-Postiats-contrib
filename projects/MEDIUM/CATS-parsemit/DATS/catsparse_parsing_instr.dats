@@ -693,8 +693,11 @@ end // end of [parse_instr]
 //
 implement
 parse_instrseq
-  (buf, bt, err) =
-  list_vt2t (pstar_fun (buf, bt, parse_instr))
+  (buf, bt, err) = (
+//
+list_vt2t(pstar_fun(buf, bt, parse_instr))
+//
+) (* end of [parse_instrseq] *)
 //
 (* ****** ****** *)
 
