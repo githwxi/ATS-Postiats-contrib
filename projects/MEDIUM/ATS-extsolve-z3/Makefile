@@ -69,6 +69,8 @@ PATSCC2=$(PATSCC) $(CFLAGS2) $(EXTRA_CFLAGS)
 ######
 
 LDFLAGS :=
+# Z3 is installed by default into python's lib folder
+LDFLAGS += $(shell pkg-config --libs python)
 LDFLAGS += $(shell pkg-config --libs json-c)
 LDFLAGS +=-lz3
 LDFLAGS +=-lgc

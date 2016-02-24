@@ -159,6 +159,8 @@ val () = insert("gte_bool_bool", S2CINTbuiltin_2(formula_bgte))
 val () = insert("eq_bool_bool", S2CINTbuiltin_2(formula_beq))
 val () = insert("neq_bool_bool", S2CINTbuiltin_2(formula_bneq))
 //
+val () = insert("empty_set", S2CINTbuiltin_0(formula_empty_set))
+//
 val () = insert("add_addr_int", S2CINTbuiltin_2(formula_iadd))
 val () = insert("sub_addr_int", S2CINTbuiltin_2(formula_isub))
 val () = insert("sub_addr_addr", S2CINTbuiltin_2(formula_isub))

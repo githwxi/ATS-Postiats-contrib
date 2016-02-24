@@ -84,6 +84,14 @@ $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 ######
 
 all:: \
+set
+set:: \
+set.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+
+######
+
+all:: \
 palindrome
 palindrome:: \
 palindrome.dats; \

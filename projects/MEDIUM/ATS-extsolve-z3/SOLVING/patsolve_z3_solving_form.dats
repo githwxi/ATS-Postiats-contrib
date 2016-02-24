@@ -284,6 +284,7 @@ formula_imul
   val (fpf | ctx) =
     the_Z3_context_vget()
   // end of [val]
+  
   val res =
     Z3_mk_mul2 (ctx, s2e1, s2e2)
   // end of [val]
@@ -507,6 +508,20 @@ formula_bneq
   (s2e1, s2e2) =
   formula_not(formula_beq(s2e1, s2e2))
 //
+(* ****** ****** *)
+
+implement
+formula_empty_set () = res where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val domain = Z3_mk_int_sort(ctx)
+  val res = Z3_mk_empty_set(ctx, domain)
+  val () = Z3_sort_dec_ref(ctx, domain)
+  prval ((*void*)) = fpf(ctx)
+}
+
 (* ****** ****** *)
 
 implement

@@ -57,6 +57,9 @@ fun sort_int (): sort
 fun sort_bool (): sort
 //
 fun sort_real (): sort
+//
+fun sort_set (): sort
+//
 (*
 fun sort_string (): sort
 *)
@@ -157,6 +160,10 @@ fun formula_bgte (form, form): form
 fun formula_beq (form, form): form
 fun formula_bneq (form, form): form
 //
+(* ****** ****** *)
+
+fun formula_empty_set (): form
+
 (* ****** ****** *)
 //
 fun
