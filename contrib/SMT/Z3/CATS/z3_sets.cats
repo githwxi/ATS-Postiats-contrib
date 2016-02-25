@@ -43,6 +43,104 @@ atscntrb_Z3_mk_empty_set
   ) ; // end of [return]
 } // end of [atscntrb_Z3_mk_empty_set]
 
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_full_set 
+  (Z3_context ctx, Z3_sort domain)
+{
+	return atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_full_set(ctx, domain)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_add 
+  (Z3_context ctx, Z3_ast set, Z3_ast elem)
+{
+	return atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_add(ctx, set, elem)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_del 
+  (Z3_context ctx, Z3_ast set, Z3_ast elem)
+{
+	return atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_del(ctx, set, elem)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_union 
+  (Z3_context ctx, Z3_ast a, Z3_ast b)
+{
+	Z3_ast all[2] = {a, b};
+	return
+	atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_union(ctx, 2, all)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_intersect 
+  (Z3_context ctx, Z3_ast a, Z3_ast b)
+{
+	Z3_ast all[2] = {a, b};
+	return
+	atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_intersect(ctx, 2, all)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_difference 
+  (Z3_context ctx, Z3_ast arg1, Z3_ast arg2)
+{
+	return
+	atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_difference(ctx, arg1, arg2)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_complement 
+  (Z3_context ctx, Z3_ast arg)
+{
+	return
+	atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_complement(ctx, arg)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_member 
+  (Z3_context ctx, Z3_ast elem, Z3_ast set)
+{
+	return
+	atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_member(ctx, elem, set)
+	);
+}
+ 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_set_subset 
+  (Z3_context ctx, Z3_ast arg1, Z3_ast arg2)
+{
+	return
+	atscntrb_Z3_inc_ref (
+		ctx, Z3_mk_set_subset(ctx, arg1, arg2)
+	);
+}
 /* ****** ****** */
 
 #endif // end of [Z3_Z3_SETS_CATS]
