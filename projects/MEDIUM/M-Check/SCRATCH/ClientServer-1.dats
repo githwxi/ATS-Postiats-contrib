@@ -5,6 +5,11 @@
 // Start time: February, 2016
 //
 (* ****** ****** *)
+//
+// Following a Promela-example in
+// (Spin Model Checker Primer Reference)
+//
+(* ****** ****** *)
   
 (*
 proctype
@@ -39,15 +44,30 @@ fun
 channel_create(cap: intGte(0)): channel
 //
 (* ****** ****** *)
+
+extern
+fun
+channel_is_empty : channel -> bool
+extern
+fun
+channel_isnot_empty : channel -> bool
+
+(* ****** ****** *)
 //
 datatype
 AgentReply =
+| DENY of ()
 | DENY of (channel)
 | HOLD of (channel)
 | GRANT of (channel)
 //
-datatype ClientReply = RETURN0 of ()
-datatype ClientRequest = REQUEST0 of (channel)
+datatype
+ClientReply = RETURN0 of ()
+//
+datatype
+ServerOpt =
+  | RETURN0 of (channel)
+  | REQUEST0 of (channel)
 //
 (* ****** ****** *)
 //
@@ -70,14 +90,20 @@ extern val RAND: int
 (* ****** ****** *)
 //
 implement
-Agent(agent, client) = (
+Agent(agent, client) = let
+//
+fun
+loop
+( agent: channel
+, client: channel
+) : void = (
 //
 case RAND of
 | 0 => let
     val () =
     channel_send(client, HOLD(agent))
   in
-    Agent(agent, client)
+    loop(agent, client)
   end // end of [_]
 | 1 =>
     channel_send(client, DENY(agent))
@@ -91,7 +117,13 @@ case RAND of
     // break
   end // end of [_]
 //
-) (* end of [Agent] *)
+) (* end of [loop] *)
+//
+val () = loop(agent, client)
+//
+in
+  channel_send(theServer, agent)
+end // end of [Agent]
 //
 (* ****** ****** *)
 
@@ -150,6 +182,7 @@ loop2
 in
 //
 case+ opt of
+| DENY() => ()
 | DENY(agent) => ()
 | HOLD(agent) => loop2(client)
 | GRANT(agent) => channel_send(agent, RETURN0())
@@ -160,6 +193,89 @@ in
   loop(channel_create(0))
 end // end of [Client]
 
+(* ****** ****** *)
+
+(*
+active
+proctype Server()
+{
+    chan agents[N] = [0] of { mtype };
+    chan pool = [N] of { chan };
+    chan client, agent;
+    byte i;
+    do
+    :: i < N -> pool!agents[i]; i++
+    :: else -> break
+    od;
+    end:
+    do
+    :: server?request(client) ->
+        if
+        :: empty(pool) ->
+            client!deny(0)
+        :: nempty(pool) ->
+            pool?agent;
+            run Agent(agent,client)
+        fi
+    :: server?return0(agent) ->
+        pool!agent
+    od
+}
+*)
+
+(* ****** ****** *)
+//
+extern
+fun Server((*void*)): void
+//
+implement
+Server() = let
+//
+fun
+loop
+(
+  pool: channel
+) : void = let
+//
+val
+opt =
+channel_recv{ServerOpt}(theServer)
+//
+in
+//
+case+ opt of
+| RETURN0(agent) => let
+    val () =
+    channel_send{channel}(pool, agent)
+  in
+    loop(pool)
+  end // end of [RETURN0]
+| REQUEST0(client) =>
+  if channel_isnot_empty(pool)
+    then let
+      val agent =
+        channel_recv{channel}(pool)
+      // end of [val]
+      val () = Agent(agent, client)
+    in
+      loop(pool)
+    end // end of [then]
+    else let
+      val () =
+      channel_send(client, DENY((*void*)))
+    in
+      loop(pool)
+    end // end of [else]
+//  
+end // end of [loop]
+//
+val
+pool = channel_create(5)
+//
+in
+  loop(pool)
+end // end of [Server]
+//
 (* ****** ****** *)
 
 (* end of [ClientServer-1.dats] *)
