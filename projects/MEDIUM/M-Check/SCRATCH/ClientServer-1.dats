@@ -55,7 +55,7 @@ channel_isnot_empty : channel -> bool
 (* ****** ****** *)
 //
 datatype
-AgentReply =
+ClientOpt =
 | DENY of ()
 | DENY of (channel)
 | HOLD of (channel)
@@ -178,7 +178,7 @@ loop2
 (
   client: channel
 ) : void = let
-  val opt = channel_recv{AgentReply}(client)
+  val opt = channel_recv{ClientOpt}(client)
 in
 //
 case+ opt of
