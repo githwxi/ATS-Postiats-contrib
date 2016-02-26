@@ -124,9 +124,6 @@ fun Client(): void
 implement
 Client() = let
 //
-val
-client = channel_create(0)
-//
 fun
 loop
 (
@@ -160,6 +157,7 @@ case+ opt of
 end // end of [loop2]
 //
 in
+  loop(channel_create(0))
 end // end of [Client]
 
 (* ****** ****** *)
