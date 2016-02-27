@@ -56,10 +56,10 @@ channel_isnot_empty : channel -> bool
 //
 datatype
 ClientOpt =
-| DENY of ()
-| DENY of (channel)
-| HOLD of (channel)
-| GRANT of (channel)
+  | DENY of ()
+  | DENY of (channel)
+  | HOLD of (channel)
+  | GRANT of (channel)
 //
 datatype
 ClientReply = RETURN0 of ()
@@ -85,7 +85,8 @@ Agent
 //
 (* ****** ****** *)
 
-extern val RAND: int
+extern
+val RANDOM: int
 
 (* ****** ****** *)
 //
@@ -98,7 +99,8 @@ loop
 , client: channel
 ) : void = (
 //
-case RAND of
+case
+RANDOM of
 | 0 => let
     val () =
     channel_send(client, HOLD(agent))
@@ -163,7 +165,9 @@ loop
 ) : void =
 (
 //
-case+ RAND of
+case+
+RANDOM
+of // case
 | _ => let
     val () =
     channel_send(theServer, REQUEST0(client))
