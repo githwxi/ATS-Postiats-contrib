@@ -75,6 +75,10 @@ val
 theServer = channel_create(0)
 //
 (* ****** ****** *)
+
+extern val RANDOM: int
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -83,11 +87,6 @@ Agent
   agent: channel, client: channel
 ) : void // end of [Agent]
 //
-(* ****** ****** *)
-
-extern
-val RANDOM: int
-
 (* ****** ****** *)
 //
 implement
@@ -112,7 +111,7 @@ RANDOM of
 | _ => let
     val () =
     channel_send(client, GRANT(agent))
-    val-RETURN0() =
+    val+RETURN0() =
       channel_recv{ClientReply}(agent)
     // end of [val]
   in

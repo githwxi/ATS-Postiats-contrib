@@ -56,7 +56,9 @@ case+ tds of
 | list_nil () => ()
 | list_cons (td, tds) =>
   (
-    case+ td.tmpdec_node of
+    case+
+    td.tmpdec_node
+    of // case+
     | TMPDECnone
         (tmp) => auxlst (out, tds)
     | TMPDECsome
@@ -235,7 +237,9 @@ case+ xs of
   // end of [list_nil]
 | list_cons(x, xs) =>
   (
-    case+ x.instr_node of
+    case+
+    x.instr_node
+    of // case+
     | ATSfunbodyseq _ => let
         val fl = funbodyseq_get_funlab (x)
       in
@@ -433,7 +437,8 @@ emit2_instr
 in
 //
 case+
-ins0.instr_node of
+ins0.instr_node
+of // case+
 //
 | ATSif
   (
@@ -448,8 +453,9 @@ ins0.instr_node of
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "%% if-then\n")
   in
-    case+ inssopt of
-    | None _ =>
+    case+
+    inssopt of
+    | None() =>
       {
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "true ->\n")
@@ -458,7 +464,7 @@ ins0.instr_node of
         val () = emit_nspc (out, ind)
         val ((*closing*)) = emit_text (out, "end")
       } (* end of [None] *)
-    | Some (inss) =>
+    | Some(inss) =>
       {
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "true ->\n")
@@ -864,7 +870,8 @@ auxlst
 ) : void =
 (
 //
-case+ inss of
+case+
+inss of
 | list_nil
     ((*void*)) => ()
 | list_cons
@@ -890,7 +897,8 @@ implement
 emit2_instrlst_sep
   (out, ind, inss, sep) = (
 //
-case+ inss of
+case+
+inss of
 //
 | list_cons _ => let
     val () =
@@ -929,8 +937,8 @@ auxinss0
 ) : void =
 (
 case inss of
-| list_nil () => ()
-| list_cons (ins1, inss1) =>
+| list_nil((*void*)) => ()
+| list_cons(ins1, inss1) =>
   (
     case+
     ins1.instr_node
@@ -973,7 +981,7 @@ auxinss2
 (
 case+ inss of
 | list_nil
-    ((*void*)) => list_nil ()
+    ((*void*)) => list_nil()
   // end of [list_nil]
 | list_cons
     (ins1, inss1) => let
@@ -1091,7 +1099,8 @@ fun auxseqlst
 in
 //
 case+ inss of
-| list_nil () => ()
+| list_nil
+    ((*void*)) => ()
 | list_cons
     (ins, inss) => let
 //
@@ -1163,7 +1172,8 @@ val-Some(fhd) = the_f0headopt_get()
 in
 //
 case+
-fhd.f0head_node of
+fhd.f0head_node
+of // case+
 | F0HEAD
     (fid, f0ma, res) =>
   {
@@ -1337,7 +1347,9 @@ case+ inss of
 | list_nil () => inss
 | list_cons (ins, inss2) =>
   (
-    case+ ins.instr_node of
+    case+
+    ins.instr_node
+    of // case+
     | ATSINSstore_con1_tag
         (tmp, tag) => let
         val () = opt := Some(tag) in inss2
@@ -1534,7 +1546,8 @@ emit_d0ecl
 in
 //
 case+
-d0c.d0ecl_node of
+d0c.d0ecl_node
+of // case+
 //
 | D0Cinclude _ => ()
 //
@@ -1667,7 +1680,8 @@ emit_f0arg
 in
 //
 case+
-f0a.f0arg_node of
+f0a.f0arg_node
+of // case+
 //
 | F0ARGnone _ => emit_text (out, "__NONE__")
 | F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
@@ -1709,7 +1723,8 @@ emit_f0head
 in
 //
 case+
-fhd.f0head_node of
+fhd.f0head_node
+of // case+
 | F0HEAD
     (fid, f0ma, res) =>
   {
@@ -1826,7 +1841,8 @@ case+ inss of
 in
 //
 case+
-fbody.f0body_node of
+fbody.f0body_node
+of // case+
 //
 | F0BODY (tds, inss) =>
   {
@@ -1881,7 +1897,8 @@ val () = emit_text (out, "%% Funlab_erl = 0;\n")
 val () =
 (
 case+
-fbody.f0body_node of
+fbody.f0body_node
+of // case+
 //
 | F0BODY (tds, inss) => auxlst (out, inss)
 //
@@ -2001,7 +2018,8 @@ val () = println!("emit_f0decl")
 in
 //
 case+
-fdec.f0decl_node of
+fdec.f0decl_node
+of // case+
 | F0DECLnone (fhd) =>
   {
     val () =
@@ -2055,7 +2073,9 @@ of // case+
 | D0Cfundecl
     (fk, f0d) => 
   (
-    case+ f0d.f0decl_node of
+    case+
+    f0d.f0decl_node
+    of // case+
     | F0DECLnone (fhd) => f0head_insert(fhd)
     | F0DECLsome (fhd, _) => f0head_insert(fhd)
   )

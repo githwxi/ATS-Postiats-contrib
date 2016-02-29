@@ -289,13 +289,14 @@ staload "./../SATS/catsparse_parsing.sats"
 //
 typedef T = parerr
 //
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+#include
+"{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
 //
 implement
-the_parerrlst_insert (x) = push (x)
+the_parerrlst_insert(x) = push(x)
 //
 implement
-the_parerrlst_pop_all () = pop_all ()
+the_parerrlst_pop_all() = pop_all()
 //
 } (* end of [staload] *)
 
