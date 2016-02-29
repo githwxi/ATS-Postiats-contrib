@@ -10,7 +10,7 @@
 // (Spin Model Checker Primer Reference)
 //
 (* ****** ****** *)
-  
+
 (*
 proctype
 Agent(chan listen; chan talk)
@@ -28,28 +28,48 @@ Agent(chan listen; chan talk)
 
 (* ****** ****** *)
 
-abstype ssnil()
-abstype sscons(x:vt@ype, xs:type)
+abstype chnil
+abstype chcons(x:vt@ype, xs:type)
 
 (* ****** ****** *)
 
-stadef :: = sscons
+stadef :: = chcons
+
+(* ****** ****** *)
+
+abstype chanref(a:vtype)
 
 (* ****** ****** *)
 //
-absvtype channel()
+absvtype channel0
 //
-absvtype chanpos(ss:type)
-absvtype channeg(ss:type)
+absvtype chanpos1(ss:vtype)
+absvtype channeg1(ss:vtype)
+//
+(* ****** ****** *)
+//
+extern
+fun
+channel_split{ss:vtype}
+  (chan: !channel0 >> chanpos1(ss)): channeg1(ss)
+//
+(* ****** ****** *)
+//
+extern
+fun
+channeg_nil_close (channeg1(chnil)): void
+extern
+fun
+chanpos_nil_close (chanpos1(chnil)): channel0
 //
 (* ****** ****** *)
 
 extern
 fun
-chanpos_recv
+channel_recv
 {x:vt@ype}{xs:type}
 (
-  chan: !chanpos(x::xs) >> channeg(xs)
+  chan: !chanpos1(x::xs) >> chanpos1(xs)
 ) : x // end of [channel_recv]
 
 (* ****** ****** *)
@@ -59,25 +79,64 @@ fun
 channel_send
 {x:vt@ype}{xs:type}
 (
-  chan: !chanpos(x::xs) >> chanpos(xs), x: (x)
+  chan: !channeg1(x::xs) >> channeg1(xs), x: (x)
 ) : void // end of [channel_send]
 
 (* ****** ****** *)
-////
-datatype
-ClientOpt =
-  | DENY of ()
-  | DENY of (chanpos(ssnil))
-  | HOLD of (chanpos(ss_hold))
-  | GRANT of (chanpos(ss_grand))
+
+datavtype
+ss_client =
+  | DENY of (chnil)
+  | DENY of (channeg1(chnil), chnil)
+  | HOLD of (channeg1(chnil), ss_client)
+  | GRANT of (channeg1(ss_agent_grant), chnil)
+//
+and ss_agent_grant = RETURN1 of (chnil)
+//
+(* ****** ****** *)
+//
+datavtype
+ClientOpt(ss:vtype) =
+  | DENY(chnil) of ()
+  | DENY(chnil) of channeg1(chnil)
+  | HOLD(ss_client) of channeg1(chnil)
+  | GRANT(chnil) of (channeg1(ss_agent_grant))
 //
 datatype
-ClientReply = RETURN0 of ()
+AgentGrantOpt(ss:vtype) = RETURN1(chnil) of ()
 //
-datatype
-ServerOpt =
-  | RETURN0 of (channel)
-  | REQUEST0 of (channel)
+(* ****** ****** *)
+//
+extern
+fun
+chanref_recv
+  {a:vtype}(chan: chanref(a)): (a)
+extern
+fun
+chanref_send
+  {a:vtype}(chan: chanref(a), x: (a)): void
+//
+(* ****** ****** *)
+//
+extern
+fun
+channeg_client{ss:vtype}
+  (chan: !chanpos1(ss_client) >> chanpos1(ss), x: ClientOpt(ss)): void
+extern
+fun
+chanpos_client
+  (chan: !chanpos1(ss_client) >> chanpos1(ss)): #[ss:vtype] ClientOpt(ss)
+//
+(* ****** ****** *)
+//
+extern
+fun
+channeg_agent_grant{ss:vtype}
+  (chan: !chanpos1(ss_agent_grant) >> chanpos1(ss), x: AgentGrantOpt(ss)): void
+extern
+fun
+chanpos_agent_grant
+  (chan: !chanpos1(ss_agent_grant) >> chanpos1(ss)): #[ss:vtype] AgentGrantOpt(ss)
 //
 (* ****** ****** *)
 

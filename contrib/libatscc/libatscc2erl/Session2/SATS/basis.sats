@@ -30,6 +30,10 @@ abstype chrcv(a:vt@ype)
 (* ****** ****** *)
 
 abstype chnil
+(*
+abstype chnil0
+abstype chnil1
+*)
 abstype chcons(a:type, ss:type)
 
 (* ****** ****** *)
