@@ -40,6 +40,10 @@ stadef :: = chcons
 abstype chanref(a:vtype)
 
 (* ****** ****** *)
+
+absvtype chanptr(a:vtype)
+
+(* ****** ****** *)
 //
 absvtype channel0
 //
@@ -130,6 +134,17 @@ chanref_send
 //
 extern
 fun
+chanptr_recv
+  {a:vtype}(chan: !chanptr(a)): (a)
+extern
+fun
+chanptr_send
+  {a:vtype}(chan: !chanptr(a), x: (a)): void
+//
+(* ****** ****** *)
+//
+extern
+fun
 channeg1_client{ss:vtype}
   (chan: !channeg1(ss_client) >> channeg1(ss), x: ClientOpt(ss)): void
 extern
@@ -184,18 +199,18 @@ Agent
 //
 extern
 fun
-chanref_create
+chanptr_create
   {a:vtype}
-  (cap: intGte(0)): chanref(a)
+  (cap: intGte(0)): chanptr(a)
 //
 extern
 fun
-chanref_is_empty
-  : {a:vtype} chanref(a) -> bool
+chanptr_is_empty
+  : {a:vtype} (!chanptr(a)) -> bool
 extern
 fun
-chanref_isnot_empty
-  : {a:vtype} chanref(a) -> bool
+chanptr_isnot_empty
+  : {a:vtype} (!chanptr(a)) -> bool
 //
 (* ****** ****** *)
 
@@ -205,7 +220,7 @@ Server() = let
 fun
 loop
 (
-  pool: chanref(channel0)
+  pool: chanptr(channel0)
 ) : void = let
 //
 val
@@ -216,15 +231,15 @@ in
 case+ opt of
 | ~RETURN0(agent) => let
     val () =
-    chanref_send(pool, agent)
+    chanptr_send(pool, agent)
   in
     loop(pool)
   end // end of [RETURN0]
 | ~REQUEST0(client) =>
-  if chanref_isnot_empty(pool)
+  if chanptr_isnot_empty(pool)
     then let
       val agent =
-        chanref_recv(pool)
+        chanptr_recv(pool)
       // end of [val]
       val () = Agent(agent, client)
     in
@@ -241,7 +256,7 @@ case+ opt of
 end // end of [loop]
 //
 val
-pool = chanref_create(5)
+pool = chanptr_create(5)
 //
 in
   loop(pool)
