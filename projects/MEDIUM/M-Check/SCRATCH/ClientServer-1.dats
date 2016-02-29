@@ -70,14 +70,14 @@ ServerOpt =
   | REQUEST0 of (channel)
 //
 (* ****** ****** *)
+
+extern val RANDOM: int
+
+(* ****** ****** *)
 //
 val
 theServer = channel_create(0)
 //
-(* ****** ****** *)
-
-extern val RANDOM: int
-
 (* ****** ****** *)
 //
 extern
