@@ -612,6 +612,9 @@ in
     formula_set_subset (s2e2_, s2e1_))
 end
 
+implement
+formula_set_neq (s2e1, s2e2) = formula_bneg (formula_set_eq (s2e1, s2e2))
+
 (* ****** ****** *)
 
 implement

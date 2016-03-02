@@ -170,6 +170,7 @@ val () = insert("set_complement", S2CINTbuiltin_1(formula_set_complement))
 val () = insert("set_member", S2CINTbuiltin_2(formula_set_member))
 val () = insert("set_subset", S2CINTbuiltin_2(formula_set_subset))
 val () = insert("set_eq", S2CINTbuiltin_2(formula_set_eq))
+val () = insert("set_neq", S2CINTbuiltin_2(formula_set_neq))
 //
 val () = insert("add_addr_int", S2CINTbuiltin_2(formula_iadd))
 val () = insert("sub_addr_int", S2CINTbuiltin_2(formula_isub))

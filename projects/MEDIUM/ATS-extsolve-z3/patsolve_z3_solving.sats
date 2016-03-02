@@ -173,6 +173,7 @@ fun formula_set_complement (form): form
 fun formula_set_member (form, form): form
 fun formula_set_subset (form, form): form
 fun formula_set_eq (form, form): form
+fun formula_set_neq (form, form): form 
 
 (* ****** ****** *)
 //
