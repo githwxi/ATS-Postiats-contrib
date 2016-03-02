@@ -40,11 +40,25 @@ stadef :: = chcons
 abstype chanref(a:vtype)
 
 (* ****** ****** *)
+
+absvtype chanptr(a:vtype)
+
+(* ****** ****** *)
 //
 absvtype channel0
 //
 absvtype chanpos1(ss:vtype)
 absvtype channeg1(ss:vtype)
+//
+(* ****** ****** *)
+//
+extern
+fun
+channel0_create
+  (cap: intGte(0)): channel0
+//
+extern
+fun channel0_destroy(channel0): void
 //
 (* ****** ****** *)
 //
@@ -56,10 +70,10 @@ channel0_split{ss:vtype}
 (* ****** ****** *)
 //
 extern
-fun
+prfun
 channeg1_nil_close (channeg1(chnil)): void
 extern
-fun
+prfun
 chanpos1_nil_close (!chanpos1(chnil) >> channel0): void
 //
 (* ****** ****** *)
@@ -120,6 +134,17 @@ chanref_send
 //
 extern
 fun
+chanptr_recv
+  {a:vtype}(chan: !chanptr(a)): (a)
+extern
+fun
+chanptr_send
+  {a:vtype}(chan: !chanptr(a), x: (a)): void
+//
+(* ****** ****** *)
+//
+extern
+fun
 channeg1_client{ss:vtype}
   (chan: !channeg1(ss_client) >> channeg1(ss), x: ClientOpt(ss)): void
 extern
@@ -147,13 +172,20 @@ extern val RANDOM : int
 datavtype
 ServerOpt =
   | RETURN0 of (channel0)
-  | REQUEST of (channeg1(ss_client))
+  | REQUEST0 of (channeg1(ss_client))
 //
 (* ****** ****** *)
 
-extern val theServer : chanref(ServerOpt)
+extern
+val
+theServer : chanref(ServerOpt)
 
 (* ****** ****** *)
+//
+extern
+fun Server((*void*)): void
+extern
+fun Client((*void*)): void
 //
 extern
 fun
@@ -162,6 +194,73 @@ Agent
   agent: channel0
 , client: channeg1(ss_client)
 ) : void // end of [Agent]
+//
+(* ****** ****** *)
+//
+extern
+fun
+chanptr_create
+  {a:vtype}
+  (cap: intGte(0)): chanptr(a)
+//
+extern
+fun
+chanptr_is_empty
+  : {a:vtype} (!chanptr(a)) -> bool
+extern
+fun
+chanptr_isnot_empty
+  : {a:vtype} (!chanptr(a)) -> bool
+//
+(* ****** ****** *)
+
+implement
+Server() = let
+//
+fun
+loop
+(
+  pool: chanptr(channel0)
+) : void = let
+//
+val
+opt = chanref_recv(theServer)
+//
+in
+//
+case+ opt of
+| ~RETURN0(agent) => let
+    val () =
+    chanptr_send(pool, agent)
+  in
+    loop(pool)
+  end // end of [RETURN0]
+| ~REQUEST0(client) =>
+  if chanptr_isnot_empty(pool)
+    then let
+      val agent =
+        chanptr_recv(pool)
+      // end of [val]
+      val () = Agent(agent, client)
+    in
+      loop(pool)
+    end // end of [then]
+    else let
+      val () =
+      channeg1_client(client, DENY())
+      val () = channeg1_nil_close(client)
+    in
+      loop(pool)
+    end // end of [else]
+//  
+end // end of [loop]
+//
+val
+pool = chanptr_create(5)
+//
+in
+  loop(pool)
+end // end of [Server]
 //
 (* ****** ****** *)
 
@@ -218,6 +317,79 @@ in
   chanref_send(theServer, RETURN0(agent))
 end // end of [Agent]
 //
+(* ****** ****** *)
+//
+implement
+Client() = let
+//
+fun
+loop
+(
+  client: channel0
+) : void =
+(
+//
+case+
+RANDOM
+of // case
+| _ => let
+    val
+    client2 =
+    channel0_split{ss_client}(client)
+    val () =
+    chanref_send(theServer, REQUEST0(client2))
+  in
+    loop2(client)
+  end // end of [loop]
+//
+) (* end of [loop] *)
+//
+and
+loop2
+(
+  client: chanpos1(ss_client)
+) : void = let
+//
+val opt = chanpos1_client(client)
+//
+in
+//
+case+ opt of
+| ~DENY() =>
+  {
+    val () =
+    chanpos1_nil_close(client)
+    val () = channel0_destroy(client)
+  }
+| ~DENY(agent) =>
+  {
+    val () =
+    channeg1_nil_close(agent)
+    val () =
+    chanpos1_nil_close(client)
+    val () = channel0_destroy(client)
+  }
+| ~HOLD(agent) =>
+  loop2(client) where
+  {
+    val () = channeg1_nil_close(agent)
+  }
+//
+| ~GRANT(agent) =>
+  {
+    val () =
+    channeg1_grant(agent, RETURN1())
+    val () = channeg1_nil_close(agent)
+    val () = chanpos1_nil_close(client)
+    val () = channel0_destroy(client)
+  }
+//
+end // end of [loop2]
+//
+in
+  loop(channel0_create(0))
+end // end of [Client]
+
 (* ****** ****** *)
 
 (* end of [ClientServer-2.dats] *)
