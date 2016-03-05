@@ -55,7 +55,7 @@ case+ t0 of
 | B (_, tl, tr) =>
    if nr > 0
      then let
-       val nr2 = nr / 2
+       val nr2 = half(nr)
      in
        if nr > nr2 + nr2 then diff (nr2, tl) else diff (nr2-1, tr)
      end // end of [then]
@@ -105,7 +105,7 @@ n,i:nat| i < n
 if
 i > 0
 then let
-  val i2 = i / 2
+  val i2 = half(i)
 in
   if i > i2 + i2
     then let
@@ -142,7 +142,7 @@ set_at
 if
 i > 0
 then let
-  val i2 = i / 2
+  val i2 = half(i)
   val+B(x, tl, tr) = t0
 in
   if i > i2 + i2
@@ -201,7 +201,7 @@ ins_r
 if
 n > 0
 then let
-  val n2 = n / 2
+  val n2 = half(n)
   val+B(x, tl, tr) = t0
 in
   if n > n2 + n2
@@ -256,7 +256,7 @@ rem_r
   t0: bt (a, n), n: int n
 ) : $tup(bt (a, n-1), a) = let
 //
-val n2 = n / 2; val+ B (x, tl, tr) = t0
+val n2 = half(n); val+ B (x, tl, tr) = t0
 //
 in
 //
