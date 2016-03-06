@@ -33,8 +33,8 @@ _ = "libats/DATS/athread_posix.dats"
 //
 (* ****** ****** *)
 //
-staload "./../DATS/basis_chan.dats"
-staload "./../DATS/basis_chan2.dats"
+staload "./../DATS/basis_uchan.dats"
+staload "./../DATS/basis_chan0.dats"
 //
 staload "./../DATS/basis_ssntyp.dats"
 //
@@ -94,12 +94,12 @@ chanpos_ssque
   {a}{n}(chpos) = let
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
-val chan2 =
-  $UN.castvwtp0{chan2}(chpos)
+val chan0 =
+  $UN.castvwtp0{chan0}(chpos)
 //
-val tag = channel2_recv_val(chan2)
+val tag = channel0_recv_val(chan0)
 val tag = $UN.cast{natLt(3)}($UN.ptr2int(tag))
 //
 in
@@ -108,16 +108,16 @@ case+ tag of
 | 0 => let
     prval () = $UN.prop_assert{n==0}()
     prval () =
-    $UN.castview2void(chan2) in chanpos_ssque_nil(chan2)
+    $UN.castview2void(chan0) in chanpos_ssque_nil(chan0)
   end // end of [prval]
 | 1 => let
     prval () = $UN.prop_assert{n > 0}()
     prval () =
-    $UN.castview2void(chan2) in chanpos_ssque_deq(chan2)
+    $UN.castview2void(chan0) in chanpos_ssque_deq(chan0)
   end // end of [prval]
 | 2 => let
     prval () =
-    $UN.castview2void(chan2) in chanpos_ssque_enq(chan2)
+    $UN.castview2void(chan0) in chanpos_ssque_enq(chan0)
   end // end of [prval]
 //
 end // end of [chanpos_ssque]
@@ -131,15 +131,15 @@ channeg_ssque_nil
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
 val
-chan2 = $UN.castvwtp1{chan2}(chneg)
+chan0 = $UN.castvwtp1{chan0}(chneg)
 //
 val () =
-channel2_send (chan2, $UN.int2ptr(0))
+channel0_send (chan0, $UN.int2ptr(0))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -152,15 +152,15 @@ channeg_ssque_deq
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
 val
-chan2 = $UN.castvwtp1{chan2}(chneg)
+chan0 = $UN.castvwtp1{chan0}(chneg)
 //
 val () =
-channel2_send (chan2, $UN.int2ptr(1))
+channel0_send (chan0, $UN.int2ptr(1))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -173,15 +173,15 @@ channeg_ssque_enq
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
 val
-chan2 = $UN.castvwtp1{chan2}(chneg)
+chan0 = $UN.castvwtp1{chan0}(chneg)
 //
 val () =
-channel2_send (chan2, $UN.int2ptr(2))
+channel0_send (chan0, $UN.int2ptr(2))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //

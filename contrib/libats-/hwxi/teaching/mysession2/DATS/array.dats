@@ -16,7 +16,7 @@ staload
 staload
   "./../SATS/array.sats"
 //
-staload "./basis_chan2.dats"
+staload "./basis_chan0.dats"
 //
 (* ****** ****** *)
 

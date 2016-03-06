@@ -28,22 +28,25 @@ stadef cons = ssession_cons
 (* ****** ****** *)
 //
 absvtype
-channel0_vtype()
+channel0_vtype(a:vt@ype)
+stadef channel0 = channel0_vtype
+//
+(* ****** ****** *)
+//
 absvtype
 channel1_vtype
   (iset, int, ssn:type) = ptr
 //
-stadef channel = channel0_vtype
-stadef channel = channel1_vtype
+stadef channel1 = channel1_vtype
 //
 vtypedef
-cchannel(G:iset, n:int, ssn:type) = channel(ncomp(G, n), n, ssn)
+cchannel1(G:iset, n:int, ssn:type) = channel1(ncomp(G, n), n, ssn)
 //
 (* ****** ****** *)
 
 fun
 {a:vt0p}
-channel1_close{G:iset}{n:int}{ss:type}(channel(G, n, nil)): void
+channel1_close{G:iset}{n:int}{ss:type}(channel1(G, n, nil)): void
 
 (* ****** ****** *)
 //
@@ -53,7 +56,7 @@ channel1_send
   {n:int}{ssn:type}{G:iset}
   {i,j:int | i < n; j < n; ismbr(G, i); ~ismbr(G, j)}
 (
-  !channel(G, n, msg(i, j, a)::ssn) >> channel(G, n, ssn), int(i), int(j), a
+  !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn), int(i), int(j), a
 ) : void // end of [channel1_send]
 //
 fun
@@ -62,7 +65,7 @@ channel1_recv
   {n:int}{ssn:type}{G:iset}
   {i,j:int | i < n; j < n; ~ismbr(G, i); ismbr(G, j)}
 (
-  !channel(G, n, msg(i, j, a)::ssn) >> channel(G, n, ssn), int(i), int(j), &a? >> a
+  !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn), int(i), int(j), &a? >> a
 ) : void // end of [channel1_recv]
 //
 fun
@@ -70,7 +73,7 @@ fun
 channel1_recv_val
   {n:int}{ssn:type}{G:iset}
   {i,j:int | i < n; j < n; ~ismbr(G, i); ismbr(G, j)}
-  (!channel(G, n, msg(i, j, a)::ssn) >> channel(G, n, ssn), int(i), int(j)): (a)
+  (!channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn), int(i), int(j)): (a)
 //
 (* ****** ****** *)
 //
@@ -85,9 +88,9 @@ stadef snd = session_snd
 stadef rcv = session_rcv
 //
 vtypedef
-chanpos(ssn:type) = channel(iset(0), 2, ssn)
+chanpos(ssn:type) = channel1(iset(0), 2, ssn)
 vtypedef
-channeg(ssn:type) = channel(iset(1), 2, ssn)
+channeg(ssn:type) = channel1(iset(1), 2, ssn)
 //
 fun
 {a:vt0p}
@@ -120,20 +123,20 @@ fun{}
 channel1_link
   {n:int}{ss:type}
   {G1,G2:iset | isnil(G1*G2)}
-  (channel(G1, n, ss), channel(G2, n, ss)): channel(G1+G2, n, ss)
+  (channel1(G1, n, ss), channel1(G2, n, ss)): channel1(G1+G2, n, ss)
 //
 fun{}
 cchannel1_link
   {n:int}{ss:type}
   {G1,G2:iset | isnil(G1*G2)}
-  (cchannel(G1, n, ss), cchannel(G2, n, ss)): cchannel(G1+G2, n, ss)
+  (cchannel1(G1, n, ss), cchannel1(G2, n, ss)): cchannel1(G1+G2, n, ss)
 //
 (* ****** ****** *)
 //
 fun{}
 cchannel1_create_exn
   {n:int}{ss:type}{G:iset}
-  (fserv: channel(G, n, ss) -<lincloptr1> void): cchannel(G, n, ss)
+  (fserv: channel1(G, n, ss) -<lincloptr1> void): cchannel1(G, n, ss)
 //
 (* ****** ****** *)
 

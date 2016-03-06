@@ -4,25 +4,19 @@
 
 (* ****** ****** *)
 
-staload "./basis_chan.dats"
-
-(* ****** ****** *)
-
-absvtype
-channel2_vtype(a:vt@ype) = ptr
-vtypedef
-channel2(a:vt@ype) = channel2_vtype(a)
+staload "./../SATS/basis.sats"
+staload "./basis_uchannel.dats"
 
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
-channel2_make_pair
+channel0_make_pair
 (
-  capacity: intGt(0)
-) : (channel2(a), channel2(a))
-//
+  n: intGte(2), capacity: intGt(0)
+) : (channel0(a), channel0(a))
+////
 (* ****** ****** *)
 //
 extern

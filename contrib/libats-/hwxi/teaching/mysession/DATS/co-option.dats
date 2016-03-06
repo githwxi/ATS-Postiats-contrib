@@ -10,7 +10,7 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./basis_chan2.dats"
+staload "./basis_chan0.dats"
 //
 staload "./../SATS/co-option.sats"
 //
@@ -18,16 +18,16 @@ staload "./../SATS/co-option.sats"
 
 implement
 {}(*tmp*)
-chanpos_option
+chanpos_opt
   (chpos) = let
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
-val chan2 =
-  $UN.castvwtp0{chan2}(chpos)
+val chan0 =
+  $UN.castvwtp0{chan0}(chpos)
 //
-val tag = channel2_recv_val (chan2)
+val tag = channel0_recv_val (chan0)
 //
 in
 //
@@ -36,12 +36,12 @@ iseqz(tag)
 then let
 //
 prval () =
-  $UN.castview2void(chan2) in chanpos_option_none(chan2)
+  $UN.castview2void(chan0) in chanpos_opt_none(chan0)
 // end of [prval]
 end // end of [then]
 else let
 prval () =
-  $UN.castview2void(chan2) in chanpos_option_some(chan2)
+  $UN.castview2void(chan0) in chanpos_opt_some(chan0)
 // end of [prval]
 end // end of [else]
 //
@@ -51,48 +51,48 @@ end // end of [chanpos_option]
 
 implement
 {}(*tmp*)
-channeg_option_none
+channeg_opt_none
   (chneg) = () where
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
 val
-chan2 =
-$UN.castvwtp1{chan2}(chneg)
+chan0 =
+$UN.castvwtp1{chan0}(chneg)
 //
 val () = 
-channel2_send (chan2, $UN.int2ptr(0))
+channel0_send (chan0, $UN.int2ptr(0))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //
-} (* end of [channeg_option_none] *)
+} (* end of [channeg_opt_none] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-channeg_option_some
+channeg_opt_some
   (chneg) = () where
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
-val chan2 =
-  $UN.castvwtp1{chan2}(chneg)
+val chan0 =
+  $UN.castvwtp1{chan0}(chneg)
 //
 val ((*void*)) =
-  channel2_send (chan2, $UN.int2ptr(1))
+  channel0_send(chan0, $UN.int2ptr(1))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //
-} (* end of [channeg_option_some] *)
+} (* end of [channeg_opt_some] *)
 
 (* ****** ****** *)
 

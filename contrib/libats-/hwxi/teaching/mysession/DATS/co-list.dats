@@ -10,7 +10,7 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./basis_chan2.dats"
+staload "./basis_chan0.dats"
 //
 staload "./../SATS/co-list.sats"
 //
@@ -22,12 +22,12 @@ chanpos_list
   (chpos) = let
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
-val chan2 =
-  $UN.castvwtp0{chan2}(chpos)
+val chan0 =
+  $UN.castvwtp0{chan0}(chpos)
 //
-val tag = channel2_recv_val (chan2)
+val tag = channel0_recv_val (chan0)
 //
 in
 //
@@ -36,12 +36,12 @@ iseqz(tag)
 then let
 //
 prval () =
-  $UN.castview2void(chan2) in chanpos_list_nil(chan2)
+  $UN.castview2void(chan0) in chanpos_list_nil(chan0)
 // end of [prval]
 end // end of [then]
 else let
 prval () =
-  $UN.castview2void(chan2) in chanpos_list_cons(chan2)
+  $UN.castview2void(chan0) in chanpos_list_cons(chan0)
 // end of [prval]
 end // end of [else]
 //
@@ -56,16 +56,16 @@ channeg_list_nil
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
 val
-chan2 =
-$UN.castvwtp1{chan2}(chneg)
+chan0 =
+$UN.castvwtp1{chan0}(chneg)
 //
 val () = 
-channel2_send (chan2, $UN.int2ptr(0))
+channel0_send (chan0, $UN.int2ptr(0))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //
@@ -80,15 +80,15 @@ channeg_list_cons
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
-val chan2 =
-  $UN.castvwtp1{chan2}(chneg)
+val chan0 =
+  $UN.castvwtp1{chan0}(chneg)
 //
 val ((*void*)) =
-  channel2_send (chan2, $UN.int2ptr(1))
+  channel0_send (chan0, $UN.int2ptr(1))
 //
-prval () = $UN.cast2void(chan2)
+prval () = $UN.cast2void(chan0)
 //
 prval () = $UN.castview2void(chneg)
 //

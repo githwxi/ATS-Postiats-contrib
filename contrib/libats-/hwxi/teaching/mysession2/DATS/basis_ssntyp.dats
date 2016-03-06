@@ -13,7 +13,7 @@ UN =
 staload
 "./../SATS/basis.sats"
 //
-staload "./basis_chan2.dats"
+staload "./basis_chan0.dats"
 //
 (* ****** ****** *)
 //
@@ -27,10 +27,10 @@ implement
 chanpos_send
   (chpos, x) = let
   vtypedef bxa = boxed(a)
-  val chan2 =
-    $UN.castvwtp1{channel2(bxa)}(chpos)
-  val ((*void*)) = channel2_send (chan2, BOX(x))
-  prval ((*void*)) = $UN.cast2void(chan2)
+  val chan0 =
+    $UN.castvwtp1{channel0(bxa)}(chpos)
+  val ((*void*)) = channel0_send (chan0, BOX(x))
+  prval ((*void*)) = $UN.cast2void(chan0)
   prval ((*void*)) = $UN.castview2void(chpos)
 in
   // nothing
@@ -43,10 +43,10 @@ implement
 channeg_recv
   (chneg, x) = let
   vtypedef bxa = boxed(a)
-  val chan2 =
-    $UN.castvwtp1{channel2(bxa)}(chneg)
-  val ((*void*)) = channel2_send (chan2, BOX(x))
-  prval ((*void*)) = $UN.cast2void(chan2)
+  val chan0 =
+    $UN.castvwtp1{channel0(bxa)}(chneg)
+  val ((*void*)) = channel0_send (chan0, BOX(x))
+  prval ((*void*)) = $UN.cast2void(chan0)
   prval ((*void*)) = $UN.castview2void(chneg)
 in
   // nothing
@@ -70,13 +70,13 @@ chanpos_recv_val
 //
   vtypedef bxa = boxed(a)
 //
-  val chan2 =
-    $UN.castvwtp1{channel2(bxa)}(chpos)
+  val chan0 =
+    $UN.castvwtp1{channel0(bxa)}(chpos)
   // end of [val]
 //
-  val~BOX(x) = channel2_recv_val(chan2)
+  val~BOX(x) = channel0_recv_val(chan0)
 //
-  prval ((*void*)) = $UN.cast2void(chan2)
+  prval ((*void*)) = $UN.cast2void(chan0)
   prval ((*void*)) = $UN.castview2void(chpos)
 //
 } (* end of [chanpos_recv_val] *)
@@ -97,16 +97,16 @@ channeg_send_val
   (chneg) = (x) where
 {
 //
-  vtypedef bxa = boxed(a)
+vtypedef bxa = boxed(a)
 //
-  val chan2 =
-    $UN.castvwtp1{channel2(bxa)}(chneg)
+val chan0 =
+  $UN.castvwtp1{channel0(bxa)}(chneg)
   // end of [val]
 //
-  val~BOX(x) = channel2_recv_val(chan2)
+val~BOX(x) = channel0_recv_val(chan0)
 //
-  prval ((*void*)) = $UN.cast2void(chan2)
-  prval ((*void*)) = $UN.castview2void(chneg)
+prval ((*void*)) = $UN.cast2void(chan0)
+prval ((*void*)) = $UN.castview2void(chneg)
 //
 } (* end of [channeg_send_val] *)
 
@@ -124,16 +124,16 @@ chanpos_nil_wait
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
-val chan2 =
-  $UN.castvwtp0{chan2}(chpos)
+val chan0 =
+  $UN.castvwtp0{chan0}(chpos)
 //
-val tag = channel2_recv_val (chan2)
+val tag = channel0_recv_val (chan0)
 //
 val ((*void*)) = assertloc (iseqz(tag))
 //
-val ((*freed*)) = channel2_free (chan2)
+val ((*freed*)) = channel0_free (chan0)
 //
 } (* end of [chanpos_nil_wait] *)
 
@@ -146,16 +146,16 @@ channeg_nil_close
 {
 //
 vtypedef
-chan2 = channel2(ptr)
+chan0 = channel0(ptr)
 //
 val
-chan2 =
-$UN.castvwtp0{chan2}(chneg)
+chan0 =
+$UN.castvwtp0{chan0}(chneg)
 //
 val () =
-channel2_send (chan2, $UN.int2ptr(0))
+channel0_send (chan0, $UN.int2ptr(0))
 //
-val ((*freed*)) = channel2_free (chan2)
+val ((*freed*)) = channel0_free (chan0)
 //
 } (* end of [channeg_nil_close] *)
 
@@ -164,17 +164,18 @@ val ((*freed*)) = channel2_free (chan2)
 implement
 {}(*tmp*)
 chanposneg_link
-  {ss}(chpos, chneg) = let
+  {ss}(chp, chn) = let
+//
+vtypedef
+chan0 = channel0(ptr)
 //
 val
-chan2x =
-$UN.castvwtp0{channel2(ptr)}(chpos)
+chx = $UN.castvwtp0{chan0}(chp)
 val
-chan2y =
-$UN.castvwtp0{channel2(ptr)}(chneg)
+chy = $UN.castvwtp0{chan0}(chn)
 //
 in
-  channel2_link<ptr> (chan2x, chan2y)
+  channel0_link<ptr> (chx, chy)
 end // end of [chanposneg_link]
 //
 (* ****** ****** *)
@@ -186,12 +187,13 @@ staload "libats/SATS/athread.sats"
 implement{} channel_cap ((*void*)) = 1
 
 (* ****** ****** *)
-
+//
 (*
 fun{}
 channeg_create_exn{ss:type}
   (fserv: chanpos(ss) -<lincloptr1> void): channeg(ss)
 *)
+//
 implement
 {}(*tmp*)
 channeg_create_exn
@@ -201,7 +203,7 @@ val CAP = channel_cap()
 //
 val
 (chx, chy) =
-  channel2_make_pair<ptr>(CAP)
+  channel0_make_pair<ptr>(CAP)
 //
 val chpos =
   $UN.castvwtp0{chanpos(ss)}(chx)
@@ -222,16 +224,18 @@ end // end of [let]
 in
   $UN.castvwtp0{channeg(ss)}(chy)
 end // end of [channeg_create_exn]
-
+//
 (* ****** ****** *)
 
 (*
+//
 (*
 fun{}
 channeg2_create_exn
   {ss1,ss2:type}
   (fserv: (chanpos(ss1), chanpos(ss2)) -<lincloptr1> void): (channeg(ss1), channeg(ss2))
 *)
+//
 implement
 {}(*tmp*)
 channeg2_create_exn
@@ -241,10 +245,10 @@ val CAP = channel_cap()
 //
 val
 (chx1, chy1) =
-  channel2_make_pair<ptr>(CAP)
+  channel0_make_pair<ptr>(CAP)
 val
 (chx2, chy2) =
-  channel2_make_pair<ptr>(CAP)
+  channel0_make_pair<ptr>(CAP)
 //
 val chp1 =
   $UN.castvwtp0{chanpos(ss1)}(chx1)
@@ -271,6 +275,7 @@ $UN.castvwtp0{channeg(ss1)}(chy1)
 $UN.castvwtp0{channeg(ss2)}(chy2)
 )
 end // end of [channeg2_create_exn]
+//
 *)
 
 (* ****** ****** *)

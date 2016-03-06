@@ -36,8 +36,8 @@ _ = "libats/DATS/athread_posix.dats"
 //
 (* ****** ****** *)
 //
-staload "./../DATS/basis_chan.dats"
-staload "./../DATS/basis_chan2.dats"
+staload "./../DATS/basis_uchan.dats"
+staload "./../DATS/basis_chan0.dats"
 //
 staload "./../DATS/basis_ssntyp.dats"
 //
@@ -69,11 +69,13 @@ loop
 if
 n > 0
 then let
+//
   val-
   channeg_list_cons
-  (
-  ) = channeg_list(chn)
+  ((*void*)) = channeg_list(chn)
+//
   val x0 = channeg_send_val(chn) 
+//
 in
   loop (chn, n-1, list_vt_cons(x0, res))
 end // end of [then]
