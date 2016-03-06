@@ -21,18 +21,23 @@ stadef channel0 = channel0_vtype
 extern
 praxi
 lemma_channel0_param
-  {a:vt0p}{n:int}(!channel0(a, n)): [n >= 0] void
+  {a:vt0p}{n:int}
+  (chan0: !channel0(a, n)): [n >= 0] void
 //
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
-channel0_make_pair
+channel0_posneg
   {n:nat}
 (
-  n: int(n), capacity: intGt(0)
-) : (channel0(a, n), channel0(a, n))
+  cap: intGt(0)
+, nrole: int(n), G: intset(n)
+) :
+(
+  channel0(a, n)(*pos*), channel0(a, n)(*neg*)
+) (* end of [channel0_posneg] *)
 //
 (* ****** ****** *)
 //
