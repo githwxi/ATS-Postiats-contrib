@@ -71,14 +71,16 @@ then (
 //
 ) (* end of [aux2] *)
 //
-in
+val ys = (
 //
 case+ xs of
-| list_nil() =>
-  list_vt2t(list_vt_reverse(aux1(0, nil_vt)))
-| list_cons(x, xs) =>
-  list_vt2t(list_vt_reverse(aux2(0, x, xs, nil_vt)))
+| list_nil() => aux1(0, nil_vt)
+| list_cons(x, xs) => aux2(0, x, xs, nil_vt)
 //
+) : List0_vt(int)
+//
+in
+  list_vt2t(list_vt_reverse(ys))
 end // end of [intset_ncomplement]
 
 (* ****** ****** *)
