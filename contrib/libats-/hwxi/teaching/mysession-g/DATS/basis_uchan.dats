@@ -170,84 +170,84 @@ end // end of [local]
 (* ****** ****** *)
 //
 absvtype
-uchannel_vtype(a:vt@ype) = ptr
+uchan_vtype(a:vt@ype) = ptr
 vtypedef
-uchannel(a:vt0p) = uchannel_vtype(a)
+uchan(a:vt0p) = uchan_vtype(a)
 //
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
-uchannel_make(cap: intGt(0)): uchannel(a)
+uchan_make(cap: intGt(0)): uchan(a)
 //
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
-uchannel_ref
-  (ch: !uchannel(a)): uchannel(a)
+uchan_ref
+  (ch: !uchan(a)): uchan(a)
 //
 extern
 fun
 {a:vt0p}
-uchannel_unref(ch: uchannel(a)): void
+uchan_unref(ch: uchan(a)): void
 //
 (* ****** ****** *)
 
 extern
 fun{}
-uchannel_rfcnt{a:vt0p}(ch: !uchannel(a)): intGt(0)
+uchan_rfcnt{a:vt0p}(ch: !uchan(a)): intGt(0)
 
 (* ****** ****** *)
 
 extern
 fun{a:vt0p}
-uchannel_insert (!uchannel(a), a): void
+uchan_insert (!uchan(a), a): void
 extern
 fun{a:vt0p}
-uchannel_remove (chan: &uchannel(a) >> _): (a)
+uchan_remove (chan: &uchan(a) >> _): (a)
 
 (* ****** ****** *)
 //
 extern
 fun{a:vt0p}
-uchannel_qinsert
-  (ch0: !uchannel(a), chx: uchannel(a)): void
+uchan_qinsert
+  (ch0: !uchan(a), chx: uchan(a)): void
 //
 (* ****** ****** *)
 //
 datavtype
-uchannel_ =
+uchan_ =
 {
 l0,l1,l2,l3:agz
-} UCHANNEL of
+} UCHAN of
 @{
   cap=intGt(0)
 //
 , rfcnt=intGt(0) // by spin
 //
 , queue=ptr(*deque*) // by mutex
-, qnext=ptr(*uchannel*) // by mutex
+, qnext=ptr(*uchan*) // by mutex
 //
 , spin=spin_vt(l0)
 , mutex=mutex_vt(l1)
 , CVisnil=condvar_vt(l2)
 , CVisful=condvar_vt(l3)
 //
-} (* end of [uchannel_] *)
+} (* end of [uchan_] *)
 //
 (* ****** ****** *)
 
 assume
-uchannel_vtype(a:vt0p) = uchannel_
+uchan_vtype(a:vt0p) = uchan_
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_make
+uchan_make
   (cap) = let
 //
 extern
@@ -258,9 +258,9 @@ prval [l1:addr] () = __assert()
 prval [l2:addr] () = __assert()
 prval [l3:addr] () = __assert()
 //
-val chan = UCHANNEL{l0,l1,l2,l3}(_)
+val chan = UCHAN{l0,l1,l2,l3}(_)
 //
-val+UCHANNEL(ch) = chan
+val+UCHAN(ch) = chan
 //
 val () = ch.cap := cap
 val () = ch.rfcnt := 1
@@ -296,16 +296,16 @@ end // end of [local]
 //
 in
   fold@(chan); chan
-end // end of [uchannel_make]
+end // end of [uchan_make]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_ref
+uchan_ref
   (chan) = let
 //
-val@UCHANNEL(ch) = chan
+val@UCHAN(ch) = chan
 //
 val spin =
   unsafe_spin_vt2t(ch.spin)
@@ -318,17 +318,17 @@ val ((*void*)) = spin_unlock (pf | spin)
 prval ((*fold*)) = fold@(chan)
 //
 in
-  $UN.castvwtp1{uchannel(a)}(chan)
-end // end of [uchannel_ref]
+  $UN.castvwtp1{uchan(a)}(chan)
+end // end of [uchan_ref]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_unref
+uchan_unref
   (chan) = let
 //
-val@UCHANNEL
+val@UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val spin =
@@ -358,7 +358,7 @@ then let
 //
   val ((*freed*)) =
   if qnxt > 0
-     then uchannel_unref($UN.castvwtp0{uchannel(a)}(qnxt))
+     then uchan_unref($UN.castvwtp0{uchan(a)}(qnxt))
   // end of [if]
 //
 in
@@ -372,39 +372,39 @@ in
   // nothing
 end // end of [else]
 //
-end // end of [uchannel_unref]
+end // end of [uchan_unref]
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-uchannel_rfcnt
+uchan_rfcnt
   {a}(chan) = let
 //
-val@UCHANNEL
+val@UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val rfcnt = ch.rfcnt
 //
 in
   fold@(chan); rfcnt
-end // end of [uchannel_rfcnt]
+end // end of [uchan_rfcnt]
 
 (* ****** ****** *)
 //
 extern
 fun{a:vt0p}
-uchannel_insert2
-  (!uchannel(a), queue(a), a): void
+uchan_insert2
+  (!uchan(a), queue(a), a): void
 //
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_insert
+uchan_insert
   (chan, x0) = let
 //
-val+UCHANNEL
+val+UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val
@@ -414,20 +414,20 @@ val (pfmut | ()) = mutex_lock (mutex)
 //
 val xs = $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
 //
-val ((*void*)) = uchannel_insert2<a> (chan, xs, x0)
+val ((*void*)) = uchan_insert2<a> (chan, xs, x0)
 //
 in
   // nothing
-end // end of [uchannel_insert]
+end // end of [uchan_insert]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_insert2
+uchan_insert2
   (chan, xs, x0) = let
 //
-val+UCHANNEL
+val+UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val
@@ -452,7 +452,7 @@ then let
   val () = condvar_wait (pfmut | CVisful, mutex)
   prval ((*ret*)) = fpf (pfmut)
 in
-  uchannel_insert2 (chan, xs, x0)
+  uchan_insert2 (chan, xs, x0)
 end // end of [then]
 else let
   val
@@ -469,23 +469,23 @@ in
   // nothing
 end // end of [else]
 //
-end // end of [uchannel_insert2]
+end // end of [uchan_insert2]
 
 (* ****** ****** *)
 //
 extern
 fun{a:vt0p}
-uchannel_remove2
-  (chan: &uchannel(a) >> _, queue(a)): (a)
+uchan_remove2
+  (chan: &uchan(a) >> _, queue(a)): (a)
 //
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_remove
+uchan_remove
   (chan) = let
 //
-val+UCHANNEL
+val+UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val
@@ -497,17 +497,17 @@ val xs =
   $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
 //
 in
-  uchannel_remove2<a> (chan, xs)
-end // end of [uchannel_remove]
+  uchan_remove2<a> (chan, xs)
+end // end of [uchan_remove]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_remove2
+uchan_remove2
   (chan, xs) = let
 //
-val+@UCHANNEL
+val+@UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val
@@ -533,11 +533,11 @@ in
       ch.qnext := the_null_ptr
       val () = queue_unlock_mac(xs)
       prval ((*fold*)) = fold@chan
-      val () = uchannel_unref (chan)
+      val () = uchan_unref (chan)
       val () =
-      chan := $UN.castvwtp0{uchannel(a)}(qnxt)
+      chan := $UN.castvwtp0{uchan(a)}(qnxt)
     in
-      uchannel_remove (chan)
+      uchan_remove (chan)
     end (* end of [then] *)
     else let
       prval
@@ -552,7 +552,7 @@ in
       prval ((*ret*)) = fpf (pfmut)
       prval ((*fold*)) = fold@chan
     in
-      uchannel_remove2 (chan, xs)
+      uchan_remove2 (chan, xs)
     end // end of [else]
   // end of [if]
 end // end of [then]
@@ -569,28 +569,28 @@ in
   x0_out
 end // end of [else]
 //
-end // end of [uchannel_remove2]
+end // end of [uchan_remove2]
 
 (* ****** ****** *)
 //
 extern
 fun{a:vt0p}
 qnext_insert
-  (chx0: &ptr >> _, chx: uchannel(a)): void
+  (chx0: &ptr >> _, chx: uchan(a)): void
 //
 extern
 fun{a:vt0p}
-uchannel_qinsert2
-  (!uchannel(a), queue(a), uchannel(a)): void
+uchan_qinsert2
+  (!uchan(a), queue(a), uchan(a)): void
 //
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-uchannel_qinsert
+uchan_qinsert
   (chan, chx) = let
 //
-val+UCHANNEL
+val+UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val
@@ -600,11 +600,11 @@ val (pfmut | ()) = mutex_lock (mutex)
 //
 val xs = $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
 //
-val ((*void*)) = uchannel_qinsert2<a> (chan, xs, chx)
+val ((*void*)) = uchan_qinsert2<a> (chan, xs, chx)
 //
 in
   // nothing
-end // end of [uchannel_qinsert]
+end // end of [uchan_qinsert]
 
 (* ****** ****** *)
 
@@ -622,8 +622,8 @@ then (
 else let
 //
 val chan =
-$UN.castvwtp0{uchannel(a)}(chx0)
-val ((*void*)) = uchannel_qinsert (chan, chx)
+$UN.castvwtp0{uchan(a)}(chx0)
+val ((*void*)) = uchan_qinsert (chan, chx)
 prval ((*void*)) = $UN.cast2void(chan)
 //
 in
@@ -636,10 +636,10 @@ end // end of [qnext_insert]
 
 implement
 {a}(*tmp*)
-uchannel_qinsert2
+uchan_qinsert2
   (chan, xs, chx) = let
 //
-val+@UCHANNEL
+val+@UCHAN
   {l0,l1,l2,l3}(ch) = chan
 //
 val
@@ -658,8 +658,8 @@ prval ((*fold*)) = fold@chan
 //
 in
   mutex_unlock($UN.castview0{locked_v(l1)}(xs) | mutex)
-end // end of [uchannel_qinsert2]
+end // end of [uchan_qinsert2]
 
 (* ****** ****** *)
 
-(* end of [basis_uchannel.dats] *)
+(* end of [basis_uchan.dats] *)

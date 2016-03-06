@@ -8,6 +8,11 @@ staload "./intset.sats"
 
 (* ****** ****** *)
 //
+fun{}
+channel_cap(): intGte(1)  
+//
+(* ****** ****** *)
+//
 abstype
 session_msg(int, int, vt@ype)
 //
@@ -28,14 +33,8 @@ stadef cons = ssession_cons
 (* ****** ****** *)
 //
 absvtype
-channel0_vtype(a:vt@ype)
-stadef channel0 = channel0_vtype
-//
-(* ****** ****** *)
-//
-absvtype
 channel1_vtype
-  (iset, int, ssn:type) = ptr
+  (iset, n: int, ssn:type) = ptr
 //
 stadef channel1 = channel1_vtype
 //
@@ -88,34 +87,30 @@ stadef snd = session_snd
 stadef rcv = session_rcv
 //
 vtypedef
-chanpos(ssn:type) = channel1(iset(0), 2, ssn)
+chan1pos(ssn:type) = channel1(iset(0), 2, ssn)
 vtypedef
-channeg(ssn:type) = channel1(iset(1), 2, ssn)
+chan1neg(ssn:type) = channel1(iset(1), 2, ssn)
 //
 fun
 {a:vt0p}
-chanpos_send{ssn:type}
-  (!chanpos(snd(a)::ssn) >> chanpos(ssn), a): void
+chan1pos_send{ssn:type}
+  (!chan1pos(snd(a)::ssn) >> chan1pos(ssn), a): void
 //
 fun
 {a:vt0p}
-chanpos_recv{ssn:type}
-  (!chanpos(rcv(a)::ssn) >> chanpos(ssn), &a? >> a): void
+chan1pos_recv{ssn:type}
+  (!chan1pos(rcv(a)::ssn) >> chan1pos(ssn), &a? >> a): void
 //
 fun
 {a:vt0p}
-channeg_recv{ssn:type}
-  (!channeg(rcv(a)::ssn) >> chanpos(ssn), a): void
+chan1neg_recv{ssn:type}
+  (!chan1neg(rcv(a)::ssn) >> chan1neg(ssn), a): void
 //
 fun
 {a:vt0p}
-chanpos_send{ssn:type}
-  (!channeg(snd(a)::ssn) >> chanpos(ssn), &a? >> a): void
+chan1neg_send{ssn:type}
+  (!chan1neg(snd(a)::ssn) >> chan1neg(ssn), &a? >> a): void
 *)
-//
-(* ****** ****** *)
-//
-fun{} channel_cap(): intGte(1)  
 //
 (* ****** ****** *)
 //

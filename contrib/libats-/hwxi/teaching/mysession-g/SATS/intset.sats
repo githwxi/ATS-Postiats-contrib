@@ -20,8 +20,8 @@ ISETEQ(s1:iset, s2:iset) = ISETEQ(s1, s2) of ()
 
 stacst iset_nil : () -> iset
 stacst iset_int : (int) -> iset
-stacst iset_int_int : (int, int) -> iset
-stacst iset_int_int_int : (int, int, int) -> iset
+stacst iset_int2 : (int, int) -> iset
+stacst iset_int3 : (int, int, int) -> iset
 
 (* ****** ****** *)
 
@@ -29,11 +29,12 @@ stacst iset_list : (ilist) -> iset
 
 (* ****** ****** *)
 //
-stadef iset = iset_nil
+stadef
+iset() = iset_nil()
 //
 stadef iset = iset_int
-stadef iset = iset_int_int
-stadef iset = iset_int_int_int
+stadef iset = iset_int2
+stadef iset = iset_int3
 //
 stadef iset = iset_list
 //
@@ -97,8 +98,89 @@ iset_ncomplement
 stadef ncomp = iset_ncomplement
 //
 (* ****** ****** *)
+//
+// HX-2016-03:
+//
+// intset(n, xs)
+// is for a set of natural
+// numbers xs such that each x in xs
+// is less than n.
+//
+abstype
+intset(n:int, xs: iset) = ptr
+//
+typedef intset(n:int) = [xs:iset] intset(n, xs)
+typedef intset(*void*) = [n:int;xs:iset] intset(n, xs)
+//
+(* ****** ****** *)
+//
+fun{}
+intset_nil
+  {n:nat}(): intset(n, iset())
+//
+fun{}
+intset_int
+  {n:int}{i:nat | i < n}
+  (i: int(i)): intset(n, iset(i))
+//
+fun{}
+intset_int2
+{n:int}
+{ i1,i2:int
+| i1 < i2; i2 < n
+} (i1:int(i1), i2:int(i2)): intset(n, iset(i1, i2))
+fun{}
+intset_int3
+{n:int}
+{ i1,i2,i3:int
+| i1 < i2; i2 < i3; i3 < n}
+  (int(i1), int(i2), int(i3)): intset(n, iset(i1, i2, i3))
+//
+(* ****** ****** *)
+//
+fun{}
+intset_union
+  {n:int}{xs1,xs2:iset}
+  (intset(n, xs1), intset(n, xs2)): intset(n, xs1+xs2)
+//
+fun{}
+intset_intersect
+  {n:int}{xs1,xs2:iset}
+  (intset(n, xs1), intset(n, xs2)): intset(n, xs1*xs2)
+//
+(* ****** ****** *)
+//
+fun{}
+intset_ncomplement
+  {xs:iset}{n:nat}
+  (xs: intset(n, xs), n: int(n)): intset(n, ncomp(xs, n))
+//
+(* ****** ****** *)
+//
+fun{}
+intset_foreach_cloref
+  {n:int}{xs:iset}
+(
+  xs: intset(n, xs)
+, fwork: (natLt(n)) -<cloref1> void
+) : void // end-of-function
+//
+fun{}
+intset2_foreach_cloref
+  {n:int}{xs1,xs2:iset}
+(
+  xs1: intset(n, xs1)
+, xs2: intset(n, xs2)
+, fwork: (natLt(n), natLt(n)) -<cloref1> void
+) : void // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+fprint_intset: fprint_type(intset)
+//
+overload fprint with fprint_intset
+//
+(* ****** ****** *)
 
 (* end of [intset.sats] *)
-
-
-
