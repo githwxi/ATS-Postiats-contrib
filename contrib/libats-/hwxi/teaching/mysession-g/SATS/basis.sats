@@ -51,7 +51,7 @@ fun
 {a:vt0p}
 channel1_send
   {n:int}{ssn:type}{G:iset}
-  {i,j:int | i < n; j < n; imem(G, i); ~imem(G, j)}
+  {i,j:int | i < n; j < n; ismbr(G, i); ~ismbr(G, j)}
 (
   !channel(G, n, msg(i, j, a)::ssn) >> channel(G, n, ssn), int(i), int(j), a
 ) : void // end of [channel1_send]
@@ -60,7 +60,7 @@ fun
 {a:vt0p}
 channel1_recv
   {n:int}{ssn:type}{G:iset}
-  {i,j:int | i < n; j < n; ~imem(G, i); imem(G, j)}
+  {i,j:int | i < n; j < n; ~ismbr(G, i); ismbr(G, j)}
 (
   !channel(G, n, msg(i, j, a)::ssn) >> channel(G, n, ssn), int(i), int(j), &a? >> a
 ) : void // end of [channel1_recv]
@@ -69,7 +69,7 @@ fun
 {a:vt0p}
 channel1_recv_val
   {n:int}{ssn:type}{G:iset}
-  {i,j:int | i < n; j < n; ~imem(G, i); imem(G, j)}
+  {i,j:int | i < n; j < n; ~ismbr(G, i); ismbr(G, j)}
   (!channel(G, n, msg(i, j, a)::ssn) >> channel(G, n, ssn), int(i), int(j)): (a)
 //
 (* ****** ****** *)

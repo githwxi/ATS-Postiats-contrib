@@ -47,37 +47,43 @@ stadef size = iset_size
 (* ****** ****** *)
 
 stacst
-iset_is_empty: (iset) -> bool
+iset_is_empty: iset -> bool
 
 stadef isnil = iset_is_empty
 
 (* ****** ****** *)
 //
 stacst
-iset_equal: (iset, iset) -> bool
+eq_iset_iset
+  : (iset, iset) -> bool
 //
-stadef == = iset_equal
+stadef == = eq_iset_iset
 //
 praxi
 lemma_iset_equal_p2b
-  {s1,s2:iset}(ISETEQ(s1,s2)): [s1==s2] unit_p
+  {s1,s2:iset}
+  (pf: ISETEQ(s1,s2)): [s1==s2] unit_p
+//
 praxi
 lemma_iset_equal_b2p
-  {s1,s2:iset|iset_equal(s1,s2)}(): ISETEQ(s1,s2)
+  {s1,s2:iset| s1 == s2}(): ISETEQ(s1,s2)
 //
 (* ****** ****** *)
 //
 stacst
-iset_member: (iset, int) -> bool
+iset_member
+  : (iset, int) -> bool
 //
-stadef imem = iset_member
+stadef ismbr = iset_member
 //
 (* ****** ****** *)
 //
 stacst
-iset_union: (iset, iset) -> iset
+iset_union
+  : (iset, iset) -> iset
 stacst
-iset_intersect: (iset, iset) -> iset
+iset_intersect
+  : (iset, iset) -> iset
 //
 stadef + = iset_union
 stadef * = iset_intersect
@@ -85,7 +91,8 @@ stadef * = iset_intersect
 (* ****** ****** *)
 //
 stacst
-iset_ncomplement : (iset, int) -> iset
+iset_ncomplement
+  : (iset, int) -> iset
 //
 stadef ncomp = iset_ncomplement
 //
