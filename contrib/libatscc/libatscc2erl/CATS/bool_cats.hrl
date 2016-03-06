@@ -17,23 +17,23 @@
 %% ****** ****** %%
 %%
 %%fun%%
-ats2jspre_neg_bool0(X) -> not(X).
+ats2erlpre_neg_bool0(X) -> not(X).
 %%fun%%
-ats2jspre_neg_bool1(X) -> not(X).
+ats2erlpre_neg_bool1(X) -> not(X).
 %%
 %% ****** ****** %%
 %%
 %%fun%%
-ats2jspre_eq_bool0_bool0(X, Y) -> (X =:= Y).
+ats2erlpre_eq_bool0_bool0(X, Y) -> (X =:= Y).
 %%fun%%
-ats2jspre_neq_bool0_bool0(X, Y) -> (X =/= Y).
+ats2erlpre_neq_bool0_bool0(X, Y) -> (X =/= Y).
 %%
 %% ****** ****** %%
 %%
 %%fun%%
-ats2jspre_eq_bool1_bool1(X, Y) -> (X =:= Y).
+ats2erlpre_eq_bool1_bool1(X, Y) -> (X =:= Y).
 %%fun%%
-ats2jspre_neq_bool1_bool1(X, Y) -> (X =/= Y).
+ats2erlpre_neq_bool1_bool1(X, Y) -> (X =/= Y).
 %%
 %% ****** ****** %%
 
