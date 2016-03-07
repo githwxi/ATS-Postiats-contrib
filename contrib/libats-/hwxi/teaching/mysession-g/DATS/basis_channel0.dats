@@ -76,6 +76,18 @@ channel0_recv_val
 //
 (* ****** ****** *)
 //
+extern
+fun
+{a:vt0p}
+channel0_link
+  {n:int}
+(
+  cap: intGt(0)
+, chan0: channel0(a, n), chan1: channel0(a, n)
+) : channel0(a, n)
+//
+(* ****** ****** *)
+//
 datavtype
 channel0_
 (
@@ -109,13 +121,13 @@ val ncol = i2sz(nrole)
 vtypedef uchan = uchan(a)
 //
 val
-elt = the_null_ptr
+u0ch = the_null_ptr
 val
 chmat0 =
-matrixptr_make_elt<ptr>(nrow, ncol, elt)
+matrixptr_make_elt<ptr>(nrow, ncol, u0ch)
 val
 chmat1 =
-matrixptr_make_elt<ptr>(nrow, ncol, elt)
+matrixptr_make_elt<ptr>(nrow, ncol, u0ch)
 //
 val
 chmat0 =
@@ -250,6 +262,93 @@ var x0: a // uninitized
 val () = channel0_recv(chan0, i, j, x0)
 //
 } (* end of [channel0_recv_val] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+channel0_link
+  (cap, chan0, chan1) = let
+//
+prval() =
+  lemma_channel0_param(chan0)
+prval() =
+  lemma_channel0_param(chan1)
+//
+fun
+auxlink{n:nat}
+(
+  n: int(n)
+, G0: intset(n), G1: intset(n), p0: ptr, p1: ptr
+) : void =
+{
+//
+vtypedef
+uchan = uchan(a)
+//
+var
+fwork =
+lam@
+( i: natLt(n)
+, j: natLt(n)
+) : void =>
+{
+//
+  val ij = i * n + j
+  val ch0_ij =
+    $UN.ptr0_get_at<uchan>(p0, ij)
+  val ch1_ij =
+    $UN.ptr0_get_at<uchan>(p1, ij)
+  val () = uchan_qinsert(ch0_ij, ch1_ij)
+  val ((*freed*)) = uchan_unref(ch0_ij)
+//
+  val ji = j * n + i
+  val ch0_ji =
+    $UN.ptr0_get_at<uchan>(p0, ji)
+  val ch1_ji =
+    $UN.ptr0_get_at<uchan>(p1, ji)
+  val () = uchan_qinsert(ch1_ji, ch0_ji)
+  val ((*freed*)) = uchan_unref(ch1_ji)
+//
+} (* end of [fwork] *)
+//
+val () = intset2_foreach_cloref(G0, G1, $UN.cast(addr@fwork))
+//
+} (* end of [auxlink] *)
+//
+val+
+~CHANNEL0(n0, G0, chmat0) = chan0
+val+
+~CHANNEL0(n1, G1, chmat1) = chan1
+//
+val G2 = intset_union(G0, G1) // HX: G0*G1 = 0
+//
+val (chan2, chan2_) = channel0_posneg(cap, n0, G2)
+//
+val+~CHANNEL0(_, G2_, chmat2_) = chan2_
+//
+val p0 = ptrcast(chmat0)
+val p1 = ptrcast(chmat1)
+val p2_ = ptrcast(chmat2_)
+//
+val () = auxlink(n0, G0, G1, p0, p1)
+val () = auxlink(n0, G0, G2_, p0, p2_)
+val () = auxlink(n1, G1, G2_, p1, p2_)
+//
+val chmat0 =
+$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat0)
+val chmat1 =
+$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat1)
+val chmat2_ =
+$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat2_)
+//
+val ((*freed*)) = matrixptr_free(chmat0)
+val ((*freed*)) = matrixptr_free(chmat1)
+val ((*freed*)) = matrixptr_free(chmat2_)
+//
+in
+  chan2
+end // end of [channel0_link]
 
 (* ****** ****** *)
 
