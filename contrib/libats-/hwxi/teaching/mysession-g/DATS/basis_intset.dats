@@ -40,6 +40,163 @@ intset_int3(x1, x2, x3) = $list{int}(x1, x2, x3)
 
 implement
 {}(*tmp*)
+intset_add_elt
+  (xs, x0) = let
+//
+fun
+aux
+(
+  xs: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+case+ xs of
+| list_nil() =>
+    cons_vt(x0, res)
+  // list_nil
+| list_cons(x, xs) =>
+    if x < x0
+      then aux(xs, cons_vt(x, res))
+      else (
+        if x > x0
+          then
+          list_revapp2_vt
+            (xs, cons_vt(x, cons_vt(x0, res)))
+          // end of [then]
+          else
+          list_revapp2_vt(xs, cons_vt(x0, res))
+      ) (* end of [else] *)
+   // end of [list_cons]
+)
+//
+in
+  list_vt2t(list_vt_reverse(aux(xs, nil_vt())))
+end // end of [intset_add_elt]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intset_union
+  (xs1, xs2) = let
+//
+fnx
+aux0
+(
+  xs1: List0(int)
+, xs2: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+case+ xs1 of
+| list_nil() => list_revapp2_vt(xs2, res)
+| list_cons(x1, xs1) => aux1(x1, xs1, xs2, res)
+)
+//
+and
+aux1
+(
+  x1: int
+, xs1: List0(int)
+, xs2: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+case+ xs2 of
+| list_nil() =>
+    list_revapp2_vt(xs1, cons_vt(x1, res))
+  // end of [list_nil]
+| list_cons(x2, xs2) => aux2(x1, xs1, x2, xs2, res)
+)
+//
+and
+aux2
+(
+  x1: int
+, xs1: List0(int)
+, x2: int
+, xs2: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+//
+if x1 < x2
+  then
+  aux1(x2, xs2, xs1, cons_vt(x1, res))
+  else (
+    if x1 > x2
+      then
+      aux1(x1, xs1, xs2, cons_vt(x2, res))
+      else aux0(xs1, xs2, cons_vt(x1, res))
+  ) (* end of [else] *)
+) (* end of [aux2] *)
+//
+in
+  list_vt2t(list_vt_reverse(aux0(xs1, xs2, nil_vt())))
+end // end of [intset_union]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intset_intersect
+  (xs1, xs2) = let
+//
+fnx
+aux0
+(
+  xs1: List0(int)
+, xs2: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+case+ xs1 of
+| list_nil() => res
+| list_cons(x1, xs1) => aux1(x1, xs1, xs2, res)
+)
+//
+and
+aux1
+(
+  x1: int
+, xs1: List0(int)
+, xs2: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+case+ xs2 of
+| list_nil() => res
+| list_cons(x2, xs2) => aux2(x1, xs1, x2, xs2, res)
+)
+//
+and
+aux2
+(
+  x1: int
+, xs1: List0(int)
+, x2: int
+, xs2: List0(int)
+, res: List0_vt(int)
+) : List0_vt(int) =
+(
+//
+if x1 < x2
+  then aux1(x2, xs2, xs1, res)
+  else (
+    if x1 > x2
+      then aux1(x1, xs1, xs2, res)
+      else aux0(xs1, xs2, cons_vt(x1, res))
+  ) (* end of [else] *)
+) (* end of [aux2] *)
+//
+in
+  list_vt2t(list_vt_reverse(aux0(xs1, xs2, nil_vt())))
+end // end of [intset_intersect]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 intset_ncomplement
   (xs, n) = let
 //

@@ -80,6 +80,13 @@ stadef ismbr = iset_member
 (* ****** ****** *)
 //
 stacst
+iset_add_elt
+  : (iset, int) -> iset
+stadef + = iset_add_elt
+//
+(* ****** ****** *)
+//
+stacst
 iset_union
   : (iset, iset) -> iset
 stacst
@@ -126,15 +133,24 @@ intset_int
 fun{}
 intset_int2
 {n:int}
-{ i1,i2:int
+{ i1,i2:nat
 | i1 < i2; i2 < n
 } (i1:int(i1), i2:int(i2)): intset(n, iset(i1, i2))
 fun{}
 intset_int3
 {n:int}
-{ i1,i2,i3:int
+{ i1,i2,i3:nat
 | i1 < i2; i2 < i3; i3 < n}
   (int(i1), int(i2), int(i3)): intset(n, iset(i1, i2, i3))
+//
+(* ****** ****** *)
+//
+fun{}
+intset_add_elt
+{n:int}
+{xs:iset}
+{i:nat | i < n}
+  (xs: intset(n, xs), i: int(i)): intset(n, xs+i)
 //
 (* ****** ****** *)
 //
