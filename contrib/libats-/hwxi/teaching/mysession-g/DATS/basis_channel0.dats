@@ -78,9 +78,8 @@ channel0_recv_val
 //
 extern
 fun
-{a:vt0p}
 channel0_link
-  {n:int}
+{a:vt0p}{n:int}
 (
   cap: intGt(0)
 , chan0: channel0(a, n), chan1: channel0(a, n)
@@ -88,9 +87,8 @@ channel0_link
 //
 extern
 fun
-{a:vt0p}
 cchannel0_link
-  {n:int}
+{a:vt0p}{n:int}
 (
   cap: intGt(0)
 , chan0: channel0(a, n), chan1: channel0(a, n)
@@ -275,32 +273,24 @@ val () = channel0_recv(chan0, i, j, x0)
 
 (* ****** ****** *)
 
-implement
-{a}(*tmp*)
-channel0_link
-  (cap, chan0, chan1) = let
-//
-prval() =
-  lemma_channel0_param(chan0)
-prval() =
-  lemma_channel0_param(chan1)
-//
+local
+
 fun
-auxlink{n:nat}
+auxlink
+{a:vt0p}{n:nat}
 (
   n: int(n)
 , G0: intset(n), G1: intset(n), p0: ptr, p1: ptr
 ) : void =
 {
 //
-vtypedef
-uchan = uchan(a)
+vtypedef uchan = uchan(a)
 //
 var
 fwork =
 lam@
-( i: natLt(n)
-, j: natLt(n)
+(
+  i: natLt(n), j: natLt(n)
 ) : void =>
 {
 //
@@ -325,6 +315,17 @@ lam@
 val () = intset2_foreach_cloref(G0, G1, $UN.cast(addr@fwork))
 //
 } (* end of [auxlink] *)
+
+in (* in-of-local *)
+
+implement
+channel0_link{a}
+  (cap, chan0, chan1) = let
+//
+prval() =
+  lemma_channel0_param(chan0)
+prval() =
+  lemma_channel0_param(chan1)
 //
 val+
 ~CHANNEL0(n0, G0, chmat0) = chan0
@@ -363,55 +364,13 @@ end // end of [channel0_link]
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-cchannel0_link
+cchannel0_link{a}
   (cap, chan0, chan1) = let
 //
 prval() =
   lemma_channel0_param(chan0)
 prval() =
   lemma_channel0_param(chan1)
-//
-fun
-auxlink{n:nat}
-(
-  n: int(n)
-, G0: intset(n), G1: intset(n), p0: ptr, p1: ptr
-) : void =
-{
-//
-vtypedef
-uchan = uchan(a)
-//
-var
-fwork =
-lam@
-( i: natLt(n)
-, j: natLt(n)
-) : void =>
-{
-//
-  val ij = i * n + j
-  val ch0_ij =
-    $UN.ptr0_get_at<uchan>(p0, ij)
-  val ch1_ij =
-    $UN.ptr0_get_at<uchan>(p1, ij)
-  val () = uchan_qinsert(ch0_ij, ch1_ij)
-  val ((*freed*)) = uchan_unref(ch0_ij)
-//
-  val ji = j * n + i
-  val ch0_ji =
-    $UN.ptr0_get_at<uchan>(p0, ji)
-  val ch1_ji =
-    $UN.ptr0_get_at<uchan>(p1, ji)
-  val () = uchan_qinsert(ch1_ji, ch0_ji)
-  val ((*freed*)) = uchan_unref(ch1_ji)
-//
-} (* end of [fwork] *)
-//
-val () = intset2_foreach_cloref(G0, G1, $UN.cast(addr@fwork))
-//
-} (* end of [auxlink] *)
 //
 val+
 ~CHANNEL0(n0, G0, chmat0) = chan0
@@ -452,6 +411,8 @@ val ((*freed*)) = matrixptr_free(chmat2_)
 in
   chan2
 end // end of [cchannel0_link]
+
+end // end of [local]
 
 (* ****** ****** *)
 
