@@ -80,6 +80,11 @@ channel0_recv_val
 //
 (* ****** ****** *)
 //
+(*
+//
+// HX-2015-03-06:
+// This one does not work with sschoose!!!
+//
 extern
 fun
 channel0_link
@@ -88,6 +93,7 @@ channel0_link
   cap: intGt(0)
 , chan0: channel0(a, n), chan1: channel0(a, n)
 ) : channel0(a, n)
+*)
 //
 extern
 fun
@@ -322,6 +328,11 @@ val () = intset2_foreach_cloref(G0, G1, $UN.cast(addr@fwork))
 
 in (* in-of-local *)
 
+(*
+//
+// HX-2015-03-06:
+// This one does not work with sschoose!!!
+//
 implement
 channel0_link{a}
   (cap, chan0, chan1) = let
@@ -364,6 +375,7 @@ val ((*freed*)) = matrixptr_free(chmat2_)
 in
   chan2
 end // end of [channel0_link]
+*)
 
 (* ****** ****** *)
 

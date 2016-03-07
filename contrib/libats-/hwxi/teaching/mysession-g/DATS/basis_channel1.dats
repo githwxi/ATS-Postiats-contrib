@@ -172,7 +172,7 @@ channel0_posneg<ptr>(cap, nrole, G)
 //
 val
 tchan =
-$UN.castvwtp0{channel1(G, n, ss)}(chan0)
+$UN.castvwtp0{channel1(G, n, ssn)}(chan0)
 //
 val tid =
 athread_create_cloptr_exn
@@ -187,7 +187,7 @@ end // end of [let]
 ) (* end of [val] *)
 //
 in
-  $UN.castvwtp0{cchannel1(G, n, ss)}(chan1)
+  $UN.castvwtp0{cchannel1(G, n, ssn)}(chan1)
 end // end of [channeg_create_exn]
 //
 (* ****** ****** *)
