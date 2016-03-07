@@ -83,7 +83,8 @@ channel0_
 ) =
 CHANNEL0 of
 (
-  int(n), intset(n), matrixptr(uchan(a), n, n)
+  int(n), intset(n)
+, matrixptr(uchan(a), n, n)
 ) (* end of [channel0_] *)
 //
 (* ****** ****** *)
@@ -92,6 +93,66 @@ assume
 channel0_vtype
   (a:vt0p, n:int) = channel0_(a, n)
 //
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+channel0_posneg
+  {n}(cap, nrole, G0) = let
+//
+val G1 =
+  intset_ncomplement(G0, nrole)
+//
+val nrow = i2sz(nrole)
+val ncol = i2sz(nrole)
+//
+vtypedef uchan = uchan(a)
+//
+val
+elt = the_null_ptr
+val
+chmat0 =
+matrixptr_make_elt<ptr>(nrow, ncol, elt)
+val
+chmat1 =
+matrixptr_make_elt<ptr>(nrow, ncol, elt)
+//
+val
+chmat0 =
+$UN.castvwtp0{matrixptr(uchan,n,n)}(chmat0)
+val
+chmat1 =
+$UN.castvwtp0{matrixptr(uchan,n,n)}(chmat1)
+//
+val p0 = ptrcast(chmat0)
+and p1 = ptrcast(chmat1)
+//
+var
+fwork =
+lam@
+( i: natLt(n)
+, j: natLt(n)
+) : void =>
+{
+  val n = nrole
+  val chx0 = uchan_make(cap)
+  and chy0 = uchan_make(cap)
+  val chx1 = uchan_ref(chx0)
+  and chy1 = uchan_ref(chy0)
+  val ij = i * n + j and ji = j * n + i
+  val () = $UN.ptr0_set_at<uchan>(p0, ij, chx0)
+  val () = $UN.ptr0_set_at<uchan>(p0, ji, chy0)
+  val () = $UN.ptr0_set_at<uchan>(p1, ij, chx1)
+  val () = $UN.ptr0_set_at<uchan>(p1, ji, chy1)
+} (* end of [fwork] *)
+//
+val () =
+  intset2_foreach_cloref(G0, G1, $UN.cast(addr@fwork))
+//
+in
+  (CHANNEL0(nrole, G0, chmat0), CHANNEL0(nrole, G1, chmat1))
+end // end of [channel0_posneg]
+
 (* ****** ****** *)
 
 implement
