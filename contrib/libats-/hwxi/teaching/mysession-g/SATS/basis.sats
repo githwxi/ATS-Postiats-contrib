@@ -34,19 +34,23 @@ stadef cons = ssession_cons
 //
 absvtype
 channel1_vtype
-  (iset, n: int, ssn:type) = ptr
-//
-stadef channel1 = channel1_vtype
+  (G:iset, n:int, ssn:type) = ptr
 //
 vtypedef
-cchannel1(G:iset, n:int, ssn:type) = channel1(ncomp(G, n), n, ssn)
+channel1
+  (G:iset, n:int, ssn:type) = channel1_vtype(G, n, ssn)
+//
+vtypedef
+cchannel1
+  (G:iset, n:int, ssn:type) = channel1_vtype(ncomp(G, n), n, ssn)
 //
 (* ****** ****** *)
-
+//
 fun
 {a:vt0p}
-channel1_close{G:iset}{n:int}{ss:type}(channel1(G, n, nil)): void
-
+channel1_close
+  {n:int}{ssn:type}{G:iset}(channel1(G, n, nil)): void
+//
 (* ****** ****** *)
 //
 fun

@@ -23,6 +23,20 @@ boxed (a:vt@ype) = BOX of (a)
 
 implement
 {a}(*tmp*)
+channel1_close
+  {n}(tchan) = let
+//
+vtypedef bxa = boxed(a)
+vtypedef channel0 = channel0(bxa, n)
+//
+in
+  channel0_free($UN.castvwtp0{channel0}(tchan))
+end // end of [channel1_close]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
 channel1_send
   {n}(tchan, i, j, x0) = let
 //
