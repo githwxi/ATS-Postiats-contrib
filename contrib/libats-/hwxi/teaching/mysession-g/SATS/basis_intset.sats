@@ -192,7 +192,15 @@ intset2_foreach_cloref
 //
 (* ****** ****** *)
 //
-fun
+fun{}
+print_intset : intset -> void
+fun{}
+prerr_intset : intset -> void
+//
+overload print with print_intset
+overload prerr with prerr_intset
+//
+fun{}
 fprint_intset: fprint_type(intset)
 //
 overload fprint with fprint_intset

@@ -298,10 +298,15 @@ in
 end // end of [intset2_foreach_cloref]
 
 (* ****** ****** *)
-
-implement
-fprint_intset(out, xs) = fprint_list_sep(out, xs, "->")
-
+//
+implement{}
+print_intset(xs) = fprint_intset(stdout_ref, xs)
+implement{}
+prerr_intset(xs) = fprint_intset(stderr_ref, xs)
+//
+implement{}
+fprint_intset(out, xs) = fprint_list_sep<int>(out, xs, "->")
+//
 (* ****** ****** *)
 
 (* end of [basis_intset.dats] *)

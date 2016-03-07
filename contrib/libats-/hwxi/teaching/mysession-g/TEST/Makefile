@@ -13,6 +13,15 @@ all::
 
 ######
 
+all:: \
+intset
+intset: \
+intset.dats; \
+$(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
+cleanall:: ; $(RMF) intset
+
+######
+
 RMF=rm -f
 
 ######
