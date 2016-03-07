@@ -47,10 +47,30 @@ cchannel1
 //
 (* ****** ****** *)
 //
+praxi
+channel1_skipin
+  {a:vt0p}
+  {n:int}{ssn:type}{G:iset}
+  {i,j:nat | ismbr(G, i); ismbr(G, j)}
+(
+  !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn)
+) : void // end-of-praxi
+//
+praxi
+channel1_skipex
+  {a:vt0p}
+  {n:int}{ssn:type}{G:iset}
+  {i,j:nat | ~ismbr(G, i); ~ismbr(G, j)}
+(
+  !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn)
+) : void // end-of-praxi
+//
+(* ****** ****** *)
+//
 fun
 {a:vt0p}
 channel1_close
-  {n:int}{ssn:type}{G:iset}(channel1(G, n, nil)): void
+  {n:int}{ssn:type}{G:iset}(chan: channel1(G, n, nil)): void
 //
 (* ****** ****** *)
 //

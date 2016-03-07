@@ -153,15 +153,15 @@ channel_cap ((*void*)) = 1024
 //
 fun{}
 cchannel1_create_exn
-  {n:int}{ss:type}{G:iset}
-  (fserv: channel1(G, n, ss) -<lincloptr1> void): cchannel1(G, n, ss)
+  {n:int}{ssn:type}{G:iset}
+  (fserv: channel1(G, n, ssn) -<lincloptr1> void): cchannel1(G, n, ssn)
 //
 *)
 //
 implement
 {}(*tmp*)
 cchannel1_create_exn
-  {n}{ss}{G}
+  {n}{ssn}{G}
   (nrole, G, fserv) = let
 //
 val cap = channel_cap()
