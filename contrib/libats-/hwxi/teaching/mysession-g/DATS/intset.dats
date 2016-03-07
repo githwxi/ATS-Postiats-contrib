@@ -5,7 +5,12 @@
 (* ****** ****** *)
 //
 staload
-"./../SATS/intset.sats"
+UN =
+"prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/intset.sats"
 //
 (* ****** ****** *)
 
@@ -82,6 +87,57 @@ case+ xs of
 in
   list_vt2t(list_vt_reverse(ys))
 end // end of [intset_ncomplement]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intset_foreach_cloref
+  (xs, fwork) = let
+in
+  list_foreach_cloref(xs, $UN.cast(fwork))
+end // end of [intset_foreach_cloref]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intset2_foreach_cloref
+  {n}(xs, ys, fwork) = let
+//
+fun
+aux
+(
+  x: int, ys: List0(int)
+) : void =
+(
+case+ ys of
+| list_nil() => ()
+| list_cons(y, ys) => let
+    val x =
+      $UN.cast{natLt(n)}(y)
+    val y =
+      $UN.cast{natLt(n)}(y)
+    val ((*void*)) = fwork(x, y) in aux(x, ys)
+  end (* end of [list_cons] *)
+)
+//
+fun
+auxlst
+(
+  xs: List0(int), ys: List0(int)
+) : void =
+(
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) =>
+  (
+    let val () = aux(x, ys) in auxlst(xs, ys) end
+  ) (* end of [list_cons] *)
+)
+in
+  auxlst(xs, ys)  
+end // end of [intset2_foreach_cloref]
 
 (* ****** ****** *)
 
