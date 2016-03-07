@@ -36,11 +36,13 @@ println!
 //
 #define N 10
 //
-val xs = intset_nil{N}()
+val xs =
+intset_nil{N}()
+//
 val xs = xs + 1
-val xs = xs + 3
 val xs = xs + 5
 val xs = xs + 6
+val xs = xs + 3
 val () = println! ("xs = ", xs)
 //
 val xs = xs + xs

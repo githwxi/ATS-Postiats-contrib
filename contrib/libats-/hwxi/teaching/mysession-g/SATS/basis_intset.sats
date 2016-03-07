@@ -100,7 +100,7 @@ stadef * = iset_intersect
 //
 stacst
 iset_ncomplement
-  : (iset, int) -> iset
+  : (int, iset) -> iset
 //
 stadef ncomp = iset_ncomplement
 //
@@ -169,7 +169,7 @@ intset_intersect
 fun{}
 intset_ncomplement
   {xs:iset}{n:nat}
-  (xs: intset(n, xs), n: int(n)): intset(n, ncomp(xs, n))
+  (xs: intset(n, xs), n: int(n)): intset(n, ncomp(n, xs))
 //
 (* ****** ****** *)
 //

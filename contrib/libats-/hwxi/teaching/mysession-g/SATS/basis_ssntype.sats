@@ -43,7 +43,7 @@ channel1
 //
 vtypedef
 cchannel1
-  (G:iset, n:int, ssn:type) = channel1_vtype(ncomp(G, n), n, ssn)
+  (G:iset, n:int, ssn:type) = channel1_vtype(ncomp(n, G), n, ssn)
 //
 (* ****** ****** *)
 //
@@ -135,8 +135,10 @@ cchannel1_link
 //
 fun{}
 cchannel1_create_exn
-  {n:int}{ss:type}{G:iset}
-  (fserv: channel1(G, n, ss) -<lincloptr1> void): cchannel1(G, n, ss)
+  {n:nat}{ss:type}{G:iset}
+(
+  nrole: int(n), G: intset(n), fserv: channel1(G, n, ss) -<lincloptr1> void
+) : cchannel1(G, n, ss) // end of [cchannel1_create_exn]
 //
 (* ****** ****** *)
 

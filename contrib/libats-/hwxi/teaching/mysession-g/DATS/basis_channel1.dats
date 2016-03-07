@@ -133,4 +133,63 @@ end // end of [cchannel1_link]
 //
 (* ****** ****** *)
 
+staload "libats/SATS/athread.sats"
+
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+channel_cap ((*void*)) = 2
+//
+(*
+implement
+{}(*tmp*)
+channel_cap ((*void*)) = 1024
+*)
+//
+(* ****** ****** *)
+//
+(*
+//
+fun{}
+cchannel1_create_exn
+  {n:int}{ss:type}{G:iset}
+  (fserv: channel1(G, n, ss) -<lincloptr1> void): cchannel1(G, n, ss)
+//
+*)
+//
+implement
+{}(*tmp*)
+cchannel1_create_exn
+  {n}{ss}{G}
+  (nrole, G, fserv) = let
+//
+val cap = channel_cap()
+//
+val
+(chan0, chan1) =
+channel0_posneg<ptr>(cap, nrole, G)
+//
+val
+tchan =
+$UN.castvwtp0{channel1(G, n, ss)}(chan0)
+//
+val tid =
+athread_create_cloptr_exn
+(
+//
+llam () => let
+  val () = fserv(tchan)
+in
+  cloptr_free($UN.castvwtp0{cloptr(void)}(fserv))
+end // end of [let]
+//
+) (* end of [val] *)
+//
+in
+  $UN.castvwtp0{cchannel1(G, n, ss)}(chan1)
+end // end of [channeg_create_exn]
+//
+(* ****** ****** *)
+
 (* end of [basis_channel1.dats] *)
