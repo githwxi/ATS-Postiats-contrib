@@ -183,4 +183,4 @@ overload fprint with fprint_intset
 //
 (* ****** ****** *)
 
-(* end of [intset.sats] *)
+(* end of [basis_intset.sats] *)

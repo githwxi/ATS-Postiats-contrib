@@ -4,7 +4,8 @@
 
 (* ****** ****** *)
 
-staload "./intset.sats"
+staload
+"./basis_intset.sats"
 
 (* ****** ****** *)
 //

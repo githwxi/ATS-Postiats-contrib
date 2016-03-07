@@ -10,7 +10,8 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./../SATS/basis.sats"
+staload
+"./../SATS/basis_ssntype.sats"
 //
 staload "./basis_channel0.dats"
 //

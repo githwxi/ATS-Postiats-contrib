@@ -10,7 +10,8 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./../SATS/intset.sats"
+staload
+"./../SATS/basis_intset.sats"
 //
 (* ****** ****** *)
 
@@ -146,4 +147,4 @@ fprint_intset(out, xs) = fprint_list_sep(out, xs, "->")
 
 (* ****** ****** *)
 
-(* end of [intset.dats] *)
+(* end of [basis_intset.dats] *)

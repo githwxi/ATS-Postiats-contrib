@@ -1,13 +1,17 @@
 (*
-** Channel pairs
+** untyped
+** session channels
 *)
 
 (* ****** ****** *)
 //
 staload
-"./../SATS/basis.sats"
+"./../SATS/basis_intset.sats"
+//
 staload
-"./../SATS/intset.sats"
+"./../SATS/basis_ssntype.sats"
+//
+(* ****** ****** *)
 //
 staload "./basis_uchan.dats"
 //
