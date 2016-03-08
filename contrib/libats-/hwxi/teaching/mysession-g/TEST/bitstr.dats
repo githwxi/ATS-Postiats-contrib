@@ -221,7 +221,7 @@ then let
   val () = chan1pos_list_cons(chp)
   val ((*void*)) = chan1pos_send<bit>(chp, bit)
 in
-  fserv (n2, chp)
+  fserv(n2, chp)
 end // end of [then]
 else let
   val () = chan1pos_list_nil(chp) in channel1_close(chp)
@@ -230,7 +230,7 @@ end // end of [else]
 ) (* end of [fserv] *)
 //
 in
-  chan1neg_create_exn{ssn_list(bit)}(llam(chp) => fserv (n, chp))
+  chan1neg_create_exn{ssn_list(bit)}(llam(chp) => fserv(n, chp))
 end // end of [int2bits]
 
 (* ****** ****** *)
@@ -299,7 +299,7 @@ case+ opt of
 end // end of [fserv]
 //
 in
-  chan1neg_create_exn{ssn_list(bit)}(llam(chp) => fserv (chp, chn))
+  chan1neg_create_exn{ssn_list(bit)}(llam(chp) => fserv(chp, chn))
 end // end of [succ_bits]
   
 (* ****** ****** *)
@@ -370,7 +370,7 @@ case+ opt1 of
 end // end of [fserv]
 //
 in
-  chan1neg_create_exn{ssn_list(bit)}(llam(chp) => fserv (chp, chn1, chn2))
+  chan1neg_create_exn{ssn_list(bit)}(llam(chp) => fserv(chp, chn1, chn2))
 end // end of [add_bits_bits]
 
 (* ****** ****** *)
