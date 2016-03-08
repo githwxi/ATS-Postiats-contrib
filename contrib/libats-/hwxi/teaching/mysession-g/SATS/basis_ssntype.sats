@@ -58,30 +58,46 @@ cchannel1
 //
 (* ****** ****** *)
 //
-praxi
+fun
+{a:vt0p}
+channel1_close
+  {n:int}{ssn:type}{G:iset}(chan: channel1(G, n, nil)): void
+//
+(* ****** ****** *)
+//
+fun{}
 channel1_skipin
   {a:vt0p}
   {n:int}{ssn:type}{G:iset}
   {i,j:nat | ismbr(G, i); ismbr(G, j)}
 (
   !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn)
-) : void // end-of-praxi
-//
+) : void // end-of-function
 praxi
+lemma_channel1_skipin
+  {a:vt0p}
+  {n:int}{ssn:type}{G:iset}
+  {i,j:nat | ismbr(G, i); ismbr(G, j)}
+(
+  !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn)
+) : void // lemma_channel1_skipin
+//
+fun{}
 channel1_skipex
   {a:vt0p}
   {n:int}{ssn:type}{G:iset}
   {i,j:nat | ~ismbr(G, i); ~ismbr(G, j)}
 (
   !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn)
-) : void // end-of-praxi
-//
-(* ****** ****** *)
-//
-fun
-{a:vt0p}
-channel1_close
-  {n:int}{ssn:type}{G:iset}(chan: channel1(G, n, nil)): void
+) : void // end-of-function
+praxi
+lemma_channel1_skipex
+  {a:vt0p}
+  {n:int}{ssn:type}{G:iset}
+  {i,j:nat | ~ismbr(G, i); ~ismbr(G, j)}
+(
+  !channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn)
+) : void // lemma_channel1_skipex
 //
 (* ****** ****** *)
 //
@@ -176,7 +192,7 @@ channel1_link
 (* ****** ****** *)
 //
 fun{}
-channel1_link_posneg
+channel1_link_elim
   {n:int}{ssn:type}{G:iset}(channel1(G, n, ssn), cchannel1(G, n, ssn)): void
 //
 (* ****** ****** *)

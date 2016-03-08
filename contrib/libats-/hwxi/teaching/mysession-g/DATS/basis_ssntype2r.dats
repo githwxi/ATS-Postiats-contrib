@@ -21,19 +21,6 @@ staload
 //
 (* ****** ****** *)
 //
-extern
-praxi
-lemma_iset_sing_is_member
-  {x:int}
-  ((*void*)): [ismbr(iset(x), x)] void
-extern
-praxi
-lemma_iset_sing_isnot_member
-  {x,y:int | x != y}
-  ((*void*)): [~ismbr(iset(x), y)] void
-//
-(* ****** ****** *)
-//
 implement
 {a}(*tmp*)
 chan1pos_send

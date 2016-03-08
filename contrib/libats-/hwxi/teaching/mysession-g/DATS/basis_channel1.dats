@@ -35,6 +35,22 @@ in
 end // end of [channel1_close]
 
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+channel1_skipin(chan) =
+{
+  prval () = lemma_channel1_skipin(chan)
+}
+//
+implement
+{}(*tmp*)
+channel1_skipex(chan) =
+{
+  prval () = lemma_channel1_skipex(chan)
+}
+//
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)

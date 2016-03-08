@@ -31,6 +31,16 @@ cleanall:: ; $(RMF) test01-2p
 
 ######
 
+all:: \
+test01-3p
+test01-3p: \
+test01-3p.dats; \
+$(PATSCC) --constraint-ignore \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) test01-3p
+
+######
+
 RMF=rm -f
 
 ######

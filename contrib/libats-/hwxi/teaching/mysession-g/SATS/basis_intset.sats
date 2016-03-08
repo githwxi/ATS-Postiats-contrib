@@ -109,6 +109,17 @@ stadef ncomp = iset_ncomplement
 //
 (* ****** ****** *)
 //
+praxi
+lemma_iset_sing_is_member
+  {x:int}
+  ((*void*)): [ismbr(iset(x), x)] void
+praxi
+lemma_iset_sing_isnot_member
+  {x,y:int | x != y}
+  ((*void*)): [~ismbr(iset(x), y)] void
+//
+(* ****** ****** *)
+//
 // HX-2016-03:
 //
 // intset(n, xs)

@@ -79,7 +79,7 @@ val ((*void*)) =
   println! ("hello_server: msg = ", msg)
 //
 val ((*void*)) =
-  chan1pos_send(chan, "Bye!")
+  chan1pos_send(chan, "Bye-bye!")
 //
 val ((*closed*)) = channel1_close(chan)
 //

@@ -81,17 +81,6 @@ channel0_recv_val
 //
 (* ****** ****** *)
 //
-extern
-fun
-channel0_link
-{a:vt0p}{n:int}
-(
-  cap: intGt(0)
-, chan0: channel0(a, n), chan1: channel0(a, n)
-) : channel0(a, n)
-//
-(* ****** ****** *)
-//
 datavtype
 channel0_
 (
@@ -267,6 +256,19 @@ val () = channel0_recv(chan0, i, j, x0)
 //
 } (* end of [channel0_recv_val] *)
 
+(* ****** ****** *)
+//
+extern
+fun
+channel0_link
+{a:vt0p}{n:int}
+(
+  cap: intGt(0)
+, chan0: channel0(a, n)
+, chan1: channel0(a, n)
+) : channel0(a, n)
+  = "ext#mysession_g_channel0_link"
+//
 (* ****** ****** *)
 
 local
