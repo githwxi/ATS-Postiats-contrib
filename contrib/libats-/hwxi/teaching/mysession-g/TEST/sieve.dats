@@ -66,15 +66,13 @@ staload _ =
 abstype
 ssn_colist(a:vt@ype)
 //
-typedef colist(a:vt@ype) = ssn_colist(a)
-//
 (* ****** ****** *)
 //
 datatype
 chan1pos_list
   (a:vt@ype, type) =
 | chan1pos_list_nil(a, nil) of ()
-| chan1pos_list_cons(a, snd(a) :: colist(a)) of ()
+| chan1pos_list_cons(a, snd(a) :: ssn_colist(a)) of ()
 //
 (* ****** ****** *)
 //
@@ -83,7 +81,7 @@ fun{}
 chan1pos_list
   {a:vt@ype}
 (
-  !chan1pos(colist(a)) >> chan1pos(ssn)
+  !chan1pos(ssn_colist(a)) >> chan1pos(ssn)
 ) : #[ssn:type] chan1pos_list(a, ssn)
 //
 (* ****** ****** *)
@@ -92,12 +90,12 @@ extern
 fun{}
 chan1neg_list_nil
   {a:vt@ype}
-  (!chan1neg(colist(a)) >> chan1neg(nil)): void
+  (!chan1neg(ssn_colist(a)) >> chan1neg(nil)): void
 extern
 fun{}
 chan1neg_list_cons
   {a:vt@ype}
-  (!chan1neg(colist(a)) >> chan1neg(snd(a)::colist(a))): void
+  (!chan1neg(ssn_colist(a)) >> chan1neg(snd(a)::ssn_colist(a))): void
 //
 (* ****** ****** *)
 
@@ -174,12 +172,12 @@ prval () = $UN.castview2void(chneg)
 //
 extern
 fun
-ints_from (n: int): chan1neg(colist(int))
+ints_from (n: int): chan1neg(ssn_colist(int))
 //
 extern
 fun
 ints_filter
-  (chan1neg(colist(int)), n: int): chan1neg(colist(int))
+  (chan1neg(ssn_colist(int)), n: int): chan1neg(ssn_colist(int))
 //
 (* ****** ****** *)
   
@@ -189,7 +187,7 @@ ints_from (n) = let
 fun
 fserv
 (
-  chp: chan1pos(colist(int)), n: int
+  chp: chan1pos(ssn_colist(int)), n: int
 ) : void = let
 //
 val opt = chan1pos_list (chp)
@@ -217,7 +215,7 @@ ints_filter
 fun
 getfst
 (
-  chn: !chan1neg(colist(int))
+  chn: !chan1neg(ssn_colist(int))
 ) : int = let
 //
 val () =
@@ -232,8 +230,8 @@ end // end of [getfst]
 fun
 fserv
 (
-  chp: chan1pos(colist(int))
-, chn: chan1neg(colist(int))
+  chp: chan1pos(ssn_colist(int))
+, chn: chan1neg(ssn_colist(int))
 ) : void = let
 //
 val opt = chan1pos_list (chp)
@@ -261,7 +259,7 @@ end // end of [ints_filter]
 
 extern
 fun
-primes_gen(): chan1neg(colist(int))
+primes_gen(): chan1neg(ssn_colist(int))
 
 (* ****** ****** *)
 
@@ -271,8 +269,8 @@ primes_gen() = let
 fun
 fserv
 (
-  chp: chan1pos(colist(int))
-, chn: chan1neg(colist(int))
+  chp: chan1pos(ssn_colist(int))
+, chn: chan1neg(ssn_colist(int))
 ) : void = let
 //
 val opt = chan1pos_list (chp)
@@ -305,7 +303,7 @@ end // end of [primes_gen]
 extern
 fun
 fprint_primes
-  (out: FILEref, n: int, chn: !chan1neg(colist(int))): void
+  (out: FILEref, n: int, chn: !chan1neg(ssn_colist(int))): void
 //
 implement
 fprint_primes
