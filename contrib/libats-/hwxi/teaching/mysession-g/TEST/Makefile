@@ -57,6 +57,16 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
 cleanall:: ; $(RMF) bitstr
 
 ######
+
+all:: \
+sieve
+sieve: \
+sieve.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) sieve
+
+######
+
 RMF=rm -f
 
 ######
