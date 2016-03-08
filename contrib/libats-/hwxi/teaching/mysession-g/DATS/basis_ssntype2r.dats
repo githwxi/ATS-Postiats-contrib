@@ -106,6 +106,22 @@ val () = chan1neg_send<a>(chan, x0)
 } (* end of [chan1neg_send_val] *)
 //
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+chan1posneg_elim
+  (chpos, chneg) = let
+//
+(*
+prval
+ISETEQ() = lemma_iset_ncomp_2_1_0()
+*)
+//
+in
+  channel1_link_elim(chpos, $UN.castvwtp0(chneg))
+end // end of [chan1posneg_elim]
+//
+(* ****** ****** *)
 
 (*
 fun{}

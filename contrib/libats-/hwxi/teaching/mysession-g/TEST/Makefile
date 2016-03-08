@@ -49,6 +49,14 @@ cleanall:: ; $(RMF) test02-3p
 
 ######
 
+all:: \
+bitstr
+bitstr: \
+bitstr.dats; \
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) bitstr
+
+######
 RMF=rm -f
 
 ######

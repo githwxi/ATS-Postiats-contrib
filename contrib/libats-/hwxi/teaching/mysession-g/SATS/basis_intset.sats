@@ -120,6 +120,15 @@ lemma_iset_sing_isnot_member
 //
 (* ****** ****** *)
 //
+praxi
+lemma_iset_ncomp_2_0_1
+  ((*void*)): ISETEQ(iset(0), ncomp(2,iset(1)))
+praxi
+lemma_iset_ncomp_2_1_0
+  ((*void*)): ISETEQ(iset(1), ncomp(2,iset(0)))
+//
+(* ****** ****** *)
+//
 // HX-2016-03:
 //
 // intset(n, xs)

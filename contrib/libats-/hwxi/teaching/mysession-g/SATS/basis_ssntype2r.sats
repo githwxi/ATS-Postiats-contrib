@@ -63,6 +63,11 @@ chan1neg_send_val{ssn:type}
 (* ****** ****** *)
 //
 fun{}
+chan1posneg_elim{ssn:type}(chan1pos(ssn), chan1neg(ssn)): void
+//
+(* ****** ****** *)
+//
+fun{}
 chan1neg_create_exn
   {ssn:type}(fserv: chan1pos(ssn) -<lincloptr1> void): chan1neg(ssn)
 //

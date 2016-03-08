@@ -166,6 +166,27 @@ in
 end // end of [channel1_link]
 //
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+channel1_link_elim
+  {n}(tchan0, tchan1) = let
+//
+vtypedef
+channel0 = channel0(ptr, n)
+//
+val
+chan0 =
+$UN.castvwtp0{channel0}(tchan0)
+val
+chan1 =
+$UN.castvwtp0{channel0}(tchan1)
+//
+in
+  channel0_link_elim{ptr}(chan0, chan1)
+end // end of [channel1_link_elim]
+//
+(* ****** ****** *)
 
 staload "libats/SATS/athread.sats"
 

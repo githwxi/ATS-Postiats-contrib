@@ -288,13 +288,21 @@ channel0_link
 ) : channel0(a, n)
   = "ext#mysession_g_channel0_link"
 //
+extern
+fun
+channel0_link_elim
+{a:vtype}{n:int}
+(
+  chan0: channel0(a, n), chan1: channel0(a, n)
+) : void = "ext#mysession_g_channel0_link_elim"
+//
 (* ****** ****** *)
 
 local
 
 fun
 auxlink
-{a:vt0p}{n:nat}
+{a:vtype}{n:nat}
 (
   n: int(n)
 , G0: intset(n), G1: intset(n), p0: ptr, p1: ptr
@@ -425,6 +433,46 @@ val ((*freed*)) = matrixptr_free(chmat2_)
 in
   chan2
 end // end of [channel0_link]
+
+(* ****** ****** *)
+
+implement
+channel0_link_elim{a}
+  (chan0, chan1) = let
+//
+prval() =
+  lemma_channel0_param(chan0)
+prval() =
+  lemma_channel0_param(chan1)
+//
+val+
+~CHANNEL0(n0, G0, chmat0) = chan0
+val+
+~CHANNEL0(n1, G1, chmat1) = chan1
+//
+(*
+val () =
+println!("channel0_link: G0 = ", G0)
+val () =
+println!("channel0_link: G1 = ", G1)
+*)
+//
+val p0 = ptrcast(chmat0)
+val p1 = ptrcast(chmat1)
+//
+val () = auxlink(n0, G0, G1, p0, p1)
+//
+val chmat0 =
+$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat0)
+val chmat1 =
+$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat1)
+//
+val ((*freed*)) = matrixptr_free(chmat0)
+val ((*freed*)) = matrixptr_free(chmat1)
+//
+in
+  // nothing: channels eliminated
+end // end of [channel0_link_elim]
 
 end // end of [local]
 
