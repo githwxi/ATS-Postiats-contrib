@@ -129,13 +129,6 @@ prval() =
 lemma_iset_sing_isnot_member{1,2}()
 //
 val () =
-println!
-(
-  "hello_client1: C1 = "
-, channel1_get_group(chan)
-) (* end of [val] *)
-//
-val () =
   channel1_send
     (chan, 1, 2, "msg(1, 2)")
   // channel1_send

@@ -79,7 +79,7 @@ stadef C12 = iset(1,2)
 //
 extern
 fun
-hello_server(chan: channel1(S0, N, ssn_hello)): void
+hello_server0(chan: channel1(S0, N, ssn_hello)): void
 extern
 fun
 hello_client12(chan: channel1(C12, N, ssn_hello)): void
@@ -87,7 +87,7 @@ hello_client12(chan: channel1(C12, N, ssn_hello)): void
 (* ****** ****** *)
 
 implement
-hello_server(chan) =
+hello_server0(chan) =
 {
 //
 prval() =
@@ -101,7 +101,7 @@ val () = channel1_skipex(chan)
 //
 val msg = channel1_recv_val(chan, 2, 0)
 val ((*void*)) =
-  println! ("hello_server: msg = ", msg)
+  println! ("hello_server0: msg = ", msg)
 //
 val () = channel1_skipex(chan)
 //
@@ -109,20 +109,13 @@ val () = channel1_send(chan, 0, 1, "msg(0, 1)")
 //
 val ((*closed*)) = channel1_close(chan)
 //
-} (* end of [hello_server] *)
+} (* end of [hello_server0] *)
 
 (* ****** ****** *)
 
 implement
 hello_client12(chan) =
 {
-//
-val () =
-println!
-(
-  "hello_client1: C12 = "
-, channel1_get_group(chan)
-) (* end of [val] *)
 //
 val () = channel1_skipin(chan)
 //
@@ -154,13 +147,7 @@ val chn0 =
 cchannel1_create_exn
 (
   N, S0
-, llam(chp) => hello_server(chp)
-) (* end of [val] *)
-//
-val () =
-println!
-(
-  "S0_ = ", channel1_get_group(chn0)
+, llam(chp) => hello_server0(chp)
 ) (* end of [val] *)
 //
 val ((*void*)) = hello_client12(chn0)
