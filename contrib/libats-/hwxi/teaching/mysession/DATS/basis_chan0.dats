@@ -148,10 +148,8 @@ implement
 channel0_link
   (chan0x, chan0y) = let
 //
-val
-~CHANPAIR(chx1, chx2) = chan0x
-and
-~CHANPAIR(chy1, chy2) = chan0y
+val+~CHANPAIR(chx1, chx2) = chan0x
+val+~CHANPAIR(chy1, chy2) = chan0y
 //
 val () = uchannel_qinsert(chx1, chy2)
 and () = uchannel_qinsert(chy1, chx2)

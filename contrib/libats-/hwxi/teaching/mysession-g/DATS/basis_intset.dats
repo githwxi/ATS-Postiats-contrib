@@ -305,7 +305,7 @@ implement{}
 prerr_intset(xs) = fprint_intset(stderr_ref, xs)
 //
 implement{}
-fprint_intset(out, xs) = fprint_list_sep<int>(out, xs, "->")
+fprint_intset(out, xs) = fprint_list_sep<int>(out, xs, "+")
 //
 (* ****** ****** *)
 

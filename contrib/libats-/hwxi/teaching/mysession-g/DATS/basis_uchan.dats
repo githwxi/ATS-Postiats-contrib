@@ -412,7 +412,8 @@ mutex = unsafe_mutex_vt2t(ch.mutex)
 //
 val (pfmut | ()) = mutex_lock (mutex)
 //
-val xs = $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
+val xs =
+  $UN.castvwtp0{queue(a)}((pfmut | ch.queue))
 //
 val ((*void*)) = uchan_insert2<a> (chan, xs, x0)
 //

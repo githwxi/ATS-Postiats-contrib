@@ -18,6 +18,11 @@
 (* ****** ****** *)
 
 staload
+UNISTD = "libc/SATS/unistd.sats"
+
+(* ****** ****** *)
+
+staload
 "./../SATS/basis_intset.sats"
 staload _ =
 "./../DATS/basis_intset.dats"
@@ -53,21 +58,31 @@ staload _ =
 "./../DATS/basis_ssntype2r.dats"
 //
 (* ****** ****** *)
+
+#define N 3
+
+(* ****** ****** *)
 //
 typedef
 ssn_hello =
-msg(0, 1, string) ::
-msg(1, 0, string) ::
+msg(1, 2, string) ::
+msg(2, 0, string) ::
+msg(2, 1, string) ::
 msg(0, 1, string) :: nil
 //
+(* ****** ****** *)
+
+stadef S0 = iset(0)
+stadef C12 = iset(1,2)
+
 (* ****** ****** *)
 //
 extern
 fun
-hello_server(chan: chan1pos(ssn_hello)): void
+hello_server(chan: channel1(S0, N, ssn_hello)): void
 extern
 fun
-hello_client(chan: chan1neg(ssn_hello)): void
+hello_client12(chan: channel1(C12, N, ssn_hello)): void
 //
 (* ****** ****** *)
 
@@ -75,16 +90,22 @@ implement
 hello_server(chan) =
 {
 //
-val ((*void*)) =
-  chan1pos_send(chan, "Hi!")
+prval() =
+lemma_iset_sing_is_member{0}()
+prval() =
+lemma_iset_sing_isnot_member{0,1}()
+prval() =
+lemma_iset_sing_isnot_member{0,2}()
 //
-val msg =
-  chan1pos_recv_val(chan)
+val () = channel1_skipex(chan)
+//
+val msg = channel1_recv_val(chan, 2, 0)
 val ((*void*)) =
   println! ("hello_server: msg = ", msg)
 //
-val ((*void*)) =
-  chan1pos_send(chan, "Bye-bye!")
+val () = channel1_skipex(chan)
+//
+val () = channel1_send(chan, 0, 1, "msg(0, 1)")
 //
 val ((*closed*)) = channel1_close(chan)
 //
@@ -93,24 +114,31 @@ val ((*closed*)) = channel1_close(chan)
 (* ****** ****** *)
 
 implement
-hello_client(chan) =
+hello_client12(chan) =
 {
 //
-val msg = chan1neg_send_val(chan)
-val ((*void*)) =
-  println! ("hello_client: msg = ", msg)
+val () =
+println!
+(
+  "hello_client1: C12 = "
+, channel1_get_group(chan)
+) (* end of [val] *)
+//
+val () = channel1_skipin(chan)
 //
 val () =
-  chan1neg_recv(chan, "Hello?")
+channel1_send(chan, 2, 0, "msg(2, 0)")
 //
-val msg = chan1neg_send_val(chan)
-val ((*void*)) =
-  println! ("hello_client: msg = ", msg)
+val () = channel1_skipin(chan)
+//
+val msg = channel1_recv_val(chan, 0, 1)
+//
+val () = println! ("hello_client12: msg = ", msg)
 //
 val ((*closed*)) = channel1_close(chan)
 //
-} (* end of [hello_client] *)
-
+} (* end of [hello_client12] *)
+//
 (* ****** ****** *)
 
 implement
@@ -119,16 +147,28 @@ main0
   argc, argv
 ) = let
 //
-val chn =
-chan1neg_create_exn
+val S0 = intset_int{N}(0)
+val C12 = intset_int2{N}(1,2)
+//
+val chn0 =
+cchannel1_create_exn
 (
-  llam(chp) => hello_server(chp)
+  N, S0
+, llam(chp) => hello_server(chp)
 ) (* end of [val] *)
 //
+val () =
+println!
+(
+  "S0_ = ", channel1_get_group(chn0)
+) (* end of [val] *)
+//
+val ((*void*)) = hello_client12(chn0)
+//
 in
-  hello_client(chn)
+  // nothiong
 end // end of [main0]
 
 (* ****** ****** *)
 
-(* end of [test01-2p.dats] *)
+(* end of [test02-2p.dats] *)

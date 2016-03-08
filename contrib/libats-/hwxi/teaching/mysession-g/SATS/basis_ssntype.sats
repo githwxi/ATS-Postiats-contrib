@@ -58,6 +58,18 @@ cchannel1
 //
 (* ****** ****** *)
 //
+fun{}
+channel1_get_nrole
+  {n:int}{ssn:type}{G:iset}
+  (chan: !channel1(G, n, ssn)): int(n)
+//
+fun{}
+channel1_get_group
+  {n:int}{ssn:type}{G:iset}
+  (chan: !channel1(G, n, ssn)): intset(n,G)
+//
+(* ****** ****** *)
+//
 fun
 {a:vt0p}
 channel1_close

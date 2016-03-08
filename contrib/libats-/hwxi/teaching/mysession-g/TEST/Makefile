@@ -32,12 +32,20 @@ cleanall:: ; $(RMF) test01-2p
 ######
 
 all:: \
-test01-3p
-test01-3p: \
-test01-3p.dats; \
+test02-2p
+test02-2p: \
+test02-2p.dats; \
 $(PATSCC) --constraint-ignore \
   -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
-cleanall:: ; $(RMF) test01-3p
+cleanall:: ; $(RMF) test02-2p
+
+all:: \
+test02-3p
+test02-3p: \
+test02-3p.dats; \
+$(PATSCC) --constraint-ignore \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) test02-3p
 
 ######
 

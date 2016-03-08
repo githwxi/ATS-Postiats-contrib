@@ -105,16 +105,23 @@ implement
 channel0_posneg
   {n}(cap, nrole, G0) = let
 //
+vtypedef
+uchan = uchan(a)
+//
 val G1 =
   intset_ncomplement(G0, nrole)
+//
+(*
+val () =
+println! ("channel0_posneg: G0 = ", G0)
+val () =
+println! ("channel0_posneg: G1 = ", G1)
+*)
 //
 val nrow = i2sz(nrole)
 val ncol = i2sz(nrole)
 //
-vtypedef uchan = uchan(a)
-//
-val
-u0ch = the_null_ptr
+val u0ch = the_null_ptr
 val
 chmat0 =
 matrixptr_make_elt<ptr>(nrow, ncol, u0ch)
@@ -140,15 +147,16 @@ lam@
 ) : void =>
 {
   val n = nrole
-  val chx0 = uchan_make(cap)
-  and chy0 = uchan_make(cap)
-  val chx1 = uchan_ref(chx0)
-  and chy1 = uchan_ref(chy0)
-  val ij = i * n + j and ji = j * n + i
-  val () = $UN.ptr0_set_at<uchan>(p0, ij, chx0)
-  val () = $UN.ptr0_set_at<uchan>(p0, ji, chy0)
-  val () = $UN.ptr0_set_at<uchan>(p1, ij, chx1)
-  val () = $UN.ptr0_set_at<uchan>(p1, ji, chy1)
+  val ij = i * n + j
+  and ji = j * n + i
+  val ch0_ij = uchan_make(cap)
+  and ch0_ji = uchan_make(cap)
+  val ch1_ij = uchan_ref(ch0_ij)
+  val ch1_ji = uchan_ref(ch0_ji)
+  val () = $UN.ptr0_set_at<uchan>(p0, ij, ch0_ij)
+  val () = $UN.ptr0_set_at<uchan>(p0, ji, ch0_ji)
+  val () = $UN.ptr0_set_at<uchan>(p1, ij, ch1_ij)
+  val () = $UN.ptr0_set_at<uchan>(p1, ji, ch1_ji)
 } (* end of [fwork] *)
 //
 val () =
@@ -204,12 +212,23 @@ channel0_send
   (chan0, i, j, x0) =
 {
 //
-val+CHANNEL0(n, G, chmat) = chan0
+(*
+val () =
+println!
+  ("channel0_send: i = ", i)
+val () =
+println!
+  ("channel0_send: j = ", j)
+*)
 //
-val p0 = ptrcast(chmat)
+val+
+CHANNEL0
+  (n, G, chmat) = chan0
+//
+val p_mat = ptrcast(chmat)
 //
 val uch =
-  $UN.ptr0_get_at<uchan(a)>(p0, i*n+j)
+  $UN.ptr0_get_at<uchan(a)>(p_mat, i*n+j)
 //
 val ((*void*)) = uchan_insert<a>(uch, x0)
 //
@@ -261,7 +280,7 @@ val () = channel0_recv(chan0, i, j, x0)
 extern
 fun
 channel0_link
-{a:vt0p}{n:int}
+{a:vtype}{n:int}
 (
   cap: intGt(0)
 , chan0: channel0(a, n)
@@ -284,6 +303,15 @@ auxlink
 //
 vtypedef uchan = uchan(a)
 //
+(*
+val () =
+println! ("auxlink: n = ", n)
+val () =
+println! ("auxlink: G0 = ", G0)
+val () =
+println! ("auxlink: G1 = ", G1)
+*)
+//
 var
 fwork =
 lam@
@@ -292,21 +320,23 @@ lam@
 ) : void =>
 {
 //
-  val ij = i * n + j
-  val ch0_ij =
-    $UN.ptr0_get_at<uchan>(p0, ij)
-  val ch1_ij =
-    $UN.ptr0_get_at<uchan>(p1, ij)
-  val () = uchan_qinsert(ch0_ij, ch1_ij)
-  val ((*freed*)) = uchan_unref(ch0_ij)
+val ij = i * n + j
+val ch0_ij =
+  $UN.ptr0_get_at<uchan>(p0, ij)
+val ch1_ij =
+  $UN.ptr0_get_at<uchan>(p1, ij)
 //
-  val ji = j * n + i
-  val ch0_ji =
-    $UN.ptr0_get_at<uchan>(p0, ji)
-  val ch1_ji =
-    $UN.ptr0_get_at<uchan>(p1, ji)
-  val () = uchan_qinsert(ch1_ji, ch0_ji)
-  val ((*freed*)) = uchan_unref(ch1_ji)
+val () = uchan_qinsert(ch0_ij, ch1_ij)
+val ((*freed*)) = uchan_unref<a>(ch0_ij)
+//
+val ji = j * n + i
+val ch0_ji =
+  $UN.ptr0_get_at<uchan>(p0, ji)
+val ch1_ji =
+  $UN.ptr0_get_at<uchan>(p1, ji)
+//
+val () = uchan_qinsert(ch1_ji, ch0_ji)
+val ((*freed*)) = uchan_unref<a>(ch1_ji)
 //
 } (* end of [fwork] *)
 //
@@ -325,10 +355,27 @@ prval() =
 prval() =
   lemma_channel0_param(chan1)
 //
+(*
+val () =
+println!
+  ("channel0_link: cap = ", cap)
+*)
+//
 val+
 ~CHANNEL0(n0, G0, chmat0) = chan0
 val+
 ~CHANNEL0(n1, G1, chmat1) = chan1
+//
+(*
+val () =
+println!("channel0_link: n0 = ", n0)
+val () =
+println!("channel0_link: n1 = ", n1)
+val () =
+println!("channel0_link: G0 = ", G0)
+val () =
+println!("channel0_link: G1 = ", G1)
+*)
 //
 val G0_ =
   intset_ncomplement(G0, n0)
@@ -336,18 +383,32 @@ val G1_ =
   intset_ncomplement(G1, n1)
 val G2_ = intset_union(G0_, G1_) // G0_*G1_ = 0
 //
+(*
+val () =
+println!("channel0_link: G0_ = ", G0_)
+val () =
+println!("channel0_link: G1_ = ", G1_)
+*)
+//
 val (chan2_, chan2) = channel0_posneg(cap, n0, G2_)
 //
-val+ CHANNEL0(_, G2, _) = chan2
-val+~CHANNEL0(_, G2_, chmat2_) = chan2_
+val+ CHANNEL0(_, G2, _) = chan2 // positive
+val+~CHANNEL0(_, G2_, chmat2_) = chan2_ // negative
+//
+(*
+val () =
+println!("channel0_link: G2 = ", G2)
+val () =
+println!("channel0_link: G2_ = ", G2_)
+*)
 //
 val p0 = ptrcast(chmat0)
 val p1 = ptrcast(chmat1)
 val p0_ = p1 and p1_ = p0
 val p2_ = ptrcast(chmat2_)
 //
-val () = auxlink(n0, G2, G0_, p0_, p2_)
-val () = auxlink(n0, G2, G1_, p1_, p2_)
+val () = auxlink(n0, G2, G0_, p0, p2_)
+val () = auxlink(n0, G2, G1_, p1, p2_)
 val () = auxlink(n0, G0_, G1_, p0_, p1_)
 //
 val chmat0 =

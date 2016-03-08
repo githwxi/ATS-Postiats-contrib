@@ -23,6 +23,47 @@ boxed (a:vt@ype) = BOX of (a)
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
+channel1_get_nrole
+  {n}(tchan) = n where
+{
+//
+vtypedef
+channel0_ = channel0_(ptr, n)
+//
+val chan0 =
+  $UN.castvwtp1{channel0_}(tchan)
+//
+val+CHANNEL0(n, _, _) = chan0
+//
+prval () = $UN.cast2void(chan0)
+//
+} (* end of [channel1_get_nrole] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+channel1_get_group
+  {n}(tchan) =
+  $UN.cast(G) where
+{
+//
+vtypedef
+channel0_ = channel0_(ptr, n)
+//
+val chan0 =
+  $UN.castvwtp1{channel0_}(tchan)
+//
+val+CHANNEL0(_, G, _) = chan0
+//
+prval () = $UN.cast2void(chan0)
+//
+} (* end of [channel1_get_group] *)
+
+(* ****** ****** *)
+
+implement
 {a}(*tmp*)
 channel1_close
   {n}(tchan) = let
