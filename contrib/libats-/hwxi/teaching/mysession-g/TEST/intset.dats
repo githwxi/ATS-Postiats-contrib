@@ -62,6 +62,9 @@ val () = println! ("xs + ys = (", xs + ys, ")")
 val () = intset_foreach_cloref(xs, lam(x) => println! ("x = ", x))
 val () = intset_foreach_cloref(ys, lam(y) => println! ("y = ", y))
 //
+val () = cintset_foreach_cloref(N, xs, lam(x) => println! ("x = ", x))
+val () = cintset_foreach_cloref(N, ys, lam(y) => println! ("y = ", y))
+//
 val () = intset2_foreach_cloref(xs, ys, lam(x, y) => println! ("(x, y) = (", x, ", ", y, ")"))
 //
 } (* end of [main0] *)

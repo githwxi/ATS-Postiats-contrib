@@ -157,7 +157,7 @@ channel1_choose_l
   {G:iset}
   {i:nat | i < n; ismbr(G, i)}
 (
-  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn1), G: intset(n,G), i: int(i)
+  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn1), i: int(i)
 ) : void // end of [channel1_choose_l]
 fun{}
 channel1_choose_r
@@ -166,7 +166,7 @@ channel1_choose_r
   {G:iset}
   {i:nat | i < n; ismbr(G, i)}
 (
-  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn2), G: intset(n,G), i: int(i)
+  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn2), i: int(i)
 ) : void // end of [channel1_choose_r]
 
 (* ****** ****** *)
@@ -178,7 +178,7 @@ channel1_choosetag
   {G:iset}
   {i:nat | i < n; ~isnil(G); ~ismbr(G, i)}
 (
-  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn), G: intset(n,G), i: int(i)
+  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn), i: int(i)
 ) : #[ssn:type] choosetag(ssn1, ssn2, ssn)
 
 (* ****** ****** *)
@@ -272,3 +272,5 @@ chan1neg_create_exn
   {ssn:type}(fserv: chan1pos(ssn) -<lincloptr1> void): chan1neg(ssn)
 //
 (* ****** ****** *)
+
+(* end of [basis_ssntype.sats] *)

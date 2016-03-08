@@ -298,6 +298,65 @@ in
 end // end of [intset2_foreach_cloref]
 
 (* ****** ****** *)
+
+implement
+{}(*tmp*)
+cintset_foreach_cloref
+  {n}(n, xs, fwork) = let
+//
+fun
+aux1
+(
+  i: natLte(n)
+): void = (
+//
+if i < n then
+  let val () = fwork(i) in aux1(i+1) end
+) (* end of [aux] *)
+//
+fun
+aux2
+(
+  i: natLt(n)
+, xs: List0(int)
+) : void =
+(
+case+ xs of
+| list_nil() =>
+  let val () = fwork(i) in aux1(i+1) end
+| list_cons(x, xs) => aux3(i, x, xs)
+)
+//
+and
+aux3
+(
+  i: natLte(n)
+, x: int, xs: List0(int)
+) : void =
+if
+(i < x)
+then let
+//
+val i =
+  $UN.cast{natLt(n)}(i)
+//
+val ((*void*)) = fwork(i)
+//
+in
+  aux3(i+1, x, xs)
+//
+end // end of [then]
+else let
+  val i = i + 1
+in
+  if i < n then aux2(i, xs) else ()
+end // end of [else]
+//
+in
+  if n > 0 then aux2(0, xs) else ()
+end // end of [intset_foreach_cloref]
+
+(* ****** ****** *)
 //
 implement{}
 print_intset(xs) = fprint_intset(stdout_ref, xs)

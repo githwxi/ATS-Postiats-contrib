@@ -207,6 +207,16 @@ intset2_foreach_cloref
 (* ****** ****** *)
 //
 fun{}
+cintset_foreach_cloref
+  {n:int}{xs:iset}
+(
+  n: int(n), xs: intset(n, xs)
+, fwork: (natLt(n)) -<cloref1> void
+) : void // end-of-function
+//
+(* ****** ****** *)
+//
+fun{}
 print_intset : intset -> void
 fun{}
 prerr_intset : intset -> void
