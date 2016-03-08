@@ -273,7 +273,7 @@ case+ ys of
 | list_nil() => ()
 | list_cons(y, ys) => let
     val x =
-      $UN.cast{natLt(n)}(y)
+      $UN.cast{natLt(n)}(x)
     val y =
       $UN.cast{natLt(n)}(y)
     val ((*void*)) = fwork(x, y) in aux(x, ys)

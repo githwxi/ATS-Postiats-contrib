@@ -3,10 +3,10 @@
 *)
 
 (* ****** ****** *)
-
+//
 staload
 "./basis_intset.sats"
-
+//
 (* ****** ****** *)
 //
 fun{}
@@ -157,6 +157,41 @@ channel1_choosetag
 //
 (*
 //
+// HX-2015-03-06:
+// This one does not work with sschoose!!!
+//
+fun{}
+channel1_link
+  {n:int}{ssn:type}
+  {G1,G2:iset | isnil(G1*G2)}
+  (channel1(G1, n, ssn), channel1(G2, n, ssn)): channel1(G1+G2, n, ssn)
+*)
+//
+fun{}
+channel1_link
+  {n:int}{ssn:type}
+  {G1,G2:iset | isful(G1+G2,n)}
+  (channel1(G1, n, ssn), channel1(G2, n, ssn)): channel1(G1*G2, n, ssn)
+//
+(* ****** ****** *)
+//
+fun{}
+channel1_link_posneg
+  {n:int}{ssn:type}{G:iset}(channel1(G, n, ssn), cchannel1(G, n, ssn)): void
+//
+(* ****** ****** *)
+//
+fun{}
+cchannel1_create_exn
+  {n:nat}{ssn:type}{G:iset}
+(
+  nrole: int(n), G: intset(n), fserv: channel1(G, n, ssn) -<lincloptr1> void
+) : cchannel1(G, n, ssn) // end of [cchannel1_create_exn]
+//
+(* ****** ****** *)
+
+(* end of [basis.sats] *)
+//
 typedef
 session_snd(a:vt@ype) = session_msg(0, 1, a)
 typedef
@@ -178,7 +213,13 @@ chan1pos_send{ssn:type}
 fun
 {a:vt0p}
 chan1pos_recv{ssn:type}
-  (!chan1pos(rcv(a)::ssn) >> chan1pos(ssn), &a? >> a): void
+(
+  !chan1pos(rcv(a)::ssn) >> chan1pos(ssn), &a? >> a
+) : void // end-of-function
+fun
+{a:vt0p}
+chan1pos_recv_val{ssn:type}
+  (chp: !chan1pos(rcv(a)::ssn) >> chan1pos(ssn)): (a)
 //
 fun
 {a:vt0p}
@@ -188,38 +229,18 @@ chan1neg_recv{ssn:type}
 fun
 {a:vt0p}
 chan1neg_send{ssn:type}
-  (!chan1neg(snd(a)::ssn) >> chan1neg(ssn), &a? >> a): void
-*)
-//
-(* ****** ****** *)
-//
-(*
-//
-// HX-2015-03-06:
-// This one does not work with sschoose!!!
-//
-fun{}
-channel1_link
-  {n:int}{ssn:type}
-  {G1,G2:iset | isnil(G1*G2)}
-  (channel1(G1, n, ssn), channel1(G2, n, ssn)): channel1(G1+G2, n, ssn)
-*)
-//
-fun{}
-cchannel1_link
-  {n:int}{ssn:type}
-  {G1,G2:iset | isnil(G1*G2)}
-  (cchannel1(G1, n, ssn), cchannel1(G2, n, ssn)): cchannel1(G1+G2, n, ssn)
-//
-(* ****** ****** *)
-//
-fun{}
-cchannel1_create_exn
-  {n:nat}{ssn:type}{G:iset}
 (
-  nrole: int(n), G: intset(n), fserv: channel1(G, n, ssn) -<lincloptr1> void
-) : cchannel1(G, n, ssn) // end of [cchannel1_create_exn]
+  !chan1neg(snd(a)::ssn) >> chan1neg(ssn), &a? >> a
+) : void // end-of-function
+fun
+{a:vt0p}
+chan1neg_send_val{ssn:type}
+  (chn: !chan1neg(snd(a)::ssn) >> chan1neg(ssn)): (a)
 //
 (* ****** ****** *)
-
-(* end of [basis.sats] *)
+//
+fun{}
+chan1neg_create_exn
+  {ssn:type}(fserv: chan1pos(ssn) -<lincloptr1> void): chan1neg(ssn)
+//
+(* ****** ****** *)

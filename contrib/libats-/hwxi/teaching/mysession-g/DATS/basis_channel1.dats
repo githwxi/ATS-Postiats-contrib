@@ -92,10 +92,10 @@ implement
 channel1_link{n}
   (tchan0, tchan1) = let
 //
+val cap = channel_cap<>()
+//
 vtypedef
 channel0 = channel0(ptr, n)
-//
-val cap = channel_cap<>()
 //
 val
 chan0 =
@@ -107,29 +107,6 @@ $UN.castvwtp0{channel0}(tchan1)
 in
   $UN.castvwtp0(channel0_link{ptr}(cap, chan0, chan1))
 end // end of [channel1_link]
-//
-(* ****** ****** *)
-//
-implement
-{}(*tmp*)
-cchannel1_link{n}
-  (tchan0, tchan1) = let
-//
-val cap = channel_cap<>()
-//
-vtypedef
-channel0 = channel0(ptr, n)
-//
-val
-chan0 =
-$UN.castvwtp0{channel0}(tchan0)
-val
-chan1 =
-$UN.castvwtp0{channel0}(tchan1)
-//
-in
-  $UN.castvwtp0(cchannel0_link{ptr}(cap, chan0, chan1))
-end // end of [cchannel1_link]
 //
 (* ****** ****** *)
 

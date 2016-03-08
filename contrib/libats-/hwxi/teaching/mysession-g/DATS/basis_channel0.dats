@@ -18,7 +18,8 @@ staload "./basis_uchan.dats"
 (* ****** ****** *)
 //
 absvtype
-channel0_vtype(a:vt@ype, n:int)
+channel0_vtype
+  (a:vt@ype, n:int) = ptr
 //
 stadef channel0 = channel0_vtype
 //
@@ -80,24 +81,9 @@ channel0_recv_val
 //
 (* ****** ****** *)
 //
-(*
-//
-// HX-2015-03-06:
-// This one does not work with sschoose!!!
-//
 extern
 fun
 channel0_link
-{a:vt0p}{n:int}
-(
-  cap: intGt(0)
-, chan0: channel0(a, n), chan1: channel0(a, n)
-) : channel0(a, n)
-*)
-//
-extern
-fun
-cchannel0_link
 {a:vt0p}{n:int}
 (
   cap: intGt(0)
@@ -190,7 +176,7 @@ implement
 channel0_free
   (chan0) = let
 //
-val () =
+prval () =
 lemma_channel0_param(chan0)
 //
 val
@@ -236,9 +222,9 @@ val p0 = ptrcast(chmat)
 val uch =
   $UN.ptr0_get_at<uchan(a)>(p0, i*n+j)
 //
-val ((*void*)) = uchan_insert<a> (uch, x0)
+val ((*void*)) = uchan_insert<a>(uch, x0)
 //
-val ((*returned*)) = $UN.cast2void(uch)
+prval((*returned*)) = $UN.cast2void(uch)
 //
 } (* end of [channel0_send] *)
 
@@ -328,59 +314,8 @@ val () = intset2_foreach_cloref(G0, G1, $UN.cast(addr@fwork))
 
 in (* in-of-local *)
 
-(*
-//
-// HX-2015-03-06:
-// This one does not work with sschoose!!!
-//
 implement
 channel0_link{a}
-  (cap, chan0, chan1) = let
-//
-prval() =
-  lemma_channel0_param(chan0)
-prval() =
-  lemma_channel0_param(chan1)
-//
-val+
-~CHANNEL0(n0, G0, chmat0) = chan0
-val+
-~CHANNEL0(n1, G1, chmat1) = chan1
-//
-val G2 = intset_union(G0, G1) // HX: G0*G1 = 0
-//
-val (chan2, chan2_) = channel0_posneg(cap, n0, G2)
-//
-val+~CHANNEL0(_, G2_, chmat2_) = chan2_
-//
-val p0 = ptrcast(chmat0)
-val p1 = ptrcast(chmat1)
-val p2_ = ptrcast(chmat2_)
-//
-val () = auxlink(n0, G0, G1, p0, p1)
-val () = auxlink(n0, G0, G2_, p0, p2_)
-val () = auxlink(n1, G1, G2_, p1, p2_)
-//
-val chmat0 =
-$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat0)
-val chmat1 =
-$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat1)
-val chmat2_ =
-$UN.castvwtp0{matrixptr(ptr,0,0)}(chmat2_)
-//
-val ((*freed*)) = matrixptr_free(chmat0)
-val ((*freed*)) = matrixptr_free(chmat1)
-val ((*freed*)) = matrixptr_free(chmat2_)
-//
-in
-  chan2
-end // end of [channel0_link]
-*)
-
-(* ****** ****** *)
-
-implement
-cchannel0_link{a}
   (cap, chan0, chan1) = let
 //
 prval() =
@@ -426,7 +361,7 @@ val ((*freed*)) = matrixptr_free(chmat2_)
 //
 in
   chan2
-end // end of [cchannel0_link]
+end // end of [channel0_link]
 
 end // end of [local]
 

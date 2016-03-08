@@ -48,9 +48,12 @@ stadef size = iset_size
 (* ****** ****** *)
 
 stacst
-iset_is_empty: iset -> bool
+iset_is_nil: iset -> bool
+stacst
+iset_is_full: (iset, int) -> bool
 
-stadef isnil = iset_is_empty
+stadef isnil = iset_is_nil
+stadef isful = iset_is_full
 
 (* ****** ****** *)
 //
