@@ -1,4 +1,5 @@
 (*
+**
 ** For testing g-sessions
 **
 ** This famous example is taken from
@@ -196,6 +197,7 @@ fserv_seller_fail
 ) : void =
 {
   val () = channel1_close(chan)
+  val () = println! ("SELLER: no sale is made!")
 } (* end of [fserv_seller_fail] *)
 
 end // end of [local]
@@ -245,7 +247,10 @@ channel1_send
 //
 val
 price = 
-channel1_recv_val(chan, SELLER, BUYER1)
+channel1_recv_val
+  (chan, SELLER, BUYER1)
+val () =
+println!("BUYER1: price = ", price)
 //
 val () = channel1_skipex(chan)
 //
@@ -361,7 +366,8 @@ channel1_send
 val
 receipt =
 channel1_recv_val(chan, SELLER, BUYER2)
-val () = println! ("receipt = ", receipt)
+val () =
+println! ("BUYER2: receipt = ", receipt)
 //
 in
   channel1_close(chan)
