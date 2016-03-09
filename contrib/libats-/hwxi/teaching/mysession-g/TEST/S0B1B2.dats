@@ -386,7 +386,15 @@ fserv_buyer2_fail
 end // end of [local]
 
 (* ****** ****** *)
-
+//
+// HX:
+//
+// Try the following to see difference:
+//
+// ./S0B1B2 book1
+// ./S0B1B2 book2
+// ./S0B1B2 book3
+//
 implement
 main0
 (
@@ -413,9 +421,7 @@ cchannel1_create_exn
   N, B2, llam(chp) => fserv_buyer2(chp)
 ) (* end of [val] *)
 //
-val () =
-fserv_buyer1
-  ($UN.castvwtp0(channel1_link(chn0, chn2)))
+val () = fserv_buyer1(channel1_link(chn0, chn2))
 //
 in
   ignoret($UNISTD.usleep(250000u)) // wait for S0 and B2
