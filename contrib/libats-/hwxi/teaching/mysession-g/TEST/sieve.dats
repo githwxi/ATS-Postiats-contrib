@@ -303,7 +303,10 @@ end // end of [primes_gen]
 extern
 fun
 fprint_primes
-  (out: FILEref, n: int, chn: !chan1neg(ssn_colist(int))): void
+(
+  out: FILEref
+, n: int, chn: !chan1neg(ssn_colist(int))
+) : void // end-of-function
 //
 implement
 fprint_primes

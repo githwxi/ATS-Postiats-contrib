@@ -11,6 +11,8 @@ UN =
 (* ****** ****** *)
 //
 staload
+"./../SATS/basis_intset.sats"
+staload
 "./../SATS/basis_ssntype.sats"
 //
 staload "./basis_channel0.dats"
@@ -69,10 +71,10 @@ channel1_close
   {n}(tchan) = let
 //
 vtypedef bxa = boxed(a)
-vtypedef channel0 = channel0(bxa, n)
+vtypedef chan0 = channel0(bxa, n)
 //
 in
-  channel0_free($UN.castvwtp0{channel0}(tchan))
+  channel0_free($UN.castvwtp0{chan0}(tchan))
 end // end of [channel1_close]
 
 (* ****** ****** *)
@@ -99,12 +101,10 @@ channel1_send
   {n}(tchan, i, j, x0) = let
 //
 vtypedef bxa = boxed(a)
-vtypedef channel0 = channel0(bxa, n)
+vtypedef chan0 = channel0(bxa, n)
 //
-val chan0 =
-  $UN.castvwtp1{channel0}(tchan)
-val ((*void*)) =
-  channel0_send(chan0, i, j, BOX(x0))
+val chan0 = $UN.castvwtp1{chan0}(tchan)
+val ((*void*)) = channel0_send(chan0, i, j, BOX(x0))
 //
 prval ((*void*)) = $UN.cast2void(chan0)
 prval ((*void*)) = $UN.castview2void(tchan)
@@ -130,10 +130,9 @@ channel1_recv_val
 {
 //
 vtypedef bxa = boxed(a)
-vtypedef channel0 = channel0(bxa, n)
+vtypedef chan0 = channel0(bxa, n)
 //
-val chan0 =
-  $UN.castvwtp1{channel0}(tchan)
+val chan0 = $UN.castvwtp1{chan0}(tchan)
 //
 val~BOX(x0) = channel0_recv_val(chan0, i, j)
 //
@@ -142,6 +141,132 @@ prval ((*void*)) = $UN.castview2void(tchan)
 //
 } (* end of [channel1_recv_val] *)
 
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+channel1_choose_l
+  {n}(tchan, i0) =
+{
+//
+vtypedef
+chan0 = channel0(ptr, n)
+//
+val n = channel1_get_nrole(tchan)
+val G = channel1_get_group(tchan)
+//
+val
+chan0 = $UN.castvwtp1{ptr}(tchan)
+//
+var
+fwork = 
+lam@ (
+  j: natLt(n)
+) : void => let
+  val
+  tag =
+  $UN.cast2ptr(choosetag_l)
+  val
+  chan0 =
+  $UN.castvwtp0{chan0}(chan0)
+  val () = channel0_send<ptr>(chan0, i0, j, tag)
+  prval () = $UN.cast2void(chan0)
+in
+  // nothing
+end // end of [lam@]
+val () = 
+  cintset_foreach_cloref(n, G, $UN.cast(addr@fwork))
+//
+prval ((*void*)) = $UN.cast2void(chan0)
+prval ((*void*)) = $UN.castview2void(tchan)
+//
+} (* end of [channel1_choose_l] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+channel1_choose_r
+  {n}(tchan, i0) =
+{
+//
+vtypedef
+chan0 = channel0(ptr, n)
+//
+val n = channel1_get_nrole(tchan)
+val G = channel1_get_group(tchan)
+val
+chan0 = $UN.castvwtp1{ptr}(tchan)
+//
+var
+fwork = 
+lam@ (
+  j: natLt(n)
+) : void => let
+  val
+  tag =
+  $UN.cast2ptr(choosetag_r)
+  val
+  chan0 =
+  $UN.castvwtp0{chan0}(chan0)
+  val () = channel0_send<ptr>(chan0, i0, j, tag)
+  prval () = $UN.cast2void(chan0)
+in
+  // nothing
+end // end of [lam@]
+val () = 
+  cintset_foreach_cloref(n, G, $UN.cast(addr@fwork))
+//
+prval ((*void*)) = $UN.cast2void(chan0)
+prval ((*void*)) = $UN.castview2void(tchan)
+//
+} (* end of [channel1_choose_r] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+channel1_choosetag
+  {n}(tchan, i0) = let
+//
+vtypedef
+chan0 = channel0(ptr, n)
+//
+var
+tag0 : ptr = the_null_ptr
+//
+val G = channel1_get_group(tchan)
+//
+val
+chan0 = $UN.castvwtp1{ptr}(tchan)
+//
+var
+fwork = 
+lam@ (
+  j: natLt(n)
+) : void => let
+  val
+  chan0 =
+  $UN.castvwtp0{chan0}(chan0)
+  val
+  tval =
+  channel0_recv_val<ptr>(chan0, i0, j)
+  // end of [val]
+  val () = $UN.ptr0_set<ptr>(addr@tag0, tval)
+  prval () = $UN.cast2void(chan0)
+in
+  // nothing
+end // end of [lam@]
+val () = 
+  intset_foreach_cloref(G, $UN.cast(addr@fwork))
+//
+prval ((*void*)) = $UN.cast2void(chan0)
+prval ((*void*)) = $UN.castview2void(tchan)
+//
+in
+  $UN.cast(tag0)
+end (* end of [channel1_choosetag] *)
+//
 (* ****** ****** *)
 //
 implement
