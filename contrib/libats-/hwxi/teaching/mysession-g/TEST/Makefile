@@ -50,6 +50,16 @@ cleanall:: ; $(RMF) test02-3p
 ######
 
 all:: \
+test03-4p
+test03-4p: \
+test03-4p.dats; \
+$(PATSCC) --constraint-ignore \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) test03-4p
+
+######
+
+all:: \
 bitstr
 bitstr: \
 bitstr.dats; \
