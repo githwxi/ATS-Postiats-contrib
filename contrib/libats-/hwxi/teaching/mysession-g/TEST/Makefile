@@ -63,7 +63,8 @@ all:: \
 bitstr
 bitstr: \
 bitstr.dats; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+$(PATSCC) -D_GNU_SOURCE \
+  -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
 cleanall:: ; $(RMF) bitstr
 
 ######
@@ -72,8 +73,19 @@ all:: \
 sieve
 sieve: \
 sieve.dats; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+$(PATSCC) -D_GNU_SOURCE \
+  -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
 cleanall:: ; $(RMF) sieve
+
+######
+
+all:: \
+S0B1B2
+S0B1B2: \
+S0B1B2.dats; \
+$(PATSCC) --constraint-ignore \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) S0B1B2
 
 ######
 

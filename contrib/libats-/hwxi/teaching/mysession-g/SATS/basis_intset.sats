@@ -118,6 +118,11 @@ lemma_iset_sing_isnot_member
   {x,y:int | x != y}
   ((*void*)): [~ismbr(iset(x), y)] void
 //
+praxi
+lemma_iset_sing_isnot_nil
+  {x:int}
+  ((*void*)): [~isnil(iset(x))] void
+//
 (* ****** ****** *)
 //
 praxi

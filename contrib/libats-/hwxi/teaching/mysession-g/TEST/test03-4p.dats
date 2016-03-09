@@ -280,17 +280,9 @@ channel1_link_elim
 ) (* end of [val] *)
 //
 in
-<<<<<<< HEAD
   ignoret($UNISTD.usleep(250000u)) // wait until the 4 threads finish
-=======
-  ignoret($UNISTD.usleep(250000u))
->>>>>>> c28772a91c84b274e4949aa92626461b8a513f39
 end // end of [main0]
 
 (* ****** ****** *)
 
-<<<<<<< HEAD
 (* end of [test03-4p.dats] *)
-=======
-(* end of [test02-3p.dats] *)
->>>>>>> c28772a91c84b274e4949aa92626461b8a513f39
