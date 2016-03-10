@@ -89,6 +89,16 @@ cleanall:: ; $(RMF) S0B1B2
 
 ######
 
+all:: \
+S0B1B2_rec
+S0B1B2_rec: \
+S0B1B2_rec.dats; \
+$(PATSCC) --constraint-ignore \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< test_mylib.dats -lpthread
+cleanall:: ; $(RMF) S0B1B2_rec
+
+######
+
 RMF=rm -f
 
 ######
