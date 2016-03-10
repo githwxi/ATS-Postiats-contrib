@@ -71,6 +71,10 @@ fun{}
 chan1neg_create_exn
   {ssn:type}(fserv: chan1pos(ssn) -<lincloptr1> void): chan1neg(ssn)
 //
+fun{}
+chan1pos_create_exn
+  {ssn:type}(fserv: chan1neg(ssn) -<lincloptr1> void): chan1pos(ssn)
+//
 (* ****** ****** *)
 
 (* end of [basis_ssntype2r.sats] *)

@@ -141,4 +141,22 @@ end // end of [chan1neg_create_exn]
 
 (* ****** ****** *)
 
+(*
+fun{}
+chan1pos_create_exn
+  {ssn:type}(fserv: chan1neg(ssn) -<lincloptr1> void): chan1pos(ssn)
+*)
+implement
+{}(*tmp*)
+chan1pos_create_exn
+  (fserv) = let
+//
+val G  = intset_int{2}(1)
+//
+in
+  $UN.castvwtp0(cchannel1_create_exn(2, G, $UN.castvwtp0(fserv)))
+end // end of [chan1pos_create_exn]
+
+(* ****** ****** *)
+
 (* end of [basis_ssntype2r.dats] *)
