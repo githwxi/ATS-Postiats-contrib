@@ -35,12 +35,51 @@ stadef cons = ssession_cons
 (* ****** ****** *)
 //
 abstype
+session_append
+  (ssn1: type, ssn2: type)
+//
+stadef append = session_append
+//
+(* ****** ****** *)
+//
+abstype
 session_choose
 (
   i:int, ssn1:type, ssn2:type
 ) (* session_choose *)
 //
 stadef choose = session_choose
+//
+(* ****** ****** *)
+//
+abstype
+session_repeat
+(
+  i:int, ssn:type(*body*)
+) (* session_repeat *)
+//
+stadef repeat = session_repeat
+//
+(* ****** ****** *)
+//
+typedef
+session_sing
+(
+  i: int
+, j: int
+, a:vt@ype
+) = cons(msg(i, j, a), nil)
+//
+(* ****** ****** *)
+//
+typedef
+session_list
+  (a:vt@ype) =
+  repeat(0, cons(msg(0, 1, a), nil))
+typedef
+session_colist
+  (a:vt@ype) =
+  repeat(1, cons(msg(0, 1, a), nil))
 //
 (* ****** ****** *)
 //
@@ -139,6 +178,18 @@ channel1_recv_val
   (!channel1(G, n, msg(i, j, a)::ssn) >> channel1(G, n, ssn), int(i), int(j)): (a)
 //
 (* ****** ****** *)
+
+fun{}
+channel1_append
+  {n:int}
+  {ssn1,ssn2:type}
+  {G:iset}
+(
+  chan: !channel1(G, n, append(ssn1, ssn2)) >> channel1(G, n, ssn2)
+, fserv: (!channel1(G, n, ssn1) >> channel1(G, n, nil)) -<lincloptr1> void
+) : void // end of [channel1_append]
+
+(* ****** ****** *)
 //
 datatype
 choosetag
@@ -149,7 +200,7 @@ choosetag
   | choosetag_r(a, b, b) of ()
 //
 (* ****** ****** *)
-
+//
 fun{}
 channel1_choose_l
   {n:int}
@@ -159,6 +210,7 @@ channel1_choose_l
 (
   !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn1), i: int(i)
 ) : void // end of [channel1_choose_l]
+//
 fun{}
 channel1_choose_r
   {n:int}
@@ -168,19 +220,49 @@ channel1_choose_r
 (
   !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn2), i: int(i)
 ) : void // end of [channel1_choose_r]
-
-(* ****** ****** *)
-
+//
 fun{}
-channel1_choosetag
+channel1_choose_tag
   {n:int}
   {ssn1,ssn2:type}
   {G:iset}
   {i:nat | i < n; ~isnil(G); ~ismbr(G, i)}
 (
-  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn), i: int(i)
-) : #[ssn:type] choosetag(ssn1, ssn2, ssn)
-
+  !channel1(G, n, choose(i,ssn1,ssn2)) >> channel1(G, n, ssn_chosen), i: int(i)
+) : #[ssn_chosen:type] choosetag(ssn1, ssn2, ssn_chosen)
+//
+(* ****** ****** *)
+//
+fun{}
+channel1_repeat_0
+  {n:int}
+  {ssn:type}
+  {G:iset}
+  {i:nat | i < n; ismbr(G, i)}
+(
+  !channel1(G, n, repeat(i,ssn)) >> channel1(G, n, nil), i: int(i)
+) : void // end of [channel1_repeat_nil]
+//
+fun{}
+channel1_repeat_1
+  {n:int}
+  {ssn:type}
+  {G:iset}
+  {i:nat | i < n; ismbr(G, i)}
+(
+  !channel1(G, n, repeat(i,ssn)) >> channel1(G, n, append(ssn,repeat(i,ssn))), i: int(i)
+) : void // end of [channel1_repeat_more]
+//
+fun{}
+channel1_repeat_tag
+  {n:int}
+  {ssn:type}
+  {G:iset}
+  {i:nat | i < n; ~isnil(G); ~ismbr(G, i)}
+(
+  !channel1(G, n, repeat(i,ssn)) >> channel1(G, n, ssn_chosen), i: int(i)
+) : #[ssn_chosen:type] choosetag(nil, append(ssn,repeat(i,ssn)), ssn_chosen)
+//
 (* ****** ****** *)
 //
 (*

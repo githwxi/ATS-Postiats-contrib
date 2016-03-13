@@ -305,7 +305,7 @@ channel1_send
 val () = channel1_skipex(chan)
 //
 val tag =
-  channel1_choosetag(chan, BUYER2)
+  channel1_choose_tag(chan, BUYER2)
 //
 in
 //
@@ -404,7 +404,7 @@ channel1_send
   (chan, BUYER1, BUYER2, price / 2)
 //
 val tag =
-  channel1_choosetag(chan, BUYER2)
+  channel1_choose_tag(chan, BUYER2)
 //
 in
 //

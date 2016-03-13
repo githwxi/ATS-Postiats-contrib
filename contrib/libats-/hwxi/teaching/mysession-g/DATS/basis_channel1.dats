@@ -145,6 +145,24 @@ prval ((*void*)) = $UN.castview2void(tchan)
 
 implement
 {}(*tmp*)
+channel1_append
+  {n}(tchan, fserv) =
+{
+//
+val
+fserv =
+$UN.castvwtp0{(ptr)-<cloref1>void}(fserv)
+//
+val () = fserv($UN.castvwtp1{ptr}(tchan))
+//
+prval ((*void*)) = $UN.castview2void(tchan)
+//
+} (* end of [channel1_append] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 channel1_choose_l
   {n}(tchan, i0) =
 {
@@ -177,7 +195,6 @@ end // end of [lam@]
 val () = 
   cintset_foreach_cloref(n, G, $UN.cast(addr@fwork))
 //
-prval ((*void*)) = $UN.cast2void(chan0)
 prval ((*void*)) = $UN.castview2void(tchan)
 //
 } (* end of [channel1_choose_l] *)
@@ -217,7 +234,6 @@ end // end of [lam@]
 val () = 
   cintset_foreach_cloref(n, G, $UN.cast(addr@fwork))
 //
-prval ((*void*)) = $UN.cast2void(chan0)
 prval ((*void*)) = $UN.castview2void(tchan)
 //
 } (* end of [channel1_choose_r] *)
@@ -226,7 +242,7 @@ prval ((*void*)) = $UN.castview2void(tchan)
 
 implement
 {}(*tmp*)
-channel1_choosetag
+channel1_choose_tag
   {n}(tchan, i0) = let
 //
 vtypedef
@@ -260,7 +276,6 @@ end // end of [lam@]
 val () = 
   intset_foreach_cloref(G, $UN.cast(addr@fwork))
 //
-prval ((*void*)) = $UN.cast2void(chan0)
 prval ((*void*)) = $UN.castview2void(tchan)
 //
 in
