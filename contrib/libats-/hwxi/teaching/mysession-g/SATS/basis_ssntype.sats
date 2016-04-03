@@ -72,17 +72,6 @@ session_sing
 //
 (* ****** ****** *)
 //
-typedef
-session_list
-  (a:vt@ype) =
-  repeat(0, cons(msg(0, 1, a), nil))
-typedef
-session_colist
-  (a:vt@ype) =
-  repeat(1, cons(msg(0, 1, a), nil))
-//
-(* ****** ****** *)
-//
 absvtype
 channel1_vtype
   (G:iset, n:int, ssn:type) = ptr

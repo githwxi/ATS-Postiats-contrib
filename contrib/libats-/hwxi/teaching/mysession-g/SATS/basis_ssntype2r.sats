@@ -76,5 +76,16 @@ chan1pos_create_exn
   {ssn:type}(fserv: chan1neg(ssn) -<lincloptr1> void): chan1pos(ssn)
 //
 (* ****** ****** *)
+//
+typedef
+session_list
+  (a:vt@ype) =
+  repeat(0, cons(msg(0, 1, a), nil))
+typedef
+session_colist
+  (a:vt@ype) =
+  repeat(1, cons(msg(0, 1, a), nil))
+//
+(* ****** ****** *)
 
 (* end of [basis_ssntype2r.sats] *)

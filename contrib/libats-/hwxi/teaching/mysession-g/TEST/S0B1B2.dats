@@ -34,10 +34,6 @@
 //
 (* ****** ****** *)
 
-staload UN = $UNSAFE
-
-(* ****** ****** *)
-
 staload
 UNISTD = "libc/SATS/unistd.sats"
 

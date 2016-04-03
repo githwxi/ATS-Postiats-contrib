@@ -91,6 +91,11 @@ fun remove (k0: key): bool
 (* ****** ****** *)
 
 extern
+fun listize1 (): List0_vt @(key, itm)
+
+(* ****** ****** *)
+
+extern
 fun takeout_all (): List0_vt @(key, itm)
 
 (* ****** ****** *)
@@ -244,6 +249,19 @@ val ans = hashtbl_remove (htbl, k0)
 prval ((*void*)) = $UNSAFE.cast2void (htbl)
 //
 } (* end of [remove] *)
+
+(* ****** ****** *)
+
+implement
+listize1 () = kxs where
+{
+//
+val htbl =
+$UNSAFE.castvwtp0{HTBL}(the_hashtbl_ptr)
+val kxs = hashtbl_listize1 (htbl)
+prval ((*void*)) = $UNSAFE.cast2void (htbl)
+//
+} (* end of [listize1] *)
 
 (* ****** ****** *)
 
