@@ -18,6 +18,8 @@ typedef itm = int(*0/1*)
 //
 #define CAPACITY 1024
 //
+staload _ ="libats/DATS/qlist.dats"
+//
 #include "./../HATS/ghashtbl_chain.hats"
 //
 } (* end of [staload] *)

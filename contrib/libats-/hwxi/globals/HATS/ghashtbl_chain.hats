@@ -294,7 +294,7 @@ $UNSAFE.castvwtp0{HTBL}(the_hashtbl_ptr)
 val kxs = hashtbl_foreach_cloref (htbl, fwork)
 prval ((*void*)) = $UNSAFE.cast2void (htbl)
 //
-} (* end of [takeout_all] *)
+} (* end of [foreach_cloref] *)
 
 (* ****** ****** *)
 
