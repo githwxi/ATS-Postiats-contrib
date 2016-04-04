@@ -28,6 +28,7 @@ staload
 //
 (* ****** ****** *)
 //
+staload _ = "libats/DATS/qlist.dats"
 staload _ = "libats/DATS/hashfun.dats"
 staload _ = "libats/DATS/hashtbl_linprb.dats"
 //
