@@ -112,6 +112,8 @@ UNSAFE = "prelude/SATS/unsafe.sats"
 staload "libats/SATS/hashtbl_linprb.sats"
 //
 staload _ = "libats/DATS/hashfun.dats"
+//
+staload _ = "libats/DATS/qlist.dats"
 staload _ = "libats/DATS/hashtbl_linprb.dats"
 //
 val
