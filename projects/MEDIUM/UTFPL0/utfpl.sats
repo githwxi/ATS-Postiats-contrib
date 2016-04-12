@@ -361,14 +361,16 @@ and d2lab =
 
 where
 d2ecl = '{
-  d2ecl_loc= loc_t, d2ecl_node= d2ecl_node
+  d2ecl_loc= loc_t
+, d2ecl_node= d2ecl_node
 } (* end of [d2ecl] *)
 
 and d2eclist = List0 (d2ecl)
 
 and
 d2exp = '{
-  d2exp_loc= loc_t, d2exp_node= d2exp_node
+  d2exp_loc= loc_t
+, d2exp_node= d2exp_node
 } (* end of [d2exp] *)
 
 and d2explst = List0 (d2exp)
@@ -550,17 +552,21 @@ fun d2ecl_make_node
   (loc: loc_t, node: d2ecl_node): d2ecl
 //
 (* ****** ****** *)
-
-fun d2ecl_fundeclst
+//
+fun
+d2ecl_fundeclst
   (loc: loc_t, knd: funkind, f2ds: f2undeclst): d2ecl
-fun d2ecl_valdeclst
+//
+fun
+d2ecl_valdeclst
   (loc: loc_t, knd: valkind, v2ds: v2aldeclst): d2ecl
-
+//
 (* ****** ****** *)
-
-fun d2ecl_local
+//
+fun
+d2ecl_local
   (loc: loc_t, head: d2eclist, body: d2eclist): d2ecl
-
+//
 (* ****** ****** *)
 
 fun d2ecl_ignored (loc_t): d2ecl // error-handling
