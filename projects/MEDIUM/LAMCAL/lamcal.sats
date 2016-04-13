@@ -1,5 +1,6 @@
 (*
-** For studying lambda-calculus
+** For studying
+** lambda-calculus
 *)
 
 (* ****** ****** *)
@@ -23,13 +24,13 @@ fun tvar_make_name : (string) -> tvar
 datatype
 term =
   | TMvar of tvar
-  | TMapp of (term, term)
   | TMlam of (tvar, term)
+  | TMapp of (term, term)
 //
 (* ****** ****** *)
 //
 fun print_tvar : tvar -> void
-fun fprint_tvar : fprint_type(term)
+fun fprint_tvar : fprint_type(tvar)
 //
 overload print with print_tvar
 overload fprint with fprint_tvar
@@ -46,7 +47,7 @@ typedef tpath = list0(int)
 
 (* ****** ****** *)
 
-exception TPATH_EXN of ()
+exception TPATH_ERROR of ()
 
 (* ****** ****** *)
 //
