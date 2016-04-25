@@ -52,11 +52,21 @@ _ = "{$LIBATSCC2JS}/DATS/print.dats"
 staload "./Wormlike.sats"
 
 (* ****** ****** *)
+
+local
 //
-extern
-fun
-thePrintbd_get() : printbd = "mac#"
+val
+theGamebd =
+  mtrxszref_make_elt(NROW, NCOL, XN0)
 //
+in (* in-of-local *)
+
+implement theGamebd_get() = theGamebd
+
+end // end of [local]
+
+(* ****** ****** *)
+
 local
 //
 val
@@ -75,15 +85,12 @@ extern
 fun
 Wormlike_display
   (M: printbd): void = "mac#"
-extern
-fun
-theWormlike_display(): void = "mac#"
-//
-val X = "+"
 //
 implement
 Wormlike_display
   (M) = let
+//
+val X = "+"
 //
 val m = M.nrow() and n = M.ncol()
 //

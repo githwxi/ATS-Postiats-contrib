@@ -60,9 +60,10 @@ fun theWorm_get(): worm
 fun theGamebd_get(): gamebd
 
 (* ****** ****** *)
-
+//
 fun thePrintbd_get(): printbd
-
+fun theWormlike_display(): void = "mac#"
+//
 (* ****** ****** *)
 
 (* end of [Wormlike.sats] *)
