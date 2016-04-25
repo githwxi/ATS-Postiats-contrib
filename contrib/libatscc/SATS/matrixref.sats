@@ -108,18 +108,29 @@ overload [] with mtrxszref_set_at of 100
 fun
 mtrxszref_exists_cloref
   {a:t@ype}
-  (mtrxszref(a), ftest: (int, int) -<cloref1> bool): bool = "mac#%"
+(
+  mtrxszref(a), ftest: (int, int) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
 //
 fun
 mtrxszref_forall_cloref
   {a:t@ype}
-  (mtrxszref(a), ftest: (int, int) -<cloref1> bool): bool = "mac#%"
+(
+  mtrxszref(a), ftest: (int, int) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+//
+overload .exists with mtrxszref_exists_cloref
+overload .forall with mtrxszref_forall_cloref
 //
 (* ****** ****** *)
 fun
 mtrxszref_foreach_cloref
   {a:t@ype}
-  (mtrxszref(a), fwork: (int, int) -<cloref1> void): void = "mac#%"
+(
+  mtrxszref(a), fwork: (int, int) -<cloref1> void
+) : void = "mac#%" // end-of-function
+//
+overload .foreach with mtrxszref_foreach_cloref
 //
 (* ****** ****** *)
 
