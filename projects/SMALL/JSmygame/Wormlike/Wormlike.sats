@@ -25,8 +25,10 @@
 (* ****** ****** *)
 
 #define NROW 32
+(*
 #define NCOL 32
-// #define NCOL 64
+*)
+#define NCOL 64
 
 (* ****** ****** *)
 

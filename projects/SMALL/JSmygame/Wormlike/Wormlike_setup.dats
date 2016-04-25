@@ -51,7 +51,7 @@ G.foreach
 lam(i, j) =>
 if (i = j) then
 (
-  if i >= NCOL/8 then if i < 7*NCOL/8 then G[i,NROW-1-j] := XN1(~1)
+  if i >= NROW/8 then if i < 7*NROW/8 then G[i,NCOL-1-j] := XN1(~1)
 ) (* end of [if] *)
 )
 //
@@ -71,8 +71,8 @@ G.foreach
 (
 lam(i, j) =>
 (
-  if i >= NCOL/8 then if i < 7*NCOL/8 then
-  if j >= NROW/8 then if j < 7*NROW/8 then G[i,j] := XN1(~1)  
+  if i >= NROW/8 then if i < 7*NROW/8 then
+  if j >= NCOL/8 then if j < 7*NCOL/8 then G[i,j] := XN1(~1)  
 ) (* end of [lam] *)
 )
 //
