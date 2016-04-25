@@ -30,12 +30,12 @@ Wormlike_worm_dats.js: Wormlike_worm_dats.c; $(ATSCC2JS) -o $@ -i $<
 ######
 #
 all:: \
-Wormlike_config_dats.js
+Wormlike_setup_dats.js
 #
-Wormlike_config_dats.c: \
-Wormlike.sats Wormlike_config.dats; \
-$(PATSCC) -ccats Wormlike_config.dats
-Wormlike_config_dats.js: Wormlike_config_dats.c; $(ATSCC2JS) -o $@ -i $<
+Wormlike_setup_dats.c: \
+Wormlike.sats Wormlike_setup.dats; \
+$(PATSCC) -ccats Wormlike_setup.dats
+Wormlike_setup_dats.js: Wormlike_setup_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 #
