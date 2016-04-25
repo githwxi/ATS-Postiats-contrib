@@ -53,6 +53,57 @@ staload "./Wormlike.sats"
 
 (* ****** ****** *)
 
+implement
+succ_row(i) = let
+  val i1 = i+1
+in
+//
+if i1 < NROW then i1 else 0
+//
+end // end of [succ_row]
+implement
+pred_row(i) =
+(
+if i > 0 then i-1 else NROW-1
+)
+
+implement
+succ_col(j) = let
+  val j1 = j+1
+in
+//
+if j1 < NCOL then j1 else 0
+//
+end // end of [succ_col]
+implement
+pred_col(j) =
+(
+if j > 0 then j-1 else NCOL-1
+)
+
+(* ****** ****** *)
+//
+extern
+fun
+xnode2string(xnode): string
+//
+implement
+xnode2string(xn) =
+(
+case+ xn of
+| XN0() => " "
+| XN1(knd) =>
+  (
+    case+ knd of
+    | 0 => "O"
+    | 1 => "$"
+    | _ when knd < 0 => "X"
+    | _ (* rest-of-case *) => String(knd)
+  )
+)
+//
+(* ****** ****** *)
+
 local
 //
 val
@@ -64,6 +115,45 @@ in (* in-of-local *)
 implement theGamebd_get() = theGamebd
 
 end // end of [local]
+
+(* ****** ****** *)
+//
+extern
+fun
+theGamebd_display(): void = "mac#"
+//
+implement
+theGamebd_display() = let
+//
+val G = theGamebd_get()
+val M = thePrintbd_get()
+//
+in
+//
+G.foreach(lam(i, j) => M[i,j] := xnode2string(G[i,j]))
+//
+end // end of [Gamebd_display]
+//
+(* ****** ****** *)
+
+local
+//
+val
+theVisitbd =
+  mtrxszref_make_elt(NROW, NCOL, 0)
+//
+in (* in-of-local *)
+
+implement theVisitbd_get() = theVisitbd
+
+end // end of [local]
+
+implement
+theVisitbd_reset() = let
+  val V = theVisitbd_get()
+in
+  V.foreach(lam(i, j) => V[i,j] := 0)
+end // end of [theVisitbd_reset]
 
 (* ****** ****** *)
 
@@ -83,11 +173,11 @@ end // end of [local]
 //
 extern
 fun
-Wormlike_display
+Printbd_display
   (M: printbd): void = "mac#"
 //
 implement
-Wormlike_display
+Printbd_display
   (M) = let
 //
 val X = "+"
@@ -115,31 +205,46 @@ val () = println!(X)
 //
 in
   // nothing
-end // end of [Wormlike_display]
+end // end of [Printbd_display]
 //
-implement
-theWormlike_display
-  ((*void*)) = Wormlike_display(thePrintbd_get())
-//
+(* ****** ****** *)
+
+val () = theWormlike_scene2()
+
+(* ****** ****** *)
+
+val () = Wormlike_worm_initize()
+
 (* ****** ****** *)
 
 %{$
 //
 function
-Wormlike_display()
+thePrintbd_display()
 {
+//
+theGamebd_display();
 //
 ats2jspre_the_print_store_clear();
 //
-Wormlike_display(thePrintbd_get());
+Printbd_display(thePrintbd_get(/*void*/));
 //
-document.getElementById("Wormlike_printbd").innerHTML = ats2jspre_the_print_store_join();
+document.getElementById("theWormlike_printbd").innerHTML = ats2jspre_the_print_store_join();
 //
-} /* end of [Wormlike_display] */
+} /* end of [thePrintbd_display] */
 //
 function
 Wormlike_anim()
 {
+//
+theVisitbd_reset();
+//
+theWorm_move_rand();
+theWorm_move_rand();
+theWorm_move_rand();
+theWorm_move_rand();
+//
+thePrintbd_display();
 //
 return; // from [Wormlike_anim]
 //

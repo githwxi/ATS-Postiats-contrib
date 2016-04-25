@@ -24,9 +24,22 @@
 //
 (* ****** ****** *)
 
-#define NROW 64
-#define NCOL 64
+#define NROW 32
+#define NCOL 32
+// #define NCOL 64
 
+(* ****** ****** *)
+
+#define NWORM NROW
+
+(* ****** ****** *)
+//
+fun succ_row(x: int): int
+fun pred_row(x: int): int
+//
+fun succ_col(x: int): int
+fun pred_col(x: int): int
+//
 (* ****** ****** *)
 
 abstype worm = ptr
@@ -49,21 +62,44 @@ typedef
 gamebd = mtrxszref(xnode)
 //
 typedef
+visitbd = mtrxszref(int)
+//
+typedef
 printbd = mtrxszref(string)
 //
 (* ****** ****** *)
-
-fun theWorm_get(): worm
-
+//
+fun theWorm_get(): worm = "mac#"
+//
+fun theWorm_length(): int = "mac#"
+//
+fun theWorm_insert(): void = "mac#"
+fun theWorm_remove(): void = "mac#"
+//
+fun theWorm_move_rand(): int = "mac#"
+//
+(* ****** ****** *)
+//
+fun theGamebd_get(): gamebd = "mac#"
+//
+fun
+theWormlike_scene1((*void*)): void = "mac#"
+fun
+theWormlike_scene2((*void*)): void = "mac#"
+//
 (* ****** ****** *)
 
-fun theGamebd_get(): gamebd
+fun theVisitbd_get(): visitbd = "mac#"
+fun theVisitbd_reset((*void*)): void = "mac#"
 
 (* ****** ****** *)
 //
-fun thePrintbd_get(): printbd
-fun theWormlike_display(): void = "mac#"
+fun thePrintbd_get(): printbd = "mac#"
 //
+(* ****** ****** *)
+
+fun Wormlike_worm_initize(): void = "mac#"
+
 (* ****** ****** *)
 
 (* end of [Wormlike.sats] *)
