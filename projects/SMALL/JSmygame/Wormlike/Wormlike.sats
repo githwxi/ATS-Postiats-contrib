@@ -99,6 +99,7 @@ fun thePrintbd_get(): printbd = "mac#"
 (* ****** ****** *)
 
 fun Wormlike_worm_initize(): void = "mac#"
+fun Wormlike_keyboard_initize(): void = "mac#"
 
 (* ****** ****** *)
 
