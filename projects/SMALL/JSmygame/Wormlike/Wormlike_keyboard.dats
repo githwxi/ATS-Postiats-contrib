@@ -23,6 +23,9 @@ ATS_STATIC_PREFIX "Wormlike_keyboard_"
 #include
 "share/atspre_define.hats"
 //
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
 (* ****** ****** *)
 //
 staload (*opened*) "./Wormlike.sats"
@@ -75,78 +78,28 @@ end // end of [local]
 (* ****** ****** *)
 
 local
-
+//
+(*
 fun
-aux_up(): void = let
-//
-val opt = thePlayer_get()
-//
-in
-//
-case+ opt of
-| None () => ()
-| Some (x0) => player_incby_y(x0, ~10)
-//
-end // end of [aux_up]
+aux_up() = alert("Up!")
+*)
 //
 fun
-aux_down(): void = let
-//
-val opt = thePlayer_get()
-//
-in
-//
-case+ opt of
-| None () => ()
-| Some (x0) => player_incby_y(x0, (10))
-//
-end // end of [aux_down]
+aux_up(): void = ignoret(theWorm_move_up())
 //
 fun
-aux_left(): void = let
-//
-val opt = thePlayer_get()
-//
-in
-//
-case+ opt of
-| None () => ()
-| Some (x0) => player_incby_x(x0, ~10)
-//
-end // end of [aux_left]
+aux_down(): void = ignoret(theWorm_move_down())
 //
 fun
-aux_right(): void = let
+aux_left(): void = ignoret(theWorm_move_left())
 //
-val opt = thePlayer_get()
+fun
+aux_right(): void = ignoret(theWorm_move_right())
 //
-in
-//
-case+ opt of
-| None () => ()
-| Some (x0) => player_incby_x(x0, (10))
-//
-end // end of [aux_right]
-
 (* ****** ****** *)
 
 fun
-aux_space(): void = let
-//
-val opt = thePlayer_get()
-//
-in
-//
-case+ opt of
-| None () => ()
-| Some (x0) => player_fire_bullet(x0)
-//
-end // end of [aux_space]
-
-(* ****** ****** *)
-
-fun
-fwork_keycode(c: int) =
+fwork_keycode(c: int): void =
 (
 case+ 0 of
 //
@@ -154,15 +107,19 @@ case+ 0 of
 | _ when c = KDOWN => aux_down()
 | _ when c = KLEFT => aux_left()
 | _ when c = KRIGHT => aux_right()
-| _ when c = KSPACE => aux_space()
 //
-| _ (* ignored *) => ()
+| _ (* ignored *) => ((*void*))
 //
 ) (* end of [fwork_keycode] *)
 
+fun
+fwork_keycode2(c: int): void = let
+  val () = fwork_keycode(c) in thePrintbd_display()
+end // end of [fwork_keycode2]
+
 in (* in-of-local *)
 
-val () = theKeyDowns_handle(lam(c) => fwork_keycode(c))
+val () = theKeyDowns_handle(lam(c) => fwork_keycode2(c))
 
 end // end of [local]
 

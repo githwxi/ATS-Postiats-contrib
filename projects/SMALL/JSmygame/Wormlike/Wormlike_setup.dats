@@ -80,4 +80,36 @@ end // end of [theWormlike_scene2]
 //
 (* ****** ****** *)
 
+implement
+theWormlike_bonus_rand
+  (n) = let
+//
+val G0 = theGamebd_get()
+//
+fun I(): int =
+  double2int(
+    (JSmath_random()*0.999999)*(NROW)
+  ) (* double2int *)
+fun J(): int =
+  double2int(
+    (JSmath_random()*0.999999)*(NCOL)
+  ) (* double2int *)
+//
+fun
+aux(): void = let
+  val i = I()
+  and j = J()
+  val xn = G0[i, j]
+in
+  case+ xn of
+  | XN1 _ => ()
+  | XN0() => (G0[i, j] := XN1(1))
+end // end of [aux1]
+//
+in
+  n.foreach((*void*))(lam(_) => aux())
+end // end of [theWormlike_bonus_rand]
+
+(* ****** ****** *)
+
 (* end of [Wormlist_setup.dats] *)

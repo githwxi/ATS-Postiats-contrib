@@ -209,11 +209,27 @@ end // end of [Printbd_display]
 //
 (* ****** ****** *)
 
+%{^
+//
+var
+theKeyDowns =
+  $(document).asEventStream("keydown")
+//
+var
+theKeyDowns =
+theKeyDowns.doAction(".preventDefault")
+//
+%} // end of ...
+
+(* ****** ****** *)
+
 val () = theWormlike_scene2()
+val () = theWormlike_bonus_rand(20)
 
 (* ****** ****** *)
 
 val () = Wormlike_worm_initize()
+val () = Wormlike_keyboard_initize()
 
 (* ****** ****** *)
 
@@ -233,24 +249,30 @@ document.getElementById("theWormlike_printbd").innerHTML = ats2jspre_the_print_s
 //
 } /* end of [thePrintbd_display] */
 //
+%} // end of [%{$]
+
+(* ****** ****** *)
+
+%{$
+//
 function
-Wormlike_anim()
+Wormlike_initize()
 {
 //
 theVisitbd_reset();
 //
-theWorm_move_rand();
-theWorm_move_rand();
-theWorm_move_rand();
-theWorm_move_rand();
-//
 thePrintbd_display();
 //
-return; // from [Wormlike_anim]
+return; // from [Wormlike_initize]
 //
-} // end of [Wormlike_anim]
+} // end of [Wormlike_initize]
+%}
+
+(* ****** ****** *)
+
+%{$
 //
-jQuery(document).ready(function(){Wormlike__dynload(); Wormlike_anim();});
+jQuery(document).ready(function(){Wormlike__dynload(); Wormlike_initize();});
 //
 %} // end of [%{$]
 

@@ -208,18 +208,21 @@ in
 end // end of [theWorm_remove]
 
 (* ****** ****** *)
+
 //
 extern
 fun
-Worm_next_rand(xs: worm): Option(wnode)
+theWorm_next
+(
+  d0: int, di: int, dj: int
+) : Option(wnode)
 //
 implement
-Worm_next_rand(xs) = let
+theWorm_next
+  (d0, di, dj) = let
 //
-val G = theGamebd_get()
-//
-fun dirget(): int =
-  if JSmath_random() < 0.5 then 0 else 1
+val xs = theWorm_get()
+val G0 = theGamebd_get()
 //
 in
 //
@@ -229,9 +232,6 @@ case+ xs of
   // list0_nil
 | list0_cons
     (x0, _) => let
-    val d0 = dirget()
-    val di = dirget()
-    val dj = (1 - di)
     val WN(i, j) = x0
     val i1 =
     (
@@ -245,29 +245,49 @@ case+ xs of
       then (if d0 > 0 then succ_col(j) else pred_col(j)) else j
     // end of [if]
     ) : int // end of [val]
-    val xn = G[i1, j1]
-(*
-    val () = alert("i1 = " + String(i1))
-    val () = alert("j1 = " + String(j1))
-*)
+    val xn = G0[i1, j1]
   in
     case+ xn of
-    | XN0() => Some(WN(i1, j1)) | XN1(knd) => None()
+    | XN0() => Some(WN(i1, j1))
+    | XN1(knd) => (if knd <= 0 then None() else Some(WN(i1, j1)))
   end // list0_cons
 //
+end // end of [Worm_next]
+//
+(* ****** ****** *)
+//
+extern
+fun
+theWorm_next_rand
+  (): Option(wnode)
+//
+implement
+theWorm_next_rand() = let
+//
+fun dirget(): int =
+  if JSmath_random() < 0.5 then 0 else 1
+//
+val d0 = dirget()
+val di = dirget()
+val dj = (1 - di)
+//
+in
+  theWorm_next(d0, di, dj)
 end // end of [Worm_next_rand]
 //
 (* ****** ****** *)
 
-implement
-theWorm_move_rand
-  () = let
+fun
+theWorm_move_with
+  (opt: Option(wnode)) = let
 //
 val xs = theWorm_get()
 //
-val opt = Worm_next_rand(xs)
-//
 val () = theWorm_remove()
+//
+(*
+val () = alert("theWorm_move_with")
+*)
 //
 in
 //
@@ -277,6 +297,9 @@ case+ opt of
     (
       theWorm_set(worm_decby1(xs))
     ) : void
+//
+//  val () = alert("theWorm_move_with: None")
+//
   in
     theWorm_insert(); 0(*stay*)
   end // end of [None]
@@ -288,11 +311,31 @@ case+ opt of
       if n0 <= NWORM
         then theWorm_set(xs) else theWorm_set(worm_decby1(xs))
     ) : void // end of [val]
+//
+//  val () = alert("theWorm_move_with: Some")
+//
   in
     theWorm_insert(); 1(*move*)
   end // end of [Some]
 //
-end // end of [theWorm_move_rand]
+end // end of [theWorm_move_with]
+
+(* ****** ****** *)
+
+implement
+theWorm_move_up() = theWorm_move_with(theWorm_next(0, 1, 0))
+implement
+theWorm_move_down() = theWorm_move_with(theWorm_next(1, 1, 0))
+
+implement
+theWorm_move_left() = theWorm_move_with(theWorm_next(0, 0, 1))
+implement
+theWorm_move_right() = theWorm_move_with(theWorm_next(1, 0, 1))
+
+(* ****** ****** *)
+
+implement
+theWorm_move_rand() = theWorm_move_with(theWorm_next_rand())
 
 (* ****** ****** *)
 

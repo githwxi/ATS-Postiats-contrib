@@ -39,8 +39,8 @@ Wormlike_setup_dats.js: Wormlike_setup_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 #
-# all:: \
-# Wormlike_keyboard_dats.js
+all:: \
+Wormlike_keyboard_dats.js
 #
 Wormlike_keyboard_dats.c: \
 Wormlike.sats Wormlike_keyboard.dats; \

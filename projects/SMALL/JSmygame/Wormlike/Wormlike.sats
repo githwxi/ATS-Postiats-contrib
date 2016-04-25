@@ -76,6 +76,15 @@ fun theWorm_length(): int = "mac#"
 fun theWorm_insert(): void = "mac#"
 fun theWorm_remove(): void = "mac#"
 //
+(* ****** ****** *)
+
+fun theWorm_move_up(): int = "mac#"
+fun theWorm_move_down(): int = "mac#"
+fun theWorm_move_left(): int = "mac#"
+fun theWorm_move_right(): int = "mac#"
+
+(* ****** ****** *)
+//
 fun theWorm_move_rand(): int = "mac#"
 //
 (* ****** ****** *)
@@ -87,6 +96,9 @@ theWormlike_scene1((*void*)): void = "mac#"
 fun
 theWormlike_scene2((*void*)): void = "mac#"
 //
+fun
+theWormlike_bonus_rand(n: int): void = "mac#"
+//
 (* ****** ****** *)
 
 fun theVisitbd_get(): visitbd = "mac#"
@@ -95,6 +107,14 @@ fun theVisitbd_reset((*void*)): void = "mac#"
 (* ****** ****** *)
 //
 fun thePrintbd_get(): printbd = "mac#"
+//
+fun thePrintbd_display(): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
+theKeyDowns_handle
+  (fwork: int -<cloref1> void): void = "mac#"
 //
 (* ****** ****** *)
 
