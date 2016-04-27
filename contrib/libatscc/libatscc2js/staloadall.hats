@@ -46,6 +46,11 @@ staload "./SATS/matrixref.sats"
 staload "./SATS/reference.sats"
 //
 (* ****** ****** *)
+
+staload "./SATS/ML/list0.sats"
+staload "./SATS/ML/array0.sats"
+
+(* ****** ****** *)
 //
 staload "./SATS/JSmath.sats"
 staload "./SATS/JSdate.sats"
