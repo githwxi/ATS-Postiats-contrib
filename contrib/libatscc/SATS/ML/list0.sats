@@ -57,9 +57,56 @@ overload length with list0_length of 100
 fun
 list0_append
   {a:t0p}
-  (list0(INV(a)), list0(a)): list0(a)= "mac#%"
+(
+  xs: list0(INV(a)), ys: list0(a)
+) : list0(a)= "mac#%" // end-of-fun
 //
 overload + with list0_append of 100 // infix
+//
+(* ****** ****** *)
+//
+fun
+list0_reverse
+  {a:t0p}
+  (xs: list0(INV(a))): list0(a) = "mac#%"
+fun
+list0_reverse_append
+  {a:t0p}
+  (xs: list0(INV(a)), ys: list0(a)): list0(a)= "mac#%"
+//
+overload reverse with list0_reverse of 100
+overload revappend with list0_reverse_append of 100
+//
+(* ****** ****** *)
+//
+fun
+list0_app
+  {a:t0p}
+(
+  xs: list0(INV(a)), fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
+fun
+list0_foreach
+  {a:t0p}
+(
+  xs: list0(INV(a)), fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+list0_filter
+  {a:t0p}
+(
+  xs: list0(INV(a)), pred: cfun(a, bool)
+) : list0(a) = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+list0_map
+  {a:t0p}{b:t0p}
+  (xs: list0(INV(a)), fopr: cfun(a, b)): list0(b) = "mac#%"
 //
 (* ****** ****** *)
 

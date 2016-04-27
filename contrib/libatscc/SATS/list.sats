@@ -128,6 +128,13 @@ list_foreach
 (* ****** ****** *)
 //
 fun
+list_filter
+  {a:t0p}{n:int}
+  (xs: list(INV(a), n), f: cfun(a, bool)): listLte(a, n) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_map
   {a:t0p}{b:t0p}{n:int}
   (xs: list(INV(a), n), f: cfun(a, b)): list (b, n) = "mac#%"

@@ -296,24 +296,46 @@ end (* end of [list_remove_at] *)
 (* ****** ****** *)
 //
 implement
-list_app (xs, f) = list_foreach (xs, f)
+list_app(xs, f) = list_foreach(xs, f)
 //
 implement
-list_foreach (xs, f) =
-(
+list_foreach
+  (xs, f) = (
+//
 case+ xs of
-| list_nil () => ()
-| list_cons (x, xs) => (f(x); list_foreach (xs, f))
+| list_nil() => ()
+| list_cons(x, xs) => (f(x); list_foreach(xs, f))
+//
 ) (* end of [list_foreach] *)
 //
 (* ****** ****** *)
 
 implement
-list_map (xs, f) =
+list_filter
+  {a}(xs, p) = aux(xs) where
+{
+//
+fun
+aux{n:int}
+(
+  xs: list(a, n)
+) : listLte(a, n) =
+  case+ xs of
+  | list_nil() => list_nil()
+  | list_cons(x, xs) =>
+      if p(x) then list_cons(x, aux(xs)) else aux(xs)
+    // end of [list_cons]
+//
+} (* end of [list_filter] *)
+
+(* ****** ****** *)
+
+implement
+list_map(xs, f) =
 (
 case+ xs of
-| list_nil () => list_nil ()
-| list_cons (x, xs) => list_cons (f(x), list_map (xs, f))
+| list_nil() => list_nil ()
+| list_cons(x, xs) => list_cons (f(x), list_map(xs, f))
 ) (* end of [list_map] *)
 
 (* ****** ****** *)
