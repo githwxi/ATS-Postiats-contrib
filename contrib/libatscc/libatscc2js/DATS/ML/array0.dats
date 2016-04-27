@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_list0_"
+ATS_STATIC_PREFIX "_ats2jspre_array0_"
 //
 (* ****** ****** *)
 //
@@ -42,13 +42,13 @@ staload "./../../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
-staload "./../../SATS/list.sats"
-staload "./../../SATS/ML/list0.sats"
+staload "./../../SATS/arrayref.sats"
+staload "./../../SATS/ML/array0.sats"
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/ML/list0.dats"
+#include "{$LIBATSCC}/DATS/ML/array0.dats"
 //
 (* ****** ****** *)
 
-(* end of [list0.dats] *)
+(* end of [array0.dats] *)

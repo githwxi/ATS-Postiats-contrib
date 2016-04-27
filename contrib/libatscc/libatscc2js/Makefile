@@ -60,6 +60,9 @@ $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 all:: ; \
 $(PATSOPT) -d ./DATS/ML/list0.dats | \
 $(ATSCC2JS) -o ./output/DATS/ML/list0_dats.js -i
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/array0.dats | \
+$(ATSCC2JS) -o ./output/DATS/ML/array0_dats.js -i
 #
 ######
 #
@@ -115,7 +118,8 @@ output/DATS/reference_dats.js \
 output/DATS/arrayref_dats.js \
 output/DATS/matrixref_dats.js \
 output/DATS/gmatrixref_dats.js \
-output/DATS/ML/list0_dats.js
+output/DATS/ML/list0_dats.js \
+output/DATS/ML/array0_dats.js
 #
 libatscc2js_all:: ; \
 $(ECHO) '\n/* ****** ****** */\n' | $(CAT) - >>libatscc2js_all.js
