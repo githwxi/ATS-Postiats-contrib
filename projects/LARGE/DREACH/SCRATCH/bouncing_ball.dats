@@ -121,7 +121,9 @@ loop1{x,v:real}
   (state: state(M1, x, v)): void = let
   val x = state_get_x(state)
 in
-  if x > 0 then loop1(update1(state)) else loop2(update1_jump(state))
+  if x > 0
+    then loop1(update1(state)) else loop2(update1_jump(state))
+  // end of [if]
 end // end of [loop1]
 
 and
@@ -129,7 +131,9 @@ loop2{x,v:real}
   (state: state(M2, x, v)): void = let
   val v = state_get_v(state)
 in
-  if v > 0 then loop2(update2(state)) else loop1(update2_jump(state))
+  if v > 0
+    then loop2(update2(state)) else loop1(update2_jump(state))
+  // end of [if]
 end // end of [loop2]
 
 (* ****** ****** *)
