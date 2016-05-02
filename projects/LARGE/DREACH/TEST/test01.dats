@@ -41,18 +41,32 @@ quadratic_solve2
 //
 implement
 quadratic_solve1
-  (A, B, C) = (~B+sqrt(B*B-4*A*C))/(2*A)
+  (A, B, C) = let
+//
+val Delta = B*B-4*A*C
+val ((*void*)) = assert(Delta >= i2r(0))
+//
+in
+  (~B+sqrt(Delta))/(2*A)
+end // end of [quadratic_solve1]
 //
 implement
 quadratic_solve2
-  (A, B, C) = (~B-sqrt(B*B-4*A*C))/(2*A)
+  (A, B, C) = let
+//
+val Delta = B*B-4*A*C
+val ((*void*)) = assert(Delta >= i2r(0))
+//
+in
+  (~B-sqrt(Delta))/(2*A)
+end // end of [quadratic_solve2]
 //
 (* ****** ****** *)
 
 val root1 =
-  quadratic_solve1(i2r(4), i2r(4), i2r(~3))
+  quadratic_solve1(i2r(1), i2r(1), i2r(~1))
 val root2 =
-  quadratic_solve2(i2r(4), i2r(4), i2r(~3))
+  quadratic_solve2(i2r(1), i2r(1), i2r(~1))
 
 (* ****** ****** *)
 
