@@ -44,7 +44,7 @@ quadratic_solve1
   (A, B, C) = let
 //
 val Delta = B*B-4*A*C
-val ((*void*)) = assert(Delta >= i2r(0))
+val ((*void*)) = assert(Delta >= 0)
 //
 in
   (~B+sqrt(Delta))/(2*A)
@@ -55,7 +55,7 @@ quadratic_solve2
   (A, B, C) = let
 //
 val Delta = B*B-4*A*C
-val ((*void*)) = assert(Delta >= i2r(0))
+val ((*void*)) = assert(Delta >= 0)
 //
 in
   (~B-sqrt(Delta))/(2*A)
