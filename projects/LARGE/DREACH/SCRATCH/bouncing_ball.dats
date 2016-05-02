@@ -52,6 +52,9 @@ stadef * = mul_real_real
 stacst
 gt_real_int : (real, int) -> bool
 stadef > = gt_real_int
+stacst
+lte_real_int : (real, int) -> bool
+stadef <= = lte_real_int
 
 (* ****** ****** *)
 
@@ -90,29 +93,35 @@ state_get_v{m:mode}{x,v:real}(!state(m, x, v)): real(v)
 //
 extern
 fun
-update1: {x,v:real | x > 0}
-         state(M1, x, v) -> state(M1, x+v*dt, v+g*dt)
+update1
+  : {x,v:real | x > 0}
+    state(M1, x, v) ->
+    state(M1, x+v*dt, v+g*dt)
 //
 (* ****** ****** *)
 //
 extern
 fun
 update1_jump
-  : {x,v:real | x == 0} state(M1, x, v) -> state(M2, x, ~v)
+  : {x,v:real | x <= 0}
+    state(M1, x, v) -> state(M2, i2r(0), ~v)
 //
 (* ****** ****** *)
 //
 extern
 fun
-update2: {x,v:real | v > 0}
-         state(M2, x, v) -> state(M2, x+v*dt, v-g*dt)
+update2
+  : {x,v:real | v > 0}
+    state(M2, x, v) ->
+    state(M2, x+v*dt, v-g*dt)
 //
 (* ****** ****** *)
 //
 extern
 fun
 update2_jump
-  : {x,v:real | v == 0} state(M2, x, v) -> state(M1, x, i2r(0))
+  : {x,v:real | v <= 0}
+    state(M2, x, v) -> state(M1, x, i2r(0))
 //
 (* ****** ****** *)
 
