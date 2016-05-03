@@ -8,13 +8,13 @@
 // Authoremail: gmhwxiATgmailDOTedu
 //
 (* ****** ****** *)
-
-datasort real = // abs
-
-(* ****** ****** *)
-
-abstype real(real)
-
+//
+staload
+"libats/SATS/NUMBER/real.sats"
+//
+staload
+"libats/DATS/NUMBER/real_double.dats"
+//
 (* ****** ****** *)
 
 stacst g : real
@@ -22,64 +22,12 @@ stacst dt : real
 
 (* ****** ****** *)
 
-stacst
-int2real : (int) -> real
-stadef i2r = int2real
-
-(* ****** ****** *)
-
-stacst
-neg_real : (real) -> real
-stadef ~ = neg_real
-
-(* ****** ****** *)
-
-stacst
-add_real_real : (real, real) -> real
-stadef + = add_real_real
-stacst
-sub_real_real : (real, real) -> real
-stadef - = sub_real_real
-
-(* ****** ****** *)
-
-stacst
-mul_real_real : (real, real) -> real
-stadef * = mul_real_real
-
-(* ****** ****** *)
-
-stacst
-gt_real_int : (real, int) -> bool
-stadef > = gt_real_int
-stacst
-lte_real_int : (real, int) -> bool
-stadef <= = lte_real_int
-
-(* ****** ****** *)
-
-stacst
-eq_real_int : (real, int) -> bool
-stadef == = eq_real_int
-
-(* ****** ****** *)
-//
-extern
-fun
-gt_real_int
-  {x:real;i:int}
-  (real(x), int(i)): bool(x > i)
-//
-overload > with gt_real_int
-//
-(* ****** ****** *)
-
 datasort mode = M1 | M2
 
 (* ****** ****** *)
 
 absvtype
-state (mode, x:real, v:real)
+state(mode, x:real, v:real)
 
 (* ****** ****** *)
 //
@@ -88,6 +36,9 @@ fun
 state_get_x{m:mode}{x,v:real}(!state(m, x, v)): real(x)
 and
 state_get_v{m:mode}{x,v:real}(!state(m, x, v)): real(v)
+//
+overload .x with state_get_x
+overload .v with state_get_v
 //
 (* ****** ****** *)
 //
@@ -113,7 +64,7 @@ fun
 update2
   : {x,v:real | v > 0}
     state(M2, x, v) ->
-    state(M2, x+v*dt, v-g*dt)
+    state(M2, x+v*dt, v+g*dt)
 //
 (* ****** ****** *)
 //
