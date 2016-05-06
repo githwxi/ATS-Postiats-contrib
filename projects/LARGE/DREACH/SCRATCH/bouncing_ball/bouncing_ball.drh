@@ -1,3 +1,10 @@
+(*
+//
+// This model is take from
+// http://github.com/dreal/dreal3
+//
+*)
+
 [0, 20] x;
 [-9.8] g;
 [-100, 100] v;
