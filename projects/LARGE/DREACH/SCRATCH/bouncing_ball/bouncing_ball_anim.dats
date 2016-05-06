@@ -9,6 +9,11 @@
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
 staload
 "libats/SATS/NUMBER/real.sats"
 //
@@ -57,9 +62,24 @@ overload .x with state_get_x
 overload .v with state_get_v
 //
 (* ****** ****** *)
+
+implement
+state_get_x
+  (state) =
+(
+  case+ state of STATE1(x, _) => x | STATE2(x, _) => x
+)
+implement
+state_get_v
+  (state) =
+(
+  case+ state of STATE1(_, v) => v | STATE2(_, v) => v
+)
+
+(* ****** ****** *)
 //
 extern
-fun{}
+fun
 update1
   : {x,v:real | x > 0}
     (state(M1, x, v)) ->
@@ -68,7 +88,7 @@ update1
 (* ****** ****** *)
 //
 extern
-fun{}
+fun
 update1_jump
   : {x,v:real | x <= 0}
     state(M1, x, v) -> state(M2, i2r(0), ~v)
@@ -76,7 +96,7 @@ update1_jump
 (* ****** ****** *)
 //
 extern
-fun{}
+fun
 update2
   : {x,v:real | v > 0}
     state(M2, x, v) ->
@@ -85,7 +105,7 @@ update2
 (* ****** ****** *)
 //
 extern
-fun{}
+fun
 update2_jump
   : {x,v:real | v <= 0}
     (state(M2, x, v)) -> state(M1, x, i2r(0))
@@ -96,10 +116,14 @@ extern
 fun{}
 the_dt_get(): real(dt)
 //
+implement
+{}(*tmp*)
+the_dt_get() = $UN.cast(1.0/100)
+//
 (* ****** ****** *)
 //
 extern
-fun{}
+fun
 delayed_by
 (
   delta: real0, fwork: () -<lincloptr1> void
@@ -112,12 +136,11 @@ prval () =
 //
 (* ****** ****** *)
 //
-val g = $UN.cast(9.8): real(g)
+val g = $UN.cast(~9.8): real(g)
 //
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 update1(state) = let
 //
 val dt = the_dt_get()
@@ -130,7 +153,6 @@ end // end of [update1]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 update1_jump(state) = let
 //
 val+STATE1(x, v) = state
@@ -142,7 +164,6 @@ end // end of [update1_jump]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 update2(state) = let
 //
 val dt = the_dt_get()
@@ -155,7 +176,6 @@ end // end of [update2]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 update2_jump(state) = let
 //
 val+STATE2(x, v) = state
@@ -166,11 +186,50 @@ end // end of [update2_jump]
 
 (* ****** ****** *)
 
-fun{}
+local
+
+staload
+"libc/SATS/unistd.sats"
+
+in (* in-of-local *)
+
+implement
+delayed_by
+  (dt, fwork) = let
+//
+val dt =
+  $UN.cast{double}(dt)
+//
+val dt =
+  g1ofg0_int(g0f2i(dt*1000000))
+//
+val () = assert(dt >= 0)
+val () = assert(dt <= 1000000)
+//
+val _(*void*) = usleep_int(dt)
+//
+val () = fwork()
+//
+in
+  cloptr_free($UN.castvwtp0{cloptr(void)}(fwork))
+end // end of [delayed_by]
+
+end // end of [local]
+
+(* ****** ****** *)
+
+fun
 loop1{x,v:real}
   (state: state(M1, x, v)): void = let
+//
   val dt = the_dt_get()
+//
   val x = state_get_x(state)
+  val v = state_get_v(state)
+(*
+  val () = println! ("state1: x = ", x)
+  val () = println! ("state1: v = ", v)
+*)
 in
   if x > 0
     then
@@ -184,8 +243,15 @@ end // end of [loop1]
 and
 loop2{x,v:real}
   (state: state(M2, x, v)): void = let
+//
   val dt = the_dt_get()
+//
+  val x = state_get_x(state)
   val v = state_get_v(state)
+(*
+  val () = println! ("state2: x = ", x)
+  val () = println! ("state2: v = ", v)
+*)
 in
   if v > 0
     then
@@ -195,6 +261,18 @@ in
     else loop1(update2_jump(state))
   // end of [if]
 end // end of [loop2]
+
+(* ****** ****** *)
+
+implement
+main0() =
+{
+//
+val x0 = int2real(10)
+val v0 = int2real(00)
+val () = loop1(STATE1(x0, v0))
+//
+} (* end of [main0] *)
 
 (* ****** ****** *)
 
