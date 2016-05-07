@@ -97,7 +97,7 @@ state_get_v
 //
 extern
 fun
-update1
+update1_flow
   : {x,v:real | x > 0}
     state(M1, x, v) ->
     state(M1, x+v*dt, v-(g+D*v)*dt)
@@ -114,7 +114,7 @@ update1_jump
 //
 extern
 fun
-update2
+update2_flow
   : {x,v:real | v > 0}
     state(M2, x, v) ->
     state(M2, x+v*dt, v-(g+D*v)*dt)
@@ -161,14 +161,14 @@ val K = $UN.cast(0.90): real(K)
 (* ****** ****** *)
 
 implement
-update1(state) = let
+update1_flow(state) = let
 //
 val dt = the_dt_get()
 val+STATE1(x, v) = state
 //
 in
   STATE1(x+v*dt, v-(g+D*v)*dt)
-end // end of [update1]
+end // end of [update1_flow]
 
 (* ****** ****** *)
 
@@ -184,14 +184,14 @@ end // end of [update1_jump]
 (* ****** ****** *)
 
 implement
-update2(state) = let
+update2_flow(state) = let
 //
 val dt = the_dt_get()
 val+STATE2(x, v) = state
 //
 in
   STATE2(x+v*dt, v-(g+D*v)*dt)
-end // end of [update2]
+end // end of [update2_flow]
 
 (* ****** ****** *)
 
@@ -384,7 +384,7 @@ in
   if x > 0
     then
     delayed_by
-      (dt, llam() => loop1(update1(state)))
+      (dt, llam() => loop1(update1_flow(state)))
     // delayed_by
     else loop2(update1_jump(state))
   // end of [if]
@@ -413,7 +413,7 @@ in
   if v > 0
     then
     delayed_by
-      (dt, llam() => loop2(update2(state)))
+      (dt, llam() => loop2(update2_flow(state)))
     // delayed_by
     else loop1(update2_jump(state))
   // end of [if]

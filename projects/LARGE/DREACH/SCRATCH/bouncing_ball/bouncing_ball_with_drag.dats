@@ -46,7 +46,7 @@ overload .v with state_get_v
 //
 extern
 fun
-update1
+update1_flow
   : {x,v:real | x > 0}
     state(M1, x, v) ->
     state(M1, x+v*dt, v-(g+D*v)*dt)
@@ -63,7 +63,7 @@ update1_jump
 //
 extern
 fun
-update2
+update2_flow
   : {x,v:real | v > 0}
     state(M2, x, v) ->
     state(M2, x+v*dt, v-(g+D*v)*dt)
@@ -84,7 +84,7 @@ loop1{x,v:real}
   val x = state_get_x(state)
 in
   if x > 0
-    then loop1(update1(state)) else loop2(update1_jump(state))
+    then loop1(update1_flow(state)) else loop2(update1_jump(state))
   // end of [if]
 end // end of [loop1]
 
@@ -94,7 +94,7 @@ loop2{x,v:real}
   val v = state_get_v(state)
 in
   if v > 0
-    then loop2(update2(state)) else loop1(update2_jump(state))
+    then loop2(update2_flow(state)) else loop1(update2_jump(state))
   // end of [if]
 end // end of [loop2]
 
