@@ -39,6 +39,7 @@ staload
 
 stacst g : real
 stacst dt : real
+stacst alpha : real
 
 (* ****** ****** *)
 
@@ -106,7 +107,7 @@ extern
 fun
 update1_jump
   : {x,v:real | x <= 0}
-    state(M1, x, v) -> state(M2, i2r(0), ~v)
+    state(M1, x, v) -> state(M2, i2r(0), ~alpha*v)
 //
 (* ****** ****** *)
 //
@@ -152,6 +153,7 @@ prval () =
 (* ****** ****** *)
 //
 val g = $UN.cast(~9.8): real(g)
+val alpha = $UN.cast(0.99): real(alpha)
 //
 (* ****** ****** *)
 
@@ -173,7 +175,7 @@ update1_jump(state) = let
 val+STATE1(x, v) = state
 //
 in
-  STATE2(int2real(0), ~v)
+  STATE2(int2real(0), ~alpha*v)
 end // end of [update1_jump]
 
 (* ****** ****** *)
@@ -307,7 +309,7 @@ val () = $extfcall(void, "theStage_initize")
 %{
 //
 var XSCREEN = 640
-var YSCREEN = 640
+var YSCREEN = 480
 //
 function
 ball_new()
@@ -322,7 +324,7 @@ ball_new()
 function
 ball_get_x(ball) { return ball.x ; }
 function
-ball_set_x(ball, x0) { ball.y = YSCREEN-24*x0; return ; }
+ball_set_x(ball, x0) { ball.y = YSCREEN-20*x0-16; return ; }
 //
 %} // end of [%{]
 //
@@ -422,7 +424,7 @@ staload
 "{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
 //
 val
-theTicks = Bacon_interval{int}(10, 0)
+theTicks = Bacon_interval{int}(25, 0)
 //
 in
 //
