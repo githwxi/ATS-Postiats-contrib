@@ -26,7 +26,7 @@ staload "./mygame.sats"
 "{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
-
+//
 %{^
 //
 function

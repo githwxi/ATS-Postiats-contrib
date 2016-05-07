@@ -9,16 +9,31 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_STATIC_PREFIX "bouncing_ball_anim_"
+//
+(* ****** ****** *)
+
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "bouncing_ball_anim_dynload"
+
+(* ****** ****** *)
+//
 #include
-"share/atspre_staload.hats"
+"share/atspre_define.hats"
 //
 (* ****** ****** *)
 //
 staload
 "libats/SATS/NUMBER/real.sats"
 //
+(* ****** ****** *)
+//
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
 staload
-"libats/DATS/NUMBER/real_double.dats"
+"{$LIBATSCC2JS}/DATS/NUMBER/real_double.dats"
 //
 (* ****** ****** *)
 
@@ -201,7 +216,7 @@ val dt =
   $UN.cast{double}(dt)
 //
 val dt =
-  g1ofg0_int(g0f2i(dt*1000000))
+  g1ofg0_int(double2int(dt*1000000))
 //
 val () = assert(dt >= 0)
 val () = assert(dt <= 1000000)
@@ -213,6 +228,111 @@ val () = fwork()
 in
   cloptr_free($UN.castvwtp0{cloptr(void)}(fwork))
 end // end of [delayed_by]
+
+end // end of [local]
+
+(* ****** ****** *)
+//
+abstype ball
+//
+extern
+fun ball_new (): ball = "mac#"
+//
+extern
+fun ball_get_x(ball): double = "mac#"
+extern
+fun ball_set_x(ball, double): void = "mac#"
+//
+extern
+fun
+theBall_get(): ball = "mac#"
+extern
+fun
+theBall_get_x(): double = "mac#"
+extern
+fun
+theBall_set_x(double): void = "mac#"
+//
+extern
+fun
+theStage_update(): void = "mac#"
+extern
+fun
+theStage_addChild{a:type}(x: a): void = "mac#"
+//
+(* ****** ****** *)
+//
+%{^
+//
+var theStage = 0;
+//
+function
+theStage_initize()
+{
+//
+  theStage = new createjs.Stage("theCanvas");
+//
+} (* theStage_initize *)
+//
+function
+theStage_addChild(obj)
+{
+  theStage.addChild(obj); return;
+}
+//
+function theStage_update() { return theStage.update(); }
+//
+%}
+
+(* ****** ****** *)
+
+val () = $extfcall(void, "theStage_initize")
+
+(* ****** ****** *)
+
+%{
+function
+ball_new()
+{
+  var
+  ball = new createjs.Shape();
+  ball.x = 0;
+  ball.graphics.beginFill("yellow").drawCircle(0, 0, 16);
+  return ball;
+}
+//
+function
+ball_get_x(ball) { return ball.x ; }
+function
+ball_set_x(ball, x0) { ball.x := x0; return ; }
+//
+%} // end of [%{]
+//
+(* ****** ****** *)
+
+local
+
+val
+theBall = ref{ball}($UN.cast(0))
+
+fun
+theBall_initize(): void =
+{
+  val B0 = ball_new()
+  val () = theBall[] := B0
+  val () = theStage_addChild(B0)
+}
+
+implement
+theBall_get() = theBall[]
+implement
+theBall_get_x() = ball_get_x(theBall[])
+implement
+theBall_set_x(x0) = ball_set_x(theBall[], x0)
+
+in (* in-of-local *)
+
+val () = theBall_initize((*void*))
 
 end // end of [local]
 
@@ -230,6 +350,13 @@ loop1{x,v:real}
   val () = println! ("state1: x = ", x)
   val () = println! ("state1: v = ", v)
 *)
+//
+  val x_ =
+    $UN.cast{double}(x)
+  // end of [val]
+  val () = theBall_set_x(x_)
+  val () = theStage_update()
+//
 in
   if x > 0
     then
@@ -252,6 +379,13 @@ loop2{x,v:real}
   val () = println! ("state2: x = ", x)
   val () = println! ("state2: v = ", v)
 *)
+//
+  val x_ =
+    $UN.cast{double}(x)
+  // end of [val]
+  val () = theBall_set_x(x_)
+  val () = theStage_update()
+//
 in
   if v > 0
     then
@@ -264,6 +398,19 @@ end // end of [loop2]
 
 (* ****** ****** *)
 
+%{$
+//
+function
+bouncing_ball_anim_initize()
+{
+  var _ = bouncing_ball_anim_dynload()
+}
+//
+%} // end of [%{$]
+
+(* ****** ****** *)
+
+(*
 implement
 main0() =
 {
@@ -273,6 +420,7 @@ val v0 = int2real(00)
 val () = loop1(STATE1(x0, v0))
 //
 } (* end of [main0] *)
+*)
 
 (* ****** ****** *)
 

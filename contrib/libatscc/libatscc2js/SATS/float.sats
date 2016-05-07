@@ -11,31 +11,31 @@
 //
 (* ****** ****** *)
 //
-fun double2int (x: double): int = "mac#%"
-fun int_of_double (x: double): int = "mac#%"
+fun double2int (x: double):<> int = "mac#%"
+fun int_of_double (x: double):<> int = "mac#%"
 //
-fun int2double (x: int): double = "mac#%"
-fun double_of_int (x: int): double = "mac#%"
+fun int2double (x: int):<> double = "mac#%"
+fun double_of_int (x: int):<> double = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 abs_double
-  : double -> double = "mac#%"
+  : double -<> double = "mac#%"
 overload abs with abs_double of 100
 //
 (* ****** ****** *)
 //
 fun
 neg_double
-  : double -> double = "mac#%"
+  : double -<> double = "mac#%"
 overload ~ with neg_double of 100
 overload neg with neg_double of 100
 //
 (* ****** ****** *)
 //
-fun succ_double : double -> double = "mac#%"
-fun pred_double : double -> double = "mac#%"
+fun succ_double : double -<> double = "mac#%"
+fun pred_double : double -<> double = "mac#%"
 //
 overload succ with succ_double of 100
 overload pred with pred_double of 100
@@ -43,24 +43,24 @@ overload pred with pred_double of 100
 (* ****** ****** *)
 //
 fun add_int_double
-  : (int, double) -> double = "mac#%"
+  : (int, double) -<> double = "mac#%"
 fun add_double_int
-  : (double, int) -> double = "mac#%"
+  : (double, int) -<> double = "mac#%"
 //
 fun sub_int_double
-  : (int, double) -> double = "mac#%"
+  : (int, double) -<> double = "mac#%"
 fun sub_double_int
-  : (double, int) -> double = "mac#%"
+  : (double, int) -<> double = "mac#%"
 //
 fun mul_int_double
-  : (int, double) -> double = "mac#%"
+  : (int, double) -<> double = "mac#%"
 fun mul_double_int
-  : (double, int) -> double = "mac#%"
+  : (double, int) -<> double = "mac#%"
 //
 fun div_int_double
-  : (int, double) -> double = "mac#%"
+  : (int, double) -<> double = "mac#%"
 fun div_double_int
-  : (double, int) -> double = "mac#%"
+  : (double, int) -<> double = "mac#%"
 //
 (* ****** ****** *)
 
@@ -77,14 +77,14 @@ overload / with div_double_int of 100
 //
 fun
 pow_double_int1
-  : (double, intGte(0)) -> double = "mac#%"
+  : (double, intGte(0)) -<> double = "mac#%"
 //
 overload ** with pow_double_int1 of 110
 //
 (* ****** ****** *)
 
 typedef
-float_aop_type = (double, double) -> double
+float_aop_type = (double, double) -<> double
 
 (* ****** ****** *)
 //
@@ -103,29 +103,29 @@ overload / with div_double_double of 100
 (* ****** ****** *)
 //
 fun lt_int_double
-  : (int, double) -> bool = "mac#%"
+  : (int, double) -<> bool = "mac#%"
 fun lt_double_int
-  : (double, int) -> bool = "mac#%"
+  : (double, int) -<> bool = "mac#%"
 //
 fun lte_int_double
-  : (int, double) -> bool = "mac#%"
+  : (int, double) -<> bool = "mac#%"
 fun lte_double_int
-  : (double, int) -> bool = "mac#%"
+  : (double, int) -<> bool = "mac#%"
 //
 fun gt_int_double
-  : (int, double) -> bool = "mac#%"
+  : (int, double) -<> bool = "mac#%"
 fun gt_double_int
-  : (double, int) -> bool = "mac#%"
+  : (double, int) -<> bool = "mac#%"
 //
 fun gte_int_double
-  : (int, double) -> bool = "mac#%"
+  : (int, double) -<> bool = "mac#%"
 fun gte_double_int
-  : (double, int) -> bool = "mac#%"
+  : (double, int) -<> bool = "mac#%"
 //
 (* ****** ****** *)
 
 typedef
-float_cmp_type = (double, double) -> bool
+float_cmp_type = (double, double) -<> bool
 
 (* ****** ****** *)
 //
@@ -151,7 +151,7 @@ overload <> with neq_double_double of 100
 //
 fun
 compare_double_double
-  (x1: double, x2: double): Sgn = "mac#%"
+  (x1: double, x2: double):<> Sgn = "mac#%"
 //
 overload compare with compare_double_double of 100
 //
