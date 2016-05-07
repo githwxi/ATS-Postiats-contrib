@@ -39,7 +39,7 @@ staload
 
 stacst g : real
 stacst dt : real
-stacst alpha : real
+stacst K : real
 
 (* ****** ****** *)
 
@@ -107,7 +107,7 @@ extern
 fun
 update1_jump
   : {x,v:real | x <= 0}
-    state(M1, x, v) -> state(M2, i2r(0), ~alpha*v)
+    state(M1, x, v) -> state(M2, i2r(0), ~K*v)
 //
 (* ****** ****** *)
 //
@@ -153,7 +153,7 @@ prval () =
 (* ****** ****** *)
 //
 val g = $UN.cast(~9.8): real(g)
-val alpha = $UN.cast(0.99): real(alpha)
+val K = $UN.cast(0.99): real(K)
 //
 (* ****** ****** *)
 
@@ -175,7 +175,7 @@ update1_jump(state) = let
 val+STATE1(x, v) = state
 //
 in
-  STATE2(int2real(0), ~alpha*v)
+  STATE2(int2real(0), ~K*v)
 end // end of [update1_jump]
 
 (* ****** ****** *)
