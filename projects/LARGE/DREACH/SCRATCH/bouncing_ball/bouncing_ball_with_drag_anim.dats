@@ -38,6 +38,7 @@ staload
 (* ****** ****** *)
 
 stacst g : real
+stacst D : real
 stacst K : real
 stacst dt : real
 
@@ -98,8 +99,8 @@ extern
 fun
 update1
   : {x,v:real | x > 0}
-    (state(M1, x, v)) ->
-    state(M1, x+v*dt, v+g*dt)
+    state(M1, x, v) ->
+    state(M1, x+v*dt, v-(g+D*v)*dt)
 //
 (* ****** ****** *)
 //
@@ -116,7 +117,7 @@ fun
 update2
   : {x,v:real | v > 0}
     state(M2, x, v) ->
-    state(M2, x+v*dt, v+g*dt)
+    state(M2, x+v*dt, v-(g+D*v)*dt)
 //
 (* ****** ****** *)
 //
@@ -152,8 +153,10 @@ prval () =
 //
 (* ****** ****** *)
 //
-val g = $UN.cast(~9.8): real(g)
-val K = $UN.cast(0.70): real(K)
+val g = $UN.cast(9.8): real(g)
+//
+val D = $UN.cast(0.45): real(D)
+val K = $UN.cast(0.90): real(K)
 //
 (* ****** ****** *)
 
@@ -164,7 +167,7 @@ val dt = the_dt_get()
 val+STATE1(x, v) = state
 //
 in
-  STATE1(x+v*dt, v+g*dt)
+  STATE1(x+v*dt, v-(g+D*v)*dt)
 end // end of [update1]
 
 (* ****** ****** *)
@@ -175,7 +178,7 @@ update1_jump(state) = let
 val+STATE1(x, v) = state
 //
 in
-  STATE2(int2real(0), ~K*v)
+  STATE2(int2real(0), ~(K*v))
 end // end of [update1_jump]
 
 (* ****** ****** *)
@@ -187,7 +190,7 @@ val dt = the_dt_get()
 val+STATE2(x, v) = state
 //
 in
-  STATE2(x+v*dt, v+g*dt)
+  STATE2(x+v*dt, v-(g+D*v)*dt)
 end // end of [update2]
 
 (* ****** ****** *)
@@ -462,4 +465,4 @@ val () = loop1(STATE1(x0, v0))
 
 (* ****** ****** *)
 
-(* end of [bouncing_ball_anim.dats] *)
+(* end of [bouncing_ball_with_drag_anim.dats] *)

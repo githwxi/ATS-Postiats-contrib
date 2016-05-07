@@ -1,0 +1,61 @@
+<!doctype html>
+
+<!-- ****** ****** -->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>BouncingBallDrag</title>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.53/Bacon.min.js">
+</script>
+
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_baconjs_cats.js">
+</script>
+
+<script
+ src="./bouncing_ball_with_drag_anim_dats.js"
+></script>
+
+<style>
+#canvas-container {
+  margin: 0 auto; width: auto; height: auto;
+}
+</style>
+</head>
+
+<body
+ onload="bouncing_ball_anim_initize();">
+  <h1>Bouncing Ball Animation (with Drag)</h>
+  <p></p>
+  <p></p>
+  <table>
+  <tr>
+  <td width="50%"></td>
+  <td style="width:auto">
+  <div id="canvas-container">
+  <canvas
+    id="theCanvas" style="background-color: #000000;" width="640" height="480">
+    Sorry, theCanvas cannot be created!
+  </canvas>
+  </div>
+  </td>
+  <td width="50%"></td>
+  </tr>
+  </table>
+</body>
+
+</html>
+
+<!-- ****** ****** -->
+
+<!-- end of [bouncing_ball_with_drag_anim.html] -->
