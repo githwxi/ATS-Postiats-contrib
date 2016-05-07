@@ -201,10 +201,17 @@ end // end of [update2_jump]
 
 (* ****** ****** *)
 
+extern
+fun theFwork_eval(): void
+
+(* ****** ****** *)
+
 local
 
 staload
 "libc/SATS/unistd.sats"
+
+val theFwork = ref{int}(0)
 
 in (* in-of-local *)
 
@@ -218,16 +225,23 @@ val dt =
 val dt =
   g1ofg0_int(double2int(dt*1000000))
 //
+(*
 val () = assert(dt >= 0)
 val () = assert(dt <= 1000000)
-//
 val _(*void*) = usleep_int(dt)
-//
-val () = fwork()
+*)
 //
 in
-  cloptr_free($UN.castvwtp0{cloptr(void)}(fwork))
+  theFwork[] := $UN.castvwtp0{int}(fwork)
 end // end of [delayed_by]
+
+implement
+theFwork_eval() = let
+  val fwork = theFwork[]
+  val ((*void*)) = theFwork[] := 0
+in
+  $UN.cast{() -<cloref> void}(fwork)()
+end // end of [theFwork_eval]
 
 end // end of [local]
 
@@ -272,7 +286,7 @@ theStage_initize()
 //
   theStage = new createjs.Stage("theCanvas");
 //
-} (* theStage_initize *)
+} /* theStage_initize */
 //
 function
 theStage_addChild(obj)
@@ -291,12 +305,16 @@ val () = $extfcall(void, "theStage_initize")
 (* ****** ****** *)
 
 %{
+//
+var XSCREEN = 640
+var YSCREEN = 640
+//
 function
 ball_new()
 {
   var
   ball = new createjs.Shape();
-  ball.x = 0;
+  ball.x = XSCREEN/2; ball.y = 0;
   ball.graphics.beginFill("yellow").drawCircle(0, 0, 16);
   return ball;
 }
@@ -304,7 +322,7 @@ ball_new()
 function
 ball_get_x(ball) { return ball.x ; }
 function
-ball_set_x(ball, x0) { ball.x := x0; return ; }
+ball_set_x(ball, x0) { ball.y = YSCREEN-24*x0; return ; }
 //
 %} // end of [%{]
 //
@@ -395,6 +413,24 @@ in
     else loop1(update2_jump(state))
   // end of [if]
 end // end of [loop2]
+
+(* ****** ****** *)
+
+local
+//
+staload
+"{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
+//
+val
+theTicks = Bacon_interval{int}(10, 0)
+//
+in
+//
+val () = loop1(STATE1(int2real(20), int2real(0)))
+//
+val () = theTicks.onValue(lam(_) =<cloref1> theFwork_eval())
+//
+end // end of [local]
 
 (* ****** ****** *)
 

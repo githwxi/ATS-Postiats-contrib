@@ -13,8 +13,7 @@ ATSCC2JS=$(PATSHOME)/bin/atscc2js
 
 ######
 
-bouncing_ball_anim.js: \
-bouncing_ball_anim.dats ; \
+bouncing_ball_anim_dats.js: bouncing_ball_anim.dats ; \
 $(PATSCC) -ccats $<; $(ATSCC2JS) -o $@ -i bouncing_ball_anim_dats.c
 
 ######
@@ -24,6 +23,6 @@ clean:: ; rm -f *_?ats.c
 clean:: ; rm -f *_?ats.o
 
 cleanall:: clean
-cleanall:: ; rm -f bouncing_ball_anim.js
+cleanall:: ; rm -f bouncing_ball_anim_dats.js
 
 ###### end of [Makefile] ######
