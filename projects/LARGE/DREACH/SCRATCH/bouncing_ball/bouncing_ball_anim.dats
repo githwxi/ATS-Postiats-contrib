@@ -134,7 +134,7 @@ the_dt_get(): real(dt)
 //
 implement
 {}(*tmp*)
-the_dt_get() = $UN.cast(1.0/100)
+the_dt_get() = $UN.cast(1.0/50)
 //
 (* ****** ****** *)
 //
@@ -153,7 +153,7 @@ prval () =
 (* ****** ****** *)
 //
 val g = $UN.cast(~9.8): real(g)
-val K = $UN.cast(0.70): real(K)
+val K = $UN.cast(0.99): real(K)
 //
 (* ****** ****** *)
 
@@ -221,12 +221,14 @@ implement
 delayed_by
   (dt, fwork) = let
 //
+(*
 val dt =
   $UN.cast{double}(dt)
 //
 val dt =
   g1ofg0_int(double2int(dt*1000000))
 //
+*)
 (*
 val () = assert(dt >= 0)
 val () = assert(dt <= 1000000)

@@ -135,7 +135,7 @@ the_dt_get(): real(dt)
 //
 implement
 {}(*tmp*)
-the_dt_get() = $UN.cast(1.0/100)
+the_dt_get() = $UN.cast(1.0/50)
 //
 (* ****** ****** *)
 //
