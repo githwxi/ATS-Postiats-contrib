@@ -25,7 +25,7 @@ ATS_STATIC_PREFIX "bouncing_ball_anim_"
 (* ****** ****** *)
 //
 staload
-"libats/SATS/NUMBER/real.sats"
+"libats/SATS/Number/real.sats"
 //
 (* ****** ****** *)
 //
@@ -33,7 +33,7 @@ staload
 "{$LIBATSCC2JS}/staloadall.hats"
 //
 staload
-"{$LIBATSCC2JS}/DATS/NUMBER/real_double.dats"
+"{$LIBATSCC2JS}/DATS/Number/real_double.dats"
 //
 (* ****** ****** *)
 

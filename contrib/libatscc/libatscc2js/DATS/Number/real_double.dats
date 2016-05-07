@@ -46,7 +46,7 @@ staload
 "./../../SATS/float.sats"
 //
 staload
-"libats/SATS/NUMBER/real.sats"
+"libats/SATS/Number/real.sats"
 //
 (* ****** ****** *)
 //
@@ -62,7 +62,7 @@ typedef real0 = [r:real] real_real_t0ype(r)
 (* ****** ****** *)
 //
 #include
-"libats/DATS/NUMBER/SHARE/real.dats"
+"libats/DATS/Number/SHARE/real.dats"
 //
 (* ****** ****** *)
 //
