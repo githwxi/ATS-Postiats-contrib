@@ -96,7 +96,7 @@ state_get_v
 //
 extern
 fun
-update1_flow
+mode1_flow
   : {x,v:real | x > 0}
     (state(M1, x, v)) ->
     state(M1, x+v*dt, v+g*dt)
@@ -105,7 +105,7 @@ update1_flow
 //
 extern
 fun
-update1_jump
+mode1_jump
   : {x,v:real | x <= 0}
     state(M1, x, v) -> state(M2, i2r(0), ~K*v)
 //
@@ -113,7 +113,7 @@ update1_jump
 //
 extern
 fun
-update2_flow
+mode2_flow
   : {x,v:real | v > 0}
     state(M2, x, v) ->
     state(M2, x+v*dt, v+g*dt)
@@ -122,7 +122,7 @@ update2_flow
 //
 extern
 fun
-update2_jump
+mode2_jump
   : {x,v:real | v <= 0}
     (state(M2, x, v)) -> state(M1, x, i2r(0))
 //
@@ -158,48 +158,48 @@ val K = $UN.cast(0.99): real(K)
 (* ****** ****** *)
 
 implement
-update1_flow(state) = let
+mode1_flow(state) = let
 //
 val dt = the_dt_get()
 val+STATE1(x, v) = state
 //
 in
   STATE1(x+v*dt, v+g*dt)
-end // end of [update1_flow]
+end // end of [mode1_flow]
 
 (* ****** ****** *)
 
 implement
-update1_jump(state) = let
+mode1_jump(state) = let
 //
 val+STATE1(x, v) = state
 //
 in
   STATE2(int2real(0), ~K*v)
-end // end of [update1_jump]
+end // end of [mode1_jump]
 
 (* ****** ****** *)
 
 implement
-update2_flow(state) = let
+mode2_flow(state) = let
 //
 val dt = the_dt_get()
 val+STATE2(x, v) = state
 //
 in
   STATE2(x+v*dt, v+g*dt)
-end // end of [update2_flow]
+end // end of [mode2_flow]
 
 (* ****** ****** *)
 
 implement
-update2_jump(state) = let
+mode2_jump(state) = let
 //
 val+STATE2(x, v) = state
 //
 in
   STATE1(x, int2real(0))
-end // end of [update2_jump]
+end // end of [mode2_jump]
 
 (* ****** ****** *)
 
@@ -384,9 +384,9 @@ in
   if x > 0
     then
     delayed_by
-      (dt, llam() => loop1(update1_flow(state)))
+      (dt, llam() => loop1(mode1_flow(state)))
     // delayed_by
-    else loop2(update1_jump(state))
+    else loop2(mode1_jump(state))
   // end of [if]
 end // end of [loop1]
 
@@ -413,9 +413,9 @@ in
   if v > 0
     then
     delayed_by
-      (dt, llam() => loop2(update2_flow(state)))
+      (dt, llam() => loop2(mode2_flow(state)))
     // delayed_by
-    else loop1(update2_jump(state))
+    else loop1(mode2_jump(state))
   // end of [if]
 end // end of [loop2]
 
