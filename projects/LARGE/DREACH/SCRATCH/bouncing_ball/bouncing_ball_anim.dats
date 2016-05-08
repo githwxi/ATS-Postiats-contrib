@@ -310,6 +310,7 @@ val () = $extfcall(void, "theStage_initize")
 
 %{
 //
+var RAD = 32
 var XSCREEN = 640
 var YSCREEN = 480
 //
@@ -319,14 +320,14 @@ ball_new()
   var
   ball = new createjs.Shape();
   ball.x = XSCREEN/2; ball.y = 0;
-  ball.graphics.beginFill("yellow").drawCircle(0, 0, 16);
+  ball.graphics.beginFill("yellow").drawCircle(0, 0, RAD);
   return ball;
 }
 //
 function
 ball_get_x(ball) { return ball.x ; }
 function
-ball_set_x(ball, x0) { ball.y = YSCREEN-20*x0-16; return ; }
+ball_set_x(ball, x0) { ball.y = YSCREEN-20*x0-RAD; return ; }
 //
 %} // end of [%{]
 //
