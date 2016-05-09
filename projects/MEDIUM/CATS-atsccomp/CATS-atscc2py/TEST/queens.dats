@@ -215,10 +215,7 @@ main0_py () =
 import sys
 sys.setrecursionlimit(1000000)
 ######
-from ats2pypre_basics_cats import *
-from ats2pypre_integer_cats import *
-from ats2pypre_string_cats import *
-from ats2pypre_print_cats import *
+from libatscc2py_all import *
 ######
 %} // end of [%{^]
 
