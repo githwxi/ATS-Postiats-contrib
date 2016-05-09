@@ -222,6 +222,8 @@ clean:: ; $(RMF) *_?ats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.py
+cleanall:: ; $(RMF) libatscc2py/*_?ats.py
+cleanall:: ; $(RMRF) libatscc2py/__pycache__
 # cleanall:: ; $(RMF) libatscc2py/*_cats.py
 # cleanall:: ; $(RMF) libatscc2py/*_dats.py
 # cleanall:: ; $(RMRF) libatscc2py/__pycache__
