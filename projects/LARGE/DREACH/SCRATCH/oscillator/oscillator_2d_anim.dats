@@ -1,5 +1,5 @@
 (*
-** Bouncing ball
+** Oscillator(2D)
 *)
 
 (* ****** ****** *)
@@ -10,22 +10,29 @@
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "bouncing_ball_anim_"
+ATS_STATIC_PREFIX "oscillator_2d_anim_"
 //
 (* ****** ****** *)
 
 #define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "bouncing_ball_anim_dynload"
+#define ATS_DYNLOADNAME "oscillator_2d_anim_dynload"
 
 (* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
+(*
+#include
+"share/atspre_staload.hats"
+*)
 //
 (* ****** ****** *)
 //
 staload
 "libats/SATS/Number/real.sats"
+//
+staload
+"libats/DATS/Number/real_double.dats"
 //
 (* ****** ****** *)
 //
@@ -36,95 +43,93 @@ staload
 "{$LIBATSCC2JS}/DATS/Number/real_double.dats"
 //
 (* ****** ****** *)
-
-stacst g : real
-stacst K : real
+(*
+#define ax 1
+#define ay 1.2
+#define omega 3.14
+*)
+//
+stacst ax: real
+stacst ay: real
+stacst omega: real
+//
 stacst dt : real
-
+//
 (* ****** ****** *)
 
-datasort mode = M1 | M2
-
-(* ****** ****** *)
-
-datatype
-mode(mode) = M1(M1) | M2(M2)
+datasort mode = M1
 
 (* ****** ****** *)
 
 (*
 absvtype
-state(mode, x:real, v:real)
+state(mode, x:real, y:real, tau:real)
 *)
-
-(* ****** ****** *)
 //
 datatype
-state(mode, x: real, v:real) =
-| STATE1(M1,x,v) of (real(x), real(v))
-| STATE2(M2,x,v) of (real(x), real(v))
+state(mode, x:real, y:real, tau:real) =
+| STATE1(M1,x,y,tau) of (real(x), real(y), real(tau))
 //
 (* ****** ****** *)
 //
 extern
 fun
 state_get_x
-{m:mode}{x,v:real}(!state(m, x, v)): real(x)
-and
-state_get_v
-{m:mode}{x,v:real}(!state(m, x, v)): real(v)
+  {m:mode}
+  {x,y,tau:real}(!state(m, x, y, tau)): real(x)
+extern
+fun
+state_get_y
+  {m:mode}
+  {x,y,tau:real}(!state(m, x, y, tau)): real(y)
+extern
+fun
+state_get_tau
+  {m:mode}
+  {x,y,tau:real}(!state(m, x, y, tau)): real(tau)
 //
 overload .x with state_get_x
-overload .v with state_get_v
+overload .y with state_get_y
+overload .tau with state_get_tau
 //
 (* ****** ****** *)
 
 implement
-state_get_x
-  (state) =
-(
-  case+ state of STATE1(x, _) => x | STATE2(x, _) => x
-)
+state_get_x(state) =
+  let val+STATE1(x, y, tau) = state in x end
 implement
-state_get_v
-  (state) =
-(
-  case+ state of STATE1(_, v) => v | STATE2(_, v) => v
-)
+state_get_y(state) =
+  let val+STATE1(x, y, tau) = state in y end
+implement
+state_get_tau(state) =
+  let val+STATE1(x, y, tau) = state in tau end
 
+(* ****** ****** *)
+//
+val ax = $UN.cast(1.0): real(ax)
+val ay = $UN.cast(1.2): real(ay)
+val omega = $UN.cast(3.14): real(omega)
+//
 (* ****** ****** *)
 //
 extern
 fun
 mode1_flow
-  : {x,v:real | x > 0}
-    (state(M1, x, v)) ->
-    state(M1, x+v*dt, v+g*dt)
+  : {x,y,tau:real}
+    state(M1, x, y, tau) ->
+    state(
+      M1,
+      x-(ax*sin(omega*tau))*dt,
+      y-(ay*sin(omega*tau))*omega*dt, tau+dt
+    ) (* state *)
 //
 (* ****** ****** *)
 //
 extern
 fun
 mode1_jump
-  : {x,v:real | x <= 0}
-    state(M1, x, v) -> state(M2, i2r(0), ~K*v)
-//
-(* ****** ****** *)
-//
-extern
-fun
-mode2_flow
-  : {x,v:real | v > 0}
-    state(M2, x, v) ->
-    state(M2, x+v*dt, v+g*dt)
-//
-(* ****** ****** *)
-//
-extern
-fun
-mode2_jump
-  : {x,v:real | v <= 0}
-    (state(M2, x, v)) -> state(M1, x, i2r(0))
+  : {x,y,tau:real}
+    state(M1, x, y, tau) -> state(M1, x, y, tau)
 //
 (* ****** ****** *)
 //
@@ -151,57 +156,24 @@ prval () =
   $UN.prop_assert{false}()
 //
 (* ****** ****** *)
-//
-val g = $UN.cast(~9.8): real(g)
-val K = $UN.cast(0.99): real(K)
-//
-(* ****** ****** *)
 
 implement
 mode1_flow(state) = let
 //
 val dt = the_dt_get()
-val+STATE1(x, v) = state
+val+STATE1(x, y, tau) = state
+//
+val sin_ = sin(omega * tau)
+//
+val vx = ~ax * sin_
+val vy = ~ay * sin_ * omega
 //
 in
-  STATE1(x+v*dt, v+g*dt)
+  STATE1(x+vx*dt, y+vy*dt, tau+dt)
 end // end of [mode1_flow]
 
 (* ****** ****** *)
 
-implement
-mode1_jump(state) = let
-//
-val+STATE1(x, v) = state
-//
-in
-  STATE2(int2real(0), ~K*v)
-end // end of [mode1_jump]
-
-(* ****** ****** *)
-
-implement
-mode2_flow(state) = let
-//
-val dt = the_dt_get()
-val+STATE2(x, v) = state
-//
-in
-  STATE2(x+v*dt, v+g*dt)
-end // end of [mode2_flow]
-
-(* ****** ****** *)
-
-implement
-mode2_jump(state) = let
-//
-val+STATE2(x, v) = state
-//
-in
-  STATE1(x, int2real(0))
-end // end of [mode2_jump]
-
-(* ****** ****** *)
 
 extern
 fun theFwork_eval(): void
@@ -257,6 +229,10 @@ extern
 fun ball_get_x(ball): double = "mac#"
 extern
 fun ball_set_x(ball, double): void = "mac#"
+extern
+fun ball_get_y(ball): double = "mac#"
+extern
+fun ball_set_y(ball, double): void = "mac#"
 //
 extern
 fun
@@ -267,6 +243,12 @@ theBall_get_x(): double = "mac#"
 extern
 fun
 theBall_set_x(double): void = "mac#"
+extern
+fun
+theBall_get_y(): double = "mac#"
+extern
+fun
+theBall_set_y(double): void = "mac#"
 //
 extern
 fun
@@ -307,7 +289,7 @@ val () = $extfcall(void, "theStage_initize")
 
 %{
 //
-var RAD = 32
+var RAD = 8
 var XSCREEN = 640
 var YSCREEN = 480
 //
@@ -324,7 +306,11 @@ ball_new()
 function
 ball_get_x(ball) { return ball.x ; }
 function
-ball_set_x(ball, x0) { ball.y = YSCREEN-20*x0-RAD; return ; }
+ball_set_x(ball, x0) { ball.x = XSCREEN/2-10*x0; return ; }
+function
+ball_get_y(ball) { return ball.y ; }
+function
+ball_set_y(ball, y0) { ball.y = YSCREEN/2-10*y0; return ; }
 //
 %} // end of [%{]
 //
@@ -349,6 +335,10 @@ implement
 theBall_get_x() = ball_get_x(theBall[])
 implement
 theBall_set_x(x0) = ball_set_x(theBall[], x0)
+implement
+theBall_get_y() = ball_get_y(theBall[])
+implement
+theBall_set_y(y0) = ball_set_y(theBall[], y0)
 
 in (* in-of-local *)
 
@@ -359,62 +349,28 @@ end // end of [local]
 (* ****** ****** *)
 
 fun
-loop1{x,v:real}
-  (state: state(M1, x, v)): void = let
+loop1{x,y,tau:real}
+(
+  state: state(M1, x, y, tau)
+) : void = let
 //
-  val dt = the_dt_get()
+val x = state_get_x(state)
+val y = state_get_y(state)
+val tau = state_get_tau(state)
 //
-  val x = state_get_x(state)
-  val v = state_get_v(state)
-(*
-  val () = println! ("state1: x = ", x)
-  val () = println! ("state1: v = ", v)
-*)
+val x_ =
+  $UN.cast{double}(x)
+val y_ =
+  $UN.cast{double}(y)
 //
-  val x_ =
-    $UN.cast{double}(x)
-  // end of [val]
-  val () = theBall_set_x(x_)
-  val () = theStage_update()
+val () = theBall_set_x(x_)
+val () = theBall_set_y(y_)
+//
+val () = theStage_update()
 //
 in
-  if x > 0
-    then
-    delayed_by
-      (dt, llam() => loop1(mode1_flow(state)))
-    // delayed_by
-    else loop2(mode1_jump(state))
-  // end of [if]
+  loop1(mode1_flow(state))
 end // end of [loop1]
-
-and
-loop2{x,v:real}
-  (state: state(M2, x, v)): void = let
-//
-  val dt = the_dt_get()
-//
-  val x = state_get_x(state)
-  val v = state_get_v(state)
-(*
-  val () = println! ("state2: x = ", x)
-  val () = println! ("state2: v = ", v)
-*)
-//
-  val x_ =
-    $UN.cast{double}(x)
-  // end of [val]
-  val () = theBall_set_x(x_)
-  val () = theStage_update()
-//
-in
-  if v > 0
-    then
-    delayed_by
-      (dt, llam() => loop2(mode2_flow(state)))
-    // delayed_by
-    else loop1(mode2_jump(state))
-  // end of [if]
-end // end of [loop2]
 
 (* ****** ****** *)
 
@@ -428,7 +384,8 @@ theTicks = Bacon_interval{int}(25, 0)
 //
 in
 //
-val () = loop1(STATE1(int2real(20), int2real(0)))
+val () =
+loop1(STATE1(int2real(20), int2real(0), int2real(0)))
 //
 val () = theTicks.onValue(lam(_) =<cloref1> theFwork_eval())
 //
@@ -439,9 +396,9 @@ end // end of [local]
 %{$
 //
 function
-bouncing_ball_anim_initize()
+oscillator_2d_anim_initize()
 {
-  var _ = bouncing_ball_anim_dynload()
+  var _ = oscillator_2d_anim_dynload()
 }
 //
 %} // end of [%{$]
@@ -453,13 +410,11 @@ implement
 main0() =
 {
 //
-val x0 = int2real(10)
-val v0 = int2real(00)
-val () = loop1(STATE1(x0, v0))
+val () = loop1(STATE1(int2real(0), int2real(0), int2real(0)))
 //
 } (* end of [main0] *)
 *)
 
 (* ****** ****** *)
 
-(* end of [bouncing_ball_anim.dats] *)
+(* end of [oscillator_2d_anim.dats] *)

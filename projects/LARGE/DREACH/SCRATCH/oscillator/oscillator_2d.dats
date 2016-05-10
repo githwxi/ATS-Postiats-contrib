@@ -96,7 +96,6 @@ in
   loop1(mode1_flow(state))
 end // end of [loop1]
 
-
 (* ****** ****** *)
 
 (* end of [oscillator_2d.dats] *)

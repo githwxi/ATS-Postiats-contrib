@@ -61,6 +61,8 @@ typedef real0 = [r:real] real_real_t0ype(r)
 
 (* ****** ****** *)
 //
+staload "./../../SATS/JSmath.sats"
+//
 #include
 "libats/DATS/Number/SHARE/real.dats"
 //
@@ -177,6 +179,18 @@ int2real(i) = int2double(i)
 implement
 {}(*tmp*)
 abs_real(r) = abs_double(r)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+sin_real(r) = JSmath_sin(r)
+implement
+{}(*tmp*)
+cos_real(r) = JSmath_cos(r)
+implement
+{}(*tmp*)
+tan_real(r) = JSmath_tan(r)
 
 (* ****** ****** *)
 
