@@ -382,7 +382,7 @@ staload
 "{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
 //
 val
-theTicks = Bacon_interval{int}(25, 0)
+theTicks = Bacon_interval{int}(50, 0)
 //
 in
 //
