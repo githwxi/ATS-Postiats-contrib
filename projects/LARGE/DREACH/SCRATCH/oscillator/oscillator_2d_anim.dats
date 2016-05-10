@@ -304,13 +304,13 @@ ball_new()
 }
 //
 function
-ball_get_x(ball) { return ball.x ; }
+ball_get_x(ball) { return ball.y ; }
 function
-ball_set_x(ball, x0) { ball.x = XSCREEN/2-10*x0; return ; }
+ball_set_x(ball, x0) { ball.y = YSCREEN/2.5-100*x0; return ; }
 function
-ball_get_y(ball) { return ball.y ; }
+ball_get_y(ball) { return ball.x ; }
 function
-ball_set_y(ball, y0) { ball.y = YSCREEN/2-10*y0; return ; }
+ball_set_y(ball, y0) { ball.x = XSCREEN/3.0-100*y0; return ; }
 //
 %} // end of [%{]
 //
@@ -354,6 +354,8 @@ loop1{x,y,tau:real}
   state: state(M1, x, y, tau)
 ) : void = let
 //
+val dt = the_dt_get()
+//
 val x = state_get_x(state)
 val y = state_get_y(state)
 val tau = state_get_tau(state)
@@ -369,7 +371,7 @@ val () = theBall_set_y(y_)
 val () = theStage_update()
 //
 in
-  loop1(mode1_flow(state))
+  delayed_by(dt, llam() => loop1(mode1_flow(state)))
 end // end of [loop1]
 
 (* ****** ****** *)
@@ -385,7 +387,7 @@ theTicks = Bacon_interval{int}(25, 0)
 in
 //
 val () =
-loop1(STATE1(int2real(20), int2real(0), int2real(0)))
+loop1(STATE1(int2real(0), int2real(0), int2real(0)))
 //
 val () = theTicks.onValue(lam(_) =<cloref1> theFwork_eval())
 //
