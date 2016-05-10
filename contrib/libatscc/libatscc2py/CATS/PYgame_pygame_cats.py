@@ -18,6 +18,7 @@ def ats2py_pygame_Rect_make(t, l, b, r): return pygame.Rect(t, l, b, r)
 #
 def ats2py_pygame_Rect_copy(obj): return obj.copy()
 #
+def ats2py_pygame_Rect_fit(obj, obj2): return obj.fit(obj2)
 def ats2py_pygame_Rect_clip(obj, obj2): return obj.clip(obj2)
 #
 def ats2py_pygame_Rect_move(obj, x, y): return obj.move(x, y)
@@ -28,6 +29,8 @@ def ats2py_pygame_Rect_inflate_ip(obj, x, y): return obj.inflate_ip(x, y)
 #
 def ats2py_pygame_Rect_clamp(obj, obj2): return obj.clamp(obj2)
 def ats2py_pygame_Rect_clamp_ip(obj, obj2): return obj.clamp_ip(obj2)
+#
+def ats2py_pygame_Rect_contains(obj, obj2): return obj.contains(obj2)
 #
 ############################################
 #

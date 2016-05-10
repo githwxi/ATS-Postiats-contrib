@@ -100,7 +100,7 @@ fun
 mode1_flow
   : {x,v:real | x > 0}
     state(M1, x, v) ->
-    state(M1, x+v*dt, v-(g+D*v)*dt)
+    state(M1, x+v*dt, v-(g-D*v*v)*dt)
 //
 (* ****** ****** *)
 //
@@ -117,7 +117,7 @@ fun
 mode2_flow
   : {x,v:real | v > 0}
     state(M2, x, v) ->
-    state(M2, x+v*dt, v-(g+D*v)*dt)
+    state(M2, x+v*dt, v-(g+D*v*v)*dt)
 //
 (* ****** ****** *)
 //
@@ -167,7 +167,7 @@ val dt = the_dt_get()
 val+STATE1(x, v) = state
 //
 in
-  STATE1(x+v*dt, v-(g+D*v)*dt)
+  STATE1(x+v*dt, v-(g-D*v*v)*dt)
 end // end of [mode1_flow]
 
 (* ****** ****** *)
@@ -190,7 +190,7 @@ val dt = the_dt_get()
 val+STATE2(x, v) = state
 //
 in
-  STATE2(x+v*dt, v-(g+D*v)*dt)
+  STATE2(x+v*dt, v-(g+D*v*v)*dt)
 end // end of [mode2_flow]
 
 (* ****** ****** *)

@@ -10,10 +10,10 @@
 (* ****** ****** *)
 //
 staload
-"libats/SATS/NUMBER/real.sats"
+"libats/SATS/Number/real.sats"
 //
 staload
-"libats/DATS/NUMBER/real_double.dats"
+"libats/DATS/Number/real_double.dats"
 //
 (* ****** ****** *)
 
@@ -49,7 +49,7 @@ fun
 mode1_flow
   : {x,v:real | x > 0}
     state(M1, x, v) ->
-    state(M1, x+v*dt, v-(g+D*v)*dt)
+    state(M1, x+v*dt, v-(g+D*v*v)*dt)
 //
 (* ****** ****** *)
 //
@@ -66,7 +66,7 @@ fun
 mode2_flow
   : {x,v:real | v > 0}
     state(M2, x, v) ->
-    state(M2, x+v*dt, v-(g+D*v)*dt)
+    state(M2, x+v*dt, v-(g+D*v*v)*dt)
 //
 (* ****** ****** *)
 //

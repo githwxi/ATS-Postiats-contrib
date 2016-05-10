@@ -46,9 +46,21 @@ overload .copy with Rect_copy
 (* ****** ****** *)
 //
 fun
+Rect_fit(Rect, Rect): Rect = "mac#%"
+//
+overload .fit with Rect_fit
+//
+fun
 Rect_clip(Rect, Rect): Rect = "mac#%"
 //
 overload .clip with Rect_clip
+//
+(* ****** ****** *)
+//
+fun
+Rect_contains(Rect, Rect): bool = "mac#%"
+//
+overload .contains with Rect_contains
 //
 (* ****** ****** *)
 //

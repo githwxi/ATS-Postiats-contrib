@@ -10,10 +10,10 @@
 (* ****** ****** *)
 //
 staload
-"libats/SATS/number/real.sats"
+"libats/SATS/Number/real.sats"
 //
 staload
-"libats/DATS/number/real_double.dats"
+"libats/DATS/Number/real_double.dats"
 //
 (* ****** ****** *)
 
