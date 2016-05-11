@@ -155,7 +155,7 @@ prval () =
 //
 val g = $UN.cast(9.8): real(g)
 //
-val D = $UN.cast(0.45): real(D)
+val D = $UN.cast(0.10): real(D)
 val K = $UN.cast(0.90): real(K)
 //
 (* ****** ****** *)

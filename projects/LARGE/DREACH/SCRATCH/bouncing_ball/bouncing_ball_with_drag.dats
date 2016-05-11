@@ -49,7 +49,7 @@ fun
 mode1_flow
   : {x,v:real | x > 0}
     state(M1, x, v) ->
-    state(M1, x+v*dt, v-(g+D*v*v)*dt)
+    state(M1, x+v*dt, v-(g-D*v*v)*dt)
 //
 (* ****** ****** *)
 //
