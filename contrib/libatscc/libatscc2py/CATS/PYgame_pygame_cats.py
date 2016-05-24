@@ -54,7 +54,7 @@ def ats2py_pygame_color_a(obj): return obj.a
 #
 def ats2py_pygame_color_make_rgb(r, g, b): return pygame.Color(r, g, b, 255)
 def ats2py_pygame_color_make_rgba(r, g, b, a): return pygame.Color(r, g, b, a)
-$
+#
 ############################################
 #
 def ats2py_pygame_draw_rect_(s, c, r): return pygame.draw.rect(s, c, r)
