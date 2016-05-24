@@ -34,7 +34,22 @@ val ((*void*)) = println! ("nf = ", npnf.1)
 //
 val res = $tup(500,500)
 val screen = display_set_mode(res)
-val _(*Rect*) = screen.fill(Color(255, 0, 0))
+val _(*Rect*) = screen.fill(Color(0, 0, 0))
+//
+val screen2 = Surface(screen.get_size(), SRCALPHA, 32)
+//
+(*
+val () = println! ("screen2_width = ", screen2.get_width())
+val () = println! ("screen2_height = ", screen2.get_height())
+*)
+//
+val _rect_ =
+  draw_rect(screen2, Color(200, 200, 200), Rect(100, 100, 300, 300), 1)
+//
+val _rect_ =
+  screen.blit(screen2, $tup(0, 0))
+//
+val ((*void*)) = display_flip((*void*))
 //
 val () = loop() where
 {

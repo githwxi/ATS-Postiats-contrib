@@ -66,6 +66,7 @@ rect_make_int22
   topleft: int2, botright: int2
 ) : Rect = "mac#%" 
 //
+overload Rect with rect_make_int4
 overload Rect with rect_make_int22
 //
 (* ****** ****** *)
@@ -142,12 +143,54 @@ overload .union_ip with rect_union_ip
 (* ****** ****** *)
 //
 fun
-color_make_rgb(r:int, g:int, b:int): Color = "mac#%"
+color_make_rgb
+  (r:int, g:int, b:int): Color = "mac#%"
 fun
-color_make_rgba(r:int, g:int, b:int, a:int): Color = "mac#%"
+color_make_rgba
+  (r:int, g:int, b:int, a:int): Color = "mac#%"
 //
 overload Color with color_make_rgb
 overload Color with color_make_rgba
+//
+(* ****** ****** *)
+//
+fun
+draw_rect_
+  (Surface, Color, Rect): Rect = "mac#%"
+fun
+draw_rect_width
+  (Surface, Color, Rect, width: int): Rect = "mac#%"
+//
+overload draw_rect with draw_rect_
+overload draw_rect with draw_rect_width
+//
+(* ****** ****** *)
+//
+fun
+draw_circle_
+(
+  Surface, Color, center: int2, radius: int
+) : Rect = "mac#%"
+fun
+draw_circle_width
+(
+  Surface, Color, center: int2, radius: int, width: int
+) : Rect = "mac#%"
+//
+overload draw_circle with draw_circle_
+overload draw_circle with draw_circle_width
+//
+(* ****** ****** *)
+//
+fun
+draw_line_
+  (Surface, Color, p0: int2, p1: int2): Rect = "mac#%"
+fun
+draw_line_width
+  (Surface, Color, p0: int2, p1: int2, width: int): Rect = "mac#%"
+//
+overload draw_line with draw_line_
+overload draw_line with draw_line_width
 //
 (* ****** ****** *)
 
@@ -282,13 +325,13 @@ event_get_blocked
 macdef
 SRCALPHA = $extval(int, "pygame.SRCALPHA")
 //
-fun surface_make_(wh: int2): Surface
-fun surface_make_flags_depth(wh: int2, int, int): Surface
-fun surface_make_flags_surface(wh: int2, int, Surface): Surface
+fun surface_make_(wh: int2): Surface = "mac#%"
+fun surface_make_flags_depth(wh: int2, int, int): Surface = "mac#%"
+fun surface_make_flags_surface(wh: int2, int, Surface): Surface = "mac#%"
 //
-overload surface_make with surface_make_
-overload surface_make with surface_make_flags_depth
-overload surface_make with surface_make_flags_surface
+overload Surface with surface_make_
+overload Surface with surface_make_flags_depth
+overload Surface with surface_make_flags_surface
 //
 fun surface_get_size(Surface): int2 = "mac#%"
 fun surface_get_width(Surface): int = "mac#%"
@@ -313,16 +356,16 @@ overload .fill with surface_fill_rect_flags
 (* ****** ****** *)
 
 fun
-surface_blit_xy(src: Surface, dst: int2): Rect
+surface_blit_xy(obj: Surface, src: Surface, dst: int2): Rect = "mac#%"
 fun
 surface_blit_xy_area_flags
-  (src: Surface, dst: int2, area: Rect, flags: int): Rect
+  (obj: Surface, src: Surface, dst: int2, area: Rect, flags: int): Rect = "mac#%"
 //
 fun
-surface_blit_rect(src: Surface, dst: Rect): Rect
+surface_blit_rect(obj: Surface, src: Surface, dst: Rect): Rect = "mac#%"
 fun
 surface_blit_rect_area_flags
-  (src: Surface, dst: Rect, area: Rect, flags: int): Rect
+  (obj: Surface, src: Surface, dst: Rect, area: Rect, flags: int): Rect = "mac#%"
 //
 overload .blit with surface_blit_xy
 overload .blit with surface_blit_xy_area_flags

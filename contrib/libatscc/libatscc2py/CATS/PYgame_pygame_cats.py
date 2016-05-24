@@ -42,9 +42,20 @@ def ats2py_pygame_rect_contains(obj, obj2): return obj.contains(obj2)
 #
 ############################################
 
-def ats2py_pygame_color_make_rgb(r, g, b): return pygame.Color(r, g, b, 0)
+def ats2py_pygame_color_make_rgb(r, g, b): return pygame.Color(r, g, b, 255)
 def ats2py_pygame_color_make_rgba(r, g, b, a): return pygame.Color(r, g, b, a)
 
+############################################
+#
+def ats2py_pygame_draw_rect_(s, c, r): return pygame.draw.rect(s, c, r)
+def ats2py_pygame_draw_rect_width(s, c, r, w): return pygame.draw.rect(s, c, r, w)
+#
+def ats2py_pygame_draw_circle_(s, c, o, r): return pygame.draw.circle(s, c, o, r)
+def ats2py_pygame_draw_circle_width(s, c, o, r, w): return pygame.draw.circle(s, c, o, r, w)
+#
+def ats2py_pygame_draw_line_(s, c, p0, p1): return pygame.draw.line(s, c, p0, p1)
+def ats2py_pygame_draw_line_width(s, c, p0, p1, width): return pygame.draw.line(s, c, p0, p1, width)
+#
 ############################################
 #
 def ats2py_pygame_event_pump(): return pygame.event.pump()
@@ -95,9 +106,9 @@ def ats2py_pygame_event_type_nequal(x, y): return (x != y)
 
 ############################################
 #
-def ats2py_pygame_surface_make_(clr): return Surface(clr)
-def ats2py_pygame_surface_make_flags_depth(clr, flags, depth): return Surface(clr,flags,depth)
-def ats2py_pygame_surface_make_flags_surface(clr, flags, surface): return Surface(clr,flags,surface)
+def ats2py_pygame_surface_make_(clr): return pyname.Surface(clr)
+def ats2py_pygame_surface_make_flags_depth(clr, flags, depth): return pygame.Surface(clr,flags,depth)
+def ats2py_pygame_surface_make_flags_surface(clr, flags, surface): return pygame.Surface(clr,flags,surface)
 #
 def ats2py_pygame_surface_get_size(obj): return obj.get_size()
 def ats2py_pygame_surface_get_width(obj): return obj.get_width()
@@ -106,11 +117,10 @@ def ats2py_pygame_surface_get_height(obj): return obj.get_height()
 def ats2py_pygame_surface_fill_(obj, clr): return obj.fill(clr)
 def ats2py_pygame_surface_fill_rect_flags(obj, clr, rect, flags): return obj.fill(clr,rect,flags)
 #
-def ats2py_pygame_surface_blit_xy(obj, dst): return obj.blit(dst)
-def ats2py_pygame_surface_blit_xy_area_flags(obj, dst, area, flags): return obj.blit(dst,area,flags)
-#
-def ats2py_pygame_surface_blit_rect(obj, dst): return obj.blit(dst)
-def ats2py_pygame_surface_blit_rect_area_flags(obj, dst, area, flags): return obj.blit(dst,area,flags)
+def ats2py_pygame_surface_blit_xy(obj, src, dst): return obj.blit(src, dst)
+def ats2py_pygame_surface_blit_xy_area_flags(obj, src, dst, area, flags): return obj.blit(src,dst,area,flags)
+def ats2py_pygame_surface_blit_rect(obj, src, dst): return obj.blit(src, dst)
+def ats2py_pygame_surface_blit_rect_area_flags(obj, src, dst, area, flags): return obj.blit(src,dst,area,flags)
 #
 ############################################
 #
