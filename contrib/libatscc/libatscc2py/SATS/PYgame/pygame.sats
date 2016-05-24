@@ -18,7 +18,13 @@ ATS_EXTERN_PREFIX "ats2py_pygame_"
 
 (* ****** ****** *)
 
+typedef int2 = $tup(int, int)
+typedef int3 = $tup(int, int, int)
+
+(* ****** ****** *)
+
 abstype Rect
+abstype Color
 
 (* ****** ****** *)
 //
@@ -28,6 +34,10 @@ typedef Eventlist = PYlist(Event)
 //
 abstype Event_type
 //
+(* ****** ****** *)
+
+abstype Surface
+
 (* ****** ****** *)
 //
 fun
@@ -44,13 +54,20 @@ pygame_init_ret
 fun pygame_quit(): void = "mac#%"
 
 (* ****** ****** *)
-
+//
 fun
-rect_make
+rect_make_int4
 (
-  t: int, l: int, b: int, r: int
+  t:int, l:int, b:int, r:int
 ) : Rect = "mac#%" 
-
+fun
+rect_make_int22
+(
+  topleft: int2, botright: int2
+) : Rect = "mac#%" 
+//
+overload Rect with rect_make_int22
+//
 (* ****** ****** *)
 //
 fun
@@ -121,6 +138,16 @@ rect_union_ip(Rect, Rect): void = "mac#%"
 //
 overload .union with rect_union
 overload .union_ip with rect_union_ip
+//
+(* ****** ****** *)
+//
+fun
+color_make_rgb(r:int, g:int, b:int): Color = "mac#%"
+fun
+color_make_rgba(r:int, g:int, b:int, a:int): Color = "mac#%"
+//
+overload Color with color_make_rgb
+overload Color with color_make_rgba
 //
 (* ****** ****** *)
 
@@ -230,6 +257,91 @@ event_set_allowed_type(Event_type): bool = "mac#%"
 //
 fun
 event_get_blocked(Event_type): bool = "mac#%"
+//
+(* ****** ****** *)
+//
+macdef
+SRCALPHA = $extval(int, "SRCALPHA")
+//
+fun surface_make_(wh: int2): Surface
+fun surface_make_flags_depth(wh: int2, int, int): Surface
+fun surface_make_flags_surface(wh: int2, int, Surface): Surface
+//
+overload surface_make with surface_make_
+overload surface_make with surface_make_flags_depth
+overload surface_make with surface_make_flags_surface
+//
+fun surface_get_size(Surface): int2 = "mac#%"
+fun surface_get_width(Surface): int = "mac#%"
+fun surface_get_height(Surface): int = "mac#%"
+//
+overload .get_size with surface_get_size
+overload .get_width with surface_get_width
+overload .get_height with surface_get_height
+//
+(* ****** ****** *)
+//
+fun
+surface_fill_
+  (Surface, Color): Rect = "mac#%"
+fun
+surface_fill_rect_flags
+  (Surface, Color, Rect, int): Rect = "mac#%"
+//
+overload .fill with surface_fill_
+overload .fill with surface_fill_rect_flags
+//
+(* ****** ****** *)
+
+fun
+surface_blit_xy(src: Surface, dst: int2): Rect
+fun
+surface_blit_xy_area_flags
+  (src: Surface, dst: int2, area: Rect, flags: int): Rect
+//
+fun
+surface_blit_rect(src: Surface, dst: Rect): Rect
+fun
+surface_blit_rect_area_flags
+  (src: Surface, dst: Rect, area: Rect, flags: int): Rect
+//
+overload .blit with surface_blit_xy
+overload .blit with surface_blit_xy_area_flags
+overload .blit with surface_blit_rect
+overload .blit with surface_blit_rect_area_flags
+//
+(* ****** ****** *)
+//
+fun
+display_init(): void = "mac#%" // called by pygame_init
+fun
+display_quit(): void = "mac#%" // called by pygame_init
+//
+fun
+display_get_init(): bool = "mac#%"
+fun
+display_get_active(): bool = "mac#%"
+//
+fun
+display_set_mode_resolution
+  (resolution: int2): Surface = "mac#%"
+fun
+display_set_mode_resolution_flags_depth
+  (resolution: int2, flags: int, depth: int): Surface = "mac#%"
+//
+overload display_set_mode with display_set_mode_resolution
+overload display_set_mode with display_set_mode_resolution_flags_depth
+//
+fun
+display_get_surface(): Surface = "mac#%"
+//
+fun
+display_flip(): void = "mac#%"
+fun
+display_update(xs: PYlist(Rect)): void = "mac#%"
+//
+fun
+display_iconify(): bool = "mac#%"
 //
 (* ****** ****** *)
 

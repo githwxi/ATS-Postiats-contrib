@@ -32,6 +32,10 @@ val npnf = pygame_init_ret()
 val ((*void*)) = println! ("np = ", npnf.0)
 val ((*void*)) = println! ("nf = ", npnf.1)
 //
+val res = $tup(500,500)
+val screen = display_set_mode(res)
+val _(*Rect*) = screen.fill(Color(255, 0, 0))
+//
 val ((*void*)) = pygame_quit((*void*))
 //
 } (* end of [test01_main] *)
