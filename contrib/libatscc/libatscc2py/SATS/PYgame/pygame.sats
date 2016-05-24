@@ -20,6 +20,7 @@ ATS_EXTERN_PREFIX "ats2py_pygame_"
 
 typedef int2 = $tup(int, int)
 typedef int3 = $tup(int, int, int)
+typedef int4 = $tup(int, int, int, int)
 
 (* ****** ****** *)
 
