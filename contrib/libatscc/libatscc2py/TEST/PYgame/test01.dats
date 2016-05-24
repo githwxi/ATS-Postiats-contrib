@@ -43,8 +43,14 @@ val () = println! ("screen2_width = ", screen2.get_width())
 val () = println! ("screen2_height = ", screen2.get_height())
 *)
 //
+val c1 = Color(200, 200, 200)
+//
+val r0 = Rect(100, 100, 300, 300)
+//
+val _rect_ = screen2.fill(c1, r0, 0)
+//
 val _rect_ =
-  draw_rect(screen2, Color(200, 200, 200), Rect(100, 100, 300, 300), 1)
+  draw_circle(screen2, Color(0,0,0), $tup(250,250), 100)
 //
 val _rect_ =
   screen.blit(screen2, $tup(0, 0))
