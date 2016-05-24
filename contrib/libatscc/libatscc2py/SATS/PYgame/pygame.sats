@@ -8,14 +8,14 @@
 // prefix for external names
 //
 (* ****** ****** *)
+//
+staload "./../../basics_py.sats"
+//
+(* ****** ****** *)
 
 #define
 ATS_EXTERN_PREFIX "ats2py_pygame_"
 
-(* ****** ****** *)
-//
-staload "./../../basics_py.sats"
-//
 (* ****** ****** *)
 
 abstype Rect
@@ -29,9 +29,24 @@ typedef Eventlist = PYlist(Event)
 abstype Event_type
 //
 (* ****** ****** *)
+//
+fun
+pygame_init(): void = "mac#%"
+//
+fun
+pygame_init_ret
+(
+// argumentless
+) : $tup(int(*npass*), int(*nfail*)) = "mac#%"
+//
+(* ****** ****** *)
+
+fun pygame_quit(): void = "mac#%"
+
+(* ****** ****** *)
 
 fun
-Rect_make
+rect_make
 (
   t: int, l: int, b: int, r: int
 ) : Rect = "mac#%" 
@@ -39,72 +54,73 @@ Rect_make
 (* ****** ****** *)
 //
 fun
-Rect_copy(Rect): Rect = "mac#%"
+rect_copy
+  (r0: Rect): Rect = "mac#%"
 //
-overload .copy with Rect_copy
-//
-(* ****** ****** *)
-//
-fun
-Rect_fit(Rect, Rect): Rect = "mac#%"
-//
-overload .fit with Rect_fit
-//
-fun
-Rect_clip(Rect, Rect): Rect = "mac#%"
-//
-overload .clip with Rect_clip
+overload .copy with rect_copy
 //
 (* ****** ****** *)
 //
 fun
-Rect_contains(Rect, Rect): bool = "mac#%"
+rect_fit(Rect, Rect): Rect = "mac#%"
 //
-overload .contains with Rect_contains
+overload .fit with rect_fit
+//
+fun
+rect_clip(Rect, Rect): Rect = "mac#%"
+//
+overload .clip with rect_clip
 //
 (* ****** ****** *)
 //
 fun
-Rect_move
+rect_contains(Rect, Rect): bool = "mac#%"
+//
+overload .contains with rect_contains
+//
+(* ****** ****** *)
+//
+fun
+rect_move
   (Rect, x: int, y: int): Rect = "mac#%"
 fun
-Rect_move_ip
+rect_move_ip
   (Rect, x: int, y: int): void = "mac#%"
 //
-overload .move with Rect_move
-overload .move_ip with Rect_move_ip
+overload .move with rect_move
+overload .move_ip with rect_move_ip
 //
 (* ****** ****** *)
 //
 fun
-Rect_inflate
+rect_inflate
   (Rect, x: int, y: int): Rect = "mac#%"
 fun
-Rect_inflate_ip
+rect_inflate_ip
   (Rect, x: int, y: int): void = "mac#%"
 //
-overload .inflate with Rect_inflate
-overload .inflate_ip with Rect_inflate_ip
+overload .inflate with rect_inflate
+overload .inflate_ip with rect_inflate_ip
 //
 (* ****** ****** *)
 //
 fun
-Rect_clamp(Rect, Rect): Rect = "mac#%"
+rect_clamp(Rect, Rect): Rect = "mac#%"
 fun
-Rect_clamp_ip(Rect, Rect): void = "mac#%"
+rect_clamp_ip(Rect, Rect): void = "mac#%"
 //
-overload .clamp with Rect_clamp
-overload .clamp_ip with Rect_clamp_ip
+overload .clamp with rect_clamp
+overload .clamp_ip with rect_clamp_ip
 //
 (* ****** ****** *)
 //
 fun
-Rect_union(Rect, Rect): Rect = "mac#%"
+rect_union(Rect, Rect): Rect = "mac#%"
 fun
-Rect_union_ip(Rect, Rect): void = "mac#%"
+rect_union_ip(Rect, Rect): void = "mac#%"
 //
-overload .union with Rect_union
-overload .union_ip with Rect_union_ip
+overload .union with rect_union
+overload .union_ip with rect_union_ip
 //
 (* ****** ****** *)
 
