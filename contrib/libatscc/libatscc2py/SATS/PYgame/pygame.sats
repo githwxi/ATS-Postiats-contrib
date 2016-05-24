@@ -170,43 +170,61 @@ USEREVENT        code
 *)
 //
 macdef
-QUIT = $extval(Event_type, "QUIT")
+QUIT = $extval(Event_type, "pygame.QUIT")
 //
 macdef
-KEYUP = $extval(Event_type, "KEYUP")
+KEYUP = $extval(Event_type, "pygame.KEYUP")
 macdef
-KEYDOWN = $extval(Event_type, "KEYDOWN")
+KEYDOWN = $extval(Event_type, "pygame.KEYDOWN")
 //
 macdef
-USEREVENT = $extval(Event_type, "USEREVENT")
+USEREVENT = $extval(Event_type, "pygame.USEREVENT")
 //
 macdef
-ACTIVEEVENT = $extval(Event_type, "ACTIVEEVENT")
+ACTIVEEVENT = $extval(Event_type, "pygame.ACTIVEEVENT")
 //
 macdef
-MOUSEMOTION = $extval(Event_type, "MOUSEMOTION")
+MOUSEMOTION = $extval(Event_type, "pygame.MOUSEMOTION")
 //
 macdef
-MOUSEBUTTONUP = $extval(Event_type, "MOUSEBUTTONUP")
+MOUSEBUTTONUP = $extval(Event_type, "pygame.MOUSEBUTTONUP")
 macdef
-MOUSEBUTTONDOWN = $extval(Event_type, "MOUSEBUTTONDOWN")
+MOUSEBUTTONDOWN = $extval(Event_type, "pygame.MOUSEBUTTONDOWN")
 //
 macdef
-VIDEORESIZE = $extval(Event_type, "VIDEORESIZE")
+VIDEORESIZE = $extval(Event_type, "pygame.VIDEORESIZE")
 macdef
-VIDEOEXPOSE = $extval(Event_type, "VIDEOEXPOSE")
+VIDEOEXPOSE = $extval(Event_type, "pygame.VIDEOEXPOSE")
 //
 macdef
-JOYBUTTONUP = $extval(Event_type, "JOYBUTTONUP")
+JOYBUTTONUP = $extval(Event_type, "pygame.JOYBUTTONUP")
 macdef
-JOYBUTTONDOWN = $extval(Event_type, "JOYBUTTONDOWN")
+JOYBUTTONDOWN = $extval(Event_type, "pygame.JOYBUTTONDOWN")
 //
 macdef
-JOYHATMOTION = $extval(Event_type, "JOYHATMOTION")
+JOYHATMOTION = $extval(Event_type, "pygame.JOYHATMOTION")
 macdef
-JOYAXISMOTION = $extval(Event_type, "JOYAXISMOTION")
+JOYAXISMOTION = $extval(Event_type, "pygame.JOYAXISMOTION")
 macdef
-JOYBALLMOTION = $extval(Event_type, "JOYBALLMOTION")
+JOYBALLMOTION = $extval(Event_type, "pygame.JOYBALLMOTION")
+//
+(* ****** ****** *)
+//
+fun
+event_type
+  (Event): Event_type = "mac#%"
+//
+overload .type with event_type
+//
+fun
+event_type_equal
+  (x: Event_type, y: Event_type): bool = "mac#%"
+fun
+event_type_nequal
+  (x: Event_type, y: Event_type): bool = "mac#%"
+//
+overload = with event_type_equal
+overload != with event_type_nequal
 //
 (* ****** ****** *)
 //
@@ -256,12 +274,13 @@ event_set_allowed_type(Event_type): bool = "mac#%"
 (* ****** ****** *)
 //
 fun
-event_get_blocked(Event_type): bool = "mac#%"
+event_get_blocked
+  (type: Event_type): bool = "mac#%"
 //
 (* ****** ****** *)
 //
 macdef
-SRCALPHA = $extval(int, "SRCALPHA")
+SRCALPHA = $extval(int, "pygame.SRCALPHA")
 //
 fun surface_make_(wh: int2): Surface
 fun surface_make_flags_depth(wh: int2, int, int): Surface
