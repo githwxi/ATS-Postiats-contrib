@@ -19,6 +19,11 @@ def ats2py_pygame_pygame_quit(): return pygame.quit()
 #
 ############################################
 #
+def ats2py_pygame_rect_top(obj): return obj.top
+def ats2py_pygame_rect_left(obj): return obj.left
+def ats2py_pygame_rect_bottom(obj): return obj.bottom
+def ats2py_pygame_rect_right(obj): return obj.right
+#
 def ats2py_pygame_rect_make_int4(t, l, b, r): return pygame.Rect(t, l, b, r)
 def ats2py_pygame_rect_make_int22(topleft, botright): return pygame.Rect(topleft, botright)
 #
@@ -41,10 +46,15 @@ def ats2py_pygame_rect_clamp_ip(obj, obj2): return obj.clamp_ip(obj2)
 def ats2py_pygame_rect_contains(obj, obj2): return obj.contains(obj2)
 #
 ############################################
-
+#
+def ats2py_pygame_color_r(obj): return obj.r
+def ats2py_pygame_color_g(obj): return obj.g
+def ats2py_pygame_color_b(obj): return obj.b
+def ats2py_pygame_color_a(obj): return obj.a
+#
 def ats2py_pygame_color_make_rgb(r, g, b): return pygame.Color(r, g, b, 255)
 def ats2py_pygame_color_make_rgba(r, g, b, a): return pygame.Color(r, g, b, a)
-
+$
 ############################################
 #
 def ats2py_pygame_draw_rect_(s, c, r): return pygame.draw.rect(s, c, r)

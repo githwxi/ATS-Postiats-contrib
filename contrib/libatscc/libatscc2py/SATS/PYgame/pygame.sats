@@ -72,6 +72,22 @@ overload Rect with rect_make_int22
 (* ****** ****** *)
 //
 fun
+rect_top : Rect -> int = "mac#%"
+fun
+rect_left : Rect -> int = "mac#%"
+fun
+rect_bottom : Rect -> int = "mac#%"
+fun
+rect_right : Rect -> int = "mac#%"
+//
+overload .top with rect_top
+overload .left with rect_left
+overload .bottom with rect_bottom
+overload .right with rect_right
+//
+(* ****** ****** *)
+//
+fun
 rect_copy
   (r0: Rect): Rect = "mac#%"
 //
@@ -139,6 +155,22 @@ rect_union_ip(Rect, Rect): void = "mac#%"
 //
 overload .union with rect_union
 overload .union_ip with rect_union_ip
+//
+(* ****** ****** *)
+//
+fun
+color_r : Color -> int
+fun
+color_g : Color -> int
+fun
+color_b : Color -> int
+fun
+color_a : Color -> int
+//
+overload .r with Color_r
+overload .g with Color_g
+overload .b with Color_b
+overload .a with Color_a
 //
 (* ****** ****** *)
 //
