@@ -1,6 +1,10 @@
 (* ****** ****** *)
 //
-// Trying libatscc2py/Pygame
+// Trying libatscc2py/PYgame
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Starting time: May 23, 2016
 //
 (* ****** ****** *)
 //
