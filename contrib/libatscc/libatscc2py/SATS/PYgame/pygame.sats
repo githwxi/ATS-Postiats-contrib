@@ -59,16 +59,14 @@ fun pygame_quit(): void = "mac#%"
 fun
 rect_make_int4
 (
-  t:int, l:int, b:int, r:int
+  t:int, l:int, x:int, y:int
 ) : Rect = "mac#%" 
 fun
-rect_make_int22
-(
-  topleft: int2, botright: int2
-) : Rect = "mac#%" 
+rect_make_int2_int2
+  (tl: int2, xy: int2) : Rect = "mac#%" 
 //
 overload Rect with rect_make_int4
-overload Rect with rect_make_int22
+overload Rect with rect_make_int2_int2
 //
 (* ****** ****** *)
 //
@@ -168,10 +166,10 @@ color_b : Color -> int
 fun
 color_a : Color -> int
 //
-overload .r with Color_r
-overload .g with Color_g
-overload .b with Color_b
-overload .a with Color_a
+overload .r with color_r
+overload .g with color_g
+overload .b with color_b
+overload .a with color_a
 //
 (* ****** ****** *)
 //

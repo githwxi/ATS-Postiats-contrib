@@ -24,8 +24,8 @@ def ats2py_pygame_rect_left(obj): return obj.left
 def ats2py_pygame_rect_bottom(obj): return obj.bottom
 def ats2py_pygame_rect_right(obj): return obj.right
 #
-def ats2py_pygame_rect_make_int4(t, l, b, r): return pygame.Rect(t, l, b, r)
-def ats2py_pygame_rect_make_int22(topleft, botright): return pygame.Rect(topleft, botright)
+def ats2py_pygame_rect_make_int4(t,l,w,h): return pygame.Rect(t,l,w,h)
+def ats2py_pygame_rect_make_int2_int2(tl, wh): return pygame.Rect(tl, wh)
 #
 ############################################
 #
