@@ -60,7 +60,7 @@ def ats2py_pygame_color_make_rgba(r, g, b, a): return pygame.Color(r, g, b, a)
 def ats2py_pygame_draw_rect_(s, c, r): return pygame.draw.rect(s, c, r)
 def ats2py_pygame_draw_rect_width(s, c, r, w): return pygame.draw.rect(s, c, r, w)
 #
-def ats2py_pygame_draw_polygon_(s, c, xs): return pygame.draw.polygon(s, xs, r)
+def ats2py_pygame_draw_polygon_(s, c, xs): return pygame.draw.polygon(s, c, xs)
 def ats2py_pygame_draw_polygon_width(s, c, xs, w): return pygame.draw.polygon(s, c, xs, w)
 #
 def ats2py_pygame_draw_circle_(s, c, o, r): return pygame.draw.circle(s, c, o, r)

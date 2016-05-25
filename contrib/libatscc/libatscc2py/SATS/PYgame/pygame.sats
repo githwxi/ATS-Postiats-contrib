@@ -204,6 +204,9 @@ fun
 draw_polygon_width
   (Surface, Color, PYlist(int2), width: int): Rect = "mac#%"
 //
+overload draw_polygon with draw_polygon_
+overload draw_polygon with draw_polygon_width
+//
 (* ****** ****** *)
 //
 fun

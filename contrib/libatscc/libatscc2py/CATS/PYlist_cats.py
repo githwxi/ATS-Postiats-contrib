@@ -21,7 +21,7 @@ def PYlist_pair(x1, x2): return [x1, x2]
 
 ############################################
 
-def PYlist_cons(x0, xs): return xs.insert(0, x)
+def PYlist_cons(x0, xs): return xs.insert(0, x0)
 
 ############################################
 
