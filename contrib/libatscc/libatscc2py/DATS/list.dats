@@ -36,6 +36,10 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
+
+staload "./../basics_py.sats"
+
+(* ****** ****** *)
 //
 staload "./../SATS/integer.sats"
 //
@@ -47,6 +51,7 @@ staload "./../SATS/filebas.sats"
 (* ****** ****** *)
 
 staload "./../SATS/list.sats"
+staload "./../SATS/PYlist.sats"
 
 (* ****** ****** *)
 //
@@ -62,6 +67,47 @@ implement
 print_list_sep
   (xs, sep) = fprint_list_sep<a> (stdout, xs, sep)
 //
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+PYlist_oflist{a}(xs) = let
+//
+fun
+aux
+(
+  xs: List0(a), res: PYlist(a)
+) : PYlist(a) =
+  case+ xs of
+  | list_nil() => res
+  | list_cons(x, xs) =>
+      let val () =
+        PYlist_append(res, x) in aux(xs, res)
+      end // end of [list_cons]
+//
+in
+  aux(xs, PYlist_nil())
+end // end of [PYlist_oflist]
+
+implement
+{}(*tmp*)
+PYlist_oflist_rev{a}(xs) = let
+//
+fun
+aux
+(
+  xs: List0(a), res: PYlist(a)
+) : PYlist(a) =
+  case+ xs of
+  | list_nil() => res
+  | list_cons(x, xs) => let
+      val () = PYlist_cons(x, res) in aux(xs, res)
+    end // end of [list_cons]
+//
+in
+  aux(xs, PYlist_nil())
+end // end of [PYlist_oflist_rev]
+
 (* ****** ****** *)
 
 (* end of [list.dats] *)

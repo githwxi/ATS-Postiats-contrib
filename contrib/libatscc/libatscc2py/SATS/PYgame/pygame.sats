@@ -198,6 +198,15 @@ overload draw_rect with draw_rect_width
 (* ****** ****** *)
 //
 fun
+draw_polygon_
+  (Surface, Color, PYlist(int2)): Rect = "mac#%"
+fun
+draw_polygon_width
+  (Surface, Color, PYlist(int2), width: int): Rect = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 draw_circle_
 (
   Surface, Color, center: int2, radius: int

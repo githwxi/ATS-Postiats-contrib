@@ -34,6 +34,12 @@ PYlist_pair
 (* ****** ****** *)
 //
 fun
+PYlist_cons
+  {a:vt0p} (x0: a, xs: PYlist(a)): void = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 PYlist_make_elt
   {a:t0p}{n:nat}(n: int(n), x0: a): PYlist(a) = "mac#"
 //
@@ -87,7 +93,7 @@ PYlist_append
 //
 fun
 PYlist_extend
-  {a:t0p}(xs1: PYlist(a), xs2: PYlist(a)): void = "mac#"
+  {a:t@ype}(xs1: PYlist(a), xs2: PYlist(a)): void = "mac#"
 //
 (* ****** ****** *)
 //
@@ -146,6 +152,16 @@ fun
 PYlist2list{a:t0p} (xs: PYlist(a)): List0(a) = "mac#"
 fun
 PYlist2list_rev{a:t0p} (xs: PYlist(a)): List0(a) = "mac#"
+//
+(* ****** ****** *)
+//
+// HX-2016-05-25:
+// Implemented in [list.dats]
+//
+fun{}
+PYlist_oflist{a:t0p}(xs: List0(a)): PYlist(a) // = "mac#"
+fun{}
+PYlist_oflist_rev{a:t0p}(xs: List0(a)): PYlist(a) // = "mac#"
 //
 (* ****** ****** *)
 
