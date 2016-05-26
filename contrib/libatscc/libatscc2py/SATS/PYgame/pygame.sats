@@ -24,6 +24,12 @@ typedef int4 = $tup(int, int, int, int)
 
 (* ****** ****** *)
 
+(*
+abstype Key
+*)
+
+(* ****** ****** *)
+
 abstype Rect
 abstype Color
 
@@ -311,6 +317,24 @@ event_type_nequal
 //
 overload = with event_type_equal
 overload != with event_type_nequal
+//
+(* ****** ****** *)
+//
+fun
+event_keyup_key(x: Event): int = "mac#%"
+fun
+event_keyup_mod(x: Event): int = "mac#%"
+//
+overload .keyup_key with event_keyup_key
+overload .keyup_mod with event_keyup_mod
+//
+fun
+event_keydown_key(x: Event): int = "mac#%"
+fun
+event_keydown_mod(x: Event): int = "mac#%"
+//
+overload .keydown_key with event_keydown_key
+overload .keydown_mod with event_keydown_mod
 //
 (* ****** ****** *)
 //

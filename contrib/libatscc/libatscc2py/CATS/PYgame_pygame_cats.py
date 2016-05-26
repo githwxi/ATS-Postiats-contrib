@@ -112,11 +112,16 @@ def ats2py_pygame_event_set_allowed_types(xs): return pygame.event.set_allowed(x
 def ats2py_pygame_event_get_blocked(type): return pygame.event.get_blocked(type)
 #
 ############################################
-
+#
 def ats2py_pygame_event_type(obj): return obj.type
 def ats2py_pygame_event_type_equal(x, y): return (x == y)
 def ats2py_pygame_event_type_nequal(x, y): return (x != y)
-
+#
+def ats2py_pygame_event_keyup_key(obj): return obj.key
+def ats2py_pygame_event_keyup_mod(obj): return obj.mod
+def ats2py_pygame_event_keydown_key(obj): return obj.key
+def ats2py_pygame_event_keydown_mod(obj): return obj.mod
+#
 ############################################
 #
 def ats2py_pygame_surface_make_(clr): return pyname.Surface(clr)
