@@ -22,9 +22,9 @@ CATSPARSEMIT=./.CATS-parsemit
 ######
 
 SOURCES_DATS :=
-SOURCES_DATS += atscc2py_main.dats
-SOURCES_DATS += atscc2py_emit.dats
-SOURCES_DATS += atscc2py_emit2.dats
+SOURCES_DATS += atscc2py3_main.dats
+SOURCES_DATS += atscc2py3_emit.dats
+SOURCES_DATS += atscc2py3_emit2.dats
 
 SOURCES_SATS :=
 SOURCES_SATS += $(CATSPARSEMIT)/catsparse.sats
@@ -36,8 +36,8 @@ SOURCES_CATS += $(CATSPARSEMIT)/catsparse_include_all_dats.c
 ######
 #
 all:: \
-atscc2py
-atscc2py: \
+atscc2py3
+atscc2py3: \
 $(SOURCES_DATS); \
 $(PATSCC) \
   -DATS_MEMALLOC_GCBDW -O2 -o $@ \
@@ -63,7 +63,7 @@ $(CPF) $(CATSPARSEMIT_source)/CATS/catsparse_*_dats.c $(CATSPARSEMIT)/.
 ######
 #
 build:: pkgreloc
-build:: atscc2py
+build:: atscc2py3
 #
 testall:: build
 testall:: cleanall
@@ -77,7 +77,7 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) ./atscc2py
+cleanall:: ; $(RMF) ./atscc2py3
 cleanall:: ; $(RMF) ./.CATS-parsemit/*
 
 ###### end of [Makefile] ######

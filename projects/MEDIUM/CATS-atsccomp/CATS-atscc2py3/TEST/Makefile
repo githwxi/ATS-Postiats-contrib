@@ -5,7 +5,7 @@
 ######
 
 PYTHON=python3
-export PYTHONPATH=libatscc2py/.
+export PYTHONPATH=libatscc2py3/.
 
 ######
 
@@ -14,7 +14,7 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 ######
 
-ATSCC2PY=./../atscc2py
+ATSCC2PY=./../atscc2py3
 
 ######
 

@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Atscc2py:
+// Atscc2py3:
 // from ATS to Python
 //
 (* ****** ****** *)
@@ -56,8 +56,8 @@ fun catsparse_include_all_dynload(): void = "ext#"
 //
 (* ****** ****** *)
 
-dynload "./atscc2py_emit.dats"
-dynload "./atscc2py_emit2.dats"
+dynload "./atscc2py3_emit.dats"
+dynload "./atscc2py3_emit2.dats"
 
 (* ****** ****** *)
 //
@@ -131,11 +131,11 @@ end // end of [cmdstate_set_outchan]
 //
 extern
 fun
-atscc2py_fileref
+atscc2py3_fileref
   (state: &cmdstate >> _, filr: FILEref): void
 //
 implement
-atscc2py_fileref
+atscc2py3_fileref
   (state, inp) = let
 //
 val
@@ -158,7 +158,7 @@ val ((*flusing*)) = emit_newline (out)
 //
 in
   // nothing
-end // end of [atscc2py_fileref]
+end // end of [atscc2py3_fileref]
 
 (* ****** ****** *)
 //
@@ -166,11 +166,11 @@ macdef fopen = $STDIO.fopen
 //
 extern
 fun
-atscc2py_basename
+atscc2py3_basename
   (state: &cmdstate >> _, fname: string): void
 //
 implement
-atscc2py_basename
+atscc2py3_basename
   (state, fname) = let
 //
 val inp =
@@ -189,7 +189,7 @@ val ((*void*)) =
   the_filename_push(filename_make(fname))
 //
 in
-  atscc2py_fileref (state, inp)
+  atscc2py3_fileref (state, inp)
 end // end of [then]
 else let
 //
@@ -203,7 +203,7 @@ in
   // nothing
 end // end of [else]
 //
-end // end of [atscc2py_basename]
+end // end of [atscc2py3_basename]
 
 (* ****** ****** *)
 
@@ -273,7 +273,7 @@ comarg_warning (str) = {
 (* ****** ****** *)
   
 fun
-atscc2py_usage
+atscc2py3_usage
   (cmd: string): void = {
 //
 val () =
@@ -302,7 +302,7 @@ println! ("  -h : for printing out this help usage")
 val () =
 println! ("  --help : for printing out this help usage")
 //
-} (* end of [atscc2py_usage] *)
+} (* end of [atscc2py3_usage] *)
   
 (* ****** ****** *)
 
@@ -328,8 +328,8 @@ case+ arglst of
   in
     if wait0 then (
       if state.ncomarg = 0
-        then atscc2py_usage ("atscc2py")
-        else atscc2py_fileref (state, stdin_ref)
+        then atscc2py3_usage ("atscc2py3")
+        else atscc2py3_fileref (state, stdin_ref)
     ) (* end of [if] *)
   end // end of [list_nil]
 //
@@ -364,7 +364,7 @@ case+ arg of
         process_cmdline2_COMARGkey2 (state, arglst, key)
     | COMARGkey (_, fname) => let
         val () = state.ninputfile := nif + 1
-        val () = atscc2py_basename (state, fname(*input*))
+        val () = atscc2py3_basename (state, fname(*input*))
       in
         process_cmdline (state, arglst)
       end // end of [COMARGkey]
@@ -417,7 +417,7 @@ case+ key of
   } (* end of [-o] *)
 //
 | "-h" => {
-    val () = atscc2py_usage ("atscc2py")
+    val () = atscc2py3_usage ("atscc2py3")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [-h] *)
@@ -452,7 +452,7 @@ case+ key of
   } (* end of [--output] *)
 //
 | "--help" => {
-    val () = atscc2py_usage ("atscc2py")
+    val () = atscc2py3_usage ("atscc2py3")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [--help] *)
@@ -544,7 +544,7 @@ main0 (argc, argv) =
 val () =
 prerrln!
 (
-  "Hello from atscc2py!"
+  "Hello from atscc2py3!"
 ) (* end of [val] *)
 //
 //
@@ -571,7 +571,7 @@ if
 state.nerror = 1
 then let
   val () =
-  println! ("atscc2py: there is a reported error.")
+  println! ("atscc2py3: there is a reported error.")
 in
   // nothing
 end // end of [then]
@@ -579,7 +579,7 @@ else if
 state.nerror >= 2
 then let
   val () =
-  println! ("atscc2py: there are some reported errors.")
+  println! ("atscc2py3: there are some reported errors.")
 in
   // nothing
 end // end of [then]
@@ -587,11 +587,11 @@ else () // end of [else]
 //
 (*
 val () =
-prerrln! ("Good-bye from atscc2py!")
+prerrln! ("Good-bye from atscc2py3!")
 *)
 //
 } (* end of [main0] *)
 
 (* ****** ****** *)
 
-(* end of [atscc2py_main.dats] *)
+(* end of [atscc2py3_main.dats] *)

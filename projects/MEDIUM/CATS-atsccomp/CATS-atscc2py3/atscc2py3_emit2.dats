@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Atscc2py:
+// Atscc2py3:
 // from ATS to Python
 //
 (* ****** ****** *)
@@ -1971,4 +1971,4 @@ end // end of [emit_toplevel]
 
 (* ****** ****** *)
 
-(* end of [atscc2py_emit2.dats] *)
+(* end of [atscc2py3_emit2.dats] *)
