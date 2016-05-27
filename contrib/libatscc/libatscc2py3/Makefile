@@ -13,6 +13,11 @@ CPF=cp -f
 
 ######
 
+all::
+all_in_one::
+
+######
+
 all:: ; \
 $(CPF) ./CATS/basics_cats.py ./output/ats2pypre_basics_cats.py
 all:: ; \
