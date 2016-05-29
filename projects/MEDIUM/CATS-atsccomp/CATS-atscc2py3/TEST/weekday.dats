@@ -12,7 +12,7 @@
 (* ****** ****** *)
 //
 #include
-"{$LIBATSCC2PY}/staloadall.hats"
+"{$LIBATSCC2PY3}/staloadall.hats"
 //
 (* ****** ****** *)
 

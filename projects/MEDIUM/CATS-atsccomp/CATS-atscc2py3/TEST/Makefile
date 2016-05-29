@@ -204,14 +204,14 @@ cleanall:: ; $(RMF) sieve_lazy_dats.py
 ######
 
 testall:: all
-testall:: libatscc2py
+testall:: libatscc2py3
 testall:: regress
 testall:: cleanall
 
 ######
 #
-libatscc2py:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py/output/* libatscc2py/.
+libatscc2py3:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py3/output/* libatscc2py3/.
 #
 ######
 
@@ -222,11 +222,8 @@ clean:: ; $(RMF) *_?ats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.py
-cleanall:: ; $(RMF) libatscc2py/*_?ats.py
-cleanall:: ; $(RMF) libatscc2py/libatscc2py_all.py
-cleanall:: ; $(RMRF) libatscc2py/__pycache__
-# cleanall:: ; $(RMF) libatscc2py/*_cats.py
-# cleanall:: ; $(RMF) libatscc2py/*_dats.py
-# cleanall:: ; $(RMRF) libatscc2py/__pycache__
+cleanall:: ; $(RMF) libatscc2py3/*_?ats.py
+cleanall:: ; $(RMF) libatscc2py3/libatsccpy_all.py3
+cleanall:: ; $(RMRF) libatscc2py3/__pycache__
 
 ###### end of [Makefile] ######

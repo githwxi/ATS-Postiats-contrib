@@ -12,7 +12,7 @@
 (* ****** ****** *)
 
 staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
+"{$LIBATSCC2PY3}/SATS/integer.sats"
 
 (* ****** ****** *)
 //

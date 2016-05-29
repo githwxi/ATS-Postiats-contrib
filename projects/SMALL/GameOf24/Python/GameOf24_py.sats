@@ -35,7 +35,7 @@ are a good quad.
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PY}/basics_py.sats"
+"{$LIBATSCC2PY3}/basics_py.sats"
 //
 (* ****** ****** *)
 

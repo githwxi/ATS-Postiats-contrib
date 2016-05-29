@@ -5,12 +5,12 @@
 ######
 
 PYTHON=python3
-export PYTHONPATH=libatscc2py/.
+export PYTHONPATH=libatscc2py3/.
 
 ######
 
 PATSCC=${PATSHOME}/bin/patscc
-ATSCC2PY=${PATSHOME}/bin/atscc2py
+ATSCC2PY=${PATSHOME}/bin/atscc2py3
 
 ######
 
@@ -32,8 +32,8 @@ CPRF=cp -rf
 
 ######
 #
-libatscc2py:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py/output/* libatscc2py/.
+libatscc2py3:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py3/output/* libatscc2py3/.
 #
 ######
 
@@ -44,8 +44,8 @@ clean:: ; $(RMF) GameOf24_py_dats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) GameOf24_py_dats.py
-cleanall:: ; $(RMF) libatscc2py/*_cats.py
-cleanall:: ; $(RMF) libatscc2py/*_dats.py
-cleanall:: ; $(RMRF) libatscc2py/__pycache__
+cleanall:: ; $(RMF) libatscc2py3/*_cats.py
+cleanall:: ; $(RMF) libatscc2py3/*_dats.py
+cleanall:: ; $(RMRF) libatscc2py3/__pycache__
 
 ###### end of [Makefile] ######

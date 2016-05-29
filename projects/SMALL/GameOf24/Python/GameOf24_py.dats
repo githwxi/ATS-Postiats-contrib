@@ -18,17 +18,19 @@
 #define
 ATS_MAINATSFLAG 1
 #define
-ATS_DYNLOADNAME "GameOf24_py_dynload"
+ATS_DYNLOADNAME
+"GameOf24_py_dynload"
 //
 (* ****** ****** *)
 //
 #include
-"{$LIBATSCC2PY}/staloadall.hats"
+"{$LIBATSCC2PY3}/staloadall.hats"
 //
 (* ****** ****** *)
-
-staload "./GameOf24_py.sats"
-
+//
+staload
+"./GameOf24_py.sats"
+//
 (* ****** ****** *)
 
 local
@@ -494,20 +496,7 @@ val () = fpprint_cardlst (out, res)
 import sys
 ######
 #
-from ats2pypre_basics_cats import *
-#
-from ats2pypre_integer_cats import *
-#
-from ats2pypre_bool_cats import *
-from ats2pypre_float_cats import *
-from ats2pypre_string_cats import *
-#
-from ats2pypre_print_cats import *
-from ats2pypre_filebas_cats import *
-#
-from ats2pypre_PYlist_cats import *
-#
-from ats2pypre_list_dats import *
+from libatscc2py_all import *
 #
 ######
 sys.setrecursionlimit(1000000)

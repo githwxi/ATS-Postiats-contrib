@@ -16,7 +16,7 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PY}/SATS/float.sats"
+"{$LIBATSCC2PY3}/SATS/float.sats"
 //
 (* ****** ****** *)
 //

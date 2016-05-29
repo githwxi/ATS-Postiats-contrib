@@ -12,11 +12,11 @@
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2PY}/basics_py.sats"
+"{$LIBATSCC2PY3}/basics_py.sats"
 staload
-"{$LIBATSCC2PY}/SATS/integer.sats"
+"{$LIBATSCC2PY3}/SATS/integer.sats"
 staload
-"{$LIBATSCC2PY}/SATS/list.sats"
+"{$LIBATSCC2PY3}/SATS/list.sats"
 //
 (* ****** ****** *)
 //
