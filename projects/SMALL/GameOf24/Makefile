@@ -57,13 +57,17 @@ testall:: cleanall
 regress:: GameOf24; ./GameOf24
 
 ######
-
+#
 CMKBLD:: ; (cd CMKBLD; cmake ./..)
 CMKBLD:: ; (make -C CMKBLD -f Makefile)
-cleanall:: ; $(RMRF) CMKBLD/*
-
+#
+CMKBLD_clean:: ; $(RMRF) CMKBLD/*
+#
+CMKBLD_ctest:: ; (cd CMKBLD; ctest --verbose)
+#
 ######
 
+cleanall:: CMKBLD_clean
 cleanall:: ; $(RMF) $(MYPORTDIR)/*
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.o
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.c

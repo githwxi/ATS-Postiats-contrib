@@ -46,4 +46,7 @@ add_definitions(-DATS_MEMALLOC_LIBC)
 #
 include_directories("$ENV{PATSHOME}" "$ENV{PATSHOME}/ccomp/runtime")
 #
+include(CTest)
+add_test(GameOf24_test GameOf24)
+#
 ###### end of [CMakeLists.txt] ######
