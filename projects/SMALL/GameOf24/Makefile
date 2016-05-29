@@ -58,6 +58,12 @@ regress:: GameOf24; ./GameOf24
 
 ######
 
+CMKBLD:: ; (cd CMKBLD; cmake ./..)
+CMKBLD:: ; (make -C CMKBLD -f Makefile)
+cleanall:: ; $(RMRF) CMKBLD/*
+
+######
+
 cleanall:: ; $(RMF) $(MYPORTDIR)/*
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.o
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.c
