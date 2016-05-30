@@ -34,6 +34,10 @@ staload "{$CATSPARSEMIT}/catsparse_typedef.sats"
 staload "{$CATSPARSEMIT}/catsparse_fundecl.sats"
 //
 (* ****** ****** *)
+
+staload "./atscc2scm_emit.dats"
+
+(* ****** ****** *)
 //
 extern
 fun
@@ -381,6 +385,11 @@ fun
 emit2_instrlst_sep
   (out: FILEref, ind: int, inss: instrlst, sep: string): void
 //
+extern
+fun
+emit2_instrlst_seqln
+  (out: FILEref, ind: int, inss: instrlst): void
+//
 (* ****** ****** *)
 //
 extern
@@ -449,7 +458,7 @@ of // case+
     val () = emit_nspc (out, ind+2)
     val () = emit_d0exp (out, d0e)
     val () = emit_text (out, " ->\n")
-    val () = emit2_instrlst_sep (out, ind+4, inss, ";\n")
+    val () = emit2_instrlst_seqln (out, ind+4, inss)
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "%% if-then\n")
   in
@@ -468,7 +477,7 @@ of // case+
       {
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "true ->\n")
-        val () = emit2_instrlst_sep (out, ind+4, inss, "\n")
+        val () = emit2_instrlst_seqln (out, ind+4, inss)
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "%% if-else\n")
         val () = emit_nspc (out, ind)
@@ -664,8 +673,9 @@ of // case+
         emit_d0exp (out, d0e)
       ) (* end of [then] *)
       else (
-        emit_tmpvar (out, tmp);
-        emit_text (out, " = "); emit_d0exp (out, d0e)
+        emit_LPAREN (out);
+        emit_text (out, "set! "); emit_tmpvar (out, tmp); emit_SPACE (out); emit_d0exp (out, d0e);
+        emit_RPAREN (out);
       ) (* end of [else] *)
     // end of [if]
 //
@@ -679,9 +689,10 @@ of // case+
     d0e.d0exp_node
     of // case+
     | ATSPMVempty _ =>
-        emit_text (out, "?ATSINSmove_void()")
+        emit_text (out, "(ATSINSmove0_void)")
       // end of [ATSempty]
-    | _ (*non-ATSPMVempty*) => emit_d0exp (out, d0e)
+    | _ (*non-ATSPMVempty*) =>
+        emit_fname_d0exp (out, "ATSINmove1_void", d0e)
       // end of [non-ATSPMVempty]
   end (* end of [ATSINSmove_void] *)
 //
@@ -877,9 +888,7 @@ inss of
 | list_cons
     (ins, inss) => let
     val () =
-    if i > 0
-      then emit_text (out, ",\n")
-    // end of [val]
+    if i > 0 then emit_ENDL (out)
     val () = emit2_instr (out, ind, ins)
   in
     auxlst (i+1, inss)
@@ -913,6 +922,23 @@ inss of
 | list_nil() => ((*error*))
 //
 ) (* end of [emit2_instrlst_sep] *)
+
+(* ****** ****** *)
+
+implement
+emit2_instrlst_seqln
+  (out, ind, inss) =
+{
+//
+val () = emit_nspc(out, ind)
+val () = emit_text(out, "(begin\n")
+//
+val () = emit2_instrlst_sep(out, ind+1, inss, "\n")
+//
+val () = emit_nspc(out, ind)
+val () = emit_text(out, ")\n")
+//
+} (* end of [emit2_instrlst_seqln] *)
 
 (* ****** ****** *)
 
