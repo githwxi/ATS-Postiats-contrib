@@ -290,93 +290,79 @@ in
 end // end of [emit_CSTSPmyloc]
 
 (* ****** ****** *)
-
+//
+extern
+fun
+emit_fname_d0exp
+  : (FILEref, string, d0exp) -> void
+extern
+fun
+emit_fname_d0exp2
+  : (FILEref, string, d0exp, d0exp) -> void
+//
+implement
+emit_fname_d0exp
+  (out, fname, d0e) =
+{
+//
+val () =
+  emit_text (out, fname)
+val () = emit_LPAREN (out)
+val () = emit_d0exp (out, d0e)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_fname_d0exp] *)
+//
+implement
+emit_fname_d0exp2
+  (out, fname, d0e1, d0e2) =
+{
+//
+val () =
+  emit_text (out, fname)
+//
+val () = emit_LPAREN (out)
+val () =
+(
+  emit_d0exp (out, d0e1); emit_text (out, ", "); emit_d0exp (out, d0e2)
+)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_fname_d0exp2] *)
+//
+(* ****** ****** *)
+//
 implement
 emit_ATSCKiseqz(out, d0e) =
-{
-//
-val () = emit_text (out, "?ATSCKiseqz(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKiseqz] *)
-
+  emit_fname_d0exp(out, "?ATSCKiseqz", d0e)
 implement
 emit_ATSCKisneqz(out, d0e) =
-{
+  emit_fname_d0exp(out, "?ATSCKisneqz", d0e)
 //
-val () = emit_text (out, "?ATSCKisneqz(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKisneqz] *)
-
 (* ****** ****** *)
-
+//
 implement
 emit_ATSCKptriscons(out, d0e) =
-{
-//
-val () = emit_text (out, "?ATSCKptriscons(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKptriscons] *)
-
+  emit_fname_d0exp(out, "?ATSCKptriscons", d0e)
 implement
 emit_ATSCKptrisnull(out, d0e) =
-{
+  emit_fname_d0exp(out, "?ATSCKptrisnull", d0e)
 //
-val () = emit_text (out, "?ATSCKptrisnull(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKptrisnull] *)
-
 (* ****** ****** *)
-
+//
 implement
 emit_ATSCKpat_int
   (out, d0e, i0) =
-{
-//
-val () =
-emit_text (out, "?ATSCKpat_int(")
-val () = (
-  emit_d0exp (out, d0e);
-  emit_text (out, ", "); emit_d0exp (out, i0); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_int] *)
-
-(* ****** ****** *)
-
+  emit_fname_d0exp2 (out, "?ATSCKpat_int", d0e, i0)
 implement
 emit_ATSCKpat_bool
   (out, d0e, b0) =
-{
-//
-val () =
-emit_text (out, "?ATSCKpat_bool(")
-val () = (
-  emit_d0exp (out, d0e);
-  emit_text (out, ", "); emit_d0exp (out, b0); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_bool] *)
-
-(* ****** ****** *)
-
+  emit_fname_d0exp2 (out, "?ATSCKpat_bool", d0e, b0)
 implement
 emit_ATSCKpat_string
   (out, d0e, s0) =
-{
+  emit_fname_d0exp2 (out, "?ATSCKpat_string", d0e, s0)
 //
-val () =
-emit_text (out, "?ATSCKpat_string(")
-val () = (
-  emit_d0exp (out, d0e);
-  emit_text (out, ", "); emit_d0exp (out, s0); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_string] *)
-
 (* ****** ****** *)
 
 implement
