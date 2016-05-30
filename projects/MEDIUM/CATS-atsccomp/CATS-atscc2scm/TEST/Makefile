@@ -31,6 +31,13 @@ cleanall:: ; $(RMF) fact_dats.scm
 
 ######
 
+all:: \
+acker_dats.scm
+acker_dats.scm: acker.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) acker_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 

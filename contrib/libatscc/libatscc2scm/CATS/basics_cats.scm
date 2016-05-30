@@ -10,4 +10,4 @@
 
 ;;;;;;
 
-;;;;;; end of [atscc2scm_basics.scm] ;;;;;;
+;;;;;; end of [basics_cats.scm] ;;;;;;

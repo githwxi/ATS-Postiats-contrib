@@ -1,8 +1,8 @@
 (* ****** ****** *)
 //
-// HX-2015-07:
+// HX-2016-05:
 // A running example
-// from ATS2 to Erlang
+// from ATS2 to Scheme
 //
 (* ****** ****** *)
 //
