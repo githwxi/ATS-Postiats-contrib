@@ -479,33 +479,33 @@ of // case+
       } (* end of [Some] *)
   end // end of [ATSif]
 //
-| ATSifthen (d0e, inss) =>
+| ATSifthen(d0e, inss) =>
   {
 //
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if(")
+    val () = emit_text (out, "(if ")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ") -> ")
+    val () = emit_text (out, " ")
     val () = emit_instr (out, ins)
-    val () = emit_text (out, "; true -> atscc2scm_void end")
+    val () = emit_RPAREN (out)
   }
 //
-| ATSifnthen (d0e, inss) =>
+| ATSifnthen(d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_cons(ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if(not(")
+    val () = emit_text (out, "(if (not ")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ")) -> ")
+    val () = emit_text (out, ") ")
     val () = emit_instr (out, ins)
-    val () = emit_text (out, "; true -> atscc2scm_void end")
+    val () = emit_RPAREN (out)
   }
 //
-| ATSbranchseq (inss) =>
+| ATSbranchseq(inss) =>
   {
     val () = emit_nspc (out, ind)
     val () = emit_text (out, ";; ATSbranchseq(...)")
@@ -1038,15 +1038,14 @@ of // case+
     val-list_cons (ins2, _) = inss2
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if(")
+    val () = emit_text (out, "(if ")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ") -> ")
     val () = emit_instr (out, ins2)
-    val () = emit_text (out, "; true ->\n")
+    val () = emit_text (out, "(begin\n")
     val inss = auxinss2 (ind+2, tli, 0, inss)
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "end")
+    val () = emit_text (out, ")")
   in
     inss
   end // end of [ATSifnthen]
@@ -1056,15 +1055,15 @@ of // case+
     val-list_cons (ins2, _) = inss2
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "if(not(")
+    val () = emit_text (out, "(if (not ")
     val () = emit_d0exp (out, d0e)
-    val () = emit_text (out, ")) -> ")
+    val () = emit_text (out, ") ")
     val () = emit_instr (out, ins2)
-    val () = emit_text (out, "; true ->\n")
+    val () = emit_text (out, "(begin\n")
     val inss = auxinss2 (ind+2, tli, 0, inss)
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "end")
+    val () = emit_text (out, ")")
   in
     inss
   end // end of [ATSifnthen]

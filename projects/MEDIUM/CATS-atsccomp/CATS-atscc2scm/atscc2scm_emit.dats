@@ -290,121 +290,64 @@ in
 end // end of [emit_CSTSPmyloc]
 
 (* ****** ****** *)
-
+//
+extern
+fun
+emit_fname_d0exp
+  : (FILEref, string, d0exp) -> void
+extern
+fun
+emit_fname_d0exp2
+  : (FILEref, string, d0exp, d0exp) -> void
+extern
+fun
+emit_fname_d0exp_int
+  : (FILEref, string, d0exp, int(*ctag*)) -> void
+//
+(* ****** ****** *)
+//
 implement
 emit_ATSCKiseqz(out, d0e) =
-{
-//
-val () = emit_text (out, "?ATSCKiseqz(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKiseqz] *)
-
+  emit_fname_d0exp(out, "ATSCKiseqz", d0e)
 implement
 emit_ATSCKisneqz(out, d0e) =
-{
+  emit_fname_d0exp(out, "ATSCKisneqz", d0e)
 //
-val () = emit_text (out, "?ATSCKisneqz(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKisneqz] *)
-
 (* ****** ****** *)
-
+//
 implement
 emit_ATSCKptriscons(out, d0e) =
-{
-//
-val () = emit_text (out, "?ATSCKptriscons(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKptriscons] *)
-
+  emit_fname_d0exp(out, "ATSCKptriscons", d0e)
 implement
 emit_ATSCKptrisnull(out, d0e) =
-{
+  emit_fname_d0exp(out, "ATSCKptrisnull", d0e)
 //
-val () = emit_text (out, "?ATSCKptrisnull(")
-val () = (emit_d0exp (out, d0e); emit_RPAREN (out))
-//
-} (* end of [emit_ATSCKptrisnull] *)
-
 (* ****** ****** *)
-
+//
 implement
 emit_ATSCKpat_int
   (out, d0e, i0) =
-{
-//
-val () =
-emit_text (out, "?ATSCKpat_int(")
-val () = (
-  emit_d0exp (out, d0e);
-  emit_text (out, ", "); emit_d0exp (out, i0); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_int] *)
-
-(* ****** ****** *)
-
+  emit_fname_d0exp2 (out, "ATSCKpat_int", d0e, i0)
 implement
 emit_ATSCKpat_bool
   (out, d0e, b0) =
-{
-//
-val () =
-emit_text (out, "?ATSCKpat_bool(")
-val () = (
-  emit_d0exp (out, d0e);
-  emit_text (out, ", "); emit_d0exp (out, b0); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_bool] *)
-
-(* ****** ****** *)
-
+  emit_fname_d0exp2 (out, "ATSCKpat_bool", d0e, b0)
 implement
 emit_ATSCKpat_string
   (out, d0e, s0) =
-{
+  emit_fname_d0exp2 (out, "ATSCKpat_string", d0e, s0)
 //
-val () =
-emit_text (out, "?ATSCKpat_string(")
-val () = (
-  emit_d0exp (out, d0e);
-  emit_text (out, ", "); emit_d0exp (out, s0); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_string] *)
-
 (* ****** ****** *)
-
+//
 implement
 emit_ATSCKpat_con0
   (out, d0e, ctag) =
-{
-//
-val () =
-emit_text (out, "?ATSCKpat_con0(")
-val () = (
-  emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, ctag); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_con0] *)
-
+  emit_fname_d0exp_int (out, "ATSCKpat_con0", d0e, ctag)
 implement
 emit_ATSCKpat_con1
   (out, d0e, ctag) =
-{
+  emit_fname_d0exp_int (out, "ATSCKpat_con1", d0e, ctag)
 //
-val () =
-emit_text (out, "?ATSCKpat_con1(")
-val () = (
-  emit_d0exp (out, d0e); emit_text (out, ", "); emit_int (out, ctag); emit_RPAREN (out)
-) (* end of [val] *)
-//
-} (* end of [emit_ATSCKpat_con1] *)
-
 (* ****** ****** *)
 //
 implement
@@ -589,7 +532,7 @@ case+ d0es of
 | list_nil () => ()
 | list_cons (d0e, d0es) => let
     val () =
-      if i > 0 then emit_text (out, " ")
+      if i > 0 then emit_SPACE(out)
     // end of [val]
   in
     emit_d0exp (out, d0e); loop (out, d0es, i+1)
@@ -664,13 +607,11 @@ val tupi = tyrec_labsel(s0rec, id.i0dex_sym)
 //
 val () =
 emit_text
-  (out, "?ATSSELcon")
-//
-val () = emit_LPAREN (out)
+  (out, "(ATSSELcon ")
 //
 val () =
 (
-  emit_d0exp (out, d0rec); emit_text (out, ", "); emit_int (out, tupi)
+  emit_d0exp (out, d0rec); emit_SPACE(out); emit_int (out, tupi)
 ) (* end of [val] *)
 //
 val () = emit_RPAREN (out)
@@ -710,13 +651,12 @@ val tupi = tyrec_labsel(s0rec, id.i0dex_sym)
 //
 val () =
 emit_text
-  (out, "?ATSSELboxrec")
+  (out, "(ATSSELboxrec ")
 //
-val () = emit_LPAREN (out)
 //
 val () =
 (
-  emit_d0exp (out, d0rec); emit_text (out, ", "); emit_int (out, tupi)
+  emit_d0exp (out, d0rec); emit_SPACE(out); emit_int (out, tupi)
 ) (* end of [val] *)
 //
 val () = emit_RPAREN (out)
