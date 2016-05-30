@@ -304,6 +304,51 @@ fun
 emit_fname_d0exp_int
   : (FILEref, string, d0exp, int(*ctag*)) -> void
 //
+implement
+emit_fname_d0exp
+  (out, fname, d0e) =
+{
+//
+val () = emit_LPAREN (out)
+//
+val () = (
+  emit_text (out, fname); emit_SPACE (out); emit_d0exp (out, d0e)
+) (* end of [val] *)
+//
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_fname_d0exp] *)
+//
+implement
+emit_fname_d0exp2
+  (out, fname, d0e1, d0e2) =
+{
+//
+val () = emit_LPAREN (out)
+val () =
+(
+  emit_text (out, fname); emit_SPACE (out); 
+  emit_d0exp (out, d0e1); emit_SPACE (out); emit_d0exp (out, d0e2)
+)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_fname_d0exp2] *)
+//
+implement
+emit_fname_d0exp_int
+  (out, fname, d0e, ctag) =
+{
+//
+val () = emit_LPAREN (out)
+val () =
+(
+  emit_text (out, fname); emit_SPACE (out); 
+  emit_d0exp (out, d0e); emit_SPACE (out); emit_int (out, ctag)
+)
+val () = emit_RPAREN (out)
+//
+} (* end of [emit_fname_d0exp_int] *)
+//
 (* ****** ****** *)
 //
 implement
