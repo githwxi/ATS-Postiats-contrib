@@ -38,4 +38,13 @@ case+
 //
 (* ****** ****** *)
 
+%{^
+;;
+(load "./libatscc2scm/CATS/basics_cats.scm")
+(load "./libatscc2scm/CATS/integer_cats.scm")
+;;
+%} // end of [%{]
+
+(* ****** ****** *)
+
 (* end of [acker.dats] *)

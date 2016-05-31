@@ -119,7 +119,9 @@ emit_PMVbool
 //
 emit_text
 ( out
-, if tfv then "true" else "false"
+, if tfv
+    then "atscc2scm_true" else "atscc2scm_false"
+  // end of [if]
 ) (* end of [emit_text] *)
 //
 ) (* end of [emit_PMVbool] *)

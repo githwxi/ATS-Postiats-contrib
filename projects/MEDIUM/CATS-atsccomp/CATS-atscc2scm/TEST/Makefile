@@ -45,6 +45,13 @@ cleanall:: ; $(RMF) acker_dats.scm
 
 ######
 
+all:: \
+isevn_dats.scm
+isevn_dats.scm: isevn.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) isevn_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 
@@ -55,6 +62,11 @@ CPRF=cp -rf
 #
 RMF=rm -f
 RMRF=rm -rf
+#
+######
+#
+libatscc2scm:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2scm/CATS/* libatscc2scm/CATS/.
 #
 ######
 

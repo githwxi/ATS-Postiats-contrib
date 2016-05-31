@@ -30,4 +30,13 @@ f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
 //
 (* ****** ****** *)
 
+%{^
+;;
+(load "./libatscc2scm/CATS/basics_cats.scm")
+(load "./libatscc2scm/CATS/integer_cats.scm")
+;;
+%} // end of [%{]
+
+(* ****** ****** *)
+
 (* end of [f91.dats] *)

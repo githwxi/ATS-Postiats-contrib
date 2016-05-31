@@ -14,6 +14,17 @@
 ;;
 ;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define atscc2scm_void '())
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define atscc2scm_true #t)
+(define atscc2scm_false #f)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-macro (ATSCKpat_int x y) `(eqv? ,x ,y))
 (define-macro (ATSCKpat_bool x y) `(eqv? ,x ,y))
 (define-macro (ATSCKpat_string x y) `(eqv? ,x ,y))
