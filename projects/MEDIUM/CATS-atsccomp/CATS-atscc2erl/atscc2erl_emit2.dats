@@ -378,7 +378,7 @@ emit2_instrlst_ln
 *)
 extern
 fun
-emit2_instrlst_sep
+emit2_instrlst_end
   (out: FILEref, ind: int, inss: instrlst, sep: string): void
 //
 (* ****** ****** *)
@@ -449,7 +449,7 @@ of // case+
     val () = emit_nspc (out, ind+2)
     val () = emit_d0exp (out, d0e)
     val () = emit_text (out, " ->\n")
-    val () = emit2_instrlst_sep (out, ind+4, inss, ";\n")
+    val () = emit2_instrlst_end (out, ind+4, inss, ";\n")
     val () = emit_nspc (out, ind+2)
     val () = emit_text (out, "%% if-then\n")
   in
@@ -468,7 +468,7 @@ of // case+
       {
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "true ->\n")
-        val () = emit2_instrlst_sep (out, ind+4, inss, "\n")
+        val () = emit2_instrlst_end (out, ind+4, inss, "\n")
         val () = emit_nspc (out, ind+2)
         val () = emit_text (out, "%% if-else\n")
         val () = emit_nspc (out, ind)
@@ -894,7 +894,7 @@ end (* end of [emit2_instrlst] *)
 (* ****** ****** *)
 
 implement
-emit2_instrlst_sep
+emit2_instrlst_end
   (out, ind, inss, sep) = (
 //
 case+
@@ -912,7 +912,7 @@ inss of
 //
 | list_nil() => ((*error*))
 //
-) (* end of [emit2_instrlst_sep] *)
+) (* end of [emit2_instrlst_end] *)
 
 (* ****** ****** *)
 
@@ -1201,7 +1201,7 @@ emit2_ATSfunbodyseq
 val-ATSfunbodyseq(inss) = ins.instr_node
 //
 in
-  emit2_instrlst_sep (out, ind, inss, ".\n")
+  emit2_instrlst_end (out, ind, inss, ".\n")
 end // end of [emit2_ATS2funbodyseq]
 
 (* ****** ****** *)
@@ -1940,7 +1940,7 @@ val () =
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 8)
 val () = emit_text (out, "%% Funlab_erl = 0;\n")
-val () = emit2_instrlst_sep (out, 8(*ind*), inss, ";\n")
+val () = emit2_instrlst_end (out, 8(*ind*), inss, ";\n")
 //
 val () = emit_nspc (out, 8)
 val () =
