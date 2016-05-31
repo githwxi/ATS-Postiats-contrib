@@ -39,6 +39,34 @@ cleanall:: ; $(RMF) fact_dats.scm
 ######
 
 all:: \
+fact2_dats.scm
+fact2_dats.scm: fact2.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) fact2_dats.scm
+
+######
+
+all:: \
+fact3_dats.scm
+fact3_dats.scm: fact3.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) fact3_dats.scm
+
+######
+
+all:: \
+fact4_dats.scm
+fact4_dats.scm: fact4.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) fact4_dats.scm
+
+######
+
+all:: \
+fact5_dats.scm
+fact5_dats.scm: fact5.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) fact5_dats.scm
+
+######
+
+all:: \
 acker_dats.scm
 acker_dats.scm: acker.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
 cleanall:: ; $(RMF) acker_dats.scm
