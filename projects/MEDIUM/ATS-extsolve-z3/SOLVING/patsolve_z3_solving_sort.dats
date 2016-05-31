@@ -86,6 +86,20 @@ sort_real () = res where
 }
 //
 (* ****** ****** *)
+//
+implement
+sort_set () = res where
+{ 
+  val domain = sort_int()
+  val (fpf | ctx) = 
+    the_Z3_context_vget()
+  // end of [val]
+  val res = Z3_mk_set_sort (ctx, domain)
+  val () = sort_decref(domain)
+  prval ((*void*)) = fpf (ctx)
+}
+
+(* ****** ****** *)
 
 implement
 sort_mk_cls () = sort_mk_abstract("cls")
@@ -183,8 +197,12 @@ case+ s2t0 of
 //
 | S2RTtkind() => sort_mk_tkind()
 //
-| S2RTnamed(sym) =>
-    sort_mk_abstract(sym.name())
+| S2RTnamed(sym) => let
+  in
+    case+ sym.name() of
+      | "set" => sort_set()
+      | _ => sort_mk_abstract(sym.name())
+  end
   // end of [S2RTnamed]
 //
 | _(*rest-of-S2RT*) => sort_error(s2t0)

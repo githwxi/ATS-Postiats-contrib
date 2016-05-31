@@ -284,6 +284,7 @@ formula_imul
   val (fpf | ctx) =
     the_Z3_context_vget()
   // end of [val]
+  
   val res =
     Z3_mk_mul2 (ctx, s2e1, s2e2)
   // end of [val]
@@ -507,6 +508,113 @@ formula_bneq
   (s2e1, s2e2) =
   formula_not(formula_beq(s2e1, s2e2))
 //
+(* ****** ****** *)
+
+implement
+formula_empty_set () = res where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val domain = Z3_mk_int_sort(ctx)
+  val res = Z3_mk_empty_set(ctx, domain)
+  val () = Z3_sort_dec_ref(ctx, domain)
+  prval ((*void*)) = fpf(ctx)
+}
+
+implement
+formula_full_set () = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val domain = Z3_mk_int_sort ctx 
+  val res = Z3_mk_full_set (ctx, domain)
+  val () = Z3_sort_dec_ref (ctx, domain)
+  prval () = fpf ctx
+}
+
+implement
+formula_set_add (s2e_set, s2e_elem) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_add (ctx, s2e_set, s2e_elem)
+  val () = Z3_dec_ref (ctx, s2e_set)
+  val () = Z3_dec_ref (ctx, s2e_elem)
+  prval () = fpf ctx
+}
+
+implement
+formula_set_del (s2e_set, s2e_elem) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_del (ctx, s2e_set, s2e_elem)
+  val () = Z3_dec_ref (ctx, s2e_set)
+  val () = Z3_dec_ref (ctx, s2e_elem)
+  prval () = fpf ctx
+}
+
+implement
+formula_set_union (s2e1, s2e2) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_union (ctx, s2e1, s2e2)
+  val () = Z3_dec_ref (ctx, s2e1)
+  val () = Z3_dec_ref (ctx, s2e2)
+  prval () = fpf ctx
+}
+
+implement
+formula_set_intersect (s2e1, s2e2) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_intersect (ctx, s2e1, s2e2)
+  val () = Z3_dec_ref (ctx, s2e1)
+  val () = Z3_dec_ref (ctx, s2e2)  
+  prval () = fpf ctx
+}
+
+implement
+formula_set_difference (s2e1, s2e2) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_difference (ctx, s2e1, s2e2)
+  val () = Z3_dec_ref (ctx, s2e1)
+  val () = Z3_dec_ref (ctx, s2e2)  
+  prval () = fpf ctx
+}
+
+implement
+formula_set_complement (s2e) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_complement (ctx, s2e)
+  val () = Z3_dec_ref (ctx, s2e)
+  prval () = fpf ctx
+}
+
+implement
+formula_set_member (s2e_elem, s2e_set) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_member (ctx, s2e_elem, s2e_set)
+  val () = Z3_dec_ref (ctx, s2e_elem)
+  val () = Z3_dec_ref (ctx, s2e_set)
+  prval () = fpf ctx
+}
+
+implement
+formula_set_subset (s2e1, s2e2) = res where {
+  val (fpf | ctx) = the_Z3_context_vget()
+  val res = Z3_mk_set_subset (ctx, s2e1, s2e2)
+  val () = Z3_dec_ref (ctx, s2e1)
+  val () = Z3_dec_ref (ctx, s2e2)
+  prval () = fpf ctx
+}
+
+implement 
+formula_set_eq (s2e1, s2e2) = let 
+  val s2e1_ = formula_incref(s2e1)
+  val s2e2_ = formula_incref(s2e2)
+in 
+  formula_bmul (
+    formula_set_subset (s2e1, s2e2),
+    formula_set_subset (s2e2_, s2e1_))
+end
+
+implement
+formula_set_neq (s2e1, s2e2) = formula_bneg (formula_set_eq (s2e1, s2e2))
+
 (* ****** ****** *)
 
 implement

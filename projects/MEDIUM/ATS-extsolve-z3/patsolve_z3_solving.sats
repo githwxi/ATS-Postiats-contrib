@@ -57,6 +57,9 @@ fun sort_int (): sort
 fun sort_bool (): sort
 //
 fun sort_real (): sort
+//
+fun sort_set (): sort
+//
 (*
 fun sort_string (): sort
 *)
@@ -157,6 +160,21 @@ fun formula_bgte (form, form): form
 fun formula_beq (form, form): form
 fun formula_bneq (form, form): form
 //
+(* ****** ****** *)
+
+fun formula_empty_set (): form
+fun formula_full_set (): form
+fun formula_set_add (form, form): form
+fun formula_set_del (form, form): form
+fun formula_set_union (form, form): form
+fun formula_set_intersect (form, form): form
+fun formula_set_difference (form, form): form
+fun formula_set_complement (form): form
+fun formula_set_member (form, form): form
+fun formula_set_subset (form, form): form
+fun formula_set_eq (form, form): form
+fun formula_set_neq (form, form): form 
+
 (* ****** ****** *)
 //
 fun

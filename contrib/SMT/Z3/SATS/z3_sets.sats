@@ -28,7 +28,10 @@
 (* ****** ****** *)
 
 (*
-** Start Time: April, 2013
+** Start Time: February, 2016
+**
+** Author: Hanwen Wu
+** Authoremail: steinwaywhw AT gmail DOT com
 **
 ** Author: William Blair 
 ** Authoremail: wdblair AT bu DOT edu
@@ -46,36 +49,58 @@ ATSCNTRB_SMT_Z3_Z3_HEADER
 //
 (* ****** ****** *)
 
-fun Z3_mk_int_sort(ctx: !Z3_context): Z3_sort = "mac#%"
-
-(* ****** ****** *)
-
-fun Z3_mk_bool_sort(ctx: !Z3_context): Z3_sort = "mac#%"
-  
-(* ****** ****** *)
-
-fun Z3_mk_real_sort(ctx: !Z3_context): Z3_sort = "mac#%"
-  
-(* ****** ****** *)
-
-fun Z3_mk_set_sort(ctx: !Z3_context, domain: !Z3_sort): Z3_sort = "mac#%"
-
-(* ****** ****** *)
-//
 fun
-Z3_mk_uninterpreted_sort
-  (ctx: !Z3_context, name: Z3_symbol): Z3_sort = "mac#%"
-//
-(* ****** ****** *)
-//
-fun
-Z3_sort_inc_ref{l:addr}
-  (ctx: !Z3_context, ty: !Z3_sort(l)): Z3_sort(l) = "mac#%"
-// end of [Z3_sort_inc_ref]
-//
-fun
-Z3_sort_dec_ref(ctx: !Z3_context, ty: Z3_sort): void = "mac#%"
-//
+Z3_mk_empty_set
+(
+  ctx: !Z3_context, domain: !Z3_sort
+): Z3_ast = "mac#%" // end-of-fun
+
+fun Z3_mk_full_set
+(
+  ctx: !Z3_context, domain: !Z3_sort
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_add
+(
+  ctx: !Z3_context, set: !Z3_ast, elem: !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_del
+(
+  ctx: !Z3_context, set: !Z3_ast, elem: !Z3_ast 
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_union
+(
+  ctx: !Z3_context, a: !Z3_ast, b: !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_intersect
+(
+  ctx: !Z3_context, a: !Z3_ast, b: !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_difference
+(
+  ctx: !Z3_context, a: !Z3_ast, b: !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_complement
+(
+  ctx: !Z3_context, set: !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_member
+(
+  ctx: !Z3_context, elem: !Z3_ast, set: !Z3_ast
+): Z3_ast = "mac#%"
+
+fun Z3_mk_set_subset
+(
+  ctx: !Z3_context, a: !Z3_ast, b: !Z3_ast
+): Z3_ast = "mac#%"
+
+
 (* ****** ****** *)
 
-(* end of [z3_sort.sats] *)
+(* end of [z3_sets.sats] *)
