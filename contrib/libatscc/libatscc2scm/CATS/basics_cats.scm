@@ -14,4 +14,8 @@
 ;;
 ;;;;;;
 
+(define-macro (ATSCKpat_int x y) `(eqv? ,x ,y))
+(define-macro (ATSCKpat_bool x y) `(eqv? ,x ,y))
+(define-macro (ATSCKpat_string x y) `(eqv? ,x ,y))
+
 ;;;;;; end of [basics_cats.scm] ;;;;;;

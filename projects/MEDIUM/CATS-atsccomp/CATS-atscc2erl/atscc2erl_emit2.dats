@@ -1000,14 +1000,15 @@ case+ inss of
         inss
       end // end of [ATSINSlab]
     | _ (*non-ATSINSlab*) =>
-        auxinsinss2 (tli, i, ins1, inss1)
+        auxinsinss2 (ind, tli, i, ins1, inss1)
    end // end of [non-ATSINSlab]
 )
 //
 and
 auxinsinss2
 (
-  tli: int, i: int
+  ind: int
+, tli: int, i: int
 , ins: instr, inss: instrlst
 ) : instrlst =
 (
