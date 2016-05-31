@@ -37,8 +37,7 @@ loop
 if n > 0
 then let
 //
-val (pf | r) = ref_takeout(res)
-val ((*void*)) = ref_addback(pf | res, n * r)
+val () = res[] := n * res[]
 //
 in
   loop(n-1, res)
@@ -57,6 +56,7 @@ end // end of [fact]
 ;;
 (load "./libatscc2scm/CATS/basics_cats.scm")
 (load "./libatscc2scm/CATS/integer_cats.scm")
+(load "./libatscc2scm/CATS/reference_cats.scm")
 ;;
 %} // end of [%{]
 

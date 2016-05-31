@@ -60,13 +60,6 @@ cleanall:: ; $(RMF) fact4_dats.scm
 ######
 
 all:: \
-fact5_dats.scm
-fact5_dats.scm: fact5.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-cleanall:: ; $(RMF) fact5_dats.scm
-
-######
-
-all:: \
 acker_dats.scm
 acker_dats.scm: acker.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
 cleanall:: ; $(RMF) acker_dats.scm
