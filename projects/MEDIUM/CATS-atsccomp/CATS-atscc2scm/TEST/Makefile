@@ -25,6 +25,13 @@ cleanall::
 ######
 
 all:: \
+f91_dats.scm
+f91_dats.scm: f91.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) f91_dats.scm
+
+######
+
+all:: \
 fact_dats.scm
 fact_dats.scm: fact.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
 cleanall:: ; $(RMF) fact_dats.scm
