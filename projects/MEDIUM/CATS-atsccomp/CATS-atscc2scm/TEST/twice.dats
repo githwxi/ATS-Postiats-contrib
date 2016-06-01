@@ -105,4 +105,14 @@ val ((*void*)) = println! ("ans3(65536) = ", ans3)
 
 (* ****** ****** *)
 
+%{^
+;;
+(load "./libatscc2scm/CATS/basics_cats.scm")
+(load "./libatscc2scm/CATS/integer_cats.scm")
+(load "./libatscc2scm/CATS/print_cats.scm")
+;;
+%} // end of [%{]
+
+(* ****** ****** *)
+
 (* end of [twice.dats]  *)

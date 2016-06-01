@@ -17,20 +17,22 @@
 ;; ****** ****** ;;
 ;;
 (define-macro
- ats2scmpre_print_int(x) `(display ,x))
+ (ats2scmpre_print_int x) `(display ,x))
 ;;
 (define-macro
- ats2scmpre_print_char(x) `(display ,x))
+ (ats2scmpre_print_char x) `(display ,x))
 (define-macro
- ats2scmpre_print_bool(x) `(display (if ,x "true" "false"))
+ (ats2scmpre_print_bool x) `(display (if ,x "true" "false")))
 ;;
 (define-macro
- ats2scmpre_print_double(x) `(display ,x))
+ (ats2scmpre_print_double x) `(display ,x))
 (define-macro
- ats2scmpre_print_string(x) `(display ,x))
+ (ats2scmpre_print_string x) `(display ,x))
 ;;
 (define-macro
  (ats2scmpre_print_SCMval x) `(display ,x))
+;;
+(define-macro (ats2scmpre_print_newline) `(newline))
 ;;
 ;; ****** ****** ;;
 

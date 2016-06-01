@@ -228,4 +228,17 @@ val () = println! ("There are [", nsol, "] solutions in total.")
 //
 (* ****** ****** *)
 
+%{^
+;;
+(load
+ "./libatscc2scm/CATS/basics_cats.scm")
+(load
+ "./libatscc2scm/CATS/integer_cats.scm")
+;;
+(load "./libatscc2scm/CATS/print_cats.scm")
+;;
+%} // end of [%{]
+
+(* ****** ****** *)
+
 (* end of [queens.dats] *)
