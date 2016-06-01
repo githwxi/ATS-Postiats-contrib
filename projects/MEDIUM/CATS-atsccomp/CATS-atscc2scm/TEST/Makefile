@@ -94,6 +94,13 @@ cleanall:: ; $(RMF) twice_dats.scm
 
 ######
 
+all:: \
+queens_dats.scm
+queens_dats.scm: queens.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) queens_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 

@@ -1,8 +1,8 @@
 (* ****** ****** *)
 //
-// HX-2015-07:
+// HX-2014-11:
 // A running example
-// from ATS2 to Erlang
+// from ATS2 to Scheme
 //
 (* ****** ****** *)
 (*
@@ -51,21 +51,6 @@
 #define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
-
-%{^
-%%
--module(queens_dats).
-%%
--export([main0_erl/0]).
-%%
--compile(nowarn_unused_vars).
--compile(nowarn_unused_function).
-%%
--include("$PATSHOMERELOC/contrib/libatscc/libatscc2erl/libatscc2erl_all.hrl").
-%%
-%} // end of [%{]
-
-(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
@@ -73,7 +58,7 @@
 (* ****** ****** *)
 //
 #include
-"{$LIBATSCC2ERL}/staloadall.hats"
+"{$LIBATSCC2SCM}/staloadall.hats"
 //
 (* ****** ****** *)
 
@@ -221,13 +206,13 @@ search
 
 extern 
 fun
-main0_erl
+main0_scm
 (
 // argumentless
 ) : void = "mac#"
 //
 implement
-main0_erl () =
+main0_scm () =
 {
 //
 val
@@ -239,7 +224,7 @@ search
 //
 val () = println! ("There are [", nsol, "] solutions in total.")
 //
-} (* end of [main0_erl] *)
+} (* end of [main0_scm] *)
 //
 (* ****** ****** *)
 
