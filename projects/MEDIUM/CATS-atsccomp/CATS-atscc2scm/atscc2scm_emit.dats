@@ -252,11 +252,11 @@ emit_PMVfunlab
   (out, flab) =
 {
 //
+(*
 val n0 = f0ide_get_arity(flab)
+*)
 //
-val () = emit_text(out, "fun ")
 val () = emit_flabel (out, flab)
-val () = (emit_text(out, "/"); emit_int(out, n0))
 //
 } (* end of [emit_PMVfunlab] *)
 //
@@ -538,30 +538,16 @@ d0e0.d0exp_node of
 | ATSfunclo_fun
   (
     d0e_fun, s0e_arg, _(*res*)
-  ) =>
-  {
-    val () =
-    emit_text
-      (out, "?ATSfunclo_fun")
-    // end of [val]
-    val () =
-    (
-      emit_LPAREN (out); emit_d0exp (out, d0e_fun); emit_RPAREN (out)
-    ) (* end of [val] *)
-  } (* end of [ATSfunclo_fun] *)
+  ) => (
+    emit_fname_d0exp(out, "ATSfunclo_fun", d0e_fun)
+  ) (* end of [ATSfunclo_fun] *)
 //
 | ATSfunclo_clo
   (
     d0e_fun, _(*arg*), _(*res*)
-  ) =>
-  {
-    val () =
-    emit_text(out, "?ATSfunclo_clo")
-    val () =
-    (
-      emit_LPAREN (out); emit_d0exp (out, d0e_fun); emit_RPAREN (out)
-    ) (* end of [val] *)
-  } (* end of [ATSfunclo_clo] *)
+  ) => (
+    emit_fname_d0exp(out, "ATSfunclo_fclo", d0e_fun)
+  ) (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]
 
@@ -742,6 +728,7 @@ end // end of [emit_COMMENT_block]
 
 local
 
+(*
 fun
 aux0_cenv
 (
@@ -760,7 +747,7 @@ case+ s0es of
 | list_cons
     (_, s0es) => let
     val () =
-      emit_text(out, ", ")
+      emit_text(out, " ")
     val () =
     (
       emit_text(out, "Cenv"); emit_int(out, i)
@@ -777,6 +764,17 @@ val () = emit_RBRACE(out)
 in
   // nothing
 end (* end of [aux0_cenv] *)
+*)
+
+fun
+aux0_cenv
+(
+  out: FILEref
+, s0es: s0explst
+) : void =
+(
+  emit_text(out, "_fcenvs_")
+)
 
 fun
 aux0_arglst
@@ -793,11 +791,13 @@ case+ s0es of
     (s0e, s0es) => let
     val () =
     if n0+i > 0
-      then emit_text (out, ", ")
-    // end of [val]
+      then (
+        emit_text (out, " ")
+      ) (* then *)
+    // end of [if]
     val () =
     (
-      emit_text (out, "XArg"); emit_int (out, i)
+      emit_text (out, "xarg"); emit_int (out, i)
     ) (* end of [val] *)
   in
     aux0_arglst (out, s0es, n0, i+1)
@@ -819,11 +819,13 @@ case+ s0es of
     (s0e, s0es) => let
     val () =
     if n0+i > 0
-      then emit_text (out, ", ")
-    // end of [val]
+      then (
+        emit_text(out, " ")
+      ) (* then *)
+    // end of [if]
     val () =
     (
-      emit_text (out, "XEnv"); emit_int (out, i)
+      emit_text (out, "xenv"); emit_int (out, i)
     ) (* end of [val] *)
   in
     aux0_envlst (out, s0es, n0, i+1)
@@ -845,11 +847,12 @@ case+ s0es of
     (s0e, s0es) => let
     val () =
     if i > 0
-      then emit_text (out, ", ")
+      then emit_text (out, " ")
     // end of [val]
     val () =
     (
-      emit_text (out, "Cenv"); emit_int (out, i+1)
+      emit_text(out, "(list-ref");
+      emit_text(out, " _fcenvs_ "); emit_int (out, i); emit_RPAREN(out)
     ) (* end of [val] *)
   in
     aux1_envlst (out, s0es, i+1)
@@ -873,34 +876,44 @@ val () = emit_ENDL (out)
 val () =
 emit_text (out, ";;fun;;\n")
 *)
-val () = emit_flabel (out, flab)
 val () =
-emit_text (out, "__closurerize(")
-val () = aux0_envlst (out, s0es_env, 0, 0)
-val ((*closing*)) = emit_text (out, ") -> \n")
+emit_text (out, "(define\n")
 //
-val ((*opening*)) = emit_text (out, "%{\n")
+val () = emit_LPAREN(out)
+//
+val () = emit_flabel(out, flab)
+val () =
+emit_text (out, "__closurerize")
+val () = aux0_envlst (out, s0es_env, 1, 0)
+val ((*closing*)) = emit_text (out, ")\n")
+//
+val ((*opening*)) = emit_text (out, ";;%{\n")
 //
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "{")
-val () = emit_text (out, "fun(")
+val () = emit_text (out, "(list")
+val () = emit_text (out, "(lambda")
+//
+val () = emit_LPAREN (out)
 //
 val () = aux0_cenv (out, s0es_env)
 val () = aux0_arglst (out, s0es_arg, 1, 0)
 //
-val () = emit_text (out, ") -> ")
-//
-val () = emit_flabel (out, flab)
-//
-val () = emit_LPAREN (out)
-val n0 = aux1_envlst (out, s0es_env, 0)
-val () = aux0_arglst (out, s0es_arg, n0, 0)
 val () = emit_RPAREN (out)
 //
-val () = emit_text (out, " end")
+val () = emit_LPAREN (out)
+//
+val () = emit_flabel (out, flab)
+val n0 = aux1_envlst (out, s0es_env, 1)
+val () = aux0_arglst (out, s0es_arg, n0, 0)
+//
+val () = emit_RPAREN (out)
+//
+val () = emit_RPAREN (out)
 //
 val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, "}.\n%}\n")
+val ((*closing*)) = emit_text (out, ")\n")
+val ((*closing*)) = emit_text (out, ";;%}\n")
+val ((*closing*)) = emit_text (out, ") ;; define\n")
 //
 val ((*flushing*)) = emit_newline (out)
 //

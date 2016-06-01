@@ -25,7 +25,13 @@
 
 ;; ****** ****** ;;
 
+(define-macro (ATSINmove0_void) '())
 (define-macro (ATSINmove1_void cmd) cmd)
+
+;; ****** ****** ;;
+
+(define-macro (ATSfunclo_fun fc) fc)
+(define-macro (ATSfunclo_fclo fc) `(car ,fc))
 
 ;; ****** ****** ;;
 

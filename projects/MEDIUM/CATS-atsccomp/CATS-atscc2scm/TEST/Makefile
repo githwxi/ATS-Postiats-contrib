@@ -73,6 +73,27 @@ cleanall:: ; $(RMF) isevn_dats.scm
 
 ######
 
+all:: \
+rtfind_dats.scm
+rtfind_dats.scm: \
+  rtfind.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) rtfind_dats.scm
+
+all:: \
+rtfind2_dats.scm
+rtfind2_dats.scm: \
+  rtfind2.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) rtfind2_dats.scm
+
+######
+
+all:: \
+twice_dats.scm
+twice_dats.scm: twice.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) twice_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 

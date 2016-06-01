@@ -1,0 +1,65 @@
+(* ****** ****** *)
+//
+// HX-2016-05:
+// A running example
+// from ATS2 to Scheme
+//
+(* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+(* ****** ****** *)
+//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+#include
+"{$LIBATSCC2SCM}/staloadall.hats"
+//
+(* ****** ****** *)
+//
+extern
+fun
+rtfind (f: int -> int): int = "mac#"
+//
+implement
+rtfind (f) = let
+//
+fun loop
+  (i: int): int =
+  if f (i) = 0 then i else loop (i+1)
+//
+in
+  loop (0(*i*))
+end // end of [rtfind]
+
+(* ****** ****** *)
+
+extern 
+fun
+main0_scm
+(
+// argumentless
+) : void = "mac#"
+//
+implement
+main0_scm () =
+{
+//
+val
+poly0 = lam(x:int): int => x*x + x - 6
+val () =
+println! ("rtfind(lambda x: x*x + x - 6) = ", rtfind(poly0))
+//
+val
+poly1 = lam(x:int): int => x*x - x - 10100
+val () =
+println! ("rtfind(lambda x: x*x - x - 10100) = ", rtfind(poly1))
+//
+} (* end of [main0_scm] *)
+
+(* ****** ****** *)
+
+(* end of [rtfind2.dats] *)
