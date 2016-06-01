@@ -22,6 +22,11 @@ ATS_EXTERN_PREFIX "ats2erlpre_"
 //
 (* ****** ****** *)
 //
+abstype SCMval_type
+typedef SCMval = SCMval_type
+//
+(* ****** ****** *)
+//
 fun
 cloref0_app{b:t0p}(cfun0(b)): b = "mac#%"
 //
