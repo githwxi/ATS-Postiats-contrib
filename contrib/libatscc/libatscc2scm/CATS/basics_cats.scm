@@ -40,5 +40,14 @@
 (define-macro (ATSCKpat_string x y) `(eqv? ,x ,y))
 
 ;; ****** ****** ;;
+;;
+(define-macro (ATSCCget_0 xs) `(car ,xs))
+(define-macro (ATSCCget_1 xs) `(car (cdr ,xs)))
+(define-macro (ATSCCget_2 xs) `(car (cdr (cdr ,xs))))
+(define-macro (ATSCCget_3 xs) `(car (cdr (cdr (cdr ,xs)))))
+;;
+(define-macro (ATSCCget_at xs n) `(list-ref ,(xs) ,n))
+;;
+;; ****** ****** ;;
 
 ;;;;;; end of [basics_cats.scm] ;;;;;;

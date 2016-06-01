@@ -834,6 +834,26 @@ case+ s0es of
 ) (* end of [aux0_envlst] *)
 
 fun
+aux0_fcenvs_at
+(
+  out: FILEref
+, s0es: s0explst, i: int
+) : void = () where
+{
+  val () = emit_LPAREN(out)
+  val () =
+  if (i <= 3)
+    then (
+      emit_text(out, "ATSCCget_"); emit_int(out, i); emit_text(out, " _fcenvs_")
+    ) (* end of [then] *)
+    else (
+      emit_text(out, "ATSCCget_at"); emit_text(out, " _fcenvs_ "); emit_int(out, i)
+    ) (* end of [else] *)
+  // end of [if]
+  val () = emit_RPAREN(out)
+} (* end of [aux0_fcenvs_at] *)
+
+fun
 aux1_envlst
 (
   out: FILEref
@@ -845,15 +865,11 @@ case+ s0es of
     ((*void*)) => (i)
 | list_cons
     (s0e, s0es) => let
+//
     val () =
-    if i > 0
-      then emit_text (out, " ")
-    // end of [val]
-    val () =
-    (
-      emit_text(out, "(list-ref");
-      emit_text(out, " _fcenvs_ "); emit_int (out, i); emit_RPAREN(out)
-    ) (* end of [val] *)
+    if i > 0 then emit_text (out, " ")
+    val () = aux0_fcenvs_at(out, s0es, i)
+//
   in
     aux1_envlst (out, s0es, i+1)
   end // end of [list_cons]
