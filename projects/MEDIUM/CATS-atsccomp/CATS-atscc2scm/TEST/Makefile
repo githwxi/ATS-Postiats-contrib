@@ -5,6 +5,7 @@
 ######
 
 SCHEME=guile
+SCHEME2=$(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm
 
 ######
 
@@ -27,127 +28,123 @@ cleanall::
 
 all:: \
 f91_dats.scm
-f91_dats.scm: f91.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: f91_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+f91_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) f91_dats.scm
 
 ######
 
 all:: \
 fact_dats.scm
-fact_dats.scm: fact.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: fact_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+fact_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) fact_dats.scm
 
 ######
 
 all:: \
 fact2_dats.scm
-fact2_dats.scm: fact2.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: fact2_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+fact2_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) fact2_dats.scm
 
 ######
 
 all:: \
 fact3_dats.scm
-fact3_dats.scm: fact3.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: fact3_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+fact3_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) fact3_dats.scm
 
 ######
 
 all:: \
 fact4_dats.scm
-fact4_dats.scm: fact4.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: fact4_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+fact4_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) fact4_dats.scm
 
 ######
 
 all:: \
 acker_dats.scm
-acker_dats.scm: acker.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: acker_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+acker_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) acker_dats.scm
 
 ######
 
 all:: \
 isevn_dats.scm
-isevn_dats.scm: isevn.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: isevn_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+isevn_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) isevn_dats.scm
 
 ######
 #
 all:: \
 rtfind_dats.scm
-rtfind_dats.scm: \
-  rtfind.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
 regress:: \
-  rtfind_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+rtfind_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) rtfind_dats.scm
 #
 all:: \
 rtfind2_dats.scm
-rtfind2_dats.scm: \
-  rtfind2.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
 regress:: \
-  rtfind2_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+rtfind2_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) rtfind2_dats.scm
 #
 ######
 #
 all:: \
 twice_dats.scm
-twice_dats.scm: \
-twice.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-#
-regress:: twice_dats.scm ; \
-  $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
-#
+regress:: \
+twice_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) twice_dats.scm
 #
 ######
 
 all:: \
 queens_dats.scm
-queens_dats.scm: queens.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: queens_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+queens_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) queens_dats.scm
 
 ######
 
 all:: \
 listlen_dats.scm
-listlen_dats.scm: listlen.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: listlen_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+listlen_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) listlen_dats.scm
 
 ######
 
 all:: \
 listmap_dats.scm
-listmap_dats.scm: listmap.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: listmap_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+listmap_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) listmap_dats.scm
 
 ######
-
+#
 all:: \
 weekday_dats.scm
-weekday_dats.scm: weekday.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: weekday_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+weekday_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) weekday_dats.scm
-
+#
 ######
-
+#
 all:: \
 sieve_lazy_dats.scm
-sieve_lazy_dats.scm: sieve_lazy.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
-regress:: sieve_lazy_dats.scm ; $(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm $<
+regress:: \
+sieve_lazy_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) sieve_lazy_dats.scm
+#
+######
+
+%_dats.scm: %.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
 
 ######
 
