@@ -532,11 +532,10 @@ of // case+
       emit_LPAREN(out);
       emit_casefnxx (out, fx); emit_ENDL(out)
     ) (* end of [val] *)
-    val () = emit_nspc (out, ind+3)
-    val () = emit_text (out, "(lambda(Tmplab)\n")
-//
-    val () = emit_nspc (out, ind+4)
-    val () = emit_text (out, "(case Tmplab\n")
+    val () = (
+      emit_nspc(out, ind+3);
+      emit_text(out, "(lambda(tmplab)(case tmplab\n")
+    ) (* end of [val] *)
 //
     val () = emit2_branchseqlst (out, ind+4, inss)
 //
@@ -608,7 +607,7 @@ of // case+
 | ATSINSfgoto (flab) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, ";; Funlab_scm = ")
+    val () = emit_text (out, ";; funlab_scm = ")
     val () = emit_funlab_index (out, flab)
     val () = (
       emit_text (out, "; // "); emit_label (out, flab)
@@ -668,10 +667,10 @@ of // case+
     d0e.d0exp_node
     of // case+
     | ATSPMVempty _ =>
-        emit_text (out, "(ATSINSmove0_void)")
+        emit_text (out, "ATSINSmove0_void")
       // end of [ATSempty]
     | _ (*non-ATSPMVempty*) =>
-        emit_fname_d0exp (out, "ATSINmove1_void", d0e)
+        emit_fname_d0exp (out, "ATSINSmove1_void", d0e)
       // end of [non-ATSPMVempty]
   end (* end of [ATSINSmove_void] *)
 //
@@ -687,11 +686,17 @@ of // case+
     val () =
     if not(isret) then
     {
-      val () = emit_tmpvar (out, tmp)
-      val () = emit_text (out, " = ")
+      val () =
+        emit_text(out, "(set! ")
+      val () = emit_tmpvar(out, tmp)
     } (* end of [val] *)
 //
-    val () = emit_text (out, "atscc2scm_null")
+    val () =
+      emit_text(out, "atscc2scm_null")
+    // end of [val]
+//
+    val () =
+    if not(isret) then emit_RPAREN(out)
 //
   }
 //
@@ -702,16 +707,20 @@ of // case+
 //
     val
     isret =
-      tmpvar_is_tmpret (tmp.i0dex_sym)
-    // end of [val]
+    tmpvar_is_tmpret (tmp.i0dex_sym)
+//
     val () =
     if not(isret) then
     {
-      val () = emit_tmpvar (out, tmp)
-      val () = emit_text (out, " = ")
+      val () =
+        emit_text(out, "(set! ")
+      val () = emit_tmpvar(out, tmp)
     } (* end of [val] *)
 //
     val () = emit_PMVint (out, tag)
+//
+    val () =
+    if not(isret) then emit_RPAREN(out)
 //
   }
 //
@@ -1275,13 +1284,16 @@ auxlst
 ) : void =
 (
 case+ tfs of
+//
 | list_nil() => ()
-| list_cons(tf, tfs) => let
+//
+| list_cons
+    (tf, tfs) => let
     val+TYFLD(id, _) = tf.tyfld_node
     val () =
       if i > 0 then emit_text(out, ", ")
     // end of [val]
-    val () = emit_i0de(out, id)
+    val ((*void*)) = emit_i0de(out, id)
   in
     auxlst (i+1, tfs)
   end // end of [list_cons]
@@ -1318,31 +1330,32 @@ end // end of [emit_typedef]
 //
 extern
 fun
-emit_tyrec_d0explst
+emit_tyrec_d0explst_1
   (FILEref, d0explst): void
 extern
 fun
-emit_tysum_d0explst
+emit_tysum_d0explst_1
   (FILEref, tag: tokenopt, d0explst): void
 //
 implement
-emit_tyrec_d0explst
+emit_tyrec_d0explst_1
   (out, d0es) =
 (
-  emit_d0explst (out, d0es)
+  emit_d0explst_1 (out, d0es)
 ) // end of [emit_tyrec_d0explst]
 
 implement
-emit_tysum_d0explst
+emit_tysum_d0explst_1
   (out, opt, d0es) = (
 //
 case+ opt of
 | None() =>
-    emit_d0explst (out, d0es)
+    emit_d0explst_1 (out, d0es)
 | Some(tag) => let
+    val () = 
+      emit_SPACE(out)
     val () =
       emit_PMVint(out, tag)
-    // end of [val]
   in
     emit_d0explst_1 (out, d0es)
   end // end of [Some]
@@ -1404,15 +1417,12 @@ val isret =
 // end of [val]
 //
 val () =
-if
-not(isret)
-then
+if not(isret) then
 {
-//
 val () =
-  emit_tmpvar (out, tmp)
+  emit_text(out, "(set! ")
 //
-val () = emit_text (out, " = ")
+val () = emit_tmpvar(out, tmp)
 //
 } (* end of [val] *)
 //
@@ -1420,9 +1430,14 @@ val () = emit_text (out, " = ")
 val () = emit_SHARP (out)
 val () = emit_symbol (out, name)
 *)
-val () = emit_LBRACE (out)
-val () = emit_tysum_d0explst (out, opt, d0es)
-val () = emit_RBRACE (out)
+val () = emit_LPAREN(out)
+//
+val () = emit_text(out, "ATSCCtysum")
+val () = emit_tysum_d0explst_1 (out, opt, d0es)
+//
+val () = emit_RPAREN(out)
+//
+val () = if not(isret) then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1464,25 +1479,26 @@ val isret =
 // end of [val]
 //
 val () =
-if
-not(isret)
-then
+if not(isret) then
 {
-//
-val () =
-  emit_tmpvar (out, tmp)
-//
-val () = emit_text (out, " = ")
-//
+  val () =
+    emit_text(out, "(set! ")
+  // end of [val]
+  val () = emit_tmpvar(out, tmp)
 } (* end of [val] *)
 //
 (*
 val () = emit_SHARP (out)
 val () = emit_symbol (out, name)
 *)
-val () = emit_LBRACE (out)
-val () = emit_tyrec_d0explst (out, d0es)
-val () = emit_RBRACE (out)
+val () = emit_LPAREN(out)
+//
+val () = emit_text(out, "ATSCCtyrec")
+val () = emit_tyrec_d0explst_1 (out, d0es)
+//
+val () = emit_RPAREN(out)
+//
+val () = if not(isret) then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1511,18 +1527,16 @@ then
 {
 //
 val () =
-  emit_tmpvar (out, tmp)
+  emit_text (out, "(set! ")
 //
-val () = emit_text (out, " = ")
+val () = emit_tmpvar (out, tmp)
 //
 } (* end of [val] *)
 //
 val () =
-  emit_text (out, "?ATSlazyval")
-val () =
-(
-  emit_LPAREN (out); emit_d0exp (out, thunk); emit_RPAREN (out)
-) (* end of [val] *)
+  emit_fname_d0exp(out, "ATSlazyval", thunk)
+//
+val () = if not(isret) then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1551,18 +1565,17 @@ then
 {
 //
 val () =
-  emit_tmpvar (out, tmp)
+  emit_text (out, "(set! ")
 //
-val () = emit_text (out, " = ")
+val () = emit_tmpvar (out, tmp)
 //
 } (* end of [val] *)
 //
 val () =
-  emit_text (out, "?ATSlazyval_eval")
-val () =
-(
-  emit_LPAREN (out); emit_d0exp (out, lazyval); emit_RPAREN (out)
-) (* end of [val] *)
+emit_fname_d0exp
+  (out, "ATSlazyval_eval", lazyval)
+//
+val () = if not(isret) then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1816,11 +1829,11 @@ val () =
 if knd > 0 then
 {
 //
-val () = emit_text (out, ";; var Funlab_scm\n")
+val () = emit_text (out, ";; var funlab_scm\n")
 //
 } (* end of [if] *) // end of [val]
 //
-val () = emit_text (out, ";; var Tmplab, Tmplab_scm\n")
+val () = emit_text (out, ";; var tmplab, tmplab_scm\n")
 //
 val () = emit_text (out, ") ;; in-of-let\n")
 //
@@ -1911,7 +1924,7 @@ case+ inss of
     val () =
     emit_text
     (
-      out, ";; if (Funlab_scm > 0) continue; else"
+      out, ";; if (funlab_scm > 0) continue; else"
     ) (* end of [val] *)
     val () = emit2_instr_ln (out, 1(*ind*), ins1)
 //
@@ -1927,7 +1940,7 @@ case+ inss of
 val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, ";while(true) {\n")
 val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, ";; Funlab_scm = 0;\n")
+val () = emit_text (out, ";; funlab_scm = 0;\n")
 //
 val () =
 (
@@ -1973,14 +1986,14 @@ val () =
 )
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 8)
-val () = emit_text (out, ";; Funlab_scm = 0;\n")
+val () = emit_text (out, ";; funlab_scm = 0;\n")
 val () = emit2_instrlst_end (out, 8(*ind*), inss, ";\n")
 //
 val () = emit_nspc (out, 8)
 val () =
 emit_text
 (
-  out, ";; if (Funlab_scm > 0) continue; else"
+  out, ";; if (funlab_scm > 0) continue; else"
 ) (* end of [val] *)
 val () = emit2_instr_ln (out, 1(*ind*), ins1)
 //
@@ -2018,7 +2031,7 @@ emit_f0body_tlcal2
   (out, fbody) = let
 //
 val () = emit_nspc (out, 2(*ind*))
-val () = emit_text (out, ";; Funlab_scm = 1;")
+val () = emit_text (out, ";; funlab_scm = 1;")
 //
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 2(*ind*))
@@ -2026,7 +2039,7 @@ val () = emit_text (out, ";while(true) {")
 //
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 4(*ind*))
-val () = emit_text (out, ";switch(Funlab_scm) {\n")
+val () = emit_text (out, ";switch(funlab_scm) {\n")
 //
 val () = emit_the_funbodylst (out)
 //

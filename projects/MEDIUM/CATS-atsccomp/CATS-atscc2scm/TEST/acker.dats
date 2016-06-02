@@ -15,10 +15,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2SCM}/basics_scm.sats"
-staload
-"{$LIBATSCC2SCM}/SATS/integer.sats"
+#include
+"{$LIBATSCC2SCM}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -40,11 +38,32 @@ case+
 
 %{^
 ;;
-(load "./libatscc2scm/CATS/basics_cats.scm")
-(load "./libatscc2scm/CATS/integer_cats.scm")
+(load
+ "./libatscc2scm/CATS/basics_cats.scm")
+(load
+ "./libatscc2scm/CATS/integer_cats.scm")
+;;
+(load "./libatscc2scm/CATS/print_cats.scm")
 ;;
 %} // end of [%{]
 
+(* ****** ****** *)
+//
+extern 
+fun
+main0_scm
+(
+// argumentless
+) : void = "mac#"
+//
+implement
+main0_scm () =
+{
+//
+val () = println! ("acker(3, 3) = ", acker(3, 3))
+//
+} (* end of [main0_scm] *)
+//
 (* ****** ****** *)
 
 (* end of [acker.dats] *)

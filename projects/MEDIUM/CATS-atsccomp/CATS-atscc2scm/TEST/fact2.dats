@@ -17,6 +17,8 @@
 //
 staload
 "{$LIBATSCC2SCM}/SATS/float.sats"
+staload
+"{$LIBATSCC2SCM}/SATS/print.sats"
 //
 (* ****** ****** *)
 //
@@ -41,12 +43,35 @@ end // end of [fact]
 
 %{^
 ;;
-(load "./libatscc2scm/CATS/basics_cats.scm")
-(load "./libatscc2scm/CATS/integer_cats.scm")
+(load
+ "./libatscc2scm/CATS/basics_cats.scm")
+(load
+ "./libatscc2scm/CATS/integer_cats.scm")
 (load "./libatscc2scm/CATS/float_cats.scm")
+;;
+(load "./libatscc2scm/CATS/print_cats.scm")
 ;;
 %} // end of [%{]
 
+(* ****** ****** *)
+//
+#define N 12.0
+//
+extern 
+fun
+main0_scm
+(
+// argumentless
+) : void = "mac#"
+//
+implement
+main0_scm () =
+{
+//
+val () = println! ("fact(", N, ") = ", fact(N))
+//
+} (* end of [main0_scm] *)
+//
 (* ****** ****** *)
 
 (* end of [fact2.dats] *)

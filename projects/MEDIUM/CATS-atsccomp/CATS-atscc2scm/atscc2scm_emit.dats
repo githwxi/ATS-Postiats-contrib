@@ -639,9 +639,7 @@ val-~Some_vt(s0rec) = typedef_search_opt(name)
 val tupi = tyrec_labsel(s0rec, id.i0dex_sym)
 //
 val () =
-emit_text
-  (out, "(ATSSELcon ")
-//
+  emit_text(out, "(ATSSELcon ")
 val () =
 (
   emit_d0exp (out, d0rec); emit_SPACE(out); emit_int (out, tupi)

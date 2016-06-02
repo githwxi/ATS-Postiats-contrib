@@ -66,4 +66,37 @@ if m < n
 //
 (* ****** ****** *)
 
+%{^
+;;
+(load
+ "./libatscc2scm/CATS/basics_cats.scm")
+(load
+ "./libatscc2scm/CATS/integer_cats.scm")
+;;
+(load "./libatscc2scm/CATS/print_cats.scm")
+;;
+%} // end of [%{]
+
+(* ****** ****** *)
+//
+extern 
+fun
+main0_scm
+(
+// argumentless
+) : void = "mac#"
+//
+implement
+main0_scm () =
+{
+//
+val () = println!
+(
+  "listlen(fromto(0, 10)) = ", listlen(fromto(0, 10))
+) (* end of [val] *)
+//
+} (* end of [main0_scm] *)
+//
+(* ****** ****** *)
+
 (* end of [listlen.dats] *)

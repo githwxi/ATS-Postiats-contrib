@@ -101,6 +101,13 @@ cleanall:: ; $(RMF) queens_dats.scm
 
 ######
 
+all:: \
+listlen_dats.scm
+listlen_dats.scm: listlen.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) listlen_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 

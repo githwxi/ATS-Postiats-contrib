@@ -15,8 +15,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2SCM}/SATS/integer.sats"
+#include
+"{$LIBATSCC2SCM}/staloadall.hats"
 //
 (* ****** ****** *)
 //
@@ -33,11 +33,34 @@ case+ n of
 
 %{^
 ;;
-(load "./libatscc2scm/CATS/basics_cats.scm")
-(load "./libatscc2scm/CATS/integer_cats.scm")
+(load
+ "./libatscc2scm/CATS/basics_cats.scm")
+(load
+ "./libatscc2scm/CATS/integer_cats.scm")
+;;
+(load "./libatscc2scm/CATS/print_cats.scm")
 ;;
 %} // end of [%{]
 
+(* ****** ****** *)
+//
+#define N 10
+//
+extern 
+fun
+main0_scm
+(
+// argumentless
+) : void = "mac#"
+//
+implement
+main0_scm () =
+{
+//
+val () = println! ("fact(", N, ") = ", fact(N))
+//
+} (* end of [main0_scm] *)
+//
 (* ****** ****** *)
 
 (* end of [fact3.dats] *)
