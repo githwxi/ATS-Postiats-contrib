@@ -15,10 +15,8 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSCC2SCM}/SATS/float.sats"
-staload
-"{$LIBATSCC2SCM}/SATS/print.sats"
+#include
+"{$LIBATSCC2SCM}/staloadall.hats"
 //
 (* ****** ****** *)
 //

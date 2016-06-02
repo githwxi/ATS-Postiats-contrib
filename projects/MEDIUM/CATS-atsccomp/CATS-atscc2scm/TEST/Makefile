@@ -108,6 +108,13 @@ cleanall:: ; $(RMF) listlen_dats.scm
 
 ######
 
+all:: \
+weekday_dats.scm
+weekday_dats.scm: weekday.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) weekday_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 

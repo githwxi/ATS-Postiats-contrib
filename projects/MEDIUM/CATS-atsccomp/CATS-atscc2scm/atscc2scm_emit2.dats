@@ -681,22 +681,26 @@ of // case+
 //
     val
     isret =
-      tmpvar_is_tmpret (tmp.i0dex_sym)
-    // end of [val]
+    tmpvar_is_tmpret(tmp.i0dex_sym)
+//
+    val isnot = not(isret)
+//
     val () =
-    if not(isret) then
+    if isnot then
     {
       val () =
         emit_text(out, "(set! ")
+      // end of [val]
       val () = emit_tmpvar(out, tmp)
     } (* end of [val] *)
 //
     val () =
+    if isnot then emit_SPACE(out)
+    val () =
       emit_text(out, "atscc2scm_null")
     // end of [val]
-//
     val () =
-    if not(isret) then emit_RPAREN(out)
+    if isnot then emit_RPAREN(out)
 //
   }
 //
@@ -707,20 +711,26 @@ of // case+
 //
     val
     isret =
-    tmpvar_is_tmpret (tmp.i0dex_sym)
+    tmpvar_is_tmpret(tmp.i0dex_sym)
+//
+    val isnot = not(isret)
 //
     val () =
-    if not(isret) then
+    if isnot then
     {
       val () =
         emit_text(out, "(set! ")
+      // end of [val]
       val () = emit_tmpvar(out, tmp)
     } (* end of [val] *)
 //
-    val () = emit_PMVint (out, tag)
+    val () =
+    if isnot then emit_SPACE(out)
+//
+    val () = emit_PMVint(out, tag)
 //
     val () =
-    if not(isret) then emit_RPAREN(out)
+    if isnot then emit_RPAREN(out)
 //
   }
 //
@@ -1413,11 +1423,13 @@ val d0es = getarglst (inss)
 val () = emit_nspc (out, ind)
 //
 val isret =
-  tmpvar_is_tmpret (tmp.i0dex_sym)
+  tmpvar_is_tmpret(tmp.i0dex_sym)
 // end of [val]
 //
+val isnot = not(isret)
+//
 val () =
-if not(isret) then
+if isnot then
 {
 val () =
   emit_text(out, "(set! ")
@@ -1425,6 +1437,9 @@ val () =
 val () = emit_tmpvar(out, tmp)
 //
 } (* end of [val] *)
+//
+val () =
+if isnot then emit_SPACE(out)
 //
 (*
 val () = emit_SHARP (out)
@@ -1437,7 +1452,7 @@ val () = emit_tysum_d0explst_1 (out, opt, d0es)
 //
 val () = emit_RPAREN(out)
 //
-val () = if not(isret) then emit_RPAREN(out)
+val () = if isnot then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1476,16 +1491,20 @@ val () = emit_nspc (out, ind)
 //
 val isret =
   tmpvar_is_tmpret (tmp.i0dex_sym)
-// end of [val]
+//
+val isnot = not(isret)
 //
 val () =
-if not(isret) then
+if isnot then
 {
   val () =
     emit_text(out, "(set! ")
   // end of [val]
   val () = emit_tmpvar(out, tmp)
 } (* end of [val] *)
+//
+val () =
+if isnot then emit_SPACE(out)
 //
 (*
 val () = emit_SHARP (out)
@@ -1498,7 +1517,7 @@ val () = emit_tyrec_d0explst_1 (out, d0es)
 //
 val () = emit_RPAREN(out)
 //
-val () = if not(isret) then emit_RPAREN(out)
+val () = if isnot then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1518,13 +1537,13 @@ val () = emit_nspc (out, ind)
 //
 val isret =
   tmpvar_is_tmpret (tmp.i0dex_sym)
-// end of [val]
+//
+val isnot = not(isret)
 //
 val () =
 if
-not(isret)
-then
-{
+isnot
+then {
 //
 val () =
   emit_text (out, "(set! ")
@@ -1533,10 +1552,12 @@ val () = emit_tmpvar (out, tmp)
 //
 } (* end of [val] *)
 //
+val () = if isnot then emit_SPACE(out)
+//
 val () =
   emit_fname_d0exp(out, "ATSlazyval", thunk)
 //
-val () = if not(isret) then emit_RPAREN(out)
+val () = if isnot then emit_RPAREN(out)
 //
 in
   // nothing
@@ -1556,13 +1577,13 @@ val () = emit_nspc (out, ind)
 //
 val isret =
   tmpvar_is_tmpret (tmp.i0dex_sym)
-// end of [val]
+//
+val isnot = not(isret)
 //
 val () =
 if
-not(isret)
-then
-{
+isnot
+then {
 //
 val () =
   emit_text (out, "(set! ")
@@ -1572,10 +1593,13 @@ val () = emit_tmpvar (out, tmp)
 } (* end of [val] *)
 //
 val () =
+if isnot then emit_SPACE(out)
+//
+val () =
 emit_fname_d0exp
   (out, "ATSlazyval_eval", lazyval)
 //
-val () = if not(isret) then emit_RPAREN(out)
+val () = if isnot then emit_RPAREN(out)
 //
 in
   // nothing
