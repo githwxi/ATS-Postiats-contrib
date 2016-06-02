@@ -63,6 +63,8 @@ mytest() ->
   N = 100
 , io:format("isevn(~p) = ~p~n", [N, isevn(N)])
 , io:format("isodd(~p) = ~p~n", [N, isodd(N)])
+, io:format("isevn(~p) = ~p~n", [N, isevn(N+1)])
+, io:format("isevn(~p) = ~p~n", [N, isodd(N+1)])
 . %% mytest()
 %} // end of [%{$]
 
