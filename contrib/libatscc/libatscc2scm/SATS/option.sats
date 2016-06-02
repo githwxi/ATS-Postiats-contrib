@@ -4,32 +4,26 @@
 *)
 
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
-(* ****** ****** *)
 //
 // HX-2014-08:
 // prefix for external names
 //
 #define
 ATS_EXTERN_PREFIX "ats2scmpre_"
-#define
-ATS_STATIC_PREFIX "_ats2scmpre_reference_"
 //
 (* ****** ****** *)
 //
-staload UN =
-  "prelude/SATS/unsafe.sats"
-//
-(* ****** ****** *)
-//
-staload "./../basics_scm.sats"
-//
-(* ****** ****** *)
-//
-staload "./../SATS/reference.sats"
+#include
+"share/atspre_define.hats"
 //
 (* ****** ****** *)
 
-(* end of [reference.dats] *)
+staload "./../basics_scm.sats"
+
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/SATS/option.sats"
+//
+(* ****** ****** *)
+
+(* end of [option.sats] *)

@@ -66,12 +66,45 @@
 ;;
 (define-macro (ATSCCget_at xs n) `(list-ref ,xs ,n))
 ;;
+(define-macro (ATSCCset_0 xs x0) `(set-car! ,xs ,x0))
+(define-macro (ATSCCset_1 xs x0) `(set-car! (cdr ,xs) ,x0))
+(define-macro (ATSCCset_2 xs x0) `(set-car! (cdr (cdr ,xs)) ,x0))
+(define-macro (ATSCCset_3 xs x0) `(set-car! (cdr (cdr (cdr ,xs))) ,x0))
+;;
 ;; ****** ****** ;;
 ;;
 (define-syntax
- ATSCCtyrec (syntax-rules () ((_ . xs) (list . xs))))
+ ATSPMVtyrec (syntax-rules () ((_ . xs) (list . xs))))
 (define-syntax
- ATSCCtysum (syntax-rules () ((_ . xs) (list . xs))))
+ ATSPMVtysum (syntax-rules () ((_ . xs) (list . xs))))
+;;
+;; ****** ****** ;;
+;;
+(define-macro
+ (ATSPMVlazyval thunk) `(list 0 ,thunk))
+;;
+(define
+ (ATSPMVlazyval_eval lazyval)
+ (let ((flag (ATSCCget_0 lazyval)))
+   (if (= flag 0)
+     (begin
+      (ATSCCset_0 lazyval 1)
+      (let ((thunk (ATSCCget_1 lazyval)))
+        (ATSCCset_1 lazyval ((ATSCCget_0 thunk) thunk)))
+     )
+     (begin
+      (ATSCCset_0 lazyval (+ flag 1))
+     )
+   ) ;; if
+ ) ;; let
+) ;; define
+;;
+(define-macro
+ (ATSPMVlazyval_eval2 lazyval)
+ `(begin
+   (ATSPMVlazyval_eval ,lazyval) (ATSCCget_1 ,lazyval)
+  )
+)
 ;;
 ;; ****** ****** ;;
 

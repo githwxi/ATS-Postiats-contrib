@@ -904,7 +904,7 @@ val ((*closing*)) = emit_text (out, ")\n")
 val ((*opening*)) = emit_text (out, ";;%{\n")
 //
 val () = emit_nspc (out, 2)
-val () = emit_text (out, "(list")
+val () = emit_text (out, "(list ")
 val () = emit_text (out, "(lambda")
 //
 val () = emit_LPAREN (out)

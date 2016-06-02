@@ -27,37 +27,28 @@ implement
 fact (n) = if n > 0 then n * fact(n-1) else 1
 //
 (* ****** ****** *)
-
-%{^
-;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
-  "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
-;;
-%} // end of [%{]
-
-(* ****** ****** *)
-//
-#define N 10
 //
 extern 
 fun
-main0_scm
+main0_ats
 (
-// argumentless
-) : void = "mac#"
+  N : int
+) : void = "mac#fact_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats(N) =
 {
 //
 val () = println! ("fact(", N, ") = ", fact(N))
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 //
+(* ****** ****** *)
+
+%{$
+(fact_main0_ats 10)
+%} // end of [%{$]
+
 (* ****** ****** *)
 
 (* end of [fact.dats] *)

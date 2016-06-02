@@ -21,7 +21,8 @@
 (* ****** ****** *)
 //
 extern
-fun rtfind (f: int -> int): int = "mac#"
+fun
+rtfind (f: int -> int): int = "mac#"
 //
 implement
 rtfind (f) = let
@@ -38,28 +39,15 @@ end // end of [rtfind]
 
 (* ****** ****** *)
 
-%{^
-;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
- "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
-;;
-%} // end of [%{]
-
-(* ****** ****** *)
-
 extern 
 fun
-main0_scm
+main0_ats
 (
 // argumentless
-) : void = "mac#"
+) : void = "mac#rtfind_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats () =
 {
 //
 val
@@ -68,7 +56,15 @@ poly0 = lam(x:int): int => x*x + x - 6
 val () =
 println! ("rtfind(lambda x: x*x + x - 6) = ", rtfind(poly0))
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
+
+(* ****** ****** *)
+
+%{$
+;;
+(rtfind_main0_ats)
+;;
+%} // end of [%{]
 
 (* ****** ****** *)
 

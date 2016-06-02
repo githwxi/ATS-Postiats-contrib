@@ -43,27 +43,23 @@ isweekend
 
 (* ****** ****** *)
 
-%{^
-;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
- "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
-%} // end of [%{]
-
-(* ****** ****** *)
-
 extern
 fun
-main0_scm (): void = "mac#"
+main0_ats (): void = "mac#weekday_test"
 implement
-main0_scm () =
+main0_ats () =
 {
   val () = println! ("isweekend(Monday) = ", isweekend(Monday))
   val () = println! ("isweekend(Saturday) = ", isweekend(Saturday))
 }
+
+(* ****** ****** *)
+
+%{$
+;;
+(weekday_test)
+;;
+%} // end of [%{]
 
 (* ****** ****** *)
 

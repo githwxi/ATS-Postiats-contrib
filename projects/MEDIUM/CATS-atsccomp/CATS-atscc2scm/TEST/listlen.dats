@@ -81,13 +81,13 @@ if m < n
 //
 extern 
 fun
-main0_scm
+main0_ats
 (
 // argumentless
-) : void = "mac#"
+) : void = "mac#listlen_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats () =
 {
 //
 val () = println!
@@ -95,8 +95,16 @@ val () = println!
   "listlen(fromto(0, 10)) = ", listlen(fromto(0, 10))
 ) (* end of [val] *)
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 //
+(* ****** ****** *)
+
+%{$
+;;
+(listlen_main0_ats)
+;;
+%} // end of [%{]
+
 (* ****** ****** *)
 
 (* end of [listlen.dats] *)

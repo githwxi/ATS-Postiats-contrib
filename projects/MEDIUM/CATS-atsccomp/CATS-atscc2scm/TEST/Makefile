@@ -144,6 +144,8 @@ RMRF=rm -rf
 #
 libatscc2scm:: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2scm/CATS/* libatscc2scm/CATS/.
+libatscc2scm:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2scm/libatscc2scm_all.scm libatscc2scm/.
 #
 ######
 

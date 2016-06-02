@@ -78,13 +78,13 @@ typedef I3 = I(I2)
 //
 extern
 fun
-main0_scm
+main0_ats
 (
 // argumentless
-) : void = "mac#main0_scm"
+) : void = "mac#twice_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats () =
 {
 val Z = 0
 val S = lam (x: int): int =<cloref1> x + 1
@@ -101,15 +101,13 @@ val ((*void*)) = println! ("ans2(16) = ", ans2)
 val ans3 = twice<I3>(twice<I2>)(twice<I1>)(twice<I0>)(S)(Z)
 val ((*void*)) = println! ("ans3(65536) = ", ans3)
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 
 (* ****** ****** *)
 
-%{^
+%{$
 ;;
-(load "./libatscc2scm/CATS/basics_cats.scm")
-(load "./libatscc2scm/CATS/integer_cats.scm")
-(load "./libatscc2scm/CATS/print_cats.scm")
+(twice_main0_ats)
 ;;
 %} // end of [%{]
 

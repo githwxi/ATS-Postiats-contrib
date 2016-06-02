@@ -10,7 +10,7 @@
 
 ;;
 ;;;;;;
-; beg of [integer_cats.hrl]
+; beg of [integer_cats.scm]
 ;;;;;;
 ;;
 
@@ -66,6 +66,12 @@
 (define-macro
  (ats2scmpre_div_int0_int0 x y) `(quotient ,x ,y)
 )
+(define-macro
+ (ats2scmpre_mod_int0_int0 x y) `(modulo ,x ,y)
+)
+(define-macro
+ (ats2scmpre_rem_int0_int0 x y) `(remainder ,x ,y)
+)
 ;;
 (define-macro
  (ats2scmpre_add_int1_int1 x y) `(+ ,x ,y)
@@ -78,6 +84,12 @@
 )
 (define-macro
  (ats2scmpre_div_int1_int1 x y) `(quotient ,x ,y)
+)
+(define-macro
+ (ats2scmpre_mod_int1_int1 x y) `(modulo ,x ,y)
+)
+(define-macro
+ (ats2scmpre_rem_int1_int1 x y) `(remainder ,x ,y)
 )
 ;;
 ;; ****** ****** ;;
@@ -100,6 +112,27 @@
 )
 (define-macro
  (ats2scmpre_neq_int0_int0 x y) `(not (= ,x ,y))
+)
+;;
+;;
+(define-macro
+ (ats2scmpre_lt_int1_int1 x y) `(< ,x ,y)
+)
+(define-macro
+ (ats2scmpre_lte_int1_int1 x y) `(<= ,x ,y)
+)
+(define-macro
+ (ats2scmpre_gt_int1_int1 x y) `(> ,x ,y)
+)
+(define-macro
+ (ats2scmpre_gte_int1_int1 x y) `(>= ,x ,y)
+)
+;;
+(define-macro
+ (ats2scmpre_eq_int1_int1 x y) `(= ,x ,y)
+)
+(define-macro
+ (ats2scmpre_neq_int1_int1 x y) `(not (= ,x ,y))
 )
 ;;
 ;; ****** ****** ;;

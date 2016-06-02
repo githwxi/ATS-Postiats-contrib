@@ -10,7 +10,7 @@
 
 ;;
 ;;;;;;
-; beg of [float_cats.hrl]
+; beg of [float_cats.scm]
 ;;;;;;
 ;;
 

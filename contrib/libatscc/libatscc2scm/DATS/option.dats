@@ -15,21 +15,30 @@
 #define
 ATS_EXTERN_PREFIX "ats2scmpre_"
 #define
-ATS_STATIC_PREFIX "_ats2scmpre_reference_"
+ATS_STATIC_PREFIX "_ats2scmpre_option_"
 //
 (* ****** ****** *)
 //
-staload UN =
-  "prelude/SATS/unsafe.sats"
+#include
+"share/atspre_define.hats"
 //
 (* ****** ****** *)
 //
-staload "./../basics_scm.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/reference.sats"
+staload "./../SATS/integer.sats"
+//
+(* ****** ****** *)
+//
+staload "./../SATS/option.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/option.dats"
 //
 (* ****** ****** *)
 
-(* end of [reference.dats] *)
+(* end of [option.dats] *)

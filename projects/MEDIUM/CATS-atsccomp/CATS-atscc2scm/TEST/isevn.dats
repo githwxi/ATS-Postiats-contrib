@@ -19,18 +19,6 @@
 "{$LIBATSCC2SCM}/staloadall.hats"
 //
 (* ****** ****** *)
-
-%{^
-;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
- "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
-%} // end of [%{]
-
-(* ****** ****** *)
 //
 fnx isevn_ (n: int): bool =
   if n > 0 then isodd_(n-1) else true
@@ -55,13 +43,14 @@ implement isodd (x) = if x > 0 then isevn_(x-1) else false
 //
 extern 
 fun
-main0_scm
+main0_ats
 (
 // argumentless
-) : void = "mac#"
+) : void =
+  "mac#isevn_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats () =
 {
 //
 val () = println! ("isevn(100) = ", isevn(100))
@@ -70,8 +59,17 @@ val () = println! ("isodd(100) = ", isodd(100))
 val () = println! ("isevn(101) = ", isevn(101))
 val () = println! ("isodd(101) = ", isodd(101))
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 //
+(* ****** ****** *)
+
+
+%{$
+;;
+(isevn_main0_ats)
+;;
+%} // end of [%{]
+
 (* ****** ****** *)
 
 (* end of [isevn.dats] *)

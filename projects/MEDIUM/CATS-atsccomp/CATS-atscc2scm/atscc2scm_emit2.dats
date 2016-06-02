@@ -792,23 +792,23 @@ of // case+
     (d2c, d0e_r) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, ";; ")
+    val () = emit_text (out, "(set! ")
     val () = emit_i0de (out, d2c)
-    val () = emit_text (out, " = ")
+    val () = emit_SPACE (out)
     val () = emit_d0exp (out, d0e_r)
-    val () = emit_SEMICOLON (out)
+    val () = emit_RPAREN (out)
   }
 //
 | ATSINScaseof_fail(errmsg) =>
   {
 //
-    val () = emit_nspc (out, ind)
+    val () = emit_nspc(out, ind)
 //
     val () =
-      emit_text (out, "(ATSINScaseof_fail ")
+      emit_text(out, "(ATSINScaseof_fail ")
     val () =
     (
-      emit_PMVstring (out, errmsg); emit_RPAREN (out)
+      emit_PMVstring(out, errmsg); emit_RPAREN(out)
     ) (* end of [val] *)
 //
   }
@@ -821,34 +821,37 @@ of // case+
 | ATSdynload(dummy) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, ";; ATSdynload()")
+    val () = emit_text (out, ";; (ATSdynload)")
   }
 //
 | ATSdynloadset(flag) =>
   {
-    val () = emit_nspc (out, ind)
+    val () =
+      emit_nspc (out, ind)
     val () = (
-      emit_tmpvar (out, flag); emit_text (out, " = 1 ; // flag is set")
+      emit_text(out, ";; initizing flag is set\n");
+      emit_text(out, "(set! "); emit_tmpvar(out, flag); emit_text(out, " 1)")
     ) (* end of [val] *)
   }
 //
 | ATSdynloadfcall(fcall) =>
   {
-    val () = emit_nspc (out, ind)
+    val () =
+      emit_nspc (out, ind)
     val () = (
-      emit_tmpvar (out, fcall); emit_text (out, "(/*void*/) ; // dynloading")
+      emit_LPAREN(out); emit_tmpvar(out, fcall); emit_RPAREN(out)
     ) (* end of [val] *)
   }
 //
 | ATSdynloadflag_sta(flag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = fprint! (out, ";; ATSdynloadflag_sta(", flag, ")")
+    val () = fprint! (out, ";; (ATSdynloadflag_sta ", flag, ")")
   }
 | ATSdynloadflag_ext(flag) =>
   {
     val () = emit_nspc (out, ind)
-    val () = fprint! (out, ";; ATSdynloadflag_ext(", flag, ")")
+    val () = fprint! (out, ";; (ATSdynloadflag_ext ", flag, ")")
   }
 //
 | _ (*rest-of-instr*) =>
@@ -1450,7 +1453,7 @@ val () = emit_symbol (out, name)
 *)
 val () = emit_LPAREN(out)
 //
-val () = emit_text(out, "ATSCCtysum")
+val () = emit_text(out, "ATSPMVtysum")
 val () = emit_tysum_d0explst_1 (out, opt, d0es)
 //
 val () = emit_RPAREN(out)
@@ -1515,7 +1518,7 @@ val () = emit_symbol (out, name)
 *)
 val () = emit_LPAREN(out)
 //
-val () = emit_text(out, "ATSCCtyrec")
+val () = emit_text(out, "ATSPMVtyrec")
 val () = emit_tyrec_d0explst_1 (out, d0es)
 //
 val () = emit_RPAREN(out)
@@ -1555,10 +1558,12 @@ val () = emit_tmpvar (out, tmp)
 //
 } (* end of [val] *)
 //
-val () = if isnot then emit_SPACE(out)
+val () =
+if isnot then emit_SPACE(out)
 //
 val () =
-  emit_fname_d0exp(out, "ATSlazyval", thunk)
+emit_fname_d0exp
+  (out, "ATSPMVlazyval", thunk)
 //
 val () = if isnot then emit_RPAREN(out)
 //
@@ -1600,7 +1605,7 @@ if isnot then emit_SPACE(out)
 //
 val () =
 emit_fname_d0exp
-  (out, "ATSlazyval_eval", lazyval)
+  (out, "ATSPMVlazyval_eval2", lazyval)
 //
 val () = if isnot then emit_RPAREN(out)
 //
@@ -1646,11 +1651,11 @@ of // case+
 //
 | D0Cassume (id) =>
   {
-    val () = emit_ENDL (out)
+    val () = emit_ENDL(out)
     val () =
-      emit_text (out, ";; ATSassume(")
+      emit_text(out, ";; ATSassume(")
     val () = (
-      emit_i0de (out, id); emit_text (out, ")\n")
+      emit_i0de(out, id); emit_text(out, ")\n")
     ) (* end of [val] *)
   }
 //
@@ -1662,11 +1667,12 @@ of // case+
 //
 | D0Cdyncst_valimp
     (id, s0e) => {
-    val () = emit_ENDL (out)
+    val () = emit_ENDL(out)
     val () = (
-      emit_text (out, "var "); emit_i0de (out, id)
+      emit_text(out, "(define ");
+      emit_i0de(out, id); emit_text(out, " #f)")
     ) (* end of [val] *)
-    val () = emit_text (out, "\n")
+    val () = emit_ENDL(out)
   }
 //
 | D0Cextcode(toks) =>
@@ -1687,14 +1693,17 @@ of // case+
     val () = emit_ENDL (out)
     val () = (
       case+ opt of
-      | Some _ => () | None () => emit_text(out, "/*\n")
+      | Some _ => ()
+      | None _ => emit_text(out, "/*\n")
     ) (* end of [val] *)
     val () = (
-      emit_text (out, "var "); emit_tmpvar (out, tmp); emit_ENDL (out)
+      emit_text(out, "(define ");
+      emit_tmpvar(out, tmp); emit_text(out, " #f)\n")
     ) (* end of [val] *)
     val () = (
       case+ opt of
-      | Some _ => () | None () => emit_text(out, "*/\n")
+      | Some _ => ()
+      | None _ => emit_text(out, "*/\n")
     ) (* end of [val] *)
   } (* end of [D0Cstatmp] *)
 //
@@ -1715,7 +1724,7 @@ of // case+
 //
 | D0Cdynloadflag_minit(flag) => (
     emit_text (out, ";; dynloadflag_minit\n");
-    emit_text (out, "var "); emit_tmpvar (out, flag); emit_text (out, " = 0;\n")
+    emit_text (out, "(define "); emit_tmpvar(out, flag); emit_text(out, " 0)\n")
   ) (* end of [D0Cdynloadflag_minit] *)
 //
 end // end of [emit_d0ecl]

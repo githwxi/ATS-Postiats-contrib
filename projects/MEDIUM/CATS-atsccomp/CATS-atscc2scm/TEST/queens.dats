@@ -206,13 +206,13 @@ search
 
 extern 
 fun
-main0_scm
+main0_ats
 (
 // argumentless
-) : void = "mac#"
+) : void = "mac#queens_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats () =
 {
 //
 val
@@ -224,18 +224,13 @@ search
 //
 val () = println! ("There are [", nsol, "] solutions in total.")
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 //
 (* ****** ****** *)
 
-%{^
+%{$
 ;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
- "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
+(queens_main0_ats)
 ;;
 %} // end of [%{]
 

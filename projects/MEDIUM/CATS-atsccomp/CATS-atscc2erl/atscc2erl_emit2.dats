@@ -1482,7 +1482,7 @@ val () = emit_text (out, " = ")
 } (* end of [val] *)
 //
 val () =
-  emit_text (out, "?ATSlazyval")
+  emit_text (out, "?ATSPMVlazyval")
 val () =
 (
   emit_LPAREN (out); emit_d0exp (out, thunk); emit_RPAREN (out)
@@ -1522,7 +1522,7 @@ val () = emit_text (out, " = ")
 } (* end of [val] *)
 //
 val () =
-  emit_text (out, "?ATSlazyval_eval")
+  emit_text (out, "?ATSPMVlazyval_eval")
 val () =
 (
   emit_LPAREN (out); emit_d0exp (out, lazyval); emit_RPAREN (out)

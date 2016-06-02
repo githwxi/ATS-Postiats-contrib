@@ -672,15 +672,16 @@ ATSINSmove_lazyeval
   (tmp, s0e, lazyval) = ins0.instr_node
 //
 val () = emit_nspc (out, ind)
-val () = emit_text (out, "ATSPMVlazyval_eval")
-val () = emit_text (out, "(")
-val () = emit_d0exp (out, lazyval)
-val () = emit_text (out, "); ")
-val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = ")
-val () = emit_d0exp (out, lazyval)
+val () =
+  emit_text (out, "ATSPMVlazyval_eval(")
+val () = (
+  emit_d0exp(out, lazyval); emit_text(out, "); ")
+)
+val () =
+  (emit_tmpvar (out, tmp); emit_text (out, " = "))
 val () =
 (
+  emit_d0exp (out, lazyval);
   emit_text (out, "["); emit_int (out, 1); emit_text (out, "];")
 ) (* end of [val] *)
 //

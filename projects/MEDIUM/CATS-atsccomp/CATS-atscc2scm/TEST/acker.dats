@@ -35,35 +35,31 @@ case+
 )
 //
 (* ****** ****** *)
-
-%{^
-;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
- "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
-;;
-%} // end of [%{]
-
-(* ****** ****** *)
 //
 extern 
 fun
-main0_scm
+main0_ats
 (
-// argumentless
-) : void = "mac#"
+  m: int, n: int
+) : void = "mac#acker_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats(m, n) =
 {
 //
-val () = println! ("acker(3, 3) = ", acker(3, 3))
+val () =
+println! ("acker(", m, ", ", n, ") = ", acker(m, n))
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 //
+(* ****** ****** *)
+
+%{$
+;;
+(acker_main0_ats 3 3)
+;;
+%} // end [%{$]
+
 (* ****** ****** *)
 
 (* end of [acker.dats] *)

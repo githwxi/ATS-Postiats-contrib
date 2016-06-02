@@ -31,37 +31,39 @@ implement
 f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
 //
 (* ****** ****** *)
-
-%{^
-;;
-(load
- "./libatscc2scm/CATS/basics_cats.scm")
-(load
- "./libatscc2scm/CATS/integer_cats.scm")
-;;
-(load "./libatscc2scm/CATS/print_cats.scm")
-;;
-%} // end of [%{]
-
-(* ****** ****** *)
-//
-#define N 10
 //
 extern 
 fun
-main0_scm
+main0_ats
 (
-// argumentless
-) : void = "mac#"
+  N: int
+) : void = "mac#f91_main0_ats"
 //
 implement
-main0_scm () =
+main0_ats(N) =
 {
 //
 val () = println! ("f91(", N, ") = ", f91(N))
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_ats] *)
 //
+(* ****** ****** *)
+
+%{$
+;;
+(f91_main0_ats 0)
+(f91_main0_ats 1)
+(f91_main0_ats 2)
+(f91_main0_ats 3)
+(f91_main0_ats 4)
+(f91_main0_ats 5)
+(f91_main0_ats 6)
+(f91_main0_ats 7)
+(f91_main0_ats 8)
+(f91_main0_ats 9)
+;;
+%} // end of [%{]
+
 (* ****** ****** *)
 
 (* end of [f91.dats] *)
