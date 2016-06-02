@@ -79,5 +79,12 @@
 (define-macro (ATSSELboxrec xs i) `(ATSCCget_at ,xs ,i))
 
 ;; ****** ****** ;;
+;;
+(define (ATSINSdeadcode_fail) (exit 1))
+;;
+(define
+ (ATSINScaseof_fail errmsg) (display errmsg) (exit 1))
+;;
+;; ****** ****** ;;
 
 ;;;;;; end of [basics_cats.scm] ;;;;;;

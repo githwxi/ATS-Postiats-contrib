@@ -58,9 +58,6 @@ isweekend
 extern
 fun
 main0_scm (): void = "mac#"
-
-(* ****** ****** *)
-
 implement
 main0_scm () =
 {

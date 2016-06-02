@@ -74,6 +74,12 @@ ATSPMVlazyval_make (thunk) { return [0, thunk]; }
 */
 
 /* ****** ****** */
+//
+function
+ATSPMVlazyval(thunk)
+  { return [0, thunk] ; }
+//
+/* ****** ****** */
 
 function
 ATSPMVlazyval_eval(lazyval)

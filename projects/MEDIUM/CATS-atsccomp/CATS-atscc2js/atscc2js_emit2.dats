@@ -868,12 +868,11 @@ val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 //
-val () = emit_LBRACKET (out)
 val () =
 (
-  emit_int (out, 0); emit_text (out, ", "); emit_d0exp (out, thunk)
+  emit_text(out, "ATSPMVlazyval(");
+  emit_d0exp (out, thunk); emit_RPAREN(out)
 ) (* end of [val] *)
-val () = emit_RBRACKET (out)
 //
 in
   // nothing

@@ -486,10 +486,12 @@ of // case+
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "(if ")
+    val () = emit_text (out, "(if")
+    val () = emit_SPACE (out)
     val () = emit_d0exp (out, d0e)
+    val () = emit_SPACE (out)
     val () = emit_instr (out, ins)
-    val () = emit_text (out, "; true -> atscc2scm_void end")
+    val () = emit_RPAREN (out)
   }
 //
 | ATSifnthen (d0e, inss) =>
@@ -498,10 +500,12 @@ of // case+
     val-list_cons (ins, _) = inss
 //
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "(if ")
+    val () = emit_text (out, "(if")
+    val () = emit_SPACE (out)
     val () = emit_not_d0exp (out, d0e)
+    val () = emit_SPACE (out)
     val () = emit_instr (out, ins)
-    val () = emit_text (out, "; true -> atscc2scm_void end")
+    val () = emit_RPAREN (out)
   }
 //
 | ATSbranchseq (inss) =>
@@ -801,17 +805,17 @@ of // case+
     val () = emit_nspc (out, ind)
 //
     val () =
-      emit_text (out, "?ATSINScaseof_fail")
+      emit_text (out, "(ATSINScaseof_fail ")
     val () =
     (
-      emit_LPAREN (out); emit_PMVstring (out, errmsg); emit_RPAREN (out)
+      emit_PMVstring (out, errmsg); emit_RPAREN (out)
     ) (* end of [val] *)
 //
   }
 | ATSINSdeadcode_fail(__tok__) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "?ATSINSdeadcode_fail()")
+    val () = emit_text (out, "(ATSINSdeadcode_fail)")
   }
 //
 | ATSdynload(dummy) =>
@@ -1182,8 +1186,7 @@ end (* end of [auxseqlst] *)
 val () = auxseqlst (out, ind, inss)
 //
 val () = emit_nspc (out, ind)
-val () = emit_text (out, ";; _ -> ")
-val () = emit_text (out, "atscc2scm_caseof_deadcode(?FILE, ?LINE)\n")
+val () = emit_text (out, ";; (else (atscc2scm_caseof_deadcode _FILE_ _LINE_))\n")
 //
 in
   // nothing

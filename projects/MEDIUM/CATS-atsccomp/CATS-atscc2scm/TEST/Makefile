@@ -122,6 +122,13 @@ cleanall:: ; $(RMF) weekday_dats.scm
 
 ######
 
+all:: \
+sieve_lazy_dats.scm
+sieve_lazy_dats.scm: sieve_lazy.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+cleanall:: ; $(RMF) sieve_lazy_dats.scm
+
+######
+
 testall:: all
 testall:: cleanall
 
