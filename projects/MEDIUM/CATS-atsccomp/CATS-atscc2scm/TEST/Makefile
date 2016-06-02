@@ -3,10 +3,12 @@
 #
 
 ######
-
+#
 SCHEME=guile
-SCHEME2=$(SCHEME) -l $(LIBATSCC2SCM)/libatscc2scm_all.scm
-
+#
+SCHEME2=$(SCHEME) \
+-l $(LIBATSCC2SCM)/libatscc2scm_all.scm
+#
 ######
 
 PATSCC=$(PATSHOME)/bin/patscc
