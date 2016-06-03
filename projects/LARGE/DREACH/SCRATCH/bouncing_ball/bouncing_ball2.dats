@@ -1,5 +1,5 @@
 (*
-** Bouncing ball
+** Bouncing ball: attemp 2
 *)
 
 (* ****** ****** *)
@@ -13,16 +13,6 @@ staload
 "libats/SATS/Number/real.sats"
 staload
 "libats/DATS/Number/real_double.dats"
-//
-(* ****** ****** *)
-//
-extern
-fun{}
-gte_real_int
-  {x:real;i:int}
-  (real(x), int(i)):<> bool(x >= i)
-//
-overload >= with gte_real_int of 10
 //
 (* ****** ****** *)
 
