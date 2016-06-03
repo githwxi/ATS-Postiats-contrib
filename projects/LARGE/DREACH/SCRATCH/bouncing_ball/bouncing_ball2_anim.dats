@@ -201,6 +201,22 @@ step_v2
 ) : real(v2(t+dt))
 //
 (* ****** ****** *)
+//
+val g = $UN.cast{real(g)}(9.8)
+//
+implement
+step_x1(pf | st, dt) =
+  $UN.cast(st.x() + st.v() * dt)
+implement
+step_v1(pf | st, dt) = $UN.cast(st.v() - g * dt)
+//
+implement
+step_x2(pf | st, dt) =
+  $UN.cast(st.x() + st.v() * dt)
+implement
+step_v2(pf | st, dt) = $UN.cast(st.v() - g * dt)
+//
+(* ****** ****** *)
 
 extern
 fun
@@ -273,18 +289,18 @@ fun
 x1_midval
 { r:real
 ; t,dt:time
-| x1(t) >= r ; r >= x1(t+dt)
+| x1(t) >= 0 ; x1(t+dt) <= 0
 }
 ( INF(dt)
 | state1(t)
-, real(x1(t)), real(r), real(x1(t+dt))
+, real(x1(t)), real(x1(t+dt))
 ) : [t1:time | t <= t1; t1 <= t+dt; x1(t1)==0] real(t1)
 //
 (* ****** ****** *)
 //
 implement
 x1_midval
-  (pf | st, x1_0, r, x1_1) = $UN.cast(st.t()-(x1_0/st.v()))
+  (pf | st, x1_0, _) = $UN.cast(st.t()-(x1_0/st.v()))
 //
 (* ****** ****** *)
 //
@@ -293,20 +309,18 @@ fun
 v2_midval
 { r:real
 ; t,dt:time
-| v2(t) >= r ; r >= v2(t+dt)
+| v2(t) >= 0 ; v2(t+dt) <= 0
 }
 ( INF(dt)
 | state2(t)
-, real(v2(t)), real(r), real(v2(t+dt))
+, real(v2(t)), real(v2(t+dt))
 ) : [t1:time | t <= t1; t1 <= t+dt; v2(t1)==0] real(t)
 //
 (* ****** ****** *)
 //
-val g = $UN.cast{real(g)}(9.8)
-//
 implement
 v2_midval
-  (pf | st, v2_0, r, v2_1) = $UN.cast(st.t() + (v2_0 / (g)))
+  (pf | st, v2_0, _) = $UN.cast(st.t() + (v2_0 / (g)))
 //
 (* ****** ****** *)
 
@@ -327,7 +341,9 @@ state2_loop
 
 (* ****** ****** *)
 
+(*
 val _0_ = int2real(0)
+*)
 
 (* ****** ****** *)
 
@@ -350,7 +366,7 @@ in
     end // end of [then]
     else let
         val t_1 =
-          x1_midval(pf | st, x1_0, _0_, x1_dx)
+          x1_midval(pf | st, x1_0, x1_dx)
         // end of [val]
         val dt_1 = t_1 - t_0
       prval pf_1 = lemma_inf_gte(pf, dt_1)
@@ -382,7 +398,7 @@ in
     end // end of [then]
     else let
         val t_1 =
-          v2_midval(pf | st, v2_0, _0_, v2_dv)
+          v2_midval(pf | st, v2_0, v2_dv)
         // end of [val]
         val dt_1 = t_1 - t_0
       prval pf_1 = lemma_inf_gte(pf, dt_1)
