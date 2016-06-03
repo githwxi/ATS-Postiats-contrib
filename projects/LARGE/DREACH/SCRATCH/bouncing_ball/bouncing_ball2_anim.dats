@@ -159,17 +159,6 @@ state_get_v(STATE(m, t, x, v)) = v
 //
 (* ****** ****** *)
 //
-(*
-extern
-fun
-jump_x1
-{t:time|x1(t)==0}(state1(t)): [x2(t)==0] void
-extern
-fun
-jump_v1
-{t:time|x1(t)==0}(state1(t)): [v2(t)==(~v1(t))] void
-*)
-//
 extern
 fun
 step_x1
@@ -323,22 +312,168 @@ v2_midval
   (pf | st, v2_0, _) = $UN.cast(st.t() + (v2_0 / (g)))
 //
 (* ****** ****** *)
-
+//
+extern
+fun theFwork_eval(): void
+//
 extern
 fun
-state1_loop
-{t,dt:time}
+delayed_by
 (
-  pf: INF(dt) | st: state1(t), dt: real(dt)
+  delta: real0
+, fwork: () -<lincloptr1> void
 ) : void // end-of-function
+//
+(* ****** ****** *)
+
+local
+
+val theFwork = ref{int}(0)
+
+in (* in-of-local *)
+
+implement
+delayed_by
+  (dt, fwork) = let
+//
+(*
+val dt =
+  $UN.cast{double}(dt)
+//
+val dt =
+  g1ofg0_int(double2int(dt*1000000))
+//
+*)
+(*
+val () = assert(dt >= 0)
+val () = assert(dt <= 1000000)
+val _(*void*) = usleep_int(dt)
+*)
+//
+in
+  theFwork[] := $UN.castvwtp0{int}(fwork)
+end // end of [delayed_by]
+
+implement
+theFwork_eval() = let
+  val fwork = theFwork[]
+  val ((*void*)) = theFwork[] := 0
+in
+  $UN.cast{() -<cloref> void}(fwork)()
+end // end of [theFwork_eval]
+
+end // end of [local]
+
+(* ****** ****** *)
+//
+abstype ball
+//
+extern
+fun ball_new (): ball = "mac#"
+//
+extern
+fun ball_get_x(ball): double = "mac#"
+extern
+fun ball_set_x(ball, double): void = "mac#"
+//
 extern
 fun
-state2_loop
-{t,dt:time}
-(
-  pf: INF(dt) | st: state2(t), dt: real(dt)
-) : void // end-of-function
+theBall_get(): ball = "mac#"
+extern
+fun
+theBall_get_x(): double = "mac#"
+extern
+fun
+theBall_set_x(double): void = "mac#"
+//
+extern
+fun
+theStage_update(): void = "mac#"
+extern
+fun
+theStage_addChild{a:type}(x: a): void = "mac#"
+//
+(* ****** ****** *)
+//
+%{^
+//
+var theStage = 0;
+//
+function
+theStage_initize()
+{
+//
+theStage = new createjs.Stage("theCanvas");
+//
+} /* theStage_initize */
+//
+function
+theStage_addChild(obj)
+{
+  theStage.addChild(obj); return;
+}
+//
+function theStage_update() { return theStage.update(); }
+//
+%}
 
+(* ****** ****** *)
+
+val () = $extfcall(void, "theStage_initize")
+
+(* ****** ****** *)
+
+%{
+//
+var RAD = 32
+var XSCREEN = 640
+var YSCREEN = 480
+//
+function
+ball_new()
+{
+  var
+  ball = new createjs.Shape();
+  ball.x = XSCREEN/2; ball.y = 0;
+  ball.graphics.beginFill("yellow").drawCircle(0, 0, RAD);
+  return ball;
+}
+//
+function
+ball_get_x(ball) { return ball.x ; }
+function
+ball_set_x(ball, x0) { ball.y = YSCREEN-20*x0-RAD; return ; }
+//
+%} // end of [%{]
+//
+(* ****** ****** *)
+
+local
+
+val
+theBall = ref{ball}($UN.cast(0))
+
+fun
+theBall_initize(): void =
+{
+  val B0 = ball_new()
+  val () = theBall[] := B0
+  val () = theStage_addChild(B0)
+}
+
+implement
+theBall_get() = theBall[]
+implement
+theBall_get_x() = ball_get_x(theBall[])
+implement
+theBall_set_x(x0) = ball_set_x(theBall[], x0)
+
+in (* in-of-local *)
+
+val () = theBall_initize((*void*))
+
+end // end of [local]
+  
 (* ****** ****** *)
 
 (*
@@ -347,12 +482,45 @@ val _0_ = int2real(0)
 
 (* ****** ****** *)
 
+fun
+theBall_update
+  (x: real0): void =
+  theStage_update() where
+{
+  val () = theBall_set_x($UN.cast(x))
+} (* end of [theBall_update] *)
+
+(* ****** ****** *)
+
+#define N 1000
+
+(* ****** ****** *)
+
+extern
+fun
+state1_loop
+{t,dt:time}
+(
+  pf: INF(dt) | n: int, st: state1(t), dt: real(dt)
+) : void // end of [state1_loop]
+and
+state2_loop
+{t,dt:time}
+(
+  pf: INF(dt) | n: int, st: state2(t), dt: real(dt)
+) : void // end of [state1_loop]
+
+(* ****** ****** *)
+
 implement
 state1_loop
-  (pf | st, dt) = let
+  (pf | n, st, dt) = let
 //
   val t_0 = state_get_t(st)
   val x1_0 = state_get_x(st)
+//
+  val n0 = n % N; val n1 = n0 + 1
+//
   val x1_dx = step_x1(pf | st, dt)
 //
 in
@@ -360,9 +528,18 @@ in
   if x1_dx >= 0
     then let
       val st_1 =
-      state1_flow(pf | st, dt)
+        state1_flow(pf | st, dt)
+      // end of [val]
     in
-      state1_loop(pf | st_1, dt)
+      if n0 > 0
+        then
+        state1_loop(pf | n1, st_1, dt)
+        else let
+          val () = theBall_update(st.x())
+        in
+          delayed_by(N*dt, llam() => state1_loop(pf | n1, st_1, dt))
+        end // end of [else]
+      // end of [if]
     end // end of [then]
     else let
         val t_1 =
@@ -372,7 +549,8 @@ in
       prval pf_1 = lemma_inf_gte(pf, dt_1)
         val st_1 = state1_flow(pf_1 | st, dt_1)
     in
-      state2_loop(pf | state1_jump(st_1), dt)
+        state2_loop(pf | n1, state1_jump(st_1), dt)
+      // delayed_by
     end // end of [else]
 //
 end // end of [state1_loop]
@@ -381,10 +559,13 @@ end // end of [state1_loop]
 
 implement
 state2_loop
-  (pf | st, dt) = let
+  (pf | n, st, dt) = let
 //
   val t_0 = state_get_t(st)
   val v2_0 = state_get_v(st)
+//
+  val n0 = n % N; val n1 = n0 + 1
+//
   val v2_dv = step_v2(pf | st, dt)
 //
 in
@@ -392,9 +573,18 @@ in
   if v2_dv >= 0
     then let
       val st_1 =
-      state2_flow(pf | st, dt)
+        state2_flow(pf | st, dt)
+      // end of [val]
     in
-      state2_loop(pf | st_1, dt)
+      if n0 > 0
+        then
+        state2_loop(pf | n1, st_1, dt)
+        else let
+          val () = theBall_update(st.x())
+        in
+          delayed_by(N*dt, llam() => state2_loop(pf | n1, st_1, dt))
+        end // end of [else]
+      // end of [if]
     end // end of [then]
     else let
         val t_1 =
@@ -404,10 +594,50 @@ in
       prval pf_1 = lemma_inf_gte(pf, dt_1)
         val st_1 = state2_flow(pf_1 | st, dt_1)
     in
-      state1_loop(pf | state2_jump(st_1), dt)
+      state1_loop(pf | n1, state2_jump(st_1), dt)
     end // end of [else]
 //
 end // end of [state_loop2]
+
+(* ****** ****** *)
+
+local
+//
+staload
+"{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
+//
+val
+theTicks = Bacon_interval{int}(25, 0)
+//
+in
+//
+stacst dt : time
+//
+val dt = $UN.cast{real(dt)}(1.0/(50*N))
+prval pf = $UN.proof_assert{INF(dt)}((*void*))
+//
+val () =
+state1_loop
+(
+  pf(*INF(dt)*)
+| 0, STATE(m1, int2real(0), int2real(20), int2real(0)), dt
+)
+//
+val () = theTicks.onValue(lam(_) =<cloref1> theFwork_eval())
+//
+end // end of [local]
+
+(* ****** ****** *)
+
+%{$
+//
+function
+bouncing_ball2_anim_initize()
+{
+  var _ = bouncing_ball2_anim_dynload()
+}
+//
+%} // end of [%{$]
 
 (* ****** ****** *)
 
