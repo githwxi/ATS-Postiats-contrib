@@ -1,5 +1,5 @@
 (*
-** Bouncing ball: attemp 2
+** Bouncing ball: attempt 2
 *)
 
 (* ****** ****** *)
@@ -275,7 +275,7 @@ state2_jump
 //
 extern
 fun
-x1_midval
+x1_zcross
 { r:real
 ; t,dt:time
 | x1(t) >= 0 ; x1(t+dt) <= 0
@@ -288,14 +288,14 @@ x1_midval
 (* ****** ****** *)
 //
 implement
-x1_midval
+x1_zcross
   (pf | st, x1_0, _) = $UN.cast(st.t()-(x1_0/st.v()))
 //
 (* ****** ****** *)
 //
 extern
 fun
-v2_midval
+v2_zcross
 { r:real
 ; t,dt:time
 | v2(t) >= 0 ; v2(t+dt) <= 0
@@ -308,7 +308,7 @@ v2_midval
 (* ****** ****** *)
 //
 implement
-v2_midval
+v2_zcross
   (pf | st, v2_0, _) = $UN.cast(st.t() + (v2_0 / (g)))
 //
 (* ****** ****** *)
@@ -543,7 +543,7 @@ in
     end // end of [then]
     else let
         val t_1 =
-          x1_midval(pf | st, x1_0, x1_dx)
+          x1_zcross(pf | st, x1_0, x1_dx)
         // end of [val]
         val dt_1 = t_1 - t_0
       prval pf_1 = lemma_inf_gte(pf, dt_1)
@@ -588,7 +588,7 @@ in
     end // end of [then]
     else let
         val t_1 =
-          v2_midval(pf | st, v2_0, v2_dv)
+          v2_zcross(pf | st, v2_0, v2_dv)
         // end of [val]
         val dt_1 = t_1 - t_0
       prval pf_1 = lemma_inf_gte(pf, dt_1)
