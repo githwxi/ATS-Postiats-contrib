@@ -62,7 +62,7 @@ vtypedef state2(t) = state(m2, t)
 stacst
 deriv :
 (
-  time -> real, time(*t*), time(*dt*)
+  time -> real, time(*t*)
 ) -> real
 //
 (* ****** ****** *)
@@ -70,15 +70,15 @@ deriv :
 extern
 praxi
 state1_eqn1
-  {t,dt:time}
+  {t:time}
 (
-  INF(dt) | !state1(t)
-) : [deriv(x1,t,dt) == v1(t)] void
+  !state1(t)
+) : [deriv(x1,t) == v1(t)] void
 extern
 praxi
 state1_eqn2
-  {t,dt:time}
-  (INF(dt) | !state1(t)): [deriv(v1,t,dt) == ~g] void
+  {t:time}
+  (!state1(t)): [deriv(v1,t) == ~g] void
 //
 (* ****** ****** *)  
 //
@@ -88,12 +88,12 @@ state2_eqn2
   {t,dt:time}
 (
   INF(dt) | !state(m2, t)
-) : [deriv(x2,t,dt) == v2(t)] void
+) : [deriv(x2,t) == v2(t)] void
 extern
 praxi
 state2_eqn2
   {t,dt:time}
-  (INF(dt) | !state(m2, t)): [deriv(v2,t,dt) == ~g] void
+  (INF(dt) | !state(m2, t)): [deriv(v2,t) == ~g] void
 //
 (* ****** ****** *)  
 //
