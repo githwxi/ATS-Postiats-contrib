@@ -6,6 +6,7 @@
 //
 // Author: Hongwei Xi
 // Authoremail: gmhwxiATgmailDOTedu
+// Start time : May, 2016
 //
 (* ****** ****** *)
 //
@@ -100,4 +101,4 @@ end // end of [loop2]
 
 (* ****** ****** *)
 
-(* end of [bouncing_ball_with_drag.dats] *)
+(* end of [bouncing_ball_drag.dats] *)

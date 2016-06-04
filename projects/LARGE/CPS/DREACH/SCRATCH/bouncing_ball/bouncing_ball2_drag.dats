@@ -1,5 +1,5 @@
 (*
-** BouncingBall: attempt2
+** BouncingBall(with drag):attempt2
 *)
 
 (* ****** ****** *)
@@ -32,6 +32,8 @@ lemma_eps_gte
 (* ****** ****** *)
 
 stacst g : real
+stacst D : real
+stacst K : real
 
 (* ****** ****** *)
 
@@ -79,7 +81,9 @@ extern
 praxi
 state1_eqn2
   {t:time}
-  (!state1(t)): [deriv(v1,t) == ~g] void
+(
+  !state1(t)
+) : [deriv(v1,t) == ~g+D*v1(t)*v1(t)] void
 //
 (* ****** ****** *)  
 //
@@ -94,7 +98,9 @@ extern
 praxi
 state2_eqn2
   {t,dt:time}
-  (!state2(t)): [deriv(v2,t) == ~g] void
+(
+  !state2(t)
+) : [deriv(v2,t) == ~g-D*v2(t)*v2(t)] void
 //
 (* ****** ****** *)  
 //

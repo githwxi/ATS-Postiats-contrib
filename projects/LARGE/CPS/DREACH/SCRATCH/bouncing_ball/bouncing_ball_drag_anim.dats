@@ -466,4 +466,4 @@ val () = loop1(STATE1(x0, v0))
 
 (* ****** ****** *)
 
-(* end of [bouncing_ball_with_drag_anim.dats] *)
+(* end of [bouncing_ball_drag_anim.dats] *)
