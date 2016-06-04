@@ -21,12 +21,12 @@ sortdef time = real
 
 (* ****** ****** *)
 //
-absprop INF(t:time)
+absprop EPS(t:time)
 //
 extern
 praxi
-lemma_inf_gte
-  {t0,t1:time | t0 >= t1}(INF(t0), real(t1)): INF(t1)
+lemma_eps_gte
+  {t0,t1:time | t0 >= t1}(EPS(t0), real(t1)): EPS(t1)
 //
 (* ****** ****** *)
 
@@ -87,13 +87,13 @@ praxi
 state2_eqn2
   {t,dt:time}
 (
-  INF(dt) | !state(m2, t)
+  EPS(dt) | !state(m2, t)
 ) : [deriv(x2,t) == v2(t)] void
 extern
 praxi
 state2_eqn2
   {t,dt:time}
-  (INF(dt) | !state(m2, t)): [deriv(v2,t) == ~g] void
+  (EPS(dt) | !state(m2, t)): [deriv(v2,t) == ~g] void
 //
 (* ****** ****** *)  
 //
@@ -118,7 +118,7 @@ state1_flow
 { t,dt:time
 | x1(t+dt) >= 0
 }
-(INF(dt)|state1(t), real(dt)): state1(t+dt)
+(EPS(dt)|state1(t), real(dt)): state1(t+dt)
 //
 extern
 fun
@@ -136,7 +136,7 @@ fun
 state2_flow
 { t,dt:time
 | v2(t+dt) >= 0
-} (INF(dt) | state(m2, t), real(dt)): state(m2, t+dt)
+} (EPS(dt) | state(m2, t), real(dt)): state(m2, t+dt)
 //
 extern
 fun
@@ -150,45 +150,45 @@ state2_jump
 
 extern
 fun
-delta_x1
+step_x1
   {t,dt:time}
 (
-  pf: INF(dt) | !state1(t), dt: real(dt)
+  pf: EPS(dt) | !state1(t), dt: real(dt)
 ) : real(x1(t+dt))
 
 extern
 fun
-delta_v2
+step_v2
   {t,dt:time}
 (
-  pf: INF(dt) | !state2(t), dt: real(dt)
+  pf: EPS(dt) | !state2(t), dt: real(dt)
 ) : real(v2(t+dt))
 
 (* ****** ****** *)
 //
 extern
 fun
-x1_midval
-{ r:real
-; t0,t1:time
-| x1(t0) >= r ; r >= x1(t1)
+x1_zcross
+{ t0,t1:time
+| x1(t0) >= 0 ; x1(t1) <= 0
 }
 (
-  real(x1(t0)), real(r), real(x1(t1))
-) : [t:time | t0 >= t; t >= t1; x1(t)==0] real(t)
+  real(x1(t0)), real(x1(t1))
+) : [t:time |
+     t0 >= t; t >= t1; x1(t)==0] real(t)
 //
 (* ****** ****** *)
 //
 extern
 fun
-v2_midval
-{ r:real
-; t0,t1:time
-| v2(t0) >= r ; r >= v2(t1)
+v2_zcross
+{ t0,t1:time
+| v2(t0) >= 0; v2(t1) <= 0
 }
 (
-  real(v2(t0)), real(r), real(v2(t1))
-) : [t:time | t0 >= t; t >= t1; v2(t)==0] real(t)
+  real(v2(t0)), real(v2(t1))
+) : [t:time |
+     t0 >= t; t >= t1; v2(t)==0] real(t)
 //
 (* ****** ****** *)
 
@@ -197,19 +197,15 @@ fun
 state1_loop
 {t,dt:time}
 (
-  pf: INF(dt) | st: state1(t), dt: real(dt)
+  pf: EPS(dt) | st: state1(t), dt: real(dt)
 ) : void // end-of-function
 extern
 fun
 state2_loop
 {t,dt:time}
 (
-  pf: INF(dt) | st: state2(t), dt: real(dt)
+  pf: EPS(dt) | st: state2(t), dt: real(dt)
 ) : void // end-of-function
-
-(* ****** ****** *)
-
-val _0_ = int2real(0)
 
 (* ****** ****** *)
 
@@ -219,7 +215,7 @@ state1_loop
 //
   val t_0 = state_get_t(st)
   val x1_0 = state_get_x(st)
-  val x1_dx = delta_x1(pf | st, dt)
+  val x1_dx = step_x1(pf | st, dt)
 //
 in
 //
@@ -231,12 +227,12 @@ in
       state1_loop(pf | st_1, dt)
     end // end of [then]
     else let
-        val t_1 =
-          x1_midval(x1_0, _0_, x1_dx)
-        // end of [val]
-        val dt_1 = t_1 - t_0
-      prval pf_1 = lemma_inf_gte(pf, dt_1)
-        val st_1 = state1_flow(pf_1 | st, dt_1)
+      val t_1 =
+        x1_zcross(x1_0, x1_dx)
+      // end of [val]
+      val dt_1 = t_1 - t_0
+    prval pf_1 = lemma_eps_gte(pf, dt_1)
+      val st_1 = state1_flow(pf_1 | st, dt_1)
     in
       state2_loop(pf | state1_jump(st_1), dt)
     end // end of [else]
@@ -251,7 +247,7 @@ state2_loop
 //
   val t_0 = state_get_t(st)
   val v2_0 = state_get_v(st)
-  val v2_dv = delta_v2(pf | st, dt)
+  val v2_dv = step_v2(pf | st, dt)
 //
 in
 //
@@ -263,12 +259,12 @@ in
       state2_loop(pf | st_1, dt)
     end // end of [then]
     else let
-        val t_1 =
-          v2_midval(v2_0, _0_, v2_dv)
-        // end of [val]
-        val dt_1 = t_1 - t_0
-      prval pf_1 = lemma_inf_gte(pf, dt_1)
-        val st_1 = state2_flow(pf_1 | st, dt_1)
+      val t_1 =
+        v2_zcross(v2_0, v2_dv)
+      // end of [val]
+      val dt_1 = t_1 - t_0
+    prval pf_1 = lemma_eps_gte(pf, dt_1)
+      val st_1 = state2_flow(pf_1 | st, dt_1)
     in
       state1_loop(pf | state2_jump(st_1), dt)
     end // end of [else]
