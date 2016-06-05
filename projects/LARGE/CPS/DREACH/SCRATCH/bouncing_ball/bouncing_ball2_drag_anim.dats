@@ -44,12 +44,12 @@ typedef mode(mode) = int(mode)
 
 (* ****** ****** *)
 //
-absprop INF(t:time)
+absprop EPS(t:time)
 //
 extern
 praxi
 lemma_inf_gte
-  {t0,t1:time | t0 >= t1}(INF(t0), real(t1)): INF(t1)
+  {t0,t1:time | t0 >= t1}(EPS(t0), real(t1)): EPS(t1)
 //
 (* ****** ****** *)
 
@@ -105,13 +105,13 @@ praxi
 state1_eqn1
   {t,dt:time}
 (
-  INF(dt) | state1(t)
+  EPS(dt) | state1(t)
 ) : [deriv(x1,t,dt) == v1(t)] void
 extern
 praxi
 state1_eqn2
   {t,dt:time}
-  (INF(dt) | state1(t)): [deriv(v1,t,dt) == ~g] void
+  (EPS(dt) | state1(t)): [deriv(v1,t,dt) == ~g] void
 //
 (* ****** ****** *)  
 //
@@ -120,13 +120,13 @@ praxi
 state2_eqn2
   {t,dt:time}
 (
-  INF(dt) | state(m2, t)
+  EPS(dt) | state(m2, t)
 ) : [deriv(x2,t,dt) == v2(t)] void
 extern
 praxi
 state2_eqn2
   {t,dt:time}
-  (INF(dt) | state(m2, t)): [deriv(v2,t,dt) == ~g] void
+  (EPS(dt) | state(m2, t)): [deriv(v2,t,dt) == ~g] void
 //
 (* ****** ****** *)  
 //
@@ -166,14 +166,14 @@ fun
 step_x1
   {t,dt:time}
 (
-  pf: INF(dt) | state1(t), dt: real(dt)
+  pf: EPS(dt) | state1(t), dt: real(dt)
 ) : real(x1(t+dt))
 extern
 fun
 step_v1
   {t,dt:time}
 (
-  pf: INF(dt) | state1(t), dt: real(dt)
+  pf: EPS(dt) | state1(t), dt: real(dt)
 ) : real(v1(t+dt))
 //
 extern
@@ -181,14 +181,14 @@ fun
 step_x2
   {t,dt:time}
 (
-  pf: INF(dt) | state2(t), dt: real(dt)
+  pf: EPS(dt) | state2(t), dt: real(dt)
 ) : real(x2(t+dt))
 extern
 fun
 step_v2
   {t,dt:time}
 (
-  pf: INF(dt) | state2(t), dt: real(dt)
+  pf: EPS(dt) | state2(t), dt: real(dt)
 ) : real(v2(t+dt))
 //
 (* ****** ****** *)
@@ -224,7 +224,7 @@ state1_flow
 { t,dt:time
 | x1(t+dt) >= 0
 }
-(INF(dt)|state1(t), real(dt)): state1(t+dt)
+(EPS(dt)|state1(t), real(dt)): state1(t+dt)
 //
 extern
 fun
@@ -257,7 +257,7 @@ fun
 state2_flow
 { t,dt:time
 | v2(t+dt) >= 0
-} (INF(dt) | state(m2, t), real(dt)): state(m2, t+dt)
+} (EPS(dt) | state(m2, t), real(dt)): state(m2, t+dt)
 //
 extern
 fun
@@ -513,13 +513,13 @@ fun
 state1_loop
 {t,dt:time}
 (
-  pf: INF(dt) | n: int, st: state1(t), dt: real(dt)
+  pf: EPS(dt) | n: int, st: state1(t), dt: real(dt)
 ) : void // end of [state1_loop]
 and
 state2_loop
 {t,dt:time}
 (
-  pf: INF(dt) | n: int, st: state2(t), dt: real(dt)
+  pf: EPS(dt) | n: int, st: state2(t), dt: real(dt)
 ) : void // end of [state1_loop]
 
 (* ****** ****** *)
@@ -626,12 +626,12 @@ in
 stacst dt : time
 //
 val dt = $UN.cast{real(dt)}(1.0/(50*N))
-prval pf = $UN.proof_assert{INF(dt)}((*void*))
+prval pf = $UN.proof_assert{EPS(dt)}((*void*))
 //
 val () =
 state1_loop
 (
-  pf(*INF(dt)*)
+  pf(*EPS(dt)*)
 | 0, STATE(m1, int2real(0), int2real(20), int2real(0)), dt
 )
 //
