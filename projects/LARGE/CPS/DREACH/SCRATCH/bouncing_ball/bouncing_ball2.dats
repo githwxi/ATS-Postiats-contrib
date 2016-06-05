@@ -119,7 +119,7 @@ state1_flow
 { t,dt:time
 | x1(t+dt) >= 0
 }
-(EPS(dt)|state1(t), real(dt)): state1(t+dt)
+(EPS(dt) | state1(t), real(dt)): state1(t+dt)
 //
 extern
 fun
@@ -128,7 +128,7 @@ state1_jump
   t:time
 | x1(t) == 0
 } (state1(t))
-: [x2(t) == 0; v2(t) == ~v1(t)] state(m2, t)
+: [x2(t) == 0; v2(t) == ~v1(t)] state2(t)
 //
 (* ****** ****** *)
 //
@@ -137,7 +137,8 @@ fun
 state2_flow
 { t,dt:time
 | v2(t+dt) >= 0
-} (EPS(dt) | state(m2, t), real(dt)): state(m2, t+dt)
+}
+(EPS(dt) | state2(t), real(dt)): state2(t+dt)
 //
 extern
 fun
@@ -148,7 +149,7 @@ state2_jump
 } (state2(t)): [x1(t) == x2(t); v1(t) == 0] state1(t)
 //
 (* ****** ****** *)
-
+//
 extern
 fun
 step_x1
@@ -156,15 +157,27 @@ step_x1
 (
   pf: EPS(dt) | !state1(t), dt: real(dt)
 ) : real(x1(t+dt))
-
+and
+step_v1
+  {t,dt:time}
+(
+  pf: EPS(dt) | !state1(t), dt: real(dt)
+) : real(v1(t+dt))
+//
 extern
 fun
+step_x2
+  {t,dt:time}
+(
+  pf: EPS(dt) | !state2(t), dt: real(dt)
+) : real(x2(t+dt))
+and
 step_v2
   {t,dt:time}
 (
   pf: EPS(dt) | !state2(t), dt: real(dt)
 ) : real(v2(t+dt))
-
+//
 (* ****** ****** *)
 //
 extern
@@ -174,9 +187,10 @@ x1_zcross
 | x1(t0) >= 0 ; x1(t1) <= 0
 }
 (
-  real(x1(t0)), real(x1(t1))
+  real(t0), real(x1(t0))
+, real(t1), real(x1(t1))
 ) : [t:time |
-     t0 >= t; t >= t1; x1(t)==0] real(t)
+     t0 <= t; t <= t1; x1(t)==0] real(t)
 //
 (* ****** ****** *)
 //
@@ -187,7 +201,8 @@ v2_zcross
 | v2(t0) >= 0; v2(t1) <= 0
 }
 (
-  real(v2(t0)), real(v2(t1))
+  real(t0), real(v2(t0))
+, real(t1), real(v2(t1))
 ) : [t:time |
      t0 >= t; t >= t1; v2(t)==0] real(t)
 //
@@ -229,7 +244,7 @@ in
     end // end of [then]
     else let
       val t_1 =
-        x1_zcross(x1_0, x1_dx)
+        x1_zcross(t_0, x1_0, t_0+dt, x1_dx)
       // end of [val]
       val dt_1 = t_1 - t_0
     prval pf_1 = lemma_eps_gte(pf, dt_1)
@@ -261,7 +276,7 @@ in
     end // end of [then]
     else let
       val t_1 =
-        v2_zcross(v2_0, v2_dv)
+        v2_zcross(t0, v2_0, t0+dt, v2_dv)
       // end of [val]
       val dt_1 = t_1 - t_0
     prval pf_1 = lemma_eps_gte(pf, dt_1)
