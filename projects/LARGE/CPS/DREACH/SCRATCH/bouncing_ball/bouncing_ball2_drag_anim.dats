@@ -288,19 +288,19 @@ extern
 fun
 x1_zcross
 { r:real
-; t,dt:time
-| x1(t) >= 0 ; x1(t+dt) <= 0
+; t0,t1:time
+| x1(t0) >= 0 ; x1(t1) <= 0
 }
-( INF(dt)
-| state1(t)
-, real(x1(t)), real(x1(t+dt))
-) : [t1:time | t <= t1; t1 <= t+dt; x1(t1)==0] real(t1)
+(
+  st: !state1(t0)
+, real(t0), real(x1(t0)), real(t1), real(x1(t1))
+) : [t:time | t0 <= t; t <= t1; x1(t)==0] real(t)
 //
 (* ****** ****** *)
 //
 implement
 x1_zcross
-  (pf | st, x1_0, _) = $UN.cast(st.t()-(x1_0/st.v()))
+  (st, t_0, x1_0, _, _) = $UN.cast(t_0-(x1_0/st.v()))
 //
 (* ****** ****** *)
 //
@@ -308,19 +308,20 @@ extern
 fun
 v2_zcross
 { r:real
-; t,dt:time
-| v2(t) >= 0 ; v2(t+dt) <= 0
+; t0,t1:time
+| v2(t0) >= 0 ; v2(t1) <= 0
 }
-( INF(dt)
-| state2(t)
-, real(v2(t)), real(v2(t+dt))
-) : [t1:time | t <= t1; t1 <= t+dt; v2(t1)==0] real(t)
+(
+  st: !state2(t0)
+, real(t0), real(v2(t0))
+, real(t1), real(v2(t1))
+) : [t:time | t0 <= t; t <= t1; v2(t)==0] real(t)
 //
 (* ****** ****** *)
 //
 implement
 v2_zcross
-  (pf | st, v2_0, _) = $UN.cast(st.t()+(v2_0/(g+D*v2_0*v2_0)))
+  (st, t_0, v2_0, _, _) = $UN.cast(t_0+(v2_0/(g+D*v2_0*v2_0)))
 //
 (* ****** ****** *)
 //
@@ -554,7 +555,7 @@ in
     end // end of [then]
     else let
         val t_1 =
-          x1_zcross(pf | st, x1_0, x1_dx)
+          x1_zcross(st, t_0, x1_0, t_0+dt, x1_dx)
         // end of [val]
         val dt_1 = t_1 - t_0
       prval pf_1 = lemma_inf_gte(pf, dt_1)
@@ -599,7 +600,7 @@ in
     end // end of [then]
     else let
         val t_1 =
-          v2_zcross(pf | st, v2_0, v2_dv)
+          v2_zcross(st, t_0, v2_0, t_0+dt, v2_dv)
         // end of [val]
         val dt_1 = t_1 - t_0
       prval pf_1 = lemma_inf_gte(pf, dt_1)

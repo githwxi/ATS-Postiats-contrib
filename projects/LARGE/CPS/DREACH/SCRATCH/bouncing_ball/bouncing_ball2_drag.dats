@@ -180,9 +180,11 @@ x1_zcross
 | x1(t0) >= 0 ; x1(t1) <= 0
 }
 (
-  real(x1(t0)), real(x1(t1))
+  st: !state1(t0)
+, real(t0), real(x1(t0))
+, real(t1), real(x1(t1))
 ) : [t:time |
-     t0 >= t; t >= t1; x1(t)==0] real(t)
+     t0 <= t; t <= t1; x1(t)==0] real(t)
 //
 (* ****** ****** *)
 //
@@ -193,7 +195,9 @@ v2_zcross
 | v2(t0) >= 0; v2(t1) <= 0
 }
 (
-  real(v2(t0)), real(v2(t1))
+  st: !state2(t0)
+, real(t0), real(v2(t0))
+, real(t1), real(v2(t1))
 ) : [t:time |
      t0 >= t; t >= t1; v2(t)==0] real(t)
 //
@@ -235,7 +239,7 @@ in
     end // end of [then]
     else let
       val t_1 =
-        x1_zcross(x1_0, x1_dx)
+        x1_zcross(st, t_0, x1_0, t_0+dt, x1_dx)
       // end of [val]
       val dt_1 = t_1 - t_0
     prval pf_1 = lemma_eps_gte(pf, dt_1)
@@ -267,7 +271,7 @@ in
     end // end of [then]
     else let
       val t_1 =
-        v2_zcross(v2_0, v2_dv)
+        v2_zcross(st, t_0, v2_0, t_0+dt, v2_dv)
       // end of [val]
       val dt_1 = t_1 - t_0
     prval pf_1 = lemma_eps_gte(pf, dt_1)
