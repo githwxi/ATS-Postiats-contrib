@@ -14,14 +14,15 @@ PATSOLVE=./../patsolve
 ######
 #
 all:: \
-gflist_dats.cnstr
-gflist_dats.cnstr: \
-gflist.dats; $(PATSOPT) -tc --constraint-export -o $@ -d $<
+fact_dats.cnstr
+#
+fact_dats.cnstr: fact.dats; \
+  $(PATSOPT) -tc --constraint-export -o $@ -d $<
 #
 regress:: \
-gflist_dats.cnstr; $(PATSOLVE) -i $<
+fact_dats.cnstr; $(PATSOLVE) -i $<
 #
-cleanall:: ; $(RMF) gflist_dats.cnstr
+cleanall:: ; $(RMF) fact_dats.cnstr
 #
 ######
 

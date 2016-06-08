@@ -9,11 +9,14 @@
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
+** Start time: May, 2015
 *)
 
 (* ****** ****** *)
 //
-#define ATS_PACKNAME "PATSOLVE_COMMARG"
+#define
+ATS_PACKNAME
+"PATSOLVE_COMMARG"
 //
 (* ****** ****** *)
 

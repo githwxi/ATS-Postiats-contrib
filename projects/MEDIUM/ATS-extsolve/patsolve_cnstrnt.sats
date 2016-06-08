@@ -9,18 +9,21 @@
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
+** Start time: May, 2015
 *)
 
 (* ****** ****** *)
 //
-#define ATS_PACKNAME "PATSOLVE_CNSTRNT"
+#define
+ATS_PACKNAME "PATSOLVE_CNSTRNT"
 //
 (* ****** ****** *)
 //
 abst0ype
 stamp_t0ype = int
 //
-typedef stamp = stamp_t0ype
+typedef
+stamp = stamp_t0ype
 //
 (* ****** ****** *)
 //

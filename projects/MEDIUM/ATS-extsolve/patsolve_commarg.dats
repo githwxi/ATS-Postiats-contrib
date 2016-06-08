@@ -9,11 +9,13 @@
 (*
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
+** Start time: May, 2015
 *)
 
 (* ****** ****** *)
 //
-#define ATS_MAINATSFLAG 1
+#define
+ATS_MAINATSFLAG 1
 //
 #define
 ATS_DYNLOADNAME
