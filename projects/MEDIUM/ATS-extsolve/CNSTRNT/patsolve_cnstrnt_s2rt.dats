@@ -18,6 +18,7 @@ implement s2rt_addr() = S2RTaddr()
 implement s2rt_bool() = S2RTbool()
 //
 implement s2rt_real() = S2RTreal()
+implement s2rt_float() = S2RTfloat()
 implement s2rt_string() = S2RTstring()
 //
 (* ****** ****** *)
@@ -27,6 +28,7 @@ s2rt_is_impred
   (s2t0) = (
 //
 case+ s2t0 of
+//
 | S2RTtype() => true
 | S2RTvtype() => true 
 //
@@ -56,6 +58,7 @@ case+ s2t of
 | S2RTbool() => fprint! (out, "S2RTbool()")
 //
 | S2RTreal() => fprint! (out, "S2RTreal()")
+| S2RTfloat() => fprint! (out, "S2RTfloat()")
 | S2RTstring() => fprint! (out, "S2RTstring()")
 //
 | S2RTcls() => fprint! (out, "S2RTcls()")
@@ -76,15 +79,18 @@ case+ s2t of
 //
 | S2RTfun
     (s2ts_arg, s2t_res) =>
-  fprint! (
-    out, "S2RTfun(", s2ts_arg, "; ", s2t_res, ")"
+  fprint!
+  ( out
+  , "S2RTfun(", s2ts_arg, "; ", s2t_res, ")"
   ) (* end of [S2RTfun] *)
 //
 | S2RTnamed
-    (sym) =>fprint! (out, "S2RTnamed(", sym, ")")
+    (sym) =>
+    fprint! (out, "S2RTnamed(", sym, ")")
   // end of [S2RTnamed]
 //
-| S2RTerror() => fprint! (out, "S2RTerror()")
+| S2RTerror
+    ((*void*)) => fprint! (out, "S2RTerror()")
 //
 ) (* end of [fprint_s2rt] *)
 //

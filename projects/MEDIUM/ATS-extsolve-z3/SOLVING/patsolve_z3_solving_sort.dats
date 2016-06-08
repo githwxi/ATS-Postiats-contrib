@@ -167,6 +167,7 @@ case+ s2t0 of
 //
 | S2RTreal() => sort_real()
 (*
+| S2RTfloat() => sort_float()
 | S2RTstring() => sort_string()
 *)
 //

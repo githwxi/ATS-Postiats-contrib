@@ -7,7 +7,7 @@
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 #
-PATSOLVE=$(PATSHOME)/bin/patsolve_z3
+PATSOLVE=../patsolve_z3
 #
 ######
 #
@@ -87,6 +87,14 @@ all:: \
 palindrome
 palindrome:: \
 palindrome.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+
+######
+
+all:: \
+tests_for_real
+tests_for_real:: \
+tests_for_real.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 
 ######

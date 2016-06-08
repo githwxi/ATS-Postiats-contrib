@@ -148,6 +148,8 @@ datatype s2rt =
   | S2RTbool of ()
 //
   | S2RTreal of ()
+//
+  | S2RTfloat of ()
   | S2RTstring of ()
 //
   | S2RTcls of ()
@@ -183,6 +185,7 @@ fun s2rt_addr((*void*)): s2rt
 fun s2rt_bool((*void*)): s2rt
 //
 fun s2rt_real((*void*)): s2rt
+fun s2rt_float((*void*)): s2rt
 fun s2rt_string((*void*)): s2rt
 //
 (* ****** ****** *)

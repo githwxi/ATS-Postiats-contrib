@@ -508,6 +508,24 @@ formula_bneq
   formula_not(formula_beq(s2e1, s2e2))
 //
 (* ****** ****** *)
+//
+// HX-2016-06-08:
+// [Z3_mk_add] is for int/real
+//
+implement
+formula_add_real_real
+  (s2e1, s2e2) = formula_iadd(s2e1, s2e2)
+implement
+formula_sub_real_real
+  (s2e1, s2e2) = formula_isub(s2e1, s2e2)
+implement
+formula_mul_real_real
+  (s2e1, s2e2) = formula_imul(s2e1, s2e2)
+implement
+formula_div_real_real
+  (s2e1, s2e2) = formula_idiv(s2e1, s2e2)
+//
+(* ****** ****** *)
 
 implement
 formula_cond
@@ -522,9 +540,11 @@ formula_cond
   val res =
     Z3_mk_ite (ctx, s2e0, s2e1, s2e2)
   // end of [val]
-  val () = Z3_dec_ref(ctx, s2e0)
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
+//
+  val ((*freed*)) = Z3_dec_ref(ctx, s2e0)
+  val ((*freed*)) = Z3_dec_ref(ctx, s2e1)
+  val ((*freed*)) = Z3_dec_ref(ctx, s2e2)
+//
   prval ((*void*)) = fpf(ctx)
 //
 } (* end of [formula_cond] *)
@@ -812,14 +832,12 @@ stringarr_concat
 val () = strptr_free(name)
 val () = strptr_free(stamp)
 //
-val
-sym =
-Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
+val sym = Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
 //
 val () = strptr_free(name2)
 //
 in
-  sym
+  sym (*return*)
 end // end of [Z3_mk_s2cst_symbol]
 
 (* ****** ****** *)
@@ -852,14 +870,12 @@ stringarr_concat
 val () = strptr_free(name)
 val () = strptr_free(stamp)
 //
-val
-sym =
-Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
+val sym = Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
 //
 val () = strptr_free(name2)
 //
 in
-  sym
+  sym (*return*)
 end // end of [Z3_mk_s2var_symbol]
 
 (* ****** ****** *)

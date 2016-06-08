@@ -170,6 +170,11 @@ val () = insert("gte_addr_addr", S2CINTbuiltin_2(formula_igte))
 val () = insert("eq_addr_addr", S2CINTbuiltin_2(formula_ieq))
 val () = insert("neq_addr_addr", S2CINTbuiltin_2(formula_ineq))
 //
+val () = insert("add_real_real", S2CINTbuiltin_2(formula_add_real_real))
+val () = insert("sub_real_real", S2CINTbuiltin_2(formula_sub_real_real))
+val () = insert("mul_real_real", S2CINTbuiltin_2(formula_mul_real_real))
+val () = insert("div_real_real", S2CINTbuiltin_2(formula_div_real_real))
+//
 (*
 val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))
 *)

@@ -34,6 +34,8 @@ case+ name of
 | "addr" => S2RTaddr()
 | "bool" => S2RTbool()
 //
+| "real" => S2RTreal()
+//
 | "cls" => S2RTeff()
 | "eff" => S2RTeff()
 //

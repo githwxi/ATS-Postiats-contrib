@@ -8,7 +8,8 @@
 (* ****** ****** *)
 //
 #define
-ATS_PACKNAME "PATSOLVE_Z3_SOLVING"
+ATS_PACKNAME
+"PATSOLVE_Z3_SOLVING"
 //
 (* ****** ****** *)
 //
@@ -156,6 +157,18 @@ fun formula_bgt (form, form): form
 fun formula_bgte (form, form): form
 fun formula_beq (form, form): form
 fun formula_bneq (form, form): form
+//
+(* ****** ****** *)
+//
+fun formula_add_real_real(form, form): form
+fun formula_sub_real_real(form, form): form
+fun formula_mul_real_real(form, form): form
+fun formula_div_real_real(form, form): form
+//
+fun formula_lt_real_real: (form, form) -> form
+fun formula_lte_real_real: (form, form) -> form
+fun formula_gt_real_real: (form, form) -> form
+fun formula_gte_real_real: (form, form) -> form
 //
 (* ****** ****** *)
 //
@@ -320,13 +333,16 @@ absview smtenv_push_v
 
 (* ****** ****** *)
 //
-fun smtenv_pop (smtenv_push_v | !smtenv): void
+fun
+smtenv_pop (smtenv_push_v | !smtenv): void
 //
-fun smtenv_push (env: !smtenv): (smtenv_push_v | void)
+fun
+smtenv_push (env: !smtenv): (smtenv_push_v | void)
 //
 (* ****** ****** *)
 
-fun the_s2cinterp_initize(): void
+fun
+the_s2cinterp_initize((*void*)): void
 
 (* ****** ****** *)
 //
