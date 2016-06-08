@@ -7,8 +7,14 @@
 (* ****** ****** *)
 
 (*
+//
 ** Author: Hongwei Xi
 ** Authoremail: gmhwxiATgmailDOTcom
+** Start time: May, 2016
+//
+** Author: William Blair
+** Authoremail: wdblairATgmailDOTcom
+//
 *)
 
 (* ****** ****** *)
