@@ -56,9 +56,7 @@ overload print with print_ERLval of 100
 
 (* ****** ****** *)
 //  
-fun
-{a:t0p}
-print_val (x: a): void = "mac#%"
+fun{a:t0p} print_val (x: a): void = "mac#%"
 //
 (* ****** ****** *)
 

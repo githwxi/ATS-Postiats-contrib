@@ -49,5 +49,9 @@ overload cloref_app with cloref2_app
 overload cloref_app with cloref3_app
 //
 (* ****** ****** *)
+//
+abstype SCMfilr(*fileref*)
+//
+(* ****** ****** *)
 
 (* end of [basics_scm.sats] *)

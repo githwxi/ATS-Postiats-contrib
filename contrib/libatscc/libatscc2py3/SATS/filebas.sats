@@ -17,9 +17,9 @@ staload "./../basics_py.sats"
 
 (* ****** ****** *)
 
-val stdin : PYfile = "mac#%"
-val stdout : PYfile = "mac#%"
-val stderr : PYfile = "mac#%"
+val stdin : PYfilr = "mac#%"
+val stdout : PYfilr = "mac#%"
+val stderr : PYfilr = "mac#%"
 
 (* ****** ****** *)
 

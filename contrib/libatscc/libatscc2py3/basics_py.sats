@@ -46,9 +46,9 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 #include "{$LIBATSCC}/basics.sats"
 //
 (* ****** ****** *)
-
-abstype PYfile
-
+//
+abstype PYfilr(*fileref*)
+//
 (* ****** ****** *)
 //
 // HX-2014-08:

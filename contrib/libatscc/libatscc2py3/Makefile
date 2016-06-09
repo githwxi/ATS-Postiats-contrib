@@ -5,7 +5,7 @@
 ######
 
 PATSOPT=$(PATSHOME)/bin/patsopt
-ATSCC2PY=$(PATSHOME)/bin/atscc2py
+ATSCC2PY=$(PATSHOME)/bin/atscc2py3
 
 ######
 

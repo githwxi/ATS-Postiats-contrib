@@ -69,6 +69,10 @@ CATS/print_cats.scm \
 CATS/reference_cats.scm
 #
 libatscc2scm_all:: ; \
+$(CAT) >>libatscc2scm_all.hrl \
+CATS/filebas_cats.scm
+#
+libatscc2scm_all:: ; \
 $(CAT) >>libatscc2scm_all.scm \
 output/DATS/list_dats.scm \
 output/DATS/option_dats.scm \

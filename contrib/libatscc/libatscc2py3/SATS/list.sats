@@ -28,14 +28,14 @@ staload "./../basics_py.sats"
 //
 fun{a:t0p}
 fprint_list
-  (PYfile, List(INV(a))): void = "mac#%"
+  (PYfilr, List(INV(a))): void = "mac#%"
 //
 fun{}
-fprint_list$sep (out: PYfile): void = "mac#%"
+fprint_list$sep (out: PYfilr): void = "mac#%"
 //
 fun{a:t0p}
 fprint_list_sep
-  (PYfile, List(INV(a)), sep: string): void = "mac#%"
+  (PYfilr, List(INV(a)), sep: string): void = "mac#%"
 //
 overload fprint with fprint_list of 100
 //

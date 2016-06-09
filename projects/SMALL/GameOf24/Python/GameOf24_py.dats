@@ -234,7 +234,7 @@ fpprint_cardlst
 //
 fun fprone
 (
-  out: PYfile, c: card
+  out: PYfilr, c: card
 ) : void = let
   val v = card_get_val (c)
 in
