@@ -33,7 +33,7 @@ fib2:: \
 fib2.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 #
-regress:: fib2; ./fib2 20
+regress:: fib2; ./$< 20
 #
 cleanall:: ; $(RMF) fib2
 #
@@ -47,7 +47,7 @@ fact:: \
 fact.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 #
-regress:: fact; ./fact 10
+regress:: fact; ./$< 10
 #
 cleanall:: ; $(RMF) fact
 #
@@ -55,13 +55,13 @@ cleanall:: ; $(RMF) fact
 #
 all:: fact2
 #
-fact2:: fact2.dats; $(PATSCC) --constraint-ignore -o $@ $<
-#
+fact2:: \
+fact2.dats; $(PATSCC) --constraint-ignore -o $@ $<
 fact2:: \
 fact2.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 #
-regress:: fact2; ./fact2 10
+regress:: fact2; ./$< 10
 #
 cleanall:: ; $(RMF) fact2
 #
@@ -89,6 +89,20 @@ palindrome:: \
 palindrome.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 
+######
+#
+all:: \
+quadratic
+quadratic:: \
+quadratic.dats; \
+$(PATSCC) --constraint-ignore -o $@ $< -lm
+quadratic:: \
+quadratic.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+#
+regress:: quadratic; ./$< 10
+cleanall:: ; $(RMF) quadratic
+#
 ######
 
 all:: \

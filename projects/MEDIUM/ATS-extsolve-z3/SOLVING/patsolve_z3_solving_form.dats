@@ -509,8 +509,28 @@ formula_bneq
 //
 (* ****** ****** *)
 //
+implement
+formula_int2real
+  (s2e1) = res where
+{
+//
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val res =
+    Z3_mk_int2real(ctx, s2e1)
+  // end of [val]
+  val () = Z3_dec_ref(ctx, s2e1)
+  prval ((*void*)) = fpf(ctx)
+//
+} // end of [formula_int2real]
+//
 // HX-2016-06-08:
-// [Z3_mk_add] is for int/real
+// [Z3_mk_...] is for int/real
+//
+implement
+formula_neg_real
+  (s2e1) = formula_ineg(s2e1)
 //
 implement
 formula_add_real_real
@@ -524,6 +544,84 @@ formula_mul_real_real
 implement
 formula_div_real_real
   (s2e1, s2e2) = formula_idiv(s2e1, s2e2)
+//
+implement
+formula_lt_real_real
+  (s2e1, s2e2) = formula_ilt(s2e1, s2e2)
+implement
+formula_lte_real_real
+  (s2e1, s2e2) = formula_ilte(s2e1, s2e2)
+implement
+formula_gt_real_real
+  (s2e1, s2e2) = formula_igt(s2e1, s2e2)
+implement
+formula_gte_real_real
+  (s2e1, s2e2) = formula_igte(s2e1, s2e2)
+//
+implement
+formula_eq_real_real
+  (s2e1, s2e2) = formula_ieq(s2e1, s2e2)
+implement
+formula_neq_real_real
+  (s2e1, s2e2) = formula_ineq(s2e1, s2e2)
+//
+implement
+formula_add_int_real
+  (s2e1, s2e2) =
+(
+  formula_add_real_real(formula_int2real(s2e1), s2e2)
+) (* end of [formula_add_int_real] *)
+implement
+formula_add_real_int
+  (s2e1, s2e2) =
+(
+  formula_add_real_real(s2e1, formula_int2real(s2e2))
+) (* end of [formula_add_real_int] *)
+//
+implement
+formula_sub_int_real
+  (s2e1, s2e2) =
+(
+  formula_sub_real_real(formula_int2real(s2e1), s2e2)
+) (* end of [formula_sub_int_real] *)
+implement
+formula_sub_real_int
+  (s2e1, s2e2) =
+(
+  formula_sub_real_real(s2e1, formula_int2real(s2e2))
+) (* end of [formula_sub_real_int] *)
+//
+implement
+formula_mul_int_real
+  (s2e1, s2e2) =
+(
+  formula_mul_real_real(formula_int2real(s2e1), s2e2)
+) (* end of [formula_mul_int_real] *)
+implement
+formula_div_real_int
+  (s2e1, s2e2) =
+(
+  formula_div_real_real(s2e1, formula_int2real(s2e2))
+) (* end of [formula_div_real_int] *)
+//
+implement
+formula_lt_real_int
+  (s2e1, s2e2) = formula_ilt(s2e1, formula_int2real(s2e2))
+implement
+formula_lte_real_int
+  (s2e1, s2e2) = formula_ilte(s2e1, formula_int2real(s2e2))
+implement
+formula_gt_real_int
+  (s2e1, s2e2) = formula_igt(s2e1, formula_int2real(s2e2))
+implement
+formula_gte_real_int
+  (s2e1, s2e2) = formula_igte(s2e1, formula_int2real(s2e2))
+implement
+formula_eq_real_int
+  (s2e1, s2e2) = formula_ieq(s2e1, formula_int2real(s2e2))
+implement
+formula_neq_real_int
+  (s2e1, s2e2) = formula_ineq(s2e1, formula_int2real(s2e2))
 //
 (* ****** ****** *)
 

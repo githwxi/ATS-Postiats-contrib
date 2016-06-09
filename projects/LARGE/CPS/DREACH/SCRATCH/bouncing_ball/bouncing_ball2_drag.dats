@@ -72,35 +72,65 @@ deriv :
 //
 extern
 praxi
-state1_eqn1
+mode1_eqn1
   {t:time}
 (
   !state1(t)
 ) : [deriv(x1,t) == v1(t)] void
 extern
 praxi
-state1_eqn2
+mode1_eqn2
   {t:time}
 (
   !state1(t)
 ) : [deriv(v1,t) == ~g+D*v1(t)*v1(t)] void
 //
+extern
+prfun
+mode1_jump
+{
+  t:time
+| x1(t) == 0
+}
+(
+  state1(t)
+) : [x2(t) == 0; v2(t) == ~v1(t)] state(m2, t)
+//
+extern
+prfun
+mode1_invt{t:time}(!state1(t)): [x1(t) >= 0] void
+//
 (* ****** ****** *)  
 //
 extern
 praxi
-state2_eqn2
+mode1_eqn2
   {t,dt:time}
 (
   !state2(t)
 ) : [deriv(x2,t) == v2(t)] void
 extern
 praxi
-state2_eqn2
+mode2_eqn2
   {t,dt:time}
 (
   !state2(t)
 ) : [deriv(v2,t) == ~g-D*v2(t)*v2(t)] void
+//
+extern
+fun
+mode2_jump
+{
+  t:time
+| v2(t) == 0
+}
+(
+  state2(t)
+) : [x1(t) == x2(t); v1(t) == 0] state1(t)
+//
+extern
+prfun
+mode2_invt{t:time}(!state2(t)): [v2(t) >= 0] void
 //
 (* ****** ****** *)  
 //
@@ -123,18 +153,14 @@ extern
 fun
 state1_flow
 { t,dt:time
-| x1(t+dt) >= 0
+| dt >= 0; x1(t+dt) >= 0
 }
 (EPS(dt)|state1(t), real(dt)): state1(t+dt)
 //
 extern
 fun
 state1_jump
-{
-  t:time
-| x1(t) == 0
-} (state1(t))
-: [x2(t) == 0; v2(t) == ~v1(t)] state(m2, t)
+{t:time|x1(t)==0}(state1(t)): state2(t)
 //
 (* ****** ****** *)
 //
@@ -142,16 +168,12 @@ extern
 fun
 state2_flow
 { t,dt:time
-| v2(t+dt) >= 0
+| dt >= 0; v2(t+dt) >= 0
 } (EPS(dt) | state(m2, t), real(dt)): state(m2, t+dt)
 //
 extern
 fun
-state2_jump
-{
-  t:time
-| v2(t) == 0
-} (state2(t)): [x1(t) == x2(t); v1(t) == 0] state1(t)
+state2_jump{t:time|v2(t) == 0}(state2(t)): state1(t)
 //
 (* ****** ****** *)
 
@@ -177,7 +199,8 @@ extern
 fun
 x1_zcross
 { t0,t1:time
-| x1(t0) >= 0 ; x1(t1) <= 0
+| t0 <= t1 ;
+  x1(t0) >= 0 ; x1(t1) <= 0
 }
 (
   st: !state1(t0)
@@ -192,7 +215,8 @@ extern
 fun
 v2_zcross
 { t0,t1:time
-| v2(t0) >= 0; v2(t1) <= 0
+| t0 <= t1 ;
+  v2(t0) >= 0; v2(t1) <= 0
 }
 (
   st: !state2(t0)
@@ -206,14 +230,14 @@ v2_zcross
 extern
 fun
 state1_loop
-{t,dt:time}
+{t,dt:time | dt >= 0}
 (
   pf: EPS(dt) | st: state1(t), dt: real(dt)
 ) : void // end-of-function
 extern
 fun
 state2_loop
-{t,dt:time}
+{t,dt:time | dt >= 0}
 (
   pf: EPS(dt) | st: state2(t), dt: real(dt)
 ) : void // end-of-function
@@ -238,6 +262,7 @@ in
       state1_loop(pf | st_1, dt)
     end // end of [then]
     else let
+    prval () = mode1_invt(st)
       val t_1 =
         x1_zcross(st, t_0, x1_0, t_0+dt, x1_dx)
       // end of [val]
@@ -270,6 +295,7 @@ in
       state2_loop(pf | st_1, dt)
     end // end of [then]
     else let
+    prval () = mode2_invt(st)
       val t_1 =
         v2_zcross(st, t_0, v2_0, t_0+dt, v2_dv)
       // end of [val]
@@ -284,4 +310,4 @@ end // end of [state_loop2]
 
 (* ****** ****** *)
 
-(* end of [bouncing_ball2.dats] *)
+(* end of [bouncing_ball2_drag.dats] *)

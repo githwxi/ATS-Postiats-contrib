@@ -91,10 +91,7 @@ vtypedef state2(t) = state(m2, t)
 (* ****** ****** *)
 //
 stacst
-deriv :
-(
-  time -> real, time(*t*), time(*dt*)
-) -> real
+deriv : (time -> real, time(*t*)) -> real
 //
 (* ****** ****** *)
 
@@ -111,12 +108,12 @@ mode1_eqn1
   {t,dt:time}
 (
   EPS(dt) | state1(t)
-) : [deriv(x1,t,dt) == v1(t)] void
+) : [deriv(x1,t) == v1(t)] void
 extern
 praxi
 mode1_eqn2
   {t,dt:time}
-  (EPS(dt) | state1(t)): [deriv(v1,t,dt) == ~g] void
+  (EPS(dt) | state1(t)): [deriv(v1,t) == ~g] void
 //
 extern
 praxi
@@ -127,6 +124,10 @@ mode1_jump
 } (!state1(t))
 : [x2(t) == x1(t); v2(t) == ~v1(t)] void
 //
+extern
+prfun
+mode1_invt{t:time}(!state1(t)): [x1(t) >= 0] void
+//
 (* ****** ****** *)  
 //
 extern
@@ -135,12 +136,12 @@ mode2_eqn2
   {t,dt:time}
 (
   EPS(dt) | state(m2, t)
-) : [deriv(x2,t,dt) == v2(t)] void
+) : [deriv(x2,t) == v2(t)] void
 extern
 praxi
 mode2_eqn2
   {t,dt:time}
-  (EPS(dt) | state(m2, t)): [deriv(v2,t,dt) == ~g] void
+  (EPS(dt) | state(m2, t)): [deriv(v2,t) == ~g] void
 //
 extern
 praxi
@@ -149,6 +150,10 @@ mode2_jump
   t:time
 | v2(t) == 0
 } (!state2(t)): [x1(t) == x2(t); v1(t) == 0] void
+//
+extern
+prfun
+mode2_invt{t:time}(!state2(t)): [v2(t) >= 0] void
 //
 (* ****** ****** *)  
 //
@@ -230,12 +235,12 @@ implement
 step_v2(pf | st, dt) = $UN.cast(st.v() - g * dt)
 //
 (* ****** ****** *)
-
+//
 extern
 fun
 state1_flow
 { t,dt:time
-| x1(t+dt) >= 0
+| dt >= 0; x1(t+dt) >= 0
 }
 (EPS(dt)|state1(t), real(dt)): state1(t+dt)
 //
@@ -273,7 +278,7 @@ extern
 fun
 state2_flow
 { t,dt:time
-| v2(t+dt) >= 0
+| dt >= 0; v2(t+dt) >= 0
 } (EPS(dt) | state(m2, t), real(dt)): state(m2, t+dt)
 //
 extern
@@ -299,10 +304,10 @@ state2_jump
   (st) = let
 //
 prval () = mode2_jump(st)
-  val STATE(_, t, x, v) = st in STATE(m1, t, x, v)
+  val STATE(_, t, x, v) = st in STATE(m1, t, x, int2real(0))
 //
 end // end of [state2_jump]
-
+//
 (* ****** ****** *)
 //
 extern
@@ -310,7 +315,8 @@ fun
 x1_zcross
 { r:real
 ; t0,t1:time
-| x1(t0) >= 0 ; x1(t1) <= 0
+| t0 <= t1 ;
+  x1(t0) >= 0 ; x1(t1) <= 0
 }
 (
   st: state1(t0)
@@ -330,8 +336,9 @@ extern
 fun
 v2_zcross
 { r:real
-; t0, t1:time
-| v2(t0) >= 0 && v2(t1) <= 0
+; t0,t1:time
+| t0 <= t1 ;
+  v2(t0) >= 0 && v2(t1) <= 0
 }
 (
   st: state2(t0)
@@ -533,13 +540,13 @@ theBall_update
 extern
 fun
 state1_loop
-{t,dt:time}
+{t,dt:time | dt >= 0}
 (
   pf: EPS(dt) | n: int, st: state1(t), dt: real(dt)
 ) : void // end of [state1_loop]
 and
 state2_loop
-{t,dt:time}
+{t,dt:time | dt >= 0}
 (
   pf: EPS(dt) | n: int, st: state2(t), dt: real(dt)
 ) : void // end of [state1_loop]
@@ -576,6 +583,7 @@ in
       // end of [if]
     end // end of [then]
     else let
+      prval () = mode1_invt(st)
         val t_1 =
           x1_zcross(st, t_0, x1_0, t_0+dt, x1_dx)
         // end of [val]
@@ -621,6 +629,7 @@ in
       // end of [if]
     end // end of [then]
     else let
+      prval () = mode2_invt(st)
         val t_1 =
           v2_zcross(st, t_0, v2_0, t_0+dt, v2_dv)
         // end of [val]
@@ -648,14 +657,18 @@ in
 stacst dt : time
 //
 val dt = $UN.cast{real(dt)}(1.0/(50*N))
+prval () = $UN.prop_assert{dt > 0}((*void*))
 prval pf = $UN.proof_assert{EPS(dt)}((*void*))
 //
-val () =
-state1_loop
-(
-  pf(*EPS(dt)*)
-| 0, STATE(m1, int2real(0), int2real(20), int2real(0)), dt
+val
+st0 =
+STATE
+( m1
+, int2real(0)
+, $UN.cast(int2real(20)), $UN.cast(int2real(0))
 )
+//
+val () = state1_loop(pf(*EPS(dt)*) | 0, st0, dt)
 //
 val () = theTicks.onValue(lam(_) =<cloref1> theFwork_eval())
 //

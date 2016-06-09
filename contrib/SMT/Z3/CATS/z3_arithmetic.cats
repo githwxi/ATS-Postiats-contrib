@@ -161,6 +161,16 @@ atscntrb_Z3_mk_ge
 
 /* ****** ****** */
 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_int2real
+  (Z3_context ctx, Z3_ast a)
+{
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_int2real(ctx, a)) ;
+} // end of [atscntrb_Z3_mk_int2real]
+
+/* ****** ****** */
+
 #endif // end of [Z3_Z3_ARITHMETIC_CATS]
 
 /* ****** ****** */

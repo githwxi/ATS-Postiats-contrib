@@ -28,26 +28,36 @@ bouncing_ball_drag_anim_dats.js: \
   $(PATSCC) -ccats $<; $(ATSCC2JS) -o $@ -i bouncing_ball_drag_anim_dats.c
 
 ######
-
+#
 all:: \
 bouncing_ball2_anim_dats.js
 bouncing_ball2_anim_dats.js: \
   bouncing_ball2_anim.dats ; \
   $(PATSCC) --constraint-ignore -ccats $<; $(ATSCC2JS) -o $@ -i bouncing_ball2_anim_dats.c
-
+#
 ######
-
+#
 all:: \
 bouncing_ball2_drag_anim_dats.js
 bouncing_ball2_drag_anim_dats.js: \
   bouncing_ball2_drag_anim.dats ; \
   $(PATSCC) --constraint-ignore -ccats $<; $(ATSCC2JS) -o $@ -i bouncing_ball2_drag_anim_dats.c
-
+#
+######
+#
+all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2.dats | patsolve_z3 -i  
+all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2_anim.dats | patsolve_z3 -i  
+#
+all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2_drag.dats | patsolve_z3 -i  
+all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2_drag_anim.dats | patsolve_z3 -i  
+#
 ######
 
 clean:: ; rm -f *~
 clean:: ; rm -f *_?ats.c
 clean:: ; rm -f *_?ats.o
+
+######
 
 cleanall:: clean
 cleanall:: ; rm -f bouncing_ball_anim_dats.js

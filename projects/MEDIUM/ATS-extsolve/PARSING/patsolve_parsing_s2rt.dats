@@ -23,13 +23,21 @@ aux_S2RTbas
 ) : s2rt = let
 //
 val-JSONarray(xs) = x0
-val () = assertloc(length(xs) >= 1)
+val () =
+  assertloc(length(xs) >= 1)
 //
 val-JSONstring(name) = xs[0]
+//
+(*
+val () =
+println!
+  ("parse_s2rt: aux_S2RTbas: name = ", name)
+*)
 //
 in
 //
 case+ name of
+//
 | "int" => S2RTint()
 | "addr" => S2RTaddr()
 | "bool" => S2RTbool()

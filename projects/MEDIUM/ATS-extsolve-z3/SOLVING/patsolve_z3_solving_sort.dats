@@ -42,48 +42,78 @@ implement
 sort_incref
   (ty) = ty2 where
 {
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val ty2 = Z3_sort_inc_ref(ctx, ty)
-  prval ((*void*)) = fpf(ctx)
-}
+//
+val (fpf | ctx) =
+  the_Z3_context_vget()
+// end of [val]
+val ty2 =
+  Z3_sort_inc_ref(ctx, ty)
+//
+prval ((*void*)) = fpf(ctx)
+//
+} (* end of [sort_incref] *)
 
 (* ****** ****** *)
 //
 implement 
 sort_int () = res where
 {
-  val (fpf | ctx) = 
-    the_Z3_context_vget()
-  // end of [val]
-  val res = Z3_mk_int_sort (ctx)
-  prval ((*void*)) = fpf (ctx)
-}
+//
+(*
+val () =
+  println! ("sort_int")
+*)
+//
+val (fpf | ctx) = 
+  the_Z3_context_vget()
+// end of [val]
+val res =
+  Z3_mk_int_sort (ctx)
+//
+prval ((*void*)) = fpf (ctx)
+//
+} (* end of [sort_int] *)
 //
 (* ****** ****** *)
 //
 implement 
 sort_bool () = res where
 {
-  val (fpf | ctx) = 
-    the_Z3_context_vget()
-  // end of [val]
-  val res = Z3_mk_bool_sort (ctx)
-  prval ((*void*)) = fpf (ctx)
-}
+//
+(*
+val () =
+  println! ("sort_bool")
+*)
+//
+val (fpf | ctx) = 
+  the_Z3_context_vget()
+// end of [val]
+val res =
+  Z3_mk_bool_sort (ctx)
+prval ((*void*)) = fpf (ctx)
+//
+} (* end of [sort_bool] *)
 //
 (* ****** ****** *)
 //
 implement 
 sort_real () = res where
 {
-  val (fpf | ctx) = 
-    the_Z3_context_vget()
-  // end of [val]
-  val res = Z3_mk_real_sort (ctx)
-  prval ((*void*)) = fpf (ctx)
-}
+//
+(*
+val () =
+  println! ("sort_real")
+*)
+//
+val (fpf | ctx) = 
+  the_Z3_context_vget()
+// end of [val]
+val res =
+  Z3_mk_real_sort (ctx)
+//
+prval ((*void*)) = fpf (ctx)
+//
+} (* end of [sort_real] *)
 //
 (* ****** ****** *)
 
@@ -123,13 +153,17 @@ implement
 sort_mk_abstract
   (name) = res where
 {
-  val (fpf | ctx) = 
-    the_Z3_context_vget()
-  // end of [val]
-  val sym = Z3_mk_string_symbol (ctx, name)
-  val res = Z3_mk_uninterpreted_sort (ctx, sym)
-  prval ((*void*)) = fpf (ctx)
-}
+//
+val (fpf | ctx) = 
+  the_Z3_context_vget()
+// end of [val]
+val sym =
+  Z3_mk_string_symbol (ctx, name)
+val res =
+  Z3_mk_uninterpreted_sort (ctx, sym)
+prval ((*void*)) = fpf (ctx)
+//
+} (* end of [sort_mk_abstract] *)
 //
 (* ****** ****** *)
 

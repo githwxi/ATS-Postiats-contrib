@@ -170,10 +170,41 @@ val () = insert("gte_addr_addr", S2CINTbuiltin_2(formula_igte))
 val () = insert("eq_addr_addr", S2CINTbuiltin_2(formula_ieq))
 val () = insert("neq_addr_addr", S2CINTbuiltin_2(formula_ineq))
 //
-val () = insert("add_real_real", S2CINTbuiltin_2(formula_add_real_real))
-val () = insert("sub_real_real", S2CINTbuiltin_2(formula_sub_real_real))
-val () = insert("mul_real_real", S2CINTbuiltin_2(formula_mul_real_real))
-val () = insert("div_real_real", S2CINTbuiltin_2(formula_div_real_real))
+val () = insert("int2real", S2CINTbuiltin_1(formula_int2real))
+//
+val () = insert("neg_real", S2CINTbuiltin_1(formula_neg_real))
+//
+// HX-2016-06-08: for operations on reals
+//
+val () =
+  insert("add_real_real", S2CINTbuiltin_2(formula_add_real_real))
+val () =
+  insert("sub_real_real", S2CINTbuiltin_2(formula_sub_real_real))
+val () =
+  insert("mul_real_real", S2CINTbuiltin_2(formula_mul_real_real))
+val () =
+  insert("div_real_real", S2CINTbuiltin_2(formula_div_real_real))
+//
+val () = insert("lt_real_real", S2CINTbuiltin_2(formula_lt_real_real))
+val () = insert("lte_real_real", S2CINTbuiltin_2(formula_lte_real_real))
+val () = insert("gt_real_real", S2CINTbuiltin_2(formula_gt_real_real))
+val () = insert("gte_real_real", S2CINTbuiltin_2(formula_gte_real_real))
+val () = insert("eq_real_real", S2CINTbuiltin_2(formula_eq_real_real))
+val () = insert("neq_real_real", S2CINTbuiltin_2(formula_neq_real_real))
+//
+val () = insert("add_int_real", S2CINTbuiltin_2(formula_add_int_real))
+val () = insert("add_real_int", S2CINTbuiltin_2(formula_add_real_int))
+val () = insert("sub_int_real", S2CINTbuiltin_2(formula_sub_int_real))
+val () = insert("sub_real_int", S2CINTbuiltin_2(formula_sub_real_int))
+val () = insert("mul_int_real", S2CINTbuiltin_2(formula_mul_int_real))
+val () = insert("div_real_int", S2CINTbuiltin_2(formula_div_real_int))
+//
+val () = insert("lt_real_int", S2CINTbuiltin_2(formula_lt_real_int))
+val () = insert("lte_real_int", S2CINTbuiltin_2(formula_lte_real_int))
+val () = insert("gt_real_int", S2CINTbuiltin_2(formula_gt_real_int))
+val () = insert("gte_real_int", S2CINTbuiltin_2(formula_gte_real_int))
+val () = insert("eq_real_int", S2CINTbuiltin_2(formula_eq_real_int))
+val () = insert("neq_real_int", S2CINTbuiltin_2(formula_neq_real_int))
 //
 (*
 val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))

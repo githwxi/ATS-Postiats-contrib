@@ -167,5 +167,11 @@ fun Z3_mk_sub_dynarray
 *)
 
 (* ****** ****** *)
+//
+fun
+Z3_mk_int2real
+  (ctx: !Z3_context, a: !Z3_ast): Z3_ast = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [z3_arithmetic.sats] *)

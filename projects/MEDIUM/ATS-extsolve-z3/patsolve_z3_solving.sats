@@ -160,15 +160,45 @@ fun formula_bneq (form, form): form
 //
 (* ****** ****** *)
 //
-fun formula_add_real_real(form, form): form
-fun formula_sub_real_real(form, form): form
-fun formula_mul_real_real(form, form): form
-fun formula_div_real_real(form, form): form
+fun formula_int2real: (form) -> form
 //
-fun formula_lt_real_real: (form, form) -> form
-fun formula_lte_real_real: (form, form) -> form
-fun formula_gt_real_real: (form, form) -> form
-fun formula_gte_real_real: (form, form) -> form
+fun formula_neg_real: (form) -> form
+//
+fun
+formula_add_real_real(form, form): form
+fun
+formula_sub_real_real(form, form): form
+fun
+formula_mul_real_real(form, form): form
+fun
+formula_div_real_real(form, form): form
+//
+fun formula_add_int_real(form, form): form
+fun formula_add_real_int(form, form): form
+fun formula_sub_int_real(form, form): form
+fun formula_sub_real_int(form, form): form
+fun formula_mul_int_real(form, form): form
+fun formula_div_real_int(form, form): form
+//
+fun
+formula_lt_real_real: (form, form) -> form
+fun
+formula_lte_real_real: (form, form) -> form
+fun
+formula_gt_real_real: (form, form) -> form
+fun
+formula_gte_real_real: (form, form) -> form
+fun
+formula_eq_real_real: (form, form) -> form
+fun
+formula_neq_real_real: (form, form) -> form
+//
+fun formula_lt_real_int: (form, form) -> form
+fun formula_lte_real_int: (form, form) -> form
+fun formula_gt_real_int: (form, form) -> form
+fun formula_gte_real_int: (form, form) -> form
+fun formula_eq_real_int: (form, form) -> form
+fun formula_neq_real_int: (form, form) -> form
 //
 (* ****** ****** *)
 //
