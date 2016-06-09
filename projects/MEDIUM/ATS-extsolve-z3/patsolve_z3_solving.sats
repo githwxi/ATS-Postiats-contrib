@@ -160,9 +160,15 @@ fun formula_bneq (form, form): form
 //
 (* ****** ****** *)
 //
+fun
+formula_real
+  {p,q:int | q > 0}
+  (num: int(p), den: int(q)): form
+//
 fun formula_int2real: (form) -> form
 //
 fun formula_neg_real: (form) -> form
+fun formula_abs_real: (form) -> form
 //
 fun
 formula_add_real_real(form, form): form

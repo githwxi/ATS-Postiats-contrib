@@ -164,9 +164,9 @@ atscntrb_Z3_mk_ge
 ATSinline()
 Z3_ast
 atscntrb_Z3_mk_int2real
-  (Z3_context ctx, Z3_ast a)
+  (Z3_context ctx, Z3_ast a0)
 {
-  return atscntrb_Z3_inc_ref(ctx, Z3_mk_int2real(ctx, a)) ;
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_int2real(ctx, a0)) ;
 } // end of [atscntrb_Z3_mk_int2real]
 
 /* ****** ****** */

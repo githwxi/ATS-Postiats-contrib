@@ -55,6 +55,17 @@ atscntrb_Z3_mk_unsigned_int(ctx, numeral, ty) \
 //
 /* ****** ****** */
 
+ATSinline()
+Z3_ast
+atscntrb_Z3_mk_real
+(
+  Z3_context ctx, int num, int den
+) {
+  return atscntrb_Z3_inc_ref(ctx, Z3_mk_real(ctx, num, den)) ;
+} // end of [atscntrb_Z3_mk_real]
+
+/* ****** ****** */
+
 #endif // end of [Z3_Z3_NUMERAL_CATS]
 
 /* ****** ****** */

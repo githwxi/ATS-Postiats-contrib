@@ -169,6 +169,14 @@ fun Z3_mk_sub_dynarray
 (* ****** ****** *)
 //
 fun
+Z3_mk_real
+(
+  ctx: !Z3_context, num: !Z3_ast, den: !Z3_ast
+) : Z3_ast = "mac#%" // end of [Z3_mk_real]
+//
+(* ****** ****** *)
+//
+fun
 Z3_mk_int2real
   (ctx: !Z3_context, a: !Z3_ast): Z3_ast = "mac#%"
 //

@@ -510,6 +510,16 @@ formula_bneq
 (* ****** ****** *)
 //
 implement
+formula_real(p, q) = pq where
+{
+  val (fpf | ctx) =
+    the_Z3_context_vget()
+  // end of [val]
+  val pq = Z3_mk_real(ctx, p, q)
+  prval ((*void*)) = fpf(ctx)
+}
+//
+implement
 formula_int2real
   (s2e1) = res where
 {
@@ -525,12 +535,19 @@ formula_int2real
 //
 } // end of [formula_int2real]
 //
-// HX-2016-06-08:
-// [Z3_mk_...] is for int/real
-//
 implement
 formula_neg_real
   (s2e1) = formula_ineg(s2e1)
+//
+implement
+formula_abs_real
+  (s2e) = let
+  val _0_ = formula_real(0, 1)
+  val s2e_1 = formula_incref(s2e)
+  val s2e_2 = formula_neg_real(formula_incref(s2e))
+in
+  formula_cond(formula_gte_real_real(s2e, _0_), s2e_1, s2e_2)
+end // end of [formula_iabs]
 //
 implement
 formula_add_real_real
