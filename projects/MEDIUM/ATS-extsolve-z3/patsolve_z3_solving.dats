@@ -6,6 +6,14 @@
 *)
 
 (* ****** ****** *)
+
+(*
+** Author: Hongwei Xi
+** Authoremail: gmhwxiATgmailDOTcom
+** Start time: June, 2015
+*)
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
