@@ -20,7 +20,7 @@ staload
 extern
 fun
 quadratic_solve1
- {A,B,C:real}
+ {A,B,C:real | A > 0}
 (
   A: real(A), B: real(B), C: real(C)
 ) : [x:real | A*x*x+B*x+C==i2r(0)] real(x)
@@ -28,7 +28,7 @@ quadratic_solve1
 extern
 fun
 quadratic_solve2
- {A,B,C:real}
+ {A,B,C:real | A > 0}
 (
   A: real(A), B: real(B), C: real(C)
 ) : [x:real | A*x*x+B*x+C==i2r(0)] real(x)
@@ -45,11 +45,10 @@ quadratic_solve1
 //
 val Delta = B*B-4*A*C
 //
-val ((*void*)) = assert(A > 0)
-val ((*void*)) = assert(Delta >= 0)
-//
 prval () =
   $solver_assert(lemma_sqrt_def)
+//
+val ((*void*)) = assert(Delta >= 0)
 //
 in
   (~B+sqrt(Delta))/(2*A)
@@ -63,11 +62,10 @@ quadratic_solve2
 //
 val Delta = B*B-4*A*C
 //
-val ((*void*)) = assert(A > 0)
-val ((*void*)) = assert(Delta >= 0)
-//
 prval () =
   $solver_assert(lemma_sqrt_def)
+//
+val ((*void*)) = assert(Delta >= 0)
 //
 in
   (~B-sqrt(Delta))/(2*A)
