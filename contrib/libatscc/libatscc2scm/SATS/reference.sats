@@ -5,7 +5,7 @@
 
 (* ****** ****** *)
 //
-// HX-2014-10:
+// HX-2016-06:
 // prefix for external names
 //
 #define

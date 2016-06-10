@@ -53,5 +53,12 @@ overload cloref_app with cloref3_app
 abstype SCMfilr(*fileref*)
 //
 (* ****** ****** *)
+//
+// HX-2016-06:
+// invariant constructors!
+//
+abstype SCMlist(a:vt@ype) // mutable datastructure!
+//
+(* ****** ****** *)
 
 (* end of [basics_scm.sats] *)

@@ -54,7 +54,7 @@ abstype PYfilr(*fileref*)
 // HX-2014-08:
 // invariant constructors!
 //
-abstype PYlist(a:vt@ype)
+abstype PYlist(a:vt@ype) // mutable datastructure!
 //
 (*
 abstype PYset  (a:t@ype)
