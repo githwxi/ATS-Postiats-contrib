@@ -9,7 +9,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2erlpre_"
+ATS_EXTERN_PREFIX "ats2scmpre_"
 //
 (* ****** ****** *)
 //
@@ -59,6 +59,20 @@ abstype SCMfilr(*fileref*)
 //
 abstype SCMlist(a:vt@ype) // mutable datastructure!
 abstype SCMvector(a:vt@ype) // mutable datastructure!
+//
+(* ****** ****** *)
+//
+fun assert_errmsg_bool0
+  (x: bool, msg: string): void = "mac#%"
+fun assert_errmsg_bool1
+  {b:bool} (x: bool b, msg: string): [b] void = "mac#%"
+//
+overload assert_errmsg with assert_errmsg_bool0 of 100
+overload assert_errmsg with assert_errmsg_bool1 of 110
+//
+(* ****** ****** *)
+//
+macdef assertloc (x) = assert_errmsg (,(x), $mylocation)
 //
 (* ****** ****** *)
 

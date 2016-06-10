@@ -116,7 +116,32 @@
 (define (ATSINSdeadcode_fail) (exit 1))
 ;;
 (define
- (ATSINScaseof_fail errmsg) (display errmsg) (exit 1))
+ (ATSINScaseof_fail msg)
+ (begin
+  (display msg (current-error-port))
+  (exit 1)
+ )
+) ;; end-of-define
+;;
+;; ****** ****** ;;
+;;
+(define
+ (ats2scmpre_assert_bool0 tfv) (if (not tfv) (exit 1)))
+(define
+ (ats2scmpre_assert_bool1 tfv) (if (not tfv) (exit 1)))
+;;
+(define
+ (ats2scmpre_assert_errmsg_bool0 msg tfv)
+ (if (not tfv)
+   (begin (display msg (current-error-port)) (exit 1))
+ )
+) ;; end-of-define
+(define
+ (ats2scmpre_assert_errmsg_bool1 msg tfv)
+ (if (not tfv)
+   (begin (display msg (current-error-port)) (exit 1))
+ )
+) ;; end-of-define
 ;;
 ;; ****** ****** ;;
 

@@ -20,9 +20,10 @@
  (ats2scmpre_print_int x) `(display ,x))
 ;;
 (define-macro
- (ats2scmpre_print_char x) `(display ,x))
+ (ats2scmpre_print_bool x)
+`(display (if ,x "true" "false")))
 (define-macro
- (ats2scmpre_print_bool x) `(display (if ,x "true" "false")))
+ (ats2scmpre_print_char x) `(display ,x))
 ;;
 (define-macro
  (ats2scmpre_print_double x) `(display ,x))
@@ -32,7 +33,31 @@
 (define-macro
  (ats2scmpre_print_SCMval x) `(display ,x))
 ;;
+;; ****** ****** ;;
+;;
 (define-macro (ats2scmpre_print_newline) `(newline))
+;;
+;; ****** ****** ;;
+
+(define-macro
+ (ats2scmpre_fprint_int out x) `(display ,x ,out))
+;;
+(define-macro
+ (ats2scmpre_fprint_bool out x)
+`(display (if ,x "true" "false") ,out))
+(define-macro
+ (ats2scmpre_fprint_char out x) `(display ,x ,out))
+;;
+(define-macro
+ (ats2scmpre_fprint_double out x) `(display ,x ,out))
+(define-macro
+ (ats2scmpre_fprint_string out x) `(display ,x ,out))
+(define-macro
+ (ats2scmpre_fprint_SCMval out x) `(display ,x ,out))
+;;
+;; ****** ****** ;;
+;;
+(define-macro (ats2scmpre_fprint_newline out) `(newline ,out))
 ;;
 ;; ****** ****** ;;
 

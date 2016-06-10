@@ -21,6 +21,18 @@
 ;; ****** ****** ;;
 ;;
 (define-macro
+ (ats2scmpre_int2double x) x)
+(define-macro
+ (ats2scmpre_double_of_int x) x)
+;;
+(define-macro
+ (ats2scmpre_double2int x) `(truncate ,x))
+(define-macro
+ (ats2scmpre_int_of_double x) `(truncate ,x))
+;;
+;; ****** ****** ;;
+;;
+(define-macro
  (ats2scmpre_neg_double x) `(- ,x)
 )
 ;;
@@ -51,7 +63,7 @@
  (ats2scmpre_mul_double_double x y) `(* ,x ,y)
 )
 (define-macro
- (ats2scmpre_div_double_double x y) `(quotient ,x ,y)
+ (ats2scmpre_div_double_double x y) `(/ ,x ,y)
 )
 ;;
 ;; ****** ****** ;;

@@ -506,4 +506,12 @@ val () = fpprint_cardlst (out, res)
 //
 (* ****** ****** *)
 
+%{$
+;;
+(GameOf24_scm_main0)
+;;
+%} // end of [%{$]
+
+(* ****** ****** *)
+
 (* end of [GameOf24_scm.dats] *)
