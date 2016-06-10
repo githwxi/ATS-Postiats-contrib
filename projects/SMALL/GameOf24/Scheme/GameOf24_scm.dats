@@ -457,10 +457,13 @@ end // end of [play24]
 //
 extern
 fun
-main0_scm (): void = "mac#GameOf24_scm_main0"
+main0_scm
+(
+  (*void*)
+) : void = "mac#GameOf24_scm_main0"
 //
 implement
-main0_scm () =
+main0_scm() =
 {
 //
 val
