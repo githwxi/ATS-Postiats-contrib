@@ -23,7 +23,7 @@ staload "./SATS/float.sats"
 (* ****** ****** *)
 
 staload "./SATS/print.sats"
-staload _ = "./DATS/print.dats"
+staload "./SATS/filebas.sats"
 
 (* ****** ****** *)
 //

@@ -163,6 +163,17 @@ end // end of [else]
 ) (* end of [list_get_at] *)
 
 (* ****** ****** *)
+//
+implement
+list_snoc
+  (xs, x0) =
+  list_append(xs, list_sing(x0))
+implement
+list_extend
+  (xs, x0) =
+  list_append(xs, list_sing(x0))
+//
+(* ****** ****** *)
 
 implement
 list_append
@@ -275,6 +286,26 @@ implement
 list_remove_at
   (xs, i) = let
 //
+val+list_cons(x, xs) = xs
+//
+in
+//
+if
+(i > 0)
+then
+list_cons
+  (x, list_remove_at(xs, i-1))
+// end of [then]
+else xs // end of [else]
+//
+end (* end of [list_remove_at] *)
+
+(* ****** ****** *)
+
+implement
+list_takeout_at
+  (xs, i) = let
+//
 val+list_cons (x, xs) = xs
 //
 in
@@ -284,14 +315,14 @@ if
 then let
 //
 val $tup(x_rem, xs) =
-  list_remove_at (xs, i-1)
+  list_takeout_at (xs, i-1)
 //
 in
-  $tup(x_rem, list_cons (x, xs))
+  $tup(x_rem, list_cons(x, xs))
 end // end of [then]
 else $tup(x, xs) // end of [else]
 //
-end (* end of [list_remove_at] *)
+end (* end of [list_takeout_at] *)
 
 (* ****** ****** *)
 //

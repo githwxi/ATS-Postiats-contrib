@@ -58,6 +58,7 @@ abstype SCMfilr(*fileref*)
 // invariant constructors!
 //
 abstype SCMlist(a:vt@ype) // mutable datastructure!
+abstype SCMvector(a:vt@ype) // mutable datastructure!
 //
 (* ****** ****** *)
 

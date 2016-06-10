@@ -169,19 +169,21 @@ end // end of [local]
 local
 //
 assume
-cardset_type = PYlist(card)
+cardset_type
+= List0(card)
 //
 in (* in-of-local *)
 //
 implement
 cardset_size
-  (xs) = PYlist_length (xs)
+  (xs) =
+  list_length (xs)
 //
 implement
 cardset_make_list
   (cs) = let
 //
-typedef res = PYlist(card)
+typedef res = List0(card)
 //
 fun loop
 (
@@ -191,30 +193,40 @@ fun loop
   case+ cs of
   | list_nil () => res
   | list_cons (c, cs) => let
-      val () = PYlist_append (res, c) in loop (res, cs)
+      val res = list_cons (c, res) in loop (res, cs)
     end // end of [list_cons]
 ) (* end of [loop] *)
 //
 in
-  loop (PYlist_nil (), cs)
+  list_reverse(loop(list_nil(), cs))
 end // end of [cardset_make_list]
 
 implement
-cardset_get_at (cs, i) = PYlist_get_at (cs, i)
+cardset_get_at
+  (cs, i) = let
+  val i = g1ofg0(i)
+  val () = assertloc(i >= 0)
+  val () = assertloc(length(cs) > i)
+in
+  list_get_at (cs, i)
+end // end of [cardset_get_at]
 
 implement
 cardset_remove2_add1
   (cs, i, j, c) = cs where
 {
 //
-val i = g1ofg0 (i)
-val j = g1ofg0 (j)
-val () = assertloc (i >= 0)
-val () = assertloc (j >= i)
-val cs = PYlist_copy (cs)
-val c_j = PYlist_pop_1 (cs, j)
-val c_i = PYlist_pop_1 (cs, i)
-val () = PYlist_append (cs, c)
+val i = g1ofg0(i)
+val j = g1ofg0(j)
+//
+val () = assertloc(i >= 0)
+val () = assertloc(j >= i+1)
+val () = assertloc(length(cs) > j)
+//
+val $tup(c_j, cs) = list_takeout_at(cs, j)
+val $tup(c_i, cs) = list_takeout_at(cs, i)
+//
+val cs = list_extend (cs, c)
 //
 } // end of [cardset_remove2_add1]
 
@@ -451,11 +463,14 @@ implement
 main0_scm () =
 {
 //
+val
+out =
+stdout_get()
+//
 val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-val out = stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -464,7 +479,6 @@ val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
-val out = stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -473,7 +487,6 @@ val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
-val out = stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
@@ -482,7 +495,6 @@ val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
-val out = stdout
 val res = play24 (n1, n2, n3, n4)
 val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 val () = fpprint_cardlst (out, res)
