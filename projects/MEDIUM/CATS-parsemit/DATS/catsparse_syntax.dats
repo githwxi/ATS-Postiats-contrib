@@ -1961,4 +1961,36 @@ end // end of [d0ecl_dynloadflag_minit]
 
 (* ****** ****** *)
 
+implement
+d0ecl_dynexn_dec
+  (tok1, idexn, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynexn_dec (idexn))
+end // end of [d0ecl_dynexn_dec]
+
+implement
+d0ecl_dynexn_extdec
+  (tok1, idexn, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynexn_extdec (idexn))
+end // end of [d0ecl_dynexn_extdec]
+
+implement
+d0ecl_dynexn_initize
+  (tok1, idexn, fullname, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynexn_initize (idexn, fullname))
+end // end of [d0ecl_dynexn_initize]
+
+(* ****** ****** *)
+
 (* end of [catsparse_syntax.dats] *)

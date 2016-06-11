@@ -236,6 +236,10 @@ val-~None_vt() = kwordins ("ATSdynloadflag_minit", ATSdynloadflag_minit)
 val-~None_vt() = kwordins ("ATSclosurerize_beg", ATSclosurerize_beg)
 val-~None_vt() = kwordins ("ATSclosurerize_end", ATSclosurerize_end)
 //
+val-~None_vt() = kwordins ("ATSdynexn_dec", ATSdynexn_dec)
+val-~None_vt() = kwordins ("ATSdynexn_extdec", ATSdynexn_extdec)
+val-~None_vt() = kwordins ("ATSdynexn_initize", ATSdynexn_initize)
+//
 } (* end of [val] *)
 
 (* ****** ****** *)

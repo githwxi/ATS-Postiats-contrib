@@ -1335,6 +1335,19 @@ d0c0.d0ecl_node of
     ) (* end of [val] *)
   } (* end of [D0Cdynloadflag_minit] *)
 //
+| D0Cdynexn_dec(idexn) =>
+  (
+    emit_text(out, "## dynexn_dec("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_dec] *)
+| D0Cdynexn_extdec(idexn) =>
+  (
+    emit_text(out, "## dynexn_extdec("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_extdec] *)
+| D0Cdynexn_initize(idexn, fullname) =>
+  (
+    emit_text(out, "## dynexn_initize("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_initize] *)
+//
 end // end of [emit_d0ecl]
 
 (* ****** ****** *)

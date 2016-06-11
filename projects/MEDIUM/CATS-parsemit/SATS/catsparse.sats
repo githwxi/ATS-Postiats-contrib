@@ -355,6 +355,10 @@ keyword =
   | ATSclosurerize_beg of ()
   | ATSclosurerize_end of ()
 //
+  | ATSdynexn_dec of ()
+  | ATSdynexn_extdec of ()
+  | ATSdynexn_initize of ()
+//
   | KWORDnone of () // for indicating a non-keyword
 //
 // end of [keyword]
@@ -1015,6 +1019,10 @@ instr_node =
   | ATSdynloadflag_init of (i0de)
   | ATSdynloadflag_minit of (i0de)
 //
+  | ATSdynexn_dec of (i0de)
+  | ATSdynexn_extdec of (i0de)
+  | ATSdynexn_initize of (i0de, string(*fullname*))
+//
 // end of [instr_node]
 //
 where
@@ -1099,6 +1107,10 @@ d0ecl_node =
 //
   | D0Cdynloadflag_init of (i0de)
   | D0Cdynloadflag_minit of (i0de)
+//
+  | D0Cdynexn_dec of (i0de(*exn*))
+  | D0Cdynexn_extdec of (i0de(*exn*))
+  | D0Cdynexn_initize of (i0de(*exn*), s0tring(*fullname*))
 //
 // end of [d0ecl_node]
 

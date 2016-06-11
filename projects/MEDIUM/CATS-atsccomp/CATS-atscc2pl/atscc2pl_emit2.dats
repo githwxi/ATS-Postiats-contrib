@@ -770,7 +770,7 @@ d0c.d0ecl_node of
   (
 //
 // HX-2015-05-22:
-// it is skipped as Python does not have a link-time!
+// it is skipped as Perl does not have a link-time!
 //
   ) (* end of [D0Cdynloadflag_init] *)
 | D0Cdynloadflag_minit
@@ -779,6 +779,19 @@ d0c.d0ecl_node of
     emit_text (out, "#dynloadflag_minit\n");
     emit_global (out, flag); emit_text (out, " = 0;\n")
   ) (* end of [D0Cdynloadflag_minit] *)
+//
+| D0Cdynexn_dec(idexn) =>
+  (
+    emit_text(out, "## dynexn_dec("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_dec] *)
+| D0Cdynexn_extdec(idexn) =>
+  (
+    emit_text(out, "## dynexn_extdec("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_extdec] *)
+| D0Cdynexn_initize(idexn, fullname) =>
+  (
+    emit_text(out, "## dynexn_initize("); emit_i0de(out, idexn); emit_text(out, ")\n")
+  ) (* end of [D0Cdynexn_initize] *)
 //
 end // end of [emit_d0ecl]
 

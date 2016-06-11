@@ -746,5 +746,19 @@ d0ecl_dynloadflag_minit
   (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
 //
 (* ****** ****** *)
+//
+fun
+d0ecl_dynexn_dec
+  (tok_kwd: token, idexn: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dynexn_extdec
+  (tok_kwd: token, idexn: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dynexn_initize
+(
+  tok_kwd: token, idexn: i0de, fullname: s0tring, tok_end: token
+) : d0ecl // end of [d0ecl_dynexn_initize]
+//
+(* ****** ****** *)
 
 (* end of [catsparse_syntax.sats] *)
