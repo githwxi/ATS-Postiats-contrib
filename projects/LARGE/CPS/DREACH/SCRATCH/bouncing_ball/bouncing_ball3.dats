@@ -83,11 +83,13 @@ vtypedef vstate2(t:time) = vstate(2, t)
 extern
 fun
 state_get_x
-  {m:mode}{t:time}(!state(m, t)): real(x(m, t))
+  {m:mode}
+  {t:time}(!state(m, t)): real(x(m, t))
 extern
 fun
 state_get_v
-  {m:mode}{t:time}(!state(m, t)): real(v(m, t))
+  {m:mode}
+  {t:time}(!state(m, t)): real(v(m, t))
 //
 overload .x with state_get_x
 overload .v with state_get_v
@@ -97,11 +99,13 @@ overload .v with state_get_v
 extern
 fun
 vstate_get_x
-  {m:mode}{t:time}(!vstate(m, t)): real(x(m, t))
+  {m:mode}
+  {t:time}(!vstate(m, t)): real(x(m, t))
 extern
 fun
 vstate_get_v
-  {m:mode}{t:time}(!vstate(m, t)): real(v(m, t))
+  {m:mode}
+  {t:time}(!vstate(m, t)): real(v(m, t))
 //
 overload .x with vstate_get_x
 overload .v with vstate_get_v
