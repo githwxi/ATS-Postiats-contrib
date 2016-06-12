@@ -55,8 +55,8 @@ stadef v2(t:time) = v(m2, t)
 
 absvtype state(mode, time)
 
-vtypedef state1(t) = state(m1, t)
-vtypedef state2(t) = state(m2, t)
+vtypedef state1(t:time) = state(m1, t)
+vtypedef state2(t:time) = state(m2, t)
 
 (* ****** ****** *)
 //
@@ -157,7 +157,7 @@ fun
 state2_flow
 { t,dt:time
 | v2(t+dt) >= 0
-} (EPS(dt)|state(m2, t),real(dt)): state(m2, t+dt)
+} (EPS(dt)|state2(t),real(dt)): state2(t+dt)
 //
 extern
 fun

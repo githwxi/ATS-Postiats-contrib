@@ -51,6 +51,8 @@ all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2_anim.dats | pats
 all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2_drag.dats | patsolve_z3 -i  
 all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball2_drag_anim.dats | patsolve_z3 -i  
 #
+all_tc:: ; $(PATSOPT) -tc --constraint-export -d bouncing_ball3.dats | patsolve_z3 -i  
+#
 ######
 
 clean:: ; rm -f *~
