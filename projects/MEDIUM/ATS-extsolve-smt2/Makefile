@@ -54,6 +54,7 @@ CFLAGS += -DATS_MEMALLOC_LIBC
 #
 CFLAGS2 :=
 CFLAGS2 +=-DATS_MEMALLOC_LIBC
+CFLAGS2 +=-I${PATSHOMERELOC}/contrib
 CFLAGS2 += $(shell pkg-config --cflags json-c)
 #
 ######
