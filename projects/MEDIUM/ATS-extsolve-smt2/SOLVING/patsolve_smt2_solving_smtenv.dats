@@ -22,6 +22,12 @@ staload "./patsolve_smt2_solving_ctx.dats"
 //
 (* ****** ****** *)
 //
+extern
+fun
+SMT2_assert(env: !smtenv, form): void
+//
+(* ****** ****** *)
+//
 implement
 s2var_pop_payload
   (s2v0) = fml where
@@ -76,14 +82,95 @@ in
 end (* end of [s2var_push_payload] *)
 //
 (* ****** ****** *)
+//
+datatype
+solvercmd =
+| SOLVERCMDpop of ()
+| SOLVERCMDpush of ()
+| SOLVERCMDcheck of ()
+| SOLVERCMDassert of (form)
+//
+datavtype
+SMT2_solver =
+SMT2_SOLVER of List0_vt(solvercmd)
+//
+(* ****** ****** *)
+//
+fun
+SMT2_solver_pop
+(
+  solver: !SMT2_solver
+) : void =
+{
+  val+@SMT2_SOLVER(xs) = solver
+  val () =
+  (
+    xs := list_vt_cons(SOLVERCMDpop(), xs)
+  ) (* end of [val] *)
+  prval () = fold@(solver)
+} (* end of [SMT2_solver_pop] *)
+//
+fun
+SMT2_solver_push
+(
+  solver: !SMT2_solver
+) : void =
+{
+  val+@SMT2_SOLVER(xs) = solver
+  val () =
+  (
+    xs := list_vt_cons(SOLVERCMDpush(), xs)
+  ) (* end of [val] *)
+  prval () = fold@(solver)
+} (* end of [SMT2_solver_push] *)
+//
+fun
+SMT2_solver_check
+(
+  solver: !SMT2_solver
+) : void =
+{
+  val+@SMT2_SOLVER(xs) = solver
+  val () =
+  (
+    xs := list_vt_cons(SOLVERCMDcheck(), xs)
+  ) (* end of [val] *)
+  prval () = fold@(solver)
+} (* end of [SMT2_solver_check] *)
+//
+fun
+SMT2_solver_assert
+(
+  solver: !SMT2_solver, fml: form
+) : void =
+{
+  val+@SMT2_SOLVER(xs) = solver
+  val () =
+  (
+    xs := list_vt_cons(SOLVERCMDassert(fml), xs)
+  ) (* end of [val] *)
+  prval () = fold@(solver)
+} (* end of [SMT2_solver_assert] *)
+//
+fun
+SMT2_solver_free
+  (solver: SMT2_solver) = let
+//
+val+~SMT2_SOLVER(xs) = solver in list_vt_free(xs)
+//
+end // end of [SMT2_solver_free]
+//
+(* ****** ****** *)
 
 datavtype
 smtenv =
-SMTENV of (smtenv_struct)
-
-where
-smtenv_struct = @{
+SMTENV of
+(
+  smtenv_struct
+) where smtenv_struct = @{
 //
+smtenv_solver= SMT2_solver
+,
 smtenv_s2varlst = s2varlst_vt
 ,
 smtenv_s2varlstlst = List0_vt(s2varlst_vt)
@@ -156,8 +243,13 @@ val env = SMTENV(_)
 //
 val+SMTENV(env_s) = env
 //
-val () = env_s.smtenv_s2varlst := nil_vt()
-val () = env_s.smtenv_s2varlstlst := nil_vt()
+val () =
+(
+  env_s.smtenv_solver := SMT2_SOLVER(nil_vt)
+)
+//
+val () = env_s.smtenv_s2varlst := nil_vt(*void*)
+val () = env_s.smtenv_s2varlstlst := nil_vt(*void*)
 //
 prval () = fold@(env)
 //
@@ -171,6 +263,7 @@ smtenv_destroy
 //
 val+~SMTENV(env_s) = env
 //
+val () = SMT2_solver_free(env_s.smtenv_solver)
 val () = smtenv_s2varlst_vt_free(env_s.smtenv_s2varlst)
 val () = smtenv_s2varlstlst_vt_free(env_s.smtenv_s2varlstlst)
 //
@@ -179,7 +272,7 @@ in
 end // end of [smtenv_destroy]
 
 (* ****** ****** *)
-////
+
 implement
 smtenv_pop
   (pf | env) = let
@@ -188,16 +281,9 @@ prval unit_v() = pf
 //
 val+@SMTENV(env_s) = env
 //
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val ((*void*)) =
-  Z3_solver_pop (ctx, env_s.smtenv_solver, 1u)
-//
-prval ((*void*)) = fpf(ctx)
-//
 val s2vs = env_s.smtenv_s2varlst
 val ((*void*)) = smtenv_s2varlst_vt_free(s2vs)
+//
 val-~list_vt_cons(s2vs, s2vss) = env_s.smtenv_s2varlstlst
 //
 val ((*void*)) = env_s.smtenv_s2varlst := s2vs
@@ -216,14 +302,6 @@ smtenv_push
   (env) = let
 //
 val+@SMTENV(env_s) = env
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val ((*void*)) =
-  Z3_solver_push (ctx, env_s.smtenv_solver)
-//
-prval ((*void*)) = fpf(ctx)
 //
 val s2vs = env_s.smtenv_s2varlst
 val s2vss = env_s.smtenv_s2varlstlst
@@ -249,49 +327,37 @@ val ((*void*)) =
   env_s.smtenv_s2varlst := list_vt_cons(s2v0, s2vs)
 prval ((*void*)) = fold@(env)
 //
-val ast =
+val fml =
   formula_make_s2var_fresh(env, s2v0)
 //
 in
-  s2var_push_payload(s2v0, ast)
+  s2var_push_payload(s2v0, fml)
 end // end of [smtenv_add_s2var]
 
 (* ****** ****** *)
 
 implement
 smtenv_add_s2exp
-  (env, s2p0) = let
+  (env, s2p0) =
+{
 //
-val s2p0 =
-  formula_make_s2exp(env, s2p0)
+val
+s2p0 =
+formula_make_s2exp
+  (env, s2p0)
 //
-val s2p0 = $UN.castvwtp0{Z3_ast}(s2p0)
-//
-val+@SMTENV(env_s) = env
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
+val+
+@SMTENV(env_s) = env
 //
 val ((*void*)) =
-  Z3_solver_assert(ctx, env_s.smtenv_solver, s2p0)
+  SMT2_solver_assert(env_s.smtenv_solver, s2p0)
 //
-prval ((*void*)) = fpf(ctx)
+prval () = fold@(env)
 //
-prval ((*void*)) = fold@(env)
-//
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val () = Z3_dec_ref(ctx, s2p0)
-//
-prval ((*void*)) = fpf(ctx)
-//
-in
-  // nothing
-end // end of [smtenv_add_s2exp]
+} (* end of [smtenv_add_s2exp] *)
 
 (* ****** ****** *)
-
+//
 implement
 smtenv_add_h3ypo
   (env, h3p0) = let
@@ -341,46 +407,29 @@ end // end of [smtenv_add_h3ypo]
 
 implement
 smtenv_formula_solve
-  (env, s2p0) = let
+  (env, s2p0) =
+{
 //
 val+@SMTENV(env_s) = env
 //
-val (fpf | ctx) =
-  the_Z3_context_vget()
+val () =
+SMT2_solver_push(env_s.smtenv_solver)
 //
 val () =
-Z3_solver_push
-  (ctx, env_s.smtenv_solver)
-//
-val s2p1 = formula_not(s2p0)
-val s2p1 = $UN.castvwtp0{Z3_ast}(s2p1)
-//
-val () =
-Z3_solver_assert
-  (ctx, env_s.smtenv_solver, s2p1)
-//
-val ans =
-Z3_solver_check(ctx, env_s.smtenv_solver)
-//
-val ((*freed*)) = Z3_dec_ref(ctx, s2p1)
+SMT2_solver_assert
+(
+  env_s.smtenv_solver, formula_not(s2p0)
+) (* end of [val] *)
 //
 val () =
-Z3_solver_pop
-  (ctx, env_s.smtenv_solver, 1u)
+  SMT2_solver_check(env_s.smtenv_solver)
 //
-prval ((*void*)) = fpf(ctx)
+val () = SMT2_solver_pop(env_s.smtenv_solver)
 //
 prval ((*void*)) = fold@(env)
 //
-in
-//
-case+ 0 of
-| _ when ans = Z3_L_TRUE => 1
-| _ when ans = Z3_L_FALSE => ~1
-| _ (*when ans = Z3_L_UNDEF*) => 0
-//
-end (* end of [smtenv_formula_solve] *)
+} (* end of [smtenv_formula_solve] *)
 
 (* ****** ****** *)
 
-(* end of [patsolve_z3_solving_smtenv.dats] *)
+(* end of [patsolve_smt2_solving_smtenv.dats] *)
