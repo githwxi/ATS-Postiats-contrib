@@ -1,7 +1,9 @@
 (*
-** ATS-extsolve:
-** For solving ATS-constraints
-** with external SMT-solvers
+##
+## ATS-extsolve-smt2:
+## Outputing ATS-constraints
+## in the format of smt-lib2
+##
 *)
 
 (* ****** ****** *)

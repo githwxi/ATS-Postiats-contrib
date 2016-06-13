@@ -301,9 +301,15 @@ c3nstr_solve_solverify
   loc0, env, s2e_prop, nerr
 ) = let
 //
-val s2e_prop =
-  formula_make_s2exp (env, s2e_prop)
+(*
+val () =
+println!
+  ("c3nstr_solve_solverify: s2e_prop = ", s2e_prop)
+*)
 //
+val
+s2e_prop =
+  formula_make_s2exp (env, s2e_prop)
 //
 in
   smtenv_formula_solve (env, s2e_prop)

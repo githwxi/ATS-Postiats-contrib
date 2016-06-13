@@ -37,7 +37,7 @@ val ((*void*)) =
   s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
 //
 } (* end of [s2var_pop_payload] *)
-//
+
 (* ****** ****** *)
 
 implement
@@ -336,7 +336,8 @@ fprintln!
 in
 //
 case+
-h3p0.h3ypo_node of
+h3p0.h3ypo_node
+of (* case+ *)
 | H3YPOprop s2p =>
     smtenv_add_s2exp(env, s2p)
   // end of [H3YPOprop]

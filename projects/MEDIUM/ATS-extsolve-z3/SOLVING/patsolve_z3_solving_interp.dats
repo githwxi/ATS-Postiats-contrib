@@ -119,6 +119,8 @@ the_s2cinterp_initize() =
 //
 macdef insert = s2cinterp_insert
 //
+val () = insert("unit_p", S2CINTbuiltin_0(formula_true))
+//
 val () = insert("null_addr", S2CINTbuiltin_0(formula_null))
 //
 val () = insert("true_bool", S2CINTbuiltin_0(formula_true))
@@ -210,10 +212,6 @@ val () = insert("gt_real_int", S2CINTbuiltin_2(formula_gt_real_int))
 val () = insert("gte_real_int", S2CINTbuiltin_2(formula_gte_real_int))
 val () = insert("eq_real_int", S2CINTbuiltin_2(formula_eq_real_int))
 val () = insert("neq_real_int", S2CINTbuiltin_2(formula_neq_real_int))
-//
-(*
-val () = insert("atsvoid_prop", S2CINTbuiltin_0(formula_true))
-*)
 //
 } (* end of [the_s2cinterp_initize] *)
 
