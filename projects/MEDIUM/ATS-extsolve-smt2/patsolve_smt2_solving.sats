@@ -35,18 +35,20 @@ fun c3nstr_smt2_solve(c3nstr): void
 //
 (* ****** ****** *)
 //
-absvtype sort_vtype = ptr
+abstype sort_type = ptr
 //
-vtypedef sort = sort_vtype
-vtypedef sortlst = List0_vt (sort)
+typedef sort = sort_type
+typedef sortlst = List0 (sort)
+vtypedef sortlst_vt = List0_vt (sort)
 //
-absvtype form_vtype = ptr
+abstype form_type = ptr
 //
-vtypedef form = form_vtype
-vtypedef formlst = List0_vt (form)
+typedef form = form_type
+typedef formlst = List0 (form)
+vtypedef formlst_vt = List0_vt (form)
 //
-absvtype func_decl_vtype = ptr
-vtypedef func_decl = func_decl_vtype
+abstype func_decl_type = ptr
+typedef func_decl = func_decl_type
 //
 (* ****** ****** *)
 //

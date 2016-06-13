@@ -21,21 +21,21 @@ UN = "prelude/SATS/unsafe.sats"
 staload "./patsolve_smt2_solving_ctx.dats"
 //
 (* ****** ****** *)
-////
+//
 implement
 s2var_pop_payload
-  (s2v0) = ast where
+  (s2v0) = fml where
 {
 //
-val asts =
+val fmls =
   s2var_get_payload(s2v0)
-val asts =
-  $UN.castvwtp0{List1_vt(form)}(asts)
+val fmls =
+  $UN.castvwtp0{List1_vt(form)}(fmls)
 //
-val+~list_vt_cons(ast, asts) = asts
+val+~list_vt_cons(fml, fmls) = fmls
 //
 val ((*void*)) =
-  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(fmls))
 //
 } (* end of [s2var_pop_payload] *)
 
@@ -43,44 +43,38 @@ val ((*void*)) =
 
 implement
 s2var_top_payload
-  (s2v0) = let
+  (s2v0) = fml where
+{
 //
-val asts =
+val fmls =
   s2var_get_payload(s2v0)
-val asts =
-  $UN.castvwtp0{List1_vt(Z3_ast)}(asts)
+val fmls =
+  $UN.castvwtp0{List1_vt(form)}(fmls)
 //
-val+list_vt_cons(ast, _) = asts
+val+list_vt_cons(fml, _) = fmls
 //
-val (
-  fpf | ctx
-) = the_Z3_context_vget()
+prval ((*void*)) = $UN.cast2void(fmls)
 //
-val ast2 = Z3_inc_ref(ctx, ast)
-//
-prval ((*void*)) = fpf(ctx)
-//
-prval ((*void*)) = $UN.cast2void(asts)
-//
-in
-  $UN.castvwtp0{form}(ast2)
-end // end of [s2var_top_payload]
+} (* end of [s2var_top_payload] *)
 
 (* ****** ****** *)
-
+//
 implement
 s2var_push_payload
-  (s2v0, ast) = let
+  (s2v0, fml) = let
 //
-val asts =
+val fmls =
   s2var_get_payload(s2v0)
-val asts =
-  list_vt_cons(ast, $UN.castvwtp0{formlst}(asts))
+//
+val fmls =
+  list_vt_cons
+    (fml, $UN.castvwtp0{formlst_vt}(fmls))
+  // list_vt_cons
 //
 in
-  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(asts))
+  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(fmls))
 end (* end of [s2var_push_payload] *)
-
+//
 (* ****** ****** *)
 
 datavtype
@@ -90,8 +84,6 @@ SMTENV of (smtenv_struct)
 where
 smtenv_struct = @{
 //
-smtenv_solver= Z3_solver
-,
 smtenv_s2varlst = s2varlst_vt
 ,
 smtenv_s2varlstlst = List0_vt(s2varlst_vt)
@@ -126,13 +118,7 @@ case+ s2vs of
 | ~list_vt_cons
     (s2v, s2vs) => let
 //
-    val ast = s2var_pop_payload(s2v)
-    val ast = $UN.castvwtp0{Z3_ast}(ast)
-    val (fpf | ctx) = the_Z3_context_vget()
-    val ((*freed*)) = Z3_dec_ref(ctx, ast)
-    prval ((*void*)) = fpf(ctx)
-  in
-    loop(s2vs)
+    val fml = s2var_pop_payload(s2v) in loop(s2vs)
   end // end of [list_vt_cons]
 //
 ) (* end of [loop] *)
@@ -167,17 +153,9 @@ smtenv_create
 {
 //
 val env = SMTENV(_)
+//
 val+SMTENV(env_s) = env
 //
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val
-solver = Z3_mk_solver(ctx)
-//
-prval ((*void*)) = fpf(ctx)
-//
-val () = env_s.smtenv_solver := solver
 val () = env_s.smtenv_s2varlst := nil_vt()
 val () = env_s.smtenv_s2varlstlst := nil_vt()
 //
@@ -193,13 +171,6 @@ smtenv_destroy
 //
 val+~SMTENV(env_s) = env
 //
-val (fpf | ctx) =
-  the_Z3_context_vget()
-//
-val () = Z3_solver_dec_ref(ctx, env_s.smtenv_solver)
-//
-prval ((*void*)) = fpf(ctx)
-//
 val () = smtenv_s2varlst_vt_free(env_s.smtenv_s2varlst)
 val () = smtenv_s2varlstlst_vt_free(env_s.smtenv_s2varlstlst)
 //
@@ -208,7 +179,7 @@ in
 end // end of [smtenv_destroy]
 
 (* ****** ****** *)
-
+////
 implement
 smtenv_pop
   (pf | env) = let

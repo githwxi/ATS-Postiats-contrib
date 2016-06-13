@@ -338,7 +338,6 @@ val ((*void*)) = smtenv_destroy (env)
 
 (* ****** ****** *)
 
-(*
 local
 //
 #include "./SOLVING/patsolve_smt2_solving_ctx.dats"
@@ -346,7 +345,6 @@ local
 in
   // nothing
 end // end of [local]
-*)
 
 (* ****** ****** *)
 
@@ -374,7 +372,6 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(*
 local
 //
 #include "./SOLVING/patsolve_smt2_solving_smtenv.dats"
@@ -382,7 +379,6 @@ local
 in
   // nothing
 end // end of [local]
-*)
 
 (* ****** ****** *)
 
