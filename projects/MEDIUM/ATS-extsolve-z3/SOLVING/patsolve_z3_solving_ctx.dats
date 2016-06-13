@@ -42,7 +42,9 @@ val config_ = $UN.castvwtp1{ptr}(config)
 //
 val ((*void*)) =
 (
-  the_context := Z3_mk_context_rc (config)
+  the_context :=
+    Z3_mk_context_rc (config)
+  // the_context
 (*
   the_context := $extfcall(Z3_context, "Z3_mk_context", config_)
 *)

@@ -386,7 +386,6 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(*
 local
 //
 #include "./SOLVING/patsolve_smt2_solving_interp.dats"
@@ -394,7 +393,6 @@ local
 in
   // nothing
 end // end of [local]
-*)
 
 (* ****** ****** *)
 
