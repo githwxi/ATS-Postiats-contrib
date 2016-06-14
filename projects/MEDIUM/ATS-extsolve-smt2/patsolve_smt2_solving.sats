@@ -258,6 +258,18 @@ fun
 formula_fdapp_list(fd: func_decl, args: formlst): form
 //
 (* ****** ****** *)
+//
+datatype
+solvercmd =
+| SOLVERCMDpop of ()
+| SOLVERCMDpush of ()
+| SOLVERCMDcheck of ()
+| SOLVERCMDassert of (form)
+//
+| SOLVERCMDpopenv of (s2varlst)
+| SOLVERCMDpushenv of ((*void*))
+//
+(* ****** ****** *)
 
 absvtype smtenv_vtype = ptr
 vtypedef smtenv = smtenv_vtype
@@ -267,7 +279,7 @@ vtypedef smtenv = smtenv_vtype
 fun
 smtenv_create(): smtenv
 fun
-smtenv_destroy(env: smtenv): void
+smtenv_destroy(env: smtenv): List0_vt(solvercmd)
 //
 (* ****** ****** *)
 //

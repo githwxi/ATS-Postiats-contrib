@@ -28,16 +28,6 @@ SMT2_assert(env: !smtenv, form): void
 //
 (* ****** ****** *)
 //
-datatype
-solvercmd =
-| SOLVERCMDpop of ()
-| SOLVERCMDpush of ()
-| SOLVERCMDcheck of ()
-| SOLVERCMDassert of (form)
-//
-| SOLVERCMDpopenv of (s2varlst)
-| SOLVERCMDpushenv of ((*void*))
-//
 datavtype
 SMT2_solver =
 SMT2_SOLVER of List0_vt(solvercmd)
@@ -137,12 +127,16 @@ prval () = fold@(solver)
 (* ****** ****** *)
 //
 fun
-SMT2_solver_free
-  (solver: SMT2_solver) = let
+SMT2_solver_getfree
+(
+  solver: SMT2_solver
+) : List0_vt(solvercmd) =
+  xs where
+{
 //
-val+~SMT2_SOLVER(xs) = solver in list_vt_free(xs)
+val+~SMT2_SOLVER(xs) = solver
 //
-end // end of [SMT2_solver_free]
+} (* end of [SMT2_solver_getfree] *)
 //
 (* ****** ****** *)
 
@@ -203,16 +197,15 @@ prval () = fold@(env)
 
 implement
 smtenv_destroy
-  (env) = let
+  (env) = xs where
+{
 //
 val+~SMTENV(env_s) = env
 //
-val () = SMT2_solver_free(env_s.smtenv_solver)
+val xs = SMT2_solver_getfree(env_s.smtenv_solver)
 val () = smtenv_s2varlstlst_vt_free(env_s.smtenv_s2varlstlst)
 //
-in
-  // nothing
-end // end of [smtenv_destroy]
+} (* end of [smtenv_destroy] *)
 
 (* ****** ****** *)
 

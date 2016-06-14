@@ -328,7 +328,9 @@ val env = smtenv_create()
 val ((*void*)) =
   c3nstr_solve_main (env, c3t0)
 //
-val ((*void*)) = smtenv_destroy (env)
+val solvercmds = smtenv_destroy (env)
+//
+val ((*void*)) = list_vt_free(solvercmds)
 //
 } (* end of [c3nstr_smt2_solve] *)
 
