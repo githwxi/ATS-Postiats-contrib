@@ -271,12 +271,14 @@ smtenv_destroy(env: smtenv): void
 //
 (* ****** ****** *)
 //
+(*
 fun
 s2var_pop_payload(s2var): form
 fun
 s2var_top_payload(s2var): form
 fun
 s2var_push_payload(s2var, form): void
+*)
 //
 (* ****** ****** *)
 //
@@ -305,16 +307,20 @@ overload formula_error with formula_error_s2exp
 fun
 formula_make_s2cst
   (env: !smtenv, s2c: s2cst): form
+(*
 fun
 formula_make_s2cst_fresh
   (env: !smtenv, s2c: s2cst): form
+*)
 //
 fun
 formula_make_s2var
   (env: !smtenv, s2v: s2var): form
+(*
 fun
 formula_make_s2var_fresh
   (env: !smtenv, s2v: s2var): form
+*)
 //
 fun
 formula_make_s2Var_fresh

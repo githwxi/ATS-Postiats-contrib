@@ -28,61 +28,6 @@ SMT2_assert(env: !smtenv, form): void
 //
 (* ****** ****** *)
 //
-implement
-s2var_pop_payload
-  (s2v0) = fml where
-{
-//
-val fmls =
-  s2var_get_payload(s2v0)
-val fmls =
-  $UN.castvwtp0{List1_vt(form)}(fmls)
-//
-val+~list_vt_cons(fml, fmls) = fmls
-//
-val ((*void*)) =
-  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(fmls))
-//
-} (* end of [s2var_pop_payload] *)
-
-(* ****** ****** *)
-
-implement
-s2var_top_payload
-  (s2v0) = fml where
-{
-//
-val fmls =
-  s2var_get_payload(s2v0)
-val fmls =
-  $UN.castvwtp0{List1_vt(form)}(fmls)
-//
-val+list_vt_cons(fml, _) = fmls
-//
-prval ((*void*)) = $UN.cast2void(fmls)
-//
-} (* end of [s2var_top_payload] *)
-
-(* ****** ****** *)
-//
-implement
-s2var_push_payload
-  (s2v0, fml) = let
-//
-val fmls =
-  s2var_get_payload(s2v0)
-//
-val fmls =
-  list_vt_cons
-    (fml, $UN.castvwtp0{formlst_vt}(fmls))
-  // list_vt_cons
-//
-in
-  s2var_set_payload(s2v0, $UN.castvwtp0{ptr}(fmls))
-end (* end of [s2var_push_payload] *)
-//
-(* ****** ****** *)
-//
 datatype
 solvercmd =
 | SOLVERCMDpop of ()
@@ -322,7 +267,8 @@ end // end of [smtenv_push]
 
 implement
 smtenv_add_s2var
-  (env, s2v0) = let
+  (env, s2v0) = () where
+{
 //
 val+@SMTENV(env_s) = env
 //
@@ -331,11 +277,7 @@ val ((*void*)) =
   env_s.smtenv_s2varlst := cons(s2v0, s2vs)
 prval ((*void*)) = fold@(env)
 //
-val fml0 = formula_make_s2var_fresh(env, s2v0)
-//
-in
-  s2var_push_payload(s2v0, fml0)
-end // end of [smtenv_add_s2var]
+} (* end of [smtenv_add_s2var] *)
 
 (* ****** ****** *)
 
@@ -353,9 +295,9 @@ val+
 @SMTENV(env_s) = env
 //
 val ((*void*)) =
-  SMT2_solver_assert(env_s.smtenv_solver, s2p0)
+SMT2_solver_assert(env_s.smtenv_solver, s2p0)
 //
-prval () = fold@(env)
+prval ((*folded*)) = fold@(env)
 //
 } (* end of [smtenv_add_s2exp] *)
 

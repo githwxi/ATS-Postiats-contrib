@@ -28,6 +28,12 @@ datatype form =
   | FORMbool of bool
   | FORMintrep of (string(*rep*))
 //
+  | FORMs2var of (s2var)
+  | FORMs2cst of (s2cst)
+// (*
+  | FORMs2exp of (s2exp) // unprocessed
+// *)
+//
   | FORMnot of (form)
   | FORMconj of (form, form)
   | FORMdisj of (form, form)
@@ -61,6 +67,18 @@ implement
 formula_intrep
   (rep) = FORMintrep(rep)
 //  
+(* ****** ****** *)
+//
+implement
+formula_make_s2cst
+  (env, s2c0) = FORMs2cst(s2c0)
+implement
+formula_make_s2var
+  (env, s2v0) = FORMs2var(s2v0)
+implement
+formula_make_s2exp
+  (env, s2p0) = FORMs2exp(s2p0)
+//
 (* ****** ****** *)
 
 implement
@@ -931,28 +949,6 @@ case+ s2ci of
 | _(*rest-of-S2CINT*) => formula_error(s2c0)
 //
 end // end of [formula_make_s2cst]
-
-(* ****** ****** *)
-
-implement
-formula_make_s2cst_fresh
-  (env, s2c0) = ast where
-{
-//
-val ty = sort_make_s2rt(s2c0.srt())
-val ty = $UN.castvwtp0{Z3_sort}(ty)
-//
-val (fpf | ctx) = the_Z3_context_vget()
-//
-val sym = Z3_mk_s2cst_symbol(ctx, s2c0)
-//
-val ast = Z3_mk_const(ctx, sym, ty)
-//
-val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
-//
-prval ((*void*)) = fpf(ctx)
-//
-} (* end of [formula_make_s2cst_fresh] *)
 
 (* ****** ****** *)
 
