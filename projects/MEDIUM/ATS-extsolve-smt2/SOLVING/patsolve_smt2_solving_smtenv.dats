@@ -90,6 +90,9 @@ solvercmd =
 | SOLVERCMDcheck of ()
 | SOLVERCMDassert of (form)
 //
+| SOLVERCMDpopenv of (s2varlst)
+| SOLVERCMDpushenv of ((*void*))
+//
 datavtype
 SMT2_solver =
 SMT2_SOLVER of List0_vt(solvercmd)
@@ -152,6 +155,42 @@ SMT2_solver_assert
   prval () = fold@(solver)
 } (* end of [SMT2_solver_assert] *)
 //
+(* ****** ****** *)
+//
+fun
+SMT2_solver_popenv
+(
+  solver: !SMT2_solver, s2vs: s2varlst
+) : void =
+{
+//
+val+@SMT2_SOLVER(xs) = solver
+val () =
+(
+  xs :=
+  list_vt_cons(SOLVERCMDpopenv(s2vs), xs)
+) (* end of [val] *)
+//
+prval () = fold@(solver)
+//
+} (* end of [SMT2_solver_popenv] *)
+fun
+SMT2_solver_pushenv
+  (solver: !SMT2_solver): void =
+{
+//
+val+@SMT2_SOLVER(xs) = solver
+val () =
+(
+  xs := list_vt_cons(SOLVERCMDpushenv(), xs)
+) (* end of [val] *)
+//
+prval () = fold@(solver)
+//
+} (* end of [SMT2_solver_pushenv] *)
+//
+(* ****** ****** *)
+//
 fun
 SMT2_solver_free
   (solver: SMT2_solver) = let
@@ -171,9 +210,9 @@ SMTENV of
 //
 smtenv_solver= SMT2_solver
 ,
-smtenv_s2varlst = s2varlst_vt
+smtenv_s2varlst = s2varlst
 ,
-smtenv_s2varlstlst = List0_vt(s2varlst_vt)
+smtenv_s2varlstlst = List0_vt(s2varlst)
 //
 } (* end of [smtenv_struct] *)
 
@@ -181,52 +220,12 @@ smtenv_s2varlstlst = List0_vt(s2varlst_vt)
 //
 extern
 fun
-smtenv_s2varlst_vt_free(s2varlst_vt): void
-extern
-fun
-smtenv_s2varlstlst_vt_free(List0_vt(s2varlst_vt)): void
-//
-(* ****** ****** *)
-
-implement
-smtenv_s2varlst_vt_free
-  (s2vs) = loop(s2vs) where
-{
-//
-fun
-loop
-(
-  s2vs: s2varlst_vt
-) : void = (
-//
-case+ s2vs of
-| ~list_vt_nil
-    ((*void*)) => ()
-| ~list_vt_cons
-    (s2v, s2vs) => let
-//
-    val fml = s2var_pop_payload(s2v) in loop(s2vs)
-  end // end of [list_vt_cons]
-//
-) (* end of [loop] *)
-//
-} (* end of [smtenv_s2varlst_vt_free] *)
-
-(* ****** ****** *)
-
-implement
 smtenv_s2varlstlst_vt_free
-  (xss) =
-(
-case+ xss of
-| ~list_vt_nil() => ()
-| ~list_vt_cons(xs, xss) =>
-  (
-    smtenv_s2varlst_vt_free(xs);
-    smtenv_s2varlstlst_vt_free(xss)
-  )
-) (* smtenv_s2varlstlst_vt_free *)
-
+  (xss: List0_vt(s2varlst)): void
+//
+implement
+smtenv_s2varlstlst_vt_free(xss) = list_vt_free(xss)
+//
 (* ****** ****** *)
 
 assume smtenv_vtype = smtenv
@@ -248,7 +247,7 @@ val () =
   env_s.smtenv_solver := SMT2_SOLVER(nil_vt)
 )
 //
-val () = env_s.smtenv_s2varlst := nil_vt(*void*)
+val () = env_s.smtenv_s2varlst := nil((*void*))
 val () = env_s.smtenv_s2varlstlst := nil_vt(*void*)
 //
 prval () = fold@(env)
@@ -264,7 +263,6 @@ smtenv_destroy
 val+~SMTENV(env_s) = env
 //
 val () = SMT2_solver_free(env_s.smtenv_solver)
-val () = smtenv_s2varlst_vt_free(env_s.smtenv_s2varlst)
 val () = smtenv_s2varlstlst_vt_free(env_s.smtenv_s2varlstlst)
 //
 in
@@ -281,11 +279,12 @@ prval unit_v() = pf
 //
 val+@SMTENV(env_s) = env
 //
-val s2vs = env_s.smtenv_s2varlst
-val ((*void*)) = smtenv_s2varlst_vt_free(s2vs)
+val ((*void*)) =
+SMT2_solver_popenv
+  (env_s.smtenv_solver, env_s.smtenv_s2varlst)
 //
-val-~list_vt_cons(s2vs, s2vss) = env_s.smtenv_s2varlstlst
-//
+val s2vss = env_s.smtenv_s2varlstlst
+val-~list_vt_cons(s2vs, s2vss) = s2vss
 val ((*void*)) = env_s.smtenv_s2varlst := s2vs
 val ((*void*)) = env_s.smtenv_s2varlstlst := s2vss
 //
@@ -303,11 +302,15 @@ smtenv_push
 //
 val+@SMTENV(env_s) = env
 //
+val ((*void*)) =
+  SMT2_solver_pushenv(env_s.smtenv_solver)
+//
 val s2vs = env_s.smtenv_s2varlst
 val s2vss = env_s.smtenv_s2varlstlst
-//
-val ((*void*)) = env_s.smtenv_s2varlst := nil_vt()
-val ((*void*)) = env_s.smtenv_s2varlstlst := cons_vt(s2vs, s2vss)
+val ((*void*)) =
+  env_s.smtenv_s2varlst := nil((*void*))
+val ((*void*)) =
+  env_s.smtenv_s2varlstlst := cons_vt(s2vs, s2vss)
 //
 prval ((*folded*)) = fold@(env)
 //
@@ -324,7 +327,7 @@ smtenv_add_s2var
 val+@SMTENV(env_s) = env
 val s2vs = env_s.smtenv_s2varlst
 val ((*void*)) =
-  env_s.smtenv_s2varlst := list_vt_cons(s2v0, s2vs)
+  env_s.smtenv_s2varlst := list_cons(s2v0, s2vs)
 prval ((*void*)) = fold@(env)
 //
 val fml =

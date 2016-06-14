@@ -1,14 +1,15 @@
 (*
 ##
-## ATS-extsolve-z3:
-## Solving ATS-constraints with Z3
+## ATS-extsolve-smt2:
+## Outputing ATS-constraints
+## in the format of smt-lib2
 ##
 *)
 
 (* ****** ****** *)
 //
 #ifndef
-PATSOLVE_Z3_SOLVING
+PATSOLVE_SMT2_SOLVING
 #include "./myheader.hats"
 #endif // end of [ifndef]
 //
@@ -17,161 +18,53 @@ PATSOLVE_Z3_SOLVING
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
-staload "./patsolve_z3_solving_ctx.dats"
+staload "./patsolve_smt2_solving_ctx.dats"
+//
+(* ****** ****** *)
+//
+datatype form =
+//
+  | FORMint of (int)
+  | FORMbool of bool
+  | FORMintrep of (string(*rep*))
+//
+  | FORMnot of (form)
+  | FORMconj of (form, form)
+  | FORMdisj of (form, form)
+  | FORMimpl of (form, form)
 //
 (* ****** ****** *)
 
-assume form_vtype = Z3_ast
-assume func_decl_vtype = Z3_func_decl
-
-(* ****** ****** *)
-
-implement
-formula_decref
-  (ast) = () where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val () = Z3_dec_ref(ctx, ast)
-  prval ((*void*)) = fpf(ctx)
-}
-
-(* ****** ****** *)
-
-implement
-formula_incref
-  (ast) = ast2 where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val ast2 = Z3_inc_ref(ctx, ast)
-  prval ((*void*)) = fpf(ctx)
-}
+assume form_type = form
 
 (* ****** ****** *)
 //
 implement
 formula_null
-  ((*void*)) = formula_int(0)
+  ((*void*)) = FORMint(0)
 //
 (* ****** ****** *)
-
+//
 implement
-formula_true() = tt where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val tt = Z3_mk_true(ctx)
-  prval ((*void*)) = fpf(ctx)
-}
-
+formula_true
+  ((*void*)) = FORMbool(true)
 implement
-formula_false() = ff where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val ff = Z3_mk_false(ctx)
-  prval ((*void*)) = fpf(ctx)
-}
-
+formula_false
+  ((*void*)) = FORMbool(false)
+//
+(* ****** ****** *)
+//
+implement
+formula_int
+  (int) = FORMint(int)
+implement
+formula_intrep
+  (rep) = FORMintrep(rep)
+//  
 (* ****** ****** *)
 
 implement
-formula_int(i) = i2 where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val ty = Z3_mk_int_sort(ctx)
-  val i2 = Z3_mk_int(ctx, i, ty)
-  val () = Z3_sort_dec_ref(ctx, ty)
-  prval ((*void*)) = fpf(ctx)
-}
-  
-(* ****** ****** *)
-
-implement
-formula_intrep(rep) = i2 where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val ty = Z3_mk_int_sort(ctx)
-  val i2 = Z3_mk_numeral(ctx, rep, ty)
-  val () = Z3_sort_dec_ref(ctx, ty)
-  prval ((*void*)) = fpf(ctx)
-}
-  
-(* ****** ****** *)
-
-implement
-formula_not
-  (s2e1) = res where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_not (ctx, s2e1)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e1)
-  prval ((*void*)) = fpf(ctx)
-} (* end of [formula_not] *)
-
-(* ****** ****** *)
-
-implement
-formula_conj
-  (s2e1, s2e2) = res where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_and2 (ctx, s2e1, s2e2)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
-  prval ((*void*)) = fpf(ctx)
-} (* end of [formula_conj] *)
-
-(* ****** ****** *)
-
-implement
-formula_disj
-  (s2e1, s2e2) = res where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_or2 (ctx, s2e1, s2e2)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
-  prval ((*void*)) = fpf(ctx)
-} (* end of [formula_disj] *)
-
-(* ****** ****** *)
-
-implement
-formula_impl
-  (s2e1, s2e2) = res where
-{
-  val (fpf | ctx) =
-    the_Z3_context_vget()
-  // end of [val]
-  val res =
-    Z3_mk_implies (ctx, s2e1, s2e2)
-  // end of [val]
-  val () = Z3_dec_ref(ctx, s2e1)
-  val () = Z3_dec_ref(ctx, s2e2)
-  prval ((*void*)) = fpf(ctx)
-} (* end of [formula_impl] *)
+formula_not(s2p) = FORMnot(s2p)
 
 (* ****** ****** *)
 
@@ -186,19 +79,19 @@ aux
 ) : form = (
 //
 case+ s2es of
-| ~list_vt_nil
+| list_nil
     ((*void*)) => s2e0
-| ~list_vt_cons
+| list_cons
     (s2e1, s2es2) =>
-    aux(formula_conj(s2e0, s2e1), s2es2)
+    aux(FORMconj(s2e0, s2e1), s2es2)
 //
 ) (* end of [aux] *)
 //
 in
 //
 case+ s2es of
-| ~list_vt_nil() => formula_true()
-| ~list_vt_cons(s2e, s2es) => aux(s2e, s2es)
+| list_nil() => FORMbool(true)
+| list_cons(s2e, s2es) => aux(s2e, s2es)
 //
 end // end of [formula_conj_list]
 
@@ -210,10 +103,10 @@ formula_conj_list1
 in
 //
 case+ s2es_arg of
-| ~list_vt_nil() => s2e_res
-| list_vt_cons _ =>
-    formula_conj(formula_conj_list(s2es_arg), s2e_res)
-  // end of [list_vt_cons]
+| list_nil() => s2e_res
+| list_cons _ =>
+    FORMconj(formula_conj_list(s2es_arg), s2e_res)
+  // end of [list_cons]
 //
 end // end of [formula_conj_list1]
 
@@ -223,15 +116,15 @@ formula_impl_list1
 in
 //
 case+ s2es_arg of
-| ~list_vt_nil() => s2e_res
-| list_vt_cons _ =>
-    formula_impl(formula_conj_list(s2es_arg), s2e_res)
-  // end of [list_vt_cons]
+| list_nil() => s2e_res
+| list_cons _ =>
+    FORMimpl(formula_conj_list(s2es_arg), s2e_res)
+  // end of [list_cons]
 //
 end // end of [formula_impl_list1]
 
 (* ****** ****** *)
-
+////
 implement
 formula_ineg
   (s2e1) = res where

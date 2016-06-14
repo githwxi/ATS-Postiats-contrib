@@ -360,7 +360,6 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(*
 local
 //
 #include "./SOLVING/patsolve_smt2_solving_form.dats"
@@ -368,7 +367,6 @@ local
 in
   // nothing
 end // end of [local]
-*)
 
 (* ****** ****** *)
 

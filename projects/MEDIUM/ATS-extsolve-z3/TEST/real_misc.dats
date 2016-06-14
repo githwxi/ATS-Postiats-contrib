@@ -21,6 +21,10 @@ staload
 #define i2r int2real
 
 (* ****** ****** *)
+
+propdef true_p = unit_p
+
+(* ****** ****** *)
 //
 extern
 prfun
@@ -28,7 +32,7 @@ lemma_addmul
 {x,y,z:real}
 (
 // argless
-) : [x*(y+z)==x*y+x*z] unit_p
+) : [x*(y+z)==x*y+x*z] true_p
 //
 prval
 lemma_addmul =

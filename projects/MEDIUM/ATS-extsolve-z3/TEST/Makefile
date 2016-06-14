@@ -106,9 +106,9 @@ cleanall:: ; $(RMF) quadratic
 ######
 
 all:: \
-tests_for_real
-tests_for_real:: \
-tests_for_real.dats; \
+real_misc
+real_misc:: \
+real_misc.dats; \
 $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
 
 ######
