@@ -927,7 +927,8 @@ Z3_mk_s2var_symbol
 
 implement
 Z3_mk_s2cst_symbol
-  (ctx, s2c0) = let
+  (ctx, s2c0) = sym0 where
+{
 //
 val name = s2c0.name()
 val name = symbol_get_name(name)
@@ -948,24 +949,26 @@ strarr =
 val
 name2 =
 stringarr_concat
-  ($UN.cast{arrayref(string,4)}(addr@strarr), i2sz(4))
+(
+  $UN.cast{arrayref(string,4)}(addr@strarr), i2sz(4)
+) (* stringarr_concat *)
 //
 val () = strptr_free(name)
 val () = strptr_free(stamp)
 //
-val sym = Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
+val sym0 =
+  Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
 //
-val () = strptr_free(name2)
+val ((*freed*)) = strptr_free(name2)
 //
-in
-  sym (*return*)
-end // end of [Z3_mk_s2cst_symbol]
+} (* end of [Z3_mk_s2cst_symbol] *)
 
 (* ****** ****** *)
 
 implement
 Z3_mk_s2var_symbol
-  (ctx, s2v0) = let
+  (ctx, s2v0) = sym0 where
+{
 //
 val name = s2v0.name()
 val name = symbol_get_name(name)
@@ -986,18 +989,19 @@ strarr =
 val
 name2 =
 stringarr_concat
-  ($UN.cast{arrayref(string,4)}(addr@strarr), i2sz(4))
+(
+  $UN.cast{arrayref(string,4)}(addr@strarr), i2sz(4)
+) (* stringarr_concat *)
 //
 val () = strptr_free(name)
 val () = strptr_free(stamp)
 //
-val sym = Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
+val sym0 =
+  Z3_mk_string_symbol(ctx, $UN.strptr2string(name2))
 //
-val () = strptr_free(name2)
+val ((*freed*)) = strptr_free(name2)
 //
-in
-  sym (*return*)
-end // end of [Z3_mk_s2var_symbol]
+} (* end of [Z3_mk_s2var_symbol] *)
 
 (* ****** ****** *)
 
@@ -1043,21 +1047,25 @@ end // end of [formula_make_s2cst]
 
 implement
 formula_make_s2cst_fresh
-  (env, s2c0) = ast where
+  (env, s2c0) = ast0 where
 {
 //
-val ty = sort_make_s2rt(s2c0.srt())
-val ty = $UN.castvwtp0{Z3_sort}(ty)
+val ty0 =
+  sort_make_s2rt(s2c0.srt())
+val ty0 =
+  $UN.castvwtp0{Z3_sort}(ty0)
 //
-val (fpf | ctx) = the_Z3_context_vget()
+val
+(fpf|ctx) =
+  the_Z3_context_vget((*void*))
+val name =
+  Z3_mk_s2cst_symbol(ctx, s2c0)
 //
-val sym = Z3_mk_s2cst_symbol(ctx, s2c0)
+val ast0 = Z3_mk_const(ctx, name, ty0)
 //
-val ast = Z3_mk_const(ctx, sym, ty)
+val ((*freed*)) = Z3_sort_dec_ref(ctx, ty0)
 //
-val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
-//
-prval ((*void*)) = fpf(ctx)
+prval ((*returned*)) = fpf(ctx)
 //
 } (* end of [formula_make_s2cst_fresh] *)
 
@@ -1097,21 +1105,26 @@ end // end of [formula_make_s2var]
 
 implement
 formula_make_s2var_fresh
-  (env, s2v0) = ast where
+  (env, s2v0) = ast0 where
 {
 //
-val ty = sort_make_s2rt(s2v0.srt())
-val ty = $UN.castvwtp0{Z3_sort}(ty)
+val ty0 =
+  sort_make_s2rt(s2v0.srt())
+val ty0 =
+  $UN.castvwtp0{Z3_sort}(ty0)
 //
-val (fpf | ctx) = the_Z3_context_vget()
+val
+(fpf|ctx) =
+  the_Z3_context_vget((*void*))
 //
-val sym = Z3_mk_s2var_symbol(ctx, s2v0)
+val name =
+  Z3_mk_s2var_symbol(ctx, s2v0)
 //
-val ast = Z3_mk_const(ctx, sym, ty)
+val ast0 = Z3_mk_const(ctx, name, ty0)
 //
-val ((*freed*)) = Z3_sort_dec_ref(ctx, ty)
+val ((*freed*)) = Z3_sort_dec_ref(ctx, ty0)
 //
-prval ((*void*)) = fpf(ctx)
+prval ((*returned*)) = fpf(ctx)
 //
 } (* end of [formula_make_s2var_fresh] *)
 

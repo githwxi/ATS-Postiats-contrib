@@ -272,16 +272,18 @@ smtenv_add_s2var
   (env, s2v0) = let
 //
 val+@SMTENV(env_s) = env
-val s2vs = env_s.smtenv_s2varlst
+//
+val s2vs =
+  env_s.smtenv_s2varlst
 val ((*void*)) =
-  env_s.smtenv_s2varlst := list_vt_cons(s2v0, s2vs)
+  env_s.smtenv_s2varlst := cons_vt(s2v0, s2vs)
+//
 prval ((*void*)) = fold@(env)
 //
-val ast =
-  formula_make_s2var_fresh(env, s2v0)
+val ast0 = formula_make_s2var_fresh(env, s2v0)
 //
 in
-  s2var_push_payload(s2v0, ast)
+  s2var_push_payload(s2v0, ast0)
 end // end of [smtenv_add_s2var]
 
 (* ****** ****** *)
