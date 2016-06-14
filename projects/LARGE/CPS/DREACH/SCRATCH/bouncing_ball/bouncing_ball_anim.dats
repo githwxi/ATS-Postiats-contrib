@@ -147,11 +147,6 @@ delayed_by
 //
 (* ****** ****** *)
 //
-prval () =
-  $UN.prop_assert{false}()
-//
-(* ****** ****** *)
-//
 val g = $UN.cast(~9.8): real(g)
 val K = $UN.cast(0.99): real(K)
 //
