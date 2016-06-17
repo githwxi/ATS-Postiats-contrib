@@ -63,12 +63,14 @@ def ats2pypre_neq_int1_int1(x, y): return (x != y)
 #
 ############################################
 #
-def ats2pypre_print_int(i):
-  return ats2pypre_fprint_int(sys.__stdout__, i)
-def ats2pypre_prerr_int(i):
-  return ats2pypre_fprint_int(sys.__stderr__, i)
+# HX-2016-06
+# The code is in print_cats.py:
 #
-def ats2pypre_fprint_int(out, i): return ats2pypre_fprint_obj(out, i)
+# def ats2pypre_print_int(i):
+#   return ats2pypre_fprint_int(sys.__stdout__, i)
+# def ats2pypre_prerr_int(i):
+#   return ats2pypre_fprint_int(sys.__stderr__, i)
+# def ats2pypre_fprint_int(out, i): return ats2pypre_fprint_obj(out, i)
 #
 ############################################
 

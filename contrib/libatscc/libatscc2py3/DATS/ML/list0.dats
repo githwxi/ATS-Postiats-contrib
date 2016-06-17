@@ -23,7 +23,10 @@ ATS_STATIC_PREFIX "_ats2pypre_ML_list0_"
 ######
 from ats2pypre_basics_cats import *
 ######
-from  ats2pypre_list_dats  import *
+from ats2pypre_integer_cats import *
+from ats2pypre_bool_cats import *
+######
+from ats2pypre_list_dats import *
 ######
 %} // end of [%{^]
 

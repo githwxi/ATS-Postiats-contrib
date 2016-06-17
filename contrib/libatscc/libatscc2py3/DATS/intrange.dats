@@ -26,7 +26,9 @@ ATS_STATIC_PREFIX "_ats2pypre_intrange_"
 %{^
 ######
 from ats2pypre_basics_cats import *
+######
 from ats2pypre_integer_cats import *
+from ats2pypre_bool_cats import *
 ######
 %} // end of [%{^]
 

@@ -27,6 +27,12 @@ cleanall:: ; $(RMF) test01_dats.py
 #
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 CAT=cat
 RMF=rm -f
 
