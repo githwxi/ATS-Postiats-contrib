@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into Python3
 *)
 
 (* ****** ****** *)
@@ -13,9 +13,9 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_array0_"
+ATS_STATIC_PREFIX "_ats2pypre_array0_"
 //
 (* ****** ****** *)
 //

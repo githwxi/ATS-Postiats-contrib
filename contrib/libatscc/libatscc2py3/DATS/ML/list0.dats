@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into JavaScript
+** that translates into Python3
 *)
 
 (* ****** ****** *)
@@ -13,9 +13,9 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2pypre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_array0_"
+ATS_STATIC_PREFIX "_ats2pypre_list0_"
 //
 (* ****** ****** *)
 //
@@ -42,13 +42,13 @@ staload "./../../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
-staload "./../../SATS/arrayref.sats"
-staload "./../../SATS/ML/array0.sats"
+staload "./../../SATS/list.sats"
+staload "./../../SATS/ML/list0.sats"
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/ML/array0.dats"
+#include "{$LIBATSCC}/DATS/ML/list0.dats"
 //
 (* ****** ****** *)
 
-(* end of [array0.dats] *)
+(* end of [list0.dats] *)
