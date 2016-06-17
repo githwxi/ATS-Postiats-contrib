@@ -16,6 +16,12 @@ ATS_EXTERN_PREFIX "ats2plpre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
+staload "./../basics_pl.sats"
+//
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)

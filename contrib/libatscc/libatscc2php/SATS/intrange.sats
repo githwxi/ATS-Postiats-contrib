@@ -16,6 +16,12 @@ ATS_EXTERN_PREFIX "ats2phppre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
+staload "./../basics_php.sats"
+//
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)

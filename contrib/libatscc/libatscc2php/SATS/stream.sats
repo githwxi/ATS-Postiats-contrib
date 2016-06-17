@@ -15,7 +15,12 @@ ATS_STATIC_PREFIX "_ats2phppre_stream_"
 //
 (* ****** ****** *)
 //
-#include "share/atspre_define.hats"
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload "./../basics_php.sats"
 //
 (* ****** ****** *)
 //
