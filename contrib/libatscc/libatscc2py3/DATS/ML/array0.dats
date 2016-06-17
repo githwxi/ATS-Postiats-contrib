@@ -29,7 +29,7 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../../../basics.sats"
+staload "./../../basics_py.sats"
 //
 (* ****** ****** *)
 //
