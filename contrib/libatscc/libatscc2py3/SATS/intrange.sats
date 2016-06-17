@@ -16,6 +16,12 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
+staload "./../basics_py.sats"
+//
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/SATS/intrange.sats"
 //
 (* ****** ****** *)

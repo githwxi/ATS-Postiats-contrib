@@ -84,8 +84,9 @@ overload cloref_app with cloref3_app
 // not familiar with dependent types
 //
 datatype
-list0_t0ype_type(a:t@ype+) =
-  | list0_nil of ()
+list0_t0ype_type
+  (a:t@ype+) =
+  | list0_nil of ((*void*))
   | list0_cons of (a, list0(a))
 //
 where

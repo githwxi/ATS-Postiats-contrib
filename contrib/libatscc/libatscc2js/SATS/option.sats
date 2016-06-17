@@ -28,7 +28,7 @@ staload "./../basics_js.sats"
 //
 fun{a:t0p}
 fprint_option
-  (JSfile, Option(INV(a))): void = "mac#%"
+  (JSfilr, Option(INV(a))): void = "mac#%"
 //
 (* ****** ****** *)
 

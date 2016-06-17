@@ -4,7 +4,9 @@
 
 (* ****** ****** *)
 
+(*
 staload "./../../basics.sats"
+*)
 
 (* ****** ****** *)
 //
@@ -72,7 +74,7 @@ list0_reverse
 fun
 list0_reverse_append
   {a:t0p}
-  (xs: list0(INV(a)), ys: list0(a)): list0(a)= "mac#%"
+  (xs: list0(INV(a)), ys: list0(a)): list0(a) = "mac#%"
 //
 overload reverse with list0_reverse of 100
 overload revappend with list0_reverse_append of 100

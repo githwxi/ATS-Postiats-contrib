@@ -22,9 +22,9 @@ val STDIN : JSfile = "mac#"
 val STDOUT : JSfile = "mac#"
 val STDERR : JSfile = "mac#"
 *)
-macdef STDIN = $extval (JSfile, "0")
-macdef STDOUT = $extval (JSfile, "1")
-macdef STDERR = $extval (JSfile, "2")
+macdef STDIN = $extval (JSfilr, "0")
+macdef STDOUT = $extval (JSfilr, "1")
+macdef STDERR = $extval (JSfilr, "2")
 //
 (* ****** ****** *)
 
