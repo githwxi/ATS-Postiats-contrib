@@ -59,7 +59,7 @@ list0_append
   {a:t0p}
 (
   xs: list0(INV(a)), ys: list0(a)
-) : list0(a)= "mac#%" // end-of-fun
+) : list0(a) = "mac#%" // end-of-fun
 //
 overload + with list0_append of 100 // infix
 //

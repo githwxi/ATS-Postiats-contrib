@@ -55,4 +55,11 @@ $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/ats2pypre_referenc
 
 ######
 
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/list0.dats | $(ATSCC2PY) -o ./output/ats2pypre_ML_list0_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/array0.dats | $(ATSCC2PY) -o ./output/ats2pypre_ML_array0_dats.py -i
+
+######
+
 ###### end of [Makefile] ######
