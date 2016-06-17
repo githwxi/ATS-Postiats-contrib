@@ -9,7 +9,7 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2jspre_"
+ATS_EXTERN_PREFIX "ats2jspre_ML_"
 //
 (* ****** ****** *)
 //

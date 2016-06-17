@@ -43,16 +43,21 @@ all:: ; \
 $(CPF) ./CATS/PYgame_pygame_cats.py ./output/ats2py_PYgame_pyame_cats.py
 
 ######
-
+#
 all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
+#
 all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_dats.py -i
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PY) -o ./output/ats2pypre_intrange_dats.py -i
+#
 all:: ; \
 $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2PY) -o ./output/ats2pypre_arrayref_dats.py -i
 all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/ats2pypre_reference_dats.py -i
-
+#
 ######
 
 all:: ; \

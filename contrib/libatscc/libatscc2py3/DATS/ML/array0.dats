@@ -13,10 +13,20 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
+ATS_EXTERN_PREFIX "ats2pypre_ML_"
 #define
-ATS_STATIC_PREFIX "_ats2pypre_array0_"
+ATS_STATIC_PREFIX "_ats2pypre_ML_array0_"
 //
+(* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+from ats2pypre_arrayref_dats import *
+######
+%} // end of [%{^]
+
 (* ****** ****** *)
 //
 #include
