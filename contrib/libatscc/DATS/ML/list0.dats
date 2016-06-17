@@ -135,4 +135,44 @@ list0_map
 //
 (* ****** ****** *)
 
+implement
+list0_foldleft
+  {res}{a}
+  (xs, init, fopr) = let
+//
+fun
+aux
+(
+  res: res, xs: list0(a)
+) : res =
+  case+ xs of
+  | list0_nil() => res
+  | list0_cons(x, xs) => aux(fopr(res, x), xs)
+//
+in
+  aux(init, xs)
+end // end of [list0_foldleft]
+
+(* ****** ****** *)
+
+implement
+list0_foldright
+  {a}{res}
+  (xs, fopr, sink) = let
+//
+fun
+aux
+(
+  xs: list0(a), res: res
+) : res =
+  case+ xs of
+  | list0_nil() => res
+  | list0_cons(x, xs) => fopr(x, aux(xs, sink))
+//
+in
+  aux(xs, sink)
+end // end of [list0_foldright]
+
+(* ****** ****** *)
+
 (* end of [list0.dats] *)

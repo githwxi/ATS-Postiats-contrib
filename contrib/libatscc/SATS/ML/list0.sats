@@ -9,6 +9,11 @@ staload "./../../basics.sats"
 *)
 
 (* ****** ****** *)
+
+#define nil0 list0_nil
+#define cons0 list0_cons
+
+(* ****** ****** *)
 //
 fun{}
 list0_is_nil
@@ -110,6 +115,21 @@ list0_map
   {a:t0p}{b:t0p}
   (xs: list0(INV(a)), fopr: cfun(a, b)): list0(b) = "mac#%"
 //
+(* ****** ****** *)
+
+fun
+list0_foldleft
+  {res:t0p}{a:t0p}
+(
+  xs: list0(INV(a)), init: res, fopr: cfun(res, a, res)
+) : res = "mac#%" // end-of-function
+fun
+list0_foldright
+  {a:t0p}{res:t0p}
+(
+  xs: list0(INV(a)), fopr: cfun(a, res, res), sink: res
+) : res = "mac#%" // end-of-function
+
 (* ****** ****** *)
 
 (* end of [list0.sats] *)

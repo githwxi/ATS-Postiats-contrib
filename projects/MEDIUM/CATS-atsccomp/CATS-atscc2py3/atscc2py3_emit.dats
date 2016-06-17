@@ -60,13 +60,18 @@ val () =
 if
 p_tm > 0
 then let
-  prval Some_v @(pf1, fpf1) = pfopt
+//
+  prval
+  Some_v @(pf1, fpf1) = pfopt
+//
   val tm_min = $TM.tm_get_min (!p_tm)
   val tm_hour = $TM.tm_get_hour (!p_tm)
   val tm_mday = $TM.tm_get_mday (!p_tm)
   val tm_mon = 1 + $TM.tm_get_mon (!p_tm)
   val tm_year = 1900 + $TM.tm_get_year (!p_tm)
-  prval () = fpf1 (pf1)
+//
+  prval ((*returned*)) = fpf1 (pf1)
+//
 in
   $extfcall
   (
@@ -336,14 +341,16 @@ d0e0.d0exp_node of
     val () = emit_tmpvar (out, tmp)
   }
 //
-| D0Eappid (fid, d0es) =>
+| D0Eappid
+    (fid, d0es) =>
   {
     val () = emit_i0de (out, fid)
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
   }
-| D0Eappexp (d0e, d0es) =>
+| D0Eappexp
+    (d0e, d0es) =>
   {
     val () = emit_d0exp (out, d0e)
     val () = emit_LPAREN (out)
@@ -550,10 +557,13 @@ implement
 emit_SELboxrec
   (out, d0e) = let
 //
-val-ATSSELboxrec
-  (d0rec, s0e, id) = d0e.d0exp_node
-val-S0Eide (name) = s0e.s0exp_node
-val-~Some_vt (s0rec) = typedef_search_opt (name)
+val-
+ATSSELboxrec
+(d0rec, s0e, id) = d0e.d0exp_node
+//
+val-S0Eide(name) = s0e.s0exp_node
+val-
+~Some_vt(s0rec) = typedef_search_opt (name)
 //
 val index = tyrec_labsel (s0rec, id.i0dex_sym)
 //

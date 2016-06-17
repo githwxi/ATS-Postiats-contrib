@@ -1154,7 +1154,17 @@ case+ opt of
 | Some _ => emit_d0explst_1 (out, d0es)
 ) : void // end of [val]
 //
-val () = emit_RPAREN (out)
+val ntup =
+(
+case+ opt of
+| None _ => list_length<d0exp>(d0es)
+| Some _ => list_length<d0exp>(d0es) + 1
+) : int (* end of [val] *)
+//
+val () =
+if ntup = 1
+  then emit_text(out, ", )") else emit_RPAREN(out)
+// end of [if]
 //
 in
   // nothing
@@ -1173,19 +1183,25 @@ getarglst
 ) : d0explst =
 (
 case+ inss of
-| list_nil () => list_nil ()
-| list_cons (ins, inss) => let
-    val-ATSINSstore_boxrec_ofs (_, _, _, d0e) = ins.instr_node
-    val d0es = getarglst (inss)
+//
+| list_nil() => list_nil ()
+//
+| list_cons(ins, inss) => let
+    val-ATSINSstore_boxrec_ofs(_, _, _, d0e) = ins.instr_node
+    val d0es = getarglst(inss)
   in
     list_cons (d0e, d0es)
   end // end of [list_cons]
-)
 //
-val-ATSINSmove_boxrec (inss) = ins0.instr_node
+) (* end of [getarglst] *)
 //
-val-list_cons (ins, inss) = inss
-val-ATSINSmove_boxrec_new (tmp, _) = ins.instr_node  
+val-
+ATSINSmove_boxrec(inss) = ins0.instr_node
+//
+val-
+list_cons(ins, inss) = inss
+val-
+ATSINSmove_boxrec_new(tmp, _) = ins.instr_node  
 //
 val d0es = getarglst (inss)
 //
@@ -1194,7 +1210,13 @@ val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
 val () = emit_LPAREN (out)
 val () = emit_d0explst (out, d0es)
-val () = emit_RPAREN (out)
+//
+val () =
+(
+if list_is_sing(d0es)
+  then emit_text(out, ", )") else emit_RPAREN (out)
+// end of [if]
+) (* end of [val] *)
 //
 in
   // nothing
