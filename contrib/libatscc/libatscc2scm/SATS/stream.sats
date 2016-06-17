@@ -16,6 +16,12 @@ ATS_EXTERN_PREFIX "ats2scmpre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
+staload "./../basics_scm.sats"
+//
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/SATS/stream.sats"
 //
 (* ****** ****** *)
