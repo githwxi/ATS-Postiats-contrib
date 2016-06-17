@@ -38,7 +38,7 @@ abstype JSregexp // new RegExp()
 //
 (* ****** ****** *)
 
-abstype JSfile // HX: this is nominal!
+abstype JSfilr // HX: this is nominal!
 
 (* ****** ****** *)
 //

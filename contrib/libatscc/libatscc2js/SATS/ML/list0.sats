@@ -28,14 +28,14 @@ staload "./../../basics_js.sats"
 //
 fun{a:t0p}
 fprint_list0
-  (JSfile, list0(INV(a))): void = "mac#%"
+  (JSfilr, list0(INV(a))): void = "mac#%"
 //
 fun{}
-fprint_list0$sep(out: JSfile): void = "mac#%"
+fprint_list0$sep(out: JSfilr): void = "mac#%"
 //
 fun{a:t0p}
 fprint_list0_sep
-  (JSfile, list0(INV(a)), sep: string): void = "mac#%"
+  (JSfilr, list0(INV(a)), sep: string): void = "mac#%"
 //
 overload fprint with fprint_list0 of 100
 //

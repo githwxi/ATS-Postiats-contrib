@@ -31,7 +31,7 @@ fun print_double : double -> void = "mac#%"
 fun
 print_string : string -> void = "mac#%"
 fun
-fprint_string (JSfile, string): void = "mac#%"
+fprint_string (JSfilr, string): void = "mac#%"
 //
 (* ****** ****** *)
 
@@ -57,7 +57,7 @@ print_val (x: a): void = "mac#%"
 //
 fun
 {a:t0p}
-fprint_val (JSfile, x: a): void = "mac#%"
+fprint_val (JSfilr, x: a): void = "mac#%"
 //  
 (* ****** ****** *)
 //

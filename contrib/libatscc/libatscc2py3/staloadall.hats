@@ -54,5 +54,10 @@ staload "./SATS/reference.sats"
 //
 (* ****** ****** *)
 
+staload "./SATS/ML/list0.sats"
+staload "./SATS/ML/array0.sats"
+
+(* ****** ****** *)
+
 (* end of [staloadall.hats] *)
 
