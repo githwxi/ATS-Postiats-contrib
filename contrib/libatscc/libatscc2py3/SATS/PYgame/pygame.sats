@@ -473,5 +473,15 @@ fun
 display_iconify(): bool = "mac#%"
 //
 (* ****** ****** *)
+//
+fun
+time_get_ticks(): int(*time*) = "mac#%"
+//
+fun
+time_wait(int(*millisec*)): int(*time*) = "mac#%"
+fun
+time_delay(int(*millisec*)): int(*time*) = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [pygame.sats] *)

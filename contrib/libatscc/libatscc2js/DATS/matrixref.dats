@@ -112,23 +112,23 @@ ats2jspre_mtrxszref_get_at
   var nrow = MSZ.nrow;
   var ncol = MSZ.ncol;
   if (i < 0) throw new RangeError("mtrxszref_get_at");
-  if (i >= nrow) throw new RangeError("mtrxszref_get_at");
   if (j < 0) throw new RangeError("mtrxszref_get_at");
+  if (i >= nrow) throw new RangeError("mtrxszref_get_at");
   if (j >= ncol) throw new RangeError("mtrxszref_get_at");
   return MSZ.matrix[i*ncol+j];
 }
 //
 function
 ats2jspre_mtrxszref_set_at
-  (MSZ, i, j, x)
+  (MSZ, i, j, x0)
 {
   var nrow = MSZ.nrow;
   var ncol = MSZ.ncol;
   if (i < 0) throw new RangeError("mtrxszref_set_at");
-  if (i >= nrow) throw new RangeError("mtrxszref_set_at");
   if (j < 0) throw new RangeError("mtrxszref_set_at");
+  if (i >= nrow) throw new RangeError("mtrxszref_set_at");
   if (j >= ncol) throw new RangeError("mtrxszref_set_at");
-  return (MSZ.matrix[i*ncol+j] = x);
+  return (MSZ.matrix[i*ncol+j] = x0);
 }
 //
 %} // end of [%{^]

@@ -63,6 +63,14 @@ def ats2pypre_neq_int1_int1(x, y): return (x != y)
 #
 ############################################
 #
+def ats2pypre_max_int0_int0(x, y): return (max(x, y))
+def ats2pypre_max_int1_int1(x, y): return (max(x, y))
+#
+def ats2pypre_min_int0_int0(x, y): return (min(x, y))
+def ats2pypre_min_int1_int1(x, y): return (min(x, y))
+#
+############################################
+#
 # HX-2016-06
 # The code is in print_cats.py:
 #

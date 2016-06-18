@@ -157,5 +157,12 @@ def ats2py_pygame_display_update(xs): return pygame.display.update(xs)
 def ats2py_pygame_display_iconify(xs): return pygame.display.iconify()
 #
 ############################################
+#
+def ats2py_pygame_time_wait(ms): return pygame.time.wait(ms)
+def ats2py_pygame_time_delay(ms): return pygame.time.delay(ms)
+#
+def ats2py_pygame_time_get_ticks(): return pygame.time.get_ticks()
+#
+############################################
 
 ###### end of [PYgame_pygame_cats.py] ######

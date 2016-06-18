@@ -16,6 +16,12 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+
+staload "./../basics_js.sats"
+
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/SATS/matrixref.sats"
 //
 (* ****** ****** *)

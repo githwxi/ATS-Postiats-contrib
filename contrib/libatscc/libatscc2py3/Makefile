@@ -56,6 +56,8 @@ $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PY) -o ./output/ats2pypre_intrange_
 all:: ; \
 $(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2PY) -o ./output/ats2pypre_arrayref_dats.py -i
 all:: ; \
+$(PATSOPT) -d ./DATS/matrixref.dats | $(ATSCC2PY) -o ./output/ats2pypre_matrixref_dats.py -i
+all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/ats2pypre_reference_dats.py -i
 #
 ######

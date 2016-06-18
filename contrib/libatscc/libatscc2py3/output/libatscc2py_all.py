@@ -52,6 +52,7 @@ from ats2pypre_intrange_dats import *
 ######
 
 from ats2pypre_arrayref_dats import *
+from ats2pypre_matrixref_dats import *
 from ats2pypre_reference_dats import *
 
 ######
