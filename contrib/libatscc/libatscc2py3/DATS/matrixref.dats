@@ -55,6 +55,19 @@ matrixref_vt0ype_type(a, n) = PYlist(a)
 //
 (* ****** ****** *)
 
+%{^
+######
+def ats2pypre_matrixref_make_elt(m, n, x0):
+  M = []
+  i0 = 0
+  mn = m * n
+  while (i0 < mn): i0 = i0 + 1; M.append(x0)
+  return M
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
+
 implement
 matrixref_get_at
   {a}(A, i, n, j) = let
