@@ -36,6 +36,8 @@ all:: ; \
 $(CPF) ./CATS/filebas_cats.py ./output/ats2pypre_filebas_cats.py
 all:: ; \
 $(CPF) ./CATS/PYlist_cats.py ./output/ats2pypre_PYlist_cats.py
+all:: ; \
+$(CPF) ./CATS/PYrandom_cats.py ./output/ats2pypre_PYrandom_cats.py
 
 ######
 
