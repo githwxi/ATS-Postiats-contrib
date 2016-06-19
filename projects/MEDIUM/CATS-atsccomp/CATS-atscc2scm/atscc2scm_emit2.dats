@@ -483,7 +483,7 @@ of // case+
 | ATSifthen (d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_sing(ins) = inss
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "(if")
@@ -497,7 +497,7 @@ of // case+
 | ATSifnthen (d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_sing(ins) = inss
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "(if")

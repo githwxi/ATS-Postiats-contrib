@@ -18,6 +18,21 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_matrixref_"
 //
 (* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+from ats2pypre_bool_cats import *
+from ats2pypre_integer_cats import *
+######
+from ats2pypre_PYlist_cats import *
+######
+from ats2pypre_intrange_dats import *
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"

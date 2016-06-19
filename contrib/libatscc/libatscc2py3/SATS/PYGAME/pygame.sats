@@ -270,6 +270,9 @@ macdef
 KEYDOWN = $extval(Event_type, "pygame.KEYDOWN")
 //
 macdef
+NOEVENT = $extval(Event_type, "pygame.NOEVENT")
+//
+macdef
 USEREVENT = $extval(Event_type, "pygame.USEREVENT")
 //
 macdef

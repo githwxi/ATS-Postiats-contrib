@@ -40,6 +40,39 @@ overload succ with succ_double of 100
 overload pred with pred_double of 100
 
 (* ****** ****** *)
+//
+fun add_int_double
+  : (int, double) -<> double = "mac#%"
+fun add_double_int
+  : (double, int) -<> double = "mac#%"
+//
+fun sub_int_double
+  : (int, double) -<> double = "mac#%"
+fun sub_double_int
+  : (double, int) -<> double = "mac#%"
+//
+fun mul_int_double
+  : (int, double) -<> double = "mac#%"
+fun mul_double_int
+  : (double, int) -<> double = "mac#%"
+//
+fun div_int_double
+  : (int, double) -<> double = "mac#%"
+fun div_double_int
+  : (double, int) -<> double = "mac#%"
+//
+(* ****** ****** *)
+
+overload + with add_int_double of 100
+overload + with add_double_int of 100
+overload - with sub_int_double of 100
+overload - with sub_double_int of 100
+overload * with mul_int_double of 100
+overload * with mul_double_int of 100
+overload / with div_int_double of 100
+overload / with div_double_int of 100
+
+(* ****** ****** *)
 
 typedef
 float_aop_type = (double, double) -> double
@@ -59,6 +92,26 @@ overload * with mul_double_double of 100
 overload / with div_double_double of 100
 //
 (* ****** ****** *)
+//
+fun lt_int_double
+  : (int, double) -<> bool = "mac#%"
+fun lte_int_double
+  : (int, double) -<> bool = "mac#%"
+fun gt_int_double
+  : (int, double) -<> bool = "mac#%"
+fun gte_int_double
+  : (int, double) -<> bool = "mac#%"
+//
+fun lt_double_int
+  : (double, int) -<> bool = "mac#%"
+fun lte_double_int
+  : (double, int) -<> bool = "mac#%"
+fun gt_double_int
+  : (double, int) -<> bool = "mac#%"
+fun gte_double_int
+  : (double, int) -<> bool = "mac#%"
+//
+(* ****** ****** *)
 
 typedef
 float_cmp_type = (double, double) -> bool
@@ -67,6 +120,7 @@ float_cmp_type = (double, double) -> bool
 //
 fun lt_double_double : float_cmp_type = "mac#%"
 fun lte_double_double : float_cmp_type = "mac#%"
+//
 fun gt_double_double : float_cmp_type = "mac#%"
 fun gte_double_double : float_cmp_type = "mac#%"
 //

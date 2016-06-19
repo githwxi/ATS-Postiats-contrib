@@ -31,10 +31,32 @@ def ats2pypre_pred_double(x): return (x + 1)
 #
 ############################################
 #
+def ats2pypre_add_int_double(x, y): return (x + y)
+def ats2pypre_sub_int_double(x, y): return (x - y)
+def ats2pypre_mul_int_double(x, y): return (x * y)
+def ats2pypre_div_int_double(x, y): return (x / y)
+#
+def ats2pypre_add_double_int(x, y): return (x + y)
+def ats2pypre_sub_double_int(x, y): return (x - y)
+def ats2pypre_mul_double_int(x, y): return (x * y)
+def ats2pypre_div_double_int(x, y): return (x / y)
+#
 def ats2pypre_add_double_double(x, y): return (x + y)
 def ats2pypre_sub_double_double(x, y): return (x - y)
 def ats2pypre_mul_double_double(x, y): return (x * y)
 def ats2pypre_div_double_double(x, y): return (x / y)
+#
+############################################
+#
+def ats2pypre_lt_int_double(x, y): return (x < y)
+def ats2pypre_lte_int_double(x, y): return (x <= y)
+def ats2pypre_gt_int_double(x, y): return (x > y)
+def ats2pypre_gte_int_double(x, y): return (x >= y)
+#
+def ats2pypre_lt_double_int(x, y): return (x < y)
+def ats2pypre_lte_double_int(x, y): return (x <= y)
+def ats2pypre_gt_double_int(x, y): return (x > y)
+def ats2pypre_gte_double_int(x, y): return (x >= y)
 #
 ############################################
 #

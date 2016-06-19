@@ -345,7 +345,7 @@ ins0.instr_node of
 | ATSifthen (d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_sing(ins) = inss
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(")
@@ -357,7 +357,7 @@ ins0.instr_node of
 | ATSifnthen (d0e, inss) =>
   {
 //
-    val-list_cons (ins, _) = inss
+    val-list_sing(ins) = inss
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "if(!")
