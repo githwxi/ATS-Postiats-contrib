@@ -36,13 +36,16 @@ all:: ; \
 $(CPF) ./CATS/filebas_cats.py ./output/ats2pypre_filebas_cats.py
 all:: ; \
 $(CPF) ./CATS/PYlist_cats.py ./output/ats2pypre_PYlist_cats.py
-all:: ; \
-$(CPF) ./CATS/PYrandom_cats.py ./output/ats2pypre_PYrandom_cats.py
 
 ######
 
 all:: ; \
-$(CPF) ./CATS/PYgame_pygame_cats.py ./output/ats2py_PYgame_pyame_cats.py
+$(CPF) ./CATS/PYLIBC_random_cats.py ./output/ats2pylibc_random_cats.py
+
+######
+
+all:: ; \
+$(CPF) ./CATS/PYGAME_pygame_cats.py ./output/ats2py_pygame_pyame_cats.py
 
 ######
 #

@@ -6,25 +6,27 @@
 ######
 
 ######
-# beg of [PYrandom_cats.py]
+# beg of [random_cats.py]
 ######
 
+######
+import random
 ######
 from ats2pypre_basics_cats import *
 ######
 
 ############################################
 
-def PYrandom_random(): return random.random()
+def ats2pylibc_random_random(): return random.random()
 
 ############################################
 
-def PYrandom_randint(a, b): return random.randint(a, b)
+def ats2pylibc_randint(a, b): return random.randint(a, b)
 
 ############################################
 
-def PYrandom_uniform(a, b): return random.uniform(a, b)
+def ats2pylibc_uniform(a, b): return random.uniform(a, b)
 
 ############################################
 
-###### end of [PYrandom_cats.py] ######
+###### end of [random_cats.py] ######

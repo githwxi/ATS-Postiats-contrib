@@ -9,13 +9,12 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
+ATS_EXTERN_PREFIX
+"ats2pylibc_random_"
 //
 (* ****** ****** *)
 //
-// Python datatypes
-//
-staload "./../basics_py.sats"
+staload "./../../basics_py.sats"
 //
 (* ****** ****** *)
 //
@@ -27,4 +26,4 @@ fun uniform(double, double): double = "mac#%"
 //
 (* ****** ****** *)
 
-(* end of [PYrandom.sats] *)
+(* end of [random.sats] *)
