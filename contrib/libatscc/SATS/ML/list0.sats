@@ -26,6 +26,13 @@ list0_is_cons
 (* ****** ****** *)
 //
 fun
+list0_last_opt
+  {a:t0p}
+  (xs: list0(INV(a))): Option(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list0_make_intrange_2
   (l: int, r: int): list0(int) = "mac#%"
 fun

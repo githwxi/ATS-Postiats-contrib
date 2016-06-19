@@ -51,7 +51,7 @@ staload "./../SATS/matrixref.sats"
 //
 (*
 assume
-matrixref_vt0ype_type(a, n) = JSarray(a)
+matrixref_vt0ype_type(a, m, n) = JSarray(a)
 *)
 //
 (* ****** ****** *)

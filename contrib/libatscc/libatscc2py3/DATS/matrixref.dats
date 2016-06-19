@@ -50,7 +50,7 @@ staload "./../SATS/matrixref.sats"
 //
 (*
 assume
-matrixref_vt0ype_type(a, n) = PYlist(a)
+matrixref_vt0ype_type(a, m, n) = PYlist(a)
 *)
 //
 (* ****** ****** *)

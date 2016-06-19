@@ -29,6 +29,29 @@ case+ xs of list0_cons _ => true | _ =>> false
 )
 //
 (* ****** ****** *)
+
+implement
+list0_last_opt
+  {a}(xs) = let
+//
+fun
+loop
+(
+  x0: a, xs: list0(a)
+) : a =
+(
+case+ xs of
+| list0_nil() => x0
+| list0_cons(x1, xs) => loop(x1, xs)
+)
+//
+in
+  case+ xs of
+  | list0_nil() => None()
+  | list0_cons(x, xs) => Some(loop(x, xs))
+end // end of [list0_last_opt]
+
+(* ****** ****** *)
 //
 implement
 list0_make_intrange_2
