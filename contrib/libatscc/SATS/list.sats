@@ -57,8 +57,16 @@ length with list_length of 100
 (* ****** ****** *)
 //
 fun
+list_last
+  {a:t0p}{n:pos}
+  (xs: list(INV(a), n)): (a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_get_at
-  {a:t0p}{n:int}(list(a, n), natLt(n)): a = "mac#%"
+  {a:t0p}{n:int}
+  (list(INV(a), n), natLt(n)): a = "mac#%"
 //
 overload [] with list_get_at of 100
 //

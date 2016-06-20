@@ -148,6 +148,16 @@ end // end of [list_length]
 (* ****** ****** *)
 
 implement
+list_last(xs) = let
+  val+list_cons(x, xs) = xs
+in
+  case+ xs of
+  | list_nil() => x | list_cons _ =>> list_last(xs)
+end // end of [list_last]
+
+(* ****** ****** *)
+
+implement
 list_get_at
   {a}(xs, i) = (
 //
