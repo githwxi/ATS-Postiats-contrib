@@ -16,6 +16,8 @@ ATS_EXTERN_PREFIX "ats2scmpre_"
 #include
 "share/atspre_define.hats"
 //
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/SATS/reference.sats"
 //
 (* ****** ****** *)

@@ -28,7 +28,7 @@ staload "./../basics_py.sats"
 //
 fun{a:t0p}
 fprint_option
-  (PYfile, Option(INV(a))): void = "mac#%"
+  (PYfilr, Option(INV(a))): void = "mac#%"
 //
 (* ****** ****** *)
 

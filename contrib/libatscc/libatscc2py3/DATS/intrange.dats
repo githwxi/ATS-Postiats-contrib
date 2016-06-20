@@ -27,15 +27,16 @@ ATS_STATIC_PREFIX "_ats2pypre_intrange_"
 ######
 from ats2pypre_basics_cats import *
 ######
-from ats2pypre_integer_cats import *
 from ats2pypre_bool_cats import *
+from ats2pypre_integer_cats import *
 ######
 %} // end of [%{^]
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#include "share/atspre_define.hats"
+//
+(* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/intrange.dats"
 //

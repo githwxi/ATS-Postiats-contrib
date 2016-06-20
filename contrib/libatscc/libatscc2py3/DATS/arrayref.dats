@@ -58,13 +58,12 @@ staload "./../SATS/arrayref.sats"
 //
 (* ****** ****** *)
 //
-#include
-  "{$LIBATSCC}/DATS/arrayref.dats"
+#include "{$LIBATSCC}/DATS/arrayref.dats"
 //
 (* ****** ****** *)
 //
 (*
-assume array(a, n) = PYlist(a)
+assume arrayref(a, n) = PYlist(a)
 *)
 //
 (* ****** ****** *)

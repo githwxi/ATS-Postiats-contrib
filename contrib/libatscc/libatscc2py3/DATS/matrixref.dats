@@ -110,27 +110,19 @@ def ats2pypre_mtrxszref_get_ncol(MSZ): return MSZ['ncol']
 def ats2pypre_mtrxszref_get_at(MSZ, i, j):
   nrow = MSZ['nrow']
   ncol = MSZ['ncol']
-  if (i < 0):
-    raise IndexError('mtrxszref_get_at')
-  if (j < 0):
-    raise IndexError('mtrxszref_get_at')
-  if (i >= nrow):
-    raise IndexError('mtrxszref_get_at')
-  if (j >= ncol):
-    raise IndexError('mtrxszref_get_at')
+  if (i < 0): raise IndexError('mtrxszref_get_at')
+  if (j < 0): raise IndexError('mtrxszref_get_at')
+  if (i >= nrow): raise IndexError('mtrxszref_get_at')
+  if (j >= ncol): raise IndexError('mtrxszref_get_at')
   return MSZ['matrix'][i*ncol+j]
 ######
 def ats2pypre_mtrxszref_set_at(MSZ, i, j, x0):
   nrow = MSZ['nrow']
   ncol = MSZ['ncol']
-  if (i < 0):
-    raise IndexError('mtrxszref_set_at')
-  if (j < 0):
-    raise IndexError('mtrxszref_set_at')
-  if (i >= nrow):
-    raise IndexError('mtrxszref_set_at')
-  if (j >= ncol):
-    raise IndexError('mtrxszref_set_at')
+  if (i < 0): raise IndexError('mtrxszref_set_at')
+  if (j < 0): raise IndexError('mtrxszref_set_at')
+  if (i >= nrow): raise IndexError('mtrxszref_set_at')
+  if (j >= ncol): raise IndexError('mtrxszref_set_at')
   MSZ['matrix'][i*ncol+j] = x0; return#_void
 ######
 %} // end of [%{^]
