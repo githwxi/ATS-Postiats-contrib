@@ -38,11 +38,8 @@ from ats2pypre_filebas_cats import *
 
 ######
 
-from ats2pypre_PYlist_cats import *
-
-######
-
 from ats2pypre_list_dats import *
+from ats2pypre_PYlist_cats import *
 
 ######
 
