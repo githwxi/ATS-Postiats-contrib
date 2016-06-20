@@ -26,9 +26,24 @@ list0_is_cons
 (* ****** ****** *)
 //
 fun
+list0_length
+  {a:t0p}(list0(a)): intGte(0) = "mac#%"
+//
+overload length with list0_length of 100
+//
+(* ****** ****** *)
+//
+fun
 list0_last_opt
   {a:t0p}
   (xs: list0(INV(a))): Option(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+list0_get_at_opt
+  {a:t0p}
+  (list0(INV(a)), intGte(0)): Option(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -57,14 +72,6 @@ print_list0_sep
 //
 overload
 print with print_list0 of 100
-//
-(* ****** ****** *)
-//
-fun
-list0_length
-  {a:t0p}(list0(a)): intGte(0) = "mac#%"
-//
-overload length with list0_length of 100
 //
 (* ****** ****** *)
 //

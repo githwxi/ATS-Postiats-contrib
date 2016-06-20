@@ -138,8 +138,9 @@ loop{i,j:int}
 ) : int(i+j) =
 (
 case+ xs of
-| list_nil () => j | list_cons (_, xs) => loop (xs, j+1)
-)
+| list_nil () => j
+| list_cons (_, xs) => loop (xs, j+1)
+) (* end of [loop] *)
 //
 in
   loop (xs, 0)

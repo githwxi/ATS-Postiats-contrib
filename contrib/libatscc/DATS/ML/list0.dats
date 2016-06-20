@@ -29,6 +29,12 @@ case+ xs of list0_cons _ => true | _ =>> false
 )
 //
 (* ****** ****** *)
+//
+implement
+list0_length{a}(xs) =
+  list_length{a}($UN.cast{List0(a)}(xs))
+//
+(* ****** ****** *)
 
 implement
 list0_last_opt
@@ -51,6 +57,19 @@ in
   | list0_cons(x, xs) => Some(loop(x, xs))
 end // end of [list0_last_opt]
 
+(* ****** ****** *)
+//
+implement
+list0_get_at_opt
+  (xs, n) =
+(
+  case+ xs of
+  | list0_nil() => None()
+  | list0_cons(x, xs) =>
+      if n > 0 then list0_get_at_opt(xs, n-1) else Some(x)
+    // end of [list0_cons]
+) (* end of [list0_get_at_opt] *)
+//
 (* ****** ****** *)
 //
 implement
@@ -115,12 +134,6 @@ in
   fprint_list0<a> (out, xs)
 end // end of [fprint_list0_sep]
 
-(* ****** ****** *)
-//
-implement
-list0_length{a}(xs) =
-  list_length{a}($UN.cast{List0(a)}(xs))
-//
 (* ****** ****** *)
 //
 implement
