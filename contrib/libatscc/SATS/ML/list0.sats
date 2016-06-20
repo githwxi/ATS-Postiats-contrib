@@ -76,6 +76,18 @@ print with print_list0 of 100
 (* ****** ****** *)
 //
 fun
+list0_snoc
+  {a:t0p}
+  (list0(INV(a)), x0: a): list0(a)= "mac#%"
+//
+fun
+list0_extend
+  {a:t0p}
+  (list0(INV(a)), x0: a): list0(a)= "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list0_append
   {a:t0p}
 (

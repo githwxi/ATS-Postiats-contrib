@@ -137,6 +137,15 @@ end // end of [fprint_list0_sep]
 (* ****** ****** *)
 //
 implement
+list0_snoc{a}(xs, x0) =
+  $UN.cast(list_snoc{a}($UN.cast(xs), x0))
+implement
+list0_extend{a}(xs, x0) =
+  $UN.cast(list_extend{a}($UN.cast(xs), x0))
+//
+(* ****** ****** *)
+//
+implement
 list0_append{a}(xs, ys) =
   $UN.cast(list_append{a}($UN.cast(xs), $UN.cast(ys)))
 //
