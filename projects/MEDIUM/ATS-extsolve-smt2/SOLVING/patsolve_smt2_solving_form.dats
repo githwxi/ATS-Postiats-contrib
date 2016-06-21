@@ -46,6 +46,58 @@ assume form_type = form
 (* ****** ****** *)
 //
 implement
+print_form(x0) =
+  fprint_form(stdout_ref, x0)
+implement
+prerr_form(x0) =
+  fprint_form(stderr_ref, x0)
+//
+implement
+fprint_form
+  (out, x0) = (
+//
+case+ x0 of
+| FORMint(i) =>
+  fprint! (out, "FORMint(", i, ")")
+| FORMbool(b) =>
+  fprint! (out, "FORMint(", b, ")")
+| FORMintrep(rep) =>
+  fprint! (out, "FORMintrep(", rep, ")")
+//
+| FORMs2var(s2v) =>
+  fprint! (out, "FORMs2var(", s2v, ")")
+| FORMs2cst(s2c) =>
+  fprint! (out, "FORMs2var(", s2c, ")")
+//
+| FORMs2exp(s2e) =>
+  fprint! (out, "FORMs2exp(", s2e, ")")
+//
+| FORMnot(fml) =>
+  (
+    fprint (out, "FORMnot(");
+    fprint_form(out, fml); fprint (out, ")")
+  )
+| FORMconj(fml1, fml2) =>
+  (
+    fprint (out, "FORMconj(");
+    fprint_form(out, fml1); fprint_form(out, fml2); fprint (out, ")")
+  )
+| FORMdisj(fml1, fml2) =>
+  (
+    fprint (out, "FORMdisj(");
+    fprint_form(out, fml1); fprint_form(out, fml2); fprint (out, ")")
+  )
+| FORMimpl(fml1, fml2) =>
+  (
+    fprint (out, "FORMimpl(");
+    fprint_form(out, fml1); fprint_form(out, fml2); fprint (out, ")")
+  )
+//
+) (* end of [fprint_form] *)
+//
+(* ****** ****** *)
+//
+implement
 formula_null
   ((*void*)) = FORMint(0)
 //

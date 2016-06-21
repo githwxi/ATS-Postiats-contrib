@@ -26,7 +26,7 @@ from ats2pypre_basics_cats import *
 from ats2pypre_bool_cats import *
 from ats2pypre_integer_cats import *
 ######
-from ats2pypre_reference_cats import *
+from ats2pypre_reference_dats import *
 ######
 %} // end of [%{^]
 
