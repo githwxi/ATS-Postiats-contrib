@@ -25,8 +25,13 @@ ATS_STATIC_PREFIX "_ats2jspre_list_"
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
+(* ****** ****** *)
+
+staload "./../basics_js.sats"
+
 (* ****** ****** *)
 //
 staload "./../SATS/integer.sats"

@@ -52,14 +52,6 @@ typedef func_decl = func_decl_type
 //
 (* ****** ****** *)
 //
-fun sort_decref (sort): void
-fun sort_incref (!sort): sort
-//
-fun formula_decref (form): void
-fun formula_incref (!form): form
-//
-(* ****** ****** *)
-//
 fun sort_int (): sort
 fun sort_bool (): sort
 //

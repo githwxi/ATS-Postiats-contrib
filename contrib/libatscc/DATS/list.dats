@@ -373,12 +373,73 @@ aux{n:int}
 (* ****** ****** *)
 
 implement
-list_map(xs, f) =
+list_map
+  {a}{b}
+(
+  xs, fopr
+) = aux(xs) where
+{
+//
+fun
+aux
+{n:nat} .<n>.
+(
+xs: list(a, n)
+) : list(b, n) =
 (
 case+ xs of
-| list_nil() => list_nil ()
-| list_cons(x, xs) => list_cons (f(x), list_map(xs, f))
-) (* end of [list_map] *)
+| list_nil() => list_nil()
+| list_cons(x, xs) => list_cons(fopr(x), aux(xs))
+) (* end of [aux] *)
+//
+prval () = lemma_list_param(xs)
+//
+} (* end of [list_map] *)
+
+(* ****** ****** *)
+
+implement
+list_foldleft
+  {res}{a}
+  (xs, init, fopr) = let
+//
+fun
+loop
+(
+   res: res, xs: List(a)
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => loop(fopr(res, x), xs)
+)
+//
+in
+  loop(init, xs)
+end // end of [list_foldleft]
+
+(* ****** ****** *)
+
+implement
+list_foldright
+  {a}{res}
+(
+  xs, fopr, sink
+) = aux(xs, sink) where
+{
+//
+fun
+aux
+(
+  xs: List(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(x, aux(xs, res))
+)
+//
+} (* end of [list_foldright] *)
 
 (* ****** ****** *)
 

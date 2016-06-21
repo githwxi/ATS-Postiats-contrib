@@ -151,24 +151,37 @@ list_takeout_at
 //
 fun
 list_app
-  {a:t0p}(xs: List(INV(a)), f: cfun(a, void)): void = "mac#%"
+  {a:t0p}
+  (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
 fun
 list_foreach
-  {a:t0p}(xs: List(INV(a)), f: cfun(a, void)): void = "mac#%"
+  {a:t0p}
+  (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 list_filter
   {a:t0p}{n:int}
-  (xs: list(INV(a), n), f: cfun(a, bool)): listLte(a, n) = "mac#%"
+  (list(INV(a), n), p: cfun(a, bool)): listLte(a, n) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 list_map
   {a:t0p}{b:t0p}{n:int}
-  (xs: list(INV(a), n), f: cfun(a, b)): list (b, n) = "mac#%"
+  (xs: list(INV(a), n), fopr: cfun(a, b)): list(b, n) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+list_foldleft
+  {res:vt0p}{a:t0p}
+  (List(INV(a)), init: res, fopr: (res, a) -<cloref1> res): res = "mac#%"
+fun
+list_foldright
+  {a:t0p}{res:vt0p}
+  (List(INV(a)), fopr: (a, res) -<cloref1> res, sink: res): res = "mac#%"
 //
 (* ****** ****** *)
 
