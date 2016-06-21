@@ -66,6 +66,11 @@ all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/ats2pypre_reference_dats.py -i
 #
 ######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/qlistref.dats | $(ATSCC2PY) -o ./output/ats2pypre_qlistref_dats.py -i
+#
+######
 
 all:: ; \
 $(PATSOPT) -d ./DATS/ML/list0.dats | $(ATSCC2PY) -o ./output/ats2pypre_ML_list0_dats.py -i

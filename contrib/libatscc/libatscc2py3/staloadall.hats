@@ -55,6 +55,8 @@ staload "./SATS/arrayref.sats"
 staload "./SATS/matrixref.sats"
 staload "./SATS/reference.sats"
 //
+staload "./SATS/qlistref.sats"
+//
 (* ****** ****** *)
 
 staload "./SATS/ML/list0.sats"
