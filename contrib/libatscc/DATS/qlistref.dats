@@ -110,7 +110,7 @@ val r0 =
 val r1 =
   $UN.cast{ref(List0(a))}(r1)
 //
-val fopr = $UN.cast{(res, a?) -<cloref1> res}(fopr)
+val fopr = $UN.cast{(res, a) -<cloref1> res}(fopr)
 //
 fun
 auxl
@@ -152,7 +152,7 @@ val r0 =
 val r1 =
   $UN.cast{ref(List0(a))}(r1)
 //
-val fopr = $UN.cast{(a?, res) -<cloref1> res}(fopr)
+val fopr = $UN.cast{(a, res) -<cloref1> res}(fopr)
 //
 fun
 auxl

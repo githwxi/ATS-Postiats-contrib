@@ -57,6 +57,7 @@ from ats2pypre_reference_dats import *
 
 ######
 
+from ats2pypre_slistref_dats import *
 from ats2pypre_qlistref_dats import *
 
 ######
