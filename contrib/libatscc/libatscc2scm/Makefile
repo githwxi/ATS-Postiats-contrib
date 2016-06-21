@@ -41,6 +41,16 @@ $(PATSOPT2) -d ./DATS/reference.dats | \
 $(ATSCC2SCM) -o ./output/DATS/reference_dats.scm -i
 #
 ######
+#
+all:: ; \
+$(PATSOPT2) -d ./DATS/slistref.dats | \
+$(ATSCC2SCM) -o ./output/DATS/slistref_dats.scm -i
+#
+all:: ; \
+$(PATSOPT2) -d ./DATS/qlistref.dats | \
+$(ATSCC2SCM) -o ./output/DATS/qlistref_dats.scm -i
+#
+######
 
 all_in_one:: libatscc2scm_all
 

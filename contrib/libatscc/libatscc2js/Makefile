@@ -58,6 +58,15 @@ $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 ######
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/slistref.dats | \
+$(ATSCC2JS) -o ./output/DATS/slistref_dats.js -i
+all:: ; \
+$(PATSOPT) -d ./DATS/qlistref.dats | \
+$(ATSCC2JS) -o ./output/DATS/qlistref_dats.js -i
+#
+######
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/ML/list0.dats | \
 $(ATSCC2JS) -o ./output/DATS/ML/list0_dats.js -i
 all:: ; \

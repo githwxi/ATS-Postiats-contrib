@@ -46,17 +46,22 @@ staload "./SATS/matrixref.sats"
 staload "./SATS/reference.sats"
 //
 (* ****** ****** *)
+//
+staload "./SATS/JSmath.sats" // JS library
+staload "./SATS/JSdate.sats" // JS library
+staload "./SATS/JSarray.sats" // JS library
+staload "./SATS/JSglobal.sats" // JS library
+//
+(* ****** ****** *)
 
-staload "./SATS/ML/list0.sats"
-staload "./SATS/ML/array0.sats"
+staload "./SATS/slistref.sats" // list-based stack
+staload "./SATS/qlistref.sats" // list-based queue
 
 (* ****** ****** *)
-//
-staload "./SATS/JSmath.sats"
-staload "./SATS/JSdate.sats"
-staload "./SATS/JSarray.sats"
-staload "./SATS/JSglobal.sats"
-//
+
+staload "./SATS/ML/list0.sats" // un-indexed list
+staload "./SATS/ML/array0.sats" // un-indexed array
+
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)

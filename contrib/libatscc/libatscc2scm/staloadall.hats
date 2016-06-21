@@ -25,28 +25,30 @@ staload "./SATS/float.sats"
 staload "./SATS/print.sats"
 staload "./SATS/filebas.sats"
 //
-staload _ = "./DATS/print.dats"
+staload _(*anon*) = "./DATS/print.dats"
 //
 (* ****** ****** *)
 //
 (*
 staload "./SATS/intrange.sats"
-staload _ = "./DATS/intrange.dats"
+staload _(*anon*) = "./DATS/intrange.dats"
 *)
 //
 (* ****** ****** *)
 //
 staload "./SATS/list.sats"
-staload _ = "./DATS/list.dats"
-//
-(* ****** ****** *)
-//
 staload "./SATS/stream.sats"
-staload _ = "./DATS/stream.dats"
+staload "./SATS/reference.sats"
 //
 (* ****** ****** *)
 //
-staload "./SATS/reference.sats"
+staload _(*anon*) = "./DATS/list.dats"
+staload _(*anon*) = "./DATS/stream.dats"
+//
+(* ****** ****** *)
+//
+staload "./SATS/slistref.sats" // list-based stack
+staload "./SATS/qlistref.sats" // list-based queue
 //
 (* ****** ****** *)
 
