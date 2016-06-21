@@ -55,6 +55,43 @@ fprint_val<s2exp> = fprint_s2exp
 implement
 fprint_val<s3itm> = fprint_s3itm
 //
+implement
+fprint_val<sort> = fprint_sort
+implement
+fprint_val<form> = fprint_form
+implement
+fprint_val<solvercmd> = fprint_solvercmd
+//
+(* ****** ****** *)
+//
+implement
+print_solvercmd(x0) =
+  fprint_solvercmd(stdout_ref, x0)
+implement
+prerr_solvercmd(x0) =
+  fprint_solvercmd(stderr_ref, x0)
+//
+implement
+fprint_solvercmd
+  (out, x0) = (
+//
+case+ x0 of
+| SOLVERCMDpop() =>
+    fprint! (out, "SOLVERCMDpop()")
+| SOLVERCMDpush() =>
+    fprint! (out, "SOLVERCMDpush()")
+| SOLVERCMDcheck() =>
+    fprint! (out, "SOLVERCMDcheck()")
+| SOLVERCMDassert(fml) =>
+    fprint! (out, "SOLVERCMDassert(", fml, ")")
+//
+| SOLVERCMDpopenv(s2vs) =>
+    fprint! (out, "SOLVERCMDpopenv(", s2vs, ")")
+| SOLVERCMDpushenv((*void*)) =>
+    fprint! (out, "SOLVERCMDpushenv()")
+//
+) (* end of [fprint_solvercmd] *)
+//
 (* ****** ****** *)
 //
 extern
@@ -329,6 +366,11 @@ val ((*void*)) =
   c3nstr_solve_main (env, c3t0)
 //
 val solvercmds = smtenv_destroy (env)
+//
+(*
+val ((*void*)) =
+  fprintln! (stdout_ref, solvercmds)
+*)
 //
 val ((*void*)) = list_vt_free(solvercmds)
 //

@@ -52,6 +52,26 @@ typedef func_decl = func_decl_type
 //
 (* ****** ****** *)
 //
+fun print_sort (sort): void
+fun prerr_sort (sort): void
+//
+fun print_form (form): void
+fun prerr_form (form): void
+//
+fun fprint_sort : fprint_type(sort)
+fun fprint_form : fprint_type(form)
+//
+overload print with print_sort
+overload prerr with prerr_sort
+//
+overload print with print_form
+overload prerr with prerr_form
+//
+overload fprint with fprint_sort
+overload fprint with fprint_form
+//
+(* ****** ****** *)
+//
 fun sort_int (): sort
 fun sort_bool (): sort
 //
@@ -260,6 +280,16 @@ solvercmd =
 //
 | SOLVERCMDpopenv of (s2varlst)
 | SOLVERCMDpushenv of ((*void*))
+//
+(* ****** ****** *)
+//
+fun print_solvercmd (solvercmd): void
+and prerr_solvercmd (solvercmd): void
+fun fprint_solvercmd : fprint_type(solvercmd)
+//
+overload print with print_solvercmd
+overload prerr with prerr_solvercmd
+overload fprint with fprint_solvercmd
 //
 (* ****** ****** *)
 

@@ -389,14 +389,18 @@ implement
 patsolve_z3_argend
   ((*void*)) = let
 //
-macdef test() =
-  (!the_state.input > 0 && !the_state.ninput = 0)
+macdef
+mytest() =
+if !the_state.input > 0
+  then !the_state.ninput = 0 else false
+// end of [mytest]
+(* end of [macdef] *)
 //
 in
 //
 case+ 0 of
 | _ when
-    test() =>
+    mytest() =>
   {
     val inp = stdin_ref
     val c3t0 =
