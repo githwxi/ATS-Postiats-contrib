@@ -42,10 +42,14 @@ arrayref_foreach_cloref
 //
 implement
 arrszref_make_elt
-  (n, x0) =
-(
-  arrszref_make_arrayref(arrayref_make_elt(n, x0), n)
-) (* end of [arrszref_make_elt] *)
+  {a}(n, x0) = let
+//
+val A =
+  arrayref_make_elt{a}(n, x0)
+//
+in
+  arrszref_make_arrayref{a}(A, n)
+end (* end of [arrszref_make_elt] *)
 //
 (* ****** ****** *)
 //

@@ -98,4 +98,88 @@ end // end of [qlistref_enque]
 
 (* ****** ****** *)
 
+implement
+qlistref_foldleft
+  {res}{a}
+  (que, init, fopr) = let
+//
+val+Q(r0, r1) = que
+//
+val r0 =
+  $UN.cast{ref(List0(a))}(r0)
+val r1 =
+  $UN.cast{ref(List0(a))}(r1)
+//
+val fopr = $UN.cast{(res, a?) -<cloref1> res}(fopr)
+//
+fun
+auxl
+(
+  res: res, xs: List0(a)
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => auxl(fopr(res, x), xs)
+)
+//
+fun
+auxr
+(
+  xs: List0(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(auxr(xs, res), x)
+)
+//
+in
+  auxr(r0[], auxl(init, r1[]))
+end // end of [qlistref_foldleft]
+
+(* ****** ****** *)
+
+implement
+qlistref_foldright
+  {a}{res}
+  (que, fopr, sink) = let
+//
+val+Q(r0, r1) = que
+//
+val r0 =
+  $UN.cast{ref(List0(a))}(r0)
+val r1 =
+  $UN.cast{ref(List0(a))}(r1)
+//
+val fopr = $UN.cast{(a?, res) -<cloref1> res}(fopr)
+//
+fun
+auxl
+(
+  res: res, xs: List0(a)
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => auxl(fopr(x, res), xs)
+)
+//
+fun
+auxr
+(
+  xs: List0(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(x, auxr(xs, res))
+)
+//
+in
+  auxr(r1[], auxl(sink, r0[]))
+end // end of [qlistref_foldright]
+
+(* ****** ****** *)
+
 (* end of [qlistref.dats] *)

@@ -12,24 +12,24 @@ staload "./../basics.sats"
 //
 fun
 arrayref_make_elt
-  {a:t@ype}{n:nat}
+  {a:t0p}{n:nat}
   (int(n), a): arrayref(a, n) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 arrayref_get_at
-  {a:t@ype}{n:int}
+  {a:t0p}{n:int}
   (arrayref(a, n), natLt(n)): a = "mac#%"
 //
 fun
 arrayref_set_at
-  {a:t@ype}{n:int}
+  {a:t0p}{n:int}
   (arrayref(a, n), natLt(n), a): void = "mac#%"
 //
 fun
 arrayref_exch_at
-  {a:vt@ype}{n:int}
+  {a:vt0p}{n:int}
   (arrayref(a, n), natLt(n), x0: a): (a) = "mac#%"
 //
 (* ****** ****** *)
@@ -41,7 +41,7 @@ overload [] with arrayref_set_at of 100
 //
 fun
 arrayref_exists_cloref
-  {a:t@ype}{n:int}
+  {a:vt0p}{n:int}
 (
   arrayref(a, n)
 , asz: int(n), ftest: natLt(n) -<cloref1> bool
@@ -49,7 +49,7 @@ arrayref_exists_cloref
 //
 fun
 arrayref_forall_cloref
-  {a:t@ype}{n:int}
+  {a:vt0p}{n:int}
 (
   arrayref(a, n)
 , asz: int(n), ftest: natLt(n) -<cloref1> bool
@@ -59,7 +59,7 @@ arrayref_forall_cloref
 
 fun
 arrayref_foreach_cloref
-  {a:t@ype}{n:int}
+  {a:vt0p}{n:int}
 (
   arrayref(a, n)
 , asz: int(n), fwork: natLt(n) -<cloref1> void
@@ -73,14 +73,14 @@ arrayref_foreach_cloref
 //
 fun
 arrszref_make_elt
-  {a:t@ype}{n:nat}
+  {a:t0p}{n:nat}
   (int(n), a): arrszref(a) = "mac#%"
 //
 (* ****** ****** *)
 
 fun
 arrszref_make_arrayref
-  {a:t0p}{n:int}
+  {a:vt0p}{n:int}
   (arrayref(a, n), int(n)): arrszref(a) = "mac#%"
 // end of [arrszref_make_arrayref]
 
@@ -88,7 +88,7 @@ arrszref_make_arrayref
 //
 fun
 arrszref_size
-  {a:t0p}(A: arrszref(a)): intGte(0) = "mac#%"
+  {a:vt0p}(A: arrszref(a)): intGte(0) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -113,16 +113,16 @@ overload [] with arrszref_set_at of 100
 //
 fun
 arrszref_exists_cloref
-  {a:t@ype}
+  {a:vt0p}
   (arrszref(a), ftest: int -<cloref1> bool): bool = "mac#%"
 fun
 arrszref_forall_cloref
-  {a:t@ype}
+  {a:vt0p}
   (arrszref(a), ftest: int -<cloref1> bool): bool = "mac#%"
 //
 fun
 arrszref_foreach_cloref
-  {a:t@ype}
+  {a:vt0p}
   (arrszref(a), fwork: int -<cloref1> void): void = "mac#%"
 //
 (* ****** ****** *)

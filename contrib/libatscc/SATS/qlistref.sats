@@ -46,7 +46,7 @@ qlistref_foldleft
   (qlistref(a), init: res, fopr: (res, a) -<cloref1> res): res
 fun
 qlistref_foldright
-  {res:vt0p}{a:t0p}
+  {a:t0p}{res:vt0p}
   (qlistref(a), fopr: (a, res) -<cloref1> res, sink: res): res
 //
 (* ****** ****** *)
