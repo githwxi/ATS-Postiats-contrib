@@ -61,9 +61,9 @@ regress:: GameOf24; ./GameOf24
 CMKBLD:: ; (cd CMKBLD; cmake ./..)
 CMKBLD:: ; (make -C CMKBLD -f Makefile)
 #
-CMKBLD_clean:: ; $(RMRF) CMKBLD/*
+CMKBLD_test:: ; (cd CMKBLD; ctest --verbose)
 #
-CMKBLD_ctest:: ; (cd CMKBLD; ctest --verbose)
+CMKBLD_clean:: ; $(RMRF) CMKBLD/*
 #
 ######
 
