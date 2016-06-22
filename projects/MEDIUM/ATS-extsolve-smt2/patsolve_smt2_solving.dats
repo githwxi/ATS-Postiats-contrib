@@ -367,10 +367,21 @@ val ((*void*)) =
 //
 val solvercmds = smtenv_destroy (env)
 //
-(*
+// (*
+local
+implement
+fprint_list$sep<>
+  (out) = fprint_newline(out)
+in
 val ((*void*)) =
   fprintln! (stdout_ref, solvercmds)
-*)
+end
+val ((*void*)) =
+  fprintln!
+  ( stdout_ref
+  , "length(solvercmds) = ", length(solvercmds)
+  ) (* fprintln! *)
+// *)
 //
 val ((*void*)) = list_vt_free(solvercmds)
 //
