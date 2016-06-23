@@ -388,6 +388,8 @@ smtenv_solve_formula
 fun emit_form(out: FILEref, fml: form): void
 //
 fun emit_s2rt(out: FILEref, s2t: s2rt): void
+fun emit_s2rtlst(out: FILEref, s2ts: s2rtlst): void
+//
 fun emit_s2cst(out: FILEref, s2e: s2cst): void
 fun emit_s2var(out: FILEref, s2e: s2var): void
 fun emit_s2exp(out: FILEref, s2e: s2exp): void
