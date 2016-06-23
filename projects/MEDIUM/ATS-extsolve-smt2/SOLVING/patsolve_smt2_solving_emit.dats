@@ -83,6 +83,85 @@ val () =
 println! ("emit_s2exp")
 *)
 //
+fun
+aux_bool
+(
+  b: bool
+) : void = (
+//
+fprint_string
+(
+  out, if b then "true" else "false"
+)
+//
+) (* end of [aux_bool] *)
+//
+fun
+aux_lt
+(
+  s2e1: s2exp, s2e2: s2exp
+) : void =
+{
+   val () =
+     fprint(out, "(< ")
+   // end of [val]
+   val () = emit_s2exp(out, s2e1)
+   val () = fprint(out, " ")
+   val () = emit_s2exp(out, s2e2)
+   val () = fprint(out, ")")
+}
+//
+fun
+aux_lte
+(
+  s2e1: s2exp, s2e2: s2exp
+) : void =
+{
+   val () =
+     fprint(out, "(<= ")
+   // end of [val]
+   val () = emit_s2exp(out, s2e1)
+   val () = fprint(out, " ")
+   val () = emit_s2exp(out, s2e2)
+   val () = fprint(out, ")")
+}
+//
+fun
+aux_metdec
+(
+  s2es1: s2explst, s2es2: s2explst
+) : void =
+(
+case+ s2es1 of
+| list_nil() =>
+    aux_bool(false)
+  // list_nil
+| list_cons(s2e1, nil()) =>
+  (
+    case- s2es2 of
+    | list_cons(s2e2, nil()) =>
+      {
+        val () = aux_lt(s2e1, s2e2)
+      }
+  )
+| list_cons(s2e1, s2es1) =>
+  (
+    case- s2es2 of
+    | list_cons(s2e2, s2es2) =>
+      {
+        val () = fprint(out, "(or ")
+        val () = aux_lt(s2e1, s2e2)
+        val () = fprint(out, " ")
+        val () = fprint(out, "(and ")
+        val () = aux_lte(s2e1, s2e2)
+        val () = fprint(out, " ")
+        val () = aux_metdec(s2es1, s2es2)
+        val () = fprint(out, ")")
+        val () = fprint(out, ")")
+      }
+  )
+) (* end of [aux_metdec] *)
+//
 in
 //
 case+
@@ -92,6 +171,26 @@ of // case+
 | S2Eintinf(rep) => fprint(out, rep)
 | S2Ecst(s2c) => emit_s2cst(out, s2c)
 | S2Evar(s2v) => emit_s2var(out, s2v)
+//
+| S2Eeqeq(s2e1, s2e2) =>
+  {
+    val () = fprint(out, "(")
+    val () = fprint(out, "S2Eeqeq")
+    val () = fprint(out, " ")
+    val () = emit_s2exp(out, s2e1)
+    val () = fprint(out, " ")
+    val () = emit_s2exp(out, s2e2)
+    val () = fprint(out, ")")
+  }
+//
+| S2Emetdec(s2es1, s2es2) =>
+  {
+    val () = fprint(out, "(")
+    val () = fprint(out, "S2Emetdec")
+    val () = fprint(out, " ")
+    val () = aux_metdec(s2es1, s2es2)
+    val () = fprint(out, ")")
+  }
 //
 | S2Eapp
   (
