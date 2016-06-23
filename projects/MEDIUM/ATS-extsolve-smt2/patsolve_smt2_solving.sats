@@ -31,83 +31,43 @@ staload "{$PATSOLVE}/patsolve_cnstrnt.sats"
 //
 (* ****** ****** *)
 //
-fun c3nstr_smt2_solve(c3nstr): void
+fun
+c3nstr_smt2_solve
+  (out: FILEref, c3t0: c3nstr): void
 //
 (* ****** ****** *)
 //
-abstype sort_type = ptr
+datatype form =
 //
-typedef sort = sort_type
-typedef sortlst = List0 (sort)
-vtypedef sortlst_vt = List0_vt (sort)
+  | FORMint of (int)
+  | FORMbool of bool
+  | FORMintrep of (string(*rep*))
 //
-abstype form_type = ptr
+  | FORMs2var of (s2var)
+  | FORMs2cst of (s2cst)
+// (*
+  | FORMs2exp of (s2exp) // unprocessed
+// *)
 //
-typedef form = form_type
+  | FORMnot of (form)
+  | FORMconj of (form, form)
+  | FORMdisj of (form, form)
+  | FORMimpl of (form, form)
+//
+(* ****** ****** *)
+//
 typedef formlst = List0 (form)
 vtypedef formlst_vt = List0_vt (form)
 //
-abstype func_decl_type = ptr
-typedef func_decl = func_decl_type
-//
 (* ****** ****** *)
 //
-fun print_sort (sort): void
-fun prerr_sort (sort): void
-//
-fun print_form (form): void
-fun prerr_form (form): void
-//
-fun fprint_sort : fprint_type(sort)
+fun print_form : form -> void
+fun prerr_form : form -> void
 fun fprint_form : fprint_type(form)
-//
-overload print with print_sort
-overload prerr with prerr_sort
 //
 overload print with print_form
 overload prerr with prerr_form
-//
-overload fprint with fprint_sort
 overload fprint with fprint_form
-//
-(* ****** ****** *)
-//
-fun sort_int (): sort
-fun sort_bool (): sort
-//
-fun sort_real (): sort
-(*
-fun sort_string (): sort
-*)
-(* ****** ****** *)
-
-fun sort_mk_cls (): sort
-fun sort_mk_eff (): sort
-
-(* ****** ****** *)
-//
-fun sort_mk_type (): sort
-fun sort_mk_vtype (): sort
-//
-fun sort_mk_t0ype (): sort
-fun sort_mk_vt0ype (): sort
-//
-fun sort_mk_prop (): sort
-fun sort_mk_view (): sort
-//
-fun sort_mk_tkind (): sort
-//
-(* ****** ****** *)
-
-fun sort_mk_abstract(name: string): sort
-
-(* ****** ****** *)
-//
-fun sort_error (s2rt): sort
-//
-(* ****** ****** *)
-//
-fun sort_make_s2rt (s2rt): sort
 //
 (* ****** ****** *)
 
@@ -235,61 +195,50 @@ formula_cond
 (* ****** ****** *)
 //
 fun
-formula_eqeq (s2e1: form, s2e2: form): form
-//
-(* ****** ****** *)
-
-fun
-formula_sizeof_t0ype (s2e_t0ype: form): form
-
-(* ****** ****** *)
-//
-fun
-func_decl_0
-  (name: string, res: sort): func_decl
-fun
-func_decl_1
-  (name: string, arg: sort, res: sort): func_decl
-fun
-func_decl_2
-  (name: string, a0: sort, a1: sort, res: sort): func_decl
-//
-fun
-func_decl_list
-  (name: string, domain: sortlst, range: sort): func_decl
+formula_eqeq(s2e1: form, s2e2: form): form
 //
 (* ****** ****** *)
 //
 fun
-formula_fdapp_0(fd: func_decl): form
-fun
-formula_fdapp_1(fd: func_decl, arg: form): form
-fun
-formula_fdapp_2(fd: func_decl, a0: form, a1: form): form
-fun
-formula_fdapp_list(fd: func_decl, args: formlst): form
+formula_sizeof_t0ype(s2e_t0ype: form): form
 //
 (* ****** ****** *)
 //
 datatype
 solvercmd =
+//
 | SOLVERCMDpop of ()
 | SOLVERCMDpush of ()
-| SOLVERCMDcheck of ()
+//
 | SOLVERCMDassert of (form)
+| SOLVERCMDchecksat of ()
+//
+| SOLVERCMDecholoc of (loc_t)
 //
 | SOLVERCMDpopenv of (s2varlst)
 | SOLVERCMDpushenv of ((*void*))
 //
+| SOLVERCMDpopenv2 of ((*void*))
+| SOLVERCMDpushenv2 of (s2varlst)
+//
 (* ****** ****** *)
 //
-fun print_solvercmd (solvercmd): void
-and prerr_solvercmd (solvercmd): void
-fun fprint_solvercmd : fprint_type(solvercmd)
+fun
+print_solvercmd (solvercmd): void
+and
+prerr_solvercmd (solvercmd): void
+fun
+fprint_solvercmd : fprint_type(solvercmd)
 //
 overload print with print_solvercmd
 overload prerr with prerr_solvercmd
 overload fprint with fprint_solvercmd
+//
+(* ****** ****** *)
+//
+fun
+solvercmdlst_reverse
+  (List_vt(solvercmd)): List0_vt(solvercmd)
 //
 (* ****** ****** *)
 
@@ -416,10 +365,10 @@ absview smtenv_push_v
 (* ****** ****** *)
 //
 fun
-smtenv_pop (smtenv_push_v | !smtenv): void
+smtenv_pop(smtenv_push_v | !smtenv): void
 //
 fun
-smtenv_push (env: !smtenv): (smtenv_push_v | void)
+smtenv_push(env: !smtenv): (smtenv_push_v | void)
 //
 (* ****** ****** *)
 
@@ -429,8 +378,26 @@ the_s2cinterp_initize((*void*)): void
 (* ****** ****** *)
 //
 fun
-smtenv_formula_solve(!smtenv, form): void
+smtenv_solve_formula
+(
+  env: !smtenv, loc0: loc_t, fml: form
+) : void // end-of-function
 // 
+(* ****** ****** *)
+//
+fun emit_form(out: FILEref, fml: form): void
+//
+fun emit_s2rt(out: FILEref, s2t: s2rt): void
+fun emit_s2cst(out: FILEref, s2e: s2cst): void
+fun emit_s2var(out: FILEref, s2e: s2var): void
+fun emit_s2exp(out: FILEref, s2e: s2exp): void
+//
+fun decl_s2var(out: FILEref, s2v: s2var): void
+fun decl_s2varlst(out: FILEref, s2vs: s2varlst): void
+//
+fun emit_solvercmd(out: FILEref, cmd: solvercmd): void
+fun emit_solvercmdlst(out: FILEref, cmds: List(solvercmd)): void
+//
 (* ****** ****** *)
 
 (* end of [patsolve_smt2_solving.sats] *)

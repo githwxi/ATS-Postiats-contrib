@@ -180,7 +180,7 @@ val s2p =
 //
 //
 in
-  smtenv_formula_solve (env, s2p)
+  smtenv_solve_formula (env, s2p)
 end // end of [c3nstr_solve_prop]
 
 (* ****** ****** *)
@@ -312,7 +312,7 @@ s2e_prop =
   formula_make_s2exp (env, s2e_prop)
 //
 in
-  smtenv_formula_solve (env, s2e_prop)
+  smtenv_solve_formula (env, s2e_prop)
 end // end of [c3nstr_solve_solverify]
 
 (* ****** ****** *)

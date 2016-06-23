@@ -351,6 +351,38 @@ case+ xs of
 ) (* end of [list_foreach] *)
 //
 (* ****** ****** *)
+//
+implement
+list_iforeach
+  {a}(xs, f) = let
+//
+fun
+aux
+(
+  i: int, xs: List(a)
+) : void =
+//
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) => (f(i, x); aux(i+1, xs))
+//
+in
+  aux(0, xs)
+end (* end of [list_iforeach] *)
+//
+(* ****** ****** *)
+//
+implement
+list_rforeach
+  (xs, f) = (
+//
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) => (list_rforeach(xs, f); f(x))
+//
+) (* end of [list_rforeach] *)
+//
+(* ****** ****** *)
 
 implement
 list_filter

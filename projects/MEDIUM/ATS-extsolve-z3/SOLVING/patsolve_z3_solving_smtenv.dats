@@ -370,7 +370,7 @@ end // end of [smtenv_add_h3ypo]
 (* ****** ****** *)
 
 implement
-smtenv_formula_solve
+smtenv_solve_formula
   (env, s2p0) = let
 //
 val+@SMTENV(env_s) = env
@@ -409,7 +409,7 @@ case+ 0 of
 | _ when ans = Z3_L_FALSE => ~1
 | _ (*when ans = Z3_L_UNDEF*) => 0
 //
-end (* end of [smtenv_formula_solve] *)
+end (* end of [smtenv_solve_formula] *)
 
 (* ****** ****** *)
 

@@ -40,12 +40,16 @@ SMT2_solver_pop
   solver: !SMT2_solver
 ) : void =
 {
-  val+@SMT2_SOLVER(xs) = solver
-  val () =
-  (
-    xs := list_vt_cons(SOLVERCMDpop(), xs)
-  ) (* end of [val] *)
-  prval () = fold@(solver)
+//
+val+@SMT2_SOLVER(xs) = solver
+val ((*void*)) =
+(
+//
+xs :=
+list_vt_cons(SOLVERCMDpop(), xs)
+//
+) (* end of [val] *)
+prval ((*folded*)) = fold@(solver)
 } (* end of [SMT2_solver_pop] *)
 //
 fun
@@ -54,27 +58,55 @@ SMT2_solver_push
   solver: !SMT2_solver
 ) : void =
 {
-  val+@SMT2_SOLVER(xs) = solver
-  val () =
-  (
-    xs := list_vt_cons(SOLVERCMDpush(), xs)
-  ) (* end of [val] *)
-  prval () = fold@(solver)
+val+@SMT2_SOLVER(xs) = solver
+val ((*void*)) =
+(
+//
+xs :=
+list_vt_cons(SOLVERCMDpush(), xs)
+//
+) (* end of [val] *)
+prval ((*folded*)) = fold@(solver)
 } (* end of [SMT2_solver_push] *)
 //
+(* ****** ****** *)
+
 fun
-SMT2_solver_check
+SMT2_solver_echoloc
+(
+  solver: !SMT2_solver, loc: loc_t
+) : void =
+{
+val+@SMT2_SOLVER(xs) = solver
+val ((*void*)) =
+(
+//
+xs :=
+list_vt_cons(SOLVERCMDecholoc(loc), xs)
+//
+) (* end of [val] *)
+prval ((*folded*)) = fold@(solver)
+//
+} (* end of [SMT2_solver_echoloc] *)
+
+(* ****** ****** *)
+//
+fun
+SMT2_solver_checksat
 (
   solver: !SMT2_solver
 ) : void =
 {
-  val+@SMT2_SOLVER(xs) = solver
-  val () =
-  (
-    xs := list_vt_cons(SOLVERCMDcheck(), xs)
-  ) (* end of [val] *)
-  prval () = fold@(solver)
-} (* end of [SMT2_solver_check] *)
+val+@SMT2_SOLVER(xs) = solver
+val ((*void*)) =
+(
+//
+  xs :=
+  list_vt_cons(SOLVERCMDchecksat(), xs)
+//
+) (* end of [val] *)
+prval ((*folded*)) = fold@(solver)
+} (* end of [SMT2_solver_checksat] *)
 //
 fun
 SMT2_solver_assert
@@ -82,12 +114,14 @@ SMT2_solver_assert
   solver: !SMT2_solver, fml: form
 ) : void =
 {
-  val+@SMT2_SOLVER(xs) = solver
-  val () =
-  (
-    xs := list_vt_cons(SOLVERCMDassert(fml), xs)
-  ) (* end of [val] *)
-  prval () = fold@(solver)
+//
+val+@SMT2_SOLVER(xs) = solver
+val ((*void*)) =
+(
+  xs := list_vt_cons(SOLVERCMDassert(fml), xs)
+) (* end of [val] *)
+prval ((*folded*)) = fold@(solver)
+//
 } (* end of [SMT2_solver_assert] *)
 //
 (* ****** ****** *)
@@ -99,14 +133,17 @@ SMT2_solver_popenv
 ) : void =
 {
 //
+val s2vs =
+list_vt2t(list_reverse(s2vs))
+//
 val+@SMT2_SOLVER(xs) = solver
-val () =
+val ((*void*)) =
 (
   xs :=
   list_vt_cons(SOLVERCMDpopenv(s2vs), xs)
 ) (* end of [val] *)
 //
-prval () = fold@(solver)
+prval ((*folded*)) = fold@(solver)
 //
 } (* end of [SMT2_solver_popenv] *)
 fun
@@ -115,12 +152,12 @@ SMT2_solver_pushenv
 {
 //
 val+@SMT2_SOLVER(xs) = solver
-val () =
+val ((*void*)) =
 (
   xs := list_vt_cons(SOLVERCMDpushenv(), xs)
 ) (* end of [val] *)
 //
-prval () = fold@(solver)
+prval ((*folded*)) = fold@(solver)
 //
 } (* end of [SMT2_solver_pushenv] *)
 //
@@ -344,29 +381,34 @@ end // end of [smtenv_add_h3ypo]
 (* ****** ****** *)
 
 implement
-smtenv_formula_solve
-  (env, s2p0) =
+smtenv_solve_formula
+  (env, loc0, s2p0) =
 {
 //
-val+@SMTENV(env_s) = env
+val+
+@SMTENV(env_s) = env
 //
 val () =
 SMT2_solver_push(env_s.smtenv_solver)
 //
 val () =
 SMT2_solver_assert
+  (env_s.smtenv_solver, formula_not(s2p0))
+//
+val () =
+SMT2_solver_echoloc
 (
-  env_s.smtenv_solver, formula_not(s2p0)
+  env_s.smtenv_solver, loc0(*constraint*)
 ) (* end of [val] *)
 //
 val () =
-  SMT2_solver_check(env_s.smtenv_solver)
+  SMT2_solver_checksat(env_s.smtenv_solver)
 //
 val () = SMT2_solver_pop(env_s.smtenv_solver)
 //
 prval ((*void*)) = fold@(env)
 //
-} (* end of [smtenv_formula_solve] *)
+} (* end of [smtenv_solve_formula] *)
 
 (* ****** ****** *)
 

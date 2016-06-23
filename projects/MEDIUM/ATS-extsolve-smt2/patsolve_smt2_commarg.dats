@@ -356,9 +356,7 @@ case+ opt of
     val () = if n0 > 0 then fileref_close(f0)
     val () = !the_state.inpfil_ref := filr
 //
-    val c3t0 =
-      parse_fileref_constraints(filr)
-    // end of [val]
+    val c3t0 = parse_fileref_constraints(filr)
 //
 (*
     val () =
@@ -370,7 +368,8 @@ case+ opt of
     val () = fprint_newline (stdout_ref)
 *)
 //
-    val ((*void*)) = c3nstr_smt2_solve(c3t0)
+    val out = stdout_ref
+    val ((*void*)) = c3nstr_smt2_solve(out, c3t0)
 //
   } (* end of [Some_vt] *)
 //
@@ -408,11 +407,14 @@ case+ 0 of
 | _ when
     test() =>
   {
+//
     val inp = stdin_ref
-    val c3t0 =
-    parse_fileref_constraints(inp)
-    val ((*void*)) = c3nstr_smt2_solve(c3t0)
-  }
+    val c3t0 = parse_fileref_constraints(inp)
+//
+    val out = stdout_ref
+    val ((*void*)) = c3nstr_smt2_solve(out, c3t0)
+//
+  } (* end of [test] *)
 | _ (*rest*) => ((*ignored*))
 //
 end (* end of [patsolve_smt2_argend] *)

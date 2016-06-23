@@ -161,6 +161,20 @@ list_foreach
 (* ****** ****** *)
 //
 fun
+list_iforeach
+  {a:t0p}
+  (xs: List(INV(a)), fwork: cfun(int, a, void)): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+list_rforeach
+  {a:t0p}
+  (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_filter
   {a:t0p}{n:int}
   (list(INV(a), n), p: cfun(a, bool)): listLte(a, n) = "mac#%"

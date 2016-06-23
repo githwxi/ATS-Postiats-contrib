@@ -56,8 +56,6 @@ implement
 fprint_val<s3itm> = fprint_s3itm
 //
 implement
-fprint_val<sort> = fprint_sort
-implement
 fprint_val<form> = fprint_form
 implement
 fprint_val<solvercmd> = fprint_solvercmd
@@ -80,18 +78,88 @@ case+ x0 of
     fprint! (out, "SOLVERCMDpop()")
 | SOLVERCMDpush() =>
     fprint! (out, "SOLVERCMDpush()")
-| SOLVERCMDcheck() =>
-    fprint! (out, "SOLVERCMDcheck()")
+//
 | SOLVERCMDassert(fml) =>
     fprint! (out, "SOLVERCMDassert(", fml, ")")
+| SOLVERCMDchecksat() =>
+    fprint! (out, "SOLVERCMDchecksat()")
+//
+| SOLVERCMDecholoc(loc) =>
+    fprint! (out, "SOLVERCMDecholoc(", loc, ")")
 //
 | SOLVERCMDpopenv(s2vs) =>
     fprint! (out, "SOLVERCMDpopenv(", s2vs, ")")
 | SOLVERCMDpushenv((*void*)) =>
     fprint! (out, "SOLVERCMDpushenv()")
 //
+| SOLVERCMDpopenv2() =>
+    fprint! (out, "SOLVERCMDpopenv2()")
+| SOLVERCMDpushenv2(s2vs) =>
+    fprint! (out, "SOLVERCMDpushenv2(", s2vs, ")")
+//
 ) (* end of [fprint_solvercmd] *)
 //
+(* ****** ****** *)
+
+implement
+solvercmdlst_reverse
+  (xs) = let
+//
+vtypedef xs = List_vt(solvercmd)
+vtypedef ys = List0_vt(solvercmd)
+vtypedef res = List0_vt(solvercmd)
+//
+fun
+SOLVERCMDpopenv_is_nil
+  (x: solvercmd): bool = let
+//
+val-SOLVERCMDpopenv(s2vs) = x in list_is_nil(s2vs)
+//
+end // end of [SOLVERCMDpopenv_is_nil]
+//
+fun
+loop
+(
+  xs: xs, ys: ys, res: res
+) : res = (
+//
+case+ xs of
+| ~list_vt_nil() => let
+    val () = list_vt_free(ys) in res
+  end // end of [list_vt_nil]
+| ~list_vt_cons(x, xs) =>
+  (
+    case+ x of
+    | SOLVERCMDpopenv _ => let
+        val ys = list_vt_cons(x, ys)
+        val res =
+        (
+          if SOLVERCMDpopenv_is_nil(x)
+            then res else list_vt_cons(SOLVERCMDpopenv2(), res)
+        ) : res // end of [val]
+      in
+        loop(xs, ys, res)
+      end // end of [SOLVERCMDpopenv]
+    | SOLVERCMDpushenv _ => let
+        val-~list_vt_cons(y, ys) = ys
+        val- SOLVERCMDpopenv(s2vs) = y
+        val res =
+        (
+          if list_is_nil(s2vs)
+            then res else list_vt_cons(SOLVERCMDpushenv2(s2vs), res)
+        ) : res // end of [val]
+      in
+        loop(xs, ys, res)
+      end // end of [SOLVERCMDpushenv]
+    | _(*rest-of-solvercmd*) => loop(xs, ys, list_vt_cons(x, res))
+  )
+//
+) (* end of [loop] *)
+//
+in
+  loop(xs, list_vt_nil(), list_vt_nil())
+end // end of [solvercmdlst_reverse]
+
 (* ****** ****** *)
 //
 extern
@@ -151,7 +219,7 @@ extern
 fun
 c3nstr_solve_prop
 (
-  loc0: loc_t, env: !smtenv, s2p: s2exp
+  env: !smtenv, loc0: loc_t, s2p: s2exp
 ) : void // end-of-function
 
 (* ****** ****** *)
@@ -160,7 +228,7 @@ extern
 fun
 c3nstr_solve_itmlst
 (
-  loc0: loc_t, env: !smtenv, s3is: s3itmlst
+  env: !smtenv, loc0: loc_t, s3is: s3itmlst
 ) : void // end-of-function
 
 (* ****** ****** *)
@@ -169,8 +237,8 @@ extern
 fun
 c3nstr_solve_itmlst_cnstr
 (
-  loc0: loc_t
-, env: !smtenv, s3is: s3itmlst, c3t: c3nstr
+  env: !smtenv
+, loc0: loc_t, s3is: s3itmlst, c3t: c3nstr
 ) : void // end-of-function
 
 (* ****** ****** *)
@@ -179,8 +247,8 @@ extern
 fun
 c3nstr_solve_itmlst_disj
 (
-  loc0: loc_t
-, env: !smtenv, s3is: s3itmlst, s3iss: s3itmlstlst
+  env: !smtenv
+, loc0: loc_t, s3is: s3itmlst, s3iss: s3itmlstlst
 ) : void // end-of-function
 
 (* ****** ****** *)
@@ -188,29 +256,28 @@ c3nstr_solve_itmlst_disj
 extern
 fun
 c3nstr_solve_solverify
-  (loc0: loc_t, env: !smtenv, s2e_prop: s2exp): void
+  (env: !smtenv, loc0: loc_t, s2e_prop: s2exp): void
 //
 (* ****** ****** *)
 
 implement
 c3nstr_solve_prop
 (
-  loc0, env, s2p
+  env, loc0, s2p0
 ) = let
 //
-val s2p =
-  formula_make_s2exp (env, s2p)
-//
+val s2p0 =
+  formula_make_s2exp (env, s2p0)
 //
 in
-  smtenv_formula_solve (env, s2p)
+  smtenv_solve_formula (env, loc0, s2p0)
 end // end of [c3nstr_solve_prop]
 
 (* ****** ****** *)
 
 implement
 c3nstr_solve_itmlst
-  (loc0, env, s3is) = let
+  (env, loc0, s3is) = let
 //
 (*
 val () =
@@ -231,35 +298,35 @@ case+ s3is of
   | S3ITMsvar(s2v) => let
       val () = smtenv_add_s2var(env, s2v)
     in
-      c3nstr_solve_itmlst(loc0, env, s3is)
+      c3nstr_solve_itmlst(env, loc0, s3is)
     end // end of [S3ITMsvar]
   | S3ITMhypo(h3p) => let
       val () = smtenv_add_h3ypo(env, h3p)
     in
-      c3nstr_solve_itmlst(loc0, env, s3is)
+      c3nstr_solve_itmlst(env, loc0, s3is)
     end // end of [S3ITMhypo]
   | S3ITMsVar(s2V) =>
-      c3nstr_solve_itmlst(loc0, env, s3is)
+      c3nstr_solve_itmlst(env, loc0, s3is)
   | S3ITMcnstr(c3t) =>
-      c3nstr_solve_itmlst_cnstr(loc0, env, s3is, c3t)
+      c3nstr_solve_itmlst_cnstr(env, loc0, s3is, c3t)
   | S3ITMcnstr_ref
       (loc_ref, opt) =>
     (
       case+ opt of
       | None() => ()
       | Some(c3t) =>
-        c3nstr_solve_itmlst_cnstr(loc_ref, env, s3is, c3t)
+        c3nstr_solve_itmlst_cnstr(env, loc_ref, s3is, c3t)
     ) (* end of [S3ITMcnstr] *)
   | S3ITMdisj(s3iss_disj) =>
     (
-      c3nstr_solve_itmlst_disj(loc0, env, s3is, s3iss_disj)
+      c3nstr_solve_itmlst_disj(env, loc0, s3is, s3iss_disj)
     ) (* end of [S3ITMdisj] *)
   | S3ITMsolassert(s2e_prop) => let
       val () =
         smtenv_add_s2exp(env, s2e_prop)
       // end of [val]
     in
-      c3nstr_solve_itmlst(loc0, env, s3is)
+      c3nstr_solve_itmlst(env, loc0, s3is)
     end // end of [S3ITMsolassert]
   ) // end of [list_cons]
 //
@@ -269,7 +336,7 @@ end // end of [c3nstr_solve_itmlst]
 
 implement
 c3nstr_solve_itmlst_cnstr
-  (loc0, env, s3is, c3t) = () where
+  (env, loc0, s3is, c3t) = () where
 {
   val (pf|()) = smtenv_push (env)
 //
@@ -280,7 +347,7 @@ c3nstr_solve_itmlst_cnstr
   val ((*void*)) = smtenv_pop (pf | env)
 //
   val ans2 =
-    c3nstr_solve_itmlst (loc0, env, s3is)
+    c3nstr_solve_itmlst (env, loc0, s3is)
   // end of [val]
 //
 } (* end of [c3nstr_solve_itmlst_cnstr] *)
@@ -290,7 +357,7 @@ c3nstr_solve_itmlst_cnstr
 implement
 c3nstr_solve_itmlst_disj
 (
-  loc0, env, s3is0, s3iss(*disj*)
+  env, loc0, s3is0, s3iss(*disj*)
 ) = let
 (*
 val () = (
@@ -307,10 +374,10 @@ case+ s3iss of
     (s3is, s3iss) => let
     val (pf|()) = smtenv_push (env)
     val s3is1 = list_append (s3is, s3is0)
-    val ans = c3nstr_solve_itmlst (loc0, env, s3is1)
+    val ans = c3nstr_solve_itmlst (env, loc0, s3is1)
     val ((*void*)) = smtenv_pop (pf | env)
   in
-    c3nstr_solve_itmlst_disj (loc0, env, s3is0, s3iss)
+    c3nstr_solve_itmlst_disj (env, loc0, s3is0, s3iss)
   end // end of [list_cons]
 //
 end // end of [c3nstr_solve_itmlst_disj]
@@ -319,14 +386,13 @@ end // end of [c3nstr_solve_itmlst_disj]
 
 implement
 c3nstr_solve_solverify
-  (loc0, env, s2e_prop) = let
+  (env, loc0, s2e_prop) = let
 //
 val s2e_prop =
   formula_make_s2exp (env, s2e_prop)
 //
-//
 in
-  smtenv_formula_solve (env, s2e_prop)
+  smtenv_solve_formula (env, loc0, s2e_prop)
 end // end of [c3nstr_solve_solverify]
 
 (* ****** ****** *)
@@ -335,7 +401,8 @@ implement
 c3nstr_solve_main
   (env, c3t) = let
 //
-val loc0 = c3t.c3nstr_loc
+val
+loc0 = c3t.c3nstr_loc
 //
 in
 //
@@ -343,13 +410,13 @@ case+
 c3t.c3nstr_node
 of (* case+ *)
 | C3NSTRprop(s2p) =>
-    c3nstr_solve_prop(loc0, env, s2p)
+    c3nstr_solve_prop(env, loc0, s2p)
   // end of [C3NSTRprop]
 | C3NSTRitmlst(s3is) =>
-    c3nstr_solve_itmlst(loc0, env, s3is)
+    c3nstr_solve_itmlst(env, loc0, s3is)
   // end of [C3NSTRitmlst]
 | C3NSTRsolverify(s2e_prop) =>
-    c3nstr_solve_solverify(loc0, env, s2e_prop)
+    c3nstr_solve_solverify(env, loc0, s2e_prop)
 //
 end // end of [c3nstr_solve_main]
 
@@ -357,33 +424,46 @@ end // end of [c3nstr_solve_main]
 
 implement
 c3nstr_smt2_solve
-  (c3t0) = () where
+  (out, c3t0) = () where
 {
 //
 val env = smtenv_create()
 //
 val ((*void*)) =
-  c3nstr_solve_main (env, c3t0)
+  c3nstr_solve_main(env, c3t0)
 //
-val solvercmds = smtenv_destroy (env)
+val cmds = smtenv_destroy(env)
+val cmds = solvercmdlst_reverse(cmds)
 //
-// (*
+(*
+//
 local
+//
+val
+out = stdout_ref
+//
 implement
 fprint_list$sep<>
   (out) = fprint_newline(out)
-in
-val ((*void*)) =
-  fprintln! (stdout_ref, solvercmds)
-end
-val ((*void*)) =
-  fprintln!
-  ( stdout_ref
-  , "length(solvercmds) = ", length(solvercmds)
-  ) (* fprintln! *)
-// *)
 //
-val ((*void*)) = list_vt_free(solvercmds)
+in
+//
+val ((*void*)) =
+  fprintln! (out, cmds)
+val ((*void*)) =
+  fprintln!(out, "length(cmds) = ", length(cmds))
+//
+end // end of [local]
+//
+*)
+//
+val () =
+emit_solvercmdlst
+(
+  out, $UN.list_vt2t(cmds)
+) (* emit_solvercmdlst *)
+//
+val ((*freed*)) = list_vt_free(cmds)
 //
 } (* end of [c3nstr_smt2_solve] *)
 
@@ -403,15 +483,13 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(*
 local
 //
-#include "./SOLVING/patsolve_smt2_solving_sort.dats"
+#include "./SOLVING/patsolve_smt2_solving_emit.dats"
 //
 in
   // nothing
 end // end of [local]
-*)
 
 (* ****** ****** *)
 

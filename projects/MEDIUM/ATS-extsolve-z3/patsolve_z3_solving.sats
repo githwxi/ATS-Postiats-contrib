@@ -391,7 +391,7 @@ the_s2cinterp_initize((*void*)): void
 (* ****** ****** *)
 //
 fun
-smtenv_formula_solve(!smtenv, form): Z3_lbool
+smtenv_solve_formula(!smtenv, form): Z3_lbool
 // 
 (* ****** ****** *)
 

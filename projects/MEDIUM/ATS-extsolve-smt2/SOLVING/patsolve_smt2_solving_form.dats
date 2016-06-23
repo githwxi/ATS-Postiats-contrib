@@ -22,29 +22,6 @@ staload "./patsolve_smt2_solving_ctx.dats"
 //
 (* ****** ****** *)
 //
-datatype form =
-//
-  | FORMint of (int)
-  | FORMbool of bool
-  | FORMintrep of (string(*rep*))
-//
-  | FORMs2var of (s2var)
-  | FORMs2cst of (s2cst)
-// (*
-  | FORMs2exp of (s2exp) // unprocessed
-// *)
-//
-  | FORMnot of (form)
-  | FORMconj of (form, form)
-  | FORMdisj of (form, form)
-  | FORMimpl of (form, form)
-//
-(* ****** ****** *)
-
-assume form_type = form
-
-(* ****** ****** *)
-//
 implement
 print_form(x0) =
   fprint_form(stdout_ref, x0)
