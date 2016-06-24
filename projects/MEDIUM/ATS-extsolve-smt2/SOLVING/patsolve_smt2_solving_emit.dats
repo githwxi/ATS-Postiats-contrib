@@ -19,11 +19,6 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-//
-implement
-s2cst_is_global(s2c0) = true
-//
-(* ****** ****** *)
 
 implement
 emit_form
@@ -158,13 +153,13 @@ emit_s2cst
 //
 val name = s2c0.name()
 //
-val isglob = s2cst_is_global(s2c0)
+val opt0 = s2cst_get_s2cinterp(s2c0)
 //
 in
 //
-if isglob
-  then fprint! (out, name)
-  else fprint! (out, name, "!", s2c0.stamp())
+case+ opt0 of
+| Some _ => fprint! (out, name)
+| None _ => fprint! (out, name, "!", s2c0.stamp())
 //
 end // end of [emit_s2cst]
 
@@ -412,6 +407,23 @@ val () = emitln("(define-fun gt_bool_bool ((x Bool) (y Bool)) Bool (and x (not y
 val () = emitln("(define-fun neq_bool_bool ((x Bool) (y Bool)) Bool (not (= x y)))")
 val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) y))")
 val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
+//
+val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
+val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")
+val () = emitln("(define-fun add_real_real ((x Real) (y Real)) Real (+ x y))")
+val () = emitln("(define-fun sub_real_real ((x Real) (y Real)) Real (- x y))")
+val () = emitln("(define-fun mul_real_real ((x Real) (y Real)) Real (* x y))")
+val () = emitln("(define-fun div_real_real ((x Real) (y Real)) Real (/ x y))")
+//
+val () = emitln("(define-fun eq_real_real ((x Real) (y Real)) Bool (= x y))")
+val () = emitln("(define-fun lt_real_real ((x Real) (y Real)) Bool (< x y))")
+val () = emitln("(define-fun gt_real_real ((x Real) (y Real)) Bool (> x y))")
+val () = emitln("(define-fun lte_real_real ((x Real) (y Real)) Bool (<= x y))")
+val () = emitln("(define-fun gte_real_real ((x Real) (y Real)) Bool (>= x y))")
+val () = emitln("(define-fun neq_real_real ((x Real) (y Real)) Bool (not (= x y)))")
+//
+val () = emitln("(define-fun max_real_real ((x Real) (y Real)) Real (ite (>= x y) x y))")
+val () = emitln("(define-fun min_real_real ((x Real) (y Real)) Real (ite (<= x y) x y))")
 //
 } (* end of [emit_preamble] *)
 

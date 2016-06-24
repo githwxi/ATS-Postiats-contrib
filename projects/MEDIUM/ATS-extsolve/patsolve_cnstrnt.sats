@@ -84,12 +84,12 @@ overload fprint with fprint_symbol
 (* ****** ****** *)
 
 fun
-symbol_make_name (string): symbol
+symbol_make_name(string): symbol
 
 (* ****** ****** *)
 //
 fun
-symbol_get_name (symbol): string
+symbol_get_name (x: symbol): string
 //
 overload .name with symbol_get_name
 //

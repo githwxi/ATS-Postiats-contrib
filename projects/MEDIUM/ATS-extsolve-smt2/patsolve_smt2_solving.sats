@@ -327,36 +327,11 @@ formula_make_s2cst_s2explst
 //
 (* ****** ****** *)
 //
-datatype
-s2cinterp =
-//
-  | S2CINTnone of ()
-  | S2CINTsome of (ptr)
-//
-  | S2CINTbuiltin_0 of (() -> form)
-  | S2CINTbuiltin_1 of (form -> form)
-  | S2CINTbuiltin_2 of ((form, form) -> form)
-//
-  | S2CINTbuiltin_list of ((formlst) -<cloref1> form)
-//
-//
-(* ****** ****** *)
-//
-fun print_s2cinterp (s2cinterp): void
-and prerr_s2cinterp (s2cinterp): void
-fun fprint_s2cinterp : fprint_type(s2cinterp)
-//
-overload print with print_s2cinterp
-overload prerr with prerr_s2cinterp
-overload fprint with fprint_s2cinterp
-//
-(* ****** ****** *)
+fun
+the_s2cinterp_initize(): void
 //
 fun
-s2cst_get_s2cinterp(s2cst): s2cinterp
-//
-fun
-s2cfun_initize_s2cinterp(s2c: s2cst): void
+s2cst_get_s2cinterp(s2c: s2cst): s2cstopt
 //
 (* ****** ****** *)
 
@@ -371,11 +346,6 @@ fun
 smtenv_push(env: !smtenv): (smtenv_push_v | void)
 //
 (* ****** ****** *)
-
-fun
-the_s2cinterp_initize((*void*)): void
-
-(* ****** ****** *)
 //
 fun
 smtenv_solve_formula
@@ -383,11 +353,6 @@ smtenv_solve_formula
   env: !smtenv, loc0: loc_t, fml: form
 ) : void // end-of-function
 // 
-(* ****** ****** *)
-//
-fun
-s2cst_is_global : (s2cst) -> bool
-//
 (* ****** ****** *)
 //
 fun emit_form(out: FILEref, fml: form): void

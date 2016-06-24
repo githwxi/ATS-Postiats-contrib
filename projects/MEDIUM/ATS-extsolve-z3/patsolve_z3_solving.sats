@@ -369,7 +369,9 @@ fun
 s2cst_get_s2cinterp(s2cst): s2cinterp
 //
 fun
-s2cfun_initize_s2cinterp(s2c: s2cst): void
+s2cfun_initize_s2cinterp(s2cst): void
+//
+fun the_s2cinterp_initize((*void*)): void
 //
 (* ****** ****** *)
 
@@ -383,11 +385,6 @@ smtenv_pop (smtenv_push_v | !smtenv): void
 fun
 smtenv_push (env: !smtenv): (smtenv_push_v | void)
 //
-(* ****** ****** *)
-
-fun
-the_s2cinterp_initize((*void*)): void
-
 (* ****** ****** *)
 //
 fun
