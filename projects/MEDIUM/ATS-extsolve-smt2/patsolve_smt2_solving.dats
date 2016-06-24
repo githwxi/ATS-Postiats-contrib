@@ -458,10 +458,12 @@ end // end of [local]
 *)
 //
 val () =
+emit_preamble(out)
+val () =
 emit_solvercmdlst
 (
   out, $UN.list_vt2t(cmds)
-) (* emit_solvercmdlst *)
+)
 //
 val ((*freed*)) = list_vt_free(cmds)
 //

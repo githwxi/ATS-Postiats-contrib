@@ -385,6 +385,11 @@ smtenv_solve_formula
 // 
 (* ****** ****** *)
 //
+fun
+s2cst_is_global : (s2cst) -> bool
+//
+(* ****** ****** *)
+//
 fun emit_form(out: FILEref, fml: form): void
 //
 fun emit_s2rt(out: FILEref, s2t: s2rt): void
@@ -394,8 +399,10 @@ fun emit_s2cst(out: FILEref, s2e: s2cst): void
 fun emit_s2var(out: FILEref, s2e: s2var): void
 fun emit_s2exp(out: FILEref, s2e: s2exp): void
 //
-fun decl_s2var(out: FILEref, s2v: s2var): void
-fun decl_s2varlst(out: FILEref, s2vs: s2varlst): void
+fun emit_decl_s2var(out: FILEref, s2v: s2var): void
+fun emit_decl_s2varlst(out: FILEref, s2vs: s2varlst): void
+//
+fun emit_preamble(out: FILEref): void
 //
 fun emit_solvercmd(out: FILEref, cmd: solvercmd): void
 fun emit_solvercmdlst(out: FILEref, cmds: List(solvercmd)): void

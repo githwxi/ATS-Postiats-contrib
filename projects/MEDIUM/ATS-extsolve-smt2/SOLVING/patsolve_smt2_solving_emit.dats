@@ -19,6 +19,11 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
+//
+implement
+s2cst_is_global(s2c0) = true
+//
+(* ****** ****** *)
 
 implement
 emit_form
@@ -152,10 +157,15 @@ emit_s2cst
   (out, s2c0) = let
 //
 val name = s2c0.name()
-val stamp = s2c0.stamp()
+//
+val isglob = s2cst_is_global(s2c0)
 //
 in
-  fprint! (out, name, "!", stamp)
+//
+if isglob
+  then fprint! (out, name)
+  else fprint! (out, name, "!", s2c0.stamp())
+//
 end // end of [emit_s2cst]
 
 (* ****** ****** *)
@@ -273,15 +283,15 @@ of // case+
 //
 | S2Eeqeq(s2e1, s2e2) =>
   {
-    val () = fprint(out, "(")
     val () =
-      fprint(out, "s2exp_eqeq")
+    fprint
+      (out, "(s2exp_eqeq (=")
     // end of [val]
     val () = fprint(out, " ")
     val () = emit_s2exp(out, s2e1)
     val () = fprint(out, " ")
     val () = emit_s2exp(out, s2e2)
-    val () = fprint(out, ")")
+    val () = fprint(out, "))")
   }
 //
 | S2Emetdec(s2es1, s2es2) =>
@@ -327,7 +337,7 @@ end // end of [emit_s2exp]
 (* ****** ****** *)
 //
 implement
-decl_s2var
+emit_decl_s2var
   (out, s2v) = {
 //
 val () =
@@ -343,16 +353,68 @@ val () = fprintln! (out, ")")
 } (* end of [decl_s2var] *)
 //
 implement
-decl_s2varlst
+emit_decl_s2varlst
   (out, s2vs) = let
 //
 implement
-list_foreach$fwork<s2var><void>(s2v, env) = decl_s2var(out, s2v)
+list_foreach$fwork<s2var><void>
+  (s2v, env) = emit_decl_s2var(out, s2v)
 //
 in
   list_foreach(s2vs)
 end // end of [decl_s2varlst]
 //
+(* ****** ****** *)
+
+implement
+emit_preamble
+  (out) = () where
+{
+//
+macdef
+emitln(x) = fprintln! (out, ,(x))
+//
+val () = emitln("(declare-sort s2rt_cls 0)")
+val () = emitln("(declare-sort s2rt_eff 0)")
+//
+val () = emitln("(define-sort s2rt_int () Int)")
+val () = emitln("(define-sort s2rt_bool () Bool)")
+val () = emitln("(define-sort s2rt_real () Real)")
+//
+val () = emitln("(define-fun s2exp_eqeq ((x Bool)) Bool x)")
+val () = emitln("(define-fun s2exp_metdec ((x Bool)) Bool x)")
+//
+val () = emitln("(define-fun neg_int ((x Int)) Int (- x))")
+val () = emitln("(define-fun abs_int ((x Int)) Int (abs x))")
+val () = emitln("(define-fun add_int_int ((x Int) (y Int)) Int (+ x y))")
+val () = emitln("(define-fun sub_int_int ((x Int) (y Int)) Int (- x y))")
+val () = emitln("(define-fun mul_int_int ((x Int) (y Int)) Int (* x y))")
+val () = emitln("(define-fun div_int_int ((x Int) (y Int)) Int (div x y))")
+val () = emitln("(define-fun mod_int_int ((x Int) (y Int)) Int (mod x y))")
+//
+val () = emitln("(define-fun eq_int_int ((x Int) (y Int)) Bool (= x y))")
+val () = emitln("(define-fun lt_int_int ((x Int) (y Int)) Bool (< x y))")
+val () = emitln("(define-fun gt_int_int ((x Int) (y Int)) Bool (> x y))")
+val () = emitln("(define-fun lte_int_int ((x Int) (y Int)) Bool (<= x y))")
+val () = emitln("(define-fun gte_int_int ((x Int) (y Int)) Bool (>= x y))")
+val () = emitln("(define-fun neq_int_int ((x Int) (y Int)) Bool (not (= x y)))")
+//
+val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
+val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
+//
+val () = emitln("(define-fun neg_bool ((x Bool)) Bool (not x))")
+val () = emitln("(define-fun add_bool ((x Bool) (y Bool)) Bool (or x y))")
+val () = emitln("(define-fun mul_bool ((x Bool) (y Bool)) Bool (and x y))")
+//
+val () = emitln("(define-fun eq_bool_bool ((x Bool) (y Bool)) Bool (= x y))")
+val () = emitln("(define-fun lt_bool_bool ((x Bool) (y Bool)) Bool (and (not x) y))")
+val () = emitln("(define-fun gt_bool_bool ((x Bool) (y Bool)) Bool (and x (not y)))")
+val () = emitln("(define-fun neq_bool_bool ((x Bool) (y Bool)) Bool (not (= x y)))")
+val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) y))")
+val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
+//
+} (* end of [emit_preamble] *)
+
 (* ****** ****** *)
 
 implement
@@ -394,7 +456,7 @@ case+ cmd of
 | SOLVERCMDpopenv2 _ => ()
 | SOLVERCMDpushenv2(s2vs) =>
   {
-    val ((*void*)) = decl_s2varlst(out, s2vs)
+    val ((*void*)) = emit_decl_s2varlst(out, s2vs)
   } (* SOLVERCMDpushenv2 *)
 //
 end // end of [emit_solvercmd]
