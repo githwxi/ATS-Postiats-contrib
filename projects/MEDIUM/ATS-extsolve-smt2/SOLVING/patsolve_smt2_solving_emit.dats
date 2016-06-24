@@ -330,6 +330,73 @@ of // case+
 end // end of [emit_s2exp]
 
 (* ****** ****** *)
+
+implement
+emit_decl_s2cst
+  (out, s2c) = let
+//
+fun
+auxs2t
+(
+  s2t: s2rt
+) : void = (
+//
+case+ s2t of
+| S2RTfun
+  (
+    s2ts_arg, s2t_res
+  ) =>
+  {
+    val () =
+      emit_s2rtlst(out, s2ts_arg)
+    // end of [val]
+    val () = fprint(out, " ")
+    val () = emit_s2rt(out, s2t_res)
+  }
+| _ (*non-fun*) => emit_s2rt(out, s2t)
+//
+) (* end of [auxs2t] *)
+//
+fun
+auxs2c
+(
+  s2c: s2cst
+) : void =
+{
+  val () =
+  fprint (out, "(declare-fun ")
+  val () =
+  fprint! (out, s2c.name(), "!", s2c.stamp())
+  val () = fprint(out, " ")
+  val () = auxs2t(s2c.srt())
+  val () = fprintln! (out, ")")
+}
+//
+val opt0 =
+  s2cst_get_s2cinterp(s2c)
+//
+in
+//
+case+ opt0 of
+| None _ => auxs2c(s2c) | Some _ => ((*global*))
+//
+end // end of [emit_decl_s2cst]
+
+(* ****** ****** *)
+
+implement
+emit_decl_s2cstlst
+  (out, s2cs) = let
+//
+implement
+list_foreach$fwork<s2cst><void>
+  (s2c, env) = emit_decl_s2cst(out, s2c)
+//
+in
+  list_foreach(s2cs)
+end // end of [emit_decl_s2cstlst]
+
+(* ****** ****** *)
 //
 implement
 emit_decl_s2var
@@ -357,7 +424,7 @@ list_foreach$fwork<s2var><void>
 //
 in
   list_foreach(s2vs)
-end // end of [decl_s2varlst]
+end // end of [emit_decl_s2varlst]
 //
 (* ****** ****** *)
 
@@ -500,6 +567,22 @@ val () = emitln("(define-fun max_real_real ((x Real) (y Real)) Real (ite (>= x y
 val () = emitln("(define-fun min_real_real ((x Real) (y Real)) Real (ite (<= x y) x y))")
 //
 } (* end of [emit_preamble] *)
+
+(* ****** ****** *)
+
+implement
+emit_the_s2cstmap
+  (out) = () where
+{
+//
+val s2cs = the_s2cstmap_listize()
+//
+val ((*void*)) =
+  emit_decl_s2cstlst(out, $UN.list_vt2t(s2cs))
+//
+val ((*freed*)) = list_vt_free(s2cs)
+//
+} (* end of [emit_the_s2cstmap] *)
 
 (* ****** ****** *)
 

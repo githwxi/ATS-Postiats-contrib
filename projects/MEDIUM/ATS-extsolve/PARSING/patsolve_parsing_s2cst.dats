@@ -49,6 +49,37 @@ myhashtbl_insert(the_s2cstmap, s2c.stamp(), s2c)
 //
 } (* end of [the_s2cstmap_insert] *)
 //
+implement
+the_s2cstmap_listize
+  ((*void*)) = let
+//
+vtypedef
+res_vt = s2cstlst_vt
+//
+var res: res_vt =
+  list_vt_nil((*void*))
+val p_res = addr@res
+//
+val ((*void*)) =
+myhashtbl_foreach_cloref
+( the_s2cstmap
+, lam(k, x) =>
+    $UN.ptr0_set<res_vt>
+    ( p_res
+    , list_vt_cons(x, $UN.ptr0_get<res_vt>(p_res))
+    )
+  // end of [lam]
+) (* myhashtbl_foreach_cloref *)
+//
+implement
+list_vt_mergesort$cmp<s2cst>
+  (s2c1, s2c2) =
+  $effmask_all(compare(s2c1.stamp(), s2c2.stamp()))
+//
+in
+  list_vt_mergesort<s2cst>(res)
+end // end of [the_s2cstmap_listize]
+
 end // end of [local]
 
 (* ****** ****** *)

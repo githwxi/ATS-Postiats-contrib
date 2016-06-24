@@ -376,6 +376,7 @@ fun emit_solvercmdlst(out: FILEref, cmds: List(solvercmd)): void
 (* ****** ****** *)
 //
 fun emit_preamble(out: FILEref): void
+fun emit_the_s2cstmap(out: FILEref): void
 //
 (* ****** ****** *)
 

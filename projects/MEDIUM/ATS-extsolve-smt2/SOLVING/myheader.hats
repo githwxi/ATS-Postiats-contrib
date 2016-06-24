@@ -15,6 +15,8 @@ PATSOLVE_targetloc "./../.ATS-extsolve"
 //
 staload
 "{$PATSOLVE}/patsolve_cnstrnt.sats"
+staload
+"{$PATSOLVE}/patsolve_parsing.sats"
 //
 (* ****** ****** *)
 //

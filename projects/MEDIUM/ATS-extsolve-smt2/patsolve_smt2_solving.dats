@@ -460,6 +460,8 @@ end // end of [local]
 val () =
 emit_preamble(out)
 val () =
+emit_the_s2cstmap(out)
+val () =
 emit_solvercmdlst
 (
   out, $UN.list_vt2t(cmds)

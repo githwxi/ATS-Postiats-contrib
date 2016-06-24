@@ -97,24 +97,24 @@ fun parse_s2rtdatlst(jsnv: jsonval): s2rtdatlst
 
 (* ****** ****** *)
 //
-fun
-the_s2cstmap_search(stamp): s2cstopt_vt
+fun the_s2cstmap_insert(s2cst): void
+fun the_s2cstmap_search(stamp): s2cstopt_vt
 //
-fun the_s2cstmap_insert (s2c: s2cst): void
-//
-(* ****** ****** *)
-//
-fun
-the_s2varmap_search(stamp): s2varopt_vt
-//
-fun the_s2varmap_insert (s2v: s2var): void
+fun the_s2cstmap_listize((*void*)): s2cstlst_vt
 //
 (* ****** ****** *)
 //
-fun
-the_s2Varmap_search(stamp): s2Varopt_vt
+fun the_s2varmap_insert(s2var): void
+fun the_s2varmap_search(stamp): s2varopt_vt
 //
-fun the_s2Varmap_insert (s2V: s2Var): void
+(*
+fun the_s2varmap_listize((*void*)): s2varlst_vt
+*)
+//
+(* ****** ****** *)
+//
+fun the_s2Varmap_insert(s2Var): void
+fun the_s2Varmap_search(stamp): s2Varopt_vt
 //
 (* ****** ****** *)
 
