@@ -353,7 +353,8 @@ case+ s2t of
     val () = fprint(out, " ")
     val () = emit_s2rt(out, s2t_res)
   }
-| _ (*non-fun*) => emit_s2rt(out, s2t)
+| _(*non-fun*) => 
+  (fprint(out, "() "); emit_s2rt(out, s2t))
 //
 ) (* end of [auxs2t] *)
 //
@@ -548,6 +549,10 @@ val () = emitln("(define-fun gt_bool_bool ((x Bool) (y Bool)) Bool (and x (not y
 val () = emitln("(define-fun neq_bool_bool ((x Bool) (y Bool)) Bool (not (= x y)))")
 val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) y))")
 val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
+//
+val () = emitln("(define-fun int2real ((x Int)) Real (to_real x))")
+val () = emitln("(define-fun toint_real ((x Real)) Int (to_int x))")
+val () = emitln("(define-fun isint_real ((x Real)) Bool (is_int x))")
 //
 val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
 val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")

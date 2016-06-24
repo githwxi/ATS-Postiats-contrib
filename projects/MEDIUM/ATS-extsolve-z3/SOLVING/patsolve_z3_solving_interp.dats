@@ -199,19 +199,23 @@ val () = insert("gte_real_real", S2CINTbuiltin_2(formula_gte_real_real))
 val () = insert("eq_real_real", S2CINTbuiltin_2(formula_eq_real_real))
 val () = insert("neq_real_real", S2CINTbuiltin_2(formula_neq_real_real))
 //
+(*
 val () = insert("add_int_real", S2CINTbuiltin_2(formula_add_int_real))
 val () = insert("add_real_int", S2CINTbuiltin_2(formula_add_real_int))
 val () = insert("sub_int_real", S2CINTbuiltin_2(formula_sub_int_real))
 val () = insert("sub_real_int", S2CINTbuiltin_2(formula_sub_real_int))
 val () = insert("mul_int_real", S2CINTbuiltin_2(formula_mul_int_real))
 val () = insert("div_real_int", S2CINTbuiltin_2(formula_div_real_int))
+*)
 //
+(*
 val () = insert("lt_real_int", S2CINTbuiltin_2(formula_lt_real_int))
 val () = insert("lte_real_int", S2CINTbuiltin_2(formula_lte_real_int))
 val () = insert("gt_real_int", S2CINTbuiltin_2(formula_gt_real_int))
 val () = insert("gte_real_int", S2CINTbuiltin_2(formula_gte_real_int))
 val () = insert("eq_real_int", S2CINTbuiltin_2(formula_eq_real_int))
 val () = insert("neq_real_int", S2CINTbuiltin_2(formula_neq_real_int))
+*)
 //
 } (* end of [the_s2cinterp_initize] *)
 

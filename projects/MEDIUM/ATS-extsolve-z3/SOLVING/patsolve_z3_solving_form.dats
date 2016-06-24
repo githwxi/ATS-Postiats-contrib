@@ -588,6 +588,8 @@ implement
 formula_neq_real_real
   (s2e1, s2e2) = formula_ineq(s2e1, s2e2)
 //
+(* ****** ****** *)
+(*
 implement
 formula_add_int_real
   (s2e1, s2e2) =
@@ -626,7 +628,9 @@ formula_div_real_int
 (
   formula_div_real_real(s2e1, formula_int2real(s2e2))
 ) (* end of [formula_div_real_int] *)
+*)
 //
+(*
 implement
 formula_lt_real_int
   (s2e1, s2e2) = formula_ilt(s2e1, formula_int2real(s2e2))
@@ -645,6 +649,7 @@ formula_eq_real_int
 implement
 formula_neq_real_int
   (s2e1, s2e2) = formula_ineq(s2e1, formula_int2real(s2e2))
+*)
 //
 (* ****** ****** *)
 
