@@ -364,13 +364,18 @@ fun emit_s2cst(out: FILEref, s2e: s2cst): void
 fun emit_s2var(out: FILEref, s2e: s2var): void
 fun emit_s2exp(out: FILEref, s2e: s2exp): void
 //
+fun emit_decl_s2cst(out: FILEref, s2c: s2cst): void
+fun emit_decl_s2cstlst(out: FILEref, s2cs: s2cstlst): void
+//
 fun emit_decl_s2var(out: FILEref, s2v: s2var): void
 fun emit_decl_s2varlst(out: FILEref, s2vs: s2varlst): void
 //
-fun emit_preamble(out: FILEref): void
-//
 fun emit_solvercmd(out: FILEref, cmd: solvercmd): void
 fun emit_solvercmdlst(out: FILEref, cmds: List(solvercmd)): void
+//
+(* ****** ****** *)
+//
+fun emit_preamble(out: FILEref): void
 //
 (* ****** ****** *)
 

@@ -362,74 +362,6 @@ end // end of [decl_s2varlst]
 (* ****** ****** *)
 
 implement
-emit_preamble
-  (out) = () where
-{
-//
-macdef
-emitln(x) = fprintln! (out, ,(x))
-//
-val () = emitln("(declare-sort s2rt_cls 0)")
-val () = emitln("(declare-sort s2rt_eff 0)")
-//
-val () = emitln("(define-sort s2rt_int () Int)")
-val () = emitln("(define-sort s2rt_bool () Bool)")
-val () = emitln("(define-sort s2rt_real () Real)")
-//
-val () = emitln("(define-fun s2exp_eqeq ((x Bool)) Bool x)")
-val () = emitln("(define-fun s2exp_metdec ((x Bool)) Bool x)")
-//
-val () = emitln("(define-fun neg_int ((x Int)) Int (- x))")
-val () = emitln("(define-fun abs_int ((x Int)) Int (abs x))")
-val () = emitln("(define-fun add_int_int ((x Int) (y Int)) Int (+ x y))")
-val () = emitln("(define-fun sub_int_int ((x Int) (y Int)) Int (- x y))")
-val () = emitln("(define-fun mul_int_int ((x Int) (y Int)) Int (* x y))")
-val () = emitln("(define-fun div_int_int ((x Int) (y Int)) Int (div x y))")
-val () = emitln("(define-fun mod_int_int ((x Int) (y Int)) Int (mod x y))")
-//
-val () = emitln("(define-fun eq_int_int ((x Int) (y Int)) Bool (= x y))")
-val () = emitln("(define-fun lt_int_int ((x Int) (y Int)) Bool (< x y))")
-val () = emitln("(define-fun gt_int_int ((x Int) (y Int)) Bool (> x y))")
-val () = emitln("(define-fun lte_int_int ((x Int) (y Int)) Bool (<= x y))")
-val () = emitln("(define-fun gte_int_int ((x Int) (y Int)) Bool (>= x y))")
-val () = emitln("(define-fun neq_int_int ((x Int) (y Int)) Bool (not (= x y)))")
-//
-val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
-val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
-//
-val () = emitln("(define-fun neg_bool ((x Bool)) Bool (not x))")
-val () = emitln("(define-fun add_bool ((x Bool) (y Bool)) Bool (or x y))")
-val () = emitln("(define-fun mul_bool ((x Bool) (y Bool)) Bool (and x y))")
-//
-val () = emitln("(define-fun eq_bool_bool ((x Bool) (y Bool)) Bool (= x y))")
-val () = emitln("(define-fun lt_bool_bool ((x Bool) (y Bool)) Bool (and (not x) y))")
-val () = emitln("(define-fun gt_bool_bool ((x Bool) (y Bool)) Bool (and x (not y)))")
-val () = emitln("(define-fun neq_bool_bool ((x Bool) (y Bool)) Bool (not (= x y)))")
-val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) y))")
-val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
-//
-val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
-val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")
-val () = emitln("(define-fun add_real_real ((x Real) (y Real)) Real (+ x y))")
-val () = emitln("(define-fun sub_real_real ((x Real) (y Real)) Real (- x y))")
-val () = emitln("(define-fun mul_real_real ((x Real) (y Real)) Real (* x y))")
-val () = emitln("(define-fun div_real_real ((x Real) (y Real)) Real (/ x y))")
-//
-val () = emitln("(define-fun eq_real_real ((x Real) (y Real)) Bool (= x y))")
-val () = emitln("(define-fun lt_real_real ((x Real) (y Real)) Bool (< x y))")
-val () = emitln("(define-fun gt_real_real ((x Real) (y Real)) Bool (> x y))")
-val () = emitln("(define-fun lte_real_real ((x Real) (y Real)) Bool (<= x y))")
-val () = emitln("(define-fun gte_real_real ((x Real) (y Real)) Bool (>= x y))")
-val () = emitln("(define-fun neq_real_real ((x Real) (y Real)) Bool (not (= x y)))")
-//
-val () = emitln("(define-fun max_real_real ((x Real) (y Real)) Real (ite (>= x y) x y))")
-val () = emitln("(define-fun min_real_real ((x Real) (y Real)) Real (ite (<= x y) x y))")
-//
-} (* end of [emit_preamble] *)
-
-(* ****** ****** *)
-
-implement
 emit_solvercmd
   (out, cmd) = let
 //
@@ -489,6 +421,85 @@ case+ cmds of
   } (* end of [list_cons] *)
 //
 ) (* end of [emit_solvercmdlst] *)
+
+(* ****** ****** *)
+
+implement
+emit_preamble(out) = () where
+{
+//
+macdef
+emitln(x) = fprintln! (out, ,(x))
+//
+val () = emitln("(declare-sort s2rt_cls 0)")
+val () = emitln("(declare-sort s2rt_eff 0)")
+val () = emitln("(declare-sort s2rt_type 0)")
+val () = emitln("(declare-sort s2rt_vtype 0)")
+val () = emitln("(declare-sort s2rt_t0ype 0)")
+val () = emitln("(declare-sort s2rt_vt0ype 0)")
+val () = emitln("(declare-sort s2rt_prop 0)")
+val () = emitln("(declare-sort s2rt_view 0)")
+val () = emitln("(declare-sort s2rt_tkind 0)")
+val () = emitln("(declare-sort s2rt_error 0)")
+//
+val () = emitln("(define-sort s2rt_int () Int)")
+val () = emitln("(define-sort s2rt_bool () Bool)")
+val () = emitln("(define-sort s2rt_real () Real)")
+//
+val () = emitln("(define-fun s2exp_eqeq ((x Bool)) Bool x)")
+val () = emitln("(define-fun s2exp_metdec ((x Bool)) Bool x)")
+//
+val () = emitln("(declare-fun sizeof_t0ype (s2rt_t0ype) Int)")
+//
+val () = emitln("(define-fun neg_int ((x Int)) Int (- x))")
+val () = emitln("(define-fun abs_int ((x Int)) Int (abs x))")
+val () = emitln("(define-fun add_int_int ((x Int) (y Int)) Int (+ x y))")
+val () = emitln("(define-fun sub_int_int ((x Int) (y Int)) Int (- x y))")
+val () = emitln("(define-fun mul_int_int ((x Int) (y Int)) Int (* x y))")
+val () = emitln("(define-fun div_int_int ((x Int) (y Int)) Int (div x y))")
+val () = emitln("(define-fun mod_int_int ((x Int) (y Int)) Int (mod x y))")
+//
+val () = emitln("(define-fun eq_int_int ((x Int) (y Int)) Bool (= x y))")
+val () = emitln("(define-fun lt_int_int ((x Int) (y Int)) Bool (< x y))")
+val () = emitln("(define-fun gt_int_int ((x Int) (y Int)) Bool (> x y))")
+val () = emitln("(define-fun lte_int_int ((x Int) (y Int)) Bool (<= x y))")
+val () = emitln("(define-fun gte_int_int ((x Int) (y Int)) Bool (>= x y))")
+val () = emitln("(define-fun neq_int_int ((x Int) (y Int)) Bool (not (= x y)))")
+//
+val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (< x 0) -1 (ite (> x 0) 1 0)))")
+//
+val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
+val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
+//
+val () = emitln("(define-fun neg_bool ((x Bool)) Bool (not x))")
+val () = emitln("(define-fun add_bool ((x Bool) (y Bool)) Bool (or x y))")
+val () = emitln("(define-fun mul_bool ((x Bool) (y Bool)) Bool (and x y))")
+//
+val () = emitln("(define-fun eq_bool_bool ((x Bool) (y Bool)) Bool (= x y))")
+val () = emitln("(define-fun lt_bool_bool ((x Bool) (y Bool)) Bool (and (not x) y))")
+val () = emitln("(define-fun gt_bool_bool ((x Bool) (y Bool)) Bool (and x (not y)))")
+val () = emitln("(define-fun neq_bool_bool ((x Bool) (y Bool)) Bool (not (= x y)))")
+val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) y))")
+val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
+//
+val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
+val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")
+val () = emitln("(define-fun add_real_real ((x Real) (y Real)) Real (+ x y))")
+val () = emitln("(define-fun sub_real_real ((x Real) (y Real)) Real (- x y))")
+val () = emitln("(define-fun mul_real_real ((x Real) (y Real)) Real (* x y))")
+val () = emitln("(define-fun div_real_real ((x Real) (y Real)) Real (/ x y))")
+//
+val () = emitln("(define-fun eq_real_real ((x Real) (y Real)) Bool (= x y))")
+val () = emitln("(define-fun lt_real_real ((x Real) (y Real)) Bool (< x y))")
+val () = emitln("(define-fun gt_real_real ((x Real) (y Real)) Bool (> x y))")
+val () = emitln("(define-fun lte_real_real ((x Real) (y Real)) Bool (<= x y))")
+val () = emitln("(define-fun gte_real_real ((x Real) (y Real)) Bool (>= x y))")
+val () = emitln("(define-fun neq_real_real ((x Real) (y Real)) Bool (not (= x y)))")
+//
+val () = emitln("(define-fun max_real_real ((x Real) (y Real)) Real (ite (>= x y) x y))")
+val () = emitln("(define-fun min_real_real ((x Real) (y Real)) Real (ite (<= x y) x y))")
+//
+} (* end of [emit_preamble] *)
 
 (* ****** ****** *)
 

@@ -126,6 +126,22 @@ val () = insert("lte_bool_bool")
 val () = insert("gte_bool_bool")
 val () = insert("neq_bool_bool")
 //
+val () = insert("neg_real")
+val () = insert("abs_real")
+//
+val () = insert("add_real_real")
+val () = insert("sub_real_real")
+val () = insert("mul_real_real")
+val () = insert("div_real_real")
+val () = insert("mod_real_real")
+//
+val () = insert("eq_real_real")
+val () = insert("lt_real_real")
+val () = insert("gt_real_real")
+val () = insert("lte_real_real")
+val () = insert("gte_real_real")
+val () = insert("neq_real_real")
+//
 } (* end of [the_s2cinterp_initize] *)
 
 end // end of [local]
