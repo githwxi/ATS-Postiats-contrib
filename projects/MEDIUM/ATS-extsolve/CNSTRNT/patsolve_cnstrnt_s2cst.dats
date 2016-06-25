@@ -15,10 +15,13 @@
 
 typedef
 s2cst_struct = @{
+//
   s2cst_srt= s2rt
 , s2cst_name= symbol
 , s2cst_stamp= stamp
 , s2cst_supcls= List0 (s2exp)
+//
+, s2cst_nused= int
 //
 , s2cst_payload= ptr
 //
@@ -47,6 +50,8 @@ val () = p->s2cst_name := name
 val () = p->s2cst_stamp := stamp
 val () = p->s2cst_supcls := list_nil()
 //
+val () = p->s2cst_nused := (0)
+//
 val () = p->s2cst_payload := the_null_ptr
 //
 in
@@ -56,12 +61,21 @@ end // end of [s2cst_make]
 (* ****** ****** *)
 //
 implement
-s2cst_get_srt (s2c) = !s2c.s2cst_srt
+s2cst_get_srt(s2c) = !s2c.s2cst_srt
 //
 implement
-s2cst_get_name (s2c) = !s2c.s2cst_name
+s2cst_get_name(s2c) = !s2c.s2cst_name
 implement
-s2cst_get_stamp (s2c) = !s2c.s2cst_stamp
+s2cst_get_stamp(s2c) = !s2c.s2cst_stamp
+//
+(* ****** ****** *)
+//
+implement
+s2cst_get_nused(s2c) = !s2c.s2cst_nused
+//
+implement
+s2cst_incby1_nused(s2c) = 
+  (!s2c.s2cst_nused := !s2c.s2cst_nused + 1)
 //
 (* ****** ****** *)
   

@@ -115,6 +115,8 @@ all:: patsolve
 patsolve: $(OBJECTS) ; \
   $(PATSCC) $(INCLUDE) -o $@ $^ $(LDFLAGS) $(EXTRAFLAGS)
 #
+cleanall:: ; $(RMF) patsolve
+#
 ######
 
 patsolve_main_dats.o: patsolve_main.dats; $(PATSCC2) -c $<
@@ -187,7 +189,6 @@ clean: cleanats
 
 cleanall:: cleanats
 cleanall:: ; $(RMF) .depend
-cleanall:: ; $(RMF) patsolve
 
 ######
 

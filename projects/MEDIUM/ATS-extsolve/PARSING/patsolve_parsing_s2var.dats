@@ -61,9 +61,9 @@ val-
 ~Some_vt
   (jsnv) = jsnv0["s2var_stamp"]
 //
-val stamp = parse_stamp (jsnv)
+val stamp = parse_stamp(jsnv)
 //
-val s2vopt = the_s2varmap_search (stamp)
+val s2vopt = the_s2varmap_search(stamp)
 //
 in
 //
@@ -76,15 +76,15 @@ case+ s2vopt of
     val () = assertloc(length(lxs) >= 3)
 //
     val+list_cons(lx, lxs) = lxs
-    val sym = parse_symbol (lx.1)
+    val sym = parse_symbol(lx.1)
 //
     val+list_cons(lx, lxs) = lxs
-    val s2t = parse_s2rt (lx.1)
+    val s2t = parse_s2rt(lx.1)
 //
     val+list_cons(lx, lxs) = lxs
-    val () = the_stamp_update (stamp)
+    val () = the_stamp_update(stamp)
 //
-    val s2v = s2var_make (sym, s2t, stamp)
+    val s2v = s2var_make(sym, s2t, stamp)
 //
 (*
     val ((*void*)) =
@@ -92,7 +92,7 @@ case+ s2vopt of
     // end of [val]
 *)
 //
-    val ((*void*)) = the_s2varmap_insert (s2v)
+    val ((*void*)) = the_s2varmap_insert(s2v)
 //
   } (* end of [None_vt] *)
 //

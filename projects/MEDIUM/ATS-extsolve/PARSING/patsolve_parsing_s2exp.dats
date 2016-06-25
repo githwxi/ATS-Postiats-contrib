@@ -84,10 +84,12 @@ aux_S2Ecst
 ) : s2exp_node = let
 //
 val-JSONarray(xs) = x0
-val-list_cons (x, xs) = xs
+val-list_cons(x, xs) = xs
+//
+val s2c = parse_s2cst(x)
 //
 in
-  S2Ecst(parse_s2cst(x))
+  s2cst_incby1_nused(s2c); S2Ecst(s2c)
 end (* end of [aux_S2Ecst] *)
 
 fun

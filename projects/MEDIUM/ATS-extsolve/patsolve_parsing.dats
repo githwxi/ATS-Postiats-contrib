@@ -376,12 +376,12 @@ parse_fileref_constraints
 #define DP 1024 // depth
 //
 val tokener =
-  json_tokener_new_ex (DP)
+  json_tokener_new_ex(DP)
 val ((*void*)) =
   assertloc(json_tokener2ptr(tokener) > 0)
 //
 val cs =
-  fileref_get_file_string (inp)
+  fileref_get_file_string(inp)
 //
 val jso = let
 //
@@ -389,11 +389,11 @@ val cs2 = $UN.strptr2string(cs)
 val len = g1u2i(string_length(cs2))
 //
 in
-  json_tokener_parse_ex (tokener, cs2, len)
+  json_tokener_parse_ex(tokener, cs2, len)
 end // end of [val]
 //
-val ((*freed*)) = strptr_free (cs)
-val ((*freed*)) = json_tokener_free (tokener)
+val ((*freed*)) = strptr_free(cs)
+val ((*freed*)) = json_tokener_free(tokener)
 //
 val jsnv = json_object2val0 (jso)
 //
@@ -402,7 +402,7 @@ val () = fprintln! (stdout_ref, "jsnv=", jsnv)
 *)
 //
 in
-  parse_constraints (jsnv)
+  parse_constraints(jsnv)
 end // end of [parse_fileref_constraints]
 
 (* ****** ****** *)

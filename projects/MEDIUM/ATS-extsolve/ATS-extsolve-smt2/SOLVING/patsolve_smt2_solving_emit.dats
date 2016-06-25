@@ -729,7 +729,17 @@ val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (< x 0) -1 (ite (> x 0) 
 val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
 val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
 //
-val () = emitln("(define-fun null_addr () Int 0)")
+val () = emitln("(define-fun null_addr () s2rt_addr 0)")
+//
+val () = emitln("(define-fun add_addr_int ((x s2rt_addr) (y Int)) s2rt_addr (+ x y))")
+val () = emitln("(define-fun sub_addr_int ((x s2rt_addr) (y Int)) s2rt_addr (- x y))")
+//
+val () = emitln("(define-fun eq_addr_addr ((x s2rt_addr) (y s2rt_addr)) Bool (= x y))")
+val () = emitln("(define-fun lt_addr_addr ((x s2rt_addr) (y s2rt_addr)) Bool (< x y))")
+val () = emitln("(define-fun gt_addr_addr ((x s2rt_addr) (y s2rt_addr)) Bool (> x y))")
+val () = emitln("(define-fun lte_addr_addr ((x s2rt_addr) (y s2rt_addr)) Bool (<= x y))")
+val () = emitln("(define-fun gte_addr_addr ((x s2rt_addr) (y s2rt_addr)) Bool (>= x y))")
+val () = emitln("(define-fun neq_addr_addr ((x s2rt_addr) (y s2rt_addr)) Bool (not (= x y)))")
 //
 val () = emitln("(define-fun true_bool () Bool true)")
 val () = emitln("(define-fun false_bool () Bool false)")
@@ -776,10 +786,28 @@ emit_the_s2cstmap
   (out) = () where
 {
 //
+fun
+auxlst
+(
+  s2cs: s2cstlst
+) : void = (
+//
+case+ s2cs of
+| list_nil() => ()
+| list_cons(s2c, s2cs) => let
+    val n0 = s2cst_get_nused(s2c)
+    val () =
+      if n0 > 0 then emit_decl_s2cst(out, s2c)
+    // end of [val]
+  in
+    auxlst(s2cs)
+  end // end of [list_cons]
+//
+) (* end of [auxlst] *)
+//
 val s2cs = the_s2cstmap_listize()
 //
-val ((*void*)) =
-  emit_decl_s2cstlst(out, $UN.list_vt2t(s2cs))
+val ((*void*)) = auxlst($UN.list_vt2t(s2cs))
 //
 val ((*freed*)) = list_vt_free(s2cs)
 //

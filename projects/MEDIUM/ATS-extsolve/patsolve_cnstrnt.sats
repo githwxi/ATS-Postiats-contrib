@@ -265,6 +265,13 @@ overload .name with s2cst_get_name
 overload .stamp with s2cst_get_stamp
 //
 (* ****** ****** *)
+//
+fun
+s2cst_get_nused(s2cst): int
+fun
+s2cst_incby1_nused(s2cst): void
+//
+(* ****** ****** *)
 
 fun
 s2cst_get_payload(s2cst): ptr

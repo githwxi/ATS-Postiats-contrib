@@ -88,11 +88,6 @@ insert = s2cinterp_insert
 //
 val () = insert("unit_p")
 //
-val () = insert("null_addr")
-//
-val () = insert("true_bool")
-val () = insert("false_bool")
-//
 val () = insert("neg_int")
 val () = insert("abs_int")
 val () = insert("sgn_int")
@@ -115,6 +110,21 @@ val () = insert("neq_int_int")
 //
 val () = insert("max_int_int")
 val () = insert("min_int_int")
+//
+val () = insert("null_addr")
+//
+val () = insert("add_addr_int")
+val () = insert("sub_addr_int")
+//
+val () = insert("lt_addr_addr")
+val () = insert("gt_addr_addr")
+val () = insert("lte_addr_addr")
+val () = insert("gte_addr_addr")
+val () = insert("eq_addr_addr")
+val () = insert("neq_addr_addr")
+//
+val () = insert("true_bool")
+val () = insert("false_bool")
 //
 val () = insert("neg_bool")
 //
