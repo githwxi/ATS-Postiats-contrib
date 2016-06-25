@@ -646,9 +646,13 @@ case+ cmd of
 | SOLVERCMDpopenv _ => () // removed
 | SOLVERCMDpushenv _ => () // removed
 //
-| SOLVERCMDpopenv2 _ => ()
+| SOLVERCMDpopenv2 _ =>
+  {
+    val ((*void*)) = fprintln! (out, "(pop)")
+  }
 | SOLVERCMDpushenv2(s2vs) =>
   {
+    val ((*void*)) = fprintln! (out, "(push)")
     val ((*void*)) = emit_decl_s2varlst(out, s2vs)
   } (* SOLVERCMDpushenv2 *)
 //

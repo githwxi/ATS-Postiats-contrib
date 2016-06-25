@@ -110,14 +110,6 @@ vtypedef ys = List0_vt(solvercmd)
 vtypedef res = List0_vt(solvercmd)
 //
 fun
-SOLVERCMDpopenv_is_nil
-  (x: solvercmd): bool = let
-//
-val-SOLVERCMDpopenv(s2vs) = x in list_is_nil(s2vs)
-//
-end // end of [SOLVERCMDpopenv_is_nil]
-//
-fun
 loop
 (
   xs: xs, ys: ys, res: res
@@ -132,22 +124,14 @@ case+ xs of
     case+ x of
     | SOLVERCMDpopenv _ => let
         val ys = list_vt_cons(x, ys)
-        val res =
-        (
-          if SOLVERCMDpopenv_is_nil(x)
-            then res else list_vt_cons(SOLVERCMDpopenv2(), res)
-        ) : res // end of [val]
+        val res = list_vt_cons(SOLVERCMDpopenv2(), res)
       in
         loop(xs, ys, res)
       end // end of [SOLVERCMDpopenv]
     | SOLVERCMDpushenv _ => let
         val-~list_vt_cons(y, ys) = ys
         val- SOLVERCMDpopenv(s2vs) = y
-        val res =
-        (
-          if list_is_nil(s2vs)
-            then res else list_vt_cons(SOLVERCMDpushenv2(s2vs), res)
-        ) : res // end of [val]
+        val res = list_vt_cons(SOLVERCMDpushenv2(s2vs), res)
       in
         loop(xs, ys, res)
       end // end of [SOLVERCMDpushenv]
@@ -421,6 +405,7 @@ of (* case+ *)
 end // end of [c3nstr_solve_main]
 
 (* ****** ****** *)
+(*
 //
 fun
 emit_pop
@@ -430,6 +415,7 @@ fun
 emit_push
   (out: FILEref) = fprintln! (out, "(push)")
 //
+*)
 (* ****** ****** *)
 
 implement
@@ -474,9 +460,6 @@ val () =
 emit_preamble(out)
 //
 val () =
-emit_push(out)
-//
-val () =
 emit_the_s2cstmap(out)
 //
 val () =
@@ -484,8 +467,6 @@ emit_solvercmdlst
 (
   out, $UN.list_vt2t(cmds)
 )
-//
-val () = emit_pop(out)
 //
 val ((*freed*)) = list_vt_free(cmds)
 //

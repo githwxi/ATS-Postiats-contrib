@@ -1,8 +1,10 @@
 (* ****** ****** *)
+(*
 //
 #include
 "share/atspre_staload.hats"
 //
+*)
 (* ****** ****** *)
 //
 stacst fact: int -> int
