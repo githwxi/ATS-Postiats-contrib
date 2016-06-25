@@ -29,12 +29,16 @@ ATS_PACKNAME "PATSOLVE_SMT2_COMMARG"
 
 datatype
 commarg =
+//
   | CAhelp of (string)
   | CAgitem of (string)
+//
   | CAinput of (string)
-  | CAoutput of (string)
+  | CAoutput of (int(*knd*), string)
+(*
   | CAscript of (string)
   | CAsolver of (string)
+*)
   | CAargend of ((*void*))
 // end of [commarg]
 

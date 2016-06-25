@@ -89,7 +89,7 @@ case+ s2t0 of
 | S2RTstring() => emit("s2rt_string")
 //
 | S2RTcls() => emit("s2rt_cls")
-| S2RTeff() => emit("s2rt_err")
+| S2RTeff() => emit("s2rt_eff")
 //
 | S2RTtup() => emit("s2rt_tup")
 //
@@ -430,16 +430,12 @@ of // case+
     val () = fprint(out, "))")
   }
 //
-| S2Emetdec
-    (s2es1, s2es2) =>
+| S2Esizeof(s2e) =>
   {
-    val () = fprint(out, "(")
     val () =
-      fprint(out, "s2exp_metdec")
-    // end of [val]
-    val () = fprint(out, " ")
-    val () = aux_metdec(s2es1, s2es2)
-    val () = fprint(out, ")")
+    fprint(out, "(s2exp_sizeof ")
+    val () = emit_s2exp(out, s2e)
+    val () = fprintln! (out, ")")
   }
 //
 | S2Eapp
@@ -466,6 +462,20 @@ of // case+
 //
     val () = fprint(out, ")")
   } (* end of [S2Eapp] *)
+//
+| S2Emetdec
+    (s2es1, s2es2) =>
+  {
+    val () = fprint(out, "(")
+    val () =
+      fprint(out, "s2exp_metdec")
+    // end of [val]
+    val () = fprint(out, " ")
+    val () = aux_metdec(s2es1, s2es2)
+    val () = fprint(out, ")")
+  }
+//
+| S2Etop(knd, s2e) => emit_s2exp(out, s2e)
 //
 | S2Euni _ => auxuni(s2e0)
 | S2Eexi _ => auxexi(s2e0)
@@ -682,8 +692,11 @@ val () = emitln("(declare-sort s2rt_tkind 0)")
 val () = emitln("(declare-sort s2rt_error 0)")
 //
 val () = emitln("(define-sort s2rt_int () Int)")
+val () = emitln("(define-sort s2rt_addr () Int)")
 val () = emitln("(define-sort s2rt_bool () Bool)")
 val () = emitln("(define-sort s2rt_real () Real)")
+//
+val () = emitln("(define-sort file_mode () Int)")
 //
 val () = emitln("(define-fun unit_p () Bool true)")
 //
@@ -691,7 +704,7 @@ val () = emitln("(define-fun s2exp_fun ((x Bool)) Bool x)")
 val () = emitln("(define-fun s2exp_eqeq ((x Bool)) Bool x)")
 val () = emitln("(define-fun s2exp_metdec ((x Bool)) Bool x)")
 //
-val () = emitln("(declare-fun sizeof_t0ype (s2rt_t0ype) Int)")
+val () = emitln("(declare-fun s2exp_sizeof (s2rt_t0ype) Int)")
 //
 val () = emitln("(define-fun neg_int ((x Int)) Int (- x))")
 val () = emitln("(define-fun abs_int ((x Int)) Int (abs x))")
@@ -700,6 +713,9 @@ val () = emitln("(define-fun sub_int_int ((x Int) (y Int)) Int (- x y))")
 val () = emitln("(define-fun mul_int_int ((x Int) (y Int)) Int (* x y))")
 val () = emitln("(define-fun div_int_int ((x Int) (y Int)) Int (div x y))")
 val () = emitln("(define-fun mod_int_int ((x Int) (y Int)) Int (mod x y))")
+//
+val () = emitln("(define-fun idiv_int_int ((x Int) (y Int)) Int (div x y))")
+val () = emitln("(define-fun ndiv_int_int ((x Int) (y Int)) Int (div x y))")
 //
 val () = emitln("(define-fun eq_int_int ((x Int) (y Int)) Bool (= x y))")
 val () = emitln("(define-fun lt_int_int ((x Int) (y Int)) Bool (< x y))")
@@ -713,9 +729,14 @@ val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (< x 0) -1 (ite (> x 0) 
 val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
 val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
 //
+val () = emitln("(define-fun null_addr () Int 0)")
+//
+val () = emitln("(define-fun true_bool () Bool true)")
+val () = emitln("(define-fun false_bool () Bool false)")
+//
 val () = emitln("(define-fun neg_bool ((x Bool)) Bool (not x))")
-val () = emitln("(define-fun add_bool ((x Bool) (y Bool)) Bool (or x y))")
-val () = emitln("(define-fun mul_bool ((x Bool) (y Bool)) Bool (and x y))")
+val () = emitln("(define-fun add_bool_bool ((x Bool) (y Bool)) Bool (or x y))")
+val () = emitln("(define-fun mul_bool_bool ((x Bool) (y Bool)) Bool (and x y))")
 //
 val () = emitln("(define-fun eq_bool_bool ((x Bool) (y Bool)) Bool (= x y))")
 val () = emitln("(define-fun lt_bool_bool ((x Bool) (y Bool)) Bool (and (not x) y))")

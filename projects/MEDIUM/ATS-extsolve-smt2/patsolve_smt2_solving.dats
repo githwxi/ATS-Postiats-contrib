@@ -421,6 +421,16 @@ of (* case+ *)
 end // end of [c3nstr_solve_main]
 
 (* ****** ****** *)
+//
+fun
+emit_pop
+  (out: FILEref) = fprintln! (out, "(pop)")
+//
+fun
+emit_push
+  (out: FILEref) = fprintln! (out, "(push)")
+//
+(* ****** ****** *)
 
 implement
 c3nstr_smt2_solve
@@ -462,13 +472,20 @@ end // end of [local]
 //
 val () =
 emit_preamble(out)
+//
+val () =
+emit_push(out)
+//
 val () =
 emit_the_s2cstmap(out)
+//
 val () =
 emit_solvercmdlst
 (
   out, $UN.list_vt2t(cmds)
 )
+//
+val () = emit_pop(out)
 //
 val ((*freed*)) = list_vt_free(cmds)
 //

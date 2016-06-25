@@ -146,6 +146,7 @@ val ((*void*)) =
 prval ((*folded*)) = fold@(solver)
 //
 } (* end of [SMT2_solver_popenv] *)
+//
 fun
 SMT2_solver_pushenv
   (solver: !SMT2_solver): void =
@@ -250,14 +251,17 @@ implement
 smtenv_pop
   (pf | env) = let
 //
-prval unit_v() = pf
+prval
+unit_v((*void*)) = pf
 //
 val+@SMTENV(env_s) = env
 //
 val ((*void*)) =
 SMT2_solver_popenv
-  (env_s.smtenv_solver, env_s.smtenv_s2varlst)
-//
+(
+  env_s.smtenv_solver
+, env_s.smtenv_s2varlst
+)
 val s2vss = env_s.smtenv_s2varlstlst
 val-~list_vt_cons(s2vs, s2vss) = s2vss
 val ((*void*)) = env_s.smtenv_s2varlst := s2vs
