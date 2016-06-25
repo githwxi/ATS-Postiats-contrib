@@ -344,14 +344,30 @@ end // end of [patsolve_smt2_commarglst]
 (* ****** ****** *)
 
 implement
-patsolve_smt2_help() =
-{
+patsolve_smt2_help() = let
 //
-val () =
-println!
-  ("patsolve_smt2_help: ...")
+val out = stdout_ref
+val cmdname = "patsolve_smt2"
 //
-} (* end of [patsolve_smt2_help] *)
+in
+//
+fprintln!
+  (out, "Usage: ", cmdname, " <command> ... <command>\n");
+fprintln!
+  (out, "where a <command> is of one of the following forms:\n");
+//
+fprintln! (out, "  -h (for printing out this help usage)");
+fprintln! (out, "  --help (for printing out this help usage)");
+//
+fprintln! (out, "  -i filename (input from <filename>)");
+fprintln! (out, "  --input filename (input from <filename>)");
+//
+fprintln! (out, "  -o filename (output into <filename>)");
+fprintln! (out, "  --output filename (output into <filename>)");
+fprintln! (out, "  --output-w filename (output-write into <filename>)");
+fprintln! (out, "  --output-a filename (output-append into <filename>)");
+//
+end (* end of [patsolve_smt2_help] *)
 
 (* ****** ****** *)
 
