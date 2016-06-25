@@ -40,6 +40,7 @@ staload
 //
 (* ****** ****** *)
 //
+staload "./patsolve_smt2_commarg.sats"
 staload "./patsolve_smt2_solving.sats"
 //
 (* ****** ****** *)
@@ -460,13 +461,14 @@ val () =
 emit_preamble(out)
 //
 val () =
-emit_the_s2cstmap(out)
-//
-val () =
-emit_solvercmdlst
 (
-  out, $UN.list_vt2t(cmds)
+if the_constraint_real() > 0
+  then emit_preamble_real(out)
 )
+//
+val () = emit_the_s2cstmap(out)
+//
+val () = emit_solvercmdlst (out, $UN.list_vt2t(cmds))
 //
 val ((*freed*)) = list_vt_free(cmds)
 //

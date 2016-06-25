@@ -45,15 +45,17 @@ commarg =
 (* ****** ****** *)
 //
 typedef
-commarglst = List0 (commarg)
+commarglst = List0(commarg)
 vtypedef
-commarglst_vt = List0_vt (commarg)
+commarglst_vt = List0_vt(commarg)
 //
 (* ****** ****** *)
 //
 fun
 fprint_commarg
-  (out: FILEref, ca: commarg): void
+(
+  out: FILEref, ca: commarg
+) : void // end-of-fun
 //
 overload fprint with fprint_commarg
 //
@@ -62,13 +64,21 @@ overload fprint with fprint_commarg
 fun
 patsolve_smt2_cmdline
   {n:nat}
-  (argc: int(n), argv: !argv(n)): commarglst_vt
+(
+  argc: int(n), argv: !argv(n)
+) : commarglst_vt // end-of-fun
 //
 (* ****** ****** *)
 //
 fun
-patsolve_smt2_commarglst(arglst: commarglst_vt): void
+patsolve_smt2_commarglst
+  (arglst: commarglst_vt): void
 // 
+(* ****** ****** *)
+//
+fun
+the_constraint_real((*void*)): int
+//
 (* ****** ****** *)
 
 (* end of [patsolve_smt2_commarg.sats] *)

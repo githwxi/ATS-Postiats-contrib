@@ -678,8 +678,7 @@ case+ cmds of
 (* ****** ****** *)
 
 implement
-emit_preamble(out) = () where
-{
+emit_preamble(out) = {
 //
 macdef
 emitln(x) = fprintln! (out, ,(x))
@@ -698,7 +697,6 @@ val () = emitln("(declare-sort s2rt_error 0)")
 val () = emitln("(define-sort s2rt_int () Int)")
 val () = emitln("(define-sort s2rt_addr () Int)")
 val () = emitln("(define-sort s2rt_bool () Bool)")
-val () = emitln("(define-sort s2rt_real () Real)")
 //
 val () = emitln("(define-sort file_mode () Int)")
 //
@@ -759,6 +757,18 @@ val () = emitln("(define-fun neq_bool_bool ((x Bool) (y Bool)) Bool (not (= x y)
 val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) y))")
 val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
 //
+} (* end of [emit_preamble] *)
+
+(* ****** ****** *)
+
+implement
+emit_preamble_real(out) = {
+//
+macdef
+emitln(x) = fprintln! (out, ,(x))
+//
+val () = emitln("(define-sort s2rt_real () Real)")
+//
 val () = emitln("(define-fun int2real ((x Int)) Real (to_real x))")
 val () = emitln("(define-fun floor_real ((x Real)) Int (to_int x))")
 val () = emitln("(define-fun isint_real ((x Real)) Bool (is_int x))")
@@ -781,7 +791,7 @@ val () = emitln("(define-fun neq_real_real ((x Real) (y Real)) Bool (not (= x y)
 val () = emitln("(define-fun max_real_real ((x Real) (y Real)) Real (ite (>= x y) x y))")
 val () = emitln("(define-fun min_real_real ((x Real) (y Real)) Real (ite (<= x y) x y))")
 //
-} (* end of [emit_preamble] *)
+} (* end of [emit_preamble_real] *)
 
 (* ****** ****** *)
 

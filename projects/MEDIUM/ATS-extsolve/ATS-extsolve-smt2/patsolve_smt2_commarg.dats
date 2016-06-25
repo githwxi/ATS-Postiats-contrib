@@ -249,6 +249,8 @@ state_struct =
 , outfil_ref= FILEref
 , outfil_mod= file_mode
 //
+, constraint_real= int
+//
 } (* end of [state_struct] *)
 
 (* ****** ****** *)
@@ -271,6 +273,8 @@ val () = the_state.fopen_out := 0
 val () = the_state.outfil_ref := stdout_ref
 val () = the_state.outfil_mod := file_mode_w
 //
+val () = the_state.constraint_real := 0
+//
 in (* in-of-local *)
 //
 val
@@ -280,6 +284,12 @@ the_state
 //
 end // end of [local]
 
+(* ****** ****** *)
+//
+implement
+the_constraint_real
+  ((*void*)) = !the_state.constraint_real
+//
 (* ****** ****** *)
 
 fun
@@ -417,25 +427,48 @@ patsolve_smt2_gitem(arg) = let
 (*
 val () =
 println!
-  ("patsolve_smt2_gitem: arg = ", arg)
+(
+  "patsolve_smt2_gitem: arg = ", arg
+) (* println! *)
 *)
 //
-macdef input() = (!the_state.input > 0)
-macdef output() = (!the_state.output > 0)
+macdef
+input() = (!the_state.input > 0)
+macdef
+output() = (!the_state.output > 0)
 //
 in
 //
 case+ 0 of
 | _ when input() =>
   {
-    val () = patsolve_smt2_input_arg(arg)
-    val () = !the_state.ninput := !the_state.ninput+1
+    val () =
+      patsolve_smt2_input_arg(arg)
+    // end of [val]
+    val () =
+    (
+      !the_state.ninput := !the_state.ninput+1
+    )
   } (* input() *)
 | _ when output() =>
   {
-    val () = patsolve_smt2_output_arg(arg)
+    val () =
+      patsolve_smt2_output_arg(arg)
+    // end of [val]
   } (* input() *)
-| _ (*unrecognized*) => ()
+//
+| _ when
+    arg = "--real-on" =>
+  {
+    val () = !the_state.constraint_real := 1
+  }
+| _ when
+    arg = "--real-off" =>
+  {
+    val () = !the_state.constraint_real := 0
+  }
+//
+| _ (* unrecognized *) => ((*void*))
 //
 end (* end of [patsolve_smt2_gitem] *)
 
