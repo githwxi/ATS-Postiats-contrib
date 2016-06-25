@@ -20,6 +20,21 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
+fun
+emit_bool
+(
+  out: FILEref, b: bool
+) : void = (
+//
+fprint_string
+(
+  out, if b then "true" else "false"
+)
+//
+) (* end of [emit_bool] *)
+
+(* ****** ****** *)
+
 implement
 emit_form
   (out, fml) = let
@@ -188,19 +203,6 @@ println! ("emit_s2exp")
 *)
 //
 fun
-aux_bool
-(
-  b: bool
-) : void = (
-//
-fprint_string
-(
-  out, if b then "true" else "false"
-)
-//
-) (* end of [aux_bool] *)
-//
-fun
 aux_lt
 (
   s2e1: s2exp, s2e2: s2exp
@@ -238,7 +240,7 @@ aux_metdec
 (
 case+ s2es1 of
 | list_nil() =>
-    aux_bool(false)
+    emit_bool(out, false)
   // list_nil
 | list_cons(s2e1, nil()) =>
   (
@@ -266,6 +268,144 @@ case+ s2es1 of
   )
 ) (* end of [aux_metdec] *)
 //
+fun
+auxsvs
+(
+  s2vs: s2varlst
+) : void =
+{
+//
+var
+fwork =
+lam@ (
+  s2v: s2var
+) : void =>
+{
+  val () = fprint(out, "(")
+  val () =
+  (
+    emit_s2var(out, s2v);
+    fprint(out, " "); emit_s2rt(out, s2v.srt())
+  ) (* end of [val] *)
+  val () = fprint(out, ")")
+} (* end of [fwork] *)
+//
+val () = fprint(out, "(")
+val () = list_foreach_clo(s2vs, fwork)
+val () = fprint(out, ")")
+//
+} (* end of [auxsvs] *)
+//
+fun
+auxsps
+(
+  s2ps: s2explst
+) : void =
+(
+case+ s2ps of
+| list_nil() => emit_bool(out, true)
+| list_sing(s2p) => emit_s2exp(out, s2p)
+  // end of [list_sing]
+| list_cons
+    (s2p, s2ps) => () where
+  {
+    val () =
+      fprint(out, "(and ")
+    // end of [val]
+    val () = emit_s2exp(out, s2p)
+    val () = fprint(out, " ")
+    var
+    fwork =
+    lam@(s2p: s2exp) => (
+      fprint(out, " ") ; emit_s2exp(out, s2p)
+    ) (* end of [var] *)
+    val () = list_foreach_clo<s2exp>(s2ps, fwork)
+    val () = fprint(out, ")")
+  } (* end of [list_cons] *)
+)
+//
+fun
+auxuni
+(
+  s2e0: s2exp
+) : void = let
+//
+val-
+S2Euni
+(
+  s2vs, s2ps, s2e_body
+) = s2e0.s2exp_node
+//
+val issvs = list_is_cons(s2vs)
+val issps = list_is_cons(s2ps)
+//
+val () =
+  if issvs
+    then fprint(out, "(forall ")
+  // end of [if]
+//
+val () = if issvs then auxsvs(s2vs)
+//
+val () = if issvs then fprint(out, " ")
+//
+val () =
+  if issps then fprint(out, "(=> ")
+//
+val () = if issps then auxsps(s2ps)
+//
+val () = if issps then fprint(out, " ")
+//
+val () = emit_s2exp(out, s2e_body)
+//
+val () = if issps then fprint(out, ")")
+//
+val () = if issvs then fprint(out, ")")
+//
+in
+  // nothing
+end // end of [auxuni]
+//
+fun
+auxexi
+(
+  s2e0: s2exp
+) : void = let
+//
+val-
+S2Eexi
+(
+  s2vs, s2ps, s2e_body
+) = s2e0.s2exp_node
+//
+val issvs = list_is_cons(s2vs)
+val issps = list_is_cons(s2ps)
+//
+val () =
+  if issvs
+    then fprint(out, "(exists ")
+  // end of [if]
+//
+val () = if issvs then auxsvs(s2vs)
+//
+val () = if issvs then fprint(out, " ")
+//
+val () =
+  if issps then fprint(out, "(and ")
+//
+val () = if issps then auxsps(s2ps)
+//
+val () = if issps then fprint(out, " ")
+//
+val () = emit_s2exp(out, s2e_body)
+//
+val () = if issps then fprint(out, ")")
+//
+val () = if issvs then fprint(out, ")")
+//
+in
+  // nothing
+end // end of [auxexi]
+//
 in
 //
 case+
@@ -276,7 +416,8 @@ of // case+
 | S2Ecst(s2c) => emit_s2cst(out, s2c)
 | S2Evar(s2v) => emit_s2var(out, s2v)
 //
-| S2Eeqeq(s2e1, s2e2) =>
+| S2Eeqeq
+    (s2e1, s2e2) =>
   {
     val () =
     fprint
@@ -289,7 +430,8 @@ of // case+
     val () = fprint(out, "))")
   }
 //
-| S2Emetdec(s2es1, s2es2) =>
+| S2Emetdec
+    (s2es1, s2es2) =>
   {
     val () = fprint(out, "(")
     val () =
@@ -324,6 +466,35 @@ of // case+
 //
     val () = fprint(out, ")")
   } (* end of [S2Eapp] *)
+//
+| S2Euni _ => auxuni(s2e0)
+| S2Eexi _ => auxexi(s2e0)
+//
+| S2Efun
+  (
+    npf, s2es_arg, s2e_res
+  ) => let
+    val isarg = 
+      list_is_cons(s2es_arg)
+    // end of [val]
+    val () =
+      fprint(out, "(s2exp_fun ")
+    // end of [val]
+    val () =
+      if isarg
+        then fprint(out, "(=> ")
+      // end of [if]
+    val () =
+      if isarg then auxsps(s2es_arg)
+    val () =
+      if isarg then fprint(out, " ")
+    val () = emit_s2exp(out, s2e_res)
+    val () =
+      if isarg then fprint(out, ")")
+    val ((*closed*)) = fprint(out, ")")
+  in
+    // nothing
+  end // end of [S2Efun]
 //
 | _(*rest-of-s2exp*) => fprint(out, s2e0)
 //
@@ -514,6 +685,9 @@ val () = emitln("(define-sort s2rt_int () Int)")
 val () = emitln("(define-sort s2rt_bool () Bool)")
 val () = emitln("(define-sort s2rt_real () Real)")
 //
+val () = emitln("(define-fun unit_p () Bool true)")
+//
+val () = emitln("(define-fun s2exp_fun ((x Bool)) Bool x)")
 val () = emitln("(define-fun s2exp_eqeq ((x Bool)) Bool x)")
 val () = emitln("(define-fun s2exp_metdec ((x Bool)) Bool x)")
 //
@@ -551,11 +725,12 @@ val () = emitln("(define-fun lte_bool_bool ((x Bool) (y Bool)) Bool (or (not x) 
 val () = emitln("(define-fun gte_bool_bool ((x Bool) (y Bool)) Bool (or x (not y)))")
 //
 val () = emitln("(define-fun int2real ((x Int)) Real (to_real x))")
-val () = emitln("(define-fun toint_real ((x Real)) Int (to_int x))")
+val () = emitln("(define-fun floor_real ((x Real)) Int (to_int x))")
 val () = emitln("(define-fun isint_real ((x Real)) Bool (is_int x))")
 //
 val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
 val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")
+//
 val () = emitln("(define-fun add_real_real ((x Real) (y Real)) Real (+ x y))")
 val () = emitln("(define-fun sub_real_real ((x Real) (y Real)) Real (- x y))")
 val () = emitln("(define-fun mul_real_real ((x Real) (y Real)) Real (* x y))")

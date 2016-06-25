@@ -86,6 +86,8 @@ the_s2cinterp_initize() =
 macdef
 insert = s2cinterp_insert
 //
+val () = insert("unit_p")
+//
 val () = insert("null_addr")
 //
 val () = insert("true_bool")
@@ -126,8 +128,12 @@ val () = insert("lte_bool_bool")
 val () = insert("gte_bool_bool")
 val () = insert("neq_bool_bool")
 //
+val () = insert("int2real")
+//
 val () = insert("neg_real")
 val () = insert("abs_real")
+val () = insert("sgn_real")
+val () = insert("floor_real")
 //
 val () = insert("add_real_real")
 val () = insert("sub_real_real")
@@ -141,6 +147,9 @@ val () = insert("gt_real_real")
 val () = insert("lte_real_real")
 val () = insert("gte_real_real")
 val () = insert("neq_real_real")
+//
+val () = insert("max_real_real")
+val () = insert("min_real_real")
 //
 } (* end of [the_s2cinterp_initize] *)
 

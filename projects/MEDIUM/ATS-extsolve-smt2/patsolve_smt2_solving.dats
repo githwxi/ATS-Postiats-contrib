@@ -429,8 +429,11 @@ c3nstr_smt2_solve
 //
 val env = smtenv_create()
 //
-val ((*void*)) =
-  c3nstr_solve_main(env, c3t0)
+val (pfpush|()) = smtenv_push(env)
+//
+val ((*solved*)) = c3nstr_solve_main(env, c3t0)
+//
+val ((*popped*)) = smtenv_pop(pfpush | env)
 //
 val cmds = smtenv_destroy(env)
 val cmds = solvercmdlst_reverse(cmds)
