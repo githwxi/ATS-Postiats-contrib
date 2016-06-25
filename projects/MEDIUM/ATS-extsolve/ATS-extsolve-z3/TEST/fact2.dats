@@ -21,7 +21,7 @@ fact_ind{n:pos}(): [fact(n)==n*fact(n-1)] unit_p
 (*
 //
 // HX:
-// it works with Z3-4.4.0
+// it works with Z3-4.3.?
 // it does not work with Z3-4.4.0
 //
 fun
