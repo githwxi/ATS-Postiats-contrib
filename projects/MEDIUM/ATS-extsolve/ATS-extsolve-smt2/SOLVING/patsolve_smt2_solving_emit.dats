@@ -586,11 +586,11 @@ emit_decl_s2var
 //
 val () =
 fprint (
-  out, "(declare-const "
+  out, "(declare-fun "
 ) (* fprint *)
 //
 val () = emit_s2var(out, s2v)
-val () = fprint (out, " ")
+val () = fprint (out, " () ")
 val () = emit_s2rt(out, s2v.srt())
 val () = fprintln! (out, ")")
 //
@@ -683,6 +683,10 @@ emit_preamble(out) = {
 macdef
 emitln(x) = fprintln! (out, ,(x))
 //
+val () = emitln(";;;")
+val () = emitln(";;;By [patsolve_smt2]:")
+val () = emitln(";;;")
+//
 val () = emitln("(declare-sort s2rt_cls 0)")
 val () = emitln("(declare-sort s2rt_eff 0)")
 val () = emitln("(declare-sort s2rt_type 0)")
@@ -767,6 +771,10 @@ emit_preamble_real(out) = {
 macdef
 emitln(x) = fprintln! (out, ,(x))
 //
+val () = emitln(";;;")
+val () = emitln(";;;emit_preamble_real()")
+val () = emitln(";;;")
+//
 val () = emitln("(define-sort s2rt_real () Real)")
 //
 val () = emitln("(define-fun int2real ((x Int)) Real (to_real x))")
@@ -800,6 +808,9 @@ emit_the_s2cstmap
   (out) = () where
 {
 //
+macdef
+emitln(x) = fprintln! (out, ,(x))
+//
 fun
 auxlst
 (
@@ -820,6 +831,10 @@ case+ s2cs of
 ) (* end of [auxlst] *)
 //
 val s2cs = the_s2cstmap_listize()
+//
+val () = emitln(";;;")
+val () = emitln(";;;emit_the_s2cstmap()")
+val () = emitln(";;;")
 //
 val ((*void*)) = auxlst($UN.list_vt2t(s2cs))
 //
