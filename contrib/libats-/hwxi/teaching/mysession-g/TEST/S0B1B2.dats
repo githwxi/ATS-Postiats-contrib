@@ -38,12 +38,12 @@ staload
 UNISTD = "libc/SATS/unistd.sats"
 
 (* ****** ****** *)
-
+//
 staload
 "./../SATS/basis_intset.sats"
 staload _ =
 "./../DATS/basis_intset.dats"
-
+//
 (* ****** ****** *)
 //
 staload
@@ -442,7 +442,7 @@ praxi
 __assert3__
 { x,y,z:nat
 | x < N; y < N; z < N; x != y; x != z; y != z
-} (): ISETEQ(iset(x), ncomp(N,iset(y)) * ncomp(N,iset(z)))
+} (): ISETEQ(iset(x), ncomp(N,iset(y))*ncomp(N,iset(z)))
 }
 //
 val () = fserv_buyer1(channel1_link(chn0, chn2))

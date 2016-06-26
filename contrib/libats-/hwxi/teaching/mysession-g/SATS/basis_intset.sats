@@ -8,9 +8,12 @@ staload
 "libats/SATS/ilist_prf.sats"
 //
 (* ****** ****** *)
-
+//
+sortdef iset = int
+(*
 datasort iset = // abstract sort
-
+*)
+//
 (* ****** ****** *)
 //
 dataprop
