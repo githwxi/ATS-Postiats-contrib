@@ -683,9 +683,9 @@ emit_preamble(out) = {
 macdef
 emitln(x) = fprintln! (out, ,(x))
 //
-val () = emitln(";;;")
-val () = emitln(";;;By [patsolve_smt2]:")
-val () = emitln(";;;")
+val () = emitln(";;")
+val () = emitln(";;By [patsolve_smt2]:")
+val () = emitln(";;")
 //
 val () = emitln("(declare-sort s2rt_cls 0)")
 val () = emitln("(declare-sort s2rt_eff 0)")
@@ -730,7 +730,7 @@ val () = emitln("(define-fun lte_int_int ((x Int) (y Int)) Bool (<= x y))")
 val () = emitln("(define-fun gte_int_int ((x Int) (y Int)) Bool (>= x y))")
 val () = emitln("(define-fun neq_int_int ((x Int) (y Int)) Bool (not (= x y)))")
 //
-val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (< x 0) -1 (ite (> x 0) 1 0)))")
+val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (> x 0) 1 (ite (>= x 0) 0 (- 1))))")
 //
 val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
 val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
@@ -771,9 +771,9 @@ emit_preamble_real(out) = {
 macdef
 emitln(x) = fprintln! (out, ,(x))
 //
-val () = emitln(";;;")
-val () = emitln(";;;emit_preamble_real()")
-val () = emitln(";;;")
+val () = emitln(";;")
+val () = emitln(";;emit_preamble_real()")
+val () = emitln(";;")
 //
 val () = emitln("(define-sort s2rt_real () Real)")
 //
@@ -783,6 +783,8 @@ val () = emitln("(define-fun isint_real ((x Real)) Bool (is_int x))")
 //
 val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
 val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")
+//
+val () = emitln("(define-fun sgn_Real ((x Real)) Int (ite (> x 0.0) 1 (ite (>= x 0.0) 0 (- 1))))")
 //
 val () = emitln("(define-fun add_real_real ((x Real) (y Real)) Real (+ x y))")
 val () = emitln("(define-fun sub_real_real ((x Real) (y Real)) Real (- x y))")
@@ -832,9 +834,9 @@ case+ s2cs of
 //
 val s2cs = the_s2cstmap_listize()
 //
-val () = emitln(";;;")
-val () = emitln(";;;emit_the_s2cstmap()")
-val () = emitln(";;;")
+val () = emitln(";;")
+val () = emitln(";;emit_the_s2cstmap()")
+val () = emitln(";;")
 //
 val ((*void*)) = auxlst($UN.list_vt2t(s2cs))
 //

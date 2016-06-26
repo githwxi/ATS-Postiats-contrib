@@ -14,7 +14,8 @@ datasort iset = // abstract sort
 (* ****** ****** *)
 //
 dataprop
-ISETEQ(s1:iset, s2:iset) = ISETEQ(s1, s2) of ()
+ISETEQ(iset, iset) =
+  {s:iset} ISETEQ(s, s) of ()
 //
 (* ****** ****** *)
 

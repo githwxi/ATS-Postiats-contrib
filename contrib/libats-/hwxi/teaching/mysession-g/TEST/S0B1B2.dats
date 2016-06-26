@@ -424,6 +424,27 @@ cchannel1_create_exn
   N, B2, llam(chp) => fserv_buyer2(chp)
 ) (* end of [val] *)
 //
+prval () =
+__assert2__{SELLER,BUYER2}() where
+{
+extern
+praxi
+__assert2__{x,y:int | x != y}()
+  : [isful(ncomp(N, iset(x))+ncomp(N, iset(y)), N)] void
+}
+//
+prval
+ISETEQ() =
+__assert3__{BUYER1,SELLER,BUYER2}() where
+{
+extern
+praxi
+__assert3__
+{ x,y,z:nat
+| x < N; y < N; z < N; x != y; x != z; y != z
+} (): ISETEQ(iset(x), ncomp(N,iset(y)) * ncomp(N,iset(z)))
+}
+//
 val () = fserv_buyer1(channel1_link(chn0, chn2))
 //
 in
