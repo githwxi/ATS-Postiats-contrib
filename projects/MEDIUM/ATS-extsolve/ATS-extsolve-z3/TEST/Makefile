@@ -98,7 +98,7 @@ quadratic.dats; \
 $(PATSCC) --constraint-ignore -o $@ $< -lm
 quadratic:: \
 quadratic.dats; \
-$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
 #
 regress:: quadratic; ./$< 10
 cleanall:: ; $(RMF) quadratic
@@ -109,7 +109,7 @@ all:: \
 real_misc
 real_misc:: \
 real_misc.dats; \
-$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
 
 ######
 
