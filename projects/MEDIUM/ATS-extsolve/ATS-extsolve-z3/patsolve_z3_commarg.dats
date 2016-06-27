@@ -306,14 +306,30 @@ end // end of [patsolve_z3_commarglst]
 (* ****** ****** *)
 
 implement
-patsolve_z3_help() =
-{
+patsolve_z3_help() = let
 //
-val () =
-prerrln!
-  ("patsolve_z3_help: ...")
+val out = stdout_ref
+val cmdname = "patsolve_z3"
 //
-} (* end of [patsolve_z3_help] *)
+in
+//
+fprintln!
+  (out, "Usage: ", cmdname, " <command> ... <command>\n");
+fprintln!
+  (out, "where a <command> is of one of the following forms:\n");
+//
+fprintln! (out, "  -h (for printing out this help usage)");
+fprintln! (out, "  -i <filename> (input from <filename>)");
+//
+fprintln! (out);
+//
+fprintln! (out, "  --help (for printing out this help usage)");
+//
+fprintln! (out, "  --input <filename> (input from <filename>)");
+//
+fprintln! (out);
+//
+end (* end of [patsolve_z3_help] *)
 
 (* ****** ****** *)
 

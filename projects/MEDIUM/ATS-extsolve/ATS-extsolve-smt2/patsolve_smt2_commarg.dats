@@ -413,15 +413,22 @@ fprintln!
   (out, "where a <command> is of one of the following forms:\n");
 //
 fprintln! (out, "  -h (for printing out this help usage)");
+fprintln! (out, "  -i <filename> (input from <filename>)");
+fprintln! (out, "  -o <filename> (output into <filename>)");
+//
+fprintln! (out);
+//
 fprintln! (out, "  --help (for printing out this help usage)");
 //
-fprintln! (out, "  -i filename (input from <filename>)");
-fprintln! (out, "  --input filename (input from <filename>)");
+fprintln! (out, "  --print <string> (print <string>+newline)");
 //
-fprintln! (out, "  -o filename (output into <filename>)");
-fprintln! (out, "  --output filename (output into <filename>)");
-fprintln! (out, "  --output-w filename (output-write into <filename>)");
-fprintln! (out, "  --output-a filename (output-append into <filename>)");
+fprintln! (out, "  --input <filename> (input from <filename>)");
+//
+fprintln! (out, "  --output <filename> (output into <filename>)");
+fprintln! (out, "  --output-w <filename> (output-write into <filename>)");
+fprintln! (out, "  --output-a <filename> (output-append into <filename>)");
+//
+fprintln! (out);
 //
 end (* end of [patsolve_smt2_help] *)
 
