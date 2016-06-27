@@ -351,12 +351,17 @@ val () = !the_state.input := 1
 
 implement
 patsolve_z3_gitem(arg) = let
+(*
 //
 val () =
 prerrln!
-  ("patsolve_z3_gitem: arg = ", arg)
+(
+"patsolve_z3_gitem: arg = ", arg
+) (* println! *)
 //
-macdef input() = (!the_state.input > 0)
+*)
+macdef
+input() = (!the_state.input > 0)
 //
 in
 //
@@ -365,16 +370,20 @@ case+ 0 of
   {
     val () = patsolve_z3_input_arg(arg)
     val () = !the_state.ninput := !the_state.ninput+1
-  }
+  } (* _ when input() *)
 | _ (*unrecognized*) => ()
 //
 end (* end of [patsolve_z3_gitem] *)
 
 (* ****** ****** *)
 
-implement
-patsolve_z3_input_arg
-  (path) = let
+local
+
+fun
+auxmain
+(
+  path: string
+) : void = let
 //
 val
 opt =
@@ -428,7 +437,29 @@ case+ opt of
 //
   } (* end of [None_vt] *)
 //
-end // end of [patsolve_z3_input_arg]
+end // end of [auxmain]
+
+in (* in-of-local *)
+
+implement
+patsolve_z3_input_arg
+  (path) =
+(
+//
+case+ path of
+| "-" =>
+  {
+    val inp = stdin_ref
+    val c3t0 =
+      parse_fileref_constraints(inp)
+    // end of [val]
+    val ((*void*)) = c3nstr_z3_solve(c3t0)
+  }
+| _(* ... *) => auxmain(path)
+//
+) (* end of [patsolve_z3_input_arg] *)
+
+end // end of [local]
 
 (* ****** ****** *)
 
