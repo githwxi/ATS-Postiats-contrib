@@ -53,8 +53,8 @@ case+ ca of
 | CAhelp(str) =>
     fprint! (out, "CAhelp(", str, ")")
 //
-| CAgitem(str) =>
-    fprint! (out, "CAgitem(", str, ")")
+| CAprint(str) =>
+    fprint! (out, "CAprint(", str, ")")
 //
 | CAinput(str) =>
     fprint! (out, "CAinput(", str, ")")
@@ -62,10 +62,7 @@ case+ ca of
 | CAoutput(knd, str) =>
     fprint! (out, "CAoutput(", knd, ", ", str, ")")
 //
-(*
-| CAscript(str) => fprint! (out, "CAscript(", str, ")")
-| CAsolver(str) => fprint! (out, "CAsolver(", str, ")")
-*)
+| CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
 //
 | CAargend((*void*)) => fprint! (out, "CAargend(", ")")
 //
@@ -136,6 +133,16 @@ case+ arg of
     aux(argc, argv, i+1, res0)
   end // end of ...
 //
+| "--print" => let
+    val ca =
+      CAprint(arg)
+    val res0 =
+      cons_vt(ca, res0)
+    // end of [val]
+  in
+    aux2(argc, argv, i+1, res0)
+  end // end of ...
+//
 | "-i" => let
     val ca =
       CAinput(arg)
@@ -143,7 +150,7 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 | "--input" => let
     val ca =
@@ -152,7 +159,7 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 //
 | "-o" => let
@@ -162,7 +169,7 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 | "--output" => let
     val ca =
@@ -171,7 +178,7 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 | "--output-w" => let
     val ca =
@@ -180,7 +187,7 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 | "--output-a" => let
     val ca =
@@ -189,12 +196,14 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 //
 | _ (*rest*) => let
+    val ca =
+      CAgitem(arg)
     val res0 =
-      cons_vt(CAgitem(arg), res0)
+      cons_vt(ca, res0)
     // end of [val]
   in
     aux(argc, argv, i+1, res0)
@@ -204,6 +213,34 @@ end // end of [then]
 else res0 // end of [else]
 //
 end // end of [aux]
+//
+and
+aux2
+{n:int}
+{i:nat | i <= n}
+(
+  argc: int n
+, argv: !argv(n)
+, i: int i, res0: res_vt
+) : res_vt = let
+in
+if
+i < argc
+then let
+//
+val arg = argv[i]
+//
+val ca =
+  CAgitem(arg)
+val res0 =
+  cons_vt(ca, res0)
+// end of [val]
+in
+  aux(argc, argv, i+1, res0)
+end // end of [then]
+else res0 // end of [else]
+//
+end // end of [aux2]
 //
 val args = aux(argc, argv, 0, nil_vt)
 //
@@ -217,13 +254,15 @@ end // end of [patsolve_smt2_cmdline]
 //
 extern fun patsolve_smt2_help(): void
 //
+extern fun patsolve_smt2_print(): void
+//
 extern fun patsolve_smt2_input(): void
 extern fun patsolve_smt2_output(knd: int): void
 //
-extern fun patsolve_smt2_gitem(string): void
-//
 extern fun patsolve_smt2_input_arg(string): void
 extern fun patsolve_smt2_output_arg(string): void
+//
+extern fun patsolve_smt2_gitem(string): void
 //
 extern fun patsolve_smt2_argend((*void*)): void
 //
@@ -236,6 +275,8 @@ state_struct =
 @{
 //
   nerr= int
+//
+, print= int
 //
 , input= int
 //
@@ -261,6 +302,8 @@ var
 the_state: state_struct?
 //
 val () = the_state.nerr := 0
+//
+val () = the_state.print := 0
 //
 val () = the_state.input := 0
 val () = the_state.ninput := 0
@@ -311,6 +354,8 @@ case+ x of
 //
 | CAhelp _ => patsolve_smt2_help()
 //
+| CAprint _ => patsolve_smt2_print()
+//
 | CAinput _ => patsolve_smt2_input()
 //
 | CAoutput
@@ -318,6 +363,7 @@ case+ x of
   // CAoutput
 //
 | CAgitem(str) => patsolve_smt2_gitem(str)
+  // CAgitem
 //
 | CAargend((*void*)) => patsolve_smt2_argend()
 //
@@ -382,6 +428,23 @@ end (* end of [patsolve_smt2_help] *)
 (* ****** ****** *)
 
 implement
+patsolve_smt2_print() =
+{
+//
+(*
+val () =
+println!
+  ("patsolve_smt2_print: ...")
+*)
+//
+val () = !the_state.print := 1
+val () = !the_state.input := 0
+//
+} (* end of [patsolve_smt2_print] *)
+
+(* ****** ****** *)
+
+implement
 patsolve_smt2_input() =
 {
 //
@@ -408,6 +471,7 @@ println!
   ("patsolve_smt2_output: ...")
 *)
 //
+val () = !the_state.input := 0
 val () = !the_state.output := 1
 val () =
 (
@@ -433,6 +497,8 @@ println!
 *)
 //
 macdef
+print() = (!the_state.print > 0)
+macdef
 input() = (!the_state.input > 0)
 macdef
 output() = (!the_state.output > 0)
@@ -440,11 +506,18 @@ output() = (!the_state.output > 0)
 in
 //
 case+ 0 of
+//
+| _ when print() =>
+  {
+    val () = !the_state.print := 0
+    val () =
+      fprintln! (!the_state.outfil_ref, arg)
+    // end of [val]
+  } (* input() *)
+//
 | _ when input() =>
   {
-    val () =
-      patsolve_smt2_input_arg(arg)
-    // end of [val]
+    val () = patsolve_smt2_input_arg(arg)
     val () =
     (
       !the_state.ninput := !the_state.ninput+1
@@ -452,9 +525,8 @@ case+ 0 of
   } (* input() *)
 | _ when output() =>
   {
-    val () =
-      patsolve_smt2_output_arg(arg)
-    // end of [val]
+    val () = !the_state.output := 0
+    val () = patsolve_smt2_output_arg(arg)
   } (* input() *)
 //
 | _ when
@@ -474,9 +546,11 @@ end (* end of [patsolve_smt2_gitem] *)
 
 (* ****** ****** *)
 
-implement
-patsolve_smt2_input_arg
-  (path) = let
+local
+
+fun
+auxmain
+  (path: string): void = let
 //
 val
 opt =
@@ -524,7 +598,29 @@ case+ opt of
 //
   } (* end of [None_vt] *)
 //
-end // end of [patsolve_smt2_input_arg]
+end // end of [auxmain]
+
+in (* in-of-local *)
+//
+implement
+patsolve_smt2_input_arg
+  (path) =
+(
+//
+case+
+path of
+| "-" =>
+  {
+    val inp = stdin_ref
+    val out = !the_state.outfil_ref
+    val c3t0 = parse_fileref_constraints(inp)
+    val ((*void*)) = c3nstr_smt2_solve(out, c3t0)
+  }
+| _(* ... *) => auxmain(path)
+//
+) (* end of [patsolve_smt2_input_arg] *)
+//
+end // end of [local]
 
 (* ****** ****** *)
 

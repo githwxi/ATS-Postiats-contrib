@@ -730,10 +730,10 @@ val () = emitln("(define-fun lte_int_int ((x Int) (y Int)) Bool (<= x y))")
 val () = emitln("(define-fun gte_int_int ((x Int) (y Int)) Bool (>= x y))")
 val () = emitln("(define-fun neq_int_int ((x Int) (y Int)) Bool (not (= x y)))")
 //
-val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (> x 0) 1 (ite (>= x 0) 0 (- 1))))")
-//
 val () = emitln("(define-fun max_int_int ((x Int) (y Int)) Int (ite (>= x y) x y))")
 val () = emitln("(define-fun min_int_int ((x Int) (y Int)) Int (ite (<= x y) x y))")
+//
+val () = emitln("(define-fun sgn_int ((x Int)) Int (ite (> x 0) 1 (ite (>= x 0) 0 (- 1))))")
 //
 val () = emitln("(define-fun null_addr () s2rt_addr 0)")
 //
@@ -782,9 +782,7 @@ val () = emitln("(define-fun floor_real ((x Real)) Int (to_int x))")
 val () = emitln("(define-fun isint_real ((x Real)) Bool (is_int x))")
 //
 val () = emitln("(define-fun neg_real ((x Real)) Real (- x))")
-val () = emitln("(define-fun abs_real ((x Real)) Real (abs x))")
-//
-val () = emitln("(define-fun sgn_Real ((x Real)) Int (ite (> x 0.0) 1 (ite (>= x 0.0) 0 (- 1))))")
+val () = emitln("(define-fun abs_real ((x Real)) Real (ite (>= x 0.0) x (- x)))")
 //
 val () = emitln("(define-fun add_real_real ((x Real) (y Real)) Real (+ x y))")
 val () = emitln("(define-fun sub_real_real ((x Real) (y Real)) Real (- x y))")
@@ -800,6 +798,8 @@ val () = emitln("(define-fun neq_real_real ((x Real) (y Real)) Bool (not (= x y)
 //
 val () = emitln("(define-fun max_real_real ((x Real) (y Real)) Real (ite (>= x y) x y))")
 val () = emitln("(define-fun min_real_real ((x Real) (y Real)) Real (ite (<= x y) x y))")
+//
+val () = emitln("(define-fun sgn_real ((x Real)) Int (ite (> x 0.0) 1 (ite (>= x 0.0) 0 (- 1))))")
 //
 } (* end of [emit_preamble_real] *)
 

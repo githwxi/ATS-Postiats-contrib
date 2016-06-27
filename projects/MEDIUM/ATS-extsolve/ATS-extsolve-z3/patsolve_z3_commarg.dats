@@ -128,7 +128,7 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 | "--input" => let
     val ca =
@@ -137,12 +137,14 @@ case+ arg of
       cons_vt(ca, res0)
     // end of [val]
   in
-    aux(argc, argv, i+1, res0)
+    aux2(argc, argv, i+1, res0)
   end // end of ...
 //
 | _ (*rest*) => let
+    val ca =
+      CAgitem(arg)
     val res0 =
-      cons_vt(CAgitem(arg), res0)
+      cons_vt(ca, res0)
     // end of [val]
   in
     aux(argc, argv, i+1, res0)
@@ -152,6 +154,35 @@ end // end of [then]
 else res0 // end of [else]
 //
 end // end of [aux]
+//
+and
+aux2
+{n:int}
+{i:nat | i <= n}
+(
+  argc: int n
+, argv: !argv(n)
+, i: int i, res0: res_vt
+) : res_vt = let
+in
+//
+if
+i < argc
+then let
+//
+val arg = argv[i]
+//
+val ca =
+  CAgitem(arg)
+val res0 =
+  cons_vt(ca, res0)
+// end of [val]
+in
+  aux(argc, argv, i+1, res0)
+end // end of [then]
+else res0 // end of [else]
+//
+end // end of [aux2]
 //
 val args = aux(argc, argv, 0, nil_vt)
 //

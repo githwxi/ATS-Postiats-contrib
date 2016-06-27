@@ -31,14 +31,14 @@ datatype
 commarg =
 //
   | CAhelp of (string)
-  | CAgitem of (string)
+//
+  | CAprint of (string)
 //
   | CAinput of (string)
   | CAoutput of (int(*knd*), string)
-(*
-  | CAscript of (string)
-  | CAsolver of (string)
-*)
+//
+  | CAgitem of (string)
+//
   | CAargend of ((*void*))
 // end of [commarg]
 
