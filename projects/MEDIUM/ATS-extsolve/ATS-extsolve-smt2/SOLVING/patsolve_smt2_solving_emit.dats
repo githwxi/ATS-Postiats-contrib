@@ -689,12 +689,8 @@ val () = emitln(";;")
 //
 val () = emitln("(declare-sort s2rt_cls 0)")
 val () = emitln("(declare-sort s2rt_eff 0)")
-val () = emitln("(declare-sort s2rt_type 0)")
-val () = emitln("(declare-sort s2rt_vtype 0)")
-val () = emitln("(declare-sort s2rt_t0ype 0)")
-val () = emitln("(declare-sort s2rt_vt0ype 0)")
 val () = emitln("(declare-sort s2rt_prop 0)")
-val () = emitln("(declare-sort s2rt_view 0)")
+val () = emitln("(declare-sort s2rt_t0ype 0)")
 val () = emitln("(declare-sort s2rt_tkind 0)")
 val () = emitln("(declare-sort s2rt_error 0)")
 //
@@ -703,6 +699,11 @@ val () = emitln("(define-sort s2rt_addr () Int)")
 val () = emitln("(define-sort s2rt_bool () Bool)")
 //
 val () = emitln("(define-sort file_mode () Int)")
+//
+val () = emitln("(define-sort s2rt_view () s2rt_prop)")
+val () = emitln("(define-sort s2rt_type () s2rt_t0ype)")
+val () = emitln("(define-sort s2rt_vtype () s2rt_t0ype)")
+val () = emitln("(define-sort s2rt_vt0ype () s2rt_t0ype)")
 //
 val () = emitln("(define-fun unit_p () Bool true)")
 //
