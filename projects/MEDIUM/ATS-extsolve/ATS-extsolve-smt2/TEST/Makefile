@@ -37,6 +37,18 @@ cleanall:: ; $(RMF) fact2_dats.smt2
 ######
 #
 all:: \
+trigfuns
+trigfuns:: \
+trigfuns_dats.smt2; $(Z3) -smt2 $<
+trigfuns_dats.smt2: trigfuns.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | \
+$(PATSOLVE) --real-on -o $@ --print "(set-logic AUFNIRA)" -i - --print "(exit)"
+#
+cleanall:: ; $(RMF) trigfuns_dats.smt2
+#
+######
+#
+all:: \
 quadratic
 quadratic:: \
 quadratic_dats.smt2; $(Z3) -smt2 $<

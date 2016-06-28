@@ -22,7 +22,7 @@ staload
 extern
 fun
 quadratic_solve1
- {A,B,C:real | A > 0}
+{A,B,C:real | A > 0}
 (
   A: real(A), B: real(B), C: real(C)
 ) : [x:real | A*x*x+B*x+C==i2r(0)] real(x)
@@ -30,7 +30,7 @@ quadratic_solve1
 extern
 fun
 quadratic_solve2
- {A,B,C:real | A > 0}
+{A,B,C:real | A > 0}
 (
   A: real(A), B: real(B), C: real(C)
 ) : [x:real | A*x*x+B*x+C==i2r(0)] real(x)
