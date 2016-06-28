@@ -461,6 +461,7 @@ println!
   ("patsolve_smt2_input: ...")
 *)
 //
+val () = !the_state.print := 0
 val () = !the_state.input := 1
 //
 } (* end of [patsolve_smt2_input] *)
@@ -478,6 +479,7 @@ println!
   ("patsolve_smt2_output: ...")
 *)
 //
+val () = !the_state.print := 0
 val () = !the_state.input := 0
 val () = !the_state.output := 1
 val () =
@@ -516,7 +518,6 @@ case+ 0 of
 //
 | _ when print() =>
   {
-    val () = !the_state.print := 0
     val () =
       fprintln! (!the_state.outfil_ref, arg)
     // end of [val]

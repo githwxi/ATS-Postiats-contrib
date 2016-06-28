@@ -623,8 +623,8 @@ in
 //
 case+ cmd of
 //
-| SOLVERCMDpop() => fprintln! (out, "(pop)")
-| SOLVERCMDpush() => fprintln! (out, "(push)")
+| SOLVERCMDpop() => fprintln! (out, "(pop 1)")
+| SOLVERCMDpush() => fprintln! (out, "(push 1)")
 //
 | SOLVERCMDassert(fml) =>
   {
@@ -648,11 +648,11 @@ case+ cmd of
 //
 | SOLVERCMDpopenv2 _ =>
   {
-    val ((*void*)) = fprintln! (out, "(pop)")
+    val ((*void*)) = fprintln! (out, "(pop 1)")
   }
 | SOLVERCMDpushenv2(s2vs) =>
   {
-    val ((*void*)) = fprintln! (out, "(push)")
+    val ((*void*)) = fprintln! (out, "(push 1)")
     val ((*void*)) = emit_decl_s2varlst(out, s2vs)
   } (* SOLVERCMDpushenv2 *)
 //

@@ -161,6 +161,15 @@ val () = insert("neq_real_real")
 val () = insert("max_real_real")
 val () = insert("min_real_real")
 //
+(*
+val () = insert("ln_real")
+and () = insert("exp_real")
+val () = insert("sin_real")
+and () = insert("cos_real")
+val () = insert("tan_real")
+and () = insert("cot_real")
+*)
+//
 } (* end of [the_s2cinterp_initize] *)
 
 end // end of [local]
