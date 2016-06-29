@@ -157,7 +157,7 @@ build:: patsolve_smt2
 
 ######
 
-testall:: all
+testall:: build
 testall:: cleanall
 
 ######

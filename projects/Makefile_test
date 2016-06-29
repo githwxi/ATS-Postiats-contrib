@@ -30,7 +30,8 @@ for i in $(SUBDIRS); \
 #
 ######
 #
-# testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
+testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
+testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve/ATS-extsolve-smt2 -f Makefile testall
 #
 ######
 
