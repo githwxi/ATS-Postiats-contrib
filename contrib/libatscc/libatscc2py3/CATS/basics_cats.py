@@ -64,6 +64,14 @@ def ATSPMVlazyval_eval(lazyval):
 
 ############################################
 #
+def ats2pypre_exit(ecode):
+  sys.exit(ecode); return
+#
+def ats2pypre_exit_errmsg(ecode, errmsg):
+  print(errmsg, file=sys.__stderr__); sys.exit(1); return
+#
+############################################
+#
 def ats2pypre_assert_bool0(tfv):
   if not(tfv): sys.exit(1)
   return

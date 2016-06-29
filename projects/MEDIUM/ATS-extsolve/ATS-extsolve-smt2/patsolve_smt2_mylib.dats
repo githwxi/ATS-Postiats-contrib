@@ -38,6 +38,12 @@ staload "{$JSONC}/DATS/json.dats"
 (* ****** ****** *)
 //
 local
+#include"prelude/DATS/filebas.dats"
+in (*nothing*) end // end of [local]
+//
+(* ****** ****** *)
+//
+local
 #include"{$JSONC}/DATS/json_ML.dats"
 in (*nothing*) end // end of [local]
 //

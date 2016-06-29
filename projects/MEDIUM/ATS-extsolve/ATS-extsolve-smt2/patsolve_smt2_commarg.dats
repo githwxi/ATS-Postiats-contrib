@@ -53,8 +53,8 @@ case+ ca of
 | CAhelp(str) =>
     fprint! (out, "CAhelp(", str, ")")
 //
-| CAprint(str) =>
-    fprint! (out, "CAprint(", str, ")")
+| CAgitem(str) =>
+    fprint! (out, "CAgitem(", str, ")")
 //
 | CAinput(str) =>
     fprint! (out, "CAinput(", str, ")")
@@ -62,7 +62,10 @@ case+ ca of
 | CAoutput(knd, str) =>
     fprint! (out, "CAoutput(", knd, ", ", str, ")")
 //
-| CAgitem(str) => fprint! (out, "CAgitem(", str, ")")
+| CAprintln(str) =>
+    fprint! (out, "CAprintln(", str, ")")
+| CAprintfile(str) =>
+    fprint! (out, "CAprintfile(", str, ")")
 //
 | CAargend((*void*)) => fprint! (out, "CAargend(", ")")
 //
@@ -133,16 +136,6 @@ case+ arg of
     aux(argc, argv, i+1, res0)
   end // end of ...
 //
-| "--print" => let
-    val ca =
-      CAprint(arg)
-    val res0 =
-      cons_vt(ca, res0)
-    // end of [val]
-  in
-    aux2(argc, argv, i+1, res0)
-  end // end of ...
-//
 | "-i" => let
     val ca =
       CAinput(arg)
@@ -192,6 +185,26 @@ case+ arg of
 | "--output-a" => let
     val ca =
       CAoutput(2, arg)
+    val res0 =
+      cons_vt(ca, res0)
+    // end of [val]
+  in
+    aux2(argc, argv, i+1, res0)
+  end // end of ...
+//
+| "--println" => let
+    val ca =
+      CAprintln(arg)
+    val res0 =
+      cons_vt(ca, res0)
+    // end of [val]
+  in
+    aux2(argc, argv, i+1, res0)
+  end // end of ...
+//
+| "--printfile" => let
+    val ca =
+      CAprintfile(arg)
     val res0 =
       cons_vt(ca, res0)
     // end of [val]
@@ -254,15 +267,17 @@ end // end of [patsolve_smt2_cmdline]
 //
 extern fun patsolve_smt2_help(): void
 //
-extern fun patsolve_smt2_print(): void
+extern fun patsolve_smt2_gitem(string): void
 //
-extern fun patsolve_smt2_input(): void
-extern fun patsolve_smt2_output(knd: int): void
-//
+extern fun patsolve_smt2_input((*void*)): void
 extern fun patsolve_smt2_input_arg(string): void
+//
+extern fun patsolve_smt2_output(knd: int): void
 extern fun patsolve_smt2_output_arg(string): void
 //
-extern fun patsolve_smt2_gitem(string): void
+extern fun patsolve_smt2_println(): void
+extern fun patsolve_smt2_printfile(): void
+extern fun patsolve_smt2_printfile_arg(string): void
 //
 extern fun patsolve_smt2_argend((*void*)): void
 //
@@ -276,8 +291,6 @@ state_struct =
 //
   nerr= int
 //
-, print= int
-//
 , input= int
 //
 , ninput= int
@@ -289,6 +302,9 @@ state_struct =
 , fopen_out= int
 , outfil_ref= FILEref
 , outfil_mod= file_mode
+//
+, println= int
+, printfile= int
 //
 , constraint_real= int
 //
@@ -303,8 +319,6 @@ the_state: state_struct?
 //
 val () = the_state.nerr := 0
 //
-val () = the_state.print := 0
-//
 val () = the_state.input := 0
 val () = the_state.ninput := 0
 //
@@ -315,6 +329,9 @@ val () = the_state.output := 0
 val () = the_state.fopen_out := 0
 val () = the_state.outfil_ref := stdout_ref
 val () = the_state.outfil_mod := file_mode_w
+//
+val () = the_state.println := 0
+val () = the_state.printfile := 0
 //
 val () = the_state.constraint_real := 0
 //
@@ -354,7 +371,9 @@ case+ x of
 //
 | CAhelp _ => patsolve_smt2_help()
 //
-| CAprint _ => patsolve_smt2_print()
+| CAgitem
+    (str) => patsolve_smt2_gitem(str)
+  // CAgitem
 //
 | CAinput _ => patsolve_smt2_input()
 //
@@ -362,14 +381,10 @@ case+ x of
     (knd, _) => patsolve_smt2_output(knd)
   // CAoutput
 //
-| CAgitem(str) => patsolve_smt2_gitem(str)
-  // CAgitem
+| CAprintln _ => patsolve_smt2_println()
+| CAprintfile _ => patsolve_smt2_printfile()
 //
 | CAargend((*void*)) => patsolve_smt2_argend()
-//
-(*
-| CAscript(str) => fprint! (out, "CAscript(", str, ")")
-*)
 //
 end // end of [process_arg]
 
@@ -435,23 +450,6 @@ end (* end of [patsolve_smt2_help] *)
 (* ****** ****** *)
 
 implement
-patsolve_smt2_print() =
-{
-//
-(*
-val () =
-println!
-  ("patsolve_smt2_print: ...")
-*)
-//
-val () = !the_state.print := 1
-val () = !the_state.input := 0
-//
-} (* end of [patsolve_smt2_print] *)
-
-(* ****** ****** *)
-
-implement
 patsolve_smt2_input() =
 {
 //
@@ -461,8 +459,9 @@ println!
   ("patsolve_smt2_input: ...")
 *)
 //
-val () = !the_state.print := 0
 val () = !the_state.input := 1
+val () = !the_state.println := 0
+val () = !the_state.printfile := 0
 //
 } (* end of [patsolve_smt2_input] *)
 
@@ -479,9 +478,11 @@ println!
   ("patsolve_smt2_output: ...")
 *)
 //
-val () = !the_state.print := 0
 val () = !the_state.input := 0
 val () = !the_state.output := 1
+val () = !the_state.println := 0
+val () = !the_state.printfile := 0
+//
 val () =
 (
   ifcase
@@ -491,6 +492,44 @@ val () =
 ) : void // end of [val]
 //
 } (* end of [patsolve_smt2_output] *)
+
+(* ****** ****** *)
+
+implement
+patsolve_smt2_println
+  ((*void*)) =
+{
+//
+(*
+val () =
+println!
+  ("patsolve_smt2_print: ...")
+*)
+//
+val () = !the_state.input := 0
+val () = !the_state.println := 1
+val () = !the_state.printfile := 0
+//
+} (* end of [patsolve_smt2_print] *)
+
+(* ****** ****** *)
+
+implement
+patsolve_smt2_printfile
+  ((*void*)) =
+{
+//
+(*
+val () =
+println!
+  ("patsolve_smt2_print: ...")
+*)
+//
+val () = !the_state.input := 0
+val () = !the_state.println := 0
+val () = !the_state.printfile := 1
+//
+} (* end of [patsolve_smt2_print] *)
 
 (* ****** ****** *)
 
@@ -506,22 +545,17 @@ println!
 *)
 //
 macdef
-print() = (!the_state.print > 0)
-macdef
 input() = (!the_state.input > 0)
 macdef
 output() = (!the_state.output > 0)
+macdef
+println() = (!the_state.println > 0)
+macdef
+printfile() = (!the_state.printfile > 0)
 //
 in
 //
 case+ 0 of
-//
-| _ when print() =>
-  {
-    val () =
-      fprintln! (!the_state.outfil_ref, arg)
-    // end of [val]
-  } (* input() *)
 //
 | _ when input() =>
   {
@@ -535,6 +569,18 @@ case+ 0 of
   {
     val () = !the_state.output := 0
     val () = patsolve_smt2_output_arg(arg)
+  } (* input() *)
+//
+| _ when println() =>
+  {
+    val () =
+      fprintln! (!the_state.outfil_ref, arg)
+    // end of [val]
+  } (* input() *)
+//
+| _ when printfile() =>
+  {
+    val () = patsolve_smt2_printfile_arg(arg)
   } (* input() *)
 //
 | _ when
@@ -668,6 +714,59 @@ case+ opt of
   } (* end of [None_vt] *)
 //
 end // end of [patsolve_smt2_output_arg]
+
+(* ****** ****** *)
+
+implement
+patsolve_smt2_printfile_arg
+  (path) = let
+//
+val fm = file_mode_r
+val opt =
+  fileref_open_opt(path, fm)
+//
+val out = !the_state.outfil_ref
+//
+fun
+fcopy
+(
+  inp: FILEref, out: FILEref
+) : void = let
+//
+val iseof = fileref_is_eof(inp)
+//
+in
+//
+if
+iseof
+then
+  fileref_close(inp)
+else let
+//
+val str =
+  fileref_get_line_string(inp)
+// end of [va]
+val ((*void*)) = fprintln! (out, str)
+val ((*freed*)) = strptr_free(str)
+//
+in
+  fcopy(inp, out)
+end (* end of [else] *)
+//
+end // end of [fcopy]
+//
+in
+//
+case+ opt of
+| ~Some_vt(inp) =>
+    fcopy(inp, out)
+  // end of [Some_vt]
+| ~None_vt((*void*)) =>
+  (
+    fprintln! (out, "(the-file-[", path, "]-cannot-open-for-read)")
+  ) (* end of [None_vt] *)
+//
+end // end of [patsolve_smt2_printfile_arg]
 
 (* ****** ****** *)
 

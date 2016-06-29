@@ -32,12 +32,13 @@ commarg =
 //
   | CAhelp of (string)
 //
-  | CAprint of (string)
+  | CAgitem of (string)
 //
   | CAinput of (string)
   | CAoutput of (int(*knd*), string)
 //
-  | CAgitem of (string)
+  | CAprintln of (string)
+  | CAprintfile of (string)
 //
   | CAargend of ((*void*))
 // end of [commarg]
