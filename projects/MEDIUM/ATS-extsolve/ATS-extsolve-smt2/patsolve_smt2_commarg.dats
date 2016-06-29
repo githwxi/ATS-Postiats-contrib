@@ -435,13 +435,14 @@ fprintln! (out);
 //
 fprintln! (out, "  --help (for printing out this help usage)");
 //
-fprintln! (out, "  --print <string> (print <string>+newline)");
-//
 fprintln! (out, "  --input <filename> (input from <filename>)");
 //
 fprintln! (out, "  --output <filename> (output into <filename>)");
 fprintln! (out, "  --output-w <filename> (output-write into <filename>)");
 fprintln! (out, "  --output-a <filename> (output-append into <filename>)");
+//
+fprintln! (out, "  --println <string> (print <string>+newline)");
+fprintln! (out, "  --printfile <filename> (print the content of <filename>)");
 //
 fprintln! (out);
 //
