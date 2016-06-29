@@ -242,7 +242,9 @@ vtypedef s2cstopt_vt = Option_vt(s2cst)
 //
 fun
 s2cst_make
-  (symbol, s2rt, stamp): s2cst
+(
+  symbol, s2rt, stamp, extdef: Option(string)
+) : s2cst // end of [s2cst_make]
 //
 (* ****** ****** *)
 //
@@ -256,13 +258,18 @@ overload fprint with fprint_s2cst
 //
 (* ****** ****** *)
 //
+typedef
+scstextdef = stringopt
+//
 fun s2cst_get_srt (s2cst): s2rt
 fun s2cst_get_name (s2cst): symbol
 fun s2cst_get_stamp (s2cst): stamp
+fun s2cst_get_extdef (s2cst): scstextdef
 //
 overload .srt with s2cst_get_srt
 overload .name with s2cst_get_name
 overload .stamp with s2cst_get_stamp
+overload .extdef with s2cst_get_extdef
 //
 (* ****** ****** *)
 //

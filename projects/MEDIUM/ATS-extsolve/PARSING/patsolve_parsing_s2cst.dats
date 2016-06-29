@@ -97,6 +97,16 @@ println!
 ) (* end of [val] *)
 *)
 //
+fun
+parse_scstextdef
+(
+  jsnv0: jsonval
+) : Option(string) =
+(
+parse_option<string>
+  (jsnv0, lam(x) => parse_string(x))
+)
+//
 val-
 ~Some_vt
   (jsnv) = jsnv0["s2cst_stamp"]
@@ -108,11 +118,13 @@ val s2copt = the_s2cstmap_search(stamp)
 in
 //
 case+ s2copt of
-| ~Some_vt(s2c) => s2c
-| ~None_vt((*void*)) => s2c where
+| ~Some_vt(s2c0) => s2c0
+| ~None_vt((*void*)) => s2c0 where
   {
     val-JSONobject(lxs) = jsnv0
-    val () = assertloc(length(lxs) >= 5)
+    val () =
+      assertloc(length(lxs) >= 6)
+    // end of [va]
 //
     val+list_cons(lx, lxs) = lxs
     val sym = parse_symbol(lx.1)
@@ -124,9 +136,12 @@ case+ s2copt of
     val () = the_stamp_update(stamp)
 //
     val+list_cons(lx, lxs) = lxs
+    val extdef = parse_scstextdef(lx.1)
+//
+    val+list_cons(lx, lxs) = lxs
     val supcls = parse_s2explst(lx.1)
 //
-    val s2c = s2cst_make (sym, s2t, stamp)
+    val s2c0 = s2cst_make(sym, s2t, stamp, extdef)
 //
 (*
     val ((*void*)) =
@@ -134,7 +149,7 @@ case+ s2copt of
     // end of [val]
 *)
 //
-    val ((*void*)) = the_s2cstmap_insert (s2c)
+    val ((*void*)) = the_s2cstmap_insert(s2c0)
 //
   } (* end of [None_vt] *)
 //

@@ -166,15 +166,24 @@ implement
 emit_s2cst
   (out, s2c0) = let
 //
-val name = s2c0.name()
-//
-val opt0 = s2cst_get_s2cinterp(s2c0)
+val opt0 =
+  s2cst_get_s2cinterp(s2c0)
 //
 in
 //
 case+ opt0 of
-| Some _ => fprint! (out, name)
-| None _ => fprint! (out, name, "!", s2c0.stamp())
+| Some _ =>
+    fprint! (out, s2c0.name())
+  // end of [Some]
+| None _ => let
+    val extdef = s2c0.extdef()
+  in
+    case+ extdef of
+    | Some(name) => fprint! (out, name)
+    | None((*void*)) =>
+        fprint! (out, s2c0.name(), "!", s2c0.stamp())
+      // end of [None]
+  end // end of [None]
 //
 end // end of [emit_s2cst]
 
@@ -543,16 +552,31 @@ fun
 auxs2c
 (
   s2c: s2cst
-) : void =
-{
-  val () =
-  fprint (out, "(declare-fun ")
-  val () =
-  fprint! (out, s2c.name(), "!", s2c.stamp())
-  val () = fprint(out, " ")
-  val () = auxs2t(s2c.srt())
-  val () = fprintln! (out, ")")
-}
+) : void = let
+//
+val
+extdef = s2c.extdef()
+//
+val () =
+  fprint(out, "(declare-fun ")
+//
+val () =
+(
+case+ extdef of
+| Some(name) =>
+    fprint(out, name)
+  // end of [Some]
+| None((*void*)) =>
+    fprint! (out, s2c.name(), "!", s2c.stamp())
+  // end of [None]
+)
+val () = fprint(out, " ")
+val () = auxs2t(s2c.srt())
+val () = fprintln! (out, ")")
+//
+in
+  // nothing
+end // end of [auxs2c]
 //
 val opt0 =
   s2cst_get_s2cinterp(s2c)

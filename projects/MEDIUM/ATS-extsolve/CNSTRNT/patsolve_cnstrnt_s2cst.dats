@@ -19,7 +19,10 @@ s2cst_struct = @{
   s2cst_srt= s2rt
 , s2cst_name= symbol
 , s2cst_stamp= stamp
-, s2cst_supcls= List0 (s2exp)
+//
+, s2cst_extdef= stringopt
+//
+, s2cst_supcls= List0(s2exp)
 //
 , s2cst_nused= int
 //
@@ -39,15 +42,22 @@ in (* in of [local] *)
 
 implement
 s2cst_make
-  (name, srt, stamp) = let
+(
+  name, srt, stamp, extdef
+) = let
 //
 val [l:addr] (
   pfat, pfgc | p
 ) = ptr_alloc<s2cst_struct> ()
 //
 val () = p->s2cst_srt := srt
+//
 val () = p->s2cst_name := name
+//
 val () = p->s2cst_stamp := stamp
+//
+val () = p->s2cst_extdef := extdef
+//
 val () = p->s2cst_supcls := list_nil()
 //
 val () = p->s2cst_nused := (0)
@@ -65,8 +75,12 @@ s2cst_get_srt(s2c) = !s2c.s2cst_srt
 //
 implement
 s2cst_get_name(s2c) = !s2c.s2cst_name
+//
 implement
 s2cst_get_stamp(s2c) = !s2c.s2cst_stamp
+//
+implement
+s2cst_get_extdef(s2c) = !s2c.s2cst_extdef
 //
 (* ****** ****** *)
 //

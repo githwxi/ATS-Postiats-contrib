@@ -468,6 +468,11 @@ if the_constraint_real() > 0
 //
 val () = emit_the_s2cstmap(out)
 //
+val () = fprintln! (out, ";;")
+val () = fprintln! (out, ";;ATS-constraints")
+val () = fprintln! (out, ";;generated during typechecking")
+val () = fprintln! (out, ";;")
+//
 val () = emit_solvercmdlst (out, $UN.list_vt2t(cmds))
 //
 val ((*freed*)) = list_vt_free(cmds)
