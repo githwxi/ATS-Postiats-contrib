@@ -71,20 +71,26 @@ assume arrayref(a, n) = PYlist(a)
 implement
 arrayref_make_elt
   {a}{n}(asz, x0) =
-  $UN.cast{arrayref(a,n)}(PYlist_make_elt(asz, x0))
+  $UN.cast(PYlist_make_elt(asz, x0))
 //
 (* ****** ****** *)
 
 implement
-arrayref_get_at{a}(A, i) = let
-  val A = $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
+arrayref_get_at
+  {a}(A, i) = let
+  val A =
+    $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
+  // end of [val]
 end // end of [arrayref_get_at]
 
 (* ****** ****** *)
 
 implement
-arrayref_set_at{a}(A, i, x) = let
-  val A = $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
+arrayref_set_at
+  {a}(A, i, x) = let
+  val A =
+    $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
+  // end of [val]
 end // end of [arrayref_set_at]
 
 (* ****** ****** *)
@@ -95,12 +101,16 @@ end // end of [arrayref_set_at]
 //
 implement
 arrszref_make_arrayref
-  {a}(A, n) = $UN.cast{arrszref(a)}(A)
+  {a}(A, n) =
+(
+  $UN.cast{arrszref(a)}(A)
+)
 //
 (* ****** ****** *)
 //
 implement
-arrszref_size{a}(A) = let
+arrszref_size
+  {a}(A) = let
   val A = $UN.cast{PYlist(a)}(A)
 in
   $UN.cast{intGte(0)}(PYlist_length(A))
@@ -109,13 +119,19 @@ end // end of [arrszref_size]
 (* ****** ****** *)
 //
 implement
-arrszref_get_at{a}(A, i) = let
-  val A = $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
+arrszref_get_at
+  {a}(A, i) = let
+  val A =
+    $UN.cast{PYlist(a)}(A) in PYlist_get_at(A, i)
+  // end of [val]
 end // end of [arrszref_get_at]
 //
 implement
-arrszref_set_at{a}(A, i, x) = let
-  val A = $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
+arrszref_set_at
+  {a}(A, i, x) = let
+  val A =
+    $UN.cast{PYlist(a)}(A) in PYlist_set_at(A, i, x)
+  // end of [val]
 end // end of [arrszref_set_at]
 //
 (* ****** ****** *)
