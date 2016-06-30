@@ -17,11 +17,12 @@ all::
 all_in_one::
 
 ######
-
+#
 all:: ; \
 $(CPF) ./CATS/basics_cats.py ./output/ats2pypre_basics_cats.py
 all:: ; \
 $(CPF) ./CATS/integer_cats.py ./output/ats2pypre_integer_cats.py
+#
 all:: ; \
 $(CPF) ./CATS/bool_cats.py ./output/ats2pypre_bool_cats.py
 all:: ; \
@@ -30,13 +31,17 @@ all:: ; \
 $(CPF) ./CATS/float_cats.py ./output/ats2pypre_float_cats.py
 all:: ; \
 $(CPF) ./CATS/string_cats.py ./output/ats2pypre_string_cats.py
+#
 all:: ; \
 $(CPF) ./CATS/print_cats.py ./output/ats2pypre_print_cats.py
 all:: ; \
 $(CPF) ./CATS/filebas_cats.py ./output/ats2pypre_filebas_cats.py
+#
 all:: ; \
 $(CPF) ./CATS/PYlist_cats.py ./output/ats2pypre_PYlist_cats.py
-
+all:: ; \
+$(CPF) ./CATS/reference_cats.py ./output/ats2pypre_reference_cats.py
+#
 ######
 
 all:: ; \

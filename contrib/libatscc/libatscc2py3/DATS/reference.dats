@@ -48,29 +48,23 @@ ref_vt0ype_type(a:t@ype) = PYlist(a)
 *)
 //
 (* ****** ****** *)
+(*
 //
 implement
-ref (x) = ref_make_elt (x)
-//
+ref{a}(x) = $UN.cast{ref(a)}(PYlist_sing(x))
 implement
 ref_make_elt{a}(x) = $UN.cast{ref(a)}(PYlist_sing(x))
 //
-(* ****** ****** *)
-
 implement
 ref_get_elt{a}(r) = let
   val r = $UN.cast{PYlist(a)}(r) in PYlist_get_at(r, 0)
 end // end of [ref_get_elt]
-
-(* ****** ****** *)
-
+//
 implement
 ref_set_elt{a}(r, x0) = let
   val r = $UN.cast{PYlist(a)}(r) in PYlist_set_at(r, 0, x0)
 end // end of [ref_set_elt]
-
-(* ****** ****** *)
-
+//
 implement
 ref_exch_elt{a}(r, x0) = let
   val r =
@@ -80,7 +74,8 @@ ref_exch_elt{a}(r, x0) = let
 in
   PYlist_set_at(r, 0, $UN.castvwtp0{a?}(x0)); $UN.castvwtp0{a}(x1)
 end // end of [ref_exch_elt]
-
+//
+)
 (* ****** ****** *)
 
 (* end of [reference.dats] *)
