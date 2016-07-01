@@ -72,7 +72,7 @@ fileref_open_opt ("./DATA/rec2.grRulesLop", file_mode_r)
 val-~Some_vt(inp) = opt
 //
 val () =
-println! ("the_symtbl_count(bef) = ", the_symtbl_count ())
+println! ("the_symtbl_count(bef) = ", the_symtbl_count())
 //
 val gxs =
   parse_fileref (inp)
@@ -85,7 +85,7 @@ val () = fprint_newline (out)
 val () = fprintln! (out, "|gxs| = ", list_length(gxs))
 //
 val () =
-println! ("the_symtbl_count(aft) = ", the_symtbl_count ())
+println! ("the_symtbl_count(aft) = ", the_symtbl_count())
 //
 val () = print ("pos(final) = ")
 val () = fprint_the_position (out)
@@ -183,7 +183,7 @@ val-~Some_vt(inp) = opt
 //
 (*
 val () =
-println! ("the_symtbl_count(bef) = ", the_symtbl_count ())
+println! ("the_symtbl_count(bef) = ", the_symtbl_count())
 *)
 //
 val gxs = parse_fileref (inp)
@@ -196,7 +196,7 @@ val () = fprintln! (out, "|gxs| = ", list_length(gxs))
 //
 (*
 val () =
-println! ("the_symtbl_count(aft) = ", the_symtbl_count ())
+println! ("the_symtbl_count(aft) = ", the_symtbl_count())
 *)
 //
 val () = print ("pos(final) = ")
@@ -228,7 +228,10 @@ val out = stdout_ref
 val skipped = ruleset_make_nil ()
 //
 val () = fprintln! (out, "Testing Human")
-val () = falcon_rules_data_skipped ("./DATA/rec2.grRulesLop", "./DATA/K562.csv", skipped)
+val () =
+  falcon_rules_data_skipped
+    ("./DATA/rec2.grRulesLop", "./DATA/K562.csv", skipped)
+  // falcon_rules_data_skipped
 //
 (*
 val () = fprintln! (out, "Testing Yeast 7.11")
