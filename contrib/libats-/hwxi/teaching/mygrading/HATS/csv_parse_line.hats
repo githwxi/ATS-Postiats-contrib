@@ -8,7 +8,10 @@
 //
 extern
 fun
-csv_parse_line(line: string): stringlst
+csv_parse_line
+(
+  line: string
+) : List0_vt(Strptr1)
 //
 (* ****** ****** *)
 
@@ -31,7 +34,7 @@ char_at(): int
 //
 extern
 fun{}
-string_at(i0: int): string
+Strptr1_at(i0: int): Strptr1
 //
 extern
 fun{}
@@ -90,26 +93,29 @@ in
 end // end of [char_at]
 //
 implement
-string_at<>(i0) = let
+Strptr1_at<>(i0) = let
 //
   val i1 = get_i()
   val i0 = ckastloc_gintGte(i0, 0)
   val i1 = ckastloc_gintBtwe(i1, i0, n0)
 //
 in
-  $UN.castvwtp0{string}
-    (string_make_substring(line, i2sz(i0), i2sz(i1-i0)))
-  // end of [$UN.castvwtp0]
-end // end of [string_at]
+  $UN.castvwtp0(
+    string_make_substring(line, i2sz(i0), i2sz(i1-i0))
+  ) (* $UN.castvwtp0 *)
+end // end of [Strptr1_at]
 //
 implement
-rmove<>() = if get_i() < n0 then inc_i()
+rmove<>() =
+  if get_i() < n0 then inc_i()
+//
+vtypedef res_vt = List0_vt(Strptr1)
 //
 fun
 loop
 (
-  i: int, res: stringlst_vt
-) : stringlst_vt =
+  i: int, res: res_vt
+) : res_vt =
 if
 is_end()
 then res
@@ -120,13 +126,13 @@ else let
   )
   val i0 = getpos()
   val () = rmove_while(lam(c) => c != ',')
-  val s0 = string_at(i0)
+  val s0 = Strptr1_at(i0)
 in
   loop(i+1, list_vt_cons(s0, res))
 end // end of [else]
 //
 in
-  list_vt2t(list_vt_reverse(loop(0(*i*), list_vt_nil((*void*)))))
+  list_vt_reverse(loop(0(*i*), list_vt_nil((*void*))))
 end // end of [csv_parse_line]
 
 end // end of [local]
