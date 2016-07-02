@@ -11,7 +11,7 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 
 test01: \
 test01.dats ; \
-$(PATSCC) -O2 -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -o $@ $< -lgc
+$(PATSCC) -O2 -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $<
 cleanall:: ; $(RMF) test01
 
 ######

@@ -6,12 +6,19 @@
 //
 (* ****** ****** *)
 //
+#ifdef
+MYGRADING_HATS
+#then
+#else
+//
 extern
 fun
 csv_parse_line
 (
   line: string
 ) : List0_vt(Strptr1)
+//
+#endif // #ifdef
 //
 (* ****** ****** *)
 
@@ -74,7 +81,7 @@ val p_i = addr@i
 val n0 = sz2i(length(line))
 //
 macdef get_i() = $UN.ptr0_get<int>(p_i)
-macdef inc_i() = $UN.ptr0_set<int>(p_i, get_i() + 1)
+macdef inc_i() = $UN.ptr0_addby<int>(p_i, 1)
 macdef set_i(i0) = $UN.ptr0_set<int>(p_i, ,(i0))
 //
 implement
@@ -125,7 +132,11 @@ else let
     if i > 0 then rmove()
   )
   val i0 = getpos()
-  val () = rmove_while(lam(c) => c != ',')
+  var f0 =
+  (
+    lam@(c: char) =<clo> c != ','
+  )
+  val () = rmove_while($UN.cast(addr@f0))
   val s0 = Strptr1_at(i0)
 in
   loop(i+1, list_vt_cons(s0, res))
@@ -139,4 +150,4 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [csv_parse_line.hats] *)
+(* end of [csv_parse.hats] *)

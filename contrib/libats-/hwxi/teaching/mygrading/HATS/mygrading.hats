@@ -23,8 +23,25 @@
 //
 (* ****** ****** *)
 //
-#include
-"./csv_parse_line.hats"
+#define
+MYGRADING_HATS 1
+//
+(* ****** ****** *)
+//
+extern
+fun
+csv_parse_line
+(
+  line: string
+) : List0_vt(Strptr1)
+//
+(* ****** ****** *)
+//
+local
+//
+#include "./csv_parse.hats"
+//
+in (* nothing *) end // [local]
 //
 (* ****** ****** *)
 
