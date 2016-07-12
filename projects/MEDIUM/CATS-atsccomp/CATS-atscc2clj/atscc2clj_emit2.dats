@@ -1719,7 +1719,7 @@ of // case+
     (flag) => (
 //
 // HX-2015-05-22:
-// it is skipped as Scheme does not have a link-time!
+// it is skipped as Clojure does not have a link-time!
 //
   ) (* end of [D0Cdynloadflag_init] *)
 //
