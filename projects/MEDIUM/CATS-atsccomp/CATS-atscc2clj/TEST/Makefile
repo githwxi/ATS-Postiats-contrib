@@ -1,0 +1,181 @@
+#
+# A Simple Makefile
+#
+
+######
+#
+CLOJURE=guile
+#
+CLOJURE2=$(CLOJURE) \
+-l $(LIBATSCC2CLJ)/libatscc2clj_all.clj
+#
+######
+
+PATSCC=$(PATSHOME)/bin/patscc
+PATSOPT=$(PATSHOME)/bin/patsopt
+PATSOPT2=$(PATSOPT) --tlcalopt-disable
+
+######
+
+ATSCC2CLJ=./../atscc2clj
+LIBATSCC2CLJ=./libatscc2clj
+
+######
+
+all::
+regress::
+cleanall::
+
+######
+
+all:: \
+f91_dats.clj
+regress:: \
+f91_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) f91_dats.clj
+
+######
+
+all:: \
+fact_dats.clj
+regress:: \
+fact_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) fact_dats.clj
+
+######
+
+all:: \
+fact2_dats.clj
+regress:: \
+fact2_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) fact2_dats.clj
+
+######
+
+all:: \
+fact3_dats.clj
+regress:: \
+fact3_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) fact3_dats.clj
+
+######
+
+all:: \
+fact4_dats.clj
+regress:: \
+fact4_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) fact4_dats.clj
+
+######
+
+all:: \
+acker_dats.clj
+regress:: \
+acker_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) acker_dats.clj
+
+######
+
+all:: \
+isevn_dats.clj
+regress:: \
+isevn_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) isevn_dats.clj
+
+######
+#
+all:: \
+rtfind_dats.clj
+regress:: \
+rtfind_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) rtfind_dats.clj
+#
+all:: \
+rtfind2_dats.clj
+regress:: \
+rtfind2_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) rtfind2_dats.clj
+#
+######
+#
+all:: \
+twice_dats.clj
+regress:: \
+twice_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) twice_dats.clj
+#
+######
+
+all:: \
+queens_dats.clj
+regress:: \
+queens_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) queens_dats.clj
+
+######
+
+all:: \
+listlen_dats.clj
+regress:: \
+listlen_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) listlen_dats.clj
+
+######
+
+all:: \
+listmap_dats.clj
+regress:: \
+listmap_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) listmap_dats.clj
+
+######
+#
+all:: \
+weekday_dats.clj
+regress:: \
+weekday_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) weekday_dats.clj
+#
+######
+#
+all:: \
+sieve_lazy_dats.clj
+regress:: \
+sieve_lazy_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) sieve_lazy_dats.clj
+#
+######
+
+%_dats.clj: %.dats ; $(PATSOPT2) -d $< | $(ATSCC2CLJ) -o $@
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+#
+CPF=cp -f
+CPRF=cp -rf
+#
+RMF=rm -f
+RMRF=rm -rf
+#
+######
+#
+libatscc2clj:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2clj/CATS/* libatscc2clj/CATS/.
+libatscc2clj:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2clj/libatscc2clj_all.clj libatscc2clj/.
+#
+######
+
+clean:: ; $(RMF) *~
+clean:: ; $(RMF) *_?ats.c
+
+######
+
+cleanall:: clean
+
+###### end of [Makefile] ######
