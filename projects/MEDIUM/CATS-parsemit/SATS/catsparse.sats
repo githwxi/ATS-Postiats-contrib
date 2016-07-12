@@ -78,10 +78,13 @@ CS0 =
 stadef cstream = $CS0.cstream
 //
 (* ****** ****** *)
-
+//
 exception FatalErrorExn
+//
+(* ****** ****** *)
+//
 fun abort ((*void*)):<!exn> void
-
+//
 (* ****** ****** *)
 //
 abstype

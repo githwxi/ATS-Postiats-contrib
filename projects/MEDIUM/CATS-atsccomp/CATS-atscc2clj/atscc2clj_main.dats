@@ -1,7 +1,7 @@
 (* ****** ****** *)
 //
-// Atscc2scm:
-// from ATS to Scheme
+// Atscc2clj:
+// from ATS to Clojure
 //
 (* ****** ****** *)
 //
@@ -17,7 +17,7 @@
 (* ****** ****** *)
 //
 #define
-ATS_DYNLOADNAME"libatscc2scm_dynload"
+ATS_DYNLOADNAME"libatscc2clj_dynload"
 //
 (* ****** ****** *)
 //
@@ -61,8 +61,8 @@ catsparse_include_all_dynload(): void = "ext#"
 //
 (* ****** ****** *)
 
-dynload "./atscc2scm_emit.dats"
-dynload "./atscc2scm_emit2.dats"
+dynload "./atscc2clj_emit.dats"
+dynload "./atscc2clj_emit2.dats"
 
 (* ****** ****** *)
 //
@@ -136,11 +136,11 @@ end // end of [cmdstate_set_outchan]
 //
 extern
 fun
-atscc2scm_fileref
+atscc2clj_fileref
   (state: &cmdstate >> _, filr: FILEref): void
 //
 implement
-atscc2scm_fileref
+atscc2clj_fileref
   (state, inp) = let
 //
 val oc = state.outchan
@@ -162,7 +162,7 @@ val ((*flusing*)) = emit_newline (out)
 //
 in
   // nothing
-end // end of [atscc2scm_fileref]
+end // end of [atscc2clj_fileref]
 
 (* ****** ****** *)
 //
@@ -170,13 +170,13 @@ macdef fopen = $STDIO.fopen
 //
 extern
 fun
-atscc2scm_basename
+atscc2clj_basename
 (
   state: &cmdstate >> _, fname: string
 ) : void // end-of-fun
 //
 implement
-atscc2scm_basename
+atscc2clj_basename
   (state, fname) = let
 //
 val inp =
@@ -196,7 +196,7 @@ val ((*void*)) =
   the_filename_push(filename_make(fname))
 //
 in
-  atscc2scm_fileref (state, inp)
+  atscc2clj_fileref (state, inp)
 end // end of [then]
 else let
 //
@@ -210,7 +210,7 @@ in
   // nothing
 end // end of [else]
 //
-end // end of [atscc2scm_basename]
+end // end of [atscc2clj_basename]
 
 (* ****** ****** *)
 
@@ -280,7 +280,7 @@ comarg_warning (str) = {
 (* ****** ****** *)
   
 fun
-atscc2scm_usage
+atscc2clj_usage
   (cmd: string): void = {
 //
 val () =
@@ -309,7 +309,7 @@ println! ("  -h : for printing out this help usage")
 val () =
 println! ("  --help : for printing out this help usage")
 //
-} (* end of [atscc2scm_usage] *)
+} (* end of [atscc2clj_usage] *)
   
 (* ****** ****** *)
 
@@ -335,8 +335,8 @@ case+ arglst of
   in
     if wait0 then (
       if state.ncomarg = 0
-        then atscc2scm_usage ("atscc2scm")
-        else atscc2scm_fileref (state, stdin_ref)
+        then atscc2clj_usage ("atscc2clj")
+        else atscc2clj_fileref (state, stdin_ref)
     ) (* end of [if] *)
   end // end of [list_nil]
 //
@@ -371,7 +371,7 @@ case+ arg of
         process_cmdline2_COMARGkey2 (state, arglst, key)
     | COMARGkey (_, fname) => let
         val () = state.ninputfile := nif + 1
-        val () = atscc2scm_basename (state, fname(*input*))
+        val () = atscc2clj_basename (state, fname(*input*))
       in
         process_cmdline (state, arglst)
       end // end of [COMARGkey]
@@ -424,7 +424,7 @@ case+ key of
   } (* end of [-o] *)
 //
 | "-h" => {
-    val () = atscc2scm_usage ("atscc2scm")
+    val () = atscc2clj_usage ("atscc2clj")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [-h] *)
@@ -459,7 +459,7 @@ case+ key of
   } (* end of [--output] *)
 //
 | "--help" => {
-    val () = atscc2scm_usage ("atscc2scm")
+    val () = atscc2clj_usage ("atscc2clj")
     val () = state.waitkind := WTKnone(*void*)
     val () = if state.ninputfile < 0 then state.ninputfile := 0
   } (* end of [--help] *)
@@ -547,22 +547,22 @@ end // end of [comarglst_parse]
 //
 extern
 fun
-atscc2scm_main0
+atscc2clj_main0
   {n:pos}
 (
   argc: int(n), argv: !argv(n)
 ) : void =
-  "ext#libatscc2scm_atscc2scm_main0"
+  "ext#libatscc2clj_atscc2clj_main0"
 //
 implement
-atscc2scm_main0
+atscc2clj_main0
   (argc, argv) = () where
 {
 //
 val () =
 prerrln!
 (
-  "Hello from atscc2scm!"
+  "Hello from atscc2clj!"
 ) (* end of [val] *)
 //
 //
@@ -589,7 +589,7 @@ if
 state.nerror = 1
 then let
   val () =
-  prerrln! ("atscc2scm: there is a reported error.")
+  prerrln! ("atscc2clj: there is a reported error.")
 in
   // nothing
 end // end of [then]
@@ -597,7 +597,7 @@ else if
 state.nerror >= 2
 then let
   val () =
-  prerrln! ("atscc2scm: there are some reported errors.")
+  prerrln! ("atscc2clj: there are some reported errors.")
 in
   // nothing
 end // end of [then]
@@ -605,26 +605,26 @@ else () // end of [else]
 //
 (*
 val () =
-prerrln! ("Good-bye from atscc2scm!")
+prerrln! ("Good-bye from atscc2clj!")
 *)
 //
-} (* end of [atscc2scm_main0] *)
+} (* end of [atscc2clj_main0] *)
 
 (* ****** ****** *)
 
 #ifndef
-ATSCC2SCM_MAIN_NONE
+ATSCC2CLJ_MAIN_NONE
 //
 implement
 main0 (argc, argv) =
 {
 //
-val () = atscc2scm_main0(argc, argv)
+val () = atscc2clj_main0(argc, argv)
 //
 } (* end of [main0] *)
 //
-#endif // ifndef(ATSCC2SCM_MAIN_NONE)
+#endif // ifndef(ATSCC2CLJ_MAIN_NONE)
 
 (* ****** ****** *)
 
-(* end of [atscc2scm_main.dats] *)
+(* end of [atscc2clj_main.dats] *)
