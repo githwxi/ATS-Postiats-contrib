@@ -54,6 +54,12 @@ fun auxlst
 (
   out: FILEref, tds: tmpdeclst
 ) : void = let
+//
+(*
+val () =
+println! ("auxlst: tds = ", tds)
+*)
+//
 in
 //
 case+ tds of

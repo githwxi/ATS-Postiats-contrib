@@ -46,10 +46,17 @@ implement
 emit_tmpdeclst_initize
   (out, tds) = let
 //
-fun auxlst
+fun
+auxlst
 (
   out: FILEref, tds: tmpdeclst
 ) : void = let
+//
+(*
+val () =
+println! ("auxlst: tds = ", tds)
+*)
+//
 in
 //
 case+ tds of
@@ -95,8 +102,9 @@ case+ tds of
         val () =
         if isa2rg then
         (
-          emit_nspc(out, 2); emit_tmpvar(out, tmp);
-          emit_text(out, " = "); emit_a2rg__(out, sym); emit_text(out, ",\n")
+          emit_nspc(out, 2);
+          emit_tmpvar(out, tmp); emit_text(out, " = ");
+          emit_a2rg__(out, sym); emit_text(out, ",\n");
         ) (* end of [if] *)
 //
       } (* end of [TMPDECsome] *)
