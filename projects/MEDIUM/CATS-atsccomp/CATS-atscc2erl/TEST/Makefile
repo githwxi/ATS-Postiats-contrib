@@ -105,6 +105,16 @@ cleanall:: ; $(RMF) isevn_dats.erl
 ######
 
 all:: \
+loop_fnx3_dats.erl
+loop_fnx3_dats.erl: loop_fnx3.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2ERL) -o $@
+loop_fnx3_dats.beam:: loop_fnx3_dats.erl ; $(ERLC) $< 
+regress:: loop_fnx3_dats.beam; $(ERL) -run loop_fnx3_dats mytest -run init stop -noshell
+cleanall:: ; $(RMF) loop_fnx3_dats.erl
+
+######
+
+all:: \
 queens_dats.erl
 queens_dats.erl: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2ERL) -o $@
