@@ -53,23 +53,53 @@ fun auxlst
 in
 //
 case+ tds of
-| list_nil () => ()
-| list_cons (td, tds) =>
+| list_nil() => ()
+| list_cons(td, tds) =>
   (
     case+
     td.tmpdec_node
     of // case+
     | TMPDECnone
-        (tmp) => auxlst (out, tds)
+        (tmp) =>
+        auxlst (out, tds)
     | TMPDECsome
-        (tmp, _) => let
+        (tmp, _) =>
+        auxlst (out, tds) where
+      {
+//
+        val sym = tmp.i0dex_sym
+//
+        val isa2rg = tmpvar_is_a2rg(sym)
+//
         val () =
         (
-          emit_text(out, "%% var "); emit_tmpvar(out, tmp); emit_ENDL(out)
+          emit_text(out, "%% var ");
+          emit_tmpvar(out, tmp); emit_ENDL(out)
         ) (* end of [val] *)
-      in
-        auxlst (out, tds)
-      end // end of [TMPDECsome]
+//
+        fun
+        emit_a2rg__
+        (
+          out: FILEref, sym: symbol
+        ) : void = let
+          val p0 =
+            string2ptr
+              (symbol_get_name(sym))
+            // string2ptr
+          val p4 = ptr_add<char>(p0, 4)
+        in
+          emit_text(out, "Arg");
+          emit_text(out, $UN.cast{string}(p4))
+        end // end of [emit_a2rg__]
+//
+        val () =
+        if isa2rg then
+        (
+          emit_nspc(out, 2); emit_tmpvar(out, tmp);
+          emit_text(out, " = "); emit_a2rg__(out, sym); emit_text(out, ",\n")
+        ) (* end of [if] *)
+//
+      } (* end of [TMPDECsome] *)
   ) (* end of [list_cons] *)
 //
 end // end of [auxlst]
@@ -87,6 +117,17 @@ extern
 fun
 the_Casefunx_reset (): void
 //
+(* ****** ****** *)
+//
+extern
+fun
+the_funlabind_get (): int
+extern
+fun
+the_funlabind_set (i0: int): void
+//
+(* ****** ****** *)
+//
 extern
 fun
 the_tmpdeclst_get (): tmpdeclst
@@ -102,6 +143,15 @@ the_f0headopt_get (): f0headopt
 extern
 fun
 the_f0headopt_set (fhd: f0head): void
+//
+(* ****** ****** *)
+//
+extern
+fun
+the_funbodyknd_get (): int
+extern
+fun
+the_funbodyknd_set (knd: int): void
 //
 (* ****** ****** *)
 //
@@ -130,9 +180,13 @@ local
 //
 val the_Casefunx = ref<int> (1)
 //
+val the_funlabind = ref<int> (~1)
+//
 val the_tmpdeclst = ref<tmpdeclst> (list_nil)
 //
 val the_f0headopt = ref<f0headopt> (None())
+//
+val the_funbodyknd = ref<int> (~1)
 val the_funbodylst = ref<instrlst> (list_nil)
 //
 // HX: this is a stack:
@@ -153,6 +207,11 @@ implement
 the_Casefunx_reset() = !the_Casefunx := 1
 
 implement
+the_funlabind_get() = !the_funlabind
+implement
+the_funlabind_set(i0) = !the_funlabind := i0
+
+implement
 the_tmpdeclst_get () = !the_tmpdeclst
 implement
 the_tmpdeclst_set (xs) = !the_tmpdeclst := xs
@@ -161,6 +220,11 @@ implement
 the_f0headopt_get () = !the_f0headopt
 implement
 the_f0headopt_set (fhd) = !the_f0headopt := Some(fhd)
+
+implement
+the_funbodyknd_get() = !the_funbodyknd
+implement
+the_funbodyknd_set(knd) = !the_funbodyknd := knd
 
 implement
 the_funbodylst_get () = !the_funbodylst
@@ -613,14 +677,20 @@ of // case+
     val () = emit_label(out, flab)
   } (* end of [ATSINSflab] *)
 //
-| ATSINSfgoto (flab) =>
+| ATSINSfgoto(flab) =>
   {
     val () = emit_nspc(out, ind)
-    val () = emit_text(out, "%% Funlab_erl = ")
-    val () = emit_funlab_index(out, flab)
-    val () = (
-      emit_text (out, "; // "); emit_label (out, flab)
-    ) (* end of [val] *)
+//
+    val () = let
+      val fi =
+        funlab_get_index (flab)
+      // end of [val]
+      val () = the_funlabind_set(fi)
+    in
+      emit_text (out, "%% Funlab_erl = "); emit_int (out, fi)
+    end (* end of [val] *)
+//
+    val () = (emit_text (out, "% // "); emit_label (out, flab))
   } (* end of [ATSINSfgoto] *)
 //
 | ATSINSfreeclo (d0e) =>
@@ -1137,33 +1207,58 @@ emit2_tailcalseqlst
   (out, ind, inss) = let
 //
 fun
-auxarglst
+auxenvlst
 (
-  out: FILEref, i: int, xs: instrlst
-) : void =
+  out: FILEref, i0: int, xs: f0arglst
+) : int =
 (
 case+ xs of
-| list_nil () => ()
+| list_nil() => i0
+| list_cons(x, xs) =>
+  (
+    case+
+    x.f0arg_node
+    of // case+
+    | F0ARGnone _ => i0
+    | F0ARGsome(arg, s0e) =>
+      if tmpvar_is_env(arg.i0dex_sym)
+        then (
+          (if i0 > 0 then emit_text(out, ", "));
+          emit_tmpvar(out, arg); auxenvlst(out, i0+1, xs)
+        ) else i0
+      // end of [F0ARGsome]
+  ) (* end of [list_cons] *)
+)
+//
+fun
+auxarglst
+(
+  out: FILEref, i0: int, xs: instrlst
+) : int =
+(
+case+ xs of
+| list_nil () => i0
 | list_cons(x, xs) =>
   (
     case+ x.instr_node of
     | ATSINSmove_tlcal
         (_, d0e) => let
         val () =
-        if i > 0
+        if i0 > 0
           then emit_text(out, ", ")
         // end of [if]
         val () = emit_d0exp(out, d0e)
       in
-        auxarglst(out, i+1, xs)
+        auxarglst(out, i0+1, xs)
       end // end of [ATSINSmove_tlcal]
-    | _(*non-ATSINSmove_tlcal*) => ()
+    | _(*non-ATSINSmove_tlcal*) => i0
   )
 )
 //
 val () =
   emit2_instrlst(out, ind, inss)
 //
+val knd = the_funbodyknd_get()
 val-Some(fhd) = the_f0headopt_get()
 //
 in
@@ -1177,11 +1272,30 @@ of // case+
 //
     val () = emit_ENDL (out)
     val () = emit_nspc (out, ind)
-    val () = emit_text (out, "%% ")
 //
-    val () = emit_i0de (out, fid)
+(*
+    val () = emit_text (out, "%% ")
+*)
+//
+    val () =
+      emit_i0de (out, fid)
+    val () =
+      if knd >= 2 then emit_text(out, "__")
+//
     val () = emit_LPAREN (out)
-    val () = auxarglst (out, 0, inss)
+//
+    val () =
+      if knd >= 2
+        then emit_int(out, the_funlabind_get())
+      // end of [if]
+//
+    val xs = f0ma.f0marg_node
+    val i0 =
+      (if knd <= 1 then 0 else 1): int
+    // end of [val]
+    val i0 = auxenvlst (out, i0, xs)
+    val i0 = auxarglst (out, i0, inss)
+//
     val () = emit_RPAREN (out)
 //
   } (* end of [F0HEAD] *)
@@ -1676,6 +1790,11 @@ extern
 fun emit_f0head : emit_type (f0head)
 //
 extern
+fun emit_f0headbd : emit_type (f0head)
+extern
+fun emit_f0headhd : emit_type (f0head)
+//
+extern
 fun emit_f0body : emit_type (f0body)
 extern
 fun emit_f0body_0 : emit_type (f0body)
@@ -1754,15 +1873,83 @@ end // end of [emit_f0head]
 (* ****** ****** *)
 
 implement
+emit_f0headbd
+  (out, fhd) = let
+in
+//
+case+
+fhd.f0head_node
+of // case+
+| F0HEAD
+    (fid, f0ma, res) =>
+  {
+//
+    val () =
+    (
+      emit_f0ide(out, fid); emit_text(out, "__");
+    ) (* end of [val] *)
+//
+    val () = emit_LPAREN(out)
+//
+    val () =
+    (
+      emit_text(out, "1");
+      if isneqz(f0ma.f0marg_node)
+        then (emit_text(out, ", "); emit_f0marg(out, f0ma))
+      // end of [if]
+    ) (* end of [val] *)
+//
+    val () = emit_text (out, ").\n")
+//
+  } (* F0HEAD *)
+//
+end // end of [emit_f0headbd]
+
+implement
+emit_f0headhd
+  (out, fhd) = let
+in
+//
+case+
+fhd.f0head_node
+of // case+
+| F0HEAD
+    (fid, f0ma, res) =>
+  {
+//
+    val () =
+    (
+      emit_f0ide(out, fid); emit_text(out, "__");
+    ) (* end of [val] *)
+//
+    val () = emit_LPAREN(out)
+    val () =
+    (
+      emit_text(out, "Funlab");
+      if isneqz(f0ma.f0marg_node)
+        then (emit_text(out, ", "); emit_f0marg(out, f0ma))
+      // end of [if]
+    ) (* end of [val] *)
+//
+    val () = emit_RPAREN (out)
+//
+  } (* F0HEAD *)
+//
+end // end of [emit_f0headhd]
+
+(* ****** ****** *)
+
+implement
 emit_f0body
   (out, fbody) = let
 //
-val knd = f0body_classify (fbody)
+val k0 = f0body_classify(fbody)
+val () = the_funbodyknd_set(k0)
 (*
 //
 val () =
 println!
-  ("emit_f0body: knd = ", knd)
+  ("emit_f0body: knd = ", k0)
 //
 *)
 //
@@ -1782,13 +1969,13 @@ val () = emit_text (out, "%{\n")
 //
 val () = emit_text (out, "%%\n")
 val () = emit_text (out, "%% knd = ")
-val () = (emit_int (out, knd); emit_ENDL (out))
+val () = (emit_int (out, k0); emit_ENDL (out))
 //
 val () =
   emit_tmpdeclst_initize (out, tmpdecs)
 //
 val () =
-if knd > 0 then
+if k0 > 0 then
 {
 //
 val () = emit_text (out, "%% var Funlab_erl\n")
@@ -1801,10 +1988,10 @@ val () = emit_text (out, "%%\n")
 //
 val () = (
 //
-case+ knd of
-| 0 => emit_f0body_0 (out, fbody)
-| 1 => emit_f0body_tlcal (out, fbody)
-| 2 => emit_f0body_tlcal2 (out, fbody)
+case+ k0 of
+| 0 => emit_f0body_0(out, fbody)
+| 1 => emit_f0body_tlcal(out, fbody)
+| 2 => emit_f0body_tlcal2(out, fbody)
 | _ => let val () = assertloc(false) in (*nothing*) end
 //
 ) : void // end of [val]
@@ -1946,9 +2133,14 @@ val () = emit_nspc (out, 6)
 val () =
 (
   emit_text (out, "%case ");
-  emit_int (out, i); emit_text (out, ": {")
+  emit_int (out, i); emit_text (out, ": {\n")
 )
-val () = emit_ENDL (out)
+val () = emit_nspc (out, 6)
+val () =
+(
+  emit_int (out, i); emit_text(out, " ->\n")
+)
+//
 val () = emit_nspc (out, 8)
 val () = emit_text (out, "%% Funlab_erl = 0;\n")
 val () = emit2_instrlst_end (out, 8(*ind*), inss, ";\n")
@@ -2004,11 +2196,15 @@ val () = emit_text (out, "%while(true) {")
 val () = emit_ENDL (out)
 val () = emit_nspc (out, 4(*ind*))
 val () = emit_text (out, "%switch(Funlab_erl) {\n")
-//
-val () = emit_the_funbodylst (out)
-//
 val () = emit_nspc (out, 4(*ind*))
-val ((*closing*)) = emit_text (out, "%} // end-of-switch\n")
+val () = emit_text (out, "case Funlab of\n")
+//
+val () = emit_the_funbodylst(out)
+//
+val () = emit_nspc (out, 6(*ind*))
+val () = emit_text (out, "_ -> atscc2erl_caseof_deadcode(?FILE, ?LINE)\n")
+val () = emit_nspc (out, 4(*ind*))
+val () = emit_text (out, "end. %} // end-of-switch\n")
 //
 val () = emit_nspc (out, 2(*ind*))
 val ((*closing*)) = emit_text (out, "%} // endwhile-fun\n")
@@ -2048,9 +2244,22 @@ of // case+
     val () =
     emit_text (out, "\n%%fun%%\n")
 //
-    val () = emit_f0head (out, fhd)
+    val () = emit_f0head(out, fhd)
+    val k0 = f0body_classify(fbody)
 //
     val () = emit_text (out, " ->\n")
+//
+    val () =
+    if k0 >= 2 then
+    (
+      emit_nspc(out, 2); emit_f0headbd(out, fhd)
+    ) (* end of [val] *)
+//
+    val () =
+    if k0 >= 2 then
+    (
+      emit_f0headhd(out, fhd); emit_text (out, " ->\n")
+    ) (* end of [val] *)
 //
     val () = emit_f0body (out, fbody)
 //

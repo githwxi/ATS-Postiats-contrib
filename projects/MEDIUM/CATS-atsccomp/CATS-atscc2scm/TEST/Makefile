@@ -13,7 +13,6 @@ SCHEME2=$(SCHEME) \
 
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
-PATSOPT2=$(PATSOPT) --tlcalopt-disable
 
 ######
 
@@ -146,7 +145,7 @@ cleanall:: ; $(RMF) sieve_lazy_dats.scm
 #
 ######
 
-%_dats.scm: %.dats ; $(PATSOPT2) -d $< | $(ATSCC2SCM) -o $@
+%_dats.scm: %.dats ; $(PATSOPT) -d $< | $(ATSCC2SCM) -o $@
 
 ######
 

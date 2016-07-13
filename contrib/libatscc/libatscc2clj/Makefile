@@ -32,23 +32,6 @@ $(ATSCC2CLJ) -o ./output/DATS/list_dats.clj -i
 all:: ; \
 $(PATSOPT2) -d ./DATS/option.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/option_dats.clj -i
-all:: ; \
-$(PATSOPT2) -d ./DATS/stream.dats | \
-$(ATSCC2CLJ) -o ./output/DATS/stream_dats.clj -i
-#
-all:: ; \
-$(PATSOPT2) -d ./DATS/reference.dats | \
-$(ATSCC2CLJ) -o ./output/DATS/reference_dats.clj -i
-#
-######
-#
-all:: ; \
-$(PATSOPT2) -d ./DATS/slistref.dats | \
-$(ATSCC2CLJ) -o ./output/DATS/slistref_dats.clj -i
-#
-all:: ; \
-$(PATSOPT2) -d ./DATS/qlistref.dats | \
-$(ATSCC2CLJ) -o ./output/DATS/qlistref_dats.clj -i
 #
 ######
 

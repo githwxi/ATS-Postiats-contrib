@@ -773,39 +773,47 @@ in '{
 (* ****** ****** *)
 //
 implement
-tmpvar_is_sta (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "sta", i2sz(3)) = 0
+tmpvar_is_sta(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "sta", i2sz(3)) = 0
 ) (* end of [tmpvar_is_sta] *)
 implement
-tmpvar_is_arg (tmp) = (
+tmpvar_is_arg(tmp) =
+(
   $STRING.strncmp (symbol_get_name(tmp), "arg", i2sz(3)) = 0
 ) (* end of [tmpvar_is_arg] *)
 implement
-tmpvar_is_apy (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "apy", i2sz(3)) = 0
+tmpvar_is_apy(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "apy", i2sz(3)) = 0
 ) (* end of [tmpvar_is_apy] *)
 //  
 implement
-tmpvar_is_env (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "env", i2sz(3)) = 0
+tmpvar_is_env(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "env", i2sz(3)) = 0
 ) (* end of [tmpvar_is_env] *)
 //
 implement
-tmpvar_is_tmp (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "tmp", i2sz(3)) = 0
+tmpvar_is_tmp(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "tmp", i2sz(3)) = 0
 ) (* end of [tmpvar_is_tmp] *)
 implement
-tmpvar_is_tmpret (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
+tmpvar_is_tmpret(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
 ) (* end of [tmpvar_is_tmpret] *)
 //
 implement
-tmpvar_is_a2rg (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "a2rg", i2sz(4)) = 0
+tmpvar_is_a2rg(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "a2rg", i2sz(4)) = 0
 ) (* end of [tmpvar_is_a2rg] *)
 implement
-tmpvar_is_a2py (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "a2py", i2sz(4)) = 0
+tmpvar_is_a2py(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "a2py", i2sz(4)) = 0
 ) (* end of [tmpvar_is_a2py] *)
 //
 //
@@ -814,12 +822,14 @@ tmpvar_is_a2py (tmp) = (
 implement
 tmpvar_is_local (tmp) =
 (
-  if tmpvar_is_tmp(tmp) then true
-  else if tmpvar_is_arg(tmp) then true
-  else if tmpvar_is_apy(tmp) then true
-  else if tmpvar_is_env(tmp) then true
-  else if tmpvar_is_a2rg(tmp) then true
-  else if tmpvar_is_a2py(tmp) then true else false
+  ifcase
+  | tmpvar_is_tmp(tmp) => true
+  | tmpvar_is_arg(tmp) => true
+  | tmpvar_is_apy(tmp) => true
+  | tmpvar_is_env(tmp) => true
+  | tmpvar_is_a2rg(tmp) => true
+  | tmpvar_is_a2py(tmp) => true
+  | _ (* else *) => false
 ) (* end of [tmpvar_is_local] *)
 //
 (* ****** ****** *)

@@ -103,10 +103,10 @@
  ats2cljpre_lte_int0_int0[x y] `(<= ~x ~y)
 )
 (defmacro
- (ats2cljpre_gt_int0_int0[x y] `(> ~x ~y)
+ ats2cljpre_gt_int0_int0[x y] `(> ~x ~y)
 )
 (defmacro
- (ats2cljpre_gte_int0_int0[x y] `(>= ~x ~y)
+ ats2cljpre_gte_int0_int0[x y] `(>= ~x ~y)
 )
 ;;
 (defmacro
