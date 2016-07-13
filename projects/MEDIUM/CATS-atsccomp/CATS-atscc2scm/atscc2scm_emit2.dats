@@ -46,6 +46,42 @@ emit_tmpdeclst_initize
   out: FILEref, tds: tmpdeclst
 ) : void // end-of-fun
 //
+local
+
+fun
+skipds
+(
+  p1: ptr
+) : ptr = let
+  val c1 = $UN.ptr0_get<char>(p1)
+in
+  if isdigit(c1)
+    then skipds(ptr_succ<char>(p1)) else p1
+  // end of [if]
+end // end of [skipds]
+
+fun
+emit_axrg__
+(
+  out: FILEref, sym: symbol
+) : void = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(sym))
+// string2ptr
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val p1_2 = ptr_add<char>(p1, 2)
+//
+in
+  emit_text(out, "arg");
+  emit_text(out, $UN.cast{string}(p1_2))
+end // end of [emit_axrg__]
+
+in (* in-of-local *)
+
 implement
 emit_tmpdeclst_initize
   (out, tds) = let
@@ -84,37 +120,22 @@ case+ tds of
         (
           if tmpvar_is_apy(sym)
             then true
-            else tmpvar_is_a2py(sym)
+            else tmpvar_is_axpy(sym)
         ) : bool // end of [if]
-        val isa2rg = tmpvar_is_a2rg(sym)
+        val isaxrg = tmpvar_is_axrg(sym)
 //
         val () =
           if not(isapy)
             then emit_text(out, "  (")
-            else emit_text (out, "  ;; (")
+            else emit_text(out, ";;(")
         // end of [val]
-//
-        fun
-        emit_a2rg__
-        (
-          out: FILEref, sym: symbol
-        ) : void = let
-          val p0 =
-            string2ptr
-              (symbol_get_name(sym))
-            // string2ptr
-          val p4 = ptr_add<char>(p0, 4)
-        in
-          emit_text(out, "arg");
-          emit_text(out, $UN.cast{string}(p4))
-        end // end of [emit_a2rg__]
 //
         val () =
         (
           emit_tmpvar(out, tmp); emit_SPACE(out);
           (
-            if not(isa2rg)
-              then emit_text(out, "#f") else emit_a2rg__(out, sym)
+            if not(isaxrg)
+              then emit_text(out, "#f") else emit_axrg__(out, sym)
             // end of [if]
           )
         ) (* end of [val] *)
@@ -129,6 +150,8 @@ end // end of [auxlst]
 in
   auxlst (out, tds)
 end // end of [emit_tmpdeclst_initize]
+
+end // end of [local]
 //
 (* ****** ****** *)
 //
@@ -1887,17 +1910,6 @@ end // end of [emit_d0ecl]
 (* ****** ****** *)
 //
 extern
-fun
-emit_f0ide
-  : emit_type (i0de) = "ext#atscc2scm_emit_f0ide"
-extern
-fun
-emit_flabel
-  : emit_type (label) = "ext#atscc2scm_emit_flabel"
-//
-(* ****** ****** *)
-//
-extern
 fun emit_f0arg : emit_type (f0arg)
 extern
 fun emit_f0marg : emit_type (f0marg)
@@ -1978,8 +1990,7 @@ of // case+
 //
     val () = emit_LPAREN (out)
 //
-    val () = emit_f0ide (out, fid)
-//
+    val () = emit_i0de (out, fid)
     val () = emit_f0marg (out, f0ma)
 //
     val () = emit_RPAREN (out)
@@ -2007,7 +2018,7 @@ of // case+
 //
     val () =
     (
-      emit_f0ide(out, fid); emit_text(out, "__");
+      emit_i0de(out, fid); emit_text(out, "__");
     ) (* end of [val] *)
 //
     val () =
@@ -2037,7 +2048,7 @@ of // case+
 //
     val () =
     (
-      emit_f0ide(out, fid); emit_text(out, "__");
+      emit_i0de(out, fid); emit_text(out, "__");
     ) (* end of [val] *)
 //
     val () =
@@ -2070,13 +2081,11 @@ println! ("emit_f0body: knd = ", k0)
 val () = the_casefnxx_reset((*void*))
 //
 val
-tmpdecs =
-f0body_get_tmpdeclst(fbody)
-val () = the_tmpdeclst_set(tmpdecs)
-//
+tmpdecs = f0body_get_tmpdeclst(fbody)
 val
-inss_body =
-f0body_get_bdinstrlst(fbody)
+inss_body = f0body_get_bdinstrlst(fbody)
+//
+val () = the_tmpdeclst_set(tmpdecs)
 val () = the_funbodylst_set(inss_body)
 //
 val () = emit_text (out, "\n(let(\n")
@@ -2341,13 +2350,13 @@ in
 case+
 fdec.f0decl_node
 of // case+
-| F0DECLnone (fhd) =>
+| F0DECLnone(fhd) =>
   {
     val () =
       the_f0headopt_set(fhd)
     // end of [val]  
   }
-| F0DECLsome (fhd, fbody) =>
+| F0DECLsome(fhd, fbody) =>
   {
 //
     val () =
@@ -2359,7 +2368,7 @@ of // case+
     val () =
     emit_text (out, "(define\n")
 //
-    val () = emit_f0head (out, fhd)
+    val () = emit_f0head(out, fhd)
 //
     val k0 = f0body_classify(fbody)
 //

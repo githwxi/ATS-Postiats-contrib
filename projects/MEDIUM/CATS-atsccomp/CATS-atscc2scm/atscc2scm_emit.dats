@@ -188,7 +188,8 @@ emit_PMVextval
 //
 extern
 fun
-f0ide_get_arity (fid: i0de): int
+f0ide_get_arity
+  (fid: i0de): int
 //
 implement
 f0ide_get_arity
@@ -216,37 +217,6 @@ end // end of [f0ide_get_arity]
 //
 (* ****** ****** *)
 //
-extern
-fun
-emit_f0ide
-  : emit_type (i0de) = "ext#atscc2scm_emit_f0ide"
-extern
-fun
-emit_flabel
-  : emit_type (label) = "ext#atscc2scm_emit_flabel"
-//
-implement
-emit_f0ide
-  (out, fid) = let
-//
-val sym = fid.i0dex_sym
-val name = symbol_get_name(sym)
-//
-val c0 =
-  $UN.ptr0_get<char> (string2ptr(name))
-//
-val () = if c0 = '_' then emit_text(out, "f")
-//
-in
-  emit_symbol(out, sym)
-end // end of [emit_f0ide]
-//
-implement
-emit_flabel
-  (out, flab) = emit_f0ide (out, flab)
-//
-(* ****** ****** *)
-//
 implement
 emit_PMVfunlab
   (out, flab) =
@@ -256,7 +226,7 @@ emit_PMVfunlab
 val n0 = f0ide_get_arity(flab)
 *)
 //
-val () = emit_flabel (out, flab)
+val () = emit_label (out, flab)
 //
 } (* end of [emit_PMVfunlab] *)
 //
@@ -267,15 +237,16 @@ emit_PMVcfunlab
   (out, flab, d0es_env) =
 {
 //
-val () = emit_LPAREN (out)
+val () = emit_LPAREN(out)
 //
 val () =
-  emit_flabel (out, flab)
-val () =
-  emit_text (out, "__closurerize")
+(
+  emit_label(out, flab); emit_text(out, "__closurerize")
+)
 //
 val () = emit_d0explst_1 (out, d0es_env)
-val () = emit_RPAREN (out)
+//
+val () = emit_RPAREN(out)
 //
 } (* end of [emit_PMVcfunlab] *)
 
@@ -448,8 +419,10 @@ d0e0.d0exp_node of
 | D0Eappid (fid, d0es) =>
   {
     val () = emit_LPAREN (out)
-    val () = emit_f0ide (out, fid)
+//
+    val () = emit_i0de (out, fid)
     val () = emit_d0explst_1 (out, d0es)
+//
     val () = emit_RPAREN (out)
   }
 | D0Eappexp (d0e, d0es) =>
@@ -895,9 +868,10 @@ emit_text (out, "(define\n")
 //
 val () = emit_LPAREN(out)
 //
-val () = emit_flabel(out, flab)
 val () =
-emit_text (out, "__closurerize")
+(
+  emit_label(out, flab); emit_text (out, "__closurerize")
+)
 val () = aux0_envlst (out, s0es_env, 1, 0)
 val ((*closing*)) = emit_text (out, ")\n")
 //
@@ -916,7 +890,7 @@ val () = emit_RPAREN (out)
 //
 val () = emit_LPAREN (out)
 //
-val () = emit_flabel (out, flab)
+val () = emit_label (out, flab)
 val n0 = aux1_envlst (out, s0es_env, 1)
 val () = aux0_arglst (out, s0es_arg, n0, 0)
 //

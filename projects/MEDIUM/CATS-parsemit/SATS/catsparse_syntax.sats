@@ -332,8 +332,11 @@ fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
 fun tmpvar_is_tmp (tmp: symbol): bool
 fun tmpvar_is_tmpret (tmp: symbol): bool
-fun tmpvar_is_a2rg (tmp: symbol): bool
-fun tmpvar_is_a2py (tmp: symbol): bool
+//
+(* ****** ****** *)
+//
+fun tmpvar_is_axrg (tmp: symbol): bool
+fun tmpvar_is_axpy (tmp: symbol): bool
 //
 fun tmpvar_is_local (tmp: symbol): bool
 //

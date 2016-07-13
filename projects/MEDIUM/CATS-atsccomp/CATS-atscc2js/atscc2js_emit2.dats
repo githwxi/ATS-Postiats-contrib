@@ -1095,7 +1095,9 @@ fhd.f0head_node of
     (fid, f0ma, res) =>
   {
 //
-    val () = emit_i0de (out, fid)
+    val () =
+      emit_i0de(out, fid)
+    // end of [val]
 //
     val () = emit_LPAREN (out)
     val () = emit_f0marg (out, f0ma)

@@ -805,6 +805,9 @@ tmpvar_is_tmpret(tmp) =
   $STRING.strncmp(symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
 ) (* end of [tmpvar_is_tmpret] *)
 //
+(* ****** ****** *)
+//
+(*
 implement
 tmpvar_is_a2rg(tmp) =
 (
@@ -815,8 +818,104 @@ tmpvar_is_a2py(tmp) =
 (
   $STRING.strncmp(symbol_get_name(tmp), "a2py", i2sz(4)) = 0
 ) (* end of [tmpvar_is_a2py] *)
+*)
 //
+(* ****** ****** *)
+
+local
 //
+fun
+skipds
+(
+  p1: ptr
+) : ptr = let
+  val c1 = $UN.ptr0_get<char>(p1)
+in
+  if isdigit(c1)
+    then skipds(ptr_succ<char>(p1)) else p1
+  // end of [if]
+end // end of [skipds]
+//
+in (* in-of-local *)
+
+implement
+tmpvar_is_axrg(tmp) = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(tmp))
+//
+val c0 =
+  $UN.ptr0_get<char>(p0)
+//
+in
+//
+if
+(c0 = 'a')
+then let
+//
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val c1 = $UN.ptr0_get<char>(p1)
+//
+in
+//
+if
+(c1 = 'r')
+then let
+  val p2 = ptr_succ<char>(p1)
+  val c2 = $UN.ptr0_get<char>(p2)
+in
+  if (c2 = 'g') then true else false
+end // end of [then]
+else false
+//
+end // end of [then]
+else false
+//
+end // end of [tmpvar_is_axrg]
+
+implement
+tmpvar_is_axpy(tmp) = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(tmp))
+//
+val c0 =
+  $UN.ptr0_get<char>(p0)
+//
+in
+//
+if
+(c0 = 'a')
+then let
+//
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val c1 = $UN.ptr0_get<char>(p1)
+//
+in
+//
+if
+(c1 = 'p')
+then let
+  val p2 = ptr_succ<char>(p1)
+  val c2 = $UN.ptr0_get<char>(p2)
+in
+  if (c2 = 'y') then true else false
+end // end of [then]
+else false
+//
+end // end of [then]
+else false
+//
+end // end of [tmpvar_is_axpy]
+
+end // end of [local]
+
 (* ****** ****** *)
 //
 implement
@@ -824,11 +923,15 @@ tmpvar_is_local (tmp) =
 (
   ifcase
   | tmpvar_is_tmp(tmp) => true
+//
   | tmpvar_is_arg(tmp) => true
   | tmpvar_is_apy(tmp) => true
+//
   | tmpvar_is_env(tmp) => true
-  | tmpvar_is_a2rg(tmp) => true
-  | tmpvar_is_a2py(tmp) => true
+//
+  | tmpvar_is_axrg(tmp) => true
+  | tmpvar_is_axpy(tmp) => true
+//
   | _ (* else *) => false
 ) (* end of [tmpvar_is_local] *)
 //

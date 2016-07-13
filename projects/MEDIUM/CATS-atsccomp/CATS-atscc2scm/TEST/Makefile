@@ -82,6 +82,14 @@ isevn_dats.scm ; $(SCHEME2) $<
 cleanall:: ; $(RMF) isevn_dats.scm
 
 ######
+
+all:: \
+loop_fnx3_dats.scm
+regress:: \
+loop_fnx3_dats.scm ; $(SCHEME2) $<
+cleanall:: ; $(RMF) loop_fnx3_dats.scm
+
+######
 #
 all:: \
 rtfind_dats.scm

@@ -42,6 +42,42 @@ emit_tmpdeclst_initize
   out: FILEref, tds: tmpdeclst
 ) : void // end-of-fun
 //
+local
+
+fun
+skipds
+(
+  p1: ptr
+) : ptr = let
+  val c1 = $UN.ptr0_get<char>(p1)
+in
+  if isdigit(c1)
+    then skipds(ptr_succ<char>(p1)) else p1
+  // end of [if]
+end // end of [skipds]
+
+fun
+emit_axrg__
+(
+  out: FILEref, sym: symbol
+) : void = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(sym))
+// string2ptr
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val p1_2 = ptr_add<char>(p1, 2)
+//
+in
+  emit_text(out, "arg");
+  emit_text(out, $UN.cast{string}(p1_2))
+end // end of [emit_axrg__]
+
+in (* in-of-local *)
+
 implement
 emit_tmpdeclst_initize
   (out, tds) = let
@@ -76,7 +112,7 @@ case+ tds of
 //
         val sym = tmp.i0dex_sym
 //
-        val isa2rg = tmpvar_is_a2rg(sym)
+        val isaxrg = tmpvar_is_axrg(sym)
 //
         val () =
         (
@@ -85,7 +121,7 @@ case+ tds of
         ) (* end of [val] *)
 //
         fun
-        emit_a2rg__
+        emit_axrg__
         (
           out: FILEref, sym: symbol
         ) : void = let
@@ -97,14 +133,14 @@ case+ tds of
         in
           emit_text(out, "Arg");
           emit_text(out, $UN.cast{string}(p4))
-        end // end of [emit_a2rg__]
+        end // end of [emit_axrg__]
 //
         val () =
-        if isa2rg then
+        if isaxrg then
         (
           emit_nspc(out, 2);
           emit_tmpvar(out, tmp); emit_text(out, " = ");
-          emit_a2rg__(out, sym); emit_text(out, ",\n");
+          emit_axrg__(out, sym); emit_text(out, ",\n");
         ) (* end of [if] *)
 //
       } (* end of [TMPDECsome] *)
@@ -115,6 +151,8 @@ end // end of [auxlst]
 in
   auxlst (out, tds)
 end // end of [emit_tmpdeclst_initize]
+
+end // end of [local]
 //
 (* ****** ****** *)
 //
@@ -1444,12 +1482,14 @@ getarglst
 ) : d0explst =
 (
 case+ inss of
-| list_nil () => list_nil ()
-| list_cons (ins, inss) => let
-    val-ATSINSstore_con1_ofs (_, _, _, d0e) = ins.instr_node
-    val d0es = getarglst (inss)
+| list_nil
+    ((*void*)) => list_nil()
+| list_cons
+    (ins, inss) => let
+    val-ATSINSstore_con1_ofs(_, _, _, d0e) = ins.instr_node
+    val d0es = getarglst(inss)
   in
-    list_cons (d0e, d0es)
+    list_cons(d0e, d0es)
   end // end of [list_cons]
 )
 //
@@ -1822,8 +1862,8 @@ case+
 f0a.f0arg_node
 of // case+
 //
-| F0ARGnone _ => emit_text (out, "__NONE__")
-| F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
+| F0ARGnone _ => emit_text(out, "__NONE__")
+| F0ARGsome (arg, s0e) => emit_tmpvar(out, arg)
 //
 end // end of [emit_f0arg]
 
@@ -1840,18 +1880,18 @@ loop
 ) : void =
 (
 case+ f0as of
-| list_nil () => ()
-| list_cons (f0a, f0as) => let
+| list_nil() => ()
+| list_cons(f0a, f0as) => let
     val () =
-      if i > 0 then emit_text (out, ", ")
+      if i > 0 then emit_text(out, ", ")
     // end of [val]
   in
-    emit_f0arg (out, f0a); loop (out, f0as, i+1)
+    emit_f0arg(out, f0a); loop(out, f0as, i+1)
   end // end of [list_cons]
 )
 //
 in
-  loop (out, f0ma.f0marg_node, 0)
+  loop(out, f0ma.f0marg_node, 0)
 end // end of [emit_f0marg]
 
 (* ****** ****** *)
@@ -2266,12 +2306,12 @@ of // case+
     val () =
     if k0 >= 2 then
     (
-      emit_f0headhd(out, fhd); emit_text (out, " ->\n")
+      emit_f0headhd(out, fhd); emit_text(out, " ->\n")
     ) (* end of [val] *)
 //
-    val () = emit_f0body (out, fbody)
+    val () = emit_f0body(out, fbody)
 //
-    val ((*endfun*)) = emit_newline (out)
+    val ((*endfun*)) = emit_newline(out)
 //
   } (* end of [F0DECLsome] *)
 //

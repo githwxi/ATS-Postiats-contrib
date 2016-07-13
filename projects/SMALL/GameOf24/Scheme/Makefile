@@ -21,8 +21,7 @@ GameOf24_scm_dats.scm ; $(SCHEME2) $<
 #
 ######
 #
-GameOf24_scm_dats.c: \
-  GameOf24_scm.dats; $(PATSOPT) --tlcalopt-disable -o $@ -d $<
+GameOf24_scm_dats.c: GameOf24_scm.dats; $(PATSOPT) -o $@ -d $<
 #
 GameOf24_scm_dats.scm: GameOf24_scm_dats.c; $(ATSCC2SCM) -o $@ -i $<
 #
