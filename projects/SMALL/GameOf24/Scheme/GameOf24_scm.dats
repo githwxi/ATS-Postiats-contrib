@@ -337,18 +337,21 @@ if card_isneqz (ci)
 //
 fnx loop1
 (
-  x: cardset, n:int, i: int, res: res
+  x: cardset
+, n:int, i: int, res: res, _: int
 ) : res =
 (
 //
 if i+1 < n
-  then loop2 (x, n, i, i+1, res) else res
+  then loop2 (x, n, i, i+1, res)
+  else res
 //
 ) (* end of [loop1] *)
 //
 and loop2
 (
-  x: cardset, n:int, i: int, j: int, res: res
+  x: cardset
+, n:int, i: int, j: int, res: res
 ) : res = let
 in
 //
@@ -357,17 +360,17 @@ j < n
 then let
 //
 val res =
-  auxdo (x, i, j, res)
+  auxdo(x, i, j, res)
 //
 in
-  loop2 (x, n, i, j+1, res)
+  loop2(x, n, i, j+1, res)
 end // end of [then]
-else loop1 (x, n, i+1, res)
+else loop1(x, n, i+1, res, 0)
 //
 end // end of [loop2]
 //
 in
-  loop1 (x, cardset_size (x), 0, res)
+  loop1(x, cardset_size(x), 0, res, 0)
 end // end of [task_reduce]
 
 (* ****** ****** *)
