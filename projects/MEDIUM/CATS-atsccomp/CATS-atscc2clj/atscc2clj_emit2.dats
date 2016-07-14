@@ -57,21 +57,21 @@ fun auxlst
 in
 //
 case+ tds of
-| list_nil () => ()
-| list_cons (td, tds) =>
+| list_nil() => ()
+| list_cons(td, tds) =>
   (
     case+
     td.tmpdec_node
     of // case+
     | TMPDECnone
-        (tmp) => auxlst (out, tds)
+        (tmp) => auxlst(out, tds)
     | TMPDECsome
         (tmp, _) => let
         val () = (
-          emit_text (out, "  ("); emit_tmpvar(out, tmp); emit_text(out, " #f)\n")
+          emit_text(out, "  "); emit_tmpvar(out, tmp); emit_text(out, " nil\n")
         ) (* end of [val] *)
       in
-        auxlst (out, tds)
+        auxlst(out, tds)
       end // end of [TMPDECsome]
   ) (* end of [list_cons] *)
 //
@@ -655,9 +655,10 @@ of // case+
         emit_d0exp (out, d0e)
       ) (* end of [then] *)
       else (
-        emit_LPAREN (out);
-        emit_text (out, "set! "); emit_tmpvar (out, tmp); emit_SPACE (out); emit_d0exp (out, d0e);
-        emit_RPAREN (out);
+        emit_LPAREN(out);
+        emit_text(out, "var-set ");
+        emit_symbol(out, tmp.i0dex_sym); emit_SPACE(out); emit_d0exp(out, d0e);
+        emit_RPAREN(out);
       ) (* end of [else] *)
     // end of [if]
 //
@@ -936,7 +937,7 @@ emit2_instrlst_seqln
 {
 //
 val () = emit_nspc(out, ind)
-val () = emit_text(out, "(begin\n")
+val () = emit_text(out, "(do\n")
 //
 val () = emit2_instrlst_end(out, ind+1, inss, "\n")
 //
@@ -1059,7 +1060,7 @@ auxinss2_
 ) : instrlst = inss where
 {
   val () = emit_nspc(out, ind)
-  val () = emit_text(out, "(begin\n")
+  val () = emit_text(out, "(do\n")
   val inss = auxinss2(ind+1, tli, i, inss)
   val _void_ = emit_ENDL(out)
   val _void_ = (emit_nspc(out, ind); emit_RPAREN(out))
@@ -1784,8 +1785,8 @@ case+
 f0a.f0arg_node
 of // case+
 //
-| F0ARGnone _ => emit_text (out, "__NONE__")
-| F0ARGsome (arg, s0e) => emit_tmpvar (out, arg)
+| F0ARGnone _ => emit_text(out, "__NONE__")
+| F0ARGsome(arg, s0e) => emit_tmpvar(out, arg)
 //
 end // end of [emit_f0arg]
 
@@ -1802,8 +1803,8 @@ loop
 ) : void =
 (
 case+ f0as of
-| list_nil () => ()
-| list_cons (f0a, f0as) => let
+| list_nil() => ()
+| list_cons(f0a, f0as) => let
     val () =
       if i > 0 then emit_SPACE(out)
     // end of [val]
@@ -1813,7 +1814,7 @@ case+ f0as of
 )
 //
 in
-  loop (out, f0ma.f0marg_node, 1)
+  loop (out, f0ma.f0marg_node, 0)
 end // end of [emit_f0marg]
 
 (* ****** ****** *)
@@ -1830,13 +1831,19 @@ of // case+
     (fid, f0ma, res) =>
   {
 //
-    val () = emit_LPAREN (out)
+    val () =
+      emit_nspc(out, 1)
+    val () =
+      emit_f0ide(out, fid)
+    // end of [val]
 //
-    val () = emit_f0ide (out, fid)
+    val () =
+      emit_LBRACKET(out)
 //
-    val () = emit_f0marg (out, f0ma)
+    val () = emit_f0marg(out, f0ma)
 //
-    val () = emit_RPAREN (out)
+    val () =
+      emit_RBRACKET(out)
 //
   }
 //
@@ -1869,9 +1876,12 @@ inss_body =
 f0body_get_bdinstrlst(fbody)
 val () = the_funbodylst_set(inss_body)
 //
-val () = emit_text (out, "\n(let(\n")
+val () =
+  emit_text(out, "\n(\n")
+val () =
+  emit_text(out, "with-local-vars\n[\n")
 //
-val () = emit_text(out, ";; knd = ")
+val () = emit_text(out, ";;knd = ")
 val () = (emit_int(out, knd); emit_ENDL(out))
 //
 val () = emit_tmpdeclst_initize (out, tmpdecs)
@@ -1880,13 +1890,15 @@ val () =
 if knd > 0 then
 {
 //
-val () = emit_text (out, ";; var funlab_clj\n")
+val () =
+  emit_text(out, ";; var funlab_clj\n")
 //
 } (* end of [if] *) // end of [val]
 //
-val () = emit_text (out, ";; var tmplab, tmplab_clj\n")
+val () =
+  emit_text(out, ";;var tmplab, tmplab_clj\n")
 //
-val () = emit_text (out, ") ;; in-of-let\n")
+val () = emit_text (out, "] ;; with-local-vars\n")
 //
 val () = (
 //
@@ -1898,7 +1910,7 @@ case+ knd of
 //
 ) : void // end of [val]
 //
-val () = emit_text (out, ") ;; end-of-let\n")
+val () = emit_text (out, ") ;; end-of-with-local-vars\n")
 //
 in
   // nothing
@@ -2119,13 +2131,13 @@ in
 case+
 fdec.f0decl_node
 of // case+
-| F0DECLnone (fhd) =>
+| F0DECLnone(fhd) =>
   {
     val () =
       the_f0headopt_set(fhd)
     // end of [val]  
   }
-| F0DECLsome (fhd, fbody) =>
+| F0DECLsome(fhd, fbody) =>
   {
 //
     val () =
@@ -2135,7 +2147,7 @@ of // case+
     val () =
     emit_text (out, "\n;;fun\n")
     val () =
-    emit_text (out, "(define\n")
+    emit_text (out, "(defn\n")
 //
     val () = emit_f0head (out, fhd)
 //
