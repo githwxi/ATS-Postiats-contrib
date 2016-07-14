@@ -31,11 +31,11 @@
 ;;
 (defmacro
  ats2cljpre_abs_int0[x]
- `(let [x# ~x] (if (>= x# 0) x# (- x#)))
+`(let [x# ~x] (if (>= x# 0) x# (- x#)))
 )
 (defmacro
  ats2cljpre_abs_int1[x]
- `(let [x# ~x] (if (>= x# 0) x# (- x#)))
+`(let [x# ~x] (if (>= x# 0) x# (- x#)))
 )
 ;;
 ;; ****** ****** ;;
