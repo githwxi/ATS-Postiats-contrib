@@ -68,7 +68,8 @@ case+ tds of
     | TMPDECsome
         (tmp, _) => let
         val () = (
-          emit_text(out, "  "); emit_tmpvar(out, tmp); emit_text(out, " nil\n")
+          emit_nspc(out, 2);
+          emit_tmpvar(out, tmp); emit_text(out, " nil\n")
         ) (* end of [val] *)
       in
         auxlst(out, tds)
@@ -657,7 +658,7 @@ of // case+
       else (
         emit_LPAREN(out);
         emit_text(out, "var-set ");
-        emit_symbol(out, tmp.i0dex_sym); emit_SPACE(out); emit_d0exp(out, d0e);
+        emit_tmpvar(out, tmp); emit_SPACE(out); emit_d0exp(out, d0e);
         emit_RPAREN(out);
       ) (* end of [else] *)
     // end of [if]

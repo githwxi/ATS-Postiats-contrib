@@ -34,6 +34,13 @@ staload "{$CATSPARSEMIT}/catsparse_typedef.sats"
 staload "{$CATSPARSEMIT}/catsparse_fundecl.sats"
 //
 (* ****** ****** *)
+//
+extern
+fun
+emit_tmpvar_val
+  (out: FILEref, tmp: i0de): void
+//
+(* ****** ****** *)
 
 local
 
@@ -59,25 +66,32 @@ val () =
 if
 p_tm > 0
 then let
-  prval Some_v @(pf1, fpf1) = pfopt
+//
+  prval
+  Some_v@(pf1, fpf1) = pfopt
+//
   val tm_min = $TM.tm_get_min (!p_tm)
   val tm_hour = $TM.tm_get_hour (!p_tm)
   val tm_mday = $TM.tm_get_mday (!p_tm)
   val tm_mon = 1 + $TM.tm_get_mon (!p_tm)
   val tm_year = 1900 + $TM.tm_get_year (!p_tm)
-  prval () = fpf1 (pf1)
+//
+  prval((*returned*)) = fpf1 (pf1)
+//
 in
-  $extfcall
-  (
-    void
-  , "fprintf"
-  , out, "%i-%i-%i: %2ih:%2im\n", tm_year, tm_mon, tm_mday, tm_hour, tm_min
-  )
+//
+$extfcall
+(
+  void
+, "fprintf"
+, out, "%i-%i-%i: %2ih:%2im\n", tm_year, tm_mon, tm_mday, tm_hour, tm_min
+) (* $extfcall *)
+//
 end // end of [then]
 else let
-  prval None_v () = pfopt
+  prval None_v() = pfopt
 in
-  emit_text (out, "**TIME-ERROR**\n")
+  emit_text(out, "**TIME-ERROR**\n")
 end // end of [else]
 //
 val () = emit_text (out, ";;\n")
@@ -420,6 +434,34 @@ end // end of [emit_tmpvar]
 //
 (* ****** ****** *)
 
+implement
+emit_tmpvar_val
+  (out, tmp) = let
+//
+val istmp =
+  tmpvar_is_tmp(tmp.i0dex_sym)
+//
+in
+//
+if
+istmp
+then let
+//
+val () =
+  emit_text(out, "@")
+//
+in
+  emit_tmpvar(out, tmp)
+end // end of [then]
+else
+(
+  emit_tmpvar(out, tmp)
+)
+//
+end // end of [emit_tmpvar_val]
+
+(* ****** ****** *)
+
 fun
 s0exp_get_arity
   (s0e: s0exp): int =
@@ -442,7 +484,7 @@ d0e0.d0exp_node of
 //
 | D0Eide (tmp) => 
   {
-    val () = emit_tmpvar (out, tmp)
+    val () = emit_tmpvar_val(out, tmp)
   }
 //
 | D0Eappid (fid, d0es) =>
