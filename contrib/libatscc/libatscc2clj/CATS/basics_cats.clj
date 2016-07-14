@@ -47,13 +47,17 @@
 ;;
 ;; ****** ****** ;;
 ;;
-(defmacro ATSCKpat_con0[x tag] `(identical? ~x ~tag))
-(defmacro ATSCKpat_con1[x tag] `(identical? (first ~x) ~tag))
+(defmacro
+ ATSCKpat_con0[x tag] `(identical? ~x ~tag))
+(defmacro
+ ATSCKpat_con1[x tag] `(identical? (first ~x) ~tag))
 ;;
 ;; ****** ****** ;;
 
-(defmacro ATSCKptrisnull[x] `(identical? ~x atscc2clj_null))
-(defmacro ATSCKptriscons[x] `(not (indentical? ~x atscc2clj_null)))
+(defmacro
+ ATSCKptrisnull[x] `(identical? ~x atscc2clj_null))
+(defmacro
+ ATSCKptriscons[x] `(not (indentical? ~x atscc2clj_null)))
 
 ;; ****** ****** ;;
 ;;
@@ -78,12 +82,10 @@
 ;; ****** ****** ;;
 ;;
 (defn
- ats2cljpre_assert_bool0[tfv]
- (if (not tfv) (System/exit 1))
+ ats2cljpre_assert_bool0[tfv] (if (not tfv) (System/exit 1))
 )
 (defn
- ats2cljpre_assert_bool1[tfv]
- (if (not tfv) (System/exit 1))
+ ats2cljpre_assert_bool1[tfv] (if (not tfv) (System/exit 1))
 )
 ;;
 (defn
