@@ -116,9 +116,22 @@ end // end of [local]
 extern
 fun
 the_casefnxx_new (): int
+//
 extern
 fun
 the_casefnxx_reset (): void
+//
+(* ****** ****** *)
+//
+extern
+fun
+the_caselevel_get (): int
+extern
+fun
+the_caselevel_inc (): void
+extern
+fun
+the_caselevel_dec (): void
 //
 (* ****** ****** *)
 //
@@ -181,7 +194,9 @@ the_branchlablst_unset ((*void*)): void
 
 local
 //
-val the_casefnxx = ref<int> (1)
+val the_casefnxx = ref<int> (9)
+//
+val the_caselevel = ref<int> (0)
 //
 val the_funlabind = ref<int> (~1)
 //
@@ -207,12 +222,21 @@ the_casefnxx_new
 }
 
 implement
+the_casefnxx_reset() = !the_casefnxx := 0
+
+implement
+the_caselevel_get() = !the_caselevel
+implement
+the_caselevel_inc() =
+  let val n = !the_caselevel in !the_caselevel := n+1 end
+implement
+the_caselevel_dec() =
+  let val n = !the_caselevel in !the_caselevel := n-1 end
+
+implement
 the_funlabind_get() = !the_funlabind
 implement
 the_funlabind_set(i0) = !the_funlabind := i0
-
-implement
-the_casefnxx_reset() = !the_casefnxx := 1
 
 implement
 the_tmpdeclst_get () = !the_tmpdeclst
@@ -581,10 +605,12 @@ of // case+
 | ATScaseofseq(inss) =>
   {
 //
+    val () = the_caselevel_inc()
+//
     val tls =
-      caseofseq_get_tmplablst (ins0)
+      caseofseq_get_tmplablst(ins0)
     // end of [val]
-    val () = the_branchlablst_set (tls)
+    val () = the_branchlablst_set(tls)
 //
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "(let[\n")
@@ -631,6 +657,7 @@ of // case+
       emit_text(out, ") ;; end-of-let(casefnx)")
     // end of [val]
 //
+    val ((*dec*)) = the_caselevel_dec()
     val ((*out*)) = the_branchlablst_unset((*void*))
 //
   } (* end of [ATScaseofseq] *)
@@ -1345,14 +1372,28 @@ of // case+
 //
     val () = emit_LPAREN(out)
 //
-    val () = emit_i0de(out, fid)
+    val l0 =
+      the_caselevel_get()
+    // end of [val]
+    val () =
+    if (l0 = 0)
+      then (
+        emit_text(out, "recur")
+      ) else emit_i0de(out, fid)
+    // end of [val]
 //
     val () =
       if knd >= 2
         then let
-          val fi = the_funlabind_get()
+          val () =
+          if (l0 = 0)
+            then emit_text(out, " ")
+            else emit_text(out, "__ ")
+          // end of [val]
         in
-          emit_text(out, "__ "); emit_int(out, fi)
+          emit_int
+            (out, the_funlabind_get())
+          // emit_int
         end // end of [then]
     // end of [val]
 //
