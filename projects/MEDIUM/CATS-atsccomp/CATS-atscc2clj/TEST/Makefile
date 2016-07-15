@@ -4,10 +4,13 @@
 
 ######
 #
-CLOJURE=clojure
+JAVA=java
 #
-CLOJURE2=$(CLOJURE) \
--i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
+CLOJURE=\
+$(JAVA) -Xss4m -cp /usr/share/java/clojure-1.4.jar
+#
+CLOJURE2=\
+$(CLOJURE) clojure.main -i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
 #
 ######
 

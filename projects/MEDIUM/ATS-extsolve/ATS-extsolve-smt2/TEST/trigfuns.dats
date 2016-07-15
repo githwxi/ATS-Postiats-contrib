@@ -77,6 +77,24 @@ lemma_cos_2x_cos_x
 }
 //
 (* ****** ****** *)
+//
+extern
+prfun
+lemma_sin_2x_sin_cos_x
+  {x:real}
+(
+  (*void*)
+) : [sin(2*x)==2*sin(x)*cos(x)] unit_p
+//
+primplmnt
+lemma_sin_2x_sin_cos_x
+  {x}((*void*)) = unit_p() where
+{
+  prval unit_p() = lemma_trig_pyth{x}()
+  prval unit_p() = lemma_sin_x_add_y{x,x}()
+}
+//
+(* ****** ****** *)
 
 implement
 main0() = () where
