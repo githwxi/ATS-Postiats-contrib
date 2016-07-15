@@ -45,14 +45,15 @@ if m < n
 //
 extern
 fun
-test : (int, int) -> List0(int) = "mac#test"
+mytest
+  : (int, int) -> List0(int) = "mac#mytest"
 //
 implement
-test (m, n) = let
+mytest (m, n) = let
   val xs = fromto (m, n)
 in
   list_map{int}{int} (xs, lam x => m * n * x)
-end // end of [test]
+end // end of [mytest]
 //
 (* ****** ****** *)
 
@@ -69,7 +70,7 @@ from ats2pypre_integer_cats import *
 
 %{$
 //
-print("test(5, 10) = ", test(5, 10), sep='')
+print("mytest(5, 10) = ", mytest(5, 10), sep='')
 //
 %} // end of [%{$]
 

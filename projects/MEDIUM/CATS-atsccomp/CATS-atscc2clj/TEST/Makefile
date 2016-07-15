@@ -4,10 +4,10 @@
 
 ######
 #
-CLOJURE=guile
+CLOJURE=clojure
 #
 CLOJURE2=$(CLOJURE) \
--l $(LIBATSCC2CLJ)/libatscc2clj_all.clj
+-i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
 #
 ######
 
@@ -59,11 +59,11 @@ cleanall:: ; $(RMF) fact3_dats.clj
 
 ######
 
-all:: \
-fact4_dats.clj
-regress:: \
-fact4_dats.clj ; $(CLOJURE2) $<
-cleanall:: ; $(RMF) fact4_dats.clj
+# all:: \
+# fact4_dats.clj
+# regress:: \
+# fact4_dats.clj ; $(CLOJURE2) $<
+# cleanall:: ; $(RMF) fact4_dats.clj
 
 ######
 
@@ -145,11 +145,11 @@ cleanall:: ; $(RMF) weekday_dats.clj
 #
 ######
 #
-all:: \
-sieve_lazy_dats.clj
-regress:: \
-sieve_lazy_dats.clj ; $(CLOJURE2) $<
-cleanall:: ; $(RMF) sieve_lazy_dats.clj
+# all:: \
+# sieve_lazy_dats.clj
+# regress:: \
+# sieve_lazy_dats.clj ; $(CLOJURE2) $<
+# cleanall:: ; $(RMF) sieve_lazy_dats.clj
 #
 ######
 

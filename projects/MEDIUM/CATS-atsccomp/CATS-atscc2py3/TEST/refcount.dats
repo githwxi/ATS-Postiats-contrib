@@ -65,7 +65,7 @@ from ats2pypre_print_cats import *
 #
 from ats2pypre_PYlist_cats import *
 #
-from ats2pypre_reference_dats import *
+from ats2pypre_reference_cats import *
 #
 ######
 %} // end of [%{^]

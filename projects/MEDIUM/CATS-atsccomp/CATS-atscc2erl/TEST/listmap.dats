@@ -66,7 +66,8 @@ if m < n
 //
 extern
 fun
-mytest : (int, int) -> List0(int) = "mac#test"
+mytest
+  : (int, int) -> List0(int) = "mac#mytest"
 //
 implement
 mytest (m, n) = let
