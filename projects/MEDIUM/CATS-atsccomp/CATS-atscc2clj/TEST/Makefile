@@ -82,6 +82,14 @@ isevn_dats.clj ; $(CLOJURE2) $<
 cleanall:: ; $(RMF) isevn_dats.clj
 
 ######
+
+all:: \
+loop_fnx3_dats.clj
+regress:: \
+loop_fnx3_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) loop_fnx3_dats.clj
+
+######
 #
 all:: \
 rtfind_dats.clj
