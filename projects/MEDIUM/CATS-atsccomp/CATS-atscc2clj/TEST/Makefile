@@ -3,16 +3,6 @@
 #
 
 ######
-#
-JAVA=java
-#
-CLOJURE=\
-$(JAVA) -Xss4m -cp /usr/share/java/clojure-1.4.jar
-#
-CLOJURE2=\
-$(CLOJURE) clojure.main -i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
-#
-######
 
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
@@ -22,6 +12,18 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 ATSCC2CLJ=./../atscc2clj
 LIBATSCC2CLJ=./libatscc2clj
 
+######
+#
+JAVA=java
+#
+CLOJURE=\
+$(JAVA) -Xss4m \
+  -cp /usr/share/java/clojure-1.4.jar
+#
+CLOJURE2=\
+$(CLOJURE) clojure.main \
+  -i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
+#
 ######
 
 all::
@@ -62,11 +64,11 @@ cleanall:: ; $(RMF) fact3_dats.clj
 
 ######
 
-# all:: \
-# fact4_dats.clj
-# regress:: \
-# fact4_dats.clj ; $(CLOJURE2) $<
-# cleanall:: ; $(RMF) fact4_dats.clj
+all:: \
+fact4_dats.clj
+regress:: \
+fact4_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) fact4_dats.clj
 
 ######
 
