@@ -438,13 +438,24 @@ implement
 emit_tmpvar_val
   (out, tmp) = let
 //
-val istmp =
-  tmpvar_is_tmp(tmp.i0dex_sym)
+val sym = tmp.i0dex_sym
+//
+val isat = false
+//
+val isat =
+(
+  if isat then true else tmpvar_is_tmp(sym)
+) : bool // end of [val]
+val isat =
+(
+  if isat then true else
+    (if tmpvar_is_arg(sym) then false else tmpvar_is_axrg(sym))
+) : bool // end of [val]
 //
 in
 //
 if
-istmp
+isat
 then let
 //
 val () =
@@ -456,7 +467,7 @@ end // end of [then]
 else
 (
   emit_tmpvar(out, tmp)
-)
+) (* end of [else] *)
 //
 end // end of [emit_tmpvar_val]
 

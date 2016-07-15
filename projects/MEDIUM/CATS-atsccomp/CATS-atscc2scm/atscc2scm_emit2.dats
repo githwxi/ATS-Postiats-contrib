@@ -2090,7 +2090,7 @@ val () = the_funbodylst_set(inss_body)
 //
 val () = emit_text (out, "\n(let(\n")
 //
-val () = emit_text(out, ";; knd = ")
+val () = emit_text(out, ";;knd = ")
 val () = (emit_int(out, k0); emit_ENDL(out))
 //
 val () = emit_tmpdeclst_initize (out, tmpdecs)
@@ -2100,13 +2100,12 @@ if k0 > 0 then
 {
 //
 val () =
-emit_text(out, ";; var funlab_scm\n")
+emit_text(out, ";;var funlab_scm\n")
 //
 } (* end of [if] *) // end of [val]
 //
 val () =
-emit_text
-  (out, ";; var tmplab, tmplab_scm\n")
+emit_text(out, ";;var tmplab,tmplab_scm\n")
 //
 val () = emit_text (out, ") ;; in-of-let\n")
 //

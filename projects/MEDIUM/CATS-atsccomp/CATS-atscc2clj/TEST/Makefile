@@ -13,7 +13,6 @@ CLOJURE2=$(CLOJURE) \
 
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
-PATSOPT2=$(PATSOPT) --tlcalopt-disable
 
 ######
 
@@ -146,7 +145,7 @@ cleanall:: ; $(RMF) sieve_lazy_dats.clj
 #
 ######
 
-%_dats.clj: %.dats ; $(PATSOPT2) -d $< | $(ATSCC2CLJ) -o $@
+%_dats.clj: %.dats ; $(PATSOPT) -d $< | $(ATSCC2CLJ) -o $@
 
 ######
 
