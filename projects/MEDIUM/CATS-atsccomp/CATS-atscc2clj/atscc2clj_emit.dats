@@ -462,7 +462,10 @@ in
 end // end of [then]
 else
 (
-  emit_axrg__(out, sym)
+//
+if ~tmpvar_is_axrg(sym)
+  then emit_tmpvar(out, tmp) else emit_axrg__(out, sym)
+//
 ) (* end of [else] *)
 //
 end // end of [emit_tmpvar_val]

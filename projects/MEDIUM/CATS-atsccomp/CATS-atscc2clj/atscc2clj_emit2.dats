@@ -1845,7 +1845,7 @@ of // case+
 //
 | D0Cstatmp(tmp, opt) =>
   {
-    val () = emit_ENDL (out)
+    val () = emit_ENDL(out)
     val () = (
       case+ opt of
       | Some _ => ()
@@ -1862,7 +1862,7 @@ of // case+
     ) (* end of [val] *)
   } (* end of [D0Cstatmp] *)
 //
-| D0Cfundecl (fk, f0d) => emit_f0decl (out, f0d)
+| D0Cfundecl(fk, f0d) => emit_f0decl(out, f0d)
 //
 | D0Cclosurerize
     (fl, env, arg, res) =>
@@ -2508,6 +2508,30 @@ of // case+
 end // end of [emit_f0decl]
 
 (* ****** ****** *)
+//
+extern
+fun
+emit_f0head_declare
+(
+  out: FILEref, fhd: f0head
+) : void // end-of-function
+//
+implement
+emit_f0head_declare
+  (out, fhd) =
+(
+case+
+fhd.f0head_node
+of // case+
+| F0HEAD
+    (fid, f0ma, res) =>
+  (
+    emit_text(out, "(declare ");
+    emit_i0de(out, fid); emit_text(out, ")\n")
+  )
+) (* end of [emit_f0head_declare] *)
+//
+(* ****** ****** *)
 
 implement
 emit_toplevel
@@ -2526,17 +2550,29 @@ of // case+
 | D0Ctypedef
     (id, def) =>
   (
-    typedef_insert (id.i0dex_sym, def)
+    typedef_insert(id.i0dex_sym, def)
   )
 //
 | D0Cfundecl
-    (fk, f0d) => 
+    (fk, f0d) =>
   (
     case+
     f0d.f0decl_node
     of // case+
-    | F0DECLnone (fhd) => f0head_insert(fhd)
-    | F0DECLsome (fhd, _) => f0head_insert(fhd)
+    | F0DECLnone(fhd) => let
+        val () =
+          f0head_insert(fhd)
+        // end of [val]
+      in
+        emit_f0head_declare(out, fhd)
+      end // end of [F0DECLnone]
+    | F0DECLsome(fhd, _) => let
+        val () =
+          f0head_insert(fhd)
+        // end of [val]
+      in
+        emit_f0head_declare(out, fhd)
+      end // end of [F0DECLsome]
   )
 //
 | _(* rest-of-D0C *) => ()
@@ -2581,6 +2617,9 @@ case+ d0cs of
 )
 //
 val () = auxlst1 (d0cs)
+//
+val () = emit_text (out, ";;;;;;\n\n")
+//
 val () = auxlst2 (out, d0cs)
 //
 in

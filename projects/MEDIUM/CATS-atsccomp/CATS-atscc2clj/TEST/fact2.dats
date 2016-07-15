@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// HX-2016-05:
+// HX-2016-07:
 // A running example
 // from ATS2 to Clojure
 //
