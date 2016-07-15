@@ -55,9 +55,28 @@
 ;; ****** ****** ;;
 
 (defmacro
- ATSCKptrisnull[x] `(identical? ~x atscc2clj_null))
+ ATSCKptrisnull[x]
+`(identical? ~x atscc2clj_null)
+)
 (defmacro
- ATSCKptriscons[x] `(not (indentical? ~x atscc2clj_null)))
+ ATSCKptriscons[x]
+`(not (identical? ~x atscc2clj_null))
+)
+
+;; ****** ****** ;;
+
+(defmacro
+ ATSPMVtyrec[& xs] `(list ~@(for [x xs] x))
+)
+(defmacro
+ ATSPMVtysum[& xs] `(list ~@(for [x xs] x))
+)
+
+;; ****** ****** ;;
+
+(defmacro
+ ATSCCget_at[xs i] `(nth ~xs ~i)
+)
 
 ;; ****** ****** ;;
 ;;
