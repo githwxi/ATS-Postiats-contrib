@@ -230,37 +230,6 @@ end // end of [f0ide_get_arity]
 //
 (* ****** ****** *)
 //
-extern
-fun
-emit_f0ide
-  : emit_type (i0de) = "ext#atscc2clj_emit_f0ide"
-extern
-fun
-emit_flabel
-  : emit_type (label) = "ext#atscc2clj_emit_flabel"
-//
-implement
-emit_f0ide
-  (out, fid) = let
-//
-val sym = fid.i0dex_sym
-val name = symbol_get_name(sym)
-//
-val c0 =
-  $UN.ptr0_get<char> (string2ptr(name))
-//
-val () = if c0 = '_' then emit_text(out, "f")
-//
-in
-  emit_symbol(out, sym)
-end // end of [emit_f0ide]
-//
-implement
-emit_flabel
-  (out, flab) = emit_f0ide (out, flab)
-//
-(* ****** ****** *)
-//
 implement
 emit_PMVfunlab
   (out, flab) =
@@ -270,7 +239,7 @@ emit_PMVfunlab
 val n0 = f0ide_get_arity(flab)
 *)
 //
-val () = emit_flabel (out, flab)
+val () = emit_label(out, flab)
 //
 } (* end of [emit_PMVfunlab] *)
 //
@@ -281,15 +250,16 @@ emit_PMVcfunlab
   (out, flab, d0es_env) =
 {
 //
-val () = emit_LPAREN (out)
+val () = emit_LPAREN(out)
 //
 val () =
-  emit_flabel (out, flab)
+  emit_label(out, flab)
 val () =
   emit_text (out, "__closurerize")
 //
-val () = emit_d0explst_1 (out, d0es_env)
-val () = emit_RPAREN (out)
+val () = emit_d0explst_1(out, d0es_env)
+//
+val () = emit_RPAREN(out)
 //
 } (* end of [emit_PMVcfunlab] *)
 
@@ -498,19 +468,23 @@ d0e0.d0exp_node of
     val () = emit_tmpvar_val(out, tmp)
   }
 //
-| D0Eappid (fid, d0es) =>
+| D0Eappid(fid, d0es) =>
   {
-    val () = emit_LPAREN (out)
-    val () = emit_f0ide (out, fid)
-    val () = emit_d0explst_1 (out, d0es)
-    val () = emit_RPAREN (out)
+    val () = emit_LPAREN(out)
+//
+    val () = emit_i0de(out, fid)
+    val () = emit_d0explst_1(out, d0es)
+//
+    val () = emit_RPAREN(out)
   }
-| D0Eappexp (d0e, d0es) =>
+| D0Eappexp(d0e, d0es) =>
   {
-    val () = emit_LPAREN (out)
-    val () = emit_d0exp (out, d0e)
-    val () = emit_d0explst_1 (out, d0es)
-    val () = emit_RPAREN (out)
+    val () = emit_LPAREN(out)
+//
+    val () = emit_d0exp(out, d0e)
+    val () = emit_d0explst_1(out, d0es)
+//
+    val () = emit_RPAREN(out)
   }
 //
 | D0Elist (d0es) =>
@@ -944,45 +918,44 @@ val () =
 emit_text (out, ";;fun;;\n")
 *)
 val () =
-emit_text (out, "(define\n")
+emit_text(out, "(defn\n")
 //
-val () = emit_LPAREN(out)
-//
-val () = emit_flabel(out, flab)
 val () =
-emit_text (out, "__closurerize")
-val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, ")\n")
+  emit_label(out, flab)
+val () =
+  emit_text (out, "__closurerize")
 //
-val ((*opening*)) = emit_text (out, ";;%{\n")
+val () = emit_LBRACKET(out)
+val () = aux0_envlst(out, s0es_env, 0, 0)
+val () = emit_RBRACKET(out)
+//
+val () = emit_text(out, "\n;;%{\n")
 //
 val () = emit_nspc (out, 2)
 val () = emit_text (out, "(list ")
-val () = emit_text (out, "(lambda")
+val () = emit_text (out, "(fn")
 //
-val () = emit_LPAREN (out)
-//
-val () = aux0_cenv (out, s0es_env)
+val () =
+  emit_LBRACKET(out)
+val () = aux0_cenv(out, s0es_env)
 val () = aux0_arglst (out, s0es_arg, 1, 0)
+val () =
+  emit_RBRACKET(out)
 //
-val () = emit_RPAREN (out)
+val () = emit_LPAREN(out)
+val () = emit_label(out, flab)
+val n0 = aux1_envlst(out, s0es_env, 1)
+val () = aux0_arglst(out, s0es_arg, n0, 0)
+val () = emit_RPAREN(out)
 //
-val () = emit_LPAREN (out)
+val () = emit_RPAREN(out)
 //
-val () = emit_flabel (out, flab)
-val n0 = aux1_envlst (out, s0es_env, 1)
-val () = aux0_arglst (out, s0es_arg, n0, 0)
+val () = aux0_envlst(out, s0es_env, 1, 0)
+val ((*closing*)) = emit_text(out, ")\n")
+val ((*closing*)) = emit_text(out, ";;%}\n")
+val ((*closing*)) = emit_text(out, ") ;; end-of-defn\n")
 //
-val () = emit_RPAREN (out)
-//
-val () = emit_RPAREN (out)
-//
-val () = aux0_envlst (out, s0es_env, 1, 0)
-val ((*closing*)) = emit_text (out, ")\n")
-val ((*closing*)) = emit_text (out, ";;%}\n")
-val ((*closing*)) = emit_text (out, ") ;; define\n")
-//
-val ((*flushing*)) = emit_newline (out)
+val ((*flushing*)) = emit_newline(out)
 //
 in
   // nothing

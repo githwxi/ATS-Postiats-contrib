@@ -26,10 +26,10 @@ staload "./SATS/print.sats"
 //
 (*
 staload "./SATS/filebas.sats"
+*)
 //
 staload _(*anon*) = "./DATS/print.dats"
 //
-*)
 (* ****** ****** *)
 //
 (*
@@ -38,9 +38,10 @@ staload _(*anon*) = "./DATS/intrange.dats"
 *)
 //
 (* ****** ****** *)
-(*
 //
 staload "./SATS/list.sats"
+//
+(*
 staload "./SATS/stream.sats"
 staload "./SATS/reference.sats"
 //

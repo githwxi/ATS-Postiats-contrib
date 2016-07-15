@@ -1903,17 +1903,6 @@ end // end of [emit_d0ecl]
 (* ****** ****** *)
 //
 extern
-fun
-emit_f0ide
-  : emit_type (i0de) = "ext#atscc2clj_emit_f0ide"
-extern
-fun
-emit_flabel
-  : emit_type (label) = "ext#atscc2clj_emit_flabel"
-//
-(* ****** ****** *)
-//
-extern
 fun emit_f0arg : emit_type (f0arg)
 //
 extern
@@ -2010,7 +1999,7 @@ of // case+
     val () =
       emit_nspc(out, 1)
     val () =
-      emit_f0ide(out, fid)
+      emit_i0de(out, fid)
     // end of [val]
 //
     val () =
