@@ -2,7 +2,7 @@
 //
 // HX-2016-07:
 // A running example
-// from ATS2 to Scheme
+// from ATS2 to Clojure
 //
 (* ****** ****** *)
 //
@@ -16,7 +16,7 @@
 (* ****** ****** *)
 //
 #include
-"{$LIBATSCC2SCM}/staloadall.hats"
+"{$LIBATSCC2CLJ}/staloadall.hats"
 //
 (* ****** ****** *)
 //

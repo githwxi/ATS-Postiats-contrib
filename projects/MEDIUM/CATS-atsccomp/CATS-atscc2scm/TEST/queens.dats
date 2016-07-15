@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// HX-2014-11:
+// HX-2016-05:
 // A running example
 // from ATS2 to Scheme
 //

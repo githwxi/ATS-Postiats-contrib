@@ -404,23 +404,49 @@ end // end of [emit_tmpvar]
 //
 (* ****** ****** *)
 
+local
+
+fun
+skipds
+(
+  p1: ptr
+) : ptr = let
+  val c1 = $UN.ptr0_get<char>(p1)
+in
+  if isdigit(c1)
+    then skipds(ptr_succ<char>(p1)) else p1
+  // end of [if]
+end // end of [skipds]
+
+fun
+emit_axrg__
+(
+  out: FILEref, sym: symbol
+) : void = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(sym))
+// string2ptr
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val p1_2 = ptr_add<char>(p1, 2)
+//
+in
+  emit_text(out, "arg");
+  emit_text(out, $UN.cast{string}(p1_2))
+end // end of [emit_axrg__]
+
+in (* in-of-local *)
+
 implement
 emit_tmpvar_val
   (out, tmp) = let
 //
 val sym = tmp.i0dex_sym
 //
-val isat = false
-//
-val isat =
-(
-  if isat then true else tmpvar_is_tmp(sym)
-) : bool // end of [val]
-val isat =
-(
-  if isat then true else
-    (if tmpvar_is_arg(sym) then false else tmpvar_is_axrg(sym))
-) : bool // end of [val]
+val isat = tmpvar_is_tmp(sym)
 //
 in
 //
@@ -436,10 +462,12 @@ in
 end // end of [then]
 else
 (
-  emit_tmpvar(out, tmp)
+  emit_axrg__(out, sym)
 ) (* end of [else] *)
 //
 end // end of [emit_tmpvar_val]
+
+end // end of [local]
 
 (* ****** ****** *)
 
