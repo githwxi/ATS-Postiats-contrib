@@ -36,6 +36,16 @@ $(PATSOPT) -d ./DATS/stream.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/stream_dats.clj -i
 #
 ######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/slistref.dats | \
+$(ATSCC2CLJ) -o ./output/DATS/slistref_dats.clj -i
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/qlistref.dats | \
+$(ATSCC2CLJ) -o ./output/DATS/qlistref_dats.clj -i
+#
+######
 
 all_in_one:: libatscc2clj_all
 

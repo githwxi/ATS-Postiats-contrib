@@ -5,7 +5,6 @@
 ######
 
 PATSOPT=$(PATSHOME)/bin/patsopt
-PATSOPT2=$(PATSOPT) --tlcalopt-disable
 ATSCC2SCM=$(PATSHOME)/bin/atscc2scm
 
 ######
@@ -23,31 +22,31 @@ all_in_one::
 ######
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/basics.dats | \
+$(PATSOPT) -d ./DATS/basics.dats | \
 $(ATSCC2SCM) -o ./output/DATS/basics_dats.scm -i
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/list.dats | \
+$(PATSOPT) -d ./DATS/list.dats | \
 $(ATSCC2SCM) -o ./output/DATS/list_dats.scm -i
 all:: ; \
-$(PATSOPT2) -d ./DATS/option.dats | \
+$(PATSOPT) -d ./DATS/option.dats | \
 $(ATSCC2SCM) -o ./output/DATS/option_dats.scm -i
 all:: ; \
-$(PATSOPT2) -d ./DATS/stream.dats | \
+$(PATSOPT) -d ./DATS/stream.dats | \
 $(ATSCC2SCM) -o ./output/DATS/stream_dats.scm -i
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/reference.dats | \
+$(PATSOPT) -d ./DATS/reference.dats | \
 $(ATSCC2SCM) -o ./output/DATS/reference_dats.scm -i
 #
 ######
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/slistref.dats | \
+$(PATSOPT) -d ./DATS/slistref.dats | \
 $(ATSCC2SCM) -o ./output/DATS/slistref_dats.scm -i
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/qlistref.dats | \
+$(PATSOPT) -d ./DATS/qlistref.dats | \
 $(ATSCC2SCM) -o ./output/DATS/qlistref_dats.scm -i
 #
 ######
