@@ -45,16 +45,22 @@ from
 //
 (* ****** ****** *)
 
-fun sieve
+fun
+sieve
 (
   ns: stream int
 ) :<!laz>
   stream (int) = $delay
 (
 let
-  val-cons(n, ns) = !ns
+//
+val-
+cons(n, ns) = !ns
+//
 in
-  cons(n, sieve (stream_filter_cloref(ns, lam x => x % n > 0)))
+//
+cons(n, sieve (stream_filter_cloref(ns, lam x => x % n > 0)))
+//
 end : stream_con (int)
 ) (* end of [sieve] *)
 

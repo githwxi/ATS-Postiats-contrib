@@ -5,7 +5,6 @@
 ######
 
 PATSOPT=$(PATSHOME)/bin/patsopt
-PATSOPT2=$(PATSOPT) --tlcalopt-disable
 ATSCC2CLJ=$(PATSHOME)/bin/atscc2clj
 
 ######
@@ -23,15 +22,18 @@ all_in_one::
 ######
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/basics.dats | \
+$(PATSOPT) -d ./DATS/basics.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/basics_dats.clj -i
 #
 all:: ; \
-$(PATSOPT2) -d ./DATS/list.dats | \
+$(PATSOPT) -d ./DATS/list.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/list_dats.clj -i
 all:: ; \
-$(PATSOPT2) -d ./DATS/option.dats | \
+$(PATSOPT) -d ./DATS/option.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/option_dats.clj -i
+all:: ; \
+$(PATSOPT) -d ./DATS/stream.dats | \
+$(ATSCC2CLJ) -o ./output/DATS/stream_dats.clj -i
 #
 ######
 
@@ -74,6 +76,7 @@ libatscc2clj_all:: ; \
 $(CAT) >>libatscc2clj_all.clj \
 output/DATS/list_dats.clj \
 output/DATS/option_dats.clj \
+output/DATS/stream_dats.clj \
 #
 libatscc2clj_all:: ; \
 $(ECHO) '\n;; ****** ****** ;;\n' | $(CAT) - >>libatscc2clj_all.clj

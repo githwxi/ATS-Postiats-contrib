@@ -949,8 +949,12 @@ of // case+
   {
     val () =
       emit_nspc (out, ind)
-    val () = (
-      emit_text(out, ";; initizing flag is set\n");
+    val () =
+      emit_text(out, ";; initizing flag is set\n")
+    val () =
+      emit_nspc (out, ind)
+    val () =
+    (
       emit_text(out, "(set! "); emit_tmpvar(out, flag); emit_text(out, " 1)")
     ) (* end of [val] *)
   }

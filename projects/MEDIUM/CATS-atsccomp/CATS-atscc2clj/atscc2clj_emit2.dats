@@ -451,11 +451,44 @@ val () = emit_RPAREN(out)
 (* ****** ****** *)
 //
 extern
-fun emit2_instr
+fun
+emit_tmpvar_set
+(
+  out: FILEref, tmp: i0de
+) : void // end-of-function
+//
+implement
+emit_tmpvar_set
+  (out, tmp) = () where
+{
+//
+val
+sym = tmp.i0dex_sym
+val
+istmp = tmpvar_is_tmp(sym)
+//
+val () =
+emit_text
+( out
+, if istmp
+    then "ATSINStmpset" else "ATSINSstatmpset"
+  // end of [if]
+) (* emit_text *)
+val () = emit_SPACE(out)
+val () = emit_symbol(out, sym)
+//
+} (* end of [emit_tmpvar_set] *)
+//
+(* ****** ****** *)
+//
+extern
+fun
+emit2_instr
   (out: FILEref, ind: int, ins: instr): void
 //
 extern
-fun emit2_instr_ln
+fun
+emit2_instr_ln
   (out: FILEref, ind: int, ins: instr): void
 //
 extern
@@ -481,39 +514,47 @@ emit2_instrlst_seqln
 (* ****** ****** *)
 //
 extern
-fun emit2_branchlst
+fun
+emit2_branchlst
   (out: FILEref, ind: int, inss: instrlst): void
 extern
-fun emit2_branchseqlst
-  (out: FILEref, ind: int, inss: instrlst): void
-//
-(* ****** ****** *)
-//
-extern
-fun emit2_tailcalseqlst
+fun
+emit2_branchseqlst
   (out: FILEref, ind: int, inss: instrlst): void
 //
 (* ****** ****** *)
 //
 extern
-fun emit2_ATSfunbodyseq
+fun
+emit2_tailcalseqlst
+  (out: FILEref, ind: int, inss: instrlst): void
+//
+(* ****** ****** *)
+//
+extern
+fun
+emit2_ATSfunbodyseq
   (out: FILEref, ind: int, ins: instr) : void
 //
 extern
-fun emit2_ATSINSmove_con1
+fun
+emit2_ATSINSmove_con1
   (out: FILEref, ind: int, ins: instr) : void
 //
 extern
-fun emit2_ATSINSmove_boxrec
+fun
+emit2_ATSINSmove_boxrec
   (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
 //
 extern
-fun emit2_ATSINSmove_delay
+fun
+emit2_ATSINSmove_delay
   (out: FILEref, ind: int, ins: instr) : void
 extern
-fun emit2_ATSINSmove_lazyeval
+fun
+emit2_ATSINSmove_lazyeval
   (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
@@ -524,7 +565,7 @@ fun emit2_ATSINSmove_lazyeval
 //
 implement
 emit_instr
-  (out, ins) = emit2_instr (out, 0(*ind*), ins)
+  (out, ins) = emit2_instr(out, 0(*ind*), ins)
 //
 (* ****** ****** *)
 
@@ -760,8 +801,7 @@ of // case+
       ) (* end of [then] *)
       else (
         emit_LPAREN(out);
-        emit_text(out, "var-set ");
-        emit_tmpvar(out, tmp); emit_SPACE(out); emit_d0exp(out, d0e);
+        emit_tmpvar_set(out, tmp); emit_SPACE(out); emit_d0exp(out, d0e);
         emit_RPAREN(out);
       ) (* end of [else] *)
     // end of [if]
@@ -786,7 +826,8 @@ of // case+
 | ATSINSmove_nil(tmp) =>
   {
 //
-    val () = emit_nspc (out, ind)
+    val () =
+    emit_nspc(out, ind)
 //
     val
     isret =
@@ -797,17 +838,17 @@ of // case+
     val () =
     if isnot then
     {
-      val () =
-        emit_text(out, "(var-set ")
-      // end of [val]
-      val () = emit_tmpvar(out, tmp)
+      val () = emit_LPAREN(out)
+      val () = emit_tmpvar_set(out, tmp)
     } (* end of [val] *)
 //
     val () =
     if isnot then emit_SPACE(out)
+//
     val () =
       emit_text(out, "atscc2clj_null")
     // end of [val]
+//
     val () =
     if isnot then emit_RPAREN(out)
 //
@@ -827,10 +868,8 @@ of // case+
     val () =
     if isnot then
     {
-      val () =
-        emit_text(out, "(var-set ")
-      // end of [val]
-      val () = emit_tmpvar(out, tmp)
+      val () = emit_LPAREN(out)
+      val () = emit_tmpvar_set(out, tmp)
     } (* end of [val] *)
 //
     val () =
@@ -896,11 +935,15 @@ of // case+
 | ATSINSdyncst_valbind
     (d2c, d0e_r) =>
   {
-    val () = emit_nspc (out, ind)
-    val () = emit_text (out, "(var-set ")
-    val () = emit_i0de (out, d2c)
-    val () = emit_SPACE (out)
-    val () = emit_d0exp (out, d0e_r)
+    val () =
+      emit_nspc(out, ind)
+    val () =
+      emit_text(out, "(ATSINSdyncst_valbind ")
+    val () =
+    (
+      emit_i0de(out, d2c);
+      emit_SPACE(out); emit_d0exp(out, d0e_r)
+    ) (* end of [val] *)
     val () = emit_RPAREN (out)
   }
 //
@@ -933,9 +976,16 @@ of // case+
   {
     val () =
       emit_nspc (out, ind)
+    val () =
+      emit_text
+      ( out
+      , ";; initizing flag is set\n"
+      ) (* emit_text *)
+    val () =
+      emit_nspc (out, ind)
     val () = (
-      emit_text(out, ";; initizing flag is set\n");
-      emit_text(out, "(var-set "); emit_tmpvar(out, flag); emit_text(out, " 1)")
+      emit_text(out, "(ATSdynloadset ");
+      emit_tmpvar(out, flag); emit_text(out, " 1)")
     ) (* end of [val] *)
   }
 //
@@ -1592,10 +1642,9 @@ val isnot = not(isret)
 val () =
 if isnot then
 {
-val () =
-  emit_text(out, "(var-set ")
 //
-val () = emit_tmpvar(out, tmp)
+val () = emit_LPAREN(out)
+val () = emit_tmpvar_set(out, tmp)
 //
 } (* end of [val] *)
 //
@@ -1658,10 +1707,8 @@ val isnot = not(isret)
 val () =
 if isnot then
 {
-  val () =
-    emit_text(out, "(var-set ")
-  // end of [val]
-  val () = emit_tmpvar(out, tmp)
+  val () = emit_LPAREN(out)
+  val () = emit_tmpvar_set(out, tmp)
 } (* end of [val] *)
 //
 val () =
@@ -1694,7 +1741,8 @@ val-
 ATSINSmove_delay
   (tmp, s0e, thunk) = ins0.instr_node
 //
-val () = emit_nspc (out, ind)
+val () =
+  emit_nspc (out, ind)
 //
 val isret =
   tmpvar_is_tmpret (tmp.i0dex_sym)
@@ -1706,10 +1754,8 @@ if
 isnot
 then {
 //
-val () =
-  emit_text (out, "(var-set ")
-//
-val () = emit_tmpvar (out, tmp)
+val () = emit_LPAREN(out)
+val () = emit_tmpvar_set(out, tmp)
 //
 } (* end of [val] *)
 //
@@ -1748,10 +1794,8 @@ if
 isnot
 then {
 //
-val () =
-  emit_text (out, "(var-set ")
-//
-val () = emit_tmpvar (out, tmp)
+val () = emit_LPAREN(out)
+val () = emit_tmpvar_set(out, tmp)
 //
 } (* end of [val] *)
 //
@@ -1824,8 +1868,8 @@ of // case+
     (id, s0e) => {
     val () = emit_ENDL(out)
     val () = (
-      emit_text(out, "(define ");
-      emit_i0de(out, id); emit_text(out, " #f)")
+      emit_text(out, "(def ");
+      emit_i0de(out, id); emit_text(out, " nil)")
     ) (* end of [val] *)
     val () = emit_ENDL(out)
   }
@@ -1852,8 +1896,8 @@ of // case+
       | None _ => emit_text(out, "/*\n")
     ) (* end of [val] *)
     val () = (
-      emit_text(out, "(define ");
-      emit_tmpvar(out, tmp); emit_text(out, " #f)\n")
+      emit_text(out, "(def ");
+      emit_tmpvar(out, tmp); emit_text(out, " nil)\n")
     ) (* end of [val] *)
     val () = (
       case+ opt of
@@ -1881,7 +1925,7 @@ of // case+
 | D0Cdynloadflag_minit
     (flag) => (
     emit_text(out, ";; dynloadflag_minit\n");
-    emit_text(out, "(define "); emit_tmpvar(out, flag); emit_text(out, " 0)\n")
+    emit_text(out, "(def "); emit_tmpvar(out, flag); emit_text(out, " 0)\n")
   ) (* end of [D0Cdynloadflag_minit] *)
 //
 | D0Cdynexn_dec(idexn) =>

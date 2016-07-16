@@ -150,11 +150,11 @@ cleanall:: ; $(RMF) weekday_dats.clj
 #
 ######
 #
-# all:: \
-# sieve_lazy_dats.clj
-# regress:: \
-# sieve_lazy_dats.clj ; $(CLOJURE2) $<
-# cleanall:: ; $(RMF) sieve_lazy_dats.clj
+all:: \
+sieve_lazy_dats.clj
+regress:: \
+sieve_lazy_dats.clj ; $(CLOJURE2) $<
+cleanall:: ; $(RMF) sieve_lazy_dats.clj
 #
 ######
 

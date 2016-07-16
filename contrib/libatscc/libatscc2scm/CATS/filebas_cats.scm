@@ -1,6 +1,6 @@
 ;;;;;;
 ;
-; HX-2014-08:
+; HX-2016-06:
 ; for Scheme code translated from ATS
 ;
 ;;;;;;

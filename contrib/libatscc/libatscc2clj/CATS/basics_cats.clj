@@ -25,6 +25,25 @@
 ;;
 ;; ****** ****** ;;
 ;;
+(defmacro
+ ATSINStmpset[tmp val] `(var-set ~tmp ~val)
+)
+(defmacro
+ ATSINSstatmpset[statmp val]
+`(alter-var-root (var ~statmp) (fn[x#] ~val))
+)
+;;
+(defmacro
+ ATSdynloadset[flag value]
+`(alter-var-root (var ~flag) (fn[x#] ~value))
+)
+(defmacro
+ ATSINSdyncst_valbind[d2cst value]
+`(alter-var-root (var ~d2cst) (fn[x#] ~value))
+)
+;;
+;; ****** ****** ;;
+;;
 (defmacro ATSfunclo_fun[fc] fc)
 (defmacro ATSfunclo_fclo[fc] `(first ~fc))
 ;;
@@ -66,10 +85,12 @@
 ;; ****** ****** ;;
 
 (defmacro
- ATSPMVtyrec[& xs] `(list ~@(for [x xs] x))
+ ATSPMVtyrec[& xs]
+`(vector ~@(for [x xs] x))
 )
 (defmacro
- ATSPMVtysum[& xs] `(list ~@(for [x xs] x))
+ ATSPMVtysum[& xs]
+`(vector ~@(for [x xs] x))
 )
 
 ;; ****** ****** ;;
@@ -78,6 +99,51 @@
  ATSCCget_at[xs i] `(nth ~xs ~i)
 )
 
+(defmacro ATSCCget_0[xs] `(nth ~xs 0))
+(defmacro ATSCCget_1[xs] `(nth ~xs 1))
+(defmacro ATSCCget_2[xs] `(nth ~xs 2))
+(defmacro ATSCCget_3[xs] `(nth ~xs 3))
+
+;; ****** ****** ;;
+;;
+(defmacro
+ ATSPMVlazyval[thunk]
+`(vector (atom 0) (atom ~thunk))
+)
+;;
+(defmacro
+ ATSPMVlazyval_eval[lazyval]
+`(let
+  [flag# (
+    ATSCCget_0 ~lazyval
+   ) flag2# (deref flag#)
+  ]
+  (if (
+    identical? flag2# 0
+   ) (do
+      (reset! flag# 1)
+      (let [
+        thunk#
+        (ATSCCget_1 ~lazyval)
+        thunk2# (deref thunk#)
+       ] (
+        reset! thunk#
+          ((ATSCCget_0 thunk2#) thunk2#)
+        ;; end of [reset!]
+       )
+      ) ;; end of [let]
+   ) (reset! flag# (inc flag2#))
+  )
+ ) ;; let
+) ;; end of [defmacro]
+;;
+(defmacro
+ ATSPMVlazyval_eval2[lazyval]
+`(let [lazyval# ~lazyval]
+   (ATSPMVlazyval_eval lazyval#) (deref (ATSCCget_1 lazyval#))
+ )
+) ;; end of [defmacro]
+;;
 ;; ****** ****** ;;
 ;;
 (defmacro
