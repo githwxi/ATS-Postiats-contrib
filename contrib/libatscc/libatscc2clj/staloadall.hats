@@ -23,10 +23,7 @@ staload "./SATS/float.sats"
 (* ****** ****** *)
 //
 staload "./SATS/print.sats"
-//
-(*
 staload "./SATS/filebas.sats"
-*)
 //
 staload _(*anon*) = "./DATS/print.dats"
 //

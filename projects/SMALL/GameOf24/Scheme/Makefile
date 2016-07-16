@@ -28,7 +28,7 @@ GameOf24_scm_dats.scm: GameOf24_scm_dats.c; $(ATSCC2SCM) -o $@ -i $<
 ######
 #
 libatscc2scm:: ; \
-  $(CPRF) $(LIBATSCC2SCM)/libatscc2scm_all.scm ./libatscc2scm
+  $(CPRF) $(LIBATSCC2SCM)/libatscc2scm_all.scm ./libatscc2scm/.
 #
 ######
 

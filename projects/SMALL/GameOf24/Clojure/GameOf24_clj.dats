@@ -1,12 +1,12 @@
 //
 // Game-of-24:
 // An example of combining
-// ATS2 and Scheme
+// ATS2 and Clojure
 //
 (* ****** ****** *)
 //
 // Author: Hongwei Xi
-// HX-2016-06-07: for testing atscc2scm
+// HX-2016-07-16: for testing atscc2clj
 //
 (* ****** ****** *)
 //
@@ -19,17 +19,17 @@
 ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME
-"GameOf24_scm_dynload"
+"GameOf24_clj_dynload"
 //
 (* ****** ****** *)
 //
 #include
-"{$LIBATSCC2SCM}/staloadall.hats"
+"{$LIBATSCC2CLJ}/staloadall.hats"
 //
 (* ****** ****** *)
 //
 staload
-"./GameOf24_scm.sats"
+"./GameOf24_clj.sats"
 //
 (* ****** ****** *)
 
@@ -128,37 +128,37 @@ card_val= v, card_node= CARDdiv (c1, c2)
 (* ****** ****** *)
 
 implement
-fprint_card
-  (out, c0) = let
+print_card
+  (c0) = let
 in
 //
 case+ c0.card_node of
-| CARDint (v) => fprint! (out, "CARDint(", v, ")")
-| CARDadd (c1, c2) => fprint! (out, "CARDadd(", c1, ", ", c2, ")")
-| CARDsub (c1, c2) => fprint! (out, "CARDsub(", c1, ", ", c2, ")")
-| CARDmul (c1, c2) => fprint! (out, "CARDmul(", c1, ", ", c2, ")")
-| CARDdiv (c1, c2) => fprint! (out, "CARDdiv(", c1, ", ", c2, ")")
+| CARDint (v) => print! ("CARDint(", v, ")")
+| CARDadd (c1, c2) => print! ("CARDadd(", c1, ", ", c2, ")")
+| CARDsub (c1, c2) => print! ("CARDsub(", c1, ", ", c2, ")")
+| CARDmul (c1, c2) => print! ("CARDmul(", c1, ", ", c2, ")")
+| CARDdiv (c1, c2) => print! ("CARDdiv(", c1, ", ", c2, ")")
 //
 end // end of [fprint_card]
 
 (* ****** ****** *)
 
 implement
-fpprint_card
-  (out, c0) = let
+pprint_card
+  (c0) = let
 //
-overload fprint with fpprint_card of 10
+overload print with pprint_card of 10
 //
 in
 //
 case+ c0.card_node of
-| CARDint (v) => fprint! (out, v)
-| CARDadd (c1, c2) => fprint! (out, "(", c1, " + ", c2, ")")
-| CARDsub (c1, c2) => fprint! (out, "(", c1, " - ", c2, ")")
-| CARDmul (c1, c2) => fprint! (out, "(", c1, " * ", c2, ")")
-| CARDdiv (c1, c2) => fprint! (out, "(", c1, " / ", c2, ")")
+| CARDint (v) => print! (v)
+| CARDadd (c1, c2) => print! ("(", c1, " + ", c2, ")")
+| CARDsub (c1, c2) => print! ("(", c1, " - ", c2, ")")
+| CARDmul (c1, c2) => print! ("(", c1, " * ", c2, ")")
+| CARDdiv (c1, c2) => print! ("(", c1, " / ", c2, ")")
 //
-end // end of [fpprint_card]
+end // end of [pprint_card]
 
 (* ****** ****** *)
 
@@ -241,18 +241,19 @@ local
 in (* in-of-local *)
 
 implement
-fpprint_cardlst
-  (out, cs) = let
+pprint_cardlst
+  (cs) = let
 //
-fun fprone
+fun
+prone
 (
-  out: SCMfilr, c: card
+  c: card
 ) : void = let
   val v = card_get_val (c)
 in
-  fpprint_card (out, c);
-  fprintln! (out, " = ", double2int(v+EPSILON))
-end // end of [fprone
+  pprint_card (c);
+  println! (" = ", double2int(v+EPSILON))
+end // end of [prone
 //
 in
 //
@@ -260,10 +261,10 @@ case+ cs of
 | list_nil () => ()
 | list_cons (c, cs) =>
   (
-    fprone (out, c); fpprint_cardlst (out, cs)
+    prone (c); pprint_cardlst (cs)
   ) (* end of [list_cons] *)
 //
-end // end of [fpprint_cardlst]
+end // end of [pprint_cardlst]
 
 end // end of [local]
 
@@ -381,13 +382,12 @@ tasklst_reduce
 in
 //
 case+ xs of
-| list_cons
-    (x, xs) => let
+| list_nil() => res
+| list_cons(x, xs) => let
     val res = task_reduce (x, res)
   in
     tasklst_reduce (xs, res)
   end // end of [tasklst_reduce]
-| list_nil () => res
 //
 end // end of [tasklst_reduce]
 
@@ -460,61 +460,57 @@ end // end of [play24]
 //
 extern
 fun
-main0_scm
+main0_clj
 (
   (*void*)
-) : void = "mac#GameOf24_scm_main0"
+) : void = "mac#GameOf24_clj_main0"
 //
 implement
-main0_scm() =
+main0_clj() =
 {
-//
-val
-out =
-stdout_get()
 //
 val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
 val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = pprint_cardlst (res)
 //
 val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
 val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = pprint_cardlst (res)
 //
 val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
 val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = pprint_cardlst (res)
 //
 val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
 val res = play24 (n1, n2, n3, n4)
-val () = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = fpprint_cardlst (out, res)
+val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = pprint_cardlst (res)
 //
-} (* end of [main0_scm] *)
+} (* end of [main0_clj] *)
 //
 (* ****** ****** *)
 
 %{$
 ;;
-(GameOf24_scm_main0)
+(GameOf24_clj_main0)
 ;;
 %} // end of [%{$]
 
 (* ****** ****** *)
 
-(* end of [GameOf24_scm.dats] *)
+(* end of [GameOf24_clj.dats] *)
