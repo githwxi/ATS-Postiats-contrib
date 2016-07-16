@@ -30,6 +30,22 @@
 (define-macro (ATSINSmove1_void cmd) cmd)
 ;;
 ;; ****** ****** ;;
+;;
+(define-macro
+ (ATSINStmpset tmp val) `(set! ,tmp ,val)
+)
+(define-macro
+ (ATSINSstatmpset statmp val) `(set! ,statmp ,val)
+)
+;;
+(define-macro
+ (ATSdynloadset flag val) `(set! ,flag ,val)
+)
+(define-macro
+ (ATSINSdyncst_valbind d2cst val) `(set! ,d2cst ,val)
+)
+;;
+;; ****** ****** ;;
 
 (define-macro (ATSfunclo_fun fc) fc)
 (define-macro (ATSfunclo_fclo fc) `(car ,fc))
