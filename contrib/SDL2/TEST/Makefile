@@ -39,19 +39,28 @@ MALLOCFLAG=-DATS_MEMALLOC_LIBC
 
 all:: test00
 test00: test00.dats ; $(PATSCC2) $(CFLAGS0) -o $@ $< $(LDFLAGS0)
+regress:: test00; ./$<
 cleanall:: ; $(RMF) test00
 
 ######
 
 all:: test01
 test01: test01.dats ; $(PATSCC2) $(CFLAGS0) -o $@ $< $(LDFLAGS0)
+regress:: test01; ./$<
 cleanall:: ; $(RMF) test01
 
 ######
 
 all:: test02
 test02: test02.dats ; $(PATSCC2) $(CFLAGS_image) -o $@ $< $(LDFLAGS_image)
+regress:: test02; ./$<
 cleanall:: ; $(RMF) test02
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
