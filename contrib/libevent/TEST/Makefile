@@ -37,6 +37,7 @@ all:: \
 test00
 test00: test00.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
+regress:: test00; ./$<
 cleanall:: ; $(RMF) test00
 
 ######
@@ -61,7 +62,16 @@ all:: \
 test_download
 test_download: test_download.dats ; \
   $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
+regress:: \
+test_download; \
+./$< http://example.com/
 cleanall:: ; $(RMF) test_download
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
