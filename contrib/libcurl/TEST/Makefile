@@ -23,7 +23,7 @@ all:: test00
 test00: test00.dats ; \
   $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@  $< testlib.dats -lcurl
 #
-# regress:: test00 ; ./$<
+regress:: test00 ; ./$<
 #
 cleanall:: ; $(RMF) test00
 
@@ -33,9 +33,15 @@ all:: test01
 test01: test01.dats ; \
   $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib -o $@  $< testlib.dats -lcurl
 #
-# regress:: test01 ; ./$<
+regress:: test01 ; ./$<
 #
 cleanall:: ; $(RMF) test01
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

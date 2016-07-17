@@ -68,6 +68,12 @@ cleanall:: ; $(RMF) github_commit_query
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.o
 clean:: ; $(RMF) *_?ats.c

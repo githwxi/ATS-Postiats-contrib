@@ -81,6 +81,12 @@ cleanall:: ; $(RMF) test_LAgmat
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
