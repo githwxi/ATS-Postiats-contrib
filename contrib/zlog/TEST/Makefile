@@ -28,6 +28,12 @@ cleanall:: ; $(RMF) test01
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
