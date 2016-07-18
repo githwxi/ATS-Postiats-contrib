@@ -16,6 +16,13 @@ cleanall:: ; $(RMF) test01
 
 ######
 
+test02: \
+test02.dats ; \
+$(PATSCC) -O2 -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -latslib
+cleanall:: ; $(RMF) test02
+
+######
+
 RMF=rm -f
 
 ######

@@ -32,7 +32,7 @@ val ((*void*)) =
 val ((*freed*)) = strptrlst_free(xs0)
 //
 val inp = "\
-Total,0, \"0, 0\",\"0, \"\"0\"\"\"
+Total,,0, \"0, 0\",\"0, \"\"0\"\"\"
 " // end of [val]
 val xs0 = csv_parse_line(inp)
 val ((*void*)) =
