@@ -68,6 +68,15 @@ cleanall:: ; $(RMF) test05
 
 ######
 
+all:: test06
+test06: test06.dats ; \
+  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib -o $@ $< testlib.dats -latslib -lpcre
+regress:: test06 ; \
+cat test06.dats | ./test06
+cleanall:: ; $(RMF) test06
+
+######
+
 RMF=rm -f
 
 ######
