@@ -48,14 +48,13 @@ csv_parse_line_nerr
 
 implement
 csv_parse_line
-  (line) = let
+  (line) = res0 where
+{
 //
 var nerr: int = 0
 val res0 = csv_parse_line_nerr(line, nerr)
 //
-in
-  res0
-end // end of [csv_parse_line]
+} (* end of [csv_parse_line] *)
 
 (* ****** ****** *)
 //
