@@ -37,9 +37,31 @@ csv_parse_line
 //
 (* ****** ****** *)
 //
+extern
+fun
+csv_parse_line_nerr
+(
+  line: string, nerr: &int >> _
+) : List0_vt(Strptr1)
+//
+(* ****** ****** *)
+
+implement
+csv_parse_line
+  (line) = let
+//
+var nerr: int = 0
+val res0 = csv_parse_line_nerr(line, nerr)
+//
+in
+  res0
+end // end of [csv_parse_line]
+
+(* ****** ****** *)
+//
 local
 //
-#include "./csv_parse.hats"
+#include "./csv_parse_line.hats"
 //
 in (* nothing *) end // [local]
 //
