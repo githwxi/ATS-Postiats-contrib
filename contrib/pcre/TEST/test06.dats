@@ -36,23 +36,25 @@ val () =
 //
 val dirp = opendir_exn (".")
 //
-val ents = streamize_DIRptr_dirent(dirp)
+val dents =
+  streamize_DIRptr_dirent(dirp)
 //
 val names =
 stream_vt_map_cloptr<dirent><Strptr1>
-  (ents, lam(x) => dirent_get_d_name_gc(x))
+  (dents, lam(x) => dirent_get_d_name_gc(x))
 //
 local
 implement(a)
 stream_vt_filterlin$pred<a>(x) =
 $effmask_all
 ( 0
-= regstr_match_string("^test\\d{2}\\.dats$", $UN.castvwtp1{string}(x))
-) (* $effmask_all *)
+= regstr_match_string
+  ("^test\\d{2}\\.dats$", $UN.castvwtp1{string}(x))
+) (* stream_vt_filterlin$pred *)
 //
 implement(a)
 stream_vt_filterlin$clear<a>(x) =
-  strptr_free($UN.castvwtp0{Strptr1}(x))
+  free($UN.castvwtp0{Strptr1}(x))
 in
 val names =
 stream_vt_filterlin<Strptr1>(names)
@@ -64,7 +66,7 @@ stream_vt_foreach_cloptr
   names
 , lam(x) =>
   let val x = x in
-    println! ("streamize: ", $UN.strptr2string(x)); strptr_free(x)
+    println! ("streamize: ", $UN.strptr2string(x)); free(x)
   end // end of [let]
 ) (* stream_vt_foreach_cloptr *)
 //
