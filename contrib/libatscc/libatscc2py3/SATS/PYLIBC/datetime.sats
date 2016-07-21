@@ -17,10 +17,17 @@ ATS_EXTERN_PREFIX
 staload "./../../basics_py.sats"
 //
 (* ****** ****** *)
-
+//
 abstype date_object
 typedef date = date_object
-
+//
+abstype datetime_object
+typedef datetime = datetime_object
+//
+(* ****** ****** *)
+//
+// For date objects
+// 
 (* ****** ****** *)
 //
 fun
@@ -62,6 +69,22 @@ date_replace_month(date, int): date = "mac#%"
 //
 overload .replace_year with date_replace_year
 overload .replace_month with date_replace_month
+//
+(* ****** ****** *)
+//
+// For datetime objects
+// 
+(* ****** ****** *)
+//
+fun
+datetime_today(): datetime = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+datetime_ctime(datetime): string = "mac#%"
+//
+overload .ctime with datetime_ctime
 //
 (* ****** ****** *)
 

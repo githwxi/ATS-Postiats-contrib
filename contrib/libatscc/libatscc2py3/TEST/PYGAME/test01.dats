@@ -17,7 +17,7 @@
 //
 (* ****** ****** *)
 //
-staload "./../../SATS/PYgame/pygame.sats"
+staload "./../../SATS/PYGAME/pygame.sats"
 //
 (* ****** ****** *)
 //
@@ -85,7 +85,7 @@ val ((*void*)) = pygame_quit((*void*))
 ######
 from libatscc2py_all import *
 ######
-from ats2py_PYgame_pyame_cats import *
+from ats2py_pygame_pyame_cats import *
 ######
 sys.setrecursionlimit(1000000)
 ######
