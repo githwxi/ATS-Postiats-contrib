@@ -213,7 +213,9 @@ main0_py () =
 
 %{^
 import sys
+######
 sys.setrecursionlimit(1000000)
+sys.path.append("./libatscc2py3")
 ######
 from libatscc2py_all import *
 ######

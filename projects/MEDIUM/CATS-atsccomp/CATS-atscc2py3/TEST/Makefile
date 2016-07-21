@@ -3,10 +3,12 @@
 #
 
 ######
-
+#
 PYTHON=python3
-export PYTHONPATH=libatscc2py3/.
-
+#
+export \
+PYTHONPATH=libatscc2py3/.
+#
 ######
 
 PATSCC=$(PATSHOME)/bin/patscc
@@ -223,7 +225,7 @@ clean:: ; $(RMF) *_?ats.c
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.py
 cleanall:: ; $(RMF) libatscc2py3/*_?ats.py
-cleanall:: ; $(RMF) libatscc2py3/libatsccpy_all.py3
+cleanall:: ; $(RMF) libatscc2py3/libatsccpy_all.py
 cleanall:: ; $(RMRF) libatscc2py3/__pycache__
 
 ###### end of [Makefile] ######

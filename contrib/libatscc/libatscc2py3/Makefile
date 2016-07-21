@@ -46,6 +46,8 @@ $(CPF) ./CATS/reference_cats.py ./output/ats2pypre_reference_cats.py
 
 all:: ; \
 $(CPF) ./CATS/PYLIBC_random_cats.py ./output/ats2pylibc_random_cats.py
+all:: ; \
+$(CPF) ./CATS/PYLIBC_random_cats.py ./output/ats2pylibc_datetime_cats.py
 
 ######
 

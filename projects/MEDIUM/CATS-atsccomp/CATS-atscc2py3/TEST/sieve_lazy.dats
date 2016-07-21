@@ -108,6 +108,7 @@ main0_py();
 
 %{^
 import sys
+######
 sys.setrecursionlimit(1000000)
 ######
 #
