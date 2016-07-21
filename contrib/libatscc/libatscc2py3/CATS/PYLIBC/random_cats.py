@@ -21,11 +21,11 @@ def ats2pylibc_random_random(): return random.random()
 
 ############################################
 
-def ats2pylibc_randint(a, b): return random.randint(a, b)
+def ats2pylibc_random_randint(a, b): return random.randint(a, b)
 
 ############################################
 
-def ats2pylibc_uniform(a, b): return random.uniform(a, b)
+def ats2pylibc_random_uniform(a, b): return random.uniform(a, b)
 
 ############################################
 

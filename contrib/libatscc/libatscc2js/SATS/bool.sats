@@ -26,7 +26,8 @@ overload not with neg_bool1 of 110
 //
 (* ****** ****** *)
 
-fun add_bool0_bool0
+fun
+add_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload + with add_bool0_bool0 of 100
 
@@ -54,7 +55,8 @@ overload + with add_bool1_bool1 of 120
 
 (* ****** ****** *)
 
-fun mul_bool0_bool0
+fun
+mul_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload * with mul_bool0_bool0 of 100
 
