@@ -29,6 +29,10 @@ def ats2pypre_string_isdecimal(x): return (x.isdecimal())
 
 ############################################
 
+def ats2pypre_string_append(x, y): return (x+y)
+
+############################################
+
 def ats2pypre_string_lower(x): return (x.lower())
 def ats2pypre_string_upper(x): return (x.upper())
 

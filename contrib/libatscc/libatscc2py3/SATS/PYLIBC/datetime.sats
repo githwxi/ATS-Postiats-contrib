@@ -38,5 +38,31 @@ fun date_ctime(date): string = "mac#%"
 overload .ctime with date_ctime
 //
 (* ****** ****** *)
+//
+fun
+date_weekday
+  (dt: date): intBtwe(0, 6) = "mac#%"
+fun
+date_isoweekday
+  (dt: date): intBtwe(1, 7) = "mac#%"
+//
+overload .weekday with date_weekday
+overload .isoweekday with date_isoweekday
+//
+(* ****** ****** *)
+//
+fun
+date_replace_day(date, int): date = "mac#%"
+overload .replace_day with date_replace_day
+//
+fun
+date_replace_year(date, int): date = "mac#%"
+fun
+date_replace_month(date, int): date = "mac#%"
+//
+overload .replace_year with date_replace_year
+overload .replace_month with date_replace_month
+//
+(* ****** ****** *)
 
 (* end of [datetime.sats] *)
