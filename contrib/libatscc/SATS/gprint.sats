@@ -58,11 +58,11 @@ gprint_string (x: string): void
 
 (* ****** ****** *)
 
-overload gprint with gprint_int
-overload gprint with gprint_bool
-overload gprint with gprint_char
-overload gprint with gprint_double
-overload gprint with gprint_string
+overload gprint with gprint_int of 100
+overload gprint with gprint_bool of 100
+overload gprint with gprint_char of 100
+overload gprint with gprint_double of 100
+overload gprint with gprint_string of 100
 
 (* ****** ****** *)
 
@@ -73,7 +73,7 @@ fun{} gprint_list$sep(): void
 fun{a:t0p}
 gprint_list (xs: List(a)): void
 //
-overload gprint with gprint_list
+overload gprint with gprint_list of 100
 //
 (* ****** ****** *)
 
@@ -104,7 +104,7 @@ gprint_arrayref
 fun{a:t0p}
 gprint_arrszref(ASZ: arrszref(a)): void
 //
-overload gprint with gprint_arrszref
+overload gprint with gprint_arrszref of 100
 //
 (* ****** ****** *)
 

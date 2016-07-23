@@ -28,6 +28,11 @@ staload "./SATS/filebas.sats"
 staload _(*anon*) = "./DATS/print.dats"
 //
 (* ****** ****** *)
+
+staload "./SATS/gprint.sats"
+staload _(*anon*) = "./DATS/gprint.dats"
+
+(* ****** ****** *)
 //
 (*
 staload "./SATS/intrange.sats"

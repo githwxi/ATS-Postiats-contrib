@@ -32,6 +32,15 @@ staload
 "./GameOf24_clj.sats"
 //
 (* ****** ****** *)
+//
+implement
+gprint_string<>
+  (x) = print_string(x)
+implement
+gprint_newline<>
+  () = print_newline()
+//
+(* ****** ****** *)
 
 local
 
@@ -139,7 +148,7 @@ case+ c0.card_node of
 | CARDmul (c1, c2) => gprint! ("CARDmul(", c1, ", ", c2, ")")
 | CARDdiv (c1, c2) => gprint! ("CARDdiv(", c1, ", ", c2, ")")
 //
-end // end of [fprint_card]
+end // end of [gprint_card]
 
 (* ****** ****** *)
 
@@ -158,7 +167,7 @@ case+ c0.card_node of
 | CARDmul (c1, c2) => gprint! ("(", c1, " * ", c2, ")")
 | CARDdiv (c1, c2) => gprint! ("(", c1, " / ", c2, ")")
 //
-end // end of [pprint_card]
+end // end of [gpprint_card]
 
 (* ****** ****** *)
 

@@ -35,7 +35,7 @@ staload "./../SATS/gprint.sats"
 extern
 fun
 tostring
-{a:t@ype}(x: a): string = "mac#"
+{a:t@ype}(x: a): string = "mac#%"
 //
 (* ****** ****** *)
 //
