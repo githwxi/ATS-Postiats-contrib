@@ -20,7 +20,10 @@ staload "./../../basics_py.sats"
 //
 fun random(): double = "mac#%"
 //
-fun randint(int, int): double = "mac#%"
+fun
+randint
+{l,r:int | l <= r}
+  (int(l), int(r)): intBtwe(l, r) = "mac#%"
 //
 fun uniform(double, double): double = "mac#%"
 //

@@ -128,35 +128,35 @@ card_val= v, card_node= CARDdiv (c1, c2)
 (* ****** ****** *)
 
 implement
-print_card
+gprint_card
   (c0) = let
 in
 //
 case+ c0.card_node of
-| CARDint (v) => print! ("CARDint(", v, ")")
-| CARDadd (c1, c2) => print! ("CARDadd(", c1, ", ", c2, ")")
-| CARDsub (c1, c2) => print! ("CARDsub(", c1, ", ", c2, ")")
-| CARDmul (c1, c2) => print! ("CARDmul(", c1, ", ", c2, ")")
-| CARDdiv (c1, c2) => print! ("CARDdiv(", c1, ", ", c2, ")")
+| CARDint (v) => gprint! ("CARDint(", v, ")")
+| CARDadd (c1, c2) => gprint! ("CARDadd(", c1, ", ", c2, ")")
+| CARDsub (c1, c2) => gprint! ("CARDsub(", c1, ", ", c2, ")")
+| CARDmul (c1, c2) => gprint! ("CARDmul(", c1, ", ", c2, ")")
+| CARDdiv (c1, c2) => gprint! ("CARDdiv(", c1, ", ", c2, ")")
 //
 end // end of [fprint_card]
 
 (* ****** ****** *)
 
 implement
-pprint_card
+gpprint_card
   (c0) = let
 //
-overload print with pprint_card of 10
+overload gprint with gpprint_card of 10
 //
 in
 //
 case+ c0.card_node of
-| CARDint (v) => print! (v)
-| CARDadd (c1, c2) => print! ("(", c1, " + ", c2, ")")
-| CARDsub (c1, c2) => print! ("(", c1, " - ", c2, ")")
-| CARDmul (c1, c2) => print! ("(", c1, " * ", c2, ")")
-| CARDdiv (c1, c2) => print! ("(", c1, " / ", c2, ")")
+| CARDint (v) => gprint! (v)
+| CARDadd (c1, c2) => gprint! ("(", c1, " + ", c2, ")")
+| CARDsub (c1, c2) => gprint! ("(", c1, " - ", c2, ")")
+| CARDmul (c1, c2) => gprint! ("(", c1, " * ", c2, ")")
+| CARDdiv (c1, c2) => gprint! ("(", c1, " / ", c2, ")")
 //
 end // end of [pprint_card]
 
@@ -241,19 +241,19 @@ local
 in (* in-of-local *)
 
 implement
-pprint_cardlst
+gpprint_cardlst
   (cs) = let
 //
 fun
-prone
+gprone
 (
   c: card
 ) : void = let
   val v = card_get_val (c)
 in
-  pprint_card (c);
-  println! (" = ", double2int(v+EPSILON))
-end // end of [prone
+  gpprint_card (c);
+  gprintln! (" = ", double2int(v+EPSILON))
+end // end of [gprone]
 //
 in
 //
@@ -261,7 +261,7 @@ case+ cs of
 | list_nil () => ()
 | list_cons (c, cs) =>
   (
-    prone (c); pprint_cardlst (cs)
+    gprone (c); gpprint_cardlst (cs)
   ) (* end of [list_cons] *)
 //
 end // end of [pprint_cardlst]
@@ -473,33 +473,33 @@ val n1 = 3
 and n2 = 3
 and n3 = 8
 and n4 = 8
-val res = play24 (n1, n2, n3, n4)
-val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = pprint_cardlst (res)
+val r0 = play24 (n1, n2, n3, n4)
+val () = gprintln! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = gpprint_cardlst (r0)
 //
 val n1 = 4
 and n2 = 4
 and n3 = 10
 and n4 = 10
-val res = play24 (n1, n2, n3, n4)
-val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = pprint_cardlst (res)
+val r0 = play24 (n1, n2, n3, n4)
+val () = gprintln! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = gpprint_cardlst (r0)
 //
 val n1 = 5
 and n2 = 5
 and n3 = 7
 and n4 = 11
-val res = play24 (n1, n2, n3, n4)
-val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = pprint_cardlst (res)
+val r0 = play24 (n1, n2, n3, n4)
+val () = gprintln! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = gpprint_cardlst (r0)
 //
 val n1 = 3
 and n2 = 5
 and n3 = 7
 and n4 = 13
-val res = play24 (n1, n2, n3, n4)
-val () = println! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
-val () = pprint_cardlst (res)
+val r0 = play24 (n1, n2, n3, n4)
+val () = gprintln! ("play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val () = gpprint_cardlst (r0)
 //
 } (* end of [main0_clj] *)
 //

@@ -166,6 +166,10 @@
 ;;
 ;; ****** ****** ;;
 ;;
+(defn ats2cljpre_tostring[x] (.toString x))
+;;
+;; ****** ****** ;;
+;;
 (defn
  ats2cljpre_assert_bool0[tfv] (if (not tfv) (System/exit 1))
 )

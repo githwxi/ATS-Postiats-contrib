@@ -69,17 +69,17 @@ typedef cardlst = List0 (card)
 (* ****** ****** *)
 //
 fun
-print_card (card): void
+gprint_card (card): void
 and
-print_cardlst (cardlst): void
+gprint_cardlst (cardlst): void
 //
-overload print with print_card
-overload print with print_cardlst of 10
+overload gprint with gprint_card
+overload gprint with gprint_cardlst of 10
 //
 fun
-pprint_card (card): void
+gpprint_card (card): void
 and
-pprint_cardlst (cardlst): void
+gpprint_cardlst (cardlst): void
 //
 (*
 fun

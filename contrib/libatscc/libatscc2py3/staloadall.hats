@@ -46,6 +46,11 @@ staload "./SATS/stream.sats"
 staload _ = "./DATS/stream.dats"
 //
 (* ****** ****** *)
+
+staload "./SATS/gprint.sats"
+staload _ = "./DATS/gprint.dats"
+
+(* ****** ****** *)
 //
 staload "./SATS/intrange.sats"
 //
