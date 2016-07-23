@@ -31,7 +31,7 @@ $compres = $mycode_res[0]; // 0/1: success/failure
 
 <html>
 <head>
-<title>TUTORATS-patsopt-atscc2js-trial</title>
+<title>TUTORIATS-patsopt-atscc2js-trial</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <script>
 function

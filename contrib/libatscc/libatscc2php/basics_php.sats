@@ -103,14 +103,21 @@ overload echo with echo8
 //
 fun
 lazy2cloref
-  {a:t0p}(lazy(a)): ((*void*)) -<cloref1> (a) = "mac#%"
+  {a:t0p}
+(
+  lazy(a)
+) : ((*void*)) -<cloref1> (a) = "mac#%"
 //
 (* ****** ****** *)
 //
-fun assert_errmsg_bool0
+fun
+assert_errmsg_bool0
   (x: bool, msg: string): void = "mac#%"
-fun assert_errmsg_bool1
-  {b:bool} (x: bool b, msg: string): [b] void = "mac#%"
+//
+fun
+assert_errmsg_bool1
+  {b:bool}
+  (x: bool b, msg: string): [b] void = "mac#%"
 //
 overload assert_errmsg with assert_errmsg_bool0 of 100
 overload assert_errmsg with assert_errmsg_bool1 of 110

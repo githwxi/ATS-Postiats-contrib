@@ -35,10 +35,11 @@ staload
 //
 implement
 gprint_string<>
-  (x) = print_string(x)
+  (str) = print_string(str)
+//
 implement
 gprint_newline<>
-  () = print_newline()
+  ((*void*)) = print_newline()
 //
 (* ****** ****** *)
 

@@ -155,6 +155,11 @@ PYlist2list_rev{a:t0p} (xs: PYlist(a)): List0(a) = "mac#"
 //
 (* ****** ****** *)
 //
+fun
+PYlist_string_join(xs: PYlist(string)): string = "mac#"
+//
+(* ****** ****** *)
+//
 // HX-2016-05-25:
 // Implemented in [list.dats]
 //

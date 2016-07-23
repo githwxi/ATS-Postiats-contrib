@@ -74,6 +74,10 @@ def PYlist_filter(xs, f): return list(filter(f, xs))
 
 ############################################
 
+def PYlist_string_join(xs): return ''.join(xs)
+
+############################################
+
 def \
 PYlist_reduce(xs, ini, f):
   res = ini

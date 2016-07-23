@@ -37,7 +37,7 @@ $mycode_res2 = preg_replace("!\\\\!", "\\\\\\\\", $mycode_res);
 
 <html>
 <head>
-<title>TUTORATS-patsopt-trial</title>
+<title>TUTORIATS-patsopt-trial</title>
 </head>
 
 <body>
