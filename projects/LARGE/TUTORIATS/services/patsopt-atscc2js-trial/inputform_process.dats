@@ -41,6 +41,12 @@ staload _ = "./libtutoriats0/PHP/DATS/patsopt_continue.dats"
 //
 extern
 fun
+patsopt_code_0_ (string): compres = "mac#"
+//
+(* ****** ****** *)
+//
+extern
+fun
 patsopt_atscc2js_code_0_ (string): compres = "mac#"
 //
 (* ****** ****** *)
@@ -54,6 +60,9 @@ atscc2js_get<> () =
   "/home/project-web/ats-lang/ATS-Postiats/bin/atscc2js"
 //
 (* ****** ****** *)
+//
+implement
+patsopt_code_0_ (code) = patsopt_code<> (code)
 //
 implement
 patsopt_atscc2js_code_0_ (code) = patsopt_atscc2js_code<> (code)

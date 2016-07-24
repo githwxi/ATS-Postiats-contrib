@@ -6,8 +6,6 @@
 </head>
 
 <script
-src="//cdn.jsdelivr.net/ace/1.1.6/min/ace.js"></script>
-<script
 src="//cdn.jsdelivr.net/filesaver.js/0.2/FileSaver.min.js"></script>
 
 <script
@@ -35,13 +33,24 @@ program_input_compile()
 }
 //
 function
+patsopt_waiting(msg)
+{
+  document.getElementById("program_output").value = msg;
+  return;
+}
+//
+function
 patsopt_atscc2js_do_response(resp)
 {
   var comparr =
     JSON.parse(decodeURIComponent(resp));
   // end of [var]
+/*
+  alert(comparr[0]);
+  alert(comparr[1]);
+*/
   document.getElementById("compres").value=comparr[0];
-  document.getElementById("program_output").innerHTML=comparr[1];
+  document.getElementById("program_output").value=comparr[1];
   return;
 }
 //
