@@ -16,10 +16,12 @@ UN = "prelude/SATS/unsafe.sats"
 //
 #define ATS_DYNLOADFLAG 0
 //
+(* ****** ****** *)
+//
 #define
-ATS_EXTERN_PREFIX "tutorats_"
+ATS_EXTERN_PREFIX "tutoriats_"
 #define
-ATS_STATIC_PREFIX "_tutorats_patsopt_"
+ATS_STATIC_PREFIX "_tutoriats_patsopt_"
 //
 (* ****** ****** *)
 //

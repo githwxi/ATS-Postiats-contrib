@@ -31,11 +31,11 @@ staload
 //
 (* ****** ****** *)
 //
-staload "./libtutorats0/PHP/SATS/basics.sats"
+staload "./libtutoriats0/PHP/SATS/basics.sats"
 //
-staload _ = "./libtutorats0/PHP/DATS/patsopt.dats"
-staload _ = "./libtutorats0/PHP/DATS/atscc2js.dats"
-staload _ = "./libtutorats0/PHP/DATS/patsopt_continue.dats"
+staload _ = "./libtutoriats0/PHP/DATS/patsopt.dats"
+staload _ = "./libtutoriats0/PHP/DATS/atscc2js.dats"
+staload _ = "./libtutoriats0/PHP/DATS/patsopt_continue.dats"
 //
 (* ****** ****** *)
 //

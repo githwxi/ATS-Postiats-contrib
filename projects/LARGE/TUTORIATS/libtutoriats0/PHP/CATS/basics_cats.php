@@ -3,7 +3,7 @@
 /* ****** ****** */
 
 /*
-// For building TUTORATS
+// For building TUTORIATS
 */
 
 /* ****** ****** */
@@ -16,16 +16,16 @@
 /* ****** ****** */
 //
 function
-tutorats_fname_dats_c($fname) { return $fname . "_dats.c"; }
+tutoriats_fname_dats_c($fname) { return $fname . "_dats.c"; }
 function
-tutorats_fname_dats_js($fname) { return $fname . "_dats.js"; }
+tutoriats_fname_dats_js($fname) { return $fname . "_dats.js"; }
 function
-tutorats_fname_dats_php($fname) { return $fname . "_dats.php"; }
+tutoriats_fname_dats_php($fname) { return $fname . "_dats.php"; }
 //
 /* ****** ****** */
 
 function
-tutorats_exec_retval
+tutoriats_exec_retval
   ($command)
 {
   $retval = 0;

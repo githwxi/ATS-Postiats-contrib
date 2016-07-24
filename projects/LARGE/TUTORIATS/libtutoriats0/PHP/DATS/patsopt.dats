@@ -16,20 +16,23 @@ UN = "prelude/SATS/unsafe.sats"
 //
 #define ATS_DYNLOADFLAG 0
 //
+(* ****** ****** *)
+//
 #define
-ATS_EXTERN_PREFIX "tutorats_"
+ATS_EXTERN_PREFIX "tutoriats_"
 #define
-ATS_STATIC_PREFIX "_tutorats_patsopt_"
+ATS_STATIC_PREFIX "_tutoriats_patsopt_"
+//
+(* ****** ****** *)
+//
+staload
+"./../SATS/basics.sats"
 //
 (* ****** ****** *)
 //
 #include
 "{$LIBATSCC2PHP}/staloadall.hats"
 //
-(* ****** ****** *)
-
-staload "./../SATS/basics.sats"
-
 (* ****** ****** *)
 //
 implement
@@ -53,19 +56,21 @@ val dir =
   $extfcall(string, "sys_get_temp_dir")
 //
 val fname =
-  $extfcall (string, "tempnam", dir, "patsopt_")
+  $extfcall
+    (string, "tempnam", dir, "patsopt_")
+  // $extfcall
 //
 val fhandle =
-  $extfcall (PHPfilp0, "fopen", fname, "w")
+  $extfcall(PHPfilp0, "fopen", fname, "w")
 //
-val nwrit = fwrite (fhandle, inp)
+val nwrit = fwrite(fhandle, inp)
 (*
-val ((*void*)) = fwrite_checkret (nwrit)
+val ((*void*)) = fwrite_checkret(nwrit)
 *)
 //
-val closed = fclose (fhandle)
+val closed = fclose(fhandle)
 (*
-val ((*void*)) = fclose_checkret (closed)
+val ((*void*)) = fclose_checkret(closed)
 *)
 //
 } (* end of [file_of_string] *)
@@ -74,7 +79,8 @@ val ((*void*)) = fclose_checkret (closed)
 //
 extern
 fun
-file_get_contents (fname: string): string = "mac#"
+file_get_contents
+  (fname: string): string = "mac#"
 //
 (* ****** ****** *)
 
@@ -136,7 +142,7 @@ if exec_ret = 0
   end // end of [then]
   else let
     val str =
-      file_get_contents (fname_dats_c_log)
+      file_get_contents(fname_dats_c_log)
     // end of [val]
   in
     COMPRES1_fail (str)
@@ -144,8 +150,8 @@ if exec_ret = 0
 // end of [if]
 ) : compres // end of [val]
 //
-val unlink_ret = unlink (fname_dats_c)
-val unlink_ret = unlink (fname_dats_c_log)
+val unlink_ret = unlink(fname_dats_c)
+val unlink_ret = unlink(fname_dats_c_log)
 //
 } (* end of [patsopt_file] *)
 
@@ -160,7 +166,8 @@ patsopt_code
 val
 fname_dats = file_of_string(ptext)
 //
-val patsopt_res = patsopt_file (fname_dats)
+val
+patsopt_res = patsopt_file(fname_dats)
 //
 val unlink_ret = unlink (fname_dats)
 //

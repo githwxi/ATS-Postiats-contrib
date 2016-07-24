@@ -29,7 +29,7 @@ putenv("PATSHOMERELOC=/home/project-web/ats-lang/ATS-Postiats-contrib");
 $mycode = 'implement main0 () = ()';
 */
 $mycode = $_REQUEST["program_input"];
-$mycode_res = patsopt_code_0_($mycode);
+$mycode_res = pats2xhtml_dyncode_0_($mycode);
 $mycode_res = json_encode ($mycode_res);
 $mycode_res2 = preg_replace("!\\\\!", "\\\\\\\\", $mycode_res);
 //
@@ -37,7 +37,7 @@ $mycode_res2 = preg_replace("!\\\\!", "\\\\\\\\", $mycode_res);
 
 <html>
 <head>
-<title>TUTORIATS-patsopt-trial</title>
+<title>TUTORIATS-pats2xhtml-trial</title>
 </head>
 
 <body>

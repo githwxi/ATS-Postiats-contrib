@@ -12,7 +12,7 @@
 (* ****** ****** *)
 //
 #define
-ATS_EXTERN_PREFIX "tutorats_"
+ATS_EXTERN_PREFIX "tutoriats_"
 //
 (* ****** ****** *)
 //
@@ -69,16 +69,32 @@ atscc2js_file
 (* ****** ****** *)
 //
 fun{}
-patsopt_continue (fname: string): compres
+patsopt_continue(fname: string): compres
 fun{}
-patsopt_continue_file (fname: string): compres
+patsopt_continue_file(fname: string): compres
 fun{}
-patsopt_continue_code (ptext: string): compres
+patsopt_continue_code(ptext: string): compres
 //
 (* ****** ****** *)
 //
 fun{}
-patsopt_atscc2js_code (ptext: string): compres
+patsopt_atscc2js_code(ptext: string): compres
+//
+(* ****** ****** *)
+//
+fun{}
+pats2xhtml_get((*void*)): string
+//
+(* ****** ****** *)
+//
+fun{}
+pats2xhtml_file(stadyn: int, fname: string): compres
+fun{}
+pats2xhtml_code(stadyn: int, ptext: string): compres
+//
+fun{}
+pats2xhtml_format_command
+  (stadyn: int, finp: string, fout: string, ferr: string): string
 //
 (* ****** ****** *)
 

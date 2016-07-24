@@ -34,11 +34,11 @@ DATS_PHP/inputform_process_php_dats.php: inputform_process_php_dats.c ; $(ATSCC2
 #
 upload_html: ; \
 scp inputform.html inputform2.html patsopt-atscc2js.php \
-  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/LARGE/TUTORATS/services/patsopt-atscc2js-trial2/.
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/LARGE/TUTORIATS/services/patsopt-atscc2js-trial2/.
 #
 upload_rest: ; \
-scp -r libatscc2php libtutorats0 DATS_JS DATS_PHP \
-  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/LARGE/TUTORATS/services/patsopt-atscc2js-trial2/.
+scp -r libatscc2php libtutoriats0 DATS_JS DATS_PHP \
+  ats-hwxi,ats-lang@web.sourceforge.net:htdocs/COMPILED/doc/PROJECT/LARGE/TUTORIATS/services/patsopt-atscc2js-trial2/.
 #
 #######
 
