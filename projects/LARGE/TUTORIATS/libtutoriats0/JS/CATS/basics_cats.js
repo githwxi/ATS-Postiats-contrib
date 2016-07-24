@@ -1,5 +1,5 @@
 /*
-// For building TUTORATS
+// For building TUTORIATS
 */
 
 /* ****** ****** */
@@ -12,11 +12,11 @@
 /* ****** ****** */
 //
 function
-tutorats_fname_dats_c(fname) { return fname.concat("_dats.c"); }
+tutoriats_fname_dats_c(fname) { return fname.concat("_dats.c"); }
 function
-tutorats_fname_dats_js(fname) { return fname.concat("_dats.js"); }
+tutoriats_fname_dats_js(fname) { return fname.concat("_dats.js"); }
 function
-tutorats_fname_dats_php(fname) { return fname.concat("_dats.php"); }
+tutoriats_fname_dats_php(fname) { return fname.concat("_dats.php"); }
 //
 /* ****** ****** */
 

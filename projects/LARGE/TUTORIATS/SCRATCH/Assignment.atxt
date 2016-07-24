@@ -1,0 +1,46 @@
+
+##exercise("""\
+
+##number("1.1")
+
+##descript("""\
+
+##para("""\
+Please implement a function ##fun("isTriangle")
+that determines whether three given integers ##arg("x"),
+##arg("y"), and #arg("z") can form a triangle.
+""")##comment("para")
+
+##satscode("""\
+//
+fun
+isTriangle
+(
+  x: int, y: int, z: int
+) : bool // end-of-fun
+//
+""")##comment("satscode")
+
+""")##comment("descript")
+
+##solution("""\
+
+##datscode("""\
+//
+implement
+isTriangle
+  (x, y, z) = (
+//
+ifcase
+  | x + y <= z => false | y + z <= x => false
+  | z + x <= y => false | _ (* else *) => true
+// end of [ifcase]
+) (* end of [isTriangle] *)
+//
+""")##comment("datscode")
+
+""")##comment("solution")
+
+""")##comment("exercise")
+
+##comment("end of [Assignment.atxt]")
