@@ -42,11 +42,11 @@ staload
 (* ****** ****** *)
 //
 staload
-XMLDOM =
-"./../XMLDOM/XMLDOM.sats"
+XMLDOC =
+"./../XMLDOC/XMLDOC.sats"
 //
 typedef
-XMLDOM = $XMLDOM.XMLDOM_type
+XMLDOC = $XMLDOC.XMLDOC_type
 //
 (* ****** ****** *)
 //
@@ -93,13 +93,13 @@ overload .setRequestHeader with XMLHttpRequest_setRequestHeader
 //
 fun
 XMLHttpRequest_get_responseXML
-  (xmlhttpreq: XMLHttpRequest): XMLDOM = "mac#%"
+  (XMLHttpRequest): XMLDOC = "mac#%"
 //
 overload .responseXML with XMLHttpRequest_get_responseXML
 //
 fun
 XMLHttpRequest_get_responseText
-  (xmlhttpreq: XMLHttpRequest): string = "mac#%"
+  (XMLHttpRequest): string = "mac#%"
 //
 overload .responseText with XMLHttpRequest_get_responseText
 //

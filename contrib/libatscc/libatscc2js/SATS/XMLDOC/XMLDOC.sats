@@ -32,13 +32,15 @@
 #define
 ATS_STALOADFLAG 0 // no staloading at run-time
 #define
-ATS_EXTERN_PREFIX "ats2js_XMLDOM_" // prefix for external names
+ATS_EXTERN_PREFIX "ats2js_XMLDOC_" // prefix for external names
 
 (* ****** ****** *)
-
-abstype XMLDOM_type
-typedef XMLDOM = XMLDOM_type
-
+//
+abstype XMLDOC_type
+//
+typedef xmldoc = XMLDOC_type
+typedef XMLDOC = XMLDOC_type
+//
 (* ****** ****** *)
 
-(* end of [XMLDOM.sats] *)
+(* end of [XMLDOC.sats] *)
