@@ -161,9 +161,75 @@ list0_reverse_append{a}(xs, ys) =
 (* ****** ****** *)
 //
 implement
-list0_app{a}(xs, f) = list0_foreach{a}(xs, f)
+list0_exists
+  (xs, pred) = list_exists($UN.cast(xs), pred)
+//
 implement
-list0_foreach{a}(xs, f) = list_foreach{a}($UN.cast(xs), f)
+list0_exists_method
+  {a}(xs) = lam(pred) => list0_exists{a}(xs, pred)
+//
+(* ****** ****** *)
+//
+implement
+list0_iexists
+  (xs, pred) = list_iexists($UN.cast(xs), pred)
+//
+implement
+list0_iexists_method
+  {a}(xs) = lam(pred) => list0_iexists{a}(xs, pred)
+//
+(* ****** ****** *)
+//
+implement
+list0_forall
+  (xs, pred) = list_forall($UN.cast(xs), pred)
+//
+implement
+list0_forall_method
+  {a}(xs) = lam(pred) => list0_forall{a}(xs, pred)
+//
+(* ****** ****** *)
+//
+implement
+list0_iforall
+  (xs, pred) = list_iforall($UN.cast(xs), pred)
+//
+implement
+list0_iforall_method
+  {a}(xs) = lam(pred) => list0_iforall{a}(xs, pred)
+//
+(* ****** ****** *)
+//
+implement
+list0_app{a}
+  (xs, fwork) = list0_foreach{a}(xs, fwork)
+implement
+list0_foreach{a}
+  (xs, fwork) = list_foreach{a}($UN.cast(xs), fwork)
+//
+implement
+list0_foreach_method
+  {a}(xs) = lam(fwork) => list0_foreach{a}(xs, fwork)
+//
+(* ****** ****** *)
+//
+implement
+list0_iforeach{a}
+  (xs, fwork) = list_iforeach{a}($UN.cast(xs), fwork)
+//
+implement
+list0_iforeach_method
+  {a}(xs) = lam(fwork) => list0_iforeach{a}(xs, fwork)
+//
+(* ****** ****** *)
+//
+implement
+list0_rforeach{a}
+  (xs, fwork) = list_rforeach{a}($UN.cast(xs), fwork)
+//
+implement
+list0_rforeach_method
+  {a}(xs) = lam(fwork) => list0_rforeach{a}(xs, fwork)
 //
 (* ****** ****** *)
 //
@@ -172,11 +238,20 @@ list0_filter
   {a}(xs, pred) =
   $UN.cast(list_filter($UN.cast(xs), pred))
 //
+implement
+list0_filter_method
+  {a}(xs) = lam(pred) => list0_filter{a}(xs, pred)
+//
 (* ****** ****** *)
 //
 implement
 list0_map
-  {a}{b}(xs, fopr) = $UN.cast(list_map($UN.cast(xs), fopr))
+  {a}{b}
+  (xs, fopr) = $UN.cast(list_map($UN.cast(xs), fopr))
+//
+implement
+list0_map_method
+  {a}{b}(xs, _) = lam(fopr) => list0_map{a}{b}(xs, fopr)
 //
 (* ****** ****** *)
 

@@ -11,6 +11,15 @@ staload "./../basics.sats"
 (* ****** ****** *)
 //
 fun
+stream_make_nil
+  {a:t0p}(): stream(a) = "mac#%"
+fun
+stream_make_sing
+  {a:t0p}(x0: a): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_nth_opt
   {a:t0p}
 (
@@ -109,6 +118,24 @@ fun
 stream_tabulate_cloref
   {a:t0p}
   (fopr: intGte(0) -<cloref1> a): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+cross_stream_list
+  {a,b:t0p}{res:t0p}
+(
+  xs: stream(INV(a)), ys: List0(INV(b))
+) : stream($tup(a, b)) // end of [cross_stream_list]
+fun
+cross_stream_list0
+  {a,b:t0p}{res:t0p}
+(
+  xs: stream(INV(a)), ys: list0(INV(b))
+) : stream($tup(a, b)) // end of [cross_stream_list0]
+//
+overload * with cross_stream_list
+overload * with cross_stream_list0
 //
 (* ****** ****** *)
 //

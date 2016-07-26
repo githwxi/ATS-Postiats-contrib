@@ -94,6 +94,25 @@ list0(a:t@ype) = list0_t0ype_type(a)
 //
 (* ****** ****** *)
 //
+castfn
+g0ofg1_list : 
+  {a:t0p}(List(a)) -<fun> list0(a)
+castfn
+list0_of_list :
+  {a:t0p}(List(a)) -<fun> list0(a)
+//
+castfn
+g1ofg0_list : 
+  {a:t0p}(list0(a)) -<fun> List0(a)
+castfn
+list_of_list0 :
+  {a:t0p}(list0(a)) -<fun> List0(a)
+//
+overload g0ofg1 with g0ofg1_list of 100
+overload g1ofg0 with g1ofg0_list of 100
+//
+(* ****** ****** *)
+//
 abstype
 array0_vt0ype_type(a:vt@ype) = ptr
 typedef

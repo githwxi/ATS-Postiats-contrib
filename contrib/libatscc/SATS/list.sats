@@ -150,13 +150,76 @@ list_takeout_at
 (* ****** ****** *)
 //
 fun
+list_exists
+  {a:t0p}
+  (List(INV(a)), pred: cfun(a, bool)): bool = "mac#%"
+fun
+list_exists_method
+  {a:t0p}
+  (List(INV(a)))(pred: cfun(a, bool)): bool = "mac#%"
+//
+overload .exists with list_exists_method
+//
+fun
+list_iexists
+  {a:t0p}
+(
+  xs: List(INV(a)), pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list_iexists]
+fun
+list_iexists_method
+  {a:t0p}
+(
+  xs: List(INV(a)))(pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list_iexists]
+//
+overload .iexists with list_iexists_method
+//
+(* ****** ****** *)
+//
+fun
+list_forall
+  {a:t0p}
+  (List(INV(a)), pred: cfun(a, bool)): bool = "mac#%"
+fun
+list_forall_method
+  {a:t0p}
+  (List(INV(a)))(pred: cfun(a, bool)): bool = "mac#%"
+//
+overload .forall with list_forall_method
+//
+fun
+list_iforall
+  {a:t0p}
+(
+  xs: List(INV(a)), pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list_iforall]
+fun
+list_iforall_method
+  {a:t0p}
+(
+  xs: List(INV(a)))(pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list_iforall]
+//
+overload .iforall with list_iforall_method
+//
+(* ****** ****** *)
+//
+fun
 list_app
   {a:t0p}
-  (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+  (List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
 fun
 list_foreach
   {a:t0p}
-  (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+  (List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+//
+fun
+list_foreach_method
+  {a:t0p}
+  (List(INV(a)))(fwork: cfun(a, void)): void = "mac#%"
+//
+overload .foreach with list_foreach_method
 //
 (* ****** ****** *)
 //
@@ -164,6 +227,12 @@ fun
 list_iforeach
   {a:t0p}
   (xs: List(INV(a)), fwork: cfun(int, a, void)): void = "mac#%"
+fun
+list_iforeach_method
+  {a:t0p}
+  (xs: List(INV(a)))(fwork: cfun(int, a, void)): void = "mac#%"
+//
+overload .iforeach with list_iforeach_method
 //
 (* ****** ****** *)
 //
@@ -171,6 +240,10 @@ fun
 list_rforeach
   {a:t0p}
   (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+fun
+list_rforeach_method
+  {a:t0p}
+  (xs: List(INV(a)))(fwork: cfun(a, void)): void = "mac#%"
 //
 (* ****** ****** *)
 //

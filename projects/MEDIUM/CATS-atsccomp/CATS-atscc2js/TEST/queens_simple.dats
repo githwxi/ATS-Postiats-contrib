@@ -233,4 +233,4 @@ main_js()
 
 (* ****** ****** *)
 
-(* end of [queens.dats] *)
+(* end of [queens_simple.dats] *)

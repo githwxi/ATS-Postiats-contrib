@@ -49,10 +49,10 @@ if (argc <= 2)
   console.log("Usage: f91 <int>"); return;
 }
 //
-var x = process.argv[2]
-var x = parseInt (x, 10)
+var arg = process.argv[2]
+var arg = parseInt(arg, 10)
 //
-console.log("f91(%d) = %d", x, f91(x)); return;
+console.log("f91(%d) = %d", arg, f91(arg)); return;
 //
 } /* end of [main_js] */
 ) () ;

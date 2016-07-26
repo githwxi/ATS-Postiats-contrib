@@ -129,10 +129,16 @@ fun
 mtrxszref_foreach_cloref
   {a:t@ype}
 (
-  mtrxszref(a), fwork: (int, int) -<cloref1> void
+  M: mtrxszref(a), fwork: (int, int) -<cloref1> void
+) : void = "mac#%" // end-of-function
+fun
+mtrxszref_foreach_method
+  {a:t@ype}
+(
+  M: mtrxszref(a))(fwork: (int, int) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 //
-overload .foreach with mtrxszref_foreach_cloref
+overload .foreach with mtrxszref_foreach_method
 //
 (* ****** ****** *)
 

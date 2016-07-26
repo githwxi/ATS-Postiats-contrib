@@ -13,6 +13,16 @@ staload UN = "prelude/SATS/unsafe.sats"
 *)
 
 (* ****** ****** *)
+//
+implement
+stream_make_nil() =
+  $delay(stream_nil())
+//
+implement
+stream_make_sing(x0) =
+  $delay(stream_cons(x0, stream_make_nil()))
+//
+(* ****** ****** *)
 
 implement
 stream_nth_opt
@@ -232,6 +242,45 @@ auxmain
 //
 } (* end of [stream_tabulate_cloref] *)
 
+(* ****** ****** *)
+
+implement
+cross_stream_list
+  {a,b}(xs, ys) = let
+//
+fun
+auxmain
+(
+  x0: a, xs: stream(a)
+, ys: List0(b), zs: List0(b)
+) : stream($tup(a, b)) = $delay
+(
+  case+ zs of
+  | list_nil() =>
+      !(cross_stream_list(xs, ys))
+  | list_cons(z0, zs) =>
+      stream_cons(
+        $tup(x0, z0), auxmain(x0, xs, ys, zs)
+      ) (* stream_cons *)
+) (* end of [auxmain] *)
+//
+in
+//
+$delay(
+case !xs of
+| stream_nil() => stream_nil()
+| stream_cons(x, xs) => !(auxmain(x, xs, ys, ys))
+) (* $delay *)
+//
+end // end of [cross_stream_list]
+
+(* ****** ****** *)
+//
+implement
+cross_stream_list0
+  (xs, ys) =
+  cross_stream_list(xs, g1ofg0(ys))
+//
 (* ****** ****** *)
 
 implement

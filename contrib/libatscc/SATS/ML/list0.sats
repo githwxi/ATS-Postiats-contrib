@@ -114,6 +114,62 @@ overload revappend with list0_reverse_append of 100
 (* ****** ****** *)
 //
 fun
+list0_exists
+  {a:t0p}
+  (list0(INV(a)), pred: cfun(a, bool)): bool = "mac#%"
+fun
+list0_exists_method
+  {a:t0p}
+  (list0(INV(a)))(pred: cfun(a, bool)): bool = "mac#%"
+//
+overload .exists with list0_exists_method
+//
+fun
+list0_iexists
+  {a:t0p}
+(
+  xs: list0(INV(a)), pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list0_iexists]
+fun
+list0_iexists_method
+  {a:t0p}
+(
+  xs: list0(INV(a)))(pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list0_iexists]
+//
+overload .iexists with list0_iexists_method
+//
+(* ****** ****** *)
+//
+fun
+list0_forall
+  {a:t0p}
+  (list0(INV(a)), pred: cfun(a, bool)): bool = "mac#%"
+fun
+list0_forall_method
+  {a:t0p}
+  (list0(INV(a)))(pred: cfun(a, bool)): bool = "mac#%"
+//
+overload .forall with list0_forall_method
+//
+fun
+list0_iforall
+  {a:t0p}
+(
+  xs: list0(INV(a)), pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list0_iforall]
+fun
+list0_iforall_method
+  {a:t0p}
+(
+  xs: list0(INV(a)))(pred: cfun(intGte(0), a, bool)
+) : bool = "mac#%" // end of [list0_iforall]
+//
+overload .iforall with list0_iforall_method
+//
+(* ****** ****** *)
+//
+fun
 list0_app
   {a:t0p}
 (
@@ -125,6 +181,44 @@ list0_foreach
 (
   xs: list0(INV(a)), fwork: cfun(a, void)
 ) : void = "mac#%" // end-of-function
+fun
+list0_foreach_method
+  {a:t0p}
+(
+  xs: list0(INV(a)))(fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
+//
+overload .foreach with list0_foreach_method
+//
+(* ****** ****** *)
+//
+fun
+list0_iforeach
+  {a:t0p}
+(
+  xs: list0(INV(a)), fwork: cfun(int, a, void)
+) : void = "mac#%" // end-of-function
+fun
+list0_iforeach_method
+  {a:t0p}
+(
+  xs: list0(INV(a)))(fwork: cfun(int, a, void)
+) : void = "mac#%" // end-of-function
+//
+overload .iforeach with list0_iforeach_method
+//
+(* ****** ****** *)
+//
+fun
+list0_rforeach
+  {a:t0p}
+  (xs: list0(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+fun
+list0_rforeach_method
+  {a:t0p}
+  (xs: list0(INV(a)))(fwork: cfun(a, void)): void = "mac#%"
+//
+overload .rforeach with list0_rforeach_method
 //
 (* ****** ****** *)
 //
@@ -134,6 +228,14 @@ list0_filter
 (
   xs: list0(INV(a)), pred: cfun(a, bool)
 ) : list0(a) = "mac#%" // end-of-function
+fun
+list0_filter_method
+  {a:t0p}
+(
+  xs: list0(INV(a)))(pred: cfun(a, bool)
+) : list0(a) = "mac#%" // end-of-function
+//
+overload .filter with list0_filter_method
 //
 (* ****** ****** *)
 //
@@ -141,6 +243,12 @@ fun
 list0_map
   {a:t0p}{b:t0p}
   (list0(INV(a)), fopr: cfun(a, b)): list0(b) = "mac#%"
+fun
+list0_map_method
+  {a:t0p}{b:t0p}
+  (list0(INV(a)), TYPE(b))(fopr: cfun(a, b)): list0(b) = "mac#%"
+//
+overload .map with list0_map_method
 //
 (* ****** ****** *)
 

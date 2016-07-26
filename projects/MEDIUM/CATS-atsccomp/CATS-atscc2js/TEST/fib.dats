@@ -45,7 +45,17 @@ eval(fs.readFileSync('./libatscc2js/CATS/integer_cats.js').toString());
 (* ****** ****** *)
 
 %{$
-console.log("fib(10) =", fib(10))
+//
+(
+function()
+{
+var arg = process.argv[2]
+var arg = parseInt(arg, 10)
+//
+console.log("fib(10) =", fib(arg))
+//
+}
+) ()
 %} // end of [%{$]
 
 (* ****** ****** *)
