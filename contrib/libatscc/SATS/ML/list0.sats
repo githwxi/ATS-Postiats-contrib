@@ -12,6 +12,7 @@ staload "./../../basics.sats"
 
 #define nil0 list0_nil
 #define cons0 list0_cons
+#define sing0(x) list0_cons(x, list0_nil)
 
 (* ****** ****** *)
 //
@@ -139,7 +140,7 @@ list0_filter
 fun
 list0_map
   {a:t0p}{b:t0p}
-  (xs: list0(INV(a)), fopr: cfun(a, b)): list0(b) = "mac#%"
+  (list0(INV(a)), fopr: cfun(a, b)): list0(b) = "mac#%"
 //
 (* ****** ****** *)
 

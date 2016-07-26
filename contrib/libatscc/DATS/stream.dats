@@ -44,20 +44,55 @@ end // end of [stream_nth_opt]
 (* ****** ****** *)
 
 implement
+stream_take_opt
+  {a}{n}(xs, n) = let
+//
+fun
+auxmain
+{i:nat | i <= n}
+(
+  xs: stream(a), i: int(i), res: list(a, i)
+) : Option_vt(list(a, n)) =
+(
+//
+if
+(i < n)
+then (
+  case+ !xs of
+  | stream_nil() => None_vt()
+  | stream_cons(x, xs) => auxmain(xs, i+1, list_cons(x, res))
+) (* end of [then] *)
+else Some_vt(list_reverse(res))
+//
+) (* end of [auxmain] *)
+//
+in
+  auxmain(xs, 0, list_nil())
+end // end of [stream_take_opt]
+
+(* ****** ****** *)
+//
+implement
 stream_map_cloref
-  (xs, f) = $delay
+  (xs, fopr) = $delay
 (
 //
 case+ !xs of
-| stream_nil () => stream_nil ()
-| stream_cons (x, xs) =>
-    stream_cons (f(x), stream_map_cloref(xs, f))
+| stream_nil
+    ((*void*)) => stream_nil()
+  // end of [stream_nil]
+| stream_cons(x, xs) =>
+    stream_cons (fopr(x), stream_map_cloref(xs, fopr))
   // end of [stream_cons]
 //
 ) (* end of [stream_map_cloref] *)
-
+//
+implement
+stream_map_method
+  (xs, _) = lam(fopr) => stream_map_cloref(xs, fopr)
+//
 (* ****** ****** *)
-
+//
 implement
 stream_filter_cloref
   (xs, pred) = $delay
@@ -65,7 +100,8 @@ stream_filter_cloref
 //
 case+ !xs of
 | stream_nil
-    ((*void*)) => stream_nil ()
+    ((*void*)) => stream_nil()
+  // end of [stream_nil]
 | stream_cons
     (x, xs) =>
   (
@@ -79,7 +115,11 @@ case+ !xs of
   ) (* end of [stream_cons] *)
 //
 ) (* end of [stream_filter_cloref] *)
-
+//
+implement
+stream_filter_method
+  (xs) = lam(pred) => stream_filter_cloref(xs, pred)
+//
 (* ****** ****** *)
 
 implement
