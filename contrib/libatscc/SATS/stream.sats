@@ -11,16 +11,12 @@ staload "./../basics.sats"
 (* ****** ****** *)
 //
 fun
-stream_nth_exn
+stream_nth_opt
   {a:t0p}
 (
   xs: stream(INV(a)), n: intGte(0)
-) : a = "mac#%" // end-of-function
+) : Option_vt(a) = "mac#%" // end-of-fun
 //
-(* ****** ****** *)
-
-overload [] with stream_nth_exn of 100
-
 (* ****** ****** *)
 
 fun

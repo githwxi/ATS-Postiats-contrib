@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PATS2XHTML-test01</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<style type="text/css">
+  .patsyntax {width:100%;margin:auto;}
+  .patsyntax {color:#808080;background-color:#E0E0E0;}
+  .patsyntax span.keyword {color:#000000;font-weight:bold;}
+  .patsyntax span.comment {color:#787878;font-style:italic;}
+  .patsyntax span.extcode {color:#A52A2A;}
+  .patsyntax span.neuexp  {color:#800080;}
+  .patsyntax span.staexp  {color:#0000F0;}
+  .patsyntax span.prfexp  {color:#603030;}
+  .patsyntax span.dynexp  {color:#F00000;}
+  .patsyntax span.stalab  {color:#0000F0;font-style:italic}
+  .patsyntax span.dynlab  {color:#F00000;font-style:italic}
+  .patsyntax span.dynstr  {color:#008000;font-style:normal}
+  .patsyntax span.stacstdec  {text-decoration:none;}
+  .patsyntax span.stacstuse  {color:#0000CF;text-decoration:underline;}
+  .patsyntax span.dyncstdec  {text-decoration:none;}
+  .patsyntax span.dyncstuse  {color:#B80000;text-decoration:underline;}
+  .patsyntax span.dyncst_implement  {color:#B80000;text-decoration:underline;}
+</style>
+
+<script
+ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+
+<script
+ src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js">
+</script>
+
+</head>
+
+<body>
+
+<h1>Assignment #1</h1>
+
+<P>
+Please implement a function ##fun("isTriangle") that determines
+whether three given integers ##arg("x"), ##arg("y"), and #arg("z") can
+form a triangle.
+<sats2xhtml>//
+fun
+isTriangle
+  (x: int, y: int, z: int) : bool
+//
+</sats2xhtml>
+</p>
+
+<hr></hr>
+
+<p>
+Here is an implementation of ##fun("isTriangle"):
+<dats2xhtml>//
+implement
+isTriangle
+  (x, y, z) = (
+//
+ifcase
+  | x + y <= z => false | y + z <= x => false
+  | z + x <= y => false | _ (* else *) => true
+// end of [ifcase]
+) (* isTriangle *)
+//
+</dats2xhtml>
+</p>
+
+<hr></hr>
+
+<script>
+$(document).ready(function(){pats2xhtmlize_process_all();return;});
+</script>
+
+</body>
+
+</html>
+<!-- end of [assignment.html] -->

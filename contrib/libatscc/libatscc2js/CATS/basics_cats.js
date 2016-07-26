@@ -146,6 +146,18 @@ ats2jspre_lazy2cloref(lazyval) { return lazyval[1]; }
 /* ****** ****** */
 //
 function
+ats2jspre_ListSubscriptExn_throw
+  (/*void*/) { throw new Error("ListSubscriptionExn"); }
+function
+ats2jspre_ArraySubscriptExn_throw
+  (/*void*/) { throw new Error("ArraySubscriptionExn"); }
+function
+ats2jspre_StreamSubscriptExn_throw
+  (/*void*/) { throw new Error("StreamSubscriptionExn"); }
+//
+/* ****** ****** */
+//
+function
 ats2jspre_assert_bool0(tfv)
   { if (!tfv) throw new Error("Assert"); return; }
 function

@@ -25,5 +25,16 @@ staload "./../basics_js.sats"
 #include "{$LIBATSCC}/SATS/stream.sats"
 //
 (* ****** ****** *)
+//
+fun
+stream_nth_exn
+  {a:t0p}
+(
+  xs: stream(INV(a)), n: intGte(0)
+) : (a) = "mac#%" // end-of-function
+//
+overload [] with stream_nth_exn of 100
+//
+(* ****** ****** *)
 
 (* end of [stream.sats] *)

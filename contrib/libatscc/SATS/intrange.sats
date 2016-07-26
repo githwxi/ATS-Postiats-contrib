@@ -11,7 +11,8 @@ staload "./../basics.sats"
 (* ****** ****** *)
 //
 // HX-2013-04:
-// intrange (l, r) is for integers i satisfying l <= i < r
+// intrange (l, r) is for
+// integers i satisfying l <= i < r
 //
 (* ****** ****** *)
 //
@@ -20,8 +21,9 @@ int_repeat_lazy
   (n: int, f: lazy(void)): void = "mac#%"
 fun
 int_repeat_cloref
-  (n: int, f: cfun0 (void)): void = "mac#%"
+  (n: int, f: cfun0(void)): void = "mac#%"
 //
+overload * with int_repeat_lazy of 100
 overload repeat with int_repeat_lazy of 100
 overload repeat with int_repeat_cloref of 100
 //

@@ -46,5 +46,28 @@ staload "./../SATS/stream.sats"
 #include "{$LIBATSCC}/DATS/stream.dats"
 //
 (* ****** ****** *)
+//
+extern
+fun
+StreamSubscriptExn_throw{a:vt0p}(): (a) = "mac#%"
+//
+(* ****** ****** *)
+
+implement
+stream_nth_exn
+  (xs, n) = let
+//
+val opt =
+  stream_nth_opt(xs, n)
+//
+in
+//
+case+ opt of
+| ~Some_vt(x) => x
+| ~None_vt((*void*)) => StreamSubscriptExn_throw()
+//
+end // end of [stream_nth_exn]
+
+(* ****** ****** *)
 
 (* end of [stream.dats] *)

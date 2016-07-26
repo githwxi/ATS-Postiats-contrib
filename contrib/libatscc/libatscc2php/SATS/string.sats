@@ -14,7 +14,14 @@ ATS_EXTERN_PREFIX "ats2phppre_"
 (* ****** ****** *)
 //
 fun
-string_length (string): int = "mac#%"
+strval{a:t0p}(obj: a): string = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+strlen(x0: string): intGte(0) = "mac#%"
+fun
+string_length(x0: string): intGte(0) = "mac#%"
 //
 overload .length with string_length of 100
 //
