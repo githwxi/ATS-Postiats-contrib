@@ -25,7 +25,12 @@ ATS_STATIC_PREFIX "_ats2jspre_stream_"
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+staload "./../basics_js.sats"
 //
 (* ****** ****** *)
 //
@@ -35,6 +40,9 @@ staload "./../SATS/integer.sats"
 //
 staload "./../SATS/print.sats"
 //
+(* ****** ****** *)
+//
+staload "./../SATS/list.sats"
 staload "./../SATS/reference.sats"
 //
 (* ****** ****** *)

@@ -42,6 +42,46 @@ in
 end // end of [stream_nth_opt]
 
 (* ****** ****** *)
+//
+implement
+stream_takeLte
+  (xs, n) = $delay
+(
+//
+if
+(n > 0)
+then (
+case+ !xs of
+| stream_nil() =>
+    stream_nil(*void*)
+  // end of [stream_nil]
+| stream_cons(x, xs) =>
+    stream_cons(x, stream_takeLte(xs, n-1))
+  // end of [stream_cons]
+) (* end of [then] *)
+else stream_nil() // else
+//
+) (* end of [stream_takeLte] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_dropLte
+  (xs, n) = $delay
+(
+//
+if
+(n > 0)
+then (
+case+ !xs of
+| stream_nil() => stream_nil(*void*)
+| stream_cons(x, xs) => !(stream_dropLte(xs, n-1))
+) (* end of [then] *)
+else (!xs) // end of [else]
+//
+) (* end of [stream_dropLte] *)
+//
+(* ****** ****** *)
 
 implement
 stream_take_opt
@@ -71,31 +111,61 @@ in
 end // end of [stream_take_opt]
 
 (* ****** ****** *)
+
+implement
+stream_drop_opt
+  {a}{n}(xs, n) = let
+//
+fun
+auxmain
+{i:nat | i <= n}
+(
+  xs: stream(a), i: int(i)
+) : Option_vt(stream(a)) =
+(
+//
+if
+(i < n)
+then (
+case+ !xs of
+| stream_nil() => None_vt()
+| stream_cons(x, xs) => auxmain(xs, i+1)
+) (* end of [then] *)
+else Some_vt(xs) // end of [else]
+//
+) (* end of [auxmain] *)
+//
+in
+  auxmain(xs, 0(*i*))
+end // end of [stream_drop_opt]
+
+(* ****** ****** *)
 //
 implement
 stream_map_cloref
-  (xs, fopr) = $delay
+  {a}(xs, fopr) = $delay
 (
 //
 case+ !xs of
-| stream_nil
-    ((*void*)) => stream_nil()
-  // end of [stream_nil]
+| stream_nil() => stream_nil()
 | stream_cons(x, xs) =>
-    stream_cons (fopr(x), stream_map_cloref(xs, fopr))
+    stream_cons(fopr(x), stream_map_cloref(xs, fopr))
   // end of [stream_cons]
 //
 ) (* end of [stream_map_cloref] *)
 //
 implement
 stream_map_method
-  (xs, _) = lam(fopr) => stream_map_cloref(xs, fopr)
+  {a}(xs, _) =
+(
+  lam(fopr) => stream_map_cloref{a}(xs, fopr)
+)
 //
 (* ****** ****** *)
 //
 implement
 stream_filter_cloref
-  (xs, pred) = $delay
+  {a}(xs, pred) = $delay
 (
 //
 case+ !xs of
@@ -118,26 +188,49 @@ case+ !xs of
 //
 implement
 stream_filter_method
-  (xs) = lam(pred) => stream_filter_cloref(xs, pred)
+  {a}(xs) =
+(
+lam(pred) => stream_filter_cloref{a}(xs, pred)
+) (* end of [stream_filter_method] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_foreach_cloref
+  {a}(xs, fwork) =
+(
+case+ !xs of
+| stream_nil() => ()
+| stream_cons(x, xs) =>
+  (
+    fwork(x); stream_foreach_cloref(xs, fwork)
+  ) (* end of [stream_cons] *)
+) (* end of [stream_foreach_cloref] *)
+//
+implement
+stream_foreach_method
+  {a}(xs) =
+(
+  lam(fwork) => stream_foreach_cloref{a}(xs, fwork)
+) (* end of [stream_foreach_method] *)
 //
 (* ****** ****** *)
 
 implement
 stream_tabulate_cloref
-  {a}(f) = let
+  {a}(fopr) = auxmain(0) where
+{
 //
 fun
-aux
+auxmain
 (
   n: intGte(0)
 ) : stream(a) =
 (
-  $delay(stream_cons(f(n), aux(n+1)))
-) (* end of [aux] *)
+  $delay(stream_cons(fopr(n), auxmain(n+1)))
+) (* end of [auxmain] *)
 //
-in
-  aux(0)
-end // end of [stream_tabulate_cloref]
+} (* end of [stream_tabulate_cloref] *)
 
 (* ****** ****** *)
 

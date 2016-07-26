@@ -20,6 +20,24 @@ stream_nth_opt
 (* ****** ****** *)
 //
 fun
+stream_takeLte
+  {a:t0p}
+(
+  xs: stream(INV(a)), n0: intGte(0)
+) : stream(a) = "mac#%" // end-of-fun
+fun
+stream_dropLte
+  {a:t0p}
+(
+  xs: stream(INV(a)), n0: intGte(0)
+) : stream(a) = "mac#%" // end-of-fun
+//
+overload .takeLte with stream_takeLte
+overload .dropLte with stream_dropLte
+//
+(* ****** ****** *)
+//
+fun
 stream_take_opt
   {a:t0p}{n:nat}
 (
@@ -71,9 +89,26 @@ overload .filter with stream_filter_method
 (* ****** ****** *)
 //
 fun
+stream_foreach_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), fwork: (a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+fun
+stream_foreach_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(fwork: (a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+//
+overload .foreach with stream_foreach_method
+//
+(* ****** ****** *)
+//
+fun
 stream_tabulate_cloref
   {a:t0p}
-  (f: intGte(0) -<cloref1> a): stream(a) = "mac#%"
+  (fopr: intGte(0) -<cloref1> a): stream(a) = "mac#%"
 //
 (* ****** ****** *)
 //
