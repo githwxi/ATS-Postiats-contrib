@@ -13,9 +13,9 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2cljpre_"
+ATS_EXTERN_PREFIX "ats2cljpre_ML_"
 #define
-ATS_STATIC_PREFIX "_ats2cljpre_stream_"
+ATS_STATIC_PREFIX "_ats2cljpre_ML_list0_"
 //
 (* ****** ****** *)
 //
@@ -29,29 +29,26 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../basics_clj.sats"
+staload "./../../basics_clj.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/integer.sats"
+staload "./../../SATS/integer.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/print.sats"
+staload "./../../SATS/print.sats"
+staload "./../../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/list.sats"
-staload "./../SATS/reference.sats"
+staload "./../../SATS/list.sats"
+staload "./../../SATS/ML/list0.sats"
 //
 (* ****** ****** *)
-
-staload "./../SATS/stream.sats"
-
-(* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/stream.dats"
+#include "{$LIBATSCC}/DATS/ML/list0.dats"
 //
 (* ****** ****** *)
 
-(* end of [stream.dats] *)
+(* end of [list0.dats] *)

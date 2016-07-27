@@ -46,6 +46,12 @@ $(PATSOPT) -d ./DATS/qlistref.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/qlistref_dats.clj -i
 #
 ######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/list0.dats | \
+$(ATSCC2JS) -o ./output/DATS/ML/list0_dats.js -i
+#
+######
 
 all_in_one:: libatscc2clj_all
 

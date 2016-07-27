@@ -236,4 +236,4 @@ val () = println! ("There are [", nsol, "] solutions in total.")
 
 (* ****** ****** *)
 
-(* end of [queens.dats] *)
+(* end of [queens_simple.dats] *)
