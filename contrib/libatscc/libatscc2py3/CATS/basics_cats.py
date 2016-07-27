@@ -67,6 +67,10 @@ def ATSPMVlazyval_eval(lazyval):
 def ats2pypre_tostring(x): return str(x)
 
 ############################################
+
+def ats2jspre_lazy2cloref(lazyval): return lazyval[1]
+
+############################################
 #
 def ats2pypre_exit(ecode):
   sys.exit(ecode); return

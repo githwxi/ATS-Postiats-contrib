@@ -15,7 +15,7 @@ from ats2pypre_basics_cats import *
 
 ############################################
 
-def atspre_strlen(x): return (x.__len__())
+def ats2pypre_strlen(x): return (x.__len__())
 
 ############################################
 
