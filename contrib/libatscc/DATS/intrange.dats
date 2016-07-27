@@ -78,12 +78,16 @@ implement
 int_foldleft_cloref
   {res}
   (n0, ini, fopr) =
+(
   intrange_foldleft_cloref{res}(0, n0, ini, fopr)
+)
 //
 implement
 int_foldleft_method
   {res}(n0, ini) =
-  lam(fopr) => int_foldleft_cloref{res}(n0, ini, fopr)
+(
+lam(fopr) => int_foldleft_cloref{res}(n0, ini, fopr)
+) (* int_foldleft_method *)
 //
 (* ****** ****** *)
 //
@@ -156,7 +160,14 @@ if l < r
 in
   loop (l, r, pred)
 end // end of [intrange_exists_cloref]
-
+//
+implement
+intrange_exists_method(lr) =
+(
+lam(pred) =>
+  intrange_exists_cloref(lr.0, lr.1, pred)
+) (* intrange_exists_method *)
+//
 (* ****** ****** *)
 
 implement
@@ -179,7 +190,14 @@ if l < r
 in
   loop (l, r, pred)
 end // end of [intrange_forall_cloref]
-
+//
+implement
+intrange_forall_method(lr) =
+(
+lam(pred) =>
+  intrange_forall_cloref(lr.0, lr.1, pred)
+) (* intrange_forall_method *)
+//
 (* ****** ****** *)
 
 implement
@@ -187,21 +205,29 @@ intrange_foreach_cloref
   (l, r, fwork) = let
 //
 fun
-loop
-(
+loop (
   l: int, r: int, fwork: cfun1(int, void)
 ) : void = (
 //
-if l < r
-  then let val () = fwork(l) in loop(l+1, r, fwork) end
-  else ()
+if (l < r)
+then let
+  val () = fwork(l) in loop(l+1, r, fwork)
+end // end of [then]
+else ((*void*)) // else
 //
 ) (* end of [loop] *)
 //
 in
   loop(l, r, fwork)
 end // end of [intrange_foreach_cloref]
-
+//
+implement
+intrange_foreach_method(lr) =
+(
+lam(fwork) =>
+  intrange_foreach_cloref(lr.0, lr.1, fwork)
+) (* intrange_foreach_method *)
+//
 (* ****** ****** *)
 
 implement
