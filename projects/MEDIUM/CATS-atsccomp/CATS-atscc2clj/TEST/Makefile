@@ -121,6 +121,8 @@ cleanall:: ; $(RMF) twice_dats.clj
 all:: \
 queens_comb_dats.clj
 regress:: \
+queens_comb
+queens_comb: \
 queens_comb_dats.clj ; $(CLOJURE2) $<
 cleanall:: ; $(RMF) queens_comb_dats.clj
 

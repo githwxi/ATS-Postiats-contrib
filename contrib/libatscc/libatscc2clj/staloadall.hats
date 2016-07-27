@@ -45,6 +45,12 @@ staload "./SATS/list.sats"
 //
 staload "./SATS/stream.sats"
 //
+(* ****** ****** *)
+
+staload "./SATS/intrange.sats"
+
+(* ****** ****** *)
+//
 staload "./SATS/reference.sats"
 //
 (* ****** ****** *)
@@ -57,6 +63,10 @@ staload _(*anon*) = "./DATS/stream.dats"
 staload "./SATS/slistref.sats" // list-based stack
 staload "./SATS/qlistref.sats" // list-based queue
 //
+(* ****** ****** *)
+
+staload "./SATS/ML/list0.sats" // un-indexed list
+
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)

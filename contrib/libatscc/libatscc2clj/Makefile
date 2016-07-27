@@ -35,6 +35,10 @@ all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | \
 $(ATSCC2CLJ) -o ./output/DATS/stream_dats.clj -i
 #
+all:: ; \
+$(PATSOPT) -d ./DATS/intrange.dats | \
+$(ATSCC2CLJ) -o ./output/DATS/intrange_dats.clj -i
+#
 ######
 #
 all:: ; \
@@ -49,7 +53,7 @@ $(ATSCC2CLJ) -o ./output/DATS/qlistref_dats.clj -i
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/ML/list0.dats | \
-$(ATSCC2JS) -o ./output/DATS/ML/list0_dats.js -i
+$(ATSCC2CLJ) -o ./output/DATS/ML/list0_dats.clj -i
 #
 ######
 
@@ -93,6 +97,8 @@ $(CAT) >>libatscc2clj_all.clj \
 output/DATS/list_dats.clj \
 output/DATS/option_dats.clj \
 output/DATS/stream_dats.clj \
+output/DATS/intrange_dats.clj \
+output/DATS/ML/list0_dats.clj
 #
 libatscc2clj_all:: ; \
 $(ECHO) '\n;; ****** ****** ;;\n' | $(CAT) - >>libatscc2clj_all.clj
