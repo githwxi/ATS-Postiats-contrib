@@ -115,6 +115,23 @@ overload .foreach with stream_foreach_method
 (* ****** ****** *)
 //
 fun
+stream_iforeach_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), fwork: (Nat, a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+fun
+stream_iforeach_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(fwork: (Nat, a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+//
+overload .iforeach with stream_iforeach_method
+//
+(* ****** ****** *)
+//
+fun
 stream_tabulate_cloref
   {a:t0p}
   (fopr: intGte(0) -<cloref1> a): stream(a) = "mac#%"
@@ -126,13 +143,13 @@ cross_stream_list
   {a,b:t0p}{res:t0p}
 (
   xs: stream(INV(a)), ys: List0(INV(b))
-) : stream($tup(a, b)) // end of [cross_stream_list]
+) : stream($tup(a, b)) = "mac#%" // end-of-fun
 fun
 cross_stream_list0
   {a,b:t0p}{res:t0p}
 (
   xs: stream(INV(a)), ys: list0(INV(b))
-) : stream($tup(a, b)) // end of [cross_stream_list0]
+) : stream($tup(a, b)) = "mac#%" // end-of-fun
 //
 overload * with cross_stream_list
 overload * with cross_stream_list0

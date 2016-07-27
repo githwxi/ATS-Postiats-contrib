@@ -225,6 +225,37 @@ stream_foreach_method
 ) (* end of [stream_foreach_method] *)
 //
 (* ****** ****** *)
+//
+implement
+stream_iforeach_cloref
+  {a}(xs, fwork) = let
+//
+fun
+loop
+(
+  i: Nat,  xs: stream(a)
+) : void =
+(
+case+ !xs of
+| stream_nil() => ()
+| stream_cons(x, xs) =>
+  (
+    fwork(i, x); loop(i+1, xs)
+  ) (* end of [stream_cons] *)
+) (* end of [loop] *)
+//
+in
+  loop(0(*index*), xs)
+end (* end of [stream_foreach_cloref] *)
+//
+implement
+stream_iforeach_method
+  {a}(xs) =
+(
+  lam(fwork) => stream_iforeach_cloref{a}(xs, fwork)
+) (* end of [stream_iforeach_method] *)
+//
+(* ****** ****** *)
 
 implement
 stream_tabulate_cloref

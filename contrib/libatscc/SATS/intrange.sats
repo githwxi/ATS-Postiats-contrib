@@ -61,12 +61,12 @@ overload .foreach with int_foreach_method of 100
 fun
 int_foldleft_cloref
   {res:t@ype}
-  (n: int, ini: res, f: cfun2 (res, int, res)): res = "mac#%"
+  (n0: int, ini: res, fopr: cfun2 (res, int, res)): res = "mac#%"
 //
 fun
 int_foldleft_method
   {res:t@ype}
-  (int, TYPE(res))(ini: res, f: cfun2 (res, int, res)): res = "mac#%"
+  (n0: int, ini: res)(fopr: cfun2 (res, int, res)): res = "mac#%"
 //
 overload .foldleft with int_foldleft_method of 100
 //
@@ -75,11 +75,11 @@ overload .foldleft with int_foldleft_method of 100
 fun
 int_list_map_cloref
   {a:t0p}{n:nat}
-  (n: int(n), fopr: cfun(int, a)): list(a, n)
+  (n: int(n), fopr: cfun(int, a)): list(a, n) = "mac#%"
 fun
 int_list_map_method
   {a:t0p}{n:nat}
-  (n: int(n), TYPE(a))(fopr: cfun(int, a)): list(a, n)
+  (n: int(n), TYPE(a))(fopr: cfun(int, a)): list(a, n) = "mac#%"
 //
 overload .list_map with int_list_map_method
 //
@@ -119,7 +119,7 @@ intrange_foldleft_cloref
 fun
 intrange_foldleft_method
   {res:t@ype}
-  ($tup(int, int), TYPE(res))(ini: res, f: cfun2(res, int, res)): res = "mac#%"
+  (lr: $tup(int, int), ini: res)(fopr: cfun2(res, int, res)): res = "mac#%"
 //
 overload .foldleft with intrange_foldleft_method of 100
 //

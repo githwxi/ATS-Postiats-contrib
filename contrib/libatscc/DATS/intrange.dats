@@ -13,93 +13,93 @@ staload "./../SATS/intrange.sats"
 //
 implement
 int_repeat_lazy
-  (n, f) =
-  int_repeat_cloref (n, lazy2cloref(f))
+  (n0, f) =
+  int_repeat_cloref(n0, lazy2cloref(f))
 //
 (* ****** ****** *)
 
 implement
 int_repeat_cloref
-  (n, f) = let
+  (n0, fwork) = let
 //
 fun
 loop
 (
-  n: int, f: cfun0(void)
+  n: int, fwork: cfun0(void)
 ) : void = (
 //
 if n > 0
-  then let val () = f () in loop (n-1, f) end
-  else ()
+  then (fwork(); loop(n-1, fwork)) else ()
 //
 ) (* end of [loop] *)
 //
 in
-  loop (n, f)
+  loop (n0, fwork)
 end // end of [int_repeat_cloref]
 
 (* ****** ****** *)
 //
 implement
 int_exists_cloref
-  (n, f) =
+  (n0, pred) =
 (
-  intrange_exists_cloref (0, n, f)
+  intrange_exists_cloref(0, n0, pred)
 )
 implement
 int_forall_cloref
-  (n, f) =
+  (n0, pred) =
 (
-  intrange_forall_cloref (0, n, f)
+  intrange_forall_cloref (0, n0, pred)
 )
 //
 implement
 int_foreach_cloref
-  (n, f) =
+  (n0, pred) =
 (
-  intrange_foreach_cloref (0, n, f)
+  intrange_foreach_cloref (0, n0, pred)
 )
 //
 (* ****** ****** *)
 //
 implement
 int_exists_method
-  (n) = lam(f) => int_exists_cloref(n, f)
+  (n0) = lam(f) => int_exists_cloref(n0, f)
 implement
 int_forall_method
-  (n) = lam(f) => int_forall_cloref(n, f)
+  (n0) = lam(f) => int_forall_cloref(n0, f)
 //
 implement
 int_foreach_method
-  (n) = lam(f) => int_foreach_cloref(n, f)
+  (n0) = lam(f) => int_foreach_cloref(n0, f)
 //
 (* ****** ****** *)
 //
 implement
 int_foldleft_cloref
-  {res}(n, ini, f) =
-  intrange_foldleft_cloref{res}(0, n, ini, f)
+  {res}
+  (n0, ini, fopr) =
+  intrange_foldleft_cloref{res}(0, n0, ini, fopr)
 //
 implement
 int_foldleft_method
-  {res}(n, tres) =
-  lam(ini, f) => int_foldleft_cloref{res}(n, ini, f)
+  {res}(n0, ini) =
+  lam(fopr) => int_foldleft_cloref{res}(n0, ini, fopr)
 //
 (* ****** ****** *)
 //
 implement
 int_list_map_cloref
-  {a}{n}(n, fopr) = let
+  {a}{n}(n0, fopr) = let
 //
 fun
 aux
 { i:nat
 | i <= n
-} (i: int(i)): list(a, n-i) =
-(
-if i < n
-  then list_cons(fopr(i), aux(i+1))
-  else list_nil()
+} (i: int(i)): list(a, n-i) = (
+//
+if
+(i < n0)
+then list_cons(fopr(i), aux(i+1)) else list_nil()
 // end of [if]
 )
 //
@@ -109,104 +109,105 @@ end // end of [int_list_map_cloref]
 //
 implement
 int_list_map_method
-  {a}{n}(n, tres) =
-  lam(fopr) => int_list_map_cloref{a}{n}(n, fopr)
+  {a}{n}(n0, tres) =
+  lam(fopr) => int_list_map_cloref{a}{n}(n0, fopr)
 //
 (* ****** ****** *)
 //
 implement
 int2_exists_cloref
-  (n1, n2, f) =
+  (n1, n2, pred) =
 (
-  intrange2_exists_cloref (0, n1, 0, n2, f)
+  intrange2_exists_cloref (0, n1, 0, n2, pred)
 )
 implement
 int2_forall_cloref
-  (n1, n2, f) =
+  (n1, n2, pred) =
 (
-  intrange2_forall_cloref (0, n1, 0, n2, f)
+  intrange2_forall_cloref (0, n1, 0, n2, pred)
 )
 //
 implement
 int2_foreach_cloref
-  (n1, n2, f) =
+  (n1, n2, pred) =
 (
-  intrange2_foreach_cloref (0, n1, 0, n2, f)
+  intrange2_foreach_cloref (0, n1, 0, n2, pred)
 )
 //
 (* ****** ****** *)
 
 implement
 intrange_exists_cloref
-  (l, r, f) = let
+  (l, r, pred) = let
 //
 fun
 loop
 (
-  l: int, r: int, f: cfun1(int, bool)
+  l: int, r: int, pred: cfun1(int, bool)
 ) : bool = (
 //
 if l < r
   then (
-    if f (l) then true else loop (l+1, r, f)
+    if pred(l) then true else loop (l+1, r, pred)
   ) else false
 //
 ) (* end of [loop] *)
 //
 in
-  loop (l, r, f)
+  loop (l, r, pred)
 end // end of [intrange_exists_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange_forall_cloref
-  (l, r, f) = let
+  (l, r, pred) = let
 //
 fun
 loop
 (
-  l: int, r: int, f: cfun1(int, bool)
+  l: int, r: int, pred: cfun1(int, bool)
 ) : bool = (
 //
 if l < r
   then (
-    if f (l) then loop (l+1, r, f) else false
+    if pred(l) then loop(l+1, r, pred) else false
   ) else true
 //
 ) (* end of [loop] *)
 //
 in
-  loop (l, r, f)
+  loop (l, r, pred)
 end // end of [intrange_forall_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange_foreach_cloref
-  (l, r, f) = let
+  (l, r, fwork) = let
 //
 fun
 loop
 (
-  l: int, r: int, f: cfun1(int, void)
+  l: int, r: int, fwork: cfun1(int, void)
 ) : void = (
 //
 if l < r
-  then let val () = f (l) in loop (l+1, r, f) end
+  then let val () = fwork(l) in loop(l+1, r, fwork) end
   else ()
 //
 ) (* end of [loop] *)
 //
 in
-  loop (l, r, f)
+  loop(l, r, fwork)
 end // end of [intrange_foreach_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange_foldleft_cloref
-  {res}(l, r, ini, fopr) = let
+  {res}
+  (l, r, ini, fopr) = let
 //
 fun
 loop
@@ -215,26 +216,31 @@ loop
 , ini: res, f: cfun2(res, int, res)
 ) : res = (
 //
-if l < r then loop (l+1, r, f(ini, l), f) else ini
+if l < r then loop(l+1, r, f(ini, l), fopr) else ini
 //
 ) (* end of [loop] *)
 //
 in
-  loop (l, r, ini, fopr)
+  loop(l, r, ini, fopr)
 end // end of [intrange_foldleft_cloref]
 
 (* ****** ****** *)
 //
 implement
 intrange_foldleft_method
-  {res}( $tup(l, r), tres ) =
-  lam(ini, f) => intrange_foldleft_cloref{res}(l, r, ini, f)
+  {res}
+  ( $tup(l, r), ini ) =
+(
+  lam(fopr) =>
+    intrange_foldleft_cloref{res}(l, r, ini, fopr)
+  // end of [lam]
+)
 //
 (* ****** ****** *)
 
 implement
 intrange2_exists_cloref
-  (l1, r1, l2, r2, f) = let
+  (l1, r1, l2, r2, pred) = let
 //
 fnx
 loop1
@@ -244,7 +250,7 @@ loop1
 ) : bool = (
 //
 if l1 < r1
-  then loop2 (l1, r1, l2, r2, f) else false
+  then loop2 (l1, r1, l2, r2, pred) else false
 //
 ) (* end of [loop1] *)
 //
@@ -253,37 +259,38 @@ loop2
 (
   l1: int, r1: int
 , l2: int, r2: int
-, f: cfun2 (int, int, bool)
+, pred: cfun2 (int, int, bool)
 ) : bool = (
 //
-if l2 < r2
-  then (
-    if f (l1, l2)
-      then true else loop2 (l1, r1, l2+1, r2, f)
-    // end of [if]
-  ) else loop1 (l1+1, r1, f)
+if (
+l2 < r2
+) then (
+  if pred (l1, l2)
+    then true else loop2 (l1, r1, l2+1, r2, pred)
+  // end of [if]
+) else loop1 (l1+1, r1, pred)
 //
 ) (* end of [loop2] *)
 //
 in
-  loop1 (l1, r1, f)
+  loop1 (l1, r1, pred)
 end // end of [intrange2_exists_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange2_forall_cloref
-  (l1, r1, l2, r2, f) = let
+  (l1, r1, l2, r2, pred) = let
 //
 fnx
 loop1
 (
   l1: int, r1: int
-, f: cfun2 (int, int, bool)
+, pred: cfun2 (int, int, bool)
 ) : bool = (
 //
 if l1 < r1
-  then loop2 (l1, r1, l2, r2, f) else true
+  then loop2 (l1, r1, l2, r2, pred) else true
 //
 ) (* end of [loop1] *)
 //
@@ -292,37 +299,40 @@ loop2
 (
   l1: int, r1: int
 , l2: int, r2: int
-, f: cfun2 (int, int, bool)
+, pred: cfun2 (int, int, bool)
 ) : bool = (
 //
-if l2 < r2
-  then (
-    if f (l1, l2)
-      then loop2 (l1, r1, l2+1, r2, f) else false
-    // end of [if]
-  ) else loop1 (l1+1, r1, f)
+if (
+l2 < r2
+) then
+(
+  if pred (l1, l2)
+    then loop2 (l1, r1, l2+1, r2, pred) else false
+  // end of [if]
+) else loop1 (l1+1, r1, pred)
 //
 ) (* end of [loop2] *)
 //
 in
-  loop1 (l1, r1, f)
+  loop1 (l1, r1, pred)
 end // end of [intrange2_forall_cloref]
 
 (* ****** ****** *)
 
 implement
 intrange2_foreach_cloref
-  (l1, r1, l2, r2, f) = let
+  (l1, r1, l2, r2, fwork) = let
 //
 fnx
 loop1
 (
   l1: int, r1: int
-, f: cfun2 (int, int, void)
+, fwork: cfun2 (int, int, void)
 ) : void = (
 //
 if l1 < r1
-  then loop2 (l1, r1, l2, r2, f) else ()
+  then loop2 (l1, r1, l2, r2, fwork)
+  else ((*void*))
 //
 ) (* end of [loop1] *)
 //
@@ -331,18 +341,22 @@ loop2
 (
   l1: int, r1: int
 , l2: int, r2: int
-, f: cfun2 (int, int, void)
+, fwork: cfun2 (int, int, void)
 ) : void = (
 //
-if l2 < r2
-  then (
-    f (l1, l2); loop2 (l1, r1, l2+1, r2, f)
-  ) else loop1 (l1+1, r1, f)
+if (
+l2 < r2
+) then (
+//
+fwork (l1, l2);
+loop2 (l1, r1, l2+1, r2, fwork)
+//
+) else loop1 (succ(l1), r1, fwork)
 //
 ) (* end of [loop2] *)
 //
 in
-  loop1 (l1, r1, f)
+  loop1 (l1, r1, fwork)
 end // end of [intrange2_foreach_cloref]
 
 (* ****** ****** *)

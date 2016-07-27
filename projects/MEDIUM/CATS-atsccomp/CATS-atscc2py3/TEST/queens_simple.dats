@@ -35,14 +35,16 @@
 (*
 ** Example: Eight Queens Puzzle
 **
-** Author: Hongwei Xi (hwxi AT cs DOT bu DOT edu)
+** Author: Hongwei Xi
+** Authoremail: hwxiATcsDOTbuDOTedu
 ** Time: January, 2011
 *)
 
 (* ****** ****** *)
 
 (*
-** Ported to ATS2 by Hongwei Xi (gmhwxiATgmailDOTcom)
+** Ported to ATS2
+** by Hongwei Xi (gmhwxiATgmailDOTcom)
 ** Time: March 24, 2013
 *)
 

@@ -97,6 +97,7 @@ fun
 list_reverse
   {a:t0p}{n:int}
   (list(INV(a), n)): list(a, n) = "mac#%"
+//
 fun
 list_reverse_append
   {a:t0p}{i,j:int}
@@ -145,18 +146,22 @@ fun
 list_takeout_at
   {a:t0p}
   {n:int}{i:nat | i < n}
-  (xs: list(a, n), i: int(i)): $tup(a, list(a, n-1)) = "mac#%"
+  (list(a, n), int(i)): $tup(a, list(a, n-1)) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 list_exists
   {a:t0p}
-  (List(INV(a)), pred: cfun(a, bool)): bool = "mac#%"
+(
+  xs: List(INV(a)), pred: cfun(a, bool)
+) : bool = "mac#%" // end-of-function
 fun
 list_exists_method
   {a:t0p}
-  (List(INV(a)))(pred: cfun(a, bool)): bool = "mac#%"
+(
+  xs: List(INV(a)))(pred: cfun(a, bool)
+) : bool = "mac#%" // end-of-function
 //
 overload .exists with list_exists_method
 //
@@ -164,13 +169,13 @@ fun
 list_iexists
   {a:t0p}
 (
-  xs: List(INV(a)), pred: cfun(intGte(0), a, bool)
+  xs: List(INV(a)), pred: cfun(Nat, a, bool)
 ) : bool = "mac#%" // end of [list_iexists]
 fun
 list_iexists_method
   {a:t0p}
 (
-  xs: List(INV(a)))(pred: cfun(intGte(0), a, bool)
+  xs: List(INV(a)))(pred: cfun(Nat, a, bool)
 ) : bool = "mac#%" // end of [list_iexists]
 //
 overload .iexists with list_iexists_method
@@ -180,11 +185,15 @@ overload .iexists with list_iexists_method
 fun
 list_forall
   {a:t0p}
-  (List(INV(a)), pred: cfun(a, bool)): bool = "mac#%"
+(
+  xs: List(INV(a)), pred: cfun(a, bool)
+) : bool = "mac#%" // end-of-function
 fun
 list_forall_method
   {a:t0p}
-  (List(INV(a)))(pred: cfun(a, bool)): bool = "mac#%"
+(
+  List(INV(a)))(pred: cfun(a, bool)
+) : bool = "mac#%" // end-of-function
 //
 overload .forall with list_forall_method
 //
@@ -192,13 +201,13 @@ fun
 list_iforall
   {a:t0p}
 (
-  xs: List(INV(a)), pred: cfun(intGte(0), a, bool)
+  xs: List(INV(a)), pred: cfun(Nat, a, bool)
 ) : bool = "mac#%" // end of [list_iforall]
 fun
 list_iforall_method
   {a:t0p}
 (
-  xs: List(INV(a)))(pred: cfun(intGte(0), a, bool)
+  xs: List(INV(a)))(pred: cfun(Nat, a, bool)
 ) : bool = "mac#%" // end of [list_iforall]
 //
 overload .iforall with list_iforall_method
@@ -208,16 +217,22 @@ overload .iforall with list_iforall_method
 fun
 list_app
   {a:t0p}
-  (List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+(
+  xs: List(INV(a)), fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
 fun
 list_foreach
   {a:t0p}
-  (List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+(
+  xs: List(INV(a)), fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
 //
 fun
 list_foreach_method
   {a:t0p}
-  (List(INV(a)))(fwork: cfun(a, void)): void = "mac#%"
+(
+  xs: List(INV(a)))(fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
 //
 overload .foreach with list_foreach_method
 //
@@ -226,11 +241,15 @@ overload .foreach with list_foreach_method
 fun
 list_iforeach
   {a:t0p}
-  (xs: List(INV(a)), fwork: cfun(int, a, void)): void = "mac#%"
+(
+  xs: List(INV(a)), fwork: cfun(int, a, void)
+) : void = "mac#%" // end-of-function
 fun
 list_iforeach_method
   {a:t0p}
-  (xs: List(INV(a)))(fwork: cfun(int, a, void)): void = "mac#%"
+(
+  xs: List(INV(a)))(fwork: cfun(int, a, void)
+) : void = "mac#%" // end-of-function
 //
 overload .iforeach with list_iforeach_method
 //
@@ -239,36 +258,121 @@ overload .iforeach with list_iforeach_method
 fun
 list_rforeach
   {a:t0p}
-  (xs: List(INV(a)), fwork: cfun(a, void)): void = "mac#%"
+(
+  xs: List(INV(a)), fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
 fun
 list_rforeach_method
   {a:t0p}
-  (xs: List(INV(a)))(fwork: cfun(a, void)): void = "mac#%"
+(
+  xs: List(INV(a)))(fwork: cfun(a, void)
+) : void = "mac#%" // end-of-function
+//
+overload .rforeach with list_rforeach_method
 //
 (* ****** ****** *)
 //
 fun
 list_filter
   {a:t0p}{n:int}
-  (list(INV(a), n), p: cfun(a, bool)): listLte(a, n) = "mac#%"
+(
+  xs: list(INV(a), n), pred: cfun(a, bool)
+) : listLte(a, n) = "mac#%" // end-of-fun
+fun
+list_filter_method
+  {a:t0p}{n:int}
+(
+  xs: list(INV(a), n))(pred: cfun(a, bool)
+) : listLte(a, n) = "mac#%" // end-of-fun
+//
+overload .filter with list_filter_method
 //
 (* ****** ****** *)
 //
 fun
 list_map
   {a:t0p}{b:t0p}{n:int}
-  (xs: list(INV(a), n), fopr: cfun(a, b)): list(b, n) = "mac#%"
+(
+  xs: list(INV(a), n), fopr: cfun(a, b)
+) : list(b, n) = "mac#%" // end-of-function
+fun
+list_map_method
+  {a:t0p}{b:t0p}{n:int}
+(
+  xs: list(INV(a), n), TYPE(b))(fopr: cfun(a, b)
+) : list(b, n) = "mac#%" // end-of-function
+//
+overload .map with list_map_method // HX: xs.map(TYPE{b})(...)
 //
 (* ****** ****** *)
 //
 fun
 list_foldleft
   {res:vt0p}{a:t0p}
-  (List(INV(a)), init: res, fopr: (res, a) -<cloref1> res): res = "mac#%"
+(
+  List(INV(a)), init: res, fopr: (res, a) -<cloref1> res
+) : res = "mac#%" // end of [list_foldleft]
+fun
+list_foldleft_method
+  {res:t@ype}{a:t0p}
+(
+  xs: List(INV(a)), init: res)(fopr: (res, a) -<cloref1> res
+) : res = "mac#%" // end of [list_foldleft_method]
+//
+overload .foldleft with list_foldleft_method
+//
+(* ****** ****** *)
+//
+fun
+list_ifoldleft
+  {res:vt0p}{a:t0p}
+(
+  List(INV(a)), init: res, fopr: (Nat, res, a) -<cloref1> res
+) : res = "mac#%" // end of [list_foldleft]
+fun
+list_ifoldleft_method
+  {res:t@ype}{a:t0p}
+(
+  xs: List(INV(a)), init: res)(fopr: (Nat, res, a) -<cloref1> res
+) : res = "mac#%" // end of [list_foldleft_method]
+//
+overload .ifoldleft with list_ifoldleft_method
+//
+(* ****** ****** *)
+//
 fun
 list_foldright
   {a:t0p}{res:vt0p}
-  (List(INV(a)), fopr: (a, res) -<cloref1> res, sink: res): res = "mac#%"
+(
+  List(INV(a)), fopr: (a, res) -<cloref1> res, sink: res
+) : res = "mac#%" // end of [list_foldright]
+//
+fun
+list_foldright_method
+  {a:t0p}{res:t@ype}
+(
+  xs: List(INV(a)), sink: res)(fopr: (a, res) -<cloref1> res
+) : res = "mac#%" // end of [list_foldright]
+//
+overload .foldright with list_foldright_method
+//
+(* ****** ****** *)
+//
+fun
+list_ifoldright
+  {a:t0p}{res:vt0p}
+(
+  List(INV(a)), fopr: (Nat, a, res) -<cloref1> res, sink: res
+) : res = "mac#%" // end of [list_foldright]
+//
+fun
+list_ifoldright_method
+  {a:t0p}{res:t@ype}
+(
+  xs: List(INV(a)), sink: res)(fopr: (Nat, a, res) -<cloref1> res
+) : res = "mac#%" // end of [list_foldright]
+//
+overload .ifoldright with list_ifoldright_method
 //
 (* ****** ****** *)
 

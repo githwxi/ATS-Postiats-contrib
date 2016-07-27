@@ -260,17 +260,19 @@ fun auxlst
 (
 //
 case+ inss of
-| list_nil () => ()
-| list_cons (_, inss) =>
+| list_nil() => ()
+| list_cons(_, inss) =>
   {
     val () =
       emit_nspc (out, 2(*ind*))
+    // end of [val]
     val () =
     (
-      emit_text (out, "mbranch_"); emit_int (out, i); emit_text (out, " = None\n")
+      emit_text (out, "mbranch_");
+      emit_int (out, i); emit_text (out, " = None\n")
     )
     val () = auxlst (out, inss, i+1)
-  }
+  } (* end of [list_cons] *)
 //
 ) (* end of [auxlst] *)
 //
@@ -295,14 +297,14 @@ fun auxlst
 ) : void =
 (
 case+ inss of
-| list_nil () => ()
-| list_cons (_, inss) => let
+| list_nil() => ()
+| list_cons(_, inss) => let
     val () =
       if i >= 2 then emit_text (out, ", ")
     val () =
     (
       emit_text (out, "mbranch_"); emit_int (out, i)
-    )
+    ) (* end of [val] *)
   in
     auxlst (out, inss, i+1)
   end // end of [list_cons]
@@ -475,7 +477,9 @@ case+ xs of
 )
 //
 in
-  auxlst (the_branchlablst_get(), 1)
+//
+auxlst(the_branchlablst_get(), 1)
+//
 end // end of [tmplab_get_index]
 
 (* ****** ****** *)
@@ -483,24 +487,25 @@ end // end of [tmplab_get_index]
 fun
 emit_funlab_index
  (out: FILEref, fl: label): void =
- emit_int (out, funlab_get_index (fl))
+ emit_int(out, funlab_get_index(fl))
 //
 fun
 emit_tmplab_index
  (out: FILEref, lab: label): void =
- emit_int (out, tmplab_get_index (lab))
+ emit_int(out, tmplab_get_index(lab))
 //
 (* ****** ****** *)
-  
+//
 extern
 fun
-branchmap_get_index (ins: instr): int
+branchmap_get_index
+  (ins: instr): int
 //
 implement
 branchmap_get_index
   (x0) = let
 //
-val p0 = $UN.cast2ptr (x0)
+val p0 = $UN.cast2ptr(x0)
 //
 fun auxlst
 (
@@ -508,14 +513,14 @@ fun auxlst
 ) : int =
 (
 case xs of
-| list_nil () => ~1(*error*)
-| list_cons (x, xs) =>
+| list_nil() => ~1(*error*)
+| list_cons(x, xs) =>
     if $UN.cast2ptr(x) = p0 then i else auxlst (xs, i+1)
   // end of [list_cons]
 )
 //
 in
-  auxlst (the_caseofseqlst_get (), 1)
+  auxlst(the_caseofseqlst_get(), 1)
 end // end of [branchmap_get_index]
 
 (* ****** ****** *)
@@ -523,7 +528,7 @@ end // end of [branchmap_get_index]
 fun
 emit_branchmap_index
  (out: FILEref, ins: instr): void =
- emit_int (out, branchmap_get_index (ins))
+ emit_int (out, branchmap_get_index(ins))
 //
 (* ****** ****** *)
 //
@@ -539,13 +544,13 @@ fun auxlst
 ) : int =
 (
 case+ xs of
-| list_nil () => i
-| list_cons (x, xs) =>
+| list_nil() => i
+| list_cons(x, xs) =>
   (
     case+ x.instr_node of
     | ATSINSlab (lab) => let
         val ((*void*)) =
-          if i >= 2 then emit_text (out, ", ")
+          if i >= 2 then emit_text(out, ", ")
         // end of [val]
         val () = emit_int (out, i)
         val () = emit_text (out, ": ")
@@ -554,7 +559,7 @@ case+ xs of
         auxlst (out, xs, i+1)
       end // end of [ATSINSlab]
     | _(*non-ATSINSlab*) => auxlst (out, xs, i)
-  )
+  ) (* list_cons *)
 ) (* end of [auxlst] *)
 //
 fun auxlst2
@@ -563,8 +568,8 @@ fun auxlst2
 ) : void =
 (
 case+ xs of
-| list_nil () => ()
-| list_cons (x, xs) => let
+| list_nil() => ()
+| list_cons(x, xs) => let
     val-ATSbranchseq(inss) = x.instr_node
   in
     auxlst2 (out, xs, auxlst (out, inss, i))
@@ -622,8 +627,9 @@ f0body_collect_caseof
 in
 //
 case+
-fbody.f0body_node of
-| F0BODY (tds, inss) => instrlst_collect_caseof (inss)
+fbody.f0body_node
+of // case+
+| F0BODY(tds, inss) => instrlst_collect_caseof(inss)
 //
 end // end of [f0body_collect_caseof]
 //
@@ -644,10 +650,24 @@ ins.instr_node of
 //
 | ATScaseofseq
     (inss) => (
-    auxlst (inss, cons_vt (ins, res))
+    auxlst(inss, cons_vt(ins, res))
   ) (* end of [ATScaseofseq] *)
-| ATSbranchseq (inss) => auxlst (inss, res)
-| ATSfunbodyseq (inss) => auxlst (inss, res)
+| ATSbranchseq(inss) => auxlst(inss, res)
+//
+| ATSif (
+    d0e, inss, inssopt
+  ) => let
+    val res = auxlst(inss, res)
+  in
+    case+ inssopt of
+    | None((*void*)) => res | Some(inss) => auxlst(inss, res)
+  end // end of [ATSif]
+//
+| ATSifthen(d0e, inss) => auxlst(inss, res)
+| ATSifnthen(d0e, inss) => auxlst(inss, res)
+//
+| ATSfunbodyseq(inss) => auxlst(inss, res)
+//
 | _ (*rest-of-instr*) => res
 //
 ) (* end of [aux] *)
@@ -666,7 +686,7 @@ case+ inss of
 | list_nil ((*void*)) => res
 )
 //
-val res = auxlst (inss, list_vt_nil)
+val res = auxlst(inss, list_vt_nil)
 //
 in
   list_vt2t(list_vt_reverse(res))
@@ -1559,7 +1579,7 @@ val () =
 emit_text (out, "nonlocal funlab_py, tmplab_py\n")
 //
 val inss_caseof = the_caseofseqlst_get ()
-val () = emit_mbranchlst_nonlocal (out, inss_caseof)
+val () = emit_mbranchlst_nonlocal(out, inss_caseof)
 //
 } // end of [emit_fundef_nonlocal]
 
@@ -1707,11 +1727,11 @@ val () = println! ("emit_f0body: knd = ", knd)
 *)
 //
 val tmpdecs =
-  f0body_get_tmpdeclst (fbody)
+  f0body_get_tmpdeclst(fbody)
 val inss_body =
-  f0body_get_bdinstrlst (fbody)
+  f0body_get_bdinstrlst(fbody)
 val inss_caseof =
-  f0body_collect_caseof (fbody)
+  f0body_collect_caseof(fbody)
 //
 val () = the_tmpdeclst_set (tmpdecs)
 val () = the_funbodylst_set (inss_body)
@@ -1724,7 +1744,7 @@ val () = emit_text (out, "funlab_py = None\n")
 val () = emit_nspc (out, 2(*ind*))
 val () = emit_text (out, "tmplab_py = None\n")
 //
-val () = emit_mbranchlst_initize (out, inss_caseof)
+val () = emit_mbranchlst_initize(out, inss_caseof)
 //
 val () = emit_caseofseqlst (out, inss_caseof)
 val () = emit_branchmaplst (out, inss_caseof)

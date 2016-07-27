@@ -505,9 +505,13 @@ aux{n:int}
     // end of [list_cons]
 //
 } (* end of [list_filter] *)
-
+//
+implement
+list_filter_method
+  {a}(xs) = lam(pred) => list_filter{a}(xs, pred)
+//  
 (* ****** ****** *)
-
+//
 implement
 list_map
   {a}{b}
@@ -531,7 +535,11 @@ case+ xs of
 prval () = lemma_list_param(xs)
 //
 } (* end of [list_map] *)
-
+//
+implement
+list_map_method
+  {a}(xs, _) = lam(fopr) => list_map{a}(xs, fopr)
+//
 (* ****** ****** *)
 
 implement
@@ -553,7 +561,45 @@ case+ xs of
 in
   loop(init, xs)
 end // end of [list_foldleft]
+//
+implement
+list_foldleft_method
+  {a}(xs, init) = lam(fopr) => list_foldleft{a}(xs, init, fopr)
+//
+(* ****** ****** *)
 
+implement
+list_ifoldleft
+  {res}{a}
+  (xs, init, fopr) = let
+//
+fun
+loop
+(
+  i: Nat, res: res, xs: List(a)
+) : res =
+(
+case+ xs of
+| list_nil
+    () => res
+  // list_nil
+| list_cons
+    (x, xs) =>
+    loop(i+1, fopr(i, res, x), xs)
+  // list_cons
+)
+//
+in
+  loop(0(*index*), init, xs)
+end // end of [list_ifoldleft]
+//
+implement
+list_ifoldleft_method
+  {a}(xs, init) =
+(
+  lam(fopr) => list_ifoldleft{a}(xs, init, fopr)
+) (* list_ifoldleft_method *)
+//
 (* ****** ****** *)
 
 implement
@@ -576,7 +622,40 @@ case+ xs of
 )
 //
 } (* end of [list_foldright] *)
+//
+implement
+list_foldright_method
+  {a}{res}(xs, sink) =
+  lam(fopr) => list_foldright{a}{res}(xs, fopr, sink)
+//
+(* ****** ****** *)
 
+implement
+list_ifoldright
+  {a}{res}
+(
+  xs, fopr, sink
+) = aux(0, xs, sink) where
+{
+//
+fun
+aux
+(
+  i: Nat, xs: List(a), res: res
+) : res =
+(
+case+ xs of
+| list_nil() => res
+| list_cons(x, xs) => fopr(i, x, aux(i+1, xs, res))
+)
+//
+} (* end of [list_foldright] *)
+//
+implement
+list_ifoldright_method
+  {a}{res}(xs, sink) =
+  lam(fopr) => list_ifoldright{a}{res}(xs, fopr, sink)
+//
 (* ****** ****** *)
 
 (* end of [list.dats] *)

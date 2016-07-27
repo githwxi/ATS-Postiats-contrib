@@ -161,15 +161,27 @@ regress:: twice
 cleanall:: ; $(RMF) twice_dats.py
 
 ######
-
+#
 all:: \
-queens_dats.py
-queens_dats.py: queens.dats ; \
+queens_comb_dats.py
+queens_comb_dats.py: queens_comb.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PY) -o $@
-queens:: queens_dats.py ; $(PYTHON) queens_dats.py
-regress:: queens
-cleanall:: ; $(RMF) queens_dats.py
-
+#
+regress:: queens_comb
+queens_comb:: queens_comb_dats.py ; $(PYTHON) $<
+cleanall:: ; $(RMF) queens_comb_dats.py
+#
+######
+#
+all:: \
+queens_simple_dats.py
+queens_simple_dats.py: queens_simple.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PY) -o $@
+#
+regress:: queens_simple
+queens_simple:: queens_simple_dats.py ; $(PYTHON) $<
+cleanall:: ; $(RMF) queens_simple_dats.py
+#
 ######
 
 all:: \
