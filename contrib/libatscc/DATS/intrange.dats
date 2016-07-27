@@ -242,6 +242,11 @@ implement
 intrange2_exists_cloref
   (l1_, r1_, l2_, r2_, pred) = let
 //
+// HX-2016-07-26:
+// loop1 and loop2 need to have
+// the same number of arguments
+// in order to support atscc2clj
+//
 fnx
 loop1
 (
@@ -286,6 +291,11 @@ implement
 intrange2_forall_cloref
   (l1_, r1_, l2_, r2_, pred) = let
 //
+// HX-2016-07-26:
+// loop1 and loop2 need to have
+// the same number of arguments
+// in order to support atscc2clj
+//
 fnx
 loop1
 (
@@ -329,6 +339,11 @@ end // end of [intrange2_forall_cloref]
 implement
 intrange2_foreach_cloref
   (l1_, r1_, l2_, r2_, fwork) = let
+//
+// HX-2016-07-26:
+// loop1 and loop2 need to have
+// the same number of arguments
+// in order to support atscc2clj
 //
 fnx
 loop1
