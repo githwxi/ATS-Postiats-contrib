@@ -21,39 +21,42 @@ fun tvar_make_name : (string) -> tvar
 //
 (* ****** ****** *)
 //
-datatype
-term =
+datatype term =
   | TMvar of tvar
   | TMlam of (tvar, term)
   | TMapp of (term, term)
 //
 (* ****** ****** *)
 //
-fun print_tvar : tvar -> void
-fun fprint_tvar : fprint_type(tvar)
-//
-overload print with print_tvar
-overload fprint with fprint_tvar
-//
-fun print_term : term -> void
-fun fprint_term : fprint_type(term)
-//
-overload print with print_term
-overload fprint with fprint_term
-//
-(* ****** ****** *)
-
 typedef tpath = list0(int)
-
-(* ****** ****** *)
-
+//
 exception TPATH_ERROR of ()
-
+//
+(* ****** ****** *)
+//
+#ifdef
+MYTEXTING
+#then
+(*
+//
+##declats_equal_compare(tvar)
+//
+##declats_print_prerr_fprint(tvar)
+##declats_print_prerr_fprint(term)
+//
+*)
+#else
+//
+#include
+"./lamcal_declats.hats"
+//
+#endif // end of [ifdef]
+//
 (* ****** ****** *)
 //
 fun
 term_get_at
-  : (term, tpath) -> term
+  (t0:term, ns:tpath): term
 //
 overload [] with term_get_at
 //
