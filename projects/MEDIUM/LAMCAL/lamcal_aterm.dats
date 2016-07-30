@@ -82,13 +82,20 @@ aterm_subst
 fun
 aux
 (
-  t0: aterm, sub: aterm, n: int
+  t0: aterm
+, sub: aterm, n: intGte(0)
 ) : aterm = (
 //
 case+ t0 of
-| ATMvar(x0) =>
-    if tvar_get_index(x0)=n then sub else t0
-  // end of [ATMvar]
+| ATMvar(x0) => let
+    val i = tvar_get_index(x0)
+  in
+    ifcase
+      | i < n => t0
+      | i = n => sub
+      | _(* i > n *) =>
+        ATMvar(tvar_make_index(i-1))
+  end // end of [ATMvar]
 | ATMlam(t_body) =>
   (
     ATMlam(aux(t_body, aterm_shift(sub), n+1))
@@ -152,6 +159,68 @@ case+ t0 of
 //
 ) (* end of [aterm_is_bredex *)
 //
+(* ****** ****** *)
+
+implement
+aterm_breduce_leftmost
+  (t0) = let
+//
+macdef
+bredlm = 
+aterm_breduce_leftmost
+//
+in
+//
+case+ t0 of
+| ATMvar _ => None_vt()
+| ATMlam(t_body) => let
+    val opt = bredlm(t_body)
+  in
+    case+ opt of
+    | ~None_vt() => None_vt()
+    | ~Some_vt t_body => Some_vt(ATMlam(t_body))
+  end // end of [ATMlam]
+| ATMapp(t_fun, t_arg) =>
+  (
+    case+ t_fun of
+    | ATMlam(t_body) =>
+        Some_vt(aterm_subst(t_body, t_arg))
+    | _(* non-ATMlam *) => let
+       val opt = bredlm(t_fun)
+     in
+       case+ opt of
+       | ~None_vt() => let
+           val opt = bredlm(t_arg)
+         in
+           case+ opt of
+           | ~None_vt() => None_vt()
+           | ~Some_vt(t_arg) =>
+               Some_vt(ATMapp(t_fun, t_arg))
+             // end of [Some_vt]
+         end // end of [None_vt]
+       | ~Some_vt(t_fun) => Some_vt(ATMapp(t_fun, t_arg))
+     end // end of [non-ATMlam]
+  ) (* end of [ATMapp] *)
+//
+end (* end of [aterm_breduce_leftmost] *)
+
+(* ****** ****** *)
+
+implement
+aterm_mbreduce_leftmost
+  (t0) = let
+//
+val opt =
+aterm_breduce_leftmost(t0)
+//
+in
+//
+case+ opt of
+| ~None_vt() => t0
+| ~Some_vt(t0) => aterm_mbreduce_leftmost(t0)
+//
+end (* end of [aterm_mbreduce_leftmost] *)
+
 (* ****** ****** *)
 
 (*

@@ -55,11 +55,34 @@ val ((*void*)) = assertloc(not(x' != x'))
 //
 val omega = term_alpha_normalize(omega)
 val omega' = term_alpha_normalize(omega')
-val ((*void*)) = println! ("omega = ", omega)
-val ((*void*)) = println! ("omega' = ", omega')
 //
 val ((*void*)) = assertloc(omega = omega')
 val ((*void*)) = assertloc(not(omega != omega'))
+//
+val ((*void*)) = println! ("omega = ", omega)
+val ((*void*)) = println! ("omega' = ", omega')
+//
+val Omega = ATMapp(omega, omega)
+val-~Some_vt(Omega') = aterm_breduce_leftmost(Omega)
+//
+val ((*void*)) = assertloc(Omega = Omega')
+//
+val ((*void*)) = println! ("Omega = ", Omega)
+val ((*void*)) = println! ("Omega' = ", Omega')
+//
+val y = tvar_make_name("y")
+val z = tvar_make_name("z")
+//
+val K = TMlam(x, TMlam(y, TMvar(x)))
+val S = TMlam(x, TMlam(y, TMlam(z, TMapp(TMapp(TMvar(x), TMvar(z)), TMapp(TMvar(y), TMvar(z))))))
+//
+val K = term_alpha_normalize(K)
+val S = term_alpha_normalize(S)
+//
+val SKK = ATMapp(ATMapp(S, K), K)
+//
+val I = aterm_mbreduce_leftmost(SKK)
+val ((*void*)) = println! ("I = ", I)
 //
 } (* end of [main0] *)
 

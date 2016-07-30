@@ -75,6 +75,13 @@ fun aterm_is_bredex(t0: aterm): bool
 //
 (* ****** ****** *)
 //
+fun
+aterm_breduce_leftmost(aterm): Option_vt(aterm)
+//
+fun aterm_mbreduce_leftmost(t0: aterm): aterm(*NF*)
+//
+(* ****** ****** *)
+//
 (*
 //
 ##atext_fopen_out()
