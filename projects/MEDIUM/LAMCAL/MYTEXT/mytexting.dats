@@ -21,53 +21,127 @@ libatsynmark_dynloadall(): void = "ext#"
 val () = libatsynmark_dynloadall((*void*))
 //
 (* ****** ****** *)
+//
+implement
+gprint$out<>() = the_atext_outchanlst_top()
+//
+(* ****** ****** *)
 
+local
+//
 fun{}
-declats_equal
+auxopr
 (
-  loc: loc_t, tynm: string
+  opnm1: string
+, opnm2: string
+, tynm0: string
 ) : void = () where
 {
 //
 val () =
 gprintln!
 (
-  "fun ", "eq_", tynm, "_", tynm, ": equal_type(", tynm, ")"
+  "fun ", opnm1
+, "_", tynm0, "_", tynm0
+, ": compopr_type(", tynm0, ")"
 ) (* end of [gprintln!] *)
 val () =
 gprintln!
 (
-  "fun ", "neq_", tynm, "_", tynm, ": nequal_type(", tynm, ")"
+  "overload ", opnm2
+, " with ", opnm1, "_", tynm0, "_", tynm0
 ) (* end of [gprintln!] *)
 //
-val () = gprintln! ("overload = with eq_", tynm, "_", tynm)
-val () = gprintln! ("overload != with neq_", tynm, "_", tynm)
+} (* end of [auxopr] *)
 //
-} (* end of [declats_equal] *)
-
-(* ****** ****** *)
-
+in (* in-of-local *)
+//
 fun{}
-declats_compare
+ats2decl_equal
 (
   loc: loc_t, tynm: string
 ) : void = () where
 {
 //
+val () = auxopr("eq", "=", tynm)
+val () = auxopr("neq", "!=", tynm)
+//
+} (* end of [ats2decl_equal] *)
+//
+fun{}
+ats2decl_compare
+(
+  loc: loc_t, tynm: string
+) : void = () where
+{
+//
+val () = auxopr("lt", "<", tynm)
+val () = auxopr("lte", "<=", tynm)
+val () = auxopr("gt", ">", tynm)
+val () = auxopr("gte", ">=", tynm)
+val () = auxopr("eq", "=", tynm)
+val () = auxopr("neq", "!=", tynm)
+//
 val () =
 gprintln!
 (
-  "fun ", "compare_", tynm, "_", tynm, ": compare_type(", tynm, ")"
+  "fun "
+, "compare_", tynm, "_", tynm, ": compare_type(", tynm, ")"
 ) (* end of [gprintln!] *)
 //
-val () = gprintln! ("overload compare with compare_", tynm, "_", tynm)
+val () =
+gprintln! ("overload compare with compare_", tynm, "_", tynm)
 //
-} (* end of [declats_compare] *)
+} (* end of [ats2decl_compare] *)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+local
+
+val
+def_eq =
+TEXTDEFfun (
+lam(loc, xs) => let
+//
+val-
+cons0(x0, xs) = xs
+//
+val ((*void*)) =
+ats2decl_equal(loc, atext_strngfy(x0))
+//
+in
+  atext_make_nil(loc)
+end // end of [lam]
+) (* TEXTDEFfun *) (* def_eq *)
+
+val
+def_cmp = 
+TEXTDEFfun (
+lam(loc, xs) => let
+val-
+cons0(x0, xs) = xs
+//
+val ((*void*)) =
+ats2decl_compare(loc, atext_strngfy(x0))
+//
+in
+  atext_make_nil(loc)
+end // end of [lam]
+) (* TEXTDEFfun *) (* def_cmp *)
+
+in (* in-of-local *)
+
+val () = the_atextmap_insert("ats2decl_equal", def_eq)
+val () = the_atextmap_insert("ats2decl_compare", def_cmp)
+
+end // end of [local]
 
 (* ****** ****** *)
 
 fun{}
-declats_print
+ats2decl_print
 (
   loc: loc_t, tynm: string
 ) : void = () where
@@ -82,9 +156,9 @@ gprintln!
 val () =
 gprintln! ("overload print with print_", tynm)
 //
-} (* end of [declats_print] *)
+} (* end of [ats2decl_print] *)
 fun{}
-declats_prerr
+ats2decl_prerr
 (
   loc: loc_t, tynm: string
 ) : void = () where
@@ -99,9 +173,9 @@ gprintln!
 val () =
 gprintln! ("overload prerr with prerr_", tynm)
 //
-} (* end of [declats_prerr] *)
+} (* end of [ats2decl_prerr] *)
 fun{}
-declats_fprint
+ats2decl_fprint
 (
   loc: loc_t, tynm: string
 ) : void = () where
@@ -116,152 +190,172 @@ gprintln!
 val () =
 gprintln! ("overload fprint with fprint_", tynm)
 //
-} (* end of [declats_fprint] *)
+} (* end of [ats2decl_fprint] *)
 
 (* ****** ****** *)
 
 local
 
 val
-def_equal =
-TEXTDEFfun
-(
-lam(loc, xs) => let
-//
-val-
-cons0(x0, xs) = xs
-//
-val ((*void*)) =
-declats_equal(loc, atext_strngfy(x0))
-//
-in
-  atext_make_nil(loc)
-end // end of [lam]
-) (* TEXTDEFfun *)
-
-val
-def_compare =
-TEXTDEFfun
-(
-lam(loc, xs) => let
-val-
-cons0(x0, xs) = xs
-//
-val ((*void*)) =
-declats_compare(loc, atext_strngfy(x0))
-//
-in
-  atext_make_nil(loc)
-end // end of [lam]
-) (* TEXTDEFfun *)
-
-val
-def_equal_compare =
-TEXTDEFfun
-(
+def_fpr =
+TEXTDEFfun (
 lam(loc, xs) => let
 //
 val-
 cons0(x0, xs) = xs
 val ((*void*)) =
-declats_equal(loc, atext_strngfy(x0))
+ats2decl_print(loc, atext_strngfy(x0))
 val ((*void*)) =
-declats_compare(loc, atext_strngfy(x0))
+ats2decl_prerr(loc, atext_strngfy(x0))
+val ((*void*)) =
+ats2decl_fprint(loc, atext_strngfy(x0))
 //
 in
   atext_make_nil(loc)
 end // end of [lam]
-) (* TEXTDEFfun *)
+) (* TEXTDEFfun *) (* def_fpr *)
 
 in (* in-of-local *)
-
-val () = the_atextmap_insert("declats_equal", def_equal)
-val () = the_atextmap_insert("declats_compare", def_compare)
-val () = the_atextmap_insert("declats_equal_compare", def_equal_compare)
-
+//
+val () =
+the_atextmap_insert("ats2decl_fprint", def_fpr)
+//
 end // end of [local]
 
 (* ****** ****** *)
 
 local
 
-val
-def_print =
-TEXTDEFfun
+fun
+ats2impl_cmpops
 (
-lam(loc, xs) => let
+  loc: loc_t, tynm: string
+) : void = () where
+{
 //
-val-
-cons0(x0, xs) = xs
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "lt_", tynm, "_", tynm, "(x1, x2) = "
+, "(compare_", tynm, "_", tynm, "(x1, x2) < 0)"
+) (* gprintln! *)
 //
-val ((*void*)) =
-declats_print(loc, atext_strngfy(x0))
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "lte_", tynm, "_", tynm, "(x1, x2) = "
+, "(compare_", tynm, "_", tynm, "(x1, x2) <= 0)"
+) (* gprintln! *)
 //
-in
-  atext_make_nil(loc)
-end // end of [lam]
-) (* TEXTDEFfun *)
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "gt_", tynm, "_", tynm, "(x1, x2) = "
+, "(compare_", tynm, "_", tynm, "(x1, x2) > 0)"
+) (* gprintln! *)
+//
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "gte_", tynm, "_", tynm, "(x1, x2) = "
+, "(compare_", tynm, "_", tynm, "(x1, x2) >= 0)"
+) (* gprintln! *)
+//
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "eq_", tynm, "_", tynm, "(x1, x2) = "
+, "(compare_", tynm, "_", tynm, "(x1, x2) = 0)"
+) (* gprintln! *)
+//
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "neq_", tynm, "_", tynm, "(x1, x2) = "
+, "(compare_", tynm, "_", tynm, "(x1, x2) != 0)"
+) (* gprintln! *)
+//
+} (* ats2impl_cmpops *)
 
 val
-def_prerr =
-TEXTDEFfun
-(
-lam(loc, xs) => let
-//
-val-
-cons0(x0, xs) = xs
-//
-val ((*void*)) =
-declats_prerr(loc, atext_strngfy(x0))
-//
-in
-  atext_make_nil(loc)
-end // end of [lam]
-) (* TEXTDEFfun *)
-
-val
-def_fprint =
-TEXTDEFfun
-(
+def_cmpops =
+TEXTDEFfun (
 lam(loc, xs) => let
 val-
 cons0(x0, xs) = xs
 //
 val ((*void*)) =
-declats_fprint(loc, atext_strngfy(x0))
+ats2impl_cmpops(loc, atext_strngfy(x0))
 //
 in
   atext_make_nil(loc)
 end // end of [lam]
-) (* TEXTDEFfun *)
-
-val
-def_print_prerr_fprint =
-TEXTDEFfun
-(
-lam(loc, xs) => let
-//
-val-
-cons0(x0, xs) = xs
-val ((*void*)) =
-declats_print(loc, atext_strngfy(x0))
-val ((*void*)) =
-declats_prerr(loc, atext_strngfy(x0))
-val ((*void*)) =
-declats_fprint(loc, atext_strngfy(x0))
-//
-in
-  atext_make_nil(loc)
-end // end of [lam]
-) (* TEXTDEFfun *)
+) (* def_cmpops *)
 
 in (* in-of-local *)
+//
+val () =
+the_atextmap_insert
+  ("ats2impl_compare2cmpops", def_cmpops)
+//
+end // end of [local]
 
-val () = the_atextmap_insert("declats_print", def_print)
-val () = the_atextmap_insert("declats_prerr", def_prerr)
-val () = the_atextmap_insert("declats_fprint", def_fprint)
-val () = the_atextmap_insert("declats_print_prerr_fprint", def_print_prerr_fprint)
+(* ****** ****** *)
 
+local
+
+fun
+ats2impl_printerr
+(
+  loc: loc_t, tynm: string
+) : void = () where
+{
+//
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "print_", tynm, "(x0) = "
+, "fprint_", tynm, "(stdout_ref, x0)"
+) (* gprintln! *)
+//
+val () =
+gprintln!("implement")
+val () =
+gprintln!
+( "prerr_", tynm, "(x0) = "
+, "fprint_", tynm, "(stderr_ref, x0)"
+) (* gprintln! *)
+//
+} (* ats2impl_printerr *)
+
+val
+def_outerr =
+TEXTDEFfun (
+lam(loc, xs) => let
+val-
+cons0(x0, xs) = xs
+//
+val ((*void*)) =
+ats2impl_printerr(loc, atext_strngfy(x0))
+//
+in
+  atext_make_nil(loc)
+end // end of [lam]
+) (* TEXTDEFfun *) (* def_outerr *)
+
+in (* in-of-local *)
+//
+val () =
+the_atextmap_insert
+  ("ats2impl_fprint2printerr", def_outerr)
+//
 end // end of [local]
 
 (* ****** ****** *)
