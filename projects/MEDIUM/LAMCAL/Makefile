@@ -77,7 +77,7 @@ cleanall:: ; $(RMF) HATS/lamcal_tvar_order.hats
 cleanall:: ; $(RMF) HATS/lamcal_tvar_funset.hats
 cleanall:: ; $(RMF) HATS/lamcal_tvar_fprint.hats
 cleanall:: ; $(RMF) HATS/lamcal_term_fprint.hats
-cleanall:: ; $(RMF) HATS/lamcal_term_funset.hats
+cleanall:: ; $(RMF) HATS/lamcal_tpath_funset.hats
 cleanall:: ; $(RMF) HATS/lamcal_aterm_fprint.hats
 #
 ######
