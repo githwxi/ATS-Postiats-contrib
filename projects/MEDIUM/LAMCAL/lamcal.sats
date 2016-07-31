@@ -59,8 +59,36 @@ datatype term =
 (* ****** ****** *)
 //
 typedef tpath = list0(int)
+abstype tpathset_type = ptr
+typedef tpathset = tpathset_type
 //
 exception TPATH_ERROR of ()
+//
+(* ****** ****** *)
+//
+fun
+tpathset_make_nil(): tpathset
+fun
+tpathset_make_sing(tpath): tpathset
+//
+fun
+tpathset_is_nil : (tpathset) -> bool
+fun
+tpathset_is_member : (tpathset, tpath) -> bool
+//
+fun
+tpathset_add : (tpathset, tpath) -> tpathset
+fun
+tpathset_remove : (tpathset, tpath) -> tpathset
+//
+fun
+tpathset_union : (tpathset, tpathset) -> tpathset
+//
+(* ****** ****** *)
+//
+(*
+fun tpathset_mcons(xs: tpathset, n: int): tpathset
+*)
 //
 (* ****** ****** *)
 //
@@ -74,6 +102,16 @@ overload [] with term_get_at
 //
 fun
 term_eval_fvset: term -> tvarset
+//
+(* ****** ****** *)
+
+fun
+term_is_bnormal: term -> bool
+
+(* ****** ****** *)
+//
+fun
+term_find_bredexes: term -> stream_vt(tpath)
 //
 (* ****** ****** *)
 //

@@ -65,6 +65,62 @@ term_get_at
 ) (* end of [term_get_at] *)
 
 (* ****** ****** *)
+//
+implement
+term_is_bnormal
+  (t0) =
+(
+iseqz(term_find_bredexes(t0))
+)
+//
+(* ****** ****** *)
+//
+implement
+term_find_bredexes
+  (t0) = $ldelay(
+//
+let
+//
+macdef aux = term_find_bredexes
+//
+macdef
+mcons(xs, n) =
+stream_vt_map_cloptr<tpath><tpath>
+  (,(xs), lam x => list0_cons(,(n), x))
+//
+overload + with stream_vt_append
+//
+in (* in-of-local *)
+//
+case+ t0 of
+| TMvar _ =>
+  stream_vt_nil()
+//
+| TMlam
+  (
+    _, t_body
+  ) => !(mcons(aux(t_body), 0))
+//
+| TMapp
+  (
+    t_fun, t_arg
+  ) => let
+    val root =
+    (
+      case+ t_fun of
+      | TMlam _ =>
+        stream_vt_make_sing(list0_nil)
+      | _(*non-TMlam*) => stream_vt_make_nil()
+    ) : stream_vt(tpath)
+  in
+    !(root + (mcons(aux(t_fun), 0) + mcons(aux(t_arg), 1)))
+  end // end of [TMapp]
+//
+end : stream_vt_con(tpath)
+//
+) (* end of [term_find_bredexes] *)
+
+(* ****** ****** *)
 
 (*
 //

@@ -27,7 +27,7 @@ typedef elt = tvar
 staload
 FS = "libats/ML/SATS/funset.sats"
 implement
-$FS.compare_elt_elt<elt>(x, y) = compare(x, y)
+$FS.compare_elt_elt<elt> = gcompare_val_val<elt>
 //
 in (* in-of-local *)
 

@@ -34,6 +34,7 @@ SOURCES_DATS += \
   lamcal_tvar.dats \
   lamcal_tvarset.dats \
   lamcal_term.dats \
+  lamcal_tpathset.dats \
   lamcal_aterm.dats \
 
 ######

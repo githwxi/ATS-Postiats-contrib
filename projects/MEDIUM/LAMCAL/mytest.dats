@@ -20,6 +20,8 @@ dynload "./lamcal_tvar.dats"
 dynload "./lamcal_tvarset.dats"
 //
 dynload "./lamcal_term.dats"
+dynload "./lamcal_tpathset.dats"
+//
 dynload "./lamcal_aterm.dats"
 //
 (* ****** ****** *)
@@ -54,6 +56,10 @@ val ((*void*)) = assertloc(x = x)
 val ((*void*)) = assertloc(x > x')
 val ((*void*)) = assertloc(not(x <= x'))
 val ((*void*)) = assertloc(not(x' != x'))
+//
+val () = assertloc(term_is_bnormal(omega))
+val () = assertloc(term_is_bnormal(omega'))
+val () = assertloc(~term_is_bnormal(TMapp(omega, omega')))
 //
 val omega = term_alpha_normalize(omega)
 val omega' = term_alpha_normalize(omega')
