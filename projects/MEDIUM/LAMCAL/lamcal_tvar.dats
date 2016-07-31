@@ -19,6 +19,11 @@ staload "./lamcal.sats"
 implement
 fprint_val<tvar> = fprint_tvar
 //
+implement
+gequal_val_val<tvar> = eq_tvar_tvar
+implement
+gcompare_val_val<tvar> = compare_tvar_tvar
+//
 (* ****** ****** *)
 //
 datatype tvar =

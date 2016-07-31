@@ -24,6 +24,31 @@ fprint_val<term> = fprint_term
 (* ****** ****** *)
 
 implement
+term_eval_fvset
+  (t0) = let
+//
+(*
+val () =
+println! ("term_get_fvset")
+*)
+//
+macdef eval = term_eval_fvset
+//
+in
+//
+case+ t0 of
+| TMvar(x) =>
+    tvarset_make_sing(x)
+| TMlam(x, t_body) =>
+    tvarset_remove(eval(t_body), x)
+| TMapp(t1, t2) =>
+    tvarset_union(eval(t1), eval(t2))
+//
+end // end of [term_get_fvset]
+
+(* ****** ****** *)
+
+implement
 term_get_at
   (t0, ns) =
 (

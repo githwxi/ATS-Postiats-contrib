@@ -15,11 +15,13 @@
 staload "./lamcal.sats"
 
 (* ****** ****** *)
-
+//
 dynload "./lamcal_tvar.dats"
+dynload "./lamcal_tvarset.dats"
+//
 dynload "./lamcal_term.dats"
 dynload "./lamcal_aterm.dats"
-
+//
 (* ****** ****** *)
 
 implement
@@ -75,6 +77,9 @@ val z = tvar_make_name("z")
 //
 val K = TMlam(x, TMlam(y, TMvar(x)))
 val S = TMlam(x, TMlam(y, TMlam(z, TMapp(TMapp(TMvar(x), TMvar(z)), TMapp(TMvar(y), TMvar(z))))))
+//
+val _ = assertloc(tvarset_is_nil(term_eval_fvset(K)))
+val _ = assertloc(tvarset_is_nil(term_eval_fvset(S)))
 //
 val K = term_alpha_normalize(K)
 val S = term_alpha_normalize(S)

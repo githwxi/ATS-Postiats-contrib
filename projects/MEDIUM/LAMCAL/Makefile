@@ -32,6 +32,7 @@ SOURCES_SATS += \
 SOURCES_DATS += \
   mytest.dats \
   lamcal_tvar.dats \
+  lamcal_tvarset.dats \
   lamcal_term.dats \
   lamcal_aterm.dats \
 

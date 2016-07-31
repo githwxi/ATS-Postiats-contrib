@@ -18,12 +18,36 @@ typedef tvar = tvar_type
 fun tvar_make_name : (string) -> tvar
 fun tvar_make_index : (intGte(0)) -> tvar
 //
-
 (* ****** ****** *)
 //
 fun tvar_get_index : tvar -> intGte(~1)
 //
 fun tvar_shift_gte : (tvar, int) -> tvar
+//
+(* ****** ****** *)
+
+abstype tvarset_type = ptr
+typedef tvarset = tvarset_type
+
+(* ****** ****** *)
+//
+fun
+tvarset_make_nil(): tvarset
+fun
+tvarset_make_sing(tvar): tvarset
+//
+fun
+tvarset_is_nil : (tvarset) -> bool
+fun
+tvarset_is_member : (tvarset, tvar) -> bool
+//
+fun
+tvarset_add : (tvarset, tvar) -> tvarset
+fun
+tvarset_remove : (tvarset, tvar) -> tvarset
+//
+fun
+tvarset_union : (tvarset, tvarset) -> tvarset
 //
 (* ****** ****** *)
 //
@@ -45,6 +69,11 @@ term_get_at
   (t0:term, ns:tpath): term
 //
 overload [] with term_get_at
+//
+(* ****** ****** *)
+//
+fun
+term_eval_fvset: term -> tvarset
 //
 (* ****** ****** *)
 //
