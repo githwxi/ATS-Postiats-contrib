@@ -32,17 +32,24 @@ val () =
 println! ("term_get_fvset")
 *)
 //
+macdef TVS = TVARSET
 macdef eval = term_eval_fvset
 //
 in
 //
 case+ t0 of
-| TMvar(x) =>
-    tvarset_make_sing(x)
-| TMlam(x, t_body) =>
-    tvarset_remove(eval(t_body), x)
+//
+| TMvar(x) => (TVS.sing)(x)
+//
+| TMlam(
+    x, t_body
+  ) => let
+    var tvs = eval(t_body)
+  in
+    ignoret(TVS.remove)(tvs, x); tvs
+  end // end of [TMlam]
 | TMapp(t1, t2) =>
-    tvarset_union(eval(t1), eval(t2))
+    (TVS.union)(eval(t1), eval(t2))
 //
 end // end of [term_get_fvset]
 
@@ -124,8 +131,13 @@ end : stream_vt_con(tpath)
 
 (*
 //
+##atext_fopen_path\
+("\
+./HATS/lamcal_term_fprint.hats\
+")
 ##ats2impl_fprint2printerr(term)
 //
+##atext_fclose_top()
 *)
 
 (* ****** ****** *)
@@ -147,6 +159,20 @@ CODEGEN2_FPRINT
 implement
 fprint_term
   (out, x0) = fprint_term_<>(out, x0)
+//
+(* ****** ****** *)
+//
+(*
+##atext_fopen_path\
+("\
+./HATS/lamcal_tpath_funset.hats\
+")
+##ats2impl_funset(tpath, TPATHSET)
+##atext_fclose_top()
+*)
+#include"\
+./HATS/lamcal_tpath_funset.hats\
+" // #include
 //
 (* ****** ****** *)
 

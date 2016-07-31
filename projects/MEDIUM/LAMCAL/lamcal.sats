@@ -7,12 +7,18 @@
 //
 staload
 "libats/ML/SATS/basis.sats"
+staload
+"libats/ML/SATS/funset.sats"
 //
 (* ****** ****** *)
 
 abstype tvar_type = ptr
 typedef tvar = tvar_type
 
+(* ****** ****** *)
+//
+val TVARSET: set_modtype(tvar)
+//
 (* ****** ****** *)
 //
 fun tvar_make_name : (string) -> tvar
@@ -25,31 +31,6 @@ fun tvar_get_index : tvar -> intGte(~1)
 fun tvar_shift_gte : (tvar, int) -> tvar
 //
 (* ****** ****** *)
-
-abstype tvarset_type = ptr
-typedef tvarset = tvarset_type
-
-(* ****** ****** *)
-//
-fun
-tvarset_make_nil(): tvarset
-fun
-tvarset_make_sing(tvar): tvarset
-//
-fun
-tvarset_is_nil : (tvarset) -> bool
-fun
-tvarset_is_member : (tvarset, tvar) -> bool
-//
-fun
-tvarset_add : (tvarset, tvar) -> tvarset
-fun
-tvarset_remove : (tvarset, tvar) -> tvarset
-//
-fun
-tvarset_union : (tvarset, tvarset) -> tvarset
-//
-(* ****** ****** *)
 //
 datatype term =
   | TMvar of tvar
@@ -59,36 +40,18 @@ datatype term =
 (* ****** ****** *)
 //
 typedef tpath = list0(int)
-abstype tpathset_type = ptr
-typedef tpathset = tpathset_type
+typedef tpathset = set(tpath)
 //
 exception TPATH_ERROR of ()
 //
 (* ****** ****** *)
 //
-fun
-tpathset_make_nil(): tpathset
-fun
-tpathset_make_sing(tpath): tpathset
-//
-fun
-tpathset_is_nil : (tpathset) -> bool
-fun
-tpathset_is_member : (tpathset, tpath) -> bool
-//
-fun
-tpathset_add : (tpathset, tpath) -> tpathset
-fun
-tpathset_remove : (tpathset, tpath) -> tpathset
-//
-fun
-tpathset_union : (tpathset, tpathset) -> tpathset
+val TPATHSET: set_modtype(tpath)
 //
 (* ****** ****** *)
 //
-(*
-fun tpathset_mcons(xs: tpathset, n: int): tpathset
-*)
+fun
+tpathset_mcons(xs: tpathset, n: int): tpathset
 //
 (* ****** ****** *)
 //
@@ -101,7 +64,7 @@ overload [] with term_get_at
 (* ****** ****** *)
 //
 fun
-term_eval_fvset: term -> tvarset
+term_eval_fvset: term -> set(tvar)
 //
 (* ****** ****** *)
 
@@ -151,7 +114,9 @@ fun aterm_mbreduce_leftmost(t0: aterm): aterm(*NF*)
 //
 (*
 //
-##atext_fopen_out()
+##atext_fopen_path("\
+./HATS/lamcal_sats.hats\
+")
 //
 ##atext_fprintln('(*')
 ##atext_fprintln('##ctime()*)')

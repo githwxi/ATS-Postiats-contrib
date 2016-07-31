@@ -64,7 +64,12 @@ tvar_shift_gte
 (* ****** ****** *)
 //
 (*
+##atext_fopen_path\
+("\
+./HATS/lamcal_tvar_order.hats\
+")
 ##ats2impl_compare2cmpops(tvar)
+##atext_fclose_top()
 *)
 //
 #include "./HATS/lamcal_tvar_order.hats"
@@ -129,6 +134,21 @@ fprint_tvar
 #endif // end of [ifdef]
 //
 *)
+(* ****** ****** *)
+(*
+##atext_fopen_path\
+("\
+./HATS/lamcal_tvar_funset.hats\
+")
+##ats2impl_myfunset(tvar, TVARSET)
+##atext_fclose_top()
+*)
+(* ****** ****** *)
+//
+#include"\
+./HATS/lamcal_tvar_funset.hats\
+" // #include
+//
 (* ****** ****** *)
 
 (* end of [lamcal_tvar.dats] *)

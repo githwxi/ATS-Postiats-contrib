@@ -32,9 +32,7 @@ SOURCES_SATS += \
 SOURCES_DATS += \
   mytest.dats \
   lamcal_tvar.dats \
-  lamcal_tvarset.dats \
   lamcal_term.dats \
-  lamcal_tpathset.dats \
   lamcal_aterm.dats \
 
 ######
@@ -55,45 +53,38 @@ $(PATSHOME)/share/atsmake-post.mk
 ######
 #
 allpre:: \
-HATS/lamcal_sats.hats
-HATS/lamcal_sats.hats: \
-lamcal.sats; $(MYTEXTING) -o /dev/null -i $< > ./$@
+lamcal.sats; $(MYTEXTING) -o /dev/null -i $<
+#
+######
+#
+allpre:: \
+lamcal_tvar.dats; $(MYTEXTING) -o /dev/null -i $<
+allpre:: \
+lamcal_term.dats; $(MYTEXTING) -o /dev/null -i $<
+allpre:: \
+lamcal_aterm.dats; $(MYTEXTING) -o /dev/null -i $<
+#
+allpre:: \
+lamcal_tvar.dats; \
+$(PATSOPT) -DATS CODEGEN2_FPRINT \
+--codegen-2 --output-a ./HATS/lamcal_tvar_fprint.hats -d $<
+allpre:: \
+lamcal_term.dats; \
+$(PATSOPT) -DATS CODEGEN2_FPRINT \
+--codegen-2 --output-a ./HATS/lamcal_term_fprint.hats -d $<
+allpre:: \
+lamcal_aterm.dats; \
+$(PATSOPT) -DATS CODEGEN2_FPRINT \
+--codegen-2 --output-a ./HATS/lamcal_aterm_fprint.hats -d $<
+#
+######
+#
 cleanall:: ; $(RMF) HATS/lamcal_sats.hats
-#
-######
-#
-allpre:: \
-HATS/lamcal_tvar_order.hats
-HATS/lamcal_tvar_order.hats:: \
-lamcal_tvar.dats; $(MYTEXTING) -o /dev/null -i $< > ./$@
 cleanall:: ; $(RMF) HATS/lamcal_tvar_order.hats
-#
-######
-#
-allpre:: \
-HATS/lamcal_tvar_fprint.hats
-HATS/lamcal_tvar_fprint.hats:: \
-lamcal_tvar.dats; $(MYTEXTING) -o /dev/null -i $< > ./$@
+cleanall:: ; $(RMF) HATS/lamcal_tvar_funset.hats
 cleanall:: ; $(RMF) HATS/lamcal_tvar_fprint.hats
-#
-######
-#
-allpre:: \
-HATS/lamcal_term_fprint.hats
-HATS/lamcal_term_fprint.hats:: \
-lamcal_term.dats; $(MYTEXTING) -o /dev/null -i $< > ./$@
-HATS/lamcal_term_fprint.hats:: lamcal_term.dats; \
-$(PATSOPT) -DATS CODEGEN2_FPRINT --codegen-2 --output-a $@ -d $<
 cleanall:: ; $(RMF) HATS/lamcal_term_fprint.hats
-#
-######
-#
-allpre:: \
-HATS/lamcal_aterm_fprint.hats
-HATS/lamcal_aterm_fprint.hats:: \
-lamcal_aterm.dats; $(MYTEXTING) -o /dev/null -i $< > ./$@
-HATS/lamcal_aterm_fprint.hats:: lamcal_aterm.dats; \
-$(PATSOPT) -DATS CODEGEN2_FPRINT --codegen-2 --output-a $@ -d $<
+cleanall:: ; $(RMF) HATS/lamcal_term_funset.hats
 cleanall:: ; $(RMF) HATS/lamcal_aterm_fprint.hats
 #
 ######

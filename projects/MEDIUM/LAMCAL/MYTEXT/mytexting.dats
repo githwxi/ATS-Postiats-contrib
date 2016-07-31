@@ -360,4 +360,82 @@ end // end of [local]
 
 (* ****** ****** *)
 
+local
+
+fun
+ats2impl_myfunset
+(
+  loc: loc_t
+, _elt_: string, _module_: string
+) : void =
+(
+//
+gprintln!("\
+(* ****** ****** *)
+
+local
+//
+typedef elt = ")(_elt_)("
+//
+staload
+FS = \"libats/ML/SATS/funset.sats\"
+//
+in (* in-of-local *)
+
+#include \"libats/ML/HATS/myfunset.hats\"
+
+end // end of [local]
+
+(* ****** ****** *)
+
+implement ")(_module_)(" = myfunset_make_module()
+
+(* ****** ****** *)\
+") (* gprintln! *)
+//
+) (* end of [ats2impl_myfunset] *)
+
+in (* in-of-local *)
+
+val
+def_myfs =
+TEXTDEFfun (
+//
+lam(loc, xs) => let
+//
+val-
+cons0
+(
+  x0, xs
+) = xs
+val _elt_ = atext_strngfy(x0)
+//
+var xs:
+atextlst = xs
+//
+val _module_ =
+(
+case+ xs of
+| list0_nil() =>
+    (_elt_ + "_funset")
+| list0_cons(x1, xs2) =>
+    (xs := xs2; atext_strngfy(x1))
+) : string // end of [val]
+//
+val ((*void*)) =
+  ats2impl_myfunset(loc, _elt_, _module_)
+//
+in
+  atext_make_nil(loc)  
+end // end of [lam]
+//
+) (* TEXTDEFfun *) (* def_funset *)
+//
+val () =
+the_atextmap_insert("ats2impl_myfunset", def_myfs)
+//
+end // end of [local]
+
+(* ****** ****** *)
+
 (* end of [mytexting.dats] *)
