@@ -53,16 +53,9 @@ $(PATSHOME)/share/atsmake-post.mk
 ######
 #
 allpre:: \
-lamcal.sats; $(MYTEXTING) -o /dev/null -i $<
+lamcal.atxt; $(MYTEXTING) -o /dev/null -i $<
 #
 ######
-#
-allpre:: \
-lamcal_tvar.dats; $(MYTEXTING) -o /dev/null -i $<
-allpre:: \
-lamcal_term.dats; $(MYTEXTING) -o /dev/null -i $<
-allpre:: \
-lamcal_aterm.dats; $(MYTEXTING) -o /dev/null -i $<
 #
 allpre:: \
 lamcal_tvar.dats; \

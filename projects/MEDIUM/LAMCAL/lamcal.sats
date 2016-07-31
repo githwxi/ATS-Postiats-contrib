@@ -112,33 +112,6 @@ fun aterm_mbreduce_leftmost(t0: aterm): aterm(*NF*)
 //
 (* ****** ****** *)
 //
-(*
-//
-##atext_fopen_path("\
-./HATS/lamcal_sats.hats\
-")
-//
-##atext_fprintln('(*')
-##atext_fprintln('##ctime()*)')
-##atext_fprintln("(* ****** ****** *)")
-
-##ats2decl_fprint(tvar)
-##ats2decl_compare(tvar)
-
-##atext_fprintln("(* ****** ****** *)")
-
-##ats2decl_fprint(term)
-
-##atext_fprintln("(* ****** ****** *)")
-
-##ats2decl_equal(aterm)
-##ats2decl_fprint(aterm)
-
-##atext_fprintln("(* ****** ****** *)")
-//
-##atext_fclose_top()
-//
-*)
 #include "./HATS/lamcal_sats.hats"
 //
 (* ****** ****** *)

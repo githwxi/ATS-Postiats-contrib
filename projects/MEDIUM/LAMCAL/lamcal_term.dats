@@ -128,19 +128,6 @@ end : stream_vt_con(tpath)
 ) (* end of [term_find_bredexes] *)
 
 (* ****** ****** *)
-
-(*
-//
-##atext_fopen_path\
-("\
-./HATS/lamcal_term_fprint.hats\
-")
-##ats2impl_fprint2printerr(term)
-//
-##atext_fclose_top()
-*)
-
-(* ****** ****** *)
 //
 extern
 fun{}
@@ -162,14 +149,6 @@ fprint_term
 //
 (* ****** ****** *)
 //
-(*
-##atext_fopen_path\
-("\
-./HATS/lamcal_tpath_funset.hats\
-")
-##ats2impl_funset(tpath, TPATHSET)
-##atext_fclose_top()
-*)
 #include"\
 ./HATS/lamcal_tpath_funset.hats\
 " // #include

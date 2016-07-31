@@ -222,20 +222,6 @@ case+ opt of
 end (* end of [aterm_mbreduce_leftmost] *)
 
 (* ****** ****** *)
-
-(*
-//
-##atext_fopen_path\
-("\
-./HATS/lamcal_aterm_fprint.hats\
-")
-##ats2impl_fprint2printerr(aterm)
-//
-##atext_fclose_top()
-//
-*)
-
-(* ****** ****** *)
 //
 extern
 fun{}
