@@ -53,7 +53,7 @@ $(PATSHOME)/share/atsmake-post.mk
 ######
 #
 allpre:: \
-lamcal.atxt; $(MYTEXTING) -o /dev/null -i $<
+lamcal_codegen.atxt; $(MYTEXTING) -o /dev/null -i $<
 #
 ######
 #
