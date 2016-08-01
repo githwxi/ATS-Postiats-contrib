@@ -3,22 +3,21 @@
 *)
 (* ****** ****** *)
 //
+#define
+ATEXTING_targetloc
+"$PATSHOME/utils/atexting"
+//
+(* ****** ****** *)
+//
 #include
-"utils/atexting\
+"{$ATEXTING}\
 /atexting_include_all.dats"
 //
 (* ****** ****** *)
 //
 #include
-"utils/atexting\
+"{$ATEXTING}\
 /DATS/SHARE/atexting_textdef_pre.dats"
-//
-(* ****** ****** *)
-//
-extern
-fun
-libatsynmark_dynloadall(): void = "ext#"
-val () = libatsynmark_dynloadall((*void*))
 //
 (* ****** ****** *)
 //

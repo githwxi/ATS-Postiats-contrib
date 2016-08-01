@@ -10,14 +10,7 @@ PATSOPT=$(PATSHOME)/bin/patsopt
 ######
 #
 LDPATH :=
-LDPATH := -L$(ATSHOME)/ccomp/lib
-LDPATH += -L$(ATSHOME)/ccomp/lib64
-# LDPATH += -L$(PATSHOME)/utils/libatsopt
-# LDPATH += -L$(PATSHOME)/utils/libatsynmark
-#
-LIBRARY = -latsynmark -latsopt -lats -lgmp -lgc
-#
-ATSRUNTIME=$(ATSHOME)/ccomp/runtime
+LIBRARY = -lgmp -lgc
 #
 ######
 #
@@ -32,11 +25,8 @@ all:: mytexting
 #
 mytexting: \
 mytexting.dats ; \
-$(PATSCC) -O2 -o bin/$@ \
-  -D_ATS_GCBDW \
-  -DATS_MEMALLOC_GCBDW \
-  mytexting.dats $(ATEXTING_MYLIB) \
-  $(ATSRUNTIME)/ats_prelude.c $(LDPATH) $(LIBRARY)
+$(PATSCC) -O2 -o bin/$@ -DATS_MEMALLOC_GCBDW \
+  mytexting.dats $(ATEXTING_MYLIB) $(LDPATH) $(LIBRARY)
 #
 ######
 
