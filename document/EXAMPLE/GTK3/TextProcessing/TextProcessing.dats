@@ -84,10 +84,12 @@ on_key_press_event
   let val () = $KEYPRESSED.inc () in GFALSE end
 //
 (* ****** ****** *)
-
+//
 extern
-fun TextProcessing (string): Strptr1
-
+fun
+TextProcessing
+  (msg: string): Strptr1
+//
 (* ****** ****** *)
 
 implement
@@ -122,38 +124,60 @@ end // end of [TextProcessing]
 
 fun
 ftimeout
-  (): gboolean = let
+(
+// argless
+) : gboolean = let
 //
 val tb = $TEXTBUF.get ()
 val tb = $UN.castvwtp0{GtkTextBuffer1}(tb)
 //
 var iter_beg : GtkTextIter
 var iter_end : GtkTextIter
-val () = gtk_text_buffer_get_start_iter(tb, iter_beg)
-val () = gtk_text_buffer_get_end_iter(tb, iter_end)
 //
-val content =
-  gtk_text_buffer_get_text (tb, iter_beg, iter_end, GTRUE)
-val content2 = TextProcessing ($UN.castvwtp1{string}(content))
-val () = gstrptr_free (content)
+val () =
+gtk_text_buffer_get_start_iter(tb, iter_beg)
+val () =
+(
+  gtk_text_buffer_get_end_iter(tb, iter_end)
+)
+//
+val
+content =
+gtk_text_buffer_get_text(tb, iter_beg, iter_end, GTRUE)
+val
+content2 = TextProcessing($UN.castvwtp1{string}(content))
+//
+val () = gstrptr_free(content)
 //
 prval () = $UN.cast2void (tb)
 //
 val tb2 = $TEXTBUF2.get ()
 val tb2 = $UN.castvwtp0{GtkTextBuffer1}(tb2)
 //
-val hadj = $VADJUST.get ()
-val hadj = $UN.castvwtp0{GtkAdjustment1}(hadj)
-val vadj = $VADJUST.get ()
-val vadj = $UN.castvwtp0{GtkAdjustment1}(vadj)
+val
+hadj = $VADJUST.get ()
+val
+hadj = $UN.castvwtp0{GtkAdjustment1}(hadj)
 //
-val hadj_value = gtk_adjustment_get_value (hadj)
-val vadj_value = gtk_adjustment_get_value (vadj)
+val
+vadj = $VADJUST.get ()
+val
+vadj = $UN.castvwtp0{GtkAdjustment1}(vadj)
 //
-val () = gtk_text_buffer_setall_text (tb2, $UN.castvwtp1{gstring}(content2))
+val
+hadj_value = gtk_adjustment_get_value(hadj)
+val
+vadj_value = gtk_adjustment_get_value(vadj)
 //
-val () = gtk_adjustment_set_value (hadj, hadj_value)
-val () = gtk_adjustment_set_value (vadj, vadj_value)
+val () =
+gtk_text_buffer_setall_text
+  (tb2, $UN.castvwtp1{gstring}(content2))
+//
+val () =
+gtk_adjustment_set_value(hadj, hadj_value)
+val () =
+gtk_adjustment_set_value(vadj, vadj_value)
+//
 val () = gtk_adjustment_value_changed (vadj)
 //
 val ((*void*)) = $KEYPRESSED.reset ()
@@ -171,16 +195,16 @@ end (* end of [ftimeout] *)
 (* ****** ****** *)
 //
 fun
-ftimeout2 (): gboolean =
-  if $KEYPRESSED.get () > 0 then ftimeout () else (GTRUE)
+ftimeout2(): gboolean =
+  if $KEYPRESSED.get() > 0 then ftimeout() else (GTRUE)
 //
 (* ****** ****** *)
-
+//
 %{^
 typedef char **charptrptr ;
 %} ;
 abstype charptrptr = $extype"charptrptr"
-
+//
 (* ****** ****** *)
 
 dynload "./TextProcessing_toplevel.dats"
@@ -188,7 +212,10 @@ dynload "./TextProcessing_toplevel.dats"
 (* ****** ****** *)
 
 implement
-main0 (argc, argv) = () where
+main0
+(
+  argc, argv
+) = ((*void*)) where
 {
 //
 var argc: int = argc
