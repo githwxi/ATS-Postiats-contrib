@@ -60,6 +60,9 @@ all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/option.dats | $(ATSCC2PY) -o ./output/ats2pypre_option_dats.py -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_dats.py -i
 #
 all:: ; \

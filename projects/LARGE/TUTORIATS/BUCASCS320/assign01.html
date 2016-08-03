@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BUCASCS320-assign01</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<style type="text/css">
+  .patsyntax {width:100%;margin:auto;}
+  .patsyntax {color:#808080;background-color:#E0E0E0;}
+  .patsyntax span.keyword {color:#000000;font-weight:bold;}
+  .patsyntax span.comment {color:#787878;font-style:italic;}
+  .patsyntax span.extcode {color:#A52A2A;}
+  .patsyntax span.neuexp  {color:#800080;}
+  .patsyntax span.staexp  {color:#0000F0;}
+  .patsyntax span.prfexp  {color:#603030;}
+  .patsyntax span.dynexp  {color:#F00000;}
+  .patsyntax span.stalab  {color:#0000F0;font-style:italic}
+  .patsyntax span.dynlab  {color:#F00000;font-style:italic}
+  .patsyntax span.dynstr  {color:#008000;font-style:normal}
+  .patsyntax span.stacstdec  {text-decoration:none;}
+  .patsyntax span.stacstuse  {color:#0000CF;text-decoration:underline;}
+  .patsyntax span.dyncstdec  {text-decoration:none;}
+  .patsyntax span.dyncstuse  {color:#B80000;text-decoration:underline;}
+  .patsyntax span.dyncst_implement  {color:#B80000;text-decoration:underline;}
+</style>
+
+<script
+ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_print_store_cats.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js">
+</script>
+
+</head>
+
+<body>
+
+<h1>BUCASCS320</h1>
+
+The following assignment shows some basic steps involved in
+compiling a single-file ATS program.
+
+<h1>Assignment #1</h1>
+
+<p>
+Please implement a function ##fun("isTriangle") that determines
+whether three given integers ##arg("x"), ##arg("y"), and #arg("z") can
+form a triangle. The interface for ##fun("isTriangle") is given as follows:
+
+<div>
+<sats2xhtml>//
+fun
+isTriangle
+  (x: int, y: int, z: int) : bool
+//</sats2xhtml>
+</div>
+
+<br>
+
+Note that three numbers can form the three sides of a triangle if
+and only if the sum of any two of them exceeds the remaining one.
+</p>
+
+<hr></hr>
+
+<p>
+An implementation of ##fun("isTriangle") is given as follows:
+
+<table width="100%">
+
+<tr>
+<th width="50%"></th>
+<th width="50%"></th>
+</tr>
+
+<tr>
+<td align="center">
+<textarea
+ ID="assign01_source" rows=24 cols=80>//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "my_dynload"
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
+staload
+"{$LIBATSCC2JS}/SATS/print.sats"
+//
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+//
+extern
+fun
+isTriangle
+  (x: int, y: int, z: int) : bool
+//
+implement
+isTriangle
+  (x, y, z) = (
+//
+ifcase
+  | x + y <= z => false | y + z <= x => false
+  | z + x <= y => false | _ (* else *) => true
+// end of [ifcase]
+) (* isTriangle *)
+//
+val () =
+println! ("isTriangle(1,3,5) = ", isTriangle(1,3,5))
+val () =
+println! ("isTriangle(3,4,5) = ", isTriangle(3,4,5))
+//
+</textarea>
+</td>
+<td align="center">
+<textarea
+ ID="assign01_output" rows=24 cols=80
+ placeholder="The output goes here..."
+>
+</textarea>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<button
+ type="button"
+ ID="patsopt_tc_button"
+ onclick="patsopt_tc_onclick('assign01')"
+>patsopt_tc</button>
+
+<button
+ type="button"
+ ID="patsopt_cc_button"
+ onclick="patsopt_cc_onclick('assign01')"
+>patsopt_cc</button>
+
+<button
+ type="button"
+ ID="patsopt_cc2js_button"
+ onclick="patsopt_cc2js_onclick('assign01')"
+>patsopt_cc2js</button>
+
+<button
+ type="button"
+ ID="pats2xhtml_button"
+ onclick="pats2xhtml_eval_onclick('assign01')"
+>pats2xhtml</button>
+
+</td>
+<td></td>
+</tr>
+
+</table>
+
+</p>
+
+<hr></hr>
+
+The buttons above can be clicked for the following actions:
+<ul>
+<li>
+<u>patsopt_tc</u>: for typechecking the source only
+</li>
+<li>
+<u>patsopt_cc</u>: for typechecking and compiling the source
+</li>
+<li>
+<u>patsopt_cc2js</u> for compiling to JS and evaluating the JS code.
+</li>
+<li>
+<u>pats2xhtml</u>: for syntax-hiliting the ATS source code.
+</li>
+</ul>
+
+<hr></hr>
+
+<p>
+The JavaScript code loaded by this page is prepared with atscc2js.
+</p>
+
+<script
+ src="https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_patsopt_services_dats.js">
+</script>
+
+<script>
+function
+pats_key2source(key)
+{
+//
+return document.getElementById(key+"_source").value;
+//
+} /* end of [pats_key2source] */
+</script>
+
+<script>
+$(document).ready(function(){pats2xhtmlize_process_all();return;});
+</script>
+
+</body>
+
+</html>
+
+<!-- end of [assign01.html] -->
