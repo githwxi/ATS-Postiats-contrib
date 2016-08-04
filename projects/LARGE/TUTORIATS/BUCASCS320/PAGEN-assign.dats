@@ -334,11 +334,11 @@ gprintln!("\
 The Python3 code loaded by this page is prepared with atscc2py3.
 </p>
 <script
- src=\"https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_patsopt_services_dats.js\">
+ src=\"https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_assign02_patsopt_services_dats.js\">
 </script>
 <script>
 function
-pats_key2source(key)
+assign02_pats_key2source(key)
 {
 //
 return document.getElementById(key+\"_source\").value;
@@ -353,7 +353,7 @@ $(document).ready(function(){pats2xhtmlize_process_all();return;});
 val () =
 gprintln!("\
 <script>
-$(document).ready(function(){patsopt_services_initize(\"")(key)("\");return;});
+$(document).ready(function(){assign02_patsopt_services_initize(\"")(key)("\");return;});
 </script>\
 ") (* gprintln! *)
 //
@@ -391,7 +391,7 @@ val () =
 gprintln!
 ("\
 <tr
- id=\"assign02_table_tr1\">
+ id=\"")(key)("_table_tr1\">
 <td align=\"center\">
 <textarea
  id=\"")(key)("_source\"

@@ -44,12 +44,12 @@ staload"{$ATS2LANGWEB}/DATS/service_trigger.dats"
 //
 extern
 fun
-pats_key2source
+assign02_pats_key2source
   (string): string = "mac#"
 //
 extern
 fun
-patsopt_services_initize
+assign02_patsopt_services_initize
   (key: string): void = "mac#"
 //
 (* ****** ****** *)
@@ -57,7 +57,7 @@ patsopt_services_initize
 %{^
 //
 function
-patsopt_services_initize
+assign02_patsopt_services_initize
   (key)
 {
 //
@@ -96,7 +96,10 @@ service_trigger_getval<>
   (key) = source where
 {
 //
-val source = pats_key2source(key)
+val
+source =
+assign02_pats_key2source(key)
+//
 (*
 val ((*void*)) = alert("source = " + source)
 *)
@@ -345,8 +348,12 @@ var comparr1 = comparr[1];
 if(comparr0===0)
 {
 //
+var
+source =
+assign02_pats_key2source(key);
+//
 document.getElementById
-  (key+"_source2").textContent = pats_key2source(key);
+  (key+"_source2").textContent = source;
 //
 document.getElementById(key+"_output2").innerHTML = comparr1;
 //
@@ -370,4 +377,4 @@ return comparr0;
 //
 (* ****** ****** *)
 
-(* end of [patsopt_services.dats] *)
+(* end of [assign02_patsopt_services.dats] *)

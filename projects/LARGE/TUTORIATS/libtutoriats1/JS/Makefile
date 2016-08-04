@@ -10,22 +10,22 @@ ATSCC2JS=$(PATSHOME)/bin/atscc2js
 ######
 #
 all:: \
-patsopt_services_dats.js
+assign02_patsopt_services_dats.js
 #
 ######
 #
-patsopt_services_dats.c: \
-  patsopt_services.dats; $(PATSOPT) -o $@ -d $<
-patsopt_services_dats.js: \
-  patsopt_services_dats.c; $(ATSCC2JS) -o $@ -i $<
+assign02_patsopt_services_dats.c: \
+  assign02_patsopt_services.dats; $(PATSOPT) -o $@ -d $<
+assign02_patsopt_services_dats.js: \
+  assign02_patsopt_services_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
 ######
 #
 clean:: ; rm -f *~
-clean:: ; rm -f patsopt_services_dats.c
+clean:: ; rm -f assign02_patsopt_services_dats.c
 #
 cleanall:: clean
-cleanall:: ; rm -f patsopt_services_dats.js
+cleanall:: ; rm -f assign02_patsopt_services_dats.js
 #
 ######
 
