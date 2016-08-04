@@ -37,6 +37,124 @@ fun
 assign02_create(): void = "mac#"
 //
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+PAGENassign_title() =
+{
+//
+val () =
+gprintln! ("\
+<title>BUCASCS320-assign02</title>\
+") (* gprintln! *)
+//
+} (* PAGENassign_title *)
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+PAGENassign_body_top() =
+{
+//
+val () =
+gprintln! ("\
+<h1>Assignment #2</h1>
+") (* gprintln! *)
+//
+} (* end of [PAGENassign_body_top] *)
+
+(* ****** ****** *)
+
+implement
+PAGENassign_descript<>
+  ((*void*)) =
+{
+//
+val () =
+gprintln!("\
+<p>
+The following function ##fun(\"fib\")
+computes Fibonacci numbers:
+
+<p></p>
+
+<div>
+<dats2xhtml>//
+fun
+fib(n: int): int =
+  if n >= 2 then fib(n-1) + fib(n-2) else n
+//</dats2xhtml>
+</div>
+
+<p></p>
+
+Clearly, ##fun(\"fib\") is recursive but not tail-recursive:
+Neither of the two recursive calls in the body of ##fun(\"fib\")
+is a tail-call. Please give a tail-recursive implementation
+of ##fun(\"fib_trec\") that also computes Fibonacci numbers:
+
+<p></p>
+
+<div>
+<sats2xhtml>//
+fun fib_trec(n: int): int
+//</sats2xhtml>
+</div>
+
+</p>
+") (* gprintln! *)
+//
+} (* end of [PAGENassign_descript] *)
+
+(* ****** ****** *)
+//
+implement
+PAGENassign_descript2<>
+  ((*void*)) =
+{
+//
+val () =
+PAGENassign_source_table
+(
+"assign02"
+,
+"\
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME \"my_dynload\"
+//
+#include
+\"share/atspre_define.hats\"
+#include
+\"{$LIBATSCC2JS}/staloadall.hats\"
+//
+staload
+\"{$LIBATSCC2JS}/SATS/print.sats\"
+//
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+//
+extern
+fun
+fib_trec (n: int): int
+//
+val () = println! (\"fib_trec(10) = \", fib_trec(10))
+val () = println! (\"fib_trec(20) = \", fib_trec(20))
+//\
+"
+) (* PAGENassign_source_table *)
+//
+} (* end of [PAGENassign_descript2] *)
+//
+(* ****** ****** *)
 
 implement
 assign02_create() =
