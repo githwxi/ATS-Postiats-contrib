@@ -40,12 +40,13 @@ assign02_create(): void = "mac#"
 //
 implement
 {}(*tmp*)
-PAGENassign_title() =
+PAGENassign_title
+  (key) =
 {
 //
 val () =
 gprintln! ("\
-<title>BUCASCS320-assign02</title>\
+<title>BUCASCS320-")(key)("</title>\
 ") (* gprintln! *)
 //
 } (* PAGENassign_title *)
@@ -54,7 +55,8 @@ gprintln! ("\
 
 implement
 {}(*tmp*)
-PAGENassign_body_top() =
+PAGENassign_body_top
+  (key) =
 {
 //
 val () =
@@ -68,7 +70,7 @@ gprintln! ("\
 
 implement
 PAGENassign_descript<>
-  ((*void*)) =
+  (key) =
 {
 //
 val () =
@@ -111,8 +113,16 @@ fun fib_trec(n: int): int
 //
 implement
 PAGENassign_descript2<>
-  ((*void*)) =
+  (key) =
 {
+//
+val () =
+gprintln!("<hr></hr>")
+//
+val () =
+gprintln!("\
+Please do your implementation in the following window:<br>
+") (* gprintln! *)
 //
 val () =
 PAGENassign_source_table
@@ -148,6 +158,10 @@ fib_trec (n: int): int
 //
 val () = println! (\"fib_trec(10) = \", fib_trec(10))
 val () = println! (\"fib_trec(20) = \", fib_trec(20))
+//
+(*
+** Please add your code below this comment:
+*)
 //\
 "
 ) (* PAGENassign_source_table *)
@@ -160,6 +174,8 @@ implement
 assign02_create() =
 {
 //
+val key = "assign02"
+//
 implement
 gprint_string<>
   (x0) = print_string(x0)
@@ -167,7 +183,7 @@ gprint_string<>
 implement
 gprint_newline<> = print_newline
 //
-val () = PAGENassign_html()
+val () = PAGENassign_html(key)
 //
 } (* end of [assign02_create] *)
 

@@ -3,7 +3,6 @@
 <head>
 <title>BUCASCS320-assign01</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-
 <style type="text/css">
   .patsyntax {width:100%;margin:auto;}
   .patsyntax {color:#808080;background-color:#E0E0E0;}
@@ -23,7 +22,6 @@
   .patsyntax span.dyncstuse  {color:#B80000;text-decoration:underline;}
   .patsyntax span.dyncst_implement  {color:#B80000;text-decoration:underline;}
 </style>
-
 <script
  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
 </script>
@@ -36,10 +34,9 @@
 <script
  src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js">
 </script>
-
 </head>
-
 <body>
+
 
 <h1>BUCASCS320</h1>
 
@@ -53,6 +50,8 @@ Please implement a function ##fun("isTriangle") that determines
 whether three given integers ##arg("x"), ##arg("y"), and #arg("z") can
 form a triangle. The interface for ##fun("isTriangle") is given as follows:
 
+<p></p>
+
 <div>
 <sats2xhtml>//
 fun
@@ -61,28 +60,30 @@ isTriangle
 //</sats2xhtml>
 </div>
 
-<br>
+<p></p>
 
-Note that three numbers can form the three sides of a triangle if
-and only if the sum of any two of them exceeds the remaining one.
+Note that three numbers can form the three sides of a triangle
+if and only if the sum of any two of them exceeds the remaining one.
 </p>
 
 <hr></hr>
 
 <p>
 An implementation of ##fun("isTriangle") is given as follows:
+</p>
 
 <table width="100%">
-
 <tr>
 <th width="50%"></th>
 <th width="50%"></th>
 </tr>
-
-<tr>
+<tr
+ id="assign01_table_tr1">
 <td align="center">
 <textarea
- ID="assign01_source" rows=24 cols=80>//
+ id="assign01_source"
+ rows=24 cols=80
+ spellcheck="false">//
 #define
 ATS_MAINATSFLAG 1
 #define
@@ -123,81 +124,70 @@ val () =
 println! ("isTriangle(1,3,5) = ", isTriangle(1,3,5))
 val () =
 println! ("isTriangle(3,4,5) = ", isTriangle(3,4,5))
-//
-</textarea>
+//</textarea>
+</td>
+<td align="left">
+<pre
+ id="assign01_hilite"
+ hidden="hidden">
+</pre>
 </td>
 <td align="center">
 <textarea
- ID="assign01_output" rows=24 cols=80
- placeholder="The output goes here..."
->
+ id="assign01_output"
+ rows=24 cols=80
+ spellcheck="false"
+ placeholder="The output goes here...">
 </textarea>
 </td>
 </tr>
-
+<tr
+ id="assign01_table_tr2"
+ hidden="hidden">
+<td align="left">
+<pre
+ id="assign01_source2">source2
+</pre>
+</td>
+<td align="left">
+<pre
+ id="assign01_output2">output2
+</pre>
+</td>
+</tr>
 <tr>
 <td align="center">
-
 <button
  type="button"
- ID="patsopt_tc_button"
+ id="assign01_patsopt_tc_button"
  onclick="patsopt_tc_onclick('assign01')"
 >patsopt_tc</button>
-
 <button
  type="button"
- ID="patsopt_cc_button"
+ id="assign01_patsopt_cc_button"
  onclick="patsopt_cc_onclick('assign01')"
 >patsopt_cc</button>
-
 <button
  type="button"
- ID="patsopt_cc2js_button"
+ id="assign01_patsopt_cc2js_button"
  onclick="patsopt_cc2js_onclick('assign01')"
 >patsopt_cc2js</button>
-
 <button
  type="button"
- ID="pats2xhtml_button"
- onclick="pats2xhtml_eval_onclick('assign01')"
+ id="assign01_pats2xhtml_button"
+ onclick="pats2xhtml_toggle_onclick('assign01')"
 >pats2xhtml</button>
-
 </td>
 <td></td>
 </tr>
-
 </table>
-
-</p>
-
 <hr></hr>
-
-The buttons above can be clicked for the following actions:
-<ul>
-<li>
-<u>patsopt_tc</u>: for typechecking the source only
-</li>
-<li>
-<u>patsopt_cc</u>: for typechecking and compiling the source
-</li>
-<li>
-<u>patsopt_cc2js</u> for compiling to JS and evaluating the JS code.
-</li>
-<li>
-<u>pats2xhtml</u>: for syntax-hiliting the ATS source code.
-</li>
-</ul>
-
-<hr></hr>
-
 <p>
-The JavaScript code loaded by this page is prepared with atscc2js.
+The Python3 code loaded by this page is prepared with atscc2py3.
 </p>
-
 <script
  src="https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_patsopt_services_dats.js">
 </script>
-
 <script>
 function
 pats_key2source(key)
@@ -207,13 +197,11 @@ return document.getElementById(key+"_source").value;
 //
 } /* end of [pats_key2source] */
 </script>
-
 <script>
 $(document).ready(function(){pats2xhtmlize_process_all();return;});
 </script>
-
+<script>
+$(document).ready(function(){patsopt_services_initize("assign01");return;});
+</script>
 </body>
-
 </html>
-
-<!-- end of [assign01.html] -->

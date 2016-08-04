@@ -50,7 +50,7 @@ val () =
 gprintln!("\
 <button
  type=\"button\"
- ID=\"")(key)("_patsopt_tc_button\"
+ id=\"")(key)("_patsopt_tc_button\"
  onclick=\"patsopt_tc_onclick('")(key)("')\"
 >patsopt_tc</button>\
 ") (* gprintln! *)
@@ -66,7 +66,7 @@ val () =
 gprintln!("\
 <button
  type=\"button\"
- ID=\"")(key)("_patsopt_cc_button\"
+ id=\"")(key)("_patsopt_cc_button\"
  onclick=\"patsopt_cc_onclick('")(key)("')\"
 >patsopt_cc</button>\
 ") (* gprintln! *)
@@ -82,7 +82,7 @@ val () =
 gprintln!("\
 <button
  type=\"button\"
- ID=\"")(key)("_patsopt_cc2js_button\"
+ id=\"")(key)("_patsopt_cc2js_button\"
  onclick=\"patsopt_cc2js_onclick('")(key)("')\"
 >patsopt_cc2js</button>\
 ") (* gprintln! *)
@@ -98,8 +98,8 @@ val () =
 gprintln! ("\
 <button
  type=\"button\"
- ID=\"")(key)("_pats2xhtml_button\"
- onclick=\"pats2xhtml_eval_onclick('")(key)("')\"
+ id=\"")(key)("_pats2xhtml_button\"
+ onclick=\"pats2xhtml_toggle_onclick('")(key)("')\"
 >pats2xhtml</button>\
 ") (* gprintln! *)
 //
@@ -109,43 +109,44 @@ gprintln! ("\
 //
 extern
 fun{}
-PAGENassign_html(): void
+PAGENassign_html(key: string): void
 //
 extern
 fun{}
-PAGENassign_head(): void
+PAGENassign_head(key: string): void
 //
 extern
 fun{}
-PAGENassign_body(): void
+PAGENassign_body(key: string): void
 //
 extern
 fun{}
-PAGENassign_title(): void
-//
-(* ****** ****** *)
-//
-extern
-fun{}
-PAGENassign_descript(): void
-extern
-fun{}
-PAGENassign_descript2(): void
+PAGENassign_title(key: string): void
 //
 (* ****** ****** *)
 //
 extern
 fun{}
-PAGENassign_body_top(): void
+PAGENassign_descript(key: string): void
 extern
 fun{}
-PAGENassign_body_bottom(): void
+PAGENassign_descript2(key: string): void
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+PAGENassign_body_top(key: string): void
+extern
+fun{}
+PAGENassign_body_bottom(key: string): void
 //
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
-PAGENassign_html() =
+PAGENassign_html
+  (key) =
 {
 //
 val () =
@@ -158,10 +159,10 @@ val () =
 gprintln! ("<html>")
 //
 val () =
-PAGENassign_head()
+PAGENassign_head(key)
 //
 val () =
-PAGENassign_body()
+PAGENassign_body(key)
 //
 val () =
 gprintln! ("</html>")
@@ -172,14 +173,15 @@ gprintln! ("</html>")
 //
 implement
 {}(*tmp*)
-PAGENassign_head() =
+PAGENassign_head
+  (key) =
 {
 //
 val () =
 gprintln! ("<head>")
 //
 val () =
-PAGENassign_title((*void*))
+PAGENassign_title(key)
 //
 val () =
 gprintln! ("\
@@ -234,22 +236,23 @@ gprintln! ("</head>")
 //
 implement
 {}(*tmp*)
-PAGENassign_body() =
+PAGENassign_body
+  (key) =
 {
 //
 val () =
 gprintln! ("<body>")
 //
 val () =
-PAGENassign_body_top()
+PAGENassign_body_top(key)
 //
 val () =
-PAGENassign_descript()
+PAGENassign_descript(key)
 val () =
-PAGENassign_descript2()
+PAGENassign_descript2(key)
 //
 val () =
-PAGENassign_body_bottom()
+PAGENassign_body_bottom(key)
 //
 val () =
 gprintln! ("</body>")
@@ -260,7 +263,8 @@ gprintln! ("</body>")
 //
 implement
 {}(*tmp*)
-PAGENassign_title() =
+PAGENassign_title
+  (key) =
 {
 //
 val () =
@@ -274,7 +278,8 @@ gprintln! ("</title>")
 //
 implement
 {}(*tmp*)
-PAGENassign_descript() =
+PAGENassign_descript
+  (key) =
 {
 //
 val () =
@@ -288,7 +293,8 @@ gprintln! ("</descript>")
 //
 implement
 {}(*tmp*)
-PAGENassign_descript2() =
+PAGENassign_descript2
+  (key) =
 {
 //
 val () =
@@ -302,7 +308,8 @@ gprintln! ("</descript2>")
 //
 implement
 {}(*tmp*)
-PAGENassign_body_top() =
+PAGENassign_body_top
+  (key) =
 {
 //
 val () =
@@ -314,7 +321,8 @@ gprintln!("<h1>Assignment</h1>")
 //
 implement
 {}(*tmp*)
-PAGENassign_body_bottom() =
+PAGENassign_body_bottom
+  (key) =
 {
 //
 val () =
@@ -323,7 +331,7 @@ gprintln!("<hr></hr>")
 val () =
 gprintln!("\
 <p>
-The JavaScript code loaded by this page is prepared with atscc2js.
+The Python3 code loaded by this page is prepared with atscc2py3.
 </p>
 <script
  src=\"https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_patsopt_services_dats.js\">
@@ -339,6 +347,13 @@ return document.getElementById(key+\"_source\").value;
 </script>
 <script>
 $(document).ready(function(){pats2xhtmlize_process_all();return;});
+</script>\
+") (* gprintln! *)
+//
+val () =
+gprintln!("\
+<script>
+$(document).ready(function(){patsopt_services_initize(\"")(key)("\");return;});
 </script>\
 ") (* gprintln! *)
 //
@@ -359,7 +374,10 @@ PAGENassign_source_table
   (key, source) = let
 //
 val () =
-gprintln! ("<table>")
+gprintln!
+(
+"<table width=\"100%\">"
+) (* gprintln! *)
 //
 val () =
 gprintln! ("\
@@ -372,10 +390,13 @@ gprintln! ("\
 val () =
 gprintln!
 ("\
-<tr>
+<tr
+ id=\"assign02_table_tr1\">
 <td align=\"center\">
 <textarea
- ID=\"")(key)("_source\" rows=24 cols=80>\
+ id=\"")(key)("_source\"
+ rows=24 cols=80
+ spellcheck=\"false\">\
 ") (* gprintln! *)
 //
 val () = gprint_string(source)
@@ -385,11 +406,37 @@ gprintln!
 ("\
 </textarea>
 </td>
+<td align=\"left\">
+<pre
+ id=\"")(key)("_hilite\"
+ hidden=\"hidden\">
+</pre>
+</td>
 <td align=\"center\">
 <textarea
- ID=\"")(key)("_output\" rows=24 cols=80
+ id=\"")(key)("_output\"
+ rows=24 cols=80
+ spellcheck=\"false\"
  placeholder=\"The output goes here...\">
 </textarea>
+</td>
+</tr>\
+") (* gprintln! *)
+//
+val () =
+gprintln! ("\
+<tr
+ id=\"")(key)("_table_tr2\"
+ hidden=\"hidden\">
+<td align=\"left\">
+<pre
+ id=\"")(key)("_source2\">source2
+</pre>
+</td>
+<td align=\"left\">
+<pre
+ id=\"")(key)("_output2\">output2
+</pre>
 </td>
 </tr>\
 ") (* gprintln! *)
