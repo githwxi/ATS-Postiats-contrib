@@ -399,29 +399,10 @@ gprintln!("<hr></hr>")
 val () =
 gprintln!("\
 <p>
-The Python3 code loaded by this page is prepared with atscc2py3.
+The Python3 code generating this page is prepared with atscc2py3.
 </p>
 <script
  src=\"https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_assign02_patsopt_services_dats.js\">
-</script>
-<script>
-function
-assign02_pats_key2source(key)
-{
-//
-return document.getElementById(key+\"_source\").value;
-//
-} /* end of [assign02_pats_key2source] */
-function
-assign02_pats_key2output_set(key, msg)
-{
-//
-return document.getElementById(key+\"_output\").value = msg;
-//
-} /* end of [assign02_pats_key2output_set] */
-</script>
-<script>
-$(document).ready(function(){pats2xhtmlize_process_all();return;});
 </script>\
 ") (* gprintln! *)
 //
