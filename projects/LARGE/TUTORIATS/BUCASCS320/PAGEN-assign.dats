@@ -409,6 +409,7 @@ The Python3 code generating this page is prepared with atscc2py3.
 val () =
 gprintln!("\
 <script>
+$(document).ready(function(){pats2xhtmlize_process_all();return;});
 $(document).ready(function(){assign02_patsopt_services_initize(\"")(key)("\");return;});
 </script>\
 ") (* gprintln! *)
