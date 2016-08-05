@@ -171,6 +171,34 @@ val () = println! (\"fib_trec(20) = \", fib_trec(20))
 (* ****** ****** *)
 
 implement
+PAGENassign_descript3<>
+  (key) =
+{
+//
+val () =
+gprintln!("\
+<hr></hr>
+<p>
+The functionalities of the above buttons
+can be briefly described as follows:
+</p>\
+") (* gprintln! *)
+//
+val () =
+gprintln!("\
+<ul>
+<li> Patsopt-tc: for typechecking ATS code.
+<li> Patsopt-cc: for typechecking and compiling ATS code to C.
+<li> Patsopt-cc2js: for compiling ATS code to JS and then evaluating the JS code.
+<li> Pats2xhtml-toggle: for syntax-hiliting ATS code and adding/removing line numbers.
+</ul>\
+") (* gprintln! *)
+//
+} (* end of [PAGENassign_descript3] *)
+
+(* ****** ****** *)
+
+implement
 assign02_create() =
 {
 //

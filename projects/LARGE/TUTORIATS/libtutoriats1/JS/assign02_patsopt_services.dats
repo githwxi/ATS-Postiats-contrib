@@ -577,7 +577,13 @@ document.getElementById(key+"_table_tr2").hidden = (true);
 //
 if(comparr0===0)
 {
+//
+try {
   eval(comparr1);
+} catch(error) {
+  alert("ERROR!!!\n" + String(error));
+} /* end of [try] */
+//
 }
 if(comparr0 > 0)
 {

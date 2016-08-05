@@ -196,6 +196,9 @@ PAGENassign_descript(key: string): void
 extern
 fun{}
 PAGENassign_descript2(key: string): void
+extern
+fun{}
+PAGENassign_descript3(key: string): void
 //
 (* ****** ****** *)
 //
@@ -318,6 +321,8 @@ val () =
 PAGENassign_descript(key)
 val () =
 PAGENassign_descript2(key)
+val () =
+PAGENassign_descript3(key)
 //
 val () =
 PAGENassign_body_bottom(key)
@@ -371,6 +376,21 @@ val () =
 gprintln! ("</descript2>")
 //
 } (* end of [PAGENassign_descript2] *)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+PAGENassign_descript3
+  (key) =
+{
+//
+val () =
+gprintln! ("<descript3>")
+val () =
+gprintln! ("</descript3>")
+//
+} (* end of [PAGENassign_descript3] *)
 //
 (* ****** ****** *)
 //
