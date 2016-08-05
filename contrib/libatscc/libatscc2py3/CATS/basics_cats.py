@@ -65,6 +65,7 @@ def ATSPMVlazyval_eval(lazyval):
 ############################################
 
 def ats2pypre_tostring(x): return str(x)
+def ats2pypre_toString(x): return str(x)
 
 ############################################
 

@@ -25,6 +25,11 @@ staload "./SATS/gvalue.sats"
 //
 (* ****** ****** *)
 //
+staload "./SATS/gprint.sats"
+staload _ = "./DATS/gprint.dats"
+//
+(* ****** ****** *)
+//
 staload "./SATS/list.sats"
 staload _ = "./DATS/list.dats"
 //

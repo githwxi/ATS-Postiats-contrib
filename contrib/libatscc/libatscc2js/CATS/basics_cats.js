@@ -129,10 +129,12 @@ function
 ats2jspre_typeof(obj) { return typeof(obj); }
 
 /* ****** ****** */
-
+//
 function
-ats2jspre_toString(obj) { return obj.toString(); }
-
+ats2jspre_tostring(obj) { return String(obj); }
+function
+ats2jspre_toString(obj) { return String(obj); }
+//
 /* ****** ****** */
 
 function

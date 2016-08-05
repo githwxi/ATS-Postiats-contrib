@@ -100,7 +100,7 @@ gprintln! ("\
  type=\"button\"
  id=\"")(key)("_pats2xhtml_button\"
  onclick=\"pats2xhtml_toggle_onclick('")(key)("')\"
->pats2xhtml</button>\
+>pats2xhtml-toggle</button>\
 ") (* gprintln! *)
 //
 } (* pats2xhtml_button *)
@@ -343,7 +343,14 @@ assign02_pats_key2source(key)
 //
 return document.getElementById(key+\"_source\").value;
 //
-} /* end of [pats_key2source] */
+} /* end of [assign02_pats_key2source] */
+function
+assign02_pats_key2output_set(key, msg)
+{
+//
+return document.getElementById(key+\"_output\").value = msg;
+//
+} /* end of [assign02_pats_key2output_set] */
 </script>
 <script>
 $(document).ready(function(){pats2xhtmlize_process_all();return;});

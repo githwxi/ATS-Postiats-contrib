@@ -44,16 +44,189 @@ staload"{$ATS2LANGWEB}/DATS/service_trigger.dats"
 //
 extern
 fun
+assign02_pats_code_lncmnt
+(
+  code: string, nskip: int
+) : string = "mac#"
+//
+implement
+assign02_pats_code_lncmnt
+  (code, nskip) = let
+//
+val A0 =
+  JSarray_nil{string}()
+//
+implement
+gprint_string<>
+  (x0) = ignoret(A0.push(x0))
+//
+implement
+gprint_newline<>
+  ((*void*)) = gprint_string("\n")
+//
+val
+[n:int] code = g1ofg0(code)
+//
+val n0 = string_length(code)
+val EOL = ("\n").charCodeAt(0)
+//
+fun
+loop
+{ i:nat
+| i <= n
+} (
+  i0: int(i)
+, j0: intGte(0)
+, ln: intGte(0)
+) : intGte(0) = (
+//
+if (
+i0 < n0
+) then (
+//
+if
+code[i0] = EOL
+then loop(i0+1, 0, ln+1) else loop(i0+1, j0+1, ln)
+//
+) else (if j0 = 0 then ln else ln+1)
+//
+) (* end of [loop] *)
+//
+val nd =
+f0 (ln, 0) where
+{
+val ln = loop(0, 0, 1)
+fun f0
+(
+  x: int, nd: intGte(0)
+) : intGte(0) = if x > 0 then f0(x/10, nd+1) else nd
+} (* end of [val] *)
+//
+fn
+prline
+(
+  ln: int
+) : void =
+prline(ln, nd) where
+{
+fun
+prline
+(
+  ln: int, nd: intGte(0)
+) : void =
+(
+if nd > 0
+  then (prline(ln/10, nd-1); gprint_int(ln%10)) else ()
+) (* end of [prline] *)
+//
+}
+//
+fnx
+loop0
+{ i:nat
+| i <= n
+} (
+  i0: int(i), ln: int
+) : natLte(n) = (
+//
+if (
+i0 < n0
+) then (
+//
+if
+ln < nskip
+then let
+  val c0 = code.charCodeAt(i0)
+  val () = gprint_string(string_fromCharCode(c0))
+in
+  if c0 != EOL then loop0(i0+1, ln) else loop0(i0+1, ln+1)
+end // end of [then]
+else (i0) // end of [else]
+//
+) else (i0) // end of [else]
+//
+) (* end of [loop0] *)
+//
+fnx
+loop1
+{ i:nat
+| i <= n
+} (
+  i0: int(i), ln: int
+) : void =
+(
+if (
+i0 < n0
+) then (
+  gprint!("<span class=\"comment\">"); prline(ln); gprint!(": </span>");
+  loop2(i0, ln+1)
+) else ((*else*))
+// end of [if]
+)
+//
+and
+loop2
+{ i:nat
+| i <= n
+} (
+  i0: int(i), ln: int
+) : void =
+if
+(i0 < n0)
+then let
+//
+val c0 = code.charCodeAt(i0)
+//
+in
+//
+if c0 = EOL
+  then (gprint_newline(); loop1(i0+1, ln))
+  else (gprint_string(string_fromCharCode(c0)); loop2(i0+1, ln))
+// end of [if]
+//
+end // end of [loop2]
+//
+in
+  let val i0 = loop0(0, 0) in loop1(i0, 1); JSarray_join(A0) end
+end // assign02_pats_code_lncmnt
+//
+(* ****** ****** *)
+//
+extern
+fun
 assign02_pats_key2source
-  (string): string = "mac#"
+  (key: string): string = "mac#"
+extern
+fun
+assign02_pats_key2output_set
+  (key: string, msg: string): void = "mac#"
+//
+%{^
+//
+function
+assign02_pats_key2source(key)
+{
+//
+return document.getElementById(key+"_source").value;
+//
+} /* end of [assign02_pats_key2source] */
+function
+assign02_pats_key2output_set(key, msg)
+{
+//
+return document.getElementById(key+"_output").value = msg;
+//
+} /* end of [assign02_pats_key2output_set] */
+//
+%} (* end of [%{^] *)
+//
+(* ****** ****** *)
 //
 extern
 fun
 assign02_patsopt_services_initize
   (key: string): void = "mac#"
 //
-(* ****** ****** *)
-
 %{^
 //
 function
@@ -101,10 +274,17 @@ source =
 assign02_pats_key2source(key)
 //
 (*
-val ((*void*)) = alert("source = " + source)
+val () = alert("source = " + source)
 *)
 //
 } (* service_trigger_getval *)
+//
+(* ****** ****** *)
+//
+implement
+service_trigger_prompt<>
+  (key, msg) =
+  assign02_pats_key2output_set(key, msg)
 //
 (* ****** ****** *)
 //
@@ -341,21 +521,28 @@ pats2xhtml_eval_do_reply
 //
 var
 comparr =
-JSON.parse(decodeURIComponent(reply));
+JSON.parse
+(
+decodeURIComponent(reply)
+);
+//
 var comparr0 = comparr[0];
 var comparr1 = comparr[1];
 //
 if(comparr0===0)
 {
 //
-var
-source =
-assign02_pats_key2source(key);
+document.getElementById
+(
+  key+"_source2"
+).textContent =
+  assign02_pats_key2source(key);
+//
+// alert(comparr1);
 //
 document.getElementById
-  (key+"_source2").textContent = source;
-//
-document.getElementById(key+"_output2").innerHTML = comparr1;
+  (key+"_output2").innerHTML =
+  assign02_pats_code_lncmnt(comparr1, 1/*nskip*/);
 //
 document.getElementById(key+"_table_tr1").hidden = true;
 document.getElementById(key+"_table_tr2").hidden = false;

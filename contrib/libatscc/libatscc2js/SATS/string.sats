@@ -40,15 +40,18 @@ overload <> with neq_string_string of 100
 //
 (* ****** ****** *)
 //
-fun compare_string_string
-  : (string, string) -> intBtwe(~1, 1) = "mac#%"
+fun
+compare_string_string:
+  (string, string) -> intBtwe(~1, 1) = "mac#%"
 //
-overload compare with compare_string_string of 100
+overload
+compare with compare_string_string of 100
 //
 (* ****** ****** *)
 //
 fun
-string_length (string): int = "mac#%"
+string_length
+  {n:int}(string(n)): int(n) = "mac#%"
 //
 overload .length with string_length of 100
 //
@@ -57,12 +60,14 @@ overload .length with string_length of 100
 fun
 string_charAt{n:int}
   (str: string(n), i: natLt(n)): string = "mac#%"
-//
-(* ****** ****** *)
-//
 fun
 string_charCodeAt{n:int}
   (str: string(n), index: natLt(n)): int = "mac#%"
+//
+overload [] with string_charCodeAt of 100
+//
+overload .charAt with string_charCodeAt of 100
+overload .charCodeAt with string_charCodeAt of 100
 //
 (* ****** ****** *)
 //
