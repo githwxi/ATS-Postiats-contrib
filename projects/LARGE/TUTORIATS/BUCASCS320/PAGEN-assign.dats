@@ -109,6 +109,71 @@ gprintln! ("\
 //
 extern
 fun{}
+patssrc_saveAs_button(key: string): void
+extern
+fun{}
+patssrc_saveAs_input0(key: string): void
+extern
+fun{}
+patsout_saveAs_button(key: string): void
+extern
+fun{}
+patsout_saveAs_input0(key: string): void
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+patssrc_saveAs_button(key) =
+{
+//
+val () =
+gprintln! ("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patssrc_saveAs_button\"
+ onclick=\"patssrc_saveAs_onclick('")(key)("')\"
+>saveAs</button>\
+") (* gprintln! *)
+//
+} (* patssrc_saveAs_button *)
+
+implement
+{}(*tmp*)
+patssrc_saveAs_input0(key) =
+{
+//
+val () =
+gprintln! ("\
+<input
+ type=\"text\"
+ id=\"")(key)("_patssrc_saveAs_input\"
+ size=18 maxlength=32
+ placeholder=\"")(key)("_sol.dats\"></input>\
+") (* gprintln! *)
+//
+} (* patssrc_saveAs_input0 *)
+//
+implement
+{}(*tmp*)
+patsout_saveAs_button(key) =
+{
+//
+val () =
+gprintln! ("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patsout_saveAs_button\"
+ onclick=\"patsout_saveAs_onclick('")(key)("')\"
+>saveAs</button>\
+") (* gprintln! *)
+//
+} (* patsout_saveAs_button *)
+//
+(* ****** ****** *)
+//
+extern
+fun{}
 PAGENassign_html(key: string): void
 //
 extern
@@ -215,6 +280,9 @@ val () =
 gprintln! ("\
 <script
  src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js\">
+</script>
+<script
+ src=\"https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js\">
 </script>
 <script
  src=\"https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js\">
@@ -395,6 +463,34 @@ gprintln! ("\
 ") (* gprintln! *)
 //
 val () =
+gprintln! ("\
+<tr>
+<td align=\"center\">\
+")
+//
+val () =
+patssrc_saveAs_button(key)
+val () =
+patssrc_saveAs_input0(key)
+//
+val () =
+gprintln! ("\
+</td>
+<td align=\"center\">\
+") (* gprintln! *)
+//
+(*
+val () =
+patsout_saveAs_button(key)
+*)
+//
+val () =
+gprintln! ("\
+</td>
+</tr>\
+") (* gprintln! *)
+//
+val () =
 gprintln!
 ("\
 <tr
@@ -413,12 +509,6 @@ gprintln!
 ("\
 </textarea>
 </td>
-<td align=\"left\">
-<pre
- id=\"")(key)("_hilite\"
- hidden=\"hidden\">
-</pre>
-</td>
 <td align=\"center\">
 <textarea
  id=\"")(key)("_output\"
@@ -435,14 +525,16 @@ gprintln! ("\
 <tr
  id=\"")(key)("_table_tr2\"
  hidden=\"hidden\">
-<td align=\"left\">
+<td align=\"center\">
 <pre
- id=\"")(key)("_source2\">source2
+ id=\"")(key)("_source2\"
+ style=\"text-align:left;\">source2
 </pre>
 </td>
-<td align=\"left\">
+<td align=\"center\">
 <pre
- id=\"")(key)("_output2\">output2
+ id=\"")(key)("_output2\"
+ style=\"text-align:left;\">output2
 </pre>
 </td>
 </tr>\

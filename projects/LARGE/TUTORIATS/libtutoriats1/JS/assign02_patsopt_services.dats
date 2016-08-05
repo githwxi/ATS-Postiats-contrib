@@ -564,4 +564,36 @@ return comparr0;
 //
 (* ****** ****** *)
 
+%{^
+//
+function
+patssrc_saveAs_onclick
+  (key)
+{
+//
+var
+code =
+assign02_pats_key2source(key);
+//
+var
+blob =
+new
+Blob([code], {type: 'text/plain'});
+//
+var
+fname =
+document.getElementById
+  (key+"_patssrc_saveAs_input").value;
+//
+if(!fname)
+{
+  fname = key+"_sol.dats";
+}
+return saveAs(blob, fname);
+} /* end of [patssrc_saveAs_onclick] */
+//
+%} // %{^
+
+(* ****** ****** *)
+
 (* end of [assign02_patsopt_services.dats] *)
