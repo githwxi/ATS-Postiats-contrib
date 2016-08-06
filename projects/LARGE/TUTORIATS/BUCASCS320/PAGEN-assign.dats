@@ -149,7 +149,7 @@ gprintln! ("\
  type=\"text\"
  id=\"")(key)("_patssrc_saveAs_input\"
  size=18 maxlength=32
- placeholder=\"")(key)("_sol.dats\"></input>\
+ placeholder=\"")(key)(".dats\"></input>\
 ") (* gprintln! *)
 //
 } (* patssrc_saveAs_input0 *)
@@ -440,6 +440,20 @@ $(document).ready(function(){assign02_patsopt_services_initize(\"")(key)("\");re
 //
 extern
 fun{}
+PAGENassign_source_table$rows(): int
+implement
+{}(*tmp*)
+PAGENassign_source_table$rows() = 24
+//
+extern
+fun{}
+PAGENassign_source_table$cols(): int
+implement
+{}(*tmp*)
+PAGENassign_source_table$cols() = 80
+//
+extern
+fun{}
 PAGENassign_source_table
 (
   key: string, source: string
@@ -449,6 +463,11 @@ implement
 {}(*tmp*)
 PAGENassign_source_table
   (key, source) = let
+//
+val rows =
+PAGENassign_source_table$rows()
+val cols =
+PAGENassign_source_table$cols()
 //
 val () =
 gprintln!
@@ -500,7 +519,7 @@ gprintln!
 <td align=\"center\">
 <textarea
  id=\"")(key)("_source\"
- rows=24 cols=80
+ rows=")(rows)(" cols=")(cols)("
  spellcheck=\"false\">\
 ") (* gprintln! *)
 //
@@ -514,7 +533,7 @@ gprintln!
 <td align=\"center\">
 <textarea
  id=\"")(key)("_output\"
- rows=24 cols=80
+ rows=0 cols=0
  spellcheck=\"false\"
  placeholder=\"The output goes here...\">
 </textarea>

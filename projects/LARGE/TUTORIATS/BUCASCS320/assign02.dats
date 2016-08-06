@@ -127,7 +127,7 @@ Please do your implementation in the following window:<br>
 val () =
 PAGENassign_source_table
 (
-"assign02"
+key
 ,
 "\
 //
