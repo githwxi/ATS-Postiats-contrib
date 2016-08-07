@@ -9,7 +9,7 @@ $(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
-MYTEXTING=./MYTEXT/bin/mytexting
+MYTEXTING=./.MYTEXT/bin/mytexting
 
 ######
 
