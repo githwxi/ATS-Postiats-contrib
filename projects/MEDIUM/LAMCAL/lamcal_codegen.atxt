@@ -6,7 +6,7 @@
 (*
 //
 ##atext_fopen_path("\
-./HATS/lamcal_sats.hats\
+./CODEGEN/lamcal_sats.hats\
 ")
 //
 ##atext_fprintln('(*')
@@ -38,7 +38,7 @@
 (*
 ##atext_fopen_path\
 ("\
-./HATS/lamcal_tvar_order.hats\
+./CODEGEN/lamcal_tvar_order.hats\
 ")
 ##ats2impl_compare2cmpops(tvar)
 ##atext_fclose_top()
@@ -48,7 +48,7 @@
 (*
 ##atext_fopen_path\
 ("\
-./HATS/lamcal_tvar_funset.hats\
+./CODEGEN/lamcal_tvar_funset.hats\
 ")
 ##ats2impl_myfunset(tvar, TVARSET)
 ##atext_fclose_top()
@@ -62,7 +62,7 @@
 //
 ##atext_fopen_path\
 ("\
-./HATS/lamcal_term_fprint.hats\
+./CODEGEN/lamcal_term_fprint.hats\
 ")
 ##ats2impl_fprint2printerr(term)
 //
@@ -72,7 +72,7 @@
 (*
 ##atext_fopen_path\
 ("\
-./HATS/lamcal_tpath_funset.hats\
+./CODEGEN/lamcal_tpath_funset.hats\
 ")
 ##ats2impl_funset(tpath, TPATHSET)
 ##atext_fclose_top()
@@ -86,7 +86,7 @@
 //
 ##atext_fopen_path\
 ("\
-./HATS/lamcal_aterm_fprint.hats\
+./CODEGEN/lamcal_aterm_fprint.hats\
 ")
 ##ats2impl_fprint2printerr(aterm)
 //

@@ -112,7 +112,7 @@ fun aterm_mbreduce_leftmost(t0: aterm): aterm(*NF*)
 //
 (* ****** ****** *)
 //
-#include "./HATS/lamcal_sats.hats"
+#include "./CODEGEN/lamcal_sats.hats"
 //
 (* ****** ****** *)
 

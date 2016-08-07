@@ -118,7 +118,7 @@ output2.style.overflow = "auto";
 output2.style.maxWidth = String(source.clientWidth)+"px";
 output2.style.maxHeight = String(source.clientHeight)+"px";
 //
-} /* end of [patsopt_services_initize] */
+} /* end of [assign02_patsopt_services_initize] */
 //
 %} // end of [%{^]
 
@@ -307,133 +307,133 @@ service_trigger_prompt<>
 //
 extern
 fun
-patsopt_tc_onclick
+assign02_patsopt_tc_onclick
   (key: string): void = "mac#"
 extern
 fun
-patsopt_tc_do_reply
+assign02_patsopt_tc_do_reply
 (
   key: string, reply: string
 ) : int = "mac#" (* end-of-fun *)
 //
 implement
-patsopt_tc_onclick
+assign02_patsopt_tc_onclick
   (key) = let
 //
 implement
 service_trigger_do_reply<>
   (key, reply) = ignoret
 (
-  patsopt_tc_do_reply(key, reply)
+  assign02_patsopt_tc_do_reply(key, reply)
 ) (* ignoret *)
 //
 in
 //
 service_trigger_patsopt_tcats<>(key)
 //
-end (* end of [patsopt_tc_onclick] *)
+end (* end of [assign02_patsopt_tc_onclick] *)
 //
 (* ****** ****** *)
 
 extern
 fun
-patsopt_cc_onclick
+assign02_patsopt_cc_onclick
   (key: string): void = "mac#"
 extern
 fun
-patsopt_cc_do_reply
+assign02_patsopt_cc_do_reply
 (
   key: string, reply: string
 ) : int = "mac#" (* end-of-fun *)
 //
 implement
-patsopt_cc_onclick
+assign02_patsopt_cc_onclick
   (key) = let
 //
 implement
 service_trigger_do_reply<>
   (key, reply) = ignoret
 (
-  patsopt_cc_do_reply(key, reply)
+  assign02_patsopt_cc_do_reply(key, reply)
 ) (* ignoret *)
 //
 in
 //
 service_trigger_patsopt_ccats<>(key)
 //
-end (* end of [patsopt_cc_onclick] *)
+end (* end of [assign02_patsopt_cc_onclick] *)
 
 (* ****** ****** *)
 //
 extern
 fun
-patsopt_cc2js_onclick
+assign02_patsopt_cc2js_onclick
   (key: string): void = "mac#"
 extern
 fun
-patsopt_cc2js_do_reply
+assign02_patsopt_cc2js_do_reply
 (
   key: string, reply: string
 ) : int = "mac#" (* end-of-fun *)
 //
 implement
-patsopt_cc2js_onclick
+assign02_patsopt_cc2js_onclick
   (key) = let
 //
 implement
 service_trigger_do_reply<>
   (key, reply) = ignoret
 (
-  patsopt_cc2js_do_reply(key, reply)
+  assign02_patsopt_cc2js_do_reply(key, reply)
 ) (* ignoret *)
 //
 in
 //
 service_trigger_patsopt_cc2js<>(key)
 //
-end (* end of [patsopt_cc2js_onclick] *)
+end (* end of [assign02_patsopt_cc2js_onclick] *)
 
 (* ****** ****** *)
 //
 extern
 fun
-pats2xhtml_eval_onclick
+assign02_pats2xhtml_eval_onclick
   (key: string): void = "mac#"
 //
 extern
 fun
-pats2xhtml_eval_do_reply
+assign02_pats2xhtml_eval_do_reply
 (
   key: string, reply: string
 ) : int = "mac#" (* end-of-fun *)
 //
 implement
-pats2xhtml_eval_onclick
+assign02_pats2xhtml_eval_onclick
   (key) = let
 //
 implement
 service_trigger_do_reply<>
   (key, reply) = ignoret
 (
-  pats2xhtml_eval_do_reply(key, reply)
+  assign02_pats2xhtml_eval_do_reply(key, reply)
 ) (* ignoret *)
 //
 in
 //
 service_trigger_pats2xhtml_eval<>(key)
 //
-end (* end of [pats2xhtml_eval_onclick] *)
+end (* end of [assign02_pats2xhtml_eval_onclick] *)
 //
 (* ****** ****** *)
 //
 extern
 fun
-pats2xhtml_toggle_onclick
+assign02_pats2xhtml_toggle_onclick
   (key: string): void = "mac#"
 //
 %{^
 function
-pats2xhtml_toggle_onclick
+assign02_pats2xhtml_toggle_onclick
   (key)
 {
 //
@@ -458,7 +458,7 @@ source =
 document.getElementById(key+"_source");
 if(source.cdata===undefined)
 {
-  return pats2xhtml_eval_onclick(key);
+  return assign02_pats2xhtml_eval_onclick(key);
 } else {
   source.readOnly = false;
   source.value = source.cdata; source.cdata = undefined;
@@ -466,14 +466,14 @@ if(source.cdata===undefined)
 //
 } /* end of [if] */
 //
-} /* end of [pats2xhtml_toggle_onclick] */
+} /* end of [assign02_pats2xhtml_toggle_onclick] */
 %} // end of [%{^]
 //
 (* ****** ****** *)
 //
 %{^
 function
-patsopt_tc_do_reply
+assign02_patsopt_tc_do_reply
   (key, reply)
 {
 //
@@ -514,12 +514,12 @@ if
 } /* end of [if] */
 //
 return comparr0;
-} /* patsopt_tc_do_reply */
+} /* assign02_patsopt_tc_do_reply */
 %} // %{^
 //
 %{^
 function
-patsopt_cc_do_reply
+assign02_patsopt_cc_do_reply
   (key, reply)
 {
 //
@@ -555,12 +555,12 @@ if
 //
 return comparr0;
 //
-} /* patsopt_cc_do_reply */
+} /* assign02_patsopt_cc_do_reply */
 %} // %{^
 //
 %{^
 function
-patsopt_cc2js_do_reply
+assign02_patsopt_cc2js_do_reply
   (key, reply)
 {
 //
@@ -605,12 +605,12 @@ if
 } /* end of [if] */
 //
 return comparr0;
-} /* patsopt_cc2js_do_reply */
+} /* assign02_patsopt_cc2js_do_reply */
 %} // %{^
 //
 %{^
 function
-pats2xhtml_eval_do_reply
+assign02_pats2xhtml_eval_do_reply
   (key, reply)
 {
 //
@@ -670,7 +670,7 @@ output.value = "Pats2xhtml failed!\n\n" + comparr1;
 } /* end of [if] */
 //
 return comparr0;
-} /* pats2xhtml_eval_do_reply */
+} /* assign02_pats2xhtml_eval_do_reply */
 %} // %{^
 //
 (* ****** ****** *)
@@ -678,7 +678,7 @@ return comparr0;
 %{^
 //
 function
-patssrc_saveAs_onclick
+assign02_patssrc_saveAs_onclick
   (key)
 {
 //
@@ -701,7 +701,7 @@ if(!fname)
   fname = key+"_sol.dats";
 }
 return saveAs(blob, fname);
-} /* end of [patssrc_saveAs_onclick] */
+} /* end of [assign02_patssrc_saveAs_onclick] */
 //
 %} // %{^
 

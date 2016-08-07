@@ -112,7 +112,7 @@ CODEGEN2_FPRINT
 #else
 //
 #include
-"./HATS/lamcal_tvar_fprint.hats"
+"./CODEGEN/lamcal_tvar_fprint.hats"
 //
 implement
 fprint_tvar
@@ -124,11 +124,11 @@ fprint_tvar
 (* ****** ****** *)
 //
 #include"\
-./HATS/lamcal_tvar_order.hats\
+./CODEGEN/lamcal_tvar_order.hats\
 " // #include
 //
 #include"\
-./HATS/lamcal_tvar_funset.hats\
+./CODEGEN/lamcal_tvar_funset.hats\
 " // #include
 //
 (* ****** ****** *)

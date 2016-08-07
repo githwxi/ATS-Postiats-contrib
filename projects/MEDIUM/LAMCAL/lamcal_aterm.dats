@@ -235,7 +235,7 @@ CODEGEN2_FPRINT
 #endif // end of [ifdef]
 //
 #include
-"./HATS/lamcal_aterm_fprint.hats"
+"./CODEGEN/lamcal_aterm_fprint.hats"
 //
 implement
 fprint_aterm

@@ -51,7 +51,7 @@ gprintln!("\
 <button
  type=\"button\"
  id=\"")(key)("_patsopt_tc_button\"
- onclick=\"patsopt_tc_onclick('")(key)("')\"
+ onclick=\"assign02_patsopt_tc_onclick('")(key)("')\"
 >patsopt_tc</button>\
 ") (* gprintln! *)
 //
@@ -67,7 +67,7 @@ gprintln!("\
 <button
  type=\"button\"
  id=\"")(key)("_patsopt_cc_button\"
- onclick=\"patsopt_cc_onclick('")(key)("')\"
+ onclick=\"assign02_patsopt_cc_onclick('")(key)("')\"
 >patsopt_cc</button>\
 ") (* gprintln! *)
 //
@@ -83,7 +83,7 @@ gprintln!("\
 <button
  type=\"button\"
  id=\"")(key)("_patsopt_cc2js_button\"
- onclick=\"patsopt_cc2js_onclick('")(key)("')\"
+ onclick=\"assign02_patsopt_cc2js_onclick('")(key)("')\"
 >patsopt_cc2js</button>\
 ") (* gprintln! *)
 //
@@ -99,7 +99,7 @@ gprintln! ("\
 <button
  type=\"button\"
  id=\"")(key)("_pats2xhtml_button\"
- onclick=\"pats2xhtml_toggle_onclick('")(key)("')\"
+ onclick=\"assign02_pats2xhtml_toggle_onclick('")(key)("')\"
 >pats2xhtml-toggle</button>\
 ") (* gprintln! *)
 //
@@ -132,7 +132,7 @@ gprintln! ("\
 <button
  type=\"button\"
  id=\"")(key)("_patssrc_saveAs_button\"
- onclick=\"patssrc_saveAs_onclick('")(key)("')\"
+ onclick=\"assign02_patssrc_saveAs_onclick('")(key)("')\"
 >saveAs</button>\
 ") (* gprintln! *)
 //
@@ -164,7 +164,7 @@ gprintln! ("\
 <button
  type=\"button\"
  id=\"")(key)("_patsout_saveAs_button\"
- onclick=\"patsout_saveAs_onclick('")(key)("')\"
+ onclick=\"assign02_patsout_saveAs_onclick('")(key)("')\"
 >saveAs</button>\
 ") (* gprintln! *)
 //

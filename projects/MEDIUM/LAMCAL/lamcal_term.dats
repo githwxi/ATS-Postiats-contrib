@@ -141,7 +141,7 @@ CODEGEN2_FPRINT
 #endif // end of [ifdef]
 //
 #include
-"./HATS/lamcal_term_fprint.hats"
+"./CODEGEN/lamcal_term_fprint.hats"
 //
 implement
 fprint_term
@@ -150,7 +150,7 @@ fprint_term
 (* ****** ****** *)
 //
 #include"\
-./HATS/lamcal_tpath_funset.hats\
+./CODEGEN/lamcal_tpath_funset.hats\
 " // #include
 //
 (* ****** ****** *)
