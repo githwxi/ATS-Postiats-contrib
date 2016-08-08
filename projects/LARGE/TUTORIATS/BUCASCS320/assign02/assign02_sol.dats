@@ -126,9 +126,9 @@ is given in the following window:<br>
 ") (* gprintln! *)
 //
 implement
-PAGENassign_source_table$rows<>
-(
-) = 41
+PAGENassign_source_table$rows<>() = 41
+implement
+PAGENassign_source_table$cols<>() = 70
 //
 val () =
 PAGENassign_source_table

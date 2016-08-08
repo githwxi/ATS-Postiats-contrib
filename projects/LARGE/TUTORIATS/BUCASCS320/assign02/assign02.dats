@@ -76,34 +76,29 @@ PAGENassign_descript<>
 val () =
 gprintln!("\
 <p>
-The following function ##fun(\"fib\")
-computes Fibonacci numbers:
+The following function ##fun(\"fib\") computes
+Fibonacci numbers:
+</p>
 
-<p></p>
-
-<div>
+<p>
 <dats2xhtml>//
 fun
 fib(n: int): int =
   if n >= 2 then fib(n-1) + fib(n-2) else n
 //</dats2xhtml>
-</div>
+</p>
 
-<p></p>
-
+<p>
 Clearly, ##fun(\"fib\") is recursive but not tail-recursive:
 Neither of the two recursive calls in the body of ##fun(\"fib\")
 is a tail-call. Please give a tail-recursive implementation
 of ##fun(\"fib_trec\") that also computes Fibonacci numbers:
+</p>
 
-<p></p>
-
-<div>
+<p>
 <sats2xhtml>//
 fun fib_trec(n: int): int
 //</sats2xhtml>
-</div>
-
 </p>
 ") (* gprintln! *)
 //
@@ -123,6 +118,9 @@ val () =
 gprintln!("\
 Please do your implementation in the following window:<br>
 ") (* gprintln! *)
+//
+implement
+PAGENassign_source_table$cols<>() = 70
 //
 val () =
 PAGENassign_source_table

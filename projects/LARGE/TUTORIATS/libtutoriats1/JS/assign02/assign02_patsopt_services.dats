@@ -692,14 +692,14 @@ new
 Blob([code], {type: 'text/plain'});
 //
 var
-fname =
+input =
 document.getElementById
-  (key+"_patssrc_saveAs_input").value;
+  (key+"_patssrc_saveAs_input");
 //
-if(!fname)
-{
-  fname = key+"_sol.dats";
-}
+var
+fname = input.value;
+if(!fname) fname = input.placeholder;
+//
 return saveAs(blob, fname);
 } /* end of [assign02_patssrc_saveAs_onclick] */
 //

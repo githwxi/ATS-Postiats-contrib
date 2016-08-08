@@ -2,7 +2,9 @@
 <html>
 <head>
 <title>BUCASCS320-assign01</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style type="text/css">
   .patsyntax {width:100%;margin:auto;}
   .patsyntax {color:#808080;background-color:#E0E0E0;}
@@ -26,6 +28,12 @@
  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
 </script>
 <script
+ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+</script>
+<script
+ src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js">
+</script>
+<script
  src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
 </script>
 <script
@@ -37,6 +45,8 @@
 </head>
 <body>
 
+<div
+ class="container-fluid">
 
 <h1>BUCASCS320</h1>
 
@@ -49,19 +59,17 @@ compiling a single-file ATS program.
 Please implement a function ##fun("isTriangle") that determines
 whether three given integers ##arg("x"), ##arg("y"), and #arg("z") can
 form a triangle. The interface for ##fun("isTriangle") is given as follows:
+</p>
 
-<p></p>
-
-<div>
+<p>
 <sats2xhtml>//
 fun
 isTriangle
   (x: int, y: int, z: int) : bool
 //</sats2xhtml>
-</div>
+</p>
 
-<p></p>
-
+<p>
 Note that three numbers can form the three sides of a triangle
 if and only if the sum of any two of them exceeds the remaining one.
 </p>
@@ -72,17 +80,37 @@ if and only if the sum of any two of them exceeds the remaining one.
 An implementation of ##fun("isTriangle") is given as follows:
 </p>
 
-<table width="100%">
+<table
+ class="table">
+<thead>
 <tr>
-<th width="50%"></th>
-<th width="50%"></th>
+<th class="text-center" width="50%">Source</th>
+<th class="text-center" width="50%">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">
+<button
+ type="button"
+ id="assign01_patssrc_saveAs_button"
+ onclick="assign02_patssrc_saveAs_onclick('assign01')"
+>saveAs</button>
+<input
+ type="text"
+ id="assign01_patssrc_saveAs_input"
+ size=18 maxlength=32 placeholder="assign01_sol.dats"></input>
+</td>
+<td align="center">
+</td>
 </tr>
 <tr
  id="assign01_table_tr1">
-<td align="center">
+<td
+ align="center">
 <textarea
  id="assign01_source"
- rows=24 cols=80
+ rows=24 cols=72
  spellcheck="false">//
 #define
 ATS_MAINATSFLAG 1
@@ -126,12 +154,6 @@ val () =
 println! ("isTriangle(3,4,5) = ", isTriangle(3,4,5))
 //</textarea>
 </td>
-<td align="left">
-<pre
- id="assign01_hilite"
- hidden="hidden">
-</pre>
-</td>
 <td align="center">
 <textarea
  id="assign01_output"
@@ -144,15 +166,17 @@ println! ("isTriangle(3,4,5) = ", isTriangle(3,4,5))
 <tr
  id="assign01_table_tr2"
  hidden="hidden">
-<td align="left">
+<td align="center">
 <pre
+ class="text-left"
  id="assign01_source2">source2
 </pre>
 </td>
-<td align="left">
-<pre
+<td align="center">
+<div
+ class="text-left"
  id="assign01_output2">output2
-</pre>
+</div>
 </td>
 </tr>
 <tr>
@@ -180,13 +204,17 @@ println! ("isTriangle(3,4,5) = ", isTriangle(3,4,5))
 </td>
 <td></td>
 </tr>
+</tbody>
 </table>
 <hr></hr>
 <p>
 The Python3 code generating this page is prepared with atscc2py3.
 </p>
+
+</div>
+
 <script
- src="https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_assign02_patsopt_services_dats.js">
+ src="./assign02_patsopt_services_dats.js">
 </script>
 <script>
 function

@@ -253,7 +253,8 @@ PAGENassign_title(key)
 //
 val () =
 gprintln! ("\
-<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" />\
+<meta charset=\"utf-8\" />
+<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
 ") (* end of [val] *)
 //
 val () =
@@ -285,6 +286,9 @@ gprintln! ("\
  src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js\">
 </script>
 <script
+ src=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\">
+</script>
+<script
  src=\"https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js\">
 </script>
 <script
@@ -295,7 +299,8 @@ gprintln! ("\
 </script>
 <script
  src=\"https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js\">
-</script>\
+</script>
+<link rel=\"stylesheet\" href=\"http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\
 ") (* gprintln! *)
 //
 val () =
@@ -315,6 +320,13 @@ val () =
 gprintln! ("<body>")
 //
 val () =
+gprintln! ("\
+<div
+ class=\"container-fluid\">
+") (* gprintln! *)
+//
+//
+val () =
 PAGENassign_body_top(key)
 //
 val () =
@@ -327,8 +339,8 @@ PAGENassign_descript3(key)
 val () =
 PAGENassign_body_bottom(key)
 //
-val () =
-gprintln! ("</body>")
+val () = gprintln! ("</div>")
+val () = gprintln! ("</body>")
 //
 } (* end of [PAGENassign_body] *)
 //
@@ -472,19 +484,22 @@ PAGENassign_source_table$cols()
 val () =
 gprintln!
 (
-"<table width=\"100%\">"
+"<table class=\"table\">"
 ) (* gprintln! *)
 //
 val () =
 gprintln! ("\
+<thead>
 <tr>
-<th width=\"50%\"></th>
-<th width=\"50%\"></th>
-</tr>\
+<th class=\"text-center\" width=\"50%\">Source</th>
+<th class=\"text-center\" width=\"50%\">Output</th>
+</tr>
+</thead>
 ") (* gprintln! *)
 //
 val () =
 gprintln! ("\
+<tbody>
 <tr>
 <td align=\"center\">\
 ")
@@ -548,15 +563,15 @@ gprintln! ("\
  hidden=\"hidden\">
 <td align=\"center\">
 <pre
- id=\"")(key)("_source2\"
- style=\"text-align:left;\">source2
+ class=\"text-left\"
+ id=\"")(key)("_source2\">source2
 </pre>
 </td>
 <td align=\"center\">
-<pre
- id=\"")(key)("_output2\"
- style=\"text-align:left;\">output2
-</pre>
+<div
+ class=\"text-left\"
+ id=\"")(key)("_output2\">output2
+</div>
 </td>
 </tr>\
 ") (* gprintln! *)
@@ -576,7 +591,8 @@ val () =
 gprintln! ("\
 </td>
 <td></td>
-</tr>\
+</tr>
+</tbody>\
 ") (* gprintln! *)
 //
 val () =
