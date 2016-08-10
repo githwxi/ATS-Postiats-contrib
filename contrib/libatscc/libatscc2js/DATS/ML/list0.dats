@@ -50,5 +50,37 @@ staload "./../../SATS/ML/list0.sats"
 #include "{$LIBATSCC}/DATS/ML/list0.dats"
 //
 (* ****** ****** *)
+//
+implement
+list0_head_exn
+  {a}(xs) =
+(
+case+ xs of
+| list0_cons
+    (x, _) => (x)
+  // list0_cons
+| list0_nil() =>
+  (
+    $extfcall(a, "ats2jspre_ListSubscriptExn_throw")
+  ) (* list0_nil *)
+) (* end of [list0_head_exn] *)
+//
+(* ****** ****** *)
+//
+implement
+list0_tail_exn
+  {a}(xs) =
+(
+case+ xs of
+| list0_cons
+    (_, xs) => (xs)
+  // list0_cons
+| list0_nil() =>
+  (
+    $extfcall(list0(a), "ats2jspre_ListSubscriptExn_throw")
+  ) (* list0_nil *)
+) (* end of [list0_tail_exn] *)
+//
+(* ****** ****** *)
 
 (* end of [list0.dats] *)

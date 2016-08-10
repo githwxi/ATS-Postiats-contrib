@@ -19,14 +19,37 @@ implement
 {}(*tmp*)
 list0_is_nil(xs) =
 (
-case+ xs of list0_nil() => true | _ =>> false
+case+ xs of
+| list0_nil() => true | _ =>> false
 )
 implement
 {}(*tmp*)
 list0_is_cons(xs) =
 (
-case+ xs of list0_cons _ => true | _ =>> false
+case+ xs of
+| list0_cons _ => true | _ =>> false
 )
+//
+(* ****** ****** *)
+//
+implement
+list0_head_opt
+  {a}(xs) =
+(
+case+ xs of
+| list0_nil() => None_vt()
+| list0_cons(x, _) => Some_vt(x)
+) (* end of [list0_head_opt] *)
+//
+(* ****** ****** *)
+implement
+list0_tail_opt
+  {a}(xs) =
+(
+case+ xs of
+| list0_nil() => None_vt()
+| list0_cons(_, xs) => Some_vt(xs)
+) (* end of [list0_tail_opt] *)
 //
 (* ****** ****** *)
 //

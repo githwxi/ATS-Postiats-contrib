@@ -1,8 +1,8 @@
 (* ****** ****** *)
 //
-// HX: 2016-08-03:
+// HX: 2016-08-08:
 // Some PAGEN-functions
-// for creating assignments  
+// for creating Midterms
 // 
 (* ****** ****** *)
 
@@ -109,6 +109,306 @@ val () =
 gprintln! ("</head>")
 //
 } (* end of [PAGENmidterm_head] *)
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+patsopt_tc_button(key: string): void
+extern
+fun{}
+patsopt_cc_button(key: string): void
+extern
+fun{}
+patsopt_cc2js_button(key: string): void
+//
+extern
+fun{} pats2xhtml_button(key: string): void
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+patsopt_tc_button(key) =
+{
+//
+val () =
+gprintln!("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patsopt_tc_button\"
+ onclick=\"assign02_patsopt_tc_onclick('")(key)("')\"
+>patsopt_tc</button>\
+") (* gprintln! *)
+//
+} (* end of [patsopt_tc_button] *)
+//
+implement
+{}(*tmp*)
+patsopt_cc_button(key) =
+{
+//
+val () =
+gprintln!("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patsopt_cc_button\"
+ onclick=\"assign02_patsopt_cc_onclick('")(key)("')\"
+>patsopt_cc</button>\
+") (* gprintln! *)
+//
+} (* end of [patsopt_cc_button] *)
+//
+implement
+{}(*tmp*)
+patsopt_cc2js_button(key) =
+{
+//
+val () =
+gprintln!("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patsopt_cc2js_button\"
+ onclick=\"assign02_patsopt_cc2js_onclick('")(key)("')\"
+>patsopt_cc2js</button>\
+") (* gprintln! *)
+//
+} (* end of [patsopt_cc2js_button] *)
+//
+implement
+{}(*tmp*)
+pats2xhtml_button(key) =
+{
+//
+val () =
+gprintln! ("\
+<button
+ type=\"button\"
+ id=\"")(key)("_pats2xhtml_button\"
+ onclick=\"assign02_pats2xhtml_toggle_onclick('")(key)("')\"
+>pats2xhtml-toggle</button>\
+") (* gprintln! *)
+//
+} (* pats2xhtml_button *)
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+patssrc_saveAs_button(key: string): void
+extern
+fun{}
+patssrc_saveAs_input0(key: string): void
+extern
+fun{}
+patsout_saveAs_button(key: string): void
+extern
+fun{}
+patsout_saveAs_input0(key: string): void
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+patssrc_saveAs_button(key) =
+{
+//
+val () =
+gprintln! ("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patssrc_saveAs_button\"
+ onclick=\"assign02_patssrc_saveAs_onclick('")(key)("')\"
+>saveAs</button>\
+") (* gprintln! *)
+//
+} (* patssrc_saveAs_button *)
+
+implement
+{}(*tmp*)
+patssrc_saveAs_input0(key) =
+{
+//
+val () =
+gprintln! ("\
+<input
+ type=\"text\"
+ id=\"")(key)("_patssrc_saveAs_input\"
+ size=18 maxlength=32
+ placeholder=\"")(key)(".dats\"></input>\
+") (* gprintln! *)
+//
+} (* patssrc_saveAs_input0 *)
+//
+implement
+{}(*tmp*)
+patsout_saveAs_button(key) =
+{
+//
+val () =
+gprintln! ("\
+<button
+ type=\"button\"
+ id=\"")(key)("_patsout_saveAs_button\"
+ onclick=\"assign02_patsout_saveAs_onclick('")(key)("')\"
+>saveAs</button>\
+") (* gprintln! *)
+//
+} (* patsout_saveAs_button *)
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+PAGENmidterm_source_table$rows(): int
+implement
+{}(*tmp*)
+PAGENmidterm_source_table$rows() = 24
+//
+extern
+fun{}
+PAGENmidterm_source_table$cols(): int
+implement
+{}(*tmp*)
+PAGENmidterm_source_table$cols() = 80
+//
+extern
+fun{}
+PAGENmidterm_source_table
+(
+  key: string, source: string
+) : void // end-of-function
+//
+implement
+{}(*tmp*)
+PAGENmidterm_source_table
+  (key, source) = let
+//
+val rows =
+PAGENmidterm_source_table$rows()
+val cols =
+PAGENmidterm_source_table$cols()
+//
+val () =
+gprintln!
+(
+"<table class=\"table\">"
+) (* gprintln! *)
+//
+val () =
+gprintln! ("\
+<thead>
+<tr>
+<th class=\"text-center\" width=\"50%\">Source</th>
+<th class=\"text-center\" width=\"50%\">Output</th>
+</tr>
+</thead>
+") (* gprintln! *)
+//
+val () =
+gprintln! ("\
+<tbody>
+<tr>
+<td align=\"center\">\
+")
+//
+val () =
+patssrc_saveAs_button(key)
+val () =
+patssrc_saveAs_input0(key)
+//
+val () =
+gprintln! ("\
+</td>
+<td align=\"center\">\
+") (* gprintln! *)
+//
+(*
+val () =
+patsout_saveAs_button(key)
+*)
+//
+val () =
+gprintln! ("\
+</td>
+</tr>\
+") (* gprintln! *)
+//
+val () =
+gprintln!
+("\
+<tr
+ id=\"")(key)("_table_tr1\">
+<td align=\"center\">
+<textarea
+ id=\"")(key)("_source\"
+ rows=")(rows)(" cols=")(cols)("
+ spellcheck=\"false\">\
+") (* gprintln! *)
+//
+val () = gprint_string(source)
+//
+val () =
+gprintln!
+("\
+</textarea>
+</td>
+<td align=\"center\">
+<textarea
+ id=\"")(key)("_output\"
+ rows=0 cols=0
+ spellcheck=\"false\"
+ placeholder=\"The output goes here...\">
+</textarea>
+</td>
+</tr>\
+") (* gprintln! *)
+//
+val () =
+gprintln! ("\
+<tr
+ id=\"")(key)("_table_tr2\"
+ hidden=\"hidden\">
+<td align=\"center\">
+<pre
+ class=\"text-left\"
+ id=\"")(key)("_source2\">source2
+</pre>
+</td>
+<td align=\"center\">
+<div
+ class=\"text-left\"
+ id=\"")(key)("_output2\">output2
+</div>
+</td>
+</tr>\
+") (* gprintln! *)
+//
+val () =
+gprintln! ("\
+<tr>
+<td align=\"center\">\
+")
+//
+val () = patsopt_tc_button(key)
+val () = patsopt_cc_button(key)
+val () = patsopt_cc2js_button(key)
+val () = pats2xhtml_button(key)
+//
+val () =
+gprintln! ("\
+</td>
+<td></td>
+</tr>
+</tbody>\
+") (* gprintln! *)
+//
+val () =
+gprintln! ("</table>")
+//
+in
+  // nothing
+end // end of [PAGENmidterm_code_table]
 //
 (* ****** ****** *)
 
