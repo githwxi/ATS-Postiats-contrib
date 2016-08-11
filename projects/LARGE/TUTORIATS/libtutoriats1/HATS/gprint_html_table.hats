@@ -5,174 +5,101 @@
 // 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
-#include
-"{$LIBATSCC2PY3}/staloadall.hats"
-//
-(* ****** ****** *)
-//
-datatype
-table_b1 = TABLE_B1 of ()
-datatype
-table_hb1 = TABLE_HB1 of ()
-//
-datatype
-table_b2 = TABLE_B2 of ()
-datatype
-table_hb2 = TABLE_HB2 of ()
-//
-datatype
-table_b3 = TABLE_B3 of ()
-datatype
-table_hb3 = TABLE_HB3 of ()
-//
-(* ****** ****** *)
-//
-datatype
-table_b1_data
-  (a1:t@ype) = TABLE_B1_DATA of (a1)
-datatype
-table_hb1_data
-  (a0: t@ype, a1:t@ype) = TABLE_HB1_DATA of (a0, a1)
-//
-(* ****** ****** *)
-//
-datatype
-table_b2_data
-  (a1:t@ype, a2:t@ype) = TABLE_B2_DATA of (a1, a2)
-datatype
-table_hb2_data
-  (a0:t@ype, a1:t@ype, a2:t@ype) = TABLE_HB2_DATA of (a0, a1, a2)
-//
-(* ****** ****** *)
-//
-datatype
-table_b3_data
-  (a1:t@ype, a2:t@ype, a3:t@ype) = TABLE_B3_DATA of (a1, a2, a3)
-datatype
-table_hb3_data
-  (a0:t@ype, a1:t@ype, a2:t@ype, a3: t@ype) = TABLE_HB3_DATA of (a0, a1, a2, a3)
-//
-(* ****** ****** *)
-
-extern
-fun{}
-gprint_table_open(): void
-extern
-fun{}
-gprint_table_close(): void
-
-(* ****** ****** *)
-
-extern
-fun{}
-gprint_table_b1(table_b1): void
-extern
-fun{}
-gprint_table_b2(table_b2): void
-extern
-fun{}
-gprint_table_b3(table_b3): void
-
-(* ****** ****** *)
-
-extern
-fun{}
-gprint_table_hb1(table_hb1): void
-extern
-fun{}
-gprint_table_hb2(table_hb2): void
-extern
-fun{}
-gprint_table_hb3(table_hb3): void
-
-(* ****** ****** *)
-//
-extern
-fun{}
-gprint_table$tr_0_open((*void*)): void
-extern
-fun{}
-gprint_table$tr_0_data((*void*)): void
-extern
-fun{}
-gprint_table$tr_0_close((*void*)): void
-//
-extern
-fun{}
-gprint_table$tr_1_open((*void*)): void
-extern
-fun{}
-gprint_table$tr_1_data((*void*)): void
-extern
-fun{}
-gprint_table$tr_1_close((*void*)): void
-//
-extern
-fun{}
-gprint_table$tr_2_open((*void*)): void
-extern
-fun{}
-gprint_table$tr_2_data((*void*)): void
-extern
-fun{}
-gprint_table$tr_2_close((*void*)): void
-//
-extern
-fun{}
-gprint_table$tr_3_open((*void*)): void
-extern
-fun{}
-gprint_table$tr_3_data((*void*)): void
-extern
-fun{}
-gprint_table$tr_3_close((*void*)): void
+(*
+staload
+"./../SATS/gprint_html_table.sats"
+*)
 //
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
-gprint_table_open() =
+gprint_table$open() =
 {
 //
 val () =
 gprintln!
-  ("<table width=\"100%\">")
+(
+"<table width=\"100%\">"
+) (* gprintln! *)
 //
-} (* gprint_table_open *)
+} (* gprint_table$open *)
 //
 implement
 {}(*tmp*)
-gprint_table_close() =
+gprint_table$close() =
 {
 //
 val () = gprintln!("</table>")
 //
-} (* gprint_table_close *)
+} (* gprint_table$close *)
 //
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
-gprint_table$tr_0_open() = gprintln!("<tr>")
+gprint_table$thead_open
+  ((*void*)) = gprintln!("<thead>")
 implement
 {}(*tmp*)
-gprint_table$tr_0_close() = gprintln!("</tr>")
+gprint_table$thead_close
+  ((*void*)) = gprintln!("</thead>")
 //
 implement
 {}(*tmp*)
-gprint_table$tr_1_open() = gprintln!("<tr>")
+gprint_table$tbody_open
+  ((*void*)) = gprintln!("<tbody>")
 implement
 {}(*tmp*)
-gprint_table$tr_1_close() = gprintln!("</tr>")
+gprint_table$tbody_close
+  ((*void*)) = gprintln!("</tbody>")
+//
+(* ****** ****** *)
 //
 implement
 {}(*tmp*)
-gprint_table$tr_2_open() = gprintln!("<tr>")
+gprint_table$tr_0_open
+  () = gprint_table$tr_open()
 implement
 {}(*tmp*)
-gprint_table$tr_2_close() = gprintln!("</tr>")
+gprint_table$tr_0_close
+  () = gprint_table$tr_close()
+//
+implement
+{}(*tmp*)
+gprint_table$tr_1_open
+  () = gprint_table$tr_open()
+implement
+{}(*tmp*)
+gprint_table$tr_1_close
+  () = gprint_table$tr_close()
+//
+implement
+{}(*tmp*)
+gprint_table$tr_2_open
+  () = gprint_table$tr_open()
+implement
+{}(*tmp*)
+gprint_table$tr_2_close
+  () = gprint_table$tr_close()
+//
+implement
+{}(*tmp*)
+gprint_table$tr_3_open
+  () = gprint_table$tr_open()
+implement
+{}(*tmp*)
+gprint_table$tr_3_close
+  () = gprint_table$tr_close()
+//
+implement
+{}(*tmp*)
+gprint_table$tr_4_open
+  () = gprint_table$tr_open()
+implement
+{}(*tmp*)
+gprint_table$tr_4_close
+  () = gprint_table$tr_close()
 //
 (* ****** ****** *)
 //
@@ -181,20 +108,20 @@ implement
 gprint_table_b1(_) =
 {
 //
-val () = gprint_table_open()
+val () = gprint_table$open()
 //
-val () = gprintln!("<thead>")
-val () = gprintln!("</thead>")
+val () = gprint_table$thead_open()
+val () = gprint_table$thead_close()
 //
-val () = gprintln!("<tbody>")
+val () = gprint_table$tbody_open()
 //
 val () = gprint_table$tr_1_open()
 val () = gprint_table$tr_1_data()
 val () = gprint_table$tr_1_close()
 //
-val () = gprintln!("</tbody>")
+val () = gprint_table$tbody_close()
 //
-val () = gprint_table_close()
+val () = gprint_table$close((*void*))
 //
 } (* gprint_table_b1 *)
 //
@@ -203,25 +130,25 @@ implement
 gprint_table_hb1(_) =
 {
 //
-val () = gprint_table_open()
+val () = gprint_table$open()
 //
-val () = gprintln!("<thead>")
+val () = gprint_table$thead_open()
 //
 val () = gprint_table$tr_0_open()
 val () = gprint_table$tr_0_data()
 val () = gprint_table$tr_0_close()
 //
-val () = gprintln!("</thead>")
+val () = gprint_table$thead_close()
 //
-val () = gprintln!("<tbody>")
+val () = gprint_table$tbody_open()
 //
 val () = gprint_table$tr_1_open()
 val () = gprint_table$tr_1_data()
 val () = gprint_table$tr_1_close()
 //
-val () = gprintln!("</tbody>")
+val () = gprint_table$tbody_close()
 //
-val () = gprint_table_close()
+val () = gprint_table$close((*void*))
 //
 } (* gprint_table_hb1 *)
 //
@@ -232,12 +159,12 @@ implement
 gprint_table_b2(_) =
 {
 //
-val () = gprint_table_open()
+val () = gprint_table$open()
 //
-val () = gprintln!("<thead>")
-val () = gprintln!("</thead>")
+val () = gprint_table$thead_open()
+val () = gprint_table$thead_close()
 //
-val () = gprintln!("<tbody>")
+val () = gprint_table$tbody_open()
 //
 val () = gprint_table$tr_1_open()
 val () = gprint_table$tr_1_data()
@@ -247,9 +174,9 @@ val () = gprint_table$tr_2_open()
 val () = gprint_table$tr_2_data()
 val () = gprint_table$tr_2_close()
 //
-val () = gprintln!("</tbody>")
+val () = gprint_table$tbody_close()
 //
-val () = gprint_table_close()
+val () = gprint_table$close((*void*))
 //
 } (* gprint_table_b2 *)
 //
@@ -258,17 +185,17 @@ implement
 gprint_table_hb2(_) =
 {
 //
-val () = gprint_table_open()
+val () = gprint_table$open()
 //
-val () = gprintln!("<thead>")
+val () = gprint_table$thead_open()
 //
 val () = gprint_table$tr_0_open()
 val () = gprint_table$tr_0_data()
 val () = gprint_table$tr_0_close()
 //
-val () = gprintln!("</thead>")
+val () = gprint_table$thead_close()
 //
-val () = gprintln!("<tbody>")
+val () = gprint_table$tbody_open()
 //
 val () = gprint_table$tr_1_open()
 val () = gprint_table$tr_1_data()
@@ -278,9 +205,9 @@ val () = gprint_table$tr_2_open()
 val () = gprint_table$tr_2_data()
 val () = gprint_table$tr_2_close()
 //
-val () = gprintln!("</tbody>")
+val () = gprint_table$tbody_close()
 //
-val () = gprint_table_close()
+val () = gprint_table$close((*void*))
 //
 } (* gprint_table_hb2 *)
 //
@@ -291,12 +218,12 @@ implement
 gprint_table_b3(_) =
 {
 //
-val () = gprint_table_open()
+val () = gprint_table$open()
 //
-val () = gprintln!("<thead>")
-val () = gprintln!("</thead>")
+val () = gprint_table$thead_open()
+val () = gprint_table$thead_close()
 //
-val () = gprintln!("<tbody>")
+val () = gprint_table$tbody_open()
 //
 val () = gprint_table$tr_1_open()
 val () = gprint_table$tr_1_data()
@@ -310,9 +237,9 @@ val () = gprint_table$tr_3_open()
 val () = gprint_table$tr_3_data()
 val () = gprint_table$tr_3_close()
 //
-val () = gprintln!("</tbody>")
+val () = gprint_table$tbody_close()
 //
-val () = gprint_table_close()
+val () = gprint_table$close((*void*))
 //
 } (* gprint_table_b3 *)
 //
@@ -321,17 +248,17 @@ implement
 gprint_table_hb3(_) =
 {
 //
-val () = gprint_table_open()
+val () = gprint_table$open()
 //
-val () = gprintln!("<thead>")
+val () = gprint_table$thead_open()
 //
 val () = gprint_table$tr_0_open()
 val () = gprint_table$tr_0_data()
 val () = gprint_table$tr_0_close()
 //
-val () = gprintln!("</thead>")
+val () = gprint_table$thead_close()
 //
-val () = gprintln!("<tbody>")
+val () = gprint_table$tbody_open()
 //
 val () = gprint_table$tr_1_open()
 val () = gprint_table$tr_1_data()
@@ -345,22 +272,88 @@ val () = gprint_table$tr_3_open()
 val () = gprint_table$tr_3_data()
 val () = gprint_table$tr_3_close()
 //
-val () = gprintln!("</tbody>")
+val () = gprint_table$tbody_close()
 //
-val () = gprint_table_close()
+val () = gprint_table$close((*void*))
 //
 } (* gprint_table_hb3 *)
 //
 (* ****** ****** *)
 //
-extern
-fun{a1:t@ype}
-gprint_table_b1_data
-  (table_b1_data(a1)): void
-extern
-fun{a0,a1:t@ype}
-gprint_table_hb1_data
-  (table_hb1_data(a0,a1)): void
+implement
+{}(*tmp*)
+gprint_table_b4(_) =
+{
+//
+val () = gprint_table$open()
+//
+val () = gprint_table$thead_open()
+val () = gprint_table$thead_close()
+//
+val () = gprint_table$tbody_open()
+//
+val () = gprint_table$tr_1_open()
+val () = gprint_table$tr_1_data()
+val () = gprint_table$tr_1_close()
+//
+val () = gprint_table$tr_2_open()
+val () = gprint_table$tr_2_data()
+val () = gprint_table$tr_2_close()
+//
+val () = gprint_table$tr_3_open()
+val () = gprint_table$tr_3_data()
+val () = gprint_table$tr_3_close()
+//
+val () = gprint_table$tr_4_open()
+val () = gprint_table$tr_4_data()
+val () = gprint_table$tr_4_close()
+//
+val () = gprint_table$tbody_close()
+//
+val () = gprint_table$close((*void*))
+//
+} (* gprint_table_b4 *)
+//
+implement
+{}(*tmp*)
+gprint_table_hb4(_) =
+{
+//
+val () = gprint_table$open()
+//
+val () = gprint_table$thead_open()
+//
+val () = gprint_table$tr_0_open()
+val () = gprint_table$tr_0_data()
+val () = gprint_table$tr_0_close()
+//
+val () = gprint_table$thead_close()
+//
+val () = gprint_table$tbody_open()
+//
+val () = gprint_table$tr_1_open()
+val () = gprint_table$tr_1_data()
+val () = gprint_table$tr_1_close()
+//
+val () = gprint_table$tr_2_open()
+val () = gprint_table$tr_2_data()
+val () = gprint_table$tr_2_close()
+//
+val () = gprint_table$tr_3_open()
+val () = gprint_table$tr_3_data()
+val () = gprint_table$tr_3_close()
+//
+val () = gprint_table$tr_4_open()
+val () = gprint_table$tr_4_data()
+val () = gprint_table$tr_4_close()
+//
+val () = gprint_table$tbody_close()
+//
+val () = gprint_table$close((*void*))
+//
+} (* gprint_table_hb4 *)
+//
+(* ****** ****** *)
 //
 implement
 {a1}
@@ -409,17 +402,6 @@ in
 end // end of [gprint_table_hb1_data]
 //
 (* ****** ****** *)
-//
-extern
-fun
-{a1,a2:t@ype}
-gprint_table_b2_data
-  (table_b2_data(a1,a2)): void
-extern
-fun
-{a0,a1,a2:t@ype}
-gprint_table_hb2_data
-  (table_hb2_data(a0,a1,a2)): void
 //
 implement
 {a1,a2}
@@ -481,22 +463,6 @@ in
 end // end of [gprint_table_hb2_data]
 //
 (* ****** ****** *)
-
-extern
-fun
-{a1
-,a2
-,a3:t@ype
-} gprint_table_b3_data
-  (table_b3_data(a1,a2,a3)): void
-extern
-fun
-{a0
-,a1
-,a2
-,a3:t@ype
-} gprint_table_hb3_data
-  (table_hb3_data(a0,a1,a2,a3)): void
 //
 implement
 {a1,a2,a3}
@@ -573,6 +539,92 @@ end // end of [gprint_table_hb3_data]
 (* ****** ****** *)
 //
 implement
+{a1,a2,a3,a4}
+gprint_table_b4_data
+  (t0) = let
+//
+val+
+TABLE_B4_DATA
+  (x1, x2, x3, x4) = t0
+//
+implement
+gprint_table$tr_1_data<>() =
+{
+val () = gprint_val<a1>(x1)
+} (* gprint_table$tr_1_data *)
+//
+implement
+gprint_table$tr_2_data<>() =
+{
+val () = gprint_val<a2>(x2)
+} (* gprint_table$tr_2_data *)
+//
+implement
+gprint_table$tr_3_data<>() =
+{
+val () = gprint_val<a3>(x3)
+} (* gprint_table$tr_3_data *)
+//
+implement
+gprint_table$tr_4_data<>() =
+{
+val () = gprint_val<a4>(x4)
+} (* gprint_table$tr_4_data *)
+//
+in
+//
+  gprint_table_b4(TABLE_B4())
+//
+end // end of [gprint_table_b4_data]
+//
+implement
+{a0,a1,a2,a3,a4}
+gprint_table_hb4_data
+  (t0) = let
+//
+val+
+TABLE_HB4_DATA
+  (x0, x1, x2, x3, x4) = t0
+//
+implement
+gprint_table$tr_0_data<>() =
+{
+val () = gprint_val<a0>(x0)
+} (* gprint_table$tr_0_data *)
+//
+implement
+gprint_table$tr_1_data<>() =
+{
+val () = gprint_val<a1>(x1)
+} (* gprint_table$tr_1_data *)
+//
+implement
+gprint_table$tr_2_data<>() =
+{
+val () = gprint_val<a2>(x2)
+} (* gprint_table$tr_2_data *)
+//
+implement
+gprint_table$tr_3_data<>() =
+{
+val () = gprint_val<a3>(x3)
+} (* gprint_table$tr_3_data *)
+//
+implement
+gprint_table$tr_4_data<>() =
+{
+val () = gprint_val<a4>(x4)
+} (* gprint_table$tr_4_data *)
+//
+in
+//
+  gprint_table_hb4(TABLE_HB4())
+//
+end // end of [gprint_table_hb4_data]
+//
+(* ****** ****** *)
+//
+implement
 (a1)
 gprint_val<
   table_b1_data(a1)
@@ -611,109 +663,83 @@ gprint_val<
 //
 (* ****** ****** *)
 //
-datatype
-table_row_c1 = TABLE_ROW_C1 of ()
-datatype
-table_row_c2 = TABLE_ROW_C2 of ()
-datatype
-table_row_c3 = TABLE_ROW_C3 of ()
-//
-(* ****** ****** *)
-//
-datatype
-table_row_c1_data
-  (a1:t@ype) = TABLE_ROW_C1_DATA of (a1)
-datatype
-table_row_c2_data
-  (a1:t@ype,a2:t@ype) = TABLE_ROW_C2_DATA of (a1, a2)
-datatype
-table_row_c3_data
-  (a1:t@ype,a2:t@ype,a3:t@ype) = TABLE_ROW_C3_DATA of (a1, a2, a3)
-//
-(* ****** ****** *)
-//
-extern
-fun{}
-gprint_table_row_c1 : table_row_c1 -> void
-extern
-fun{}
-gprint_table_row_c2 : table_row_c2 -> void
-extern
-fun{}
-gprint_table_row_c3 : table_row_c3 -> void
-//
-(* ****** ****** *)
-//
-extern
-fun{
-a1:t@ype
-} gprint_table_row_c1_data : table_row_c1_data(a1) -> void
-extern
-fun
-{a1
-,a2:t@ype
-} gprint_table_row_c2_data : table_row_c2_data(a1,a2) -> void
-extern
-fun
-{a1
-,a2
-,a3:t@ype
-} gprint_table_row_c3_data : table_row_c3_data(a1,a2,a3) -> void
-//
-(* ****** ****** *)
-//
-extern
-fun{}
-gprint_table_row$td_1_open(): void
-extern
-fun{}
-gprint_table_row$td_1_data(): void
-extern
-fun{}
-gprint_table_row$td_1_close(): void
-//
-extern
-fun{}
-gprint_table_row$td_2_open(): void
-extern
-fun{}
-gprint_table_row$td_2_data(): void
-extern
-fun{}
-gprint_table_row$td_2_close(): void
-//
-extern
-fun{}
-gprint_table_row$td_3_open(): void
-extern
-fun{}
-gprint_table_row$td_3_data(): void
-extern
-fun{}
-gprint_table_row$td_3_close(): void
+implement
+(a1,a2,a3,a4)
+gprint_val<
+  table_b4_data(a1,a2,a3,a4)
+> = gprint_table_b4_data<a1,a2,a3,a4>
+implement
+(a0,a1,a2,a3,a4)
+gprint_val<
+  table_hb4_data(a0,a1,a2,a3,a4)
+> = gprint_table_hb4_data<a0,a1,a2,a3,a4>
 //
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
-gprint_table_row$td_1_open() = gprintln!("<td>")
+gprint_table$tr_open
+  ((*void*)) = gprintln!("<tr>")
 implement
 {}(*tmp*)
-gprint_table_row$td_1_close() = gprintln!("</td>")
+gprint_table$tr_close
+  ((*void*)) = gprintln!("</tr>")
 //
 implement
 {}(*tmp*)
-gprint_table_row$td_2_open() = gprintln!("<td>")
+gprint_table_row$th_open
+  ((*void*)) = gprintln!("<th>")
 implement
 {}(*tmp*)
-gprint_table_row$td_2_close() = gprintln!("</td>")
+gprint_table_row$th_close
+  ((*void*)) = gprintln!("</th>")
 //
 implement
 {}(*tmp*)
-gprint_table_row$td_3_open() = gprintln!("<td>")
+gprint_table_row$td_open
+  ((*void*)) = gprintln!("<td>")
 implement
 {}(*tmp*)
-gprint_table_row$td_3_close() = gprintln!("</td>")
+gprint_table_row$td_close
+  ((*void*)) = gprintln!("</td>")
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+gprint_table_row$td_1_open
+  () = gprint_table_row$td_open()
+implement
+{}(*tmp*)
+gprint_table_row$td_1_close
+  () = gprint_table_row$td_close()
+//
+implement
+{}(*tmp*)
+gprint_table_row$td_2_open
+  () = gprint_table_row$td_open()
+implement
+{}(*tmp*)
+gprint_table_row$td_2_close
+  () = gprint_table_row$td_close()
+//
+implement
+{}(*tmp*)
+gprint_table_row$td_3_open
+  () = gprint_table_row$td_open()
+implement
+{}(*tmp*)
+gprint_table_row$td_3_close
+  () = gprint_table_row$td_close()
+//
+implement
+{}(*tmp*)
+gprint_table_row$td_4_open
+  () = gprint_table_row$td_open()
+implement
+{}(*tmp*)
+gprint_table_row$td_4_close
+  () = gprint_table_row$td_close()
 //
 (* ****** ****** *)
 //
@@ -759,6 +785,29 @@ val () = gprint_table_row$td_2_close()
 val () = gprint_table_row$td_3_open()
 val () = gprint_table_row$td_3_data()
 val () = gprint_table_row$td_3_close()
+//
+} (* end of [gprint_table_td1] *)
+//
+implement
+{}(*tmp*)
+gprint_table_row_c4(_) =
+{
+//
+val () = gprint_table_row$td_1_open()
+val () = gprint_table_row$td_1_data()
+val () = gprint_table_row$td_1_close()
+//
+val () = gprint_table_row$td_2_open()
+val () = gprint_table_row$td_2_data()
+val () = gprint_table_row$td_2_close()
+//
+val () = gprint_table_row$td_3_open()
+val () = gprint_table_row$td_3_data()
+val () = gprint_table_row$td_3_close()
+//
+val () = gprint_table_row$td_4_open()
+val () = gprint_table_row$td_4_data()
+val () = gprint_table_row$td_4_close()
 //
 } (* end of [gprint_table_td1] *)
 //
@@ -820,5 +869,51 @@ in
 end (* end of [gprint_table_row_c3_data] *)
 //
 (* ****** ****** *)
+//
+implement
+{a1,a2,a3,a4}
+gprint_table_row_c4_data
+  (r0) = let
+//
+val+
+TABLE_ROW_C4_DATA(x1, x2, x3, x4) = r0
+//
+implement
+gprint_table_row$td_1_data<>() = gprint_val<a1>(x1)
+implement
+gprint_table_row$td_2_data<>() = gprint_val<a2>(x2)
+implement
+gprint_table_row$td_3_data<>() = gprint_val<a3>(x3)
+implement
+gprint_table_row$td_4_data<>() = gprint_val<a4>(x4)
+//
+in
+  gprint_table_row_c4(TABLE_ROW_C4())
+end (* end of [gprint_table_row_c4_data] *)
+//
+(* ****** ****** *)
+//
+implement
+(a1)
+gprint_val<
+  table_row_c1_data(a1)
+> = gprint_table_row_c1_data<a1>
+implement
+(a1,a2)
+gprint_val<
+  table_row_c2_data(a1,a2)
+> = gprint_table_row_c2_data<a1,a2>
+implement
+(a1,a2,a3)
+gprint_val<
+  table_row_c3_data(a1,a2,a3)
+> = gprint_table_row_c3_data<a1,a2,a3>
+implement
+(a1,a2,a3,a4)
+gprint_val<
+  table_row_c4_data(a1,a2,a3,a4)
+> = gprint_table_row_c4_data<a1,a2,a3,a4>
+//
+(* ****** ****** *)
 
-(* end of [gprint_html_table.dats] *)
+(* end of [gprint_html_table.hats] *)

@@ -39,10 +39,18 @@ gprint_newline(): void
 (* ****** ****** *)
 
 fun{a:t0p}
-gprint_val (x: a): void
+gprint_val (x: INV(a)): void
 fun{a:vt0p}
 gprint_ref (x: &INV(a)): void
 
+(* ****** ****** *)
+//
+fun{}
+gprint_unit(unit): void
+//
+overload
+gprint with gprint_unit of 100
+//
 (* ****** ****** *)
 
 fun{}

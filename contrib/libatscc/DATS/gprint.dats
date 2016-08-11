@@ -15,6 +15,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 implement{}
+gprint_unit(_) = ()
+//
+(* ****** ****** *)
+//
+implement{}
 gprint_list$beg () = gprint_string "("
 implement{}
 gprint_list$end () = gprint_string ")"
