@@ -87,7 +87,7 @@ gprintln!
 ("\
 <p>
 We adhere strictly to the standard BU guidelines for academic
-integrity. Pleaese note that no collaboration on this take-home exam
+integrity. Please note that no collaboration on this take-home exam
 is allowed. In particular, sharing code is considered a serious form
 of cheating and violators may be reported to BU to face potential
 discipline actions.

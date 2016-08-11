@@ -74,7 +74,7 @@
 ("\
 ./CODEGEN/lamcal_tpath_funset.hats\
 ")
-##ats2impl_funset(tpath, TPATHSET)
+##ats2impl_myfunset(tpath, TPATHSET)
 ##atext_fclose_top()
 *)
 (* ****** ****** *)
