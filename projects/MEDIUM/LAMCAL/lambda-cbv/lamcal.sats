@@ -38,6 +38,11 @@ typedef tcst = tcst_type
 
 (* ****** ****** *)
 //
+fun tcst_make_int : (int) -> tcst
+fun tcst_make_name : (string) -> tcst
+//
+(* ****** ****** *)
+//
 datatype term =
   | TMvar of tvar
   | TMcst of tcst
