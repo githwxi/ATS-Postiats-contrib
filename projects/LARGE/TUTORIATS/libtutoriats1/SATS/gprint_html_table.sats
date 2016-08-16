@@ -37,54 +37,55 @@ table_hb4 = TABLE_HB4 of ()
 (* ****** ****** *)
 //
 datatype
-table_bs(int) = {n:nat} TABLE_BS(n) of (int(n))
-datatype
-table_hbs(int) = {n:nat} TABLE_HBS(n) of (int(n))
-//
-(* ****** ****** *)
-//
-datatype
 table_b1_data
-  (a1:t@ype) = TABLE_B1_DATA of (a1)
+  (a1:t@ype) =
+  TABLE_B1_DATA of (INV(a1))
 datatype
 table_hb1_data
-  (a0:t@ype, a1:t@ype) = TABLE_HB1_DATA of (a0, a1)
+  (a0:t@ype, a1:t@ype) =
+  TABLE_HB1_DATA of (INV(a0), INV(a1))
 //
 (* ****** ****** *)
 //
 datatype
 table_b2_data
-  (a1:t@ype, a2:t@ype) = TABLE_B2_DATA of (a1, a2)
+  (a1:t@ype, a2:t@ype) =
+  TABLE_B2_DATA of (INV(a1), INV(a2))
 datatype
 table_hb2_data
-  (a0:t@ype, a1:t@ype, a2:t@ype) = TABLE_HB2_DATA of (a0, a1, a2)
+  (a0:t@ype, a1:t@ype, a2:t@ype) =
+  TABLE_HB2_DATA of (INV(a0), INV(a1), INV(a2))
 //
 (* ****** ****** *)
 //
 datatype
 table_b3_data
-  (a1:t@ype, a2:t@ype, a3:t@ype) = TABLE_B3_DATA of (a1, a2, a3)
+  (a1:t@ype, a2:t@ype, a3:t@ype) =
+  TABLE_B3_DATA of (INV(a1), INV(a2), INV(a3))
 datatype
 table_hb3_data
-  (a0:t@ype, a1:t@ype, a2:t@ype, a3:t@ype) = TABLE_HB3_DATA of (a0, a1, a2, a3)
+  (a0:t@ype, a1:t@ype, a2:t@ype, a3:t@ype) =
+  TABLE_HB3_DATA of (INV(a0), INV(a1), INV(a2), INV(a3))
 //
 (* ****** ****** *)
 //
 datatype
 table_b4_data
-  (a1:t@ype, a2:t@ype, a3:t@ype, a4:t@ype) = TABLE_B4_DATA of (a1, a2, a3, a4)
+  (a1:t@ype, a2:t@ype, a3:t@ype, a4:t@ype) =
+  TABLE_B4_DATA of (INV(a1), INV(a2), INV(a3), INV(a4))
 datatype
 table_hb4_data
-  (a0:t@ype, a1:t@ype, a2:t@ype, a3:t@ype, a4:t@ype) = TABLE_HB4_DATA of (a0, a1, a2, a3, a4)
+  (a0:t@ype, a1:t@ype, a2:t@ype, a3:t@ype, a4:t@ype) =
+  TABLE_HB4_DATA of (INV(a0), INV(a1), INV(a2), INV(a3), INV(a4))
 //
 (* ****** ****** *)
 //
 datatype
 table_bs_data
-  (a1:t@ype, int) = {n:nat} TABLE_BS_DATA(a1, n) of list(a1, n)
+  (a1:t@ype) = TABLE_BS_DATA(a1) of List0(INV(a1))
 datatype
 table_hbs_data
-  (a0:t@ype, a1:t@ype, int) = {n:nat} TABLE_HBS_DATA(a0, a1, n) of (a0, list(a1, n))
+  (a0:t@ype, a1:t@ype) = TABLE_HBS_DATA(a0, a1) of (INV(a0), List0(INV(a1)))
 //
 (* ****** ****** *)
 //
@@ -253,6 +254,18 @@ overload gprint with gprint_table_hb4_data
 //
 (* ****** ****** *)
 //
+fun
+{a1:t@ype}
+gprint_table_bs_data(table_bs_data(a1)): void
+fun
+{a0,a1:t@ype}
+gprint_table_hbs_data(table_hbs_data(a0,a1)): void
+//
+overload gprint with gprint_table_bs_data
+overload gprint with gprint_table_hbs_data
+//
+(* ****** ****** *)
+//
 datatype
 table_row_c1 = TABLE_ROW_C1 of ()
 datatype
@@ -266,16 +279,23 @@ table_row_c4 = TABLE_ROW_C4 of ()
 //
 datatype
 table_row_c1_data
-  (a1:t@ype) = TABLE_ROW_C1_DATA of (a1)
+  (a1:t@ype) =
+  TABLE_ROW_C1_DATA of (INV(a1))
+//
 datatype
 table_row_c2_data
-  (a1:t@ype,a2:t@ype) = TABLE_ROW_C2_DATA of (a1, a2)
+  (a1:t@ype,a2:t@ype) =
+  TABLE_ROW_C2_DATA of (INV(a1), INV(a2))
+//
 datatype
 table_row_c3_data
-  (a1:t@ype,a2:t@ype,a3:t@ype) = TABLE_ROW_C3_DATA of (a1, a2, a3)
+  (a1:t@ype,a2:t@ype,a3:t@ype) =
+  TABLE_ROW_C3_DATA of (INV(a1), INV(a2), INV(a3))
+//
 datatype
 table_row_c4_data
-  (a1:t@ype,a2:t@ype,a3:t@ype,a4:t@ype) = TABLE_ROW_C4_DATA of (a1, a2, a3, a4)
+  (a1:t@ype,a2:t@ype,a3:t@ype,a4:t@ype) =
+  TABLE_ROW_C4_DATA of (INV(a1), INV(a2), INV(a3), INV(a4))
 //
 (* ****** ****** *)
 //

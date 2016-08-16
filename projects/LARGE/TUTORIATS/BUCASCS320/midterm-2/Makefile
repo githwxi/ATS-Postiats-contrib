@@ -30,7 +30,7 @@ cleanall:: ; rm -f midterm-2_dats.html
 #
 ######
 #
-regress:: midterm-2_dats.py; $(PYTHON) $<
+regress:: midterm-2_dats.py; $(PYTHON) $< > midterm-2_dats.html
 #
 ######
 #

@@ -675,6 +675,95 @@ gprint_val<
 > = gprint_table_hb4_data<a0,a1,a2,a3,a4>
 //
 (* ****** ****** *)
+
+implement
+{a1}
+gprint_table_bs_data
+  (t0) = let
+//
+val+
+TABLE_BS_DATA(xs) = t0
+//
+fun
+auxlst
+(
+  xs: List0(a1)
+) : void =
+(
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) =>
+    auxlst(xs) where
+  {
+    val () = gprint_table$tr_open()
+    val () = gprint_val<a1>(x)
+    val () = gprint_table$tr_close()
+  } (* end of [list_cons] *)
+)
+//
+val () = gprint_table$open()
+//
+val () = gprint_table$thead_open()
+val () = gprint_table$thead_close()
+//
+val () = gprint_table$tbody_open()
+val () = auxlst(xs)
+val () = gprint_table$tbody_close()
+//
+val () = gprint_table$close((*void*))
+//
+in
+  // nothing
+end // end of [gprint_table_bs_data]
+
+(* ****** ****** *)
+//
+implement
+{a0,a1}
+gprint_table_hbs_data
+  (t0) = let
+//
+val+
+TABLE_HBS_DATA(x0, xs) = t0
+//
+fun
+auxlst
+(
+  xs: List0(a1)
+) : void =
+(
+case+ xs of
+| list_nil() => ()
+| list_cons(x, xs) =>
+    auxlst(xs) where
+  {
+    val () = gprint_table$tr_1_open()
+    val () = gprint_val<a1>(x)
+    val () = gprint_table$tr_1_close()
+  } (* end of [list_cons] *)
+)
+//
+val () = gprint_table$open()
+//
+val () = gprint_table$thead_open()
+//
+val () = gprint_table$tr_0_open()
+val () = gprint_val<a0>(x0)
+val () = gprint_table$tr_0_close()
+//
+val () = gprint_table$thead_close()
+//
+val () = gprint_table$tbody_open()
+val () = auxlst(xs)
+val () = gprint_table$tbody_close()
+//
+val () = gprint_table$close((*void*))
+//
+in
+  // nothing
+end // end of [gprint_table_hbs_data]
+
+(* ****** ****** *)
 //
 implement
 {}(*tmp*)
