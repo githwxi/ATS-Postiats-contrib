@@ -113,6 +113,28 @@ $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
 
 ######
 
+all:: \
+ConcurrentMedians
+ConcurrentMedians:: \
+ConcurrentMedians.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
+
+######
+
+all:: \
+ConcurrentAltitudes-1
+ConcurrentAltitudes-1:: \
+ConcurrentAltitudes-1.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
+
+all:: \
+ConcurrentAltitudes-2
+ConcurrentAltitudes-2:: \
+ConcurrentAltitudes-2.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
+
+######
+
 testall:: all
 testall:: regress
 testall:: cleanall
