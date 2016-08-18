@@ -133,18 +133,14 @@ alert(ats2jspre_the_print_store_join());
 //
 %} // end of [%{$]
 //
+#define :: list0_cons
+//
 extern
 fun
 list_submaxord(xs: list0(int)): list0(int)
 //
 (*
 ** Please add your code below this comment:
-*)
-//
-#define :: list0_cons
-//
-(*
-** Please give your implementation as follows:
 *)
 //\
 "

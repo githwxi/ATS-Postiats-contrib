@@ -616,7 +616,7 @@ tok.token_node of
     val () = incby1 () in i0dex_make_string (loc, x)
   end // end of [T_IDENT_alp]
 //
-| _ => let
+| _ (*non-IDENT_alp*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_i0dex)
   in

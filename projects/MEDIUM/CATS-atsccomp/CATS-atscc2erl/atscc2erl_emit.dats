@@ -447,9 +447,9 @@ d0e0.d0exp_node of
 | D0Eide (tmp) => 
   {
     val () = emit_tmpvar (out, tmp)
-  }
+  } // end of [D0Eide]
 //
-| D0Eappid (fid, d0es) =>
+| D0Eappid(fid, d0es) =>
   {
     val () = emit_f0ide (out, fid)
     val () = emit_LPAREN (out)
@@ -458,7 +458,7 @@ d0e0.d0exp_node of
   }
 | D0Eappexp (d0e, d0es) =>
   {
-    val () = emit_d0exp (out, d0e)
+    val () = emit_d0exp(out, d0e)
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
@@ -466,52 +466,55 @@ d0e0.d0exp_node of
 //
 | D0Elist (d0es) =>
   {
-    val () = emit_text (out, "D0Elist")
+    val () = emit_text(out, "D0Elist")
     val () = emit_LPAREN (out)
     val () = emit_d0explst (out, d0es)
     val () = emit_RPAREN (out)
   }
 //
-| ATSPMVint (int) => emit_PMVint (out, int)
-| ATSPMVintrep (int) => emit_PMVintrep (out, int)
+| ATSPMVint(int) => emit_PMVint(out, int)
+| ATSPMVintrep(int) => emit_PMVintrep(out, int)
 //
-| ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
+| ATSPMVbool(tfv) => emit_PMVbool(out, tfv)
 //
-| ATSPMVfloat (flt) => emit_PMVfloat (out, flt)
+| ATSPMVfloat(flt) => emit_PMVfloat(out, flt)
 //
-| ATSPMVstring (str) => emit_PMVstring (out, str)
+| ATSPMVstring(str) => emit_PMVstring(out, str)
 //
-| ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
-| ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
+| ATSPMVi0nt(int) => emit_PMVi0nt(out, int)
+| ATSPMVf0loat(flt) => emit_PMVf0loat(out, flt)
 //
-| ATSPMVempty (dummy) => emit_PMVempty (out, 0)
-| ATSPMVextval (toklst) => emit_PMVextval (out, toklst)
+| ATSPMVempty(dummy) => emit_PMVempty(out, 0)
+| ATSPMVextval(toklst) => emit_PMVextval(out, toklst)
 //
-| ATSPMVrefarg0 (d0e) => emit_d0exp (out, d0e)
-| ATSPMVrefarg1 (d0e) => emit_d0exp (out, d0e)
+| ATSPMVrefarg0(d0e) => emit_d0exp(out, d0e)
+| ATSPMVrefarg1(d0e) => emit_d0exp(out, d0e)
 //
-| ATSPMVfunlab (fl) => emit_PMVfunlab (out, fl)
+| ATSPMVfunlab(flab) => emit_PMVfunlab(out, flab)
 | ATSPMVcfunlab
-    (_(*knd*), fl, d0es) => emit_PMVcfunlab (out, fl, d0es)
+    (_(*knd*), flab, d0es) => emit_PMVcfunlab(out, flab, d0es)
   // end of [ATSPMVcfunlab]
 //
 | ATSPMVcastfn
-    (_(*fid*), _(*s0e*), arg) => emit_d0exp (out, arg)
+    (_fid_, _s0e_, arg) => emit_d0exp(out, arg)
 //
-| ATSCSTSPmyloc (tok) => emit_CSTSPmyloc (out, tok)
+| ATSCSTSPmyloc (tok) => emit_CSTSPmyloc(out, tok)
 //
 //
-| ATSCKiseqz(d0e) => emit_ATSCKiseqz (out, d0e)
-| ATSCKisneqz(d0e) => emit_ATSCKisneqz (out, d0e)
-| ATSCKptriscons(d0e) => emit_ATSCKptriscons (out, d0e)
-| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull (out, d0e)
+| ATSCKiseqz(d0e) => emit_ATSCKiseqz(out, d0e)
+| ATSCKisneqz(d0e) => emit_ATSCKisneqz(out, d0e)
+| ATSCKptriscons(d0e) => emit_ATSCKptriscons(out, d0e)
+| ATSCKptrisnull(d0e) => emit_ATSCKptrisnull(out, d0e)
 //
 | ATSCKpat_int
-    (d0e, int) => emit_ATSCKpat_int (out, d0e, int)
+    (d0e, int) =>
+    emit_ATSCKpat_int (out, d0e, int)
 | ATSCKpat_bool
-    (d0e, bool) => emit_ATSCKpat_bool (out, d0e, bool)
+    (d0e, bool) =>
+    emit_ATSCKpat_bool (out, d0e, bool)
 | ATSCKpat_string
-    (d0e, string) => emit_ATSCKpat_string (out, d0e, string)
+    (d0e, string) =>
+    emit_ATSCKpat_string (out, d0e, string)
 //
 | ATSCKpat_con0
     (d0e, ctag) => emit_ATSCKpat_con0 (out, d0e, ctag)

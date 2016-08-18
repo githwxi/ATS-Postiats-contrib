@@ -38,7 +38,7 @@ staload"{$ATS2LANGWEB}/DATS/patsopt_atscc2js.dats"
 //
 staload"{$ATS2LANGWEB}/DATS/pats2xhtml_eval.dats"
 //
-staload"{$ATS2LANGWEB}/DATS/service_trigger.dats"
+staload"{$ATS2LANGWEB}/DATS/patservice_trigger.dats"
 //
 (* ****** ****** *)
 
@@ -282,7 +282,7 @@ end // assign02_pats_code_lncmnt
 (* ****** ****** *)
 //
 implement
-service_trigger_getval<>
+patservice_getval<>
   (key) = source where
 {
 //
@@ -294,12 +294,12 @@ assign02_pats_key2source(key)
 val () = alert("source = " + source)
 *)
 //
-} (* service_trigger_getval *)
+} (* patservice_getval *)
 //
 (* ****** ****** *)
 //
 implement
-service_trigger_prompt<>
+patservice_prompt<>
   (key, msg) =
   assign02_pats_key2output_set(key, msg)
 //
@@ -321,7 +321,7 @@ assign02_patsopt_tc_onclick
   (key) = let
 //
 implement
-service_trigger_do_reply<>
+patservice_do_reply<>
   (key, reply) = ignoret
 (
   assign02_patsopt_tc_do_reply(key, reply)
@@ -329,7 +329,7 @@ service_trigger_do_reply<>
 //
 in
 //
-service_trigger_patsopt_tcats<>(key)
+patservice_patsopt_tcats<>(key)
 //
 end (* end of [assign02_patsopt_tc_onclick] *)
 //
@@ -351,7 +351,7 @@ assign02_patsopt_cc_onclick
   (key) = let
 //
 implement
-service_trigger_do_reply<>
+patservice_do_reply<>
   (key, reply) = ignoret
 (
   assign02_patsopt_cc_do_reply(key, reply)
@@ -359,7 +359,7 @@ service_trigger_do_reply<>
 //
 in
 //
-service_trigger_patsopt_ccats<>(key)
+patservice_patsopt_ccats<>(key)
 //
 end (* end of [assign02_patsopt_cc_onclick] *)
 
@@ -381,7 +381,7 @@ assign02_patsopt_cc2js_onclick
   (key) = let
 //
 implement
-service_trigger_do_reply<>
+patservice_do_reply<>
   (key, reply) = ignoret
 (
   assign02_patsopt_cc2js_do_reply(key, reply)
@@ -389,7 +389,7 @@ service_trigger_do_reply<>
 //
 in
 //
-service_trigger_patsopt_cc2js<>(key)
+patservice_patsopt_cc2js<>(key)
 //
 end (* end of [assign02_patsopt_cc2js_onclick] *)
 
@@ -412,7 +412,7 @@ assign02_pats2xhtml_eval_onclick
   (key) = let
 //
 implement
-service_trigger_do_reply<>
+patservice_do_reply<>
   (key, reply) = ignoret
 (
   assign02_pats2xhtml_eval_do_reply(key, reply)
@@ -420,7 +420,7 @@ service_trigger_do_reply<>
 //
 in
 //
-service_trigger_pats2xhtml_eval<>(key)
+patservice_pats2xhtml_eval<>(key)
 //
 end (* end of [assign02_pats2xhtml_eval_onclick] *)
 //

@@ -130,6 +130,7 @@ val () = gprintln!
 ("\
 <h2>
 <a href=\"./midterm-1-q1_dats.html\">Question 1</a>
+(<a href=\"#\" onclick=\"patsoptaas_mycode_trigger(theQuestion1)\">Patsoptaas</a>)
 </h2>
 <p>
 A list is a sublist of another list if the former can be
@@ -151,6 +152,7 @@ val () = gprintln!
 ("\
 <h2>
 <a href=\"./midterm-1-q2_dats.html\">Question 2</a>
+(<a href=\"#\" onclick=\"patsoptaas_mycode_trigger(theQuestion2)\">Patsoptaas</a>)
 </h2>
 <p>
 The function
@@ -171,6 +173,7 @@ val () = gprintln!
 ("\
 <h2>
 <a href=\"./midterm-1-q3_dats.html\">Question 3</a>
+(<a href=\"#\" onclick=\"patsoptaas_mycode_trigger(theQuestion3)\">Patsoptaas</a>)
 </h2>
 <p>
 Given a list ##arg(xs) of integers, the function
@@ -199,6 +202,176 @@ val () = gprintln!("</div><!--containier-fluid-->")
 val () =
 gprintln!("<hr></hr>")
 //
+val () =
+gprintln!("\
+<script>
+//
+var
+theQuestion1 =
+(`\\
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME \"my_dynload\"
+//
+#include
+\"share/atspre_define.hats\"
+#include
+\"{$LIBATSCC2JS}/staloadall.hats\"
+//
+staload
+\"{$LIBATSCC2JS}/SATS/print.sats\"
+//
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+//
+extern
+fun
+sublist_test
+  (xs: list0(int), ys: list0(int)): bool
+//
+(*
+** Please add your code below this comment:
+*)
+//
+#define :: list0_cons
+//
+val xs =
+1::2::3::4::5::nil0()
+//
+val ys = 1::3::5::nil0()
+//
+val () = assertloc(sublist_test(xs, ys))
+val () = assertloc(~sublist_test(xs, 1 :: 1 :: nil0()))
+//
+(*
+** Please give your implementation as follows:
+*)
+`)
+var
+theQuestion2 =
+(`\\
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME \"my_dynload\"
+//
+#include
+\"share/atspre_define.hats\"
+#include
+\"{$LIBATSCC2JS}/staloadall.hats\"
+//
+staload
+\"{$LIBATSCC2JS}/SATS/print.sats\"
+//
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+//
+#define :: list0_cons
+//
+extern
+fun{a:t@ype}
+list_prefixes(list0(a)): list0(list0(a))
+//
+(*
+** Please give your implementation as follows:
+*)
+`)
+var
+theQuestion3 =
+(`\\
+//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME \"my_dynload\"
+//
+#include
+\"share/atspre_define.hats\"
+#include
+\"{$LIBATSCC2JS}/staloadall.hats\"
+//
+staload
+\"{$LIBATSCC2JS}/SATS/print.sats\"
+//
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+//
+#define :: list0_cons
+//
+extern
+fun
+list_prefixes(list0(a)): list0(list0(a))
+//
+(*
+** Please give your implementation as follows:
+*)
+`);
+</script>\
+") (* gprintln! *)
+//
+val () =
+gprintln!("\
+<script>
+//
+function
+patsoptaas_mycode_trigger
+  (mycode)
+{
+//
+var
+form =
+document.createElement(\"form\");
+//
+form.setAttribute(\"method\", \"POST\");
+/*
+//
+// HX: data is already encoded
+//
+form.setAttribute
+( \"enctype\"
+, \"application/x-www-form-urlencoded\"
+); // form.setAttribute
+*/
+//
+form.setAttribute
+( \"action\"
+, \"http://www.ats-lang.org/SERVER/MYCODE/Patsoptaas_serve.php\"
+); // form.setAttribute
+//
+form.setAttribute(\"target\", \"_blank\");
+//
+var
+input =
+document.createElement(\"input\");
+//
+input.setAttribute(\"type\", \"hidden\");
+input.setAttribute(\"name\", \"mycode\");
+input.setAttribute(\"value\", encodeURIComponent(mycode));
+//
+form.appendChild(input); document.body.appendChild(form); form.submit(); return;
+//
+} /* end of [patsoptaas_mycode_trigger] */
+//
+</script>\
+") (* gprintln! *)
 //
 val () =
 gprintln!("\

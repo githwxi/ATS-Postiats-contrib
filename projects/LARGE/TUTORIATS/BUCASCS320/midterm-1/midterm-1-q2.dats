@@ -132,15 +132,11 @@ alert(ats2jspre_the_print_store_join());
 //
 %} // end of [%{$]
 //
-extern
-fun
-list_submaxord(xs: list0(int)): list0(int)
-//
-(*
-** Please add your code below this comment:
-*)
-//
 #define :: list0_cons
+//
+extern
+fun{a:t@ype}
+list_prefixes(list0(a)): list0(list0(a))
 //
 (*
 ** Please give your implementation as follows:
