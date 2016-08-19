@@ -10,10 +10,10 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
-fun
+fun{}
 stream_make_nil
   {a:t0p}(): stream(a) = "mac#%"
-fun
+fun{}
 stream_make_sing
   {a:t0p}(x0: a): stream(a) = "mac#%"
 //

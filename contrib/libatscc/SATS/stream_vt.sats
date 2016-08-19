@@ -10,12 +10,12 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
-fun
+fun{}
 stream_vt_make_nil
   {a:vt0p}(): stream_vt(a) = "mac#%"
-fun
+fun{}
 stream_vt_make_sing
-  {a:vt0p}(x0: a): stream_vt(a) = "mac#%"
+  {a:t0p}(x0: a): stream_vt(a) = "mac#%"
 //
 (* ****** ****** *)
 
