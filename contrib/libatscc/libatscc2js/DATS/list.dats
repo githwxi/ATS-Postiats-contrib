@@ -45,6 +45,8 @@ staload "./../SATS/filebas.sats"
 //
 staload "./../SATS/list.sats"
 //
+staload "./../SATS/JSarray.sats"
+//
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
@@ -90,6 +92,38 @@ in
   fprint_list<a> (STDOUT, xs)
 end // end of [print_list_sep]
 //
+(* ****** ****** *)
+
+implement
+list_sort_2
+  {a}{n}(xs, cmp) = let
+//
+val A =
+  JSarray_make_list(xs)
+val () =
+  JSarray_sort_2(A, cmp)
+//
+val asz = JSarray_length(A)
+//
+fun
+loop (
+  i0: int, res: List0(a)
+) : List0(a) =
+(
+//
+if
+(i0 < asz)
+then (
+  loop(i0+1, list_cons(A.pop(), res))
+) else res
+// end of [if]
+//
+) (* end of [loop] *)
+//
+in
+  $UN.cast{list(a,n)}(loop(0, list_nil(*void*)))
+end // end of [list_sort_2]
+
 (* ****** ****** *)
 
 (* end of [list.dats] *)

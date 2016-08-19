@@ -18,11 +18,23 @@ staload "./../basics_js.sats"
 (* ****** ****** *)
 //
 fun
-JSarray_nil{a:vt0p}(): JSarray(a) = "mac#%"
+JSarray_nil
+  {a:vt0p}(): JSarray(a) = "mac#%"
 fun
-JSarray_sing{a:vt0p}(a): JSarray(a) = "mac#%"
+JSarray_sing
+  {a:vt0p}(a): JSarray(a) = "mac#%"
 fun
-JSarray_pair{a:vt0p}(a, a): JSarray(a) = "mac#%"
+JSarray_pair
+  {a:vt0p}(a, a): JSarray(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+JSarray_make_list
+  {a:t0p}(List(INV(a))): JSarray(a) = "mac#%"
+fun
+JSarray_make_list_vt
+  {a:vt0p}(List_vt(INV(a))): JSarray(a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -101,6 +113,14 @@ JSarray_join
 fun
 JSarray_join_sep
   {a:t@ype}(JSarray(a), sep: string): string = "mac#%"
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+JSarray_sort_1(A: JSarray(a)): void
+fun
+JSarray_sort_2{a:t0p}
+  (A: JSarray(a), cmp: (a, a) -<cloref1> int): void = "mac#%"
 //
 (* ****** ****** *)
 //

@@ -657,5 +657,15 @@ list_ifoldright_method
   lam(fopr) => list_ifoldright{a}{res}(xs, fopr, sink)
 //
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+list_sort_1(xs) =
+(
+  list_sort_2{a}
+    (xs, lam(x1, x2) => gcompare_val_val<a>(x1, x2))
+) (* list_sort_1 *)
+//
+(* ****** ****** *)
 
 (* end of [list.dats] *)

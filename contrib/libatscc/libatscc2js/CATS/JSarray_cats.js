@@ -102,5 +102,11 @@ function
 ats2jspre_JSarray_join_sep(A, sep) { return A.join(sep); }
 //
 /* ****** ****** */
+//
+function
+ats2jspre_JSarray_sort_2(A, cmp)
+  { A.sort(ats2jspre_cloref2fun2(cmp)); return; }
+//
+/* ****** ****** */
 
 /* end of [JSarray_cats.js] */

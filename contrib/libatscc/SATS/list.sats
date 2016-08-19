@@ -17,6 +17,9 @@ fun{}
 list_is_cons
   {a:t0p}{n:int}(list(a, n)): bool(n > 0)
 //
+overload iseqz with list_is_nil of 100
+overload isneqz with list_is_cons of 100
+//
 (* ****** ****** *)
 //
 fun
@@ -49,10 +52,10 @@ print with print_list of 100
 //
 fun
 list_length
-  {a:t0p}{n:int}(list(a, n)): int(n) = "mac#%"
+  {a:t0p}{n:int}
+  (xs: list(a, n)): int(n) = "mac#%"
 //
-overload
-length with list_length of 100
+overload length with list_length of 100
 //
 (* ****** ****** *)
 //
@@ -101,7 +104,7 @@ list_reverse
 fun
 list_reverse_append
   {a:t0p}{i,j:int}
-  (list(a, i), list(INV(a), j)): list(a, i+j) = "mac#%"
+  (list(INV(a), i), list(a, j)): list(a, i+j) = "mac#%"
 //
 overload reverse with list_reverse of 100
 overload revappend with list_reverse_append of 100
@@ -113,20 +116,20 @@ list_take
   {a:t0p}
   {n:int}
   {i:nat | i <= n}
-  (xs: list(a, n), i: int(i)): list(a, i) = "mac#%"
+  (xs: list(INV(a), n), i: int(i)): list(a, i) = "mac#%"
 fun
 list_drop
   {a:t0p}
   {n:int}
   {i:nat | i <= n}
-  (xs: list(a, n), i: int(i)): list(a, n-i) = "mac#%"
+  (xs: list(INV(a), n), i: int(i)): list(a, n-i) = "mac#%"
 //
 fun
 list_split_at
   {a:t0p}
   {n:int}
   {i:nat | i <= n}
-  (list(a, n), int(i)): $tup(list(a, i), list(a, n-i)) = "mac#%"
+  (list(INV(a), n), int(i)): $tup(list(a, i), list(a, n-i)) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -135,18 +138,18 @@ list_insert_at
   {a:t0p}
   {n:int}
   {i:nat | i <= n}
-  (list(a, n), int(i), a): list(a, n+1) = "mac#%"
+  (list(INV(a), n), int(i), a): list(a, n+1) = "mac#%"
 //
 fun
 list_remove_at
   {a:t0p}
   {n:int}{i:nat | i < n}
-  (xs: list(a, n), i: int(i)): list(a, n-1) = "mac#%"
+  (xs: list(INV(a), n), i: int(i)): list(a, n-1) = "mac#%"
 fun
 list_takeout_at
   {a:t0p}
   {n:int}{i:nat | i < n}
-  (list(a, n), int(i)): $tup(a, list(a, n-1)) = "mac#%"
+  (list(INV(a), n), int(i)): $tup(a, list(a, n-1)) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -373,6 +376,24 @@ list_ifoldright_method
 ) : res = "mac#%" // end of [list_foldright]
 //
 overload .ifoldright with list_ifoldright_method
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+list_sort_1
+  {n:int}
+  (list(INV(a), n)): list(a, n) = "mac#%"
+//
+fun
+list_sort_2
+  {a:t0p}{n:int}
+(
+  list(INV(a), n), cmp: (a, a) -<cloref1> int
+) : list(a, n) = "mac#%"
+//
+symintr list_sort
+overload list_sort with list_sort_1 of 100
+overload list_sort with list_sort_2 of 100
 //
 (* ****** ****** *)
 
