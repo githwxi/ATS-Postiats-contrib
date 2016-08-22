@@ -52,21 +52,21 @@ $(PATSHOME)/share/atsmake-post.mk
 
 ######
 #
-allpre:: \
+codegen:: \
 lamcal_codegen.atxt; $(MYTEXTING) -o /dev/null -i $<
 #
 ######
 #
-# allpre:: \
+# codegen:: \
 # lamcal_tvar.dats; \
 # $(PATSOPT) -DATS CODEGEN2_FPRINT \
 # --codegen-2 --output-a ./CODEGEN/lamcal_tvar_fprint.hats -d $<
 #
-allpre:: \
+codegen:: \
 lamcal_term.dats; \
 $(PATSOPT) -DATS CODEGEN2_FPRINT \
 --codegen-2 --output-a ./CODEGEN/lamcal_term_fprint.hats -d $<
-allpre:: \
+codegen:: \
 lamcal_aterm.dats; \
 $(PATSOPT) -DATS CODEGEN2_FPRINT \
 --codegen-2 --output-a ./CODEGEN/lamcal_aterm_fprint.hats -d $<
@@ -75,8 +75,9 @@ $(PATSOPT) -DATS CODEGEN2_FPRINT \
 #
 cleanall:: ; $(RMF) CODEGEN/lamcal_sats.hats
 cleanall:: ; $(RMF) CODEGEN/lamcal_tvar_order.hats
-cleanall:: ; $(RMF) CODEGEN/lamcal_tvar_funset.hats
 cleanall:: ; $(RMF) CODEGEN/lamcal_tcst_order.hats
+cleanall:: ; $(RMF) CODEGEN/lamcal_tvar_funset.hats
+cleanall:: ; $(RMF) CODEGEN/lamcal_tpath_funset.hats
 cleanall:: ; $(RMF) CODEGEN/lamcal_term_fprint.hats
 cleanall:: ; $(RMF) CODEGEN/lamcal_aterm_fprint.hats
 #
@@ -92,7 +93,9 @@ regress:: mytest; ./mytest
 
 ######
 #
-cleanall:: ; $(RMF) $(MYPORTDIR)/*
+cleanall:: cleanats
+#
+cleanats:: ; $(RMF) $(MYPORTDIR)/*
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.o
 cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.c
 #
