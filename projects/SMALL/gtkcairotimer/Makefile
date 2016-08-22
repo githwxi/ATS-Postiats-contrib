@@ -57,7 +57,6 @@ cleanall:: ; $(RMF) mytimer1-all
 ######
 
 testall:: all
-testall:: regress
 testall:: cleanall
 
 ######

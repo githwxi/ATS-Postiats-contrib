@@ -72,7 +72,6 @@ cleanall:: ; $(RMF) mypascal
 ######
 
 testall:: all
-testall:: regress
 testall:: cleanall
 
 ######
