@@ -36,12 +36,11 @@ fun
 gtk_widget_get_window
   {c:cls |
    c <= GtkWidget}
-  {l:agz} (
-  widget: !gobjref (c, l)
-) : [l2:agez] (
-  minus (gobjref (c, l), gobjref (GdkWindow, l2)) | gobjref (GdkWindow, l2)
-) = "mac#%" // endfun
-  
+  {l:agz}
+  (widget: !gobjref (c, l))
+: [l2:agez]
+  vtget1(gobjref(c, l), gobjref(GdkWindow, l2)) = "mac#%"
+//
 (* ****** ****** *)
 //
 fun
@@ -74,9 +73,10 @@ gtk_widget_getref_allocation
    c <= GtkWidget}
   {l:agz} (
   widget: !gobjref (c, l)
-) : [l2:agez] (
+) : [l2:agez]
+(
   GtkAllocation @ l2
-, minus (gobjref (c, l), GtkAllocation @ l2) | ptr l2
+, minus_v(gobjref (c, l), GtkAllocation @ l2) | ptr l2
 ) = "mac#%" // endfun
 *)
 

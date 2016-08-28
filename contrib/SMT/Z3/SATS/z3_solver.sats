@@ -98,17 +98,14 @@ fun
 Z3_solver_dec_ref (ctx: !Z3_context, p: Z3_solver): void = "mac#%"
 
 (* ****** ****** *)
-
+//
 fun
 Z3_solver_get_model
   {l:addr}
-(
-  ctx: !Z3_context, s: !Z3_solver l
-) : [l2:addr]
-(
-  minus (Z3_solver l, Z3_model l2) | Z3_model l2
-) = "mac#%" // end of [Z3_solver_get_model]
-
+  (ctx: !Z3_context, s: !Z3_solver(l))
+: [l2:addr]
+  vtget1(Z3_solver(l), Z3_model(l2)) = "mac#%"
+//
 (* ****** ****** *)
 
 fun Z3_solver_pop 

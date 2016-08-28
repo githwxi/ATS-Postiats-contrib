@@ -166,14 +166,17 @@ EVP_MD_CTX_ptr2ptr
 overload ptrcast with EVP_MD_CTX_ptr2ptr
 
 (* ****** ****** *)
-  
+//
 praxi
 EVP_MD_CTX_takeout
   {l:agz}
 (
   ctx: !EVP_MD_CTX_ptr (l)
-): (EVP_MD_CTX @ l, minus (EVP_MD_CTX_ptr (l), EVP_MD_CTX @ l))
-  
+) :
+( EVP_MD_CTX @ l
+, minus_vt(EVP_MD_CTX_ptr (l), EVP_MD_CTX @ l)
+) (* EVP_MD_CTX_takeout *)
+//
 (* ****** ****** *)
 
 praxi

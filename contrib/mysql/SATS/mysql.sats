@@ -459,7 +459,7 @@ fun mysql_fetch_fields
   pf: MYSQLRESnfield (l, n) | res: !MYSQLRESptr l
 ) : [la:addr] (
   array_v (MYSQLROW1 (l), la, n)
-, minus (MYSQLRESptr l, array_v (MYSQLROW1 (l), la, n))
+, minus_v (MYSQLRESptr(l), array_v(MYSQLROW1 (l), la, n))
 | ptr la
 ) = "mac#%" // end of [mysql_fetch_fields]
 

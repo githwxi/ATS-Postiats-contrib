@@ -5,7 +5,6 @@
 *)
 
 (* ****** ****** *)
-
 //
 fun
 evhttp_new{lb:agz}
@@ -53,7 +52,7 @@ fun evhttp_request_free (req: evhttp0_request): void = "mac#%"
 fun
 evhttp_request_get_input_buffer
   {l:agz} (req: !evhttp_request(l))
-: [l2:agz] (minus (evhttp_request(l), evbuffer(l2)) | evbuffer(l2)) = "mac#%"
+: [l2:agz] vtget1(evhttp_request(l), evbuffer(l2)) = "mac#%"
 
 (* ****** ****** *)
   
@@ -73,17 +72,15 @@ fun
 evhttp_request_get_input_headers
   {l:agz} (req: !evhttp_request(l))
 : [l2:agz]
-(
-  minus (evhttp_request l, evkeyvalq l2) | evkeyvalq (l2)
-) = "mac#%" // end of [evhttp_request_get_input_headers]
+  vtget1(evhttp_request(l), evkeyvalq(l2)) = "mac#%"
+// end of [evhttp_request_get_input_headers]
 //
 fun
 evhttp_request_get_output_headers
   {l:agz} (req: !evhttp_request(l))
 : [l2:agz]
-(
-  minus (evhttp_request l, evkeyvalq l2) | evkeyvalq (l2)
-) = "mac#%" // end of [evhttp_request_get_output_headers]
+  vtget1(evhttp_request(l), evkeyvalq(l2)) = "mac#%"
+// end of [evhttp_request_get_output_headers]
 //
 (* ****** ****** *)
 //

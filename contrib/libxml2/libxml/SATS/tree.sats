@@ -211,40 +211,40 @@ xmlAttr_get_type
 fun
 xmlAttr_get_next
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agez] vtget0 (xmlAttrPtr(l1), xmlAttrPtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlAttrPtr(l1), xmlAttrPtr(l2)) = "mac#%"
 fun
 xmlAttr_get_prev
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agez] vtget0 (xmlAttrPtr(l1), xmlAttrPtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlAttrPtr(l1), xmlAttrPtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 
 fun
 xmlAttr_get_parent
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agez] vtget0 (xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
 fun
 xmlAttr_get_children
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agez] vtget0 (xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
 fun
 xmlAttr_get_last
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agez] vtget0 (xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlAttrPtr(l1), xmlNodePtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 
 fun
 xmlAttr_get_doc
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agz] vtget0 (xmlAttrPtr(l1), xmlDocPtr(l2)) = "mac#%"
+: [l2:agz] vtget1(xmlAttrPtr(l1), xmlDocPtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 
 fun
 xmlAttr_get_ns
   {l1:agz} (node: !xmlAttrPtr(l1))
-: [l2:agez] vtget0 (xmlAttrPtr(l1), xmlNsPtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlAttrPtr(l1), xmlNsPtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 
@@ -315,24 +315,24 @@ xmlNode_get_type
 fun
 xmlNode_get_next
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
 fun
 xmlNode_get_prev
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
 
 fun
 xmlNode_get_parent
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
 fun
 xmlNode_get_children
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
 fun
 xmlNode_get_last
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNodePtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 
@@ -340,7 +340,7 @@ xmlNode_get_last
 fun
 xmlNode_get_doc
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agz] vtget0 (xmlNodePtr(l1), xmlDocPtr(l2)) = "mac#%"
+: [l2:agz] vtget1(xmlNodePtr(l1), xmlDocPtr(l2)) = "mac#%"
 *)
 
 (* ****** ****** *)
@@ -349,11 +349,11 @@ xmlNode_get_doc
 fun
 xmlNode_get_ns
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNsPtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNsPtr(l2)) = "mac#%"
 fun
 xmlNode_get_nsDef
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlNsPtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlNsPtr(l2)) = "mac#%"
 *)
 
 (* ****** ****** *)
@@ -361,12 +361,12 @@ xmlNode_get_nsDef
 fun
 xmlNode_get_content
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlStrptr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlStrptr(l2)) = "mac#%"
 
 fun
 xmlNode_get_properties
   {l1:agz} (node: !xmlNodePtr(l1))
-: [l2:agez] vtget0 (xmlNodePtr(l1), xmlAttrPtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlNodePtr(l1), xmlAttrPtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 
@@ -387,7 +387,7 @@ xmlNodePtr xmlDocGetRootElement (xmlDocPtr doc);
 */
 fun xmlDocGetRootElement
   {l1:agz} (doc: !xmlDocPtr(l1))
-: [l2:agez] vtget0 (xmlDocPtr(l1), xmlNodePtr(l2)) = "mac#%"
+: [l2:agez] vtget1(xmlDocPtr(l1), xmlNodePtr(l2)) = "mac#%"
 
 (* ****** ****** *)
 /*

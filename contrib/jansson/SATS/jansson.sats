@@ -173,12 +173,11 @@ fun json_string_nocheck
 fun json_string_value
   {l1:agz} (
   json: !JSONptr (l1)
-) : [l2:agz]
-  (minus (JSONptr l1, strptr l2) | strptr l2) = "mac#%"
+) : [l2:agz] vtget1(JSONptr(l1), strptr(l2)) = "mac#%"
 // end of [json_string_value]
 
 fun json_string_set
-  (json: !JSONptr1, value: NSH(string)): int = "mac#"
+  (json: !JSONptr1, value: NSH(string)): int = "mac#%"
 
 fun json_string_set_nocheck
   (json: !JSONptr1, value: NSH(string)): int = "mac#%"
@@ -223,15 +222,13 @@ fun json_array_size (json: !JSONptr1) : size_t = "mac#%"
 fun json_array_get
   {l1:agz} (
   json: !JSONptr (l1), index: size_t
-) : [l2:addr]
-  (minus (JSONptr l1, JSONptr l2) | JSONptr l2) = "mac#%"
+) : [l2:agez] vtget1(JSONptr(l1), JSONptr(l2)) = "mac#%"
 // end of [json_array_get]
 
 fun json_array_get_exnmsg
   {l1:agz} (
   json: !JSONptr (l1), index: size_t, msg: NSH(string)
-) : [l2:agz]
-  (minus (JSONptr l1, JSONptr l2) | JSONptr l2) = "mac#%"
+) : [l2 : agz] vtget1(JSONptr(l1), JSONptr(l2)) = "mac#%"
 // end of [json_array_get_exnmsg]
 
 macdef
@@ -302,18 +299,15 @@ fun json_object_size (json: !JSONptr1): size_t = "mac#%"
 fun json_object_get
   {l1:agz} (
   json: !JSONptr l1, key: NSH(string)
-) : [l2:addr]
-  (minus (JSONptr l1, JSONptr l2) | JSONptr l2) = "mac#%"
+) : [l2:agez] vtget1(JSONptr(l1), JSONptr(l2)) = "mac#%"
 // end of [json_object_get]
 
 fun
-json_object_get_exnmsg {l1:agz}
-(
+json_object_get_exnmsg
+  {l1:agz} (
   json: !JSONptr l1, key: NSH(string), msg: NSH(string)
-) : [l2:agz]
-(
-  minus (JSONptr l1, JSONptr l2) | JSONptr l2
-) = "mac#%" // end of [json_object_get_exnmsg]
+) : [l2 : agz] vtget1(JSONptr(l1), JSONptr(l2)) = "mac#%"
+// end of [json_object_get_exnmsg]
 
 macdef
 json_object_get_exnloc (x, k) =

@@ -100,17 +100,17 @@ char *request (const char *url)
 
 (* ****** ****** *)
 
+#include
+"share/atspre_staload.hats"
+
+(* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+
 staload "./../SATS/jansson.sats"
-
-(* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload INT = "prelude/DATS/integer.dats"
-staload STRING = "prelude/DATS/string.dats"
-staload STRPTR = "prelude/DATS/strptr.dats"
 
 (* ****** ****** *)
 

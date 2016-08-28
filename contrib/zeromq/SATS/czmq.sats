@@ -122,12 +122,9 @@ zsock_new_pair (name: string): zsock0 = "mac#%"
 fun
 zsock_get_socket
   {l:agz}
-(
-  sock: !zsock(l)
-) : [l2:agz]
-(
-  minus (zsock(l), zmqsock(l2)) | zmqsock(l2)
-) = "mac#%" // end of [zsock_get_socket]
+  (sock: !zsock(l))
+: [l2:agz]
+  vtget1(zsock(l), zmqsock(l2)) = "mac#%"
 //
 (* ****** ****** *)
 //

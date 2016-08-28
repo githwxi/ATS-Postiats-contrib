@@ -54,7 +54,7 @@ fun cairo_restore
 cairo_surface_t *cairo_get_target (cairo_t *cr);
 */
 fun cairo_get_target
-  {l1:agz} (ctx: !xr l1): [l2:agz] vtget0 (xr l1, xrsf l2) = "mac#%"
+  {l1:agz} (ctx: !xr l1): [l2:agz] vtget1(xr(l1), xrsf(l2)) = "mac#%"
 // end of [cairo_get_target]
 
 fun cairo_get1_target (ctx: !xr1): xrsf1 = "ext#%" // for convenience
@@ -101,7 +101,7 @@ fun cairo_pop_group_to_source
 cairo_surface_t *cairo_get_group_target (cairo_t *cr);
 */
 fun cairo_get0_group_target
-  {l1:agz} (ctx: !xr l1): [l2:agz] vtget0 (xr l1, xrsf l2) = "mac#%"
+  {l1:agz} (ctx: !xr l1): [l2:agz] vtget1(xr(l1), xrsf(l2)) = "mac#%"
 // end of [cairo_get0_group_target]
 
 fun cairo_get1_group_target (ctx: !xr1): xrsf1 = "ext#%" // for convenience
@@ -174,7 +174,7 @@ cairo_pattern_t *cairo_get_source (cairo_t *cr);
 fun cairo_get_source
   {l1:agz} (
   ctx: !xr l1
-) : [l2:agz] vtget0 (xr l1, xrpat l2) = "mac#%"
+) : [l2:agz] vtget1(xr(l1), xrpat(l2)) = "mac#%"
 // end of [cairo_get_source]
 
 fun cairo_get1_source (ctx: !xr1): xrpat1 = "ext#%" // for convenience
