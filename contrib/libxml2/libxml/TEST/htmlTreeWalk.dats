@@ -65,23 +65,25 @@ val p_node = ptrcast (node)
 //
 in
 //
-if p_node > 0 then let
-  val name = __name (node)
+if (
+p_node > 0
+) then let
+  val name = node.name()
   val () = indent (out, nspace)
   val () = fprintln! (out, "<", name, ">")
 //
-  val (fpf | proplst) = __properties (node)
+  val (fpf | proplst) = node.properties()
   val () = auxAttr (out, proplst, nspace)
   prval () = minus_addback (fpf, proplst | node)
 //
-  val (fpf | nodelst) = __children (node)
+  val (fpf | nodelst) = node.children()
   val () = auxNode (out, nodelst, nspace+2)
   prval () = minus_addback (fpf, nodelst | node)
 //
   val () = indent (out, nspace)
   val () = fprintln! (out, "</", name, ">")
 //
-  val (fpf | node_next) = __next (node)
+  val (fpf | node_next) = node.next()
   val () = auxNode (out, node_next, nspace)
   prval () = minus_addback (fpf, node_next | node)
 //
@@ -97,14 +99,18 @@ and auxAttr
 , attr: !xmlAttrPtr0
 , nspace: int
 ) : void = let
-  val p_attr = ptrcast (attr)
+//
+val p_attr = ptrcast(attr)
+//
 in
 //
-if p_attr > 0 then let
-  val name = __name (attr)
+if (
+p_attr > 0
+) then let
+  val name = attr.name()
   val () = indent (out, nspace)
   val () = fprintln! (out, "  -> with attribute: ", name)
-  val (fpf | attr2) = __next (attr)
+  val (fpf | attr2) = attr.next()
   val () = auxAttr (out, attr2, nspace)
   prval () = minus_addback (fpf, attr2 | attr)
 in
@@ -127,8 +133,10 @@ val filename =
   "DATA/atslangweb_home.html"
 val encoding = stropt_none((*void*))
 //
-val doc = htmlParseFile (filename, encoding)
-val ((*void*)) = assertloc (ptrcast (doc) > 0)
+val doc =
+  htmlParseFile(filename, encoding)
+//
+val ((*void*)) = assertloc(ptrcast(doc) > 0)
 //
 val () = println! ("The file [", filename, "] has been parsed successfully!")
 //
