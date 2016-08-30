@@ -19,12 +19,14 @@ staload "./../utfpl.sats"
 staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
-
+//
 extern
-fun the_d2cstmap_find (stamp): d2cstopt_vt
+fun
+the_d2cstmap_find(stamp): d2cstopt_vt
 extern
-fun the_d2cstmap_insert (d2c: d2cst): void
-
+fun
+the_d2cstmap_insert(d2c: d2cst): void
+//
 (* ****** ****** *)
 
 local
@@ -49,10 +51,12 @@ implement
 the_d2cstmap_find
   (k0) = let
 //
-val (vbox(pf) | p) = ref_get_viewptr (the_d2cstmap)
+val
+(vbox(pf)|p) =
+ref_get_viewptr(the_d2cstmap)
 //
 in
-  $effmask_ref ($FM.funmap_search_opt (!p, k0))
+  $effmask_ref($FM.funmap_search_opt(!p, k0))
 end // end of [the_d2cstmap_find]
 
 implement
@@ -60,8 +64,9 @@ the_d2cstmap_insert
   (d2c0) = let
 //
 val k0 = d2c0.stamp()
-val (vbox(pf) | p) = ref_get_viewptr (the_d2cstmap)
-val-~None_vt ((*void*)) = $effmask_ref ($FM.funmap_insert_opt (!p, k0, d2c0))
+val (vbox(pf)|p) = ref_get_viewptr(the_d2cstmap)
+val-~None_vt ((*void*)) =
+  $effmask_ref($FM.funmap_insert_opt(!p, k0, d2c0))
 //
 in
   // nothing
@@ -101,7 +106,9 @@ end // end of [parse_d2cst]
   
 implement
 parse_d2cstmap
-  (jsv0) = let
+  (jsv0) =
+  loop(jsvs) where
+{
 //
 fun
 loop
@@ -113,15 +120,13 @@ case+ jsvs of
 | list_nil () => ()
 | list_cons
     (jsv, jsvs) => let
-    val d2c = parse_d2cst(jsv) in loop (jsvs)
+    val d2c = parse_d2cst(jsv) in loop(jsvs)
   end // end of [list_cons]
 )
 //
 val-JSONarray(jsvs) = jsv0
 //
-in
-  loop (jsvs)
-end // end of [parse_d2cstmap]
+} (* end of [parse_d2cstmap] *)
   
 (* ****** ****** *)
 
