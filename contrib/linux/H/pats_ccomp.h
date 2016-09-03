@@ -46,8 +46,7 @@
 /* ****** ****** */
 //
 #include <linux/types.h>
-#include \
-"kernelats/prelude/CATS/integer_fixed.cats"
+#include "kernelats/prelude/CATS/integer_fixed.cats"
 //
 /* ****** ****** */
 
