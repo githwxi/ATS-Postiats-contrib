@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,17 +28,16 @@
 /* ****** ****** */
 
 /*
-** Source:
-** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Thu Apr 10 00:26:17 2014
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: January, 2013 *)
 */
 
 /* ****** ****** */
-
 /*
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: January, 2013 *)
+** Source:
+** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
+** Time of generation: Sun Aug 21 20:48:34 2016
 */
 
 /* ****** ****** */
@@ -48,112 +47,37 @@
 
 /* ****** ****** */
 //
-#define atspre_g0int2int_int_int(x) (x)
-#define atspre_g0int2int_int_lint(x) ((atstype_lint)(x))
-#define atspre_g0int2int_int_llint(x) ((atstype_llint)(x))
-#define atspre_g0int2int_int_ssize(x) ((atstype_ssize)(x))
-#define atspre_g1int2int_int_int atspre_g0int2int_int_int
-#define atspre_g1int2int_int_lint atspre_g0int2int_int_lint
-#define atspre_g1int2int_int_llint atspre_g0int2int_int_llint
-#define atspre_g1int2int_int_ssize atspre_g0int2int_int_ssize
-//
-#define atspre_g0int2int_lint_int(x) ((atstype_int)(x))
-#define atspre_g0int2int_lint_lint(x) (x)
-#define atspre_g0int2int_lint_llint(x) ((atstype_llint)(x))
-#define atspre_g0int2int_lint_ssize(x) ((atstype_ssize)(x))
-#define atspre_g1int2int_lint_int atspre_g0int2int_lint_int
-#define atspre_g1int2int_lint_lint atspre_g0int2int_lint_lint
-#define atspre_g1int2int_lint_llint atspre_g0int2int_lint_llint
-#define atspre_g1int2int_lint_ssize atspre_g0int2int_lint_ssize
-//
-#define atspre_g0int2int_ssize_int(x) ((atstype_int)(x))
-#define atspre_g0int2int_ssize_lint(x) ((atstype_lint)(x))
-#define atspre_g0int2int_ssize_llint(x) ((atstype_llint)(x))
-#define atspre_g0int2int_ssize_ssize(x) (x)
-#define atspre_g1int2int_ssize_int atspre_g0int2int_ssize_int
-#define atspre_g1int2int_ssize_lint atspre_g0int2int_ssize_lint
-#define atspre_g1int2int_ssize_llint atspre_g0int2int_ssize_llint
-#define atspre_g1int2int_ssize_ssize atspre_g0int2int_ssize_ssize
+#define \
+atspre_g0int2int_int_int(x) ((atstype_int)(x))
+#define \
+atspre_g1int2int_int_int(x) atspre_g0int2int_int_int(x)
 //
 /* ****** ****** */
 //
-#define atspre_g0int2int_sint_int(x) ((atstype_int)(x))
-//
-/* ****** ****** */
-//
-#define atspre_g0int2uint_int_uint(x) ((atstype_uint)(x))
-#define atspre_g0int2uint_int_ulint(x) ((atstype_ulint)(x))
-#define atspre_g0int2uint_int_ullint(x) ((atstype_ullint)(x))
-#define atspre_g0int2uint_int_size(x) ((atstype_size)(x))
-#define atspre_g1int2uint_int_uint atspre_g0int2uint_int_uint
-#define atspre_g1int2uint_int_ulint atspre_g0int2uint_int_ulint
-#define atspre_g1int2uint_int_ullint atspre_g0int2uint_int_ullint
-#define atspre_g1int2uint_int_size atspre_g0int2uint_int_size
-//
-#define atspre_g0int2uint_lint_ulint(x) ((atstype_ulint)(x))
-#define atspre_g0int2uint_lint_ullint(x) ((atstype_ullint)(x))
-#define atspre_g0int2uint_lint_size(x) ((atstype_size)(x))
-#define atspre_g1int2uint_lint_ulint atspre_g0int2uint_lint_ulint
-#define atspre_g1int2uint_lint_ullint atspre_g0int2uint_lint_ullint
-#define atspre_g1int2uint_lint_size atspre_g0int2uint_lint_size
-//
-#define atspre_g0int2uint_llint_ullint(x) ((atstype_ullint)(x))
-#define atspre_g1int2uint_llint_ullint atspre_g0int2uint_llint_ullint
+#define \
+atspre_g0int2uint_int_uint(x) ((atstype_uint)(x))
+#define \
+atspre_g1int2uint_int_uint(x) atspre_g0int2uint_int_uint(x)
 //
 /* ****** ****** */
 //
 #define atspre_g0uint2int_uint_int(x) ((atstype_int)(x))
-#define atspre_g0uint2int_uint_lint(x) ((atstype_lint)(x))
-#define atspre_g0uint2int_uint_llint(x) ((atstype_llint)(x))
-#define atspre_g0uint2int_uint_ssize(x) ((atstype_ssize)(x))
-#define atspre_g1uint2int_uint_int atspre_g0uint2int_uint_int
-#define atspre_g1uint2int_uint_lint atspre_g0uint2int_uint_lint
-#define atspre_g1uint2int_uint_llint atspre_g0uint2int_uint_llint
-#define atspre_g1uint2int_uint_ssize atspre_g0uint2int_uint_ssize
 //
 /* ****** ****** */
 //
-#define atspre_g0uint2int_size_int(x) ((atstype_int)(x))
-#define atspre_g0uint2int_size_lint(x) ((atstype_lint)(x))
-#define atspre_g0uint2int_size_llint(x) ((atstype_llint)(x))
-#define atspre_g0uint2int_size_ssize(x) ((atstype_ssize)(x))
-#define atspre_g1uint2int_size_int atspre_g0uint2int_size_int
-#define atspre_g1uint2int_size_lint atspre_g0uint2int_size_lint
-#define atspre_g1uint2int_size_llint atspre_g0uint2int_size_llint
-#define atspre_g1uint2int_size_ssize atspre_g0uint2int_size_ssize
-//
-/* ****** ****** */
-//
-#define atspre_g0uint2uint_uint_uint(x) (x)
-#define atspre_g0uint2uint_uint_ulint(x) ((atstype_ulint)(x))
-#define atspre_g0uint2uint_uint_ullint(x) ((atstype_ullint)(x))
-#define atspre_g0uint2uint_uint_size(x) ((atstype_size)(x))
-#define atspre_g1uint2uint_uint_uint atspre_g0uint2uint_uint_uint
-#define atspre_g1uint2uint_uint_ulint atspre_g0uint2uint_uint_ulint
-#define atspre_g1uint2uint_uint_ullint atspre_g0uint2uint_uint_ullint
-#define atspre_g1uint2uint_uint_size atspre_g0uint2uint_uint_size
+#define \
+atspre_g0uint2uint_uint_uint(x) (x)
+#define \
+atspre_g1uint2uint_uint_uint(x) atspre_g0uint2uint_uint_uint(x)
 //
 /* ****** ****** */
 //
 #define atspre_g0uint2uint_ulint_uint(x) ((atstype_uint)(x))
 #define atspre_g0uint2uint_ulint_ulint(x) (x)
 #define atspre_g0uint2uint_ulint_ullint(x) ((atstype_ullint)(x))
-#define atspre_g0uint2uint_ulint_size(x) ((atstype_size)(x))
 #define atspre_g1uint2uint_ulint_uint atspre_g0uint2uint_ulint_uint
 #define atspre_g1uint2uint_ulint_ulint atspre_g0uint2uint_ulint_ulint
 #define atspre_g1uint2uint_ulint_ullint atspre_g0uint2uint_ulint_ullint
-#define atspre_g1uint2uint_ulint_size atspre_g0uint2uint_ulint_size
-//
-/* ****** ****** */
-//
-#define atspre_g0uint2uint_size_uint(x) ((atstype_uint)(x))
-#define atspre_g0uint2uint_size_ulint(x) ((atstype_ulint)(x))
-#define atspre_g0uint2uint_size_ullint(x) ((atstype_ullint)(x))
-#define atspre_g0uint2uint_size_size(x) (x)
-#define atspre_g1uint2uint_size_uint atspre_g0uint2uint_size_uint
-#define atspre_g1uint2uint_size_ulint atspre_g0uint2uint_size_ulint
-#define atspre_g1uint2uint_size_ullint atspre_g0uint2uint_size_ullint
-#define atspre_g1uint2uint_size_size atspre_g0uint2uint_size_size
 //
 /* ****** ****** */
 //
@@ -177,10 +101,6 @@ ATSinline()
 atstype_llint
 atspre_g0string2int_llint
   (atstype_string inp) { return atoll((char*)inp) ; }
-ATSinline()
-atstype_ssize
-atspre_g0string2int_ssize
-  (atstype_string inp) { return atol((char*)inp) ; }
 //
 /* ****** ****** */
 //
@@ -203,13 +123,9 @@ ATSinline()
 atstype_ullint
 atspre_g0string2uint_ullint
   (atstype_string inp) { return strtoull((char*)inp, NULL, 10) ; }
-ATSinline()
-atstype_size
-atspre_g0string2uint_size
-  (atstype_string inp) { return strtoul((char*)inp, NULL, 10) ; }
 //
 /* ****** ****** */
-
+//
 ATSinline()
 atstype_int
 atspre_g0int_neg_int
@@ -277,42 +193,6 @@ atspre_g0int_asr_int
 // end of [atspre_g0int_asr_int]
 ATSinline()
 atstype_bool
-atspre_g0int_isltz_int (atstype_int x)
-{
-  return (x < 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltz_int]
-ATSinline()
-atstype_bool
-atspre_g0int_isltez_int (atstype_int x)
-{
-  return (x <= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltez_int]
-ATSinline()
-atstype_bool
-atspre_g0int_isgtz_int (atstype_int x)
-{
-  return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtz_int]
-ATSinline()
-atstype_bool
-atspre_g0int_isgtez_int (atstype_int x)
-{
-  return (x >= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtez_int]
-ATSinline()
-atstype_bool
-atspre_g0int_iseqz_int (atstype_int x)
-{
-  return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_iseqz_int]
-ATSinline()
-atstype_bool
-atspre_g0int_isneqz_int (atstype_int x)
-{
-  return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isneqz_int]
-ATSinline()
-atstype_bool
 atspre_g0int_lt_int
 (
   atstype_int x1, atstype_int x2
@@ -377,6 +257,42 @@ atstype_int
 atspre_g0int_min_int
   (atstype_int x1, atstype_int x2) { return (x1 <= x2 ? x1 : x2) ; }
 // end of [atspre_g0int_min_int]
+ATSinline()
+atstype_bool
+atspre_g0int_isltz_int (atstype_int x)
+{
+  return (x < 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isltz_int]
+ATSinline()
+atstype_bool
+atspre_g0int_isltez_int (atstype_int x)
+{
+  return (x <= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isltez_int]
+ATSinline()
+atstype_bool
+atspre_g0int_isgtz_int (atstype_int x)
+{
+  return (x > 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isgtz_int]
+ATSinline()
+atstype_bool
+atspre_g0int_isgtez_int (atstype_int x)
+{
+  return (x >= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isgtez_int]
+ATSinline()
+atstype_bool
+atspre_g0int_iseqz_int (atstype_int x)
+{
+  return (x == 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_iseqz_int]
+ATSinline()
+atstype_bool
+atspre_g0int_isneqz_int (atstype_int x)
+{
+  return (x != 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isneqz_int]
 //
 ATSinline()
 atstype_lint
@@ -445,42 +361,6 @@ atspre_g0int_asr_lint
 // end of [atspre_g0int_asr_lint]
 ATSinline()
 atstype_bool
-atspre_g0int_isltz_lint (atstype_lint x)
-{
-  return (x < 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltz_lint]
-ATSinline()
-atstype_bool
-atspre_g0int_isltez_lint (atstype_lint x)
-{
-  return (x <= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltez_lint]
-ATSinline()
-atstype_bool
-atspre_g0int_isgtz_lint (atstype_lint x)
-{
-  return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtz_lint]
-ATSinline()
-atstype_bool
-atspre_g0int_isgtez_lint (atstype_lint x)
-{
-  return (x >= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtez_lint]
-ATSinline()
-atstype_bool
-atspre_g0int_iseqz_lint (atstype_lint x)
-{
-  return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_iseqz_lint]
-ATSinline()
-atstype_bool
-atspre_g0int_isneqz_lint (atstype_lint x)
-{
-  return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isneqz_lint]
-ATSinline()
-atstype_bool
 atspre_g0int_lt_lint
 (
   atstype_lint x1, atstype_lint x2
@@ -545,6 +425,42 @@ atstype_lint
 atspre_g0int_min_lint
   (atstype_lint x1, atstype_lint x2) { return (x1 <= x2 ? x1 : x2) ; }
 // end of [atspre_g0int_min_lint]
+ATSinline()
+atstype_bool
+atspre_g0int_isltz_lint (atstype_lint x)
+{
+  return (x < 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isltz_lint]
+ATSinline()
+atstype_bool
+atspre_g0int_isltez_lint (atstype_lint x)
+{
+  return (x <= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isltez_lint]
+ATSinline()
+atstype_bool
+atspre_g0int_isgtz_lint (atstype_lint x)
+{
+  return (x > 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isgtz_lint]
+ATSinline()
+atstype_bool
+atspre_g0int_isgtez_lint (atstype_lint x)
+{
+  return (x >= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isgtez_lint]
+ATSinline()
+atstype_bool
+atspre_g0int_iseqz_lint (atstype_lint x)
+{
+  return (x == 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_iseqz_lint]
+ATSinline()
+atstype_bool
+atspre_g0int_isneqz_lint (atstype_lint x)
+{
+  return (x != 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0int_isneqz_lint]
 //
 ATSinline()
 atstype_llint
@@ -613,42 +529,6 @@ atspre_g0int_asr_llint
 // end of [atspre_g0int_asr_llint]
 ATSinline()
 atstype_bool
-atspre_g0int_isltz_llint (atstype_llint x)
-{
-  return (x < 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltz_llint]
-ATSinline()
-atstype_bool
-atspre_g0int_isltez_llint (atstype_llint x)
-{
-  return (x <= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltez_llint]
-ATSinline()
-atstype_bool
-atspre_g0int_isgtz_llint (atstype_llint x)
-{
-  return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtz_llint]
-ATSinline()
-atstype_bool
-atspre_g0int_isgtez_llint (atstype_llint x)
-{
-  return (x >= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtez_llint]
-ATSinline()
-atstype_bool
-atspre_g0int_iseqz_llint (atstype_llint x)
-{
-  return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_iseqz_llint]
-ATSinline()
-atstype_bool
-atspre_g0int_isneqz_llint (atstype_llint x)
-{
-  return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isneqz_llint]
-ATSinline()
-atstype_bool
 atspre_g0int_lt_llint
 (
   atstype_llint x1, atstype_llint x2
@@ -713,174 +593,42 @@ atstype_llint
 atspre_g0int_min_llint
   (atstype_llint x1, atstype_llint x2) { return (x1 <= x2 ? x1 : x2) ; }
 // end of [atspre_g0int_min_llint]
-//
-ATSinline()
-atstype_ssize
-atspre_g0int_neg_ssize
-  (atstype_ssize x) { return (-x) ; }
-// end of [atspre_g0int_neg_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_abs_ssize
-  (atstype_ssize x) { return (x >= 0 ? x : -x) ; }
-// end of [atspre_g0int_abs_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_succ_ssize
-  (atstype_ssize x) { return (x + 1) ; }
-// end of [atspre_g0int_succ_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_pred_ssize
-  (atstype_ssize x) { return (x - 1) ; }
-// end of [atspre_g0int_pred_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_half_ssize
-  (atstype_ssize x) { return (x / 2) ; }
-// end of [atspre_g0int_half_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_add_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 + x2) ; }
-// end of [atspre_g0int_add_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_sub_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 - x2) ; }
-// end of [atspre_g0int_sub_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_mul_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 * x2) ; }
-// end of [atspre_g0int_mul_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_div_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 / x2) ; }
-// end of [atspre_g0int_div_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_mod_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 % x2) ; }
-// end of [atspre_g0int_mod_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_nmod_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 % x2) ; }
-// end of [atspre_g0int_nmod_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_asl_ssize
-  (atstype_ssize x, atstype_int n) { return (x << n) ; }
-// end of [atspre_g0int_asl_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_asr_ssize
-  (atstype_ssize x, atstype_int n) { return (x >> n) ; }
-// end of [atspre_g0int_asr_ssize]
 ATSinline()
 atstype_bool
-atspre_g0int_isltz_ssize (atstype_ssize x)
+atspre_g0int_isltz_llint (atstype_llint x)
 {
   return (x < 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltz_ssize]
+} // end of [atspre_g0int_isltz_llint]
 ATSinline()
 atstype_bool
-atspre_g0int_isltez_ssize (atstype_ssize x)
+atspre_g0int_isltez_llint (atstype_llint x)
 {
   return (x <= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isltez_ssize]
+} // end of [atspre_g0int_isltez_llint]
 ATSinline()
 atstype_bool
-atspre_g0int_isgtz_ssize (atstype_ssize x)
+atspre_g0int_isgtz_llint (atstype_llint x)
 {
   return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtz_ssize]
+} // end of [atspre_g0int_isgtz_llint]
 ATSinline()
 atstype_bool
-atspre_g0int_isgtez_ssize (atstype_ssize x)
+atspre_g0int_isgtez_llint (atstype_llint x)
 {
   return (x >= 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isgtez_ssize]
+} // end of [atspre_g0int_isgtez_llint]
 ATSinline()
 atstype_bool
-atspre_g0int_iseqz_ssize (atstype_ssize x)
+atspre_g0int_iseqz_llint (atstype_llint x)
 {
   return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_iseqz_ssize]
+} // end of [atspre_g0int_iseqz_llint]
 ATSinline()
 atstype_bool
-atspre_g0int_isneqz_ssize (atstype_ssize x)
+atspre_g0int_isneqz_llint (atstype_llint x)
 {
   return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_isneqz_ssize]
-ATSinline()
-atstype_bool
-atspre_g0int_lt_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  return (x1 < x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_lt_ssize]
-ATSinline()
-atstype_bool
-atspre_g0int_lte_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  return (x1 <= x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_lte_ssize]
-ATSinline()
-atstype_bool
-atspre_g0int_gt_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  return (x1 > x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_gt_ssize]
-ATSinline()
-atstype_bool
-atspre_g0int_gte_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  return (x1 >= x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_gte_ssize]
-ATSinline()
-atstype_bool
-atspre_g0int_eq_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  return (x1 == x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_eq_ssize]
-ATSinline()
-atstype_bool
-atspre_g0int_neq_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  return (x1 != x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0int_neq_ssize]
-ATSinline()
-atstype_int
-atspre_g0int_compare_ssize
-(
-  atstype_ssize x1, atstype_ssize x2
-) {
-  if (x1 < x2) return -1 ; else if (x1 > x2) return 1 ; else return 0 ;
-} // end of [atspre_g0int_compare_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_max_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 >= x2 ? x1 : x2) ; }
-// end of [atspre_g0int_max_ssize]
-ATSinline()
-atstype_ssize
-atspre_g0int_min_ssize
-  (atstype_ssize x1, atstype_ssize x2) { return (x1 <= x2 ? x1 : x2) ; }
-// end of [atspre_g0int_min_ssize]
+} // end of [atspre_g0int_isneqz_llint]
 //
 /* ****** ****** */
 
@@ -965,34 +713,7 @@ atspre_g0int_min_ssize
 #define atspre_g1int_min_llint atspre_g0int_min_llint
 
 /* ****** ****** */
-
-#define atspre_g1int_neg_ssize atspre_g0int_neg_ssize
-#define atspre_g1int_succ_ssize atspre_g0int_succ_ssize
-#define atspre_g1int_pred_ssize atspre_g0int_pred_ssize
-#define atspre_g1int_half_ssize atspre_g0int_half_ssize
-#define atspre_g1int_add_ssize atspre_g0int_add_ssize
-#define atspre_g1int_sub_ssize atspre_g0int_sub_ssize
-#define atspre_g1int_mul_ssize atspre_g0int_mul_ssize
-#define atspre_g1int_div_ssize atspre_g0int_div_ssize
-#define atspre_g1int_nmod_ssize atspre_g0int_nmod_ssize
-#define atspre_g1int_isltz_ssize atspre_g0int_isltz_ssize
-#define atspre_g1int_isltez_ssize atspre_g0int_isltez_ssize
-#define atspre_g1int_isgtz_ssize atspre_g0int_isgtz_ssize
-#define atspre_g1int_isgtez_ssize atspre_g0int_isgtez_ssize
-#define atspre_g1int_iseqz_ssize atspre_g0int_iseqz_ssize
-#define atspre_g1int_isneqz_ssize atspre_g0int_isneqz_ssize
-#define atspre_g1int_lt_ssize atspre_g0int_lt_ssize
-#define atspre_g1int_lte_ssize atspre_g0int_lte_ssize
-#define atspre_g1int_gt_ssize atspre_g0int_gt_ssize
-#define atspre_g1int_gte_ssize atspre_g0int_gte_ssize
-#define atspre_g1int_eq_ssize atspre_g0int_eq_ssize
-#define atspre_g1int_neq_ssize atspre_g0int_neq_ssize
-#define atspre_g1int_compare_ssize atspre_g0int_compare_ssize
-#define atspre_g1int_max_ssize atspre_g0int_max_ssize
-#define atspre_g1int_min_ssize atspre_g0int_min_ssize
-
-/* ****** ****** */
-
+//
 ATSinline()
 atstype_uint
 atspre_g0uint_succ_uint
@@ -1065,24 +786,6 @@ atspre_g0uint_lxor_uint
 // end of [atspre_g0uint_uint_uint]
 ATSinline()
 atstype_bool
-atspre_g0uint_isgtz_uint (atstype_uint x)
-{
-  return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isgtz_uint]
-ATSinline()
-atstype_bool
-atspre_g0uint_iseqz_uint (atstype_uint x)
-{
-  return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_iseqz_uint]
-ATSinline()
-atstype_bool
-atspre_g0uint_isneqz_uint (atstype_uint x)
-{
-  return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isneqz_uint]
-ATSinline()
-atstype_bool
 atspre_g0uint_lt_uint
 (
   atstype_uint x1, atstype_uint x2
@@ -1147,6 +850,30 @@ atstype_uint
 atspre_g0uint_min_uint
   (atstype_uint x1, atstype_uint x2) { return (x1 <= x2 ? x1 : x2) ; }
 // end of [atspre_g0uint_min_uint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isltez_uint (atstype_uint x)
+{
+  return (x <= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isltez_uint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isgtz_uint (atstype_uint x)
+{
+  return (x > 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isgtz_uint]
+ATSinline()
+atstype_bool
+atspre_g0uint_iseqz_uint (atstype_uint x)
+{
+  return (x == 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_iseqz_uint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isneqz_uint (atstype_uint x)
+{
+  return (x != 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isneqz_uint]
 //
 ATSinline()
 atstype_ulint
@@ -1220,24 +947,6 @@ atspre_g0uint_lxor_ulint
 // end of [atspre_g0uint_ulint_ulint]
 ATSinline()
 atstype_bool
-atspre_g0uint_isgtz_ulint (atstype_ulint x)
-{
-  return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isgtz_ulint]
-ATSinline()
-atstype_bool
-atspre_g0uint_iseqz_ulint (atstype_ulint x)
-{
-  return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_iseqz_ulint]
-ATSinline()
-atstype_bool
-atspre_g0uint_isneqz_ulint (atstype_ulint x)
-{
-  return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isneqz_ulint]
-ATSinline()
-atstype_bool
 atspre_g0uint_lt_ulint
 (
   atstype_ulint x1, atstype_ulint x2
@@ -1302,6 +1011,30 @@ atstype_ulint
 atspre_g0uint_min_ulint
   (atstype_ulint x1, atstype_ulint x2) { return (x1 <= x2 ? x1 : x2) ; }
 // end of [atspre_g0uint_min_ulint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isltez_ulint (atstype_ulint x)
+{
+  return (x <= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isltez_ulint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isgtz_ulint (atstype_ulint x)
+{
+  return (x > 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isgtz_ulint]
+ATSinline()
+atstype_bool
+atspre_g0uint_iseqz_ulint (atstype_ulint x)
+{
+  return (x == 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_iseqz_ulint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isneqz_ulint (atstype_ulint x)
+{
+  return (x != 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isneqz_ulint]
 //
 ATSinline()
 atstype_ullint
@@ -1375,24 +1108,6 @@ atspre_g0uint_lxor_ullint
 // end of [atspre_g0uint_ullint_ullint]
 ATSinline()
 atstype_bool
-atspre_g0uint_isgtz_ullint (atstype_ullint x)
-{
-  return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isgtz_ullint]
-ATSinline()
-atstype_bool
-atspre_g0uint_iseqz_ullint (atstype_ullint x)
-{
-  return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_iseqz_ullint]
-ATSinline()
-atstype_bool
-atspre_g0uint_isneqz_ullint (atstype_ullint x)
-{
-  return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isneqz_ullint]
-ATSinline()
-atstype_bool
 atspre_g0uint_lt_ullint
 (
   atstype_ullint x1, atstype_ullint x2
@@ -1457,161 +1172,30 @@ atstype_ullint
 atspre_g0uint_min_ullint
   (atstype_ullint x1, atstype_ullint x2) { return (x1 <= x2 ? x1 : x2) ; }
 // end of [atspre_g0uint_min_ullint]
-//
-ATSinline()
-atstype_size
-atspre_g0uint_succ_size
-  (atstype_size x) { return (x + 1) ; }
-// end of [atspre_g0uint_succ_size]
-ATSinline()
-atstype_size
-atspre_g0uint_pred_size
-  (atstype_size x) { return (x - 1) ; }
-// end of [atspre_g0uint_pred_size]
-ATSinline()
-atstype_size
-atspre_g0uint_half_size
-  (atstype_size x) { return (x >> 1) ; }
-// end of [atspre_g0uint_half_size]
-ATSinline()
-atstype_size
-atspre_g0uint_add_size
-  (atstype_size x1, atstype_size x2) { return (x1 + x2) ; }
-// end of [atspre_g0uint_add_size]
-ATSinline()
-atstype_size
-atspre_g0uint_sub_size
-  (atstype_size x1, atstype_size x2) { return (x1 - x2) ; }
-// end of [atspre_g0uint_sub_size]
-ATSinline()
-atstype_size
-atspre_g0uint_mul_size
-  (atstype_size x1, atstype_size x2) { return (x1 * x2) ; }
-// end of [atspre_g0uint_mul_size]
-ATSinline()
-atstype_size
-atspre_g0uint_div_size
-  (atstype_size x1, atstype_size x2) { return (x1 / x2) ; }
-// end of [atspre_g0uint_div_size]
-ATSinline()
-atstype_size
-atspre_g0uint_mod_size
-  (atstype_size x1, atstype_size x2) { return (x1 % x2) ; }
-// end of [atspre_g0uint_mod_size]
-ATSinline()
-atstype_size
-atspre_g0uint_lsl_size
-  (atstype_size x, atstype_int n) { return (x << n) ; }
-// end of [atspre_g0uint_lsl_size]
-ATSinline()
-atstype_size
-atspre_g0uint_lsr_size
-  (atstype_size x, atstype_int n) { return (x >> n) ; }
-// end of [atspre_g0uint_lsr_size]
-ATSinline()
-atstype_size
-atspre_g0uint_lnot_size
-  (atstype_size x) { return ~(x) ; }
-// end of [atspre_g0uint_lnot_size]
-ATSinline()
-atstype_size
-atspre_g0uint_lor_size
-  (atstype_size x, atstype_size y) { return (x | y) ; }
-// end of [atspre_g0uint_size_size]
-ATSinline()
-atstype_size
-atspre_g0uint_land_size
-  (atstype_size x, atstype_size y) { return (x & y) ; }
-// end of [atspre_g0uint_size_size]
-ATSinline()
-atstype_size
-atspre_g0uint_lxor_size
-  (atstype_size x, atstype_size y) { return (x ^ y) ; }
-// end of [atspre_g0uint_size_size]
 ATSinline()
 atstype_bool
-atspre_g0uint_isgtz_size (atstype_size x)
+atspre_g0uint_isltez_ullint (atstype_ullint x)
+{
+  return (x <= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atspre_g0uint_isltez_ullint]
+ATSinline()
+atstype_bool
+atspre_g0uint_isgtz_ullint (atstype_ullint x)
 {
   return (x > 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isgtz_size]
+} // end of [atspre_g0uint_isgtz_ullint]
 ATSinline()
 atstype_bool
-atspre_g0uint_iseqz_size (atstype_size x)
+atspre_g0uint_iseqz_ullint (atstype_ullint x)
 {
   return (x == 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_iseqz_size]
+} // end of [atspre_g0uint_iseqz_ullint]
 ATSinline()
 atstype_bool
-atspre_g0uint_isneqz_size (atstype_size x)
+atspre_g0uint_isneqz_ullint (atstype_ullint x)
 {
   return (x != 0 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_isneqz_size]
-ATSinline()
-atstype_bool
-atspre_g0uint_lt_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  return (x1 < x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_lt_size]
-ATSinline()
-atstype_bool
-atspre_g0uint_lte_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  return (x1 <= x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_lte_size]
-ATSinline()
-atstype_bool
-atspre_g0uint_gt_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  return (x1 > x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_gt_size]
-ATSinline()
-atstype_bool
-atspre_g0uint_gte_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  return (x1 >= x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_gte_size]
-ATSinline()
-atstype_bool
-atspre_g0uint_eq_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  return (x1 == x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_eq_size]
-ATSinline()
-atstype_bool
-atspre_g0uint_neq_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  return (x1 != x2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_g0uint_neq_size]
-ATSinline()
-atstype_int
-atspre_g0uint_compare_size
-(
-  atstype_size x1, atstype_size x2
-) {
-  if (x1 < x2) return -1 ; else if (x1 > x2) return 1 ; else return 0 ;
-} // end of [atspre_g0uint_compare_size]
-ATSinline()
-atstype_size
-atspre_g0uint_max_size
-  (atstype_size x1, atstype_size x2) { return (x1 >= x2 ? x1 : x2) ; }
-// end of [atspre_g0uint_max_size]
-ATSinline()
-atstype_size
-atspre_g0uint_min_size
-  (atstype_size x1, atstype_size x2) { return (x1 <= x2 ? x1 : x2) ; }
-// end of [atspre_g0uint_min_size]
+} // end of [atspre_g0uint_isneqz_ullint]
 //
 /* ****** ****** */
 
@@ -1661,30 +1245,30 @@ atspre_g0uint_min_size
 
 /* ****** ****** */
 
-#define atspre_g1uint_succ_size atspre_g0uint_succ_size
-#define atspre_g1uint_pred_size atspre_g0uint_pred_size
-#define atspre_g1uint_half_size atspre_g0uint_half_size
-#define atspre_g1uint_add_size atspre_g0uint_add_size
-#define atspre_g1uint_sub_size atspre_g0uint_sub_size
-#define atspre_g1uint_mul_size atspre_g0uint_mul_size
-#define atspre_g1uint_div_size atspre_g0uint_div_size
-#define atspre_g1uint_mod_size atspre_g0uint_mod_size
-#define atspre_g1uint_isgtz_size atspre_g0uint_isgtz_size
-#define atspre_g1uint_iseqz_size atspre_g0uint_iseqz_size
-#define atspre_g1uint_isneqz_size atspre_g0uint_isneqz_size
-#define atspre_g1uint_lt_size atspre_g0uint_lt_size
-#define atspre_g1uint_lte_size atspre_g0uint_lte_size
-#define atspre_g1uint_gt_size atspre_g0uint_gt_size
-#define atspre_g1uint_gte_size atspre_g0uint_gte_size
-#define atspre_g1uint_eq_size atspre_g0uint_eq_size
-#define atspre_g1uint_neq_size atspre_g0uint_neq_size
-#define atspre_g1uint_compare_size atspre_g0uint_compare_size
-#define atspre_g1uint_max_size atspre_g0uint_max_size
-#define atspre_g1uint_min_size atspre_g0uint_min_size
+#define atspre_g1uint_succ_ullint atspre_g0uint_succ_ullint
+#define atspre_g1uint_pred_ullint atspre_g0uint_pred_ullint
+#define atspre_g1uint_half_ullint atspre_g0uint_half_ullint
+#define atspre_g1uint_add_ullint atspre_g0uint_add_ullint
+#define atspre_g1uint_sub_ullint atspre_g0uint_sub_ullint
+#define atspre_g1uint_mul_ullint atspre_g0uint_mul_ullint
+#define atspre_g1uint_div_ullint atspre_g0uint_div_ullint
+#define atspre_g1uint_mod_ullint atspre_g0uint_mod_ullint
+#define atspre_g1uint_isgtz_ullint atspre_g0uint_isgtz_ullint
+#define atspre_g1uint_iseqz_ullint atspre_g0uint_iseqz_ullint
+#define atspre_g1uint_isneqz_ullint atspre_g0uint_isneqz_ullint
+#define atspre_g1uint_lt_ullint atspre_g0uint_lt_ullint
+#define atspre_g1uint_lte_ullint atspre_g0uint_lte_ullint
+#define atspre_g1uint_gt_ullint atspre_g0uint_gt_ullint
+#define atspre_g1uint_gte_ullint atspre_g0uint_gte_ullint
+#define atspre_g1uint_eq_ullint atspre_g0uint_eq_ullint
+#define atspre_g1uint_neq_ullint atspre_g0uint_neq_ullint
+#define atspre_g1uint_compare_ullint atspre_g0uint_compare_ullint
+#define atspre_g1uint_max_ullint atspre_g0uint_max_ullint
+#define atspre_g1uint_min_ullint atspre_g0uint_min_ullint
 
 /* ****** ****** */
 
-#endif // ifndef(ATSLIB_PRELUDE_CATS_INTEGER)
+#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER
 
 /* ****** ****** */
 
