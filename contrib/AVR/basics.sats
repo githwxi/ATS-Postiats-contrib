@@ -17,10 +17,10 @@ typedef reg16 = reg(16)
 typedef reg32 = reg(32)
 //
 (* ****** ****** *)
-
+//
 prfun
 lemma_register_param{n:int}(reg(n)): [n >= 0] void
-
+//
 (* ****** ****** *)
 
 (* end of [basics.sats] *)
