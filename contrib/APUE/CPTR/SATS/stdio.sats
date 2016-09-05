@@ -1,11 +1,9 @@
-(*
-**
-*)
 (* ****** ****** *)
 
 %{#
 //
-#include <stdio.h>
+#include \
+"APUE/CPTR/CATS/stdio.cats"
 //
 %} (* end of [%{#] *)
 
@@ -20,11 +18,20 @@ absvt0ype FILE = $extype"FILE"
 (* ****** ****** *)
 //
 fun
-fopen(path: string, mode: string): cPtr0(FILE)
+fopen
+(
+  path: string, mode: string
+) : cPtr0(FILE) = "mac#"
 fun
-fdopen(fildes: int, mode: string): cPtr0(FILE)
+fdopen
+(
+  fildes: intGte(0), mode: string
+) : cPtr0(FILE) = "mac#"
 fun
-freopen(path: string, mode: string, stream: cPtr1(FILE)): cPtr0(FILE)
+freopen
+(
+  path: string, mode: string, stream: cPtr1(FILE)
+) : cPtr0(FILE) = "mac#"
 //
 (* ****** ****** *)
                
