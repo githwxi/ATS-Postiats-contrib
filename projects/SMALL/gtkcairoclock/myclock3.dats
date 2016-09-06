@@ -15,23 +15,29 @@
 
 (* ****** ****** *)
 
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
+#include
+"share/atspre_define.hats"
+#include
+"share/atspre_staload.hats"
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN =
+"prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-staload "libc/SATS/math.sats"
+staload
+"libats/libc/SATS/math.sats"
 //
 macdef PI = M_PI and PI2 = PI/2
 //
 (* ****** ****** *)
-
-staload "libc/SATS/time.sats"
-
+//
+staload
+"libats/libc/SATS/time.sats"
+//
 (* ****** ****** *)
 
 staload "{$CAIRO}/SATS/cairo.sats"

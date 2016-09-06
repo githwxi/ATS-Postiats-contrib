@@ -44,15 +44,18 @@ staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
 (* ****** ****** *)
 
 extern
-fun wallclock_now
+fun
+wallclock_now
 (
   nhr: &double? >> double, nmin: &double? >> double, nsec: &double? >> double
 ) : void = "ext#JS_wallclock_now"
 
 (* ****** ****** *)
 
-staload M = "libc/SATS/math.sats"
-staload _(*anon*) = "libc/DATS/math.dats"
+staload
+M = "libats/libc/SATS/math.sats"
+staload
+_(*anon*) = "libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 

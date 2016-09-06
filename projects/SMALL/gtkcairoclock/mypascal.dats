@@ -18,20 +18,24 @@
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN =
+"prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-staload "libc/SATS/math.sats"
-staload _(*anon*) = "libc/DATS/math.dats"
+staload
+"libats/libc/SATS/math.sats"
+staload _(*anon*) =
+"libats/libc/DATS/math.dats"
 //
-staload "libc/SATS/time.sats"
-staload "libc/SATS/stdlib.sats"
+staload
+"libats/libc/SATS/time.sats"
+staload
+"libats/libc/SATS/stdlib.sats"
 //
 macdef PI = M_PI and _2PI = 2*PI
 //
-(* ****** ****** *)
-
 (* ****** ****** *)
 
 staload "{$CAIRO}/SATS/cairo.sats"

@@ -27,12 +27,12 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "libc/SATS/time.sats"
-staload "libc/SATS/stdio.sats"
-staload "libc/SATS/sys/socket.sats"
-staload "libc/SATS/arpa/inet.sats"
-staload "libc/SATS/netinet/in.sats"
-staload "libc/SATS/sys/socket_in.sats"
+staload "libats/libc/SATS/time.sats"
+staload "libats/libc/SATS/stdio.sats"
+staload "libats/libc/SATS/sys/socket.sats"
+staload "libats/libc/SATS/arpa/inet.sats"
+staload "libats/libc/SATS/netinet/in.sats"
+staload "libats/libc/SATS/sys/socket_in.sats"
 
 (* ****** ****** *)
 
