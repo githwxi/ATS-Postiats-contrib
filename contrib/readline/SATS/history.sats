@@ -50,11 +50,13 @@
 #define ATS_EXTERN_PREFIX "atscntrb_readline_" // prefix for external names
 
 (* ****** ****** *)
-
+//
 staload
-TIME = "libc/SATS/time.sats"
+TIME =
+"libats/libc/SATS/time.sats"
+//
 typedef time_t = $TIME.time_t
-
+//
 (* ****** ****** *)
 
 abstype charptr = ptr

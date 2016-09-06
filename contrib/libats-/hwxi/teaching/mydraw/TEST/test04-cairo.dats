@@ -13,6 +13,12 @@
 //
 (* ****** ****** *)
 //
+staload
+_(*M*) =
+"libats/libc/DATS/math.dats"
+//
+(* ****** ****** *)
+//
 staload "{$CAIRO}/SATS/cairo.sats"
 //
 (* ****** ****** *)
@@ -20,10 +26,6 @@ staload "{$CAIRO}/SATS/cairo.sats"
 staload "./../SATS/mydraw.sats"
 staload _(*anon*) = "./../DATS/mydraw.dats"
 //
-(* ****** ****** *)
-
-staload _(*M*) = "libc/DATS/math.dats"
-
 (* ****** ****** *)
 
 staload "./test04.dats"

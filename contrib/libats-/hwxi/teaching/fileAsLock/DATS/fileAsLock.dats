@@ -32,11 +32,14 @@
 // Using a file as a lock
 //
 (* ****** ****** *)
-
-staload "libc/SATS/errno.sats"
-staload "libc/SATS/fcntl.sats"
-staload "libc/SATS/unistd.sats"
-
+//
+staload
+"libats/libc/SATS/errno.sats"
+staload
+"libats/libc/SATS/fcntl.sats"
+staload
+"libats/libc/SATS/unistd.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/fileAsLock.sats"

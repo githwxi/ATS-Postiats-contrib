@@ -8,15 +8,16 @@
 "share/atspre_staload.hats"
 
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload "libc/SATS/stdlib.sats"
-staload "libc/SATS/unistd.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
+staload
+"libats/libc/SATS/stdlib.sats"
+staload
+"libats/libc/SATS/unistd.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/fileAsLock.sats"

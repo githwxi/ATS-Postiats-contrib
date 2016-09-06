@@ -94,10 +94,9 @@ if (p_md = 0) then
 val () = assertloc (p_md > 0) 
 //
 val mdctx = EVP_MD_CTX_create ()
-val p_mdctx = ptrcast (mdctx)
-val ((*void*)) = assertloc (p_mdctx > 0)
+val ((*void*)) = assertloc (ptrcast(mdctx) > 0)
 //
-prval (pf, fpf) = EVP_MD_CTX_takeout (mdctx)
+val (pf, fpf | p_mdctx) = EVP_MD_CTX_takeout (mdctx)
 //
 var mdlen: int = 0
 var mdval = @[uchar][EVP_MAX_MD_SIZE]()

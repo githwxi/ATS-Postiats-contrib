@@ -35,7 +35,8 @@
 (* ****** ****** *)
 
 staload
-UNISTD = "libc/SATS/unistd.sats"
+UNISTD =
+"libats/libc/SATS/unistd.sats"
 
 (* ****** ****** *)
 //

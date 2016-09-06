@@ -15,10 +15,11 @@ atstyarr_field_undef(fname) fname[]
 %} // end of [%{]
 
 (* ****** ****** *)
-
+//
 staload
-STDLIB = "libc/SATS/stdio.sats"
-
+STDLIB =
+"libats/libc/SATS/stdio.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/cstream.sats"

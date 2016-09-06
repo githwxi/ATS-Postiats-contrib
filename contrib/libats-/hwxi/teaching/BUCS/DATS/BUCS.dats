@@ -44,17 +44,24 @@ staload "libats/ML/SATS/array0.sats"
 (* ****** ****** *)
 //
 staload
-STDIO = "libc/SATS/stdio.sats"
+STDIO =
+"libats/libc/SATS/stdio.sats"
 //
 staload
-STDLIB = "libc/SATS/stdlib.sats"
-//
-staload TIME = "libc/SATS/time.sats"
+STDLIB =
+"libats/libc/SATS/stdlib.sats"
 //
 staload
-STAT = "libc/sys/SATS/stat.sats"
+TIME = "libats/libc/SATS/time.sats"
+//
+(* ****** ****** *)
+//
 staload
-TYPES = "libc/sys/SATS/types.sats"
+STAT =
+"libats/libc/SATS/sys/stat.sats"
+staload
+TYPES =
+"libats/libc/SATS/sys/types.sats"
 //
 (* ****** ****** *)
 

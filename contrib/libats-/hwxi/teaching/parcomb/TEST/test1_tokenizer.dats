@@ -176,9 +176,10 @@ seq1wth_parser_fun
 ) (* end of [token_parser] *)
 //
 (* ****** ****** *)
-
-staload "libc/SATS/stdio.sats"
-
+//
+staload
+"libats/libc/SATS/stdio.sats"
+//
 (* ****** ****** *)
 //
 fun

@@ -258,13 +258,15 @@ implement{
 (* ****** ****** *)
 
 local
-
-staload "libc/SATS/time.sats"
-
+//
+staload
+"libats/libc/SATS/time.sats"
+//
 in (* in-of-local *)
 
-implement{
-} the_ntick_get
+implement
+{}(*tmp*)
+the_ntick_get
 (
 // argumentless
 ) = let
