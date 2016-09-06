@@ -49,7 +49,7 @@ local
 
 staload
 STDLIB =
-"libc/SATS/stdlib.sats"
+"libats/libc/SATS/stdlib.sats"
 
 (*
 For seeding, please use
@@ -60,8 +60,9 @@ fun srandom(seed: uint):<!ref> void
 
 in (* in of [local] *)
 
-implement{
-} randint{n}(n) = let
+implement
+{}(*tmp*)
+randint{n}(n) = let
 //
 val x = $STDLIB.random ()
 //

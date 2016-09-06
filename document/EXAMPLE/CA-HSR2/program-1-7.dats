@@ -35,12 +35,16 @@ staload RG = "{$LIBATSHWXI}/testing/SATS/randgen.sats"
 staload _(*RG*) = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
 
 (* ****** ****** *)
-
+//
 %{^
-extern double drand48 () ; // HX: excluded from c99
+//
+// HX: excluded from c99
+//
+extern double drand48(/*void*/) ;
 %}
-staload "libc/SATS/stdlib.sats"
-
+//
+staload "libats/libc/SATS/stdlib.sats"
+//
 (* ****** ****** *)
 
 implement

@@ -22,8 +22,10 @@ fun Sum
 //
 prval () = lemma_array_param (A)
 //
-fun loop
-  {n:int}{i:nat | i <= n} .<n-i>. (
+fun
+loop
+{n:int}{i:nat | i <= n} .<n-i>.
+(
   A: &array(float, n), n: int n, i: int i, res: float
 ) :<> float = let
 in
@@ -36,16 +38,22 @@ end // end of [Sum]
 
 (* ****** ****** *)
 
-staload RG = "{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _(*RG*) = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
+staload RG =
+"{$LIBATSHWXI}/testing/SATS/randgen.sats"
+staload _(*RG*) =
+"{$LIBATSHWXI}/testing/DATS/randgen.dats"
 
 (* ****** ****** *)
-
+//
 %{^
-extern double drand48 () ; // HX: excluded from c99
+//
+// HX: excluded from c99
+//
+extern double drand48(/*void*/) ;
 %}
-staload "libc/SATS/stdlib.sats"
-
+//
+staload "libats/libc/SATS/stdlib.sats"
+//
 (* ****** ****** *)
 
 implement

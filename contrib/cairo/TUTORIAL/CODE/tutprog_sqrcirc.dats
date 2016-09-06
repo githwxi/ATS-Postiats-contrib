@@ -55,7 +55,9 @@
 //
 (* ****** ****** *)
 //
-staload MATH = "libc/SATS/math.sats"
+staload
+MATH =
+"libats/libc/SATS/math.sats"
 //
 macdef PI = $MATH.M_PI
 //

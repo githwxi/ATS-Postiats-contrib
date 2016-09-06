@@ -28,17 +28,22 @@
 
 (* ****** ****** *)
 
-staload INT = "prelude/DATS/integer.dats"
-staload FLOAT = "prelude/DATS/float.dats"
-
-(* ****** ****** *)
-
-staload "libc/SATS/math.sats"
-staload _(*MATH*) = "libc/DATS/math.dats"
+staload
+"libats/libc/SATS/math.sats"
+staload
+_(*MATH*) =
+"libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 
 staload "./../SATS/cairo.sats"
+
+(* ****** ****** *)
+
+staload
+INT = "prelude/DATS/integer.dats"
+staload
+FLOAT = "prelude/DATS/float.dats"
 
 (* ****** ****** *)
 

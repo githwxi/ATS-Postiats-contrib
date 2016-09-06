@@ -24,9 +24,10 @@
 *)
 
 (* ****** ****** *)
-
-staload "libc/SATS/math.sats"
-
+//
+staload
+"libats/libc/SATS/math.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/cairo.sats"

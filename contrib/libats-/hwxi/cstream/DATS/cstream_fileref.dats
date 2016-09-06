@@ -33,15 +33,15 @@
 *)
 
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
 staload
-STDIO = "libc/SATS/stdio.sats"
-
+STDIO =
+"libats/libc/SATS/stdio.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/cstream.sats"

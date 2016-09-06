@@ -31,10 +31,11 @@
 // HX-2013-02: a simple drawing package
 //
 (* ****** ****** *)
-
+//
 staload
-M = "libc/SATS/math.sats"
-
+M =
+"libats/libc/SATS/math.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/mydraw.sats"

@@ -25,17 +25,20 @@
 
 (* ****** ****** *)
 
-staload INT = "prelude/DATS/integer.dats"
-staload FLOAT = "prelude/DATS/float.dats"
-
-(* ****** ****** *)
-
-staload "libc/SATS/math.sats"
+staload
+"libats/libc/SATS/math.sats"
 
 (* ****** ****** *)
 
 staload "./../SATS/cairo.sats"
 
+(* ****** ****** *)
+//
+staload
+INT = "prelude/DATS/integer.dats"
+staload
+FLOAT = "prelude/DATS/float.dats"
+//
 (* ****** ****** *)
 
 stadef dbl = double
@@ -131,7 +134,10 @@ end // end of [draw_clock]
 
 (* ****** ****** *)
 
-staload "libc/SATS/time.sats"
+staload
+"libats/libc/SATS/time.sats"
+
+(* ****** ****** *)
 
 implement
 main0 () = () where {

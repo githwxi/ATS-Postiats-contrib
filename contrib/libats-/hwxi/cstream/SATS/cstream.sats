@@ -39,9 +39,10 @@
 *)
 
 (* ****** ****** *)
-
-staload "libc/SATS/stdio.sats"
-
+//
+staload
+"libats/libc/SATS/stdio.sats"
+//
 (* ****** ****** *)
 //
 absvtype

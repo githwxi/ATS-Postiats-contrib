@@ -48,11 +48,13 @@
 %} // end of [%{^#]
 
 (* ****** ****** *)
-
+//
 staload
-TIME = "libc/sys/SATS/time.sats"
+TIME =
+"libats/libc/SATS/sys/time.sats"
+//
 typedef timeval = $TIME.timeval
-
+//
 (* ****** ****** *)
 
 macdef

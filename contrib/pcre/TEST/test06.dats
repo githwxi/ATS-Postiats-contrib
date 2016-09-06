@@ -14,10 +14,12 @@ UN =
 
 (* ****** ****** *)
 //
-staload "libc/SATS/dirent.sats"
+staload
+"libats/libc/SATS/dirent.sats"
 //
 staload
-_(*anon*) = "libc/DATS/dirent.dats"
+_(*anon*) =
+"libats/libc/DATS/dirent.dats"
 //
 (* ****** ****** *)
 
