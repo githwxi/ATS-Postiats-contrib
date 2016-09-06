@@ -15,14 +15,17 @@ macdef NAN = 0.0/0.0
 macdef INF = $extval (double, "INFINITY")
 
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
-staload M = "libc/SATS/math.sats"
-staload _(*M*) = "libc/DATS/math.dats"
+staload
+M = "libats/libc/SATS/math.sats"
+staload
+_(*M*) = "libats/libc/DATS/math.dats"
 //
 (* ****** ****** *)
 

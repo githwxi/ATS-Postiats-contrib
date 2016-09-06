@@ -22,7 +22,7 @@ ATS_DYNLOADNAME"libatscc2scm_dynload"
 (* ****** ****** *)
 //
 staload
-STDIO = "{$PATSLIBC}/SATS/stdio.sats"
+STDIO = "{$PATSLIBATSC}/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //

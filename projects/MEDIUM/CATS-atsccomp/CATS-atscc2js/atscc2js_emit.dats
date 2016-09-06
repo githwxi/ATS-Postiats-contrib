@@ -36,19 +36,21 @@ staload "{$CATSPARSEMIT}/catsparse_typedef.sats"
 (* ****** ****** *)
 
 local
-
+//
 staload
-TM = "libc/SATS/time.sats"
-stadef time_t = $TM.time_t
-
+TM =
+"libats/libc/SATS/time.sats"
+//
+typedef time_t = $TM.time_t
+//
 in (* in-of-local *)
 
 implement
-emit_time_stamp (out) = let
+emit_time_stamp(out) = let
 //
 var tm: time_t
-val () = tm := $TM.time_get ()
-val (pfopt | p_tm) = $TM.localtime (tm)
+val () = tm := $TM.time_get()
+val (pfopt | p_tm) = $TM.localtime(tm)
 //
 val () = emit_text (out, "/*\n");
 val () = emit_text (out, "**\n");

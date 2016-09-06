@@ -43,7 +43,7 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
 
 (* ****** ****** *)
 
-staload "libc/SATS/stdio.sats"
+staload "libats/libc/SATS/stdio.sats"
 
 (* ****** ****** *)
 

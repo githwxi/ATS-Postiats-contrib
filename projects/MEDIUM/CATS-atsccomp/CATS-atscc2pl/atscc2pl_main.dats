@@ -18,13 +18,8 @@
 (* ****** ****** *)
 //
 staload
-STDIO = 
-"{$PATSLIBC}/SATS/stdio.sats"
-//
-(* ****** ****** *)
-//
-staload
-STDIO = "{$PATSLIBC}/SATS/stdio.sats"
+STDIO =
+"{$PATSLIBATSC}/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //

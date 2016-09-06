@@ -30,8 +30,8 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "libc/SATS/stdio.sats"  
-staload "libc/SATS/string.sats"  
+staload "libats/libc/SATS/stdio.sats"  
+staload "libats/libc/SATS/string.sats"  
   
 (* ****** ****** *)
 

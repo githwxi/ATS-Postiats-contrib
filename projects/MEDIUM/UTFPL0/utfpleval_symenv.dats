@@ -17,12 +17,15 @@ staload UN =
 
 (* ****** ****** *)
 
-staload M = "libc/SATS/math.sats"
-staload _(*M*) = "libc/DATS/math.dats"
+staload
+M = "libats/libc/SATS/math.sats"
+staload
+_(*M*) = "libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 
-staload STDIO = "libc/SATS/stdio.sats"
+staload
+STDIO = "libats/libc/SATS/stdio.sats"
 
 (* ****** ****** *)
 

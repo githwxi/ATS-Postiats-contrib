@@ -175,10 +175,11 @@ fun parse_grexplst (!tokener2): grexplst
 local
 
 (* ****** ****** *)
-
+//
 staload
-STRINGS = "libc/SATS/strings.sats"
-
+STRINGS =
+"libats/libc/SATS/strings.sats"
+//
 (* ****** ****** *)
 //
 macdef get = my_tokener2_get
