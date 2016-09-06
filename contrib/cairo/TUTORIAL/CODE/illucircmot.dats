@@ -56,10 +56,12 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "libc/SATS/math.sats"
-staload _(*anon*) = "libc/DATS/math.dats"
-
+//
+staload
+"libats/libc/SATS/math.sats"
+staload _(*anon*) =
+"libats/libc/DATS/math.dats"
+//
 (* ****** ****** *)
 
 staload "{$CAIRO}/SATS/cairo.sats"

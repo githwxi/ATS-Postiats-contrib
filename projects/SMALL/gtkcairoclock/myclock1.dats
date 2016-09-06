@@ -27,11 +27,12 @@
 staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
-staload "libc/SATS/math.sats"
-
+//
+staload
+"libats/libc/SATS/math.sats"
+//
 macdef PI = M_PI and PI2 = M_PI / 2
-
+//
 (* ****** ****** *)
 
 staload "{$CAIRO}/SATS/cairo.sats"
@@ -144,7 +145,7 @@ end // end of [draw_clock]
 
 (* ****** ****** *)
 
-staload "libc/SATS/time.sats"
+staload "libats/libc/SATS/time.sats"
 
 (* ****** ****** *)
 

@@ -49,7 +49,8 @@
 (* ****** ****** *)
 //
 staload
-MATH = "libc/SATS/math.sats"
+MATH =
+"libats/libc/SATS/math.sats"
 //
 macdef PI = $MATH.M_PI
 //

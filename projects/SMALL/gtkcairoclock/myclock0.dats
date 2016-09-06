@@ -24,14 +24,14 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload "libc/SATS/time.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
+staload
+"libats/libc/SATS/time.sats"
+//
 (* ****** ****** *)
 
 staload "{$CAIRO}/SATS/cairo.sats"

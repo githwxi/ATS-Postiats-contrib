@@ -52,7 +52,8 @@ staload "./patsolve_parsing.sats"
 
 (* ****** ****** *)
 
-staload _(*anon*) = "libc/DATS/string.dats"
+staload
+_ = "libats/libc/DATS/string.dats"
 
 (* ****** ****** *)
 //

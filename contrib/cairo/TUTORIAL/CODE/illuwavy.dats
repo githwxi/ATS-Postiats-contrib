@@ -54,6 +54,12 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+//
+staload
+MATH =
+"libats/libc/SATS/math.sats"
+//
+(* ****** ****** *)
 
 staload "{$CAIRO}/SATS/cairo.sats"
 
@@ -73,12 +79,6 @@ end // end of [rbgset]
 
 (* ****** ****** *)
 
-staload
-MATH = "libc/SATS/math.sats"
-macdef PI = $MATH.M_PI
-
-(* ****** ****** *)
-
 (*
 
 // decoration pattern:
@@ -94,6 +94,10 @@ macdef PI = $MATH.M_PI
 
 #define NEG1 ~1
 sortdef two = {n:nat | n < 2}
+
+(* ****** ****** *)
+
+macdef PI = $MATH.M_PI
 
 (* ****** ****** *)
 

@@ -20,7 +20,8 @@
 (* ****** ****** *)
 //
 staload
-STDIO = "libc/SATS/stdio.sats"
+STDIO =
+"libats/libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //
