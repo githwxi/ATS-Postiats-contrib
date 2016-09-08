@@ -55,7 +55,8 @@ end // end of [list_reverse_append]
 (* ****** ****** *)
 //
 extern
-fun pylist2list
+fun
+PYlist2list
   : {a:t0p} PYlist(a) -> List0(a) = "mac#"
 //
 implement
@@ -68,6 +69,32 @@ PYlist_reduce{List0(a)}{a}
 in
   list_reverse(res)
 end // end of [PYlist2list]
+//
+(* ****** ****** *)
+//
+extern
+fun
+PYlist2list_rev
+  : {a:t0p} PYlist(a) -> List0(a) = "mac#"
+//
+implement
+PYlist2list_rev{a}(xs) =
+(
+//
+PYlist_reduce{List0(a)}{a}
+  (xs, nil(), lam (xs, x) => cons (x, xs))
+//
+) (* end of [PYlist2list_rev] *)
+//
+(* ****** ****** *)
+//
+extern
+fun
+PYlist_evnodd(PYlist(int)): void = "mac#"
+//
+implement
+PYlist_evnodd(xs) =
+  PYlist_sort_2(xs, lam(x, y) => (x%2 - y%2))
 //
 (* ****** ****** *)
 
@@ -94,12 +121,10 @@ def fromto(m, n):
   res.reverse
   return res
 
-xs = fromto(0, 10)
-print("xs =", xs)
-ys = PYlist2list(xs)
-print("ys =", ys)
-ys_rev = PYlist2list_rev(xs)
-print("ys_rev =", ys_rev)
+xs = fromto(0,10); print("xs =", xs)
+PYlist_evnodd(xs); print("xs =", xs)
+ys = PYlist2list(xs); print("ys =", ys)
+ys_rev = PYlist2list_rev(xs); print("ys_rev =", ys_rev)
 
 %} // end of [%{$]
 

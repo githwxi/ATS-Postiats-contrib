@@ -10,6 +10,8 @@
 ######
 
 ######
+import functools
+######
 from ats2pypre_basics_cats import *
 ######
 
@@ -94,7 +96,7 @@ def ats2pypre_PYlist2list_rev(xs):
 ############################################
 #
 def ats2pypre_PYlist_sort_2(xs, cmp):
-  xs.sort(ats2pypre_cloref2fun2(cmp)); return
+  xs.sort(key=functools.cmp_to_key(ats2pypre_cloref2fun2(cmp))); return
 #
 ############################################
 

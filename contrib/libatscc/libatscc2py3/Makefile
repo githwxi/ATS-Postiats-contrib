@@ -12,10 +12,11 @@ ATSCC2PY=$(PATSHOME)/bin/atscc2py3
 CPF=cp -f
 
 ######
-
+#
 all::
-all_in_one::
-
+#
+# all_in_one::
+#
 ######
 #
 all:: ; \
@@ -58,6 +59,8 @@ $(CPF) ./CATS/PYGAME_pygame_cats.py ./output/ats2py_pygame_pyame_cats.py
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/PYlist.dats | $(ATSCC2PY) -o ./output/ats2pypre_PYlist_dats.py -i
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/option.dats | $(ATSCC2PY) -o ./output/ats2pypre_option_dats.py -i
