@@ -654,7 +654,9 @@ case+ xs of
 implement
 list_ifoldright_method
   {a}{res}(xs, sink) =
-  lam(fopr) => list_ifoldright{a}{res}(xs, fopr, sink)
+(
+lam(fopr) => list_ifoldright{a}{res}(xs, fopr, sink)
+)
 //
 (* ****** ****** *)
 //
@@ -664,6 +666,7 @@ list_sort_1(xs) =
 (
   list_sort_2{a}
     (xs, lam(x1, x2) => gcompare_val_val<a>(x1, x2))
+  // end of [list_sort_2]
 ) (* list_sort_1 *)
 //
 (* ****** ****** *)

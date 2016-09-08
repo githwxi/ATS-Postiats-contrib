@@ -69,7 +69,7 @@ def ats2pypre_toString(x): return str(x)
 
 ############################################
 
-def ats2jspre_lazy2cloref(lazyval): return lazyval[1]
+def ats2pypre_lazy2cloref(lazyval): return lazyval[1]
 
 ############################################
 #
@@ -96,6 +96,24 @@ def ats2pypre_assert_errmsg_bool1(tfv, errmsg):
   if not(tfv):
     print(errmsg, file=sys.__stderr__); sys.exit(1)
   return
+#
+############################################
+#
+def ats2pypre_cloref0_app(cf): return cf[0](cf)
+def ats2pypre_cloref1_app(cf, x): return cf[0](cf, x)
+def ats2pypre_cloref2_app(cf, x1, x2): return cf[0](cf, x2, x2)
+def ats2pypre_cloref3_app(cf, x1, x2, x3): return cf[0](cf, x2, x2, x3)
+#
+############################################
+#
+def ats2pypre_cloref2fun0(cf):
+  return lambda: ats2pypre_cloref0_app(cf)
+def ats2pypre_cloref2fun1(cf):
+  return lambda x: ats2pypre_cloref1_app(cf, x)
+def ats2pypre_cloref2fun2(cf, x1, x2):
+  return lambda x1, x2: ats2pypre_cloref2_app(cf, x1, x2)
+def ats2pypre_cloref2fun3(cf, x1, x2, x3):
+  return lambda x1, x2, x3: ats2pypre_cloref3_app(cf, x1, x2, x3)
 #
 ############################################
 

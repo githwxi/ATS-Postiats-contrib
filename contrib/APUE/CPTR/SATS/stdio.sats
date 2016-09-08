@@ -25,7 +25,7 @@ fopen
 fun
 fdopen
 (
-  fildes: intGte(0), mode: string
+  fd: fildes, mode: string
 ) : cPtr0(FILE) = "mac#"
 fun
 freopen

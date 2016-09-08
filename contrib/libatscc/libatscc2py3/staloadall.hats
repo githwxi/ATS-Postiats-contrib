@@ -35,13 +35,12 @@ staload "./SATS/gprint.sats"
 staload _ = "./DATS/gprint.dats"
 
 (* ****** ****** *)
-
-staload "./SATS/PYlist.sats"
-
-(* ****** ****** *)
 //
 staload "./SATS/list.sats"
 staload _ = "./DATS/list.dats"
+//
+staload "./SATS/PYlist.sats"
+staload _ = "./DATS/PYlist.dats"
 //
 (* ****** ****** *)
 //
