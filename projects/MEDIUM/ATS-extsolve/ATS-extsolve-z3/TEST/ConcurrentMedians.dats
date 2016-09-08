@@ -1,6 +1,6 @@
 (*
 ** Proving that
-** the 3 altitudes of a triangle
+** the 3 medians of a triangle
 ** are concurrent
 *)
 
