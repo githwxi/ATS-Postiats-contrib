@@ -164,9 +164,9 @@ PYlist_string_join(xs: PYlist(string)): string = "mac#%"
 // Implemented in [PYlist.dats]
 //
 fun{}
-PYlist_oflist{a:t0p}(xs: List0(a)): PYlist(a) // = "mac#%"
+PYlist_oflist{a:t0p}(xs: List(a)): PYlist(a) // = "mac#%"
 fun{}
-PYlist_oflist_rev{a:t0p}(xs: List0(a)): PYlist(a) // = "mac#%"
+PYlist_oflist_rev{a:t0p}(xs: List(a)): PYlist(a) // = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -176,6 +176,24 @@ fun
 PYlist_sort_2{a:t0p}
   (xs: PYlist(a), cmp: (a, a) -<cloref1> int): void = "mac#%"
 //
+(* ****** ****** *)
+//
+// Some function overloading
+//
+(* ****** ****** *)
+//
+overload [] with PYlist_get_at
+overload [] with PYlist_set_at
+//
+(* ****** ****** *)
+
+overload .pop with PYlist_pop
+overload .push with PYlist_append
+
+(* ****** ****** *)
+
+overload length with PYlist_length
+
 (* ****** ****** *)
 
 (* end of [PYlist.sats] *)

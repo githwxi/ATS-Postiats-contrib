@@ -72,4 +72,36 @@ print_list_sep
 //
 (* ****** ****** *)
 
+implement
+list_sort_2
+  {a}{n}(xs, cmp) = let
+//
+val xs =
+  PYlist_oflist{a}(xs)
+val () =
+  PYlist_sort_2(xs, cmp)
+//
+val asz = PYlist_length(xs)
+//
+fun
+loop (
+  i0: int, res: List0(a)
+) : List0(a) =
+(
+//
+if
+(i0 < asz)
+then (
+  loop(i0+1, list_cons(xs.pop(), res))
+) else res
+// end of [if]
+//
+) (* end of [loop] *)
+//
+in
+  $UN.cast{list(a,n)}(loop(0, list_nil(*void*)))
+end // end of [list_sort_2]
+
+(* ****** ****** *)
+
 (* end of [list.dats] *)
