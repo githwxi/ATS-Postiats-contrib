@@ -308,14 +308,24 @@ aux
 (
   xs: list0(a), res: res
 ) : res =
-  case+ xs of
-  | list0_nil() => res
-  | list0_cons(x, xs) => fopr(x, aux(xs, sink))
+(
+case+ xs of
+| list0_nil() => res
+| list0_cons(x, xs) => fopr(x, aux(xs, sink))
+) (* end of [aux] *)
 //
 in
   aux(xs, sink)
 end // end of [list0_foldright]
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+list0_sort(xs) = let
+  val ys = list_sort_1<a>(g1ofg0(xs)) in g0ofg1(ys)
+end // end of [list0_sort]
+//
 (* ****** ****** *)
 
 (* end of [list0.dats] *)

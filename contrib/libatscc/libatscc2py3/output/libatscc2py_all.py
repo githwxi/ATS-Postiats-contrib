@@ -42,8 +42,12 @@ from ats2pypre_reference_cats import *
 
 ######
 
-from ats2pypre_list_dats import *
 from ats2pypre_PYlist_cats import *
+
+######
+
+from ats2pypre_list_dats import *
+from ats2pypre_PYlist_dats import *
 
 ######
 

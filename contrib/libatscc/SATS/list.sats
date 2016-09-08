@@ -379,7 +379,8 @@ overload .ifoldright with list_ifoldright_method
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 list_sort_1
   {n:int}
   (list(INV(a), n)): list(a, n) = "mac#%"

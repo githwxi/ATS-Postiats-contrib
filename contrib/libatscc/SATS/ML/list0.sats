@@ -289,15 +289,21 @@ fun
 list0_foldleft
   {res:t0p}{a:t0p}
 (
-  xs: list0(INV(a)), init: res, fopr: cfun(res, a, res)
+  list0(INV(a)), init: res, fopr: cfun(res, a, res)
 ) : res = "mac#%" // end-of-function
 fun
 list0_foldright
   {a:t0p}{res:t0p}
 (
-  xs: list0(INV(a)), fopr: cfun(a, res, res), sink: res
+  list0(INV(a)), fopr: cfun(a, res, res), sink: res
 ) : res = "mac#%" // end-of-function
 
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+list0_sort(xs: list0(INV(a))): list0(a) = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [list0.sats] *)
