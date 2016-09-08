@@ -163,9 +163,9 @@ PYlist_string_join(xs: PYlist(string)): string = "mac#%"
 // HX-2016-05-25:
 // Implemented in [PYlist.dats]
 //
-fun{}
+fun
 PYlist_oflist{a:t0p}(xs: List(a)): PYlist(a) // = "mac#%"
-fun{}
+fun
 PYlist_oflist_rev{a:t0p}(xs: List(a)): PYlist(a) // = "mac#%"
 //
 (* ****** ****** *)

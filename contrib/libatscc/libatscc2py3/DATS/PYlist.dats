@@ -59,13 +59,12 @@ staload "./../SATS/PYlist.sats"
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 PYlist_oflist{a}(xs) = let
 //
 fun
 aux
 (
-  xs: List0(a), res: PYlist(a)
+  xs: List(a), res: PYlist(a)
 ) : PYlist(a) =
   case+ xs of
   | list_nil() => res
@@ -81,13 +80,12 @@ end // end of [PYlist_oflist]
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 PYlist_oflist_rev{a}(xs) = let
 //
 fun
 aux
 (
-  xs: List0(a), res: PYlist(a)
+  xs: List(a), res: PYlist(a)
 ) : PYlist(a) =
   case+ xs of
   | list_nil() => res
