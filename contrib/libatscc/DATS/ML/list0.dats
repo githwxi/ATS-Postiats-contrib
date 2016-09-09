@@ -322,9 +322,19 @@ end // end of [list0_foldright]
 //
 implement
 {a}(*tmp*)
-list0_sort(xs) = let
-  val ys = list_sort_1<a>(g1ofg0(xs)) in g0ofg1(ys)
-end // end of [list0_sort]
+list0_sort_1(xs) = let
+//
+val ys = list_sort_1<a>(g1ofg0(xs)) in g0ofg1(ys)
+//
+end // end of [list0_sort_1]
+//
+implement
+list0_sort_2(xs, cmp) = let
+//
+val ys =
+  list_sort_2(g1ofg0(xs), $UN.cast(cmp)) in g0ofg1(ys)
+//
+end // end of [list0_sort_2]
 //
 (* ****** ****** *)
 

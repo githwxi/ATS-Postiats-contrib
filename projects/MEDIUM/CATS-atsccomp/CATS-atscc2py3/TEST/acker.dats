@@ -43,10 +43,10 @@ from libatscc2py_all import *
 (* ****** ****** *)
 
 %{$
-if (len(sys.argv) >= 3):
-  print(acker(int(sys.argv[1]), int(sys.argv[2])))
-else:
+if (len(sys.argv) < 3):
   print('Usage: acker <integer> <integer>')
+else:
+  print(acker(int(sys.argv[1]), int(sys.argv[2])))
 #endif
 %} // end of [%{$]
 

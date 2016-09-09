@@ -42,24 +42,24 @@ overload pred with pred_double of 100
 (* ****** ****** *)
 //
 fun add_int_double
-  : (int, double) -<> double = "mac#%"
+  : (int, double) -<fun> double = "mac#%"
 fun add_double_int
-  : (double, int) -<> double = "mac#%"
+  : (double, int) -<fun> double = "mac#%"
 //
 fun sub_int_double
-  : (int, double) -<> double = "mac#%"
+  : (int, double) -<fun> double = "mac#%"
 fun sub_double_int
-  : (double, int) -<> double = "mac#%"
+  : (double, int) -<fun> double = "mac#%"
 //
 fun mul_int_double
-  : (int, double) -<> double = "mac#%"
+  : (int, double) -<fun> double = "mac#%"
 fun mul_double_int
-  : (double, int) -<> double = "mac#%"
+  : (double, int) -<fun> double = "mac#%"
 //
 fun div_int_double
-  : (int, double) -<> double = "mac#%"
+  : (int, double) -<fun> double = "mac#%"
 fun div_double_int
-  : (double, int) -<> double = "mac#%"
+  : (double, int) -<fun> double = "mac#%"
 //
 (* ****** ****** *)
 
@@ -94,27 +94,27 @@ overload / with div_double_double of 100
 (* ****** ****** *)
 //
 fun lt_int_double
-  : (int, double) -<> bool = "mac#%"
+  : (int, double) -<fun> bool = "mac#%"
 fun lte_int_double
-  : (int, double) -<> bool = "mac#%"
+  : (int, double) -<fun> bool = "mac#%"
 fun gt_int_double
-  : (int, double) -<> bool = "mac#%"
+  : (int, double) -<fun> bool = "mac#%"
 fun gte_int_double
-  : (int, double) -<> bool = "mac#%"
+  : (int, double) -<fun> bool = "mac#%"
 //
 fun lt_double_int
-  : (double, int) -<> bool = "mac#%"
+  : (double, int) -<fun> bool = "mac#%"
 fun lte_double_int
-  : (double, int) -<> bool = "mac#%"
+  : (double, int) -<fun> bool = "mac#%"
 fun gt_double_int
-  : (double, int) -<> bool = "mac#%"
+  : (double, int) -<fun> bool = "mac#%"
 fun gte_double_int
-  : (double, int) -<> bool = "mac#%"
+  : (double, int) -<fun> bool = "mac#%"
 //
 (* ****** ****** *)
 
 typedef
-float_cmp_type = (double, double) -> bool
+float_cmp_type = (double, double) -<fun> bool
 
 (* ****** ****** *)
 //
@@ -129,6 +129,11 @@ fun neq_double_double : float_cmp_type = "mac#%"
 //
 (* ****** ****** *)
 //
+fun
+compare_double_double : (double, double) -<fun> int
+//
+(* ****** ****** *)
+//
 overload < with lt_double_double of 100
 overload <= with lte_double_double of 100
 overload > with gt_double_double of 100
@@ -136,6 +141,8 @@ overload >= with gte_double_double of 100
 overload = with eq_double_double of 100
 overload != with neq_double_double of 100
 overload <> with neq_double_double of 100
+//
+overload compare with compare_double_double of 100
 //
 (* ****** ****** *)
 

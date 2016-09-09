@@ -63,6 +63,11 @@ def ats2pypre_neq_int1_int1(x, y): return (x != y)
 #
 ############################################
 #
+def ats2pypre_compare_int0_int0(x, y):
+  return -1 if (x < y) else (1 if (x > y) else 0)
+#
+############################################
+#
 def ats2pypre_max_int0_int0(x, y): return (max(x, y))
 def ats2pypre_max_int1_int1(x, y): return (max(x, y))
 #

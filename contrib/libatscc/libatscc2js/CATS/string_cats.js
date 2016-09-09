@@ -15,6 +15,16 @@
 */
 
 /* ****** ****** */
+
+function
+ats2jspre_string_length(str) { return str.length ; }
+
+/* ****** ****** */
+
+function
+ats2jspre_string_get_at(str, i) { return str.charAt(i) ; }
+
+/* ****** ****** */
 //
 function
 ats2jspre_lt_string_string(x, y) { return (x < y); }
@@ -31,18 +41,13 @@ function
 ats2jspre_neq_string_string(x, y) { return (x !== y); }
 //
 /* ****** ****** */
-
+//
 function
 ats2jspre_compare_string_string(x, y)
 {
   if (x < y) return -1; else if (x > y) return 1; else return 0;
 }
-
-/* ****** ****** */
-
-function
-ats2jspre_string_length(str) { return str.length ; }
-
+//
 /* ****** ****** */
 
 function

@@ -10,6 +10,15 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
+macdef
+list_sing(x) =
+  list_cons(,(x), list_nil)
+macdef
+list_pair(x1, x2) =
+  list_cons(,(x1), list_cons(,(x2), list_nil))
+//
+(* ****** ****** *)
+//
 fun{}
 list_is_nil
   {a:t0p}{n:int}(list(a, n)): bool(n==0)

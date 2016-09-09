@@ -13,6 +13,28 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
 //
+typedef
+strchr = string(1)
+//
+fun
+string_get_at
+{n:int}{i:nat | i < n}
+(
+  str: string(n), index: int(i)
+) : strchr = "mac#%" // end-of-fun
+//
+overload [] with string_get_at of 100
+//
+(* ****** ****** *)
+//
+fun
+string_length
+  {n:int}(string(n)): int(n) = "mac#%"
+//
+overload length with string_length of 100
+//
+(* ****** ****** *)
+//
 fun lt_string_string
   : (string, string) -> bool = "mac#%"
 fun lte_string_string
@@ -50,21 +72,11 @@ compare with compare_string_string of 100
 (* ****** ****** *)
 //
 fun
-string_length
-  {n:int}(string(n)): int(n) = "mac#%"
-//
-overload .length with string_length of 100
-//
-(* ****** ****** *)
-//
-fun
 string_charAt{n:int}
-  (str: string(n), i: natLt(n)): string = "mac#%"
+  (str: string(n), i: natLt(n)): strchr = "mac#%"
 fun
 string_charCodeAt{n:int}
   (str: string(n), index: natLt(n)): int = "mac#%"
-//
-overload [] with string_charCodeAt of 100
 //
 overload .charAt with string_charCodeAt of 100
 overload .charCodeAt with string_charCodeAt of 100

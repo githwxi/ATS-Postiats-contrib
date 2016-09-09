@@ -57,47 +57,6 @@ staload "./../SATS/list.sats"
 staload "./../SATS/PYlist.sats"
 
 (* ****** ****** *)
-
-implement
-PYlist_oflist{a}(xs) = let
-//
-fun
-aux
-(
-  xs: List(a), res: PYlist(a)
-) : PYlist(a) =
-  case+ xs of
-  | list_nil() => res
-  | list_cons(x, xs) =>
-      let val () =
-        PYlist_append(res, x) in aux(xs, res)
-      end // end of [list_cons]
-//
-in
-  aux(xs, PYlist_nil())
-end // end of [PYlist_oflist]
-
-(* ****** ****** *)
-
-implement
-PYlist_oflist_rev{a}(xs) = let
-//
-fun
-aux
-(
-  xs: List(a), res: PYlist(a)
-) : PYlist(a) =
-  case+ xs of
-  | list_nil() => res
-  | list_cons(x, xs) => let
-      val () = PYlist_cons(x, res) in aux(xs, res)
-    end // end of [list_cons]
-//
-in
-  aux(xs, PYlist_nil())
-end // end of [PYlist_oflist_rev]
-
-(* ****** ****** *)
 //
 implement
 {a}(*tmp*)

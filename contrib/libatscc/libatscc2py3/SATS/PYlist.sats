@@ -21,21 +21,21 @@ staload "./../basics_py.sats"
 //
 fun
 PYlist_nil
-  {a:vt0p} (): PYlist(a) = "mac#%"
+  {a:vt0p}(): PYlist(a) = "mac#%"
 //
 fun
 PYlist_sing
-  {a:vt0p} (x: a): PYlist(a) = "mac#%"
+  {a:vt0p}(x: a): PYlist(a) = "mac#%"
 //
 fun
 PYlist_pair
-  {a:vt0p} (x1: a, x2: a): PYlist(a) = "mac#%"
+  {a:vt0p}(x1: a, x2: a): PYlist(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 PYlist_cons
-  {a:vt0p} (x0: a, xs: PYlist(a)): void = "mac#%"
+  {a:vt0p}(x0: a, xs: PYlist(a)): void = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -47,15 +47,15 @@ PYlist_make_elt
 //
 fun
 PYlist_is_nil
-  {a:vt0p} (xs: PYlist(a)): bool = "mac#%"
+  {a:vt0p}(xs: PYlist(a)): bool = "mac#%"
 //
 fun
 PYlist_is_cons
-  {a:vt0p} (xs: PYlist(a)): bool = "mac#%"
+  {a:vt0p}(xs: PYlist(a)): bool = "mac#%"
 //
 fun
 PYlist_isnot_nil
-  {a:vt0p} (xs: PYlist(a)): bool = "mac#%"
+  {a:vt0p}(xs: PYlist(a)): bool = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -161,12 +161,12 @@ PYlist_string_join(xs: PYlist(string)): string = "mac#%"
 (* ****** ****** *)
 //
 // HX-2016-05-25:
-// Implemented in [PYlist.dats]
+// Implemented in [list.dats]
 //
 fun
-PYlist_oflist{a:t0p}(xs: List(a)): PYlist(a) // = "mac#%"
+PYlist_oflist{a:t0p}(xs: List(a)): PYlist(a) = "mac#%"
 fun
-PYlist_oflist_rev{a:t0p}(xs: List(a)): PYlist(a) // = "mac#%"
+PYlist_oflist_rev{a:t0p}(xs: List(a)): PYlist(a) = "mac#%"
 //
 (* ****** ****** *)
 //

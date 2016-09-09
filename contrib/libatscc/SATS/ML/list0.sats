@@ -302,7 +302,19 @@ list0_foldright
 //
 fun
 {a:t0p}
-list0_sort(xs: list0(INV(a))): list0(a) = "mac#%"
+list0_sort_1
+  (list0(INV(a))): list0(a) = "mac#%"
+//
+fun
+list0_sort_2
+  {a:t0p}
+(
+  list0(INV(a)), cmp: (a, a) -<cloref1> int
+) : list0(a) = "mac#%"
+//
+symintr list0_sort
+overload list0_sort with list0_sort_1 of 100
+overload list0_sort with list0_sort_2 of 100
 //
 (* ****** ****** *)
 

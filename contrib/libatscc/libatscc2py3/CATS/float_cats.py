@@ -68,6 +68,8 @@ def ats2pypre_gte_double_double(x, y): return (x >= y)
 def ats2pypre_eq_double_double(x, y): return (x == y)
 def ats2pypre_neq_double_double(x, y): return (x != y)
 #
+def ats2pypre_compare_double_double(x, y): return cmp(x, y)
+#
 ############################################
 
 ###### end of [float_cats.py] ######

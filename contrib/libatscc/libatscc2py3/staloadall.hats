@@ -10,6 +10,7 @@
 (* ****** ****** *)
 //
 staload "./basics_py.sats"
+staload _ = "./DATS/basics.dats"
 //
 (* ****** ****** *)
 //
@@ -63,7 +64,12 @@ staload "./SATS/qlistref.sats"
 (* ****** ****** *)
 
 staload "./SATS/ML/list0.sats"
+staload _ = "./DATS/ML/list0.dats"
+
+(* ****** ****** *)
+
 staload "./SATS/ML/array0.sats"
+staload _ = "./DATS/ML/array0.dats"
 
 (* ****** ****** *)
 

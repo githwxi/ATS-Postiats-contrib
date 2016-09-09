@@ -25,11 +25,12 @@
 "{$LIBATSCC2PY3}/staloadall.hats"
 //
 (* ****** ****** *)
-
+//
+#define nil stream_nil
+//
 #define :: stream_cons
 #define cons stream_cons
-#define nil stream_nil
-
+//
 (* ****** ****** *)
 //
 fun
