@@ -64,7 +64,7 @@ end // end of [object_setvar]
 (* ****** ****** *)
 
 implement
-object_evalmsg
+object_evalmsg_lst
   (obj, name, args) = let
 //
 val
