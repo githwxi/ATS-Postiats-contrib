@@ -135,6 +135,14 @@ $(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
 
 ######
 
+all:: \
+zoe-2016-09-11
+zoe-2016-09-11:: \
+zoe-2016-09-11.dats; \
+$(PATSOPT) -tc --constraint-export -d $< | $(PATSOLVE) -i -
+
+######
+
 testall:: all
 testall:: regress
 testall:: cleanall
