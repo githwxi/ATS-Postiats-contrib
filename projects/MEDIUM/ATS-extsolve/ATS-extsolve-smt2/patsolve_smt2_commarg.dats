@@ -28,15 +28,18 @@
 (* ****** ****** *)
 //
 staload
-STDIO = "libc/SATS/stdio.sats"
+STDIO =
+"libats/libc/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //
 #define
-PATSOLVE_targetloc "./.ATS-extsolve"
+PATSOLVE_targetloc"./.ATS-extsolve"
 //
-staload "{$PATSOLVE}/patsolve_cnstrnt.sats"
-staload "{$PATSOLVE}/patsolve_parsing.sats"
+staload
+"{$PATSOLVE}/patsolve_cnstrnt.sats"
+staload
+"{$PATSOLVE}/patsolve_parsing.sats"
 //
 (* ****** ****** *)
 
