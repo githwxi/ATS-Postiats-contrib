@@ -105,8 +105,8 @@
    (if (= flag 0)
      (begin
       (ATSCCset_0 lazyval 1)
-      (let ((thunk (ATSCCget_1 lazyval)))
-        (ATSCCset_1 lazyval ((ATSCCget_0 thunk) thunk)))
+      (let ((mythunk (ATSCCget_1 lazyval)))
+        (ATSCCset_1 lazyval ((ATSCCget_0 mythunk) mythunk)))
      )
      (begin
       (ATSCCset_0 lazyval (+ flag 1))

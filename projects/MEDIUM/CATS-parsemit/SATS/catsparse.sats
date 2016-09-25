@@ -336,6 +336,9 @@ keyword =
   | ATSINSmove_delay of ()
   | ATSINSmove_lazyeval of ()
 //
+  | ATSINSmove_ldelay of ()
+  | ATSINSmove_llazyeval of ()
+//
   | ATStailcal_beg of ()
   | ATStailcal_end of ()
   | ATSINSmove_tlcal of ()
@@ -1003,6 +1006,9 @@ instr_node =
 //
   | ATSINSmove_delay of (i0de, s0exp, d0exp)
   | ATSINSmove_lazyeval of (i0de, s0exp, d0exp)
+//
+  | ATSINSmove_ldelay of (i0de, s0exp, d0exp)
+  | ATSINSmove_llazyeval of (i0de, s0exp, d0exp)
 //
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)

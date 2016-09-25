@@ -1547,6 +1547,36 @@ end // end of [ATSINSmove_lazyeval_make]
 (* ****** ****** *)
 
 implement
+ATSINSmove_ldelay_make
+(
+  tok1, tmp, s0e_res, thunk, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_ldelay(tmp, s0e_res, thunk))
+end // end of [ATSINSmove_ldelay_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_llazyeval_make
+(
+  tok1, tmp, s0e_res, lazyval, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_llazyeval(tmp, s0e_res, lazyval))
+end // end of [ATSINSmove_llazyeval_make]
+
+(* ****** ****** *)
+
+implement
 ATStailcalseq_make
 (
   tok1, inss, tok2

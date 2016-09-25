@@ -203,6 +203,9 @@ case+ x of
 | ATSINSmove_delay () => pr "ATSINSmove_delay"
 | ATSINSmove_lazyeval () => pr "ATSINSmove_lazyeval"
 //
+| ATSINSmove_ldelay () => pr "ATSINSmove_ldelay"
+| ATSINSmove_llazyeval () => pr "ATSINSmove_llazyeval"
+//
 | ATStailcal_beg () => pr "ATStailcal_beg"
 | ATStailcal_end () => pr "ATStailcal_end"
 | ATSINSmove_tlcal () => pr "ATSINSmove_tlcal"

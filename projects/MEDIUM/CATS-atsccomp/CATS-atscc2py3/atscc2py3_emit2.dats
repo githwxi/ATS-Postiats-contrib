@@ -730,6 +730,15 @@ fun emit2_ATSINSmove_lazyeval
 //
 (* ****** ****** *)
 //
+extern
+fun emit2_ATSINSmove_ldelay
+  (out: FILEref, ind: int, ins: instr) : void
+extern
+fun emit2_ATSINSmove_llazyeval
+  (out: FILEref, ind: int, ins: instr) : void
+//
+(* ****** ****** *)
+//
 // HX-2014-08:
 // this one should not be used for
 // emitting multiple-line instructions
@@ -947,6 +956,11 @@ ins0.instr_node of
     emit2_ATSINSmove_delay (out, ind, ins0)
 | ATSINSmove_lazyeval _ =>
     emit2_ATSINSmove_lazyeval (out, ind, ins0)
+//
+| ATSINSmove_ldelay _ =>
+    emit2_ATSINSmove_ldelay (out, ind, ins0)
+| ATSINSmove_llazyeval _ =>
+    emit2_ATSINSmove_llazyeval (out, ind, ins0)
 //
 | ATStailcalseq (inss) =>
   {
@@ -1288,6 +1302,53 @@ val () =
 in
   // nothing
 end // end of [emit2_ATSINSmove_lazyeval]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_ldelay
+  (out, ind, ins0) = let
+//
+val () = emit_nspc (out, ind)
+//
+val-ATSINSmove_ldelay(tmp, s0e, thunk) = ins0.instr_node
+//
+val () =
+(
+  emit_tmpvar (out, tmp); emit_text (out, " = "); emit_d0exp (out, thunk)
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_ldelay]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_llazyeval
+  (out, ind, ins0) = let
+//
+val-
+ATSINSmove_llazyeval
+  (tmp, s0e, lazyval) = ins0.instr_node
+//
+val () = emit_nspc (out, ind)
+//
+val () =
+  emit_tmpvar (out, tmp)
+//
+val () = emit_text (out, " = ")
+//
+val () =
+  emit_text (out, "ATSPMVllazyval_eval")
+val () =
+(
+  emit_text (out, "("); emit_d0exp (out, lazyval); emit_text (out, ")")
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_llazyeval]
 
 (* ****** ****** *)
 //

@@ -123,12 +123,12 @@
    ) (do
       (reset! flag# 1)
       (let [
-        thunk#
+        mythunk#
         (ATSCCget_1 ~lazyval)
-        thunk2# (deref thunk#)
+        mythunk2# (deref mythunk#)
        ] (
-        reset! thunk#
-          ((ATSCCget_0 thunk2#) thunk2#)
+        reset! mythunk#
+          ((ATSCCget_0 mythunk2#) mythunk2#)
         ;; end of [reset!]
        )
       ) ;; end of [let]

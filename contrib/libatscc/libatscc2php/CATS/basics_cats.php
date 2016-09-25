@@ -69,7 +69,11 @@ function ATSPMVempty() { return; }
 
 /*
 function
-ATSPMVlazyval_make (thunk) { return [0, thunk]; }
+ATSPMVlazyval_make
+  ($thunk)
+{
+  return [0, thunk];
+}
 */
 
 /* ****** ****** */
@@ -84,8 +88,8 @@ ATSPMVlazyval_eval
   if($flag===0)
   {
     $lazyval[0] = 1;
-    $thunk = $lazyval[1];
-    $lazyval[1] = $thunk[0]($thunk);
+    $mythunk = $lazyval[1];
+    $lazyval[1] = $mythunk[0]($mythunk);
   } else {
     $lazyval[0] = $flag + 1;
   } // end of [if]

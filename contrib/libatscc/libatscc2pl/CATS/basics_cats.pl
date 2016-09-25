@@ -74,16 +74,16 @@ ATSPMVlazyval_eval($)
 {
 #
   my($lazyval) = @_;
-  my $flag;
-  my $thunk;
+  my($flag);
+  my($mythunk);
 #
   $flag = $lazyval->[0];
 #
   if($flag==0)
   {
     $lazyval->[0] = 1;
-    $thunk = $lazyval->[1];
-    $lazyval->[1] = &{$thunk->[0]}($thunk);
+    $mythunk = $lazyval->[1];
+    $lazyval->[1] = &{$mythunk->[0]}($mythunk);
   } else {
     $lazyval->[0] = $flag + 1;
   } #end-of-[if]

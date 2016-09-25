@@ -217,6 +217,17 @@ cleanall:: ; $(RMF) sieve_lazy_dats.py
 
 ######
 
+all:: \
+sieve_llazy_dats.py
+sieve_llazy_dats.py: sieve_llazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PY) -o $@ -i
+sieve_llazy:: \
+sieve_llazy_dats.py ; $(PYTHON) sieve_llazy_dats.py
+regress:: sieve_llazy
+cleanall:: ; $(RMF) sieve_llazy_dats.py
+
+######
+
 testall:: all
 testall:: libatscc2py3
 testall:: regress

@@ -585,6 +585,22 @@ ATSINSmove_lazyeval_make
 , tok_end: token
 ) : instr // end-of-function
 //
+fun
+ATSINSmove_ldelay_make
+(
+  tok_kwd: token
+, tmp: i0de, s0e_res: s0exp, d0e: d0exp (*thunk*)
+, tok_end: token
+) : instr // end-of-function
+//
+fun
+ATSINSmove_llazyeval_make
+(
+  tok_kwd: token
+, tmp: i0de, s0e_res: s0exp, d0e: d0exp (*lazyval*)
+, tok_end: token
+) : instr // end-of-function
+//
 (* ****** ****** *)
 //
 fun

@@ -214,6 +214,9 @@ val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
 val-~None_vt() = kwordins ("ATSINSmove_delay", ATSINSmove_delay)
 val-~None_vt() = kwordins ("ATSINSmove_lazyeval", ATSINSmove_lazyeval)
 //
+val-~None_vt() = kwordins ("ATSINSmove_ldelay", ATSINSmove_ldelay)
+val-~None_vt() = kwordins ("ATSINSmove_llazyeval", ATSINSmove_llazyeval)
+//
 val-~None_vt() = kwordins ("ATStailcal_beg", ATStailcal_beg)
 val-~None_vt() = kwordins ("ATStailcal_end", ATStailcal_end)
 val-~None_vt() = kwordins ("ATSINSmove_tlcal", ATSINSmove_tlcal)

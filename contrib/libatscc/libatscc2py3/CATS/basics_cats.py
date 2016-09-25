@@ -52,16 +52,22 @@ def ATSPMVempty(): return
 
 def ATSPMVlazyval_eval(lazyval):
   flag = lazyval[0]
-  thunk = None
   if (flag==0):
     lazyval[0] = 1
-    thunk = lazyval[1]
-    lazyval[1] = thunk[0](thunk)
+    mythunk = lazyval[1]
+    lazyval[1] = mythunk[0](mythunk)
   else:
     lazyval[0] = flag + 1
   return
 #end-of-[ATSPMVlazyval_eval]
 
+############################################
+#
+def ATSPMVllazyval_eval(llazyval):
+  return llazyval[0](llazyval, True)
+def atspre_lazy_vt_free(llazyval):
+  return llazyval[0](llazyval, False)
+#
 ############################################
 
 def ats2pypre_tostring(x): return str(x)

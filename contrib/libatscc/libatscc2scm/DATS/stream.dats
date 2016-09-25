@@ -35,6 +35,9 @@ staload "./../SATS/integer.sats"
 //
 staload "./../SATS/print.sats"
 //
+(* ****** ****** *)
+//
+staload "./../SATS/list.sats"
 staload "./../SATS/reference.sats"
 //
 (* ****** ****** *)

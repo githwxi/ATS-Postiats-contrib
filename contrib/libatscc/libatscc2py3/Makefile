@@ -67,6 +67,8 @@ $(PATSOPT) -d ./DATS/option.dats | $(ATSCC2PY) -o ./output/ats2pypre_option_dats
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/stream_vt.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_vt_dats.py -i
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PY) -o ./output/ats2pypre_intrange_dats.py -i
