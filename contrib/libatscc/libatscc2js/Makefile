@@ -35,6 +35,10 @@ all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | \
 $(ATSCC2JS) -o ./output/DATS/stream_dats.js -i
 all:: ; \
+$(PATSOPT) -d ./DATS/stream_vt.dats | \
+$(ATSCC2JS) -o ./output/DATS/stream_vt_dats.js -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/gvalue.dats | \
 $(ATSCC2JS) -o ./output/DATS/gvalue_dats.js -i
 all:: ; \
@@ -129,6 +133,7 @@ output/DATS/basics_dats.js \
 output/DATS/list_dats.js \
 output/DATS/option_dats.js \
 output/DATS/stream_dats.js \
+output/DATS/stream_vt_dats.js \
 output/DATS/gvalue_dats.js \
 output/DATS/intrange_dats.js \
 output/DATS/JSarray_dats.js \

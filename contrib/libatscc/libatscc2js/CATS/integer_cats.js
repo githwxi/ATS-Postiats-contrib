@@ -72,7 +72,7 @@ ats2jspre_div_int0_int0(x, y)
 }
 function
 ats2jspre_mod_int0_int0(x, y) { return (x % y); }
-
+//
 /* ****** ****** */
 
 function
@@ -83,7 +83,12 @@ function
 ats2jspre_mul_int1_int1(x, y) { return (x * y); }
 function
 ats2jspre_div_int1_int1(x, y) { return ats2jspre_div_int0_int0(x, y); }
-
+//
+function
+ats2jspre_mod_int1_int1(x, y) { return (x % y); }
+function
+ats2jspre_nmod_int1_int1(x, y) { return (x % y); }
+//
 /* ****** ****** */
 
 function

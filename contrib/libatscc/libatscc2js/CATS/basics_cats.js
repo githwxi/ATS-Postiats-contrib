@@ -67,17 +67,10 @@ function
 ATSPMVempty() { return; }
 
 /* ****** ****** */
-
-/*
-function
-ATSPMVlazyval_make (thunk) { return [0, thunk]; }
-*/
-
-/* ****** ****** */
 //
 function
 ATSPMVlazyval(thunk)
-  { return [0, thunk] ; }
+  { return [0, thunk]; }
 //
 /* ****** ****** */
 
@@ -103,6 +96,20 @@ ATSPMVlazyval_eval(lazyval)
 //
 } // end of [ATSPMVlazyval_eval]
 
+/* ****** ****** */
+//
+function
+ATSPMVllazyval(thunk){ return thunk; }
+//
+/* ****** ****** */
+//
+function
+ATSPMVllazyval_eval(llazyval)
+  { return llazyval[0](llazyval, true); }
+function
+atspre_lazy_vt_free(llazyval)
+  { return llazyval[0](llazyval, false); }
+//
 /* ****** ****** */
 
 function

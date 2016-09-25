@@ -214,6 +214,17 @@ cleanall:: ; $(RMF) sieve_lazy_dats.js
 ######
 #
 all:: \
+sieve_llazy_dats.js
+sieve_llazy_dats.js: sieve_llazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+#
+regress:: test_sieve_llazy
+test_sieve_llazy:: sieve_llazy_dats.js ; $(NODEJS) $<
+cleanall:: ; $(RMF) sieve_llazy_dats.js
+#
+######
+#
+all:: \
 hello_dats.js
 hello_dats.c: \
 hello.dats ; $(PATSOPT) -o $@ -d $<

@@ -77,6 +77,14 @@ fun div_int1_int1
 //
 (* ****** ****** *)
 //
+fun
+nmod_int1_int1
+{ i,j:int
+| i >= 0; j > 0
+} (i: int(i), j: int(j)):<fun> int(nmod(i, j)) = "mac#%"
+//
+(* ****** ****** *)
+//
 overload + with add_int0_int0 of 100
 overload - with sub_int0_int0 of 100
 overload * with mul_int0_int0 of 100

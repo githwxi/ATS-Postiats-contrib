@@ -77,8 +77,9 @@ overload / with div_int1_int1 of 120
 //
 fun
 nmod_int1_int1
-{i,j:int | i >= 0; j > 0}
-  (i: int(i), j: int(j)): int(nmod(i, j)) = "mac#%"
+{ i,j:int
+| i >= 0; j > 0
+} (i: int(i), j: int(j)):<fun> int(nmod(i, j)) = "mac#%"
 //
 (* ****** ****** *)
 //

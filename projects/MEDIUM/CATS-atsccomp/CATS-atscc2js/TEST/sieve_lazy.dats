@@ -16,6 +16,13 @@
 
 (* ****** ****** *)
 //
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "sieve_lazy_main"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
@@ -27,16 +34,12 @@ staload
 "{$LIBATSCC2JS}/SATS/print.sats"
 //
 (* ****** ****** *)
-
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "sieve_lazy_main"
-
-(* ****** ****** *)
-
-#define nil stream_nil
+//
 #define :: stream_cons
+//
+#define nil stream_nil
 #define cons stream_cons
-
+//
 (* ****** ****** *)
 //
 fun
