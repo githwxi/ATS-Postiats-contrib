@@ -56,6 +56,7 @@ from ats2pypre_option_dats import *
 ######
 
 from ats2pypre_stream_dats import *
+from ats2pypre_stream_vt_dats import *
 
 ######
 

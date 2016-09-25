@@ -762,26 +762,38 @@ ins0.instr_node of
     d0e, inss, inssopt
   ) =>
   {
+//
     val () = emit_nspc (out, ind)
+//
     val () = emit_text (out, "if ")
     val () = emit_LPAREN (out)
     val () = emit_d0exp (out, d0e)
     val () = emit_RPAREN (out)
     val () = emit_text (out, ":\n")
+//
     val () = emit2_instrlst (out, ind+2, inss)
+//
     val () =
     (
-      case+ inssopt of
+      case+
+      inssopt
+      of (*case+*)
+      | None() => ()
       | Some(inss) =>
-        {
-          val () = emit_nspc (out, ind)
-          val () = emit_text (out, "else:\n")
-          val () = emit2_instrlst (out, ind+2, inss)
-        }
-      | None((*void*)) => ()
+        (
+           case+ inss of
+           | list_nil _ => ()
+           | list_cons _ => {
+               val () = emit_nspc (out, ind)
+               val () = emit_text (out, "else:\n")
+               val () = emit2_instrlst (out, ind+2, inss)
+             } (* end of [list_cons] *)
+        ) (* end of [Some] *)
     )
+//
     val () = emit_nspc (out, ind)
     val () = emit_text (out, "#endif")
+//
   } (* end of [ATSif] *)
 //
 | ATSifthen (d0e, inss) =>
