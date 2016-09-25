@@ -115,13 +115,12 @@ main0_py();
 (* ****** ****** *)
 
 %{^
+######
 import sys
 ######
-sys.setrecursionlimit(1000000)
-######
-#
 from libatscc2py_all import *
-#
+######
+sys.setrecursionlimit(1000000)
 ######
 %} (* end of [%{^] *)
 

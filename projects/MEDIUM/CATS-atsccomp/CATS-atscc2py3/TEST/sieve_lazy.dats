@@ -27,8 +27,6 @@
 (* ****** ****** *)
 //
 #define nil stream_nil
-//
-#define :: stream_cons
 #define cons stream_cons
 //
 (* ****** ****** *)
@@ -108,23 +106,12 @@ main0_py();
 (* ****** ****** *)
 
 %{^
+######
 import sys
 ######
-sys.setrecursionlimit(1000000)
+from libatscc2py_all import *
 ######
-#
-from ats2pypre_basics_cats import *
-#
-from ats2pypre_integer_cats import *
-#
-from ats2pypre_string_cats import *
-#
-from ats2pypre_print_cats import *
-#
-from ats2pypre_PYlist_cats import *
-#
-from ats2pypre_stream_dats import *
-#
+sys.setrecursionlimit(1000000)
 ######
 %} (* end of [%{^] *)
 
