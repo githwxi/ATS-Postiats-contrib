@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Scheme
+** that translates into Clojure
 *)
 
 (* ****** ****** *)
@@ -13,9 +13,9 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2scmpre_"
+ATS_EXTERN_PREFIX "ats2cljpre_"
 #define
-ATS_STATIC_PREFIX "_ats2scmpre_stream_vt_"
+ATS_STATIC_PREFIX "_ats2cljpre_CLJlist_"
 //
 (* ****** ****** *)
 //
@@ -25,13 +25,12 @@ ATS_STATIC_PREFIX "_ats2scmpre_stream_vt_"
 (* ****** ****** *)
 //
 staload
-UN =
-"prelude/SATS/unsafe.sats"
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-//
-staload "./../basics_scm.sats"
-//
+
+staload "./../basics_clj.sats"
+
 (* ****** ****** *)
 //
 staload "./../SATS/integer.sats"
@@ -39,21 +38,21 @@ staload "./../SATS/integer.sats"
 (* ****** ****** *)
 //
 staload "./../SATS/print.sats"
+staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
-//
+
 staload "./../SATS/list.sats"
-staload "./../SATS/reference.sats"
-//
-(* ****** ****** *)
-
-staload "./../SATS/stream.sats"
-staload "./../SATS/stream_vt.sats"
+staload "./../SATS/CLJlist.sats"
 
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/stream_vt.dats"
+implement
+{a}(*tmp*)
+CLJlist_sort_1(xs) = 
+CLJlist_sort_2
+  (xs, lam(x1, x2) => gcompare_val_val<a>(x1, x2))
 //
 (* ****** ****** *)
 
-(* end of [stream_vt.dats] *)
+(* end of [CLJlist.dats] *)

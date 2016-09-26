@@ -26,6 +26,10 @@ abstype CLJval_type
 typedef CLJval = CLJval_type
 //
 (* ****** ****** *)
+
+abstype CLJlist(a:t0ype+) // functional
+
+(* ****** ****** *)
 //
 fun
 cloref0_app{b:t0p}(cfun0(b)): b = "mac#%"

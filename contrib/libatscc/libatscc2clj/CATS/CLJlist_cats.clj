@@ -12,56 +12,70 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (defmacro
- CLJlist_nil[] `())
+ ats2cljpre_CLJlist_nil[] `())
 (defmacro
- CLJlist_sing[x] `(list ~x))
+ ats2cljpre_CLJlist_sing[x] `(list ~x))
 (defmacro
- CLJlist_pair[x1 x2] `(list ~x1 ~x2))
+ ats2cljpre_CLJlist_pair[x1 x2] `(list ~x1 ~x2))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmacro
- CLJlist_cons[x0 xs] `(cons ~x0 ~xs))
+ ats2cljpre_CLJlist_cons[x0 xs] `(cons ~x0 ~xs))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (defmacro
- CLJlist_make_elt[n x0] `(repeat ~n ~x0))
+ ats2cljpre_CLJlist_make_elt[n x0] `(repeat ~n ~x0))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (defmacro
- CLJlist_is_nil[xs] `(empty? ~xs))
+ ats2cljpre_CLJlist_is_nil[xs] `(empty? ~xs))
 (defmacro
- CLJlist_is_cons[xs] `(not (empty? ~xs)))
+ ats2cljpre_CLJlist_is_cons[xs] `(not (empty? ~xs)))
 (defmacro
- CLJlist_isnot_nil[xs] `(not (empty? ~xs)))
+ ats2cljpre_CLJlist_isnot_nil[xs] `(not (empty? ~xs)))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmacro
- CLJlist_length[xs] `(count ~xs)
+ ats2cljpre_CLJlist_length[xs] `(count ~xs)
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmacro CLJlist_tail[xs] `(rest ~xs))
-(defmacro CLJlist_head[xs] `(first ~xs))
+(defmacro ats2cljpre_CLJlist_tail[xs] `(rest ~xs))
+(defmacro ats2cljpre_CLJlist_head[xs] `(first ~xs))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmacro
- CLJlist_get_at[xs i] `(nth ~xs ~i)
+ ats2cljpre_CLJlist_get_at[xs i] `(nth ~xs ~i)
 ) ; defmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 (defmacro
- CLJlist_append[xs ys] `(concat ~xs ~ys)
+ ats2cljpre_CLJlist_append[xs ys] `(concat ~xs ~ys)
 )
 ;;
-(defmacro CLJlist_reverse[xs] `(reverse ~xs))
+(defmacro ats2cljpre_CLJlist_reverse[xs] `(reverse ~xs))
 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+(defmacro
+ ats2cljpre_CLJlist2list_rev[xs]
+`(reduce #(ats2cljpre_list_cons %2 %1) atscc2clj_null ~xs)
+) ; defmacro
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmacro
+ ats2cljpre_CLJlist_sort_2[xs cmp]
+`(let [cmp# (ats2cljpre_cloref2fun2 ~cmp)] (sort cmp# ~xs))
+) ; defmacro
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;; end of [CLJlist_cats.clj] ;;;;;;

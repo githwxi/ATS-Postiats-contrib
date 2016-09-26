@@ -18,6 +18,13 @@
 
 ;; ****** ****** ;;
 ;;
+(def ^:const atscc2clj_list_nil '())
+;;
+(defmacro
+ ats2cljpre_list_cons[x xs] `(vector ~x ~xs))
+;;
+;; ****** ****** ;;
+;;
 (def ^:const
  ATSINSmove0_void atscc2clj_null)
 ;;
@@ -112,7 +119,7 @@
 )
 ;;
 (defmacro
- ATSPMVlazyval_eval[lazyval]
+ ATSPMVlazyval_evl[lazyval]
 `(let
   [flag# (
     ATSCCget_0 ~lazyval
@@ -138,10 +145,28 @@
 ) ;; end of [defmacro]
 ;;
 (defmacro
- ATSPMVlazyval_eval2[lazyval]
+ ATSPMVlazyval_eval[lazyval]
 `(let [lazyval# ~lazyval]
-   (ATSPMVlazyval_eval lazyval#) (deref (ATSCCget_1 lazyval#))
+   (ATSPMVlazyval_evl lazyval#) (deref (ATSCCget_1 lazyval#))
  )
+) ;; end of [defmacro]
+;;
+;; ****** ****** ;;
+;;
+(defmacro
+ ATSPMVllazyval[thunk] thunk
+)
+;;
+(defmacro
+ ATSPMVllazyval_eval[llazyval]
+`(let [llazyval# ~llazyval]
+   ((ATSfunclo_fclo llazyval#) llazyval# true))
+) ;; end of [defmacro]
+;;
+(defmacro
+ atspre_lazy_vt_free[llazyval]
+`(let [llazyval# ~llazyval]
+   ((ATSfunclo_fclo llazyval#) llazyval# false))
 ) ;; end of [defmacro]
 ;;
 ;; ****** ****** ;;
@@ -195,6 +220,44 @@
    (do (.println *err* msg) (System/exit 1))
  )
 ) ;; end-of-define
+;;
+;; ****** ****** ;;
+
+(defmacro
+ ats2cljpre_cloref0_app[cf]
+`(let [cf# ~cf] ((ATSfunclo_fclo cf#) cf#))
+) ; defmacro
+(defmacro
+ ats2cljpre_cloref1_app[cf x]
+`(let [cf# ~cf] ((ATSfunclo_fclo cf#) cf# ~x))
+) ; defmacro
+(defmacro
+ ats2cljpre_cloref2_app[cf x1 x2]
+`(let [cf# ~cf] ((ATSfunclo_fclo cf#) cf# ~x1 ~x2))
+) ; defmacro
+(defmacro
+ ats2cljpre_cloref3_app[cf x1 x2 x3]
+`(let [cf# ~cf] ((ATSfunclo_fclo cf#) cf# ~x1 ~x2 ~x3))
+) ; defmacro
+
+;; ****** ****** ;;
+;;
+(defn
+ ats2cljpre_cloref2fun0[cf]
+ (fn [] (ats2cljpre_cloref0_app cf))
+) ; defn
+(defn
+ ats2cljpre_cloref2fun1[cf]
+ (fn [x] (ats2cljpre_cloref1_app cf x))
+) ; defn
+(defn
+ ats2cljpre_cloref2fun2[cf]
+ (fn [x1 x2] (ats2cljpre_cloref2_app cf x1 x2))
+) ; defn
+(defn
+ ats2cljpre_cloref2fun3[cf]
+ (fn [x1 x2 x3] (ats2cljpre_cloref3_app cf x1 x2 x3))
+) ; defn
 ;;
 ;; ****** ****** ;;
 

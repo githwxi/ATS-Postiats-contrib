@@ -164,9 +164,9 @@ PYlist_string_join(xs: PYlist(string)): string = "mac#%"
 // Implemented in [list.dats]
 //
 fun
-PYlist_oflist{a:t0p}(xs: List(a)): PYlist(a) = "mac#%"
+PYlist_oflist{a:t0p}(xs: List(INV(a))): PYlist(a) = "mac#%"
 fun
-PYlist_oflist_rev{a:t0p}(xs: List(a)): PYlist(a) = "mac#%"
+PYlist_oflist_rev{a:t0p}(xs: List(INV(a))): PYlist(a) = "mac#%"
 //
 (* ****** ****** *)
 //

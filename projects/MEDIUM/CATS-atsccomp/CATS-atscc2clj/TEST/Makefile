@@ -162,9 +162,19 @@ cleanall:: ; $(RMF) weekday_dats.clj
 #
 all:: \
 sieve_lazy_dats.clj
-regress:: \
+test_sieve_lazy:: \
 sieve_lazy_dats.clj ; $(CLOJURE2) $<
+regress:: test_sieve_lazy
 cleanall:: ; $(RMF) sieve_lazy_dats.clj
+#
+######
+#
+all:: \
+sieve_llazy_dats.clj
+test_sieve_llazy:: \
+sieve_llazy_dats.clj ; $(CLOJURE2) $<
+regress:: test_sieve_llazy
+cleanall:: ; $(RMF) sieve_llazy_dats.clj
 #
 ######
 

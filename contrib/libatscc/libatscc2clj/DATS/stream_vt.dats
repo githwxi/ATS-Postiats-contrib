@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Scheme
+** that translates into Clojure
 *)
 
 (* ****** ****** *)
@@ -13,9 +13,9 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2scmpre_"
+ATS_EXTERN_PREFIX "ats2cljpre_"
 #define
-ATS_STATIC_PREFIX "_ats2scmpre_stream_vt_"
+ATS_STATIC_PREFIX "_ats2cljpre_stream_vt_"
 //
 (* ****** ****** *)
 //
@@ -30,7 +30,7 @@ UN =
 //
 (* ****** ****** *)
 //
-staload "./../basics_scm.sats"
+staload "./../basics_clj.sats"
 //
 (* ****** ****** *)
 //
