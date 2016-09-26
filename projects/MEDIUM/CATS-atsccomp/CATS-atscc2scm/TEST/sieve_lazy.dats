@@ -31,7 +31,6 @@ ATS_DYNLOADNAME "sieve_lazy_main"
 (* ****** ****** *)
 
 #define nil stream_nil
-#define ::  stream_cons
 #define cons stream_cons
 
 (* ****** ****** *)

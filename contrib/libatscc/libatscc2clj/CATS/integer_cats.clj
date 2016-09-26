@@ -68,6 +68,7 @@
 (defmacro
  ats2cljpre_div_int0_int0[x y] `(quot ~x ~y)
 )
+;;
 (defmacro
  ats2cljpre_mod_int0_int0[x y] `(mod ~x ~y)
 )
@@ -87,9 +88,14 @@
 (defmacro
  ats2cljpre_div_int1_int1[x y] `(quot ~x ~y)
 )
+;;
 (defmacro
  ats2cljpre_mod_int1_int1[x y] `(mod ~x ~y)
 )
+(defmacro
+ ats2cljpre_nmod_int1_int1[x y] `(mod ~x ~y)
+)
+;;
 (defmacro
  ats2cljpre_rem_int1_int1[x y] `(rem ~x ~y)
 )

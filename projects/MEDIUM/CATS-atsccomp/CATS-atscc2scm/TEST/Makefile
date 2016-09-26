@@ -147,9 +147,19 @@ cleanall:: ; $(RMF) weekday_dats.scm
 #
 all:: \
 sieve_lazy_dats.scm
-regress:: \
+test_sieve_lazy:: \
 sieve_lazy_dats.scm ; $(SCHEME2) $<
+regress:: test_sieve_lazy
 cleanall:: ; $(RMF) sieve_lazy_dats.scm
+#
+######
+#
+all:: \
+sieve_llazy_dats.scm
+test_sieve_llazy:: \
+sieve_llazy_dats.scm ; $(SCHEME2) $<
+regress:: test_sieve_llazy
+cleanall:: ; $(RMF) sieve_llazy_dats.scm
 #
 ######
 

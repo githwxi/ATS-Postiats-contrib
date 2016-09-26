@@ -66,6 +66,7 @@
 (define-macro
  (ats2scmpre_div_int0_int0 x y) `(quotient ,x ,y)
 )
+;;
 (define-macro
  (ats2scmpre_mod_int0_int0 x y) `(modulo ,x ,y)
 )
@@ -85,9 +86,14 @@
 (define-macro
  (ats2scmpre_div_int1_int1 x y) `(quotient ,x ,y)
 )
+;;
 (define-macro
  (ats2scmpre_mod_int1_int1 x y) `(modulo ,x ,y)
 )
+(define-macro
+ (ats2scmpre_nmod_int1_int1 x y) `(modulo ,x ,y)
+)
+;;
 (define-macro
  (ats2scmpre_rem_int1_int1 x y) `(remainder ,x ,y)
 )

@@ -97,7 +97,7 @@
 ;; ****** ****** ;;
 ;;
 (define-macro
- (ATSPMVlazyval thunk) `(list 0 ,thunk))
+ (ATSPMVlazyval fc) `(list 0 ,fc))
 ;;
 (define
  (ATSPMVlazyval_eval lazyval)
@@ -105,22 +105,31 @@
    (if (= flag 0)
      (begin
       (ATSCCset_0 lazyval 1)
-      (let ((mythunk (ATSCCget_1 lazyval)))
-        (ATSCCset_1 lazyval ((ATSCCget_0 mythunk) mythunk)))
+      (let ((thunk (ATSCCget_1 lazyval)))
+	(let ((result ((ATSfunclo_fclo thunk) thunk)))
+          (ATSCCset_1 lazyval result) result))
      )
      (begin
-      (ATSCCset_0 lazyval (+ flag 1))
+      (ATSCCset_0 lazyval (+ flag 1)) (ATSCCget_1 lazyval)
      )
    ) ;; if
  ) ;; let
 ) ;; define
 ;;
+;; ****** ****** ;;
+;;
 (define-macro
- (ATSPMVlazyval_eval2 lazyval)
- `(begin
-   (ATSPMVlazyval_eval ,lazyval) (ATSCCget_1 ,lazyval)
-  )
-)
+ (ATSPMVllazyval thunk) thunk)
+;;
+(define
+ (ATSPMVllazyval_eval llazyval)
+  ((ATSfunclo_fclo llazyval) llazyval #t)
+) ;; define
+;;
+(define
+ (atspre_lazy_vt_free llazyval)
+  ((ATSfunclo_fclo llazyval) llazyval #f)
+) ;; define
 ;;
 ;; ****** ****** ;;
 

@@ -31,9 +31,13 @@ $(ATSCC2SCM) -o ./output/DATS/list_dats.scm -i
 all:: ; \
 $(PATSOPT) -d ./DATS/option.dats | \
 $(ATSCC2SCM) -o ./output/DATS/option_dats.scm -i
+#
 all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | \
 $(ATSCC2SCM) -o ./output/DATS/stream_dats.scm -i
+all:: ; \
+$(PATSOPT) -d ./DATS/stream_vt.dats | \
+$(ATSCC2SCM) -o ./output/DATS/stream_vt_dats.scm -i
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | \
@@ -91,6 +95,7 @@ $(CAT) >>libatscc2scm_all.scm \
 output/DATS/list_dats.scm \
 output/DATS/option_dats.scm \
 output/DATS/stream_dats.scm \
+output/DATS/stream_vt_dats.scm \
 output/DATS/reference_dats.scm
 #
 libatscc2scm_all:: ; \
