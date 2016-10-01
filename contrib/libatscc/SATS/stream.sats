@@ -29,6 +29,13 @@ stream_nth_opt
 (* ****** ****** *)
 //
 fun
+stream_length
+  {a:t0p}
+  (stream(INV(a))): intGte(0) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_takeLte
   {a:t0p}
 (

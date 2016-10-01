@@ -56,6 +56,26 @@ in
 end // end of [stream_nth_opt]
 
 (* ****** ****** *)
+
+implement
+stream_length
+  {a}(xs) = loop(xs, 0) where
+{
+//
+fun
+loop
+(
+  xs: stream(a), res: intGte(0)
+) : intGte(0) =
+(
+  case+ !xs of
+  | stream_nil() => res
+  | stream_cons(_, xs) => loop(xs, res+1)
+)
+//
+} (* end of [stream_length] *)
+
+(* ****** ****** *)
 //
 implement
 stream_takeLte

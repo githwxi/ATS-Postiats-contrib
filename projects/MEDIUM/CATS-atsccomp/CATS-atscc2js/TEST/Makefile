@@ -168,8 +168,8 @@ queens_comb.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2JS) -o $@
 #
 regress:: \
-queens_comb
-queens_comb:: \
+test_queens_comb
+test_queens_comb:: \
 queens_comb_dats.js ; $(NODEJS) $<
 #
 cleanall:: ; $(RMF) queens_comb_dats.js
@@ -183,8 +183,8 @@ queens_simple.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2JS) -o $@
 #
 regress:: \
-queens_simple
-queens_simple:: \
+test_queens_simple
+test_queens_simple:: \
 queens_simple_dats.js ; $(NODEJS) $<
 #
 cleanall:: ; $(RMF) queens_simple_dats.js
