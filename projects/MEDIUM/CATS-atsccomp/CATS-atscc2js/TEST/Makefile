@@ -175,6 +175,7 @@ queens_comb_dats.js ; $(NODEJS) $<
 cleanall:: ; $(RMF) queens_comb_dats.js
 #
 ######
+#
 all:: \
 queens_simple_dats.js
 #
@@ -247,6 +248,25 @@ process_test:: process_test_dats.js ; $(NODEJS) process_test_dats.js
 regress:: process_test
 cleanall:: ; $(RMF) process_test_dats.js
 #
+######
+
+#
+all:: \
+QueenPuzzle_sol_dats.js
+#
+QueenPuzzle_sol_dats.js: \
+QueenPuzzle_sol.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2JS) -o $@
+#
+regress:: \
+test_QueenPuzzle_sol
+test_QueenPuzzle_sol:: \
+QueenPuzzle_sol_dats.js ; $(NODEJS) $<
+#
+cleanall:: ; $(RMF) QueenPuzzle_sol_dats.js
+#
+######
+
 ######
 
 testall:: all

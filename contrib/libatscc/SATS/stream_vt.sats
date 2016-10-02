@@ -70,9 +70,31 @@ stream_vt_foreach_method
 //
 (* ****** ****** *)
 //
+fun
+stream_vt_iforeach_cloref
+  {a:vt0ype}
+(
+  xs: stream_vt(INV(a)), fwork: (Nat, a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+fun
+stream_vt_iforeach_method
+  {a:vt0ype}
+(
+  xs: stream_vt(INV(a))
+) :<> ((Nat, a) -<cloref1> void) -<lincloptr1> void = "mac#%"
+//
+(* ****** ****** *)
+//
 overload .map with stream_vt_map_method
 overload .filter with stream_vt_filter_method
 overload .foreach with stream_vt_foreach_method
+//
+(* ****** ****** *)
+//
+fun
+stream_vt_tabulate_cloref
+  {a:t0p}
+  (fopr: intGte(0) -<cloref1> a): stream_vt(a) = "mac#%"
 //
 (* ****** ****** *)
 

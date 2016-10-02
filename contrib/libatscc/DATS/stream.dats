@@ -174,6 +174,19 @@ in
 end // end of [stream_drop_opt]
 
 (* ****** ****** *)
+
+implement
+stream_append
+  (xs, ys) = $delay
+(
+  case+ !xs of
+  | stream_nil() => !ys
+  | stream_cons(x, xs) =>
+      stream_cons(x, stream_append(xs, ys))
+    // end of [stream_cons]
+) (* end of [stream_append] *)
+
+(* ****** ****** *)
 //
 implement
 stream_map_cloref
@@ -289,10 +302,10 @@ stream_tabulate_cloref
 fun
 auxmain
 (
-  n: intGte(0)
+n0: intGte(0)
 ) : stream(a) =
 (
-  $delay(stream_cons(fopr(n), auxmain(n+1)))
+  $delay(stream_cons(fopr(n0), auxmain(n0+1)))
 ) (* end of [auxmain] *)
 //
 } (* end of [stream_tabulate_cloref] *)

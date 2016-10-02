@@ -70,6 +70,13 @@ stream_drop_opt
 (* ****** ****** *)
 //
 fun
+stream_append
+  {a:t0p}
+  (stream(a), stream(a)): stream(a) = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 stream_map_cloref
   {a:t0p}{b:t0p}
 (
