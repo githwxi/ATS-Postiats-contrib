@@ -421,4 +421,62 @@ end // end of [stream2cloref]
 
 (* ****** ****** *)
 
+implement
+stream_take_while_cloref
+  {a}(xs, pred) = let
+//
+val $tup(xs, ys) =
+  stream_rtake_while_cloref{a}(xs, pred)
+//
+in
+//
+  $tup(xs, list_reverse(ys))
+//
+end // end of [stream_take_while_cloref]
+
+(* ****** ****** *)
+
+implement
+stream_rtake_while_cloref
+  {a}(xs, pred) = let
+//
+fun
+loop
+(
+  xs: stream(a)
+, i0: intGte(0), res: List0(a)
+) : $tup(stream(a), List0(a)) =
+(
+  case+ !xs of
+  | stream_nil() => $tup(xs, res)
+  | stream_cons(x, xs2) =>
+    if pred(i0, x)
+      then loop(xs2, i0+1, list_cons(x, res)) else $tup(xs, res)
+    // end of [if]
+) (* end of [loop] *)
+//
+in
+//
+  loop(xs, 0, list_nil((*void*)))
+//
+end // end of [stream_take_while_cloref]
+
+(* ****** ****** *)
+//
+implement
+stream_take_until_cloref
+  {a}(xs, pred) =
+(
+stream_take_while_cloref(xs, lam(i, x) => ~pred(i, x))
+) (* end of [stream_take_until_cloref] *)
+//
+implement
+stream_rtake_until_cloref
+  {a}(xs, pred) =
+(
+stream_rtake_while_cloref(xs, lam(i, x) => ~pred(i, x))
+) (* end of [stream_take_until_cloref] *)
+//
+(* ****** ****** *)
+
 (* end of [stream.dats] *)

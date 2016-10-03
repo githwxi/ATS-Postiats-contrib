@@ -183,5 +183,33 @@ stream2cloref_last
   {a:t0p}(xs: stream(INV(a)), last: a): cfun(a) = "mac#%"
 //
 (* ****** ****** *)
+//
+fun
+stream_take_while_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+fun
+stream_rtake_while_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+//
+fun
+stream_take_until_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+fun
+stream_rtake_until_cloref
+  {a:t0p}
+(
+xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
+) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
 
 (* end of [stream.sats] *)
