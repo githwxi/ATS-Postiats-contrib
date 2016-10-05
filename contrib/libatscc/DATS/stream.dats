@@ -460,12 +460,15 @@ loop
 , i0: intGte(0), res: List0(a)
 ) : $tup(stream(a), List0(a)) =
 (
-  case+ !xs of
-  | stream_nil() => $tup(xs, res)
-  | stream_cons(x, xs2) =>
+//
+case+ !xs of
+| stream_nil() =>
+    $tup(xs, res)
+| stream_cons(x, xs2) =>
     if pred(i0, x)
       then loop(xs2, i0+1, list_cons(x, res)) else $tup(xs, res)
     // end of [if]
+//
 ) (* end of [loop] *)
 //
 in

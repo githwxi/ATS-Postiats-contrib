@@ -137,8 +137,9 @@ aux
 //
 if
 (i < n0)
-then stream_cons(fopr(i), aux(i+1))
-else stream_nil()
+then (
+  stream_cons(fopr(i), aux(i+1))
+) else stream_nil()
 // end of [if]
 )
 //
@@ -154,7 +155,43 @@ int_stream_map_method
 lam(fopr) =>
   int_stream_map_cloref{a}(n0, fopr)
 //
-)
+) (* end of [int_stream_map_method] *)
+//
+(* ****** ****** *)
+//
+implement
+int_stream_vt_map_cloref
+  {a}(n0, fopr) = let
+//
+fun
+aux
+{i:nat}
+(
+  i: int(i)
+) : stream_vt(a) = $ldelay
+(
+//
+if
+(i < n0)
+then (
+  stream_vt_cons(fopr(i), aux(i+1))
+) else stream_vt_nil((*void*))
+// end of [if]
+) : stream_vt_con(a) // [aux]
+//
+in
+  aux(0)
+end // end of [int_list_map_cloref]
+//
+implement
+int_stream_vt_map_method
+  {a}(n0, tres) =
+(
+//
+llam(fopr) =>
+  int_stream_vt_map_cloref{a}(n0, fopr)
+//
+) (* end of [int_stream_vt_map_method] *)
 //
 (* ****** ****** *)
 //
