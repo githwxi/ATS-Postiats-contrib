@@ -103,7 +103,8 @@ aux
 //
 if
 (i < n0)
-then list_cons(fopr(i), aux(i+1)) else list_nil()
+then list_cons(fopr(i), aux(i+1))
+else list_nil()
 // end of [if]
 )
 //
@@ -114,7 +115,46 @@ end // end of [int_list_map_cloref]
 implement
 int_list_map_method
   {a}{n}(n0, tres) =
-  lam(fopr) => int_list_map_cloref{a}{n}(n0, fopr)
+(
+//
+lam(fopr) =>
+  int_list_map_cloref{a}{n}(n0, fopr)
+//
+)
+//
+(* ****** ****** *)
+//
+implement
+int_stream_map_cloref
+  {a}(n0, fopr) = let
+//
+fun
+aux
+{i:nat}
+(
+  i: int(i)
+) : stream(a) = $delay(
+//
+if
+(i < n0)
+then stream_cons(fopr(i), aux(i+1))
+else stream_nil()
+// end of [if]
+)
+//
+in
+  aux(0)
+end // end of [int_list_map_cloref]
+//
+implement
+int_stream_map_method
+  {a}(n0, tres) =
+(
+//
+lam(fopr) =>
+  int_stream_map_cloref{a}(n0, fopr)
+//
+)
 //
 (* ****** ****** *)
 //

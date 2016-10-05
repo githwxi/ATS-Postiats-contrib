@@ -90,11 +90,10 @@ arrszref_make_arrayref
 (* ****** ****** *)
 //
 implement
-arrszref_size{a}(A) = let
-  val A = $UN.cast{PHParref(a)}(A)
-in
-  $UN.cast{intGte(0)}(PHParref_length(A))
-end // end of [arrszref_size]
+arrszref_size{a}(A) =
+(
+  PHParref_length($UN.cast{PHParref(a)}(A))
+) (* end of [arrszref_size] *)
 //
 (* ****** ****** *)
 //

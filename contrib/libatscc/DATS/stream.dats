@@ -187,6 +187,19 @@ stream_append
 ) (* end of [stream_append] *)
 
 (* ****** ****** *)
+
+implement
+stream_concat
+  (xss) = $delay
+(
+//
+case+ !xss of
+| stream_nil() => stream_nil()
+| stream_cons(xs, xss) => !(stream_append(xs, stream_concat(xss)))
+//
+) (* end of [stream_concat] *)
+
+(* ****** ****** *)
 //
 implement
 stream_map_cloref

@@ -21,69 +21,69 @@ staload "./../basics_php.sats"
 //
 fun
 PHParref_nil
-  {a:t0p}(): PHParref(a) = "mac#"
+  {a:vt0p}(): PHParref(a) = "mac#%"
 //
 fun
 PHParref_sing
-  {a:t0p}(x: a): PHParref(a) = "mac#"
+  {a:vt0p}(x: a): PHParref(a) = "mac#%"
 //
 fun
 PHParref_pair
-  {a:t0p}(x1: a, x2: a): PHParref(a) = "mac#"
+  {a:vt0p}(x1: a, x2: a): PHParref(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 PHParref_is_nil
-  {a:t0p}(PHParref(a)): bool = "mac#"
+  {a:vt0p}(PHParref(a)): bool = "mac#%"
 //
 fun
 PHParref_isnot_nil
-  {a:t0p} (PHParref(a)): bool = "mac#"
+  {a:vt0p} (PHParref(a)): bool = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 PHParref_make_elt{a:t0p}
-  (asz: intGte(0), x0: a): PHParref(a) = "mac#"
+  (asz: intGte(0), x0: a): PHParref(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-PHParref_size {a:t0p}(PHParref(a)): int = "mac#"
+PHParref_size{a:vt0p}(PHParref(a)): intGte(0) = "mac#%"
 fun
-PHParref_length{a:t0p}(PHParref(a)): int = "mac#"
+PHParref_length{a:vt0p}(PHParref(a)): intGte(0) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 PHParref_get_at
-  {a:t0p}(A: PHParref(a), i: int): a = "mac#"
+  {a:t0p}(A: PHParref(a), i: int): a = "mac#%"
 //
 fun
 PHParref_set_at
-  {a:t0p}(A: PHParref(a), i: int, x: a): void = "mac#"
+  {a:t0p}(A: PHParref(a), i: int, x: a): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 PHParref_unset
-  {a:t0p}(A: PHParref(a), index: int): void = "mac#"
+  {a:t0p}(A: PHParref(a), index: int): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-PHParref_extend{a:t0p}(A: PHParref(a), x: a): void = "mac#"
+PHParref_extend{a:t0p}(A: PHParref(a), x: a): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-PHParref_copy{a:t0p}(PHParref(a)): PHParref(a) = "mac#"
+PHParref_copy{a:t0p}(PHParref(a)): PHParref(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-PHParref_values{a:t0p}(PHParref(a)): PHParref(a) = "mac#"
+PHParref_values{a:t0p}(PHParref(a)): PHParref(a) = "mac#%"
 //
 (* ****** ****** *)
 

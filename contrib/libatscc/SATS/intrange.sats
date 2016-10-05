@@ -83,6 +83,19 @@ overload .list_map with int_list_map_method
 //
 (* ****** ****** *)
 //
+fun
+int_stream_map_cloref
+  {a:t0p}
+  (n: intGte(0), fopr: cfun(int, a)): stream(a) = "mac#%"
+fun
+int_stream_map_method
+  {a:t0p}
+  (n: intGte(0), TYPE(a))(fopr: cfun(int, a)): stream(a) = "mac#%"
+//
+overload .stream_map with int_stream_map_method
+//
+(* ****** ****** *)
+//
 // HX-2016-07-27:
 // no overloading for these int2-functions
 //

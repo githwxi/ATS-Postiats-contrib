@@ -72,7 +72,14 @@ stream_drop_opt
 fun
 stream_append
   {a:t0p}
-  (stream(a), stream(a)): stream(a) = "mac#"
+  (stream(a), stream(a)): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream_concat
+  {a:t0p}
+  (xss: stream(stream(a))): stream(a) = "mac#%"
 //
 (* ****** ****** *)
 //
