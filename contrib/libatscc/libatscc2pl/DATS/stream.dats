@@ -25,8 +25,13 @@ ATS_STATIC_PREFIX "_ats2plpre_stream_"
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
+(* ****** ****** *)
+
+staload "./../basics_pl.sats"
+
 (* ****** ****** *)
 //
 staload "./../SATS/integer.sats"

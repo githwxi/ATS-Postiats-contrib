@@ -55,10 +55,12 @@ staload "./../SATS/print.sats"
 staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
-
+//
 staload "./../SATS/list.sats"
 staload "./../SATS/PYlist.sats"
-
+//
+staload "./../SATS/stream.sats"
+//
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"

@@ -44,8 +44,9 @@ staload "./../SATS/filebas.sats"
 (* ****** ****** *)
 //
 staload "./../SATS/list.sats"
-//
 staload "./../SATS/JSarray.sats"
+//
+staload "./../SATS/stream.sats"
 //
 (* ****** ****** *)
 //

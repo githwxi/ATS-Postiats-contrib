@@ -20,6 +20,17 @@ stream_make_sing
 (* ****** ****** *)
 //
 fun
+stream_make_list
+  {a:t0p}
+  (xs: List0(a)): stream(a) = "mac#%"
+fun
+stream_make_list0
+  {a:t0p}
+  (xs: list0(a)): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_nth_opt
   {a:t0p}
 (

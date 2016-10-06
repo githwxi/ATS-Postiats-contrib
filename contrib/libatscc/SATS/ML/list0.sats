@@ -317,5 +317,12 @@ overload list0_sort with list0_sort_1 of 100
 overload list0_sort with list0_sort_2 of 100
 //
 (* ****** ****** *)
+//
+fun
+list0_xprod2
+  {a,b:t0p}
+  (list0(INV(a)), list0(INV(b))): stream($tup(a, b)) = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [list0.sats] *)

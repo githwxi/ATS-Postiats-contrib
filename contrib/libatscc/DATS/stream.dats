@@ -24,7 +24,24 @@ stream_make_nil() =
 implement
 {}(*tmp*)
 stream_make_sing(x0) =
-  $delay(stream_cons(x0, stream_make_nil()))
+  $delay(
+    stream_cons(x0, stream_make_nil())
+  )(*$delay*)
+//
+(* ****** ****** *)
+//
+implement
+stream_make_list(xs) = $delay
+(
+case+ xs of
+| list_nil() => stream_nil()
+| list_cons(x, xs) =>
+    stream_cons(x, stream_make_list(xs))
+) (* end of [stream_make_list] *)
+//
+implement
+stream_make_list0(xs) =
+  stream_make_list(g1ofg0_list(xs))
 //
 (* ****** ****** *)
 

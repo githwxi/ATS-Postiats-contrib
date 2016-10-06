@@ -25,7 +25,8 @@ ATS_STATIC_PREFIX "_ats2cljpre_stream_"
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //

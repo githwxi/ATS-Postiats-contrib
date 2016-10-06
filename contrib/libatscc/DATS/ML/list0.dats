@@ -321,6 +321,12 @@ end // end of [list0_foldright]
 (* ****** ****** *)
 //
 implement
+list0_xprod2
+  (xs, ys) = list_xprod2(g1ofg0(xs), g1ofg0(ys))
+//
+(* ****** ****** *)
+//
+implement
 {a}(*tmp*)
 list0_sort_1(xs) = let
 //

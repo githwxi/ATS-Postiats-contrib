@@ -25,12 +25,18 @@ ATS_STATIC_PREFIX "_ats2jspre_stream_"
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
+
+staload "./../basics_php.sats"
+
+(* ****** ****** *)
 //
-staload
-"./../SATS/integer.sats"
+staload "./../SATS/integer.sats"
+//
+(* ****** ****** *)
 //
 staload "./../SATS/print.sats"
 //
