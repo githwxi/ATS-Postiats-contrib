@@ -145,7 +145,7 @@ then (
 //
 in
   aux(0)
-end // end of [int_list_map_cloref]
+end // end of [aux]
 //
 implement
 int_stream_map_method
@@ -181,7 +181,7 @@ then (
 //
 in
   aux(0)
-end // end of [int_list_map_cloref]
+end // end of [aux]
 //
 implement
 int_stream_vt_map_method
