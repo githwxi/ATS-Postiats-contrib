@@ -235,13 +235,13 @@ case+ !xs of
 | stream_cons
     (x, xs) =>
   (
-    if pred(x)
-      then
-      stream_cons (
-        x, stream_filter_cloref(xs, pred)
-      ) (* end of [then] *)
-      else !(stream_filter_cloref(xs, pred))
-    // end of [if]
+  if pred(x)
+    then
+    stream_cons (
+      x, stream_filter_cloref(xs, pred)
+    ) (* end of [then] *)
+    else !(stream_filter_cloref(xs, pred))
+  // end of [if]
   ) (* end of [stream_cons] *)
 //
 ) (* end of [stream_filter_cloref] *)
@@ -252,6 +252,58 @@ stream_filter_method
 (
 lam(pred) => stream_filter_cloref{a}(xs, pred)
 ) (* end of [stream_filter_method] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_forall_cloref
+  {a}(xs, pred) =
+(
+//
+case+ !xs of
+| stream_nil() => true
+| stream_cons(x, xs) =>
+  (
+    if pred(x)
+      then stream_forall_cloref{a}(xs, pred)
+      else false
+    // end of [if]
+  ) (* end of [stream_cons] *)
+//
+) (* end of [stream_forall_cloref] *)
+//
+implement
+stream_forall_method
+  {a}(xs) =
+(
+lam(pred) => stream_forall_cloref{a}(xs, pred)
+) (* end of [stream_forall_method] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_exists_cloref
+  {a}(xs, pred) =
+(
+//
+case+ !xs of
+| stream_nil() => false
+| stream_cons(x, xs) =>
+  (
+    if pred(x)
+      then (true)
+      else stream_exists_cloref{a}(xs, pred)
+    // end of [if]
+  ) (* end of [stream_cons] *)
+//
+) (* end of [stream_exists_cloref] *)
+//
+implement
+stream_exists_method
+  {a}(xs) =
+(
+lam(pred) => stream_exists_cloref{a}(xs, pred)
+) (* end of [stream_exists_method] *)
 //
 (* ****** ****** *)
 //

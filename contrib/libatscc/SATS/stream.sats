@@ -119,6 +119,40 @@ overload .filter with stream_filter_method
 (* ****** ****** *)
 //
 fun
+stream_forall_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+fun
+stream_forall_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+//
+overload .forall with stream_forall_method
+//
+(* ****** ****** *)
+//
+fun
+stream_exists_cloref
+  {a:t0p}
+(
+  xs: stream(INV(a)), pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+fun
+stream_exists_method
+  {a:t0p}
+(
+  xs: stream(INV(a)))(pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+//
+overload .exists with stream_exists_method
+//
+(* ****** ****** *)
+//
+fun
 stream_foreach_cloref
   {a:t0p}
 (
