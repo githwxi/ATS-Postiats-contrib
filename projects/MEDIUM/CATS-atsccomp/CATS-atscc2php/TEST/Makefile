@@ -112,6 +112,12 @@ sieve_lazy_dats.php: sieve_lazy.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
 cleanall:: ; $(RMF) sieve_lazy_dats.php
 
+all:: \
+sieve_llazy_dats.php
+sieve_llazy_dats.php: sieve_llazy.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
+cleanall:: ; $(RMF) sieve_llazy_dats.php
+
 ######
 
 regress:: \

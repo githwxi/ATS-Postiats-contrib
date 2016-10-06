@@ -87,7 +87,8 @@ case+ tds of
         val () =
         emit_nspc (out, 2(*ind*))
         val () = (
-          emit_text (out, "// "); emit_tmpvar (out, tmp); emit_ENDL (out)
+          // emit_text (out, "// ");
+          emit_tmpvar(out, tmp); emit_text(out, " = NULL;\n")
         ) (* end of [val] *)
       in
         auxlst (out, tds)
@@ -153,11 +154,22 @@ extern
 fun emit2_ATSINSmove_boxrec
   (out: FILEref, ind: int, ins: instr) : void
 //
+(* ****** ****** *)
+//
 extern
 fun emit2_ATSINSmove_delay
   (out: FILEref, ind: int, ins: instr) : void
 extern
 fun emit2_ATSINSmove_lazyeval
+  (out: FILEref, ind: int, ins: instr) : void
+//
+(* ****** ****** *)
+//
+extern
+fun emit2_ATSINSmove_ldelay
+  (out: FILEref, ind: int, ins: instr) : void
+extern
+fun emit2_ATSINSmove_llazyeval
   (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
@@ -363,19 +375,19 @@ ins0.instr_node of
 | ATSINSmove_nil (tmp) =>
   {
     val () = emit_nspc (out, ind)
-    val () = emit_tmpvar (out, tmp)
-    val () = emit_text (out, " = ")
-    val () = emit_text (out, "null")
-    val () = emit_SEMICOLON (out)
+    val () =
+    (
+      emit_tmpvar(out, tmp); emit_text(out, " = NULL;")
+    ) (* end of [val] *)
   }
 | ATSINSmove_con0 (tmp, tag) =>
   {
-    val () = emit_nspc (out, ind)
-    val () = emit_tmpvar (out, tmp)
-    val () = (
-      emit_text (out, " = "); emit_PMVint (out, tag)
+    val () = emit_nspc(out, ind)
+    val () = emit_tmpvar(out, tmp)
+    val () =
+    (
+      emit_text(out, " = "); emit_PMVint(out, tag); emit_SEMICOLON(out)
     ) (* end of [val] *)
-    val () = emit_SEMICOLON (out)
   }
 //
 | ATSINSmove_con1 _ =>
@@ -388,6 +400,11 @@ ins0.instr_node of
     emit2_ATSINSmove_delay (out, ind, ins0)
 | ATSINSmove_lazyeval _ =>
     emit2_ATSINSmove_lazyeval (out, ind, ins0)
+//
+| ATSINSmove_ldelay _ =>
+    emit2_ATSINSmove_ldelay (out, ind, ins0)
+| ATSINSmove_llazyeval _ =>
+    emit2_ATSINSmove_llazyeval (out, ind, ins0)
 //
 | ATStailcalseq (inss) =>
   {
@@ -645,17 +662,17 @@ implement
 emit2_ATSINSmove_delay
   (out, ind, ins0) = let
 //
-val-ATSINSmove_delay(tmp, s0e, thunk) = ins0.instr_node
+val-
+ATSINSmove_delay
+  (tmp, s0e, thunk) = ins0.instr_node
 //
 val () = emit_nspc (out, ind)
 val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, " = ")
-val () = emit_text (out, "array(")
-val () =
-(
-  emit_int (out, 0); emit_text (out, ", "); emit_d0exp (out, thunk)
+val () = (
+  emit_text(out, "ATSPMVlazyval");
+  emit_text(out, "("); emit_d0exp (out, thunk); emit_text(out, ");")
 ) (* end of [val] *)
-val ((*closing*)) = emit_text (out, ");")
 //
 in
   // nothing
@@ -688,6 +705,63 @@ val () =
 in
   // nothing
 end // end of [emit2_ATSINSmove_lazyeval]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_ldelay
+  (out, ind, ins0) = let
+//
+val-
+ATSINSmove_ldelay
+  (tmp, s0e, thunk) = ins0.instr_node
+//
+val () =
+  emit_nspc(out, ind)
+//
+val () =
+  emit_tmpvar(out, tmp)
+//
+val () = emit_text(out, " = ")
+//
+val () =
+(
+  emit_text(out, "ATSPMVllazyval");
+  emit_text(out, "("); emit_d0exp(out, thunk); emit_text(out, ");")
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_ldelay]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_llazyeval
+  (out, ind, ins0) = let
+//
+val-
+ATSINSmove_llazyeval
+  (tmp, s0e, lazyval) = ins0.instr_node
+//
+val () =
+  emit_nspc(out, ind)
+//
+val () =
+  emit_tmpvar(out, tmp)
+//
+val () = emit_text(out, " = ")
+//
+val () =
+  emit_text(out, "ATSPMVllazyval_eval")
+val () =
+(
+  emit_text(out, "("); emit_d0exp(out, lazyval); emit_text(out, ");")
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_llazyeval]
 
 (* ****** ****** *)
 
@@ -747,14 +821,16 @@ d0c.d0ecl_node of
     val () = emit_ENDL (out)
     val () = (
       case+ opt of
-      | Some _ => () | None () => emit_text(out, "/*\n")
+      | Some _ => ()
+      | None _ => () // emit_text(out, "/*\n")
     ) (* end of [val] *)
     val () = (
-      emit_text (out, "// "); emit_tmpvar (out, tmp); emit_ENDL (out)
+      emit_tmpvar (out, tmp); emit_text(out, " = NULL;\n")
     ) (* end of [val] *)
     val () = (
       case+ opt of
-      | Some _ => () | None () => emit_text(out, "*/\n")
+      | Some _ => ()
+      | None _ => () // emit_text(out, "*/\n")
     ) (* end of [val] *)
   } (* end of [D0Cstatmp] *)
 //
@@ -889,12 +965,12 @@ val () = the_tmpdeclst_set (tmpdecs)
 //
 val () = emit_text (out, "{\n")
 //
-val () = emit_text (out, "/*\n")
+val () = emit_text (out, "//\n")
 //
 val () =
   emit_tmpdeclst_initize (out, tmpdecs)
 //
-val () = emit_text (out, "*/\n")
+val () = emit_text (out, "//\n")
 //
 val ((*main*)) = emit_f0body_0 (out, fbody)
 //

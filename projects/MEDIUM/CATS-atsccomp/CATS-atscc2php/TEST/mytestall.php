@@ -11,7 +11,9 @@ include './rtfind_dats.php';
 include './rtfind2_dats.php';
 include './queens_dats.php';
 include './refcount_dats.php';
+//
 include './sieve_lazy_dats.php';
+include './sieve_llazy_dats.php';
 //
 require './libatscc2php/CATS/basics_cats.php';
 require './libatscc2php/CATS/integer_cats.php';
@@ -27,6 +29,7 @@ require './libatscc2php/CATS/PHParref_cats.php';
 //
 require './libatscc2php/DATS/list_dats.php';
 require './libatscc2php/DATS/stream_dats.php';
+require './libatscc2php/DATS/stream_vt_dats.php';
 require './libatscc2php/DATS/reference_dats.php';
 //
 echo "fact(10) = "; echo fact(10); echo "\n"; flush();
@@ -47,5 +50,6 @@ queens_main0_php();
 refcount_dynload(); refcount_test();
 //
 sieve_lazy_main0_php();
+sieve_llazy_main0_php();
 //
 ?>

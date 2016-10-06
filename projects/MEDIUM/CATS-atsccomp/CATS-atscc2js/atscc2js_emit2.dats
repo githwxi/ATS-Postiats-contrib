@@ -889,7 +889,7 @@ val () = emit_text (out, " = ")
 val () =
 (
   emit_text(out, "ATSPMVlazyval");
-  emit_LPAREN(out); emit_d0exp (out, thunk); emit_RPAREN(out)
+  emit_text(out, "("); emit_d0exp (out, thunk); emit_text(out, ");")
 ) (* end of [val] *)
 //
 in

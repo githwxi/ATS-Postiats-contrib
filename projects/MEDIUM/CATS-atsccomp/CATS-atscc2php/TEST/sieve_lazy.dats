@@ -26,9 +26,13 @@
 //
 (* ****** ****** *)
 
-#define :: stream_cons
-#define cons stream_cons
+#define
+ATS_STATIC_PREFIX "_sieve_lazy_"
+
+(* ****** ****** *)
+
 #define nil stream_nil
+#define cons stream_cons
 
 (* ****** ****** *)
 //
