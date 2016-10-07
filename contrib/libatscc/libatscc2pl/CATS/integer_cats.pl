@@ -37,7 +37,7 @@ sub
 ats2plpre_mod_int0_int0($$) { return ($_[0] % $_[1]); }
 
 ############################################
-
+#
 sub
 ats2plpre_add_int1_int1($$) { return ($_[0] + $_[1]); }
 sub
@@ -46,7 +46,12 @@ sub
 ats2plpre_mul_int1_int1($$) { return ($_[0] * $_[1]); }
 sub
 ats2plpre_div_int1_int1($$) { return int($_[0] / $_[1]); }
-
+#
+sub
+ats2plpre_mod_int1_int1($$) { return ($_[0] % $_[1]); }
+sub
+ats2plpre_nmod_int1_int1($$) { return ($_[0] % $_[1]); }
+#
 ############################################
 
 sub

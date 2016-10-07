@@ -22,6 +22,8 @@ $(PATSOPT) -d ./DATS/option.dats | $(ATSCC2PL) -o ./output/DATS/option_dats.pl -
 all:: ; \
 $(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PL) -o ./output/DATS/stream_dats.pl -i
 all:: ; \
+$(PATSOPT) -d ./DATS/stream_vt.dats | $(ATSCC2PL) -o ./output/DATS/stream_vt_dats.pl -i
+all:: ; \
 $(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PL) -o ./output/DATS/intrange_dats.pl -i
 all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PL) -o ./output/DATS/reference_dats.pl -i
@@ -58,6 +60,7 @@ $(CAT) >>libatscc2pl_all.pl \
 output/DATS/list_dats.pl \
 output/DATS/option_dats.pl \
 output/DATS/stream_dats.pl \
+output/DATS/stream_vt_dats.pl \
 output/DATS/intrange_dats.pl \
 output/DATS/reference_dats.pl \
 

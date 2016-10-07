@@ -58,7 +58,8 @@ def ATSPMVlazyval_eval(lazyval):
     lazyval[1] = mythunk[0](mythunk)
   else:
     lazyval[0] = flag + 1
-  return
+  #endif
+  return lazyval[1]
 #end-of-[ATSPMVlazyval_eval]
 
 ############################################

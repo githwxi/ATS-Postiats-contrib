@@ -26,9 +26,8 @@
 //
 (* ****** ****** *)
 
-#define :: stream_cons
-#define cons stream_cons
 #define nil stream_nil
+#define cons stream_cons
 
 (* ****** ****** *)
 //

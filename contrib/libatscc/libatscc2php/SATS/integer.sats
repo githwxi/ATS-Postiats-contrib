@@ -70,6 +70,7 @@ overload - with sub_int0_int0 of 100
 overload * with mul_int0_int0 of 100
 overload / with div_int0_int0 of 100
 overload % with mod_int0_int0 of 100
+//
 overload mod with mod_int0_int0 of 100
 //
 overload + with add_int1_int1 of 120

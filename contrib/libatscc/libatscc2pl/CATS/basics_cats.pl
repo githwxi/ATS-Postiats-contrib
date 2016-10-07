@@ -58,14 +58,12 @@ ATSINSdeadcode_fail()
 ############################################
 #
 sub
-ATSPMVempty() { return; }
+ATSPMVempty(){ return; }
 #
 ############################################
 
-=for comment
 sub
-ATSPMVlazyval_make($) { return [0, $_[0]]; }
-=cut
+ATSPMVlazyval($){ return [0, $_[0]]; }
 
 ############################################
 
@@ -87,10 +85,31 @@ ATSPMVlazyval_eval($)
   } else {
     $lazyval->[0] = $flag + 1;
   } #end-of-[if]
-  return;
+  return ($lazyval->[1]);
 #
 } #end-of-[ATSPMVlazyval_eval]
 
+############################################
+
+sub
+ATSPMVllazyval($){ return $_[0]; }
+
+############################################
+#
+sub
+ATSPMVllazyval_eval($)
+{
+  my($lazyval) = @_;
+  return &{$lazyval->[0]}($lazyval, 1);
+}
+#
+sub
+atspre_lazy_vt_free($)
+{
+  my($lazyval) = @_;
+  return &{$lazyval->[0]}($lazyval, 0);
+}
+#
 ############################################
 
 sub

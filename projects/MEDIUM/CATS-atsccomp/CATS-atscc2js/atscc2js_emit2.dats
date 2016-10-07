@@ -909,15 +909,14 @@ ATSINSmove_lazyeval
 val () = emit_nspc (out, ind)
 //
 val () =
-  emit_text (out, "ATSPMVlazyval_eval(")
-val () = (
-  emit_d0exp(out, lazyval); emit_text(out, "); ")
+(
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
 ) (* end of [val] *)
+//
 val () =
-  (emit_tmpvar (out, tmp); emit_text (out, " = "))
-val () = (
-  emit_d0exp(out, lazyval);
-  emit_text(out, "["); emit_int(out, 1); emit_text(out, "];")
+(
+  emit_text(out, "ATSPMVlazyval_eval(");
+  emit_d0exp(out, lazyval); emit_text(out, "); ")
 ) (* end of [val] *)
 //
 in
@@ -944,8 +943,8 @@ val () = emit_text(out, " = ")
 //
 val () =
 (
-  emit_text(out, "ATSPMVllazyval");
-  emit_text(out, "("); emit_d0exp(out, thunk); emit_text(out, ");")
+  emit_text(out, "ATSPMVllazyval(");
+  emit_d0exp(out, thunk); emit_text(out, ");")
 ) (* end of [val] *)
 //
 in

@@ -1306,20 +1306,12 @@ val () = emit_nspc(out, ind)
 //
 val () =
 (
-  emit_text(out, "ATSPMVlazyval_eval(");
-  emit_d0exp(out, lazyval); emit_text(out, "); ")
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
 ) (* end of [val] *)
-//
-val () =
-  emit_tmpvar(out, tmp)
-//
-val () = emit_text(out, " = ")
-//
-val () =
-  emit_d0exp(out, lazyval)
 val () =
 (
-  emit_text(out, "["); emit_int(out, 1); emit_text(out, "]")
+  emit_text(out, "ATSPMVlazyval_eval(");
+  emit_d0exp(out, lazyval); emit_text(out, "); ")
 ) (* end of [val] *)
 //
 in
@@ -1332,9 +1324,11 @@ implement
 emit2_ATSINSmove_ldelay
   (out, ind, ins0) = let
 //
-val () = emit_nspc (out, ind)
+val-
+ATSINSmove_ldelay
+  (tmp, s0e, thunk) = ins0.instr_node
 //
-val-ATSINSmove_ldelay(tmp, s0e, thunk) = ins0.instr_node
+val () = emit_nspc (out, ind)
 //
 val () =
 (
@@ -1359,9 +1353,9 @@ val () =
   emit_nspc(out, ind)
 //
 val () =
-  emit_tmpvar(out, tmp)
-//
-val () = emit_text(out, " = ")
+(
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
+) (* end of [val] *)
 //
 val () =
 (

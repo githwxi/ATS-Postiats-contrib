@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Pythom
+** that translates into Python
 *)
 
 (* ****** ****** *)

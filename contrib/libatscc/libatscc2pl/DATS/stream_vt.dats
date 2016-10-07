@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into Perl
 *)
 
 (* ****** ****** *)
@@ -13,21 +13,10 @@
 // prefix for external names
 //
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
+ATS_EXTERN_PREFIX "ats2plpre_"
 #define
-ATS_STATIC_PREFIX "_ats2pypre_stream_"
+ATS_STATIC_PREFIX "_ats2plpre_stream_vt_"
 //
-(* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_integer_cats import *
-from ats2pypre_bool_cats import *
-######
-%} // end of [%{^]
-
 (* ****** ****** *)
 //
 #include
@@ -40,7 +29,7 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./../basics_py.sats"
+staload "./../basics_pl.sats"
 //
 (* ****** ****** *)
 //
@@ -51,18 +40,21 @@ staload "./../SATS/integer.sats"
 staload "./../SATS/print.sats"
 //
 (* ****** ****** *)
-//
-staload "./../SATS/list.sats"
-staload "./../SATS/reference.sats"
-//
-(* ****** ****** *)
 
-staload "./../SATS/stream.sats"
+staload "./../SATS/stream_vt.sats"
 
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/stream.dats"
+#include "{$LIBATSCC}/DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 
-(* end of [stream.dats] *)
+%{$
+######
+1; #note that it is needed by 'use' or 'require'
+######
+%} // end of [%{$]
+
+(* ****** ****** *)
+
+(* end of [stream_vt.dats] *)

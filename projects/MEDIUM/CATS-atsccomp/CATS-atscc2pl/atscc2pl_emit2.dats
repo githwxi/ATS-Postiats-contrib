@@ -153,11 +153,22 @@ extern
 fun emit2_ATSINSmove_boxrec
   (out: FILEref, ind: int, ins: instr) : void
 //
+(* ****** ****** *)
+//
 extern
 fun emit2_ATSINSmove_delay
   (out: FILEref, ind: int, ins: instr) : void
 extern
 fun emit2_ATSINSmove_lazyeval
+  (out: FILEref, ind: int, ins: instr) : void
+//
+(* ****** ****** *)
+//
+extern
+fun emit2_ATSINSmove_ldelay
+  (out: FILEref, ind: int, ins: instr) : void
+extern
+fun emit2_ATSINSmove_llazyeval
   (out: FILEref, ind: int, ins: instr) : void
 //
 (* ****** ****** *)
@@ -392,6 +403,11 @@ ins0.instr_node of
     emit2_ATSINSmove_delay (out, ind, ins0)
 | ATSINSmove_lazyeval _ =>
     emit2_ATSINSmove_lazyeval (out, ind, ins0)
+//
+| ATSINSmove_ldelay _ =>
+    emit2_ATSINSmove_ldelay (out, ind, ins0)
+| ATSINSmove_llazyeval _ =>
+    emit2_ATSINSmove_llazyeval (out, ind, ins0)
 //
 | ATStailcalseq (inss) =>
   {
@@ -649,16 +665,22 @@ implement
 emit2_ATSINSmove_delay
   (out, ind, ins0) = let
 //
-val-ATSINSmove_delay(tmp, s0e, thunk) = ins0.instr_node
+val-
+ATSINSmove_delay
+  (tmp, s0e, thunk) = ins0.instr_node
 //
-val () = emit_nspc (out, ind)
-val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = [")
+val () = emit_nspc(out, ind)
+//
 val () =
 (
-  emit_int (out, 0); emit_text (out, ", "); emit_d0exp (out, thunk)
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
 ) (* end of [val] *)
-val ((*closing*)) = emit_text (out, "];")
+//
+val () =
+(
+  emit_text(out, "ATSPMVlazyval(");
+  emit_d0exp(out, thunk); emit_text(out, ");")
+) (* end of [val] *)
 //
 in
   // nothing
@@ -674,22 +696,77 @@ val-
 ATSINSmove_lazyeval
   (tmp, s0e, lazyval) = ins0.instr_node
 //
-val () = emit_nspc (out, ind)
-val () = emit_text (out, "ATSPMVlazyval_eval")
-val () = emit_text (out, "(")
-val () = emit_d0exp (out, lazyval)
-val () = emit_text (out, "); ")
-val () = emit_tmpvar (out, tmp)
-val () = emit_text (out, " = ")
-val () = emit_d0exp (out, lazyval)
+val () = emit_nspc(out, ind)
+//
 val () =
 (
-  emit_text (out, "->["); emit_int (out, 1); emit_text (out, "];")
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
+) (* end of [val] *)
+//
+val () =
+(
+  emit_text(out, "ATSPMVlazyval_eval(");
+  emit_d0exp(out, lazyval); emit_text(out, "); ")
 ) (* end of [val] *)
 //
 in
   // nothing
 end // end of [emit2_ATSINSmove_lazyeval]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_ldelay
+  (out, ind, ins0) = let
+//
+val-
+ATSINSmove_ldelay
+  (tmp, s0e, thunk) = ins0.instr_node
+//
+val () = emit_nspc(out, ind)
+//
+val () = 
+(
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
+) (* end of [val] *)
+//
+val () =
+(
+  emit_text(out, "ATSPMVllazyval(");
+  emit_d0exp(out, thunk); emit_text(out, ");")
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_ldelay]
+
+(* ****** ****** *)
+
+implement
+emit2_ATSINSmove_llazyeval
+  (out, ind, ins0) = let
+//
+val-
+ATSINSmove_llazyeval
+  (tmp, s0e, lazyval) = ins0.instr_node
+//
+val () =
+  emit_nspc(out, ind)
+//
+val () =
+(
+  emit_tmpvar(out, tmp); emit_text(out, " = ")
+) (* end of [val] *)
+//
+val () =
+(
+  emit_text(out, "ATSPMVllazyval_eval(");
+  emit_d0exp(out, lazyval); emit_text(out, ");")
+) (* end of [val] *)
+//
+in
+  // nothing
+end // end of [emit2_ATSINSmove_llazyeval]
 
 (* ****** ****** *)
 
