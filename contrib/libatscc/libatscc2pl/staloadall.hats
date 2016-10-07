@@ -62,4 +62,8 @@ staload "./SATS/reference.sats"
 
 (* ****** ****** *)
 
+staload "./SATS/ML/list0.sats" // un-indexed list
+
+(* ****** ****** *)
+
 (* end of [staloadall.hats] *)

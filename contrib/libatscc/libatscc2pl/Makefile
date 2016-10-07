@@ -16,18 +16,30 @@ RMF=rm -f
 ######
 
 all:: ; \
-$(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PL) -o ./output/DATS/list_dats.pl -i
+$(PATSOPT) -d ./DATS/list.dats | \
+$(ATSCC2PL) -o ./output/DATS/list_dats.pl -i
 all:: ; \
-$(PATSOPT) -d ./DATS/option.dats | $(ATSCC2PL) -o ./output/DATS/option_dats.pl -i
+$(PATSOPT) -d ./DATS/option.dats | \
+$(ATSCC2PL) -o ./output/DATS/option_dats.pl -i
 all:: ; \
-$(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PL) -o ./output/DATS/stream_dats.pl -i
+$(PATSOPT) -d ./DATS/stream.dats | \
+$(ATSCC2PL) -o ./output/DATS/stream_dats.pl -i
 all:: ; \
-$(PATSOPT) -d ./DATS/stream_vt.dats | $(ATSCC2PL) -o ./output/DATS/stream_vt_dats.pl -i
+$(PATSOPT) -d ./DATS/stream_vt.dats | \
+$(ATSCC2PL) -o ./output/DATS/stream_vt_dats.pl -i
 all:: ; \
-$(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PL) -o ./output/DATS/intrange_dats.pl -i
+$(PATSOPT) -d ./DATS/intrange.dats | \
+$(ATSCC2PL) -o ./output/DATS/intrange_dats.pl -i
 all:: ; \
-$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PL) -o ./output/DATS/reference_dats.pl -i
+$(PATSOPT) -d ./DATS/reference.dats | \
+$(ATSCC2PL) -o ./output/DATS/reference_dats.pl -i
 
+######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/list0.dats | \
+$(ATSCC2PL) -o ./output/DATS/ML/list0_dats.js -i
+#
 ######
 #
 DATE=/bin/date
@@ -44,6 +56,7 @@ all_in_one:: ; \
 all_in_one:: ; $(ECHO) '#\n' | $(CAT) - >>libatscc2pl_all.pl
 all_in_one:: ; $(ECHO) '######\n\n' | $(CAT) - >>libatscc2pl_all.pl
 #
+######
 
 all_in_one:: ; \
 $(CAT) >>libatscc2pl_all.pl \
@@ -63,7 +76,9 @@ output/DATS/stream_dats.pl \
 output/DATS/stream_vt_dats.pl \
 output/DATS/intrange_dats.pl \
 output/DATS/reference_dats.pl \
+output/DATS/ML/list0_dats.js \
 
+######
 #
 all_in_one:: ; $(ECHO) '\n' | $(CAT) - >>libatscc2pl_all.pl
 all_in_one:: ; $(ECHO) '## ###### ###### ##' | $(CAT) - >>libatscc2pl_all.pl

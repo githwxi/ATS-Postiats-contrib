@@ -105,6 +105,20 @@ cleanall:: ; $(RMF) queens_dats.pl
 ######
 #
 all:: \
+queens_comb_dats.pl
+queens_comb_dats.pl: queens_comb.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PL) -o $@
+#
+regress:: \
+test_queens_comb
+test_queens_comb:: \
+queens_comb_dats.pl ; $(PERL) queens_comb_dats.pl
+#
+cleanall:: ; $(RMF) queens_comb_dats.pl
+#
+######
+#
+all:: \
 weekday_dats.pl
 weekday_dats.pl: weekday.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PL) -o $@
