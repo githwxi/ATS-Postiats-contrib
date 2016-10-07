@@ -19,6 +19,11 @@ ATS_STATIC_PREFIX "_ats2erlpre_intrange_"
 //
 (* ****** ****** *)
 //
+#define STREAM_NONE 1
+#define STREAM_VT_NONE 1
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 //

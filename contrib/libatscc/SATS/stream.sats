@@ -263,5 +263,12 @@ xs: stream(INV(a)), pred: (intGte(0), a) -<cloref1> bool
 ) : $tup(stream(a), List0(a)) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
+//
+fun
+stream_list_xprod2
+  {a,b:t0p}
+  (List0(INV(a)), List0(INV(b))): stream($tup(a, b)) = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [stream.sats] *)

@@ -564,4 +564,36 @@ stream_rtake_while_cloref(xs, lam(i, x) => ~pred(i, x))
 //
 (* ****** ****** *)
 
+implement
+stream_list_xprod2
+  {a,b}
+(
+  xs, ys
+) = auxlst(xs, ys) where
+{
+//
+fun
+aux
+(
+  x: a, ys: List0(b)
+) : stream($tup(a, b)) = $delay
+(
+  case+ ys of
+  | list_nil() => stream_nil()
+  | list_cons(y, ys) => stream_cons($tup(x, y), aux(x, ys))
+)
+fun
+auxlst
+(
+  xs: List0(a), ys: List0(b)
+): stream($tup(a, b)) = $delay
+(
+  case+ xs of
+  | list_nil() => stream_nil()
+  | list_cons(x, xs) => !(stream_append(aux(x, ys), auxlst(xs, ys)))
+)
+} (* end of [stream_list_xprod2] *)
+
+(* ****** ****** *)
+
 (* end of [stream.dats] *)

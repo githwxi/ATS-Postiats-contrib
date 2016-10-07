@@ -44,8 +44,6 @@ staload "./../SATS/print.sats"
 staload "./../SATS/list.sats"
 staload "./../SATS/CLJlist.sats"
 //
-staload "./../SATS/stream.sats"
-//
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"

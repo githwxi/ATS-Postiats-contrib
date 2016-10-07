@@ -123,6 +123,11 @@ lam(fopr) =>
 )
 //
 (* ****** ****** *)
+
+#if
+defined(STREAM_NONE)
+#then
+#else
 //
 implement
 int_stream_map_cloref
@@ -157,7 +162,14 @@ lam(fopr) =>
 //
 ) (* end of [int_stream_map_method] *)
 //
+#endif // STREAM_NONE
+
 (* ****** ****** *)
+
+#if
+defined(STREAM_VT_NONE)
+#then
+#else
 //
 implement
 int_stream_vt_map_cloref
@@ -193,6 +205,8 @@ llam(fopr) =>
 //
 ) (* end of [int_stream_vt_map_method] *)
 //
+#endif // STREAM_VT_NONE
+
 (* ****** ****** *)
 //
 implement
