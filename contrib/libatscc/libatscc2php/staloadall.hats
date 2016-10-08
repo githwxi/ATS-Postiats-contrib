@@ -56,4 +56,9 @@ staload "./SATS/PHParref.sats"
 //
 (* ****** ****** *)
 
+staload "./SATS/ML/list0.sats" // un-indexed list
+staload "./SATS/ML/array0.sats" // un-indexed array
+
+(* ****** ****** *)
+
 (* end of [staloadall.hats] *)

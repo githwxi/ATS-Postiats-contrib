@@ -47,12 +47,16 @@
 *)
 
 (* ****** ****** *)
+
+#define
+ATS_EXTERN_PREFIX "queens_main0_"
+#define
+ATS_STATIC_PREFIX "_queens_main0_"
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
-//
-(* ****** ****** *)
-//
 #include
 "{$LIBATSCC2PHP}/staloadall.hats"
 //

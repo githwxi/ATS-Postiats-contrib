@@ -96,6 +96,12 @@ queens_dats.php: queens.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
 cleanall:: ; $(RMF) queens_dats.php
 
+all:: \
+queens_comb_dats.php
+queens_comb_dats.php: queens_comb.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
+cleanall:: ; $(RMF) queens_comb_dats.php
+
 ######
 
 all:: \
@@ -141,9 +147,11 @@ RMRF=rm -rf
 ######
 
 libatscc2php:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
 libatscc2php:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
+libatscc2php:: ; \
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/ML/*_dats.php libatscc2php/DATS/ML/.
 
 ######
 
