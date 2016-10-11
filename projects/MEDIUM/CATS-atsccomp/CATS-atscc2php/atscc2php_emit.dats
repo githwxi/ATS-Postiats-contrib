@@ -170,17 +170,32 @@ end // end of [emit_PMVf0loat]
 //
 implement
 emit_PMVempty
-  (out, _) = emit_text (out, "NULL")
+  (out, _) =
+{
+//
+val () =
+  emit_text (out, "NULL")
+//
+} (* emit_PMVempty *)
 //  
 implement
 emit_PMVextval
-  (out, toks) = emit_tokenlst (out, toks)
+  (out, toks) =
+{
+//
+val () =
+  emit_tokenlst(out, toks)
+//
+} (* emit_PMVextval *)
 //
 (* ****** ****** *)
 //
 implement
 emit_PMVfunlab
-  (out, flab) = emit_label (out, flab)
+  (out, flab) =
+{
+  val () = emit_label (out, flab)
+}
 //
 (* ****** ****** *)
 
@@ -244,12 +259,12 @@ emit_fname_d0exp2
 val () =
   emit_text (out, fname)
 //
-val () = emit_LPAREN (out)
+val () = emit_LPAREN(out)
 val () =
 (
-  emit_d0exp (out, d0e1); emit_text (out, ", "); emit_d0exp (out, d0e2)
+  emit_d0exp(out, d0e1); emit_text(out, ", "); emit_d0exp(out, d0e2)
 )
-val () = emit_RPAREN (out)
+val () = emit_RPAREN(out)
 //
 } (* end of [emit_fname_d0exp2] *)
 //
@@ -394,9 +409,13 @@ d0e0.d0exp_node of
 //
 | ATSPMVfunlab (fl) =>
   {
+(*
     val () = emit_SQUOTE (out)
+*)
     val () = emit_PMVfunlab (out, fl)
+(*
     val () = emit_SQUOTE (out)
+*)
   } (* end of [ATSPMVfunlab] *)
 //
 | ATSPMVcfunlab
@@ -449,12 +468,15 @@ d0e0.d0exp_node of
   } (* end of [ATSextmcall] *)
 //
 | ATSfunclo_fun
-    (d0e, _(*arg*), _(*res*)) => emit_d0exp (out, d0e)
-  | ATSfunclo_clo
+    (d0e, _(*arg*), _(*res*)) =>
+  {
+    val () = emit_d0exp (out, d0e)
+  }
+| ATSfunclo_clo
     (d0e, _(*arg*), _(*res*)) =>
   (
-    emit_d0exp (out, d0e);
-    emit_LBRACKET (out); emit_int (out, 0(*fun*)); emit_RBRACKET (out)
+    emit_d0exp(out, d0e);
+    emit_LBRACKET(out); emit_int(out, 0(*fun*)); emit_RBRACKET(out)
   ) (* end of [ATSfunclo_clo] *)
 //
 end // end of [emit_d0exp]

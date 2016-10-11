@@ -351,7 +351,7 @@ ins0.instr_node of
       } (* end of [Some] *)
   end // end of [ATSif]
 //
-| ATSifthen (d0e, inss) =>
+| ATSifthen(d0e, inss) =>
   {
 //
     val-list_sing(ins) = inss
@@ -363,7 +363,7 @@ ins0.instr_node of
     val () = emit_instr (out, ins)
   }
 //
-| ATSifnthen (d0e, inss) =>
+| ATSifnthen(d0e, inss) =>
   {
 //
     val-list_sing(ins) = inss

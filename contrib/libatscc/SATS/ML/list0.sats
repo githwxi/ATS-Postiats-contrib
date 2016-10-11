@@ -32,29 +32,19 @@ overload isneqz with list0_is_cons
 (* ****** ****** *)
 //
 fun
-list0_head_exn
-  {a:t0p}
-  (list0(INV(a))):<!exn> (a) = "mac#%"
-fun
 list0_head_opt
   {a:t0p}
-  (list0(INV(a))):<!exn> Option_vt(a) = "mac#%"
+  (list0(INV(a))): Option_vt(a) = "mac#%"
 //
-overload .head with list0_head_exn
 overload .head_opt with list0_head_opt
 //
 (* ****** ****** *)
 //
 fun
-list0_tail_exn
-  {a:t0p}
-  (list0(INV(a))):<!exn> list0(a) = "mac#%"
-fun
 list0_tail_opt
   {a:t0p}
-  (list0(INV(a))):<!exn> Option_vt(list0(a)) = "mac#%"
+  (list0(INV(a))): Option_vt(list0(a)) = "mac#%"
 //
-overload .tail with list0_tail_exn
 overload .tail_opt with list0_tail_opt
 //
 (* ****** ****** *)
@@ -143,6 +133,13 @@ list0_reverse_append
 //
 overload reverse with list0_reverse of 100
 overload revappend with list0_reverse_append of 100
+//
+(* ****** ****** *)
+//
+fun
+list0_remove_at_opt
+  {a:t0p}
+  (list0(INV(a)), i: intGte(0)): Option(list0(a)) = "mac#%"
 //
 (* ****** ****** *)
 //

@@ -40,5 +40,42 @@ fprint_list0_sep
 overload fprint with fprint_list0 of 100
 //
 (* ****** ****** *)
+//
+fun
+list0_head_exn
+  {a:t0p}
+  (list0(INV(a))): (a) = "mac#%"
+fun
+list0_tail_exn
+  {a:t0p}
+  (list0(INV(a))): list0(a) = "mac#%"
+//
+overload .head with list0_head_exn
+overload .tail with list0_tail_exn
+//
+(* ****** ****** *)
+//
+fun
+list0_get_at_exn
+  {a:t0p}
+  (list0(INV(a)), intGte(0)): (a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+list0_insert_at_exn
+  {a:t0p}
+(
+  xs: list0(INV(a)), i: intGte(0), x0: a
+) : list0(a) = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+list0_remove_at_exn
+  {a:t0p}
+  (xs: list0(INV(a)), i: intGte(0)): list0(a) = "mac#%"
+//
+(* ****** ****** *)
 
 (* end of [list0.sats] *)

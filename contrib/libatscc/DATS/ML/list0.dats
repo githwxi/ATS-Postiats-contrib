@@ -182,6 +182,39 @@ list0_reverse_append{a}(xs, ys) =
   $UN.cast(list_reverse_append{a}($UN.cast(xs), $UN.cast(ys)))
 //
 (* ****** ****** *)
+
+implement
+list0_remove_at_opt
+  {a}
+(
+  xs, i0
+) = aux(xs, 0) where
+{
+//
+fun
+aux
+(
+  xs: list0(a), i0: intGte(0)
+) : Option(list0(a)) =
+(
+case+ xs of
+| list0_nil() => None()
+| list0_cons(x, xs) =>
+  if i0 > 0
+    then let
+      val opt = aux(xs, i0-1)
+    in
+      case+ opt of
+      | None() => None()
+      | Some(xs) => Some(list0_cons(x, xs))
+    end // end of [then]
+    else Some(xs) // end of [else]
+  // end of [if]
+)
+//
+} (* end of [list0_remove_at_opt] *)
+
+(* ****** ****** *)
 //
 implement
 list0_exists
