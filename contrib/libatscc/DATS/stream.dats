@@ -95,6 +95,34 @@ loop
 (* ****** ****** *)
 //
 implement
+stream2list
+  {a}(xs) =
+(
+  list_reverse(stream2list_rev(xs))
+)
+//
+implement
+stream2list_rev
+  {a}(xs) =
+  loop(xs, list_nil) where
+{
+//
+fun
+loop
+(
+  xs: stream(a), ys: List0(a)
+) : List0(a) =
+(
+case+ !xs of
+| stream_nil() => ys
+| stream_cons(x, xs) => loop(xs, list_cons(x, ys))
+)
+//
+} (* end of [stream2list_rev] *)
+//
+(* ****** ****** *)
+//
+implement
 stream_takeLte
   (xs, n) = $delay
 (

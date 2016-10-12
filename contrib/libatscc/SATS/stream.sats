@@ -47,6 +47,15 @@ stream_length
 (* ****** ****** *)
 //
 fun
+stream2list
+  {a:t0p}(stream(a)): List0(a) = "mac#%"
+fun
+stream2list_rev
+  {a:t0p}(stream(a)): List0(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_takeLte
   {a:t0p}
 (
