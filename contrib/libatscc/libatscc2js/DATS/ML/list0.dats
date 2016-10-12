@@ -77,7 +77,9 @@ case+ xs of
   // list0_cons
 | list0_nil() =>
   (
-    $extfcall(list0(a), "ats2jspre_ListSubscriptExn_throw")
+    $extfcall
+      (list0(a), "ats2jspre_ListSubscriptExn_throw")
+    // $extfcall
   ) (* list0_nil *)
 ) (* end of [list0_tail_exn] *)
 //
