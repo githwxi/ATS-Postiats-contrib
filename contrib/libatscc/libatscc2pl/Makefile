@@ -38,7 +38,10 @@ $(ATSCC2PL) -o ./output/DATS/reference_dats.pl -i
 #
 all:: ; \
 $(PATSOPT) -d ./DATS/ML/list0.dats | \
-$(ATSCC2PL) -o ./output/DATS/ML/list0_dats.js -i
+$(ATSCC2PL) -o ./output/DATS/ML/list0_dats.pl -i
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/array0.dats | \
+$(ATSCC2PL) -o ./output/DATS/ML/array0_dats.pl -i
 #
 ######
 #
@@ -76,7 +79,8 @@ output/DATS/stream_dats.pl \
 output/DATS/stream_vt_dats.pl \
 output/DATS/intrange_dats.pl \
 output/DATS/reference_dats.pl \
-output/DATS/ML/list0_dats.js \
+output/DATS/ML/list0_dats.pl \
+output/DATS/ML/array0_dats.pl \
 
 ######
 #

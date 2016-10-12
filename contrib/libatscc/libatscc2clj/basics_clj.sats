@@ -9,6 +9,8 @@
 // prefix for external names
 //
 #define
+ATS_PACKNAME "ATSCC2CLJ"
+#define
 ATS_EXTERN_PREFIX "ats2cljpre_"
 //
 (* ****** ****** *)
