@@ -312,6 +312,33 @@ list0_map_method
 (* ****** ****** *)
 
 implement
+list0_zip
+  {a,b}
+  (xs, ys) = let
+//
+fun
+aux :
+$d2ctype
+(list0_zip) =
+lam(xs, ys) =>
+(
+case+ xs of
+| nil0() => nil0()
+| cons0(x, xs) =>
+  (
+    case+ ys of
+    | nil0() => nil0()
+    | cons0(y, ys) => cons0($tup(x, y), aux(xs, ys))
+  ) (* end of [cons0] *)
+)
+//
+in
+  aux{a,b}(xs, ys)
+end // end of [list0_zip]
+
+(* ****** ****** *)
+
+implement
 list0_foldleft
   {res}{a}
   (xs, init, fopr) = let

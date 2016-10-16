@@ -48,10 +48,10 @@ stream_length
 //
 fun
 stream2list
-  {a:t0p}(stream(a)): List0(a) = "mac#%"
+  {a:t0p}(stream(INV(a))): List0(a) = "mac#%"
 fun
 stream2list_rev
-  {a:t0p}(stream(a)): List0(a) = "mac#%"
+  {a:t0p}(stream(INV(a))): List0(a) = "mac#%"
 //
 (* ****** ****** *)
 //

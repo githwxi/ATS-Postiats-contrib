@@ -28,7 +28,10 @@ staload _ = "./../DATS/cstream.dats"
 (* ****** ****** *)
 
 implement
-main0 (argc, argv) =
+main0
+(
+  argc, argv
+) = // main0
 {
 //
 val fname =

@@ -281,6 +281,13 @@ list0_map_method
 overload .map with list0_map_method
 //
 (* ****** ****** *)
+//
+fun
+list0_zip
+  {a,b:t0p}
+  (list0(INV(a)), list0(INV(b))):<> list0($tup(a, b)) = "mac#%"
+//
+(* ****** ****** *)
 
 fun
 list0_foldleft
