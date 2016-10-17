@@ -19,12 +19,19 @@ ATS_STATIC_PREFIX "_ats2phppre_intrange_"
 //
 (* ****** ****** *)
 //
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
 #include "./../staloadall.hats"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+//
+(* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/intrange.dats"
 //

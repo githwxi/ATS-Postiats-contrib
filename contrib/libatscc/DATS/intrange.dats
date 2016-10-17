@@ -125,9 +125,7 @@ lam(fopr) =>
 (* ****** ****** *)
 
 #if
-defined(STREAM_NONE)
-#then
-#else
+defined(ATSCC_STREAM)
 //
 implement
 int_stream_map_cloref
@@ -162,14 +160,12 @@ lam(fopr) =>
 //
 ) (* end of [int_stream_map_method] *)
 //
-#endif // STREAM_NONE
+#endif // ATSCC_STREAM
 
 (* ****** ****** *)
 
 #if
-defined(STREAM_VT_NONE)
-#then
-#else
+defined(ATSCC_STREAM_VT)
 //
 implement
 int_stream_vt_map_cloref
@@ -205,7 +201,7 @@ llam(fopr) =>
 //
 ) (* end of [int_stream_vt_map_method] *)
 //
-#endif // STREAM_VT_NONE
+#endif // ATSCC_STREAM_VT
 
 (* ****** ****** *)
 //

@@ -57,6 +57,11 @@ staload _ = "./../DATS/stream_vt.dats"
 staload "./../SATS/JSarray.sats"
 //
 (* ****** ****** *)
+
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+
+(* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
 //

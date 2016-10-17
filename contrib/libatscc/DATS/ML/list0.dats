@@ -448,6 +448,10 @@ streamize_list0_cross
 //
 (* ****** ****** *)
 
+#if
+defined(ATSCC_STREAM_VT)
+#then
+//
 implement
 streamize_list0_nchoose
   {a}(xs, n) = let
@@ -494,9 +498,15 @@ else
 in
   $effmask_all(auxmain(xs, n))
 end (* end of [streamize_list0_nchoose] *)
+//
+#endif // ATSCC_STREAM_VT
 
 (* ****** ****** *)
 
+#if
+defined(ATSCC_STREAM_VT)
+#then
+//
 implement
 streamize_list0_nchoose_rest
   {a}(xs, n) = let
@@ -552,6 +562,8 @@ else stream_vt_cons($tup(list0_nil, xs), stream_vt_make_nil())
 in
   $effmask_all(auxmain(xs, n))
 end (* end of [streamize_list0_nchoose_rest] *)
+//
+#endif // ATSCC_STREAM_VT
 
 (* ****** ****** *)
 

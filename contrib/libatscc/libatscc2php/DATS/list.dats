@@ -40,6 +40,16 @@ staload "./../SATS/filebas.sats"
 //
 staload "./../SATS/list.sats"
 //
+staload "./../SATS/stream_vt.sats"
+//
+staload "./../SATS/stream_vt.sats"
+staload _ = "./../DATS/stream_vt.dats"
+//
+(* ****** ****** *)
+//
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+//
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"

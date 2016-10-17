@@ -672,9 +672,8 @@ list_sort_1(xs) =
 (* ****** ****** *)
 
 #if
-defined(STREAM_VT_NONE)
+defined(ATSCC_STREAM_VT)
 #then
-#else
 //
 implement
 streamize_list_zip
@@ -703,14 +702,13 @@ in
   $effmask_all(auxmain(xs, ys))
 end // end of [streamize_list_zip]
 //
-#endif // STREAM_VT_NONE
+#endif // ATSCC_STREAM_VT
 
 (* ****** ****** *)
 
 #if
-defined(STREAM_VT_NONE)
+defined(ATSCC_STREAM_VT)
 #then
-#else
 //
 implement
 streamize_list_cross
@@ -748,7 +746,7 @@ in
   $effmask_all(auxmain(xs, ys))
 end // end of [streamize_list_cross]
 //
-#endif // STREAM_VT_NONE
+#endif // ATSCC_STREAM_VT
 
 (* ****** ****** *)
 

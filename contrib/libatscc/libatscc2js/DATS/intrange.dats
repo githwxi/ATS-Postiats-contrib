@@ -38,6 +38,11 @@ staload "./../SATS/intrange.sats"
 //
 (* ****** ****** *)
 //
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+//
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/DATS/intrange.dats"
 //
 (* ****** ****** *)

@@ -38,6 +38,11 @@ from ats2pypre_integer_cats import *
 //
 (* ****** ****** *)
 //
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
+//
+(* ****** ****** *)
+//
 #include "{$LIBATSCC}/DATS/intrange.dats"
 //
 (* ****** ****** *)
