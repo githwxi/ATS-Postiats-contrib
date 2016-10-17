@@ -671,6 +671,11 @@ list_sort_1(xs) =
 //
 (* ****** ****** *)
 
+#if
+defined(STREAM_VT_NONE)
+#then
+#else
+//
 implement
 streamize_list_zip
   {a,b}(xs, ys) = let
@@ -697,9 +702,16 @@ auxmain
 in
   $effmask_all(auxmain(xs, ys))
 end // end of [streamize_list_zip]
+//
+#endif // STREAM_VT_NONE
 
 (* ****** ****** *)
 
+#if
+defined(STREAM_VT_NONE)
+#then
+#else
+//
 implement
 streamize_list_cross
   {a,b}(xs, ys) = let
@@ -735,6 +747,8 @@ auxmain
 in
   $effmask_all(auxmain(xs, ys))
 end // end of [streamize_list_cross]
+//
+#endif // STREAM_VT_NONE
 
 (* ****** ****** *)
 
