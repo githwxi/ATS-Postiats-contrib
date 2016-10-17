@@ -406,5 +406,23 @@ overload list_sort with list_sort_1 of 100
 overload list_sort with list_sort_2 of 100
 //
 (* ****** ****** *)
+//
+fun
+streamize_list_zip
+  {a,b:t0p}
+(
+  List(INV(a))
+, List(INV(b))
+) :<> stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+fun
+streamize_list_cross
+  {a,b:t0p}
+(
+  xs: List(INV(a))
+, ys: List(INV(b))
+) :<> stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
 
 (* end of [list.sats] *)

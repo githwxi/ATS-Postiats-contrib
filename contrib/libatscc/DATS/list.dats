@@ -671,4 +671,71 @@ list_sort_1(xs) =
 //
 (* ****** ****** *)
 
+implement
+streamize_list_zip
+  {a,b}(xs, ys) = let
+//
+fun
+auxmain
+(
+  xs: List(a), ys: List(b)
+) : stream_vt($tup(a, b)) = $ldelay
+(
+  case+ xs of
+  | list_nil() =>
+    stream_vt_nil()
+  | list_cons(x, xs) =>
+    (
+      case+ ys of
+      | list_nil() =>
+        stream_vt_nil()
+      | list_cons(y, ys) =>
+        stream_vt_cons($tup(x, y), auxmain(xs, ys))
+    ) (* end of [list_cons] *)
+) : stream_vt_con($tup(a, b)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, ys))
+end // end of [streamize_list_zip]
+
+(* ****** ****** *)
+
+implement
+streamize_list_cross
+  {a,b}(xs, ys) = let
+//
+fun
+auxone
+(
+  x0: a, ys: List(b)
+) : stream_vt($tup(a, b)) = $ldelay
+(
+case+ ys of
+| list_nil() =>
+  stream_vt_nil()
+| list_cons(y, ys) =>
+  stream_vt_cons($tup(x0, y), auxone(x0, ys))
+) : stream_vt_con($tup(a, b))
+//
+fun
+auxmain
+(
+  xs: List(a), ys: List(b)
+) : stream_vt($tup(a, b)) = $ldelay
+(
+  case+ xs of
+  | list_nil() =>
+      stream_vt_nil()
+    // end of [list_nil]
+  | list_cons(x0, xs) =>
+      !(stream_vt_append(auxone(x0, ys), auxmain(xs, ys)))
+    // end of [list_cons]
+) : stream_vt_con($tup(a, b)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, ys))
+end // end of [streamize_list_cross]
+
+(* ****** ****** *)
+
 (* end of [list.dats] *)

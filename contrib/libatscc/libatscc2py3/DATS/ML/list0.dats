@@ -56,6 +56,16 @@ staload "./../../SATS/filebas.sats"
 (* ****** ****** *)
 //
 staload "./../../SATS/list.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/stream.sats"
+//
+staload "./../../SATS/stream_vt.sats"
+staload _ = "./../../DATS/stream_vt.dats"
+//
+(* ****** ****** *)
+//
 staload "./../../SATS/ML/list0.sats"
 //
 (* ****** ****** *)

@@ -30,10 +30,75 @@ $ldelay
 ) (* $ldelay *)
 //
 (* ****** ****** *)
+
+implement
+stream_vt2t
+  {a}(xs) =
+  aux(xs) where
+{
+//
+fun
+aux
+(
+  xs: stream_vt(a)
+) : stream(a) = let
+//
+val xs = $UN.castvwtp0{ptr}(xs)
+//
+in
+//
+$delay
+(
+let
+//
+val xs =
+  $UN.castvwtp0{stream_vt(a)}(xs)
+//
+in
+  case+ !xs of
+  | ~stream_vt_nil() => stream_nil()
+  | ~stream_vt_cons(x, xs) => stream_cons(x, aux(xs))
+end // end of [let]
+)
+//
+end // end of [aux]
+//
+} (* end of [stream_vt2t] *)
+
+(* ****** ****** *)
+
+implement
+stream_vt_append
+  {a}
+(
+  xs, ys
+) = auxmain(xs, ys) where
+{
+//
+fun
+auxmain
+(
+  xs: stream_vt(a)
+, ys: stream_vt(a)
+) : stream_vt(a) = $ldelay
+(
+(
+  case+ !xs of
+  | ~stream_vt_nil() => !ys
+  | ~stream_vt_cons(x, xs) =>
+      stream_vt_cons(x, auxmain(xs, ys))
+    // end of [stream_vt_cons]
+) : stream_vt_con(a)
+, (~(xs); ~(ys)) // HX: for freeing the stream!
+) (* end of [auxmain] *)
+//
+} (* end of [stream_vt_append] *)
+
+(* ****** ****** *)
 //
 implement
 stream_vt_map_cloref
-  {a,b}
+  {a}{b}
 (
   xs, f0
 ) =

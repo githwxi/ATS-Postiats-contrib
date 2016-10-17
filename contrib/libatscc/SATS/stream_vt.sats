@@ -20,14 +20,30 @@ stream_vt_make_sing
 (* ****** ****** *)
 //
 fun
+stream_vt2t
+  {a:t0p}
+  (stream_vt(INV(a))): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream_vt_append
+  {a:vt0p}
+(
+  xs: stream_vt(INV(a)), ys: stream_vt(a)
+) : stream_vt(a) = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+fun
 stream_vt_map_cloref
-  {a,b:vt0p}
+  {a:vt0p}{b:vt0p}
 (
   xs: stream_vt(INV(a)), fopr: (a) -<cloref1> b
 ) : stream_vt(b) = "mac#%" // end-of-function
 fun
 stream_vt_map_method
-  {a,b:vt0p}
+  {a:vt0p}{b:vt0p}
 (
   xs: stream_vt(INV(a))
 ) :

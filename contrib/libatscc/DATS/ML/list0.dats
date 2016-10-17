@@ -339,6 +339,41 @@ end // end of [list0_zip]
 (* ****** ****** *)
 
 implement
+list0_zipwith
+  {a1,a2}{b}
+  (xs, ys, fopr) = let
+//
+fun
+aux :
+$d2ctype
+(list0_zipwith) =
+lam(xs, ys, fopr) =>
+(
+case+ xs of
+| nil0() => nil0()
+| cons0(x, xs) =>
+  (
+    case+ ys of
+    | nil0() => nil0()
+    | cons0(y, ys) =>
+      cons0(fopr(x, y), aux(xs, ys, fopr))
+  ) (* end of [cons0] *)
+)
+//
+in
+  aux{a1,a2}{b}(xs, ys, fopr)
+end // end of [list0_zipwith]
+
+implement
+list0_zipwith_method
+  {a1,a2}{b}(xs, ys) =
+(
+  lam(fopr) => list0_zipwith{a1,a2}{b}(xs, ys, fopr)
+) (* end of [list0_zipwith_method] *)
+
+(* ****** ****** *)
+
+implement
 list0_foldleft
   {res}{a}
   (xs, init, fopr) = let
@@ -396,6 +431,128 @@ val ys =
 //
 end // end of [list0_sort_2]
 //
+(* ****** ****** *)
+//
+implement
+streamize_list0_zip
+  {a,b}(xs, ys) =
+(
+  streamize_list_zip{a,b}(g1ofg0(xs), g1ofg0(ys))
+)
+implement
+streamize_list0_cross
+  {a,b}(xs, ys) =
+(
+  streamize_list_cross{a,b}(g1ofg0(xs), g1ofg0(ys))
+)
+//
+(* ****** ****** *)
+
+implement
+streamize_list0_nchoose
+  {a}(xs, n) = let
+//
+fun
+auxmain
+(
+xs: list0(a), n: intGte(0)
+) : stream_vt(list0(a)) = $ldelay
+(
+//
+if
+(n > 0)
+then
+(
+case+ xs of
+| list0_nil() =>
+    stream_vt_nil()
+  // list0_nil
+| list0_cons(x0, xs1) => let
+    val res1 =
+      auxmain(xs1, n-1)
+    // end of [val]
+    val res2 = auxmain(xs1, n)
+  in
+    !(
+      // lazy_vt_force
+      stream_vt_append
+      (
+        stream_vt_map_cloref
+          {list0(a)}{list0(a)}
+          (res1, lam(ys) => list0_cons(x0, ys)), res2
+      ) // stream_vt_append
+    ) (* lazy_vt_force *)
+  end // end of [list0_cons]
+) (* end of [then] *)
+else
+(
+  stream_vt_cons(list0_nil, stream_vt_make_nil((*void*)))
+) (* end of [else] *)
+//
+) : stream_vt_con(list0(a)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, n))
+end (* end of [streamize_list0_nchoose] *)
+
+(* ****** ****** *)
+
+implement
+streamize_list0_nchoose_rest
+  {a}(xs, n) = let
+//
+typedef
+tuplist =
+$tup(list0(a), list0(a))
+//
+fun
+auxmain
+(
+xs: list0(a), n: intGte(0)
+) : stream_vt(tuplist) = $ldelay
+(
+//
+if
+(n > 0)
+then
+(
+case+ xs of
+| list0_nil() =>
+    stream_vt_nil()
+  // list0_nil
+| list0_cons(x0, xs1) => let
+    val res1 =
+      auxmain(xs1, n-1)
+    // end of [val]
+    val res2 = auxmain(xs1, n)
+  in
+    !(
+      // lazy_vt_force
+      stream_vt_append
+      ( stream_vt_map_cloref
+          {tuplist}{tuplist}
+        (
+          res1
+        , lam(ysys) => $tup(list0_cons(x0, ysys.0), ysys.1)
+        )
+      , stream_vt_map_cloref
+          {tuplist}{tuplist}
+        (
+          res2
+        , lam(ysys) => $tup(ysys.0, list0_cons(x0, ysys.1))
+        )
+      ) // stream_vt_append
+    ) (* lazy_vt_force *)
+  end // end of [list0_cons]
+) (* end of [then] *)
+else stream_vt_cons($tup(list0_nil, xs), stream_vt_make_nil())
+//
+) : stream_vt_con(tuplist) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, n))
+end (* end of [streamize_list0_nchoose_rest] *)
+
 (* ****** ****** *)
 
 (* end of [list0.dats] *)

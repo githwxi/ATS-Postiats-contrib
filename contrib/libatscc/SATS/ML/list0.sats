@@ -284,8 +284,27 @@ overload .map with list0_map_method
 //
 fun
 list0_zip
-  {a,b:t0p}
-  (list0(INV(a)), list0(INV(b))):<> list0($tup(a, b)) = "mac#%"
+  {a1,a2:t0p}
+(
+  xs: list0(INV(a1)), ys: list0(INV(a2))
+) :<> list0($tup(a1, a2)) = "mac#%" // end-of-fun
+//
+fun
+list0_zipwith
+  {a1,a2:t0p}{b:t0p}
+(
+  xs: list0(INV(a1)), ys: list0(INV(a2)), fopr: cfun(a1, a2, b)
+) :<1> list0(b) = "mac#%" // end of [list0_zipwith]
+//
+fun
+list0_zipwith_method
+  {a1,a2:t0p}{b:t0p}
+(
+  xs: list0(INV(a1)), ys: list0(INV(a2)))(fopr: cfun(a1, a2, b)
+) :<1> list0(b) = "mac#%" // end of [list0_zipwith_method]
+//
+overload .map2 with list0_zipwith_method
+overload .zipwith with list0_zipwith_method
 //
 (* ****** ****** *)
 
@@ -319,6 +338,43 @@ list0_sort_2
 symintr list0_sort
 overload list0_sort with list0_sort_1 of 100
 overload list0_sort with list0_sort_2 of 100
+//
+(* ****** ****** *)
+//
+fun
+streamize_list0_zip
+  {a,b:t0p}
+(
+  xs: list0(INV(a))
+, ys: list0(INV(b))
+) :<>
+  stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+streamize_list0_cross
+  {a,b:t0p}
+(
+  xs: list0(INV(a))
+, ys: list0(INV(b))
+) :<>
+  stream_vt($tup(a,b)) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+streamize_list0_nchoose
+  {a:t0p}
+(
+  xs: list0(INV(a)), n: intGte(0)
+) :<> stream_vt(list0(a)) = "mac#%" // end-of-fun
+fun
+streamize_list0_nchoose_rest
+  {a:t0p}
+(
+  xs: list0(INV(a)), n: intGte(0)
+) :<> stream_vt($tup(list0(a), list0(a))) = "mac#%"
 //
 (* ****** ****** *)
 
