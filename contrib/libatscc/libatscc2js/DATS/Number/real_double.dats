@@ -32,11 +32,6 @@
 (* ****** ****** *)
 //
 staload
-M = "libc/SATS/math.sats"
-//
-(* ****** ****** *)
-//
-staload
 UN =
 "prelude/SATS/unsafe.sats"
 //

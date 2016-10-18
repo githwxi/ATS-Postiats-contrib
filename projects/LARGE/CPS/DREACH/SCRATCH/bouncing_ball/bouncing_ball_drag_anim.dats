@@ -208,9 +208,6 @@ fun theFwork_eval(): void
 
 local
 
-staload
-"libc/SATS/unistd.sats"
-
 val theFwork = ref{int}(0)
 
 in (* in-of-local *)
