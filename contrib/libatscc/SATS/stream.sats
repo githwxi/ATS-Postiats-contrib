@@ -60,16 +60,9 @@ stream_takeLte
   {a:t0p}
 (
   xs: stream(INV(a)), n0: intGte(0)
-) : stream(a) = "mac#%" // end-of-fun
-fun
-stream_dropLte
-  {a:t0p}
-(
-  xs: stream(INV(a)), n0: intGte(0)
-) : stream(a) = "mac#%" // end-of-fun
+) : stream_vt(a) = "mac#%" // end-of-fun
 //
 overload .takeLte with stream_takeLte
-overload .dropLte with stream_dropLte
 //
 (* ****** ****** *)
 //

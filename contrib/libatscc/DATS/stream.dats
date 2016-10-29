@@ -124,7 +124,7 @@ case+ !xs of
 //
 implement
 stream_takeLte
-  (xs, n) = $delay
+  (xs, n) = $ldelay
 (
 //
 if
@@ -132,33 +132,15 @@ if
 then (
 case+ !xs of
 | stream_nil() =>
-    stream_nil(*void*)
+    stream_vt_nil(*void*)
   // end of [stream_nil]
 | stream_cons(x, xs) =>
-    stream_cons(x, stream_takeLte(xs, n-1))
+    stream_vt_cons(x, stream_takeLte(xs, n-1))
   // end of [stream_cons]
 ) (* end of [then] *)
-else stream_nil() // else
+else stream_vt_nil() // else
 //
 ) (* end of [stream_takeLte] *)
-//
-(* ****** ****** *)
-//
-implement
-stream_dropLte
-  (xs, n) = $delay
-(
-//
-if
-(n > 0)
-then (
-case+ !xs of
-| stream_nil() => stream_nil(*void*)
-| stream_cons(x, xs) => !(stream_dropLte(xs, n-1))
-) (* end of [then] *)
-else (!xs) // end of [else]
-//
-) (* end of [stream_dropLte] *)
 //
 (* ****** ****** *)
 
