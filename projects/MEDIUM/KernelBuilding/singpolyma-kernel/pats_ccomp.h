@@ -35,6 +35,13 @@
 #include \
 "kernelats/prelude/CATS/pointer.cats"
 //
+#include \
+"kernelats/prelude/CATS/integer_long.cats"
+#include \
+"kernelats/prelude/CATS/integer_size.cats"
+#include \
+"kernelats/prelude/CATS/integer_short.cats"
+//
 #include "kernelats/prelude/CATS/bool.cats"
 #include "kernelats/prelude/CATS/char.cats"
 #include "kernelats/prelude/CATS/string.cats"
