@@ -455,7 +455,7 @@ list_iforeach
 fun
 aux
 (
-  i: int, xs: List(a)
+  i: Nat, xs: List(a)
 ) : void =
 //
 case+ xs of

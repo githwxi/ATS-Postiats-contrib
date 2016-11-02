@@ -37,4 +37,10 @@ print_val<string> = print_string
 //
 (* ****** ****** *)
 
+implement
+(a)(*tmp*)
+print_val<list0(a)> = print_list0<a>
+
+(* ****** ****** *)
+
 (* end of [print.dats] *)

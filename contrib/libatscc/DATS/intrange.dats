@@ -120,7 +120,38 @@ int_list_map_method
 lam(fopr) =>
   int_list_map_cloref{a}{n}(n0, fopr)
 //
-)
+) (* end of [int_list_map_method] *)
+//
+(* ****** ****** *)
+//
+implement
+int_list0_map_cloref
+  {a}(n0, fopr) = let
+//
+val n0 = g1ofg0(n0)
+//
+in
+//
+if
+(n0 >= 0)
+then
+g0ofg1
+(
+  int_list_map_cloref(n0, fopr)
+) (* g0ofg1 *)
+else list0_nil(*void*)
+//
+end // end of [int_list0_map_cloref]
+//
+implement
+int_list0_map_method
+  {a}(n0, tres) =
+(
+//
+lam(fopr) =>
+  int_list0_map_cloref{a}(n0, fopr)
+//
+) (* end of [int_list0_map_method] *)
 //
 (* ****** ****** *)
 

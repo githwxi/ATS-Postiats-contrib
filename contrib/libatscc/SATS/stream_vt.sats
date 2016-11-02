@@ -75,7 +75,8 @@ fun
 stream_vt_foreach_cloref
   {a:vt0ype}
 (
-  xs: stream_vt(INV(a)), fwork: (a) -<cloref1> void
+  xs: stream_vt(INV(a))
+, fwork: (a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_vt_foreach_method
@@ -90,7 +91,8 @@ fun
 stream_vt_iforeach_cloref
   {a:vt0ype}
 (
-  xs: stream_vt(INV(a)), fwork: (Nat, a) -<cloref1> void
+  xs: stream_vt(INV(a))
+, fwork: (Nat, a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_vt_iforeach_method
@@ -104,6 +106,7 @@ stream_vt_iforeach_method
 overload .map with stream_vt_map_method
 overload .filter with stream_vt_filter_method
 overload .foreach with stream_vt_foreach_method
+overload .iforeach with stream_vt_iforeach_method
 //
 (* ****** ****** *)
 //

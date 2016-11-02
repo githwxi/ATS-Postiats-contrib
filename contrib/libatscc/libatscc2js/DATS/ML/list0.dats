@@ -61,6 +61,44 @@ staload "./../../SATS/ML/list0.sats"
 //
 (* ****** ****** *)
 //
+local
+//
+staload "./../list.dats"
+//
+in (* in-of-local *)
+//
+extern
+fun{}
+print_list0$sep (): void
+//
+implement
+{}(*tmp*)
+print_list0$sep
+  ((*void*)) = print_string (", ")
+//
+implement
+{a}(*tmp*)
+print_list0(xs) = let
+//
+implement
+print_list$sep<> = print_list0$sep<>
+//
+in
+  print_list<a>(g1ofg0(xs))
+end // end of [print_list0]
+//
+implement
+{a}(*tmp*)
+print_list0_sep(xs, sep) = let
+//
+in
+  print_list_sep<a>(g1ofg0(xs), sep)
+end // end of [print_list0_sep]
+//
+end // end of [local]
+//
+(* ****** ****** *)
+//
 implement
 list0_head_exn
   {a}(xs) =

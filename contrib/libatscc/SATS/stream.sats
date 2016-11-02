@@ -13,6 +13,12 @@ staload "./../basics.sats"
 fun{}
 stream_make_nil
   {a:t0p}(): stream(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun{}
+stream_sing
+  {a:t0p}(a): stream_con(a) = "mac#%"
 fun{}
 stream_make_sing
   {a:t0p}(x0: a): stream(a) = "mac#%"
@@ -169,7 +175,8 @@ fun
 stream_foreach_cloref
   {a:t0p}
 (
-  xs: stream(INV(a)), fwork: (a) -<cloref1> void
+  xs: stream(INV(a))
+, fwork: (a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_foreach_method
@@ -186,7 +193,8 @@ fun
 stream_iforeach_cloref
   {a:t0p}
 (
-  xs: stream(INV(a)), fwork: (Nat, a) -<cloref1> void
+  xs: stream(INV(a))
+, fwork: (Nat, a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_iforeach_method

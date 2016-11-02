@@ -17,6 +17,11 @@ staload "./../../basics.sats"
 (* ****** ****** *)
 //
 fun{}
+list0_sing{a:t0p}(x: a): list0(a)
+//
+(* ****** ****** *)
+//
+fun{}
 list0_is_nil
   {a:t0p}(xs: list0(INV(a))): bool
 //
@@ -87,10 +92,12 @@ list0_make_intrange with list0_make_intrange_3
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 print_list0
   (xs: list0(INV(a))): void = "mac#%"
-fun{a:t0p}
+fun
+{a:t0p}
 print_list0_sep
   (xs: list0(INV(a)), sep: string): void = "mac#%"
 //

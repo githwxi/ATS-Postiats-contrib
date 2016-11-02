@@ -84,6 +84,19 @@ overload .list_map with int_list_map_method
 (* ****** ****** *)
 //
 fun
+int_list0_map_cloref
+  {a:t0p}
+  (n: int, fopr: cfun(int, a)): list0(a) = "mac#%"
+fun
+int_list0_map_method
+  {a:t0p}
+  (n: int, TYPE(a))(fopr: cfun(int, a)): list0(a) = "mac#%"
+//
+overload .list0_map with int_list0_map_method
+//
+(* ****** ****** *)
+//
+fun
 int_stream_map_cloref
   {a:t0p}
   (n: intGte(0), fopr: cfun(int, a)): stream(a) = "mac#%"

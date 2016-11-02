@@ -74,7 +74,8 @@ print_list$sep (): void
 //
 implement
 {}(*tmp*)
-print_list$sep () = print_string (", ")
+print_list$sep
+  ((*void*)) = print_string (", ")
 //
 implement
 {a}(*tmp*)

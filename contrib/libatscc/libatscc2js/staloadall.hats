@@ -69,10 +69,13 @@ staload "./SATS/slistref.sats" // list-based stack
 staload "./SATS/qlistref.sats" // list-based queue
 
 (* ****** ****** *)
-
+//
 staload "./SATS/ML/list0.sats" // un-indexed list
+staload _ = "./DATS/ML/list0.dats" // un-indexed list
+//
 staload "./SATS/ML/array0.sats" // un-indexed array
-
+staload _ = "./DATS/ML/array0.dats" // un-indexed array
+//
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)
