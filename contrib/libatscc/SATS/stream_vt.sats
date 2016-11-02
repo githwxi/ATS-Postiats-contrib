@@ -27,6 +27,17 @@ stream_vt2t
 (* ****** ****** *)
 //
 fun
+stream_vt_takeLte
+  {a:vt0p}
+(
+xs: stream_vt(INV(a)), n0: intGte(0)
+) : stream_vt(a) = "mac#%" // end-of-fun
+//
+overload .takeLte with stream_vt_takeLte
+//
+(* ****** ****** *)
+//
+fun
 stream_vt_append
   {a:vt0p}
 (

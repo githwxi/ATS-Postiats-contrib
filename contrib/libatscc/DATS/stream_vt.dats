@@ -68,6 +68,42 @@ end // end of [aux]
 (* ****** ****** *)
 
 implement
+stream_vt_takeLte
+  {a}(xs, n0) =
+  auxmain(xs, n0) where
+{
+//
+fun
+auxmain
+(
+xs: stream_vt(a), n0: Nat
+) : stream_vt(a) = $ldelay
+(
+//
+if
+(n0 > 0)
+then
+(
+case+ !xs of
+| ~stream_vt_nil() =>
+    stream_vt_nil()
+| ~stream_vt_cons(x, xs) =>
+    stream_vt_cons(x, auxmain(xs, n0-1))
+)
+else
+(
+  ~(xs); stream_vt_nil()
+)
+,
+~(xs) // HX: called for freeing the stream!
+//
+) (* end of [$ldelay] *)
+//
+} (* end of [stream_vt_takeLte] *)
+
+(* ****** ****** *)
+
+implement
 stream_vt_append
   {a}
 (
