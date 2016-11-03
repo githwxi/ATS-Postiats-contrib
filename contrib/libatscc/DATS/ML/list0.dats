@@ -17,6 +17,13 @@ staload UN = "prelude/SATS/unsafe.sats"
 //
 implement
 {}(*tmp*)
+list0_sing(x) =
+  list0_cons(x, list0_nil())
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
 list0_is_nil(xs) =
 (
 case+ xs of
@@ -182,6 +189,11 @@ list0_reverse_append{a}(xs, ys) =
   $UN.cast(list_reverse_append{a}($UN.cast(xs), $UN.cast(ys)))
 //
 (* ****** ****** *)
+//
+implement
+list0_concat{a}(xss) = $UN.cast(list_concat{a}($UN.cast(xss)))
+//
+(* ****** ****** *)
 
 implement
 list0_remove_at_opt
@@ -308,6 +320,19 @@ list0_map
 implement
 list0_map_method
   {a}{b}(xs, _) = lam(fopr) => list0_map{a}{b}(xs, fopr)
+//
+(* ****** ****** *)
+//
+implement
+list0_mapcons
+  {a}(x0, xss) =
+(
+case+ xss of
+| list0_nil() =>
+  list0_nil()
+| list0_cons(xs, xss) =>
+  list0_cons(list0_cons(x0, xs), list0_mapcons(x0, xss))
+)
 //
 (* ****** ****** *)
 

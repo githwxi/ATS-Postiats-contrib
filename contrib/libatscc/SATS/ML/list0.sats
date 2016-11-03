@@ -144,6 +144,12 @@ overload revappend with list0_reverse_append of 100
 (* ****** ****** *)
 //
 fun
+list0_concat
+  {a:t0p}(xs: list0(list0(a))): list0(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list0_remove_at_opt
   {a:t0p}
   (list0(INV(a)), i: intGte(0)): Option(list0(a)) = "mac#%"
@@ -286,6 +292,13 @@ list0_map_method
   (list0(INV(a)), TYPE(b))(fopr: cfun(a, b)): list0(b) = "mac#%"
 //
 overload .map with list0_map_method
+//
+(* ****** ****** *)
+//
+fun
+list0_mapcons
+  {a:t0p}
+  (x0: a, xss: list0(list0(INV(a)))): list0(list0(a)) = "mac#%"
 //
 (* ****** ****** *)
 //

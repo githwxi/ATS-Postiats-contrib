@@ -122,6 +122,12 @@ overload revappend with list_reverse_append of 100
 (* ****** ****** *)
 //
 fun
+list_concat
+  {x:t0p}(xss: List(List(INV(x)))): List0(x) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 list_take
   {a:t0p}
   {n:int}

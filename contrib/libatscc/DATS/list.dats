@@ -238,6 +238,38 @@ end // end of [list_reverse_append]
 (* ****** ****** *)
 
 implement
+list_concat
+  {a}(xss) =
+  auxlst(xss) where
+{
+//
+fun
+auxlst
+(
+  xss: List(List(a))
+) : List0(a) =
+(
+//
+case+ xss of
+| list_nil() =>
+  list_nil()
+| list_cons
+    (xs, xss) =>
+  list_append
+  (
+    xs, auxlst(xss)
+  ) where
+  {
+    prval () = lemma_list_param(xs)
+  } (* end of [list_cons] *)
+//
+)
+//
+} (* end of [list_concat] *)
+
+(* ****** ****** *)
+
+implement
 list_take(xs, i) =
 (
 //
