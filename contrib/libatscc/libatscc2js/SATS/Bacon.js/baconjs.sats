@@ -108,16 +108,29 @@ EStream_map
   xs: EStream(a), fopr: cfun(a, b)
 ) : EStream(b) = "mac#%" // end-of-fun
 fun
+EStream_map_method
+  {a:t0p}{b:t0p}
+(
+  xs: EStream(a), TYPE(b))(fopr: cfun(a, b)
+) : EStream(b) = "mac#%" // end-of-fun
+//
+fun
 Property_map
   {a:t0p}{b:t0p}
 (
   xs: Property(a), fopr: cfun(a, b)
 ) : Property(b) = "mac#%" // end-of-fun
+fun
+Property_map_method
+  {a:t0p}{b:t0p}
+(
+  xs: Property(a), TYPE(b))(fopr: cfun(a, b)
+) : Property(b) = "mac#%" // end-of-fun
 //
 overload map with EStream_map
 overload map with Property_map
-overload .map with EStream_map
-overload .map with Property_map
+overload .map with EStream_map_method
+overload .map with Property_map_method
 //
 (* ****** ****** *)
 //
@@ -139,9 +152,15 @@ EStream_filter
 (
   xs: EStream(a), test: cfun(a, bool)
 ) : EStream(a) = "mac#%" // end-of-fun
+fun
+EStream_filter_method
+  {a:t0p}
+(
+  xs: EStream(a))(test: cfun(a, bool)
+) : EStream(a) = "mac#%" // end-of-fun
 //
 overload filter with EStream_filter
-overload .filter with EStream_filter
+overload .filter with EStream_filter_method
 //
 (* ****** ****** *)
 //
@@ -163,9 +182,15 @@ EStream_scan
 (
   xs: EStream(b), ini: a, fopr: cfun(a, b, a)
 ) : Property(a) = "mac#%" // end-of-function
+fun
+EStream_scan_method
+  {a,b:t0p}
+(
+  xs: EStream(b), ini: a)(fopr: cfun(a, b, a)
+) : Property(a) = "mac#%" // end-of-function
 //
 overload scan with EStream_scan
-overload .scan with EStream_scan
+overload .scan with EStream_scan_method
 //
 (* ****** ****** *)
 //
@@ -177,12 +202,20 @@ fun
 EStream_merge3
   {a:t0p}
   (EStream(a), EStream(a), EStream(a)): EStream(a) = "mac#%"
+fun
+EStream_merge4
+  {a:t0p}
+  (EStream(a), EStream(a), EStream(a), EStream(a)): EStream(a) = "mac#%"
 //
 overload merge with EStream_merge2
 overload merge with EStream_merge3
+overload merge with EStream_merge4
 //
+(*
 overload .merge with EStream_merge2
 overload .merge with EStream_merge3
+overload .merge with EStream_merge4
+*)
 //
 (* ****** ****** *)
 //
@@ -231,11 +264,17 @@ EStream_onValue
 fun
 Property_onValue
   {a:t0p}(Property(a), cfun(a, void)): void = "mac#%"
+fun
+EStream_onValue_method
+  {a:t0p}(EStream(a))(cfun(a, void)): void = "mac#%"
+fun
+Property_onValue_method
+  {a:t0p}(Property(a))(cfun(a, void)): void = "mac#%"
 //
 overload onValue with EStream_onValue
 overload onValue with Property_onValue
-overload .onValue with EStream_onValue
-overload .onValue with Property_onValue
+overload .onValue with EStream_onValue_method
+overload .onValue with Property_onValue_method
 //
 (* ****** ****** *)
 //
@@ -245,11 +284,17 @@ EStream_subscribe
 fun
 Property_subscribe
   {a:t0p}(Property(a), cfun(Event, void)): void = "mac#%"
+fun
+EStream_subscribe_method
+  {a:t0p}(EStream(a))(cfun(Event, void)): void = "mac#%"
+fun
+Property_subscribe_method
+  {a:t0p}(Property(a))(cfun(Event, void)): void = "mac#%"
 //
 overload subscribe with EStream_subscribe
 overload subscribe with Property_subscribe
-overload .subscribe with EStream_subscribe
-overload .subscribe with Property_subscribe
+overload .subscribe with EStream_subscribe_method
+overload .subscribe with Property_subscribe_method
 //
 (* ****** ****** *)
 //
@@ -267,11 +312,19 @@ fun
 Property_doAction
   {a:t0p}
   (xs: Property(a), f: cfun(a, void)): Property(a) = "mac#%"
+fun
+EStream_doAction_method
+  {a:t0p}
+  (xs: EStream(a))(f: cfun(a, void)): EStream(a) = "mac#%"
+fun
+Property_doAction_method
+  {a:t0p}
+  (xs: Property(a))(f: cfun(a, void)): Property(a) = "mac#%"
 //
 overload doAction with EStream_doAction
 overload doAction with Property_doAction
-overload .doAction with EStream_doAction
-overload .doAction with Property_doAction
+overload .doAction with EStream_doAction_method
+overload .doAction with Property_doAction_method
 //
 (* ****** ****** *)
 //
@@ -304,20 +357,17 @@ Property_sampledBy_property_cfun
 //
 overload sampledBy with Property_sampledBy_estream_cfun
 overload sampledBy with Property_sampledBy_property_cfun
-overload .sampledBy with Property_sampledBy_estream_cfun
-overload .sampledBy with Property_sampledBy_property_cfun
 //
 (* ****** ****** *)
 //
 fun
-EStream_zip_estream_cfun
+EStream_zipwith_estream_cfun
   {a,b:t0p}{c:t0p}
 (
-  xs: EStream(a), ys: EStream(b), cfun(a, b, c)
+xs: EStream(a), ys: EStream(b), fopr: cfun(a, b, c)
 ) : EStream(c) = "mac#%" // end-of-function
 //
-overload zip with EStream_zip_estream_cfun
-overload .zip with EStream_zip_estream_cfun
+overload zipwith with EStream_zipwith_estream_cfun
 //
 (* ****** ****** *)
 //
