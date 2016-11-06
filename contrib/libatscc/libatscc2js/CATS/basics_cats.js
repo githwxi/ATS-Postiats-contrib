@@ -16,6 +16,10 @@
 
 /* ****** ****** */
 
+var the_atsptr_null = 0;
+
+/* ****** ****** */
+
 function
 ATSCKiseqz(x) { return (x === 0); }
 function

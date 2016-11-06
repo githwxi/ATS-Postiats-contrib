@@ -178,13 +178,13 @@ overload .filter with EStream_filter_property
 //
 fun
 EStream_scan
-  {a,b:t0p}
+  {a:t0p}{b:t0p}
 (
   xs: EStream(b), ini: a, fopr: cfun(a, b, a)
 ) : Property(a) = "mac#%" // end-of-function
 fun
 EStream_scan_method
-  {a,b:t0p}
+  {a:t0p}{b:t0p}
 (
   xs: EStream(b), ini: a)(fopr: cfun(a, b, a)
 ) : Property(a) = "mac#%" // end-of-function

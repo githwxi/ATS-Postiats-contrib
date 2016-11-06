@@ -54,12 +54,12 @@ staload "./../../SATS/Bacon.js/baconjs.sats"
 //
 implement
 EStream_map_method
-  (xs) =
+  (xs, _) =
   lam(fopr) => EStream_map(xs, fopr)
 //
 implement
 Property_map_method
-  (xs) =
+  (xs, _) =
   lam(fopr) => Property_map(xs, fopr)
 //
 (* ****** ****** *)
@@ -73,7 +73,7 @@ EStream_filter_method
 //
 implement
 EStream_scan_method
-  (xs, ini, fopr) =
+  (xs, ini) =
   lam(fopr) => EStream_scan(xs, ini, fopr)
 //
 (* ****** ****** *)

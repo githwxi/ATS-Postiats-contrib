@@ -88,6 +88,9 @@ $(ATSCC2JS) -o ./output/DATS/ML/array0_dats.js -i
 ######
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/Bacon.js/baconjs.dats | \
+$(ATSCC2JS) -o ./output/DATS/Bacon.js/baconjs_dats.js -i
+all:: ; \
 $(PATSOPT) -d ./DATS/Bacon.js/baconjs_ext.dats | \
 $(ATSCC2JS) -o ./output/DATS/Bacon.js/baconjs_ext_dats.js -i
 #
@@ -155,6 +158,7 @@ libatscc2js_baconjs_all:: ; \
 $(CAT) \
 >libatscc2js_baconjs_all.js \
 CATS/Bacon.js/baconjs_cats.js \
+output/DATS/Bacon.js/baconjs_dats.js \
 output/DATS/Bacon.js/baconjs_ext_dats.js
 #
 ######
