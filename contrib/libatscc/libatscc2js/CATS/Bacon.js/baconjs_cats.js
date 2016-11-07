@@ -195,7 +195,7 @@ ats2js_bacon_Property_startWith
   (xs, x0) { return xs.startWith(x0); }
 //
 /* ****** ****** */
-
+//
 function
 ats2js_bacon_EStream_doAction(xs, f0)
 {
@@ -209,9 +209,11 @@ ats2js_bacon_Property_doAction(xs, f0)
 function
 ats2js_bacon_Observable_doAction(xs, f0)
 {
-  return xs.doAction(function(x){ats2jspre_cloref1_app(f0, x); return;});
+  return xs.doAction(
+    function(x){ats2jspre_cloref1_app(f0, x); return;}
+  ); // end of [return]
 }
-
+//
 /* ****** ****** */
 //
 function
@@ -225,23 +227,27 @@ ats2js_bacon_Property_sampledBy_estream_cfun(xs, ys, f)
   ); // end of [return]
 }
 //
+/* ****** ****** */
+//
 function
 ats2js_bacon_Property_sampledBy_property
   (xs, ys) { return xs.sampledBy(ys); }
 function
-ats2js_bacon_Property_sampledBy_property_cfun(xs, ys, f)
+ats2js_bacon_Property_sampledBy_property_cfun(xs, ys, f0)
 {
   return xs.sampledBy(
-    ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);}
+    ys,function(x,y){return ats2jspre_cloref2_app(f0,x,y);}
   ); // end of [return]
 }
 //
 /* ****** ****** */
 //
 function
-ats2js_bacon_EStream_zip_estream_cfun(xs, ys, f) 
+ats2js_bacon_EStream_zip_estream_cfun(xs, ys, f0) 
 {
-  return xs.zip(ys,function(x,y){return ats2jspre_cloref2_app(f,x,y);});
+  return xs.zip(
+    ys,function(x,y){return ats2jspre_cloref2_app(f0,x,y);}
+  ); /* end of [return] */
 }
 //
 /* ****** ****** */
