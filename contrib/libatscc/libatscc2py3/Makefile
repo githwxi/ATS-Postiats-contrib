@@ -15,7 +15,10 @@ CPF=cp -f
 #
 all::
 #
-# all_in_one::
+######
+#
+all_in_one::
+	@echo "The target [all_in_one] is ignored!"
 #
 ######
 #
