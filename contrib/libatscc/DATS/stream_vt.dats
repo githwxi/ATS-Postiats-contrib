@@ -224,6 +224,66 @@ llam(p0) =>
 (* ****** ****** *)
 //
 implement
+stream_vt_exists_cloref
+  {a}(xs, pred) = loop(xs) where
+{
+//
+fun
+loop
+(
+  xs: stream_vt(a)
+) : bool =
+(
+  case+ !xs of
+  | ~stream_vt_nil() => false
+  | ~stream_vt_cons(x, xs) =>
+      if pred(x) then (~xs; true) else loop(xs)
+    // stream_vt_cons
+)
+//
+} (* end of [stream_vt_exists_cloref] *)
+//
+implement
+stream_vt_exists_method
+  (xs) =
+(
+llam(pred) =>
+  stream_vt_exists_cloref(xs, pred)
+) (* end of [stream_vt_exists_method] *)
+//
+(* ****** ****** *)
+//
+implement
+stream_vt_forall_cloref
+  {a}(xs, pred) = loop(xs) where
+{
+//
+fun
+loop
+(
+  xs: stream_vt(a)
+) : bool =
+(
+  case+ !xs of
+  | ~stream_vt_nil() => true
+  | ~stream_vt_cons(x, xs) =>
+      if pred(x) then loop(xs) else (~xs; false)
+    // stream_vt_cons
+)
+//
+} (* end of [stream_vt_forall_cloref] *)
+//
+implement
+stream_vt_forall_method
+  (xs) =
+(
+llam(pred) =>
+  stream_vt_forall_cloref(xs, pred)
+) (* end of [stream_vt_forall_method] *)
+//
+(* ****** ****** *)
+//
+implement
 stream_vt_foreach_cloref
   {a}(*poly*)
   (xs, fwork) =

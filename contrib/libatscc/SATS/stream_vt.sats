@@ -83,17 +83,46 @@ stream_vt_filter_method
 (* ****** ****** *)
 //
 fun
+stream_vt_exists_cloref
+  {a:t0ype}
+(
+xs: stream_vt(INV(a)), pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+fun
+stream_vt_exists_method
+  {a:t0ype}
+(
+xs: stream_vt(INV(a))
+) : ((a) -<cloref1> bool) -<lincloptr1> bool = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+stream_vt_forall_cloref
+  {a:t0ype}
+(
+xs: stream_vt(INV(a)), pred: (a) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
+fun
+stream_vt_forall_method
+  {a:t0ype}
+(
+xs: stream_vt(INV(a))
+) : ((a) -<cloref1> bool) -<lincloptr1> bool = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_vt_foreach_cloref
   {a:vt0ype}
 (
-  xs: stream_vt(INV(a))
-, fwork: (a) -<cloref1> void
+xs: stream_vt(INV(a)), fwork: (a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_vt_foreach_method
   {a:vt0ype}
 (
-  xs: stream_vt(INV(a))
+xs: stream_vt(INV(a))
 ) :<> ((a) -<cloref1> void) -<lincloptr1> void = "mac#%"
 //
 (* ****** ****** *)
@@ -102,14 +131,13 @@ fun
 stream_vt_iforeach_cloref
   {a:vt0ype}
 (
-  xs: stream_vt(INV(a))
-, fwork: (Nat, a) -<cloref1> void
+xs: stream_vt(INV(a)), fwork: (Nat, a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 fun
 stream_vt_iforeach_method
   {a:vt0ype}
 (
-  xs: stream_vt(INV(a))
+xs: stream_vt(INV(a))
 ) :<> ((Nat, a) -<cloref1> void) -<lincloptr1> void = "mac#%"
 //
 (* ****** ****** *)

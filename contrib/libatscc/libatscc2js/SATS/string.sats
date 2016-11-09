@@ -103,15 +103,24 @@ string_fromCharCode_6
   (c1: int, c2: int, c3: int, c4: int, c5: int, c6: int): string = "mac#%"
 //
 symintr string_fromCharCode
-overload string_fromCharCode with string_fromCharCode_1
-overload string_fromCharCode with string_fromCharCode_2
-overload string_fromCharCode with string_fromCharCode_3
-overload string_fromCharCode with string_fromCharCode_4
-overload string_fromCharCode with string_fromCharCode_5
-overload string_fromCharCode with string_fromCharCode_6
+overload
+string_fromCharCode with string_fromCharCode_1
+overload
+string_fromCharCode with string_fromCharCode_2
+overload
+string_fromCharCode with string_fromCharCode_3
+overload
+string_fromCharCode with string_fromCharCode_4
+overload
+string_fromCharCode with string_fromCharCode_5
+overload
+string_fromCharCode with string_fromCharCode_6
 //
 (* ****** ****** *)
 //
+fun
+strstr // libc-function
+  (str: string, key: string): int = "mac#%"
 fun
 string_indexOf_2
   (str: string, key: string): int = "mac#%"
@@ -160,8 +169,17 @@ string_concat_3
 ) : string = "mac#%" // end-of-fun
 //
 symintr string_concat
-overload string_concat with string_concat_2 of 100
-overload string_concat with string_concat_3 of 100
+//
+overload
+string_concat with string_concat_2 of 100
+overload
+string_concat with string_concat_3 of 100
+//
+(* ****** ****** *)
+//
+fun
+streamize_string_code
+  (str0: string): stream_vt(int) = "mac#%"
 //
 (* ****** ****** *)
 

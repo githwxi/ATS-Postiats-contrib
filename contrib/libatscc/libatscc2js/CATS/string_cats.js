@@ -77,12 +77,14 @@ ats2jspre_string_fromCharCode_6
   (c1,c2,c3,c4,c5,c6) { return String.fromCharCode(c1,c2,c3,c4,c5,c6) ; }
 //
 /* ****** ****** */
-
+//
+function
+ats2jspre_strstr(str, key) { return str.indexOf(key) ; }
 function
 ats2jspre_string_indexOf_2(str, key) { return str.indexOf(key) ; }
 function
 ats2jspre_string_indexOf_3(str, key, start) { return str.indexOf(key, start) ; }
-
+//
 /* ****** ****** */
 
 function
