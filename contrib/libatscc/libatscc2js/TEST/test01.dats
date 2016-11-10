@@ -20,6 +20,11 @@ ATS_STATIC_PREFIX "test01__"
 //
 (* ****** ****** *)
 
+val () = assertloc("between".indexOf("tween") = 2)
+val () = assertloc("between".indexOf("tween", 3) < 0)
+
+(* ****** ****** *)
+
 val () = repeat(3, $delay(println!("Hello, world!")))
 val () = (3).foreach()(lam(i) =<cloref1> println!(i, ": Hello, world!"))
 

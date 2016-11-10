@@ -129,8 +129,13 @@ string_indexOf_3
   (str: string, key: string, start: int): int = "mac#%"
 //
 symintr string_indexOf
-overload string_indexOf with string_indexOf_2
-overload string_indexOf with string_indexOf_3
+//
+overload
+string_indexOf with string_indexOf_2 of 100
+overload
+string_indexOf with string_indexOf_3 of 100
+//
+overload .indexOf with string_indexOf of 100
 //
 (* ****** ****** *)
 //
@@ -142,8 +147,13 @@ string_lastIndexOf_3
   (str: string, key: string, start: int): int = "mac#%"
 //
 symintr string_lastIndexOf
-overload string_lastIndexOf with string_lastIndexOf_2
-overload string_lastIndexOf with string_lastIndexOf_3
+//
+overload
+string_lastIndexOf with string_lastIndexOf_2 of 100
+overload
+string_lastIndexOf with string_lastIndexOf_3 of 100
+//
+overload .lastIndexOf with string_lastIndexOf of 100
 //
 (* ****** ****** *)
 //
