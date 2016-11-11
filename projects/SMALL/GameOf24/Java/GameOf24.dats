@@ -56,9 +56,8 @@ fun
 JNI_play24
   {l:addr}
 (
-  env: !JNIEnvPtr
-, obj: jobject (l)
-, n1: jint, n2: jint, n3: jint, n4: jint
+  env: !JNIEnvPtr, obj: jobject(l)
+, card1: jint, card2: jint, card3: jint, card4: jint
 ) : void = "ext#Java_GameOf24_play24" // endfun
 
 (* ****** ****** *)
@@ -76,20 +75,20 @@ val n4 = $UN.cast{int}(n4)
 //
 val out = stdout_ref
 val res = play24 (n1, n2, n3, n4)
-val (
-) = fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
+val ((*void*)) =
+  fprintln! (out, "play24(", n1, ", ", n2, ", ", n3, ", ", n4, "):")
 //
 in
 //
 case+ res of
+| list_nil() => 
+  (
+    fprintln! (out, "There is NO solution.")
+  )
 | list_cons _ =>
   (
     fpprint_cardlst (out, res); fprint_newline (out)
   )
-| list_nil () => 
-  {
-    val () = fprintln! (out, "There is NO solution.")
-  }
 //
 end // end of [JNI_play24]
 

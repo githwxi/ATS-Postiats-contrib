@@ -206,10 +206,20 @@ fun
 EStream_merge4
   {a:t0p}
   (EStream(a), EStream(a), EStream(a), EStream(a)): EStream(a) = "mac#%"
+fun
+EStream_merge5
+  {a:t0p}
+  (EStream(a), EStream(a), EStream(a), EStream(a), EStream(a)): EStream(a) = "mac#%"
+fun
+EStream_merge6
+  {a:t0p}
+  (EStream(a), EStream(a), EStream(a), EStream(a), EStream(a), EStream(a)): EStream(a) = "mac#%"
 //
 overload merge with EStream_merge2
 overload merge with EStream_merge3
 overload merge with EStream_merge4
+overload merge with EStream_merge5
+overload merge with EStream_merge6
 //
 (*
 overload .merge with EStream_merge2

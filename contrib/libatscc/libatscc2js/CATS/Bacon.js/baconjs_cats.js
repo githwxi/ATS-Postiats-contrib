@@ -110,11 +110,29 @@ ats2js_bacon_EStream_scan(xs, ini, f)
 //
 function
 ats2js_bacon_EStream_merge2
-  (xs1, xs2) { return Bacon.mergeAll(xs1, xs2); }
-//
+(
+  xs1, xs2
+) { return Bacon.mergeAll(xs1, xs2); }
 function
 ats2js_bacon_EStream_merge3
-  (xs1, xs2, xs3) { return Bacon.mergeAll(xs1, xs2, xs3); }
+(
+  xs1, xs2, xs3
+) { return Bacon.mergeAll(xs1, xs2, xs3); }
+function
+ats2js_bacon_EStream_merge4
+(
+  xs1, xs2, xs3, xs4
+) { return Bacon.mergeAll(xs1, xs2, xs3, xs4); }
+function
+ats2js_bacon_EStream_merge5
+(
+  xs1, xs2, xs3, xs4, xs5
+) { return Bacon.mergeAll(xs1, xs2, xs3, xs4, xs5); }
+function
+ats2js_bacon_EStream_merge6
+(
+  xs1, xs2, xs3, xs4, xs5, xs6
+) { return Bacon.mergeAll(xs1, xs2, xs3, xs4, xs5, xs6); }
 //
 /* ****** ****** */
 
