@@ -41,6 +41,30 @@ array0_exch_at(A, i, x) = arrszref_exch_at(A, i, x)
 (* ****** ****** *)
 //
 implement
+array0_exists_cloref
+  (A, pred) = arrszref_exists_cloref(A, pred)
+//
+implement
+array0_exists_method
+  (A) = lam(pred) => array0_exists_cloref(A, pred)
+//
+(* ****** ****** *)
+//
+implement
+array0_forall_cloref
+  (A, pred) = arrszref_forall_cloref(A, pred)
+//
+implement
+array0_forall_method
+  (A) = lam(pred) => array0_forall_cloref(A, pred)
+//
+(* ****** ****** *)
+//
+implement
+array0_app_cloref
+  (A, fwork) = array0_foreach_cloref(A, fwork)
+//
+implement
 array0_foreach_cloref
   (A, fwork) = arrszref_foreach_cloref(A, fwork)
 //

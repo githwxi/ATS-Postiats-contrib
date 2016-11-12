@@ -417,6 +417,15 @@ overload list_sort with list_sort_2 of 100
 (* ****** ****** *)
 //
 fun
+streamize_list_elt
+  {a:t0p}
+(
+xs: List(INV(a))
+) :<> stream_vt(a) = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+fun
 streamize_list_zip
   {a,b:t0p}
 (

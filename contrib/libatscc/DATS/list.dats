@@ -702,6 +702,35 @@ list_sort_1(xs) =
 ) (* list_sort_1 *)
 //
 (* ****** ****** *)
+//
+#if
+defined(ATSCC_STREAM_VT)
+#then
+//
+implement
+streamize_list_elt
+  {a}(xs) = let
+//
+fun
+auxmain
+(
+xs: List(a)
+) : stream_vt(a) = $ldelay
+(
+//
+case+ xs of
+| list_nil() => stream_vt_nil()
+| list_cons(x, xs) => stream_vt_cons(x, auxmain(xs))
+//
+) (* end of [auxmain] *)
+//
+in
+  $effmask_all(auxmain(xs))
+end
+//
+#endif // ATSCC_STREAM_VT
+//
+(* ****** ****** *)
 
 #if
 defined(ATSCC_STREAM_VT)

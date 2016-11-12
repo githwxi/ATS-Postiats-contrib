@@ -44,7 +44,39 @@ overload [] with array0_set_at of 100
 (* ****** ****** *)
 //
 fun
-array0_app
+array0_exists_cloref
+  {a:vt0p}
+(
+A0: array0(a), pred: Nat -<cloref1> bool
+) : bool = "mac#%" // array0_exists_cloref
+fun
+array0_exists_method
+  {a:vt0p}
+  (A: array0(a))
+  (pred: Nat -<cloref1> bool): bool = "mac#%"
+//
+overload .exists with array0_exists_method
+//
+(* ****** ****** *)
+//
+fun
+array0_forall_cloref
+  {a:vt0p}
+(
+A0: array0(a), pred: Nat -<cloref1> bool
+) : bool = "mac#%" // array0_forall_cloref
+fun
+array0_forall_method
+  {a:vt0p}
+  (A: array0(a))
+  (pred: Nat -<cloref1> bool): bool = "mac#%"
+//
+overload .forall with array0_forall_method
+//
+(* ****** ****** *)
+//
+fun
+array0_app_cloref
   {a:t0p}
 (
   xs: array0(a), fwork: cfun(int, void)
