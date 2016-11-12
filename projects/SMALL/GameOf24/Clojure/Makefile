@@ -15,12 +15,14 @@ $(CLOJURE) clojure.main \
   -i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
 #
 ######
-
+#
 PATSCC=${PATSHOME}/bin/patscc
 PATSOPT=${PATSHOME}/bin/patsopt
+#
 ATSCC2CLJ=${PATSHOME}/bin/atscc2clj
+#
 LIBATSCC2CLJ=$(PATSHOME_contrib)/contrib/libatscc/libatscc2clj
-
+#
 ######
 #
 all: \

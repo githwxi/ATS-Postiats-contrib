@@ -18,6 +18,11 @@
 
 /* ****** ****** */
 
+package libatscc2java;
+
+/* ****** ****** */
+
+public
 class bool_cats
 {
 //

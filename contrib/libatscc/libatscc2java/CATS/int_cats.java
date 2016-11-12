@@ -18,17 +18,11 @@
 
 /* ****** ****** */
 
-/*
-function
-ats2javapre_neg_int0(x)
-  { return (x ? false : true ); }
-function
-ats2javapre_neg_int1(x)
-  { return (x ? false : true ); }
-*/
+package libatscc2java;
 
 /* ****** ****** */
 
+public
 class int_cats
 {
 //
