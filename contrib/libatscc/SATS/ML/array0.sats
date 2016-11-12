@@ -42,5 +42,24 @@ overload [] with array0_get_at of 100
 overload [] with array0_set_at of 100
 
 (* ****** ****** *)
+//
+fun
+array0_app
+  {a:t0p}
+(
+  xs: array0(a), fwork: cfun(int, void)
+) : void = "mac#%" // end-of-function
+fun
+array0_foreach_cloref
+  {a:vt0p}
+  (A: array0(a), fwork: Nat -<cloref1> void): void = "mac#%"
+fun
+array0_foreach_method
+  {a:vt0p}
+  (A: array0(a))(fwork: Nat -<cloref1> void): void = "mac#%"
+//
+overload .foreach with array0_foreach_method
+//
+(* ****** ****** *)
 
 (* end of [array0.sats] *)

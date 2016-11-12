@@ -4,9 +4,10 @@
 *)
 
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
+//
+#define
+ATS_DYNLOADFLAG 0
+//
 (* ****** ****** *)
 //
 // HX-2014-08:

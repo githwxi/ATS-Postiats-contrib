@@ -114,20 +114,28 @@ overload [] with arrszref_set_at of 100
 fun
 arrszref_exists_cloref
   {a:vt0p}
-  (A: arrszref(a), pred: int -<cloref1> bool): bool = "mac#%"
+(
+A0: arrszref(a), pred: intGte(0) -<cloref1> bool
+) : bool = "mac#%" // arrszref_exists_cloref
 fun
 arrszref_forall_cloref
   {a:vt0p}
-  (A: arrszref(a), pred: int -<cloref1> bool): bool = "mac#%"
+(
+A0: arrszref(a), pred: intGte(0) -<cloref1> bool
+) : bool = "mac#%" // arrszref_forall_cloref
+//
+(* ****** ****** *)
 //
 fun
 arrszref_foreach_cloref
   {a:vt0p}
-  (A: arrszref(a), fwork: int -<cloref1> void): void = "mac#%"
+(
+A0: arrszref(a), fwork: intGte(0) -<cloref1> void
+) : void = "mac#%" // arrszref_foreach_cloref
 fun
 arrszref_foreach_method
   {a:vt0p}
-  (A: arrszref(a))(fwork: int -<cloref1> void): void = "mac#%"
+  (A: arrszref(a))(fwork: intGte(0) -<cloref1> void): void = "mac#%"
 //
 overload .foreach with arrszref_foreach_method
 //

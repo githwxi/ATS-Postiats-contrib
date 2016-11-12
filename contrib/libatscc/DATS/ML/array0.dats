@@ -39,5 +39,15 @@ implement
 array0_exch_at(A, i, x) = arrszref_exch_at(A, i, x)
 
 (* ****** ****** *)
+//
+implement
+array0_foreach_cloref
+  (A, fwork) = arrszref_foreach_cloref(A, fwork)
+//
+implement
+array0_foreach_method
+  (A) = lam(fwork) => array0_foreach_cloref(A, fwork)
+//
+(* ****** ****** *)
 
 (* end of [array0.dats] *)
