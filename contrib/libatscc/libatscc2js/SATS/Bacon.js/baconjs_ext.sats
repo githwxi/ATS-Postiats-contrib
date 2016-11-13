@@ -82,5 +82,27 @@ EValue_make_estream_scan
 ) : EValue(a) = "mac#%" // EValue_make_estream_scan
 //
 (* ****** ****** *)
+//
+datatype
+singpair(a: t@ype+) =
+  | Sing of (a) | Pair of (a, a)
+//
+(* ****** ****** *)
+//
+// HX-2016-11-13:
+//
+// For grouping two consecutive events
+// if the second occurs with delta ms of the first
+// For instance, [EStream_singpair_trans] can be employed
+// to support an implementation of double clicking
+//
+fun
+EStream_singpair_trans
+  {a:t0p}
+(
+xs: EStream(a), delta(*ms*): intGte(0)
+) : EStream(singpair(a)) = "mac#%" // EStream_singpair_trans
+//
+(* ****** ****** *)
 
 (* end of [baconjs_ext.sats] *)

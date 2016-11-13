@@ -79,6 +79,18 @@ EStream_scan_method
 (* ****** ****** *)
 //
 implement
+EStream_flatMap_method
+  (xs, _) =
+  lam(fopr) => EStream_flatMap(xs, fopr)
+//
+implement
+Property_flatMap_method
+  (xs, _) =
+  lam(fopr) => Property_flatMap(xs, fopr)
+//
+(* ****** ****** *)
+//
+implement
 EStream_onValue_method
   (xs) =
   lam(fopr) => EStream_onValue(xs, fopr)

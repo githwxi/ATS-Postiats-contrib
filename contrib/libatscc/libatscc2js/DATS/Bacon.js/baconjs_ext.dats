@@ -163,4 +163,98 @@ end // end of [EValue_make_estream_scan]
 
 (* ****** ****** *)
 
+local
+
+datatype tagged(a:t@ype+) =
+  | Opening of (int, a) | Closing of (int)
+
+in (* in-of-local *)
+
+implement
+EStream_singpair_trans
+  {a}(xs, delta) = let
+//
+val x0 = $UN.cast{a}(0)
+//
+val
+xs_tagged =
+scan{tagged(a)}{a}
+(
+  xs, Opening(0, x0)
+, lam(res, x) =>
+  let val-Opening(n, _) = res in Opening(n+1, x) end
+) (* end of [scan] *)
+val
+xs_tagged = Property_changes(xs_tagged)
+//
+val
+ys_tagged =
+EStream_flatMap
+{tagged(a)}{tagged(a)}
+( xs_tagged
+, lam x =>
+  let val-Opening(n, _) = x in Bacon_later(delta(*ms*), Closing(n)) end
+)
+//
+datatype
+state(a:t0p) =
+  | Issued of Option(singpair(a)) | Waiting of (int, a)
+//
+in
+//
+(
+(
+Property_changes
+(
+EStream_scan
+{state(a)}{tagged(a)}
+(
+  merge
+  (
+    xs_tagged, ys_tagged
+  )
+, Issued(None()) // initial
+, lam(state, tagged) =>
+  (
+    case+ state of
+      | Issued(_) =>
+        (
+          case+
+          tagged of
+          | Closing(n) => Issued(None())
+          | Opening(n, x) => Waiting(n, x)
+        )
+      | Waiting(n0, x0) =>
+        (
+          case+
+          tagged of
+          | Closing(n) =>
+            if n < n0
+              then state else Issued(Some(Sing(x0)))
+            // end of [if]
+          | Opening(_, x1) => Issued(Some(Pair(x0, x1)))
+        )
+    // end of [case+]
+  )
+)
+)
+).filter()
+(
+  lam(state) =>
+    case+ state of Issued(opt) => opt.is_some() | _ => false
+  // end of [lam]
+)
+).map(TYPE{singpair(a)})
+(
+  lam(state) =>
+    case- state of Issued(opt) => (case- opt of Some(x) => x)
+  // end of [lam]
+)
+//
+end // end of [EStream_singpair_trans]
+
+end // end of [local]
+
+(* ****** ****** *)
+
 (* end of [baconjs_ext.dats] *)

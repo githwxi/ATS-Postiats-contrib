@@ -135,6 +135,26 @@ ats2js_bacon_EStream_merge6
 ) { return Bacon.mergeAll(xs1, xs2, xs3, xs4, xs5, xs6); }
 //
 /* ****** ****** */
+//
+function
+ats2js_bacon_EStream_flatMap(xs, f)
+{
+  return ats2js_bacon_Observable_flatMap(xs, f);
+}
+function
+ats2js_bacon_Property_flatMap(xs, f)
+{
+  return ats2js_bacon_Observable_flatMap(xs, f);
+}
+function
+ats2js_bacon_Observable_flatMap(xs, f)
+{
+  return xs.flatMap(
+    function(x){return ats2jspre_cloref1_app(f, x);}
+  ); // end of [return]
+}
+//
+/* ****** ****** */
 
 function
 ats2js_bacon_Bacon_combineWith2(xs1, xs2, f)
@@ -167,6 +187,10 @@ ats2js_bacon_EStream_toProperty(xs) { return xs.toProperty(); }
 function
 ats2js_bacon_EStream_toProperty_init(xs, x0) { return xs.toProperty(x0); }
 //
+/* ****** ****** */
+//
+function
+ats2js_bacon_Property_changes(xs) { return xs.changes(); }
 function
 ats2js_bacon_Property_toEventStream(xs) { return xs.toEventStream(); }
 //

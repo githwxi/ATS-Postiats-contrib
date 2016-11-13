@@ -230,6 +230,39 @@ overload .merge with EStream_merge4
 (* ****** ****** *)
 //
 fun
+EStream_flatMap
+  {a:t0p}{b:t0p}
+(
+xs: EStream(a), fopr: cfun(a, EStream(b))
+) : EStream(b) = "mac#%" // end-of-function
+fun
+EStream_flatMap_method
+  {a:t0p}{b:t0p}
+(
+  EStream(a), TYPE(b))(fopr: cfun(a, EStream(b))
+) : EStream(b) = "mac#%" // end-of-function
+//
+fun
+Property_flatMap
+  {a:t0p}{b:t0p}
+(
+xs: Property(a), fopr: cfun(a, EStream(b))
+) : EStream(b) = "mac#%" // end-of-function
+fun
+Property_flatMap_method
+  {a:t0p}{b:t0p}
+(
+  Property(a), TYPE(b))(fopr: cfun(a, EStream(b))
+) : EStream(b) = "mac#%" // end-of-function
+//
+overload flatMap with EStream_flatMap
+overload flatMap with Property_flatMap
+overload .flatMap with EStream_flatMap_method
+overload .flatMap with Property_flatMap_method
+//
+(* ****** ****** *)
+//
+fun
 Bacon_combineWith2
   {a,b:t0p}{c:t0p}
 (
@@ -258,6 +291,15 @@ overload toProperty with EStream_toProperty
 overload toProperty with EStream_toProperty_init
 overload .toProperty with EStream_toProperty
 overload .toProperty with EStream_toProperty_init
+//
+(* ****** ****** *)
+//
+fun
+Property_changes
+  {a:t0p}(Property(a)): EStream(a) = "mac#%"
+//
+overload changes with Property_changes
+overload .changes with Property_changes
 //
 fun
 Property_toEventStream
