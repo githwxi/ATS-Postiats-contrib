@@ -41,7 +41,16 @@ fun
 stream_vt_append
   {a:vt0p}
 (
-  xs: stream_vt(INV(a)), ys: stream_vt(a)
+  stream_vt(INV(a)), stream_vt(a)
+) : stream_vt(a) = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+stream_vt_concat
+  {a:vt0p}
+(
+  xss: stream_vt(stream_vt(INV(a)))
 ) : stream_vt(a) = "mac#%" // end-of-function
 //
 (* ****** ****** *)
@@ -56,7 +65,7 @@ fun
 stream_vt_map_method
   {a:vt0p}{b:vt0p}
 (
-  xs: stream_vt(INV(a))
+xs: stream_vt(INV(a)), TYPE(b)
 ) :
 (
  (a) -<cloref1> b
@@ -74,11 +83,11 @@ fun
 stream_vt_filter_method
   {a:t0ype}
 (
-  xs: stream_vt(INV(a))
+xs: stream_vt(INV(a))
 ) :
 (
   (a) -<cloref1> bool
-) -<lincloptr1> stream_vt(a) = "mac#%" // endfun
+) -<lincloptr1> stream_vt(a) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //

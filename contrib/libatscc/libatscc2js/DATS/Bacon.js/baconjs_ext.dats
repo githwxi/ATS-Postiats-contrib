@@ -164,10 +164,11 @@ end // end of [EValue_make_estream_scan]
 (* ****** ****** *)
 
 local
-
-datatype tagged(a:t@ype+) =
+//
+datatype
+tagged(a:t@ype+) =
   | Opening of (int, a) | Closing of (int)
-
+//
 in (* in-of-local *)
 
 implement
@@ -180,7 +181,8 @@ val
 xs_tagged =
 scan{tagged(a)}{a}
 (
-  xs, Opening(0, x0)
+  xs
+, Opening(0, x0)
 , lam(res, x) =>
   let val-Opening(n, _) = res in Opening(n+1, x) end
 ) (* end of [scan] *)
