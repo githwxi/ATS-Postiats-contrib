@@ -228,8 +228,12 @@ stream_concat
 (
 //
 case+ !xss of
-| stream_nil() => stream_nil()
-| stream_cons(xs, xss) => !(stream_append(xs, stream_concat(xss)))
+| stream_nil() =>
+  stream_nil((*void*))
+| stream_cons(xs, xss) =>
+  (
+    !(stream_append(xs, stream_concat(xss)))
+  )
 //
 ) (* end of [stream_concat] *)
 

@@ -93,6 +93,37 @@ if i < len
 (* ****** ****** *)
 //
 implement
+string_foreach_cloref
+  (str0, fwork) =
+  loop(0) where
+{
+//
+val
+[n:int]
+str = g1ofg0(str0)
+val
+len = string_length(str)
+//
+fun
+loop
+{i:nat | i <= n}(i: int(i)): void =
+(
+if i < len
+  then (fwork(str[i]); loop(i+1)) else ()
+)
+//
+} (* end of [string_foreach_cloref] *)
+//
+implement
+string_foreach_method
+  (str0) =
+(
+  lam(fwork) => string_foreach_cloref(str0, fwork)
+) (* end of [string_foreach_method] *)
+//
+(* ****** ****** *)
+//
+implement
 string_tabulate_cloref
   {n}
 (

@@ -131,6 +131,21 @@ auxmain
 } (* end of [stream_vt_append] *)
 
 (* ****** ****** *)
+
+implement
+stream_vt_concat
+  (xss) = $ldelay
+(
+//
+case+ !xss of
+| ~stream_vt_nil() => stream_vt_nil()
+| ~stream_vt_cons(xs, xss) => !(stream_vt_append(xs, stream_vt_concat(xss)))
+//
+,
+~(xss) // HX: called for freeing the stream!
+) (* end of [stream_vt_concat] *)
+
+(* ****** ****** *)
 //
 implement
 stream_vt_map_cloref
@@ -162,7 +177,7 @@ case+ !xs of
 //
 implement
 stream_vt_map_method
-  (xs) =
+  (xs, _) =
 (
   llam(f0) => stream_vt_map_cloref(xs, f0)
 ) (* end of [stream_vt_map_method] *)

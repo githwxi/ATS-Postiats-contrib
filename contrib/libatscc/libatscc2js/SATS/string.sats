@@ -122,22 +122,22 @@ overload .charCodeAt with string_charCodeAt of 100
 //
 fun
 string_fromCharCode_1
-  (c1: int): string = "mac#%"
+  (c1: int): string(1) = "mac#%"
 fun
 string_fromCharCode_2
-  (c1: int, c2: int): string = "mac#%"
+  (c1: int, c2: int): string(2) = "mac#%"
 fun
 string_fromCharCode_3
-  (c1: int, c2: int, c3: int): string = "mac#%"
+  (c1: int, c2: int, c3: int): string(3) = "mac#%"
 fun
 string_fromCharCode_4
-  (c1: int, c2: int, c3: int, c4: int): string = "mac#%"
+  (c1: int, c2: int, c3: int, c4: int): string(4) = "mac#%"
 fun
 string_fromCharCode_5
-  (c1: int, c2: int, c3: int, c4: int, c5: int): string = "mac#%"
+  (c1: int, c2: int, c3: int, c4: int, c5: int): string(5) = "mac#%"
 fun
 string_fromCharCode_6
-  (c1: int, c2: int, c3: int, c4: int, c5: int, c6: int): string = "mac#%"
+  (c1: int, c2: int, c3: int, c4: int, c5: int, c6: int): string(6) = "mac#%"
 //
 symintr string_fromCharCode
 overload
@@ -227,6 +227,21 @@ string_concat with string_concat_3 of 100
 fun
 streamize_string_code
   (str0: string): stream_vt(int) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+string_foreach_cloref
+(
+  string, fwork: cfun(strchr, void)
+) : void = "mac#" // string_foreach_cloref
+fun
+string_foreach_method
+(
+  string)(fwork: cfun(strchr, void)
+) : void = "mac#" // string_foreach_method
+//
+overload .foreach with string_foreach_method
 //
 (* ****** ****** *)
 //

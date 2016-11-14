@@ -76,14 +76,14 @@ fun
 stream_take_opt
   {a:t0p}{n:nat}
 (
-  xs: stream(INV(a)), n: int(n)
+xs: stream(INV(a)), n: int(n)
 ) : Option_vt(list(a,n)) = "mac#%" // end-of-fun
 //
 fun
 stream_drop_opt
   {a:t0p}{n:nat}
 (
-  xs: stream(INV(a)), n: int(n)
+xs: stream(INV(a)), n: int(n)
 ) : Option_vt(stream(a)) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
@@ -91,14 +91,18 @@ stream_drop_opt
 fun
 stream_append
   {a:t0p}
-  (stream(INV(a)), stream(a)): stream(a) = "mac#%"
+(
+  stream(INV(a)), stream(a)
+) : stream(a) = "mac#%" // end-of-function
 //
 (* ****** ****** *)
 //
 fun
 stream_concat
   {a:t0p}
-  (xss: stream(stream(INV(a)))): stream(a) = "mac#%"
+(
+  xss: stream(stream(INV(a)))
+) : stream(a) = "mac#%" // end-of-function
 //
 (* ****** ****** *)
 //
