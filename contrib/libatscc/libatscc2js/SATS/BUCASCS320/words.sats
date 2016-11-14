@@ -21,6 +21,12 @@ theWords_get_at
 (* ****** ****** *)
 //
 fun
+theWords_streamize
+  ((*void*)): stream_vt(string) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 theWords_foreach_cloref
   ((string) -<cloref1> void): void = "mac#%"
 //

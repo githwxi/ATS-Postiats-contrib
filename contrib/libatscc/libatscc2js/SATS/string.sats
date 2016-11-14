@@ -13,17 +13,54 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)
 //
+staload "./../basics_js.sats"
+//
+(* ****** ****** *)
+//
 typedef
 strchr = string(1)
 //
+(* ****** ****** *)
+//
 fun
 string_get_at
-{n:int}{i:nat | i < n}
+{n:int}
+{i:nat | i < n}
 (
-  str: string(n), index: int(i)
+  str: string(n), i0: int(i)
 ) : strchr = "mac#%" // end-of-fun
 //
 overload [] with string_get_at of 100
+//
+(* ****** ****** *)
+//
+fun
+string_fset_at
+{n:int}
+{i:nat | i < n}
+(
+  str: string(n), i0: int(i), c0: strchr
+) : string(n) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+string_substring_beg_end
+{n:int}
+{i,j:int |
+ 0 <= i; i <= j; j <= n}
+(
+  str: string(n), i0: int(i), j0: int(j)
+) : string(j-i) = "mac#%" // end-of-fun
+//
+//
+fun
+string_substring_beg_len
+{n:int}
+{i,len:nat | i + len <= n}
+(
+  str: string(n), i0: int(i), len: int(len)
+) : string(len) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -190,6 +227,15 @@ string_concat with string_concat_3 of 100
 fun
 streamize_string_code
   (str0: string): stream_vt(int) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+string_tabulate_cloref
+  {n:nat}
+(
+n0: int(n), fopr: cfun(natLt(n), charNZ)
+) : string(n) = "mac#" // string_tabulate_cloref
 //
 (* ****** ****** *)
 

@@ -108,6 +108,15 @@ JSarray_remove_at
 (* ****** ****** *)
 //
 fun
+JSarray_tabulate_cloref
+  {a:t0p}{n:nat}
+(
+  asz: int(n)
+, fopr: cfun(natLt(n), a)): JSarray(a) // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
 JSarray_join
   {a:t@ype}(JSarray(a)): string = "mac#%"
 fun

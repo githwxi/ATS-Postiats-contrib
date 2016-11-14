@@ -39,6 +39,24 @@ staload "./../SATS/integer.sats"
 (* ****** ****** *)
 
 staload "./../SATS/string.sats"
+staload "./../SATS/JSarray.sats"
+
+(* ****** ****** *)
+
+implement
+string_fset_at
+  {n}{i}
+(
+  str0, i0, c0
+) = let
+//
+val n0 = string_length(str0)
+val f0 = string_substring_beg_end(str0, 0, i0)
+val r0 = string_substring_beg_end(str0, i0+1, n0)
+//
+in
+  $UN.cast{string(n)}(string_concat_3(f0, c0, r0))
+end // end of [string_fset_at]
 
 (* ****** ****** *)
 
@@ -72,6 +90,19 @@ if i < len
 //
 } (* end of [streamize_string_code] *)
 
+(* ****** ****** *)
+//
+implement
+string_tabulate_cloref
+  {n}
+(
+  len, fopr
+) = // string_tabulate_cloref
+$UN.cast{string(n)}
+(
+  JSarray_join_sep(JSarray_tabulate_cloref(len, fopr), "")
+) (* end of [string_tabulate_cloref] *)
+//
 (* ****** ****** *)
 
 (* end of [string.dats] *)

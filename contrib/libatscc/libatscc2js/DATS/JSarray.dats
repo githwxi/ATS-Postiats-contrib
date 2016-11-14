@@ -34,6 +34,10 @@ staload "./../basics_js.sats"
 
 (* ****** ****** *)
 
+staload "./../SATS/integer.sats"
+
+(* ****** ****** *)
+
 staload "./../SATS/JSarray.sats"
 
 (* ****** ****** *)
@@ -83,6 +87,33 @@ val A = JSarray_nil{a}()
 in
   let val () = loop(A, xs) in A end
 end // end of [JSarray_make_list_vt]
+
+(* ****** ****** *)
+
+implement
+JSarray_tabulate_cloref
+  {a}{n}
+(
+  asz, fopr
+) = let
+//
+val A = JSarray_nil{a}()
+//
+fun
+loop
+{i:nat | i <= n}(i: int(i)): void =
+(
+if i < asz
+  then let
+    val _ = JSarray_push(A, fopr(i)) in loop(i+1)
+  end // end of [then]
+  else () // end of [else]
+// end of [if]
+) (* end of [loop] *)
+//
+in
+  let val () = loop(0) in A end
+end (* end of [JSarray_tabulate_cloref] *)
 
 (* ****** ****** *)
 //

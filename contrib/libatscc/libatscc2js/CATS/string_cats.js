@@ -15,15 +15,26 @@
 */
 
 /* ****** ****** */
-
+//
 function
-ats2jspre_string_length(str) { return str.length ; }
-
+ats2jspre_string_length
+  (str) { return str.length ; }
+//
 /* ****** ****** */
-
+//
 function
-ats2jspre_string_get_at(str, i) { return str.charAt(i) ; }
-
+ats2jspre_string_get_at
+  (str, i) { return str.charAt(i) ; }
+//
+/* ****** ****** */
+//
+function
+ats2jspre_string_substring_beg_end
+  (str, i, j) { return str.substring(i, j) ; }
+function
+ats2jspre_string_substring_beg_len
+  (str, i, len) { return str.substring(i, i+len) ; }
+//
 /* ****** ****** */
 //
 function
