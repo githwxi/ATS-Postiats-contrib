@@ -17,11 +17,29 @@
 /* ****** ****** */
 //
 function
+ats2jspre_bool2int0(x)
+  { return ( x ? 1 : 0 ); }
+function
+ats2jspre_bool2int1(x)
+  { return ( x ? 1 : 0 ); }
+//
+/* ****** ****** */
+//
+function
+ats2jspre_int2bool0(x)
+  { return ( x !== 0 ? true : false ) ; }
+function
+ats2jspre_int2bool1(x)
+  { return ( x !== 0 ? true : false ) ; }
+//
+/* ****** ****** */
+//
+function
 ats2jspre_neg_bool0(x)
-  { return (x ? false : true ); }
+  { return ( x ? false : true ); }
 function
 ats2jspre_neg_bool1(x)
-  { return (x ? false : true ); }
+  { return ( x ? false : true ); }
 //
 /* ****** ****** */
 
