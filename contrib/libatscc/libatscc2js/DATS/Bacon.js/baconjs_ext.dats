@@ -147,14 +147,16 @@ EValue_make_estream_scan
 implement
 EValue_make_estream_scan
   {a,b}
-  (x0, ys, fopr) = let
+(
+  x0, ys, fopr
+) = let
 //
 val
 xref = ref{a}(x0)
 //
-val ((*void*)) =
-EStream_onValue(ys
-, lam(y) =<cloref1> xref[] := fopr(xref[], y)
+val () =
+EStream_onValue{b}(
+  ys, lam(y) =<cloref1> xref[] := fopr(xref[], y)
 ) (* end of [val] *)
 //
 in
@@ -179,13 +181,13 @@ val x0 = $UN.cast{a}(0)
 //
 val
 xs_tagged =
-scan{tagged(a)}{a}
+EStream_scan{tagged(a)}{a}
 (
   xs
 , Opening(0, x0)
 , lam(res, x) =>
   let val-Opening(n, _) = res in Opening(n+1, x) end
-) (* end of [scan] *)
+) (* end of [EStream_scan] *)
 val
 xs_tagged = Property_changes(xs_tagged)
 //
