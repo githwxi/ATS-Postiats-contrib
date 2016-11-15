@@ -130,7 +130,7 @@ val M = thePrintbd_get()
 //
 in
 //
-G.foreach(lam(i, j) => M[i,j] := xnode2string(G[i,j]))
+G.foreach()(lam(i, j) => M[i,j] := xnode2string(G[i,j]))
 //
 end // end of [Gamebd_display]
 //
@@ -152,7 +152,7 @@ implement
 theVisitbd_reset() = let
   val V = theVisitbd_get()
 in
-  V.foreach(lam(i, j) => V[i,j] := 0)
+  V.foreach()(lam(i, j) => V[i,j] := 0)
 end // end of [theVisitbd_reset]
 
 (* ****** ****** *)
