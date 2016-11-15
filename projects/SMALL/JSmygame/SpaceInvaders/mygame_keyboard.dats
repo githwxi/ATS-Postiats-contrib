@@ -48,12 +48,13 @@ theKeyDowns =
 //
 val
 theKeyCodes =
-  theKeyDowns.map(lam(x) =<cloref1> JSevent_keyCode(x))
+theKeyDowns.map(TYPE{int})
+  (lam(x) =<cloref1> JSevent_keyCode(x))
 //
 in (* in-of-local *)
 
 implement
-theKeyDowns_handle(fwork) = theKeyCodes.onValue(fwork)
+theKeyDowns_handle(fwork) = theKeyCodes.onValue()(fwork)
 
 end // end of [local]
 

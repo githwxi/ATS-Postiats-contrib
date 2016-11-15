@@ -35,7 +35,7 @@ val G = theGamebd_get()
 //
 in
 //
-G.foreach
+G.foreach()
 (
 lam(i, j) =>
 if (i = j) then
@@ -46,7 +46,7 @@ if (i = j) then
 //
 ;
 //
-G.foreach
+G.foreach()
 (
 lam(i, j) =>
 if (i = j) then
@@ -67,7 +67,7 @@ val G = theGamebd_get()
 //
 in
 //
-G.foreach
+G.foreach()
 (
 lam(i, j) =>
 (
