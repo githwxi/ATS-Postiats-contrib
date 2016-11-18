@@ -33,13 +33,45 @@
 //
 /* ****** ****** */
 
+#ifndef \
+ATS_EXTERN_DEF__
 #define ATSextern() extern
-#define ATSstatic() static
+#else
+#define ATSextern() ATS_EXTERN_DEF__
+#endif // #ifndef
 
 /* ****** ****** */
 
-#define ATSinline() static inline
+#ifndef \
+ATS_STATIC_DEF__
+#define ATSstatic() static
+#else
+#define ATSstatic() ATS_STATIC_DEF__
+#endif // #ifndef
 
+/* ****** ****** */
+
+#ifndef \
+ATS_INLINE_DEF__
+#define ATSinline() static inline
+#else
+#define ATSinline() ATS_INLINE_DEF__
+#endif // #ifndef
+
+/* ****** ****** */
+//
+#define ATSdynload()
+//
+#define ATSdynloadflag_sta(flag)
+#define ATSdynloadflag_ext(flag) ATSextern() int flag
+//
+#define ATSdynloadflag_init(flag) int flag = 0
+//
+#define ATSdynloadflag_minit(flag) int flag = 0
+//
+#define ATSdynloadset(flag) flag = 1
+#define ATSdynloadfcall(dynloadfun) dynloadfun()
+//
 /* ****** ****** */
 
 #define ATSdyncst_mac(d2c)

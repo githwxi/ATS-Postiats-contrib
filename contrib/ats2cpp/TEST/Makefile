@@ -26,14 +26,15 @@ CPP=g++
 
 ######
 #
-test01_main: \
-test01_main.dats test01_dats.o; \
-$(PATSCC) -o $@ $^
-#
-test01_dats.o: \
-test01_dats.c; $(CC) -c $(CXXFLAGS) -o $@ $<
-#
+test01: \
+test01_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
 test01_dats.c: test01.dats; $(PATSOPT) -o $@ -d $<
+#
+######
+#
+test02: \
+test02_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
+test02_dats.c: test02.dats; $(PATSOPT) -o $@ -d $<
 #
 ######
 
@@ -44,6 +45,7 @@ clean:: ; rm -f *_?ats.o
 ######
 
 cleanall:: clean
-cleanall:: ; rm -f test01_main
+cleanall:: ; rm -f test01
+cleanall:: ; rm -f test02
 
 ###### end of [Makefile] ######
