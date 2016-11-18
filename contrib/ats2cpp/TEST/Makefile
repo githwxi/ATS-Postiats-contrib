@@ -25,17 +25,37 @@ CC=gcc
 CPP=g++
 
 ######
+
+all::
+
+######
 #
+all:: \
+test01
 test01: \
 test01_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
 test01_dats.c: test01.dats; $(PATSOPT) -o $@ -d $<
 #
+regress:: test01; ./$<
+cleanall:: ; rm -f test01
+#
 ######
 #
+all:: \
+test02
 test02: \
 test02_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
 test02_dats.c: test02.dats; $(PATSOPT) -o $@ -d $<
 #
+regress:: test02; ./$<
+cleanall:: ; rm -f test02
+#
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
 ######
 
 clean:: ; rm -f *~
@@ -45,7 +65,5 @@ clean:: ; rm -f *_?ats.o
 ######
 
 cleanall:: clean
-cleanall:: ; rm -f test01
-cleanall:: ; rm -f test02
 
 ###### end of [Makefile] ######

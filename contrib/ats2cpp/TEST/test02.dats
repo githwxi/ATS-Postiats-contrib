@@ -23,6 +23,9 @@ fvectorptr(elt) std::vector<elt>*
 //
 #define \
 fvectorptr_new(elt) new std::vector<int>()
+#define \
+fvectorptr_free(elt, p0) \
+delete(static_cast<std::vector<elt>*>(p0))
 //
 #define \
 fvectorptr_get_at(elt, p0, i) \
@@ -48,6 +51,11 @@ vectorptr_new(): vectorptr(a)
 extern
 fun
 {a:t@ype}
+vectorptr_free(vectorptr(a)): void
+//
+extern
+fun
+{a:t@ype}
 vectorptr_get_at(!vectorptr(a), int): a
 extern
 fun
@@ -66,6 +74,24 @@ $extfcall
 (
   vectorptr(elt), "fvectorptr_new", $tyrep(elt)
 ) (* vectorptr_new *)
+//
+(* ****** ****** *)
+//
+implement
+{elt}
+vectorptr_free
+(
+  p0
+) = let
+//
+val p0 = $UNSAFE.castvwtp0{ptr}(p0)
+//
+in
+//
+$extfcall
+  (void, "fvectorptr_free", $tyrep(elt), p0)
+//
+end // end of [vectorptr_free]
 //
 (* ****** ****** *)
 //
@@ -127,7 +153,7 @@ fact(n) = let
       if i < n then loop(p0, i+1, res * vectorptr_get_at<int>(p0, i)) else res
     // end of [loop]
   }
-  prval () = $UNSAFE.cast2void(p0)
+  val () = vectorptr_free(p0)
 in
   res
 end // end of [fact]
