@@ -7,36 +7,39 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-
-%{^
-//
-#include <vector>
-//
-#define \
-fvectorptr(eltype) std::vector<eltype>*
-//
-#define \
-fvectorptr_int_new() new std::vector<int>()
-//
-#define \
-fvectorptr_int_get_at(p0, i) \
-  (*(static_cast<std::vector<int>*>(p0)))[i]
-//
-#define \
-fvectorptr_int_push_back(p0, elt) \
-  static_cast<std::vector<int>*>(p0)->push_back(elt)
-//
-%} // end of [%{^]
-
-(* ****** ****** *)
 //
 #include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
+
+%{^
+//
+#include <vector>
+#include <iostream>
+//
+#define \
+fvectorptr(elt) std::vector<elt>*
+//
+#define \
+fvectorptr_new(elt) new std::vector<int>()
+//
+#define \
+fvectorptr_get_at(elt, p0, i) \
+  (*(static_cast<std::vector<elt>*>(p0)))[i]
+//
+#define \
+fvectorptr_push_back(elt, p0, x0) \
+  (static_cast<std::vector<elt>*>(p0))->push_back(x0)
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 absvtype
 vectorptr(a:t@ype) = $extype"fvectorptr"(a)
+//
+(* ****** ****** *)
 //
 extern
 fun
@@ -51,22 +54,44 @@ fun
 {a:t@ype}
 vectorptr_push_back(!vectorptr(a), a): void
 //
+(* ****** ****** *)
+//
 implement
-vectorptr_new<int>() =
-  $extfcall(vectorptr(int), "fvectorptr_int_new")
+{elt}
+vectorptr_new
+(
+// argumentless
+) =
+$extfcall
+(
+  vectorptr(elt), "fvectorptr_new", $tyrep(elt)
+) (* vectorptr_new *)
+//
+(* ****** ****** *)
+//
 implement
-vectorptr_get_at<int>
+{elt}
+vectorptr_get_at
   (p0, i) = let
-  val p0 = $UNSAFE.castvwtp1{ptr}(p0)
+//
+val p0 = $UNSAFE.castvwtp1{ptr}(p0)
+//
 in
-  $extfcall(int, "fvectorptr_int_get_at", p0, i)
+//
+$extfcall
+  (elt, "fvectorptr_get_at", $tyrep(elt), p0, i)
+//
 end // end of [vectorptr_get_at]
+//
+(* ****** ****** *)
+//
 implement
-vectorptr_push_back<int>
+{a}(*tmp*)
+vectorptr_push_back
   (p0, x) = let
   val p0 = $UNSAFE.castvwtp1{ptr}(p0)
 in
-  $extfcall(void, "fvectorptr_int_push_back", p0, x)
+  $extfcall(void, "fvectorptr_push_back", $tyrep(a), p0, x)
 end // end of [vectorptr_push_back]
 //
 (* ****** ****** *)
