@@ -25,9 +25,10 @@
 #define ARDUINO_PATS_CCOMP_H
 
 /* ****** ****** */
-
-#include "kernelats/pats_ccomp.h"
-
+//
+#include \
+"kernelats/ccomp/pats_ccomp.h"
+//
 /* ****** ****** */
 //
 #include "prelude/CATS/bool.cats"

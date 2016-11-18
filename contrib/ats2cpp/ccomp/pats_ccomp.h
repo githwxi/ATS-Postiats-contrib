@@ -1,6 +1,6 @@
 /* ****** ****** */
 //
-// HX-2014-10-22:
+// HX-2016-11-17:
 // For C code generated from ATS source
 //
 /* ****** ****** */
@@ -21,8 +21,8 @@
 
 /* ****** ****** */
 
-#ifndef KERNELATS_PATS_CCOMP_H
-#define KERNELATS_PATS_CCOMP_H
+#ifndef ATS2CPP_PATS_CCOMP_H
+#define ATS2CPP_PATS_CCOMP_H
 
 /* ****** ****** */
 //
@@ -59,7 +59,11 @@
 #ifndef NULL
 #define NULL ((void*)0)
 #endif // ifndef(NULL)
+//
+/*
 #define atsptr_null ((void*)0)
+*/
+#define the_atsptr_null ((void*)0)
 //
 /* ****** ****** */
 
@@ -434,39 +438,41 @@ struct{char _[_ATSTYPE_VAR_SIZE_];} atstype_var[0] ;
 
 /* ****** ****** */
 //
-#if(0)
+#if(1)
 //
-// HX-2014-11-19: for example
-//
-#include \
-"kernelats/prelude/CATS/integer.cats"
-#include \
-"kernelats/prelude/CATS/pointer.cats"
+// HX-2016-11-17: for example
 //
 #include \
-"kernelats/prelude/CATS/integer_long.cats"
+"ats2cpp/prelude/CATS/integer.cats"
 #include \
-"kernelats/prelude/CATS/integer_size.cats"
+"ats2cpp/prelude/CATS/pointer.cats"
+//
 #include \
-"kernelats/prelude/CATS/integer_short.cats"
+"ats2cpp/prelude/CATS/integer_long.cats"
+#include \
+"ats2cpp/prelude/CATS/integer_size.cats"
+#include \
+"ats2cpp/prelude/CATS/integer_short.cats"
 //
-#include "kernelats/prelude/CATS/bool.cats"
-#include "kernelats/prelude/CATS/char.cats"
+#include "ats2cpp/prelude/CATS/bool.cats"
+#include "ats2cpp/prelude/CATS/char.cats"
 //
+/*
 #include					\
-"kernelats/prelude/CATS/integer_fixed.cats"
+"ats2cpp/prelude/CATS/integer_fixed.cats"
+*/
 //
-#include "kernelats/prelude/CATS/string.cats"
+#include "ats2cpp/prelude/CATS/string.cats"
 //
-#include "kernelats/prelude/CATS/array.cats"
-#include "kernelats/prelude/CATS/arrayptr.cats"
-#include "kernelats/prelude/CATS/arrayref.cats"
+#include "ats2cpp/prelude/CATS/array.cats"
+#include "ats2cpp/prelude/CATS/arrayptr.cats"
+#include "ats2cpp/prelude/CATS/arrayref.cats"
 //
-#endif // if(0)
+#endif // #if(1)
 //
 /* ****** ****** */
 
-#endif // end of [KERNELATS_PATS_CCOMP_H]
+#endif // end of [ATS2CPP_PATS_CCOMP_H]
 
 /* ****** ****** */
 

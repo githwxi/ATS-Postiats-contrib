@@ -18,8 +18,8 @@ CFLAGS_ATS += -D_ATS_CCOMP_EXCEPTION_NONE_
 
 ######
 
-CC=arm-linux-gnueabi-gcc
 LD=arm-linux-gnueabi-ld
+CC=arm-linux-gnueabi-gcc
 
 CFLAGS=-fPIC -fno-stack-protector -march=armv6 -msoft-float -mapcs-frame -marm
 LDFLAGS=-N -Ttext=0x10000
