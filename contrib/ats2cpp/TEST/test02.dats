@@ -40,7 +40,7 @@ fvectorptr_push_back(elt, p0, x0) \
 (* ****** ****** *)
 //
 absvtype
-vectorptr(a:t@ype) = $extype"fvectorptr"(a)
+vectorptr(a:t@ype+) = $extype"fvectorptr"(a)
 //
 (* ****** ****** *)
 //
@@ -56,11 +56,16 @@ vectorptr_free(vectorptr(a)): void
 extern
 fun
 {a:t@ype}
-vectorptr_get_at(!vectorptr(a), int): a
+vectorptr_get_at
+  (p0: !vectorptr(INV(a)), int): a
+//
+overload [] with vectorptr_get_at
+//
 extern
 fun
 {a:t@ype}
-vectorptr_push_back(!vectorptr(a), a): void
+vectorptr_push_back
+  (p0: !vectorptr(INV(a)), a): void
 //
 (* ****** ****** *)
 //
@@ -129,34 +134,39 @@ fact(n: int): int = "ext#"
 (* ****** ****** *)
 
 implement
-fact(n) = let
-  val p0 =
-    vectorptr_new<int>()
-  // end of [val]
-  val () = loop(p0, 0) where
-  {
-    fun
-    loop
+fact(n) = res where
+{
+//
+val p0 =
+  vectorptr_new<int>()
+// end of [val]
+val () = loop(p0, 0) where
+{
+  fun
+  loop
+  (
+    p0: !vectorptr(int), i: int
+  ) : void =
+    if i < n then
     (
-      p0: !vectorptr(int), i: int
-    ) : void =
-      if i < n then (vectorptr_push_back<int>(p0, i+1); loop(p0, i+1))
-    // end of [loop]
-  }
-  val res = loop(p0, 0, 1) where
-  {
-    fun
-    loop
-    (
-      p0: !vectorptr(int), i: int, res: int
-    ) : int =
-      if i < n then loop(p0, i+1, res * vectorptr_get_at<int>(p0, i)) else res
-    // end of [loop]
-  }
-  val () = vectorptr_free(p0)
-in
-  res
-end // end of [fact]
+      vectorptr_push_back(p0, i+1); loop(p0, i+1)
+    )
+  // end of [loop]
+}
+val res = loop(p0, 0, 1) where
+{
+  fun
+  loop
+  (
+    p0: !vectorptr(int), i: int, res: int
+  ) : int =
+    if i < n then loop(p0, i+1, res * p0[i]) else res
+  // end of [loop]
+}
+//
+val ((*freed*)) = vectorptr_free(p0)
+//
+} (* end of [fact] *)
 
 (* ****** ****** *)
 
