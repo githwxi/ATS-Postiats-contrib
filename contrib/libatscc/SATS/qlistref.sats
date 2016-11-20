@@ -24,6 +24,11 @@ qlistref_make_nil{a:vt0p}(): qlistref(a)
 (* ****** ****** *)
 //
 fun
+qlistref_length{a:vt0p}(qlistref(a)): intGte(0)
+//
+(* ****** ****** *)
+//
+fun
 qlistref_enque{a:vt0p}(qlistref(a), x0: a): void
 //
 (* ****** ****** *)
@@ -32,11 +37,6 @@ fun
 qlistref_deque_exn{a:vt0p}(qlistref(a)): (a)
 fun
 qlistref_deque_opt{a:vt0p}(qlistref(a)): Option_vt(a)
-//
-(* ****** ****** *)
-//
-fun
-qlistref_length{a:vt0p}(qlistref(a)): intGte(0)
 //
 (* ****** ****** *)
 //

@@ -10,6 +10,13 @@ staload "./../basics.sats"
 
 (* ****** ****** *)
 //
+castfn
+option_vt2t
+  {a:t0p}{b:bool}
+  (option_vt(INV(a), b)):<> option(a, b)
+//
+(* ****** ****** *)
+//
 fun
 option_some
   {a:t0p}
