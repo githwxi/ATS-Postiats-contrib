@@ -20,9 +20,18 @@ stream_vt_make_sing
 (* ****** ****** *)
 //
 fun
+stream_vt_free
+  {a:vt0p}
+  (stream_vt(a)):<!wrt> void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_vt2t
   {a:t0p}
-  (stream_vt(INV(a))): stream(a) = "mac#%"
+(
+xs: stream_vt(INV(a))
+) :<!wrt> stream(a) = "mac#%" // endfun
 //
 (* ****** ****** *)
 //
@@ -31,7 +40,7 @@ stream_vt_takeLte
   {a:vt0p}
 (
 xs: stream_vt(INV(a)), n0: intGte(0)
-) : stream_vt(a) = "mac#%" // end-of-fun
+) :<> stream_vt(a) = "mac#%" // end-of-fun
 //
 overload .takeLte with stream_vt_takeLte
 //
@@ -42,7 +51,7 @@ stream_vt_append
   {a:vt0p}
 (
   stream_vt(INV(a)), stream_vt(a)
-) : stream_vt(a) = "mac#%" // end-of-function
+) :<> stream_vt(a) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -51,7 +60,7 @@ stream_vt_concat
   {a:vt0p}
 (
   xss: stream_vt(stream_vt(INV(a)))
-) : stream_vt(a) = "mac#%" // end-of-function
+) :<> stream_vt(a) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //

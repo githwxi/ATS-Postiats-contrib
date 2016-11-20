@@ -30,17 +30,24 @@ $ldelay
 ) (* $ldelay *)
 //
 (* ****** ****** *)
+//
+implement
+stream_vt_free{a}(xs) = ~(xs)
+//
+(* ****** ****** *)
 
 implement
 stream_vt2t
   {a}(xs) =
-  aux(xs) where
+(
+$effmask_all(aux(xs)) where
 {
 //
 fun
 aux
 (
-  xs: stream_vt(a)
+xs:
+stream_vt(a)
 ) : stream(a) = let
 //
 val xs = $UN.castvwtp0{ptr}(xs)
@@ -63,14 +70,17 @@ end // end of [let]
 //
 end // end of [aux]
 //
-} (* end of [stream_vt2t] *)
+} (* end of [where] *)
+) (* end of [stream_vt2t] *)
 
 (* ****** ****** *)
 
 implement
 stream_vt_takeLte
   {a}(xs, n0) =
-  auxmain(xs, n0) where
+(
+$effmask_all
+(auxmain(xs, n0)) where
 {
 //
 fun
@@ -97,9 +107,10 @@ else
 ,
 ~(xs) // HX: called for freeing the stream!
 //
-) (* end of [$ldelay] *)
+) (* [$ldelay] *)
 //
-} (* end of [stream_vt_takeLte] *)
+} (* end of [where] *)
+) (* end of [stream_vt_takeLte] *)
 
 (* ****** ****** *)
 
@@ -108,7 +119,9 @@ stream_vt_append
   {a}
 (
   xs, ys
-) = auxmain(xs, ys) where
+) =
+$effmask_all
+(auxmain(xs, ys)) where
 {
 //
 fun
@@ -134,16 +147,28 @@ auxmain
 
 implement
 stream_vt_concat
-  (xss) = $ldelay
+  {a}(xss) = let
+//
+fun
+auxmain
+(
+  xss: stream_vt(stream_vt(a))
+) : stream_vt(a) = $ldelay
 (
 //
 case+ !xss of
-| ~stream_vt_nil() => stream_vt_nil()
-| ~stream_vt_cons(xs, xss) => !(stream_vt_append(xs, stream_vt_concat(xss)))
+| ~stream_vt_nil
+    ((*void*)) => stream_vt_nil()
+| ~stream_vt_cons
+    (xs, xss) => !(stream_vt_append(xs, auxmain(xss)))
 //
 ,
 ~(xss) // HX: called for freeing the stream!
-) (* end of [stream_vt_concat] *)
+) (* end of [auxmain] *)
+//
+in
+  $effmask_all(auxmain(xss))
+end (* end of [stream_vt_concat] *)
 
 (* ****** ****** *)
 //

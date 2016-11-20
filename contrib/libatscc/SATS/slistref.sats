@@ -24,6 +24,11 @@ slistref_make_nil{a:vt0p}(): slistref(a) = "mac#"
 (* ****** ****** *)
 //
 fun
+slistref_length{a:vt0p}(slistref(a)): intGte(0) = "mac#"
+//
+(* ****** ****** *)
+//
+fun
 slistref_push{a:vt0p}(slistref(a), x0: a): void = "mac#"
 //
 (* ****** ****** *)
@@ -32,11 +37,6 @@ fun
 slistref_pop_exn{a:vt0p}(slistref(a)): (a) = "mac#"
 fun
 slistref_pop_opt{a:vt0p}(slistref(a)): Option_vt(a) = "mac#"
-//
-(* ****** ****** *)
-//
-fun
-slistref_length{a:vt0p}(slistref(a)): intGte(0) = "mac#"
 //
 (* ****** ****** *)
 //

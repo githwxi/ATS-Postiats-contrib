@@ -99,8 +99,9 @@ end // end of [local]
 val () = // initialization
 {
 //
-val-~Some_vt(filr) =
-  fileref_open_opt (WORDS, file_mode_r)
+val-
+~Some_vt(filr) =
+  fileref_open_opt(WORDS, file_mode_r)
 //
 val () = let
 //
@@ -113,10 +114,10 @@ in
   if isnot
     then let
       val str =
-        fileref_get_line_string (filr)
-      val str2 = strarr_make_string ($UN.castvwtp1{string}(str))
-      val ((*void*)) = strptr_free (str)
-      val-~None_vt() = insert_opt (str2, 1)
+        fileref_get_line_string(filr)
+      val str2 = strarr_make_string($UN.castvwtp1{string}(str))
+      val ((*void*)) = strptr_free(str)
+      val-~None_vt() = insert_opt(str2, 1)
     in
       loop (filr)
     end // end of [then]
@@ -135,10 +136,10 @@ val ((*void*)) = fileref_close (filr)
 (* ****** ****** *)
 
 implement
-word_is_legal (w) = let
+word_is_legal(w) = let
   val cp = search_ref (w)
 in
-  if cptr2ptr (cp) > 0 then true else false
+  if cptr2ptr(cp) > 0 then true else false
 end // end of [word_is_legal]
 
 (* ****** ****** *)
