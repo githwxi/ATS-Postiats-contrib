@@ -115,6 +115,65 @@ else
 (* ****** ****** *)
 
 implement
+stream_vt_length
+  {a}(xs) =
+  loop(xs, 0) where
+{
+//
+fun
+loop
+(
+xs: stream_vt(a), len: intGte(0)
+) : intGte(0) =
+(
+case+ !xs of
+| ~stream_vt_nil() => len
+| ~stream_vt_cons(_, xs) => loop(xs, len+1)
+) (* end of [loop] *)
+//
+} (* end of [stream_vt_length] *)
+
+(* ****** ****** *)
+//
+implement
+stream2list_vt
+  {a}(xs) =
+  aux(xs) where
+{
+//
+fun
+aux
+(xs: stream_vt(a)): List0_vt(a) =
+(
+case+ !xs of
+| ~stream_vt_nil() => list_vt_nil()
+| ~stream_vt_cons(x, xs) => list_vt_cons(x, aux(xs))
+)
+//
+}
+//
+implement
+stream2list_vt_rev
+  {a}(xs) =
+  loop(xs, nil_vt()) where
+{
+//
+fun
+loop
+(
+xs: stream_vt(a), res: List0_vt(a)
+) : List0_vt(a) =
+(
+case+ !xs of
+| ~stream_vt_nil() => res
+| ~stream_vt_cons(x, xs) => loop(xs, cons_vt(x, res))
+) (* end of [loop] *)
+//
+} (* end of [stream2list_vt_rev] *)
+
+(* ****** ****** *)
+
+implement
 stream_vt_append
   {a}
 (

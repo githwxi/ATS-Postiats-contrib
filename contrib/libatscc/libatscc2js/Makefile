@@ -33,6 +33,9 @@ all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | \
 $(ATSCC2JS) -o ./output/DATS/list_dats.js -i
 all:: ; \
+$(PATSOPT) -d ./DATS/list_vt.dats | \
+$(ATSCC2JS) -o ./output/DATS/list_vt_dats.js -i
+all:: ; \
 $(PATSOPT) -d ./DATS/option.dats | \
 $(ATSCC2JS) -o ./output/DATS/option_dats.js -i
 all:: ; \
@@ -139,6 +142,7 @@ $(CAT) >>libatscc2js_all.js \
 output/DATS/basics_dats.js \
 output/DATS/string_dats.js \
 output/DATS/list_dats.js \
+output/DATS/list_vt_dats.js \
 output/DATS/option_dats.js \
 output/DATS/stream_dats.js \
 output/DATS/stream_vt_dats.js \
@@ -149,6 +153,8 @@ output/DATS/reference_dats.js \
 output/DATS/arrayref_dats.js \
 output/DATS/matrixref_dats.js \
 output/DATS/gmatrixref_dats.js \
+output/DATS/qlistref_dats.js \
+output/DATS/slistref_dats.js \
 output/DATS/ML/list0_dats.js \
 output/DATS/ML/array0_dats.js
 #

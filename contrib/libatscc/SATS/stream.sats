@@ -50,6 +50,8 @@ stream_length
   {a:t0p}
   (stream(INV(a))): intGte(0) = "mac#%"
 //
+overload length with stream_length
+//
 (* ****** ****** *)
 //
 fun

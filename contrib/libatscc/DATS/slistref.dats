@@ -19,10 +19,12 @@ slistref_type
   (a:vt0p) = ref(List0_vt(a))
 //
 (* ****** ****** *)
-
+//
 implement
-slistref_make_nil() = ref(list_vt_nil())
-
+slistref_make_nil
+  {a}((*void*)) =
+  ref(list_vt_nil((*void*)))
+//
 (* ****** ****** *)
 
 implement

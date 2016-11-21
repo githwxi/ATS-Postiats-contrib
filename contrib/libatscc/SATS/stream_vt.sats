@@ -47,6 +47,26 @@ overload .takeLte with stream_vt_takeLte
 (* ****** ****** *)
 //
 fun
+stream_vt_length
+  {a:t0p}
+  (stream_vt(INV(a))): intGte(0) = "mac#%"
+//
+overload length with stream_vt_length
+//
+(* ****** ****** *)
+//
+fun
+stream2list_vt
+  {a:vt0p}
+  (stream_vt(INV(a))): List0_vt(a) = "mac#%"
+fun
+stream2list_vt_rev
+  {a:vt0p}
+  (stream_vt(INV(a))): List0_vt(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_vt_append
   {a:vt0p}
 (

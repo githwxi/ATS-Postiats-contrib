@@ -24,6 +24,17 @@ qlistref
 assume qlistref_type(a) = qlistref(a)
 //
 (* ****** ****** *)
+//
+implement
+qlistref_make_nil
+  {a}((*void*)) = Q(f, r) where
+{
+//
+val f = ref(list_vt_nil) and r = ref(list_vt_nil)
+//
+} (* end of [qlistref_make_nil] *)
+//
+(* ****** ****** *)
 
 implement
 qlistref_length

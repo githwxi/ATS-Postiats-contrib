@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 #define
-ATS_STATIC_PREFIX "_ats2jspre_stream_vt_"
+ATS_STATIC_PREFIX "_ats2jspre_list_"
 //
 (* ****** ****** *)
 //
@@ -29,33 +29,22 @@ UN =
 "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-//
+
 staload "./../basics_js.sats"
-//
+
 (* ****** ****** *)
 //
 staload "./../SATS/integer.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/print.sats"
-//
-(* ****** ****** *)
-//
 staload "./../SATS/list.sats"
 staload "./../SATS/list_vt.sats"
 //
-staload "./../SATS/reference.sats"
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/list_vt.dats"
 //
 (* ****** ****** *)
 
-staload "./../SATS/stream.sats"
-staload "./../SATS/stream_vt.sats"
-
-(* ****** ****** *)
-//
-#include "{$LIBATSCC}/DATS/stream_vt.dats"
-//
-(* ****** ****** *)
-
-(* end of [stream_vt.dats] *)
+(* end of [list_vt.dats] *)

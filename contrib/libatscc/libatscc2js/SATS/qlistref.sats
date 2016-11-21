@@ -9,6 +9,9 @@
 // prefix for external names
 //
 #define
+ATS_PACKNAME
+"ATSCC2JS.qlistref"
+#define
 ATS_EXTERN_PREFIX "ats2jspre_"
 //
 (* ****** ****** *)

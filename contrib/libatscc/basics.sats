@@ -113,6 +113,17 @@ overload g1ofg0 with g1ofg0_list of 100
 //
 (* ****** ****** *)
 //
+castfn
+g0ofg1_list_vt :
+  {a:t0p}(List_vt(a)) -<fun> list0(a)
+castfn
+list0_of_list_vt :
+  {a:t0p}(List_vt(a)) -<fun> list0(a)
+//
+overload g0ofg1 with g0ofg1_list_vt of 100
+//
+(* ****** ****** *)
+//
 abstype
 array0_vt0ype_type(a:vt@ype) = ptr
 typedef

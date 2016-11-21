@@ -104,9 +104,19 @@ loop
 implement
 stream2list
   {a}(xs) =
+  aux(xs) where
+{
+//
+fun
+aux
+(xs: stream(a)): List0(a) =
 (
-  list_reverse(stream2list_rev(xs))
+case+ !xs of
+| stream_nil() => list_nil()
+| stream_cons(x, xs) => list_cons(x, aux(xs))
 )
+//
+}
 //
 implement
 stream2list_rev

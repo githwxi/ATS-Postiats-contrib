@@ -9,7 +9,8 @@
 // prefix for external names
 //
 #define
-ATS_PACKNAME "ATSCC2JS"
+ATS_PACKNAME
+"ATSCC2JS.basics"
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 //

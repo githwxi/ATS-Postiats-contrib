@@ -5,12 +5,9 @@
 
 (* ****** ****** *)
 //
-// HX-2014-10:
+// HX-2014-08:
 // prefix for external names
 //
-#define
-ATS_PACKNAME
-"ATSCC2JS.gmatrixref"
 #define
 ATS_EXTERN_PREFIX "ats2jspre_"
 //
@@ -25,8 +22,8 @@ staload "./../basics_js.sats"
 
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/SATS/gmatrixref.sats"
+#include "{$LIBATSCC}/SATS/list_vt.sats"
 //
 (* ****** ****** *)
 
-(* end of [gmatrixref.sats] *)
+(* end of [list_vt.sats] *)
