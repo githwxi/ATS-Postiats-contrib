@@ -17,6 +17,9 @@
 // prefix for external names
 //
 #define
+ATS_PACKNAME
+"ATSCC2PY3.slistref"
+#define
 ATS_EXTERN_PREFIX "ats2pypre_"
 #define
 ATS_STATIC_PREFIX "_ats2pypre_slistref_"
