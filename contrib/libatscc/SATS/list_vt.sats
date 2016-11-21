@@ -36,12 +36,12 @@ overload length with list_vt_length of 100
 fun
 list_vt_snoc
   {a:vt0p}{n:int}
-  (xs: list_vt(INV(a), n), x0: a): list_vt(a, n+1)= "mac#%"
+  (xs: list_vt(INV(a), n), x0: a): list_vt(a, n+1) = "mac#%"
 //
 fun
 list_vt_extend
   {a:vt0p}{n:int}
-  (xs: list_vt(INV(a), n), x0: a): list_vt(a, n+1)= "mac#%"
+  (xs: list_vt(INV(a), n), x0: a): list_vt(a, n+1) = "mac#%"
 //
 (* ****** ****** *)
 //
