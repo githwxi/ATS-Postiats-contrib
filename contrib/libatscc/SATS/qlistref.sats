@@ -31,16 +31,16 @@ qlistref_length
 (* ****** ****** *)
 //
 fun
-qlistref_enque
+qlistref_enqueue
   {a:vt0p}(qlistref(a), x0: a): void = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
-qlistref_deque_exn
+qlistref_dequeue_exn
   {a:vt0p}(qlistref(a)): (a) = "mac#%"
 fun
-qlistref_deque_opt
+qlistref_dequeue_opt
   {a:vt0p}(qlistref(a)): Option_vt(a) = "mac#%"
 //
 (* ****** ****** *)

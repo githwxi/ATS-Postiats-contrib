@@ -36,22 +36,18 @@ xs: stream_vt(INV(a))
 (* ****** ****** *)
 //
 fun
+stream_vt_length
+  {a:t0p}
+  (stream_vt(INV(a))): intGte(0) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_vt_takeLte
   {a:vt0p}
 (
 xs: stream_vt(INV(a)), n0: intGte(0)
 ) :<> stream_vt(a) = "mac#%" // end-of-fun
-//
-overload .takeLte with stream_vt_takeLte
-//
-(* ****** ****** *)
-//
-fun
-stream_vt_length
-  {a:t0p}
-  (stream_vt(INV(a))): intGte(0) = "mac#%"
-//
-overload length with stream_vt_length
 //
 (* ****** ****** *)
 //
@@ -180,17 +176,20 @@ xs: stream_vt(INV(a))
 //
 (* ****** ****** *)
 //
-overload .map with stream_vt_map_method
-overload .filter with stream_vt_filter_method
-overload .foreach with stream_vt_foreach_method
-overload .iforeach with stream_vt_iforeach_method
-//
-(* ****** ****** *)
-//
 fun
 stream_vt_tabulate_cloref
   {a:t0p}
   (fopr: intGte(0) -<cloref1> a): stream_vt(a) = "mac#%"
+//
+(* ****** ****** *)
+//
+overload length with stream_vt_length of 100
+overload .takeLte with stream_vt_takeLte of 100
+//
+overload .map with stream_vt_map_method of 100
+overload .filter with stream_vt_filter_method of 100
+overload .foreach with stream_vt_foreach_method of 100
+overload .iforeach with stream_vt_iforeach_method of 1001
 //
 (* ****** ****** *)
 

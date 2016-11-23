@@ -50,8 +50,6 @@ stream_length
   {a:t0p}
   (stream(INV(a))): intGte(0) = "mac#%"
 //
-overload length with stream_length
-//
 (* ****** ****** *)
 //
 fun
@@ -69,8 +67,6 @@ stream_takeLte
 (
   xs: stream(INV(a)), n0: intGte(0)
 ) : stream_vt(a) = "mac#%" // end-of-fun
-//
-overload .takeLte with stream_takeLte
 //
 (* ****** ****** *)
 //
@@ -122,8 +118,6 @@ stream_map_method
   xs: stream(INV(a)), TYPE(b))(fopr: (a) -<cloref1> b
 ) : stream(b) = "mac#%" // end-of-function
 //
-overload .map with stream_map_method
-//
 (* ****** ****** *)
 //
 fun
@@ -138,8 +132,6 @@ stream_filter_method
 (
   xs: stream(INV(a)))(pred: (a) -<cloref1> bool
 ) : stream(a) = "mac#%" // end-of-function
-//
-overload .filter with stream_filter_method
 //
 (* ****** ****** *)
 //
@@ -156,8 +148,6 @@ stream_forall_method
   xs: stream(INV(a)))(pred: (a) -<cloref1> bool
 ) : bool = "mac#%" // end-of-function
 //
-overload .forall with stream_forall_method
-//
 (* ****** ****** *)
 //
 fun
@@ -172,8 +162,6 @@ stream_exists_method
 (
   xs: stream(INV(a)))(pred: (a) -<cloref1> bool
 ) : bool = "mac#%" // end-of-function
-//
-overload .exists with stream_exists_method
 //
 (* ****** ****** *)
 //
@@ -191,8 +179,6 @@ stream_foreach_method
   xs: stream(INV(a)))(fwork: (a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
 //
-overload .foreach with stream_foreach_method
-//
 (* ****** ****** *)
 //
 fun
@@ -208,8 +194,6 @@ stream_iforeach_method
 (
   xs: stream(INV(a)))(fwork: (Nat, a) -<cloref1> void
 ) : void = "mac#%" // end-of-function
-//
-overload .iforeach with stream_iforeach_method
 //
 (* ****** ****** *)
 //
@@ -232,9 +216,6 @@ cross_stream_list0
 (
   xs: stream(INV(a)), ys: list0(INV(b))
 ) : stream($tup(a, b)) = "mac#%" // end-of-fun
-//
-overload * with cross_stream_list
-overload * with cross_stream_list0
 //
 (* ****** ****** *)
 //
@@ -284,6 +265,21 @@ fun
 stream_list_xprod2
   {a,b:t0p}
   (List0(INV(a)), List0(INV(b))): stream($tup(a, b)) = "mac#%"
+//
+(* ****** ****** *)
+//
+overload * with cross_stream_list of 100
+overload * with cross_stream_list0 of 100
+//
+overload length with stream_length of 100
+overload .takeLte with stream_takeLte of 100
+//
+overload .map with stream_map_method of 100
+overload .filter with stream_filter_method of 100
+overload .forall with stream_forall_method of 100
+overload .exists with stream_exists_method of 100
+overload .foreach with stream_foreach_method of 100
+overload .iforeach with stream_iforeach_method of 100
 //
 (* ****** ****** *)
 

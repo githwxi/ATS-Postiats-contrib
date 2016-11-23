@@ -54,7 +54,7 @@ end // end of [qlistref_length]
 (* ****** ****** *)
 
 implement
-qlistref_enque
+qlistref_enqueue
   {a}(que, x0) = let
 //
 val+Q(r0, r1) = que
@@ -69,12 +69,12 @@ val r1 =
 //
 in
   r0[] := list_cons{a?}(x0, r0[])
-end // end of [qlistref_enque]
+end // end of [qlistref_enqueue]
 
 (* ****** ****** *)
 
 implement
-qlistref_deque_opt
+qlistref_dequeue_opt
   {a}(que) = let
 //
 val+Q(r0, r1) = que
@@ -105,7 +105,7 @@ case+ r1[] of
     r1[] := xs; Some_vt($UN.castvwtp0{a}(x0))
   ) (* end of [list_cons] *)
 //
-end // end of [qlistref_enque]
+end // end of [qlistref_dequeue_opt]
 
 (* ****** ****** *)
 
