@@ -120,7 +120,7 @@ fun
 stream_vt_exists_cloref
   {a:t0ype}
 (
-xs: stream_vt(INV(a)), pred: (a) -<cloref1> bool
+stream_vt(INV(a)), pred: (a) -<cloref1> bool
 ) : bool = "mac#%" // end-of-function
 fun
 stream_vt_exists_method
@@ -135,7 +135,7 @@ fun
 stream_vt_forall_cloref
   {a:t0ype}
 (
-xs: stream_vt(INV(a)), pred: (a) -<cloref1> bool
+stream_vt(INV(a)), pred: (a) -<cloref1> bool
 ) : bool = "mac#%" // end-of-function
 fun
 stream_vt_forall_method
@@ -184,6 +184,9 @@ stream_vt_tabulate_cloref
 (* ****** ****** *)
 //
 overload length with stream_vt_length of 100
+overload append with stream_vt_append of 100
+overload concat with stream_vt_concat of 100
+//
 overload .takeLte with stream_vt_takeLte of 100
 //
 overload .map with stream_vt_map_method of 100
