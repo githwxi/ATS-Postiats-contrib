@@ -18,6 +18,14 @@ typedef strchr = string(1)
 (* ****** ****** *)
 //
 fun
+strchr_chr : int -> strchr = "mac#%"
+//
+fun
+strchr_ord : strchr -> int = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 string_get_at
 {n:int}{i:nat | i < n}
 (
@@ -25,6 +33,16 @@ string_get_at
 ) : strchr = "mac#%" // end-of-fun
 //
 overload [] with string_get_at of 100
+//
+(* ****** ****** *)
+//
+fun
+string_fset_at
+{n:int}
+{i:nat | i < n}
+(
+  str: string(n), i0: int(i), c0: strchr
+) : string(n) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //

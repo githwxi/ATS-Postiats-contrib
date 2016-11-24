@@ -13,6 +13,11 @@
 from ats2pypre_basics_cats import *
 ######
 
+def ats2pypre_strchr_chr(x): return chr(x)
+def ats2pypre_strchr_ord(x): return ord(x)
+
+############################################
+
 def ats2pypre_strlen(x): return (x.__len__())
 
 ############################################

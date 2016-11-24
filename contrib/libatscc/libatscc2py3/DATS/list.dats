@@ -83,7 +83,9 @@ staload "./../SATS/PYlist.sats"
 //
 implement
 {a}(*tmp*)
-print_list(xs) = fprint_list<a> (stdout, xs)
+print_list
+  (xs) = fprint_list<a> (stdout, xs)
+//
 implement
 {a}(*tmp*)
 print_list_sep
