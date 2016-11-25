@@ -118,7 +118,7 @@ main0_py();
 ######
 import sys
 ######
-from libatscc2py_all import *
+from libatscc2py3_all import *
 ######
 sys.setrecursionlimit(1000000)
 ######

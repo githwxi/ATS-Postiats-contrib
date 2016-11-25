@@ -36,7 +36,7 @@ case+
 import sys
 sys.setrecursionlimit(1000000)
 ######
-from libatscc2py_all import *
+from libatscc2py3_all import *
 ######
 %} // end of [%{^]
 
