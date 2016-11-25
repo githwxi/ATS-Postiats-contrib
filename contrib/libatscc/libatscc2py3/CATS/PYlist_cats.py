@@ -29,8 +29,7 @@ def ats2pypre_PYlist_cons(x0, xs): return xs.insert(0, x0)
 
 def ats2pypre_PYlist_make_elt(n, x):
   res = []
-  while(n > 0):
-    n -= 1; res = res.append (res, x)
+  while (n > 0): n = n - 1; res.append(x)
   return res
 
 ############################################

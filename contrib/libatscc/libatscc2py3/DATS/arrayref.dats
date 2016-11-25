@@ -18,19 +18,6 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_arrayref_"
 //
 (* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_bool_cats import *
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_PYlist_cats import *
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
@@ -59,6 +46,19 @@ staload "./../SATS/arrayref.sats"
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/arrayref.dats"
+//
+(* ****** ****** *)
+//
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+from ats2pypre_bool_cats import *
+from ats2pypre_integer_cats import *
+######
+from ats2pypre_PYlist_cats import *
+######
+%} // end of [%{^]
 //
 (* ****** ****** *)
 //

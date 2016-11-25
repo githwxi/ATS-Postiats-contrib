@@ -61,43 +61,63 @@ $(CPF) ./CATS/PYGAME_pygame_cats.py ./output/ats2py_pygame_pyame_cats.py
 ######
 #
 all:: ; \
-$(PATSOPT) -d ./DATS/list.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
-all:: ; \
-$(PATSOPT) -d ./DATS/PYlist.dats | $(ATSCC2PY) -o ./output/ats2pypre_PYlist_dats.py -i
-all:: ; \
-$(PATSOPT) -d ./DATS/list_vt.dats | $(ATSCC2PY) -o ./output/ats2pypre_list_vt_dats.py -i
-#
-all:: ; \
-$(PATSOPT) -d ./DATS/option.dats | $(ATSCC2PY) -o ./output/ats2pypre_option_dats.py -i
-#
-all:: ; \
-$(PATSOPT) -d ./DATS/stream.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_dats.py -i
-all:: ; \
-$(PATSOPT) -d ./DATS/stream_vt.dats | $(ATSCC2PY) -o ./output/ats2pypre_stream_vt_dats.py -i
-#
-all:: ; \
-$(PATSOPT) -d ./DATS/intrange.dats | $(ATSCC2PY) -o ./output/ats2pypre_intrange_dats.py -i
-#
-all:: ; \
-$(PATSOPT) -d ./DATS/arrayref.dats | $(ATSCC2PY) -o ./output/ats2pypre_arrayref_dats.py -i
-all:: ; \
-$(PATSOPT) -d ./DATS/matrixref.dats | $(ATSCC2PY) -o ./output/ats2pypre_matrixref_dats.py -i
-all:: ; \
-$(PATSOPT) -d ./DATS/reference.dats | $(ATSCC2PY) -o ./output/ats2pypre_reference_dats.py -i
+$(PATSOPT) -d ./DATS/string.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_string_dats.py -i
 #
 ######
 #
 all:: ; \
-$(PATSOPT) -d ./DATS/slistref.dats | $(ATSCC2PY) -o ./output/ats2pypre_slistref_dats.py -i
+$(PATSOPT) -d ./DATS/list.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_list_dats.py -i
 all:: ; \
-$(PATSOPT) -d ./DATS/qlistref.dats | $(ATSCC2PY) -o ./output/ats2pypre_qlistref_dats.py -i
+$(PATSOPT) -d ./DATS/PYlist.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_PYlist_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/list_vt.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_list_vt_dats.py -i
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/option.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_option_dats.py -i
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/stream.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_stream_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/stream_vt.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_stream_vt_dats.py -i
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/intrange.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_intrange_dats.py -i
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/arrayref.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_arrayref_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/matrixref.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_matrixref_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/reference.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_reference_dats.py -i
+#
+######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/slistref.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_slistref_dats.py -i
+all:: ; \
+$(PATSOPT) -d ./DATS/qlistref.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_qlistref_dats.py -i
 #
 ######
 
 all:: ; \
-$(PATSOPT) -d ./DATS/ML/list0.dats | $(ATSCC2PY) -o ./output/ats2pypre_ML_list0_dats.py -i
+$(PATSOPT) -d ./DATS/ML/list0.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_ML_list0_dats.py -i
 all:: ; \
-$(PATSOPT) -d ./DATS/ML/array0.dats | $(ATSCC2PY) -o ./output/ats2pypre_ML_array0_dats.py -i
+$(PATSOPT) -d ./DATS/ML/array0.dats | \
+$(ATSCC2PY) -o ./output/ats2pypre_ML_array0_dats.py -i
 
 ######
 

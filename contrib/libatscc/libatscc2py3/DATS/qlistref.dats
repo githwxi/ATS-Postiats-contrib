@@ -25,19 +25,6 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_qlistref_"
 //
 (* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_bool_cats import *
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_reference_dats import *
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
 //
 staload
 UN = "prelude/SATS/unsafe.sats"
@@ -51,6 +38,19 @@ UN = "prelude/SATS/unsafe.sats"
 #include "share/atspre_define.hats"
 //
 #include "{$LIBATSCC}/DATS/qlistref.dats"
+//
+(* ****** ****** *)
+//
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+from ats2pypre_bool_cats import *
+from ats2pypre_integer_cats import *
+######
+from ats2pypre_reference_dats import *
+######
+%} // end of [%{^]
 //
 (* ****** ****** *)
 

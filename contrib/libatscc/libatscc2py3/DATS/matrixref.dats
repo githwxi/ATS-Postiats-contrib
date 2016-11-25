@@ -18,21 +18,6 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_matrixref_"
 //
 (* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_bool_cats import *
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_PYlist_cats import *
-######
-from ats2pypre_intrange_dats import *
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
@@ -62,6 +47,21 @@ staload "./../SATS/matrixref.sats"
 #include "{$LIBATSCC}/DATS/matrixref.dats"
 //
 (* ****** ****** *)
+
+%{^
+######
+from ats2pypre_basics_cats import *
+######
+from ats2pypre_bool_cats import *
+from ats2pypre_integer_cats import *
+######
+from ats2pypre_PYlist_cats import *
+######
+from ats2pypre_intrange_dats import *
+######
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 (*
 assume
@@ -69,7 +69,6 @@ matrixref_vt0ype_type(a, m, n) = PYlist(a)
 *)
 //
 (* ****** ****** *)
-
 %{^
 ######
 def ats2pypre_matrixref_make_elt(m, n, x0):
