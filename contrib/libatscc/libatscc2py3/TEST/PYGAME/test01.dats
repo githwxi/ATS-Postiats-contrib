@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Trying libatscc2py/PYgame
+// Trying libatscc2py3/PYgame
 //
 // Author: Hongwei Xi
 // Authoremail: gmhwxiATgmailDOTcom
@@ -83,7 +83,7 @@ val ((*void*)) = pygame_quit((*void*))
 
 %{^
 ######
-from libatscc2py_all import *
+from libatscc2py3_all import *
 ######
 from ats2py_pygame_pyame_cats import *
 ######

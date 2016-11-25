@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// Trying libatscc2py/PYLIBC
+// Trying libatscc2py3/PYLIBC
 //
 // Author: Hongwei Xi
 // Authoremail: gmhwxiATgmailDOTcom
@@ -48,7 +48,7 @@ val ((*void*)) = println! ("today.ctime() = ", today.ctime())
 
 %{^
 ######
-from libatscc2py_all import *
+from libatscc2py3_all import *
 ######
 from ats2pylibc_datetime_cats import *
 ######
