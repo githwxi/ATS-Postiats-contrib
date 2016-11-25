@@ -208,11 +208,11 @@ if __name__ == '__main__': midterm_1_q1_create()
 import os
 import sys
 ######
-sys.setrecursionlimit(1000000)
+#
+from libatscc2py3_all import *
+#
 ######
-#
-from libatscc2py_all import *
-#
+sys.setrecursionlimit(1000000)
 ######
 %} (* end of [%{^] *)
 
