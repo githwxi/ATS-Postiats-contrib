@@ -1,6 +1,6 @@
 ######
 #
-# libatscc2py_all.py
+# libatscc2py3_all.py
 #
 ######
 #
