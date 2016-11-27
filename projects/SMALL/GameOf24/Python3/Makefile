@@ -43,9 +43,7 @@ clean:: ; $(RMF) GameOf24_py_dats.c
 ######
 
 cleanall:: clean
+cleanall:: ; rm -rf libatscc2py3/*
 cleanall:: ; $(RMF) GameOf24_py_dats.py
-cleanall:: ; $(RMF) libatscc2py3/*_cats.py
-cleanall:: ; $(RMF) libatscc2py3/*_dats.py
-cleanall:: ; $(RMRF) libatscc2py3/__pycache__
 
 ###### end of [Makefile] ######
