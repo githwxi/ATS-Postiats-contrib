@@ -14,9 +14,9 @@ parinp(a:t@ype) = stream(a)
 //
 (* ****** ****** *)
 //
-datavtype
+datatype
 parout(a:t@ype+, res:t@ype) =
-  | PAROUT of (Option_vt(res), parinp(a))
+  | PAROUT of (Option(res), parinp(a))
 //
 (* ****** ****** *)
 
@@ -45,13 +45,31 @@ p0: parser(a, t1), fopr: (t1) -<cloref1> t2
 (* ****** ****** *)
 //
 fun
-parser_seq2
+parser_join2
   {a:t@ype}
   {t1,t2:t@ype}
 (
 p1: parser(a, t1),
 p2: parser(a, t2)
 ) : parser(a, $tup(t1, t2)) // end-of-function
+//
+fun
+parser_join3
+  {a:t@ype}
+  {t1,t2,t3:t@ype}
+(
+p1: parser(a, t1),
+p2: parser(a, t2),
+p3: parser(a, t3)
+) : parser(a, $tup(t1, t2, t3)) // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+parser_orelse
+  {a:t@ype}{t:t@ype}
+  (p1: parser(a, t),
+   p2: parser(a, t)): parser(a, t)
 //
 (* ****** ****** *)
 //

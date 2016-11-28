@@ -58,7 +58,7 @@ fun
 {a:t@ype}
 kparser_option
 (
-  kp: kparser(INV(a))
+kp: kparser(INV(a))
 ) : kparser(Option(a)) // end-of-fun
 
 (* ****** ****** *)
@@ -68,7 +68,7 @@ fun
 {a:t@ype}
 kparser_satisfy
 (
-  kparser(INV(a)), test: cfun1(a, bool)
+kp: kparser(INV(a)), test: cfun1(a, bool)
 ) : kparser(a) // end-of-fun
 
 (* ****** ****** *)
@@ -78,14 +78,14 @@ fun
 {a:t@ype}
 kparser_skip_if
 (
-  kparser(INV(a)), test: cfun1(a, bool)
+kp: kparser(INV(a)), test: cfun1(a, bool)
 ) : kparser(int) // end-of-fun
 extern
 fun
 {a:t@ype}
 kparser_skip_ifnot
 (
-  kparser(INV(a)), test: cfun1(a, bool)
+kp: kparser(INV(a)), test: cfun1(a, bool)
 ) : kparser(int) // end-of-fun
 
 (* ****** ****** *)
