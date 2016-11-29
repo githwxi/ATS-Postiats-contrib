@@ -13,13 +13,19 @@ UN =
 //
 (* ****** ****** *)
 //
+(*
 staload
 "libats/ML/SATS/basis.sats"
 staload
 "libats/ML/SATS/list0.sats"
+*)
 //
+(* ****** ****** *)
+//
+(*
 staload
-"./../../SATS/BUCS520/parcomb.sats"
+"./../../SATS/BUCS320/parcomb.sats"
+*)
 //
 (* ****** ****** *)
 //

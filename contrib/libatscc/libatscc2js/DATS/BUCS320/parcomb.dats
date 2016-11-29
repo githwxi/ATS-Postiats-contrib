@@ -18,7 +18,27 @@ ATS_EXTERN_PREFIX "ats2jspre_BUCS320_"
 ATS_STATIC_PREFIX "_ats2jspre_BUCS320_parcomb_"
 //
 (* ****** ****** *)
-
+//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+staload "./../../basics_js.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/list.sats"
+staload "./../../SATS/list_vt.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../SATS/BUCS320/parcomb.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/BUCS320/parcomb.dats"
+//
 (* ****** ****** *)
 
 (* end of [parcomb.dats] *)

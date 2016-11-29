@@ -102,9 +102,19 @@ $(PATSOPT) -d ./DATS/Bacon.js/baconjs_ext.dats | \
 $(ATSCC2JS) -o ./output/DATS/Bacon.js/baconjs_ext_dats.js -i
 #
 ######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/BUCS320/parcomb.dats | \
+$(ATSCC2JS) -o ./output/DATS/BUCS320/parcomb_dats.js -i
+#
+######
 
 all_in_one:: libatscc2js_all
 all_in_one:: libatscc2js_baconjs_all
+
+######
+
+all_in_one:: libatscc2js_bucs320_parcomb
 
 ######
 #
@@ -174,18 +184,26 @@ output/DATS/Bacon.js/baconjs_ext_dats.js
 #
 ######
 #
-upload_source:: ; \
-$(SCPR) \
-basics_js.sats \
-staloadall.hats \
-CATS SATS DATS \
-ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
+libatscc2js_bucs320_parcomb:: ; \
+$(CAT) \
+>libatscc2js_bucs320_parcomb.js \
+output/DATS/BUCS320/parcomb_dats.js
 #
-upload_libatscc2js:: ; \
-$(SCPR) \
-libatscc2js_all.js \
-libatscc2js_baconjs_all.js \
-ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
+######
+#
+# upload_source:: ; \
+# $(SCPR) \
+# basics_js.sats \
+# staloadall.hats \
+# CATS SATS DATS \
+# ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
+#
+# upload_libatscc2js:: ; \
+# $(SCPR) \
+# libatscc2js_all.js \
+# libatscc2js_baconjs_all.js \
+# libatscc2js_bucs320_parcomb.js \
+# ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
 #
 ######
 
@@ -195,6 +213,8 @@ clean:: ; $(RMF) *~ */*~
 
 cleanall:: clean
 cleanall:: ; $(RMF) libatscc2js_all.js
+cleanall:: ; $(RMF) libatscc2js_baconjs_all.js
+cleanall:: ; $(RMF) libatscc2js_bucs320_parcomb.js
 
 ######
 
