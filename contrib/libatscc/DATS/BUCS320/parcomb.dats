@@ -24,6 +24,18 @@ staload
 (* ****** ****** *)
 //
 implement
+parser_fail() =
+  lam(inp) => PAROUT(None(), inp)
+//
+(* ****** ****** *)
+//
+implement
+parser_succeed(x0) =
+  lam(inp) => PAROUT(Some(x0), inp)
+//
+(* ****** ****** *)
+//
+implement
 parser_satisfy
   {a}(pred) = lam(xs0) =>
 (
@@ -41,7 +53,7 @@ parser_satisfy
 
 implement
 parser_map
-{a}{t1,t2}
+{a}{t}{u}
 (
   p0, fopr
 ) = lam(inp0) => let
@@ -52,10 +64,41 @@ PAROUT(opt, inp1) = p0(inp0)
 in
   case+ opt of
   | None() =>
-    PAROUT(None{t2}(), inp0)
+    PAROUT(None{u}(), inp0)
   | Some(x) =>
     PAROUT(Some(fopr(x)), inp1)
 end // end of [parser_map]
+
+(* ****** ****** *)
+
+implement
+parser_map2
+{a}{t1,t2}{u3}
+(
+p1, p2, fopr
+) = lam(inp0) => let
+//
+val+
+PAROUT(opt, inp1) = p1(inp0)
+//
+in
+//
+case+ opt of
+| None() =>
+    PAROUT(None{u3}(), inp0)
+  // end of [None_vt]
+| Some(x1) => let
+    val+
+    PAROUT(opt, inp2) = p2(inp1)
+  in
+    case+ opt of
+    | None() =>
+      PAROUT(None{u3}(), inp0)
+    | Some(x2) =>
+      PAROUT(Some(fopr(x1, x2)), inp2)
+  end // end of [Some]
+//
+end // end of [parser_map2]
 
 (* ****** ****** *)
 
@@ -84,27 +127,88 @@ case+ opt of
       PAROUT(None{t12}(), inp0)
     | Some(x2) =>
       PAROUT(Some($tup(x1, x2)), inp2)
-  end // end of [Some_vt]
+  end // end of [Some]
 //
 end // end of [parser_join2]
 
 (* ****** ****** *)
 
 implement
-parser_orelse
-  {a}{t}
-  (p1, p2) = lam(inp0) => let
+parser_tup2_fst
+{a}{t1,t2}
+(
+  p1, p2
+) = lam(inp0) => let
 //
-val
-out = p1(inp0)
 val+
-PAROUT(opt, inp1) = out
+PAROUT(opt, inp1) = p1(inp0)
 //
 in
 //
 case+ opt of
-| Some _ => out
-| None _ => p2(inp0)
+| None() =>
+    PAROUT(None{t1}(), inp0)
+  // end of [None_vt]
+| Some(x1) => let
+    val+
+    PAROUT(opt, inp2) = p2(inp1)
+  in
+    case+ opt of
+    | None() =>
+      PAROUT(None{t1}(), inp0)
+    | Some(x2) =>
+      PAROUT(Some{t1}(x1), inp2)
+  end // end of [Some]
+//
+end // end of [parser_tup2_fst]
+
+(* ****** ****** *)
+
+implement
+parser_tup2_snd
+{a}{t1,t2}
+(
+  p1, p2
+) = lam(inp0) => let
+//
+val+
+PAROUT(opt, inp1) = p1(inp0)
+//
+in
+//
+case+ opt of
+| None() =>
+    PAROUT(None{t2}(), inp0)
+  // end of [None_vt]
+| Some(x1) => let
+    val+
+    PAROUT(opt, inp2) = p2(inp1)
+  in
+    case+ opt of
+    | None() =>
+      PAROUT(None{t2}(), inp0)
+    | Some(x2) =>
+      PAROUT(Some{t2}(x2), inp2)
+  end // end of [Some]
+//
+end // end of [parser_tup2_snd]
+
+(* ****** ****** *)
+
+implement
+parser_orelse
+  {a}{t}
+(
+  p1, p2
+) = lam(inp0) => let
+//
+val out = p1(inp0)
+val+PAROUT(opt, inp1) = out
+//
+in
+//
+case+ opt of
+| Some _ => out | None _ => p2(inp0)
 //
 end // end of [parser_orelse]
 
@@ -163,7 +267,7 @@ case+ opt of
     val-Some(xs) = opt
   in
     PAROUT(Some(list0_cons(x, xs)), inp2)
-  end // end of [Some_vt]
+  end // end of [Some]
 //
 end // end of [parse_repeat1]
 
