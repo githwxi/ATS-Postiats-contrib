@@ -26,6 +26,10 @@ $(PATSOPT) -d ./DATS/basics.dats | \
 $(ATSCC2JS) -o ./output/DATS/basics_dats.js -i
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/char.dats | \
+$(ATSCC2JS) -o ./output/DATS/char_dats.js -i
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/string.dats | \
 $(ATSCC2JS) -o ./output/DATS/string_dats.js -i
 #
@@ -150,6 +154,7 @@ CATS/HTML/canvas-2d/canvas2d_cats.js
 libatscc2js_all:: ; \
 $(CAT) >>libatscc2js_all.js \
 output/DATS/basics_dats.js \
+output/DATS/char_dats.js \
 output/DATS/string_dats.js \
 output/DATS/list_dats.js \
 output/DATS/list_vt_dats.js \

@@ -44,6 +44,11 @@ staload "./../SATS/JSarray.sats"
 (* ****** ****** *)
 
 implement
+strchr_code(c) = string_charCodeAt(c, 0)
+
+(* ****** ****** *)
+
+implement
 string_fset_at
   {n}{i}
 (
@@ -93,6 +98,70 @@ if i < len
 (* ****** ****** *)
 //
 implement
+string_exists_cloref
+  (str0, pred) =
+  loop(0) where
+{
+//
+val
+[n:int]
+str = g1ofg0(str0)
+val
+len = string_length(str)
+//
+fun
+loop
+{i:nat|i <= n}(i: int(i)): bool =
+(
+if i < len
+  then (if pred(str[i]) then true else loop(i+1))
+  else false
+)
+//
+} (* end of [string_exists_cloref] *)
+//
+implement
+string_exists_method
+  (str0) =
+(
+  lam(pred) => string_exists_cloref(str0, pred)
+) (* end of [string_exists_method] *)
+//
+(* ****** ****** *)
+//
+implement
+string_forall_cloref
+  (str0, pred) =
+  loop(0) where
+{
+//
+val
+[n:int]
+str = g1ofg0(str0)
+val
+len = string_length(str)
+//
+fun
+loop
+{i:nat|i <= n}(i: int(i)): bool =
+(
+if i < len
+  then (if pred(str[i]) then loop(i+1) else false)
+  else true
+)
+//
+} (* end of [string_forall_cloref] *)
+//
+implement
+string_forall_method
+  (str0) =
+(
+  lam(pred) => string_forall_cloref(str0, pred)
+) (* end of [string_forall_method] *)
+//
+(* ****** ****** *)
+//
+implement
 string_foreach_cloref
   (str0, fwork) =
   loop(0) where
@@ -106,7 +175,7 @@ len = string_length(str)
 //
 fun
 loop
-{i:nat | i <= n}(i: int(i)): void =
+{i:nat|i <= n}(i: int(i)): void =
 (
 if i < len
   then (fwork(str[i]); loop(i+1)) else ()

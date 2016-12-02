@@ -113,6 +113,12 @@ mtrxszref_exists_cloref
 (
   mtrxszref(a), ftest: (int, int) -<cloref1> bool
 ) : bool = "mac#%" // end-of-function
+fun
+mtrxszref_exists_method
+  {a:t@ype}
+(
+  mtrxszref(a))(ftest: (int, int) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
 //
 fun
 mtrxszref_forall_cloref
@@ -120,11 +126,18 @@ mtrxszref_forall_cloref
 (
   mtrxszref(a), ftest: (int, int) -<cloref1> bool
 ) : bool = "mac#%" // end-of-function
+fun
+mtrxszref_forall_method
+  {a:t@ype}
+(
+  mtrxszref(a))(ftest: (int, int) -<cloref1> bool
+) : bool = "mac#%" // end-of-function
 //
-overload .exists with mtrxszref_exists_cloref
-overload .forall with mtrxszref_forall_cloref
+overload .exists with mtrxszref_exists_method
+overload .forall with mtrxszref_forall_method
 //
 (* ****** ****** *)
+//
 fun
 mtrxszref_foreach_cloref
   {a:t@ype}

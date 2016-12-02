@@ -24,6 +24,10 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 #include "{$LIBATSCC}/basics.sats"
 //
 (* ****** ****** *)
+(*
+typedef char = int
+*)
+(* ****** ****** *)
 //
 (*
 abstype JSnumber

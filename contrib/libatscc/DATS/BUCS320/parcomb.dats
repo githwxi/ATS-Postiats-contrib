@@ -42,6 +42,19 @@ parser_succeed(x0) =
 (* ****** ****** *)
 //
 implement
+parser_anyone
+  {a}() = lam(xs0) =>
+(
+  case+ !xs0 of
+  | stream_nil() =>
+    PAROUT(None{a}(), xs0)
+  | stream_cons(x1, xs1) =>
+    PAROUT(Some{a}(x1), xs1)
+) (* end of [parse_anyone] *)
+//
+(* ****** ****** *)
+//
+implement
 parser_satisfy
   {a}(pred) = lam(xs0) =>
 (
@@ -105,6 +118,45 @@ case+ opt of
   end // end of [Some]
 //
 end // end of [parser_map2]
+
+(* ****** ****** *)
+
+implement
+parser_map3
+{a}{t1,t2,t3}{u4}
+(
+p1, p2, p3, fopr
+) = lam(inp0) => let
+//
+val+
+PAROUT(opt, inp1) = p1(inp0)
+//
+in
+//
+case+ opt of
+| None() =>
+    PAROUT(None{u4}(), inp0)
+  // end of [None_vt]
+| Some(x1) => let
+    val+
+    PAROUT(opt, inp2) = p2(inp1)
+  in
+    case+ opt of
+    | None() =>
+      PAROUT(None{u4}(), inp0)
+    | Some(x2) => let
+        val+
+        PAROUT(opt, inp3) = p3(inp2)
+      in
+        case+ opt of
+        | None() =>
+          PAROUT(None{u4}(), inp0)
+        | Some(x3) =>
+          PAROUT(Some(fopr(x1, x2, x3)), inp3)
+      end
+  end // end of [Some]
+//
+end // end of [parser_map3]
 
 (* ****** ****** *)
 
@@ -277,6 +329,11 @@ case+ opt of
 //
 end // end of [parse_repeat1]
 
+(* ****** ****** *)
+//
+implement
+parser_lazy(lp) = lam(inp0) => (!lp)(inp0)
+//
 (* ****** ****** *)
 
 (* end of [parcomb.dats] *)

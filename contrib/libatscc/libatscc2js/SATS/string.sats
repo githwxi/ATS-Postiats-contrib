@@ -16,9 +16,18 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 staload "./../basics_js.sats"
 //
 (* ****** ****** *)
+
+typedef char = int
+
+(* ****** ****** *)
 //
 typedef
 strchr = string(1)
+//
+(* ****** ****** *)
+//
+fun
+strchr_code(strchr): char = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -227,6 +236,36 @@ string_concat with string_concat_3 of 100
 fun
 streamize_string_code
   (str0: string): stream_vt(int) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+string_exists_cloref
+(
+  string, pred: cfun(strchr, bool)
+) : bool = "mac#" // string_exists_cloref
+fun
+string_exists_method
+(
+  string)(pred: cfun(strchr, bool)
+) : bool = "mac#" // string_exists_method
+//
+overload .exists with string_exists_method
+//
+(* ****** ****** *)
+//
+fun
+string_forall_cloref
+(
+  string, pred: cfun(strchr, bool)
+) : bool = "mac#" // string_forall_cloref
+fun
+string_forall_method
+(
+  string)(pred: cfun(strchr, bool)
+) : bool = "mac#" // string_forall_method
+//
+overload .forall with string_forall_method
 //
 (* ****** ****** *)
 //

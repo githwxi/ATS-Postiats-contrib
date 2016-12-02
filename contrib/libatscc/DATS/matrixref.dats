@@ -88,6 +88,25 @@ end // end of [mtrxszref_forall_cloref]
 (* ****** ****** *)
 //
 implement
+mtrxszref_exists_method
+  (MSZ) =
+(
+  lam(ftest) =>
+    mtrxszref_exists_cloref(MSZ, ftest)
+  // end of [lam]
+)
+implement
+mtrxszref_forall_method
+  (MSZ) =
+(
+  lam(ftest) =>
+    mtrxszref_forall_cloref(MSZ, ftest)
+  // end of [lam]
+)
+//
+(* ****** ****** *)
+//
+implement
 mtrxszref_foreach_cloref
   (MSZ, fwork) = let
   val m = MSZ.nrow()

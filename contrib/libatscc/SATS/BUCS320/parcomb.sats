@@ -18,7 +18,7 @@ typedef parinp(a:t@ype) = stream(a)
 (* ****** ****** *)
 //
 datatype parout
-  (a:t@ype+, res:t@ype) =
+  (a:t@ype, res:t@ype) =
   | PAROUT of (Option(res), parinp(a))
 //
 (* ****** ****** *)
@@ -38,6 +38,12 @@ fun
 parser_succeed
   {a:t@ype}
   {t:t@ype}(x0: t): parser(a, t) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+parser_anyone
+  {a:t@ype}((*void*)): parser(a, a) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -102,6 +108,15 @@ parser_map2
 p1: parser(a, t1),
 p2: parser(a, t2), fopr: (t1, t2) -<cloref1> u3
 ) : parser(a, u3) = "mac#%" // end-of-fun
+fun
+parser_map3
+  {a:t@ype}
+  {t1,t2,t3:t@ype}{u4:t@ype}
+(
+p1: parser(a, t1),
+p2: parser(a, t2), 
+p3: parser(a, t3), fopr: (t1, t2, t3) -<cloref1> u4
+) : parser(a, u4) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -127,6 +142,14 @@ parser_repeat1
   {a:t@ype}
   {t:t@ype}
   (parser(a, t)): parser(a, list0(t)) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+parser_lazy
+  {a:t@ype}
+  {t:t@ype}
+  (lp: lazy(parser(a, t))): parser(a, t) = "mac#%"
 //
 (* ****** ****** *)
 
