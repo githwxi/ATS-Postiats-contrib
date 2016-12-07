@@ -1,4 +1,16 @@
 (* ****** ****** *)
+//
+// A stream-based
+// implementation of the
+// word guessing game of Hangman
+//
+(* ****** ****** *)
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxi AT gmail DOT com
+// Start Time: December 6, 2016
+//
+(* ****** ****** *)
 
 #include
 "share/atspre_staload.hats"
@@ -53,7 +65,9 @@ implement
 eq_mychar_mychar
   (x, y) =
 (
-case+ (x, y) of
+case+
+(x, y)
+of // case+
 | (Shown _,
    Shown _) => true
 | (Hidden _,
@@ -64,7 +78,9 @@ implement
 eq_myword_myword
   (xs, ys) =
 (
-case+ (xs, ys) of
+case+
+(xs, ys)
+of // case+
 | (nil0(),
    nil0()) => true
 | (cons0(x, xs),

@@ -1,4 +1,12 @@
 (* ****** ****** *)
+//
+// Author: Hongwei Xi
+//
+// A stream of keyboard inputs
+// that may be terminated due to a
+// chosen number of seconds of inactivity.
+//
+(* ****** ****** *)
 
 #include
 "share/atspre_staload.hats"
