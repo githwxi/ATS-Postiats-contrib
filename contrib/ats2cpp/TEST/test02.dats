@@ -182,8 +182,13 @@ println! ("fact(10) = ", fact(10))
 
 int main()
 {
-  printf("fact(10) = %i\n", fact(10)); return 0;
-}
+//
+  std::cout <<
+  "fact(10) = " << fact(10) << std::endl;
+//
+  return 0;
+//
+} /* end of [main] */
 
 %} // end of [%{$]
 

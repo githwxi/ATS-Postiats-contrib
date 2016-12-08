@@ -87,9 +87,9 @@ atspre_g1uint2uint_uint_uint(x) atspre_g0uint2uint_uint_uint(x)
 //
 extern "C"
 {
-int atoi(const char *inp) ;
-long int atol(const char *inp) ;
-long long int atoll(const char *inp) ;
+int atoi(const char *inp) throw ();
+long int atol(const char *inp) throw ();
+long long int atoll(const char *inp) throw ();
 } // extern "C"
 //
 ATSinline()
