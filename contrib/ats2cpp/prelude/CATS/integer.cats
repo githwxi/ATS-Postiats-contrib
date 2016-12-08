@@ -85,9 +85,12 @@ atspre_g1uint2uint_uint_uint(x) atspre_g0uint2uint_uint_uint(x)
 //
 /* ****** ****** */
 //
-extern int atoi (const char *inp) ;
-extern long int atol (const char *inp) ;
-extern long long int atoll (const char *inp) ;
+extern "C"
+{
+int atoi(const char *inp) ;
+long int atol(const char *inp) ;
+long long int atoll(const char *inp) ;
+} // extern "C"
 //
 ATSinline()
 atstype_int
@@ -104,12 +107,13 @@ atspre_g0string2int_llint
 //
 /* ****** ****** */
 //
-extern
+extern "C"
+{
 unsigned long int
 strtoul(const char *nptr, char **endptr, int base);
-extern
 unsigned long long int
 strtoull(const char *nptr, char **endptr, int base);
+} // extern "C"
 //
 ATSinline()
 atstype_uint
