@@ -110,9 +110,9 @@ atspre_g0string2int_llint
 extern "C"
 {
 unsigned long int
-strtoul(const char *nptr, char **endptr, int base);
+strtoul(const char *nptr, char **endptr, int base) throw ();
 unsigned long long int
-strtoull(const char *nptr, char **endptr, int base);
+strtoull(const char *nptr, char **endptr, int base) throw ();
 } // extern "C"
 //
 ATSinline()
