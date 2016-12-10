@@ -59,6 +59,9 @@ fvectorptr_get_at(elt, p0, i) \
 #define \
 fvectorptr_back(elt, p0) \
   (static_cast<std::vector<elt>*>(p0))->back()
+#define \
+fvectorptr_pop_back(elt, p0) \
+  (static_cast<std::vector<elt>*>(p0))->pop_back()
 //
 #define \
 fvectorptr_push_back(elt, p0, x0) \
@@ -186,16 +189,19 @@ end // end of [stack_insert]
 implement
 {a}(*tmp*)
 stack_takeout
-  (p0) = let
+  (p0) = x0 where
+{
 //
 prval
 () = $UN.castvwtp2void(p0)
 //
 val p0 = $UN.castvwtp1{ptr}(p0)
-//
-in
+val x0 =
   $extfcall(a, "fvectorptr_back", $tyrep(a), p0)
-end // end of [stack_insert]
+val () =
+  $extfcall(void, "fvectorptr_pop_back", $tyrep(a), p0)
+//
+} (* end of [stack_insert] *)
 //
 (* ****** ****** *)
 

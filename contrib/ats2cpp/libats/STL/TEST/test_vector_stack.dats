@@ -45,6 +45,8 @@ main(int argc, int argv)
 //
 std::cout << "Hello from [test_vector_stack]!" << std::endl;
 //
+mytest();
+//
 return 0;
 //
 } /* end of [main0] */
