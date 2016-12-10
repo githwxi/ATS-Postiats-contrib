@@ -16,7 +16,6 @@
 %{^
 //
 #include <vector>
-#include <iostream>
 //
 #define \
 fvectorptr(elt) std::vector<elt>*
@@ -179,6 +178,8 @@ println! ("fact(10) = ", fact(10))
 (* ****** ****** *)
 
 %{$
+
+#include <iostream>
 
 int main()
 {
