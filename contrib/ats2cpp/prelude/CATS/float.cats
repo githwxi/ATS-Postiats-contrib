@@ -128,7 +128,7 @@ atstype_double x
 //
 extern "C"
 {
-double atof (const char *inp) ;
+double atof (const char *inp) throw ();
 }
 //
 ATSinline()
