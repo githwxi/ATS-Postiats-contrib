@@ -1,7 +1,7 @@
 /*
 (*
-** A linear stack
-** implementation based on STL:vector
+** ATS2CPP:
+** API for STL:vector
 *)
 (* ****** ****** *)
 (*
@@ -65,7 +65,7 @@ ats2cpp_STL_vectorptr_push_back(elt, p0, x0) \
 //
 /* ****** ****** */
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS)
+#endif // end of ifndef(ATS2CPP_LIBATS_STL_VECTOR_CATS)
 //
 /* ****** ****** */
 
