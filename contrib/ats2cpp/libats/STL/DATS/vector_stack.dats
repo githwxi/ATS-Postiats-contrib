@@ -50,7 +50,8 @@ ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS
 //
 absvtype
 stack_vtype
-(a:vt@ype+, n:int) = $extype"fvectorptr"(a)
+(a:vt@ype+, n:int) =
+$extype"ats2cpp_STL_vectorptr"(a)
 //
 stadef stack = stack_vtype
 //
@@ -74,7 +75,7 @@ extern
 fun
 {a:vt0p}
 stack_length
-  {n:int}(stk: !stack(a, n)): int(n) = "mac#%"
+  {n:int}(stk: !stack(a, n)): size_t(n) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -96,6 +97,11 @@ stack_takeout
 //
 (* ****** ****** *)
 //
+overload length with stack_length
+//
+(* ****** ****** *)
+//
+overload .size with stack_length
 overload .length with stack_length
 //
 overload .insert with stack_insert
@@ -116,7 +122,7 @@ stack_make_nil
 ) =
 $extfcall
 (
-  stack(a, 0), "fvectorptr_new", $tyrep(a)
+  stack(a, 0), "ats2cpp_STL_vectorptr_new", $tyrep(a)
 ) (* stack_make_nil *)
 //
 (* ****** ****** *)
@@ -133,7 +139,7 @@ val p0 = $UN.castvwtp0{ptr}(p0)
 in
 //
 $extfcall
-  (void, "fvectorptr_free", $tyrep(a), p0)
+  (void, "ats2cpp_STL_vectorptr_free", $tyrep(a), p0)
 //
 end // end of [stack_free_nil]
 //
@@ -149,7 +155,7 @@ val p0 = $UN.castvwtp1{ptr}(p0)
 in
 //
 $extfcall
-  (int(n), "fvectorptr_size", $tyrep(a), p0)
+  (size_t(n), "ats2cpp_STL_vectorptr_size", $tyrep(a), p0)
 //
 end // end of [stack_length]
 //
@@ -170,7 +176,7 @@ in
 //
 $extfcall
 ( void,
-  "fvectorptr_push_back", $tyrep(a), p0, x0
+  "ats2cpp_STL_vectorptr_push_back", $tyrep(a), p0, x0
 ) (* $extfcall *)
 //
 end // end of [stack_insert]
@@ -188,9 +194,9 @@ prval
 //
 val p0 = $UN.castvwtp1{ptr}(p0)
 val x0 =
-  $extfcall(a, "fvectorptr_back", $tyrep(a), p0)
+  $extfcall(a, "ats2cpp_STL_vectorptr_back", $tyrep(a), p0)
 val () =
-  $extfcall(void, "fvectorptr_pop_back", $tyrep(a), p0)
+  $extfcall(void, "ats2cpp_STL_vectorptr_pop_back", $tyrep(a), p0)
 //
 } (* end of [stack_insert] *)
 //

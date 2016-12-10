@@ -36,30 +36,31 @@ ATS2CPP_LIBATS_STL_VECTOR_CATS
 #include <vector>
 //
 #define \
-fvectorptr(elt) std::vector<elt>*
+ats2cpp_STL_vectorptr(elt) std::vector<elt>*
 //
 #define \
-fvectorptr_new(elt) new std::vector<int>()
+ats2cpp_STL_vectorptr_new(elt) new std::vector<int>()
 #define \
-fvectorptr_free(elt, p0) \
+ats2cpp_STL_vectorptr_free(elt, p0) \
 delete(static_cast<std::vector<elt>*>(p0))
 //
 #define \
-fvectorptr_get_at(elt, p0, i) \
+ats2cpp_STL_vectorptr_get_at(elt, p0, i) \
   (*(static_cast<std::vector<elt>*>(p0)))[i]
 //
 #define \
-fvectorptr_size(elt, p0) \
+ats2cpp_STL_vectorptr_size(elt, p0) \
   (static_cast<std::vector<elt>*>(p0))->size()
+//
 #define \
-fvectorptr_back(elt, p0) \
+ats2cpp_STL_vectorptr_back(elt, p0) \
   (static_cast<std::vector<elt>*>(p0))->back()
 #define \
-fvectorptr_pop_back(elt, p0) \
+ats2cpp_STL_vectorptr_pop_back(elt, p0) \
   (static_cast<std::vector<elt>*>(p0))->pop_back()
 //
 #define \
-fvectorptr_push_back(elt, p0, x0) \
+ats2cpp_STL_vectorptr_push_back(elt, p0, x0) \
   (static_cast<std::vector<elt>*>(p0))->push_back(x0)
 //
 /* ****** ****** */

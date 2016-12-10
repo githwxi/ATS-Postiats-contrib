@@ -2,7 +2,7 @@
 
 (*
 ** A linear queue
-** implementation based on STL:vector
+** implementation based on STL:deque
 *)
 
 (* ****** ****** *)
@@ -29,4 +29,4 @@
 
 (* ****** ****** *)
 
-(* end of [vector_queue.dats] *)
+(* end of [deque_queue.dats] *)
