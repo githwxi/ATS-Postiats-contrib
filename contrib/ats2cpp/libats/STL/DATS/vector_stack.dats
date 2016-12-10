@@ -39,35 +39,8 @@ ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS
 #define \
 ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS
 //
-/* ****** ****** */
-//
-#include <vector>
-//
-#define \
-fvectorptr(elt) std::vector<elt>*
-//
-#define \
-fvectorptr_new(elt) new std::vector<int>()
-#define \
-fvectorptr_free(elt, p0) \
-delete(static_cast<std::vector<elt>*>(p0))
-//
-#define \
-fvectorptr_get_at(elt, p0, i) \
-  (*(static_cast<std::vector<elt>*>(p0)))[i]
-//
-#define \
-fvectorptr_back(elt, p0) \
-  (static_cast<std::vector<elt>*>(p0))->back()
-#define \
-fvectorptr_pop_back(elt, p0) \
-  (static_cast<std::vector<elt>*>(p0))->pop_back()
-//
-#define \
-fvectorptr_push_back(elt, p0, x0) \
-  (static_cast<std::vector<elt>*>(p0))->push_back(x0)
-//
-/* ****** ****** */
+#include \
+"ats2cpp/libats/STL/CATS/vector.cats"
 //
 #endif // end of ifndef(ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS)
 //
@@ -101,7 +74,7 @@ extern
 fun
 {a:vt0p}
 stack_length
-  {n:int}(stk: stack(a, n)): int(n) = "mac#%"
+  {n:int}(stk: !stack(a, n)): int(n) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -122,6 +95,8 @@ stack_takeout
   (stk: !stack(a, n) >> stack(a, n-1)): a = "mac#%"
 //
 (* ****** ****** *)
+//
+overload .length with stack_length
 //
 overload .insert with stack_insert
 overload .takeout with stack_takeout
@@ -161,6 +136,22 @@ $extfcall
   (void, "fvectorptr_free", $tyrep(a), p0)
 //
 end // end of [stack_free_nil]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stack_length
+  {n}(p0) = let
+//
+val p0 = $UN.castvwtp1{ptr}(p0)
+//
+in
+//
+$extfcall
+  (int(n), "fvectorptr_size", $tyrep(a), p0)
+//
+end // end of [stack_length]
 //
 (* ****** ****** *)
 //
