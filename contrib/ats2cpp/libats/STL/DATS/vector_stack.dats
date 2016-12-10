@@ -32,7 +32,7 @@ UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
-%{^
+%{#
 //
 #ifndef \
 ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS
@@ -68,7 +68,7 @@ fvectorptr_push_back(elt, p0, x0) \
 //
 #endif // end of ifndef(ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS)
 //
-%} // end of [%{^]
+%} // end of [%{#]
 
 (* ****** ****** *)
 //
@@ -120,6 +120,11 @@ stack_takeout
 //
 (* ****** ****** *)
 //
+overload .insert with stack_insert
+overload .takeout with stack_takeout
+//
+(* ****** ****** *)
+//
 // HX-2016-12:
 // externally template-based implmentation
 //
@@ -161,8 +166,10 @@ implement
 stack_insert
   (p0, x0) = let
 //
+prval
+() = $UN.castvwtp2void(p0)
+//
 val x0 = $UN.castvwtp0{a?}(x0)
-val p0 = $UN.castvwtp2void(p0)
 val p0 = $UN.castvwtp1{ptr}(p0)
 //
 in
@@ -181,7 +188,9 @@ implement
 stack_takeout
   (p0) = let
 //
-val p0 = $UN.castvwtp2void(p0)
+prval
+() = $UN.castvwtp2void(p0)
+//
 val p0 = $UN.castvwtp1{ptr}(p0)
 //
 in

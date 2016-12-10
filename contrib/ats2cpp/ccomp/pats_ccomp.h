@@ -327,6 +327,11 @@ ATSloop_close(init, fini, cont) \
 #define ATSINSdyncst_valbind(d2c, pmv) d2c = (pmv)
 
 /* ****** ****** */
+//
+#define ATSINScaseof_fail(msg) atsruntime_handle_unmatchedval(msg)
+#define ATSINSfunarg_fail(msg) atsruntime_handle_unmatchedarg(msg)
+//
+/* ****** ****** */
 
 typedef void atstype_void ;
 typedef void atsvoid_t0ype ;
@@ -472,6 +477,30 @@ struct{char _[_ATSTYPE_VAR_SIZE_];} atstype_var[0] ;
 #define atsrefarg0_type(hit) hit
 #define atsrefarg1_type(hit) atstype_ref
 
+/* ****** ****** */
+//
+#include <iostream>
+//
+extern "C" void exit(int) throw ();
+//
+/* ****** ****** */
+//
+// HX-2013:
+// for reporting pattern matching failure
+//
+extern "C"
+{
+void
+atsruntime_handle_unmatchedval
+  (char *msg0)
+{
+  std::cerr
+  << "exit(ATS): unmatched value at run-time:\n"
+  << msg0 << std::endl; exit(1) ;
+  return ; // deadcode
+} /* end of [atsruntime_handle_unmatchedval] */
+} /* end of [extern "C"]
+//
 /* ****** ****** */
 //
 #if(1)
