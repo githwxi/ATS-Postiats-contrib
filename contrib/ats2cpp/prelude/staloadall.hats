@@ -24,6 +24,7 @@ staload _ =
 
 staload _ = "prelude/DATS/bool.dats"
 staload _ = "prelude/DATS/char.dats"
+staload _ = "prelude/DATS/float.dats"
 staload _ = "prelude/DATS/string.dats"
 
 (* ****** ****** *)
