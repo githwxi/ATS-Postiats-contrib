@@ -21,20 +21,25 @@ implement
 fact(n) = if n > 0 then n * fact(n-1) else 1
 //
 (* ****** ****** *)
-
-(*
+//
+extern
+fun
+ffact(n: int): double = "ext#"
+//
 implement
-main0() =
-println! ("fact(10) = ", fact(10))
-*)
-
+ffact(n) = if n > 0 then n * ffact(n-1) else 1.0
+//
 (* ****** ****** *)
 
 %{$
 
+#include <stdio.h>
+
 int main()
 {
-  printf("fact(10) = %i\n", fact(10)); return 0;
+  printf("fact(10) = %i\n", fact(10));
+  printf("ffact(10) = %f\n", ffact(10));
+  return 0;
 }
 
 %} // end of [%{$]

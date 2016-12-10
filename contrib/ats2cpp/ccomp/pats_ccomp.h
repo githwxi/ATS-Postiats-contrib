@@ -493,6 +493,8 @@ struct{char _[_ATSTYPE_VAR_SIZE_];} atstype_var[0] ;
 #include "ats2cpp/prelude/CATS/bool.cats"
 #include "ats2cpp/prelude/CATS/char.cats"
 //
+#include "ats2cpp/prelude/CATS/float.cats"
+//
 /*
 #include					\
 "ats2cpp/prelude/CATS/integer_fixed.cats"
