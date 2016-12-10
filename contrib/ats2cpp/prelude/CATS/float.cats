@@ -246,9 +246,9 @@ atspre_g0float_div_ldouble
 //
 extern "C"
 {
-atstype_float fmodf (atstype_float, atstype_float) ;
-atstype_double fmod (atstype_double, atstype_double) ;
-atstype_ldouble fmodl (atstype_ldouble, atstype_ldouble) ;
+atstype_float fmodf (atstype_float, atstype_float) throw ();
+atstype_double fmod (atstype_double, atstype_double) throw ();
+atstype_ldouble fmodl (atstype_ldouble, atstype_ldouble) throw ();
 }
 //
 ATSinline()
