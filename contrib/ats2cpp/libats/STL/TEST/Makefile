@@ -33,6 +33,17 @@ all::
 ######
 #
 all:: \
+test_vector_array
+test_vector_array: \
+test_vector_array_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
+test_vector_array_dats.c: test_vector_array.dats; $(PATSOPT) -o $@ -d $<
+#
+regress:: test_vector_array; ./$<
+cleanall:: ; rm -f test_vector_array
+#
+######
+#
+all:: \
 test_vector_stack
 test_vector_stack: \
 test_vector_stack_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<

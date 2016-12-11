@@ -97,24 +97,45 @@ array_length
 extern
 fun
 {a:t@ype}
-array_get_at
+array_get_at_int
+  {n:int}
+(
+  A0: !array(INV(a), n), i: natLt(n)
+) : (a) = "mac#%" // end of [array_get_at_int]
+extern
+fun
+{a:t@ype}
+array_get_at_size
   {n:int}
 (
   A0: !array(INV(a), n), i: sizeLt(n)
-) : (a) = "mac#%" // end of [array_get_at]
+) : (a) = "mac#%" // end of [array_get_at_size]
+//
+(* ****** ****** *)
 //
 extern
 fun
 {a:t@ype}
-array_set_at
+array_set_at_int
+  {n:int}
+(
+  A0: !array(INV(a), n), i: natLt(n), x: a
+) : void = "mac#%" // end of [array_set_at_int]
+extern
+fun
+{a:t@ype}
+array_set_at_size
   {n:int}
 (
   A0: !array(INV(a), n), i: sizeLt(n), x: a
-) : void = "mac#%" // end of [array_set_at]
+) : void = "mac#%" // end of [array_set_at_size]
 //
 (* ****** ****** *)
 //
-overload [] with array_get_at
+overload [] with array_get_at_int
+overload [] with array_get_at_size
+overload [] with array_set_at_int
+overload [] with array_set_at_size
 //
 overload length with array_length
 //
@@ -140,15 +161,68 @@ val p0 = $UN.castvwtp0{ptr}(A0)
 in
 //
 $extfcall
-  (void, "ats2cpp_STL_vectorptr_free", $tyrep(a), p0)
+(
+  void
+, "ats2cpp_STL_vectorptr_free", $tyrep(a), p0
+) (* $extfcall *)
 //
 end // end of [array_free]
+//
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+array_make_elt
+ {n}(asz, x0) = let
+//
+var x0 = x0
+//
+in
+//
+$extfcall
+( array(a, n)
+, "ats2cpp_STL_vectorptr_new_fill"
+, $tyrep(a), asz, addr@x0(*call-by-ref*)
+) (* $extfcall *)
+//
+end // end of [array_make_elt]
+
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array_length
+  {n}(p0) = let
+//
+val p0 = $UN.castvwtp1{ptr}(p0)
+//
+in
+//
+$extfcall
+(
+  size_t(n)
+, "ats2cpp_STL_vectorptr_size", $tyrep(a), p0
+) (* $extfcall *)
+//
+end // end of [array_length]
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-array_get_at
+array_get_at_int(A0, i) =
+array_get_at_size<a>(A0, i2sz(i))
+//
+implement
+{a}(*tmp*)
+array_set_at_int(A0, i, x) =
+array_set_at_size<a>(A0, i2sz(i), x)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array_get_at_size
 (
   A0, i
 ) = let
@@ -158,13 +232,15 @@ val p0 = $UN.castvwtp1{ptr}(A0)
 in
 //
 $extfcall
-  (a, "ats2cpp_STL_vectorptr_get_at", $tyrep(a), p0, i)
+(
+  a, "ats2cpp_STL_vectorptr_get_at", $tyrep(a), p0, i
+) (* $extfcall *)
 //
-end // end of [array_get_at]
+end // end of [array_get_at_size]
 //
 implement
 {a}(*tmp*)
-array_set_at
+array_set_at_size
 (
   A0, i, x
 ) = let
@@ -174,9 +250,12 @@ val p0 = $UN.castvwtp1{ptr}(A0)
 in
 //
 $extfcall
-  (void, "ats2cpp_STL_vectorptr_get_at", $tyrep(a), p0, i, x)
+(
+  void
+, "ats2cpp_STL_vectorptr_set_at", $tyrep(a), p0, i, x
+) (* $extfcall *)
 //
-end // end of [array_set_at]
+end // end of [array_set_at_size]
 //
 (* ****** ****** *)
 
