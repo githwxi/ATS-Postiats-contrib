@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_ARRAY
-#define ATSLIB_PRELUDE_CATS_ARRAY
+#ifndef ATS2CPP_PRELUDE_CATS_ARRAY
+#define ATS2CPP_PRELUDE_CATS_ARRAY
 
 /* ****** ****** */
 
@@ -70,7 +70,7 @@ atspre_array_foreach_funenv_tsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAY
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_ARRAY)
 
 /* ****** ****** */
 

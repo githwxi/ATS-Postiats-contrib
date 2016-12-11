@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_MEMORY
-#define ATSLIB_PRELUDE_CATS_MEMORY
+#ifndef ATS2CPP_PRELUDE_CATS_MEMORY
+#define ATS2CPP_PRELUDE_CATS_MEMORY
 
 /* ****** ****** */
 
@@ -65,7 +65,7 @@
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_MEMORY
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_MEMORY)
 
 /* ****** ****** */
 

@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_INTEGER_LONG
-#define ATSLIB_PRELUDE_CATS_INTEGER_LONG
+#ifndef ATS2CPP_PRELUDE_CATS_INTEGER_LONG
+#define ATS2CPP_PRELUDE_CATS_INTEGER_LONG
 
 /* ****** ****** */
 //
@@ -116,7 +116,7 @@ atspre_g1int2uint_llint_ullint(x) atspre_g0int2uint_llint_ullint(x)
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_LONG
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_INTEGER_LONG)
 
 /* ****** ****** */
 

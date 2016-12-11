@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_ARRAYREF
-#define ATSLIB_PRELUDE_CATS_ARRAYREF
+#ifndef ATS2CPP_PRELUDE_CATS_ARRAYREF
+#define ATS2CPP_PRELUDE_CATS_ARRAYREF
 
 /* ****** ****** */
 
@@ -56,7 +56,7 @@ atspre_arrayref_make_arrpsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_ARRAYREF_CATS
+#endif // ifndef(ATS2CPP_PRELUDE_ARRAYREF_CATS)
 
 /* ****** ****** */
 

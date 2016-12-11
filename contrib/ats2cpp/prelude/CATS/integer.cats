@@ -42,8 +42,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_INTEGER
-#define ATSLIB_PRELUDE_CATS_INTEGER
+#ifndef ATS2CPP_PRELUDE_CATS_INTEGER
+#define ATS2CPP_PRELUDE_CATS_INTEGER
 
 /* ****** ****** */
 //
@@ -1272,7 +1272,7 @@ atspre_g0uint_isneqz_ullint (atstype_ullint x)
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_INTEGER)
 
 /* ****** ****** */
 

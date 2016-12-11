@@ -31,6 +31,18 @@ ffact(n) = if n > 0 then n * ffact(n-1) else 1.0
 //
 (* ****** ****** *)
 
+implement
+main0() = () where
+{
+//
+val () = println! ("fact(10) = ", fact(10))
+val () = println! ("ffact(10) = ", ffact(10))
+//
+} (* end of [main0] *)
+
+(* ****** ****** *)
+
+/*
 %{$
 
 #include <stdio.h>
@@ -43,6 +55,7 @@ int main()
 }
 
 %} // end of [%{$]
+*/
 
 (* ****** ****** *)
 

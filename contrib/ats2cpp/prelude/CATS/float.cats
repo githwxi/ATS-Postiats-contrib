@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_FLOAT
-#define ATSLIB_PRELUDE_CATS_FLOAT
+#ifndef ATS2CPP_PRELUDE_CATS_FLOAT
+#define ATS2CPP_PRELUDE_CATS_FLOAT
 
 /* ****** ****** */
 
@@ -578,7 +578,7 @@ atspre_div_ldouble_int
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_FLOAT
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_FLOAT)
 
 /* ****** ****** */
 

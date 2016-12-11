@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_BOOL
-#define ATSLIB_PRELUDE_CATS_BOOL
+#ifndef ATS2CPP_PRELUDE_CATS_BOOL
+#define ATS2CPP_PRELUDE_CATS_BOOL
 
 /* ****** ****** */
 
@@ -188,7 +188,7 @@ atspre_tostring_bool (
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_BOOL
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_BOOL)
 
 /* ****** ****** */
 

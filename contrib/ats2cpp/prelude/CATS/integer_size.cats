@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_INTEGER_SIZE
-#define ATSLIB_PRELUDE_CATS_INTEGER_SIZE
+#ifndef ATS2CPP_PRELUDE_CATS_INTEGER_SIZE
+#define ATS2CPP_PRELUDE_CATS_INTEGER_SIZE
 
 /* ****** ****** */
 //
@@ -525,7 +525,7 @@ atspre_g0string2int_ssize
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_SIZE
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_INTEGER_SIZE)
 
 /* ****** ****** */
 

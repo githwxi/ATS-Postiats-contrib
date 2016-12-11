@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_POINTER
-#define ATSLIB_PRELUDE_CATS_POINTER
+#ifndef ATS2CPP_PRELUDE_CATS_POINTER
+#define ATS2CPP_PRELUDE_CATS_POINTER
 
 /* ****** ****** */
 
@@ -207,7 +207,7 @@ atspre_neq_ptr_intz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_POINTER
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_POINTER)
 
 /* ****** ****** */
 

@@ -27,9 +27,9 @@
 /* ****** ****** */
 //
 #ifndef \
-ATS2CPP_LIBATS_STL_DEQUE_CATS
+ATS2CPP_LIBATS_STL_CATS_DEQUE
 #define \
-ATS2CPP_LIBATS_STL_DEQUE_CATS
+ATS2CPP_LIBATS_STL_CATS_DEQUE
 //
 /* ****** ****** */
 //
@@ -93,7 +93,7 @@ ats2cpp_STL_dequeptr_push_front(elt, p0, x0) \
 //
 /* ****** ****** */
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_DEQUE_CATS)
+#endif // end of ifndef(ATS2CPP_LIBATS_STL_CATS_DEQUE)
 //
 /* ****** ****** */
 

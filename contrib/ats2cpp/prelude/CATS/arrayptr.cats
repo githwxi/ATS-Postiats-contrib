@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_ARRAYPTR
-#define ATSLIB_PRELUDE_CATS_ARRAYPTR
+#ifndef ATS2CPP_PRELUDE_CATS_ARRAYPTR
+#define ATS2CPP_PRELUDE_CATS_ARRAYPTR
 
 /* ****** ****** */
 
@@ -77,7 +77,7 @@ atspre_arrayptr_make_arrpsz
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_ARRAYPTR
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_ARRAYPTR)
 
 /* ****** ****** */
 

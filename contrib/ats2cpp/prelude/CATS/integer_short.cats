@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_INTEGER_SHORT
-#define ATSLIB_PRELUDE_CATS_INTEGER_SHORT
+#ifndef ATS2CPP_PRELUDE_CATS_INTEGER_SHORT
+#define ATS2CPP_PRELUDE_CATS_INTEGER_SHORT
 
 /* ****** ****** */
 //
@@ -472,7 +472,7 @@ atspre_g0uint_isneqz_usint (atstype_usint x)
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_SHORT
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_INTEGER_SHORT)
 
 /* ****** ****** */
 

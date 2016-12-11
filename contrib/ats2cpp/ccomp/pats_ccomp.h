@@ -508,6 +508,9 @@ atsruntime_handle_unmatchedval
 // HX-2016-11-17: for example
 //
 #include \
+"ats2cpp/prelude/CATS/basics.cats"
+//
+#include \
 "ats2cpp/prelude/CATS/integer.cats"
 #include \
 "ats2cpp/prelude/CATS/pointer.cats"

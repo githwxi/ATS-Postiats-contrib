@@ -35,14 +35,14 @@ UN = "prelude/SATS/unsafe.sats"
 %{#
 //
 #ifndef \
-ATS2CPP_LIBATS_STL_DEQUE_QUEUE_DATS
+ATS2CPP_LIBATS_STL_DATS_DEQUE_QUEUE
 #define \
-ATS2CPP_LIBATS_STL_DEQUE_QUEUE_DATS
+ATS2CPP_LIBATS_STL_DATS_DEQUE_QUEUE
 //
 #include \
 "ats2cpp/libats/STL/CATS/deque.cats"
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_DEQUE_QUEUE_DATS)
+#endif // end of ifndef(ATS2CPP_LIBATS_STL_DATS_DEQUE_QUEUE)
 //
 %} // end of [%{#]
 

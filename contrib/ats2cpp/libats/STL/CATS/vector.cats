@@ -27,9 +27,9 @@
 /* ****** ****** */
 //
 #ifndef \
-ATS2CPP_LIBATS_STL_VECTOR_CATS
+ATS2CPP_LIBATS_STL_CATS_VECTOR
 #define \
-ATS2CPP_LIBATS_STL_VECTOR_CATS
+ATS2CPP_LIBATS_STL_CATS_VECTOR
 //
 /* ****** ****** */
 //
@@ -90,7 +90,7 @@ ats2cpp_STL_vectorptr_push_back(elt, p0, x0) \
 //
 /* ****** ****** */
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_VECTOR_CATS)
+#endif // end of ifndef(ATS2CPP_LIBATS_STL_CATS_VECTOR)
 //
 /* ****** ****** */
 

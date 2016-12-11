@@ -35,14 +35,14 @@ UN = "prelude/SATS/unsafe.sats"
 %{#
 //
 #ifndef \
-ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS
+ATS2CPP_LIBATS_STL_DATS_VECTOR_STACK
 #define \
-ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS
+ATS2CPP_LIBATS_STL_DATS_VECTOR_STACK
 //
 #include \
 "ats2cpp/libats/STL/CATS/vector.cats"
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_VECTOR_STACK_DATS)
+#endif // end of ifndef(ATS2CPP_LIBATS_STL_DATS_VECTOR_STACK)
 //
 %} // end of [%{#]
 

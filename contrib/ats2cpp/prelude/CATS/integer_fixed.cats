@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_CATS_INTEGER_FIXED
-#define ATSLIB_PRELUDE_CATS_INTEGER_FIXED
+#ifndef ATS2CPP_PRELUDE_CATS_INTEGER_FIXED
+#define ATS2CPP_PRELUDE_CATS_INTEGER_FIXED
 
 /* ****** ****** */
 
@@ -1420,7 +1420,7 @@ atspre_g0uint_isneqz_uint64 (atstype_uint64 x)
 //
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_FIXED
+#endif // ifndef(ATS2CPP_PRELUDE_CATS_INTEGER_FIXED)
 
 /* ****** ****** */
 
