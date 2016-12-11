@@ -81,6 +81,22 @@ ATS_INLINE_DEF__
 
 /* ****** ****** */
 //
+#define \
+ATSmainats_void_0(err) mainats_void_0()
+#define \
+ATSmainats_argc_argv_0(argc, argv, err) mainats_argc_argv_0(argc, argv)
+#define \
+ATSmainats_argc_argv_envp_0(argc, argv, envp, err) mainats_argc_argv_envp_0(argc, argv, envp)
+//
+#define \
+ATSmainats_void_int(err) err = mainats_void_int()
+#define \
+ATSmainats_argc_argv_int(argc, argv, err) err = mainats_argc_argv_int(argc, argv)
+#define \
+ATSmainats_argc_argv_envp_int(argc, argv, envp, err) err = mainats_argc_argv_envp_int(argc, argv, envp)
+//
+/* ****** ****** */
+//
 // HX: boolean values
 //
 #define atsbool_true 1
@@ -533,6 +549,8 @@ atsruntime_handle_unmatchedval
 */
 //
 #include "ats2cpp/prelude/CATS/string.cats"
+//
+#include "ats2cpp/prelude/CATS/fprintf.cats"
 //
 #include "ats2cpp/prelude/CATS/array.cats"
 #include "ats2cpp/prelude/CATS/arrayptr.cats"

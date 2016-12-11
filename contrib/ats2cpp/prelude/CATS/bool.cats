@@ -180,6 +180,14 @@ atspre_compare_bool_bool (
 
 ATSinline()
 atstype_string
+atspre_bool2string (
+  atstype_bool x
+) {
+  return (x) ? "true" : "false" ;
+} // end of [atspre_bool2string]
+
+ATSinline()
+atstype_string
 atspre_tostring_bool (
   atstype_bool x
 ) {
