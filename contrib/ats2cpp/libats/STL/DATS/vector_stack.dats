@@ -61,6 +61,14 @@ stack(a:vt@ype) = [n:int] stack_vtype(a, n)
 (* ****** ****** *)
 //
 extern
+prfun
+lemma_stack_param
+  {a:vt0p}{n:int}
+  (stk: !stack(INV(a), n)): [n >= 0] void
+//
+(* ****** ****** *)
+//
+extern
 fun
 {a:vt@ype}
 stack_make_nil(): stack(a, 0)
