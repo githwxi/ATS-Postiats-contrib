@@ -9,6 +9,15 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
+
+%{^
+//
+#include \
+"pats_ccomp_runtime.c"
+//
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #staload
 "./../DATS/vector_array.dats"

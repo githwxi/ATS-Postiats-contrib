@@ -15,12 +15,8 @@
 //
 (* ****** ****** *)
 
-extern
-fun
-mytest(): void = "mac#"
-//
 implement
-mytest() =
+main0() = () where
 {
 //
 val Q0 =
@@ -46,28 +42,8 @@ val (0) = sz2i(length(Q0))
 //
 val ((*freed*)) = queue_free_nil(Q0)
 //
-} (* end of [mytest] *)
+} (* end of [main0] *)
 
-(* ****** ****** *)
-//
-%{$
-//
-#include <iostream>
-//
-int
-main(int argc, int argv)
-{
-//
-std::cout << "Hello from [test_deque_queue]!" << std::endl;
-//
-mytest();
-//
-return 0;
-//
-} /* end of [main0] */
-//
-%} // end of [%{^]
-//
 (* ****** ****** *)
 
 (* end of [test_deque_queue.dats] *)

@@ -1,7 +1,7 @@
 /*
 (*
 ** ATS2CPP:
-** API for stdio.h
+** API for sys/types.h
 *)
 (* ****** ****** *)
 (*
@@ -20,15 +20,17 @@
 */
 /* ****** ****** */
 
-#ifndef ATS2CPP_LIBATS_C_CATS_STDIO
-#define ATS2CPP_LIBATS_C_CATS_STDIO
+#ifndef ATS2CPP_LIBATS_LIBC_CATS_SYS_TYPES
+#define ATS2CPP_LIBATS_LIBC_CATS_SYS_TYPES
 
 /* ****** ****** */
 
-/* ****** ****** */
-
-#endif // end of ifndef(ATS2CPP_LIBATS_C_CATS_STDIO)
+#include <sys/types.h>
 
 /* ****** ****** */
 
-/* end of [stdio.cats] */
+#endif // end of ifndef(ATS2CPP_LIBATS_LIBC_CATS_SYS_TYPES)
+
+/* ****** ****** */
+
+/* end of [types.cats] */

@@ -14,13 +14,9 @@
 "./../DATS/vector_stack.dats"
 //
 (* ****** ****** *)
-
-extern
-fun
-mytest(): void = "mac#"
 //
 implement
-mytest() =
+main0() = () where
 {
 //
 val S0 =
@@ -46,28 +42,8 @@ val (0) = sz2i(length(S0))
 //
 val ((*freed*)) = stack_free_nil(S0)
 //
-} (* end of [mytest] *)
+} (* end of [main0] *)
 
-(* ****** ****** *)
-//
-%{$
-//
-#include <iostream>
-//
-int
-main(int argc, int argv)
-{
-//
-std::cout << "Hello from [test_vector_stack]!" << std::endl;
-//
-mytest();
-//
-return 0;
-//
-} /* end of [main0] */
-//
-%} // end of [%{^]
-//
 (* ****** ****** *)
 
 (* end of [test_vector_stack.dats] *)

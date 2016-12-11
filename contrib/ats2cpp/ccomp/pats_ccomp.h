@@ -494,29 +494,18 @@ struct{char _[_ATSTYPE_VAR_SIZE_];} atstype_var[0] ;
 #define atsrefarg1_type(hit) atstype_ref
 
 /* ****** ****** */
-//
-#include <iostream>
-//
-extern "C" void exit(int) throw ();
-//
-/* ****** ****** */
-//
-// HX-2013:
-// for reporting pattern matching failure
-//
+
 extern "C"
 {
-void
-atsruntime_handle_unmatchedval
-  (char *msg0)
-{
-  std::cerr
-  << "exit(ATS): unmatched value at run-time:\n"
-  << msg0 << std::endl; exit(1) ;
-  return ; // deadcode
-} /* end of [atsruntime_handle_unmatchedval] */
-} /* end of [extern "C"]
 //
+void
+atsruntime_handle_unmatchedval(char *msg0);
+//
+void
+atsruntime_handle_unmatchedarg(char *msg0);
+//
+} /* end of [extern "C"] */
+
 /* ****** ****** */
 //
 #if(1)
@@ -524,37 +513,37 @@ atsruntime_handle_unmatchedval
 // HX-2016-11-17: for example
 //
 #include \
-"ats2cpp/prelude/CATS/basics.cats"
+"prelude/CATS/basics.cats"
 //
 #include \
-"ats2cpp/prelude/CATS/integer.cats"
+"prelude/CATS/integer.cats"
 #include \
-"ats2cpp/prelude/CATS/pointer.cats"
+"prelude/CATS/pointer.cats"
 //
 #include \
-"ats2cpp/prelude/CATS/integer_long.cats"
+"prelude/CATS/integer_long.cats"
 #include \
-"ats2cpp/prelude/CATS/integer_size.cats"
+"prelude/CATS/integer_size.cats"
 #include \
-"ats2cpp/prelude/CATS/integer_short.cats"
+"prelude/CATS/integer_short.cats"
 //
-#include "ats2cpp/prelude/CATS/bool.cats"
-#include "ats2cpp/prelude/CATS/char.cats"
+#include "prelude/CATS/bool.cats"
+#include "prelude/CATS/char.cats"
 //
-#include "ats2cpp/prelude/CATS/float.cats"
+#include "prelude/CATS/float.cats"
 //
 /*
 #include					\
-"ats2cpp/prelude/CATS/integer_fixed.cats"
+"prelude/CATS/integer_fixed.cats"
 */
 //
-#include "ats2cpp/prelude/CATS/string.cats"
+#include "prelude/CATS/string.cats"
 //
-#include "ats2cpp/prelude/CATS/fprintf.cats"
+#include "prelude/CATS/fprintf.cats"
 //
-#include "ats2cpp/prelude/CATS/array.cats"
-#include "ats2cpp/prelude/CATS/arrayptr.cats"
-#include "ats2cpp/prelude/CATS/arrayref.cats"
+#include "prelude/CATS/array.cats"
+#include "prelude/CATS/arrayptr.cats"
+#include "prelude/CATS/arrayref.cats"
 //
 #endif // #if(1)
 //
