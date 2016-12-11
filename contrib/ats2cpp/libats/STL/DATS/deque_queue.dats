@@ -26,7 +26,188 @@
 // Start Time: December, 2016
 //
 (* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
 
+%{#
+//
+#ifndef \
+ATS2CPP_LIBATS_STL_DEQUE_QUEUE_DATS
+#define \
+ATS2CPP_LIBATS_STL_DEQUE_QUEUE_DATS
+//
+#include \
+"ats2cpp/libats/STL/CATS/deque.cats"
+//
+#endif // end of ifndef(ATS2CPP_LIBATS_STL_DEQUE_QUEUE_DATS)
+//
+%} // end of [%{#]
+
+(* ****** ****** *)
+//
+absvtype
+queue_vtype
+(a:vt@ype+, n:int) =
+$extype"ats2cpp_STL_dequeptr"(a)
+//
+stadef queue = queue_vtype
+//
+vtypedef
+queue(a:vt@ype) = [n:int] queue_vtype(a, n)
+//
+(* ****** ****** *)
+//
+extern
+prfun
+lemma_queue_param
+  {a:vt0p}{n:int}
+  (stk: !queue(INV(a), n)): [n >= 0] void
+//
+(* ****** ****** *)
+//
+extern
+fun
+{a:vt@ype}
+queue_make_nil(): queue(a, 0)
+extern
+fun
+{a:vt@ype}
+queue_free_nil(queue(a, 0)): void
+//
+(* ****** ****** *)
+//
+extern
+fun
+{a:vt0p}
+queue_length
+  {n:int}(stk: !queue(a, n)): size_t(n) = "mac#%"
+//
+(* ****** ****** *)
+//
+extern
+fun
+{a:vt0p}
+queue_insert
+  {n:int}
+(
+  stk: !queue(a, n) >> queue(a, n+1), x0: a
+) : void = "mac#%" // end-of-function
+//
+extern
+fun
+{a:vt0p}
+queue_takeout
+  {n:int | n > 0}
+  (stk: !queue(a, n) >> queue(a, n-1)): a = "mac#%"
+//
+(* ****** ****** *)
+//
+overload length with queue_length
+//
+(* ****** ****** *)
+//
+overload .size with queue_length
+overload .length with queue_length
+//
+overload .insert with queue_insert
+overload .takeout with queue_takeout
+//
+(* ****** ****** *)
+//
+// HX-2016-12:
+// externally template-based implmentation
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+queue_make_nil
+(
+// argumentless
+) =
+$extfcall
+(
+  queue(a, 0), "ats2cpp_STL_dequeptr_new", $tyrep(a)
+) (* queue_make_nil *)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+queue_free_nil
+(
+  p0
+) = let
+//
+val p0 = $UN.castvwtp0{ptr}(p0)
+//
+in
+//
+$extfcall
+  (void, "ats2cpp_STL_dequeptr_free", $tyrep(a), p0)
+//
+end // end of [queue_free_nil]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+queue_length
+  {n}(p0) = let
+//
+val p0 = $UN.castvwtp1{ptr}(p0)
+//
+in
+//
+$extfcall
+  (size_t(n), "ats2cpp_STL_dequeptr_size", $tyrep(a), p0)
+//
+end // end of [queue_length]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+queue_insert
+  (p0, x0) = let
+//
+prval
+() = $UN.castvwtp2void(p0)
+//
+val x0 = $UN.castvwtp0{a?}(x0)
+val p0 = $UN.castvwtp1{ptr}(p0)
+//
+in
+//
+$extfcall
+( void,
+  "ats2cpp_STL_dequeptr_push_back", $tyrep(a), p0, x0
+) (* $extfcall *)
+//
+end // end of [queue_insert]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+queue_takeout
+  (p0) = x0 where
+{
+//
+prval
+() = $UN.castvwtp2void(p0)
+//
+val p0 = $UN.castvwtp1{ptr}(p0)
+val x0 =
+  $extfcall(a, "ats2cpp_STL_dequeptr_front", $tyrep(a), p0)
+val () =
+  $extfcall(void, "ats2cpp_STL_dequeptr_pop_front", $tyrep(a), p0)
+//
+} (* end of [queue_insert] *)
+//
 (* ****** ****** *)
 
 (* end of [deque_queue.dats] *)

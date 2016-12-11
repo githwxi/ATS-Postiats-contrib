@@ -33,6 +33,17 @@ all::
 ######
 #
 all:: \
+test_deque_queue
+test_deque_queue: \
+test_deque_queue_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
+test_deque_queue_dats.c: test_deque_queue.dats; $(PATSOPT) -o $@ -d $<
+#
+regress:: test_deque_queue; ./$<
+cleanall:: ; rm -f test_deque_queue
+#
+######
+#
+all:: \
 test_vector_array
 test_vector_array: \
 test_vector_array_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<

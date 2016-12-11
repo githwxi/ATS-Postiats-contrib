@@ -1,7 +1,8 @@
 (* ****** ****** *)
 //
 // HX-2016-12:
-// For testing STL/vector_stack
+// For testing
+// STL/vector_stack
 //
 (* ****** ****** *)
 
@@ -22,30 +23,26 @@ implement
 mytest() =
 {
 //
-val S0 = stack_make_nil<int>()
+val S0 =
+  stack_make_nil<int>()
 //
-val-(0) =
-  sz2i(length(S0))
+val-(0) = sz2i(length(S0))
 //
 val () = S0.insert(1)
 //
-val-(1) =
-  sz2i(length(S0))
+val-(1) = sz2i(length(S0))
 //
 val () = S0.insert(2)
 //
-val-(2) =
-  sz2i(length(S0))
+val-(2) = sz2i(length(S0))
 //
 val-(2) = S0.takeout()
 //
-val (1) =
-  sz2i(length(S0))
+val (1) = sz2i(length(S0))
 //
 val-(1) = S0.takeout()
 //
-val (0) =
-  sz2i(length(S0))
+val (0) = sz2i(length(S0))
 //
 val ((*freed*)) = stack_free_nil(S0)
 //
