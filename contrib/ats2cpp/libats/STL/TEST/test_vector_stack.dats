@@ -19,6 +19,12 @@ implement
 main0() = () where
 {
 //
+val () =
+println!
+(
+"Hello from [test_vector_stack]!"
+) (* end of [val] *)
+//
 val S0 =
   stack_make_nil<int>()
 //

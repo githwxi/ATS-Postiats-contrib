@@ -19,6 +19,12 @@ implement
 main0() = () where
 {
 //
+val () =
+println!
+(
+"Hello from test_deque_queue!"
+) (* end of [val] *)
+//
 val Q0 =
   queue_make_nil<int>()
 //
