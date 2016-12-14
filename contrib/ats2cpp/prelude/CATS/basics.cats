@@ -94,8 +94,8 @@ atspre_int2sgn
 } /* [atspre_int2sgn] */
 
 /* ****** ****** */
-
-#if(0)
+//
+#if(1)
 //
 ATSinline()
 atsvoid_t0ype
@@ -106,8 +106,8 @@ atspre_cloptr_free
   ATS_MFREE(pclo) ; return ;
 } /* [atspre_cloptr_free] */
 //
-#endif // [#if(0)]
-
+#endif // #if(0)
+//
 /* ****** ****** */
 
 ATSinline()

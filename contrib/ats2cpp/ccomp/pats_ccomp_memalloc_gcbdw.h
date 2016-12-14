@@ -41,20 +41,22 @@ extern
 int fprintf (FILE *stream, const char *format, ...) ;
 */
 /* ****** ****** */
-/*
+//
 #include <stdlib.h>
-*/
-extern void exit (int code) ; 
-
-/* ****** ****** */
+//
 /*
-#include <gc.h>
+extern void exit (int code) ; 
 */
+/* ****** ****** */
+//
+#include <gc.h>
+//
+/*
 extern void GC_init () ;
 extern void GC_free (void *ptr) ;
 extern void *GC_malloc(size_t bsz) ;
 extern void *GC_realloc(void *ptr, size_t bsz) ;
-
+*/
 /* ****** ****** */
 
 ATSinline()

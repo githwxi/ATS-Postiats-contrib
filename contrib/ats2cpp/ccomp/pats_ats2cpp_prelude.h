@@ -56,6 +56,8 @@
 //
 #include "prelude/CATS/fprintf.cats"
 //
+#include "prelude/CATS/filebas.cats"
+//
 #include "prelude/CATS/array.cats"
 #include "prelude/CATS/arrayptr.cats"
 #include "prelude/CATS/arrayref.cats"
@@ -66,4 +68,4 @@
 
 /* ****** ****** */
 
-/* end of [pats_ccomp.h] */
+/* end of [pats_ats2cpp_prelude.h] */

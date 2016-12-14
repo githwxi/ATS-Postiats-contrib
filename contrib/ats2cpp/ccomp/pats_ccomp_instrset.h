@@ -47,11 +47,21 @@
 //
 /* ****** ****** */
 
+/*
+#define ATStyclo() struct{ void *cfun; }
+*/
 #define ATStysum() struct{ int contag; }
 #define ATStyexn() struct{ int exntag; char *exnmsg; }
 #define ATStylist(tyelt) struct{ tyelt head; void *tail; }
-#define ATStyclo() struct{ void *cfun; }
 
+/* ****** ****** */
+//
+typedef
+struct{
+void *cfun;
+} ATStyclo ;
+typedef ATStyclo *ATStyclo_ptr ;
+//
 /* ****** ****** */
 //
 // HX: for supporting lazy-evaluation
@@ -203,7 +213,7 @@ ATSloop_close(init, fini, cont) \
 #define \
 ATSfunclo_fun(pmv, targs, tres) ((tres(*)targs)(pmv))
 #define \
-ATSfunclo_clo(pmv, targs, tres) ((tres(*)targs)(((ATStyclo()*)pmv)->cfun))
+ATSfunclo_clo(pmv, targs, tres) ((tres(*)targs)(((ATStyclo_ptr)pmv)->cfun))
 //
 /* ****** ****** */
 //

@@ -45,7 +45,7 @@
 #include <stddef.h>
 //
 /* ****** ****** */
-//
+/*
 extern "C"
 {
 void atsruntime_mfree_undef(void *ptr) ;
@@ -53,6 +53,9 @@ void *atsruntime_malloc_undef(size_t bsz) ;
 void *atsruntime_calloc_undef(size_t asz, size_t tsz) ;
 void *atsruntime_realloc_undef(void *ptr, size_t bsz) ;
 }
+*/
+//
+#include <stdlib.h>
 //
 /* ****** ****** */
 

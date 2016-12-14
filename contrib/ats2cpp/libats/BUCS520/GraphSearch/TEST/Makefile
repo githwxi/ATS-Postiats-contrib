@@ -11,16 +11,14 @@ CXXFLAGS = $(MYCFLAGS)
 #
 MYCFLAGS := -fpermissive -w
 #
-MYCFLAGS += -D_ATS_CCOMP_HEADER_NONE_
+MYCFLAGS += -DATS_MEMALLOC_GCBDW
+#
 MYCFLAGS += -D_ATS_CCOMP_PRELUDE_NONE_
-MYCFLAGS += -D_ATS_CCOMP_PRELUDE_USER_='"pats_ccomp.h"'
-# MYCFLAGS += -D_ATS_CCOMP_RUNTIME_NONE_
+#
 MYCFLAGS += -D_ATS_CCOMP_EXCEPTION_NONE_
 MYCFLAGS += -D_ATS_CCOMP_RUNTIME_TRYWITH_NONE_
 #
-# MYCFLAGS += -D ATSLIB_LIBATS_LIBC_CATS_STDIO
-# MYCFLAGS += -D ATSLIB_LIBATS_LIBC_CATS_SYS_STAT
-# MYCFLAGS += -D ATSLIB_LIBATS_LIBC_CATS_SYS_TYPES
+MYCFLAGS += -D_ATS_CCOMP_PRELUDE_USER_='"pats_ats2cpp_prelude.h"'
 #
 # MYCFLAGS += -D_ATSTYPE_VAR_SIZE_=1024
 #
@@ -42,7 +40,7 @@ all::
 all:: \
 QueenPuzzle
 QueenPuzzle: \
-QueenPuzzle_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
+QueenPuzzle_dats.c; $(CPP) $(CXXFLAGS) -o $@ $< -lgccpp -lgc
 QueenPuzzle_dats.c: QueenPuzzle.dats; $(PATSOPT) -o $@ -d $<
 #
 regress:: QueenPuzzle; ./$<

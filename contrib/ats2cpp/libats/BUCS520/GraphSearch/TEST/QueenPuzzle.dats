@@ -87,7 +87,6 @@ QueenPuzzle_solve(): void
 //
 implement
 QueenPuzzle_solve() =
-  GraphSearch() where
 {
 val
 theStore =
@@ -107,6 +106,8 @@ theSearchStore_unget<>(store) =
 {
   prval () = $UN.cast2void(store)
 }
+//
+val () = GraphSearch((*void*))
 //
 val () = stack_free_all(theStore)
 //
