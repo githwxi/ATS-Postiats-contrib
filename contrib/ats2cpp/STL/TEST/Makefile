@@ -51,6 +51,17 @@ cleanall:: ; rm -f test_deque_queue
 ######
 #
 all:: \
+test_queue_queue
+test_queue_queue: \
+test_queue_queue_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
+test_queue_queue_dats.c: test_queue_queue.dats; $(PATSOPT) -o $@ -d $<
+#
+regress:: test_queue_queue; ./$<
+cleanall:: ; rm -f test_queue_queue
+#
+######
+#
+all:: \
 test_stack_stack
 test_stack_stack: \
 test_stack_stack_dats.c; $(CPP) $(CXXFLAGS) -o $@ $<
