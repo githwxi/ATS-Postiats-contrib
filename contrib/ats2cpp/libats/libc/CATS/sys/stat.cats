@@ -1,7 +1,7 @@
 /*
 (*
 ** ATS2CPP:
-** API for sys/stat.h
+** API for ATSLIB/sys/stat
 *)
 (* ****** ****** *)
 (*

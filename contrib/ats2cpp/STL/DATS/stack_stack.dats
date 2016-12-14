@@ -1,8 +1,8 @@
 (* ****** ****** *)
 
 (*
-** A linear queue
-** implementation based on STL:deque
+** A linear stack
+** implementation based on STL:stack
 *)
 
 (* ****** ****** *)
@@ -35,84 +35,102 @@ UN = "prelude/SATS/unsafe.sats"
 %{#
 //
 #ifndef \
-ATS2CPP_LIBATS_STL_DATS_DEQUE_QUEUE
+ATS2CPP_STL_DATS_STACK_STACK
 #define \
-ATS2CPP_LIBATS_STL_DATS_DEQUE_QUEUE
+ATS2CPP_STL_DATS_STACK_STACK
 //
-#include "libats/STL/CATS/deque.cats"
+#include "STL/CATS/stack.cats"
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_DATS_DEQUE_QUEUE)
+#endif // end of ifndef(ATS2CPP_STL_DATS_STACK_STACK)
 //
 %} // end of [%{#]
 
 (* ****** ****** *)
 //
 absvtype
-queue_vtype
+stack_vtype
 (a:vt@ype+, n:int) =
-$extype"ats2cpp_STL_dequeptr"(a)
+$extype"ats2cpp_STL_stackptr"(a)
 //
-stadef queue = queue_vtype
+stadef stack = stack_vtype
 //
 vtypedef
-queue(a:vt@ype) = [n:int] queue_vtype(a, n)
+stack(a:vt@ype) = [n:int] stack_vtype(a, n)
 //
 (* ****** ****** *)
 //
 extern
 prfun
-lemma_queue_param
+lemma_stack_param
   {a:vt0p}{n:int}
-  (stk: !queue(INV(a), n)): [n >= 0] void
+  (stk: !stack(INV(a), n)): [n >= 0] void
 //
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt@ype}
-queue_make_nil(): queue(a, 0)
+stack_make_nil(): stack(a, 0)
 extern
 fun
 {a:vt@ype}
-queue_free_nil(queue(a, 0)): void
+stack_free_nil(stack(a, 0)): void
 //
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
-queue_length
-  {n:int}(stk: !queue(a, n)): size_t(n) = "mac#%"
+stack_length
+  {n:int}(stk: !stack(a, n)): size_t(n) = "mac#%"
 //
 (* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
-queue_insert
+stack_is_nil
+  {n:int}(stk: !stack(a, n)): bool(n==0) = "mac#%"
+extern
+fun
+{a:vt0p}
+stack_isnot_nil
+  {n:int}(stk: !stack(a, n)): bool(n > 0) = "mac#%"
+//
+(* ****** ****** *)
+//
+extern
+fun
+{a:vt0p}
+stack_insert
   {n:int}
 (
-  stk: !queue(a, n) >> queue(a, n+1), x0: a
+  stk: !stack(a, n) >> stack(a, n+1), x0: a
 ) : void = "mac#%" // end-of-function
 //
 extern
 fun
 {a:vt0p}
-queue_takeout
+stack_takeout
   {n:int | n > 0}
-  (stk: !queue(a, n) >> queue(a, n-1)): a = "mac#%"
+  (stk: !stack(a, n) >> stack(a, n-1)): a = "mac#%"
 //
 (* ****** ****** *)
 //
-overload length with queue_length
+overload iseqz with stack_is_nil
+overload isneqz with stack_isnot_nil
+//
+overload length with stack_length
 //
 (* ****** ****** *)
 //
-overload .size with queue_length
-overload .length with queue_length
+overload .size with stack_length
+overload .length with stack_length
 //
-overload .insert with queue_insert
-overload .takeout with queue_takeout
+(* ****** ****** *)
+//
+overload .insert with stack_insert
+overload .takeout with stack_takeout
 //
 (* ****** ****** *)
 //
@@ -123,20 +141,20 @@ overload .takeout with queue_takeout
 //
 implement
 {a}(*tmp*)
-queue_make_nil
+stack_make_nil
 (
 // argumentless
 ) =
 $extfcall
 (
-  queue(a, 0), "ats2cpp_STL_dequeptr_new", $tyrep(a)
-) (* queue_make_nil *)
+  stack(a, 0), "ats2cpp_STL_stackptr_new", $tyrep(a)
+) (* stack_make_nil *)
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-queue_free_nil
+stack_free_nil
 (
   p0
 ) = let
@@ -146,15 +164,15 @@ val p0 = $UN.castvwtp0{ptr}(p0)
 in
 //
 $extfcall
-  (void, "ats2cpp_STL_dequeptr_free", $tyrep(a), p0)
+  (void, "ats2cpp_STL_stackptr_free", $tyrep(a), p0)
 //
-end // end of [queue_free_nil]
+end // end of [stack_free_nil]
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-queue_length
+stack_length
   {n}(p0) = let
 //
 val p0 = $UN.castvwtp1{ptr}(p0)
@@ -162,15 +180,46 @@ val p0 = $UN.castvwtp1{ptr}(p0)
 in
 //
 $extfcall
-  (size_t(n), "ats2cpp_STL_dequeptr_size", $tyrep(a), p0)
+(
+  size_t(n)
+, "ats2cpp_STL_stackptr_size", $tyrep(a), p0
+) (* $extfcall *)
 //
-end // end of [queue_length]
+end // end of [stack_length]
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-queue_insert
+stack_is_nil
+  {n}(p0) = let
+//
+val p0 = $UN.castvwtp1{ptr}(p0)
+//
+in
+//
+$extfcall
+(
+  bool(n==0)
+, "ats2cpp_STL_stackptr_empty", $tyrep(a), p0
+) (* $extfcall *)
+//
+end // end of [stack_is_nil]
+//
+//
+implement
+{a}(*tmp*)
+stack_isnot_nil(p0) =
+not(stack_is_nil<a>(p0)) where
+{
+  prval ((*n >= 0*)) = lemma_stack_param(p0)
+} (* end of [stack_isnot_nil] *)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stack_insert
   (p0, x0) = let
 //
 prval
@@ -183,16 +232,16 @@ in
 //
 $extfcall
 ( void,
-  "ats2cpp_STL_dequeptr_push_back", $tyrep(a), p0, x0
+  "ats2cpp_STL_stackptr_push", $tyrep(a), p0, x0
 ) (* $extfcall *)
 //
-end // end of [queue_insert]
+end // end of [stack_insert]
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-queue_takeout
+stack_takeout
   (p0) = x0 where
 {
 //
@@ -201,12 +250,12 @@ prval
 //
 val p0 = $UN.castvwtp1{ptr}(p0)
 val x0 =
-  $extfcall(a, "ats2cpp_STL_dequeptr_front", $tyrep(a), p0)
+  $extfcall(a, "ats2cpp_STL_stackptr_top", $tyrep(a), p0)
 val () =
-  $extfcall(void, "ats2cpp_STL_dequeptr_pop_front", $tyrep(a), p0)
+  $extfcall(void, "ats2cpp_STL_stackptr_pop", $tyrep(a), p0)
 //
-} (* end of [queue_insert] *)
+} (* end of [stack_insert] *)
 //
 (* ****** ****** *)
 
-(* end of [deque_queue.dats] *)
+(* end of [stack_stack.dats] *)

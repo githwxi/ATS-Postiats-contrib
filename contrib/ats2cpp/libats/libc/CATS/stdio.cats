@@ -1,7 +1,7 @@
 /*
 (*
 ** ATS2CPP:
-** API for stdio.h
+** API for ATSLIB/stdio
 *)
 (* ****** ****** *)
 (*

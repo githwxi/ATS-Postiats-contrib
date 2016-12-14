@@ -46,42 +46,45 @@ in
 implement
 randcolor() = let
 //
-  val M = 256
-  val r = randint (M)
-  val b = randint (M)
-  val g = randint (M)
+val M = 256
+val r = randint(M)
+val b = randint(M)
+val g = randint(M)
 //
-  val bsz = 16
-  val (pf, pfgc | p) = malloc_gc (i2sz(bsz))
-  val () = $extfcall
-  (
-    void, "snprintf", p, bsz, "#%02x%02x%02x", i2u(r), i2u(b), i2u(g)
-  ) (* end of [$extfcall] *)
+val bsz = 16
+val (pf, pfgc | p) = malloc_gc (i2sz(bsz))
+val () =
+$extfcall (
+  void
+, "snprintf", p, bsz, "#%02x%02x%02x", i2u(r), i2u(b), i2u(g)
+) (* end of [$extfcall] *)
 //
 in
   $UN.castvwtp0{string}((pf, pfgc | p))
 end // end of [randcolor]
 //
-implement randcolor_initize () = srandom_with_time ()
+implement
+randcolor_initize() = srandom_with_time()
 //
 end // end of [local]
 
 (* ****** ****** *)
 //
 implement
-tabstyle_isbox (ts) =
+tabstyle_isbox(ts) =
   case+ ts of TSnone () => false | _ => true
+//
 implement
-tabstyle_ishbox (ts) =
+tabstyle_ishbox(ts) =
   case+ ts of TShbox () => true | _ => false
 implement
-tabstyle_isvbox (ts) =
+tabstyle_isvbox(ts) =
   case+ ts of TSvbox () => true | _ => false  
 //
 (* ****** ****** *)
 //
 assume
-webox_type = hashtbl (string, gval)
+webox_type = hashtbl(string, gval)
 //
 (* ****** ****** *)
 
@@ -448,6 +451,10 @@ implement
 {}(*tmp*)
 webox_set_children_3
   (wbx, x1, x2, x3) = webox_set_children (wbx, $list_t(x1, x2, x3))
+implement
+{}(*tmp*)
+webox_set_children_4
+  (wbx, x1, x2, x3, x4) = webox_set_children (wbx, $list_t(x1, x2, x3, x4))
 //
 (* ****** ****** *)
 

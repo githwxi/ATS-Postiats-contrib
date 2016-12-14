@@ -16,8 +16,8 @@ charptr = $extype"atstype_string"
 
 abstype webox_type = ptr
 typedef webox = webox_type
-typedef weboxlst = List (webox)
-typedef weboxopt = Option (webox)
+typedef weboxlst = List0(webox)
+typedef weboxopt = Option(webox)
 
 (* ****** ****** *)
 
@@ -32,7 +32,9 @@ fun randcolor_initize ((*void*)): void
 
 datatype
 tabstyle =
-  | TSnone of () | TShbox of () | TSvbox of ()
+  | TSnone of ()
+  | TShbox of ()
+  | TSvbox of ()
 // end of [tabstyle]
 
 (* ****** ****** *)
@@ -173,12 +175,15 @@ fun{}
 webox_set_children_2 (webox, x1: webox, x2: webox): void
 fun{}
 webox_set_children_3 (webox, x1: webox, x2: webox, x3: webox): void
+fun{}
+webox_set_children_4 (webox, x1: webox, x2: webox, x3: webox, x4: webox): void
 //
 overload .children with webox_get_children
 overload .children with webox_set_children
 overload .children with webox_set_children_1
-overload .children with webox_set_children_3
 overload .children with webox_set_children_2
+overload .children with webox_set_children_3
+overload .children with webox_set_children_4
 //
 (* ****** ****** *)
 //

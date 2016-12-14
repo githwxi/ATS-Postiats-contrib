@@ -1,7 +1,7 @@
 /*
 (*
 ** ATS2CPP:
-** API for sys/types.h
+** API for ATSLIB/sys/types
 *)
 (* ****** ****** *)
 (*

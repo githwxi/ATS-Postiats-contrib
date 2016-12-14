@@ -1,7 +1,7 @@
 /*
 (*
 ** ATS2CPP:
-** API for STL:deque
+** API for STL:vector
 *)
 (* ****** ****** *)
 (*
@@ -26,75 +26,70 @@
 //
 /* ****** ****** */
 //
-#ifndef \
-ATS2CPP_LIBATS_STL_CATS_DEQUE
-#define \
-ATS2CPP_LIBATS_STL_CATS_DEQUE
+#ifndef ATS2CPP_STL_CATS_VECTOR
+#define ATS2CPP_STL_CATS_VECTOR
 //
 /* ****** ****** */
 //
-#include <deque>
-//
-/* ****** ****** */
-//
-#define \
-ats2cpp_STL_dequeptr(elt) std::deque<elt>*
+#include <vector>
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_dequeptr_new(elt) \
-  new std::deque<elt>()
-#define \
-ats2cpp_STL_dequeptr_new_fill(elt, asz, val) \
-  new std::deque<elt>(asz, *(static_cast<elt*>(val)))
+ats2cpp_STL_vectorptr(elt) std::vector<elt>*
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_dequeptr_free(elt, p0) \
-delete(static_cast<std::deque<elt>*>(p0))
+ats2cpp_STL_vectorptr_new(elt) \
+  new std::vector<elt>(/* empty */)
+#define \
+ats2cpp_STL_vectorptr_new_fill(elt, asz, val) \
+  new std::vector<elt>(asz, *(static_cast<elt*>(val)))
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_dequeptr_size(elt, p0) \
-  (static_cast<std::deque<elt>*>(p0))->size()
+ats2cpp_STL_vectorptr_free(elt, p0) \
+  delete(static_cast<std::vector<elt>*>(p0))
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_dequeptr_back(elt, p0) \
-  (static_cast<std::deque<elt>*>(p0))->back()
-//
+ats2cpp_STL_vectorptr_get_at(elt, p0, i) \
+  (*(static_cast<std::vector<elt>*>(p0)))[i]
 #define \
-ats2cpp_STL_dequeptr_front(elt, p0) \
-  (static_cast<std::deque<elt>*>(p0))->front()
+ats2cpp_STL_vectorptr_set_at(elt, p0, i, x) \
+  ((*(static_cast<std::vector<elt>*>(p0)))[i] = x)
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_dequeptr_pop_back(elt, p0) \
-  (static_cast<std::deque<elt>*>(p0))->pop_back()
-//
-#define \
-ats2cpp_STL_dequeptr_pop_front(elt, p0) \
-  (static_cast<std::deque<elt>*>(p0))->pop_front()
+ats2cpp_STL_vectorptr_size(elt, p0) \
+  (static_cast<std::vector<elt>*>(p0))->size()
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_dequeptr_push_back(elt, p0, x0) \
-  (static_cast<std::deque<elt>*>(p0))->push_back(x0)
-//
-#define \
-ats2cpp_STL_dequeptr_push_front(elt, p0, x0) \
-  (static_cast<std::deque<elt>*>(p0))->push_front(x0)
+ats2cpp_STL_vectorptr_back(elt, p0) \
+  (static_cast<std::vector<elt>*>(p0))->back()
 //
 /* ****** ****** */
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_CATS_DEQUE)
+#define \
+ats2cpp_STL_vectorptr_pop_back(elt, p0) \
+  (static_cast<std::vector<elt>*>(p0))->pop_back()
+//
+/* ****** ****** */
+//
+#define \
+ats2cpp_STL_vectorptr_push_back(elt, p0, x0) \
+  (static_cast<std::vector<elt>*>(p0))->push_back(x0)
+//
+/* ****** ****** */
+//
+#endif // end of ifndef(ATS2CPP_STL_CATS_VECTOR)
 //
 /* ****** ****** */
 
-/* end of [deque.cats] */
+/* end of [vector.cats] */

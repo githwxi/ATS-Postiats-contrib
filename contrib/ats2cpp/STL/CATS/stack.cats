@@ -1,7 +1,7 @@
 /*
 (*
 ** ATS2CPP:
-** API for STL:vector
+** API for STL:stack
 *)
 (* ****** ****** *)
 (*
@@ -26,72 +26,64 @@
 //
 /* ****** ****** */
 //
-#ifndef \
-ATS2CPP_LIBATS_STL_CATS_VECTOR
-#define \
-ATS2CPP_LIBATS_STL_CATS_VECTOR
+#ifndef ATS2CPP_STL_CATS_STACK
+#define ATS2CPP_STL_CATS_STACK
 //
 /* ****** ****** */
 //
-#include <vector>
-//
-/* ****** ****** */
-//
-#define \
-ats2cpp_STL_vectorptr(elt) std::vector<elt>*
+#include <stack>
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_new(elt) \
-  new std::vector<elt>()
-#define \
-ats2cpp_STL_vectorptr_new_fill(elt, asz, val) \
-  new std::vector<elt>(asz, *(static_cast<elt*>(val)))
+ats2cpp_STL_stackptr(elt) std::stack<elt>*
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_free(elt, p0) \
-delete(static_cast<std::vector<elt>*>(p0))
+ats2cpp_STL_stackptr_new(elt) \
+  new std::stack<elt>(/* empty */)
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_get_at(elt, p0, i) \
-  (*(static_cast<std::vector<elt>*>(p0)))[i]
-#define \
-ats2cpp_STL_vectorptr_set_at(elt, p0, i, x) \
-  ((*(static_cast<std::vector<elt>*>(p0)))[i] = x)
+ats2cpp_STL_stackptr_free(elt, p0) \
+  delete(static_cast<std::stack<elt>*>(p0))
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_size(elt, p0) \
-  (static_cast<std::vector<elt>*>(p0))->size()
+ats2cpp_STL_stackptr_size(elt, p0) \
+  (static_cast<std::stack<elt>*>(p0))->size()
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_back(elt, p0) \
-  (static_cast<std::vector<elt>*>(p0))->back()
+ats2cpp_STL_stackptr_empty(elt, p0) \
+  (static_cast<std::stack<elt>*>(p0))->empty()
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_pop_back(elt, p0) \
-  (static_cast<std::vector<elt>*>(p0))->pop_back()
+ats2cpp_STL_stackptr_top(elt, p0) \
+  (static_cast<std::stack<elt>*>(p0))->top()
 //
 /* ****** ****** */
 //
 #define \
-ats2cpp_STL_vectorptr_push_back(elt, p0, x0) \
-  (static_cast<std::vector<elt>*>(p0))->push_back(x0)
+ats2cpp_STL_stackptr_pop(elt, p0) \
+  (static_cast<std::stack<elt>*>(p0))->pop()
 //
 /* ****** ****** */
 //
-#endif // end of ifndef(ATS2CPP_LIBATS_STL_CATS_VECTOR)
+#define \
+ats2cpp_STL_stackptr_push(elt, p0, x0) \
+  (static_cast<std::stack<elt>*>(p0))->push(x0)
+//
+/* ****** ****** */
+//
+#endif // end of ifndef(ATS2CPP_STL_CATS_STACK)
 //
 /* ****** ****** */
 
-/* end of [vector.cats] */
+/* end of [stack.cats] */
