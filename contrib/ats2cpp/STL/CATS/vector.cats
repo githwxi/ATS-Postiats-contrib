@@ -71,6 +71,12 @@ ats2cpp_STL_vectorptr_size(elt, p0) \
 /* ****** ****** */
 //
 #define \
+ats2cpp_STL_vectorptr_empty(elt, p0) \
+  (static_cast<std::vector<elt>*>(p0))->empty()
+//
+/* ****** ****** */
+//
+#define \
 ats2cpp_STL_vectorptr_back(elt, p0) \
   (static_cast<std::vector<elt>*>(p0))->back()
 //

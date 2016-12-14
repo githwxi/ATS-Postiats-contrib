@@ -7,6 +7,13 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
+
+%{^
+#undef ATSextfcall
+#define ATSextfcall(fun, funarg) fun funarg
+%} // end of [%{^]
+
+(* ****** ****** *)
 //
 #include
 "share/atspre_staload.hats"

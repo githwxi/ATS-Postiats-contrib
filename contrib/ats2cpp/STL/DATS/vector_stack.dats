@@ -27,6 +27,15 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_PACKNAME "ATS2CPP.STL"
+#define
+ATS_DYNLOADFLAG 0 // no dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "ats2cpp_STL_" // prefix for external names
+//
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
@@ -74,7 +83,7 @@ stack_make_nil(): stack(a, 0)
 extern
 fun
 {a:vt@ype}
-stack_free_nil(stack(a, 0)): void
+stack_free_nil(stack(INV(a), 0)): void
 //
 (* ****** ****** *)
 //
@@ -82,7 +91,23 @@ extern
 fun
 {a:vt0p}
 stack_length
-  {n:int}(stk: !stack(a, n)): size_t(n) = "mac#%"
+  {n:int}
+  (stk: !stack(a, n)): size_t(n) = "mac#%"
+//
+(* ****** ****** *)
+//
+extern
+fun
+{a:vt0p}
+stack_is_nil
+  {n:int}
+  (stk: !stack(a, n)): bool(n==0) = "mac#%"
+extern
+fun
+{a:vt0p}
+stack_isnot_nil
+  {n:int}
+  (stk: !stack(a, n)): bool(n > 0) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -92,15 +117,25 @@ fun
 stack_insert
   {n:int}
 (
-  stk: !stack(a, n) >> stack(a, n+1), x0: a
+stk:
+!stack(a, n) >> stack(a, n+1), x: a
 ) : void = "mac#%" // end-of-function
+//
+(* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
 stack_takeout
   {n:int | n > 0}
-  (stk: !stack(a, n) >> stack(a, n-1)): a = "mac#%"
+(
+  stk: !stack(a, n) >> stack(a, n-1)
+) : (a) = "mac#%" // end-of-function
+//
+(* ****** ****** *)
+//
+overload iseqz with stack_is_nil
+overload isneqz with stack_isnot_nil
 //
 (* ****** ****** *)
 //
@@ -128,8 +163,8 @@ stack_make_nil
 // argumentless
 ) =
 $extfcall
-(
-  stack(a, 0), "ats2cpp_STL_vectorptr_new", $tyrep(a)
+( stack(a, 0)
+, "ats2cpp_STL_vectorptr_new", $tyrep(a)
 ) (* stack_make_nil *)
 //
 (* ****** ****** *)
@@ -146,7 +181,9 @@ val p0 = $UN.castvwtp0{ptr}(p0)
 in
 //
 $extfcall
-  (void, "ats2cpp_STL_vectorptr_free", $tyrep(a), p0)
+( void
+, "ats2cpp_STL_vectorptr_free", $tyrep(a), p0
+) (* $extfcall *)
 //
 end // end of [stack_free_nil]
 //
@@ -162,9 +199,39 @@ val p0 = $UN.castvwtp1{ptr}(p0)
 in
 //
 $extfcall
-  (size_t(n), "ats2cpp_STL_vectorptr_size", $tyrep(a), p0)
+(
+  size_t(n)
+, "ats2cpp_STL_vectorptr_size", $tyrep(a), p0
+) (* $extfcall *)
 //
 end // end of [stack_length]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stack_is_nil
+  {n}(p0) = let
+//
+val p0 = $UN.castvwtp1{ptr}(p0)
+//
+in
+//
+$extfcall
+( bool(n==0)
+, "ats2cpp_STL_vectorptr_empty", $tyrep(a), p0
+) (* $extfcall *)
+//
+end // end of [stack_is_nil]
+//
+//
+implement
+{a}(*tmp*)
+stack_isnot_nil(p0) =
+not(stack_is_nil<a>(p0)) where
+{
+  prval ((*n >= 0*)) = lemma_stack_param(p0)
+} (* end of [stack_isnot_nil] *)
 //
 (* ****** ****** *)
 //

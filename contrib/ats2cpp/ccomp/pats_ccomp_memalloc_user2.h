@@ -30,75 +30,29 @@
 /*
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2013 *)
+(* Start time: March, 2013 *)
 */
 
 /* ****** ****** */
+//
+#include <stdio.h>
+/*
+extern
+int fprintf (FILE *stream, const char *format, ...) ;
+*/
+/* ****** ****** */
+//
+// stdlib.h
+//
+extern void exit (int code) ;
+//
+/* ****** ****** */
 
-#ifdef ATS_MEMALLOC_LIBC
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_libc (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_libc (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_libc (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_libc (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_LIBC
+extern void atsruntime_mfree_user2 (void *ptr) ;
+extern void *atsruntime_malloc_user2 (size_t bsz) ;
+extern void *atsruntime_calloc_user2 (size_t asz, size_t tsz) ;
+extern void *atsruntime_realloc_user2 (void *ptr, size_t bsz) ;
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_GCBDW
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_gcbdw (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_gcbdw (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_gcbdw (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_gcbdw (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_GCBDW
-
-/* ****** ****** */
-
-/* end of [pats_ccomp_runtime_memalloc.c] */
+/* end of [pats_ccomp_memalloc_user2.h] */

@@ -27,6 +27,15 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_PACKNAME "ATS2CPP.STL"
+#define
+ATS_DYNLOADFLAG 0 // no dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "ats2cpp_STL_" // prefix for external names
+//
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
@@ -74,7 +83,7 @@ queue_make_nil(): queue(a, 0)
 extern
 fun
 {a:vt@ype}
-queue_free_nil(queue(a, 0)): void
+queue_free_nil(queue(INV(a), 0)): void
 //
 (* ****** ****** *)
 //
@@ -92,7 +101,8 @@ fun
 queue_insert
   {n:int}
 (
-  stk: !queue(a, n) >> queue(a, n+1), x0: a
+stk:
+!queue(a, n) >> queue(a, n+1), x: a
 ) : void = "mac#%" // end-of-function
 //
 extern
@@ -100,7 +110,9 @@ fun
 {a:vt0p}
 queue_takeout
   {n:int | n > 0}
-  (stk: !queue(a, n) >> queue(a, n-1)): a = "mac#%"
+(
+  stk: !queue(a, n) >> queue(a, n-1)
+) : (a) = "mac#%" // end-of-function
 //
 (* ****** ****** *)
 //

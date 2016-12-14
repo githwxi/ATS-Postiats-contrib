@@ -6,7 +6,7 @@
 
 /*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -29,76 +29,37 @@
 
 /*
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2013 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: March, 2014 *)
 */
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_LIBC
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_libc (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_libc (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_libc (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_libc (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_LIBC
+#ifndef ATSLIB_LIBATS_CATS_HASHFUN
+#define ATSLIB_LIBATS_CATS_HASHFUN
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_GCBDW
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
+#if(0)
+ATSinline()
+atstype_uint32
+atslib_inthash_jenkins
+  (atstype_uint32 a)
 {
- atsruntime_mfree_gcbdw (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_gcbdw (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_gcbdw (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_gcbdw (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_GCBDW
+  a = (a+0x7ed55d16) + (a<<12);
+  a = (a^0xc761c23c) ^ (a>>19);
+  a = (a+0x165667b1) + (a<< 5);
+  a = (a+0xd3a2646c) ^ (a<< 9);
+  a = (a+0xfd7046c5) + (a<< 3);
+  a = (a^0xb55a4f09) ^ (a>>16);
+  return a;
+} /* end of [atslib_inthash_jenkins] */
+#endif // #if(0)
 
 /* ****** ****** */
 
-/* end of [pats_ccomp_runtime_memalloc.c] */
+#endif // ifndef ATSLIB_LIBATS_CATS_HASHFUN
+
+/* ****** ****** */
+
+/* end of [hashfun.cats] */

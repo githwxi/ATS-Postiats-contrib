@@ -6,7 +6,7 @@
 
 /*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -29,76 +29,68 @@
 
 /*
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2013 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: November, 2013 *)
 */
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_LIBC
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_libc (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_libc (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_libc (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_libc (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_LIBC
+#ifndef ATS2CPP_LIBATS_CATS_STRINGBUF
+#define ATS2CPP_LIBATS_CATS_STRINGBUF
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_GCBDW
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_gcbdw (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_gcbdw (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_gcbdw (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_gcbdw (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_GCBDW
+#include <stdarg.h>
+#include <string.h>
 
 /* ****** ****** */
 
-/* end of [pats_ccomp_runtime_memalloc.c] */
+#define atslib_stringbuf_memcpy memcpy
+#define atslib_stringbuf_memmove memmove
+
+/* ****** ****** */
+
+/*
+extern
+fun _stringbuf_pow2min
+  (sizeGte(1), size_t): sizeGte(1) = "mac#%"
+implement
+_stringbuf_pow2min (s1, s2) =
+  if s1 >= s2
+    then s1 else _stringbuf_pow2min (s1+s1, s2)
+  // end of [if]
+*/
+ATSinline()
+atstype_size
+atslib__stringbuf_pow2min
+(
+  atstype_size s1, atstype_size s2
+)
+{
+  while (s1 < s2) { s1 = s1 + s1 ; } ; return s1 ; 
+} // end of [atslib__stringbuf_pow2min]
+
+/* ****** ****** */
+//
+extern "C"
+{
+atstype_int
+atslib_stringbuf_insert_snprintf
+  (atstype_ptr sbf, atstype_int recap, atstype_string fmt, ...) ;
+}
+extern "C"
+{
+atstype_int
+atslib_stringbuf_insert_vsnprintf
+(
+  atstype_ptr sbf, atstype_int recap, atstype_string fmt, va_list ap
+) ; // end of [atslib_stringbuf_insert_vsnprintf]
+}
+//
+/* ****** ****** */
+
+#endif // ifndef(ATS2CPP_LIBATS_CATS_STRINGBUF)
+
+/* ****** ****** */
+
+/* end of [stringbuf.cats] */

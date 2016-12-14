@@ -27,6 +27,15 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_PACKNAME "ATS2CPP.STL"
+#define
+ATS_DYNLOADFLAG 0 // no dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "ats2cpp_STL_" // prefix for external names
+//
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
@@ -55,7 +64,7 @@ $extype"ats2cpp_STL_queueptr"(a)
 stadef queue = queue_vtype
 //
 vtypedef
-queue(a:vt@ype) = [n:int] queue_vtype(a, n)
+queue(a:vt0p) = [n:int] queue_vtype(a, n)
 //
 (* ****** ****** *)
 //
@@ -69,12 +78,17 @@ lemma_queue_param
 //
 extern
 fun
-{a:vt@ype}
+{a:vt0p}
 queue_make_nil(): queue(a, 0)
+//
 extern
 fun
-{a:vt@ype}
-queue_free_nil(queue(a, 0)): void
+{a:vt0p}
+queue_free_nil(queue(INV(a), 0)): void
+extern
+fun
+{a:t@ype}
+queue_free_all{n:int}(queue(INV(a), n)): void
 //
 (* ****** ****** *)
 //
@@ -82,7 +96,8 @@ extern
 fun
 {a:vt0p}
 queue_length
-  {n:int}(stk: !queue(a, n)): size_t(n) = "mac#%"
+  {n:int}
+  (stk: !queue(INV(a), n)): size_t(n) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -90,12 +105,14 @@ extern
 fun
 {a:vt0p}
 queue_is_nil
-  {n:int}(stk: !queue(a, n)): bool(n==0) = "mac#%"
+  {n:int}
+  (stk: !queue(INV(a), n)): bool(n==0) = "mac#%"
 extern
 fun
 {a:vt0p}
 queue_isnot_nil
-  {n:int}(stk: !queue(a, n)): bool(n > 0) = "mac#%"
+  {n:int}
+  (stk: !queue(INV(a), n)): bool(n > 0) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -105,15 +122,29 @@ fun
 queue_insert
   {n:int}
 (
-  stk: !queue(a, n) >> queue(a, n+1), x0: a
+stk:
+!queue(INV(a), n) >> queue(a, n+1), x: a
 ) : void = "mac#%" // end-of-function
+//
+(* ****** ****** *)
 //
 extern
 fun
 {a:vt0p}
 queue_takeout
   {n:int | n > 0}
-  (stk: !queue(a, n) >> queue(a, n-1)): a = "mac#%"
+(
+  stk: !queue(INV(a), n) >> queue(a, n-1)
+) : (a) = "mac#%" // end-of-function
+//
+extern
+fun
+{a:vt0p}
+queue_takeout_opt
+  {n:int}
+(
+  stk: !queue(INV(a), n) >> queue(a, n-b2i(b))
+) : #[b:bool] option_vt(a, b) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -167,6 +198,24 @@ $extfcall
   (void, "ats2cpp_STL_queueptr_free", $tyrep(a), p0)
 //
 end // end of [queue_free_nil]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+queue_free_all
+(
+  p0
+) = let
+//
+val p0 = $UN.castvwtp0{ptr}(p0)
+//
+in
+//
+$extfcall
+  (void, "ats2cpp_STL_queueptr_free", $tyrep(a), p0)
+//
+end // end of [queue_free_all]
 //
 (* ****** ****** *)
 //
@@ -239,6 +288,7 @@ end // end of [queue_insert]
 //
 (* ****** ****** *)
 //
+//
 implement
 {a}(*tmp*)
 queue_takeout
@@ -249,12 +299,33 @@ prval
 () = $UN.castvwtp2void(p0)
 //
 val p0 = $UN.castvwtp1{ptr}(p0)
+//
 val x0 =
-  $extfcall(a, "ats2cpp_STL_queueptr_front", $tyrep(a), p0)
+$extfcall
+( (a)
+, "ats2cpp_STL_queueptr_front", $tyrep(a), p0
+) (* $extfcall *)
 val () =
-  $extfcall(void, "ats2cpp_STL_queueptr_pop", $tyrep(a), p0)
+$extfcall
+(
+  void, "ats2cpp_STL_queueptr_pop", $tyrep(a), p0
+) (* $extfcall *)
 //
 } (* end of [queue_insert] *)
+//
+implement
+{a}(*tmp*)
+queue_takeout_opt
+  (p0) = let
+//
+prval () = lemma_queue_param(p0)
+//
+in
+//
+if iseqz(p0)
+  then None_vt() else Some_vt(queue_takeout<a>(p0))
+//
+end // end of [queue_takeout_opt]
 //
 (* ****** ****** *)
 

@@ -30,75 +30,40 @@
 /*
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2013 *)
+(* Start time: March, 2013 *)
 */
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_LIBC
+#ifndef PATS_CCOMP_MEMALLOCA_H
+#define PATS_CCOMP_MEMALLOCA_H
 
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_libc (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_libc (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_libc (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_libc (ptr, bsz) ;
-}
+/* ****** ****** */
+//
+// alloca.h
+//
+extern void *alloca (size_t bsz) ;
+//
+/* ****** ****** */
+//
+// HX: [afree] matches [alloca]
+//
+ATSinline()
+atsvoid_t0ype
+atsruntime_afree_libc
+  (atstype_ptr ptr) { return ; }
+// end of [atsruntime_afree_libc]
 
-#endif // ATS_MEMALLOC_LIBC
+ATSinline()
+atstype_ptr
+atsruntime_alloca_libc
+  (atstype_size bsz) { return alloca(bsz) ; }
+// end of [atsruntime_alloca_libc]
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_GCBDW
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_gcbdw (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_gcbdw (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_gcbdw (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_gcbdw (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_GCBDW
+#endif /* PATS_CCOMP_MEMALLOCA_H */
 
 /* ****** ****** */
 
-/* end of [pats_ccomp_runtime_memalloc.c] */
+/* end of [pats_ccomp_memalloca.h] */

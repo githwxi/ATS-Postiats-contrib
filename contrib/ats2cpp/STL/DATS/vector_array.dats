@@ -27,6 +27,15 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_PACKNAME "ATS2CPP.STL"
+#define
+ATS_DYNLOADFLAG 0 // no dynloading at run-time
+#define
+ATS_EXTERN_PREFIX "ats2cpp_STL_" // prefix for external names
+//
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
@@ -71,7 +80,7 @@ extern
 fun
 {a:t@ype}
 array_free
-  {n:int}(A0: array(a, n)): void = "mac#%"
+  {n:int}(A0: array(INV(a), n)): void = "mac#%"
 //
 (* ****** ****** *)
 //

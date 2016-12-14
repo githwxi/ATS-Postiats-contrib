@@ -30,75 +30,27 @@
 /*
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2013 *)
+(* Start time: March, 2013 *)
 */
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_LIBC
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_libc (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_libc (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_libc (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_libc (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_LIBC
+#ifndef ATS2CPP_LIBATS_CATS_DYNARRAY
+#define ATS2CPP_LIBATS_CATS_DYNARRAY
 
 /* ****** ****** */
 
-#ifdef ATS_MEMALLOC_GCBDW
-
-extern
-void
-atsruntime_mfree_undef (void *ptr)
-{
- atsruntime_mfree_gcbdw (ptr) ; return ;
-}
-extern
-void
-*atsruntime_malloc_undef (size_t bsz)
-{
- return atsruntime_malloc_gcbdw (bsz) ;
-}
-extern
-void
-*atsruntime_calloc_undef
-  (size_t asz, size_t tsz)
-{
- return atsruntime_calloc_gcbdw (asz, tsz) ;
-}
-extern
-void
-*atsruntime_realloc_undef
-   (void *ptr, size_t bsz)
-{
- return atsruntime_realloc_gcbdw (ptr, bsz) ;
-}
-
-#endif // ATS_MEMALLOC_GCBDW
+#include <string.h>
 
 /* ****** ****** */
 
-/* end of [pats_ccomp_runtime_memalloc.c] */
+#define atslib_dynarray_memcpy memcpy
+#define atslib_dynarray_memmove memmove
+
+/* ****** ****** */
+
+#endif // ifndef(ATS2CPP_LIBATS_CATS_DYNARRAY)
+
+/* ****** ****** */
+
+/* end of [dynarray.cats] */

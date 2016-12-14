@@ -35,15 +35,16 @@
 
 /* ****** ****** */
 //
-//
 #include <stdio.h>
-//
-extern "C" void exit(int) throw ();
+/*
+extern "C" void exit (int) ; // in [stdlib.h]
+*/
 //
 /* ****** ****** */
-//
-#include "pats_ccomp.h"
-//
+
+#include "pats_ccomp_basics.h"
+#include "pats_ccomp_typedefs.h"
+
 /* ****** ****** */
 //
 // HX-2013-04: some pre-initialized exceptions
@@ -89,7 +90,8 @@ ATSLIB_056_prelude__MatrixSubscriptExn = { 61, "MatrixSubscriptException" } ;
 #ifndef \
 _ATS_CCOMP_EXCEPTION_NONE_
 //
-extern
+extern "C"
+{
 void
 the_atsexncon_initize
 (
@@ -107,6 +109,7 @@ the_atsexncon_initize
   d2c->exnmsg = exnmsg ;
   return ;
 } // end of [the_atsexncon_initize]
+} // end of [extern "C"]
 //
 #endif // end of [_ATS_CCOMP_EXCEPTION_NONE_]
 
@@ -117,7 +120,6 @@ the_atsexncon_initize
 //
 extern "C"
 {
-//
 void
 atsruntime_handle_unmatchedval
   (char *msg0)
@@ -128,8 +130,7 @@ atsruntime_handle_unmatchedval
   ) ; exit(1) ;
   return ; // deadcode
 } /* end of [atsruntime_handle_unmatchedval] */
-//
-} /* end of [extern "C"] */
+} // end of [extern "C"]
 //
 /* ****** ****** */
 //
@@ -138,7 +139,6 @@ atsruntime_handle_unmatchedval
 //
 extern "C"
 {
-//
 void
 atsruntime_handle_unmatchedarg
   (char *msg0)
@@ -149,19 +149,15 @@ atsruntime_handle_unmatchedarg
   ) ; exit(1) ;
   return ; // deadcode
 } /* end of [atsruntime_handle_unmatchedarg] */
-//
-} /* end of [extern "C"] */
+} // end of [extern "C"]
 //
 /* ****** ****** */
 //
 // HX-2014-06:
 // for reporting failure due to uncaught exception
 //
-#if(0)
-//
 extern "C"
 {
-//
 void
 atsruntime_handle_uncaughtexn_rest
   (atstype_exncon *exn0)
@@ -172,10 +168,7 @@ atsruntime_handle_uncaughtexn_rest
   ) ; exit(1) ;
   return ; // deadcode
 } /* end of [atsruntime_handle_uncaughtexn_rest] */
-//
-} /* end of [extern "C"] */
-//
-#endif // end of [#if(0)]
+} // end of [extern "C"]
 //
 /* ****** ****** */
 
