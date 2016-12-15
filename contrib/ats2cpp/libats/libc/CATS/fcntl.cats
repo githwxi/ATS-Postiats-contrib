@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,55 +28,58 @@
 /* ****** ****** */
 
 /*
-** Source:
-** $PATSHOME/prelude/CATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Feb 28 17:55:37 2014
-*/
-
-/* ****** ****** */
-
-/*
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: January, 2013 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: February, 2013 *)
 */
 
 /* ****** ****** */
 
-#ifndef ATS2CPP_PRELUDE_CATS_ARRAYPTR
-#define ATS2CPP_PRELUDE_CATS_ARRAYPTR
+#ifndef ATS2CPP_LIBATS_LIBC_CATS_FCNTL
+#define ATS2CPP_LIBATS_LIBC_CATS_FCNTL
+
+/* ****** ****** */
+
+#include <sys/types.h>
+#include <fcntl.h> // HX: after sys/types
+
+/* ****** ****** */
+
+#define atslib_libats_libc_fildes_get_int(fd) (fd)
 
 /* ****** ****** */
 
 ATSinline()
-atstype_arrptr
-atspre_arrpsz_get_ptrsize
-(
-  atstype_arrpsz psz, atstype_ref asz
-) {
-  *(atstype_size*)asz = psz.size ; return (psz.ptr) ;
-} // en of [atspre_arrpsz_get_ptrsize]
+atstype_bool
+atslib_libats_libc_fildes_isgtez
+  (atstype_int fd)
+{
+  return (fd >= 0 ? atsbool_true : atsbool_false) ;
+} // end of [atslib_libats_libc_fildes_isgtez]
 
 /* ****** ****** */
 
-ATSinline()
-atsvoid_t0ype
-atspre_arrayptr_free
-  (atstype_arrptr p0) { ATS_MFREE (p0) ; return ; }
-// end of [atspre_arrayptr_free]
+#define \
+atslib_libats_libc_fcntlflags_lor(x1, x2) ((x1)|(x2))
 
 /* ****** ****** */
 
-ATSinline()
-atstype_arrptr
-atspre_arrayptr_make_arrpsz
-  (atstype_arrpsz psz) { return (psz).ptr ; }
-// end of [atspre_arrayptr_make_arrpsz]
+#define \
+atslib_libats_libc_fcntl_getfl(fd) fcntl(fd, F_GETFL)
+#define \
+atslib_libats_libc_fcntl_setfl(fd, flags) fcntl(fd, F_SETFL, flags)
 
 /* ****** ****** */
 
-#endif // ifndef(ATS2CPP_PRELUDE_CATS_ARRAYPTR)
+#define \
+atslib_libats_libc_open_flags(path, flags) open((char*)path, flags)
+#define \
+atslib_libats_libc_open_flags_mode(path, flags, mode) open((char*)path, flags, mode)
 
 /* ****** ****** */
 
-/* end of [arrayptr.cats] */
+#endif // ifndef ATS2CPP_LIBATS_LIBC_CATS_FCNTL
+
+/* ****** ****** */
+
+/* end of [fcntl.cats] */

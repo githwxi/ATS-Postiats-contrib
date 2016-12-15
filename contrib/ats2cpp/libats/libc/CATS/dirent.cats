@@ -35,48 +35,82 @@
 
 /* ****** ****** */
 
-#ifndef \
-ATS2CPP_LIBATS_LIBC_CATS_SYS_STAT
-#define \
-ATS2CPP_LIBATS_LIBC_CATS_SYS_STAT
+#ifndef ATS2CPP_LIBATS_LIBC_CATS_DIRENT
+#define ATS2CPP_LIBATS_LIBC_CATS_DIRENT
 
 /* ****** ****** */
 
-#include <sys/stat.h>
+#include <sys/types.h>
+#include <dirent.h> // HX: after sys/types
 
 /* ****** ****** */
-
+//
+typedef DIR atslib_libats_libc_DIR_type ;
+//
 typedef
-struct stat
-atslib_libats_libc_stat_struct ;
+struct dirent atslib_libats_libc_dirent_type ;
+//
+/* ****** ****** */
+
+#define \
+atslib_libats_libc_dirent_get_d_ino(ent) \
+(((atslib_libats_libc_dirent_type*)ent)->d_ino)
+#define \
+atslib_libats_libc_dirent_get_d_name(ent) \
+(((atslib_libats_libc_dirent_type*)ent)->d_name)
 
 /* ****** ****** */
 
-#define atslib_libats_libc_umask umask
+#define \
+atslib_libats_libc_direntp_get_d_name(entp) \
+(((atslib_libats_libc_dirent_type*)entp)->d_name)
 
 /* ****** ****** */
 
-#define atslib_libats_libc_chmod chmod
+#define \
+atslib_libats_libc_direntp_free(x) atspre_mfree_gc(x)
 
 /* ****** ****** */
 
-#define atslib_libats_libc_mkdir mkdir
-#define atslib_libats_libc_mkdirat mkdirat
+#define atslib_libats_libc_alphasort alphasort
+#define atslib_libats_libc_versionsort versionsort
 
 /* ****** ****** */
 
-#define atslib_libats_libc_mkfifo mkfifo
+#define atslib_libats_libc_opendir opendir
 
 /* ****** ****** */
 
-#define atslib_libats_libc_stat stat
-#define atslib_libats_libc_fstat fstat
-#define atslib_libats_libc_lstat lstat
+#define atslib_libats_libc_closedir closedir
 
 /* ****** ****** */
 
-#endif // ifndef(ATS2CPP_LIBATS_LIBC_CATS_SYS_STAT)
+#define \
+atslib_libats_libc_readdir readdir
+#define \
+atslib_libats_libc_readdir_r(dirp, ent, res) \
+  readdir_r((DIR*)dirp, (struct dirent*)ent, (struct dirent**)res)
 
 /* ****** ****** */
 
-/* end of [stat.cats] */
+#define \
+atslib_libats_libc_scandir(dirp, namelst, filter, compar) \
+  scandir((char*)dirp, (struct dirent***)namelst, (void*)filter, (void*)compar)
+
+/* ****** ****** */
+
+#define \
+atslib_libats_libc_rewinddir rewinddir
+
+/* ****** ****** */
+
+#define atslib_libats_libc_seekdir seekdir
+#define atslib_libats_libc_telldir telldir
+
+/* ****** ****** */
+
+#endif // ifndef(ATS2CPP_LIBATS_LIBC_CATS_DIRENT)
+
+/* ****** ****** */
+
+/* end of [dirent.cats] */

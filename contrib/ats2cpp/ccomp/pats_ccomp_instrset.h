@@ -49,8 +49,8 @@
 
 /*
 #define ATStyclo() struct{ void *cfun; }
-*/
 #define ATStysum() struct{ int contag; }
+*/
 #define ATStyexn() struct{ int exntag; char *exnmsg; }
 #define ATStylist(tyelt) struct{ tyelt head; void *tail; }
 
@@ -61,6 +61,12 @@ struct{
 void *cfun;
 } ATStyclo ;
 typedef ATStyclo *ATStyclo_ptr ;
+//
+typedef
+struct{
+int contag;
+} ATStysum ;
+typedef ATStysum *ATStysum_ptr ;
 //
 /* ****** ****** */
 //
@@ -264,7 +270,7 @@ ATSfunclo_clo(pmv, targs, tres) ((tres(*)targs)(((ATStyclo_ptr)pmv)->cfun))
 //
 #define ATSCKpat_con0(pmv, tag) ((pmv)==(void*)tag)
 #define ATSCKpat_con1(pmv, tag) \
-  ((pmv)>=(void*)ATS_DATACONMAX && ((ATStysum()*)(pmv))->contag==tag)
+  ((pmv)>=(void*)ATS_DATACONMAX && ((ATStysum_ptr)(pmv))->contag==tag)
 //
 #define ATSCKpat_exn0(pmv, d2con) ((pmv)==(void*)(&(d2con)))
 #define ATSCKpat_exn1(pmv, d2con) (((ATStyexn()*)(pmv))->exntag==(&(d2con))->exntag)
@@ -310,7 +316,7 @@ ATSINSmove_con0(tmp, tag) (tmp = ((void*)tag))
 #define ATSINSmove_con1_beg()
 #define ATSINSmove_con1_end()
 #define ATSINSmove_con1_new(tmp, tysum) (tmp = ATS_MALLOC(sizeof(tysum)))
-#define ATSINSstore_con1_tag(tmp, val) (((ATStysum()*)(tmp))->contag = val)
+#define ATSINSstore_con1_tag(tmp, val) (((ATStysum_ptr)(tmp))->contag = val)
 #define ATSINSstore_con1_ofs(tmp, tysum, lab, val) (((tysum*)(tmp))->lab = val)
 //
 /* ****** ****** */

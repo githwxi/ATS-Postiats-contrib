@@ -88,6 +88,7 @@ QueenPuzzle_solve(): void
 implement
 QueenPuzzle_solve() =
 {
+//
 val
 theStore =
 stack_make_nil<node>()

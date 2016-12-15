@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,55 +28,37 @@
 /* ****** ****** */
 
 /*
-** Source:
-** $PATSHOME/prelude/CATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Feb 28 17:55:37 2014
-*/
-
-/* ****** ****** */
-
-/*
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: January, 2013 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: February, 2013 *)
 */
 
 /* ****** ****** */
 
-#ifndef ATS2CPP_PRELUDE_CATS_ARRAYPTR
-#define ATS2CPP_PRELUDE_CATS_ARRAYPTR
+#ifndef ATS2CPP_LIBATS_LIBC_CATS_STRINGS
+#define ATS2CPP_LIBATS_LIBC_CATS_STRINGS
 
 /* ****** ****** */
 
-ATSinline()
-atstype_arrptr
-atspre_arrpsz_get_ptrsize
-(
-  atstype_arrpsz psz, atstype_ref asz
-) {
-  *(atstype_size*)asz = psz.size ; return (psz.ptr) ;
-} // en of [atspre_arrpsz_get_ptrsize]
+#include <strings.h>
 
 /* ****** ****** */
 
-ATSinline()
-atsvoid_t0ype
-atspre_arrayptr_free
-  (atstype_arrptr p0) { ATS_MFREE (p0) ; return ; }
-// end of [atspre_arrayptr_free]
+#define atslib_libats_libc_index_int index
+#define atslib_libats_libc_index_char(c) index((int)c)
+
+#define atslib_libats_libc_rindex_int rindex
+#define atslib_libats_libc_rindex_char(c) rindex((int)c)
 
 /* ****** ****** */
 
-ATSinline()
-atstype_arrptr
-atspre_arrayptr_make_arrpsz
-  (atstype_arrpsz psz) { return (psz).ptr ; }
-// end of [atspre_arrayptr_make_arrpsz]
+#define atslib_libats_libc_strcasecmp strcasecmp
+#define atslib_libats_libc_strncasecmp strncasecmp
 
 /* ****** ****** */
 
-#endif // ifndef(ATS2CPP_PRELUDE_CATS_ARRAYPTR)
+#endif // ifndef(ATS2CPP_LIBATS_LIBC_CATS_STRINGS)
 
 /* ****** ****** */
 
-/* end of [arrayptr.cats] */
+/* end of [strings.cats] */

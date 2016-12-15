@@ -2,6 +2,7 @@
 #
 PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
+PATSLIB=$(PATSHOME)/ccomp/atslib/lib
 #
 ######
 #
@@ -43,8 +44,34 @@ QueenPuzzle: \
 QueenPuzzle_dats.c; $(CPP) $(CXXFLAGS) -o $@ $< -lgccpp -lgc
 QueenPuzzle_dats.c: QueenPuzzle.dats; $(PATSOPT) -o $@ -d $<
 #
-regress:: QueenPuzzle; ./$<
+regress:: \
+QueenPuzzle; ./$<
 cleanall:: ; rm -f QueenPuzzle
+#
+######
+#
+all:: \
+GameOf24Play
+GameOf24Play: \
+GameOf24Play_dats.c; $(CPP) $(CXXFLAGS) -o $@ $< -lgccpp -lgc
+GameOf24Play_dats.c: GameOf24Play.dats; $(PATSOPT) -o $@ -d $<
+#
+regress:: \
+GameOf24Play; ./$< 3 3 8 8
+cleanall:: ; rm -f GameOf24Play
+#
+######
+#
+all:: \
+DoubletsPlay
+DoubletsPlay: \
+DoubletsPlay_dats.c; \
+$(CPP) $(CXXFLAGS) -o $@ $< -L$(PATSLIB) -latslib -lgccpp -lgc
+DoubletsPlay_dats.c: DoubletsPlay.dats; $(PATSOPT) -o $@ -d $<
+#
+regress:: \
+DoubletsPlay; ./$< clean dirty
+cleanall:: ; rm -f DoubletsPlay
 #
 ######
 

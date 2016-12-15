@@ -48,6 +48,23 @@
 
 /* ****** ****** */
 
+#ifndef memset
+extern "C"
+{
+//
+void *memset(void *bufp, int c, size_t n) throw() ;
+//
+} // end of [extern "C"]
+#endif // #ifndef
+
+/* ****** ****** */
+
+ATSinline()
+atstype_ptr
+atspre_ptr_null () { return (void*)0 ; }
+
+/* ****** ****** */
+
 ATSinline()
 atstype_bool
 atspre_ptr_is_null
@@ -185,7 +202,7 @@ atspre_eq_ptr_intz
 } // end of [atspre_eq_ptr_intz]
 #define atspre_eq_ptr0_intz atspre_eq_ptr_intz
 #define atspre_eq_ptr1_intz atspre_eq_ptr_intz
-
+  
 ATSinline()
 atstype_bool
 atspre_neq_ptr_intz
@@ -197,13 +214,40 @@ atspre_neq_ptr_intz
 #define atspre_neq_ptr1_intz atspre_neq_ptr_intz
 
 /* ****** ****** */
-
-#define atspre_cptr_null() atsptr_null
-
+//
+#define atspre_aptr_null() atsptr_null
+//
+#define atspre_aptr_is_null atspre_ptr_is_null
+#define atspre_aptr_isnot_null atspre_ptr_isnot_null
+//
 /* ****** ****** */
-
+//
+#define atspre_cptr_null() atsptr_null
+//
 #define atspre_cptr_is_null atspre_ptr_is_null
 #define atspre_cptr_isnot_null atspre_ptr_isnot_null
+//
+/* ****** ****** */
+
+#define atspre_gt_cptr_intz atspre_gt_ptr_intz
+#define atspre_eq_cptr_intz atspre_eq_ptr_intz
+#define atspre_neq_cptr_intz atspre_neq_ptr_intz
+
+/* ****** ****** */
+//
+#define atspre_ptr_free atspre_mfree_gc
+#define atspre_ptr_alloc_tsz atspre_malloc_gc
+//
+/* ****** ****** */
+
+ATSinline()
+atsvoid_t0ype
+atspre_ptr_nullize_tsz
+(
+  atstype_ptr p, atstype_size tsz
+) {
+  memset (p, 0, tsz) ; return /*void*/ ;
+} // end of [atspre_ptr_nullize_tsz]
 
 /* ****** ****** */
 

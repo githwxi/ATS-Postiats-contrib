@@ -37,32 +37,33 @@
 
 #ifdef ATS_MEMALLOC_LIBC
 
-extern
+extern "C"
+{
+//
 void
 atsruntime_mfree_undef (void *ptr)
 {
  atsruntime_mfree_libc (ptr) ; return ;
 }
-extern
 void
 *atsruntime_malloc_undef (size_t bsz)
 {
  return atsruntime_malloc_libc (bsz) ;
 }
-extern
 void
 *atsruntime_calloc_undef
   (size_t asz, size_t tsz)
 {
  return atsruntime_calloc_libc (asz, tsz) ;
 }
-extern
 void
 *atsruntime_realloc_undef
    (void *ptr, size_t bsz)
 {
  return atsruntime_realloc_libc (ptr, bsz) ;
 }
+//
+} // end of [extern "C"]
 
 #endif // ATS_MEMALLOC_LIBC
 
@@ -70,7 +71,9 @@ void
 
 #ifdef ATS_MEMALLOC_GCBDW
 
-extern
+extern "C"
+{
+//
 void
 atsruntime_mfree_undef (void *ptr)
 {
@@ -96,7 +99,9 @@ void
 {
  return atsruntime_realloc_gcbdw (ptr, bsz) ;
 }
-
+//
+} // end of [extern "C"]
+//
 #endif // ATS_MEMALLOC_GCBDW
 
 /* ****** ****** */

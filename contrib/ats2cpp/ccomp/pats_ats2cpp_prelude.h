@@ -52,6 +52,8 @@
 "prelude/CATS/integer_fixed.cats"
 */
 //
+#include "prelude/CATS/memory.cats"
+//
 #include "prelude/CATS/string.cats"
 //
 #include "prelude/CATS/fprintf.cats"
