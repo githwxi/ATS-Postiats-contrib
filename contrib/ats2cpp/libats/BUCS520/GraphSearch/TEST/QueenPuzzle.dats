@@ -90,27 +90,12 @@ QueenPuzzle_solve() =
 {
 //
 val
-theStore =
+store =
 stack_make_nil<node>()
-val
-p_theStore =
-$UN.castvwtp1{ptr}(theStore)
-//
 val () =
-stack_insert(theStore, nil0)
+stack_insert(store, nil0)
 //
-implement
-theSearchStore_get<>() =
-  $UN.castvwtp1{stack(node)}(p_theStore)
-implement
-theSearchStore_unget<>(store) =
-{
-  prval () = $UN.cast2void(store)
-}
-//
-val () = GraphSearch((*void*))
-//
-val () = stack_free_all(theStore)
+val () = GraphSearch_dfs_stack(store)
 //
 } (* end of [QueenPuzzle_solve] *)
 //

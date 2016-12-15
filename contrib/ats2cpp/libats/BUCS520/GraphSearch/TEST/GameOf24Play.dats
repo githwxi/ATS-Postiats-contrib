@@ -203,33 +203,6 @@ GameOf24Play
 #define :: cons0
 //
 val
-theStore =
-stack_make_nil<node>()
-val
-p_theStore =
-$UN.castvwtp1{ptr}(theStore)
-//
-val nx =
-(
-n1::n2::n3::n4::nil0()
-).map(TYPE{expr})(lam x => EXPRval(g0i2f(x)))
-//
-val () =
-stack_insert(theStore, nx)
-//
-val () =
-stack_insert(theStore, nil0)
-//
-implement
-theSearchStore_get<>() =
-  $UN.castvwtp1{stack(node)}(p_theStore)
-implement
-theSearchStore_unget<>(store) =
-{
-  prval () = $UN.cast2void(store)
-}
-//
-val
 nsol = ref<int>(0)
 //
 implement
@@ -246,15 +219,28 @@ val () =
 case+ nx of
 | list0_sing(x) =>
   if expr_is_24(x) then
-    (!nsol := !nsol+1; fprintln!(stdout_ref, x))
+    (!nsol := !nsol+1; println!(x))
 | _(*non-sing*) => ()
 }
 //
+val
+store =
+stack_make_nil<node>()
+//
+val nx =
+(
+n1::n2::n3::n4::nil0()
+).map(TYPE{expr})(lam x => EXPRval(g0i2f(x)))
+//
+val () =
+stack_insert(store, nx)
+//
 in
 //
-GraphSearch((*void*));
-if !nsol = 0 then println! ("There is no solution found!");
-stack_free_all(theStore)
+GraphSearch_dfs_stack(store);
+if !nsol = 0
+  then println! ("There is no solution found!");
+// end of [if]
 //
 end (* end of [GameOf24Play] *)
 //

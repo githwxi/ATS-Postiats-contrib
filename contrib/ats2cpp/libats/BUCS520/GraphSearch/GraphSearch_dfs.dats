@@ -116,14 +116,35 @@ theSearchStore_unget(theStore)
 //
 (* ****** ****** *)
 //
-(*
 extern
 fun{}
-GraphSearch_dfs(): void
+GraphSearch_dfs_stack
+  (stk: stack(node)): void
+//
 implement
 {}(*tmp*)
-GraphSearch_dfs() = GraphSearch<>()
-*)
+GraphSearch_dfs_stack
+  (store) = () where
+{
+//
+val
+p_store =
+$UN.castvwtp1{ptr}(store)
+//
+implement
+theSearchStore_get<>() =
+  $UN.castvwtp1{stack(node)}(p_store)
+implement
+theSearchStore_unget<>(store) =
+{
+  prval () = $UN.cast2void(store)
+}
+//
+val () = GraphSearch((*void*))
+//
+val () = stack_free_all(store)
+//
+} (* end of [GraphSearch_dfs_stack] *)
 //
 (* ****** ****** *)
 

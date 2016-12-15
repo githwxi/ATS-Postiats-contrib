@@ -116,14 +116,35 @@ theSearchStore_unget(theStore)
 //
 (* ****** ****** *)
 //
-(*
 extern
 fun{}
-GraphSearch_bfs(): void
+GraphSearch_bfs_queue
+  (stk: queue(node)): void
+//
 implement
 {}(*tmp*)
-GraphSearch_bfs() = GraphSearch<>()
-*)
+GraphSearch_bfs_queue
+  (store) = () where
+{
+//
+val
+p_store =
+$UN.castvwtp1{ptr}(store)
+//
+implement
+theSearchStore_get<>() =
+  $UN.castvwtp1{queue(node)}(p_store)
+implement
+theSearchStore_unget<>(store) =
+{
+  prval () = $UN.cast2void(store)
+}
+//
+val () = GraphSearch((*void*))
+//
+val () = queue_free_all(store)
+//
+} (* end of [GraphSearch_bfs_queue] *)
 //
 (* ****** ****** *)
 

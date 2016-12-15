@@ -263,26 +263,15 @@ end // end of [process_node]
 val nx = list0_sing(w1)
 //
 val
-theStore =
+store =
 queue_make_nil<node>()
 val
-p_theStore =
-$UN.castvwtp1{ptr}(theStore)
+p_store =
+$UN.castvwtp1{ptr}(store)
 //
-val () = queue_insert(theStore, nx)
+val () = queue_insert(store, nx)
 //
-implement
-theSearchStore_get<>() =
-  $UN.castvwtp1{queue(node)}(p_theStore)
-implement
-theSearchStore_unget<>(store) =
-{
-  prval () = $UN.cast2void(store)
-}
-//
-val () = GraphSearch((*void*))
-//
-val () = queue_free_all(theStore)
+val () = GraphSearch_bfs_queue(store)
 //
 } (* end of [Doublets_play] *)
 
