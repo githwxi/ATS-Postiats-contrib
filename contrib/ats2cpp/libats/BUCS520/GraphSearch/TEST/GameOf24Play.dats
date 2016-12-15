@@ -218,8 +218,9 @@ println!("process_node: nx = ", nx)
 val () =
 case+ nx of
 | list0_sing(x) =>
-  if expr_is_24(x) then
-    (!nsol := !nsol+1; println!(x))
+  if expr_is_24(x)
+    then (!nsol := !nsol+1; println!(x))
+  // end of [if]
 | _(*non-sing*) => ()
 }
 //
