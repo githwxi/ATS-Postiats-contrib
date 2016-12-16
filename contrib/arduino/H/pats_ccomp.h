@@ -38,6 +38,15 @@
 //
 /* ****** ****** */
 //
+/*
+#include "prelude/CATS/integer_ptr.cats"
+*/
+#include "prelude/CATS/integer_long.cats"
+#include "prelude/CATS/integer_size.cats"
+#include "prelude/CATS/integer_short.cats"
+//
+/* ****** ****** */
+//
 #include <stdint.h>
 #include "prelude/CATS/integer_fixed.cats"
 //
