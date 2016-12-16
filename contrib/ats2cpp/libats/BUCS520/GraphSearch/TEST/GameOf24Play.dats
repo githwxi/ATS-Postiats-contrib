@@ -146,6 +146,7 @@ nxs
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 node_get_neighbors
   (nx) = aux1(nx, nil0()) where
 {
