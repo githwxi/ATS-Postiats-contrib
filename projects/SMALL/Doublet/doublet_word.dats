@@ -41,10 +41,11 @@ implement
 word_get_friends_at
   (w0, i0) = let
 //
-vtypedef res = List0_vt (word)
+vtypedef
+res = List0_vt(word)
 //
-val n0 = length (w0)
-val c0 = strarr_get_at (w0, i0)
+val n0 = g1ofg0(length(w0))
+val c0 = strarr_get_at(w0, i0)
 //
 fun aux1
 (
@@ -56,7 +57,7 @@ fun aux1
       val f =
       lam (i: size_t)
         : char =<cloref1> if i != i0 then w0[i] else c
-      val w = strarr_tabulate (n0, f)
+      val w = strarr_tabulate(n0, f)
       val () = cloptr_free ($UN.castvwtp0{cloptr(void)}(f))
     }
     val res = aux1 (int2char0(char2int0(c)+1), res)
