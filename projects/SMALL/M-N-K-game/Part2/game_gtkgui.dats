@@ -87,15 +87,19 @@ staload CH2 =
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
 #include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
 //
 } (* end of [staload] *)
-
-val () = $CH2.set ($UN.cast2ptr($CHAN.channel_create_exn<int> (i2sz(2))))
-
+//
+val () =
+$CH2.set
+(
+$UN.cast2ptr($CHAN.channel_create_exn<int>(i2sz(2)))
+)
+//
 (* ****** ****** *)
 
 implement
@@ -115,7 +119,7 @@ in
 end // end of [game_gtkgui_enter]
 
 implement
-game_gtkgui_enter_after () = let
+game_gtkgui_enter_after() = let
   val ch1 = game_gtkgui_get_chan1 ()
   val tok = $CHAN.channel_takeout (ch1)
 in
@@ -125,7 +129,7 @@ end // end of [game_gtkgui_enter_after]
 (* ****** ****** *)
 
 implement
-game_gtkgui_return () = let
+game_gtkgui_return() = let
   val ch2 = game_gtkgui_get_chan2 ()
   val tok = $CHAN.channel_takeout (ch2)
 in
@@ -133,7 +137,7 @@ in
 end // end of [game_gtkgui_return]
 
 implement
-game_gtkgui_return_before () = let
+game_gtkgui_return_before() = let
 //
 val ch2 = game_gtkgui_get_chan2 ()
 //
@@ -162,9 +166,11 @@ case+ xs of
 | list_nil () => ()
 | list_cons (x, xs) => let
     val btn = $UN.castvwtp0{GtkButton1}(x)
-    val () = gtk_button_set_label (btn, (gstring)" ")
-    val () = gtk_widget_set_sensitive (btn, GTRUE)
-    prval () = $UN.cast2void (btn)
+    val () =
+      gtk_button_set_label(btn, (gstring)" ")
+    // end of [val]
+    val () = gtk_widget_set_sensitive(btn, GTRUE)
+    prval ((*returned*)) = $UN.cast2void(btn)
   in
     loop (xs)
   end // end of [list_cons]
