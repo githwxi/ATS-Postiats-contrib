@@ -24,20 +24,23 @@ ATS_STATIC_PREFIX "_ats2jspre_BUCS320_parcomb_"
 //
 (* ****** ****** *)
 //
-staload "./../../basics_js.sats"
+staload
+"./../../../basics_js.sats"
 //
 (* ****** ****** *)
 //
-staload "./../../SATS/list.sats"
-staload "./../../SATS/list_vt.sats"
+staload "./../../../SATS/list.sats"
+staload "./../../../SATS/list_vt.sats"
 //
 (* ****** ****** *)
 //
-staload "./../../SATS/BUCS320/parcomb.sats"
+staload
+"./../../../SATS/BUCS320/parcomb.sats"
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/BUCS320/parcomb.dats"
+#include
+"{$LIBATSCC}/DATS/BUCS320/parcomb/parcomb.dats"
 //
 (* ****** ****** *)
 

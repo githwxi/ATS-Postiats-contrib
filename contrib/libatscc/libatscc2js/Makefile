@@ -108,8 +108,8 @@ $(ATSCC2JS) -o ./output/DATS/Bacon.js/baconjs_ext_dats.js -i
 ######
 #
 all:: ; \
-$(PATSOPT) -d ./DATS/BUCS320/parcomb.dats | \
-$(ATSCC2JS) -o ./output/DATS/BUCS320/parcomb_dats.js -i
+$(PATSOPT) -d ./DATS/BUCS320/parcomb/parcomb.dats | \
+$(ATSCC2JS) -o ./output/DATS/BUCS320/parcomb/parcomb_dats.js -i
 #
 ######
 
@@ -192,7 +192,7 @@ output/DATS/Bacon.js/baconjs_ext_dats.js
 libatscc2js_bucs320_parcomb:: ; \
 $(CAT) \
 >libatscc2js_bucs320_parcomb.js \
-output/DATS/BUCS320/parcomb_dats.js
+output/DATS/BUCS320/parcomb/parcomb_dats.js
 #
 ######
 #
