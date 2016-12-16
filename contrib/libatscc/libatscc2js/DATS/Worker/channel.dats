@@ -45,13 +45,10 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
-staload "libats/ML/SATS/basis.sats"
-
-(* ****** ****** *)
-
-staload "./../../SATS/Worker/channel.sats"
-
+//
+staload
+"./../../SATS/Worker/channel.sats"
+//
 (* ****** ****** *)
 //
 implement

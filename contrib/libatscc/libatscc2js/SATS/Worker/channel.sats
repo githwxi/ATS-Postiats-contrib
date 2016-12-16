@@ -41,13 +41,17 @@ ATS_EXTERN_PREFIX "ats2js_worker_" // prefix for external names
 (* ****** ****** *)
 //
 staload
-"libats/ML/SATS/basis.sats"
+"./../../basics_js.sats"
 //
 (* ****** ****** *)
-
-stadef cfun0 = cfun0
-stadef cfun1 = cfun1
-
+//
+typedef
+cfun0(res: vt0p) = () -<cloref1> res
+typedef
+cfun1(a: vt0p, res: vt0p) = (a) -<cloref1> res
+typedef
+cfun2(a1: vt0p, a2: vt0p, res: vt0p) = (a1, a2) -<cloref1> res
+//
 (* ****** ****** *)
 //
 abstype
