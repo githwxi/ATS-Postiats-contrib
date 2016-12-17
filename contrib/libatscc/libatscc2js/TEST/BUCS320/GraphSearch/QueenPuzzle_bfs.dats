@@ -9,7 +9,7 @@ ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME "QueenPuzzle_dynload"
 //
-#define ATS_STATIC_PREFIX "_QueenPuzzle_"
+#define ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
 //
 (* ****** ****** *)
 //
@@ -20,7 +20,7 @@ ATS_DYNLOADNAME "QueenPuzzle_dynload"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "./../../../DATS/BUCS320/GraphSearch/GraphSearch_bfs.dats"
 //
 (* ****** ****** *)
