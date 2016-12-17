@@ -5,11 +5,7 @@ For testing GraphSearh_bfs
 (* ****** ****** *)
 //
 #define
-ATS_MAINATSFLAG 1
-#define
-ATS_DYNLOADNAME "QueenPuzzle_dynload"
-//
-#define ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
+ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
 //
 (* ****** ****** *)
 //
