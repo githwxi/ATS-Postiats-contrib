@@ -123,4 +123,4 @@ process.stdout.write(ats2jspre_the_print_store_join());
 
 (* ****** ****** *)
 
-(* end of [QueenPuzzle.dats] *)
+(* end of [QueenPuzzle_dfs.dats] *)

@@ -16,15 +16,26 @@ NODEJS=nodejs
 all::
 
 ######
-
-all:: \
-QueenPuzzle_dats.js
-QueenPuzzle_dats.c: \
-QueenPuzzle.dats; $(PATSOPT) -o $@ -d $<
-QueenPuzzle_dats.js: \
-QueenPuzzle_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
-regress:: QueenPuzzle_dats.js; $(NODEJS) $<
+all:: \
+QueenPuzzle_dfs_dats.js
+QueenPuzzle_dfs_dats.c: \
+QueenPuzzle_dfs.dats; $(PATSOPT) -o $@ -d $<
+QueenPuzzle_dfs_dats.js: \
+QueenPuzzle_dfs_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+regress:: QueenPuzzle_dfs_dats.js; $(NODEJS) $<
+#
+######
+#
+all:: \
+QueenPuzzle_bfs_dats.js
+QueenPuzzle_bfs_dats.c: \
+QueenPuzzle_bfs.dats; $(PATSOPT) -o $@ -d $<
+QueenPuzzle_bfs_dats.js: \
+QueenPuzzle_bfs_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+regress:: QueenPuzzle_bfs_dats.js; $(NODEJS) $<
 #
 ######
 
