@@ -23,12 +23,21 @@ abstype NJSstream // readable/writable
 
 (* ****** ****** *)
 //
+typedef
+fprint_type
+(
+  a:t@ype
+) = (NJSstream(*out*), a) -<fun1> void
+//
+(* ****** ****** *)
+//
 (*
 fun print_int : (int) -> void = "mac#%"
 fun prerr_int : (int) -> void = "mac#%"
 *)
 //
-fun fprint_int: (NJSstream, int) -> void = "mac#%"
+fun
+fprint_int: (NJSstream, int) -> void = "mac#%"
 //
 overload fprint with fprint_int of 100
 //

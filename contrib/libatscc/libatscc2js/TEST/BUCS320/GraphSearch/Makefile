@@ -38,6 +38,28 @@ QueenPuzzle_bfs_dats.c; $(ATSCC2JS) -o $@ -i $<
 regress:: QueenPuzzle_bfs_dats.js; $(NODEJS) $<
 #
 ######
+#
+all:: \
+GameOf24Play_dfs_dats.js
+GameOf24Play_dfs_dats.c: \
+GameOf24Play_dfs.dats; $(PATSOPT) -o $@ -d $<
+GameOf24Play_dfs_dats.js: \
+GameOf24Play_dfs_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+regress:: GameOf24Play_dfs_dats.js; $(NODEJS) $<
+#
+######
+#
+all:: \
+GameOf24Play_bfs_dats.js
+GameOf24Play_bfs_dats.c: \
+GameOf24Play_bfs.dats; $(PATSOPT) -o $@ -d $<
+GameOf24Play_bfs_dats.js: \
+GameOf24Play_bfs_dats.c; $(ATSCC2JS) -o $@ -i $<
+#
+regress:: GameOf24Play_bfs_dats.js; $(NODEJS) $<
+#
+######
 
 testall:: all
 testall:: regress

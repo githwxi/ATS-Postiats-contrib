@@ -14,6 +14,16 @@
 staload "./../basics_js.sats"
 
 (* ****** ****** *)
+//
+(*
+typedef
+fprint_type
+(
+  a:t@ype
+) = (JSfilr, a) -<fun1> void
+*)
+//
+(* ****** ****** *)
 
 fun print_int : int -> void = "mac#%"
 fun print_uint : uint -> void = "mac#%"
