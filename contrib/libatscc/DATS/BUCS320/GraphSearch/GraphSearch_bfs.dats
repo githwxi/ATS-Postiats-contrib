@@ -10,13 +10,6 @@
 //
 (* ****** ****** *)
 //
-staload
-"libats/ML/SATS/qlistref.sats"
-staload
-"libats/ML/SATS/stream_vt.sats"
-//
-(* ****** ****** *)
-//
 extern
 fun{}
 node_mark(node): void

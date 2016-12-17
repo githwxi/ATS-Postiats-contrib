@@ -177,6 +177,21 @@ xs: stream_vt(INV(a))
 (* ****** ****** *)
 //
 fun
+stream_vt_rforeach_cloref
+  {a:vt0ype}
+(
+xs: stream_vt(INV(a)), fwork: (a) -<cloref1> void
+) : void = "mac#%" // end-of-function
+fun
+stream_vt_rforeach_method
+  {a:vt0ype}
+(
+xs: stream_vt(INV(a))
+) :<> ((a) -<cloref1> void) -<lincloptr1> void = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 stream_vt_tabulate_cloref
   {a:t0p}
   (fopr: intGte(0) -<cloref1> a): stream_vt(a) = "mac#%"
@@ -192,7 +207,8 @@ overload .takeLte with stream_vt_takeLte of 100
 overload .map with stream_vt_map_method of 100
 overload .filter with stream_vt_filter_method of 100
 overload .foreach with stream_vt_foreach_method of 100
-overload .iforeach with stream_vt_iforeach_method of 1001
+overload .iforeach with stream_vt_iforeach_method of 100
+overload .rforeach with stream_vt_rforeach_method of 100
 //
 (* ****** ****** *)
 

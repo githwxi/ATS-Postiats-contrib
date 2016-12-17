@@ -18,20 +18,13 @@ all::
 ######
 
 all:: \
-test01_dats.js
-test01_dats.c: test01.dats; $(PATSOPT) -o $@ -d $<
-test01_dats.js: test01_dats.c; $(ATSCC2JS) -o $@ -i $<
+QueenPuzzle_dats.js
+QueenPuzzle_dats.c: \
+QueenPuzzle.dats; $(PATSOPT) -o $@ -d $<
+QueenPuzzle_dats.js: \
+QueenPuzzle_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
-regress:: test01_dats.js; $(NODEJS) $<
-#
-######
-
-all:: \
-test02_dats.js
-test02_dats.c: test02.dats; $(PATSOPT) -o $@ -d $<
-test02_dats.js: test02_dats.c; $(ATSCC2JS) -o $@ -i $<
-#
-regress:: test02_dats.js; $(NODEJS) $<
+regress:: QueenPuzzle_dats.js; $(NODEJS) $<
 #
 ######
 

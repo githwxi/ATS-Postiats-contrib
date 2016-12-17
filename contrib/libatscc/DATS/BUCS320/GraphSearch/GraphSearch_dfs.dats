@@ -6,14 +6,7 @@
 //
 (* ****** ****** *)
 //
-staload "./GraphSearch.dats"
-//
-(* ****** ****** *)
-//
-staload
-"libats/ML/SATS/slistref.sats"
-staload
-"libats/ML/SATS/stream_vt.sats"
+#include "./GraphSearch.dats"
 //
 (* ****** ****** *)
 //

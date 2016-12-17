@@ -32,10 +32,11 @@ staload
 "./../../DATS/Worker/channeg.dats"
 //
 (* ****** ****** *)
-
+//
 extern
-fun console_log(string): void = "mac#"
-
+fun
+console_log(string): void = "mac#"
+//
 (* ****** ****** *)
 
 %{^

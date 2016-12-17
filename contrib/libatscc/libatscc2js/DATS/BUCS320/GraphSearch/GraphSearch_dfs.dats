@@ -26,6 +26,18 @@ ATS_STATIC_PREFIX "_ats2jspre_BUCS320_GraphSearch_dfs_"
 //
 staload "./../../../basics_js.sats"
 //
+staload "./../../../SATS/bool.sats"
+staload "./../../../SATS/integer.sats"
+//
+(* ****** ****** *)
+//
+staload "./../../../SATS/slistref.sats"
+//
+macdef
+slistref_insert = slistref_push
+macdef
+slistref_takeout_opt = slistref_pop_opt
+//
 (* ****** ****** *)
 //
 #include

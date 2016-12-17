@@ -4,20 +4,20 @@
 //
 (* ****** ****** *)
 //
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "test02_dynload"
+//
+#define ATS_STATIC_PREFIX "_test02_"
+//
+(* ****** ****** *)
+//
 #include
 "./../staloadall.hats"
 //
 staload "./../SATS/print.sats"
 staload _ = "./../DATS/print.dats"
-//
-(* ****** ****** *)
-//
-#define
-ATS_MAINATSFLAG 1
-#define
-ATS_DYNLOADNAME "test02_dynload"
-#define
-ATS_STATIC_PREFIX "test02__"
 //
 (* ****** ****** *)
 

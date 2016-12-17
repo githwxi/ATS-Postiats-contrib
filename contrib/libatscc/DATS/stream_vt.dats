@@ -443,6 +443,37 @@ llam(fwork) =>
 ) (* end of [stream_vt_iforeach_method] *)
 //
 (* ****** ****** *)
+//
+implement
+stream_vt_rforeach_cloref
+  {a}(*poly*)
+  (xs, fwork) =
+  auxmain(xs) where
+{
+//
+fun
+auxmain
+(
+  xs: stream_vt(a)
+) : void =
+(
+case+ !xs of
+| ~stream_vt_nil() => ()
+| ~stream_vt_cons(x, xs) =>
+    (auxmain(xs); fwork(x))
+)
+//
+} (* end of [stream_vt_rforeach_cloref] *)
+//
+implement
+stream_vt_rforeach_method
+  (xs) =
+(
+llam(fwork) =>
+  stream_vt_rforeach_cloref(xs, fwork)
+) (* end of [stream_vt_rforeach_method] *)
+//
+(* ****** ****** *)
 
 implement
 stream_vt_tabulate_cloref
