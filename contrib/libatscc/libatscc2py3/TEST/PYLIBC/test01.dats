@@ -48,11 +48,13 @@ val ((*void*)) = println! ("today.ctime() = ", today.ctime())
 
 %{^
 ######
-from libatscc2py3_all import *
-######
-from ats2pylibc_datetime_cats import *
+import sys
 ######
 sys.setrecursionlimit(1000000)
+######
+from libatscc2py3_all import *
+from libatscc2py3_all_pylibc import *
+######
 %} // end of [%{^]
 
 (* ****** ****** *)

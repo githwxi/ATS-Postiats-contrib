@@ -121,6 +121,8 @@ output/DATS/stream_vt_dats.py \
 output/DATS/intrange_dats.py \
 output/DATS/arrayref_dats.py \
 output/DATS/matrixref_dats.py \
+output/DATS/slistref_dats.py \
+output/DATS/qlistref_dats.py \
 output/DATS/ML/list0_dats.py \
 output/DATS/ML/array0_dats.py \
 
