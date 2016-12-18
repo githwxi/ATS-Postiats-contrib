@@ -112,12 +112,18 @@ $(PATSOPT) -d ./DATS/BUCS320/parcomb/parcomb.dats | \
 $(ATSCC2JS) -o ./output/DATS/BUCS320/parcomb/parcomb_dats.js -i
 #
 ######
+#
+LIBATSCC2JS_ALL_JS=\
+output/libatscc2js_all.js
+LIBATSCC2JS_BACONJS_ALL_JS=\
+output/libatscc2js_baconjs_all.js
+LIBATSCC2JS_BUCS320_PARCOMB_JS=\
+output/libatscc2js_bucs320_parcomb.js
+#
+######
 
 all_in_one:: libatscc2js_all
 all_in_one:: libatscc2js_baconjs_all
-
-######
-
 all_in_one:: libatscc2js_bucs320_parcomb
 
 ######
@@ -126,18 +132,18 @@ DATE=/bin/date
 ECHO=/bin/echo -en
 #
 libatscc2js_all:: ; \
-$(ECHO) | $(CAT) - >libatscc2js_all.js
+$(ECHO) | $(CAT) - >$(LIBATSCC2JS_ALL_JS)
 libatscc2js_all:: ; \
-$(ECHO) '/*\n' | $(CAT) - >>libatscc2js_all.js
+$(ECHO) '/*\n' | $(CAT) - >>$(LIBATSCC2JS_ALL_JS)
 libatscc2js_all:: ; \
-$(ECHO) 'Time of Generation:\n' | $(CAT) - >>libatscc2js_all.js
+$(ECHO) 'Time of Generation:\n' | $(CAT) - >>$(LIBATSCC2JS_ALL_JS)
 libatscc2js_all:: ; \
-$(DATE) | $(CAT) - >>libatscc2js_all.js
+$(DATE) | $(CAT) - >>$(LIBATSCC2JS_ALL_JS)
 libatscc2js_all:: ; \
-$(ECHO) '*/\n\n' | $(CAT) - >>libatscc2js_all.js
+$(ECHO) '*/\n\n' | $(CAT) - >>$(LIBATSCC2JS_ALL_JS)
 #
 libatscc2js_all:: ; \
-$(CAT) >>libatscc2js_all.js \
+$(CAT) >>$(LIBATSCC2JS_ALL_JS) \
 CATS/basics_cats.js \
 CATS/integer_cats.js \
 CATS/bool_cats.js \
@@ -152,7 +158,7 @@ CATS/Ajax/Ajax_cats.js \
 CATS/HTML/canvas-2d/canvas2d_cats.js
 #
 libatscc2js_all:: ; \
-$(CAT) >>libatscc2js_all.js \
+$(CAT) >>$(LIBATSCC2JS_ALL_JS) \
 output/DATS/basics_dats.js \
 output/DATS/char_dats.js \
 output/DATS/string_dats.js \
@@ -174,15 +180,15 @@ output/DATS/ML/list0_dats.js \
 output/DATS/ML/array0_dats.js
 #
 libatscc2js_all:: ; \
-$(ECHO) '\n/* ****** ****** */\n' | $(CAT) - >>libatscc2js_all.js
+$(ECHO) '\n/* ****** ****** */\n' | $(CAT) - >>$(LIBATSCC2JS_ALL_JS)
 libatscc2js_all:: ; \
-$(ECHO) '\n/* end of [libatscc2js_all.js] */\n' | $(CAT) - >>libatscc2js_all.js
+$(ECHO) '\n/* end of [libatscc2js_all.js] */\n' | $(CAT) - >>$(LIBATSCC2JS_ALL_JS)
 #
 ######
 #
 libatscc2js_baconjs_all:: ; \
 $(CAT) \
->libatscc2js_baconjs_all.js \
+>$(LIBATSCC2JS_BACONJS_ALL_JS) \
 CATS/Bacon.js/baconjs_cats.js \
 output/DATS/Bacon.js/baconjs_dats.js \
 output/DATS/Bacon.js/baconjs_ext_dats.js
@@ -191,7 +197,7 @@ output/DATS/Bacon.js/baconjs_ext_dats.js
 #
 libatscc2js_bucs320_parcomb:: ; \
 $(CAT) \
->libatscc2js_bucs320_parcomb.js \
+>$(LIBATSCC2JS_BUCS320_PARCOMB_JS) \
 output/DATS/BUCS320/parcomb/parcomb_dats.js
 #
 ######
@@ -205,9 +211,9 @@ output/DATS/BUCS320/parcomb/parcomb_dats.js
 #
 # upload_libatscc2js:: ; \
 # $(SCPR) \
-# libatscc2js_all.js \
-# libatscc2js_baconjs_all.js \
-# libatscc2js_bucs320_parcomb.js \
+# $(LIBATSCC2JS_ALL_JS) \
+# $(LIBATSCC2JS_BACONJS_ALL_JS) \
+# $(LIBATSCC2JS_BUCS320_PARCOMB_JS) \
 # ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2js/.
 #
 ######
@@ -217,9 +223,9 @@ clean:: ; $(RMF) *~ */*~
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) libatscc2js_all.js
-cleanall:: ; $(RMF) libatscc2js_baconjs_all.js
-cleanall:: ; $(RMF) libatscc2js_bucs320_parcomb.js
+cleanall:: ; $(RMF) $(LIBATSCC2JS_ALL_JS)
+cleanall:: ; $(RMF) $(LIBATSCC2JS_BACONJS_ALL_JS)
+cleanall:: ; $(RMF) $(LIBATSCC2JS_BUCS320_PARCOMB_JS)
 
 ######
 
