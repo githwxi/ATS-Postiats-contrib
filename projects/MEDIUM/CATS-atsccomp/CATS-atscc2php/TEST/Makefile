@@ -147,11 +147,9 @@ RMRF=rm -rf
 ######
 
 libatscc2php:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/CATS/*_cats.php libatscc2php/CATS/.
 libatscc2php:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
-libatscc2php:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/ML/*_dats.php libatscc2php/DATS/ML/.
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2php/output/DATS/*_dats.php libatscc2php/DATS/.
 
 ######
 

@@ -26,7 +26,8 @@ staload _ =
 (* ****** ****** *)
 //
 extern
-fun multable (): void = "mac#multable"
+fun
+multable(): void = "mac#multable"
 //
 (* ****** ****** *)
 
@@ -65,16 +66,17 @@ in
 end // end of [mutable]
 
 (* ****** ****** *)
-
+//
 extern
 fun
 multable_test
 (
 // argumentless
 ) : void = "mac#multable_test"
+//
 implement
-multable_test () = multable ()
-
+multable_test() = multable((*void*))
+//
 (* ****** ****** *)
 
 (* end of [multable.dats] *)
