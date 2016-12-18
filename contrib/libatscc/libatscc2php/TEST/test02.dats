@@ -4,20 +4,32 @@
 //
 (* ****** ****** *)
 //
-#include "./../staloadall.hats"
-//
-(* ****** ****** *)
-//
 #define
 ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME "test02_dynload"
 #define
-ATS_STATIC_PREFIX "test02__"
+ATS_STATIC_PREFIX "_test02_"
 //
 (* ****** ****** *)
 
 #define :: list_cons
+
+(* ****** ****** *)
+//
+#include "./../staloadall.hats"
+//
+(* ****** ****** *)
+
+%{$
+test02_dynload();
+%} (* end of [%{$] *)
+
+(* ****** ****** *)
+
+%{^
+include "./../output/libatscc2php_all.php";
+%} (* end of [%{^] *)
 
 (* ****** ****** *)
 
@@ -30,18 +42,6 @@ val xs =
 
 val () = println! ("xs = ", xs)
 val () = println! ("xs + xs = ", xs + xs)
-
-(* ****** ****** *)
-
-%{$
-include "./../libatscc2php_all.php";
-%} // end of [%{$]
-
-(* ****** ****** *)
-
-%{$
-test02_dynload();
-%} // end of [%{$]
 
 (* ****** ****** *)
 

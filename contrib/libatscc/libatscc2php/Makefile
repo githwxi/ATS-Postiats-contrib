@@ -19,6 +19,9 @@ all:: ; \
 $(PATSOPT) -d ./DATS/list.dats | \
 $(ATSCC2PHP) -o ./output/DATS/list_dats.php -i
 all:: ; \
+$(PATSOPT) -d ./DATS/list_vt.dats | \
+$(ATSCC2PHP) -o ./output/DATS/list_vt_dats.php -i
+all:: ; \
 $(PATSOPT) -d ./DATS/option.dats | \
 $(ATSCC2PHP) -o ./output/DATS/option_dats.php -i
 all:: ; \
@@ -48,27 +51,35 @@ $(ATSCC2PHP) -o ./output/DATS/ML/array0_dats.php -i
 
 ######
 #
+LIBATSCC2PHP_ALL_PHP=\
+output/libatscc2php_all.php
+#
+######
+#
 DATE=/bin/date
 ECHO=/bin/echo -en
 #
-all_in_one:: ; $(ECHO) | $(CAT) - >libatscc2php_all.php
+all_in_one:: ; \
+  $(ECHO) | $(CAT) - >$(LIBATSCC2PHP_ALL_PHP)
 #
 all_in_one:: ; \
-  $(ECHO) '<?php\n' | $(CAT) - >>libatscc2php_all.php
+  $(ECHO) '<?php\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
-all_in_one:: ; $(ECHO) '/*\n' | $(CAT) - >>libatscc2php_all.php
+all_in_one:: ; $(ECHO) '/*\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
 all_in_one:: ; \
-  $(ECHO) '** Time of Generation:\n** ' | $(CAT) - >>libatscc2php_all.php
-all_in_one:: ; $(DATE) | $(CAT) - >>libatscc2php_all.php
+  $(ECHO) '** Time of Generation:\n** ' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
-all_in_one:: ; $(ECHO) '*/\n' | $(CAT) - >>libatscc2php_all.php
+all_in_one:: ; $(DATE) | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
-all_in_one:: ; $(ECHO) '?>\n' | $(CAT) - >>libatscc2php_all.php
+all_in_one:: ; $(ECHO) '*/\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
+all_in_one:: ; $(ECHO) '?>\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
+#
+######
 
 all_in_one:: ; \
-$(CAT) >>libatscc2php_all.php \
+$(CAT) >>$(LIBATSCC2PHP_ALL_PHP) \
 CATS/basics_cats.php \
 CATS/integer_cats.php \
 CATS/bool_cats.php \
@@ -81,8 +92,9 @@ CATS/PHParray_cats.php \
 CATS/PHParref_cats.php \
 
 all_in_one:: ; \
-$(CAT) >>libatscc2php_all.php \
+$(CAT) >>$(LIBATSCC2PHP_ALL_PHP) \
 output/DATS/list_dats.php \
+output/DATS/list_vt_dats.php \
 output/DATS/option_dats.php \
 output/DATS/stream_dats.php \
 output/DATS/stream_vt_dats.php \
@@ -92,14 +104,16 @@ output/DATS/reference_dats.php \
 output/DATS/ML/list0_dats.php \
 output/DATS/ML/array0_dats.php \
 
+######
+
 #
 all_in_one:: ; \
-  $(ECHO) '<?php\n' | $(CAT) - >>libatscc2php_all.php
+  $(ECHO) '<?php\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
 all_in_one:: ; \
-  $(ECHO) '/*\n** end of [libatscc2php_all.php]\n*/\n' | $(CAT) - >>libatscc2php_all.php
+  $(ECHO) '/*\n** end of [$(LIBATSCC2PHP_ALL_PHP)]\n*/\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
-all_in_one:: ; $(ECHO) '?>\n' | $(CAT) - >>libatscc2php_all.php
+all_in_one:: ; $(ECHO) '?>\n' | $(CAT) - >>$(LIBATSCC2PHP_ALL_PHP)
 #
 ######
 
@@ -108,7 +122,7 @@ clean:: ; $(RMF) *~ */*~
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) libatscc2php_all.php
+cleanall:: ; $(RMF) $(LIBATSCC2PHP_ALL_PHP)
 
 ######
 
