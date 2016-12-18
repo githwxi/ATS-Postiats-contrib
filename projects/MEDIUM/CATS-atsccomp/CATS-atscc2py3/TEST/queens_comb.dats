@@ -51,7 +51,6 @@ import sys
 from libatscc2py3_all import *
 ######
 sys.setrecursionlimit(1000000)
-sys.path.append("./libatscc2py3")
 ######
 %} // end of [%{^]
 

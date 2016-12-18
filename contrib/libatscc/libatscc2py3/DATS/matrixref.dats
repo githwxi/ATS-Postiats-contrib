@@ -47,21 +47,6 @@ staload "./../SATS/matrixref.sats"
 #include "{$LIBATSCC}/DATS/matrixref.dats"
 //
 (* ****** ****** *)
-
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_bool_cats import *
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_PYlist_cats import *
-######
-from ats2pypre_intrange_dats import *
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
 //
 (*
 assume

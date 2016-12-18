@@ -9,12 +9,6 @@
 #beg of [filebas_cats.py]
 ######
 
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_option_dats import *
-######
-
 ############################################
 #
 ats2pypre_stdin = sys.__stdin__

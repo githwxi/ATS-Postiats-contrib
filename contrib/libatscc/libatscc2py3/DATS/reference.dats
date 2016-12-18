@@ -18,18 +18,6 @@ ATS_EXTERN_PREFIX "ats2pypre_"
 ATS_STATIC_PREFIX "_ats2pypre_reference_"
 //
 (* ****** ****** *)
-
-%{^
-######
-#
-from ats2pypre_basics_cats import *
-#
-from ats2pypre_PYlist_cats import *
-#
-######
-%} // end of [%{^]
-
-(* ****** ****** *)
 //
 staload
 UN = "prelude/SATS/unsafe.sats"

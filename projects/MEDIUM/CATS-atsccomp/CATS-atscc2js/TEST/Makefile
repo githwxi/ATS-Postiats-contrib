@@ -285,12 +285,13 @@ RMRF=rm -rf
 ######
 #
 libatscc2js:: ; \
+$(CPF) \
+$(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/libatscc2js_all.js libatscc2js/.
+#
+libatscc2js:: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/CATS/* libatscc2js/CATS/.
 libatscc2js:: ; \
 $(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/DATS/* libatscc2js/DATS/.
-#
-libatscc2js:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/libatscc2js_all.js libatscc2js/.
 #
 ######
 

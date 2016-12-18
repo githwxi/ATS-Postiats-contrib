@@ -52,21 +52,10 @@ val () = println! ("refcount() = ", refcount())
 
 %{^
 import sys
-sys.setrecursionlimit(1000000)
 ######
-#
-from ats2pypre_basics_cats import *
-#
-from ats2pypre_integer_cats import *
-#
-from ats2pypre_string_cats import *
-#
-from ats2pypre_print_cats import *
-#
-from ats2pypre_PYlist_cats import *
-#
-from ats2pypre_reference_cats import *
-#
+from libatscc2py3_all import *
+######
+sys.setrecursionlimit(1000000)
 ######
 %} // end of [%{^]
 

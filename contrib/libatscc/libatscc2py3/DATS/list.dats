@@ -67,20 +67,6 @@ staload "./../SATS/PYlist.sats"
 //
 (* ****** ****** *)
 //
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_bool_cats import *
-######
-from ats2pypre_PYlist_cats import *
-######
-%} // end of [%{^]
-//
-(* ****** ****** *)
-//
 implement
 {a}(*tmp*)
 print_list

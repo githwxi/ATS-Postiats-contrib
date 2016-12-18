@@ -9,10 +9,6 @@
 #beg of [bool_cats.py]
 ######
 
-######
-from ats2pypre_basics_cats import *
-######
-
 ############################################
 #
 def ats2pypre_neg_bool0(x): return(not(x))

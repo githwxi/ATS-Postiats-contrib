@@ -25,10 +25,10 @@ f91 (x) = if x >= 101 then x - 10 else f91(f91(x+11))
 
 %{^
 import sys
-sys.setrecursionlimit(1000000)
 ######
-from ats2pypre_basics_cats import *
-from ats2pypre_integer_cats import *
+from libatscc2py3_all import *
+######
+sys.setrecursionlimit(1000000)
 ######
 %} // end of [%{^]
 

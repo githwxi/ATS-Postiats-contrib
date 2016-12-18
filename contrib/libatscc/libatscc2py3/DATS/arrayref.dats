@@ -49,19 +49,6 @@ staload "./../SATS/arrayref.sats"
 //
 (* ****** ****** *)
 //
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_bool_cats import *
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_PYlist_cats import *
-######
-%} // end of [%{^]
-//
-(* ****** ****** *)
-//
 (*
 assume arrayref(a, n) = PYlist(a)
 *)

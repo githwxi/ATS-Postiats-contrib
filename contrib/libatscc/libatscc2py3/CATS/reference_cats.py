@@ -9,10 +9,6 @@
 # beg of [reference_cats.py]
 ######
 
-######
-from ats2pypre_basics_cats import *
-######
-
 ############################################
 
 def ats2pypre_ref(x): return [x]

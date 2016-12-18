@@ -40,18 +40,5 @@ UN = "prelude/SATS/unsafe.sats"
 #include "{$LIBATSCC}/DATS/qlistref.dats"
 //
 (* ****** ****** *)
-//
-%{^
-######
-from ats2pypre_basics_cats import *
-######
-from ats2pypre_bool_cats import *
-from ats2pypre_integer_cats import *
-######
-from ats2pypre_reference_cats import *
-######
-%} // end of [%{^]
-//
-(* ****** ****** *)
 
 (* end of [qlistref.dats] *)

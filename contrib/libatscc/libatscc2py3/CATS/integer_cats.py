@@ -9,10 +9,6 @@
 #beg of [integer_cats.py]
 ######
 
-######
-from ats2pypre_basics_cats import *
-######
-
 ############################################
 #
 def ats2pypre_abs_int0(x): return abs(x)

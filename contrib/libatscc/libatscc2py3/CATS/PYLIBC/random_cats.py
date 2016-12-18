@@ -12,8 +12,6 @@
 ######
 import random
 ######
-from ats2pypre_basics_cats import *
-######
 
 ############################################
 

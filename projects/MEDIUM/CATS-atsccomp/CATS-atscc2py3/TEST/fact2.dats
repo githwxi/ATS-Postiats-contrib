@@ -41,12 +41,10 @@ end // end of [fact]
 
 %{^
 import sys
-sys.setrecursionlimit(1000000)
 ######
-from ats2pypre_basics_cats import *
-from ats2pypre_integer_cats import *
-from ats2pypre_float_cats import *
-from ats2pypre_string_cats import *
+from libatscc2py3_all import *
+######
+sys.setrecursionlimit(1000000)
 ######
 %} // end of [%{^]
 
@@ -56,7 +54,7 @@ from ats2pypre_string_cats import *
 if (len(sys.argv) >= 2):
   print(fact(float(sys.argv[1])))
 else:
-  print('Usage: fact <integer>')
+  print('Usage: fact2 <integer>')
 #endif
 %} // end of [%{$]
 

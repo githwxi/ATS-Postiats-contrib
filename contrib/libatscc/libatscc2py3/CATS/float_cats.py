@@ -9,10 +9,6 @@
 #beg of [float_cats.py]
 ######
 
-######
-from ats2pypre_basics_cats import *
-######
-
 ############################################
 #
 def ats2pypre_double2int(x): return int(x)

@@ -25,11 +25,13 @@ regress::
 cleanall::
 
 ######
-
+#
 RMF=rm -f
 RMRF=rm -rf
+#
+CPF=cp -f
 CPRF=cp -rf
-
+#
 ######
 #
 all:: \
@@ -294,7 +296,13 @@ testall:: cleanall
 ######
 #
 libatscc2py3:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py3/output/* libatscc2py3/.
+$(CPF) \
+$(PATSHOME_contrib)/contrib/libatscc/libatscc2py3/output/libatscc2py3_all.py libatscc2py3/.
+#
+libatscc2py3:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py3/CATS/* libatscc2py3/CATS/.
+libatscc2py3:: ; \
+$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2py3/output/DATS/* libatscc2py3/DATS/.
 #
 ######
 
@@ -305,8 +313,7 @@ clean:: ; $(RMF) *_?ats.c
 
 cleanall:: clean
 cleanall:: ; $(RMF) *_?ats.py
-cleanall:: ; $(RMF) libatscc2py3/*_?ats.py
-cleanall:: ; $(RMF) libatscc2py3/libatsccpy_all.py
-cleanall:: ; $(RMRF) libatscc2py3/__pycache__
+cleanall:: ; $(RMRF) libatscc2py3/CATS/*
+cleanall:: ; $(RMRF) libatscc2py3/DATS/*
 
 ###### end of [Makefile] ######
