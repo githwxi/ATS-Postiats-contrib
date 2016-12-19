@@ -21,7 +21,10 @@ val () =
 repeat(3, $delay(println!("Hello, world!")))
 //
 val () =
-(3).foreach()(lam(i) =<cloref1> println!(i, ": Hello, world!"))
+(3).repeat()(lam() => println!("Hello, world!"))
+//
+val () =
+(3).foreach()(lam(i) => println!(i, ": Hello, world!"))
 //
 (* ****** ****** *)
 

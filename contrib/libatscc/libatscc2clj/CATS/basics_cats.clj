@@ -194,12 +194,6 @@
 (defn ats2cljpre_tostring[x] (.toString x))
 ;;
 ;; ****** ****** ;;
-  
-(defn
- ats2cljpre_lazy2cloref[lazyval] `(ATSCCget_at ~lazyval 1)
-) ;; end-of-define
-
-;; ****** ****** ;;
 ;;
 (defn
  ats2cljpre_assert_bool0[tfv] (if (not tfv) (System/exit 1))
@@ -259,6 +253,12 @@
  (fn [x1 x2 x3] (ats2cljpre_cloref3_app cf x1 x2 x3))
 ) ; defn
 ;;
+;; ****** ****** ;;
+
+(defmacro
+ ats2cljpre_lazy2cloref[lazyval] `(deref (ATSCCget_1 ~lazyval))
+) ;; end-of-define
+
 ;; ****** ****** ;;
 
 ;;;;;; end of [basics_cats.clj] ;;;;;;
