@@ -18,9 +18,9 @@ staload "./../basics_js.sats"
 (* ****** ****** *)
 //
 (*
-val STDIN : JSfile = "mac#"
-val STDOUT : JSfile = "mac#"
-val STDERR : JSfile = "mac#"
+val STDIN : JSfilr = "mac#"
+val STDOUT : JSfilr = "mac#"
+val STDERR : JSfilr = "mac#"
 *)
 macdef STDIN = $extval (JSfilr, "0")
 macdef STDOUT = $extval (JSfilr, "1")

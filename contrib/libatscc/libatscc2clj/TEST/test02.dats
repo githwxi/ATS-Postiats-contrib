@@ -1,6 +1,6 @@
 (* ****** ****** *)
 //
-// For testing libatscc2js
+// For testing libatscc2clj
 //
 (* ****** ****** *)
 //
@@ -15,9 +15,6 @@ ATS_DYNLOADNAME "test02_dynload"
 //
 #include
 "./../staloadall.hats"
-//
-staload "./../SATS/print.sats"
-staload _ = "./../DATS/print.dats"
 //
 (* ****** ****** *)
 
@@ -37,21 +34,11 @@ val () = println! ("xs + xs = ", xs + xs)
 
 (* ****** ****** *)
 
-%{^
-//
-// file inclusion
-//
-var fs = require('fs');
-eval(fs.readFileSync('./../output/libatscc2js_all.js').toString());
-eval(fs.readFileSync('./../CATS/PRINT/print_store_cats.js').toString());
-%} // end of [%{^]
-
-(* ****** ****** *)
-
 %{$
-test02_dynload();
-process.stdout.write(ats2jspre_the_print_store_join());
-%} // end of [%{$]
+;;
+(test02_dynload);
+;;
+%} (* end of [%{$] *)
 
 (* ****** ****** *)
 

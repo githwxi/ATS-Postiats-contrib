@@ -33,11 +33,13 @@ staload "./../basics_clj.sats"
 //
 (* ****** ****** *)
 //
+staload "./../SATS/bool.sats"
 staload "./../SATS/integer.sats"
 //
 (* ****** ****** *)
 //
 staload "./../SATS/print.sats"
+staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
@@ -70,6 +72,48 @@ staload _ = "./../DATS/stream_vt.dats"
 //
 #include
 "{$LIBATSCC}/DATS/list.dats"
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+print_list$sep (): void
+//
+implement
+{}(*tmp*)
+print_list$sep
+  ((*void*)) = print_string (", ")
+//
+implement
+{a}(*tmp*)
+print_list
+  (xs) = let
+//
+implement
+fprint_val<a>
+  (out, x) = print_val<a> (x)
+implement
+fprint_list$sep<> (out) = print_list$sep<> ()
+//
+in
+  fprint_list<a> (STDOUT, xs)
+end // end of [print_list]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+print_list_sep
+  (xs, sep) = let
+//
+implement
+fprint_val<a> (out, x) = print_val<a> (x)
+implement
+fprint_list$sep<> (out) = print_string (sep)
+//
+in
+  fprint_list<a> (STDOUT, xs)
+end // end of [print_list_sep]
 //
 (* ****** ****** *)
 
