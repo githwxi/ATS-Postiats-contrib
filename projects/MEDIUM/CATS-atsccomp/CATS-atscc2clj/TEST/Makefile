@@ -197,7 +197,7 @@ RMRF=rm -rf
 ######
 #
 libatscc2clj:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2clj/libatscc2clj_all.clj libatscc2clj/.
+$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2clj/output/libatscc2clj_all.clj libatscc2clj/.
 #
 ######
 

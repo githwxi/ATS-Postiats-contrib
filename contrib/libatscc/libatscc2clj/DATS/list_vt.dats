@@ -9,13 +9,13 @@
 
 (* ****** ****** *)
 //
-// HX-2016-07:
+// HX-2014-08:
 // prefix for external names
 //
 #define
 ATS_EXTERN_PREFIX "ats2cljpre_"
 #define
-ATS_STATIC_PREFIX "_ats2cljpre_stream_"
+ATS_STATIC_PREFIX "_ats2cljpre_list_"
 //
 (* ****** ****** *)
 //
@@ -29,34 +29,22 @@ UN =
 "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-//
+
 staload "./../basics_clj.sats"
-//
+
 (* ****** ****** *)
 //
 staload "./../SATS/integer.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/bool.sats"
-//
-(* ****** ****** *)
-//
-staload "./../SATS/print.sats"
-//
-(* ****** ****** *)
-//
 staload "./../SATS/list.sats"
-staload "./../SATS/reference.sats"
+staload "./../SATS/list_vt.sats"
+//
+(* ****** ****** *)
+//
+#include "{$LIBATSCC}/DATS/list_vt.dats"
 //
 (* ****** ****** *)
 
-staload "./../SATS/stream.sats"
-
-(* ****** ****** *)
-//
-#include "{$LIBATSCC}/DATS/stream.dats"
-//
-(* ****** ****** *)
-
-(* end of [stream.dats] *)
+(* end of [list_vt.dats] *)

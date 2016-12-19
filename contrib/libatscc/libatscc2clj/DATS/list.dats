@@ -43,6 +43,10 @@ staload "./../SATS/print.sats"
 //
 staload "./../SATS/list.sats"
 //
+staload "./../SATS/CLJlist.sats"
+//
+(* ****** ****** *)
+//
 staload "./../SATS/stream_vt.sats"
 staload _ = "./../DATS/stream.dats"
 //
@@ -51,16 +55,21 @@ staload _ = "./../DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/CLJlist.sats"
-//
-(* ****** ****** *)
-//
 #define ATSCC_STREAM 1
 #define ATSCC_STREAM_VT 1
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/list.dats"
+%{^
+;; list.dats
+;; declared: stream_vt.dats
+(declare ats2cljpre_stream_vt_append)
+%} (* end of [%{^] *)
+//
+(* ****** ****** *)
+//
+#include
+"{$LIBATSCC}/DATS/list.dats"
 //
 (* ****** ****** *)
 
