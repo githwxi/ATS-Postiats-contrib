@@ -1,23 +1,20 @@
 (*
-For testing GraphSearh_bfs
+For testing GraphSearh_dfs
 *)
 
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
+ATS_STATIC_PREFIX "_QueenPuzzle_dfs_"
 //
 (* ****** ****** *)
 //
 #include "./../../../staloadall.hats"
 //
-#staload "./../../../SATS/print.sats"
-#staload _ = "./../../../DATS/print.dats"
-//
 (* ****** ****** *)
 //
 #staload
-"./../../../DATS/BUCS320/GraphSearch/GraphSearch_bfs.dats"
+"./../../../DATS/BUCS320/GraphSearch/GraphSearch_dfs.dats"
 //
 (* ****** ****** *)
 
@@ -41,7 +38,7 @@ implement
 theSearchStore_insert_lst(nxs) =
 (
 nxs
-).foreach()(lam nx => theSearchStore_insert(nx))
+).rforeach()(lam nx => theSearchStore_insert(nx))
 //
 (* ****** ****** *)
 //
@@ -87,36 +84,31 @@ QueenPuzzle_solve() =
 {
 val
 store =
-qlistref_make_nil{node}()
+slistref_make_nil{node}()
 //
 val () =
-qlistref_insert(store, nil0)
+slistref_insert(store, nil0)
 //
-val () = GraphSearch_bfs(store)
+val () = GraphSearch_dfs(store)
 //
 } (* end of [QueenPuzzle_solve] *)
 //
 (* ****** ****** *)
 
-%{^
-//
-// file inclusion
-//
-var fs = require('fs');
-eval(fs.readFileSync('./../../../output/libatscc2js_all.js').toString());
-eval(fs.readFileSync('./../../../CATS/PRINT/print_store_cats.js').toString());
-//
-%} // end of [%{^]
-
-(* ****** ****** *)
-
 %{$
 //
 QueenPuzzle_solve();
-process.stdout.write(ats2jspre_the_print_store_join());
 //
-%} // end of [%{$]
+%} (* end of [%{$] *)
 
 (* ****** ****** *)
 
-(* end of [QueenPuzzle_bfs.dats] *)
+%{^
+//
+include "./../../../output/libatscc2php_all.php";
+//
+%} (* end of [%{^] *)
+
+(* ****** ****** *)
+
+(* end of [QueenPuzzle_dfs.dats] *)

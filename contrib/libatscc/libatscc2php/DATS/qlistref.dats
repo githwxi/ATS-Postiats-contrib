@@ -1,11 +1,11 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into PHP
 *)
 
 (* ****** ****** *)
 //
-// HX: list-based stack
+// HX: list-based queue
 //
 (* ****** ****** *)
 
@@ -17,12 +17,9 @@
 // prefix for external names
 //
 #define
-ATS_PACKNAME
-"ATSCC2PY3.slistref"
+ATS_EXTERN_PREFIX "ats2phppre_"
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
-#define
-ATS_STATIC_PREFIX "_ats2pypre_slistref_"
+ATS_STATIC_PREFIX "_ats2phppre_qlistref_"
 //
 (* ****** ****** *)
 //
@@ -37,8 +34,8 @@ UN = "prelude/SATS/unsafe.sats"
 //
 #include "share/atspre_define.hats"
 //
-#include "{$LIBATSCC}/DATS/slistref.dats"
+#include "{$LIBATSCC}/DATS/qlistref.dats"
 //
 (* ****** ****** *)
 
-(* end of [slistref.dats] *)
+(* end of [qlistref.dats] *)

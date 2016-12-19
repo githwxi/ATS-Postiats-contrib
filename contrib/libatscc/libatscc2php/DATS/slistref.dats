@@ -1,6 +1,6 @@
 (*
 ** For writing ATS code
-** that translates into Python
+** that translates into PHP
 *)
 
 (* ****** ****** *)
@@ -17,12 +17,9 @@
 // prefix for external names
 //
 #define
-ATS_PACKNAME
-"ATSCC2PY3.slistref"
+ATS_EXTERN_PREFIX "ats2phppre_"
 #define
-ATS_EXTERN_PREFIX "ats2pypre_"
-#define
-ATS_STATIC_PREFIX "_ats2pypre_slistref_"
+ATS_STATIC_PREFIX "_ats2phppre_slistref_"
 //
 (* ****** ****** *)
 //

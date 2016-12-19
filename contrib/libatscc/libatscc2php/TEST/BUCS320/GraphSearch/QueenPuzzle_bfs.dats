@@ -11,9 +11,6 @@ ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
 //
 #include "./../../../staloadall.hats"
 //
-#staload "./../../../SATS/print.sats"
-#staload _ = "./../../../DATS/print.dats"
-//
 (* ****** ****** *)
 //
 #staload
@@ -98,24 +95,19 @@ val () = GraphSearch_bfs(store)
 //
 (* ****** ****** *)
 
-%{^
-//
-// file inclusion
-//
-var fs = require('fs');
-eval(fs.readFileSync('./../../../output/libatscc2js_all.js').toString());
-eval(fs.readFileSync('./../../../CATS/PRINT/print_store_cats.js').toString());
-//
-%} // end of [%{^]
-
-(* ****** ****** *)
-
 %{$
 //
 QueenPuzzle_solve();
-process.stdout.write(ats2jspre_the_print_store_join());
 //
-%} // end of [%{$]
+%} (* end of [%{$] *)
+
+(* ****** ****** *)
+
+%{^
+//
+include "./../../../output/libatscc2php_all.php";
+//
+%} (* end of [%{^] *)
 
 (* ****** ****** *)
 

@@ -55,10 +55,24 @@ staload "./SATS/PHParray.sats"
 staload "./SATS/PHParref.sats"
 //
 (* ****** ****** *)
-
-staload "./SATS/ML/list0.sats" // un-indexed list
-staload "./SATS/ML/array0.sats" // un-indexed array
-
+//
+// one-list-based stack
+// two-list-based queue
+//
+staload "./SATS/slistref.sats"
+staload "./SATS/qlistref.sats"
+//
+(* ****** ****** *)
+//
+// HX: un-indexed list
+// HX: un-indexed array
+//
+staload "./SATS/ML/list0.sats"
+staload "./SATS/ML/array0.sats"
+//
+staload _ = "./DATS/ML/list0.dats"
+staload _ = "./DATS/ML/array0.dats"
+//
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)

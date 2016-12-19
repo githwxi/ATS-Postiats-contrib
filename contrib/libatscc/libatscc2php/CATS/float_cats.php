@@ -47,6 +47,28 @@ ats2phppre_pred_double($x) { return ($x - 1); }
 /* ****** ****** */
 
 function
+ats2phppre_add_double_int($x, $y) { return ($x + $y); }
+function
+ats2phppre_sub_double_int($x, $y) { return ($x - $y); }
+function
+ats2phppre_mul_double_int($x, $y) { return ($x * $y); }
+function
+ats2phppre_div_double_int($x, $y) { return ($x / $y); }
+
+/* ****** ****** */
+
+function
+ats2phppre_add_int_double($x, $y) { return ($x + $y); }
+function
+ats2phppre_sub_int_double($x, $y) { return ($x - $y); }
+function
+ats2phppre_mul_int_double($x, $y) { return ($x * $y); }
+function
+ats2phppre_div_int_double($x, $y) { return ($x / $y); }
+
+/* ****** ****** */
+
+function
 ats2phppre_add_double_double($x, $y) { return ($x + $y); }
 function
 ats2phppre_sub_double_double($x, $y) { return ($x - $y); }

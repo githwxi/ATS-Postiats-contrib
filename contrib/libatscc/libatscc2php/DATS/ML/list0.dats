@@ -50,5 +50,17 @@ staload "./../../SATS/ML/list0.sats"
 #include "{$LIBATSCC}/DATS/ML/list0.dats"
 //
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+print_list0
+  (xs) = fprint_list0<a> (STDOUT, xs)
+//
+implement
+{a}(*tmp*)
+print_list0_sep
+  (xs, sep) = fprint_list0_sep<a> (STDOUT, xs, sep)
+//
+(* ****** ****** *)
 
 (* end of [list0.dats] *)

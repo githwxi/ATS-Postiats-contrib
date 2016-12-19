@@ -38,7 +38,7 @@ implement
 theSearchStore_insert_lst(nxs) =
 (
 nxs
-).rforeach()(lam nx => theSearchStore_insert(nx))
+).foreach()(lam nx => theSearchStore_insert(nx))
 //
 (* ****** ****** *)
 //

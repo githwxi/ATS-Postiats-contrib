@@ -5,7 +5,7 @@
 
 (* ****** ****** *)
 //
-// HX: list-bsaed stack
+// HX: list-based stack
 //
 (* ****** ****** *)
 

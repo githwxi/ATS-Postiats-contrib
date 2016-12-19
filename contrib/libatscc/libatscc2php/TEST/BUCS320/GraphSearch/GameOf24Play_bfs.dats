@@ -243,25 +243,23 @@ end (* end of [GameOf24Play] *)
 //
 (* ****** ****** *)
 
-%{^
-######
-from libatscc2py3_all import *
-######
-sys.setrecursionlimit(1000000)
-%} (* end of [%{^] *)
+%{$
+//
+GameOf24Play(3, 3, 8, 8);
+GameOf24Play(3, 5, 7, 13);
+GameOf24Play(4, 4, 10, 10);
+GameOf24Play(5, 5, 7, 11);
+GameOf24Play(5, 7, 7, 11);
+//
+%} (* end of [%{$] *)
 
 (* ****** ****** *)
 
-%{$
+%{^
 //
-if __name__ == '__main__':
-  GameOf24Play(3, 3, 8, 8)
-  GameOf24Play(3, 5, 7, 13)
-  GameOf24Play(4, 4, 10, 10)
-  GameOf24Play(5, 5, 7, 11)
-  GameOf24Play(5, 7, 7, 11)
+include "./../../../output/libatscc2php_all.php";
 //
-%} (* end of [%{$] *)
+%} (* end of [%{^] *)
 
 (* ****** ****** *)
 

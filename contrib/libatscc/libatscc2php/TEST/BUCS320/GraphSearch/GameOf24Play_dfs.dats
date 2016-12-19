@@ -1,11 +1,11 @@
 (*
-For testing GraphSearh_bfs
+For testing GraphSearh_dfs
 *)
 
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
+ATS_STATIC_PREFIX "_QueenPuzzle_dfs_"
 //
 (* ****** ****** *)
 //
@@ -14,7 +14,7 @@ ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
 (* ****** ****** *)
 //
 #staload
-"./../../../DATS/BUCS320/GraphSearch/GraphSearch_bfs.dats"
+"./../../../DATS/BUCS320/GraphSearch/GraphSearch_dfs.dats"
 //
 (* ****** ****** *)
 
@@ -138,7 +138,7 @@ implement
 theSearchStore_insert_lst(nxs) =
 (
 nxs
-).foreach()(lam nx => theSearchStore_insert(nx))
+).rforeach()(lam nx => theSearchStore_insert(nx))
 //
 (* ****** ****** *)
 
@@ -228,13 +228,13 @@ case+ nx of
 //
 val
 store =
-qlistref_make_nil{node}()
+slistref_make_nil{node}()
 val () =
-qlistref_insert(store, nx)
+slistref_insert(store, nx)
 //
 in
 //
-GraphSearch_bfs(store);
+GraphSearch_dfs(store);
 if nsol[] = 0
   then println! ("There is no solution found!")
 // end of [if]
@@ -243,26 +243,24 @@ end (* end of [GameOf24Play] *)
 //
 (* ****** ****** *)
 
-%{^
-######
-from libatscc2py3_all import *
-######
-sys.setrecursionlimit(1000000)
-%} (* end of [%{^] *)
-
-(* ****** ****** *)
-
 %{$
 //
-if __name__ == '__main__':
-  GameOf24Play(3, 3, 8, 8)
-  GameOf24Play(3, 5, 7, 13)
-  GameOf24Play(4, 4, 10, 10)
-  GameOf24Play(5, 5, 7, 11)
-  GameOf24Play(5, 7, 7, 11)
+GameOf24Play(3, 3, 8, 8);
+GameOf24Play(3, 5, 7, 13);
+GameOf24Play(4, 4, 10, 10);
+GameOf24Play(5, 5, 7, 11);
+GameOf24Play(5, 7, 7, 11);
 //
 %} (* end of [%{$] *)
 
 (* ****** ****** *)
 
-(* end of [GameOf24Play_bfs.dats] *)
+%{^
+//
+include "./../../../output/libatscc2php_all.php";
+//
+%} (* end of [%{^] *)
+
+(* ****** ****** *)
+
+(* end of [GameOf24Play_dfs.dats] *)

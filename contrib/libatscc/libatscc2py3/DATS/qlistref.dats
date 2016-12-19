@@ -5,7 +5,7 @@
 
 (* ****** ****** *)
 //
-// HX: list-bsaed queue
+// HX: list-based queue
 //
 (* ****** ****** *)
 

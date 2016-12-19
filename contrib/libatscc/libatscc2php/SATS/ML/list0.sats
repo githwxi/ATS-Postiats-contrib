@@ -26,18 +26,25 @@ staload "./../../basics_php.sats"
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 fprint_list0
-  (PHPfilr, list0(INV(a))): void = "mac#%"
+(
+  out: PHPfilr, xs: list0(INV(a))
+) : void = "mac#%" // end-of-function
 //
 fun{}
 fprint_list0$sep(out: PHPfilr): void = "mac#%"
 //
-fun{a:t0p}
+fun
+{a:t0p}
 fprint_list0_sep
-  (PHPfilr, list0(INV(a)), sep: string): void = "mac#%"
+(
+  out: PHPfilr, xs: list0(INV(a)), sep: string
+) : void = "mac#%" // end-of-function
 //
 overload fprint with fprint_list0 of 100
+overload fprint with fprint_list0_sep of 100
 //
 (* ****** ****** *)
 
