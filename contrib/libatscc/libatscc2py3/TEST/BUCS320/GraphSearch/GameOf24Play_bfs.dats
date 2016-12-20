@@ -19,11 +19,6 @@ ATS_STATIC_PREFIX
 //
 (* ****** ****** *)
 
-#staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
 implement node_mark<>(nx) = ()
 implement node_unmark<>(nx) = ()
 implement node_is_marked<>(nx) = false

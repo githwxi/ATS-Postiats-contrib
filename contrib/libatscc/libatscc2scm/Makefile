@@ -40,6 +40,12 @@ $(PATSOPT) -d ./DATS/stream_vt.dats | \
 $(ATSCC2SCM) -o ./output/DATS/stream_vt_dats.scm -i
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/intrange.dats | \
+$(ATSCC2SCM) -o ./output/DATS/intrange_dats.scm -i
+#
+######
+#
+all:: ; \
 $(PATSOPT) -d ./DATS/reference.dats | \
 $(ATSCC2SCM) -o ./output/DATS/reference_dats.scm -i
 #
@@ -54,6 +60,17 @@ $(PATSOPT) -d ./DATS/qlistref.dats | \
 $(ATSCC2SCM) -o ./output/DATS/qlistref_dats.scm -i
 #
 ######
+#
+all:: ; \
+$(PATSOPT) -d ./DATS/ML/list0.dats | \
+$(ATSCC2SCM) -o ./output/DATS/ML/list0_dats.scm -i
+#
+######
+
+LIBATSCC2SCM_ALL_SCM=\
+output/libatscc2scm_all.scm
+
+######
 
 all_in_one:: libatscc2scm_all
 
@@ -63,18 +80,18 @@ DATE=/bin/date
 ECHO=/bin/echo -en
 #
 libatscc2scm_all:: ; \
-$(ECHO) | $(CAT) - >libatscc2scm_all.scm
+$(ECHO) | $(CAT) - >$(LIBATSCC2SCM_ALL_SCM)
 libatscc2scm_all:: ; \
-$(ECHO) ';;\n' | $(CAT) - >>libatscc2scm_all.scm
+$(ECHO) ';;\n' | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM)
 libatscc2scm_all:: ; \
-$(ECHO) ';; Time of Generation:\n' | $(CAT) - >>libatscc2scm_all.scm
+$(ECHO) ';; Time of Generation:\n' | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM)
 libatscc2scm_all:: ; \
-$(ECHO) ';; ' | $(CAT) - >>libatscc2scm_all.scm && $(DATE) | $(CAT) - >>libatscc2scm_all.scm
+$(ECHO) ';; ' | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM) && $(DATE) | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM)
 libatscc2scm_all:: ; \
-$(ECHO) ';;\n\n' | $(CAT) - >>libatscc2scm_all.scm
+$(ECHO) ';;\n\n' | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM)
 #
 libatscc2scm_all:: ; \
-$(CAT) >>libatscc2scm_all.scm \
+$(CAT) >>$(LIBATSCC2SCM_ALL_SCM) \
 CATS/basics_cats.scm \
 CATS/integer_cats.scm \
 CATS/bool_cats.scm \
@@ -83,25 +100,33 @@ CATS/print_cats.scm \
 CATS/reference_cats.scm
 #
 libatscc2scm_all:: ; \
-$(CAT) >>libatscc2scm_all.scm \
+$(CAT) >>$(LIBATSCC2SCM_ALL_SCM) \
 CATS/filebas_cats.scm
 #
 libatscc2scm_all:: ; \
-$(CAT) >>libatscc2scm_all.scm \
+$(CAT) >>$(LIBATSCC2SCM_ALL_SCM) \
 CATS/SCMlist_cats.scm
 #
+######
+
 libatscc2scm_all:: ; \
-$(CAT) >>libatscc2scm_all.scm \
+$(CAT) >>$(LIBATSCC2SCM_ALL_SCM) \
 output/DATS/list_dats.scm \
 output/DATS/option_dats.scm \
 output/DATS/stream_dats.scm \
 output/DATS/stream_vt_dats.scm \
-output/DATS/reference_dats.scm
-#
+output/DATS/intrange_dats.scm \
+output/DATS/reference_dats.scm \
+output/DATS/slistref_dats.scm \
+output/DATS/qlistref_dats.scm \
+output/DATS/ML/list0_dats.scm \
+
+######
+
 libatscc2scm_all:: ; \
-$(ECHO) '\n;; ****** ****** ;;\n' | $(CAT) - >>libatscc2scm_all.scm
+$(ECHO) '\n;; ****** ****** ;;\n' | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM)
 libatscc2scm_all:: ; \
-$(ECHO) '\n;; end of [libatscc2scm_all.scm] ;;\n' | $(CAT) - >>libatscc2scm_all.scm
+$(ECHO) '\n;; end of [libatscc2scm_all.scm] ;;\n' | $(CAT) - >>$(LIBATSCC2SCM_ALL_SCM)
 #
 ######
 #
@@ -114,7 +139,7 @@ ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2s
 #
 upload_libatscc2scm:: ; \
 $(SCPR) \
-libatscc2scm_all.scm \
+$(LIBATSCC2SCM_ALL_SCM) \
 ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libatscc/libatscc2scm/.
 #
 ######
@@ -124,7 +149,7 @@ clean:: ; $(RMF) *~ */*~
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) libatscc2scm_all.scm
+cleanall:: ; $(RMF) $(LIBATSCC2SCM_ALL_SCM)
 
 ######
 

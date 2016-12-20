@@ -9,13 +9,13 @@
 
 (* ****** ****** *)
 //
-// HX-2014-08:
+// HX-2016-07:
 // prefix for external names
 //
 #define
 ATS_EXTERN_PREFIX "ats2scmpre_"
 #define
-ATS_STATIC_PREFIX "_ats2scmpre_list_"
+ATS_STATIC_PREFIX "_ats2scmpre_intrange_"
 //
 (* ****** ****** *)
 //
@@ -24,27 +24,19 @@ ATS_STATIC_PREFIX "_ats2scmpre_list_"
 //
 (* ****** ****** *)
 //
-staload
-UN = "prelude/SATS/unsafe.sats"
+staload "./../basics_scm.sats"
 //
 (* ****** ****** *)
 //
+staload "./../SATS/bool.sats"
 staload "./../SATS/integer.sats"
-//
-(* ****** ****** *)
-//
-staload "./../SATS/print.sats"
-staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
 staload "./../SATS/list.sats"
 //
+staload "./../SATS/stream.sats"
 staload "./../SATS/stream_vt.sats"
-staload _ = "./../DATS/stream.dats"
-//
-staload "./../SATS/stream_vt.sats"
-staload _ = "./../DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
@@ -53,22 +45,12 @@ staload _ = "./../DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/list.dats"
+staload "./../SATS/intrange.sats"
 //
 (* ****** ****** *)
 //
-implement
-{a}(*tmp*)
-print_list
-  (xs) =
-  fprint_list<a>(stdout_get(), xs)
-//
-implement
-{a}(*tmp*)
-print_list_sep
-  (xs, sep) =
-  fprint_list_sep<a>(stdout_get(), xs, sep)
+#include "{$LIBATSCC}/DATS/intrange.dats"
 //
 (* ****** ****** *)
 
-(* end of [list.dats] *)
+(* end of [intrange.dats] *)

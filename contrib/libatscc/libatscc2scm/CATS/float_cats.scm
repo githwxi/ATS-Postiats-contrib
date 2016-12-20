@@ -54,6 +54,36 @@
 ;; ****** ****** ;;
 ;;
 (define-macro
+ (ats2scmpre_add_int_double x y) `(+ ,x ,y)
+)
+(define-macro
+ (ats2scmpre_sub_int_double x y) `(- ,x ,y)
+)
+(define-macro
+ (ats2scmpre_mul_int_double x y) `(* ,x ,y)
+)
+(define-macro
+ (ats2scmpre_div_int_double x y) `(/ ,x ,y)
+)
+;;
+;; ****** ****** ;;
+;;
+(define-macro
+ (ats2scmpre_add_double_int x y) `(+ ,x ,y)
+)
+(define-macro
+ (ats2scmpre_sub_double_int x y) `(- ,x ,y)
+)
+(define-macro
+ (ats2scmpre_mul_double_int x y) `(* ,x ,y)
+)
+(define-macro
+ (ats2scmpre_div_double_int x y) `(/ ,x ,y)
+)
+;;
+;; ****** ****** ;;
+;;
+(define-macro
  (ats2scmpre_add_double_double x y) `(+ ,x ,y)
 )
 (define-macro

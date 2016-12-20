@@ -24,11 +24,6 @@ ATS_STATIC_PREFIX"_GameOf24Play_bfs_"
 //
 (* ****** ****** *)
 
-#staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
 implement node_mark<>(nx) = ()
 implement node_unmark<>(nx) = ()
 implement node_is_marked<>(nx) = false

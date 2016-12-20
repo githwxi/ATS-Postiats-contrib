@@ -35,5 +35,16 @@ implement
 print_val<string> = print_string
 //
 (* ****** ****** *)
+//
+implement
+fprint_val<int> = fprint_int
+implement
+fprint_val<bool> = fprint_bool
+implement
+fprint_val<double> = fprint_double
+implement
+fprint_val<string> = fprint_string
+//
+(* ****** ****** *)
 
 (* end of [print.dats] *)
