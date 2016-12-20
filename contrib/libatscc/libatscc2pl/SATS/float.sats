@@ -40,6 +40,39 @@ overload succ with succ_double of 100
 overload pred with pred_double of 100
 
 (* ****** ****** *)
+//
+fun add_int_double
+  : (int, double) -<fun> double = "mac#%"
+fun add_double_int
+  : (double, int) -<fun> double = "mac#%"
+//
+fun sub_int_double
+  : (int, double) -<fun> double = "mac#%"
+fun sub_double_int
+  : (double, int) -<fun> double = "mac#%"
+//
+fun mul_int_double
+  : (int, double) -<fun> double = "mac#%"
+fun mul_double_int
+  : (double, int) -<fun> double = "mac#%"
+//
+fun div_int_double
+  : (int, double) -<fun> double = "mac#%"
+fun div_double_int
+  : (double, int) -<fun> double = "mac#%"
+//
+(* ****** ****** *)
+
+overload + with add_int_double of 100
+overload + with add_double_int of 100
+overload - with sub_int_double of 100
+overload - with sub_double_int of 100
+overload * with mul_int_double of 100
+overload * with mul_double_int of 100
+overload / with div_int_double of 100
+overload / with div_double_int of 100
+
+(* ****** ****** *)
 
 typedef
 float_aop_type = (double, double) -> double
