@@ -62,6 +62,11 @@ staload "./SATS/reference.sats"
 
 (* ****** ****** *)
 
+staload "./SATS/slistref.sats" // one-list-based
+staload "./SATS/qlistref.sats" // two-list-based
+
+(* ****** ****** *)
+
 staload "./SATS/ML/list0.sats" // un-indexed list
 
 (* ****** ****** *)
