@@ -113,6 +113,8 @@ output/DATS/option_dats.clj \
 output/DATS/stream_dats.clj \
 output/DATS/stream_vt_dats.clj \
 output/DATS/intrange_dats.clj \
+output/DATS/slistref_dats.clj \
+output/DATS/qlistref_dats.clj \
 output/DATS/ML/list0_dats.clj
 #
 libatscc2clj_all:: ; \

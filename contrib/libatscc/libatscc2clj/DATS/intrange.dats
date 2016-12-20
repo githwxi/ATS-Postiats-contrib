@@ -24,13 +24,24 @@ ATS_STATIC_PREFIX "_ats2cljpre_intrange_"
 //
 (* ****** ****** *)
 //
-staload
-  "./../basics_clj.sats"
+staload "./../basics_clj.sats"
 //
-staload
-  "./../SATS/integer.sats"
+(* ****** ****** *)
+//
+staload "./../SATS/bool.sats"
+staload "./../SATS/integer.sats"
+//
+(* ****** ****** *)
 //
 staload "./../SATS/list.sats"
+//
+staload "./../SATS/stream.sats"
+staload "./../SATS/stream_vt.sats"
+//
+(* ****** ****** *)
+//
+#define ATSCC_STREAM 1
+#define ATSCC_STREAM_VT 1
 //
 (* ****** ****** *)
 //

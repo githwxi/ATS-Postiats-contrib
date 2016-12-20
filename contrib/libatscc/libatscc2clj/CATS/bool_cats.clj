@@ -17,10 +17,10 @@
 ;; ****** ****** ;;
 
 (defmacro
- ats2cljpre_neg_bool0[x] `(not(~x))
+ ats2cljpre_neg_bool0[x] `(not ~x)
 )
 (defmacro
- ats2cljpre_neg_bool1[x] `(not(~x))
+ ats2cljpre_neg_bool1[x] `(not ~x)
 )
 
 ;; ****** ****** ;;

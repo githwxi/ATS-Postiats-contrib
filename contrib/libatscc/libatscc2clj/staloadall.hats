@@ -67,6 +67,7 @@ staload "./SATS/qlistref.sats" // list-based queue
 (* ****** ****** *)
 
 staload "./SATS/ML/list0.sats" // un-indexed list
+staload _ = "./DATS/ML/list0.dats" // un-indexed list
 
 (* ****** ****** *)
 
