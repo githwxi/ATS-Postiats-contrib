@@ -33,15 +33,21 @@ staload "./../basics_clj.sats"
 //
 (* ****** ****** *)
 //
+staload "./../SATS/bool.sats"
 staload "./../SATS/integer.sats"
 //
 (* ****** ****** *)
 //
 staload "./../SATS/print.sats"
+staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
 staload "./../SATS/list.sats"
+//
+staload "./../SATS/CLJlist.sats"
+//
+(* ****** ****** *)
 //
 staload "./../SATS/stream_vt.sats"
 staload _ = "./../DATS/stream.dats"
@@ -51,16 +57,63 @@ staload _ = "./../DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/CLJlist.sats"
-//
-(* ****** ****** *)
-//
 #define ATSCC_STREAM 1
 #define ATSCC_STREAM_VT 1
 //
 (* ****** ****** *)
 //
-#include "{$LIBATSCC}/DATS/list.dats"
+%{^
+;; list.dats
+;; declared: stream_vt.dats
+(declare ats2cljpre_stream_vt_append)
+%} (* end of [%{^] *)
+//
+(* ****** ****** *)
+//
+#include
+"{$LIBATSCC}/DATS/list.dats"
+//
+(* ****** ****** *)
+//
+extern
+fun{}
+print_list$sep (): void
+//
+implement
+{}(*tmp*)
+print_list$sep
+  ((*void*)) = print_string (", ")
+//
+implement
+{a}(*tmp*)
+print_list
+  (xs) = let
+//
+implement
+fprint_val<a>
+  (out, x) = print_val<a> (x)
+implement
+fprint_list$sep<> (out) = print_list$sep<> ()
+//
+in
+  fprint_list<a> (STDOUT, xs)
+end // end of [print_list]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+print_list_sep
+  (xs, sep) = let
+//
+implement
+fprint_val<a> (out, x) = print_val<a> (x)
+implement
+fprint_list$sep<> (out) = print_string (sep)
+//
+in
+  fprint_list<a> (STDOUT, xs)
+end // end of [print_list_sep]
 //
 (* ****** ****** *)
 

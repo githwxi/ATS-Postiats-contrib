@@ -55,15 +55,29 @@ staload _ = "./DATS/stream_vt.dats"
 (* ****** ****** *)
 //
 staload "./SATS/intrange.sats"
+(*
+staload _(*anon*) = "./DATS/intrange.dats"
+*)
 //
 (* ****** ****** *)
 
 staload "./SATS/reference.sats"
 
 (* ****** ****** *)
-
-staload "./SATS/ML/list0.sats" // un-indexed list
-
+//
+// HX: one-list-based
+// HX: two-list-based
+//
+staload "./SATS/slistref.sats"
+staload "./SATS/qlistref.sats"
+//
+(* ****** ****** *)
+//
+// HX: un-indexed list
+//
+staload "./SATS/ML/list0.sats"
+staload _(*anon*) = "./DATS/ML/list0.dats"
+//
 (* ****** ****** *)
 
 (* end of [staloadall.hats] *)

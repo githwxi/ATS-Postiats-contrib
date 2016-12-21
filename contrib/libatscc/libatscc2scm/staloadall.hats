@@ -29,17 +29,14 @@ staload _(*anon*) = "./DATS/print.dats"
 //
 (* ****** ****** *)
 //
-(*
-staload "./SATS/intrange.sats"
-staload _(*anon*) = "./DATS/intrange.dats"
-*)
+staload "./SATS/list.sats"
 //
 (* ****** ****** *)
 //
-staload "./SATS/list.sats"
-//
 staload "./SATS/stream.sats"
 staload "./SATS/stream_vt.sats"
+//
+(* ****** ****** *)
 //
 staload "./SATS/reference.sats"
 //
@@ -52,8 +49,26 @@ staload _(*anon*) = "./DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
-staload "./SATS/slistref.sats" // list-based stack
-staload "./SATS/qlistref.sats" // list-based queue
+staload "./SATS/intrange.sats"
+(*
+staload _(*anon*) = "./DATS/intrange.dats"
+*)
+//
+(* ****** ****** *)
+//
+// HX-2016:
+// one-list-based stack
+// two-list-based queue
+//
+staload "./SATS/slistref.sats"
+staload "./SATS/qlistref.sats"
+//
+(* ****** ****** *)
+//
+// HX: un-indexed list
+//
+staload "./SATS/ML/list0.sats"
+staload _(*anon*) = "./DATS/ML/list0.dats"
 //
 (* ****** ****** *)
 

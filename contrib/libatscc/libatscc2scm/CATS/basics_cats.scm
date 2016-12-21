@@ -170,4 +170,10 @@
 ;;
 ;; ****** ****** ;;
 
+(define-macro
+ (ats2scmpre_lazy2cloref lazyval) `(ATSCCget_1 ,lazyval)
+) ;; end-of-define
+
+;; ****** ****** ;;
+
 ;;;;;; end of [basics_cats.scm] ;;;;;;

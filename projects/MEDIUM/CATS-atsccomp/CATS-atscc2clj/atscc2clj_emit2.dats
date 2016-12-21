@@ -1917,6 +1917,16 @@ ATSEXTCODE_BEG ";;\n;; ATSextcode_beg()\n;;"
 ATSEXTCODE_END ";;\n;; ATSextcode_end()\n;;"
 //
 (* ****** ****** *)
+//
+fun
+emit_i0de_declare
+  (out: FILEref, id: i0de): void =
+(
+  emit_text(out, "(declare ");
+  emit_i0de(out, id); emit_text(out, ")\n")
+)
+//
+(* ****** ****** *)
 
 implement
 emit_d0ecl
@@ -1945,7 +1955,7 @@ of // case+
 *)
   end // end of [D0Ctypedef]
 //
-| D0Cassume (id) =>
+| D0Cassume(id) =>
   {
     val () = emit_ENDL(out)
     val () =
@@ -1955,9 +1965,16 @@ of // case+
     ) (* end of [val] *)
   }
 //
-| D0Cdyncst_mac _ => ()
-//
-| D0Cdyncst_extfun _ => ()
+| D0Cdyncst_mac(id) => ()
+(*
+  {
+    val () = emit_i0de_declare(out, id)
+  }
+*)
+| D0Cdyncst_extfun(id, _, _) =>
+  {
+    val () = emit_i0de_declare(out, id)
+  }
 //
 | D0Cdyncst_valdec _ => ()
 //
@@ -2665,11 +2682,11 @@ case+
 fhd.f0head_node
 of // case+
 | F0HEAD
-    (fid, f0ma, res) =>
   (
-    emit_text(out, "(declare ");
-    emit_i0de(out, fid); emit_text(out, ")\n")
-  )
+    fid, f0ma, res
+  ) =>
+    emit_i0de_declare(out, fid)
+  // end of [F0HEAD]
 ) (* end of [emit_f0head_declare] *)
 //
 (* ****** ****** *)

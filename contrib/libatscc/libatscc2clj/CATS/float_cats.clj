@@ -55,6 +55,36 @@
 ;; ****** ****** ;;
 ;;
 (defmacro
+ ats2cljpre_add_int_double[x y] `(+ ~x ~y)
+)
+(defmacro
+ ats2cljpre_sub_int_double[x y] `(- ~x ~y)
+)
+(defmacro
+ ats2cljpre_mul_int_double[x y] `(* ~x ~y)
+)
+(defmacro
+ ats2cljpre_div_int_double[x y] `(/ ~x ~y)
+)
+;;
+;; ****** ****** ;;
+;;
+(defmacro
+ ats2cljpre_add_double_int[x y] `(+ ~x ~y)
+)
+(defmacro
+ ats2cljpre_sub_double_int[x y] `(- ~x ~y)
+)
+(defmacro
+ ats2cljpre_mul_double_int[x y] `(* ~x ~y)
+)
+(defmacro
+ ats2cljpre_div_double_int[x y] `(/ ~x ~y)
+)
+;;
+;; ****** ****** ;;
+;;
+(defmacro
  ats2cljpre_add_double_double[x y] `(+ ~x ~y)
 )
 (defmacro

@@ -36,6 +36,28 @@ ats2plpre_pred_double($) { return ($_[0] + 1); }
 ############################################
 #
 sub
+ats2plpre_add_int_double($$) { return ($_[0] + $_[1]); }
+sub
+ats2plpre_sub_int_double($$) { return ($_[0] - $_[1]); }
+sub
+ats2plpre_mul_int_double($$) { return ($_[0] * $_[1]); }
+sub
+ats2plpre_div_int_double($$) { return ($_[0] / $_[1]); }
+#
+############################################
+#
+sub
+ats2plpre_add_double_int($$) { return ($_[0] + $_[1]); }
+sub
+ats2plpre_sub_double_int($$) { return ($_[0] - $_[1]); }
+sub
+ats2plpre_mul_double_int($$) { return ($_[0] * $_[1]); }
+sub
+ats2plpre_div_double_int($$) { return ($_[0] / $_[1]); }
+#
+############################################
+#
+sub
 ats2plpre_add_double_double($$) { return ($_[0] + $_[1]); }
 sub
 ats2plpre_sub_double_double($$) { return ($_[0] - $_[1]); }

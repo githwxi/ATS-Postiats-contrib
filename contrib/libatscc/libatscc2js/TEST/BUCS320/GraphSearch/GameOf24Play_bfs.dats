@@ -5,7 +5,7 @@ For testing GraphSearh_bfs
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
+ATS_STATIC_PREFIX"_GameOf24Play_bfs_"
 //
 (* ****** ****** *)
 //
@@ -19,11 +19,6 @@ ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
 #staload
 "./../../../DATS/BUCS320/GraphSearch/GraphSearch_bfs.dats"
 //
-(* ****** ****** *)
-
-#staload
-UN = "prelude/SATS/unsafe.sats"
-
 (* ****** ****** *)
 
 implement node_mark<>(nx) = ()

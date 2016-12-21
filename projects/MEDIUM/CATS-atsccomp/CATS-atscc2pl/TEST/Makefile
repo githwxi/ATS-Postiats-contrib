@@ -244,8 +244,8 @@ RMRF=rm -rf
 #
 ######
 
-libatscc2pl:: ; \
-$(CPF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2pl/libatscc2pl_all.pl libatscc2pl/.
+libatscc2pl:: ; $(CPF) \
+$(PATSHOME_contrib)/contrib/libatscc/libatscc2pl/output/libatscc2pl_all.pl libatscc2pl/.
 
 ######
 

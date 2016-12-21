@@ -13,11 +13,15 @@ staload "./../SATS/intrange.sats"
 //
 implement
 int_repeat_lazy
-  (n0, f) =
-  int_repeat_cloref(n0, lazy2cloref(f))
+  (n0, fwork) =
+(
+//
+int_repeat_cloref(n0, lazy2cloref(fwork))
+//
+) (* end of [int_repeat_lazy] *)
 //
 (* ****** ****** *)
-
+//
 implement
 int_repeat_cloref
   (n0, fwork) = let
@@ -36,7 +40,12 @@ if n > 0
 in
   loop (n0, fwork)
 end // end of [int_repeat_cloref]
-
+//
+implement
+int_repeat_method
+  (n0) =
+  lam(fwork) => int_repeat_cloref(n0, fwork)
+//
 (* ****** ****** *)
 //
 implement

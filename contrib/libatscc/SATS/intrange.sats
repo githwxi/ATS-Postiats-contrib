@@ -22,10 +22,14 @@ int_repeat_lazy
 fun
 int_repeat_cloref
   (n: int, f: cfun0(void)): void = "mac#%"
+fun
+int_repeat_method
+  (n: int)(f: cfun0(void)): void = "mac#%"
 //
 overload * with int_repeat_lazy of 100
 overload repeat with int_repeat_lazy of 100
 overload repeat with int_repeat_cloref of 100
+overload .repeat with int_repeat_method of 100
 //
 (* ****** ****** *)
 //

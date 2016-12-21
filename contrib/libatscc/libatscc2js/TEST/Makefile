@@ -18,11 +18,15 @@ all::
 ######
 
 all:: \
+test01
+test01: \
 test01_dats.js
 test01_dats.c: test01.dats; $(PATSOPT) -o $@ -d $<
 test01_dats.js: test01_dats.c; $(ATSCC2JS) -o $@ -i $<
 #
-regress:: test01_dats.js; $(NODEJS) $<
+regress:: \
+test_test01
+test_test01: test01_dats.js; $(NODEJS) $<
 #
 ######
 

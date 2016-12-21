@@ -5,7 +5,7 @@ For testing GraphSearh_dfs
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "_QueenPuzzle_dfs_"
+ATS_STATIC_PREFIX"_QueenPuzzle_dfs_"
 //
 (* ****** ****** *)
 //

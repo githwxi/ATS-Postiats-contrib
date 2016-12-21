@@ -11,6 +11,13 @@
 
 ############################################
 
+sub
+ats2plpre_neg_bool0($) { return !($_[0]); }
+sub
+ats2plpre_neg_bool1($) { return !($_[0]); }
+
+############################################
+
 ######
 1; #note that it is needed by 'use' or 'require'
 ######

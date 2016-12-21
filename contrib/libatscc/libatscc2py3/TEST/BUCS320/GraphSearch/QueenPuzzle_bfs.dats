@@ -5,7 +5,7 @@ For testing GraphSearh_bfs
 (* ****** ****** *)
 //
 #define
-ATS_STATIC_PREFIX "_QueenPuzzle_bfs_"
+ATS_STATIC_PREFIX"_QueenPuzzle_bfs_"
 //
 (* ****** ****** *)
 //

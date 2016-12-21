@@ -42,7 +42,7 @@ val () = println! ("xs + xs = ", xs + xs)
 // file inclusion
 //
 var fs = require('fs');
-eval(fs.readFileSync('./../libatscc2js_all.js').toString());
+eval(fs.readFileSync('./../output/libatscc2js_all.js').toString());
 eval(fs.readFileSync('./../CATS/PRINT/print_store_cats.js').toString());
 %} // end of [%{^]
 

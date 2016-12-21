@@ -30,6 +30,15 @@ typedef SCMval = SCMval_type
 (* ****** ****** *)
 //
 fun
+lazy2cloref
+  {a:t0p}
+(
+  lazyval: lazy(a)
+) : ((*void*)) -<cloref1> (a) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
 cloref0_app{b:t0p}(cfun0(b)): b = "mac#%"
 //
 fun

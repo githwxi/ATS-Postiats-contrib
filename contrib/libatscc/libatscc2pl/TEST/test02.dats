@@ -12,8 +12,8 @@
 ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME "test02_dynload"
-#define
-ATS_STATIC_PREFIX "test02__"
+//
+#define ATS_STATIC_PREFIX "_test02_"
 //
 (* ****** ****** *)
 
@@ -33,17 +33,19 @@ val () = println! ("xs + xs = ", xs + xs)
 
 (* ****** ****** *)
 
-%{^
-//
-require "./../libatscc2pl_all.pl";
-//
-%} // end of [%{^]
+%{$
+######
+test02_dynload();
+######
+%} // end of [%{$]
 
 (* ****** ****** *)
 
-%{$
-test02_dynload();
-%} // end of [%{$]
+%{^
+#######
+require "./../output/libatscc2pl_all.pl";
+#######
+%} (* end of [%{^] *)
 
 (* ****** ****** *)
 

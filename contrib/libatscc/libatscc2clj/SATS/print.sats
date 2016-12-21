@@ -69,15 +69,15 @@ overload fprint with fprint_double of 100
 overload fprint with fprint_string of 100
 //
 (* ****** ****** *)
-//  
-fun
-{a:t0p}
-fprint_val (CLJfilr, x: a): void = "mac#%"
-//
-(* ****** ****** *)
 //
 fun
 fprint_newline(out: CLJfilr): void = "mac#%"
+//
+(* ****** ****** *)
+//  
+fun
+{a:t0p}
+fprint_val(out: CLJfilr, x0: a): void = "mac#%"
 //
 (* ****** ****** *)
 

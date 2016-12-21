@@ -34,6 +34,7 @@ staload "./../SATS/integer.sats"
 (* ****** ****** *)
 //
 staload "./../SATS/print.sats"
+staload "./../SATS/filebas.sats"
 //
 (* ****** ****** *)
 //
@@ -53,6 +54,20 @@ staload _ = "./../DATS/stream_vt.dats"
 (* ****** ****** *)
 //
 #include "{$LIBATSCC}/DATS/list.dats"
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+print_list
+  (xs) =
+  fprint_list<a>(stdout_get(), xs)
+//
+implement
+{a}(*tmp*)
+print_list_sep
+  (xs, sep) =
+  fprint_list_sep<a>(stdout_get(), xs, sep)
 //
 (* ****** ****** *)
 
