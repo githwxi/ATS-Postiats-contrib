@@ -103,13 +103,13 @@ fun XDisplayWidth{l:agz}(!Display_ptr(l), int): int = "mac#%"
 
 fun XDisplayHeight{l:agz}(!Display_ptr(l), int): int = "mac#%"
 
+fun XRootWindow{l:agz} (!Display_ptr l, int) : Window = "mac#%"
+
 fun XConnectionNumber{l:agz}(!Display_ptr(l)): int = "mac#%"
 
 fun XDefaultColormap{l:agz}(!Display_ptr(l), int):<> Colormap = "mac#%"
 
 fun XDefaultScreen{l:agz}(!Display_ptr(l)): int = "mac#%"
-
-fun XRootWindow{l:agz} (!Display_ptr l, int) : Window = "mac#%"
 
 (* ****** ****** *)
 
