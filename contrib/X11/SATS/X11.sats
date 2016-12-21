@@ -9,7 +9,7 @@
 
 %{#
 
-#include "../contrib/contrib/X11/CATS/X11.cats"
+#include "contrib/X11/CATS/X11.cats"
 
 %}
 

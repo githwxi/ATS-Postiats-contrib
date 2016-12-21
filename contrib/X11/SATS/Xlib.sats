@@ -103,6 +103,8 @@ fun XDisplayWidth{l:agz}(!Display_ptr(l), int): int = "mac#%"
 
 fun XDisplayHeight{l:agz}(!Display_ptr(l), int): int = "mac#%"
 
+fun XConnectionNumber{l:agz}(!Display_ptr(l)): int = "mac#%"
+
 fun XDefaultColormap{l:agz}(!Display_ptr(l), int):<> Colormap = "mac#%"
 
 fun XDefaultScreen{l:agz}(!Display_ptr(l)): int = "mac#%"
@@ -145,14 +147,6 @@ fun XSetWindowBorderWidth{l:agz}(
 
 (* Structures *)
 
-typedef XEvent = $extype_struct"XEvent" of {
-  type = int,
-  _rest = undefined_t0ype
-}
-
-propdef XEvent_cast (a:t@ype) =
-  {l:addr}(XEvent @ l) -<prf> (a @ l, a @ l -<lin,prf> XEvent @ l)
-
 typedef XKeyEvent = $extype_struct"XKeyEvent" of {
   type = int,
   serial = ulint,
@@ -164,7 +158,14 @@ typedef XKeyEvent = $extype_struct"XKeyEvent" of {
   _rest = undefined_t0ype
 }
 
-praxi XEvent_XKeyEvent_cast : XEvent_cast(XKeyEvent)
+typedef XMapRequestEvent = $extype_struct"XMapRequestEvent" of {
+  type = int,
+  serial = ulint,
+  event = Window, window = Window, parent = Window,
+  x = int, y = int,
+  override_redirect = bool,
+  _rest = undefined_t0ype
+}
 
 typedef XDestroyWindowEvent = $extype_struct"XDestroyWindowEvent" of {
   type = int,
@@ -173,8 +174,6 @@ typedef XDestroyWindowEvent = $extype_struct"XDestroyWindowEvent" of {
   x = int, y = int,
   _rest = undefined_t0ype
 }
-
-praxi XEvent_XDestroyWindowEvent_cast : XEvent_cast(XDestroyWindowEvent)
 
 typedef XConfigureRequestEvent = $extype_struct"XConfigureRequestEvent" of {
   type = int,
@@ -188,8 +187,6 @@ typedef XConfigureRequestEvent = $extype_struct"XConfigureRequestEvent" of {
   _rest = undefined_t0ype
 }
 
-praxi XEvent_XConfigureRequestEvent_cast : XEvent_cast(XConfigureRequestEvent)
-
 typedef XClientMessageEvent = $extype_struct"XClientMessageEvent" of {
   type = int,
   serial = ulint,
@@ -199,7 +196,15 @@ typedef XClientMessageEvent = $extype_struct"XClientMessageEvent" of {
   _rest = undefined_t0ype
 }
 
-praxi XEvent_XClientMessageEvent_cast : XEvent_cast(XClientMessageEvent)
+typedef XEvent = $extype_struct"XEvent" of {
+  type = int,
+  xkey = XKeyEvent,
+  xmaprequest = XMapRequestEvent,
+  xdestroy = XDestroyWindowEvent,
+  xconfigurerequest = XConfigureRequestEvent,
+  xclient = XClientMessageEvent,
+  _rest = undefined_t0ype
+}
 
 (* Functions *)
 

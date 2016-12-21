@@ -30,6 +30,7 @@
 #define atscntrb_X11_XCloseDisplay         XCloseDisplay
 #define atscntrb_X11_XDisplayWidth         XDisplayWidth
 #define atscntrb_X11_XDisplayHeight        XDisplayHeight
+#define atscntrb_X11_XConnectionNumber     XConnectionNumber
 #define atscntrb_X11_XDefaultColormap      XDefaultColormap
 #define atscntrb_X11_XDefaultScreen        XDefaultScreen
 
