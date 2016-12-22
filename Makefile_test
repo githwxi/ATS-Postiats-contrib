@@ -4,14 +4,14 @@
 
 ######
 
+all::
+
+######
+
 SUBDIRS :=
 SUBDIRS += contrib
 SUBDIRS += projects
 SUBDIRS += document
-
-######
-
-all::
 
 ######
 #
