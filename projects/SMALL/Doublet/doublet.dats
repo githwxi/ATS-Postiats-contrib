@@ -30,7 +30,7 @@ dynload "./doublet_search.dats"
 (* ****** ****** *)
 
 implement
-main0 (argc, argv) =
+main0(argc, argv) =
 {
 //
 val () =

@@ -31,8 +31,7 @@ staload _ ="libats/DATS/qlist.dats"
 (* ****** ****** *)
 
 implement
-main0 () =
-{
+main0(argc, argv) = let
 //
 (*
 val () =
@@ -41,15 +40,24 @@ val () =
 println! ("$HT.get_capacity() = ", $HT.get_capacity())
 *)
 //
-val-~Some_vt(filr) = fileref_open_opt (WORDS, file_mode_r)
+val opt =
+fileref_open_opt(WORDS, file_mode_r)
 //
-val () = let
+in
 //
+case+ opt of
+| ~None_vt() => ()
+| ~Some_vt(filr) =>
+{
+//
+val () =
+loop(filr) where
+{
 fun loop
 (
   filr: FILEref
 ) : void = let
-  val isnot = fileref_isnot_eof (filr)
+  val isnot = fileref_isnot_eof(filr)
 in
   if isnot
     then let
@@ -63,10 +71,7 @@ in
     else () // end of [else]
   // end of [if]
 end // end of [loop]
-//
-in
-  loop (filr)
-end // end of [val]
+} (* end of [val] *)
 //
 val ((*void*)) = fileref_close (filr)
 //
@@ -75,12 +80,14 @@ println! ("$HT.get_size() = ", $HT.get_size())
 val () =
 println! ("$HT.get_capacity() = ", $HT.get_capacity())
 //
-val () = assertloc (cptr2ptr($HT.search_ref ("zucchini")) > 0)
-val () = assertloc (cptr2ptr($HT.search_ref ("Geizella")) = 0)
-val () = assertloc (cptr2ptr($HT.search_ref ("Anairiats")) = 0)
-val () = assertloc (cptr2ptr($HT.search_ref ("Postiats")) = 0)
+val () = assertloc(cptr2ptr($HT.search_ref("zucchini")) > 0)
+val () = assertloc(cptr2ptr($HT.search_ref("Geizella")) = 0)
+val () = assertloc(cptr2ptr($HT.search_ref("Anairiats")) = 0)
+val () = assertloc(cptr2ptr($HT.search_ref("Postiats")) = 0)
 //
-} (* end of [main0] *)
+} (* end of [where] *)
+//
+end (* end of [main0] *)
 
 (* ****** ****** *)
 
