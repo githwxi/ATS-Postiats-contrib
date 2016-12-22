@@ -27,6 +27,6 @@ script:
   - (cd ${PATSHOME} && ./configure && make all)
   # Testing extensively
   - cd ${TRAVIS_BUILD_DIR}
-  - make -f Makefile_test testall
+  - make -f Makefile_test all
 after_script:
   - date
