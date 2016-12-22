@@ -104,9 +104,18 @@ atscntrb_jsonc_lh_kptr_table_new(size, name, free_fn) \
 #define atscntrb_jsonc_lh_table_delete lh_table_delete
 #define atscntrb_jsonc_lh_table_delete_entry lh_table_delete_entry
 //
-#define atscntrb_jsonc_lh_table_lookup(t, k) ((void*)(lh_table_lookup(t, k)))
-#define atscntrb_jsonc_lh_table_lookup_ex(t, k, v) lh_table_lookup_ex(t, k, v)
-#define atscntrb_jsonc_lh_table_lookup_entry(t, k) lh_table_lookup_entry(t, k)
+#if(0)
+//
+// HX-2016-12: deprecated
+//
+#define \
+atscntrb_jsonc_lh_table_lookup(t, k) ((void*)(lh_table_lookup(t, k)))
+#endif // end of [#if(0)]
+//
+#define \
+atscntrb_jsonc_lh_table_lookup_ex(t, k, v) lh_table_lookup_ex(t, k, v)
+#define \
+atscntrb_jsonc_lh_table_lookup_entry(t, k) lh_table_lookup_entry(t, k)
 //
 #define atscntrb_jsonc_lh_table_resize lh_table_resize
 //

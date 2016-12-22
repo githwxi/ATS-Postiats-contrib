@@ -40,8 +40,14 @@ fun
 free_fn
 (
   x: lh_entry0
-) : void =
-  let val ptr = $UN.castvwtp0{ptr}(x) in println! ("[free_fn] is called") end
+) : void = let
+//
+val
+ptr = $UN.castvwtp0{ptr}(x)
+//
+in
+  println! ("[free_fn] is called")
+end // end of [free_fn]
 //
 val HT = lh_kchar_table_new (10, "mytable_kchar", free_fn)
 val () = assertloc (ptrcast(HT) > 0)

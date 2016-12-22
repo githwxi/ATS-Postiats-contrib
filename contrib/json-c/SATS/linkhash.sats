@@ -9,21 +9,26 @@
 #define ATS_EXTERN_PREFIX "atscntrb_jsonc_" // prefix for external names
 
 (* ****** ****** *)
-
+//
 staload JSON = "./json.sats"
 //
-stadef json_bool = $JSON.json_bool
+(* ****** ****** *)
 //
-stadef lh_entry = $JSON.lh_entry
-stadef lh_entry0 = $JSON.lh_entry0
-stadef lh_entry1 = $JSON.lh_entry1
-stadef lh_entry_free_fn_type = $JSON.lh_entry_free_fn_type
+typedef json_bool = $JSON.json_bool
 //
-stadef lh_table = $JSON.lh_table
-stadef lh_table0 = $JSON.lh_table0
-stadef lh_table1 = $JSON.lh_table1
-stadef lh_hash_fn_type = $JSON.lh_hash_fn_type
-stadef lh_equal_fn_type = $JSON.lh_equal_fn_type
+vtypedef lh_entry0 = $JSON.lh_entry0
+vtypedef lh_entry1 = $JSON.lh_entry1
+vtypedef lh_entry(l:addr) = $JSON.lh_entry(l)
+//
+vtypedef lh_table0 = $JSON.lh_table0
+vtypedef lh_table1 = $JSON.lh_table1
+vtypedef lh_table(l:addr) = $JSON.lh_table(l)
+//
+typedef
+lh_entry_free_fn_type = $JSON.lh_entry_free_fn_type
+//
+typedef lh_hash_fn_type = $JSON.lh_hash_fn_type
+typedef lh_equal_fn_type = $JSON.lh_equal_fn_type
 //
 (* ****** ****** *)
 //
@@ -162,10 +167,12 @@ fun lh_table_insert
 void*
 lh_table_lookup(struct lh_table *t, const void *k)
 *)
+(*
 fun lh_table_lookup
    (t: !lh_table1, k: Ptr0):<> Ptr0(*val*) = "mac#%"
 // end of [lh_table_lookup]
-
+*)
+//
 (* ****** ****** *)
 
 (*
