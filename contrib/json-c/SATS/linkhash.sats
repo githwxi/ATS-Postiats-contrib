@@ -26,25 +26,28 @@ stadef lh_hash_fn_type = $JSON.lh_hash_fn_type
 stadef lh_equal_fn_type = $JSON.lh_equal_fn_type
 //
 (* ****** ****** *)
-
+//
 castfn
-lh_entry2ptr {l:addr} (ent: !lh_entry (l)):<> ptr (l)
-overload ptrcast with lh_entry2ptr
-
+lh_entry2ptr
+  {l:addr}(ent: !lh_entry(l)):<> ptr(l)
+//
+castfn
+lh_table2ptr{l:addr}(tbl: !lh_table (l)):<> ptr(l)
+//
 castfn
 ptr2lh_entry
-  {l:addr} (p: ptr l):<> vttakeout (ptr l, lh_entry(l))
-// end of [ptr2lh_entry]
-
+  {l:addr}(p: ptr(l)):<> vttakeout(ptr(l), lh_entry(l))
+//
+(* ****** ****** *)
+//
+overload ptrcast with lh_entry2ptr
+overload ptrcast with lh_table2ptr
+//
+(* ****** ****** *)
+//
 fun lh_entry_get_key (ent: !lh_entry1):<> Ptr0 = "mac#%"
 fun lh_entry_get_val (ent: !lh_entry1):<> Ptr0 = "mac#%"
-
-(* ****** ****** *)
-
-castfn
-lh_table2ptr {l:addr} (tbl: !lh_table (l)):<> ptr (l)
-overload ptrcast with lh_table2ptr
-
+//
 (* ****** ****** *)
 
 (*
@@ -157,7 +160,7 @@ fun lh_table_insert
 //
 (*
 void*
-lh_table_lookup (struct lh_table *t, const void *k)
+lh_table_lookup(struct lh_table *t, const void *k)
 *)
 fun lh_table_lookup
    (t: !lh_table1, k: Ptr0):<> Ptr0(*val*) = "mac#%"
