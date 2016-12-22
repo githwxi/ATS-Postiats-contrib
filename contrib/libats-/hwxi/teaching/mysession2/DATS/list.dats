@@ -1,5 +1,5 @@
 (*
-** Lists
+** List-sessions
 *)
 
 (* ****** ****** *)
@@ -37,7 +37,7 @@ chan0 =
 $UN.castvwtp1{chan0}(chpos)
 //
 val () =
-channel0_send (chan0, $UN.int2ptr(0))
+channel0_send(chan0, $UN.int2ptr(0))
 //
 prval () = $UN.cast2void(chan0)
 //
@@ -56,8 +56,9 @@ chanpos_list_cons
 vtypedef
 chan0 = channel0(ptr)
 //
-val chan0 =
-  $UN.castvwtp1{chan0}(chpos)
+val
+chan0 =
+$UN.castvwtp1{chan0}(chpos)
 //
 val ((*void*)) =
   channel0_send (chan0, $UN.int2ptr(1))
@@ -78,8 +79,9 @@ channeg_list
 vtypedef
 chan0 = channel0(ptr)
 //
-val chan0 =
-  $UN.castvwtp1{chan0}(chneg)
+val
+chan0 =
+$UN.castvwtp1{chan0}(chneg)
 //
 val tag = channel0_recv_val (chan0)
 //
@@ -112,10 +114,12 @@ fserv
 (
 case+ xs of
 | list_nil () => let
-    val () = chanpos_list_nil(chp) in chanpos_nil_wait(chp)
+    val () =
+    chanpos_list_nil(chp) in chanpos_nil_wait(chp)
   end // end of [list_nil]
 | list_cons (x, xs) => let
-    val () = chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
+    val () =
+    chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
   end // end of [list_cons]
 )
 //
@@ -145,10 +149,12 @@ fserv
 (
 case+ xs of
 | ~list_vt_nil () => let
-    val () = chanpos_list_nil(chp) in chanpos_nil_wait(chp)
+    val () =
+    chanpos_list_nil(chp) in chanpos_nil_wait(chp)
   end // end of [list_nil]
 | ~list_vt_cons (x, xs) => let
-    val () = chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
+    val () =
+    chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
   end // end of [list_cons]
 )
 //
@@ -186,11 +192,14 @@ case+ opt of
   {
     val x =
       channeg_send_val(chn)
+    // end of [val]
     val () =
-      res := list_vt_cons{a}{0}(x, _)
+      res :=
+      list_vt_cons{a}{0}(x, _)
+    // end of [val]
     val+list_vt_cons(_, res1) = res
     val ((*void*)) = loop (chn, res1)
-    prval ((*fold*)) = fold@res
+    prval ((*folded*)) = fold@res
   } (* end of [channeg_list_cons] *)
 //
 end // end of [loop]
@@ -198,7 +207,7 @@ end // end of [loop]
 var res: ptr // uninitialized
 //
 in
-  loop(chn, res); res
+  let val () = loop(chn, res) in res end
 end // end of [sslist2list_vt]
 
 (* ****** ****** *)
