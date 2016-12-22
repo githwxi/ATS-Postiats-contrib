@@ -5,23 +5,25 @@
 (* ****** ****** *)
 //
 staload
-UN =
-"prelude/SATS/unsafe.sats"
+"./../SATS/basis.sats"
+//
+staload
+LIST = "./../SATS/list.sats"
+//
+(* ****** ****** *)
+//
+staload "./basis_chan0.dats"
 //
 (* ****** ****** *)
 //
 staload
-"./../SATS/basis.sats"
-//
-staload "./../SATS/list.sats"
-//
-staload "./basis_chan0.dats"
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-chanpos_list_nil
+$LIST.chanpos_list_nil
   (chpos) = () where
 {
 //
@@ -44,7 +46,7 @@ prval () = $UN.castview2void(chpos)
 
 implement
 {}(*tmp*)
-chanpos_list_cons
+$LIST.chanpos_list_cons
   (chpos) = () where
 {
 //
@@ -67,7 +69,7 @@ prval () = $UN.castview2void(chpos)
 
 implement
 {}(*tmp*)
-channeg_list
+$LIST.channeg_list
   (chneg) = let
 //
 vtypedef
@@ -85,12 +87,12 @@ iseqz(tag)
 then let
 //
 prval () =
-  $UN.castview2void(chan0) in channeg_list_nil(chan0)
+  $UN.castview2void(chan0) in $LIST.channeg_list_nil(chan0)
 // end of [prval]
 end // end of [then]
 else let
 prval () =
-  $UN.castview2void(chan0) in channeg_list_cons(chan0)
+  $UN.castview2void(chan0) in $LIST.channeg_list_cons(chan0)
 // end of [prval]
 end // end of [else]
 //
@@ -98,9 +100,13 @@ end // end of [channeg_list]
 
 (* ****** ****** *)
 
+stadef sslist = $LIST.sslist
+
+(* ****** ****** *)
+
 implement
 {a}(*tmp*)
-list2sslist(xs) = let
+$LIST.list2sslist(xs) = let
 //
 fun
 fserv
@@ -110,10 +116,12 @@ fserv
 (
 case+ xs of
 | list_nil () => let
-    val () = chanpos_list_nil(chp) in chanpos_nil_wait(chp)
+    val () =
+    $LIST.chanpos_list_nil(chp) in chanpos_nil_wait(chp)
   end // end of [list_nil]
 | list_cons (x, xs) => let
-    val () = chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
+    val () =
+    $LIST.chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
   end // end of [list_cons]
 )
 //
@@ -124,16 +132,17 @@ channeg_create_exn(llam(chp) => fserv(chp, xs))
 end // end of [list2sslist]
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
-sslist2list(chn) = list_vt2t(sslist2list_vt(chn))
-
+$LIST.sslist2list(chn) =
+  list_vt2t($LIST.sslist2list_vt(chn))
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-list2sslist_vt(xs) = let
+$LIST.list2sslist_vt(xs) = let
 //
 fun
 fserv
@@ -143,10 +152,10 @@ fserv
 (
 case+ xs of
 | ~list_vt_nil () => let
-    val () = chanpos_list_nil(chp) in chanpos_nil_wait(chp)
+    val () = $LIST.chanpos_list_nil(chp) in chanpos_nil_wait(chp)
   end // end of [list_nil]
 | ~list_vt_cons (x, xs) => let
-    val () = chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
+    val () = $LIST.chanpos_list_cons(chp) in chanpos_send(chp, x); fserv(chp, xs)
   end // end of [list_cons]
 )
 //
@@ -160,7 +169,7 @@ end // end of [list2sslist_vt]
 
 implement
 {a}(*tmp*)
-sslist2list_vt
+$LIST.sslist2list_vt
   (chn) = let
 //
 fun
@@ -170,21 +179,25 @@ loop
 , res: &ptr? >> List0_vt(a)
 ) : void = let
 //
-val opt = channeg_list(chn)
+val
+opt = $LIST.channeg_list(chn)
 //
 in
 //
 case+ opt of
-| ~channeg_list_nil(chn) =>
+| ~$LIST.channeg_list_nil(chn) =>
   (
-    res := list_vt_nil(*void*); channeg_nil_close(chn)
+    res := list_vt_nil;
+    channeg_nil_close(chn)
   ) (* end of [channeg_list_nil] *)
-| ~channeg_list_cons(chn) =>
+| ~$LIST.channeg_list_cons(chn) =>
   {
     val x =
       channeg_send_val(chn)
     val () =
-      res := list_vt_cons{a}{0}(x, _)
+      res :=
+      list_vt_cons{a}{0}(x, _)
+    // end of [val]
     val+list_vt_cons(_, res1) = res
     val ((*void*)) = loop (chn, res1)
     prval ((*fold*)) = fold@res
@@ -195,7 +208,7 @@ end // end of [loop]
 var res: ptr
 //
 in
-  loop(chn, res); res
+  let val () = loop(chn, res) in res end
 end // end of [sslist2list_vt]
 
 (* ****** ****** *)

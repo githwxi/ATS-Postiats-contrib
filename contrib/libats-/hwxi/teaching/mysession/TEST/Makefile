@@ -37,7 +37,7 @@ all:: \
 sieve
 sieve: \
 sieve.dats; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -g -o $@ $< -lpthread
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
 regress:: sieve; ./$<
 cleanall:: ; $(RMF) sieve
 
