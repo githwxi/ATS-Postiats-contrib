@@ -18,6 +18,7 @@ test00
 test00: \
 test00.dats; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: test00; ./$<
 cleanall:: ; $(RMF) test00
 
 ######
@@ -27,6 +28,7 @@ test01
 test01: \
 test01.dats; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: test01; ./$<
 cleanall:: ; $(RMF) test01
 
 ######
@@ -35,7 +37,8 @@ all:: \
 sieve
 sieve: \
 sieve.dats; \
-$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+$(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -g -o $@ $< -lpthread
+regress:: sieve; ./$<
 cleanall:: ; $(RMF) sieve
 
 ######
@@ -45,6 +48,8 @@ bitstr
 bitstr: \
 bitstr.dats; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: \
+bitstr; ./bitstr 123 978
 cleanall:: ; $(RMF) bitstr
 
 ######
@@ -54,6 +59,7 @@ queue
 queue: \
 queue.dats; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: queue; ./$<
 cleanall:: ; $(RMF) queue
 
 ######
@@ -63,11 +69,18 @@ mergesort
 mergesort: \
 mergesort.dats; \
 $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $< -lpthread
+regress:: mergesort; ./$<
 cleanall:: ; $(RMF) mergesort
 
 ######
 
 RMF=rm -f
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

@@ -1,5 +1,5 @@
 (*
-** Unidirectional Channels
+** Uni-Channels
 *)
 
 (* ****** ****** *)
@@ -16,7 +16,8 @@ staload
 (* ****** ****** *)
 //
 absvtype
-queue_vtype (a:vt@ype+, int(*id*)) = ptr
+queue_vtype
+  (a:vt@ype+, int(*id*)) = ptr
 //
 vtypedef
 queue(a:vt0p, id:int) = queue_vtype(a, id)
@@ -27,12 +28,12 @@ vtypedef queue(a:vt0p) = [id:int] queue(a, id)
 extern
 fun
 {a:vt0p}
-queue_make (cap: intGt(0)): queue(a)
+queue_make(cap: intGt(0)): queue(a)
 //
 extern
 fun
 {a:vt0p}
-queue_free_exn (que: queue(a)): void
+queue_free_exn(que: queue(a)): void
 //
 (* ****** ****** *)
 //
@@ -77,7 +78,8 @@ staload
 "libats/SATS/deqarray.sats"
 //
 assume
-queue_vtype(a:vt0p, id:int) = deqarray(a)
+queue_vtype
+  (a:vt0p, id:int) = deqarray(a)
 //
 assume ISNIL(id:int, b:bool) = unit_p
 assume ISFUL(id:int, b:bool) = unit_p
@@ -91,9 +93,11 @@ queue_make(cap) =
 //
 implement
 {a}(*tmp*)
-queue_free_exn(que) = let
+queue_free_exn
+  (que) = let
 //
-val () = assertloc(deqarray_is_nil(que))
+val () =
+assertloc(deqarray_is_nil(que))
 //
 in
   deqarray_free_nil(que)

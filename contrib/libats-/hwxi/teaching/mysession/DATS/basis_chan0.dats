@@ -53,7 +53,7 @@ channel0_link(channel0(a), channel0(a)): void
 //
 datavtype
 channel0_(a:vt@ype) =
-  CHANPAIR of (uchannel(a), uchannel(a))
+  CHAN0 of (uchannel(a), uchannel(a))
 //
 (* ****** ****** *)
 
@@ -75,7 +75,7 @@ val chx2 = uchannel_ref (chx1)
 and chy2 = uchannel_ref (chy1)
 //
 in
-  (CHANPAIR(chx1, chy2), CHANPAIR(chy1, chx2))
+  (CHAN0(chx1, chy2), CHAN0(chy1, chx2))
 end // end of [channel0_make_pair]
 
 (* ****** ****** *)
@@ -85,11 +85,10 @@ implement
 channel0_free
   (chan0) = let
 //
-val
-~CHANPAIR(chx, chy) = chan0
+val~CHAN0(ch0, ch1) = chan0
 //
 in
-  uchannel_unref(chx); uchannel_unref(chy)
+  uchannel_unref(ch0); uchannel_unref(ch1)
 end // end of [channel0_free]
 
 (* ****** ****** *)
@@ -99,8 +98,7 @@ implement
 channel0_send
   (chan0, x) = let
 //
-val+
-CHANPAIR(ch0, ch1) = chan0
+val+CHAN0(ch0, ch1) = chan0
 //
 in
   uchannel_insert<a> (ch0, x)
@@ -113,8 +111,7 @@ implement
 channel0_recv
   (chan0, x0) = let
 //
-val+
-@CHANPAIR(ch0, ch1) = chan0
+val+@CHAN0(ch0, ch1) = chan0
 //
 val () = x0 := uchannel_remove<a> (ch1)
 //
@@ -132,8 +129,7 @@ channel0_recv_val
   (chan0) = x0 where
 {
 //
-val+
-@CHANPAIR(ch0, ch1) = chan0
+val+@CHAN0(ch0, ch1) = chan0
 //
 val x0 = uchannel_remove<a> (ch1)
 //
@@ -148,8 +144,8 @@ implement
 channel0_link
   (chan0x, chan0y) = let
 //
-val+~CHANPAIR(chx1, chx2) = chan0x
-val+~CHANPAIR(chy1, chy2) = chan0y
+val~CHAN0(chx1, chx2) = chan0x
+and~CHAN0(chy1, chy2) = chan0y
 //
 val () = uchannel_qinsert(chx1, chy2)
 and () = uchannel_qinsert(chy1, chx2)

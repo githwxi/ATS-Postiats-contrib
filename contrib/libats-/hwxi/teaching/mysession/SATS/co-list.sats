@@ -20,15 +20,18 @@ abstype sslist(a:vt@ype)
 (* ****** ****** *)
 //
 datavtype
-chanpos_list (a:vt@ype) =
-| chanpos_list_nil of (chanpos(nil))
-| chanpos_list_cons of (chanpos(chsnd(a)::sslist(a)))
+chanpos_list(a:vt@ype) =
+| chanpos_list_nil of
+    (chanpos(nil))
+| chanpos_list_cons of
+    (chanpos(chsnd(a)::sslist(a)))
 //
 (* ****** ****** *)
 //
 fun{}
 chanpos_list
-  {a:vt@ype}(chanpos(sslist(a))): chanpos_list(a)
+  {a:vt@ype}
+  (chp: chanpos(sslist(a))): chanpos_list(a)
 //
 (* ****** ****** *)
 //

@@ -11,7 +11,7 @@ UN =
 (* ****** ****** *)
 //
 staload
- "./../SATS/basis.sats"
+"./../SATS/basis.sats"
 //
 staload "./../SATS/list.sats"
 //
@@ -27,7 +27,6 @@ chanpos_list_nil
 //
 vtypedef
 chan0 = channel0(ptr)
-//
 val
 chan0 =
 $UN.castvwtp1{chan0}(chpos)
@@ -51,9 +50,9 @@ chanpos_list_cons
 //
 vtypedef
 chan0 = channel0(ptr)
-//
-val chan0 =
-  $UN.castvwtp1{chan0}(chpos)
+val
+chan0 =
+$UN.castvwtp1{chan0}(chpos)
 //
 val ((*void*)) =
   channel0_send (chan0, $UN.int2ptr(1))
@@ -73,9 +72,9 @@ channeg_list
 //
 vtypedef
 chan0 = channel0(ptr)
-//
-val chan0 =
-  $UN.castvwtp0{chan0}(chneg)
+val
+chan0 =
+$UN.castvwtp0{chan0}(chneg)
 //
 val tag = channel0_recv_val (chan0)
 //

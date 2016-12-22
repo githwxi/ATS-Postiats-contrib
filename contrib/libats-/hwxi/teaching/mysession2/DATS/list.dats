@@ -5,19 +5,21 @@
 (* ****** ****** *)
 //
 staload
-UN =
-"prelude/SATS/unsafe.sats"
+"./../SATS/basis.sats"
 //
 (* ****** ****** *)
 //
 staload
-  "./../SATS/basis.sats"
-//
-staload "./../SATS/list.sats"
+  "./../SATS/list.sats"
 //
 (* ****** ****** *)
 //
 staload "./basis_chan0.dats"
+//
+(* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
