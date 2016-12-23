@@ -171,9 +171,10 @@ jsonval_array_get_at
 in
 //
 case+ jsv of
-| JSONarray
-    (xs) => list_get_at_opt (xs, i0)
-| _ (*non-array*) => None_vt ((*void*))
+| JSONarray(xs) =>
+    list_get_at_opt (xs, i0)
+  // end of [JSONarray]
+| _ (*non-JSONarray*) => None_vt()
 //
 end // end of [jsonval_array_get_at]
 

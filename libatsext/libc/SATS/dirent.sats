@@ -3,7 +3,7 @@
 %{#
 //
 #include \
-"libcats/CATS/dirent.cats"
+"libatsext/libc/CATS/dirent.cats"
 //
 %} (* end of [%{#] *)
 

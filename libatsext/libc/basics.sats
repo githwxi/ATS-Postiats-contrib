@@ -23,7 +23,7 @@
 %{#
 //
 #include \
-"libcats/CATS/basics.cats"
+"libatsext/libc/CATS/basics.cats"
 //
 %} (* end of [%{#] *)
 
@@ -68,7 +68,10 @@ typedef wptrn1(a:vt0p, n:int) = [l:addr | l > null] ptrn(a, l, n, 1)
 //
 typedef cstring = [l:agez;n:nat] ptrn(char, l, n, 0)
 typedef cstring(n:int) = [l:agez] ptrn(char, l, n, 0)
-
+//
+typedef cstrptr = [l:agez;n:nat] ptrn(char, l, n, 1)
+typedef cstrptr(n:int) = [l:agez] ptrn(char, l, n, 1)
+//
 (* ****** ****** *)
 //
 fun{}
@@ -124,13 +127,16 @@ overload != with neq_ptr_intz
 //
 fun
 {a:t0p}
-ptr1_get{l:agz}{rw:int|rw >= 0}(p: ptr(a, l, rw)): (a)
+ptr1_get{l:agz}
+  {rw:int|rw >= 0}(p: ptr(a, l, rw)): (a)
 fun
 {a:t0p}
-ptr1_set{l:agz}{rw:int|rw >= 1}(p: ptr(a, l, rw), x: a): void
+ptr1_set{l:agz}
+  {rw:int|rw >= 1}(p: ptr(a, l, rw), x: a): void
 fun
 {a:vt0p}
-ptr1_exch{l:agz}{rw:int|rw >= 1}(p: ptr(a, l, rw), x: a): (a)
+ptr1_exch{l:agz}
+  {rw:int|rw >= 1}(p: ptr(a, l, rw), x: &a >> _): (a)
 //
 (*
 overload ! with ptr1_get
