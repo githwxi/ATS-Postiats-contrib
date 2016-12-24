@@ -80,16 +80,17 @@ val thePageBodyR =
   webox_make_name ("thePagebodyR")
 //
 val () =
-  thePageBodyL.height (600)
+  thePageBodyL.height(600)
 val () =
-  thePageBodyR.height (600)
+  thePageBodyR.height(600)
 //
 val () =
-  thePageBody.tabstyle (TShbox)
+  thePageBody.tabstyle(TShbox)
 val () =
-  thePageBody.percentlst ($list(80, 20))
+  thePageBody.pcntlst
+    ($list(PCNThard(80), PCNThard(20)))
 val () =
-  thePageBody.children (thePageBodyL, thePageBodyR)
+  thePageBody.children(thePageBodyL, thePageBodyR)
 //
 (* ****** ****** *)
 //

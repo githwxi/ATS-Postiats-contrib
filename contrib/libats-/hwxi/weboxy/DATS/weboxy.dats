@@ -500,18 +500,18 @@ end // end of [webox_set_tabstyle]
 
 implement
 {}(*tmp*)
-webox_get_percentlst
+webox_get_pcntlst
   (wbx) = let
 //
 val opt =
-  hashtbl_search (wbx, PERCENTLST)
+  hashtbl_search(wbx, PCNTLST)
 //
 in
 //
 case+ opt of
 | ~None_vt () => list_nil()
 | ~Some_vt (gv) => let
-    val-GVboxed(pcs) = gv in $UN.cast{List0(int)}(pcs)
+    val-GVboxed(pcs) = gv in $UN.cast{pcntlst}(pcs)
   end // end of [Some_vt]
 //
 end // end of [webox_get_percentlst]
@@ -520,19 +520,19 @@ end // end of [webox_get_percentlst]
 
 implement
 {}(*tmp*)
-webox_set_percentlst
+webox_set_pcntlst
   (wbx, pcs) = let
 //
 val pcs = GVboxed(pcs)
 //
 val cp =
-  hashtbl_search_ref (wbx, PERCENTLST)
+  hashtbl_search_ref(wbx, PCNTLST)
 //
 in
 //1
 if isneqz(cp)
   then $UN.cptr_set(cp, pcs)
-  else hashtbl_insert_any (wbx, PERCENTLST, pcs)
+  else hashtbl_insert_any (wbx, PCNTLST, pcs)
 //
 end // end of [webox_set_percentlst]
 
@@ -540,25 +540,28 @@ end // end of [webox_set_percentlst]
 
 implement
 {}(*tmp*)
-percentlst_get_at
+pcntlst_get_at
   (pcs, i) = let
 //
 fun
 loop
 (
-  pcs: List(int), i: int
-) : int =
+pcs: pcntlst, i: int
+) : pcnt =
 (
 case+ pcs of
-| list_nil () => ~1
-| list_cons (pc, pcs) =>
-    if i > 0 then loop (pcs, i-1) else pc
+| list_nil() =>
+  (
+    PCNTnone()
+  ) (* list_nil *)
+| list_cons(pc, pcs) =>
+    if i > 0 then loop(pcs, i-1) else pc
   // end of [list_cons]
 )
 //
 in
-  loop (pcs, i)
-end // end of [percentlst_get_at]
+  loop(pcs, i)
+end // end of [pcntlst_get_at]
 
 (* ****** ****** *)
 
@@ -889,13 +892,13 @@ fprint_webox_body_after (out) = ()
 extern
 fun{}
 fprint_webox_html
-  (out: FILEref, webox): void
+  (FILEref, webox): void
 extern
 fun{}
 fprint_weboxlst_html
 (
   out: FILEref
-, ts: tabstyle, pcs: List0(int), xs: weboxlst
+, tbs: tabstyle, pcs: pcntlst, xs: weboxlst
 ) : void // end-of-function
 
 (* ****** ****** *)
@@ -921,7 +924,7 @@ if
 isneqz(wbxs)
 then let
   val ts = wbx0.tabstyle()
-  val pcs = webox_get_percentlst (wbx0)
+  val pcs = webox_get_pcntlst(wbx0)
 in
   fprint (out, wbx0.content());
   fprint_weboxlst_html (out, ts, pcs, wbxs)
@@ -948,11 +951,35 @@ end // end of [fprint_webox_html]
 implement
 {}(*tmp*)
 fprint_weboxlst_html
-  (out, ts, pcs, wbxs) = let
+  (out, tbs, pcs, wbxs) = let
 //
-val isbox = ts.isbox()
-val ishbox = ts.ishbox()
-val isvbox = ts.isvbox()
+val isbox = tbs.isbox()
+val ishbox = tbs.ishbox()
+val isvbox = tbs.isvbox()
+//
+fun
+fprint_hbox_pcnt
+(
+out: FILEref, pc: pcnt
+) : void =
+(
+case+ pc of
+| PCNTnone() => ()
+| PCNThard(n) => fprint!(out, "width:", n, "%;")
+| PCNTsoft(n) => fprint!(out, "width:", n, "%;height:0px;")
+)
+//
+fun
+fprint_vbox_pcnt
+(
+out: FILEref, pc: pcnt
+) : void =
+(
+case+ pc of
+| PCNTnone() => ()
+| PCNThard(n) => fprint!(out, "height:", n, "%;")
+| PCNTsoft(n) => fprint!(out, "width:0px;height:", n, "%;")
+)
 //
 fun
 loop{i:nat}
@@ -969,29 +996,29 @@ case+ wbxs of
     if i > 0 then fprint (out, "\n")
     val () =
     if isvbox then let
-      val pc = percentlst_get_at (pcs, i)
+      val pc = pcntlst_get_at(pcs, i)
+      overload fprint with fprint_vbox_pcnt
     in
-      if pc < 0
-        then fprint! (out, "<tr>\n")
-        else fprint! (out, "<tr height=\"", pc, "%\">\n")
-      // end of [if]
+      fprint! (out, "<tr style=\"", pc, "\">\n")
     end // end of [then] // end of [if]
 //
     val () =
     if ishbox then let
-      val pc = percentlst_get_at (pcs, i)
+      val pc = pcntlst_get_at(pcs, i)
+      overload fprint with fprint_hbox_pcnt
     in
-      if pc < 0
-        then fprint! (out, "<td style=\"vertical-align:top;\">\n")
-        else fprint! (out, "<td style=\"vertical-align:top;width:", pc, "%;\">\n")
+      fprint! (out, "<td style=\"vertical-align:top;", pc, "\">\n")
       // end of [if]
     end // end of [then] // end of [if]
 //
-    val () =
-    if isvbox then fprint (out, "<td>\n") // HX: no halign!
+// HX: there is no halign!
+//
+    val () = if isvbox then fprint (out, "<td>\n")
 //
     val () = fprint_webox_html (out, wbx)
-    val () = if isbox then fprint (out, "</td>\n")
+//
+    val () = if isvbox then fprint (out, "</td>\n")
+    val () = if ishbox then fprint (out, "</td>\n")
     val () = if isvbox then fprint (out, "</tr>\n")
   in
     loop (wbxs, i+1)

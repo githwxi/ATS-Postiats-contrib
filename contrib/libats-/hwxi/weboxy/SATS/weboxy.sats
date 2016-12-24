@@ -64,10 +64,10 @@ overload .isvbox with tabstyle_isvbox
 #define PARENT "parent"
 #define CHILDREN "children"
 //
-#define TABSTYLE "tabstyle"
-#define PERCENTLST "percentlst"
-//
 #define CONTENT "content"
+//
+#define PCNTLST "pcntlst"
+#define TABSTYLE "tabstyle"
 //
 (* ****** ****** *)
 //
@@ -75,13 +75,13 @@ overload .isvbox with tabstyle_isvbox
 // uid: unique indentification
 //
 fun{}
-webox_get_uid (webox): int
+webox_get_uid(webox): int
 //
 // HX-2014-09-13:
 // name: name given by the user
 //
 fun{}
-webox_get_name (webox): string
+webox_get_name(webox): string
 //
 overload .uid with webox_get_uid
 overload .name with webox_get_name
@@ -188,27 +188,35 @@ overload .children with webox_set_children_4
 (* ****** ****** *)
 //
 fun{}
-webox_get_tabstyle (webox): tabstyle
+webox_get_tabstyle(webox): tabstyle
 fun{}
-webox_set_tabstyle (webox, sty: tabstyle): void
+webox_set_tabstyle(webox, sty: tabstyle): void
 //
 overload .tabstyle with webox_get_tabstyle
 overload .tabstyle with webox_set_tabstyle
 //
 (* ****** ****** *)
 //
-fun{}
-webox_get_percentlst (webox): List0(int)
-fun{}
-webox_set_percentlst (webox, pcs: List(int)): void
+datatype pcnt =
+  | PCNTnone of ()
+  | PCNThard of int
+  | PCNTsoft of int
 //
-overload .percentlst with webox_get_percentlst
-overload .percentlst with webox_set_percentlst
+typedef pcntlst = List0(pcnt)
+//
+fun{}
+pcntlst_get_at
+  (xs: pcntlst, i: intGte(0)): pcnt
 //
 (* ****** ****** *)
 //
 fun{}
-percentlst_get_at (pcs: List0(int), i: intGte(0)): int
+webox_get_pcntlst (webox): pcntlst
+fun{}
+webox_set_pcntlst (webox, xs: pcntlst): void
+//
+overload .pcntlst with webox_get_pcntlst
+overload .pcntlst with webox_set_pcntlst
 //
 (* ****** ****** *)
 //

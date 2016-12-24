@@ -56,9 +56,10 @@ val thePageRight =
 val () =
   thePage.tabstyle(TShbox)
 val () =
-  thePage.percentlst ($list(15, ~1))
+  thePage.pcntlst
+    ($list(PCNThard(15), PCNTnone()))
 val () =
-  thePage.children (thePageLeft, thePageRight)
+  thePage.children(thePageLeft, thePageRight)
 //
 (* ****** ****** *)
 //
@@ -96,11 +97,12 @@ val () =
   thePageRBodyRight.height (600)
 //
 val () =
-  thePageRBody.tabstyle (TShbox)
+  thePageRBody.tabstyle(TShbox)
 val () =
-  thePageRBody.percentlst ($list(75, 25))
+  thePageRBody.pcntlst
+    ($list(PCNThard(75), PCNThard(25)))
 val () =
-  thePageRBody.children (thePageRBodyLeft, thePageRBodyRight)
+  thePageRBody.children(thePageRBodyLeft, thePageRBodyRight)
 //
 (* ****** ****** *)
 //
