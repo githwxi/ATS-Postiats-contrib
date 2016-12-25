@@ -29,8 +29,7 @@ BUCS320_layout
 BUCS320_layout: \
 BUCS320_layout.dats; \
 $(PATSCC2) \
-  -D_GNU_SOURCE \
-  -DATS_MEMALLOC_LIBC -o $@ $< myweboxy.dats
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $<
 #
 regress:: \
 BUCS320_layout.html
@@ -43,8 +42,7 @@ ATS2LANG_layout
 ATS2LANG_layout: \
 ATS2LANG_layout.dats; \
 $(PATSCC2) \
-  -D_GNU_SOURCE \
-  -DATS_MEMALLOC_LIBC -o $@ $< myweboxy.dats
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $<
 #
 regress:: \
 ATS2LANG_layout.html
