@@ -500,18 +500,18 @@ end // end of [webox_set_tabstyle]
 
 implement
 {}(*tmp*)
-webox_get_pcntlst
+webox_get_pcentlst
   (wbx) = let
 //
 val opt =
-  hashtbl_search(wbx, PCNTLST)
+  hashtbl_search(wbx, PCENTLST)
 //
 in
 //
 case+ opt of
 | ~None_vt () => list_nil()
 | ~Some_vt (gv) => let
-    val-GVboxed(pcs) = gv in $UN.cast{pcntlst}(pcs)
+    val-GVboxed(pcs) = gv in $UN.cast{pcentlst}(pcs)
   end // end of [Some_vt]
 //
 end // end of [webox_get_percentlst]
@@ -520,19 +520,19 @@ end // end of [webox_get_percentlst]
 
 implement
 {}(*tmp*)
-webox_set_pcntlst
+webox_set_pcentlst
   (wbx, pcs) = let
 //
 val pcs = GVboxed(pcs)
 //
 val cp =
-  hashtbl_search_ref(wbx, PCNTLST)
+  hashtbl_search_ref(wbx, PCENTLST)
 //
 in
 //1
 if isneqz(cp)
   then $UN.cptr_set(cp, pcs)
-  else hashtbl_insert_any (wbx, PCNTLST, pcs)
+  else hashtbl_insert_any (wbx, PCENTLST, pcs)
 //
 end // end of [webox_set_percentlst]
 
@@ -540,19 +540,19 @@ end // end of [webox_set_percentlst]
 
 implement
 {}(*tmp*)
-pcntlst_get_at
+pcentlst_get_at
   (pcs, i) = let
 //
 fun
 loop
 (
-pcs: pcntlst, i: int
-) : pcnt =
+pcs: pcentlst, i: int
+) : pcent =
 (
 case+ pcs of
 | list_nil() =>
   (
-    PCNTnone()
+    PCnone()
   ) (* list_nil *)
 | list_cons(pc, pcs) =>
     if i > 0 then loop(pcs, i-1) else pc
@@ -561,7 +561,7 @@ case+ pcs of
 //
 in
   loop(pcs, i)
-end // end of [pcntlst_get_at]
+end // end of [pcentlst_get_at]
 
 (* ****** ****** *)
 
@@ -898,7 +898,7 @@ fun{}
 fprint_weboxlst_html
 (
   out: FILEref
-, tbs: tabstyle, pcs: pcntlst, xs: weboxlst
+, tbs: tabstyle, pcs: pcentlst, xs: weboxlst
 ) : void // end-of-function
 
 (* ****** ****** *)
@@ -924,7 +924,7 @@ if
 isneqz(wbxs)
 then let
   val ts = wbx0.tabstyle()
-  val pcs = webox_get_pcntlst(wbx0)
+  val pcs = webox_get_pcentlst(wbx0)
 in
   fprint (out, wbx0.content());
   fprint_weboxlst_html (out, ts, pcs, wbxs)
@@ -958,27 +958,27 @@ val ishbox = tbs.ishbox()
 val isvbox = tbs.isvbox()
 //
 fun
-fprint_hbox_pcnt
+fprint_hbox_pcent
 (
-out: FILEref, pc: pcnt
+out: FILEref, pc: pcent
 ) : void =
 (
 case+ pc of
-| PCNTnone() => ()
-| PCNThard(n) => fprint!(out, "width:", n, "%;")
-| PCNTsoft(n) => fprint!(out, "width:", n, "%;height:0px;")
+| PCnone() => ()
+| PChard(n) => fprint!(out, "width:", n, "%;")
+| PCsoft(n) => fprint!(out, "width:", n, "%;height:0px;")
 )
 //
 fun
-fprint_vbox_pcnt
+fprint_vbox_pcent
 (
-out: FILEref, pc: pcnt
+out: FILEref, pc: pcent
 ) : void =
 (
 case+ pc of
-| PCNTnone() => ()
-| PCNThard(n) => fprint!(out, "height:", n, "%;")
-| PCNTsoft(n) => fprint!(out, "width:0px;height:", n, "%;")
+| PCnone() => ()
+| PChard(n) => fprint!(out, "height:", n, "%;")
+| PCsoft(n) => fprint!(out, "width:0px;height:", n, "%;")
 )
 //
 fun
@@ -996,16 +996,16 @@ case+ wbxs of
     if i > 0 then fprint (out, "\n")
     val () =
     if isvbox then let
-      val pc = pcntlst_get_at(pcs, i)
-      overload fprint with fprint_vbox_pcnt
+      val pc = pcentlst_get_at(pcs, i)
+      overload fprint with fprint_vbox_pcent
     in
       fprint! (out, "<tr style=\"", pc, "\">\n")
     end // end of [then] // end of [if]
 //
     val () =
     if ishbox then let
-      val pc = pcntlst_get_at(pcs, i)
-      overload fprint with fprint_hbox_pcnt
+      val pc = pcentlst_get_at(pcs, i)
+      overload fprint with fprint_hbox_pcent
     in
       fprint! (out, "<td style=\"vertical-align:top;", pc, "\">\n")
       // end of [if]
@@ -1062,7 +1062,6 @@ fprint! (out, "\
 <!DOCTYPE html>\n\
 <html>\n\
 <head>\n\
-<meta charset=\"utf-8\">\n
 ") (* end of [val] *)
 //
 val () =

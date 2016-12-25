@@ -56,8 +56,8 @@ val thePageRight =
 val () =
   thePage.tabstyle(TShbox)
 val () =
-  thePage.pcntlst
-    ($list(PCNThard(15), PCNTnone()))
+  thePage.pcentlst
+    ($list(PChard(15), PCnone()))
 val () =
   thePage.children(thePageLeft, thePageRight)
 //
@@ -99,28 +99,34 @@ val () =
 val () =
   thePageRBody.tabstyle(TShbox)
 val () =
-  thePageRBody.pcntlst
-    ($list(PCNThard(75), PCNThard(25)))
+  thePageRBody.pcentlst
+    ($list(PChard(75), PChard(25)))
 val () =
   thePageRBody.children(thePageRBodyLeft, thePageRBodyRight)
 //
 (* ****** ****** *)
 //
-val thePageRBodyLHeader =
- webox_make_name ("thePageRBodyLHeader")
-val thePageRBodyLContent =
- webox_make_name ("thePageRBodyLContent")
+val
+thePageRBodyLHeader =
+webox_make_name ("thePageRBodyLHeader")
+val
+thePageRBodyLContent =
+webox_make_name ("thePageRBodyLContent")
+//
 val () =
   thePageRBodyLeft.children (thePageRBodyLHeader, thePageRBodyLContent)
 //
 (* ****** ****** *)
 //
-val thePageRFooter =
-  webox_make_name ("thePageRFooter")
-val thePageRFooterSep =
-  webox_make_name ("thePageRFooterSep")
-val thePageRFooterRest =
-  webox_make_name ("thePageRFooterRest")
+val
+thePageRFooter =
+webox_make_name ("thePageRFooter")
+val
+thePageRFooterSep =
+webox_make_name ("thePageRFooterSep")
+val
+thePageRFooterRest =
+webox_make_name ("thePageRFooterRest")
 //
 val () =
 thePageRFooterRest.content
@@ -136,8 +142,9 @@ val () =
 //
 (* ****** ****** *)
 //
-val theBodyProp =
-  webox_make_name ("theBodyProp")
+val
+theBodyProp =
+webox_make_name ("theBodyProp")
 //
 val () = theBodyProp.bgcolor("")
 //
@@ -237,4 +244,4 @@ val () =
 
 (* ****** ****** *)
 
-(* end of [layout_ats2lang.dats] *)
+(* end of [ATS2LANG_layout.dats] *)

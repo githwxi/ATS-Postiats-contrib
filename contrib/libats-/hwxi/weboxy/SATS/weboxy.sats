@@ -66,7 +66,7 @@ overload .isvbox with tabstyle_isvbox
 //
 #define CONTENT "content"
 //
-#define PCNTLST "pcntlst"
+#define PCENTLST "pcentlst"
 #define TABSTYLE "tabstyle"
 //
 (* ****** ****** *)
@@ -197,26 +197,26 @@ overload .tabstyle with webox_set_tabstyle
 //
 (* ****** ****** *)
 //
-datatype pcnt =
-  | PCNTnone of ()
-  | PCNThard of int
-  | PCNTsoft of int
+datatype pcent =
+  | PCnone of ()
+  | PChard of intGte(0)
+  | PCsoft of intGte(0)
 //
-typedef pcntlst = List0(pcnt)
+typedef pcentlst = List0(pcent)
 //
 fun{}
-pcntlst_get_at
-  (xs: pcntlst, i: intGte(0)): pcnt
+pcentlst_get_at
+  (xs: pcentlst, i: intGte(0)): pcent
 //
 (* ****** ****** *)
 //
 fun{}
-webox_get_pcntlst (webox): pcntlst
+webox_get_pcentlst (webox): pcentlst
 fun{}
-webox_set_pcntlst (webox, xs: pcntlst): void
+webox_set_pcentlst (webox, xs: pcentlst): void
 //
-overload .pcntlst with webox_get_pcntlst
-overload .pcntlst with webox_set_pcntlst
+overload .pcentlst with webox_get_pcentlst
+overload .pcentlst with webox_set_pcentlst
 //
 (* ****** ****** *)
 //

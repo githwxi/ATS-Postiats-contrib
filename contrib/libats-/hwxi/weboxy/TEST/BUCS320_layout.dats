@@ -87,8 +87,8 @@ val () =
 val () =
   thePageBody.tabstyle(TShbox)
 val () =
-  thePageBody.pcntlst
-    ($list(PCNThard(80), PCNThard(20)))
+  thePageBody.pcentlst
+    ($list(PChard(80), PChard(20)))
 val () =
   thePageBody.children(thePageBodyL, thePageBodyR)
 //
@@ -123,6 +123,22 @@ val theBodyProp =
       
 val () = theBodyProp.children(thePage)
       
+(* ****** ****** *)
+
+implement
+fprint_webox_head_beg<>
+  (out) = let
+//
+val () =
+fprint (out, "\
+<meta charset=\"utf-8\">\n\
+<title>BUCS320-layout</title>\n\
+") (* end of [fprint] *)
+//
+in
+  // nothing
+end // end of [fprint_webox_head_beg<>]
+
 (* ****** ****** *)
 
 implement
@@ -209,4 +225,4 @@ val () =
 
 (* ****** ****** *)
 
-(* end of [layout_cs320.dats] *)
+(* end of [BUCS320_layout.dats] *)
