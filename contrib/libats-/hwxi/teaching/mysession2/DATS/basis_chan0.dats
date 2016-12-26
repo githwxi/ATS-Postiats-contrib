@@ -113,10 +113,9 @@ channel0_recv
 //
 val+@CHAN0(ch0, ch1) = chan0
 //
-val () =
-x0 := uchannel_remove<a> (ch1)
+val () = x0 := uchannel_remove<a> (ch1)
 //
-prval ((*fold*)) = fold@chan0
+prval ((*folded*)) = fold@chan0
 //
 in
   // nothing
@@ -131,8 +130,10 @@ channel0_recv_val
 {
 //
 val+@CHAN0(ch0, ch1) = chan0
+//
 val x0 = uchannel_remove<a> (ch1)
-prval ((*fold*)) = fold@chan0
+//
+prval ((*folded*)) = fold@chan0
 //
 } (* end of [channel0_recv_val] *)
 
@@ -149,8 +150,8 @@ and~CHAN0(chy1, chy2) = chan0y
 val () = uchannel_qinsert(chx1, chy2)
 and () = uchannel_qinsert(chy1, chx2)
 //
-val ((*void*)) = uchannel_unref (chx1)
-val ((*void*)) = uchannel_unref (chy1)
+val ((*void*)) = uchannel_unref(chx1)
+and ((*void*)) = uchannel_unref(chy1)
 //
 (*
 val () =

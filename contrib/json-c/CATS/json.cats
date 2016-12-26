@@ -32,9 +32,12 @@
 #define JSONC_JSON_CATS
 
 /* ****** ****** */
-
+//
+/*
+#include <json.h>
+*/
 #include <../json-c/json.h>
-
+//
 /* ****** ****** */
 
 #define \
@@ -80,12 +83,16 @@ atscntrb_jsonc_lh_entry_get_val (atstype_ptr ent)
 //
 #define atscntrb_jsonc_lh_char_hash lh_char_hash
 #define atscntrb_jsonc_lh_char_equal lh_char_equal
-#define atscntrb_jsonc_lh_kchar_table_new(size, name, free_fn) \
+//
+#define \
+atscntrb_jsonc_lh_kchar_table_new(size, name, free_fn) \
   lh_kchar_table_new(size, name, (lh_entry_free_fn*)free_fn)
 //
 #define atscntrb_jsonc_lh_ptr_hash lh_ptr_hash
 #define atscntrb_jsonc_lh_ptr_equal lh_ptr_equal
-#define atscntrb_jsonc_lh_kptr_table_new(size, name, free_fn) \
+//
+#define \
+atscntrb_jsonc_lh_kptr_table_new(size, name, free_fn) \
   lh_kptr_table_new(size, name, (lh_entry_free_fn*)free_fn)
 //
 #define atscntrb_jsonc_lh_table_free lh_table_free
@@ -97,21 +104,33 @@ atscntrb_jsonc_lh_entry_get_val (atstype_ptr ent)
 #define atscntrb_jsonc_lh_table_delete lh_table_delete
 #define atscntrb_jsonc_lh_table_delete_entry lh_table_delete_entry
 //
-#define atscntrb_jsonc_lh_table_lookup(t, k) ((void*)(lh_table_lookup(t, k)))
-#define atscntrb_jsonc_lh_table_lookup_ex(t, k, v) lh_table_lookup_ex(t, k, v)
-#define atscntrb_jsonc_lh_table_lookup_entry(t, k) lh_table_lookup_entry(t, k)
+#if(0)
+//
+// HX-2016-12: deprecated
+//
+#define \
+atscntrb_jsonc_lh_table_lookup(t, k) ((void*)(lh_table_lookup(t, k)))
+#endif // end of [#if(0)]
+//
+#define \
+atscntrb_jsonc_lh_table_lookup_ex(t, k, v) lh_table_lookup_ex(t, k, v)
+#define \
+atscntrb_jsonc_lh_table_lookup_entry(t, k) lh_table_lookup_entry(t, k)
 //
 #define atscntrb_jsonc_lh_table_resize lh_table_resize
 //
 /* ****** ****** */
-
-#define atscntrb_jsonc_json_object_from_file json_object_from_file
-#define atscntrb_jsonc_json_object_to_file json_object_to_file
-#define atscntrb_jsonc_json_object_to_file_ext json_object_to_file_ext
+//
 #define atscntrb_jsonc_json_parse_int64 json_parse_int64
 #define atscntrb_jsonc_json_parse_double json_parse_double
+//
+#define atscntrb_jsonc_json_object_to_file json_object_to_file
+#define atscntrb_jsonc_json_object_to_file_ext json_object_to_file_ext
+//
+#define atscntrb_jsonc_json_object_from_file json_object_from_file
+//
 #define atscntrb_jsonc_json_type_to_name(type) ((void*)(json_type_to_name(type)))
-
+//
 /* ****** ****** */
 
 #define atscntrb_jsonc_json_hex_chars json_hex_chars

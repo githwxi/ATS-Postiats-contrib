@@ -8,10 +8,14 @@ SUBDIRS :=
 SUBDIRS += EXAMPLE/CA-HSR2
 
 ######
+
+all::
+
+######
 #
-testall:: ; \
+all:: ; \
 for i in $(SUBDIRS); \
-  do $(MAKE) -C $$i -f Makefile_test testall; done
+  do $(MAKE) -C $$i -f Makefile_test all; done
 #
 ######
 

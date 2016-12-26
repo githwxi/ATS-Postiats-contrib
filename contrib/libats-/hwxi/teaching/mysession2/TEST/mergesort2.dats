@@ -50,7 +50,8 @@ staload _(*anon*) = "./../DATS/array.dats"
 extern
 fun
 {a:t@ype}
-mergesort{n:nat}(list(a, n)): list(a, n)
+mergesort
+  {n:nat}(list(a, n)): list(a, n)
 //
 (* ****** ****** *)
 
@@ -75,7 +76,7 @@ overload <= with glte_val_val
 //
 fnx
 fserv
-  {n1,n2:nat}
+{n1,n2:nat}
 (
   chp: chanpos(ssarray(a,n1+n2))
 , n1: int(n1), chn1: channeg(ssarray(a,n1))
@@ -88,15 +89,13 @@ in
 //
 case+ opt1 of
 | true => let
-    prval
-    () = channeg_array_nil(chn1)
+  prval () = channeg_array_nil(chn1)
     val () = channeg_nil_close(chn1)
   in
     chanposneg_link (chp, chn2)
   end // end of [channeg_array_nil]
 | false => let
-    prval
-    () = channeg_array_cons(chn1)
+  prval () = channeg_array_cons(chn1)
     val x1 = channeg_send_val(chn1)
   in
     fserv1(chp, x1, n1-1, chn1, n2, chn2)
@@ -106,7 +105,7 @@ end // end of [fserv]
 //
 and
 fserv1
-  {n1,n2:nat}
+{n1,n2:nat}
 (
   chp: chanpos(ssarray(a, n1+n2+1))
 , x1: a
@@ -117,57 +116,52 @@ fserv1
 prval () =
   chanpos_array_cons (chp)
 //
-val opt2 = (n2 = 0)
+  val opt2 = (n2 = 0)
 //
 in
 //
 case+ opt2 of
 | true => let
-    prval
-    () = channeg_array_nil(chn2)
+  prval () = channeg_array_nil(chn2)
     val () = channeg_nil_close(chn2)
     val () = chanpos_send(chp, x1)
   in
     chanposneg_link (chp, chn1)
   end // end of [channeg_array_nil]
 | false => let
-    prval
-    () = channeg_array_cons(chn2)
+  prval () = channeg_array_cons(chn2)
     val x2 = channeg_send_val(chn2)
   in
-    if x1 <= x2
-      then let
-        val () =
-          chanpos_send(chp, x1)
-        // end of [val]
+    ifcase
+    | x1 <= x2 => let
+        val () = chanpos_send(chp, x1)
       in
         fserv2 (chp, n1, chn1, x2, n2-1, chn2)
       end // end of [then]
-      else let
-        val () =
-          chanpos_send(chp, x2)
-        // end of [val]
+    | _(*else*) => let
+        val () = chanpos_send(chp, x2)
       in
         fserv1 (chp, x1, n1, chn1, n2-1, chn2)
       end // end of [else]
+    // end of [ifcase]
   end // end of [channeg_array_cons]
 //
 end // end of [fserv1]
 //
 and
 fserv2
-  {n1,n2:nat}
+{n1,n2:nat}
 (
-  chp: chanpos(ssarray(a,n1+n2+1))
+ chp: chanpos(ssarray(a,n1+n2+1))
 , n1: int(n1), chn1: channeg(ssarray(a, n1))
 , x2: a
 , n2: int(n2), chn2: channeg(ssarray(a, n2))
 ) : void = let
 //
 prval () =
-  chanpos_array_cons (chp)
+  chanpos_array_cons(chp)
 //
-val opt1 = (n1 = 0)
+  val opt1 = (n1 = 0)
 //
 in
 //
@@ -187,16 +181,12 @@ case+ opt1 of
   in
     if x1 <= x2
       then let
-        val () =
-          chanpos_send(chp, x1)
-        // end of [val]
+        val () = chanpos_send(chp, x1)
       in
         fserv2 (chp, n1-1, chn1, x2, n2, chn2)
       end // end of [then]
       else let
-        val () =
-          chanpos_send(chp, x2)
-        // end of [val]
+        val () = chanpos_send(chp, x2)
       in
         fserv1 (chp, x1, n1-1, chn1, n2, chn2)
       end // end of [else]
@@ -204,13 +194,16 @@ case+ opt1 of
 end // end of [fserv2]
 //
 in
-  channeg_create_exn(llam (chp) => fserv(chp, n1, chn1, n2, chn2))
+  channeg_create_exn
+    (llam (chp) => fserv(chp, n1, chn1, n2, chn2))
+  // channeg_create_exn
 end // end of [ssarray_merge]
 
 (* ****** ****** *)
 //
 extern
-fun{a:t@ype}
+fun
+{a:t@ype}
 ssarray_msort{n:nat}
   (int(n), channeg(ssarray(a, n))): channeg(ssarray(a, n))
 //

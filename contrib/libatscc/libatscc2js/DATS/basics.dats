@@ -74,56 +74,56 @@ gcompare_val_val<string>
 //
 implement
 {}(*tmp*)
-logats0 () = ()
+logats0() = ()
 implement
 {a1}(*tmp*)
-logats1 (x1) = logats_tmp (x1)
+logats1(x1) = logats_tmp(x1)
 implement
 {a1,a2}
-logats2 (x1, x2) =
+logats2(x1, x2) =
   (logats_tmp(x1); logats_tmp(x2))
 implement
 {a1,a2,a3}
-logats3 (x1, x2, x3) =
+logats3(x1, x2, x3) =
   (logats_tmp(x1); logats_tmp(x2); logats_tmp(x3))
 //
 implement
 {a1,a2,a3,a4}
-logats4 (x1, x2, x3, x4) =
+logats4(x1, x2, x3, x4) =
 (
   logats_tmp(x1); logats_tmp(x2); logats_tmp(x3); logats_tmp(x4)
 )
 implement
 {a1,a2,a3,a4,a5}
-logats5 (x1, x2, x3, x4, x5) =
+logats5(x1, x2, x3, x4, x5) =
 (
   logats_tmp(x1); logats_tmp(x2);
   logats_tmp(x3); logats_tmp(x4); logats_tmp(x5)
 )
 implement
 {a1,a2,a3,a4,a5,a6}
-logats6 (x1, x2, x3, x4, x5, x6) =
+logats6(x1, x2, x3, x4, x5, x6) =
 (
   logats_tmp(x1); logats_tmp(x2); logats_tmp(x3);
   logats_tmp(x4); logats_tmp(x5); logats_tmp(x6);
 )
 implement
 {a1,a2,a3,a4,a5,a6,a7}
-logats7 (x1, x2, x3, x4, x5, x6, x7) =
+logats7(x1, x2, x3, x4, x5, x6, x7) =
 (
   logats_tmp(x1); logats_tmp(x2); logats_tmp(x3);
   logats_tmp(x4); logats_tmp(x5); logats_tmp(x6); logats_tmp(x7)
 )
 implement
 {a1,a2,a3,a4,a5,a6,a7,a8}
-logats8 (x1, x2, x3, x4, x5, x6, x7, x8) =
+logats8(x1, x2, x3, x4, x5, x6, x7, x8) =
 (
   logats_tmp(x1); logats_tmp(x2); logats_tmp(x3); logats_tmp(x4);
   logats_tmp(x5); logats_tmp(x6); logats_tmp(x7); logats_tmp(x8);
 )
 implement
 {a1,a2,a3,a4,a5,a6,a7,a8,a9}
-logats9 (x1, x2, x3, x4, x5, x6, x7, x8, x9) =
+logats9(x1, x2, x3, x4, x5, x6, x7, x8, x9) =
 (
   logats_tmp(x1); logats_tmp(x2); logats_tmp(x3); logats_tmp(x4);
   logats_tmp(x5); logats_tmp(x6); logats_tmp(x7); logats_tmp(x8); logats_tmp(x9)

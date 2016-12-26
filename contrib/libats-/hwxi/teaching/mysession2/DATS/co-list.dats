@@ -1,22 +1,23 @@
 (*
-** Co-lists
+** Co-list-sessions
 *)
 
 (* ****** ****** *)
 //
 staload
-UN =
-"prelude/SATS/unsafe.sats"
+"./../SATS/basis.sats"
 //
-(* ****** ****** *)
-//
-staload "./../SATS/basis.sats"
-//
-staload "./../SATS/co-list.sats"
+staload
+"./../SATS/co-list.sats"
 //
 (* ****** ****** *)
 //
 staload "./basis_chan0.dats"
+//
+(* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 

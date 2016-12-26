@@ -39,21 +39,23 @@ abstype JSobj // generic
 //
 abstype JSdate // new Date()
 //
+abstype JSfilr // nominal!
+//
+(* ****** ****** *)
+//
 abstype JSarray(a:vt@ype)
 //
 abstype JSregexp // new RegExp()
 //
 (* ****** ****** *)
-
-abstype JSfilr // HX: this is nominal!
-
-(* ****** ****** *)
 //
-fun alert(msg: string): void = "mac#%"
+fun
+alert(msg: string): void = "mac#%"
 //
 (* ****** ****** *)
 //
-fun confirm(msg: string): bool = "mac#%"
+fun
+confirm(msg: string): bool = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -74,7 +76,8 @@ overload prompt with prompt_some
 //
 (* ****** ****** *)
 
-fun typeof{a:t@ype}(a): string = "mac#%"
+fun
+typeof{a:t@ype}(a): string = "mac#%"
 
 (* ****** ****** *)
 //
@@ -93,48 +96,59 @@ console_log{a:t@ype}(obj: a): void = "mac#%"
 //
 fun
 lazy2cloref
-  {a:t0p}(lazy(a)): ((*void*)) -<cloref1> (a) = "mac#%"
+  {a:t@ype}
+  (lazy(a)): ((*void*)) -<cloref1> (a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 assert_errmsg_bool0
-  (x: bool, msg: string): void = "mac#%"
+  (claim: bool, msg: string): void = "mac#%"
 fun
 assert_errmsg_bool1
-  {b:bool} (x: bool b, msg: string): [b] void = "mac#%"
+  {b:bool}
+  (claim: bool(b), msg: string): [b] void = "mac#%"
 //
-overload assert_errmsg with assert_errmsg_bool0 of 100
-overload assert_errmsg with assert_errmsg_bool1 of 110
+overload
+assert_errmsg with assert_errmsg_bool0 of 100
+overload
+assert_errmsg with assert_errmsg_bool1 of 110
+//
+macdef
+assertloc(claim) = assert_errmsg(,(claim), $mylocation)
 //
 (* ****** ****** *)
 //
-macdef assertloc (x) = assert_errmsg (,(x), $mylocation)
+fun{a:t0p}
+logats_tmp
+  (x0: INV(a)): void
+//
+(* ****** ****** *)
+//
+fun{}
+logats0(): void
+fun{a1:t0p}
+logats1(INV(a1)): void
+fun{a1,a2:t0p}
+logats2(INV(a1), INV(a2)): void
+fun{a1,a2,a3:t0p}
+logats3(INV(a1), INV(a2), INV(a3)): void
+fun{a1,a2,a3,a4:t0p}
+logats4(INV(a1), INV(a2), INV(a3), INV(a4)): void
+fun{a1,a2,a3,a4,a5:t0p}
+logats5(INV(a1), INV(a2), INV(a3), INV(a4), INV(a5)): void
+fun{a1,a2,a3,a4,a5,a6:t0p}
+logats6(INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6)): void
+fun{a1,a2,a3,a4,a5,a6,a7:t0p}
+logats7(INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7)): void
+fun{a1,a2,a3,a4,a5,a6,a7,a8:t0p}
+logats8(INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7), INV(a8)): void
+fun{a1,a2,a3,a4,a5,a6,a7,a8,a9:t0p}
+logats9(INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7), INV(a8), INV(a9)): void
 //
 (* ****** ****** *)
 //
 symintr logats
-//
-fun{}
-logats0 (): void
-fun{a1:t0p}
-logats1 (INV(a1)): void
-fun{a1,a2:t0p}
-logats2 (INV(a1), INV(a2)): void
-fun{a1,a2,a3:t0p}
-logats3 (INV(a1), INV(a2), INV(a3)): void
-fun{a1,a2,a3,a4:t0p}
-logats4 (INV(a1), INV(a2), INV(a3), INV(a4)): void
-fun{a1,a2,a3,a4,a5:t0p}
-logats5 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5)): void
-fun{a1,a2,a3,a4,a5,a6:t0p}
-logats6 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6)): void
-fun{a1,a2,a3,a4,a5,a6,a7:t0p}
-logats7 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7)): void
-fun{a1,a2,a3,a4,a5,a6,a7,a8:t0p}
-logats8 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7), INV(a8)): void
-fun{a1,a2,a3,a4,a5,a6,a7,a8,a9:t0p}
-logats9 (INV(a1), INV(a2), INV(a3), INV(a4), INV(a5), INV(a6), INV(a7), INV(a8), INV(a9)): void
 //
 overload logats with logats0
 overload logats with logats1
@@ -147,10 +161,6 @@ overload logats with logats7
 overload logats with logats8
 overload logats with logats9
 //
-(* ****** ****** *)
-
-fun{a:t0p} logats_tmp (x: a): void
-
 (* ****** ****** *)
 
 (* end of [basics_js.sats] *)

@@ -5,19 +5,53 @@
 (* ****** ****** *)
 //
 #include
+"share/atspre_define.hats"
+//
+#include
 "share/atspre_staload.hats"
 #include
 "share/HATS/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/weboxy.sats"
-staload _ = "./../DATS/weboxy.dats"
+#staload
+"{$LIBATSHWXI}\
+/teaching/BUCS/DATS/BUCS.dats"
 //
 (* ****** ****** *)
-
-#include "./params.hats"
-
+//
+#include "./../weboxy.dats"
+//
+(* ****** ****** *)
+//
+implement
+randcolor<>() = let
+//
+val M = 256
+//
+val r = randint<>(M)
+val b = randint<>(M)
+val g = randint<>(M)
+//
+val bsz = 16
+val (pf,pfgc|p) = malloc_gc (i2sz(bsz))
+val
+(
+(*void*)
+) =
+$extfcall
+(
+  void
+, "snprintf", p, bsz, "#%02x%02x%02x", i2u(r), i2u(b), i2u(g)
+) (* end of [$extfcall] *)
+//
+in
+  $UN.castvwtp0{string}((pf, pfgc | p))
+end // end of [randcolor]
+//
+implement
+randcolor_initize<>() = srandom_with_time<>()
+//
 (* ****** ****** *)
 
 local
@@ -56,9 +90,10 @@ val thePageRight =
 val () =
   thePage.tabstyle(TShbox)
 val () =
-  thePage.percentlst ($list(15, ~1))
+  thePage.pcentlst
+    (g0ofg1($list(PChard(15), PCnone())))
 val () =
-  thePage.children (thePageLeft, thePageRight)
+  thePage.children(thePageLeft, thePageRight)
 //
 (* ****** ****** *)
 //
@@ -96,46 +131,54 @@ val () =
   thePageRBodyRight.height (600)
 //
 val () =
-  thePageRBody.tabstyle (TShbox)
+  thePageRBody.tabstyle(TShbox)
 val () =
-  thePageRBody.percentlst ($list(75, 25))
+  thePageRBody.pcentlst
+    (g0ofg1($list(PChard(75), PChard(25))))
 val () =
-  thePageRBody.children (thePageRBodyLeft, thePageRBodyRight)
+  thePageRBody.children(thePageRBodyLeft, thePageRBodyRight)
 //
 (* ****** ****** *)
 //
-val thePageRBodyLHeader =
- webox_make_name ("thePageRBodyLHeader")
-val thePageRBodyLContent =
- webox_make_name ("thePageRBodyLContent")
+val
+thePageRBodyLHeader =
+webox_make_name("thePageRBodyLHeader")
+val
+thePageRBodyLContent =
+webox_make_name("thePageRBodyLContent")
+//
 val () =
   thePageRBodyLeft.children (thePageRBodyLHeader, thePageRBodyLContent)
 //
 (* ****** ****** *)
 //
-val thePageRFooter =
-  webox_make_name ("thePageRFooter")
-val thePageRFooterSep =
-  webox_make_name ("thePageRFooterSep")
-val thePageRFooterRest =
-  webox_make_name ("thePageRFooterRest")
+val
+thePageRFooter =
+webox_make_name("thePageRFooter")
+val
+thePageRFooterSep =
+webox_make_name("thePageRFooterSep")
+val
+thePageRFooterRest =
+webox_make_name("thePageRFooterRest")
 //
 val () =
 thePageRFooterRest.content
   ("This page is created with help from ATS/weboxy")
 //
 val () =
-  thePageRFooter.children (thePageRFooterSep, thePageRFooterRest)
+  thePageRFooter.children(thePageRFooterSep, thePageRFooterRest)
 //      
 (* ****** ****** *)
 //
 val () =
-  thePageRight.children (thePageRHeader, thePageRBody, thePageRFooter)
+  thePageRight.children(thePageRHeader, thePageRBody, thePageRFooter)
 //
 (* ****** ****** *)
 //
-val theBodyProp =
-  webox_make_name ("theBodyProp")
+val
+theBodyProp =
+webox_make_name("theBodyProp")
 //
 val () = theBodyProp.bgcolor("")
 //
@@ -144,68 +187,75 @@ val () = theBodyProp.children(thePage)
 (* ****** ****** *)
 
 implement
-fprint_css_preamble<>
-  (out) = let
+gprint_css_preamble<>
+  ((*void*)) = let
 //
 val () =
-fprint (out, "\
+gprint (
+"\
 .center {\n\
   margin-left: auto;\n\
   margin-right: auto;\n\
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 //
 in
   // nothing
-end // end of [fprint_css_preamble]
+end // end of [gprint_css_preamble]
 
 (* ****** ****** *)
 
 implement
-fprint_css_postamble<>
-  (out) = let
+gprint_css_postamble<>
+  ((*void*)) = let
 //
 val () =
-fprint (out, "\
+gprint (
+"\
 body {
 font-family: sans-serif;
 background-color: #213449; /* dark blue */
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 // 
 val () =
-fprint (out, "\
+gprint (
+"\
 #thePage {\n\
   width: 85%;\n\
   margin-left: auto;\n\
   margin-right: auto;\n\
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 //
 val () =
-fprint (out, "\
+gprint (
+"\
 #thePageRHeader {\n\
   text-align: center;
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 //
 val () =
-fprint (out, "\
+gprint (
+"\
 #thePageRBodyLHeader\n\
 {\n\
   text-align: center;\n\
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 //
 val () =
-fprint (out, "\
+gprint (
+"\
 #thePageRFooter {\n\
   text-align: center;\n\
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 //
 val () =
-fprint (out, "\
+gprint (
+"\
 theHeaderLine1 {\n\
   font-size: 225%;\n\
   font-weight: bold;\n\
@@ -214,11 +264,11 @@ theHeaderLine2 {\n\
   font-size: 150%;\n\
   font-weight: bold;\n\
 }\n\
-") (* end of [fprint] *)
+") (* end of [gprint] *)
 //
 in
   // nothing
-end // end of [fprint_css_postamble]
+end // end of [gprint_css_postamble]
 
 (* ****** ****** *)
 
@@ -226,13 +276,16 @@ implement
 main0 () =
 {
 //
-val out = stdout_ref
+implement
+gprint$out<>
+(
+// argless
+) = stdout_ref
 //
-val () =
-  fprint_webox_html_all (out, theBodyProp)
+val () = gprint_webox_html_all<>(theBodyProp)
 //
 } (* end of [main0] *)
 
 (* ****** ****** *)
 
-(* end of [layout_ats2lang.dats] *)
+(* end of [ATS2LANG_layout.dats] *)

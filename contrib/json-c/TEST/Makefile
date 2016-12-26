@@ -116,6 +116,12 @@ cleanall:: ; $(RMF) test07
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
@@ -123,6 +129,8 @@ RMF=rm -f
 clean:: ; $(RMF) *~
 clean:: ; $(RMF) *_?ats.c
 clean:: ; $(RMF) *_?ats.o
+
+######
 
 cleanall:: clean
 

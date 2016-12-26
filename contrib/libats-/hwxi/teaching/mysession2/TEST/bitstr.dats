@@ -323,7 +323,7 @@ case+ opt of
 end // end of [loop2]
 //
 in
-  loop (loop2 (chn, list_vt_nil), 0)
+  loop(loop2(chn, list_vt_nil), 0)
 end // end of [bits2int]
 
 (* ****** ****** *)

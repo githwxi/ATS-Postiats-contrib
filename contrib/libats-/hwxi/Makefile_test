@@ -4,6 +4,10 @@
 
 ######
 
+all::
+
+######
+
 SUBDIRS :=
 SUBDIRS += intinf/TEST
 SUBDIRS += weboxy/TEST
@@ -11,15 +15,17 @@ SUBDIRS += testing/TEST
 SUBDIRS += globals/TEST
 SUBDIRS += cstream/TEST
 SUBDIRS += jsonats/TEST
+SUBDIRS += threadkit/TEST
 SUBDIRS += teaching/myGTK/TEST
 SUBDIRS += teaching/mydraw/TEST
 SUBDIRS += teaching/mythread/TEST
 SUBDIRS += teaching/fileAsLock/TEST
-SUBDIRS += threadkit/TEST
+SUBDIRS += teaching/mysession2/TEST
+SUBDIRS += teaching/mysession-g/TEST
 
 ######
 
-testall:: ; \
+all:: ; \
 for i in $(SUBDIRS); do $(MAKE) -C $$i testall; done
 
 ######
