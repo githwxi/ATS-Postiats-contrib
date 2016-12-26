@@ -167,6 +167,7 @@ endif
 ######
 
 testall:: all
+testall:: DATS_C
 testall:: cleanall
 
 ######

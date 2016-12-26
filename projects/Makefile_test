@@ -8,8 +8,11 @@ MAKE=make
 
 ######
 
-SUBDIRS :=
+all::
 
+######
+
+SUBDIRS :=
 SUBDIRS += SMALL/Socket
 SUBDIRS += SMALL/FALCON
 SUBDIRS += SMALL/Coroutine
@@ -23,22 +26,22 @@ SUBDIRS += MEDIUM/SHOOTOUT/ATS2
 
 ######
 #
-testall:: ; \
+all:: ; \
 for i in $(SUBDIRS); \
   do $(MAKE) -C $$i -f Makefile testall; done
 #
 ######
 #
-testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
-testall:: ; $(MAKE) -C MEDIUM/ATS-extsolve/ATS-extsolve-smt2 -f Makefile testall
+all:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
+all:: ; $(MAKE) -C MEDIUM/ATS-extsolve/ATS-extsolve-smt2 -f Makefile testall
 #
 ######
 
-testall:: ; $(MAKE) -C MEDIUM/CATS-parsemit -f Makefile testall
+all:: ; $(MAKE) -C MEDIUM/CATS-parsemit -f Makefile testall
 
 ######
 
-testall:: ; $(MAKE) -C MEDIUM/CATS-atsccomp -f Makefile_test testall
+all:: ; $(MAKE) -C MEDIUM/CATS-atsccomp -f Makefile_test all
 
 ######
 

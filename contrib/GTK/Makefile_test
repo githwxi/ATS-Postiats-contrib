@@ -4,13 +4,17 @@
 
 ######
 
+all::
+
+######
+
 SUBDIRS :=
 SUBDIRS += TEST
 SUBDIRS += TUTORIAL/CODE
 
 ######
 
-testall:: ; \
+all:: ; \
 for i in $(SUBDIRS); do $(MAKE) -C $$i testall; done
 
 ######

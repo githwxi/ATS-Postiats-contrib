@@ -25,33 +25,28 @@ cleanall::
 ######
 #
 all:: \
-layout_cs320
-layout_cs320: \
-layout_cs320.dats; \
+BUCS320_layout
+BUCS320_layout: \
+BUCS320_layout.dats; \
 $(PATSCC2) \
-  -D_GNU_SOURCE \
-  -DATS_MEMALLOC_LIBC -o $@ $< myweboxy.dats
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $<
 #
 regress:: \
-layout_cs320.html
-layout_cs320.html: layout_cs320; ./$< > $@
-#
-cleanall:: ; $(RMF) layout_cs320
+BUCS320_layout.html
+BUCS320_layout.html: BUCS320_layout; ./$< > $@
 #
 ######
+#
 all:: \
-layout_ats2lang
-layout_ats2lang: \
-layout_ats2lang.dats; \
+ATS2LANG_layout
+ATS2LANG_layout: \
+ATS2LANG_layout.dats; \
 $(PATSCC2) \
-  -D_GNU_SOURCE \
-  -DATS_MEMALLOC_LIBC -o $@ $< myweboxy.dats
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -o $@ $<
 #
 regress:: \
-layout_ats2lang.html
-layout_ats2lang.html: layout_ats2lang; ./$< > $@
-#
-cleanall:: ; $(RMF) layout_ats2lang
+ATS2LANG_layout.html
+ATS2LANG_layout.html: ATS2LANG_layout; ./$< > $@
 #
 ######
 
@@ -64,15 +59,19 @@ testall:: regress
 testall:: cleanall
 
 ######
-
+#
 cleanats:: ; $(RMF) *_?ats.c
-
+#
+cleanats:: ; $(RMF) BUCS320_layout
+cleanats:: ; $(RMF) ATS2LANG_layout
+#
 ######
-
+#
 cleanall:: cleanats
-cleanall:: ; $(RMF) layout_cs320.html
-cleanall:: ; $(RMF) layout_ats2lang.html
-
+#
+cleanall:: ; $(RMF) BUCS320_layout.html
+cleanall:: ; $(RMF) ATS2LANG_layout.html
+#
 ######
 
 ###### end of [Makefile] ######

@@ -96,14 +96,21 @@ end // end of [local]
 
 (* ****** ****** *)
 
-val () = // initialization
+val () = let // initialization
+//
+val opt =
+fileref_open_opt(WORDS, file_mode_r)
+//
+in
+//
+case+ opt of
+| ~None_vt() => ()
+| ~Some_vt(filr) =>
 {
 //
-val-
-~Some_vt(filr) =
-  fileref_open_opt(WORDS, file_mode_r)
-//
-val () = let
+val () =
+loop(filr) where
+{
 //
 fun loop
 (
@@ -125,13 +132,13 @@ in
   // end of [if]
 end // end of [loop]
 //
-in
-  loop (filr)
-end // end of [val]
-//
-val ((*void*)) = fileref_close (filr)
-//
 } (* end of [val] *)
+//
+val ((*void*)) = fileref_close(filr)
+//
+} (* end of [Some_vt] *)
+//
+end // end of [initialization] *)
 
 (* ****** ****** *)
 

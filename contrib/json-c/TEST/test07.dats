@@ -104,4 +104,4 @@ implement main0 () = ()
 
 (* ****** ****** *)
 
-(* end of [test06.dats] *)
+(* end of [test07.dats] *)

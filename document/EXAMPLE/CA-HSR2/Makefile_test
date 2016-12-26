@@ -8,7 +8,7 @@ MAKE=make
 
 ######
 
-testall:: ; $(MAKE) -f Makefile testall
+all:: ; $(MAKE) -f Makefile testall
 
 ######
 
