@@ -16,6 +16,10 @@
 
 #define Status int
 
+macdef QueuedAlready = $extval(int, "QueuedAlready")
+macdef QueuedAlready = $extval(int, "QueuedAfterReading")
+macdef QueuedAfterFlush = $extval(int, "QueuedAfterFlush")
+
 (* ****** ****** *)
 
 // Pointer Structures
@@ -95,21 +99,97 @@ typedef XWindowChanges = $extype_struct "XWindowChanges" of {
 
 (* Functions *)
 
-fun XOpenDisplay(Stropt): Display_ptr0 = "mac#%"
+fun ConnectionNumber{l:agz}(Display_ptr(l)): int = "mac#%"
+fun RootWindow{l:agz}(Display_ptr(l), int): Window = "mac#%"
+fun DefaultScreen{l:agz}(Display_ptr(l)): int = "mac#%"
+fun DefaultRootWindow{l:agz}(Display_ptr(l)): Window = "mac#%"
+fun DefaultVisual{l1:agz}(Display_ptr(l1), int): [l2:addr] Visual_ptr(l2) =
+  "mac#%"
+fun DefaultGC{l1:agz}(Display_ptr(l1), int): [l2:addr] GC_ptr(l2) = "mac#%"
+fun BlackPixel{l:agz}(Display_ptr(l), int): lint = "mac#%"
+fun WhitePixel{l:agz}(Display_ptr(l), int): lint = "mac#%"
+fun QLength{l:agz}(Display_ptr(l)): int = "mac#%"
+fun RootWindow{l:agz}(Display_ptr(l), int): Window = "mac#%"
+fun DisplayWidth{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun DisplayHeight{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun DisplayWidthMM{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun DisplayHeightMM{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun DisplayPlanes{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun DisplayCells{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun ScreenCount{l:agz}(Display_ptr(l)): int = "mac#%"
+fun ServerVendor{l:agz}(Display_ptr(l)): string = "mac#%"
+fun ProtocolVersion{l:agz}(Display_ptr(l)): int = "mac#%"
+fun ProtocolRevision{l:agz}(Display_ptr(l)): int = "mac#%"
+fun VendorRelease{l:agz}(Display_ptr(l)): int = "mac#%"
+fun DisplayString{l:agz}(Display_ptr(l)): string = "mac#%"
+fun DefaultDepth{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun DefaultColormap{l:agz}(Display_ptr(l), int): Colormap = "mac#%"
+fun BitmapUnit{l:agz}(Display_ptr(l)): int = "mac#%"
+fun BitmapBitOrder{l:agz}(Display_ptr(l)): int = "mac#%"
+fun BitmapPad{l:agz}(Display_ptr(l)): int = "mac#%"
+fun ImageByteOrder{l:agz}(Display_ptr(l)): int = "mac#%"
+fun NextRequest{l:agz}(Display_ptr(l)): ulint = "mac#%"
+fun LastKnownRequestProcessed{l:agz}(Display_ptr(l)): ulint = "mac#%"
 
-fun XCloseDisplay(Display_ptr1): void = "mac#%"
+fun ScreenOfDisplay{l1:agz}(Display_ptr(l1), int): [l2:addr] Screen_ptr(l2) =
+  "mac#%"
+fun DefaultScreenOfDisplay{l1:agz}(Screen_ptr(l1)): [l2:addr] Screen_ptr(l2) =
+  "mac#%"
+fun DisplayOfScreen{l1:agz}(Screen_ptr(l1)): [l2:agz] Display_ptr(l2) = "mac#%"
+fun RootWindowOfScreen{l:agz}(Screen_ptr(l)): Window = "mac#%"
+fun BlackPixelOfScreen{l:agz}(Screen_ptr(l)): lint = "mac#%"
+fun WhitePixelOfScreen{l:agz}(Screen_ptr(l)): lint = "mac#%"
+fun DefaultColorMapOfScreen{l:agz}(Screen_ptr(l)): Colormap = "mac#%"
+fun DefaultDepthOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun DefaultGCOfScreen{l1:agz}(Screen_ptr(l1)): [l2:addr] GC_ptr(l2) = "mac#%"
+fun DefaultVisualOfScreen{l1:agz}(Screen_ptr(l1)): [l2:addr] Visual_ptr(l2) =
+  "mac#%"
+fun WidthOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun HeightOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun WidthMMOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun HeightMMOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun PlanesOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun CellsOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun MinCmapsOfScreen{l:agz}(Screen_ptr(l)): Colormap = "mac#%"
+fun MaxCmapsOfScreen{l:agz}(Screen_ptr(l)): int = "mac#%"
+fun DoesSaveUnders{l:agz}(Screen_ptr(l)): bool = "mac#%"
+fun DoesBackingStore{l:agz}(Screen_ptr(l)): bool = "mac#%"
+fun EventMaskOfScreen{l:agz}(Screen_ptr(l)): lint = "mac#%"
 
-fun XDisplayWidth{l:agz}(!Display_ptr(l), int): int = "mac#%"
+fun XOpenDisplay{l:addr}(Stropt): Display_ptr(l) = "mac#%"
+fun XCloseDisplay{l:agz}(Display_ptr(l)): void = "mac#%"
 
-fun XDisplayHeight{l:agz}(!Display_ptr(l), int): int = "mac#%"
-
-fun XRootWindow{l:agz} (!Display_ptr l, int) : Window = "mac#%"
-
-fun XConnectionNumber{l:agz}(!Display_ptr(l)): int = "mac#%"
-
-fun XDefaultColormap{l:agz}(!Display_ptr(l), int):<> Colormap = "mac#%"
-
-fun XDefaultScreen{l:agz}(!Display_ptr(l)): int = "mac#%"
+fun XConnectionNumber{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XRootWindow{l:agz}(Display_ptr(l), int): Window = "mac#%"
+fun XDefaultScreen{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XDefaultRootWindow{l:agz}(Display_ptr(l)): Window = "mac#%"
+fun XDefaultVisual{l1:agz}(Display_ptr(l1), int): [l2:addr] Visual_ptr(l2) =
+  "mac#%"
+fun XDefaultGC{l1:agz}(Display_ptr(l1), int): [l2:addr] GC_ptr(l2) = "mac#%"
+fun XBlackPixel{l:agz}(Display_ptr(l), int): lint = "mac#%"
+fun XWhitePixel{l:agz}(Display_ptr(l), int): lint = "mac#%"
+fun XQLength{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XRootWindow{l:agz}(Display_ptr(l), int): Window = "mac#%"
+fun XDisplayWidth{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XDisplayHeight{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XDisplayWidthMM{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XDisplayHeightMM{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XDisplayPlanes{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XDisplayCells{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XScreenCount{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XServerVendor{l:agz}(Display_ptr(l)): string = "mac#%"
+fun XProtocolVersion{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XProtocolRevision{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XVendorRelease{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XDisplayString{l:agz}(Display_ptr(l)): string = "mac#%"
+fun XDefaultDepth{l:agz}(Display_ptr(l), int): int = "mac#%"
+fun XDefaultColormap{l:agz}(Display_ptr(l), int): Colormap = "mac#%"
+fun XBitmapUnit{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XBitmapBitOrder{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XBitmapPad{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XImageByteOrder{l:agz}(Display_ptr(l)): int = "mac#%"
+fun XNextRequest{l:agz}(Display_ptr(l)): ulint = "mac#%"
+fun XLastKnownRequestProcessed{l:agz}(Display_ptr(l)): ulint = "mac#%"
 
 (* ****** ****** *)
 
