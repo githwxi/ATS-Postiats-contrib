@@ -21,15 +21,20 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 staload
-FCNTL = "libc/SATS/fcntl.sats"
+FCNTL =
+"libats/libc/SATS/fcntl.sats"
 staload
-STDIO = "libc/SATS/stdio.sats"
+STDIO =
+"libats/libc/SATS/stdio.sats"
 staload
-STDLIB = "libc/SATS/stdlib.sats"
+STDLIB =
+"libats/libc/SATS/stdlib.sats"
 staload
-STRING = "libc/SATS/string.sats"
+STRING =
+"libats/libc/SATS/string.sats"
 staload
-UNISTD = "libc/SATS/unistd.sats"
+UNISTD =
+"libats/libc/SATS/unistd.sats"
 
 (* ****** ****** *)
 

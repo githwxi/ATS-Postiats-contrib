@@ -12,7 +12,8 @@ PATSCC=$(PATSHOME)/bin/patscc
 PATSOPT=$(PATSHOME)/bin/patsopt
 #
 ATSCC2JS=$(PATSHOME)/bin/atscc2js
-LIBATSCC2JS=${PATSHOMERELOC}/contrib/libatscc/libatscc2js
+LIBATSCC2JS_ALL_JS=\
+${PATSHOMERELOC}/contrib/libatscc/libatscc2js/output/libatscc2js_all.js
 #
 ######
 
@@ -67,8 +68,9 @@ libatscc2js_worker_dats.js ; \
 $(CCOMP) \
   -I$(PATSHOME) \
   -I$(PATSRUNTIME) \
+  --pre-js ./libatscc2js_io.js \
   --pre-js ./libatscc2js_pre.js \
-  --pre-js ${LIBATSCC2JS}/libatscc2js_all.js \
+  --pre-js ${LIBATSCC2JS_ALL_JS} \
   --post-js ./libatscc2js_worker_dats.js \
   --preload-file ./ATSCC2JS@/ATSCC2JS \
   -s ASSERTIONS=1 \

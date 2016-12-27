@@ -71,6 +71,8 @@ $(CATSPARSEMIT)/catsparse_mylib_dats.c; $(PATSCC) -O2 -c $<
 catsparse_include_all_dats.o: \
 $(CATSPARSEMIT)/catsparse_include_all_dats.c; $(PATSCC) -O2 -c $<
 #
+######
+#
 %_dats.o: %.dats; \
 $(PATSCC) -D_GNU_SOURCE -DATS ATSCC2JS_MAIN_NONE -O2 -c $<
 #
