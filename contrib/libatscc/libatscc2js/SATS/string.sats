@@ -81,6 +81,28 @@ overload length with string_length of 100
 //
 (* ****** ****** *)
 //
+fun
+string0_is_empty
+  (str: string): bool = "mac#%"
+fun
+string0_isnot_empty
+  (str: string): bool = "mac#%"
+//
+fun
+string1_is_empty
+  {n:int}(string(n)): bool(n==0) = "mac#%"
+fun
+string1_isnot_empty
+  {n:int}(string(n)): bool(n > 0) = "mac#%"
+//
+overload iseqz with string0_is_empty of 100
+overload iseqz with string1_is_empty of 100
+//
+overload isneqz with string0_isnot_empty of 110
+overload isneqz with string1_isnot_empty of 110
+//
+(* ****** ****** *)
+//
 fun lt_string_string
   : (string, string) -> bool = "mac#%"
 fun lte_string_string

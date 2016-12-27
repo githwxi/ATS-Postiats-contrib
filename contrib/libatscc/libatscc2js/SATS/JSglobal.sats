@@ -63,17 +63,17 @@ overload parseInt with parseInt_2
 (* ****** ****** *)
 //
 fun
-parseFloat (rep: string): double = "mac#%"
+parseFloat(rep: string): double = "mac#%"
 //
 (* ****** ****** *)
 
-fun encodeURI (uri: string): string = "mac#%"
-fun decodeURI (uri: string): string = "mac#%"
+fun encodeURI(uri: string): string = "mac#%"
+fun decodeURI(uri: string): string = "mac#%"
 
 (* ****** ****** *)
 
-fun encodeURIComponent (uri: string): string = "mac#%"
-fun decodeURIComponent (uri: string): string = "mac#%"
+fun encodeURIComponent(uri: string): string = "mac#%"
+fun decodeURIComponent(uri: string): string = "mac#%"
 
 (* ****** ****** *)
 

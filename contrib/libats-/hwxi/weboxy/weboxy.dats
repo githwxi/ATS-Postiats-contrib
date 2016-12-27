@@ -9,13 +9,14 @@
 
 (* ****** ****** *)
 //
+(*
 #include
 "share/atspre_define.hats"
-//
 #include
 "share/atspre_staload.hats"
 #include
 "share/HATS/atspre_staload_libats_ML.hats"
+*)
 //
 (* ****** ****** *)
 
@@ -686,6 +687,12 @@ end // end of [webox_set_children]
 //
 (* ****** ****** *)
 //
+local
+//
+#define :: cons0
+//
+in (* in-of-local *)
+//
 implement
 {}(*tmp*)
 webox_set_children_1
@@ -697,12 +704,14 @@ webox_set_children_2
 implement
 {}(*tmp*)
 webox_set_children_3
-  (wbx, x1, x2, x3) = webox_set_children(wbx, g0ofg1($list(x1, x2, x3)))
+  (wbx, x1, x2, x3) = webox_set_children(wbx, x1::x2::x3::nil0())
 implement
 {}(*tmp*)
 webox_set_children_4
-  (wbx, x1, x2, x3, x4) = webox_set_children(wbx, g0ofg1($list(x1, x2, x3, x4)))
+  (wbx, x1, x2, x3, x4) = webox_set_children(wbx, x1::x2::x3::x4::nil0())
 //
+end // end of [local]
+
 (* ****** ****** *)
 
 implement
@@ -1261,10 +1270,12 @@ if
 isbox
 then (
 //
-gprint
-(
-"<table width=\"100%\" height=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n"
-) (* end of [val] *)
+gprint(
+"\
+<table
+ style=\"width:100%;height:100%;\"
+ cellspacing=\"0\" cellpadding=\"0\">
+") (* end of [val] *)
 //
 ) (* end of [then] *) // end of [if]
 //

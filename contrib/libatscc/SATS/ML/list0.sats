@@ -18,6 +18,8 @@ staload "./../../basics.sats"
 //
 fun{}
 list0_sing{a:t0p}(x: a): list0(a)
+fun{}
+list0_pair{a:t0p}(x: a, y: a): list0(a)
 //
 (* ****** ****** *)
 //

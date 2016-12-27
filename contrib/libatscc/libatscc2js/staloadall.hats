@@ -60,7 +60,13 @@ staload "./SATS/reference.sats"
 //
 (* ****** ****** *)
 //
-staload "./SATS/JSmath.sats" // JS library
+staload
+"./SATS/JSmath.sats" // JSlib
+staload
+_(*anon*) = "./DATS/JSmath.dats" // JSlib
+//
+(* ****** ****** *)
+
 staload "./SATS/JSdate.sats" // JS library
 staload "./SATS/JSarray.sats" // JS library
 staload "./SATS/JSglobal.sats" // JS library
@@ -72,11 +78,15 @@ staload "./SATS/qlistref.sats" // list-based queue
 
 (* ****** ****** *)
 //
-staload "./SATS/ML/list0.sats" // un-indexed list
-staload _ = "./DATS/ML/list0.dats" // un-indexed list
+staload
+"./SATS/ML/list0.sats" // un-indexed list
+staload
+_(*anon*) = "./DATS/ML/list0.dats" // un-indexed list
 //
-staload "./SATS/ML/array0.sats" // un-indexed array
-staload _ = "./DATS/ML/array0.dats" // un-indexed array
+staload
+"./SATS/ML/array0.sats" // un-indexed array
+staload
+_(*anon*) = "./DATS/ML/array0.dats" // un-indexed array
 //
 (* ****** ****** *)
 

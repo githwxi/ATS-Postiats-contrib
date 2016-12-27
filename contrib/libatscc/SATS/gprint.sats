@@ -32,6 +32,11 @@
 (* Start time: July, 2016 *)
 
 (* ****** ****** *)
+//
+fun{}
+gprint_flush(): void
+//
+(* ****** ****** *)
 
 fun{}
 gprint_newline(): void

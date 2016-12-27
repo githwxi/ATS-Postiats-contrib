@@ -67,9 +67,19 @@ fun JSmath_atan : double -<> double = "mac#%"
 fun JSmath_atan2 (y: double, x: double): double = "mac#%"
 //
 (* ****** ****** *)
-
-fun JSmath_random ((*void*)):<!ref> double = "mac#%"
-
+//
+fun
+JSmath_random
+  ((*void*)):<!ref> double = "mac#%"
+//
+(* ****** ****** *)
+//
+// HX-2016-12-25
+//
+fun{}
+JSmath_randint
+  {n:int|n >= 1}(int(n)): natLt(n) = "mac#%"
+//
 (* ****** ****** *)
 
 (* end of [JSmath.sats] *)

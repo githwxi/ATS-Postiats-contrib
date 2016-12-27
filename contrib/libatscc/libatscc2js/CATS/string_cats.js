@@ -29,6 +29,18 @@ ats2jspre_string_get_at
 /* ****** ****** */
 //
 function
+ats2jspre_string0_is_empty(x) { return !Boolean(x); }
+function
+ats2jspre_string1_is_empty(x) { return !Boolean(x); }
+//
+function
+ats2jspre_string0_isnot_empty(x) { return Boolean(x); }
+function
+ats2jspre_string1_isnot_empty(x) { return Boolean(x); }
+//
+/* ****** ****** */
+//
+function
 ats2jspre_string_substring_beg_end
   (str, i, j) { return str.substring(i, j) ; }
 function
@@ -41,6 +53,7 @@ function
 ats2jspre_lt_string_string(x, y) { return (x < y); }
 function
 ats2jspre_lte_string_string(x, y) { return (x <= y); }
+//
 function
 ats2jspre_gt_string_string(x, y) { return (x > y); }
 function
@@ -90,18 +103,23 @@ ats2jspre_string_fromCharCode_6
 /* ****** ****** */
 //
 function
-ats2jspre_strstr(str, key) { return str.indexOf(key) ; }
+ats2jspre_strstr
+  (str, key) { return str.indexOf(key) ; }
 function
-ats2jspre_string_indexOf_2(str, key) { return str.indexOf(key) ; }
+ats2jspre_string_indexOf_2
+  (str, key) { return str.indexOf(key) ; }
 function
-ats2jspre_string_indexOf_3(str, key, start) { return str.indexOf(key, start) ; }
+ats2jspre_string_indexOf_3
+  (str, key, start) { return str.indexOf(key, start) ; }
 //
 /* ****** ****** */
 
 function
-ats2jspre_string_lastIndexOf_2(str, key) { return str.lastIndexOf(key) ; }
+ats2jspre_string_lastIndexOf_2
+  (str, key) { return str.lastIndexOf(key) ; }
 function
-ats2jspre_string_lastIndexOf_3(str, key, start) { return str.lastIndexOf(key, start) ; }
+ats2jspre_string_lastIndexOf_3
+  (str, key, start) { return str.lastIndexOf(key, start) ; }
 
 /* ****** ****** */
 

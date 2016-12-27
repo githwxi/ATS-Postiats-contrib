@@ -14,17 +14,25 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-implement{}
+implement
+{}(*tmp*)
+gprint_flush
+  ((*void*)) = ()
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
 gprint_unit(_) = ()
 //
 (* ****** ****** *)
 //
 implement{}
-gprint_list$beg () = gprint_string "("
+gprint_list$beg() = gprint_string "("
 implement{}
-gprint_list$end () = gprint_string ")"
+gprint_list$end() = gprint_string ")"
 implement{}
-gprint_list$sep () = gprint_string ", "
+gprint_list$sep() = gprint_string ", "
 //
 (* ****** ****** *)
 

@@ -20,6 +20,11 @@ implement
 list0_sing(x) =
   list0_cons(x, list0_nil())
 //
+implement
+{}(*tmp*)
+list0_pair(x, y) =
+  list0_cons(x, list0_cons(y, list0_nil()))
+//
 (* ****** ****** *)
 //
 implement
@@ -366,9 +371,17 @@ case+ xs of
   None_vt((*void*))
 | list0_cons(x, xs) =>
   if pred(x)
-    then Some_vt(x) else list0_find_opt(xs, pred)
+    then Some_vt(x)
+    else list0_find_opt(xs, pred)
   // end of [if]
 ) (* end of [list0_find_opt] *)
+
+implement
+list0_find_opt_method
+  {a}(xs) =
+(
+  lam(pred) => list0_find_opt{a}(xs, pred)
+) (* end of [list0_zipwith_method] *)
 
 (* ****** ****** *)
 
