@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/tostring.atxt
-** Time of generation: Sat Oct 17 15:19:58 2015
+** Time of generation: Sun Nov 20 21:18:29 2016
 *)
 
 (* ****** ****** *)
@@ -45,7 +45,7 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
 tostring_int(i) = 
@@ -69,7 +69,9 @@ val _(*int*) =
   $extfcall(ssize_t, "snprintf", bufp, BSZ, "%i", i)
 //
 in
-  $UN.castvwtp0{Strptr1}(string0_copy($UN.cast{string}(bufp)))
+//
+$UN.castvwtp0{Strptr1}(string0_copy($UN.cast{string}(bufp)))
+//
 end // end of [tostrptr_int]
 //
 implement
@@ -78,7 +80,14 @@ implement
 tostrptr_val<int> = tostrptr_int
 //
 (* ****** ****** *)
-
+//
+implement
+tostrptr_val<lint> = g0int2string_lint
+implement
+tostrptr_val<llint> = g0int2string_llint
+//
+(* ****** ****** *)
+//
 implement
 {}(*tmp*)
 tostring_uint(u) = 
@@ -102,7 +111,9 @@ val _(*int*) =
   $extfcall(ssize_t, "snprintf", bufp, BSZ, "%u", u)
 //
 in
-  $UN.castvwtp0{Strptr1}(string0_copy($UN.cast{string}(bufp)))
+//
+$UN.castvwtp0{Strptr1}(string0_copy($UN.cast{string}(bufp)))
+//
 end // end of [tostrptr_uint]
 //
 implement
@@ -146,12 +157,38 @@ tostrptr_val<char> = tostrptr_char
 (* ****** ****** *)
 
 implement
-tostrptr_val<int> = g0int2string_int
+{}(*tmp*)
+tostring_double(i) = 
+$effmask_wrt
+(
+  strptr2string(tostrptr_double(i))
+)
 implement
-tostrptr_val<lint> = g0int2string_lint
+{}(*tmp*)
+tostrptr_double(x) = let
+//
+#define BSZ 32
+//
+typedef
+cstring = $extype"atstype_string"
+//
+var buf = @[byte][BSZ]()
+val bufp = $UN.cast{cstring}(addr@buf)
+//
+val _(*int*) =
+  $extfcall(ssize_t, "snprintf", bufp, BSZ, "%.6f", x)
+//
+in
+//
+$UN.castvwtp0{Strptr1}(string0_copy($UN.cast{string}(bufp)))
+//
+end // end of [tostrptr_double]
+//
 implement
-tostrptr_val<llint> = g0int2string_llint
-
+tostring_val<double> = tostring_double
+implement
+tostrptr_val<double> = tostrptr_double
+//
 (* ****** ****** *)
 
 implement

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gprint.atxt
-** Time of generation: Sat Oct 17 15:19:50 2015
+** Time of generation: Sun Dec 25 17:18:00 2016
 *)
 
 (* ****** ****** *)
@@ -56,6 +56,11 @@ gprint$out(): FILEref
 (* ****** ****** *)
 
 fun{}
+gprint_flush(): void
+
+(* ****** ****** *)
+
+fun{}
 gprint_newline(): void
 
 (* ****** ****** *)
@@ -70,6 +75,8 @@ gprint_ref (x: &INV(a)): void
 fun{}
 gprint_int (x: int): void
 fun{}
+gprint_bool (x: bool): void
+fun{}
 gprint_char (x: char): void
 fun{}
 gprint_float (x: float): void
@@ -79,6 +86,15 @@ fun{}
 gprint_string (x: string): void
 
 (* ****** ****** *)
+//
+overload gprint with gprint_int
+overload gprint with gprint_bool
+overload gprint with gprint_char
+overload gprint with gprint_float
+overload gprint with gprint_double
+overload gprint with gprint_string
+//
+(* ****** ****** *)
 
 fun{} gprint_list$beg(): void
 fun{} gprint_list$end(): void
@@ -86,7 +102,9 @@ fun{} gprint_list$sep(): void
 //
 fun{a:t0p}
 gprint_list (xs: List(a)): void
-
+//
+overload gprint with gprint_list
+//
 (* ****** ****** *)
 
 fun{} gprint_listlist$beg1(): void
@@ -109,19 +127,29 @@ fun{} gprint_array$sep(): void
 fun{a:t0p}
 gprint_array
   {n:int}
-  (A: &(@[INV(a)][n]), n: size_t(n)): void
-// end of [gprint_array]
+(
+  &(@[INV(a)][n]), size_t(n)
+) : void // end-of-function
+//
 fun{a:t0p}
 gprint_arrayptr
   {n:int}
-  (A: !arrayptr(INV(a), n), n: size_t(n)): void
-// end of [gprint_arrayptr]
+(
+  !arrayptr(INV(a), n), size_t(n)
+) : void // end-of-function
+//
 fun{a:t0p}
 gprint_arrayref
-  {n:int}(A: arrayref(a, n), n: size_t(n)): void
+  {n:int}
+  (arrayref(a, n), size_t(n)): void
 // end of [gprint_arrayref]
 //
-fun{a:t0p} gprint_arrszref(ASZ: arrszref(a)): void
+(* ****** ****** *)
+//
+fun{a:t0p}
+gprint_arrszref(ASZ: arrszref(a)): void
+//
+overload gprint with gprint_arrayref
 //
 (* ****** ****** *)
 

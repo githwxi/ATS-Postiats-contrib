@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Sat Oct 17 15:20:01 2015
+** Time of generation: Wed Dec 14 18:44:53 2016
 */
 
 /* ****** ****** */
@@ -198,7 +198,7 @@ atspre_eq_ptr_intz
 } // end of [atspre_eq_ptr_intz]
 #define atspre_eq_ptr0_intz atspre_eq_ptr_intz
 #define atspre_eq_ptr1_intz atspre_eq_ptr_intz
-
+  
 ATSinline()
 atstype_bool
 atspre_neq_ptr_intz
@@ -211,11 +211,24 @@ atspre_neq_ptr_intz
 
 /* ****** ****** */
 //
+#define atspre_aptr_null() atsptr_null
+//
+#define atspre_aptr_is_null atspre_ptr_is_null
+#define atspre_aptr_isnot_null atspre_ptr_isnot_null
+//
+/* ****** ****** */
+//
 #define atspre_cptr_null() atsptr_null
 //
 #define atspre_cptr_is_null atspre_ptr_is_null
 #define atspre_cptr_isnot_null atspre_ptr_isnot_null
 //
+/* ****** ****** */
+
+#define atspre_gt_cptr_intz atspre_gt_ptr_intz
+#define atspre_eq_cptr_intz atspre_eq_ptr_intz
+#define atspre_neq_cptr_intz atspre_neq_ptr_intz
+
 /* ****** ****** */
 //
 #define atspre_ptr_free atspre_mfree_gc

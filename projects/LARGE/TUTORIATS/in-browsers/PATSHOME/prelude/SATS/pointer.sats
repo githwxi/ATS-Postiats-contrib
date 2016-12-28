@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Sat Oct 17 15:19:44 2015
+** Time of generation: Sun Nov 20 21:18:14 2016
 *)
 
 (* ****** ****** *)
@@ -182,23 +182,32 @@ fun neq_ptr0_ptr0
 overload != with neq_ptr0_ptr0 of 0
 overload <> with neq_ptr0_ptr0 of 0
 
-fun compare_ptr0_ptr0
-  (p1: ptr, p2: ptr):<> int = "mac#%"
-overload compare with compare_ptr0_ptr0 of 0
-
 (* ****** ****** *)
-
-fun gt_ptr0_intz
+//
+fun
+compare_ptr0_ptr0
+  (p1: ptr, p2: ptr):<> int = "mac#%"
+//
+overload compare with compare_ptr0_ptr0 of 0
+//
+(* ****** ****** *)
+//
+fun
+gt_ptr0_intz
   (p: ptr, i: int(0)):<> bool = "mac#%"
+//
+fun
+eq_ptr0_intz
+  (p: ptr, i: int(0)):<> bool = "mac#%"
+fun
+neq_ptr0_intz
+  (p: ptr, i: int(0)):<> bool = "mac#%"
+//
 overload > with gt_ptr0_intz of 0
-fun eq_ptr0_intz
-  (p: ptr, i: int(0)):<> bool = "mac#%"
 overload = with eq_ptr0_intz of 0
-fun neq_ptr0_intz
-  (p: ptr, i: int(0)):<> bool = "mac#%"
 overload != with neq_ptr0_intz of 0
 overload <> with neq_ptr0_intz of 0
-
+//
 (* ****** ****** *)
 
 (*
@@ -365,18 +374,22 @@ fun compare_ptr1_ptr1
 overload compare with compare_ptr1_ptr1 of 20
 
 (* ****** ****** *)
-
-fun gt_ptr1_intz {l:addr}
-  (p: ptr l, i: int(0)):<> bool(l > null) = "mac#%"
+//
+fun
+gt_ptr1_intz{l:addr}
+  (p: ptr(l), i: int(0)):<> bool(l > null) = "mac#%"
+fun
+eq_ptr1_intz{l:addr}
+  (p: ptr(l), i: int(0)):<> bool(l== null) = "mac#%"
+fun
+neq_ptr1_intz{l:addr}
+  (p: ptr(l), i: int(0)):<> bool(l > null) = "mac#%"
+//
 overload > with gt_ptr1_intz of 10
-fun eq_ptr1_intz {l:addr}
-  (p: ptr l, i: int(0)):<> bool(l == null) = "mac#%"
 overload = with eq_ptr1_intz of 10
-fun neq_ptr1_intz {l:addr}
-  (p: ptr l, i: int(0)):<> bool(l > null) = "mac#%"
 overload != with neq_ptr1_intz of 10
 overload <> with neq_ptr1_intz of 10
-
+//
 (* ****** ****** *)
 //
 // HX: implemented in [prelude/DATS/pointer.dats]
@@ -404,31 +417,56 @@ cptr_vt0ype_addr_type
 //
 stadef cptr = cptr_vt0ype_addr_type
 stadef cPtr0 (a:vt0p) = [l:addr] cptr (a, l)
-stadef cPtr1 (a:vt0p) = [l:addr | l > null] cptr (a, l)
+stadef cPtr1 (a:vt0p) = [l:addr | l > null] cptr(a, l)
 //
 castfn
-cptr2ptr{a:vt0p}{l:addr} (p: cptr (a, l)):<> ptr (l)
+cptr2ptr{a:vt0p}{l:addr} (cp: cptr(a, l)):<> ptr(l)
 //
 (* ****** ****** *)
 //
-fun cptr_null{a:vt0p} ():<> cptr (a, null) = "mac#%"
+fun cptr_null{a:vt0p} ():<> cptr(a, null) = "mac#%"
 //
-castfn cptr_rvar{a:vt0p} (x: &INV(a)):<> cPtr1 (a) // read
-castfn cptr_wvar{a:vt0p} (x: &a? >> a):<> cPtr1 (a) // write
-//
-(* ****** ****** *)
-//
-fun cptr_succ
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> cptr (a, l+sizeof(a))
-fun cptr_pred
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> cptr (a, l-sizeof(a))
+castfn cptr_rvar{a:vt0p} (x: &INV(a)):<> cPtr1(a) // read
+castfn cptr_wvar{a:vt0p} (x: &a? >> a):<> cPtr1(a) // write
 //
 (* ****** ****** *)
 //
-fun cptr_is_null
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> bool (l==null) = "mac#%"
-fun cptr_isnot_null
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> bool (l > null) = "mac#%"
+fun
+{a:vt0p}
+cptr_succ{l:addr}(cp: cptr(a, l)):<> cptr(a, l+sizeof(a))
+fun
+{a:vt0p}
+cptr_pred{l:addr}(cp: cptr(a, l)):<> cptr(a, l-sizeof(a))
+//
+(* ****** ****** *)
+//
+fun
+cptr_is_null
+  {a:vt0p}{l:addr}(cp: cptr(a, l)):<> bool(l==null) = "mac#%"
+fun
+cptr_isnot_null
+  {a:vt0p}{l:addr}(cp: cptr(a, l)):<> bool(l > null) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+gt_cptr_intz
+  {a:vt0p}{l:addr}
+  (cp: cptr(a, l), i: int(0)):<> bool(l > null) = "mac#%"
+//
+fun
+eq_cptr_intz
+  {a:vt0p}{l:addr}
+  (cp: cptr(a, l), i: int(0)):<> bool(l== null) = "mac#%"
+fun
+neq_cptr_intz
+  {a:vt0p}{l:addr}
+  (cp: cptr(a, l), i: int(0)):<> bool(l > null) = "mac#%"
+//
+overload > with gt_cptr_intz of 0
+overload = with eq_cptr_intz of 0
+overload != with neq_cptr_intz of 0
+overload <> with neq_cptr_intz of 0
 //
 (* ****** ****** *)
 
@@ -499,7 +537,7 @@ stadef aPtr0 (a:vt0p) = [l:addr] aptr (a, l)
 stadef aPtr1 (a:vt0p) = [l:addr | l > null] aptr (a, l)
 //
 castfn
-aptr2ptr{a:vt0p}{l:addr} (ap: !aptr (a, l)):<> ptr (l)
+aptr2ptr{a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> ptr(l)
 //
 (* ****** ****** *)
 //
@@ -512,16 +550,30 @@ aptr_getfree_elt{l:agz}(aptr(a, l)):<!wrt> (a)
 //
 fun
 {a:t0p}
-aptr_get_elt{l:agz}(ap: !aptr(INV(a), l)):<!wrt> a
+aptr_get_elt{l:agz}(ap: !aptr(INV(a), l)):<!wrt> (a)
 fun
 {a:t0p}
-aptr_set_elt{l:agz}(ap: !aptr(INV(a), l) >> _, x: a):<!wrt> void
+aptr_set_elt
+  {l:agz}(ap: !aptr(INV(a), l) >> _, x: a):<!wrt> void
 fun
 {a:t0p}
-aptr_exch_elt{l:agz}(ap: !aptr(INV(a), l) >> _, x: &(a)>>_):<!wrt> void
+aptr_exch_elt
+  {l:agz}(ap: !aptr(INV(a), l) >> _, x: &(a)>>_):<!wrt> void
 //
 overload [] with aptr_get_elt
 overload [] with aptr_set_elt
+//
+(* ****** ****** *)
+//
+fun aptr_null{a:vt0p}():<> aptr(a, null) = "mac#%"
+//
+fun aptr_is_null
+  {a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> bool(l==null) = "mac#%"
+fun aptr_isnot_null
+  {a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> bool(l > null) = "mac#%"
+//
+overload iseqz with aptr_is_null
+overload isneqz with aptr_isnot_null
 //
 (* ****** ****** *)
 //

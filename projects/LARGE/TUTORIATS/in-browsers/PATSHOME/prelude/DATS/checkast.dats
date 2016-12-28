@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/checkast.atxt
-** Time of generation: Sat Oct 17 15:19:54 2015
+** Time of generation: Sun Nov 20 21:18:26 2016
 *)
 
 (* ****** ****** *)
@@ -49,6 +49,32 @@ UN = "prelude/SATS/unsafe.sats"
 (*
 staload "prelude/SATS/checkast.sats"
 *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+checkast_charNZ
+  (x, errmsg) = let
+//
+#define CNUL '\000'
+//
+val x = g1ofg0_char(x)
+//
+in
+//
+if
+(
+x != CNUL
+)
+then (x)
+else let
+  val () =
+    fprint! (stderr_ref, "exit(ATS): ", errmsg) in exit(1)
+  // end of [val]
+end // end of [else]
+//
+end // end of [checkast_charNZ]
 
 (* ****** ****** *)
 

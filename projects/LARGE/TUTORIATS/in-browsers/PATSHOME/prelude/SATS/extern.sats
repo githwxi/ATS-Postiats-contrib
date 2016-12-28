@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/extern.atxt
-** Time of generation: Sat Oct 17 15:19:51 2015
+** Time of generation: Sun Nov 20 21:18:22 2016
 *)
 
 (* ****** ****** *)
@@ -86,17 +86,70 @@ overload carrayptr with carrayptr_arrayptr
 // repeatedly for otherwise safety may be potentially compromised.
 //
 absview
-minus_viewt0ype_view_view (vt1: vt0p, v2: view) = vt1
-viewdef
-minus(vt1: vt0p, v2: view) = minus_viewt0ype_view_view(vt1, v2)
+minus_vt0ype_view_view
+  (vt1:vt@ype+, v2:view-) = vt1
+absvt@ype
+minus_vt0ype_view_vt0ype
+  (vt1:vt@ype+, v2:view-) = vt1
 //
-praxi minus_addback
-  {vt1:vt0p}{v2:view} (pf1: minus (vt1, v2), pf2: v2 | x: !vt1): void
+viewdef
+minus_v
+(vt1:vt0p, v2:view) =
+minus_vt0ype_view_view(vt1, v2)
+viewdef
+minus_vt
+(vt1:vt0p, v2:view) =
+minus_vt0ype_view_vt0ype(vt1, v2)
+//
+praxi
+minus_v_addback
+  {vt1:vt0p}{v2:view}
+  (minus_v(INV(vt1), v2), v2 | !vt1): void
+//
+castfn
+minus_vt_addback
+  {vt1:vt0p}{v2:view}
+  (pf: v2 | x0: minus_vt(INV(vt1), v2)): (vt1)
+//
+symintr minus_addback
+overload minus_addback with minus_v_addback
+overload minus_addback with minus_vt_addback
 //
 (* ****** ****** *)
-
-vtypedef vtget0 (vt1:vt0p, vt2: vt0p) = (minus (vt1, vt2) | vt2)
-
+//
+typedef
+vtget0_ftype
+  (vt1:vt0p, vt2:vt0p) =
+  (!vt1 >> minus_vt(vt1,vt2)) -<fun> vt2
+//
+typedef
+vtget1_ftype
+  (vt1:vt0p, vt2:vt0p) =
+  (!vt1) -<fun> (minus_v(vt1, vt2) | vt2)
+//
+vtypedef vtget1
+  (vt1:vt0p, vt2:vt0p) = (minus_v(vt1, vt2) | vt2)
+//
+(* ****** ****** *)
+//
+// HX-2016-08:
+// It is implemented in [pointer.dats]
+//
+fun
+{a:vt0p}
+aptr_vtget0_elt
+  {l:agz}
+: vtget0_ftype(aptr(INV(a), l), a)
+//
+fun
+{a:vt0p}
+aptr_vtget1_elt
+  {l:agz}
+: vtget1_ftype(aptr(INV(a), l), a)
+//
+overload vtget0 with aptr_vtget0_elt
+overload vtget1 with aptr_vtget1_elt
+//
 (* ****** ****** *)
 
 castfn
@@ -104,7 +157,7 @@ argv_takeout_strarr
   {n:int} (
   argv: !argv (n)
 ) :<> [l:addr] (
-  array_v (string, l, n), minus (argv n, array_v (string, l, n)) | ptr l
+  array_v(string, l, n), minus_v(argv(n), array_v(string, l, n)) | ptr(l)
 ) // end of [argv_takeout_strarr]
 
 castfn
@@ -112,7 +165,7 @@ argv_takeout_parray
   {n:int} (
   argv: !argv (n)
 ) :<> [l:addr] (
-  parray_v (string, l, n), minus (argv n, parray_v (string, l, n)) | ptr l
+  parray_v(string, l, n), minus_v(argv(n), parray_v(string, l, n)) | ptr(l)
 ) // end of [argv_takeout_parray]
 
 (* ****** ****** *)

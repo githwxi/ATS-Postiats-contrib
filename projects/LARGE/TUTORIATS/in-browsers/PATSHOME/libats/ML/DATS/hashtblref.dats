@@ -43,6 +43,10 @@ staload HT =
 //
 (* ****** ****** *)
 
+staload "libats/ML/SATS/basis.sats"
+
+(* ****** ****** *)
+
 staload "libats/ML/SATS/list0.sats"
 
 (* ****** ****** *)
@@ -104,12 +108,15 @@ extern
 castfn
 hashtbl_encode
   {key,itm:t0p}
-  ($HT.hashtbl (key, INV(itm))): hashtbl (key, itm)
+(
+  $HT.hashtbl(key, INV(itm))
+) : hashtbl(key, itm)
+//
 extern
 castfn
 hashtbl_decode
   {key,itm:t0p}
-  (hashtbl (key, INV(itm))): $HT.hashtbl (key, itm)
+  (hashtbl(key, INV(itm))): $HT.hashtbl(key, itm)
 //
 (* ****** ****** *)
 
@@ -274,6 +281,22 @@ implement{}
 fprint_hashtbl$sep (out) = fprint (out, "; ")
 implement{}
 fprint_hashtbl$mapto (out) = fprint (out, "->")
+
+(* ****** ****** *)
+
+implement
+{key,itm}
+fprint_hashtbl_sep_mapto
+  (out, tbl, sep, mapto) = let
+//
+implement
+fprint_hashtbl$sep<> (out) = fprint (out, sep)
+implement
+fprint_hashtbl$mapto<> (out) = fprint (out, mapto)
+//
+in
+  fprint_hashtbl<key,itm>(out, tbl)
+end // end of [fprint_hashtbl_sep_mapto]
 
 (* ****** ****** *)
 

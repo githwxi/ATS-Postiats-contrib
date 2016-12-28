@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/option.atxt
-** Time of generation: Sat Oct 17 15:19:48 2015
+** Time of generation: Thu Dec 22 00:36:39 2016
 *)
 
 (* ****** ****** *)
@@ -47,18 +47,26 @@ sortdef t0p = t@ype
 
 #if(0)
 //
-// HX: these decls are available in [basic_dyn.sats]
+// HX:
+// these declarations
+// are available in [basic_dyn.sats]
 //
-stadef option = option_t0ype_bool_type
-typedef Option (a:t0p) = [b:bool] option (a, b)
+stadef
+option = option_t0ype_bool_type
+typedef
+Option (a:t0p) = [b:bool] option(a, b)
 #endif
 
 (* ****** ****** *)
 
 exception NotSomeExn of ()
 (*
-fun NotSomeExn ():<> exn = "mac#%NotSomeExn_make"
-fun isNotSomeExn (x: !exn):<> bool = "mac#%isNotSomeExn"
+fun
+NotSomeExn
+  ():<> exn = "mac#%NotSomeExn_make"
+fun
+isNotSomeExn
+  (x: !exn):<> bool = "mac#%isNotSomeExn"
 macdef
 ifNotSomeExn
   {tres}(exn, body) =
@@ -79,61 +87,83 @@ end (* end of [let] *)
 castfn
 option_cast
   {a:t0p}{b:bool}
-  (opt: option (INV(a), b)):<> option (a, b)
+(
+  opt: option(INV(a), b)
+) :<> option(a, b) // end-of-fun
 //
 (* ****** ****** *)
 //
 castfn
 option_vt2t
   {a:t0p}{b:bool}
-  (opt: option_vt (INV(a), b)):<> option (a, b)
+(
+  opt: option_vt(INV(a), b)
+) :<> option(a, b) // end-of-fun
 castfn
 option_of_option_vt
   {a:t0p}{b:bool}
-  (opt: option_vt (INV(a), b)):<> option (a, b)
+(
+  opt: option_vt(INV(a), b)
+) :<> option(a, b) // end-of-fun
 //
-(* ****** ****** *)
-
-fun{a:t0p}
-option_some (x: a):<> option (a, true)
-fun{a:t0p}
-option_none ((*void*)):<> option (a, false)
-
-(* ****** ****** *)
-
-fun{}
-option_is_some{a:t0p}
-  {b:bool} (opt: option (a, b)):<> bool (b)
-// end of [option_is_some]
-
-fun{}
-option_is_none{a:t0p}
-  {b:bool} (opt: option (a, b)):<> bool (~b)
-// end of [option_is_none]
-
-(* ****** ****** *)
-
-fun{a:t0p}
-option_unsome (opt: option (INV(a), true)):<> a
-
-fun{a:t0p}
-option_unsome_exn (opt: Option (INV(a))):<!exn> a
-
 (* ****** ****** *)
 //
 fun{a:t0p}
-option_equal$eqfn (a, a):<> bool
+option_some
+  (x0: a):<> option(a, true)
+//
+fun{a:t0p}
+option_none
+  ((*void*)):<> option(a, false)
+//
+(* ****** ****** *)
+//
+fun{}
+option2bool
+  {a:t0p}{b:bool}
+  (opt: option(a, b)):<> bool(b)
+//
+(* ****** ****** *)
+
+fun{}
+option_is_some
+  {a:t0p}{b:bool}
+  (opt: option(a, b)):<> bool(b)
+
+fun{}
+option_is_none
+  {a:t0p}{b:bool}
+  (opt: option(a, b)):<> bool(~b)
+
+(* ****** ****** *)
+//
+fun{a:t0p}
+option_unsome
+  (option(INV(a), true)):<> (a)
+//
+fun{a:t0p}
+option_unsome_exn
+  (opt: Option(INV(a))):<!exn> (a)
+//
+(* ****** ****** *)
+//
 fun{a:t0p}
 option_equal
-  (opt1: Option(a), opt2: Option(a)):<> bool
+(
+  opt1: Option(a), opt2: Option(a)
+) :<> bool // end of [option_equal]
+//
+fun{a:t0p}
+option_equal$eqfn(x1: a, x2: a):<> bool
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
-fprint_option
-  (out: FILEref, opt: Option (INV(a))): void
-//
-overload fprint with fprint_option
+print_option(opt: Option(INV(a))): void
+fun{a:t0p}
+prerr_option(opt: Option(INV(a))): void
+fun{a:t0p}
+fprint_option(FILEref, Option(INV(a))): void
 //
 (* ****** ****** *)
 //
@@ -144,10 +174,16 @@ overload fprint with fprint_option
 overload = with option_equal
 
 (* ****** ****** *)
-
+//
+overload unsome with option_unsome
+//
 overload iseqz with option_is_none
 overload isneqz with option_is_some
-
+//
+overload print with print_option of 0
+overload prerr with prerr_option of 0
+overload fprint with fprint_option of 0
+//
 (* ****** ****** *)
 
 (* end of [option.sats] *)

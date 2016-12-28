@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixptr.atxt
-** Time of generation: Sat Oct 17 15:19:57 2015
+** Time of generation: Sun Nov 20 21:18:29 2016
 *)
 
 (* ****** ****** *)
@@ -46,9 +46,9 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 implement{}
-arrayptr2matrixptr_int (A, m, n) = $UN.castvwtp0 (A)
+arrayptr2matrixptr_int(A, m, n) = $UN.castvwtp0(A)
 implement{}
-arrayptr2matrixptr_size (A, m, n) = $UN.castvwtp0 (A)
+arrayptr2matrixptr_size(A, m, n) = $UN.castvwtp0(A)
 
 (* ****** ****** *)
 
@@ -64,54 +64,54 @@ end // end of [matrixptr_make_elt]
 
 implement{a}
 matrixptr_get_at_int
-  (A, i, n, j) = let
+  (M, i, n, j) = let
   val ij = $UN.cast{Size}(i * n + j)
 in
-  $UN.ptr0_get<a> (ptr_add<a> (ptrcast(A), ij))
+  $UN.ptr0_get<a> (ptr_add<a> (ptrcast(M), ij))
 end // end of [matrixptr_get_at_int]
 
 implement{a}
 matrixptr_get_at_size
-  (A, i, n, j) = let
+  (M, i, n, j) = let
   val ij = $UN.cast{Size}(i * n + j)
 in
-  $UN.ptr0_get<a> (ptr_add<a> (ptrcast(A), ij))
+  $UN.ptr0_get<a> (ptr_add<a> (ptrcast(M), ij))
 end // end of [matrixptr_get_at_size]
 
 (* ****** ****** *)
 
 implement{a}
 matrixptr_set_at_int
-  (A, i, n, j, x) = let
+  (M, i, n, j, x) = let
   val ij = $UN.cast{Size}(i * n + j)
 in
-  $UN.ptr0_set<a> (ptr_add<a> (ptrcast(A), ij), x)
+  $UN.ptr0_set<a> (ptr_add<a> (ptrcast(M), ij), x)
 end // end of [matrixptr_set_at_int]
 
 implement{a}
 matrixptr_set_at_size
-  (A, i, n, j, x) = let
+  (M, i, n, j, x) = let
   val ij = $UN.cast{Size}(i * n + j)
 in
-  $UN.ptr0_set<a> (ptr_add<a> (ptrcast(A), ij), x)
+  $UN.ptr0_set<a> (ptr_add<a> (ptrcast(M), ij), x)
 end // end of [matrixptr_set_at_size]
 
 (* ****** ****** *)
 
 implement{a}
 matrixptr_exch_at_int
-  (A, i, n, j, x) = let
+  (M, i, n, j, x) = let
   val ij = $UN.cast{Size}(i * n + j)
 in
-  $UN.ptr0_exch<a> (ptr_add<a> (ptrcast(A), ij), x)
+  $UN.ptr0_exch<a> (ptr_add<a> (ptrcast(M), ij), x)
 end // end of [matrixptr_exch_at_int]
 
 implement{a}
 matrixptr_exch_at_size
-  (A, i, n, j, x) = let
+  (M, i, n, j, x) = let
   val ij = $UN.cast{Size}(i * n + j)
 in
-  $UN.ptr0_exch<a> (ptr_add<a> (ptrcast(A), ij), x)
+  $UN.ptr0_exch<a> (ptr_add<a> (ptrcast(M), ij), x)
 end // end of [matrixptr_exch_at_size]
 
 (* ****** ****** *)
@@ -159,20 +159,67 @@ implement matrixptr_free = ATS_MFREE
 
 implement{a}
 matrixptr_foreach
-  (A, m, n) = let
+  (M, m, n) = let
   var env: void = () in
-  matrixptr_foreach_env<a><void> (A, m, n, env)
+  matrixptr_foreach_env<a><void> (M, m, n, env)
 end // end of [matrixptr_foreach]
 
 implement
 {a}{env}
 matrixptr_foreach_env
-  (A, m, n, env) = res where {
-  val p = ptrcast (A)
-  prval pfarr = matrixptr_takeout (A)
-  val res = matrix_foreach_env<a><env> (!p, m, n, env)
-  prval () = matrixptr_addback (pfarr | A)
-} // end of [matrixptr_foreach_env]
+  (M, m, n, env) = res where
+{
+//
+val p = ptrcast(M)
+prval pfarr = matrixptr_takeout(M)
+val res = matrix_foreach_env<a><env> (!p, m, n, env)
+prval () = matrixptr_addback(pfarr | M)
+//
+} (* end of [matrixptr_foreach_env] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+matrixptr_initize
+  (M, m, n) = () where
+{
+//
+val p = ptrcast(M)
+prval pfarr = matrixptr_takeout(M)
+val () = matrix_initize<a>(!p, m, n)
+prval () = matrixptr_addback(pfarr | M)
+//
+} (* end of [matrixptr_initize] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+matrixptr_uninitize
+  (M, m, n) = () where
+{
+//
+val p = ptrcast(M)
+prval pfarr = matrixptr_takeout(M)
+val () = matrix_uninitize<a>(!p, m, n)
+prval () = matrixptr_addback(pfarr | M)
+//
+} (* end of [matrixptr_uninitize] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+matrixptr_freelin
+  (M, m, n) = let
+//
+val () =
+matrixptr_uninitize<a>(M, m, n)
+//
+in
+  matrixptr_free{a?}(M)
+end // end of [matrixptr_freelin]
 
 (* ****** ****** *)
 

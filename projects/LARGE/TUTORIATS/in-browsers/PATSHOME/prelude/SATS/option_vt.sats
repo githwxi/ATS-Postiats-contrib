@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/option_vt.atxt
-** Time of generation: Sat Oct 17 15:19:48 2015
+** Time of generation: Sun Nov 20 22:15:34 2016
 *)
 
 (* ****** ****** *)
@@ -66,33 +66,45 @@ option_vt_none ((*void*)):<!wrt> option_vt (a, false)
 fun{
 a:vt0p
 } option_vt_make_opt
-  {b:bool} (
-  b: bool b, x: &opt (INV(a), b) >> a?
-) :<!wrt> option_vt (a, b) // endfun
+  {b:bool}
+(
+  b: bool(b)
+, x: &opt (INV(a), b) >> a?
+) :<!wrt> option_vt(a, b) // end-of-fun
 
 (* ****** ****** *)
 
 fun{}
-option_vt_is_some{a:vt0p}
-  {b:bool} (opt: !option_vt (INV(a), b)):<> bool (b)
+option_vt_is_some
+  {a:vt0p}{b:bool}
+  (opt: !option_vt(INV(a), b)):<> bool(b)
 // end of [option_vt_is_some]
 fun{}
-option_vt_is_none{a:vt0p}
-  {b:bool} (opt: !option_vt (INV(a), b)):<> bool (~b)
+option_vt_is_none
+  {a:vt0p}{b:bool}
+  (opt: !option_vt(INV(a), b)):<> bool(~b)
 // end of [option_vt_is_none]
 
 (* ****** ****** *)
 
-fun{a:vt0p}
-option_vt_unsome (opt: option_vt (INV(a), true)):<!wrt> a
-fun{a:vt0p}
-option_vt_unnone (opt: option_vt (INV(a), false)):<!wrt> void
+fun
+{a:vt0p}
+option_vt_unsome
+  (opt: option_vt(INV(a), true)):<!wrt> (a)
+fun
+{a:vt0p}
+option_vt_unnone
+  (opt: option_vt(INV(a), false)):<!wrt> void
 
 (* ****** ****** *)
-
+//
 fun{a:t0p}
-option_vt_free (opt: Option_vt (INV(a))):<!wrt> void
-
+option_vt_free
+  (opt: Option_vt(INV(a))):<!wrt> void
+fun{a:t0p}
+option2bool_vt
+  {b:bool}(opt: option_vt(INV(a), b)):<!wrt> bool(b)
+//
 (* ****** ****** *)
 
 fun{a:vt0p}

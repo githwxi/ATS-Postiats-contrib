@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/option.atxt
-** Time of generation: Sat Oct 17 15:19:56 2015
+** Time of generation: Wed Dec 21 23:29:55 2016
 *)
 
 (* ****** ****** *)
@@ -43,6 +43,14 @@
 
 implement{a} option_some (x) = Some (x)
 implement{a} option_none ( ) = None ( )
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+option2bool(opt) =
+  case+ opt of Some _ => true | None _ => false
+// end of [option2bool]
 
 (* ****** ****** *)
 
@@ -86,16 +94,26 @@ case+ opt1 of
 | None () =>
   (
     case+ opt1 of None () => true | Some _ => false
-  )
+  ) (* end of [None] *)
 | Some x1 =>
   (
-    case+ opt2 of None () => false | Some x2 => option_equal$eqfn(x1, x2)
-  )
+    case+ opt2 of
+    | None () => false | Some x2 => option_equal$eqfn(x1, x2)
+  ) (* end of [Some] *)
 //
 ) (* end of [option_equal] *)
 
 (* ****** ****** *)
-
+//
+implement
+{a}(*tmp*)
+print_option(opt) =
+  fprint_option<a>(stdout_ref, opt)
+implement
+{a}(*tmp*)
+prerr_option(opt) =
+  fprint_option<a>(stderr_ref, opt)
+//
 implement
 {a}(*tmp*)
 fprint_option
@@ -103,16 +121,17 @@ fprint_option
 in
 //
 case+ opt of
-| Some (x) => {
-    val (
-    ) = fprint_string (out, "Some(")
+| Some x => {
+    val () =
+      fprint_string(out, "Some(")
+    // end of [val]
     val () = fprint_val<a> (out, x)
     val () = fprint_string (out, ")")
   } (* end of [Some] *)
-| None () => fprint_string (out, "None()")
+| None _ => fprint_string(out, "None()")
 //
 end // end of [fprint_option]
-
+//
 (* ****** ****** *)
 
 (* end of [option.dats] *)

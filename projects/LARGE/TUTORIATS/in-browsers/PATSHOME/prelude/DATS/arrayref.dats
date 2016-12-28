@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Sat Oct 17 15:19:57 2015
+** Time of generation: Sun Nov 20 21:18:28 2016
 *)
 
 (* ****** ****** *)
@@ -617,7 +617,8 @@ implement
 fprint_arrszref_sep
   (out, ASZ, sep) = let
 //
-var asz: size_t
+var
+asz: size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 in
@@ -629,8 +630,11 @@ end // end of [fprint_arrszref_sep]
 implement
 {a}(*tmp*)
 arrszref_tabulate (asz) = let
-  val asz = g1ofg0_uint (asz)
-  val A = arrayref_tabulate<a> (asz) in arrszref_make_arrayref(A, asz)
+//
+val
+asz = g1ofg0_uint (asz)
+val A = arrayref_tabulate<a> (asz) in arrszref_make_arrayref(A, asz)
+//
 end // end of [arrszref_tabulate]
 //
 implement
@@ -639,6 +643,50 @@ arrszref_tabulate_cloref (asz, f) = let
   val A = arrayref_tabulate_cloref<a> (asz, f) in arrszref_make_arrayref(A, asz)
 end // end of [arrszref_tabulate_cloref]
 //
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+streamize_arrszref_elt
+  (ASZ) = let
+//
+var
+asz: size_t
+val A0 =
+  arrszref_get_refsize{a}(ASZ, asz)
+//
+in
+  streamize_arrayref_elt<a>(A0, asz)
+end // end of [streamize_arrszref_elt]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+streamize_arrayref_elt
+  (A0, asz) =
+  auxmain(pa) where
+{
+//
+val pa = arrayref2ptr(A0)
+val pz = ptr_add<a>(pa, asz)
+//
+fun
+auxmain
+(
+  pa: ptr
+) : stream_vt(a) = $ldelay
+(
+if
+(pa < pz)
+then
+stream_vt_cons
+  ($UN.ptr0_get<a>(pa), auxmain(ptr_succ<a>(pa)))
+else stream_vt_nil(*void*)
+) (* end of [auxmain] *)
+//
+} (* end of [streamize_arrayref_elt] *)
+
 (* ****** ****** *)
 
 (* end of [arrayref.dats] *)

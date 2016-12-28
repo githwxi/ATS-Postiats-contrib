@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,17 +28,17 @@
 /* ****** ****** */
 
 /*
-** Source:
-** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Sat Oct 17 15:20:03 2015
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: April, 2012 *)
 */
 
 /* ****** ****** */
 
 /*
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2012 *)
+** Source:
+** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
+** Time of generation: Wed Dec 14 18:44:55 2016
 */
 
 /* ****** ****** */
@@ -81,50 +81,62 @@ void *memcpy(void *dest, const void *src, size_t n) ;
 
 ATSinline()
 atstype_bool
-atspre_lt_string_string (
+atspre_lt_string_string
+(
   atstype_string x1, atstype_string x2
 ) {
-  return (strcmp((char*)x1, (char*)x2) < 0 ? atsbool_true : atsbool_false) ;
+  int sgn = strcmp((char*)x1, (char*)x2) ;
+  return (sgn < 0 ? atsbool_true : atsbool_false) ;
 } // [atspre_lt_string_string]
 
 ATSinline()
 atstype_bool
-atspre_lte_string_string (
+atspre_lte_string_string
+(
   atstype_string x1, atstype_string x2
 ) {
-  return (strcmp((char*)x1, (char*)x2) <= 0 ? atsbool_true : atsbool_false) ;
+  int sgn = strcmp((char*)x1, (char*)x2) ;
+  return (sgn <= 0 ? atsbool_true : atsbool_false) ;
 } // [atspre_lte_string_string]
 
 ATSinline()
 atstype_bool
-atspre_gt_string_string(
+atspre_gt_string_string
+(
   atstype_string x1, atstype_string x2
 ) {
-  return (strcmp((char*)x1, (char*)x2) > 0 ? atsbool_true : atsbool_false) ;
+  int sgn = strcmp((char*)x1, (char*)x2) ;
+  return (sgn > 0 ? atsbool_true : atsbool_false) ;
 } // [atspre_gt_string_string]
 
 ATSinline()
 atstype_bool
-atspre_gte_string_string (
+atspre_gte_string_string
+(
   atstype_string x1, atstype_string x2
 ) {
-  return (strcmp((char*)x1, (char*)x2) >= 0 ? atsbool_true : atsbool_false) ;
+  int sgn = strcmp((char*)x1, (char*)x2) ;
+  return (sgn >= 0 ? atsbool_true : atsbool_false) ;
 } // [atspre_gte_string_string]
 
 ATSinline()
 atstype_bool
-atspre_eq_string_string (
+atspre_eq_string_string
+(
   atstype_string x1, atstype_string x2
 ) {
-  return (strcmp((char*)x1, (char*)x2)==0 ? atsbool_true : atsbool_false) ;
+  int sgn = strcmp((char*)x1, (char*)x2) ;
+  return (sgn == 0 ? atsbool_true : atsbool_false) ;
 } // [atspre_eq_string_string]
 
 ATSinline()
 atstype_bool
-atspre_neq_string_string (
+atspre_neq_string_string
+(
   atstype_string x1, atstype_string x2
 ) {
-  return (strcmp((char*)x1, (char*)x2)!=0 ? atsbool_true : atsbool_false) ;
+  int sgn = strcmp((char*)x1, (char*)x2) ;
+  return (sgn != 0 ? atsbool_true : atsbool_false) ;
 } // [atspre_neq_string_string]
 
 /* ****** ****** */
@@ -137,11 +149,15 @@ atspre_neq_string_string (
 ATSinline()
 atstype_int
 atspre_compare_string_string
-  (atstype_string x1, atstype_string x2) { return strcmp((char*)x1, (char*)x2) ; }
-// [atspre_compare_string_string]
+(
+  atstype_string x1, atstype_string x2
+) {
+  return atspre_int2sgn(strcmp((char*)x1, (char*)x2)) ;
+} // [atspre_compare_string_string]
 
 /* ****** ****** */
 
+#define atspre_strcmp strcmp
 #define atspre_strlen strlen
 #define atspre_strchr strchr
 #define atspre_strrchr strrchr

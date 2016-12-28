@@ -56,7 +56,12 @@ equal_key_key = gequal_val_val<key>
 //
 implement
 hash_key<string> (str) =
+  string_hash_multiplier (31UL, 618033989UL, str)
+(*
+implement
+hash_key<string> (str) =
   string_hash_multiplier (31UL, 61803398875UL, str)
+*)
 //
 (* ****** ****** *)
 
@@ -180,6 +185,25 @@ end // end of [hashtbl_remove]
 
 implement
 {key,itm}
+hashtbl_exchange
+  (tbl, k0, x0) = let
+//
+val p_x1 =
+  hashtbl_search_ref<key,itm>(tbl, k0)
+//
+val p_x1 = cptr2ptr(p_x1)
+//
+in
+//
+if isneqz(p_x1)
+  then ($UN.ptr1_exch<itm>(p_x1, x0); true) else false
+//
+end // end of [hashtbl_exchange]
+
+(* ****** ****** *)
+
+implement
+{key,itm}
 fprint_hashtbl
   (out, tbl) = let
 //
@@ -220,6 +244,30 @@ end // end of [hashtbl_foreach]
 
 implement
 {key,itm}
+hashtbl_foreach_cloref
+  (tbl, fwork) = let
+//
+implement
+{key,itm}{env}
+hashtbl_foreach$fwork
+  (k, x, env) = let
+//
+typedef
+fwork_t =
+  (key, &itm >> _) -<cloref1> void
+//
+in
+  $UN.cast{fwork_t}(fwork)(k, x)
+end // end of [hashtbl_foreach$fwork]
+//
+in
+  hashtbl_foreach<key,itm>(tbl)
+end // end of [hashtbl_foreach_cloref]
+
+(* ****** ****** *)
+
+implement
+{key,itm}
 hashtbl_listize
   (tbl) = let
 //
@@ -232,6 +280,13 @@ in
   hashtbl_flistize<key,itm><ki2> (tbl)
 end // end of [hashtbl_listize]
 
+(* ****** ****** *)
+//
+implement
+{key,itm}
+streamize_hashtbl(tbl) =
+  streamize_list_vt_elt<@(key,itm)>(hashtbl_listize(tbl))
+//
 (* ****** ****** *)
 
 local

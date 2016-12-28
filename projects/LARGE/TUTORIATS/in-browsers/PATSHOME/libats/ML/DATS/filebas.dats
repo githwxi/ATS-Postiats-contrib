@@ -37,11 +37,18 @@
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload _(*anon*) = "prelude/DATS/integer.dats"
+staload
+_(*anon*) = "prelude/DATS/integer.dats"
+staload
+_(*anon*) = "prelude/DATS/integer_size.dats"
+
+(* ****** ****** *)
+
 staload _(*anon*) = "prelude/DATS/filebas.dats"
 
 (* ****** ****** *)
@@ -58,6 +65,13 @@ macdef
 prelude_fileref_get_line_string = fileref_get_line_string
 macdef
 prelude_fileref_get_lines_stringlst = fileref_get_lines_stringlst
+
+(* ****** ****** *)
+
+macdef
+prelude_streamize_fileref_char = streamize_fileref_char
+macdef
+prelude_streamize_fileref_line = streamize_fileref_line
 
 (* ****** ****** *)
 
@@ -113,6 +127,16 @@ fileref_get_lines_stringlst (filr) =
 
 end // end of [local]
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+streamize_fileref_char(filr) = prelude_streamize_fileref_char(filr)
+implement
+{}(*tmp*)
+streamize_fileref_line(filr) =
+  $UN.castvwtp0{stream_vt(string)}(prelude_streamize_fileref_line(filr))
+//
 (* ****** ****** *)
 
 (* end of [filebas.dats] *)

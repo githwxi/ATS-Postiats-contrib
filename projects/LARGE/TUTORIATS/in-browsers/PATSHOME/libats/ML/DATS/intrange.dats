@@ -76,6 +76,19 @@ end // end of [int_repeat_cloref]
 //
 implement
 {}(*tmp*)
+int_forall_cloref
+  (n, f) =
+  intrange_forall_cloref<> (0, n, f)
+//
+implement
+{}(*tmp*)
+int_forall_method
+  (n) = lam(f) => int_forall_cloref (n, f)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
 int_foreach_cloref
   (n, f) =
   intrange_foreach_cloref<> (0, n, f)
@@ -98,6 +111,36 @@ implement
 int_foldleft_method
   (n, tres) =
   lam(ini, f) => int_foldleft_cloref (n, ini, f)
+//
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intrange_forall_cloref
+  (l, r, f) = let
+//
+fun
+loop
+(
+  l: int, r: int
+, f: cfun1(int, bool)
+) : bool = (
+//
+if l < r
+  then (
+    if f(l) then loop(l+1, r, f) else false
+  ) else true
+//
+) (* end of [loop] *)
+//
+in
+  loop (l, r, f)
+end // end of [intrange_forall_cloref]
+//
+implement
+{}(*tmp*)
+intrange_forall_method
+  ( @(l, r) ) = lam(f) => intrange_forall_cloref (l, r, f)
 //
 (* ****** ****** *)
 
@@ -157,31 +200,116 @@ implement
 {res}(*tmp*)
 intrange_foldleft_method
   ( @(l, r), tres ) =
-  lam(ini, f) => intrange_foldleft_cloref<res> (l, r, ini, f)
+(
+//
+lam(ini, f) =>
+  intrange_foldleft_cloref<res> (l, r, ini, f)
+//
+) (* end of [intrange_foldleft_method] *)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+int_streamGte(n) =
+(
+fix
+aux
+(
+  n:int
+) : stream(int) => $delay(stream_cons(n, aux(n+1)))
+) (n) // end of [int_streamGte]
+//
+implement
+{}(*tmp*)
+int_streamGte_vt(n) =
+(
+fix
+aux
+(
+  n:int
+) : stream_vt(int) => $ldelay(stream_vt_cons(n, aux(n+1)))
+) (n) // end of [int_streamGte_vt]
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-int_list_map_cloref
+int_list0_map_cloref
   (n, f) = list0_tabulate<a> (n, f)
 //
 implement
 {a}(*tmp*)
-int_list_map_method
-  (n, tres) = lam(f) => int_list_map_cloref<a> (n, f)
+int_list0_map_method
+  (n, tres) = lam(f) => int_list0_map_cloref<a> (n, f)
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-int_array_map_cloref
-  (n, f) = array0_tabulate<a> (i2sz(n), f)
+int_array0_map_cloref
+  (n, fopr) =
+(
+array0_tabulate<a>
+  (i2sz(n), lam(i) => fopr(sz2i(i)))
+)
 //
 implement
 {a}(*tmp*)
-int_array_map_method
-  (n, tres) = lam(f) => int_array_map_cloref<a> (n, f)
+int_array0_map_method
+  (n, tres) = lam(f) => int_array0_map_cloref<a> (n, f)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+int_stream_map_cloref
+  (n, f) = auxmain(0) where
+{
+//
+fun
+auxmain
+(
+  i: Nat
+) : stream(a) = $delay
+(
+if
+(i < n)
+then stream_cons(f(i), auxmain(i+1)) else stream_nil()
+) (* end of [auxmain] *)
+//
+} (* end of [int_stream_map_cloref] *)
+//
+implement
+{a}(*tmp*)
+int_stream_map_method
+  (n, tres) = lam(f) => int_stream_map_cloref<a> (n, f)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+int_stream_vt_map_cloref
+  (n, f) = auxmain(0) where
+{
+//
+fun
+auxmain
+(
+  i: Nat
+) : stream_vt(a) = $ldelay
+(
+if
+(i < n)
+then stream_vt_cons(f(i), auxmain(i+1)) else stream_vt_nil()
+) : stream_vt_con(a) // [auxmain]
+//
+} (* end of [int_stream_vt_map_cloref] *)
+//
+implement
+{a}(*tmp*)
+int_stream_vt_map_method
+  (n, tres) = lam(f) => int_stream_vt_map_cloref<a> (n, f)
 //
 (* ****** ****** *)
 //

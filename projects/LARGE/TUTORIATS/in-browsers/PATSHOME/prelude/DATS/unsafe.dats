@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/unsafe.atxt
-** Time of generation: Sat Oct 17 15:19:54 2015
+** Time of generation: Sun Nov 20 21:18:25 2016
 *)
 
 (* ****** ****** *)
@@ -45,10 +45,12 @@ staload "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-implement{
-} int2ptr (i) = cast{ptr}(cast{intptr}(i))
-implement{
-} ptr2int (p) = cast{int}(cast{intptr}(p))
+implement
+{}(*tmp*)
+int2ptr(i) = cast{ptr}(cast{intptr}(i))
+implement
+{}(*tmp*)
+ptr2int(p) = cast{int}(cast{intptr}(p))
 
 (* ****** ****** *)
 
@@ -118,6 +120,40 @@ ptr0_intch
 } (* end of [ptr0_intch] *)
 
 implement{a} ptr1_intch = ptr0_intch<a>
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+ptr0_getinc(p0) = let
+  val p = p0
+  val x = ptr0_get<a>(p)
+  val () = p0 := ptr_succ<a>(p) in (x)
+end // end of [ptr0_getinc]
+implement
+{a}(*tmp*)
+ptr1_getinc(p0) = let
+  val p = p0
+  val x = ptr0_get<a>(p)
+  val () = p0 := ptr_succ<a>(p) in (x)
+end // end of [ptr1_getinc]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+ptr0_setinc(p0, x) = let
+  val p = p0
+  val () = ptr0_set<a>(p, x)
+  val () = p0 := ptr_succ<a>(p) in (*void*)
+end // end of [ptr0_setinc]
+implement
+{a}(*tmp*)
+ptr1_setinc(p0, x) = let
+  val p = p0
+  val () = ptr0_set<a>(p, x)
+  val () = p0 := ptr_succ<a>(p) in (*void*)
+end // end of [ptr1_setinc]
 
 (* ****** ****** *)
 //

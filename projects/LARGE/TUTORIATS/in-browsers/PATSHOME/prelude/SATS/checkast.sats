@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/checkast.atxt
-** Time of generation: Sat Oct 17 15:19:46 2015
+** Time of generation: Sun Nov 20 21:18:17 2016
 *)
 
 (* ****** ****** *)
@@ -48,6 +48,12 @@ ATS_PACKNAME "ATSLIB.prelude.checkast"
 
 sortdef t0p = t@ype and vt0p = viewt@ype
 
+(* ****** ****** *)
+//
+fun{}
+checkast_charNZ
+  (c: char, msg: RD(string)): charNZ
+//
 (* ****** ****** *)
 
 fun{tk:tk}
@@ -72,37 +78,42 @@ checkast_gintBtwe{i,j:int}
 (* ****** ****** *)
 
 macdef
-ckastloc_gintLt (x, i) = checkast_gintLt (,(x), ,(i), $mylocation)
+ckastloc_charNZ(x) = checkast_charNZ(,(x), $mylocation)
+
+(* ****** ****** *)
+
 macdef
-ckastloc_gintLte (x, i) = checkast_gintLte (,(x), ,(i), $mylocation)
+ckastloc_gintLt(x, i) = checkast_gintLt(,(x), ,(i), $mylocation)
 macdef
-ckastloc_gintGt (x, i) = checkast_gintGt (,(x), ,(i), $mylocation)
+ckastloc_gintLte(x, i) = checkast_gintLte(,(x), ,(i), $mylocation)
 macdef
-ckastloc_gintGte (x, i) = checkast_gintGte (,(x), ,(i), $mylocation)
+ckastloc_gintGt(x, i) = checkast_gintGt(,(x), ,(i), $mylocation)
 macdef
-ckastloc_gintBtw (x, i, j) = checkast_gintBtw (,(x), ,(i), ,(j), $mylocation)
+ckastloc_gintGte(x, i) = checkast_gintGte(,(x), ,(i), $mylocation)
 macdef
-ckastloc_gintBtwe (x, i, j) = checkast_gintBtwe (,(x), ,(i), ,(j), $mylocation)
+ckastloc_gintBtw(x, i, j) = checkast_gintBtw(,(x), ,(i), ,(j), $mylocation)
+macdef
+ckastloc_gintBtwe(x, i, j) = checkast_gintBtwe(,(x), ,(i), ,(j), $mylocation)
 
 (* ****** ****** *)
 
 fun{}
-checkast_Ptr1 (x: ptr, msg: RD(string)): Ptr1
+checkast_Ptr1(x: ptr, msg: RD(string)): Ptr1
 
 (* ****** ****** *)
 
 macdef
-ckastloc_Ptr1 (x) = checkast_Ptr1 (,(x), $mylocation)
+ckastloc_Ptr1(x) = checkast_Ptr1(,(x), $mylocation)
 
 (* ****** ****** *)
 
 fun{}
-checkast_Strptr1 (x: Strptr0, msg: RD(string)): Strptr1
+checkast_Strptr1(x: Strptr0, msg: RD(string)): Strptr1
 
 (* ****** ****** *)
 
 macdef
-ckastloc_Strptr1 (x) = checkast_Strptr1 (,(x), $mylocation)
+ckastloc_Strptr1(x) = checkast_Strptr1(,(x), $mylocation)
 
 (* ****** ****** *)
 

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Oct 17 15:19:55 2015
+** Time of generation: Sat Dec  3 10:18:27 2016
 *)
 
 (* ****** ****** *)
@@ -40,8 +40,16 @@
 (* Start time: Feburary, 2012 *)
 
 (* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+staload
+_(*anon*) = "prelude/DATS/unsafe.dats"
+//
+(* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+absvtype
+List0_vt_(a:vt@ype+) = List0_vt(a)
 
 (* ****** ****** *)
 //
@@ -1121,7 +1129,7 @@ implement
 list_vt_foreach_fun
   {fe} (xs, f) = let
 //
-prval () = lemma_list_vt_param (xs)
+prval () = lemma_list_vt_param(xs)
 //
 fun
 loop
@@ -1142,6 +1150,37 @@ loop
 in
   loop (xs, f)
 end // end of [list_vt_foreach_fun]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_vt_foreach_cloref
+  {fe} (xs, f) = let
+//
+prval () = lemma_list_vt_param(xs)
+//
+fun
+loop
+{n:nat} .<n>.
+(
+  xs: !list_vt (a, n), f: (&a) -<cloref,fe> void
+) :<fe> void =
+  case+ xs of
+  | @list_vt_cons
+      (x, xs1) => let
+      val () = f (x)
+      val () = loop (xs1, f)
+    in
+      fold@ (xs)
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => ()
+// end of [loop]
+in
+  loop (xs, f)
+end // end of [list_vt_foreach_cloref]
+
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
@@ -1234,6 +1273,70 @@ list_vt_iforeach$cont (i, x, env) = true
 
 #include "./SHARE/list_vt_mergesort.dats"
 #include "./SHARE/list_vt_quicksort.dats"
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+streamize_list_vt_elt
+  (xs) = let
+//
+fun
+auxmain
+(
+xs: List_vt(a)
+) : stream_vt(a) = $ldelay
+(
+//
+(
+case+ xs of
+| ~list_vt_nil
+    () => stream_vt_nil()
+| ~list_vt_cons
+    (x, xs) =>
+    stream_vt_cons(x, auxmain(xs))
+) : stream_vt_con(a)
+//
+,
+//
+list_vt_freelin<a>(xs)
+) (* end of [auxmain] *)
+//
+in
+  $effmask_all(auxmain(xs))
+end (* end of [streamize_list_vt_elt] *)
+
+(* ****** ****** *)
+
+implement
+{tk}(*tmp*)
+listize_g0int_rep
+  (i0, base) = let
+//
+fun
+loop{i:int}
+(
+i0: g1int(tk, i), res: List0_vt(int)
+) : List0_vt(int) =
+(
+if
+isgtz(i0)
+then
+loop
+( ndiv_g1int_int1(i0, base)
+, list_vt_cons(nmod_g1int_int1(i0, base), res)
+) (* end of [then] *)
+else res // end-of-else
+)
+//
+in
+//
+$UN.castvwtp0
+(
+$effmask_all(loop(g1ofg0_int(i0), list_vt_nil(*void*)))
+) (* $UN.castvwtp0 *)
+//
+end // end of [listize_g0int_rep]
 
 (* ****** ****** *)
 

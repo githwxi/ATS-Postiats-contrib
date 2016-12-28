@@ -138,5 +138,70 @@ typedef substrarr = substrarr_type
 *)
 //
 (* ****** ****** *)
+//
+abstype
+dynarray_type(a:vt@ype) = ptr
+//
+typedef
+dynarray(a:vt@ype) = dynarray_type(a)
+//
+(* ****** ****** *)
+//
+// HX: for maps of elements of type (a)
+//
+abstype
+hashtbl_type
+  (key:t@ype, itm:t@ype) = ptr
+//
+typedef
+hashtbl(key:t@ype, itm:t@ype) = hashtbl_type(key, itm)
+//
+(* ****** ****** *)
+//
+// HX-2015-12-01:
+// G-values for generic programming
+//
+(* ****** ****** *)
+//
+datatype gvalue =
+//
+  | GVnil of ()
+//
+  | GVint of (int)
+//
+  | GVptr of (ptr)
+//
+  | GVbool of (bool)
+  | GVchar of (char)
+//
+  | GVfloat of (double)
+//
+  | GVstring of (string)
+//
+  | GVref of (gvref)
+//
+  | GVlist of (gvlist)
+//
+  | GVarray of (gvarray)
+//
+  | GVdynarr of (gvdynarr)
+//
+  | GVhashtbl of (gvhashtbl)
+//
+  | GVfunclo_fun of ((gvalue) -<fun1> gvalue)
+  | GVfunclo_clo of ((gvalue) -<cloref1> gvalue)
+//
+where
+gvref = ref(gvalue)
+and
+gvlist = list0(gvalue)
+and
+gvarray = array0(gvalue)
+and
+gvdynarr = dynarray(gvalue)
+and
+gvhashtbl = hashtbl(string, gvalue)
+//
+(* ****** ****** *)
 
 (* end of [basis.sats] *)

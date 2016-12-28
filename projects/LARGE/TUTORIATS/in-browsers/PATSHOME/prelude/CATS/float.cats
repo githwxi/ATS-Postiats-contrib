@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/float.atxt
-** Time of generation: Sat Oct 17 15:20:02 2015
+** Time of generation: Wed Dec 14 18:44:55 2016
 */
 
 /* ****** ****** */
@@ -129,7 +129,7 @@ atstype_double x
 extern double atof (const char *inp) ;
 //
 ATSinline()
-atstype_int
+atstype_double
 atspre_g0string2float_double
   (atstype_string inp) { return atof((char*)inp) ; }
 //

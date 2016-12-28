@@ -36,10 +36,12 @@
 // intrange (l, r) is for integers i satisfying l <= i < r
 //
 (* ****** ****** *)
-
-#define ATS_PACKNAME "ATSLIB.libats.ML"
-#define ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
-
+//
+#define
+ATS_PACKNAME "ATSLIB.libats.ML"
+#define
+ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
+//
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"
@@ -56,6 +58,17 @@ int_repeat_cloref
 overload repeat with int_repeat_lazy
 overload repeat with int_repeat_cloref
 overload .repeat with int_repeat_cloref
+//
+(* ****** ****** *)
+//
+fun{}
+int_forall_cloref
+  (n: int, f: cfun1 (int, bool)): bool
+fun{}
+int_forall_method
+  (n: int) (f: cfun1 (int, bool)): bool
+//
+overload .forall with int_forall_method
 //
 (* ****** ****** *)
 //
@@ -83,6 +96,17 @@ overload .foldleft with int_foldleft_method
 (* ****** ****** *)
 //
 fun{}
+intrange_forall_cloref
+  (l: int, r: int, f: cfun1 (int, bool)): bool
+fun{}
+intrange_forall_method
+  (lr: @(int, int)) (f: cfun1 (int, bool)): bool
+//
+overload .forall with intrange_forall_method
+//
+(* ****** ****** *)
+//
+fun{}
 intrange_foreach_cloref
   (l: int, r: int, f: cfun1 (int, void)): void
 fun{}
@@ -105,35 +129,77 @@ overload .foldleft with intrange_foldleft_method
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
-int_list_map_cloref
-  (n: intGte(0), f: cfun(int, a)): list0(a)
-fun{a:t0p}
-int_list_map_method
-  (n: intGte(0), TYPE(a))(f: cfun(int, a)): list0(a)
+fun{}
+int_streamGte(n: int): stream(int)
 //
-overload .list_map with int_list_map_method
+overload .streamGte with int_streamGte
+//
+fun{}
+int_streamGte_vt(n: int): stream_vt(int)
+//
+overload .streamGte_vt with int_streamGte_vt
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
-int_array_map_cloref
-  (n: intGte(0), f: cfun(size_t, a)): array0(a)
+int_list0_map_cloref
+  {n:nat}
+  (n: int(n), fopr: cfun(natLt(n), a)): list0(a)
 fun{a:t0p}
-int_array_map_method
-  (n: intGte(0), TYPE(a))(f: cfun(size_t, a)): array0(a)
+int_list0_map_method
+  {n:nat}
+  (n: int(n), TYPE(a))(f: cfun(natLt(n), a)): list0(a)
 //
-overload .array_map with int_array_map_method
+overload .list0_map with int_list0_map_method
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+int_array0_map_cloref
+  {n:nat}
+  (n: int(n), fopr: cfun(natLt(n), a)): array0(a)
+fun{a:t0p}
+int_array0_map_method
+  {n:nat}
+  (n: int(n), TYPE(a))(f: cfun(natLt(n), a)): array0(a)
+//
+overload .array0_map with int_array0_map_method
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+int_stream_map_cloref
+  {n:nat}
+  (n: int(n), fopr: cfun(natLt(n), a)): stream(a)
+fun{a:t0p}
+int_stream_map_method
+  {n:nat}
+  (n: int(n), TYPE(a))(f: cfun(natLt(n), a)): stream(a)
+//
+overload .stream_map with int_stream_map_method
+//
+(* ****** ****** *)
+//
+fun{a:vt0p}
+int_stream_vt_map_cloref
+  {n:nat}
+  (n: int(n), fopr: cfun(natLt(n), a)): stream_vt(a)
+fun{a:vt0p}
+int_stream_vt_map_method
+  {n:nat}
+  (n: int(n), TYPE(a))(f: cfun(natLt(n), a)): stream_vt(a)
+//
+overload .stream_vt_map with int_stream_vt_map_method
 //
 (* ****** ****** *)
 //
 fun{}
 int2_foreach_cloref
-  (n1: int, n2: int, f: cfun2 (int, int, void)): void
+  (n1: int, n2: int, f: cfun2(int, int, void)): void
 //
 fun{}
 intrange2_foreach_cloref
-  (l1: int, r1: int, l2: int, r2: int, f: cfun2 (int, int, void)): void
+  (l1: int, r1: int, l2: int, r2: int, f: cfun2(int, int, void)): void
 //
 (* ****** ****** *)
 

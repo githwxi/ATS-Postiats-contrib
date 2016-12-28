@@ -32,9 +32,10 @@
 (* Start time: July, 2012 *)
 
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 staload "libats/ML/SATS/basis.sats"
@@ -42,13 +43,15 @@ staload "libats/ML/SATS/list0.sats"
 staload "libats/ML/SATS/array0.sats"
 
 (* ****** ****** *)
-
+//
 extern
-fun memcpy
-  (d:ptr, s:ptr, n:size_t):<!wrt> ptr = "mac#atslib_ML_array0_memcpy"
+fun
+memcpy
+(
+  d:ptr, s:ptr, n:size_t
+) :<!wrt> ptr = "mac#atslib_ML_array0_memcpy"
 // end of [memcpy]
-
-
+//
 (* ****** ****** *)
 //
 implement
@@ -63,7 +66,8 @@ arrszref_of_array0{a}(A) = $UN.cast{arrszref(a)}(A)
 
 implement
 {}(*tmp*)
-array0_get_ref (A0) = let
+array0_get_ref
+  (A0) = let
   val ASZ =
     arrszref_of_array0 (A0) in arrszref_get_ref (ASZ)
   // end of [val]
@@ -71,7 +75,8 @@ end // end of [array0_get_ref]
 
 implement
 {}(*tmp*)
-array0_get_size (A0) = let
+array0_get_size
+  (A0) = let
   val ASZ =
     arrszref_of_array0 (A0) in arrszref_get_size (ASZ)
   // end of [val]
@@ -79,7 +84,8 @@ end // end of [array0_get_size]
 
 implement
 {}(*tmp*)
-array0_get_refsize (A0) = let
+array0_get_refsize
+  (A0) = let
   var asz: size_t
   val ASZ = arrszref_of_array0 (A0)
   val A = $effmask_wrt (arrszref_get_refsize (ASZ, asz))
@@ -91,17 +97,19 @@ end // end of [array0_get_refsize]
 
 implement
 {}(*tmp*)
-array0_make_arrpsz (psz) = let
+array0_make_arrpsz
+  (psz) = let
   val ASZ =
-    arrszref_make_arrpsz (psz) in array0_of_arrszref (ASZ)
+    arrszref_make_arrpsz(psz) in array0_of_arrszref(ASZ)
   // end of [val]
 end // end of [array0_make_arrpsz]
 
 implement
 {}(*tmp*)
-array0_make_arrayref (A, n) = let
+array0_make_arrayref
+  (A, n) = let
   val ASZ =
-    arrszref_make_arrayref (A, n) in array0_of_arrszref (ASZ)
+    arrszref_make_arrayref(A, n) in array0_of_arrszref(ASZ)
   // end of [val]
 end // end of [array0_make_arrpsz]
 
@@ -109,9 +117,10 @@ end // end of [array0_make_arrpsz]
 
 implement
 {a}(*tmp*)
-array0_make_elt (asz, x) = let
+array0_make_elt
+  (asz, x0) = let
   val ASZ =
-    arrszref_make_elt<a> (asz, x) in array0_of_arrszref (ASZ)
+    arrszref_make_elt<a>(asz, x0) in array0_of_arrszref(ASZ)
   // end of [val]
 end // end of [array0_make_elt]
 
@@ -343,9 +352,11 @@ val (pf1box | p1) = arrayref_get_viewptr (A1)
 and (pf2box | p2) = arrayref_get_viewptr (A2)
 //
 extern
-praxi unbox : {v:view} vbox (v) -<prf> (v, v -<lin,prf> void)
+praxi unbox
+  : {v:view} vbox(v) -<prf> (v, v -<lin,prf> void)
 //
-prval (pf1, fpf1) = unbox (pf1box) and (pf2, fpf2) = unbox (pf2box)
+prval (pf1, fpf1) = unbox (pf1box)
+prval (pf2, fpf2) = unbox (pf2box)
 //
 val asz = asz1 + asz2
 val (pfarr, pfgc | q) = array_ptr_alloc<a> (asz)
@@ -369,31 +380,46 @@ in
 end // end of [array0_append]
 
 (* ****** ****** *)
-
+//
 implement
 {a}{b}
 array0_map
-  (A, f) = let
+  (A, fopr) = let
 //
 val p0 = array0_get_ref (A)
 val asz = array0_get_size (A)
 //
-val f = $UN.cast{cfun1(ptr, b)}(f)
+val fopr = $UN.cast{cfun1(ptr, b)}(fopr)
 //
 in
-  array0_tabulate<b> (asz, lam i => f (ptr_add<a> (p0, i)))
+//
+array0_tabulate<b>
+  (g1ofg0(asz), lam i => fopr(ptr_add<a>(p0, i)))
+//
 end // end of [array0_map]
-
+//
+implement
+{a}{b}
+array0_map_method
+  (A0, _(*TYPE*)) = lam(fopr) => array0_map<a>(A0, fopr)
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
 array0_tabulate
-  (asz, f) = let
+  {n}(asz, f) = let
 //
 implement{a2}
 array_tabulate$fopr
-  (i) = $UN.castvwtp0{a2}(f(i))
+  (i) = let
+//
+  val i =
+  $UN.cast{sizeLt(n)}(i)
+//
+in
+  $UN.castvwtp0{a2}(f(i))
+end // array_tabulate$fopr
 //
 val ASZ = arrszref_tabulate<a> (asz)
 //
@@ -415,182 +441,384 @@ asz : size_t
 val A = arrszref_get_refsize (ASZ, asz)
 //
 implement(tenv)
-array_foreach$cont<a><tenv> (x, env) = ~p(x)
+array_foreach$cont<a><tenv>(x, env) = ~p(x)
 implement(tenv)
-array_foreach$fwork<a><tenv> (x, env) = ((*nothing*))
+array_foreach$fwork<a><tenv>(x, env) = ((*nothing*))
 //
-val idx = arrayref_foreach<a> (A, asz)
+val idx = arrayref_foreach<a>(A, asz)
 //
 in
   if idx < asz then idx else $raise NotFoundExn()
 end // end of [array0_find_exn]
+
+(* ****** ****** *)
 
 (*
 /*
 implement
 {a}(*tmp*)
 array0_find_opt (A0, p) =
-  try Some0 (array0_find_exn<a> (A0, p)) with ~NotFoundExn() => None0 ()
+  try Some_vt(array0_find_exn<a> (A0, p)) with ~NotFoundExn() => None_vt()
 // end of [array0_find_opt]
 */
 *)
 
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array0_exists
+  (A0, pred) = let
+//
+val
+ASZ = arrszref_of_array0(A0)
+//
+var
+asz : size_t
+val A =
+  arrszref_get_refsize(ASZ, asz)
+//
+implement
+array_foreach$cont<a><bool>
+  (x, env) = not(env)
+implement
+array_foreach$fwork<a><bool>
+  (x, env) =
+  if pred(x) then env := true else ()
+//
+in
+//
+env where
+{
+//
+var env:bool = false
+val _(*asz*) =
+  arrayref_foreach_env<a><bool>(A, asz, env)
+//
+} (* end of [where] *)
+//
+end // end of [array0_exists]
+//
+implement
+{a}(*tmp*)
+array0_exists_method(A0) =
+  lam(pred) => array0_exists<a>(A0, pred)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array0_iexists
+  (A0, pred) = let
+//
+val
+ASZ = arrszref_of_array0(A0)
+//
+var
+asz : size_t
+val A =
+  arrszref_get_refsize(ASZ, asz)
+//
+implement
+array_iforeach$cont<a><bool>
+  (i, x, env) = not(env)
+implement
+array_iforeach$fwork<a><bool>
+  (i, x, env) =
+  if pred(i, x) then env := true else ()
+//
+in
+//
+env where
+{
+//
+var env:bool = false
+val _(*asz*) =
+  arrayref_iforeach_env<a><bool>(A, asz, env)
+//
+} (* end of [where] *)
+//
+end // end of [array0_iexists]
+//
+implement
+{a}(*tmp*)
+array0_iexists_method(A0) =
+  lam(pred) => array0_iexists<a>(A0, pred)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array0_forall
+  (A0, pred) = let
+//
+val
+ASZ = arrszref_of_array0(A0)
+//
+var
+asz : size_t
+val A =
+  arrszref_get_refsize(ASZ, asz)
+//
+implement
+array_foreach$cont<a><bool>
+  (x, env) = (env)
+implement
+array_foreach$fwork<a><bool>
+  (x, env) =
+  if pred(x) then () else env := false
+//
+in
+//
+env where
+{
+//
+var env:bool = true
+val _(*asz*) =
+  arrayref_foreach_env<a><bool>(A, asz, env)
+//
+} (* end of [where] *)
+//
+end // end of [array0_forall]
+//
+implement
+{a}(*tmp*)
+array0_forall_method(A0) =
+  lam(pred) => array0_forall<a>(A0, pred)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+array0_iforall
+  (A0, pred) = let
+//
+val
+ASZ = arrszref_of_array0(A0)
+//
+var
+asz : size_t
+val A =
+  arrszref_get_refsize(ASZ, asz)
+//
+implement
+array_iforeach$cont<a><bool>
+  (i, x, env) = (env)
+implement
+array_iforeach$fwork<a><bool>
+  (i, x, env) =
+  if pred(i, x) then () else env := false
+//
+in
+//
+env where
+{
+//
+var env:bool = true
+val _(*asz*) =
+  arrayref_iforeach_env<a><bool>(A, asz, env)
+//
+} (* end of [where] *)
+//
+end // end of [array0_iforall]
+//
+implement
+{a}(*tmp*)
+array0_iforall_method(A0) =
+  lam(pred) => array0_iforall<a>(A0, pred)
+//
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
 array0_foreach
-  (A0, f) = let
+  (A0, fwork) = let
 //
 val
-ASZ = arrszref_of_array0 (A0)
+ASZ = arrszref_of_array0(A0)
 //
 var
 asz : size_t
-val A = arrszref_get_refsize (ASZ, asz)
+val A = arrszref_get_refsize(ASZ, asz)
 //
 implement(tenv)
-array_foreach$cont<a><tenv> (x, env) = true
+array_foreach$cont<a><tenv>(x, env) = true
 implement(tenv)
-array_foreach$fwork<a><tenv> (x, env) = f (x)
+array_foreach$fwork<a><tenv>(x, env) = fwork(x)
 //
-val _(*asz*) = arrayref_foreach<a> (A, asz)
+val _(*asz*) = arrayref_foreach<a>(A, asz)
 //
 in
   // nothing
 end // end of [array0_foreach]
-
+//
+implement
+{a}(*tmp*)
+array0_foreach_method(A0) =
+  lam(fwork) => array0_foreach<a>(A0, fwork)
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
 array0_iforeach
-  (A0, f) = let
+  (A0, fwork) = let
 //
 val
-ASZ = arrszref_of_array0 (A0)
+ASZ = arrszref_of_array0(A0)
 //
 var
 asz : size_t
-val A = arrszref_get_refsize (ASZ, asz)
+val A = arrszref_get_refsize(ASZ, asz)
 //
 implement(tenv)
-array_iforeach$cont<a><tenv> (i, x, env) = true
+array_iforeach$cont<a><tenv>(i, x, env) = true
 implement(tenv)
-array_iforeach$fwork<a><tenv> (i, x, env) = f (i, x)
+array_iforeach$fwork<a><tenv>(i, x, env) = fwork(i, x)
 //
 val _(*asz*) = arrayref_iforeach<a> (A, asz)
 //
 in
   // nothing
 end // end of [array0_iforeach]
-
+//
+implement
+{a}(*tmp*)
+array0_iforeach_method(A0) =
+  lam(fwork) => array0_iforeach<a>(A0, fwork)
+//
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
 array0_rforeach
-  (A0, f) = let
+  (A0, fwork) = let
 //
 val
-ASZ = arrszref_of_array0 (A0)
+ASZ = arrszref_of_array0(A0)
 //
 var
 asz : size_t
-val A = arrszref_get_refsize (ASZ, asz)
+val A = arrszref_get_refsize(ASZ, asz)
 //
 implement(tenv)
-array_rforeach$cont<a><tenv> (x, env) = true
+array_rforeach$cont<a><tenv>(x, env) = true
 implement(tenv)
-array_rforeach$fwork<a><tenv> (x, env) = f (x)
+array_rforeach$fwork<a><tenv>(x, env) = fwork(x)
 //
 val _(*asz*) = arrayref_rforeach<a> (A, asz)
 //
 in
   // nothing
 end // end of [array0_rforeach]
-
+//
+implement
+{a}(*tmp*)
+array0_rforeach_method(A0) =
+  lam(fwork) => array0_rforeach<a>(A0, fwork)
+//
 (* ****** ****** *)
 
 implement
-{res}{a}
+{tres}{a}
 array0_foldleft
-  (A0, ini, f) = let
+(
+  A0, ini, fopr
+) = res where
+{
 //
 val
-ASZ = arrszref_of_array0 (A0)
+ASZ = arrszref_of_array0(A0)
 //
 var
 asz : size_t
-val A = arrszref_get_refsize (ASZ, asz)
+val A = arrszref_get_refsize(ASZ, asz)
 //
 implement
-array_foreach$cont<a><res> (x, env) = true
+array_foreach$cont<a><tres> (x, env) = true
 implement
-array_foreach$fwork<a><res> (x, env) = env := f (env, x)
+array_foreach$fwork<a><tres> (x, env) = env := fopr(env, x)
 //
 var
-result: res = ini
-val _(*asz*) = arrayref_foreach_env<a><res> (A, asz, result)
+res: tres = ini
+val _(*asz*) =
+  arrayref_foreach_env<a><tres>(A, asz, res)
 //
-in
-  result
-end // end of [array0_foldleft]
-
+} (* end of [array0_foldleft] *)
+//
+implement
+{tres}{a}
+array0_foldleft_method(A0, _) =
+  lam(ini, fopr) => array0_foldleft<tres><a>(A0, ini, fopr)
+//
 (* ****** ****** *)
 
 implement
-{res}{a}
+{tres}{a}
 array0_ifoldleft
-  (A0, ini, f) = let
+(
+  A0, ini, fopr
+) = res where
+{
 //
 val
-ASZ = arrszref_of_array0 (A0)
+ASZ = arrszref_of_array0(A0)
 //
 var
 asz : size_t
-val A = arrszref_get_refsize (ASZ, asz)
+val A = arrszref_get_refsize(ASZ, asz)
 //
 implement
-array_iforeach$cont<a><res> (i, x, env) = true
+array_iforeach$cont<a><tres>(i, x, env) = true
 implement
-array_iforeach$fwork<a><res> (i, x, env) = (env := f (env, i, x))
+array_iforeach$fwork<a><tres>(i, x, env) = (env := fopr(env, i, x))
 //
 var
-result: res = ini
-val _(*asz*) = arrayref_iforeach_env<a><res> (A, asz, result)
+res: tres = ini
+val _(*asz*) =
+  arrayref_iforeach_env<a><tres>(A, asz, res)
 //
-in
-  result
-end // end of [array0_ifoldleft]
-
+} (* end of [array0_ifoldleft] *)
+//
+implement
+{tres}{a}
+array0_ifoldleft_method(A0, _) =
+  lam(ini, fopr) => array0_ifoldleft<tres><a>(A0, ini, fopr)
+//
 (* ****** ****** *)
 
 implement
-{a}{res}
+{a}{tres}
 array0_foldright
-  (A0, f, snk) = let
+(
+  A0, fopr, snk
+) = res where
+{
 //
 val
-ASZ = arrszref_of_array0 (A0)
+ASZ = arrszref_of_array0(A0)
 //
 var
 asz : size_t
-val A = arrszref_get_refsize (ASZ, asz)
+val A = arrszref_get_refsize(ASZ, asz)
 //
 implement
-array_rforeach$cont<a><res> (x, env) = true
+array_rforeach$cont<a><tres>(x, env) = true
 implement
-array_rforeach$fwork<a><res> (x, env) = env := f (x, env)
+array_rforeach$fwork<a><tres>(x, env) = env := fopr(x, env)
 //
 var
-result: res = snk
-val _(*asz*) = arrayref_rforeach_env<a><res> (A, asz, result)
+res: tres = snk
+val _(*asz*) =
+  arrayref_rforeach_env<a><tres> (A, asz, res)
 //
-in
-  result
-end // end of [array0_foldright]
-
+} (* end of [array0_foldright] *)
+//
+implement
+{a}{tres}
+array0_foldright_method(A0, _) =
+  lam(fopr, snk) => array0_foldright<a><tres>(A0, fopr, snk)
+//
 (* ****** ****** *)
 
 implement
@@ -621,6 +849,62 @@ end // end of [array_quicksort$cmp]
 in
   arrayref_quicksort<a> (A, asz)
 end // end of [array0_quicksort]
+
+(* ****** ****** *)
+//
+// HX: some common generic functions
+//
+(* ****** ****** *)
+
+implement
+(a)(*tmp*)
+fprint_val<array0(a)> = fprint_array0<a>
+
+(* ****** ****** *)
+
+implement
+(a)(*tmp*)
+gcompare_val_val<array0(a)>
+  (xs, ys) = let
+//
+val m = array0_get_size{a}(xs)
+val n = array0_get_size{a}(ys)
+//
+fun
+loop
+(
+  px: ptr, py: ptr, i: size_t, j: size_t
+) : int =
+(
+if (
+i < m
+) then (
+//
+if j < n
+  then let
+    val (pfx, fpfx | px) =
+      $UN.ptr_vtake{a}(px)
+    val (pfy, fpfy | py) =
+      $UN.ptr_vtake{a}(py)
+    val sgn = gcompare_ref_ref(!px, !py)
+    prval () = fpfx(pfx) and () = fpfy(pfy)
+  in
+    if sgn != 0
+      then (sgn)
+      else loop(ptr_succ<a>(px), ptr_succ<a>(py), succ(i), succ(j))
+    // end of [if]
+  end else (1) // end of [else]
+//
+) else (
+//
+if j < n then (~1) else (0)
+//
+) (* end of [else] *)
+) (* end of [loop] *)
+//
+in
+  $effmask_all(loop(array0_get_ref{a}(xs), array0_get_ref{a}(xs), i2sz(0), i2sz(0)))
+end // end of [gcompare_val_val]
 
 (* ****** ****** *)
 

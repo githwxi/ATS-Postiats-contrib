@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Sat Oct 17 15:19:55 2015
+** Time of generation: Sun Dec 18 22:03:02 2016
 *)
 
 (* ****** ****** *)
@@ -131,18 +131,66 @@ argv_get_at
   prval () = minus_addback (fpf, pf | argv)
 } // end of [argv_get_at]
 *)
-
 (* ****** ****** *)
 
-implement{}
-assertexn_bool0 (b) = if not(b) then $raise AssertExn()
-implement{}
-assertexn_bool1 (b) = if not(b) then $raise AssertExn()
+implement
+{}(*tmp*)
+listize_argc_argv
+  {n}(argc, argv) = let
+//
+prval () =
+  lemma_argv_param(argv)
+//
+fun
+loop
+{i:nat | i <= n} .<n-i>.
+(
+argv: !argv(n), i0: int(i),
+res0: &ptr? >> list_vt(string, n-i)
+) : void =
+(
+if
+(i0 < argc)
+then let
+  val x0 = argv[i0]
+  val () =
+    res0 :=
+    list_vt_cons{string}{0}(x0, _)
+  // end of [val]
+  val+list_vt_cons(_, res1) = res0
+  val () = loop(argv, i0+1, res1)
+  prval ((*folded*)) = fold@(res0)
+in
+  // nothing
+end // end of [then]
+else () where
+{
+  val () = res0 := list_vt_nil()
+}
+) (* end of [loop] *)
+//
+in
+  let var res0: ptr in loop(argv, 0, res0); res0 end
+end // end of [listize_argc_argv]
 
 (* ****** ****** *)
+//
+implement{}
+assertexn_bool0 (b) =
+  if not(b) then $raise AssertExn()
+//
+implement{}
+assertexn_bool1 (b) =
+  if not(b) then $raise AssertExn()
+//
+(* ****** ****** *)
 
-implement{a} gidentity (x) = x
-implement{a} gidentity_vt (x) = x
+implement
+{a}(*tmp*)
+gidentity (x) = (x)
+implement
+{a}(*tmp*)
+gidentity_vt (x) = (x)
 
 (* ****** ****** *)
 
@@ -153,6 +201,18 @@ implement
 (a:t@ype)
 gcopy_ref<a> (x) = (x)
 
+(* ****** ****** *)
+//
+implement
+(a:t@ype)
+gfree_val<a> (x) = ((*void*))
+//
+(*
+implement
+(a:t@ype)
+gfree_ref<a> (x) = ((*void*))
+*)
+//
 (* ****** ****** *)
 //
 implement

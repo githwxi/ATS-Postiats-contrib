@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/basics.atxt
-** Time of generation: Sat Oct 17 15:20:01 2015
+** Time of generation: Wed Dec 14 18:44:53 2016
 */
 
 /* ****** ****** */
@@ -82,6 +82,16 @@ atspre_lxor_int_int
 ) {
   return ((x1)^(x2)) ;
 } /* [atspre_lxor_int_int] */
+
+/* ****** ****** */
+
+ATSinline()
+atstype_int
+atspre_int2sgn
+  (atstype_int x)
+{
+  return ((x < 0) ? -1 : ((x > 0) ? 1 : 0)) ;
+} /* [atspre_int2sgn] */
 
 /* ****** ****** */
 

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array_prf.atxt
-** Time of generation: Sat Oct 17 15:19:49 2015
+** Time of generation: Sun Nov 20 21:18:20 2016
 *)
 
 (* ****** ****** *)
@@ -66,6 +66,8 @@ array_v_split_at
 ) :<prf> @(
   array_v (a, l, i), array_v (a, l+i*sizeof(a), n-i)
 ) // end of [array_v_split_at]
+
+(* ****** ****** *)
 
 prfun
 array_v_unsplit

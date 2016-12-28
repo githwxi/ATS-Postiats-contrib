@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Sat Oct 17 15:19:44 2015
+** Time of generation: Sun Nov 20 21:18:15 2016
 *)
 
 (* ****** ****** *)
@@ -149,20 +149,38 @@ overload g1ofg0 with g1ofg0_char // index-inducing
 (* ****** ****** *)
 //
 castfn
-char2schar1 {c:int} (c: char (c)):<> schar (c)
+char2schar1
+  {c:int}(c: char (c)):<> schar (c)
 castfn
-schar2char1 {c:int} (c: schar (c)):<> char (c)
+schar2char1
+  {c:int}(c: schar (c)):<> char (c)
 //
 castfn
-char2uchar1 {c:int} (c: char (c)):<> uchar (i2u8(c))
+char2uchar1
+  {c:int}(c: char (c)):<> uchar (i2u8(c))
 castfn
-uchar2char1 {c:int} (c: uchar (c)):<> char (u2i8(c))
+uchar2char1
+  {c:int}(c: uchar (c)):<> char (u2i8(c))
 //
 (* ****** ****** *)
 //
-fun char1_iseqz
+fun
+char2int1
+  {c:int}(c: char (c)):<> int (c) = "mac#%"
+fun
+schar2int1
+  {c:int}(c: schar (c)):<> int (c) = "mac#%"
+fun
+uchar2int1
+  {c:int}(c: uchar (c)):<> int (c) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+char1_iseqz
   {c:int}(c: char(c)):<> bool(c == 0) = "mac#%"
-fun char1_isneqz
+fun
+char1_isneqz
   {c:int}(c: char(c)):<> bool(c != 0) = "mac#%"
 //
 overload iseqz with char1_iseqz of 10

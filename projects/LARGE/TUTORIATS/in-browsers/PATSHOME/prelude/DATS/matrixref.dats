@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Sat Oct 17 15:19:58 2015
+** Time of generation: Sun Nov 20 21:18:29 2016
 *)
 
 (* ****** ****** *)
@@ -142,7 +142,7 @@ matrixref_copy
 val A = $UN.cast{arrayref(a,m*n)}(M)
 //
 in
-  $UN.castvwtp0{matrixptr(a,m,n)}(arrayref_copy<a> (A, m*n))
+  $UN.castvwtp0{matrixptr(a,m,n)}(arrayref_copy<a>(A, m*n))
 end // end of [matrixref_copy]
 
 (* ****** ****** *)
@@ -151,13 +151,13 @@ implement{a}
 matrixref_tabulate
   (nrow, ncol) =
 (
-  matrixptr_refize (matrixptr_tabulate<a> (nrow, ncol))
+  matrixptr_refize (matrixptr_tabulate<a>(nrow, ncol))
 ) (* end of [matrixref_tabulate] *)
 
 implement{a}
 matrixref_tabulate_cloref
   (nrow, ncol, f) =
-  matrixptr_refize (matrixptr_tabulate_cloref<a> (nrow, ncol, f))
+  matrixptr_refize (matrixptr_tabulate_cloref<a>(nrow, ncol, f))
 // end of [matrixref_tabulate_cloref]
 
 (* ****** ****** *)
@@ -180,6 +180,28 @@ matrixref_foreach_env
 in
   $effmask_ref (matrix_foreach_env<a><env> (!p, m, n, env))
 end // end of [matrixref_foreach_env]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+matrixref_foreach_cloref
+  (A, m, n, fwork) = let
+//
+implement
+{a2}{env}
+matrix_foreach$fwork
+  (x, env) = let
+  val (pf, fpf | p) = $UN.ptr_vtake{a}(addr@x)
+  val ((*void*)) = fwork(!p)
+  prval ((*void*)) = fpf(pf)
+in
+  // nothing
+end // end of [matrix_foreach$work]
+//
+in
+  matrixref_foreach<a>(A, m, n)
+end // end of [matrixref_foreach_cloref]
 
 (* ****** ****** *)
 
@@ -479,5 +501,84 @@ mtrxszref_make_matrixref (M, nrow, ncol)
 end // end of [mtrxszref_tabulate_cloref]
 
 (* ****** ****** *)
-
+//
+implement
+{a}(*tmp*)
+streamize_mtrxszref_row_elt
+  (MSZ) = let
+//
+var m: size_t and n: size_t
+//
+val M0 = mtrxszref_get_refsize(MSZ, m, n)
+//
+in
+  streamize_matrixref_row_elt<a>(M0, m, n)
+end // end of [streamize_mtrxszref_row_elt]
+//
+implement
+{a}(*tmp*)
+streamize_mtrxszref_col_elt
+  (MSZ) = let
+//
+var m: size_t and n: size_t
+//
+val M0 = mtrxszref_get_refsize(MSZ, m, n)
+//
+in
+  streamize_matrixref_col_elt<a>(M0, m, n)
+end // end of [streamize_mtrxszref_col_elt]
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+streamize_matrixref_row_elt
+  {m,n}(M0, m, n) = let
+//
+val A0 = $UN.cast{arrayref(a,m*n)}(M0)
+//
+in
+  streamize_arrayref_elt<a>(A0, m * n)
+end // end of [streamize_matrixref_row_elt]
+//
+implement
+{a}(*tmp*)
+streamize_matrixref_col_elt
+  {m,n}
+  (M0, m, n) =
+  auxmain(i2sz(0)) where
+{
+//
+prval () = lemma_g1uint_param(m)
+prval () = lemma_g1uint_param(n)
+//
+fun
+auxmain
+(
+j : sizeLte(n)
+) : stream_vt(a) =
+(
+if (j < n)
+then auxmain2(j, i2sz(0)) else stream_vt_make_nil()
+)
+//
+and
+auxmain2
+(
+j : sizeLt(n),
+i : sizeLte(m)
+) : stream_vt(a) = $ldelay
+(
+if
+(i < m)
+then
+stream_vt_cons{a}
+  (matrixref_get_at<a>(M0, i, n, j), auxmain2(j, i+1))
+else !(auxmain(j+1))
+) (* end of [auxmain2] *)
+//
+} (* end of [streamize_matrixref_col_elt] *)
+//
+(* ****** ****** *)
+//
 (* end of [matrixref.dats] *)

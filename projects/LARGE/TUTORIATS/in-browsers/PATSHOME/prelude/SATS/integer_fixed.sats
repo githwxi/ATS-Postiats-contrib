@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Sat Oct 17 15:19:46 2015
-*)
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: January, 2013 *)
 
 (* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: January, 2013 *)
+(*
+** Source:
+** $PATSHOME/prelude/SATS/CODEGEN/integer_fixed.atxt
+** Time of generation: Sun Nov 20 21:18:17 2016
+*)
 
 (* ****** ****** *)
 //
@@ -46,11 +46,6 @@
 (* ****** ****** *)
 
 sortdef tk = tkind
-
-(* ****** ****** *)
-
-typedef SHR(a:t@ype) = a // for commenting purpose
-typedef NSH(a:t@ype) = a // for commenting purpose
 
 (* ****** ****** *)
 //
@@ -85,12 +80,6 @@ fun g0int_sub_int8 (x: int8, y: int8):<> int8 = "mac#%"
 fun g0int_mul_int8 (x: int8, y: int8):<> int8 = "mac#%"
 fun g0int_div_int8 (x: int8, y: int8):<> int8 = "mac#%"
 fun g0int_mod_int8 (x: int8, y: int8):<> int8 = "mac#%"
-fun g0int_isltz_int8 (x: int8):<> bool = "mac#%"
-fun g0int_isltez_int8 (x: int8):<> bool = "mac#%"
-fun g0int_isgtz_int8 (x: int8):<> bool = "mac#%"
-fun g0int_isgtez_int8 (x: int8):<> bool = "mac#%"
-fun g0int_iseqz_int8 (x: int8):<> bool = "mac#%"
-fun g0int_isneqz_int8 (x: int8):<> bool = "mac#%"
 fun g0int_lt_int8 (x: int8, y: int8):<> bool = "mac#%"
 fun g0int_lte_int8 (x: int8, y: int8):<> bool = "mac#%"
 fun g0int_gt_int8 (x: int8, y: int8):<> bool = "mac#%"
@@ -100,6 +89,12 @@ fun g0int_neq_int8 (x: int8, y: int8):<> bool = "mac#%"
 fun g0int_compare_int8 (x: int8, y: int8):<> int = "mac#%"
 fun g0int_max_int8 (x: int8, y: int8):<> int8 = "mac#%"
 fun g0int_min_int8 (x: int8, y: int8):<> int8 = "mac#%"
+fun g0int_isltz_int8 (x: int8):<> bool = "mac#%"
+fun g0int_isltez_int8 (x: int8):<> bool = "mac#%"
+fun g0int_isgtz_int8 (x: int8):<> bool = "mac#%"
+fun g0int_isgtez_int8 (x: int8):<> bool = "mac#%"
+fun g0int_iseqz_int8 (x: int8):<> bool = "mac#%"
+fun g0int_isneqz_int8 (x: int8):<> bool = "mac#%"
 //
 fun g0int_neg_int16 (x: int16):<> int16 = "mac#%"
 fun g0int_abs_int16 (x: int16):<> int16 = "mac#%"
@@ -113,12 +108,6 @@ fun g0int_sub_int16 (x: int16, y: int16):<> int16 = "mac#%"
 fun g0int_mul_int16 (x: int16, y: int16):<> int16 = "mac#%"
 fun g0int_div_int16 (x: int16, y: int16):<> int16 = "mac#%"
 fun g0int_mod_int16 (x: int16, y: int16):<> int16 = "mac#%"
-fun g0int_isltz_int16 (x: int16):<> bool = "mac#%"
-fun g0int_isltez_int16 (x: int16):<> bool = "mac#%"
-fun g0int_isgtz_int16 (x: int16):<> bool = "mac#%"
-fun g0int_isgtez_int16 (x: int16):<> bool = "mac#%"
-fun g0int_iseqz_int16 (x: int16):<> bool = "mac#%"
-fun g0int_isneqz_int16 (x: int16):<> bool = "mac#%"
 fun g0int_lt_int16 (x: int16, y: int16):<> bool = "mac#%"
 fun g0int_lte_int16 (x: int16, y: int16):<> bool = "mac#%"
 fun g0int_gt_int16 (x: int16, y: int16):<> bool = "mac#%"
@@ -128,6 +117,12 @@ fun g0int_neq_int16 (x: int16, y: int16):<> bool = "mac#%"
 fun g0int_compare_int16 (x: int16, y: int16):<> int = "mac#%"
 fun g0int_max_int16 (x: int16, y: int16):<> int16 = "mac#%"
 fun g0int_min_int16 (x: int16, y: int16):<> int16 = "mac#%"
+fun g0int_isltz_int16 (x: int16):<> bool = "mac#%"
+fun g0int_isltez_int16 (x: int16):<> bool = "mac#%"
+fun g0int_isgtz_int16 (x: int16):<> bool = "mac#%"
+fun g0int_isgtez_int16 (x: int16):<> bool = "mac#%"
+fun g0int_iseqz_int16 (x: int16):<> bool = "mac#%"
+fun g0int_isneqz_int16 (x: int16):<> bool = "mac#%"
 //
 fun g0int_neg_int32 (x: int32):<> int32 = "mac#%"
 fun g0int_abs_int32 (x: int32):<> int32 = "mac#%"
@@ -141,12 +136,6 @@ fun g0int_sub_int32 (x: int32, y: int32):<> int32 = "mac#%"
 fun g0int_mul_int32 (x: int32, y: int32):<> int32 = "mac#%"
 fun g0int_div_int32 (x: int32, y: int32):<> int32 = "mac#%"
 fun g0int_mod_int32 (x: int32, y: int32):<> int32 = "mac#%"
-fun g0int_isltz_int32 (x: int32):<> bool = "mac#%"
-fun g0int_isltez_int32 (x: int32):<> bool = "mac#%"
-fun g0int_isgtz_int32 (x: int32):<> bool = "mac#%"
-fun g0int_isgtez_int32 (x: int32):<> bool = "mac#%"
-fun g0int_iseqz_int32 (x: int32):<> bool = "mac#%"
-fun g0int_isneqz_int32 (x: int32):<> bool = "mac#%"
 fun g0int_lt_int32 (x: int32, y: int32):<> bool = "mac#%"
 fun g0int_lte_int32 (x: int32, y: int32):<> bool = "mac#%"
 fun g0int_gt_int32 (x: int32, y: int32):<> bool = "mac#%"
@@ -156,6 +145,12 @@ fun g0int_neq_int32 (x: int32, y: int32):<> bool = "mac#%"
 fun g0int_compare_int32 (x: int32, y: int32):<> int = "mac#%"
 fun g0int_max_int32 (x: int32, y: int32):<> int32 = "mac#%"
 fun g0int_min_int32 (x: int32, y: int32):<> int32 = "mac#%"
+fun g0int_isltz_int32 (x: int32):<> bool = "mac#%"
+fun g0int_isltez_int32 (x: int32):<> bool = "mac#%"
+fun g0int_isgtz_int32 (x: int32):<> bool = "mac#%"
+fun g0int_isgtez_int32 (x: int32):<> bool = "mac#%"
+fun g0int_iseqz_int32 (x: int32):<> bool = "mac#%"
+fun g0int_isneqz_int32 (x: int32):<> bool = "mac#%"
 //
 fun g0int_neg_int64 (x: int64):<> int64 = "mac#%"
 fun g0int_abs_int64 (x: int64):<> int64 = "mac#%"
@@ -169,12 +164,6 @@ fun g0int_sub_int64 (x: int64, y: int64):<> int64 = "mac#%"
 fun g0int_mul_int64 (x: int64, y: int64):<> int64 = "mac#%"
 fun g0int_div_int64 (x: int64, y: int64):<> int64 = "mac#%"
 fun g0int_mod_int64 (x: int64, y: int64):<> int64 = "mac#%"
-fun g0int_isltz_int64 (x: int64):<> bool = "mac#%"
-fun g0int_isltez_int64 (x: int64):<> bool = "mac#%"
-fun g0int_isgtz_int64 (x: int64):<> bool = "mac#%"
-fun g0int_isgtez_int64 (x: int64):<> bool = "mac#%"
-fun g0int_iseqz_int64 (x: int64):<> bool = "mac#%"
-fun g0int_isneqz_int64 (x: int64):<> bool = "mac#%"
 fun g0int_lt_int64 (x: int64, y: int64):<> bool = "mac#%"
 fun g0int_lte_int64 (x: int64, y: int64):<> bool = "mac#%"
 fun g0int_gt_int64 (x: int64, y: int64):<> bool = "mac#%"
@@ -184,40 +173,42 @@ fun g0int_neq_int64 (x: int64, y: int64):<> bool = "mac#%"
 fun g0int_compare_int64 (x: int64, y: int64):<> int = "mac#%"
 fun g0int_max_int64 (x: int64, y: int64):<> int64 = "mac#%"
 fun g0int_min_int64 (x: int64, y: int64):<> int64 = "mac#%"
+fun g0int_isltz_int64 (x: int64):<> bool = "mac#%"
+fun g0int_isltez_int64 (x: int64):<> bool = "mac#%"
+fun g0int_isgtz_int64 (x: int64):<> bool = "mac#%"
+fun g0int_isgtez_int64 (x: int64):<> bool = "mac#%"
+fun g0int_iseqz_int64 (x: int64):<> bool = "mac#%"
+fun g0int_isneqz_int64 (x: int64):<> bool = "mac#%"
 //
 (* ****** ****** *)
 
-fun fprint_int8
-  : fprint_type (int8) = "mac#%"
-overload fprint with fprint_int8
-fun print_int8 (x: int8): void = "mac#%"
-fun prerr_int8 (x: int8): void = "mac#%"
+fun print_int8 (int8): void = "mac#%"
+fun prerr_int8 (int8): void = "mac#%"
+fun fprint_int8 : fprint_type (int8) = "mac#%"
 overload print with print_int8
 overload prerr with prerr_int8
+overload fprint with fprint_int8
 
-fun fprint_int16
-  : fprint_type (int16) = "mac#%"
-overload fprint with fprint_int16
-fun print_int16 (x: int16): void = "mac#%"
-fun prerr_int16 (x: int16): void = "mac#%"
+fun print_int16 (int16): void = "mac#%"
+fun prerr_int16 (int16): void = "mac#%"
+fun fprint_int16 : fprint_type (int16) = "mac#%"
 overload print with print_int16
 overload prerr with prerr_int16
+overload fprint with fprint_int16
 
-fun fprint_int32
-  : fprint_type (int32) = "mac#%"
-overload fprint with fprint_int32
-fun print_int32 (x: int32): void = "mac#%"
-fun prerr_int32 (x: int32): void = "mac#%"
+fun print_int32 (int32): void = "mac#%"
+fun prerr_int32 (int32): void = "mac#%"
+fun fprint_int32 : fprint_type (int32) = "mac#%"
 overload print with print_int32
 overload prerr with prerr_int32
+overload fprint with fprint_int32
 
-fun fprint_int64
-  : fprint_type (int64) = "mac#%"
-overload fprint with fprint_int64
-fun print_int64 (x: int64): void = "mac#%"
-fun prerr_int64 (x: int64): void = "mac#%"
+fun print_int64 (int64): void = "mac#%"
+fun prerr_int64 (int64): void = "mac#%"
+fun fprint_int64 : fprint_type (int64) = "mac#%"
 overload print with print_int64
 overload prerr with prerr_int64
+overload fprint with fprint_int64
 
 
 (* ****** ****** *)
@@ -253,9 +244,6 @@ fun g0uint_lnot_uint8 (x: uint8):<> uint8 = "mac#%"
 fun g0uint_lor_uint8 (x: uint8, y: uint8):<> uint8 = "mac#%"
 fun g0uint_lxor_uint8 (x: uint8, y: uint8):<> uint8 = "mac#%"
 fun g0uint_land_uint8 (x: uint8, y: uint8):<> uint8 = "mac#%"
-fun g0uint_isgtz_uint8 (x: uint8):<> bool = "mac#%"
-fun g0uint_iseqz_uint8 (x: uint8):<> bool = "mac#%"
-fun g0uint_isneqz_uint8 (x: uint8):<> bool = "mac#%"
 fun g0uint_lt_uint8 (x: uint8, y: uint8):<> bool = "mac#%"
 fun g0uint_lte_uint8 (x: uint8, y: uint8):<> bool = "mac#%"
 fun g0uint_gt_uint8 (x: uint8, y: uint8):<> bool = "mac#%"
@@ -265,6 +253,9 @@ fun g0uint_neq_uint8 (x: uint8, y: uint8):<> bool = "mac#%"
 fun g0uint_compare_uint8 (x: uint8, y: uint8):<> int = "mac#%"
 fun g0uint_max_uint8 (x: uint8, y: uint8):<> uint8 = "mac#%"
 fun g0uint_min_uint8 (x: uint8, y: uint8):<> uint8 = "mac#%"
+fun g0uint_isgtz_uint8 (x: uint8):<> bool = "mac#%"
+fun g0uint_iseqz_uint8 (x: uint8):<> bool = "mac#%"
+fun g0uint_isneqz_uint8 (x: uint8):<> bool = "mac#%"
 //
 fun g0uint_succ_uint16 (x: uint16):<> uint16 = "mac#%"
 fun g0uint_pred_uint16 (x: uint16):<> uint16 = "mac#%"
@@ -280,9 +271,6 @@ fun g0uint_lnot_uint16 (x: uint16):<> uint16 = "mac#%"
 fun g0uint_lor_uint16 (x: uint16, y: uint16):<> uint16 = "mac#%"
 fun g0uint_lxor_uint16 (x: uint16, y: uint16):<> uint16 = "mac#%"
 fun g0uint_land_uint16 (x: uint16, y: uint16):<> uint16 = "mac#%"
-fun g0uint_isgtz_uint16 (x: uint16):<> bool = "mac#%"
-fun g0uint_iseqz_uint16 (x: uint16):<> bool = "mac#%"
-fun g0uint_isneqz_uint16 (x: uint16):<> bool = "mac#%"
 fun g0uint_lt_uint16 (x: uint16, y: uint16):<> bool = "mac#%"
 fun g0uint_lte_uint16 (x: uint16, y: uint16):<> bool = "mac#%"
 fun g0uint_gt_uint16 (x: uint16, y: uint16):<> bool = "mac#%"
@@ -292,6 +280,9 @@ fun g0uint_neq_uint16 (x: uint16, y: uint16):<> bool = "mac#%"
 fun g0uint_compare_uint16 (x: uint16, y: uint16):<> int = "mac#%"
 fun g0uint_max_uint16 (x: uint16, y: uint16):<> uint16 = "mac#%"
 fun g0uint_min_uint16 (x: uint16, y: uint16):<> uint16 = "mac#%"
+fun g0uint_isgtz_uint16 (x: uint16):<> bool = "mac#%"
+fun g0uint_iseqz_uint16 (x: uint16):<> bool = "mac#%"
+fun g0uint_isneqz_uint16 (x: uint16):<> bool = "mac#%"
 //
 fun g0uint_succ_uint32 (x: uint32):<> uint32 = "mac#%"
 fun g0uint_pred_uint32 (x: uint32):<> uint32 = "mac#%"
@@ -307,9 +298,6 @@ fun g0uint_lnot_uint32 (x: uint32):<> uint32 = "mac#%"
 fun g0uint_lor_uint32 (x: uint32, y: uint32):<> uint32 = "mac#%"
 fun g0uint_lxor_uint32 (x: uint32, y: uint32):<> uint32 = "mac#%"
 fun g0uint_land_uint32 (x: uint32, y: uint32):<> uint32 = "mac#%"
-fun g0uint_isgtz_uint32 (x: uint32):<> bool = "mac#%"
-fun g0uint_iseqz_uint32 (x: uint32):<> bool = "mac#%"
-fun g0uint_isneqz_uint32 (x: uint32):<> bool = "mac#%"
 fun g0uint_lt_uint32 (x: uint32, y: uint32):<> bool = "mac#%"
 fun g0uint_lte_uint32 (x: uint32, y: uint32):<> bool = "mac#%"
 fun g0uint_gt_uint32 (x: uint32, y: uint32):<> bool = "mac#%"
@@ -319,6 +307,9 @@ fun g0uint_neq_uint32 (x: uint32, y: uint32):<> bool = "mac#%"
 fun g0uint_compare_uint32 (x: uint32, y: uint32):<> int = "mac#%"
 fun g0uint_max_uint32 (x: uint32, y: uint32):<> uint32 = "mac#%"
 fun g0uint_min_uint32 (x: uint32, y: uint32):<> uint32 = "mac#%"
+fun g0uint_isgtz_uint32 (x: uint32):<> bool = "mac#%"
+fun g0uint_iseqz_uint32 (x: uint32):<> bool = "mac#%"
+fun g0uint_isneqz_uint32 (x: uint32):<> bool = "mac#%"
 //
 fun g0uint_succ_uint64 (x: uint64):<> uint64 = "mac#%"
 fun g0uint_pred_uint64 (x: uint64):<> uint64 = "mac#%"
@@ -334,9 +325,6 @@ fun g0uint_lnot_uint64 (x: uint64):<> uint64 = "mac#%"
 fun g0uint_lor_uint64 (x: uint64, y: uint64):<> uint64 = "mac#%"
 fun g0uint_lxor_uint64 (x: uint64, y: uint64):<> uint64 = "mac#%"
 fun g0uint_land_uint64 (x: uint64, y: uint64):<> uint64 = "mac#%"
-fun g0uint_isgtz_uint64 (x: uint64):<> bool = "mac#%"
-fun g0uint_iseqz_uint64 (x: uint64):<> bool = "mac#%"
-fun g0uint_isneqz_uint64 (x: uint64):<> bool = "mac#%"
 fun g0uint_lt_uint64 (x: uint64, y: uint64):<> bool = "mac#%"
 fun g0uint_lte_uint64 (x: uint64, y: uint64):<> bool = "mac#%"
 fun g0uint_gt_uint64 (x: uint64, y: uint64):<> bool = "mac#%"
@@ -346,40 +334,39 @@ fun g0uint_neq_uint64 (x: uint64, y: uint64):<> bool = "mac#%"
 fun g0uint_compare_uint64 (x: uint64, y: uint64):<> int = "mac#%"
 fun g0uint_max_uint64 (x: uint64, y: uint64):<> uint64 = "mac#%"
 fun g0uint_min_uint64 (x: uint64, y: uint64):<> uint64 = "mac#%"
+fun g0uint_isgtz_uint64 (x: uint64):<> bool = "mac#%"
+fun g0uint_iseqz_uint64 (x: uint64):<> bool = "mac#%"
+fun g0uint_isneqz_uint64 (x: uint64):<> bool = "mac#%"
 //
 (* ****** ****** *)
 
-fun fprint_uint8
-  : fprint_type (uint8) = "mac#%"
-overload fprint with fprint_uint8
-fun print_uint8 (x: uint8): void = "mac#%"
-fun prerr_uint8 (x: uint8): void = "mac#%"
+fun print_uint8 (uint8): void = "mac#%"
+fun prerr_uint8 (uint8): void = "mac#%"
+fun fprint_uint8 : fprint_type (uint8) = "mac#%"
 overload print with print_uint8
 overload prerr with prerr_uint8
+overload fprint with fprint_uint8
 
-fun fprint_uint16
-  : fprint_type (uint16) = "mac#%"
-overload fprint with fprint_uint16
-fun print_uint16 (x: uint16): void = "mac#%"
-fun prerr_uint16 (x: uint16): void = "mac#%"
+fun print_uint16 (uint16): void = "mac#%"
+fun prerr_uint16 (uint16): void = "mac#%"
+fun fprint_uint16 : fprint_type (uint16) = "mac#%"
 overload print with print_uint16
 overload prerr with prerr_uint16
+overload fprint with fprint_uint16
 
-fun fprint_uint32
-  : fprint_type (uint32) = "mac#%"
-overload fprint with fprint_uint32
-fun print_uint32 (x: uint32): void = "mac#%"
-fun prerr_uint32 (x: uint32): void = "mac#%"
+fun print_uint32 (uint32): void = "mac#%"
+fun prerr_uint32 (uint32): void = "mac#%"
+fun fprint_uint32 : fprint_type (uint32) = "mac#%"
 overload print with print_uint32
 overload prerr with prerr_uint32
+overload fprint with fprint_uint32
 
-fun fprint_uint64
-  : fprint_type (uint64) = "mac#%"
-overload fprint with fprint_uint64
-fun print_uint64 (x: uint64): void = "mac#%"
-fun prerr_uint64 (x: uint64): void = "mac#%"
+fun print_uint64 (uint64): void = "mac#%"
+fun prerr_uint64 (uint64): void = "mac#%"
+fun fprint_uint64 : fprint_type (uint64) = "mac#%"
 overload print with print_uint64
 overload prerr with prerr_uint64
+overload fprint with fprint_uint64
 
 
 (* ****** ****** *)
@@ -394,12 +381,6 @@ fun g1int_sub_int8 : g1int_sub_type (int8knd) = "mac#%"
 fun g1int_mul_int8 : g1int_mul_type (int8knd) = "mac#%"
 fun g1int_div_int8 : g1int_div_type (int8knd) = "mac#%"
 fun g1int_nmod_int8 : g1int_nmod_type (int8knd) = "mac#%"
-fun g1int_isltz_int8 : g1int_isltz_type (int8knd) = "mac#%"
-fun g1int_isltez_int8 : g1int_isltez_type (int8knd) = "mac#%"
-fun g1int_isgtz_int8 : g1int_isgtz_type (int8knd) = "mac#%"
-fun g1int_isgtez_int8 : g1int_isgtez_type (int8knd) = "mac#%"
-fun g1int_iseqz_int8 : g1int_iseqz_type (int8knd) = "mac#%"
-fun g1int_isneqz_int8 : g1int_isneqz_type (int8knd) = "mac#%"
 fun g1int_lt_int8 : g1int_lt_type (int8knd) = "mac#%"
 fun g1int_lte_int8 : g1int_lte_type (int8knd) = "mac#%"
 fun g1int_gt_int8 : g1int_gt_type (int8knd) = "mac#%"
@@ -409,6 +390,12 @@ fun g1int_neq_int8 : g1int_neq_type (int8knd) = "mac#%"
 fun g1int_compare_int8 : g1int_compare_type (int8knd) = "mac#%"
 fun g1int_max_int8 : g1int_max_type (int8knd) = "mac#%"
 fun g1int_min_int8 : g1int_min_type (int8knd) = "mac#%"
+fun g1int_isltz_int8 : g1int_isltz_type (int8knd) = "mac#%"
+fun g1int_isltez_int8 : g1int_isltez_type (int8knd) = "mac#%"
+fun g1int_isgtz_int8 : g1int_isgtz_type (int8knd) = "mac#%"
+fun g1int_isgtez_int8 : g1int_isgtez_type (int8knd) = "mac#%"
+fun g1int_iseqz_int8 : g1int_iseqz_type (int8knd) = "mac#%"
+fun g1int_isneqz_int8 : g1int_isneqz_type (int8knd) = "mac#%"
 //
 fun g1int_neg_int16 : g1int_neg_type (int16knd) = "mac#%"
 fun g1int_abs_int16 : g1int_abs_type (int16knd) = "mac#%"
@@ -420,12 +407,6 @@ fun g1int_sub_int16 : g1int_sub_type (int16knd) = "mac#%"
 fun g1int_mul_int16 : g1int_mul_type (int16knd) = "mac#%"
 fun g1int_div_int16 : g1int_div_type (int16knd) = "mac#%"
 fun g1int_nmod_int16 : g1int_nmod_type (int16knd) = "mac#%"
-fun g1int_isltz_int16 : g1int_isltz_type (int16knd) = "mac#%"
-fun g1int_isltez_int16 : g1int_isltez_type (int16knd) = "mac#%"
-fun g1int_isgtz_int16 : g1int_isgtz_type (int16knd) = "mac#%"
-fun g1int_isgtez_int16 : g1int_isgtez_type (int16knd) = "mac#%"
-fun g1int_iseqz_int16 : g1int_iseqz_type (int16knd) = "mac#%"
-fun g1int_isneqz_int16 : g1int_isneqz_type (int16knd) = "mac#%"
 fun g1int_lt_int16 : g1int_lt_type (int16knd) = "mac#%"
 fun g1int_lte_int16 : g1int_lte_type (int16knd) = "mac#%"
 fun g1int_gt_int16 : g1int_gt_type (int16knd) = "mac#%"
@@ -435,6 +416,12 @@ fun g1int_neq_int16 : g1int_neq_type (int16knd) = "mac#%"
 fun g1int_compare_int16 : g1int_compare_type (int16knd) = "mac#%"
 fun g1int_max_int16 : g1int_max_type (int16knd) = "mac#%"
 fun g1int_min_int16 : g1int_min_type (int16knd) = "mac#%"
+fun g1int_isltz_int16 : g1int_isltz_type (int16knd) = "mac#%"
+fun g1int_isltez_int16 : g1int_isltez_type (int16knd) = "mac#%"
+fun g1int_isgtz_int16 : g1int_isgtz_type (int16knd) = "mac#%"
+fun g1int_isgtez_int16 : g1int_isgtez_type (int16knd) = "mac#%"
+fun g1int_iseqz_int16 : g1int_iseqz_type (int16knd) = "mac#%"
+fun g1int_isneqz_int16 : g1int_isneqz_type (int16knd) = "mac#%"
 //
 fun g1int_neg_int32 : g1int_neg_type (int32knd) = "mac#%"
 fun g1int_abs_int32 : g1int_abs_type (int32knd) = "mac#%"
@@ -446,12 +433,6 @@ fun g1int_sub_int32 : g1int_sub_type (int32knd) = "mac#%"
 fun g1int_mul_int32 : g1int_mul_type (int32knd) = "mac#%"
 fun g1int_div_int32 : g1int_div_type (int32knd) = "mac#%"
 fun g1int_nmod_int32 : g1int_nmod_type (int32knd) = "mac#%"
-fun g1int_isltz_int32 : g1int_isltz_type (int32knd) = "mac#%"
-fun g1int_isltez_int32 : g1int_isltez_type (int32knd) = "mac#%"
-fun g1int_isgtz_int32 : g1int_isgtz_type (int32knd) = "mac#%"
-fun g1int_isgtez_int32 : g1int_isgtez_type (int32knd) = "mac#%"
-fun g1int_iseqz_int32 : g1int_iseqz_type (int32knd) = "mac#%"
-fun g1int_isneqz_int32 : g1int_isneqz_type (int32knd) = "mac#%"
 fun g1int_lt_int32 : g1int_lt_type (int32knd) = "mac#%"
 fun g1int_lte_int32 : g1int_lte_type (int32knd) = "mac#%"
 fun g1int_gt_int32 : g1int_gt_type (int32knd) = "mac#%"
@@ -461,6 +442,12 @@ fun g1int_neq_int32 : g1int_neq_type (int32knd) = "mac#%"
 fun g1int_compare_int32 : g1int_compare_type (int32knd) = "mac#%"
 fun g1int_max_int32 : g1int_max_type (int32knd) = "mac#%"
 fun g1int_min_int32 : g1int_min_type (int32knd) = "mac#%"
+fun g1int_isltz_int32 : g1int_isltz_type (int32knd) = "mac#%"
+fun g1int_isltez_int32 : g1int_isltez_type (int32knd) = "mac#%"
+fun g1int_isgtz_int32 : g1int_isgtz_type (int32knd) = "mac#%"
+fun g1int_isgtez_int32 : g1int_isgtez_type (int32knd) = "mac#%"
+fun g1int_iseqz_int32 : g1int_iseqz_type (int32knd) = "mac#%"
+fun g1int_isneqz_int32 : g1int_isneqz_type (int32knd) = "mac#%"
 //
 fun g1int_neg_int64 : g1int_neg_type (int64knd) = "mac#%"
 fun g1int_abs_int64 : g1int_abs_type (int64knd) = "mac#%"
@@ -472,12 +459,6 @@ fun g1int_sub_int64 : g1int_sub_type (int64knd) = "mac#%"
 fun g1int_mul_int64 : g1int_mul_type (int64knd) = "mac#%"
 fun g1int_div_int64 : g1int_div_type (int64knd) = "mac#%"
 fun g1int_nmod_int64 : g1int_nmod_type (int64knd) = "mac#%"
-fun g1int_isltz_int64 : g1int_isltz_type (int64knd) = "mac#%"
-fun g1int_isltez_int64 : g1int_isltez_type (int64knd) = "mac#%"
-fun g1int_isgtz_int64 : g1int_isgtz_type (int64knd) = "mac#%"
-fun g1int_isgtez_int64 : g1int_isgtez_type (int64knd) = "mac#%"
-fun g1int_iseqz_int64 : g1int_iseqz_type (int64knd) = "mac#%"
-fun g1int_isneqz_int64 : g1int_isneqz_type (int64knd) = "mac#%"
 fun g1int_lt_int64 : g1int_lt_type (int64knd) = "mac#%"
 fun g1int_lte_int64 : g1int_lte_type (int64knd) = "mac#%"
 fun g1int_gt_int64 : g1int_gt_type (int64knd) = "mac#%"
@@ -487,6 +468,12 @@ fun g1int_neq_int64 : g1int_neq_type (int64knd) = "mac#%"
 fun g1int_compare_int64 : g1int_compare_type (int64knd) = "mac#%"
 fun g1int_max_int64 : g1int_max_type (int64knd) = "mac#%"
 fun g1int_min_int64 : g1int_min_type (int64knd) = "mac#%"
+fun g1int_isltz_int64 : g1int_isltz_type (int64knd) = "mac#%"
+fun g1int_isltez_int64 : g1int_isltez_type (int64knd) = "mac#%"
+fun g1int_isgtz_int64 : g1int_isgtz_type (int64knd) = "mac#%"
+fun g1int_isgtez_int64 : g1int_isgtez_type (int64knd) = "mac#%"
+fun g1int_iseqz_int64 : g1int_iseqz_type (int64knd) = "mac#%"
+fun g1int_isneqz_int64 : g1int_isneqz_type (int64knd) = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -498,9 +485,6 @@ fun g1uint_sub_uint8 : g1uint_sub_type (uint8knd) = "mac#%"
 fun g1uint_mul_uint8 : g1uint_mul_type (uint8knd) = "mac#%"
 fun g1uint_div_uint8 : g1uint_div_type (uint8knd) = "mac#%"
 fun g1uint_mod_uint8 : g1uint_mod_type (uint8knd) = "mac#%"
-fun g1uint_isgtz_uint8 : g1uint_isgtz_type (uint8knd) = "mac#%"
-fun g1uint_iseqz_uint8 : g1uint_iseqz_type (uint8knd) = "mac#%"
-fun g1uint_isneqz_uint8 : g1uint_isneqz_type (uint8knd) = "mac#%"
 fun g1uint_lt_uint8 : g1uint_lt_type (uint8knd) = "mac#%"
 fun g1uint_lte_uint8 : g1uint_lte_type (uint8knd) = "mac#%"
 fun g1uint_gt_uint8 : g1uint_gt_type (uint8knd) = "mac#%"
@@ -510,6 +494,9 @@ fun g1uint_neq_uint8 : g1uint_neq_type (uint8knd) = "mac#%"
 fun g1uint_compare_uint8 : g1uint_compare_type (uint8knd) = "mac#%"
 fun g1uint_max_uint8 : g1uint_max_type (uint8knd) = "mac#%"
 fun g1uint_min_uint8 : g1uint_min_type (uint8knd) = "mac#%"
+fun g1uint_isgtz_uint8 : g1uint_isgtz_type (uint8knd) = "mac#%"
+fun g1uint_iseqz_uint8 : g1uint_iseqz_type (uint8knd) = "mac#%"
+fun g1uint_isneqz_uint8 : g1uint_isneqz_type (uint8knd) = "mac#%"
 //
 fun g1uint_succ_uint16 : g1uint_succ_type (uint16knd) = "mac#%"
 fun g1uint_pred_uint16 : g1uint_pred_type (uint16knd) = "mac#%"
@@ -519,9 +506,6 @@ fun g1uint_sub_uint16 : g1uint_sub_type (uint16knd) = "mac#%"
 fun g1uint_mul_uint16 : g1uint_mul_type (uint16knd) = "mac#%"
 fun g1uint_div_uint16 : g1uint_div_type (uint16knd) = "mac#%"
 fun g1uint_mod_uint16 : g1uint_mod_type (uint16knd) = "mac#%"
-fun g1uint_isgtz_uint16 : g1uint_isgtz_type (uint16knd) = "mac#%"
-fun g1uint_iseqz_uint16 : g1uint_iseqz_type (uint16knd) = "mac#%"
-fun g1uint_isneqz_uint16 : g1uint_isneqz_type (uint16knd) = "mac#%"
 fun g1uint_lt_uint16 : g1uint_lt_type (uint16knd) = "mac#%"
 fun g1uint_lte_uint16 : g1uint_lte_type (uint16knd) = "mac#%"
 fun g1uint_gt_uint16 : g1uint_gt_type (uint16knd) = "mac#%"
@@ -531,6 +515,9 @@ fun g1uint_neq_uint16 : g1uint_neq_type (uint16knd) = "mac#%"
 fun g1uint_compare_uint16 : g1uint_compare_type (uint16knd) = "mac#%"
 fun g1uint_max_uint16 : g1uint_max_type (uint16knd) = "mac#%"
 fun g1uint_min_uint16 : g1uint_min_type (uint16knd) = "mac#%"
+fun g1uint_isgtz_uint16 : g1uint_isgtz_type (uint16knd) = "mac#%"
+fun g1uint_iseqz_uint16 : g1uint_iseqz_type (uint16knd) = "mac#%"
+fun g1uint_isneqz_uint16 : g1uint_isneqz_type (uint16knd) = "mac#%"
 //
 fun g1uint_succ_uint32 : g1uint_succ_type (uint32knd) = "mac#%"
 fun g1uint_pred_uint32 : g1uint_pred_type (uint32knd) = "mac#%"
@@ -540,9 +527,6 @@ fun g1uint_sub_uint32 : g1uint_sub_type (uint32knd) = "mac#%"
 fun g1uint_mul_uint32 : g1uint_mul_type (uint32knd) = "mac#%"
 fun g1uint_div_uint32 : g1uint_div_type (uint32knd) = "mac#%"
 fun g1uint_mod_uint32 : g1uint_mod_type (uint32knd) = "mac#%"
-fun g1uint_isgtz_uint32 : g1uint_isgtz_type (uint32knd) = "mac#%"
-fun g1uint_iseqz_uint32 : g1uint_iseqz_type (uint32knd) = "mac#%"
-fun g1uint_isneqz_uint32 : g1uint_isneqz_type (uint32knd) = "mac#%"
 fun g1uint_lt_uint32 : g1uint_lt_type (uint32knd) = "mac#%"
 fun g1uint_lte_uint32 : g1uint_lte_type (uint32knd) = "mac#%"
 fun g1uint_gt_uint32 : g1uint_gt_type (uint32knd) = "mac#%"
@@ -552,6 +536,9 @@ fun g1uint_neq_uint32 : g1uint_neq_type (uint32knd) = "mac#%"
 fun g1uint_compare_uint32 : g1uint_compare_type (uint32knd) = "mac#%"
 fun g1uint_max_uint32 : g1uint_max_type (uint32knd) = "mac#%"
 fun g1uint_min_uint32 : g1uint_min_type (uint32knd) = "mac#%"
+fun g1uint_isgtz_uint32 : g1uint_isgtz_type (uint32knd) = "mac#%"
+fun g1uint_iseqz_uint32 : g1uint_iseqz_type (uint32knd) = "mac#%"
+fun g1uint_isneqz_uint32 : g1uint_isneqz_type (uint32knd) = "mac#%"
 //
 fun g1uint_succ_uint64 : g1uint_succ_type (uint64knd) = "mac#%"
 fun g1uint_pred_uint64 : g1uint_pred_type (uint64knd) = "mac#%"
@@ -561,9 +548,6 @@ fun g1uint_sub_uint64 : g1uint_sub_type (uint64knd) = "mac#%"
 fun g1uint_mul_uint64 : g1uint_mul_type (uint64knd) = "mac#%"
 fun g1uint_div_uint64 : g1uint_div_type (uint64knd) = "mac#%"
 fun g1uint_mod_uint64 : g1uint_mod_type (uint64knd) = "mac#%"
-fun g1uint_isgtz_uint64 : g1uint_isgtz_type (uint64knd) = "mac#%"
-fun g1uint_iseqz_uint64 : g1uint_iseqz_type (uint64knd) = "mac#%"
-fun g1uint_isneqz_uint64 : g1uint_isneqz_type (uint64knd) = "mac#%"
 fun g1uint_lt_uint64 : g1uint_lt_type (uint64knd) = "mac#%"
 fun g1uint_lte_uint64 : g1uint_lte_type (uint64knd) = "mac#%"
 fun g1uint_gt_uint64 : g1uint_gt_type (uint64knd) = "mac#%"
@@ -573,6 +557,9 @@ fun g1uint_neq_uint64 : g1uint_neq_type (uint64knd) = "mac#%"
 fun g1uint_compare_uint64 : g1uint_compare_type (uint64knd) = "mac#%"
 fun g1uint_max_uint64 : g1uint_max_type (uint64knd) = "mac#%"
 fun g1uint_min_uint64 : g1uint_min_type (uint64knd) = "mac#%"
+fun g1uint_isgtz_uint64 : g1uint_isgtz_type (uint64knd) = "mac#%"
+fun g1uint_iseqz_uint64 : g1uint_iseqz_type (uint64knd) = "mac#%"
+fun g1uint_isneqz_uint64 : g1uint_isneqz_type (uint64knd) = "mac#%"
 //
 (* ****** ****** *)
 

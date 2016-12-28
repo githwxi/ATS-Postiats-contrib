@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Sat Oct 17 15:20:02 2015
+** Time of generation: Wed Dec 14 18:44:55 2016
 */
 
 /* ****** ****** */
@@ -105,6 +105,10 @@ atspre_uchar2int
 #define atspre_char2int0 atspre_char2int
 #define atspre_schar2int0 atspre_schar2int
 #define atspre_uchar2int0 atspre_uchar2int
+//
+#define atspre_char2int1 atspre_char2int
+#define atspre_schar2int1 atspre_schar2int
+#define atspre_uchar2int1 atspre_uchar2int
 //
 /* ****** ****** */
 //

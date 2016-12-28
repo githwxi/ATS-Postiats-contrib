@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gprint.atxt
-** Time of generation: Sat Oct 17 15:19:58 2015
+** Time of generation: Sun Dec 25 17:18:00 2016
 *)
 
 (* ****** ****** *)
@@ -43,14 +43,20 @@
 
 implement
 {}(*tmp*)
-gprint$out () = stdout_ref
+gprint$out() = stdout_ref
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-gprint_newline () = let
-  val out = gprint$out () in fprint_newline (out)
+gprint_flush() = fileref_flush(gprint$out<>())
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+gprint_newline() = let
+  val out = gprint$out<>() in fprint_newline(out)
 end // end of [gprint_newline]
 
 (* ****** ****** *)
@@ -58,7 +64,7 @@ end // end of [gprint_newline]
 implement
 {a}(*tmp*)
 gprint_val (x) = let
-  val out = gprint$out () in fprint_val<a> (out, x)
+  val out = gprint$out<>() in fprint_val<a> (out, x)
 end // end of [gprint_val]
 
 (* ****** ****** *)
@@ -66,7 +72,7 @@ end // end of [gprint_val]
 implement
 {a}(*tmp*)
 gprint_ref (x) = let
-  val out = gprint$out () in fprint_ref<a> (out, x)
+  val out = gprint$out<>() in fprint_ref<a> (out, x)
 end // end of [gprint_ref]
 
 (* ****** ****** *)
@@ -74,23 +80,27 @@ end // end of [gprint_ref]
 implement
 {}(*tmp*)
 gprint_int (x) =
-  fprint_val<int> (gprint$out (), x)
+  fprint_val<int> (gprint$out<>(), x)
+implement
+{}(*tmp*)
+gprint_bool (x) =
+  fprint_val<bool> (gprint$out<>(), x)
 implement
 {}(*tmp*)
 gprint_char (x) =
-  fprint_val<char> (gprint$out (), x)
+  fprint_val<char> (gprint$out<>(), x)
 implement
 {}(*tmp*)
 gprint_float (x) =
-  fprint_val<float> (gprint$out (), x)
+  fprint_val<float> (gprint$out<>(), x)
 implement
 {}(*tmp*)
 gprint_double (x) =
-  fprint_val<double> (gprint$out (), x)
+  fprint_val<double> (gprint$out<>(), x)
 implement
 {}(*tmp*)
 gprint_string (x) =
-  fprint_val<string> (gprint$out (), x)
+  fprint_val<string> (gprint$out<>(), x)
 //
 implement gprint_val<int> (x) = gprint_int (x)
 implement gprint_val<char> (x) = gprint_char (x)
@@ -111,7 +121,8 @@ gprint_list$sep () = gprint_string ", "
 
 implement
 {a}(*tmp*)
-gprint_list (xs) = let
+gprint_list
+  (xs) = let
 //
 typedef tenv = int
 //
@@ -195,7 +206,8 @@ gprint_array$sep () = gprint_string ", "
 
 implement
 {a}(*tmp*)
-gprint_array (A, n) = let
+gprint_array
+  (A, n) = let
 //
 typedef tenv = size_t
 //

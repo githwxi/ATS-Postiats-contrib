@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/bool.atxt
-** Time of generation: Sat Oct 17 15:19:44 2015
+** Time of generation: Sun Nov 20 21:18:15 2016
 *)
 
 (* ****** ****** *)
@@ -49,21 +49,23 @@ overload g1ofg0 with g1ofg0_bool // index-inducing
 //
 (* ****** ****** *)
 //
+fun
+int2bool0 (i: int):<> bool = "mac#%"
+fun
+int2bool1
+  {i:int} (i: int i):<> bool(i != 0) = "mac#%"
+//
 symintr int2bool
-//
-fun int2bool0 (i: int):<> bool = "mac#%"
-fun int2bool1
-  {i:int} (i: int i):<> bool (i != 0) = "mac#%"
-//
 overload int2bool with int2bool0 of 0
 overload int2bool with int2bool1 of 10
 //
+fun
+bool2int0 (b: bool):<> natLt(2) = "mac#%"
+fun
+bool2int1
+  {b:bool} (b: bool b):<> int(bool2int(b)) = "mac#%"
+//
 symintr bool2int
-//
-fun bool2int0 (b: bool):<> natLt(2) = "mac#%"
-fun bool2int1
-  {b:bool} (b: bool b):<> int (bool2int(b)) = "mac#%"
-//
 overload bool2int with bool2int0 of 0
 overload bool2int with bool2int1 of 10
 //
@@ -92,46 +94,60 @@ typedef boolLte (b: bool) = [a: bool | a <= b] bool (a)
 typedef boolGte (b: bool) = [a: bool | a >= b] bool (a)
 
 (* ****** ****** *)
-
-fun neg_bool0
+//
+fun
+neg_bool0
   (b: bool):<> bool = "mac#%"
+//
 overload ~ with neg_bool0 of 0
 overload not with neg_bool0 of 0
-
+//
 (* ****** ****** *)
-
-fun add_bool0_bool0
+//
+fun
+add_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
+fun
+mul_bool0_bool0
+  (b1: bool, b2: bool):<> bool = "mac#%"
+//
 overload + with add_bool0_bool0 of 0
-fun mul_bool0_bool0
-  (b1: bool, b2: bool):<> bool = "mac#%"
 overload * with mul_bool0_bool0 of 0
-
+//
 (* ****** ****** *)
 //
-fun xor_bool0_bool0
+fun
+xor_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 //
+overload xor with xor_bool0_bool0 of 0
+//
 (* ****** ****** *)
 
-fun lt_bool0_bool0
+fun
+lt_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload < with lt_bool0_bool0 of 0
-fun lte_bool0_bool0
+fun
+lte_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload <= with lte_bool0_bool0 of 0
 
-fun gt_bool0_bool0
+fun
+gt_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload > with gt_bool0_bool0 of 0
-fun gte_bool0_bool0
+fun
+gte_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload >= with gte_bool0_bool0 of 0
 
-fun eq_bool0_bool0
+fun
+eq_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload = with eq_bool0_bool0 of 0
-fun neq_bool0_bool0
+fun
+neq_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload != with neq_bool0_bool0 of 0
 overload <> with neq_bool0_bool0 of 0
@@ -161,46 +177,72 @@ overload prerr with prerr_bool
 overload fprint with fprint_bool
 //
 (* ****** ****** *)
-
-fun neg_bool1 {b:bool}
+//
+fun
+neg_bool1
+  {b:bool}
   (b: bool b):<> bool (~b) = "mac#%"
+//
 overload ~ with neg_bool1 of 10
 overload not with neg_bool1 of 10
-
+//
 (* ****** ****** *)
 
 fun
-add_bool1_bool0 {b1:bool}
-  (b1: bool b1, b2: bool):<> boolGte (b1) = "mac#%"
-overload + with add_bool1_bool0 of 10
-
-fun
-add_bool0_bool1 {b2:bool}
-  (b1: bool, b2: bool b2):<> boolGte (b2) = "mac#%"
+add_bool0_bool1
+  {b2:bool}
+(
+  b1: bool, b2: bool b2
+) :<> [b1:bool] bool(b1 || b2) = "mac#%"
 overload + with add_bool0_bool1 of 10
 
 fun
-add_bool1_bool1 {b1,b2:bool}
-  (b1: bool b1, b2: bool b2):<> bool (b1 || b2) = "mac#%"
+add_bool1_bool0
+  {b1:bool}
+(
+  b1: bool b1, b2: bool
+) :<> [b2:bool] bool(b1 || b2) = "mac#%"
+overload + with add_bool1_bool0 of 10
+
+fun
+add_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool(b1 || b2) = "mac#%"
 overload + with add_bool1_bool1 of 20
 
 (* ****** ****** *)
 
 fun
-mul_bool1_bool0 {b1:bool}
-  (b1: bool b1, b2: bool):<> boolLte (b1) = "mac#%"
-overload * with mul_bool1_bool0 of 10
-
-fun
-mul_bool0_bool1 {b2:bool}
-  (b1: bool, b2: bool b2):<> boolLte (b2) = "mac#%"
+mul_bool0_bool1
+  {b2:bool}
+(
+  b1: bool, b2: bool b2
+) :<> [b1:bool] bool(b1 && b2) = "mac#%"
 overload * with mul_bool0_bool1 of 10
 
 fun
-mul_bool1_bool1 {b1,b2:bool}
-  (b1: bool b1, b2: bool b2):<> bool (b1 && b2) = "mac#%"
+mul_bool1_bool0
+  {b1:bool}
+(
+  b1: bool b1, b2: bool
+) :<> [b2:bool] bool(b1 && b2) = "mac#%"
+overload * with mul_bool1_bool0 of 10
+
+fun
+mul_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool(b1 && b2) = "mac#%"
 overload * with mul_bool1_bool1 of 20
 
+(* ****** ****** *)
+//
+fun
+xor_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool((b1)==(~b2)) = "mac#%"
+//
+overload xor with xor_bool1_bool1 of 20
+//
 (* ****** ****** *)
 
 //

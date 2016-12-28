@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/giterator.atxt
-** Time of generation: Sat Oct 17 15:19:50 2015
+** Time of generation: Sun Nov 20 21:18:21 2016
 *)
 
 (* ****** ****** *)
@@ -53,18 +53,21 @@ sortdef vt0p = viewt@ype
 
 (* ****** ****** *)
 //
-absviewtype
-giter_viewtype ( // HX: boxed
+absvtype
+giter_vtype
+( // HX: boxed
   knd: tkind, kpm: tkind, x: viewt@ype+, f: int, r: int
-) // end of [giter_viewtype]
-stadef giter_5 = giter_viewtype
+) // end of [giter_vtype]
+stadef giter_5 = giter_vtype
 //
-viewtypedef giter_3 (
+vtypedef giter_3
+(
   knd: tkind, kpm: tkind, x: vt0p
-) = [f,r:int] giter_viewtype (knd, kpm, x, f, r)
-viewtypedef giter_4 (
+) = [f,r:int] giter_vtype (knd, kpm, x, f, r)
+vtypedef giter_4
+(
   knd: tkind, kpm: tkind, x: vt0p, fr:int
-) = [f,r:int | f+r==fr] giter_viewtype (knd, kpm, x, f, r)
+) = [f,r:int | f+r==fr] giter_vtype (knd, kpm, x, f, r)
 //
 stadef giter = giter_3
 stadef giter = giter_4
@@ -72,7 +75,8 @@ stadef giter = giter_5
 //
 (* ****** ****** *)
 
-prfun lemma_giter_param
+prfun
+lemma_giter_param
   {knd:tk}{kpm:tk}{x:vt0p}{f,r:int}
   (itr: !giter (knd, kpm, x, f, r)): [f>=0;r>=0] void
 // end of [lemma_giter_param]
@@ -83,8 +87,11 @@ prfun lemma_giter_param
 //
 stacst giter_list_kind : tkind
 stacst giter_list_param : () -> tkind
+//
+(* ****** ****** *)
 
-fun{x:t0p}
+fun
+{x:t0p}
 giter_make_list
   {n:int}
 (
@@ -93,7 +100,8 @@ giter_make_list
   (giter_list_kind, giter_list_param(), x, 0, n)
 // end of [giter_make_list]
 
-fun giter_free_list
+fun
+giter_free_list
   {x:t0p}{f,r:int}
 (
   itr: giter
@@ -106,8 +114,11 @@ fun giter_free_list
 //
 stacst giter_list_vt_kind : tkind
 stacst giter_list_vt_param : () -> tkind
+//
+(* ****** ****** *)
 
-fun{x:t0p}
+fun
+{x:t0p}
 giter_make_list_vt
   {n:int}
 (
@@ -116,7 +127,8 @@ giter_make_list_vt
   (giter_list_vt_kind, giter_list_vt_param(), x, 0, n)
 // end of [giter_make_list_vt]
 
-fun giter_free_list_vt
+fun
+giter_free_list_vt
   {x:t0p}{f,r:int}
 (
   itr: giter
@@ -129,8 +141,11 @@ fun giter_free_list_vt
 //
 stacst giter_array_kind : tkind
 stacst giter_array_param : (addr) -> tkind
+//
+(* ****** ****** *)
 
-fun{x:vt0p}
+fun
+{x:vt0p}
 giter_make_array
   {l:addr}{n:int}
 (
@@ -138,7 +153,8 @@ giter_make_array
 ) : giter (giter_array_kind, giter_array_param(l), x, 0, n)
 // end of [giter_make_array]
 
-fun giter_free_array
+fun
+giter_free_array
   {x:vt0p}{l:addr}{f,r:int}
 (
   itr: giter
@@ -151,6 +167,8 @@ fun giter_free_array
 //
 stacst giter_string_kind : tkind
 stacst giter_string_param : () -> tkind
+//
+(* ****** ****** *)
 
 fun
 giter_make_string

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Sat Oct 17 15:19:49 2015
+** Time of generation: Wed Dec 21 14:53:04 2016
 *)
 
 (* ****** ****** *)
@@ -268,8 +268,6 @@ fprint_arrayptr_sep
 ) : void // end of [fprint_arrayptr_sep]
 
 (* ****** ****** *)
-
-symintr arrayptr_get_at
 //
 fun{
 a:t0p}{tk:tk
@@ -282,12 +280,11 @@ a:t0p}{tk:tk
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1uint (tk, i)):<> (a)
 //
+symintr arrayptr_get_at
 overload arrayptr_get_at with arrayptr_get_at_gint
 overload arrayptr_get_at with arrayptr_get_at_guint
 //
 (* ****** ****** *)
-
-symintr arrayptr_set_at
 //
 fun{
 a:t0p}{tk:tk
@@ -300,30 +297,30 @@ a:t0p}{tk:tk
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1uint (tk, i), x: a):<!wrt> void
 //
+symintr arrayptr_set_at
 overload arrayptr_set_at with arrayptr_set_at_gint of 0
 overload arrayptr_set_at with arrayptr_set_at_guint of 0
 //
 (* ****** ****** *)
-
-symintr arrayptr_exch_at
-
+//
 fun{
 a:vt0p}{tk:tk
 } arrayptr_exch_at_gint
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1int (tk, i), x: &a >> _):<!wrt> void
 // end of [arrayptr_exch_at_gint]
-
+//
 fun{
 a:vt0p}{tk:tk
 } arrayptr_exch_at_guint
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1uint (tk, i), x: &a >> _):<!wrt> void
 // end of [arrayptr_exch_at_guint]
-
+//
+symintr arrayptr_exch_at
 overload arrayptr_exch_at with arrayptr_exch_at_gint of 0
 overload arrayptr_exch_at with arrayptr_exch_at_guint of 0
-
+//
 (* ****** ****** *)
 
 fun{a:vt0p}
@@ -421,21 +418,24 @@ a:vt0p}{env:vt0p
 ) : sizeLte(n) // end of [arrayptr_rforeach_env]
 
 (* ****** ****** *)
-
+//
 (*
 fun{a:vt0p}
 array_initize$init (i: size_t, x: &a >> a?): void
 *)
+//
 fun{a:vt0p}
 arrayptr_initize
   {l:addr}{n:int}
 (
   A: !arrayptr (a?, l, n) >> arrayptr (a, l, n), asz: size_t n
 ) : void // end of [arrayptr_initize]
-macdef arrayptr_initialize = arrayptr_initize
-
+//
+macdef
+arrayptr_initialize = arrayptr_initize
+//
 (* ****** ****** *)
-
+//
 (*
 fun{a:vt0p}
 array_uninitize$clear (i: size_t, x: &a >> a?): void
@@ -446,9 +446,10 @@ arrayptr_uninitize
 (
   A: !arrayptr (INV(a), l, n) >> arrayptr (a?, l, n), asz: size_t n
 ) : void // end of [arrayptr_uninitize]
+//
 macdef
 arrayptr_uninitialize = arrayptr_uninitize
-
+//
 (* ****** ****** *)
 
 (*
@@ -490,8 +491,8 @@ arrayptr_quicksort
 (* ****** ****** *)
 
 overload [] with arrayptr_get_at_gint of 0
-overload [] with arrayptr_get_at_guint of 0
 overload [] with arrayptr_set_at_gint of 0
+overload [] with arrayptr_get_at_guint of 0
 overload [] with arrayptr_set_at_guint of 0
 
 (* ****** ****** *)

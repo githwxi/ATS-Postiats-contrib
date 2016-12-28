@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arith_prf.atxt
-** Time of generation: Sat Oct 17 15:19:45 2015
+** Time of generation: Sun Nov 20 21:18:14 2016
 *)
 
 (* ****** ****** *)
@@ -41,98 +41,125 @@
 
 (* ****** ****** *)
 
+#if(0)
+//
+// It is available in [basic_dyn.sats]
+//
 dataprop
-MUL (int, int, int) =
+MUL_prop
+(
+  int, int, int
+) = // MUL_prop
   | {n:int}
     MULbas (0, n, 0)
   | {m:nat}{n:int}{p:int}
-    MULind (m+1, n, p+n) of MUL (m, n, p)
+    MULind (m+1, n, p+n) of MUL_prop (m, n, p)
   | {m:pos}{n:int}{p:int}
-    MULneg (~m, n, ~p) of MUL (m, n, p)
-// end of [MUL]
+    MULneg (~(m), n, ~(p)) of MUL_prop (m, n, p)
+//
+propdef MUL = MUL_prop
+//
+#endif
 
 (* ****** ****** *)
 
-praxi mul_make : {m,n:int} () -<prf> MUL (m, n, m*n)
-praxi mul_elim : {m,n:int} {p:int} MUL (m, n, p) -<prf> [p == m*n] void
+praxi
+mul_make : {m,n:int} () -<prf> MUL (m, n, m*n)
+praxi
+mul_elim : {m,n:int} {p:int} MUL (m, n, p) -<prf> [p == m*n] void
 
 (* ****** ****** *)
-
-prfun mul_istot {m,n:int} ():<prf> [p:int] MUL (m, n, p)
-
-prfun mul_isfun {m,n:int} {p1,p2:int}
-  (pf1: MUL (m, n, p1), pf2: MUL (m, n, p2)):<prf> [p1==p2] void
-prfun mul_isfun2 {m,n:int} {p1,p2:int}
-  (pf1: MUL (m, n, p1), pf2: MUL (m, n, p2)):<prf> EQINT (p1, p2)
-
+//
+prfun
+mul_istot{m,n:int}():<prf> [p:int] MUL(m, n, p)
+//
+prfun
+mul_isfun
+{m,n:int}{p1,p2:int}
+(
+  MUL(m, n, p1), MUL(m, n, p2)
+) :<prf> [p1==p2] void // endfun
+prfun
+mul_isfun2{m,n:int}{p1,p2:int}
+  (MUL(m, n, p1), MUL(m, n, p2)):<prf> EQINT(p1, p2)
+//
 (* ****** ****** *)
 //
 // HX: (m+i)*n = m*n+i*n
 //
-praxi mul_add_const {i:int}
-  {m,n:int} {p:int} (pf: MUL (m, n, p)):<prf> MUL (m+i, n, p+i*n)
+praxi
+mul_add_const
+  {i:int}{m,n:int}{p:int}
+  (pf: MUL (m, n, p)):<prf> MUL(m+i, n, p+i*n)
 // end of [mul_add_const]
-
+//
 (* ****** ****** *)
 //
 // HX: (ax+b)*(cy+d) = ac*xy + ad*x + bc*y + bd
 //
-praxi mul_expand_linear // a,b,c,d: constants!
+praxi
+mul_expand_linear // a,b,c,d: constants!
   {a,b:int}
   {c,d:int}
-  {x,y:int}
-  {xy:int} (
-  pf: MUL (x, y, xy)
-) :<prf> MUL (a*x+b, c*y+d, a*c*xy+a*d*x+b*c*y+b*d)
+  {x,y:int}{xy:int}
+(
+  pf: MUL(x, y, xy)
+) :<prf> MUL(a*x+b, c*y+d, a*c*xy+a*d*x+b*c*y+b*d)
 // end of [mul_expand_linear]
 
 (* ****** ****** *)
 //
 // HX: (a1x1+a2x2+b)*(c1y1+c2y2+d) = ...
 //
-praxi mul_expand2_linear // a1,b1,c1,a2,b2,c2: constants!
+praxi
+mul_expand2_linear // a1,b1,c1,a2,b2,c2: constants!
   {a1,a2,b:int}
   {c1,c2,d:int}
-  {x1,x2:int}
-  {y1,y2:int}
-  {x1y1,x1y2,x2y1,x2y2:int} (
-  pf11: MUL (x1, y1, x1y1), pf12: MUL (x1, y2, x1y2)
-, pf21: MUL (x2, y1, x2y1), pf22: MUL (x2, y2, x2y2)
-) :<prf> MUL (
+  {x1,x2:int}{y1,y2:int}
+  {x1y1,x1y2,x2y1,x2y2:int}
+(
+  MUL(x1, y1, x1y1), MUL(x1, y2, x1y2)
+, MUL(x2, y1, x2y1), MUL(x2, y2, x2y2)
+) :<prf>
+MUL_prop (
   a1*x1+a2*x2+b
 , c1*y1+c2*y2+d
 , a1*c1*x1y1 + a1*c2*x1y2 +
   a2*c1*x2y1 + a2*c2*x2y2 +
-  a1*d*x1 + a2*d*x2 +
-  b*c1*y1 + b*c2*y2 +
-  b*d
-) // end of [mul_expand2_linear]
+  a1*d*x1 + a2*d*x2 + b*c1*y1 + b*c2*y2 + b*d
+) (* end of [mul_expand2_linear] *)
 
 (* ****** ****** *)
-
-prfun mul_gte_gte_gte
+//
+prfun
+mul_gte_gte_gte
   : {m,n:int | m >= 0; n >= 0} () -<prf> [m*n >= 0] void
-prfun mul_lte_gte_lte
+prfun
+mul_lte_gte_lte
   : {m,n:int | m <= 0; n >= 0} () -<prf> [m*n <= 0] void
-prfun mul_gte_lte_lte
+prfun
+mul_gte_lte_lte
   : {m,n:int | m >= 0; n <= 0} () -<prf> [m*n <= 0] void
-prfun mul_lte_lte_gte
+prfun
+mul_lte_lte_gte
   : {m,n:int | m <= 0; n <= 0} () -<prf> [m*n >= 0] void
-
+//
 (* ****** ****** *)
-
-prfun mul_nat_nat_nat :
+//
+prfun
+mul_nat_nat_nat :
   {m,n:nat} {p:int} MUL (m, n, p) -<prf> [p >= 0] void
-prfun mul_pos_pos_pos :
+prfun
+mul_pos_pos_pos :
   {m,n:pos} {p:int} MUL (m, n, p) -<prf> [p >= m+n-1] void
-
+//
 (* ****** ****** *)
-
+//
 prfun mul_negate
   {m,n:int} {p:int} (pf: MUL (m, n, p)):<prf> MUL (~m, n, ~p)
 prfun mul_negate2
   {m,n:int} {p:int} (pf: MUL (m, n, p)):<prf> MUL (m, ~n, ~p)
-
+//
 (* ****** ****** *)
 //
 // HX: m*n = n*m
@@ -169,29 +196,15 @@ mul_is_associative
 
 (* ****** ****** *)
 //
-// HX-2010-12-30: 
-//
-absprop
-DIVMOD (
-  x:int, y: int, q: int, r: int // x = q * y + r
-) // end of [DIVMOD]
-
-propdef
-DIV (x:int, y:int, q:int) = [r:int] DIVMOD (x, y, q, r)
-propdef
-MOD (x:int, y:int, r:int) = [q:int] DIVMOD (x, y, q, r)
-
-(* ****** ****** *)
-//
 praxi
 div_istot
-  {x,y:int | x >= 0; y > 0} (): DIV (x, y, x/y)
+  {x,y:int | x >= 0; y > 0} (): DIV(x, y, x/y)
 //
 praxi
 divmod_istot
-  {x,y:int |
-   x >= 0; y > 0}
-  ((*void*)): [q,r:nat | r < y] DIVMOD (x, y, q, r)
+{ x,y:int
+| x >= 0; y > 0
+} ((*void*)): [q,r:nat | r < y] DIVMOD(x, y, q, r)
 //
 (* ****** ****** *)
 

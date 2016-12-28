@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixptr.atxt
-** Time of generation: Sat Oct 17 15:19:49 2015
+** Time of generation: Sun Nov 20 21:18:20 2016
 *)
 
 (* ****** ****** *)
@@ -205,6 +205,13 @@ overload matrixptr_exch_at with matrixptr_exch_at_size
 //
 (* ****** ****** *)
 
+fun matrixptr_free
+  {a:t0p}{l:addr}{m,n:int}
+  (A: matrixptr(INV(a), l, m, n)):<!wrt> void = "mac#%"
+// end of [matrixptr_free]
+
+(* ****** ****** *)
+
 (*
 fprint_matrix$sep1 // col separation
 fprint_matrix$sep2 // row separation
@@ -225,12 +232,40 @@ fprint_matrixptr_sep{m,n:int}
 ) : void // end of [fprint_matrixptr_sep]
 
 (* ****** ****** *)
-
-fun matrixptr_free
-  {a:t0p}{l:addr}{m,n:int}
-  (A: matrixptr(INV(a), l, m, n)):<!wrt> void = "mac#%"
-// end of [matrixptr_free]
-
+//
+(*
+fun{a:vt0p}
+matrix_initize$init (i: size_t, x: &a >> a?): void
+*)
+fun{a:vt0p}
+matrixptr_initize
+  {l:addr}{m,n:int}
+(
+  M: !matrixptr(a?, l, m, n) >> matrixptr(a, l, m, n), m: size_t(m), n: size_t(n)
+) : void // end of [matrixptr_initize]
+//
+macdef
+matrixptr_initialize = matrixptr_initize
+//
+(* ****** ****** *)
+//
+(*
+fun{a:vt0p}
+matrix_uninitize$clear
+  (i: size_t, j: size_t, x: &a >> a?): void
+*)
+fun{a:vt0p}
+matrixptr_uninitize
+  {l:addr}{m,n:int}
+(
+  M: !matrixptr(INV(a), l, m, n) >> matrixptr(a?, l, m, n), m: size_t(m), n: size_t(n)
+) : void // end of [matrixptr_uninitize]
+//
+macdef
+matrixptr_uninitialize = matrixptr_uninitize
+//
+(* ****** ****** *)
+//
 (*
 fun{a:vt0p}
 matrix_uninitize$clear
@@ -240,9 +275,10 @@ fun{
 a:vt0p
 } matrixptr_freelin
   {l:addr}{m,n:int}
-  (A: matrixptr(INV(a), l, m, n)):<!wrt> void = "mac#%"
-// end of [matrixptr_freelin]
-
+(
+  A: matrixptr(INV(a), l, m, n), m: size_t(m), n: size_t(n)
+) : void = "mac#%" // end-of-function
+//
 (* ****** ****** *)
 //
 (*
@@ -258,7 +294,7 @@ matrixptr_tabulate_cloref
   {m,n:int}
 (
   nrow: size_t m, ncol: size_t n, f: (sizeLt(m), sizeLt(n)) -<cloref> a
-) : matrixptr (a, m, n) // end-of-fun
+) : matrixptr (a, m, n) // end-of-function
 //
 (* ****** ****** *)
 

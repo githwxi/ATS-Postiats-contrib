@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Sat Oct 17 15:19:54 2015
+** Time of generation: Tue Dec 13 22:33:32 2016
 *)
 
 (* ****** ****** *)
@@ -41,25 +41,30 @@
 
 (* ****** ****** *)
 
-#define ATS_DYNLOADFLAG 0 // no dynloading at run-time
+#define
+ATS_DYNLOADFLAG 0 // no dynloading at run-time
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload _(*anon*) = "prelude/DATS/integer.dats"
+staload
+_(*INT*) = "prelude/DATS/integer.dats"
 
 (* ****** ****** *)
 
-staload STDIO = "libc/SATS/stdio.sats"
-vtypedef FILEptr1 = $STDIO.FILEptr1 (*linear/nonnull*)
-
+staload
+STDIO = "libats/libc/SATS/stdio.sats"
+vtypedef
+FILEptr1 = $STDIO.FILEptr1 (*linear/nonnull*)
+//
 (* ****** ****** *)
-
-staload STAT = "libc/sys/SATS/stat.sats"
-
+//
+staload STAT = "libats/libc/SATS/sys/stat.sats"
+//
 (* ****** ****** *)
 
 #define c2i char2int0
@@ -568,8 +573,8 @@ val bsz =
 fileref_get_line_string$bufsize ()
 //
 val [l:addr,n:int] str = $extfcall
-(
-Strnptr0, "atspre_fileref_get_line_string_main2", bsz, inp, addr@(nlen)
+( Strnptr0
+, "atspre_fileref_get_line_string_main2", bsz, inp, addr@(nlen)
 )
 //
 prval () = lemma_strnptr_param (str)
@@ -642,21 +647,25 @@ end // end of [fileref_get_lines_stringlst]
 
 implement
 {}(*tmp*)
-fileref_get_file_string (inp) = let
-//
-#define CNUL '\000'
+fileref_get_file_string
+  (inp) = let
 //
 fun loop
 (
   inp: FILEref
-, p0: ptr, n0: size_t, p1: ptr, n1: size_t
+, p0: ptr, n0: size_t
+, p1: ptr, n1: size_t
 ) : Strptr1 = let
 //
-val nw = $extfcall (size_t, "atslib_fread", p1, 1, n1, inp)
+#define CNUL '\000'
 //
-in
+val nw =
+$extfcall(size_t, "atslib_libats_libc_fread", p1, 1, n1, inp)
 //
-if nw > 0
+in (* in-of-let *)
+//
+if
+(nw > 0)
 then let
   val n1 = n1 - nw
   val p1 = add_ptr_bsz (p1, nw)
@@ -664,9 +673,10 @@ in
   if n1 > 0 then
     loop (inp, p0, n0, p1, n1) else loop2 (inp, p0, n0)
   // end of [if]
-end else let
+end // end of [then]
+else let
   val () = $UN.ptr0_set<char> (p1, CNUL) in $UN.castvwtp0{Strptr1}(p0)
-end // end of [if]
+end // end of [else]
 //
 end // end of [loop]
 //
@@ -678,7 +688,10 @@ and loop2
   val bsz2 = g1ofg0(bsz + bsz)
   val (pf, pfgc | p0_) = malloc_gc (bsz2)
   val p0_ = $UN.castvwtp0{ptr}((pf, pfgc | p0_))
-  val _(*ptr*) = $extfcall (ptr, "atslib_memcpy", p0_, p0, n0)
+//
+  val _(*ptr*) =
+  $extfcall(ptr, "atslib_libats_libc_memcpy", p0_, p0, n0)
+//
   val () = strptr_free ($UN.castvwtp0{Strptr1}(p0))
   val n0_ = pred(g0ofg1(bsz2))
   val p1_ = add_ptr_bsz (p0_, n0)
@@ -841,11 +854,15 @@ end // end of [fileref_foreach]
 
 local
 //
-staload "libc/SATS/stdio.sats"
+staload
+"libats/libc/SATS/stdio.sats"
 //
 extern
-fun fread
-  (ptr, size_t, size_t, FILEref): Size = "mac#atslib_fread"
+fun
+fread
+(
+  ptr, size_t, size_t, FILEref
+) : Size = "mac#atslib_libats_libc_fread"
 //
 in (* in of [local] *)
 
@@ -890,7 +907,7 @@ end // end of [local]
 
 implement
 {}(*tmp*)
-fileref_foreach$bufsize () = i2sz(4 * 1024)
+fileref_foreach$bufsize() = i2sz(4*1024)
 
 (* ****** ****** *)
 
@@ -901,14 +918,107 @@ fileref_foreach$fworkv
 //
 implement
 {a}{env}
-array_foreach$cont (x, env) = true
+array_foreach$cont(x, env) = true
 implement
 array_foreach$fwork<char><env>
   (x, env) = fileref_foreach$fwork<env> (x, env)
 //
 in
-  ignoret (arrayref_foreach_env<char><env> (A, n, env))
+  ignoret(arrayref_foreach_env<char><env> (A, n, env))
 end // end of [fileref_foreach$fworkv]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_fileref_char
+  (inp) = auxmain(inp) where
+{
+//
+typedef elt = char
+//
+fun
+auxmain
+(
+  inp
+: FILEref
+) : stream_vt(elt)= $ldelay
+(
+//
+let
+  val c0 = fileref_getc(inp)
+in
+  if c0 >= 0
+    then (
+      stream_vt_cons(int2char0(c0), auxmain(inp))
+    ) else (
+(*
+      fileref_close(inp); // HX: FILEref is not freed!
+*)
+      stream_vt_nil((*void*))
+    ) (* else *)
+  // end of [[if]
+end : stream_vt_con(elt)
+//
+(*
+,
+//
+fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
+//
+*)
+) (* end of [auxmain] *)
+//
+} (* end of [streamize_fileref_char] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_fileref_line
+  (inp) = auxmain(inp) where
+{
+//
+vtypedef elt = Strptr1
+//
+fun
+auxmain
+(
+  inp
+: FILEref
+) : stream_vt(elt)= $ldelay
+(
+//
+let
+  val iseof = fileref_is_eof(inp)
+in
+  if iseof
+    then let
+(*
+      val () =
+        fileref_close(inp) // HX: FILEref is not freed!
+      // end of [val]
+*)
+    in
+      stream_vt_nil((*void*))
+    end // end of [then]
+    else let
+      val line =
+        fileref_get_line_string(inp)
+      // end of [val]
+    in
+      stream_vt_cons(line, auxmain(inp))
+    end // end of [else]
+end : stream_vt_con(elt)
+//
+(*
+,
+//
+fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
+//
+*)
+) (* end of [auxmain] *)
+//
+} (* end of [streamize_fileref_line] *)
 
 (* ****** ****** *)
 

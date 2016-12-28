@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_mergesort.atxt
-** Time of generation: Sat Oct 17 15:20:00 2015
+** Time of generation: Wed Jun  1 19:08:17 2016
 *)
 
 (* ****** ****** *)
@@ -73,9 +73,9 @@ insord
 {l0,l1,l2:addr}{n:nat} .<n>.
 (
   pf1: a @ l1
-, pf2: list_vt (a, 0)? @ l2
-| xs0: &list_vt (a, n) >> list_vt (a, n+1)
-, nx0: list_vt_cons_unfold (l0, l1, l2), p1: ptr (l1), p2: ptr (l2)
+, pf2: list_vt(a, 0)? @ l2
+| xs0: &list_vt(a, n) >> list_vt(a, n+1)
+, nx0: list_vt_cons_unfold(l0, l1, l2), p1: ptr(l1), p2: ptr(l2)
 ) :<!wrt> void = let
 in
 //
@@ -197,17 +197,19 @@ case+ xs1 of
         // end of [val]
       in
         if sgn <= 0 then let
+            val () = res := xs1
           prval () = fold@{a}(xs2)
-          val () = merge (xs11, xs2, xs11)
-          prval () = fold@{a}(xs1)
+            val () = merge (xs11, xs2, xs11)
+          prval () = fold@{a}(res)
         in
-          res := xs1
+          // nothing
         end else let
+            val () = res := xs2
           prval () = fold@{a}(xs1)
-          val () = merge (xs1, xs21, xs21)
-          prval () = fold@{a}(xs2)
+            val () = merge (xs1, xs21, xs21)
+          prval () = fold@{a}(res)
         in
-          res := xs2
+          // nothing
         end // end of [if]
       end // end of [list_vt_cons]
     | ~list_vt_nil () => (fold@ (xs1); res := xs1)

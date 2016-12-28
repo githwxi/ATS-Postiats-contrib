@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/strptr.atxt
-** Time of generation: Sat Oct 17 15:19:52 2015
+** Time of generation: Sun Nov 20 21:18:24 2016
 *)
 
 (* ****** ****** *)
@@ -62,69 +62,103 @@ overload + with add_ptr_bsz
 
 (* ****** ****** *)
 
-implement{}
-strptr_is_null (str) = (strptr2ptr (str) = nullp)
-implement{}
-strptr_isnot_null (str) = (strptr2ptr (str) > nullp)
+implement
+{}(*tmp*)
+strptr_is_null(str) = (strptr2ptr (str) = nullp)
+implement
+{}(*tmp*)
+strptr_isnot_null(str) = (strptr2ptr (str) > nullp)
 
 (* ****** ****** *)
 
-implement{}
-strptr_is_empty (str) = let
-  val p = strptr2ptr (str) in $UN.ptr1_get<char>(p) = CNUL
+implement
+{}(*tmp*)
+strptr_is_empty(str) = let
+  val p = strptr2ptr(str) in $UN.ptr1_get<char>(p) = CNUL
 end // end of [strptr_is_empty]
-implement{}
-strptr_isnot_empty (str) = let
-  val p = strptr2ptr (str) in $UN.ptr1_get<char>(p) != CNUL
+implement
+{}(*tmp*)
+strptr_isnot_empty(str) = let
+  val p = strptr2ptr(str) in $UN.ptr1_get<char>(p) != CNUL
 end // end of [strptr_isnot_empty]
 
 (* ****** ****** *)
-
-implement{}
-strnptr_get_at_size (str, i) =
-  $UN.ptr0_get<charNZ>(strnptr2ptr(str) + i)
+//
+implement
+{}(*tmp*)
+strnptr_get_at_size(str, i) =
+  $UN.ptr0_get<charNZ>(strnptr2ptr(str)+i)
 // end of [strnptr_get_at_size]
-
-implement{tk}
-strnptr_get_at_gint (str, i) =
-  strnptr_get_at_size (str, g1int2uint (i))
+//
+implement
+{tk}(*tmp*)
+strnptr_get_at_gint(str, i) =
+  strnptr_get_at_size(str, g1int2uint(i))
 // end of [strnptr_get_at_gint]
-implement{tk}
-strnptr_get_at_guint (str, i) =
-  strnptr_get_at_size (str, g1uint2uint (i))
+implement
+{tk}(*tmp*)
+strnptr_get_at_guint(str, i) =
+  strnptr_get_at_size(str, g1uint2uint(i))
 // end of [strnptr_get_at_guint]
-
+//
 (* ****** ****** *)
-
-implement{}
-strnptr_set_at_size (str, i, c) =
-  $UN.ptr0_set<charNZ>(strnptr2ptr(str) + i, c)
+//
+implement
+{}(*tmp*)
+strnptr_set_at_size(str, i, c) =
+  $UN.ptr0_set<charNZ>(strnptr2ptr(str)+i, c)
 // end of [strnptr_set_at_size]
-
-implement{tk}
-strnptr_set_at_gint (str, i, c) =
-  strnptr_set_at_size (str, g1int2uint (i), c)
+//
+implement
+{tk}(*tmp*)
+strnptr_set_at_gint(str, i, c) =
+  strnptr_set_at_size (str, g1int2uint(i), c)
 // end of [strnptr_set_at_gint]
-implement{tk}
-strnptr_set_at_guint (str, i, c) =
-  strnptr_set_at_size (str, g1uint2uint (i), c)
+implement
+{tk}(*tmp*)
+strnptr_set_at_guint(str, i, c) =
+  strnptr_set_at_size(str, g1uint2uint(i), c)
 // end of [strnptr_set_at_guint]
-
+//
 (* ****** ****** *)
-
+//
 implement
-lt_strptr_strptr (x1, x2) = (compare_strptr_strptr (x1, x2) < 0)
+lt_strptr_strptr
+  (x1, x2) =
+(
+  compare_strptr_strptr(x1, x2) < 0
+)
 implement
-lte_strptr_strptr (x1, x2) = (compare_strptr_strptr (x1, x2) <= 0)
+lte_strptr_strptr
+  (x1, x2) =
+(
+  compare_strptr_strptr(x1, x2) <= 0
+)
 implement
-gt_strptr_strptr (x1, x2) = (compare_strptr_strptr (x1, x2) > 0)
+gt_strptr_strptr
+  (x1, x2) =
+(
+  compare_strptr_strptr(x1, x2) > 0
+)
 implement
-gte_strptr_strptr (x1, x2) = (compare_strptr_strptr (x1, x2) >= 0)
+gte_strptr_strptr
+  (x1, x2) =
+(
+  compare_strptr_strptr(x1, x2) >= 0
+)
 implement
-eq_strptr_strptr (x1, x2) = (compare_strptr_strptr (x1, x2) = 0)
+eq_strptr_strptr
+  (x1, x2) =
+(
+  compare_strptr_strptr(x1, x2) = 0
+)
 implement
-neq_strptr_strptr (x1, x2) = (compare_strptr_strptr (x1, x2) != 0)
-
+neq_strptr_strptr
+  (x1, x2) =
+(
+  compare_strptr_strptr(x1, x2) != 0
+)
+//
 (* ****** ****** *)
 
 (*
@@ -139,14 +173,17 @@ prerr_strptr (x) = fprint_strptr (stderr_ref, x)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strnptr_is_null (str) = (strnptr2ptr (str) = nullp)
-implement{}
+implement
+{}(*tmp*)
 strnptr_isnot_null (str) = (strnptr2ptr (str) > nullp)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strptr_length(x) = let
   val isnot = ptr_isnot_null(strptr2ptr(x))
 in
@@ -157,7 +194,8 @@ if isnot
 //
 end // end of [strptr_length]
 
-implement{}
+implement
+{}(*tmp*)
 strnptr_length(x) = let
   prval () = lemma_strnptr_param (x)
   val isnot = ptr_isnot_null(strnptr2ptr(x))
@@ -171,7 +209,8 @@ end // end of [strnptr_length]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strptr0_copy(x) = let
   val isnot = ptr_isnot_null(strptr2ptr(x))
 in
@@ -181,12 +220,14 @@ if isnot
 //
 end // end of [strptr0_copy]
 
-implement{}
+implement
+{}(*tmp*)
 strptr1_copy(x) = string0_copy($UN.strptr2string(x))
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strnptr_copy
   {n}(x) = x2 where
 {
@@ -198,37 +239,47 @@ strnptr_copy
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strptr_append
   (x1, x2) = let
 //
-val isnot1 = ptr_isnot_null (strptr2ptr(x1))
-//
-in
-//
-if isnot1 then let
-//
-val isnot2 = ptr_isnot_null (strptr2ptr(x2))
+val
+isnot1 =
+ptr_isnot_null(strptr2ptr(x1))
 //
 in
 //
 if
+isnot1
+then let
+//
+val
+isnot2 =
+ptr_isnot_null(strptr2ptr(x2))
+//
+in
+//
+if (
 isnot2
-then
-  strnptr2strptr(string1_append ($UN.strptr2string(x1), $UN.strptr2string(x2)))
-else
-  strptr1_copy (x1)
+) then (
+  strnptr2strptr(
+    string1_append($UN.strptr2string(x1), $UN.strptr2string(x2))
+  ) (*strnptr2strptr*)
+) else strptr1_copy(x1)
 // end of [if]
 //
 end else
-  strptr0_copy (x2)
-// end of [if]
+(
+  strptr0_copy(x2)
+) (* end of [if] *)
 //
 end // end of [strptr_append]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strptrlst_free (xs) = let
 //
 fun loop
@@ -248,7 +299,8 @@ end // end of [strptrlst_free]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 strptrlst_concat (xs) = let
 //
 prval () = lemma_list_vt_param (xs)
@@ -329,7 +381,7 @@ end // end of [strnptr_foreach]
 implement
 {env}(*tmp*)
 strnptr_foreach_env
-  {n} (str, env) = let
+  {n}(str, env) = let
 //
 fun loop
 (
@@ -383,8 +435,13 @@ strnptr_rforeach$cont (c, env) = true
 
 implement
 {}(*tmp*)
-strnptr_rforeach (str) = let
-  var env: void = () in strnptr_rforeach_env<void> (str, env)
+strnptr_rforeach
+  (str) = let
+//
+var env: void = ()
+//
+in
+  strnptr_rforeach_env<void> (str, env)
 end // end of [strnptr_rforeach]
 
 (* ****** ****** *)
@@ -392,7 +449,7 @@ end // end of [strnptr_rforeach]
 implement
 {env}(*tmp*)
 strnptr_rforeach_env
-  {n} (str, env) = let
+  {n}(str, env) = let
 //
 fun loop
 (

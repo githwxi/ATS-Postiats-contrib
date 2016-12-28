@@ -161,7 +161,7 @@ infixl ( && ) andalso land
 (* ****** ****** *)
 
 infixl 20 ||
-infixl ( || ) orelse lor lxor
+infixl ( || ) xor orelse lor lxor
 
 (* ****** ****** *)
 
@@ -187,6 +187,10 @@ infixr 0 =++ --= // setinc and decset
 
 infix 0 :+= :-= :*= :/= // x:=x+a, x:=x-a, ...
 infix 0 :=+ :=- :=* :=/ // x:=a+x, x:=a-x, ...
+
+(* ****** ****** *)
+
+prefix 0 ignoret // ignoring a funcall return
 
 (* ****** ****** *)
 

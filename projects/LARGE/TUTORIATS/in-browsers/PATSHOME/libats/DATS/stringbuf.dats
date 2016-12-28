@@ -41,6 +41,10 @@
 //
 staload
 _ = "prelude/DATS/integer.dats"
+staload
+_ = "prelude/DATS/integer_size.dats"
+//
+(* ****** ****** *)
 //
 staload
 _ = "prelude/DATS/array.dats"
@@ -55,7 +59,7 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 staload
-STDIO = "libc/SATS/stdio.sats"
+STDIO = "libats/libc/SATS/stdio.sats"
 
 (* ****** ****** *)
 
@@ -93,23 +97,31 @@ STRINGBUF of (arrayptr(char, m+1), ptr(*cur*), size_t(m))
 assume stringbuf_vtype = stringbuf
 
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
-stringbuf_make_nil
+stringbuf_make_nil_int
+  (cap) =
+  stringbuf_make_nil_size(i2sz(cap))
+//
+implement
+{}(*tmp*)
+stringbuf_make_nil_size
   (cap) = (sbf) where
 {
 //
-prval [m:int] EQINT() = g1uint_get_index (cap)
+prval
+[m:int]
+EQINT() = g1uint_get_index(cap)
 //
-val A = arrayptr_make_uninitized<char> (succ(cap))
+val A = arrayptr_make_uninitized<char>(succ(cap))
 //
-val p_A = ptrcast (A)
+val p_A = ptrcast(A)
 //
-val sbf = STRINGBUF ($UN.castvwtp0{arrayptr(char,m+1)}(A), p_A, cap)
+val sbf = STRINGBUF($UN.castvwtp0{arrayptr(char,m+1)}(A), p_A, cap)
 //
-} // end of [stringbuf_make_cap]
-
+} (* end of [stringbuf_make_cap] *)
+//
 (* ****** ****** *)
 
 implement
@@ -329,10 +341,15 @@ end // end of [stringbuf_insert_string]
 //
 extern
 fun _stringbuf_pow2min
-  (s1: sizeGte(1), s2: size_t): sizeGte(1) = "ext#%"
+  (s1: sizeGte(1), s2: size_t): sizeGte(1) = "mac#%"
+(*
+//
+// HX-2015-11-19: It has been moved to CATS
+//
 implement
 _stringbuf_pow2min (s1, s2) =
    if s1 >= s2 then s1 else _stringbuf_pow2min (s1+s1, s2)
+*)
 //
 (* ****** ****** *)
 

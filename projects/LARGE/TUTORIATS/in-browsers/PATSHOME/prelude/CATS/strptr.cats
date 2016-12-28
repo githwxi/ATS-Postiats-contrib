@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,17 +28,17 @@
 /* ****** ****** */
 
 /*
-** Source:
-** $PATSHOME/prelude/CATS/CODEGEN/strptr.atxt
-** Time of generation: Sat Oct 17 15:20:03 2015
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: March, 2013 *)
 */
 
 /* ****** ****** */
 
 /*
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: March, 2013 *)
+** Source:
+** $PATSHOME/prelude/CATS/CODEGEN/strptr.atxt
+** Time of generation: Wed Dec 14 18:44:55 2016
 */
 
 /* ****** ****** */
@@ -52,7 +52,7 @@
 //
 extern
 int // (sign)
-strcmp (const char *x1, const char *x2) ;
+strcmp(const char *x1, const char *x2) ;
 
 /* ****** ****** */
 
@@ -71,10 +71,11 @@ atspre_compare_strptr_strptr
 (
   atstype_strptr x1, atstype_strptr x2
 ) {
-  if (x1==0) {
+  if(x1==0)
+  {
     return (x2==0 ? 0 : -1) ;
   } else {
-    return (x2==0 ? 1 : strcmp((char*)x1, (char*)x2)) ;
+    return (x2==0 ? 1 : atspre_compare_string_string(x1, x2)) ;
   } // end of [if]
 } // end of [atspre_compare_strptr_strptr]
 
