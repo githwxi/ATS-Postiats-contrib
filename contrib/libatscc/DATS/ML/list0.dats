@@ -54,6 +54,7 @@ case+ xs of
 ) (* end of [list0_head_opt] *)
 //
 (* ****** ****** *)
+//
 implement
 list0_tail_opt
   {a}(xs) =
@@ -88,8 +89,8 @@ case+ xs of
 //
 in
   case+ xs of
-  | list0_nil() => None()
-  | list0_cons(x, xs) => Some(loop(x, xs))
+  | list0_nil() => None_vt()
+  | list0_cons(x, xs) => Some_vt(loop(x, xs))
 end // end of [list0_last_opt]
 
 (* ****** ****** *)
@@ -98,13 +99,31 @@ implement
 list0_get_at_opt
   (xs, n) =
 (
-  case+ xs of
-  | list0_nil() => None()
-  | list0_cons(x, xs) =>
-      if n > 0 then list0_get_at_opt(xs, n-1) else Some(x)
-    // end of [list0_cons]
+case+ xs of
+| list0_nil() =>
+    None_vt()
+  // list0_nil
+| list0_cons(x, xs) =>
+  if n > 0
+    then list0_get_at_opt(xs, n-1) else Some_vt(x)
+  // end of [list0_cons]
 ) (* end of [list0_get_at_opt] *)
 //
+(* ****** ****** *)
+
+implement
+list0_make_elt
+  (n, x) = let
+//
+val n = g1ofg0(n)
+//
+in
+//
+if n >= 0
+  then g0ofg1(list_make_elt(n, x)) else list0_nil()
+//
+end // end of [list0_make_elt]
+
 (* ****** ****** *)
 //
 implement
@@ -124,18 +143,18 @@ fprint_list0
 fun
 loop
 (
-  xs: list0(a), i: int
+  xs: list0(a), i0: int
 ) : void =
 (
 //
 case+ xs of
-| list0_nil () => ()
-| list0_cons (x, xs) =>
+| list0_nil() => ()
+| list0_cons(x, xs) =>
   (
-    if i > 0
-      then fprint_list0$sep<> (out);
+    if i0 > 0
+      then fprint_list0$sep<>(out);
     // end of [if]
-    fprint_val<a> (out, x); loop (xs, i+1)
+    fprint_val<a>(out, x); loop(xs, i0+1)
   ) (* end of [list0_cons] *)
 //
 ) (* end of [loop] *)
@@ -151,7 +170,7 @@ implement
 fprint_list0$sep
   (out) =
 (
-  fprint_string (out, ", ")
+  fprint_string(out, ", ")
 )
 //
 (* ****** ****** *)
@@ -163,7 +182,10 @@ fprint_list0_sep
 //
 implement
 fprint_list0$sep<>
-  (out) = fprint_string (out, ", ")
+  (out) =
+(
+  fprint_string(out, ", ")
+)
 //
 in
   fprint_list0<a> (out, xs)
@@ -211,21 +233,25 @@ list0_remove_at_opt
 fun
 aux
 (
-  xs: list0(a), i0: intGte(0)
-) : Option(list0(a)) =
+xs: list0(a)
+,
+i0: intGte(0)
+) : Option_vt(list0(a)) =
 (
 case+ xs of
-| list0_nil() => None()
+| list0_nil() =>
+    None_vt()
+  // list0_nil
 | list0_cons(x, xs) =>
   if i0 > 0
     then let
       val opt = aux(xs, i0-1)
     in
       case+ opt of
-      | None() => None()
-      | Some(xs) => Some(list0_cons(x, xs))
+      | ~None_vt() => None_vt()
+      | ~Some_vt(xs) => Some_vt(list0_cons(x, xs))
     end // end of [then]
-    else Some(xs) // end of [else]
+    else Some_vt(xs) // end of [else]
   // end of [if]
 )
 //

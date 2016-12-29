@@ -30,6 +30,28 @@ case+ xs of list_cons _ => true | _ =>> false
 (* ****** ****** *)
 //
 implement
+list_make_elt
+  {x}(n, x) =
+  loop(n, list_nil()) where
+{
+//
+fun
+loop
+{i,j:nat} .<i>.
+(
+i0: int(i), res: list(x, j)
+) :<> list(x, i+j) =
+(
+if i0 > 0
+  then loop(i0-1, list_cons{x}(x, res))
+  else res
+)
+//
+} (* end of [list_make_elt] *)
+//
+(* ****** ****** *)
+//
+implement
 list_make_intrange_2
   (l, r) = list_make_intrange_3 (l, r, 1)
 //

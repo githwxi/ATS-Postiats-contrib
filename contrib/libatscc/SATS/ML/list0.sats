@@ -31,11 +31,9 @@ fun{}
 list0_is_cons
   {a:t0p}(xs: list0(INV(a))): bool
 //
-(* ****** ****** *)
-
 overload iseqz with list0_is_nil
 overload isneqz with list0_is_cons
-
+//
 (* ****** ****** *)
 //
 fun
@@ -43,22 +41,20 @@ list0_head_opt
   {a:t0p}
   (list0(INV(a))): Option_vt(a) = "mac#%"
 //
-overload .head_opt with list0_head_opt
-//
-(* ****** ****** *)
-//
 fun
 list0_tail_opt
   {a:t0p}
   (list0(INV(a))): Option_vt(list0(a)) = "mac#%"
 //
-overload .tail_opt with list0_tail_opt
+overload .head_opt with list0_head_opt of 100
+overload .tail_opt with list0_tail_opt of 100
 //
 (* ****** ****** *)
 //
 fun
 list0_length
-  {a:t0p}(list0(a)): intGte(0) = "mac#%"
+  {a:t0p}
+  (xs: list0(a)): intGte(0) = "mac#%"
 //
 overload length with list0_length of 100
 //
@@ -67,23 +63,34 @@ overload length with list0_length of 100
 fun
 list0_last_opt
   {a:t0p}
-  (xs: list0(INV(a))): Option(a) = "mac#%"
+(
+xs: list0(INV(a))
+) : Option_vt(a) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //
 fun
 list0_get_at_opt
   {a:t0p}
-  (list0(INV(a)), intGte(0)): Option(a) = "mac#%"
+(
+xs: list0(INV(a)), i: intGte(0)
+) : Option_vt(a) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
+fun
+list0_make_elt
+  {a:t0p}
+  (n: intGte(0), x: a): list0(a) = "mac#%"
 //
 (* ****** ****** *)
 //
 fun
 list0_make_intrange_2
-  (l: int, r: int): list0(int) = "mac#%"
+  (l0: int, r0: int): list0(int) = "mac#%"
 fun
 list0_make_intrange_3
-  (l: int, r: int, d: int): list0(int) = "mac#%"
+  (l0: int, r0: int, d: int): list0(int) = "mac#%"
 //
 symintr list0_make_intrange
 //
@@ -154,7 +161,9 @@ list0_concat
 fun
 list0_remove_at_opt
   {a:t0p}
-  (list0(INV(a)), i: intGte(0)): Option(list0(a)) = "mac#%"
+(
+  xs: list0(INV(a)), i: intGte(0)
+) : Option_vt(list0(a)) = "mac#%" // end-of-fun
 //
 (* ****** ****** *)
 //

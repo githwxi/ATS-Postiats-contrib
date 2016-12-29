@@ -32,6 +32,14 @@ overload isneqz with list_is_cons of 100
 (* ****** ****** *)
 //
 fun
+list_make_elt
+  {x:t0p}{n:nat}
+  (n: int n, x: x): list(x, n) = "mac#%"
+// end of [list_make_elt]
+//
+(* ****** ****** *)
+//
+fun
 list_make_intrange_2
   (l: int, r: int): List0(int) = "mac#%"
 fun
