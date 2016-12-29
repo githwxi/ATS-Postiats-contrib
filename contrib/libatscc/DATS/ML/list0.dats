@@ -195,30 +195,69 @@ end // end of [fprint_list0_sep]
 //
 implement
 list0_snoc{a}(xs, x0) =
-  $UN.cast(list_snoc{a}($UN.cast(xs), x0))
+(
+g0ofg1{a}
+(
+  list_snoc{a}(g1ofg0(xs), x0)
+)
+)
 implement
 list0_extend{a}(xs, x0) =
-  $UN.cast(list_extend{a}($UN.cast(xs), x0))
+(
+g0ofg1{a}
+(
+  list_extend{a}(g1ofg0(xs), x0)
+)
+) // list0_extend
 //
 (* ****** ****** *)
 //
 implement
-list0_append{a}(xs, ys) =
-  $UN.cast(list_append{a}($UN.cast(xs), $UN.cast(ys)))
+list0_append
+  {a}(xs, ys) =
+(
+g0ofg1
+(
+list_append{a}
+  (g1ofg0{a}(xs), g1ofg0{a}(ys))
+)
+) // list0_append
+//
+(* ****** ****** *)
+//
+implement
+mul_int_list0
+  {a}(m, xs) =
+(
+g0ofg1{a}
+  (mul_int_list{a}(m, g1ofg0(xs)))
+)
 //
 (* ****** ****** *)
 //
 implement
 list0_reverse{a}(xs) =
-  $UN.cast(list_reverse{a}($UN.cast(xs)))
+(
+g0ofg1(list_reverse{a}(g1ofg0(xs)))
+)
+//
 implement
 list0_reverse_append{a}(xs, ys) =
-  $UN.cast(list_reverse_append{a}($UN.cast(xs), $UN.cast(ys)))
+(
+g0ofg1
+(
+list_reverse_append{a}(g1ofg0(xs), g1ofg0(ys))
+)
+)
 //
 (* ****** ****** *)
 //
 implement
-list0_concat{a}(xss) = $UN.cast(list_concat{a}($UN.cast(xss)))
+list0_concat{a}
+  (xss) =
+(
+  g0ofg1{a}(list_concat{a}($UN.cast(xss)))
+) // list0_concat
 //
 (* ****** ****** *)
 

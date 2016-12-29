@@ -212,8 +212,8 @@ implement
 list_append
   (xs, ys) = let
 //
-prval () = lemma_list_param (xs)
-prval () = lemma_list_param (ys)
+prval() = lemma_list_param(xs)
+prval() = lemma_list_param(ys)
 //
 in
 //
@@ -225,6 +225,38 @@ case+ xs of
 //
 end // end of [list_append]
 
+(* ****** ****** *)
+//
+implement
+mul_int_list
+{a}{m,n}(m, xs) = let
+//
+fun
+loop
+{i,j:nat}
+(
+i0: int(i),
+res: list(a, j*n)
+) : list(a, (i+j)*n) =
+if
+(i0 > 0)
+then
+(
+loop{i-1,j+1}
+  (i0-1, list_append{a}(xs, res))
+)
+else
+(
+res where
+{
+  prval EQINT() = eqint_make{i,0}()
+}
+) (* end of [else] *)
+//
+in
+  loop{m,0}(m, list_nil((*void*)))
+end // end of [mul_int_list]
+//
 (* ****** ****** *)
 
 implement

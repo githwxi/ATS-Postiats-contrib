@@ -115,6 +115,16 @@ overload + with list_append of 100 // infix
 (* ****** ****** *)
 //
 fun
+mul_int_list
+  {a:t0p}
+  {m,n:int | m >= 0}
+  (m: int(m), xs: list(INV(a), n)): list(a, m*n) = "mac#%"
+//
+overload * with mul_int_list of 100 // infix
+//
+(* ****** ****** *)
+//
+fun
 list_reverse
   {a:t0p}{n:int}
   (list(INV(a), n)): list(a, n) = "mac#%"

@@ -139,6 +139,17 @@ overload + with list0_append of 100 // infix
 (* ****** ****** *)
 //
 fun
+mul_int_list0
+  {a:t0p}
+(
+m0: intGte(0), xs: list0(a)
+) : list0(a) = "mac#%" // end-of-function
+//
+overload * with mul_int_list0 of 100 // infix
+//
+(* ****** ****** *)
+//
+fun
 list0_reverse
   {a:t0p}
   (xs: list0(INV(a))): list0(a) = "mac#%"
