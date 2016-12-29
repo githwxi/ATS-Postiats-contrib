@@ -23,10 +23,22 @@ val () = assertloc("between".indexOf("tween") = 2)
 val () = assertloc("between".indexOf("tween", 3) < 0)
 
 (* ****** ****** *)
-
-val () = repeat(3, $delay(println!("Hello, world!")))
-val () = (3).foreach()(lam(i) =<cloref1> println!(i, ": Hello, world!"))
-
+//
+val () =
+  3*delay(println!("Hello, world!"))
+val () =
+  repeat(3, $delay(println!("Hello, world!")))
+val () =
+  (3).foreach()(lam(i) => println!(i, ": Hello, world!"))
+//
+(* ****** ****** *)
+//
+val () =
+print_string
+(
+  JSarray_join(JSarray_make_list(3*list_sing("Hello, world!\n")))
+)
+//
 (* ****** ****** *)
 
 %{^
