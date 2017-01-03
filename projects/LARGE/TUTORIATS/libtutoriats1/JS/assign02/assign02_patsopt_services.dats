@@ -166,8 +166,9 @@ if (
 i0 < n0
 ) then (
 //
-if (
-code[i0] = EOL
+if
+(
+code.charCodeAt(i0) = EOL
 ) then loop(i0+1, 0, ln+1)
   else loop(i0+1, j0+1, ln)
 //
@@ -701,9 +702,10 @@ fname = input.value;
 if(!fname) fname = input.placeholder;
 //
 return saveAs(blob, fname);
+//
 } /* end of [assign02_patssrc_saveAs_onclick] */
 //
-%} // %{^
+%} // end of [%{^]
 
 (* ****** ****** *)
 

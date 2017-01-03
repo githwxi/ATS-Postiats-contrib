@@ -24,7 +24,7 @@ staload _ = "./../DATS/intinf_vt.dats"
 
 extern
 fun{
-a:t@ype
+a:t0p
 } gfib (x: int): a
 
 (* ****** ****** *)

@@ -39,12 +39,12 @@
 
 (* ****** ****** *)
 
-staload
+#staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload
+#staload
 GMP = "{$LIBGMP}/SATS/gmp.sats"
 
 (* ****** ****** *)
@@ -53,12 +53,12 @@ vtypedef mpz = $GMP.mpz_vt0ype
 
 (* ****** ****** *)
 //
-staload "./../SATS/intinf.sats"
-staload "./../SATS/intinf_vt.sats"
+#staload "./../SATS/intinf.sats"
+#staload "./../SATS/intinf_vt.sats"
 //
 (* ****** ****** *)
 
-macdef i2u (x) = g1int2uint_int_uint (,(x))
+macdef i2u(x) = g1int2uint_int_uint(,(x))
 
 (* ****** ****** *)
 
@@ -172,8 +172,9 @@ val () = $GMP.mpz_neg (!(y.2), !(x.2))
 
 (* ****** ****** *)
 
-implement{
-} abs_intinf0
+implement
+{}(*tmp*)
+abs_intinf0
   (x) = (x) where
 {
 //

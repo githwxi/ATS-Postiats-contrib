@@ -30,11 +30,11 @@
 (*
 ** Start Time: July, 2013
 ** Author: Hanwen Wu
-** Authoremail: steinwaywhw AT gmail DOT com
+** Authoremail: steinwaywhwATgmailDOTcom
 *)
 (*
 ** Start Time: August, 2013
-** Author: Hongwei Xi (gmhwxi AT gmail DOT com)
+** Author: Hongwei Xi (gmhwxiATgmailDOTcom)
 *)
 
 (* ****** ****** *)

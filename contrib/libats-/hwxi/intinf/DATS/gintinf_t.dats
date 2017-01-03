@@ -34,14 +34,14 @@
 //
 (* ****** ****** *)
 
-staload "./../SATS/intinf.sats"
-staload "./../SATS/intinf_t.sats"
+#staload "./../SATS/intinf.sats"
+#staload "./../SATS/intinf_t.sats"
 
 (* ****** ****** *)
 
 (*
-staload+ _ = "./../DATS/intinf_t.dats"
-staload+ _ = "./../DATS/intinf_vt.dats"
+#staload _ = "./../DATS/intinf_t.dats"
+#staload _ = "./../DATS/intinf_vt.dats"
 *)
 
 (* ****** ****** *)
@@ -92,7 +92,7 @@ prerr_intinf
 //
 implement
 {}(*tmp*)
-fprint_intinf (out, x) = fprint (out, g1ofg0(x))
+fprint_intinf(out, x) = fprint (out, g1ofg0(x))
 //
 (* ****** ****** *)
 //
@@ -116,8 +116,10 @@ end // end of [gnumber_int]
 implement
 gneg_val<intinf>
   (x) = let
-  val x = g1ofg0(x)
-  val y = $effmask_all(neg_intinf(x))
+//
+val x = g1ofg0(x)
+val y = $effmask_all(neg_intinf(x))
+//
 in
   g0ofg1_intinf(y)
 end // end of [gneg_val]
@@ -127,8 +129,10 @@ end // end of [gneg_val]
 implement
 gabs_val<intinf>
   (x) = let
-  val x = g1ofg0(x)
-  val y = $effmask_all(abs_intinf(x))
+//
+val x = g1ofg0(x)
+val y = $effmask_all(abs_intinf(x))
+//
 in
   g0ofg1_intinf(y)
 end // end of [gabs_val]
@@ -138,8 +142,10 @@ end // end of [gabs_val]
 implement
 gsucc_val<intinf>
   (x) = let
-  val x = g1ofg0(x)
-  val y = $effmask_all(succ_intinf(x))
+//
+val x = g1ofg0(x)
+val y = $effmask_all(succ_intinf(x))
+//
 in
   g0ofg1_intinf(y)
 end // end of [gsucc_val]
@@ -149,8 +155,10 @@ end // end of [gsucc_val]
 implement
 gpred_val<intinf>
   (x) = let
-  val x = g1ofg0(x)
-  val y = $effmask_all(pred_intinf(x))
+//
+val x = g1ofg0(x)
+val y = $effmask_all(pred_intinf(x))
+//
 in
   g0ofg1_intinf(y)
 end // end of [gpred_val]
@@ -160,11 +168,13 @@ end // end of [gpred_val]
 implement
 gadd_val_val<intinf>
   (x1, x2) = let
-  val x1 = g1ofg0(x1)
-  and x2 = g1ofg0(x2)
-  val y = $effmask_all(add_intinf_intinf(x1, x2))
+//
+val x1 = g1ofg0(x1)
+and x2 = g1ofg0(x2)
+val res = $effmask_all(add_intinf_intinf(x1, x2))
+//
 in
-  g0ofg1_intinf(y)
+  g0ofg1_intinf(res)
 end // end of [gadd_val_val]
 
 (* ****** ****** *)
@@ -172,11 +182,13 @@ end // end of [gadd_val_val]
 implement
 gsub_val_val<intinf>
   (x1, x2) = let
-  val x1 = g1ofg0(x1)
-  and x2 = g1ofg0(x2)
-  val y = $effmask_all(sub_intinf_intinf(x1, x2))
+//
+val x1 = g1ofg0(x1)
+and x2 = g1ofg0(x2)
+val res = $effmask_all(sub_intinf_intinf(x1, x2))
+//
 in
-  g0ofg1_intinf(y)
+  g0ofg1_intinf(res)
 end // end of [gsub_val_val]
 
 (* ****** ****** *)
@@ -184,11 +196,13 @@ end // end of [gsub_val_val]
 implement
 gmul_val_val<intinf>
   (x1, x2) = let
-  val x1 = g1ofg0(x1)
-  and x2 = g1ofg0(x2)
-  val y = $effmask_all(mul_intinf_intinf(x1, x2))
+//
+val x1 = g1ofg0(x1)
+and x2 = g1ofg0(x2)
+val res = $effmask_all(mul_intinf_intinf(x1, x2))
+//
 in
-  g0ofg1_intinf(y)
+  g0ofg1_intinf(res)
 end // end of [gmul_val_val]
 
 (* ****** ****** *)
@@ -208,11 +222,11 @@ if
 sgn != 0
 then let
 //
-val y =
+val res =
 $effmask_all(div_intinf_intinf(x1, x2))
 //
 in
-  g0ofg1_intinf(y)
+  g0ofg1_intinf(res)
 end // end of [then]
 else
   $raise IllegalArgExn("gdiv_val_val<intinf>:division-by-zero")

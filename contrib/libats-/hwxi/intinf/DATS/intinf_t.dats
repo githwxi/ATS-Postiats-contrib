@@ -33,71 +33,80 @@
 // Start Time: April, 2013
 //
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+#staload UN =
+"prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
-staload "./../SATS/intinf.sats"
+#staload "./../SATS/intinf.sats"
 //
 vtypedef
-intinf_vt (i:int) = intinf_vtype (i)
+intinf_vt(i:int) = intinf_vtype(i)
 //
 (* ****** ****** *)
 //
-staload "./../SATS/intinf_t.sats"
-staload VT = "./../SATS/intinf_vt.sats"
+#staload "./../SATS/intinf_t.sats"
+#staload VT = "./../SATS/intinf_vt.sats"
 //
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
 intinf_make_int
-  (i) = intinf_vt2t ($VT.intinf_make_int (i))
+  (i) = // intinf_make_int
+  intinf_vt2t($VT.intinf_make_int(i))
 implement
 {}(*tmp*)
 intinf_make_uint
-  (i) = intinf_vt2t ($VT.intinf_make_uint (i))
+  (i) = // intinf_make_uint
+  intinf_vt2t($VT.intinf_make_uint(i))
 implement
 {}(*tmp*)
 intinf_make_lint
-  (i) = intinf_vt2t ($VT.intinf_make_lint (i))
+  (i) = // intinf_make_lint
+  intinf_vt2t($VT.intinf_make_lint(i))
 implement
 {}(*tmp*)
 intinf_make_ulint
-  (i) = intinf_vt2t ($VT.intinf_make_ulint (i))
+  (i) = // intinf_make_ulint
+  intinf_vt2t($VT.intinf_make_ulint(i))
 //
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-intinf_get_int (x) = let
+intinf_get_int
+  (x) = res where
+{
 //
 val
 (
   fpf | x
 ) = intinf_takeout (x)
-val i = $VT.intinf_get_int (x)
-prval () = fpf (x)
 //
-in
-  (i)
-end // end of [intinf_get_int]
+val res = $VT.intinf_get_int(x)
+//
+prval ((*returned*)) = fpf(x)
+//
+} (* end of [intinf_get_int] *)
 
 implement
 {}(*tmp*)
-intinf_get_lint (x) = let
+intinf_get_lint
+  (x) = res where
+{
 //
 val
 (
   fpf | x
 ) = intinf_takeout (x)
-val i = $VT.intinf_get_lint (x)
-prval () = fpf (x)
 //
-in
-  (i)
-end // end of [intinf_get_lint]
+val res = $VT.intinf_get_lint(x)
+//
+prval ((*returned*)) = fpf(x)
+//
+} (* end of [intinf_get_lint] *)
 
 (* ****** ****** *)
 
@@ -118,17 +127,21 @@ in
 end (* end of [intinf_get_string] *)
 
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
-print_intinf (x) = fprint_intinf (stdout_ref, x)
+print_intinf
+  (x) = fprint_intinf (stdout_ref, x)
 implement
 {}(*tmp*)
-prerr_intinf (x) = fprint_intinf (stderr_ref, x)
+prerr_intinf
+  (x) = fprint_intinf (stderr_ref, x)
+//
 implement
 {}(*tmp*)
-fprint_intinf (out, x) = fprint_intinf_base (out, x, 10(*base*))
-
+fprint_intinf
+  (out, x) = fprint_intinf_base (out, x, 10(*base*))
+//
 (* ****** ****** *)
 
 implement
@@ -141,86 +154,98 @@ val
 (
   fpf | x
 ) = intinf_takeout (x)
-val () = $VT.fprint_intinf_base (out, x, base)
-prval () = fpf (x)
+val () =
+  $VT.fprint_intinf_base (out, x, base)
+prval ((*returned*)) = fpf(x)
 //
 } (* fprint_intinf_base *)
 
 (* ****** ****** *)
 
-implement{
-} neg_intinf
+implement
+{}(*tmp*)
+neg_intinf
   (x) = let
 //
 val
 (
   fpf | x
-) = intinf_takeout (x)
-val y = $VT.neg_intinf1 (x)
-prval () = fpf (x)
+) = intinf_takeout(x)
+val res = $VT.neg_intinf1(x)
+//
+prval ((*returned*)) = fpf(x)
 //
 in
-  intinf_vt2t (y)
+  intinf_vt2t(res)
 end (* end of [neg_intinf] *)
 
 (* ****** ****** *)
 
-implement{
-} abs_intinf
+implement
+{}(*tmp*)
+abs_intinf
   (x) = let
 //
 val
 (
   fpf | x
 ) = intinf_takeout (x)
-val y = $VT.abs_intinf1 (x)
-prval () = fpf (x)
+//
+val res = $VT.abs_intinf1(x)
+//
+prval ((*returned*)) = fpf(x)
 //
 in
-  intinf_vt2t (y)
+  intinf_vt2t(res)
 end (* end of [abs_intinf] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-succ_intinf (x) = add_intinf_int (x, 1)
+succ_intinf(x) = add_intinf_int (x, 1)
 implement
 {}(*tmp*)
-pred_intinf (x) = sub_intinf_int (x, 1)
+pred_intinf(x) = sub_intinf_int (x, 1)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-add_intinf_int (x, y) = let
+add_intinf_int
+  (x, y) = let
 //
 val
 (
   fpf | x
 ) = intinf_takeout (x)
 //
-val z = $VT.add_intinf1_int (x, y)
-prval () = fpf (x)
+val res =
+  $VT.add_intinf1_int (x, y)
+//
+prval ((*returned*)) = fpf(x)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [add_intinf_int]
 
 implement
 {}(*tmp*)
-add_int_intinf (x, y) = let
+add_int_intinf
+  (x, y) = let
 //
 val
 (
   fpf | y
-) = intinf_takeout (y)
+) = intinf_takeout(y)
 //
-val z = $VT.add_int_intinf1 (x, y)
-prval () = fpf (y)
+val res =
+  $VT.add_int_intinf1(x, y)
+//
+prval ((*returned*)) = fpf(y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [add_int_intinf]
 
 implement
@@ -231,51 +256,59 @@ add_intinf_intinf
 val
 (
   fpf1 | x
-) = intinf_takeout (x)
+) = intinf_takeout(x)
 val
 (
   fpf2 | y
-) = intinf_takeout (y)
-val z = $VT.add_intinf1_intinf1 (x, y)
-prval () = fpf1 (x)
-prval () = fpf2 (y)
+) = intinf_takeout(y)
+val res =
+  $VT.add_intinf1_intinf1(x, y)
+//
+prval ((*returned*)) = fpf1(x)
+prval ((*returned*)) = fpf2(y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end (* end of [add_intinf_intinf] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-sub_intinf_int (x, y) = let
+sub_intinf_int
+  (x, y) = let
 //
 val
 (
   fpf | x
-) = intinf_takeout (x)
+) = intinf_takeout(x)
 //
-val z = $VT.sub_intinf1_int (x, y)
-prval () = fpf (x)
+val res =
+  $VT.sub_intinf1_int(x, y)
+//
+prval ((*returned*)) = fpf (x)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [sub_intinf_int]
 
 implement
 {}(*tmp*)
-sub_int_intinf (x, y) = let
+sub_int_intinf
+  (x, y) = let
 //
 val
 (
   fpf | y
 ) = intinf_takeout (y)
 //
-val z = $VT.sub_int_intinf1 (x, y)
-prval () = fpf (y)
+val res =
+  $VT.sub_int_intinf1(x, y)
+//
+prval ((*returned*)) = fpf(y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [sub_int_intinf]
 
 implement
@@ -291,46 +324,54 @@ val
 (
   fpf2 | y
 ) = intinf_takeout (y)
-val z = $VT.sub_intinf1_intinf1 (x, y)
-prval () = fpf1 (x)
-prval () = fpf2 (y)
+val res =
+  $VT.sub_intinf1_intinf1 (x, y)
+//
+prval ((*returned*)) = fpf1 (x)
+prval ((*returned*)) = fpf2 (y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end (* end of [sub_intinf_intinf] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-mul_intinf_int (x, y) = let
+mul_intinf_int
+  (x, y) = let
 //
 val
 (
   fpf | x
-) = intinf_takeout (x)
+) = intinf_takeout(x)
 //
-val z = $VT.mul_intinf1_int (x, y)
-prval () = fpf (x)
+val res =
+  $VT.mul_intinf1_int(x, y)
+//
+prval ((*returned*)) = fpf(x)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [mul_intinf_int]
 
 implement
 {}(*tmp*)
-mul_int_intinf (x, y) = let
+mul_int_intinf
+  (x, y) = let
 //
 val
 (
   fpf | y
-) = intinf_takeout (y)
+) = intinf_takeout(y)
 //
-val z = $VT.mul_int_intinf1 (x, y)
-prval () = fpf (y)
+val res =
+  $VT.mul_int_intinf1(x, y)
+//
+prval ((*returned*)) = fpf(y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [mul_int_intinf]
 
 implement
@@ -346,30 +387,35 @@ val
 (
   fpf2 | y
 ) = intinf_takeout (y)
-val z = $VT.mul_intinf1_intinf1 (x, y)
-prval () = fpf1 (x)
-prval () = fpf2 (y)
+val res =
+  $VT.mul_intinf1_intinf1(x, y)
+//
+prval ((*returned*)) = fpf1(x)
+prval ((*returned*)) = fpf2(y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end (* end of [mul_intinf_intinf] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-div_intinf_int (x, y) = let
+div_intinf_int
+  (x, y) = let
 //
 val
 (
   fpf | x
 ) = intinf_takeout (x)
 //
-val z = $VT.div_intinf1_int (x, y)
-prval () = fpf (x)
+val res =
+  $VT.div_intinf1_int (x, y)
+//
+prval ((*returned*)) = fpf (x)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end // end of [div_intinf_int]
 
 implement
@@ -385,31 +431,34 @@ val
 (
   fpf2 | y
 ) = intinf_takeout (y)
-val z = $VT.div_intinf1_intinf1 (x, y)
-prval () = fpf1 (x)
-prval () = fpf2 (y)
+val res =
+  $VT.div_intinf1_intinf1(x, y)
+//
+prval ((*returned*)) = fpf1(x)
+prval ((*returned*)) = fpf2(y)
 //
 in
-  intinf_vt2t (z)
+  intinf_vt2t(res)
 end (* end of [div_intinf_intinf] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-nmod_intinf_int (x, y) = let
+nmod_intinf_int
+  (x, y) = res where
+{
 //
 val
 (
   fpf | x
-) = intinf_takeout (x)
+) = intinf_takeout(x)
 //
-val r = $VT.nmod_intinf1_int (x, y)
-prval () = fpf (x)
+val res = $VT.nmod_intinf1_int(x, y)
 //
-in
-  r
-end // end of [nmod_intinf_int]
+prval ((*returned*)) = fpf(x)
+//
+} (* end of [nmod_intinf_int] *)
 
 (* ****** ****** *)
 
@@ -476,12 +525,15 @@ pow_intinf_int
 val
 (
   fpf | base
-) = intinf_takeout (base)
-val y = $VT.pow_intinf_int (base, exp)
-prval () = fpf (base)
+) = intinf_takeout(base)
+//
+val res =
+  $VT.pow_intinf_int(base, exp)
+//
+prval ((*returned*)) = fpf(base)
 //
 in
-  intinf_vt2t (y)
+  intinf_vt2t(res)
 end (* end of [pow_intinf] *)
 
 (* ****** ****** *)

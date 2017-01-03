@@ -59,6 +59,14 @@ cleanall:: ; $(RMF) isevn_dats.php
 ######
 
 all:: \
+weekday_dats.php
+weekday_dats.php: weekday.dats ; \
+$(PATSOPT) -d $< | $(ATSCC2PHP) -o $@
+cleanall:: ; $(RMF) weekday_dats.php
+
+######
+
+all:: \
 multable_dats.php
 multable_dats.php: multable.dats ; \
 $(PATSOPT) -d $< | $(ATSCC2PHP) -o $@

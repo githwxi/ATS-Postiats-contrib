@@ -27,21 +27,23 @@
 (*
 ** Start Time: July, 2013
 ** Author: Hanwen Wu
-** Authoremail: steinwaywhw AT gmail DOT com
+** Authoremail: steinwaywhwATgmailDOTcom
 *)
 (*
 ** Start Time: August, 2013
-** Author: Hongwei Xi (gmhwxi AT gmail DOT com)
+** Author: Hongwei Xi (gmhwxiATgmailDOTcom)
 *)
 
 (* ****** ****** *)
 
-#define ATS_PACKNAME "ATSCNTRB.hiredis"
-#define ATS_EXTERN_PREFIX "atscntrb_hiredis_" // prefix for external names
+#define
+ATS_PACKNAME "ATSCNTRB.hiredis"
+#define
+ATS_EXTERN_PREFIX "atscntrb_hiredis_" // prefix for external names
 
 (* ****** ****** *)
 
-%{^#
+%{#
 //
 #include "hiredis/CATS/hiredis.cats"
 //

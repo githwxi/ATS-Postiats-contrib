@@ -353,11 +353,19 @@ end (* end of [emit_tmpvar] *)
 
 implement
 emit_d0exp
-  (out, d0e0) = let
+(out, d0e0) = let
+//
+(*
+val () =
+println!
+  ("emit_d0exp: d0e0 = ", d0e0)
+*)
+//
 in
 //
 case+
-d0e0.d0exp_node of
+d0e0.d0exp_node
+of (* case+ *)
 //
 | D0Eide (tmp) => 
   {
@@ -389,57 +397,98 @@ d0e0.d0exp_node of
     val () = emit_RPAREN (out)
   }
 //
-| ATSPMVint (int) => emit_PMVint (out, int)
-| ATSPMVintrep (int) => emit_PMVintrep (out, int)
-//
-| ATSPMVbool (tfv) => emit_PMVbool (out, tfv)
-//
-| ATSPMVfloat (flt) => emit_PMVfloat (out, flt)
-//
-| ATSPMVstring (str) => emit_PMVstring (out, str)
-//
-| ATSPMVi0nt (int) => emit_PMVi0nt (out, int)
-| ATSPMVf0loat (flt) => emit_PMVf0loat (out, flt)
-//
-| ATSPMVempty (x) => emit_PMVempty (out, 0)
-| ATSPMVextval (toks) => emit_PMVextval (out, toks)
-//
-| ATSPMVrefarg0 (d0e) => emit_d0exp (out, d0e)
-| ATSPMVrefarg1 (d0e) => emit_d0exp (out, d0e)
-//
-| ATSPMVfunlab (fl) =>
+| ATSPMVint(int) =>
   {
-(*
-    val () = emit_SQUOTE (out)
-*)
-    val () = emit_PMVfunlab (out, fl)
-(*
-    val () = emit_SQUOTE (out)
-*)
+    val () = emit_PMVint (out, int)
+  }
+| ATSPMVintrep(int) =>
+  {
+    val () = emit_PMVintrep(out, int)
+  }
+//
+| ATSPMVbool(tfv) =>
+  {
+    val () = emit_PMVbool(out, tfv)
+  }
+//
+| ATSPMVfloat(flt) =>
+  {
+    val () = emit_PMVfloat(out, flt)
+  }
+//
+| ATSPMVstring(str) =>
+  {
+    val () = emit_PMVstring(out, str)
+  }
+//
+| ATSPMVi0nt(int) =>
+  {
+    val () = emit_PMVi0nt(out, int)
+  }
+| ATSPMVf0loat(flt) =>
+  {
+    val () = emit_PMVf0loat(out, flt)
+  }
+//
+| ATSPMVempty(x) =>
+  {
+    val () = emit_PMVempty(out, 0)
+  }
+//
+| ATSPMVextval(toks) =>
+  {
+    val () = emit_PMVextval(out, toks)
+  }
+//
+| ATSPMVrefarg0(d0e) =>
+  {
+    val () = emit_d0exp(out, d0e)
+  }
+| ATSPMVrefarg1(d0e) =>
+  {
+    val () = emit_d0exp(out, d0e)
+  }
+//
+| ATSPMVfunlab(flab) =>
+  {
+    val () = emit_SQUOTE(out)
+    val () = emit_PMVfunlab(out, flab)
+    val () = emit_SQUOTE(out)
   } (* end of [ATSPMVfunlab] *)
 //
 | ATSPMVcfunlab
-    (_(*knd*), fl, d0es) =>
+    (_(*knd*), flab, d0es) =>
   {
-    val () = emit_PMVcfunlab (out, fl, d0es)
+    val () = emit_PMVcfunlab(out, flab, d0es)
   } (* end of [ATSPMVcfunlab] *)
 //
 | ATSPMVcastfn
-    (_(*fid*), _(*s0e*), arg) => emit_d0exp (out, arg)
+  (
+    _(*fid*), _(*s0e*), arg
+  ) =>
+  {
+    val () = emit_d0exp(out, arg)
+  }
 //
-| ATSCSTSPmyloc (tok) => emit_CSTSPmyloc (out, tok)
+| ATSCSTSPmyloc
+    (tok) => emit_CSTSPmyloc (out, tok)
 //
 | ATSCKpat_int
-    (d0e, int) => emit_ATSCKpat_int (out, d0e, int)
+    (d0e, int) =>
+    emit_ATSCKpat_int (out, d0e, int)
 | ATSCKpat_bool
-    (d0e, bool) => emit_ATSCKpat_bool (out, d0e, bool)
+    (d0e, bool) =>
+    emit_ATSCKpat_bool (out, d0e, bool)
 | ATSCKpat_string
-    (d0e, string) => emit_ATSCKpat_string (out, d0e, string)
+    (d0e, string) =>
+    emit_ATSCKpat_string (out, d0e, string)
 //
 | ATSCKpat_con0
-    (d0e, ctag) => emit_ATSCKpat_con0 (out, d0e, ctag)
+    (d0e, ctag) =>
+    emit_ATSCKpat_con0 (out, d0e, ctag)
 | ATSCKpat_con1
-    (d0e, ctag) => emit_ATSCKpat_con1 (out, d0e, ctag)
+    (d0e, ctag) =>
+    emit_ATSCKpat_con1 (out, d0e, ctag)
 //
 | ATSCKiseqz(d0e) => emit_ATSCKiseqz (out, d0e)
 | ATSCKisneqz(d0e) => emit_ATSCKisneqz (out, d0e)
@@ -452,12 +501,14 @@ d0e0.d0exp_node of
 | ATSSELfltrec _ => emit_text (out, "ATSSELfltrec(...)")
 //
 | ATSextfcall
-    (_fun, _arg) => {
+    (_fun, _arg) =>
+  {
     val () = emit_i0de (out, _fun)
     val () = emit_d0exparg (out, _arg)
   } (* end of [ATSextfcall] *)
 | ATSextmcall
-    (_obj, _mtd, _arg) => {
+    (_obj, _mtd, _arg) =>
+  {
 //
     val () = emit_d0exp (out, _obj)
     val () = emit_text (out, "->")
@@ -470,7 +521,14 @@ d0e0.d0exp_node of
 | ATSfunclo_fun
     (d0e, _(*arg*), _(*res*)) =>
   {
-    val () = emit_d0exp (out, d0e)
+    val () =
+    (
+      case+
+      d0e.d0exp_node
+      of (* case+ *)
+      | ATSPMVfunlab(fl) => emit_PMVfunlab(out, fl)
+      | _(*non-ATSPMVfunlab*) => emit_d0exp (out, d0e)
+    ) (* end of [val] *)
   }
 | ATSfunclo_clo
     (d0e, _(*arg*), _(*res*)) =>

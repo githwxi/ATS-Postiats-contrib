@@ -29,8 +29,8 @@
 (* ****** ****** *)
 //
 // Author: Hongwei Xi
-// Authoremail: hwxi AT gmail DOT com
 // Start Time: February, 2013
+// Authoremail: gmhwxiATgmailDOTcom
 //
 (* ****** ****** *)
 //
@@ -44,29 +44,36 @@ ATS_PACKNAME "ATSCNTRB.libats-hwxi.intinf"
 
 (* ****** ****** *)
 //
-abstype intinf_type (i:int) = ptr
-absvtype intinf_vtype (i:int) = ptr
+abstype intinf_type(i:int) = ptr
+absvtype intinf_vtype(i:int) = ptr
 //
 (* ****** ****** *)
 
 castfn
 intinf_vt2t{i:int}
-  (x: intinf_vtype (i)):<> intinf_type (i)
+  (x: intinf_vtype(i)):<> intinf_type(i)
 // end of [intinf_vt2t]
 
 (* ****** ****** *)
 
 castfn
 intinf_takeout
-  {i:int} (x: intinf_type (i)):<> vttakeout0 (intinf_vtype (i))
+  {i:int}
+  (x: intinf_type(i)):<> vttakeout0(intinf_vtype(i))
 // end of [intinf_takeout]
 
 (* ****** ****** *)
 
 castfn
-intinf_vcopy
-  {i:int} (x: !intinf_vtype (i)):<> vttakeout0 (intinf_vtype (i))
-// end of [intinf_vcopy]
+intinf_t_vcopy
+  {i:int}
+  (x: intinf_type(i)):<> vttakeout0(intinf_vtype(i))
+// end of [intinf_t_vcopy]
+castfn
+intinf_vt_vcopy
+  {i:int}
+  (x: !intinf_vtype(i)):<> vttakeout0(intinf_vtype(i))
+// end of [intinf_vt_vcopy]
 
 (* ****** ****** *)
 

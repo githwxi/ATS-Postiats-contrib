@@ -25,7 +25,7 @@ staload _ = "./../DATS/intinf_vt.dats"
 extern
 fun{
 a:t0p
-} gfact (x: int): (a)
+} gfact(x: int): (a)
 //
 implement
 {a}(*tmp*)

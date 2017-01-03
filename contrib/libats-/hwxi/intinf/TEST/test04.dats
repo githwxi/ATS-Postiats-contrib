@@ -24,30 +24,48 @@ staload _(*VT*) = "./../DATS/intinf_vt.dats"
 
 (* ****** ****** *)
 
-fun square
-  (x: !Intinf): Intinf = let
-  val (fpf | x2) = intinf_vcopy (x)
-  val res = x * x2
-  prval () = fpf (x2)
+fun
+square
+(
+x0: !Intinf
+) : Intinf = let
+val
+(
+  fpf | x1
+) = intinf_vt_vcopy(x0)
+//
+val res = x0 * x1
+prval () = fpf(x1)
+//
 in
   res
 end (* end of [square] *)
 
-fun power
-  {n:nat} .<n>.
+(* ****** ****** *)
+
+fun
+mypower
+{n:nat} .<n>.
 (
-  x: !Intinf, n: int n
+x0: !Intinf, n: int n
 ) : Intinf = let
 in
 //
-if n > 0 then let
+if
+(n > 0)
+then let
   val n2 = half (n)
-  val x2 = square (x)
-  val res = power (x2, n2)
-  val () = intinf_free (x2)
+  val x2 = square(x0)
+  val res = mypower(x2, n2)
+  val ((*freed*)) = intinf_free(x2)
 in
-  if n > 2*n2 then mul_intinf1_intinf0 (x, res) else res
-end else int2intinf (1)
+//
+if n > 2*n2
+  then mul_intinf1_intinf0(x0, res) else res
+// end of [if]
+//
+end // end of [then]
+else int2intinf(1) // [else]
 //
 end (* end of [power] *)
 
@@ -59,21 +77,33 @@ main0 () =
 //
 #define N 1000
 //
-val x = int2intinf (2)
+val
+x0 = int2intinf(2)
 //
-val res = power (x, N)
-val str = intinf_get_strptr (res, 10)
-val () = intinf_free (res)
-val () = println! "power (2, " N ") =\n" str
-val () = strptr_free (str)
+val
+res = mypower(x0, N)
+val
+str = intinf_get_strptr (res, 10)
 //
-val res = pow_intinf_int (x, N)
-val str = intinf_get_strptr (res, 10)
-val () = intinf_free (res)
-val () = println! "power (2, " N ") = // built-in\n" str
-val () = strptr_free (str)
+val () =
+println! "power (2, " N ") =\n" str
 //
-val () = intinf_free (x)
+val () = intinf_free(res)
+val () = strptr_free(str)
+//
+val
+res =
+pow_intinf_int(x0, N)
+val
+str = intinf_get_strptr (res, 10)
+//
+val () =
+println! "power (2, " N ") = // built-in\n" str
+//
+val () = intinf_free(res)
+val () = strptr_free(str)
+//
+val ((*freed*)) = intinf_free(x0)
 //
 } (* end of [main0] *)
 

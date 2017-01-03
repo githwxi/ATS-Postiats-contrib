@@ -9,6 +9,7 @@
 
 ######
 
+
 ATSHOMEQ="$(ATSHOME)"
 ATSCC=$(ATSHOMEQ)/bin/atscc
 ATSOPT=$(ATSHOMEQ)/bin/atsopt
@@ -21,6 +22,12 @@ PATSHOMEQ="$(PATSHOME)"
 ######
 
 SHAREDOCU=$(PATSHOMEQ)/share/DOCUGEN
+
+######
+
+LDPATH :=
+LDPATH += -L$(PATSHOME)/utils/libatsopt
+LDPATH += -L$(PATSHOME)/utils/libatsynmark
 
 ######
 
@@ -67,7 +74,7 @@ all_html::
 all_html:: HTML/intinf.html
 HTML/intinf.html:   intinf_atxt.exe ; ./$< > $@
 intinf_atxt.txt: intinf.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
-intinf_atxt.exe: htmlgendecl_atxt.dats   intinf_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOME)/libatsynmark/libatsynmark.a -latsdoc
+intinf_atxt.exe: htmlgendecl_atxt.dats   intinf_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(LDPATH) -latsynmark -latsopt -latsdoc -lats -lgmp
 upload_intinf:: ;   scp HTML/intinf.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libats-hwxi/intinf/SATS/DOCUGEN/HTML/
 clean:: ; $(RMF) intinf_atxt.exe
 cleanall:: ; $(RMF) HTML/intinf.html
@@ -75,7 +82,7 @@ cleanall:: ; $(RMF) HTML/intinf.html
 all_html:: HTML/intinf_t.html
 HTML/intinf_t.html:   intinf_t_atxt.exe ; ./$< > $@
 intinf_t_atxt.txt: intinf_t.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
-intinf_t_atxt.exe: htmlgendecl_atxt.dats   intinf_t_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOME)/libatsynmark/libatsynmark.a -latsdoc
+intinf_t_atxt.exe: htmlgendecl_atxt.dats   intinf_t_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(LDPATH) -latsynmark -latsopt -latsdoc -lats -lgmp
 upload_intinf_t:: ;   scp HTML/intinf_t.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libats-hwxi/intinf/SATS/DOCUGEN/HTML/
 clean:: ; $(RMF) intinf_t_atxt.exe
 cleanall:: ; $(RMF) HTML/intinf_t.html
@@ -83,7 +90,7 @@ cleanall:: ; $(RMF) HTML/intinf_t.html
 all_html:: HTML/intinf_vt.html
 HTML/intinf_vt.html:   intinf_vt_atxt.exe ; ./$< > $@
 intinf_vt_atxt.txt: intinf_vt.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
-intinf_vt_atxt.exe: htmlgendecl_atxt.dats   intinf_vt_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOME)/libatsynmark/libatsynmark.a -latsdoc
+intinf_vt_atxt.exe: htmlgendecl_atxt.dats   intinf_vt_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(LDPATH) -latsynmark -latsopt -latsdoc -lats -lgmp
 upload_intinf_vt:: ;   scp HTML/intinf_vt.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libats-hwxi/intinf/SATS/DOCUGEN/HTML/
 clean:: ; $(RMF) intinf_vt_atxt.exe
 cleanall:: ; $(RMF) HTML/intinf_vt.html

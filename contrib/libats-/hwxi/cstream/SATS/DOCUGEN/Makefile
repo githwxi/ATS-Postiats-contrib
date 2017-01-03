@@ -24,6 +24,12 @@ SHAREDOCU=$(PATSHOMEQ)/share/DOCUGEN
 
 ######
 
+LDPATH :=
+LDPATH += -L$(PATSHOME)/utils/libatsopt
+LDPATH += -L$(PATSHOME)/utils/libatsynmark
+
+######
+
 INCLUDE:=-I $(PATSHOMEQ)/src
 INCLATS:=-IATS $(SHAREDOCU) -IATS $(PATSHOMEQ) -IATS $(ATSHOMEQ)
 
@@ -67,7 +73,7 @@ all_html::
 all_html:: HTML/cstream.html
 HTML/cstream.html:   cstream_atxt.exe ; ./$< > $@
 cstream_atxt.txt: cstream.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
-cstream_atxt.exe: htmlgendecl_atxt.dats   cstream_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOME)/libatsynmark/libatsynmark.a -latsdoc
+cstream_atxt.exe: htmlgendecl_atxt.dats   cstream_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(LDPATH) -latsynmark -latsopt -latsdoc -lats -lgmp
 upload_cstream:: ;   scp HTML/cstream.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libats-hwxi/cstream/SATS/DOCUGEN/HTML/
 clean:: ; $(RMF) cstream_atxt.exe
 cleanall:: ; $(RMF) HTML/cstream.html
@@ -75,7 +81,7 @@ cleanall:: ; $(RMF) HTML/cstream.html
 all_html:: HTML/cstream_tokener.html
 HTML/cstream_tokener.html:   cstream_tokener_atxt.exe ; ./$< > $@
 cstream_tokener_atxt.txt: cstream_tokener.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
-cstream_tokener_atxt.exe: htmlgendecl_atxt.dats   cstream_tokener_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOME)/libatsynmark/libatsynmark.a -latsdoc
+cstream_tokener_atxt.exe: htmlgendecl_atxt.dats   cstream_tokener_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) $(ATSGCFLAG) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(LDPATH) -latsynmark -latsopt -latsdoc -lats -lgmp
 upload_cstream_tokener:: ;   scp HTML/cstream_tokener.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libats-hwxi/cstream/SATS/DOCUGEN/HTML/
 clean:: ; $(RMF) cstream_tokener_atxt.exe
 cleanall:: ; $(RMF) HTML/cstream_tokener.html
