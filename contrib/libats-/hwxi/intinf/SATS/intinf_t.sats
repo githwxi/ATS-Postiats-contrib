@@ -234,15 +234,33 @@ overload / with div_intinf_intinf
 //
 fun{}
 nmod_intinf_int
-  {i,j:nat | j != 0}
-  (x: intinf(i), y: int(j)): natLt(j)
+  {i,j:nat | j > 0}
+  (x: intinf(i), y: int(j)): intBtw(0, j)
 fun{}
 nmod_intinf_intinf
-  {i,j:nat | j != 0}
-  (x: intinf(i), y: intinf(j)): [r:nat | r < j] intinf(r)
+  {i,j:nat | j > 0}
+  (x: intinf(i), y: intinf(j)): intinfBtw(0, j)
 //
 overload nmod with nmod_intinf_int
 overload nmod with nmod_intinf_intinf
+//
+(* ****** ****** *)
+//
+fun{}
+ndiv_intinf_int
+  {i,j:nat | j > 0}
+  (x: intinf(i), y: int(j)): intinf(ndiv(i,j))
+fun{}
+ndiv_intinf_intinf
+  {i,j:nat | j > 0}
+  (x: intinf(i), y: intinf(j)): intinf(ndiv(i,j))
+//
+overload ndiv with ndiv_intinf_int
+overload ndiv with ndiv_intinf_intinf
+//
+(* ****** ****** *)
+//
+// comparison-functions
 //
 (* ****** ****** *)
 
@@ -266,9 +284,11 @@ overload compare with compare_intinf_intinf
 (* ****** ****** *)
 //
 fun{}
+pow_int_int
+  {b,n:nat}(base: int(b), exp: int(n)): intinfGte(0)
+fun{}
 pow_intinf_int
-  {i:nat} (base: Intinf, exp: int(i)): Intinf(*none*)
-// end of [pow_intinf_int]
+  {b,i:nat} (base: intinf(b), exp: int(i)): intinfGte(0)
 //
 (* ****** ****** *)
 

@@ -131,16 +131,16 @@ end (* end of [intinf_get_string] *)
 implement
 {}(*tmp*)
 print_intinf
-  (x) = fprint_intinf (stdout_ref, x)
+  (x) = fprint_intinf(stdout_ref, x)
 implement
 {}(*tmp*)
 prerr_intinf
-  (x) = fprint_intinf (stderr_ref, x)
+  (x) = fprint_intinf(stderr_ref, x)
 //
 implement
 {}(*tmp*)
 fprint_intinf
-  (out, x) = fprint_intinf_base (out, x, 10(*base*))
+  (out, x) = fprint_intinf_base(out, x, 10(*base*))
 //
 (* ****** ****** *)
 
@@ -519,6 +519,20 @@ end (* end of [compare_intinf_intinf] *)
 
 implement
 {}(*tmp*)
+pow_int_int
+  (base, exp) = let
+//
+val res =
+  $VT.pow_int_int(base, exp)
+//
+in
+  intinf_vt2t(res)
+end (* end of [pow_int_int] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 pow_intinf_int
   (base, exp) = let
 //
@@ -534,7 +548,7 @@ prval ((*returned*)) = fpf(base)
 //
 in
   intinf_vt2t(res)
-end (* end of [pow_intinf] *)
+end (* end of [pow_intinf_int] *)
 
 (* ****** ****** *)
 

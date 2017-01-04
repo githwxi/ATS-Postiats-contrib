@@ -171,43 +171,54 @@ fun mpz_set_str_exn
 
 (* ****** ****** *)
 //
-symintr mpz_init_set // x := y
-//
-fun mpz_init_set_int
-  (x: &mpz? >> mpz, y: int): void = "mac#%"
-fun mpz_init_set_uint
-  (x: &mpz? >> mpz, y: uint): void = "mac#%"
-fun mpz_init_set_lint
-  (x: &mpz? >> mpz, y: lint): void = "mac#%"
-fun mpz_init_set_ulint
-  (x: &mpz? >> mpz, y: ulint): void = "mac#%"
-overload mpz_init_set with mpz_init_set_ulint
-fun mpz_init_set_mpz
+fun
+mpz_init_set_mpz
   (x: &mpz? >> mpz, y: &mpz): void = "mac#%"
 //
+fun
+mpz_init_set_int
+  (x: &mpz? >> mpz, y: int): void = "mac#%"
+fun
+mpz_init_set_uint
+  (x: &mpz? >> mpz, y: uint): void = "mac#%"
+fun
+mpz_init_set_lint
+  (x: &mpz? >> mpz, y: lint): void = "mac#%"
+fun
+mpz_init_set_ulint
+  (x: &mpz? >> mpz, y: ulint): void = "mac#%"
+//
+symintr mpz_init_set // x := y
+//
+overload mpz_init_set with mpz_init_set_mpz
 overload mpz_init_set with mpz_init_set_int
 overload mpz_init_set with mpz_init_set_uint
 overload mpz_init_set with mpz_init_set_lint
-overload mpz_init_set with mpz_init_set_mpz
+overload mpz_init_set with mpz_init_set_ulint
 //
 (* ****** ****** *)
 
 fun mpz_size (x: &RD(mpz)): size_t = "mac#%"
 
 (* ****** ****** *)
-
-fun mpz_out_str
+//
+fun
+mpz_out_str
   (out: FILEref, base: mp_base, x: &RD(mpz)): size_t = "mac#%"
 // end of [mpz_out_str]
-
-fun mpz_inp_str
+fun
+mpz_inp_str
   (x: &mpz >> _, inp: FILEref, base: mp_base): size_t = "mac#%"
 // end of [mpz_inp_str]
-
+//
 (* ****** ****** *)
 //
-fun fprint_mpz (out: FILEref, x: &RD(mpz)): void = "mac#%"
-fun fprint_mpz_base (out: FILEref, x: &RD(mpz), base: mp_base): void = "mac#%"
+fun
+fprint_mpz
+  (out: FILEref, x: &RD(mpz)): void = "mac#%"
+fun
+fprint_mpz_base
+  (out: FILEref, x: &RD(mpz), base: mp_base): void = "mac#%"
 //
 overload fprint with fprint_mpz
 overload fprint with fprint_mpz_base
@@ -294,8 +305,6 @@ overload mpz_add with mpz_add3_ulint
 //
 // subtraction
 //
-symintr mpz_sub
-//
 fun mpz_sub2_mpz
   (x: &mpz >> _, y: &mpz): void = "mac#%"
 fun mpz_sub2_int
@@ -317,6 +326,8 @@ fun mpz_sub3_uint
 fun mpz_sub3_ulint
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
 //
+symintr mpz_sub
+//
 overload mpz_sub with mpz_sub2_mpz
 overload mpz_sub with mpz_sub2_int
 overload mpz_sub with mpz_sub2_lint
@@ -331,8 +342,6 @@ overload mpz_sub with mpz_sub3_ulint
 (* ****** ****** *)
 //
 // multiplication
-//
-symintr mpz_mul
 //
 fun mpz_mul2_mpz
   (x: &mpz >> _, y: &mpz): void = "mac#%"
@@ -354,6 +363,8 @@ fun mpz_mul3_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
 fun mpz_mul3_ulint
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_mul
 //
 overload mpz_mul with mpz_mul2_mpz
 overload mpz_mul with mpz_mul2_int
@@ -382,33 +393,42 @@ overload mpz_mul with mpz_mul3_ulint
 **
 *)
 //
-symintr mpz_mul_2exp
+fun
+mpz_mul3_2exp
+(
+  res: &mpz >> _, arg: &mpz, exp: ulint
+) : void = "mac#%" // end-of-function
 //
-fun mpz_mul3_2exp
-  (res: &mpz, arg: &mpz, exp: ulint): void = "mac#%"
+symintr mpz_mul_2exp
 //
 overload mpz_mul_2exp with mpz_mul3_2exp 
 //
 (* ****** ****** *)
 //
 // trunc-division-functions
-//
-symintr mpz_tdiv_q
-//
 // x := trunc(x/y) // trunc(y/z)
 //
-fun mpz_tdiv2_q_mpz
+fun
+mpz_tdiv2_q_mpz
   (x: &mpz >> _, y: &mpz): void = "mac#%"
-fun mpz_tdiv2_q_uint
+fun
+mpz_tdiv2_q_uint
   (x: &mpz >> _, y: uint): void = "mac#%"
-fun mpz_tdiv2_q_ulint
+fun
+mpz_tdiv2_q_ulint
   (x: &mpz >> _, y: ulint): void = "mac#%"
-fun mpz_tdiv3_q_mpz
+//
+fun
+mpz_tdiv3_q_mpz
   (x: &mpz >> _, y: &mpz, z: &mpz): void = "mac#%"
-fun mpz_tdiv3_q_uint
+fun
+mpz_tdiv3_q_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
-fun mpz_tdiv3_q_ulint
+fun
+mpz_tdiv3_q_ulint
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_tdiv_q
 //
 overload mpz_tdiv_q with mpz_tdiv2_q_mpz
 overload mpz_tdiv_q with mpz_tdiv2_q_uint
@@ -417,22 +437,28 @@ overload mpz_tdiv_q with mpz_tdiv3_q_mpz
 overload mpz_tdiv_q with mpz_tdiv3_q_uint
 overload mpz_tdiv_q with mpz_tdiv3_q_ulint
 //
-symintr mpz_tdiv_r
-//
 // x := x-trunc(x/y)*y // y-trunc(y/z)*z
 //
-fun mpz_tdiv2_r_mpz
+fun
+mpz_tdiv2_r_mpz
   (x: &mpz >> _, y: &mpz): void = "mac#%"
-fun mpz_tdiv2_r_uint
+fun
+mpz_tdiv2_r_uint
   (x: &mpz >> _, y: uint): void = "mac#%"
-fun mpz_tdiv2_r_ulint
+fun
+mpz_tdiv2_r_ulint
   (x: &mpz >> _, y: ulint): void = "mac#%"
-fun mpz_tdiv3_r_mpz
+fun
+mpz_tdiv3_r_mpz
   (x: &mpz >> _, y: &mpz, z: &mpz): void = "mac#%"
-fun mpz_tdiv3_r_uint
+fun
+mpz_tdiv3_r_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
-fun mpz_tdiv3_r_ulint
+fun
+mpz_tdiv3_r_ulint
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_tdiv_r
 //
 overload mpz_tdiv_r with mpz_tdiv2_r_mpz
 overload mpz_tdiv_r with mpz_tdiv2_r_uint
@@ -441,7 +467,7 @@ overload mpz_tdiv_r with mpz_tdiv3_r_mpz
 overload mpz_tdiv_r with mpz_tdiv3_r_uint
 overload mpz_tdiv_r with mpz_tdiv3_r_ulint
 //
-symintr mpz_tdiv_qr
+(* ****** ****** *)
 //
 fun mpz_tdiv3_qr_mpz
   (xq: &mpz >> _, xr: &mpz >> _, y: &mpz): void = "mac#%"
@@ -456,6 +482,8 @@ fun mpz_tdiv4_qr_uint
 fun mpz_tdiv4_qr_ulint
   (xq: &mpz >> _, xr: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
 //
+symintr mpz_tdiv_qr
+//
 overload mpz_tdiv_qr with mpz_tdiv3_qr_mpz
 overload mpz_tdiv_qr with mpz_tdiv3_qr_uint
 overload mpz_tdiv_qr with mpz_tdiv3_qr_ulint
@@ -467,27 +495,34 @@ overload mpz_tdiv_qr with mpz_tdiv4_qr_ulint
 //
 // floor-division-functions
 //
+fun
+mpz_fdiv_uint
+  (x: &mpz, d: uint): uint = "mac#%"
+fun
+mpz_fdiv_ulint
+  (x: &mpz, d: ulint): ulint = "mac#%"
+//
 symintr mpz_fdiv
 //
-fun mpz_fdiv_uint
-  (x: &mpz, d: uint): uint = "mac#%"
-fun mpz_fdiv_ulint
-  (x: &mpz, d: ulint): ulint = "mac#%"
 overload mpz_fdiv with mpz_fdiv_uint
 overload mpz_fdiv with mpz_fdiv_ulint
 //
-symintr mpz_fdiv_q
-//
 // x := floor(x/y) // floor(y/z)
 //
-fun mpz_fdiv2_q_uint
+fun
+mpz_fdiv2_q_uint
   (x: &mpz >> _, y: uint): void = "mac#%"
-fun mpz_fdiv2_q_ulint
+fun
+mpz_fdiv2_q_ulint
   (x: &mpz >> _, y: ulint): void = "mac#%"
-fun mpz_fdiv3_q_uint
+fun
+mpz_fdiv3_q_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
-fun mpz_fdiv3_q_ulint // x := floor(y / z)
+fun
+mpz_fdiv3_q_ulint // x := floor(y / z)
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_fdiv_q
 //
 overload mpz_fdiv_q with mpz_fdiv2_q_uint
 overload mpz_fdiv_q with mpz_fdiv2_q_ulint
@@ -509,18 +544,18 @@ overload mpz_fdiv_q with mpz_fdiv3_q_ulint
 ** unpredictable. No other constraints on the passing arguments.
 *)
 //
-symintr mpz_fdiv_qr
-//
 fun
 mpz_fdiv4_qr_mpz
 (
-  quot: &mpz, rem: &mpz, dividend: &mpz, divisor: &mpz
+  quot: &mpz >> _, rem: &mpz >> _, dividend: &mpz, divisor: &mpz
 ) :<> void = "mac#%"
 fun
 mpz_fdiv4_qr_ulint
 (
-  quot: &mpz, rem: &mpz, dividend: &mpz, divisor: ulint
+  quot: &mpz >> _, rem: &mpz >> _, dividend: &mpz, divisor: ulint
 ) :<> ulint = "mac#%"
+//
+symintr mpz_fdiv_qr
 //
 overload mpz_fdiv_qr with mpz_fdiv4_qr_mpz
 overload mpz_fdiv_qr with mpz_fdiv4_qr_ulint
@@ -529,27 +564,34 @@ overload mpz_fdiv_qr with mpz_fdiv4_qr_ulint
 //
 // ceiling-division-functions
 //
-symintr mpz_cdiv
-//
-fun mpz_cdiv_uint
+fun
+mpz_cdiv_uint
   (x: &mpz, d: uint): uint = "mac#%"
-fun mpz_cdiv_ulint
+fun
+mpz_cdiv_ulint
   (x: &mpz, d: ulint): ulint = "mac#%"
+//
+symintr mpz_cdiv
 //
 overload mpz_cdiv with mpz_cdiv_uint
 overload mpz_cdiv with mpz_cdiv_ulint
 //
-symintr mpz_cdiv_q
-//
 // x := ceiling(x/y) // ceiling(y/z)
-fun mpz_cdiv2_q_uint
+//
+fun
+mpz_cdiv2_q_uint
   (x: &mpz >> _, y: uint): void = "mac#%"
-fun mpz_cdiv2_q_ulint
+fun
+mpz_cdiv2_q_ulint
   (x: &mpz >> _, y: uint): void = "mac#%"
-fun mpz_cdiv3_q_uint
+fun
+mpz_cdiv3_q_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
-fun mpz_cdiv3_q_ulint // x := ceiling(y / z)
+fun
+mpz_cdiv3_q_ulint // x := ceiling(y / z)
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_cdiv_q
 //
 overload mpz_cdiv_q with mpz_cdiv2_q_uint
 overload mpz_cdiv_q with mpz_cdiv2_q_ulint
@@ -560,37 +602,53 @@ overload mpz_cdiv_q with mpz_cdiv3_q_ulint
 //
 // modulo-functions
 //
+fun
+mpz_mod2_mpz
+  (r: &mpz >> _, d: &mpz): void = "mac#%"
+//
+fun
+mpz_mod2_uint
+  (r: &mpz >> _, d: uint): uint = "mac#%"
+//
+fun
+mpz_mod2_ulint
+  (r: &mpz >> _, d: ulint): ulint = "mac#%"
+//
+fun
+mpz_mod3_mpz
+  (r: &mpz >> _, n: &mpz, d: &mpz): void = "mac#%"
+fun
+mpz_mod3_uint
+  (r: &mpz >> _, n: &mpz, d: uint): uint = "mac#%"
+fun
+mpz_mod3_ulint
+  (r: &mpz >> _, n: &mpz, d: ulint): ulint = "mac#%"
+//
 symintr mpz_mod
 //
-fun mpz_mod2_uint
-  (r: &mpz >> _, d: uint): uint = "mac#%"
+overload mpz_mod with mpz_mod2_mpz
 overload mpz_mod with mpz_mod2_uint
-//
-fun mpz_mod2_ulint
-  (r: &mpz >> _, d: ulint): ulint = "mac#%"
 overload mpz_mod with mpz_mod2_ulint
-
-fun mpz_mod3_uint
-  (r: &mpz >> _, n: &mpz, d: uint): uint = "mac#%"
+overload mpz_mod with mpz_mod3_mpz
 overload mpz_mod with mpz_mod3_uint
-//
-fun mpz_mod3_ulint
-  (r: &mpz >> _, n: &mpz, d: ulint): ulint = "mac#%"
 overload mpz_mod with mpz_mod3_ulint
-
+//
 (* ****** ****** *)
 //
 // add/mul combination
 // addmul (x, y, z): x := x + y * z
 //
-symintr mpz_addmul
-//
-fun mpz_addmul3_mpz
+fun
+mpz_addmul3_mpz
   (x: &mpz >> _, y: &mpz, z: &mpz): void = "mac#%"
-fun mpz_addmul3_uint
+fun
+mpz_addmul3_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
-fun mpz_addmul3_ulint
+fun
+mpz_addmul3_ulint
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_addmul
 //
 overload mpz_addmul with mpz_addmul3_mpz
 overload mpz_addmul with mpz_addmul3_uint
@@ -599,14 +657,17 @@ overload mpz_addmul with mpz_addmul3_ulint
 // sub/mul combination
 // submul (x, y, z): x := x - y * z
 //
-symintr mpz_submul
-//
-fun mpz_submul3_mpz
+fun
+mpz_submul3_mpz
   (x: &mpz >> _, y: &mpz, z: &mpz): void = "mac#%"
-fun mpz_submul3_uint
+fun
+mpz_submul3_uint
   (x: &mpz >> _, y: &mpz, z: uint): void = "mac#%"
-fun mpz_submul3_ulint
+fun
+mpz_submul3_ulint
   (x: &mpz >> _, y: &mpz, z: ulint): void = "mac#%"
+//
+symintr mpz_submul
 //
 overload mpz_submul with mpz_submul3_mpz
 overload mpz_submul with mpz_submul3_uint
@@ -616,13 +677,13 @@ overload mpz_submul with mpz_submul3_ulint
 //
 // comparison-functions
 //
-symintr mpz_cmp
-//
 fun mpz_cmp_mpz (x: &mpz, y: &mpz):<> int = "mac#%"
 fun mpz_cmp_int (x: &mpz, y: int):<> int = "mac#%"
 fun mpz_cmp_uint (x: &mpz, y: uint):<> int = "mac#%"
 fun mpz_cmp_lint (x: &mpz, y: lint):<> int = "mac#%"
 fun mpz_cmp_ulint (x: &mpz, y: ulint):<> int = "mac#%"
+//
+symintr mpz_cmp
 //
 overload mpz_cmp with mpz_cmp_mpz
 overload mpz_cmp with mpz_cmp_int
@@ -631,29 +692,32 @@ overload mpz_cmp with mpz_cmp_lint
 overload mpz_cmp with mpz_cmp_ulint
 //
 (* ****** ****** *)
-
-symintr mpz_pow
 //
-fun mpz_pow_uint
+fun
+mpz_pow_uint
   (pwr: &mpz >> _, base: &mpz, exp: uint): void = "mac#%"
-fun mpz_pow_ulint
+fun
+mpz_pow_ulint
   (pwr: &mpz >> _, base: &mpz, exp: ulint): void = "mac#%"
-//
-overload mpz_pow with mpz_cmp_uint
-overload mpz_pow with mpz_cmp_ulint
 //
 fun mpz_ui_pow_ui
   (pw: &mpz >> _, base: ulint, exp: ulint): void = "mac#%"
 //
+symintr mpz_pow
+overload mpz_pow with mpz_cmp_uint
+overload mpz_pow with mpz_cmp_ulint
+//
 (* ****** ****** *)
-
+//
+fun
+mpz_fib_uint
+  (x: &mpz >> _, n: ulint): void = "mac#%"
+fun
+mpz_fib2_uint
+  (x1: &mpz >> _, x2: &mpz >> _, n: ulint): void = "mac#%"
+//
 symintr mpz_fib
 symintr mpz_fib2
-//
-fun mpz_fib_uint
-  (x: &mpz >> _, n: ulint): void = "mac#%"
-fun mpz_fib2_uint
-  (x1: &mpz >> _, x2: &mpz >> _, n: ulint): void = "mac#%"
 //
 overload mpz_fib with mpz_fib_uint
 overload mpz_fib2 with mpz_fib2_uint
