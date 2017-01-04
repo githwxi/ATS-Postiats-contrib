@@ -23,7 +23,7 @@ ATS_DYNLOADNAME "libatscc2js_dynload"
 (* ****** ****** *)
 //
 staload
-STDIO = "{$PATSLIBATSC}/SATS/stdio.sats"
+STDIO = "{$PATSLIBATSLIBC}/SATS/stdio.sats"
 //
 (* ****** ****** *)
 //
