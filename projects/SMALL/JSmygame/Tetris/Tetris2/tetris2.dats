@@ -19,14 +19,15 @@ ATS_STATIC_PREFIX "tetris2_"
 //
 (* ****** ****** *)
 //
-staload (*opened*) "./tetris.sats"
-//
-(* ****** ****** *)
-//
-#include "{$LIBATSCC2JS}/staloadall.hats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 staload
 "{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
+//
+(* ****** ****** *)
+//
+staload (*opened*) "./tetris.sats"
 //
 (* ****** ****** *)
 //
