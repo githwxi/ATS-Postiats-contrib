@@ -18,15 +18,15 @@
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSHWXI}/PEULER/SATS/peuler.sats"
 //
 (* ****** ****** *)
 //
 (*
-staload "./P16.sats"
+#staload "./P16.sats"
 *)
-staload
+#staload
 "{$LIBATSHWXI}/PEULER/PROJECT/P16/P16.sats"
 //
 (* ****** ****** *)

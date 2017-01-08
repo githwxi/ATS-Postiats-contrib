@@ -91,11 +91,14 @@ intinf_make_llint
 (* ****** ****** *)
 
 fun{}
-intinf_make_uint {i:int}(x: uint(i)): intinf(i)
+intinf_make_uint
+  {i:int}(x: uint(i)): intinf(i)
 fun{}
-intinf_make_ulint {i:int}(x: ulint(i)): intinf(i)
+intinf_make_ulint
+  {i:int}(x: ulint(i)): intinf(i)
 fun{}
-intinf_make_ullint {i:int}(x: ullint(i)): intinf(i)
+intinf_make_ullint
+  {i:int}(x: ullint(i)): intinf(i)
 
 (* ****** ****** *)
 
@@ -110,12 +113,12 @@ fun{}
 intinf_get_lint(x: !Intinf): lint
 //
 (* ****** ****** *)
-
+//
 fun{}
 intinf_get_strptr
   (x: !Intinf, base: intinf_base): Strptr1
 // end of [intinf_get_strptr]
-
+//
 (* ****** ****** *)
 //
 fun{}
@@ -123,15 +126,18 @@ print_intinf(x: !Intinf): void
 fun{}
 prerr_intinf(x: !Intinf): void
 fun{}
-fprint_intinf(out: FILEref, x: !Intinf): void
+fprint_intinf
+  (out: FILEref, x: !Intinf): void
+//
+fun{}
+fprint_intinf_base
+(
+  out: FILEref, x: !Intinf, base: intinf_base
+) : void // end of [fprint_intinf_base]
 //
 overload print with print_intinf
 overload prerr with prerr_intinf
 overload fprint with fprint_intinf
-//
-fun{}
-fprint_intinf_base
-  (out: FILEref, x: !Intinf, base: intinf_base): void
 //
 (* ****** ****** *)
 //
@@ -304,7 +310,8 @@ mul_intinf1_intinf0
 //
 fun{}
 mul_intinf1_intinf1
-  {i,j:int} (x: !intinf(i), y: !intinf(j)): intinf(i*j)
+  {i,j:int}
+  (x: !intinf(i), y: !intinf(j)): intinf(i*j)
 //
 overload * with mul_int_intinf1
 overload * with mul_intinf1_int

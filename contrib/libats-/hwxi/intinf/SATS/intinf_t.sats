@@ -121,15 +121,18 @@ print_intinf(x: Intinf): void
 fun{}
 prerr_intinf(x: Intinf): void
 fun{}
-fprint_intinf(out: FILEref, x: Intinf): void
+fprint_intinf
+  (out: FILEref, x: Intinf): void
+//
+fun{}
+fprint_intinf_base
+(
+  out: FILEref, x: Intinf, base: intinf_base
+) : void // end of [fprint_intinf_base]
 //
 overload print with print_intinf
 overload prerr with prerr_intinf
 overload fprint with fprint_intinf
-//
-fun{}
-fprint_intinf_base
-  (out: FILEref, x: Intinf, base: intinf_base): void
 //
 (* ****** ****** *)
 
@@ -160,7 +163,7 @@ pred_intinf
 overload pred with pred_intinf
 
 (* ****** ****** *)
-
+//
 fun{}
 add_intinf_int
   {i,j:int}
@@ -179,7 +182,7 @@ overload + with add_int_intinf
 overload + with add_intinf_intinf
 //
 (* ****** ****** *)
-
+//
 fun{}
 sub_intinf_int
   {i,j:int}
@@ -263,7 +266,7 @@ overload ndiv with ndiv_intinf_intinf
 // comparison-functions
 //
 (* ****** ****** *)
-
+//
 fun{}
 compare_int_intinf
   {i,j:int}
@@ -285,10 +288,12 @@ overload compare with compare_intinf_intinf
 //
 fun{}
 pow_int_int
-  {b,n:nat}(base: int(b), exp: int(n)): intinfGte(0)
+  {b,n:nat}
+  (base: int(b), exp: int(n)): intinfGte(0)
 fun{}
 pow_intinf_int
-  {b,i:nat} (base: intinf(b), exp: int(i)): intinfGte(0)
+  {b,i:nat}
+  (base: intinf(b), exp: int(i)): intinfGte(0)
 //
 (* ****** ****** *)
 
