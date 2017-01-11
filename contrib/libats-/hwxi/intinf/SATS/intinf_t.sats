@@ -50,7 +50,7 @@ staload "./intinf.sats"
 //
 stadef intinf = intinf_type
 //
-typedef Intinf = [i:int] intinf (i)
+typedef Intinf = [i:int] intinf(i)
 //
 typedef
 intinfLt(i0:int) = [i:int | i < i0] intinf(i)
