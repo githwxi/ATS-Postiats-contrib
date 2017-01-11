@@ -53,16 +53,14 @@ typedef intinf = intinf_type
 //
 extern
 castfn
-g0ofg1_intinf : Intinf -<fun> intinf
+g0ofg1_intinf:Intinf -<fun> intinf
 extern
 castfn
-g1ofg0_intinf : intinf -<fun> Intinf
+g1ofg0_intinf:intinf -<fun> Intinf
 //
-(* ****** ****** *)
-
-overload g0ofg1 with g0ofg1_intinf
-overload g1ofg0 with g1ofg0_intinf
-
+overload g0ofg1 with g0ofg1_intinf of 0
+overload g1ofg0 with g1ofg0_intinf of 0
+//
 (* ****** ****** *)
 //
 extern
@@ -75,24 +73,25 @@ extern
 fun{}
 fprint_intinf : (FILEref, intinf) -> void
 //
-overload print with print_intinf
-overload prerr with prerr_intinf
-overload fprint with fprint_intinf
+overload print with print_intinf of 0
+overload prerr with prerr_intinf of 0
+//
+overload fprint with fprint_intinf of 0
 //
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
 print_intinf
-  (x) = fprint_intinf (stdout_ref, x)
+  (x) = fprint_intinf(stdout_ref, x)
 implement
 {}(*tmp*)
 prerr_intinf
-  (x) = fprint_intinf (stderr_ref, x)
+  (x) = fprint_intinf(stderr_ref, x)
 //
 implement
 {}(*tmp*)
-fprint_intinf(out, x) = fprint (out, g1ofg0(x))
+fprint_intinf(out, x) = fprint(out, g1ofg0(x))
 //
 (* ****** ****** *)
 //

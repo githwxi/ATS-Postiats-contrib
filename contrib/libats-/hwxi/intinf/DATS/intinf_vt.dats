@@ -69,7 +69,7 @@ local
 
 assume
 intinf_vtype
-  (i: int) = // HX: [i] is a fake
+  (i:int) = // HX: [i] is a fake
   [l:addr] (mpz@l, mfree_gc_v(l) | ptr(l))
 // end of [intinf_vtype]
 
@@ -138,15 +138,15 @@ implement
 intinf_get_lint(x) = $GMP.mpz_get_lint(!(x.2))
 
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
 intinf_get_strptr
   (x, base) = $GMP.mpz_get_str_null(base, !(x.2))
 // end of [intinf_get_strptr]
-
+//
 (* ****** ****** *)
-
+//
 implement
 {}(*tmp*)
 fprint_intinf_base
@@ -163,7 +163,7 @@ exit_errmsg(1, "libgmp/gmp: fprint_intinf_base")
 // end of [if]
 //
 end (* fprint_intinf_base *)
-
+//
 (* ****** ****** *)
 
 implement
