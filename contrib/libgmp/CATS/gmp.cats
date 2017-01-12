@@ -26,12 +26,15 @@
 
 /* ****** ****** */
 
-/* author: Hongwei Xi (hwxi AT cs DOT bu DOT edu) */
+/*
+** Author: Hongwei Xi
+** Authoremail: gmhwxiATgmailDOTcom
+*/
 
 /* ****** ****** */
 
-#ifndef LIBGMP_GMP_CATS
-#define LIBGMP_GMP_CATS
+#ifndef ATSCNTRB_LIBGMP_GMP_CATS
+#define ATSCNTRB_LIBGMP_GMP_CATS
 
 /* ****** ****** */
 
@@ -317,7 +320,7 @@ mpz_sub_si
 //
 /* ****** ****** */
 
-#endif // ifndef LIBGMP_GMP_CATS
+#endif // ifndef ATSCNTRB_LIBGMP_GMP_CATS
 
 /* ****** ****** */
 

@@ -29,14 +29,9 @@
 (* ****** ****** *)
 //
 // Author: Hongwei Xi
-// Authoremail: hwxi AT gmail DOT com
 // Start Time: April, 2013
+// Authoremail: gmhwxiATgmailDOTcom
 //
-(* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
-
 (* ****** ****** *)
 
 #staload
@@ -44,8 +39,21 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-#staload
-GMP = "{$LIBGMP}/SATS/gmp.sats"
+local
+//
+#ifndef LIBGMP_targetloc
+//
+#define
+LIBGMP_targetloc
+"$PATSHOMERELOCS/atscontrib_libgmp"
+//
+#endif // #ifndef(LIBGMP_targetloc)
+//
+in (* in-of-local *)
+//
+#staload GMP = "{$LIBGMP}/SATS/gmp.sats"
+//
+end // end of [local]
 
 (* ****** ****** *)
 

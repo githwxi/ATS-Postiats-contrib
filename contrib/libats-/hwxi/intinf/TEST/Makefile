@@ -5,6 +5,8 @@
 ######
 
 PATSCC=patscc
+PATSOPT=patsopt
+PATSFIND=patsfind
 PATSHOMEQ="$(PATSHOME)"
 PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
@@ -14,17 +16,24 @@ all::
 
 ######
 
-all:: test01
-test01: test01.dats ; \
-$(PATSCC) -cleanaft \
-  -IIATS $(PATSHOMERELOCQ)/contrib -DATS_MEMALLOC_LIBC -o $@ $< -lgmp
+CFLAGS += `$(PATSFIND) libgmp`
+
+######
+
+all:: \
+test01
+test01: \
+test01.dats ; \
+$(PATSCC) -cleanaft -DATS_MEMALLOC_LIBC -o $@ $< -lgmp
 regress:: test01; ./$<
 cleanall:: ; $(RMF) test01
 
 ######
 
-all:: test02
-test02: test02.dats ; \
+all:: \
+test02
+test02: \
+test02.dats ; \
 $(PATSCC) -cleanaft \
   -IIATS $(PATSHOMERELOCQ)/contrib -DATS_MEMALLOC_LIBC -o $@ $< -lgmp
 regress:: test02; ./$<
