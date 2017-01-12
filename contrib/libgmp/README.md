@@ -23,4 +23,4 @@ This file contains the interface (in ATS) for various GMP-functions.
 ###TEST Files
 
 The pidigits directory contains an example that computes
-to a given position the digits in the famous constant PI.
+to a given position all of the digits in the famous constant PI.
