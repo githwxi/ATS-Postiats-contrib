@@ -17,7 +17,7 @@ type _intinf_vtype(i)_ is for a (linear) dynamic value representing _i_.
 2. SATS/intinf_t.sats: The interface for
 arithmetic operations and some other operations on integers represented
 as dynamic values of the type _intinf_type_. In general, using functions
-declared in intinf_t.sats may require some support of GC.
+declared in `intinf_t.sats` may require some support of GC.
 
 3. SATS/intinf_vt.sats: The interface for
 arithmetic operations and some other operations on integers represented
@@ -29,10 +29,10 @@ memory-wise.
 ###DATS Files
 
 1. DATS/intinf_t.dats:
-   The file contains implementation for the templates declared in intinf_t.sats.
+   The file contains implementation for the templates declared in <u>intinf_t.sats</u>.
 
 2. DATS/intinf_vt.dats:
-   The file contains implementation for the templates declared in intinf_vt.sats.
+   The file contains implementation for the templates declared in <u>intinf_vt.sats</u>.
 
 3. DATS/gintinf_t.dats:
    The file contains implementation for using values of the type intinf_type as

@@ -9,7 +9,7 @@ A simple package for calling GMP-functions in ATS
 1. CATS/gmp.cats: This file contains various C-macros that are
 needed for compiling the C code generated from ATS source. Note that
 the include-path must be properly set for the C-compiler so as to
-allow it to have access to `gmp.cats`.
+allow it to have access to <u>gmp.cats</u>.
 
 ###SATS Files
 
