@@ -45,7 +45,7 @@ local
 //
 #define
 LIBGMP_targetloc
-"$PATSHOMERELOCS/atscontrib_libgmp"
+"$PATSHOMERELOCS/atscntrb-libgmp"
 //
 #endif // #ifndef(LIBGMP_targetloc)
 //

@@ -35,7 +35,7 @@ memory-wise.
    The file contains implementation for the templates declared in `intinf_vt.sats`.
 
 3. DATS/gintinf_t.dats:
-   The file contains implementation for using values of the type intinf_type as
+   The file contains implementation for using values of the type `intinf_type` as
    gnumbers (generic numbers).
 
 ###TEST Files
