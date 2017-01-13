@@ -11,6 +11,10 @@ PATSHOMEQ="$(PATSHOME)"
 PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 ######
+#
+export PATSHOMERELOCS=./../node_modules
+#
+######
 
 all::
 
