@@ -15,7 +15,7 @@ CCOPT=$(CC) -std=c99 -D_GNU_SOURCE
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -26,7 +26,7 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 CFLAGS += -I$(PATSHOMEQ)
 CFLAGS += -I$(PATSHOMEQ)/ccomp/runtime
-CFLAGS += -I$(PATSHOMERELOCQ)/contrib
+CFLAGS += -I$(PATSCONTRIBQ)/contrib
 
 ######
 

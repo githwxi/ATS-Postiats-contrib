@@ -11,21 +11,22 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSHWXI}/cstream/SATS/cstream.sats"
-staload
-"{$LIBATSHWXI}/cstream/SATS/cstream_tokener.sats"
+#staload
+"{$HX_CSTREAM}/SATS/cstream.sats"
+#staload
+"{$HX_CSTREAM}/SATS/cstream_tokener.sats"
 //
-staload _ = "libats/DATS/stringbuf.dats"
-staload _ = "{$LIBATSHWXI}/cstream/DATS/cstream_tokener.dats"
+#staload _ = "libats/DATS/stringbuf.dats"
+#staload _ =
+"{$HX_CSTREAM}/DATS/cstream_tokener.dats"
 //
 (* ****** ****** *)
   
-staload "./falcon.sats"
+#staload "./falcon.sats"
   
 (* ****** ****** *)
 
-staload "./falcon_tokener.dats"
+#staload "./falcon_tokener.dats"
 
 (* ****** ****** *)
 //

@@ -17,6 +17,16 @@ MALLOCFLAG=-DATS_MEMALLOC_LIBC
 
 ######
 
+include \
+$(PATSHOME)/share/atsmake-post.mk
+
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
+######
+
 all::
 regress::
 cleanall::
@@ -39,11 +49,6 @@ cleanall:: ; $(RMF) test02
 
 regress:: test01 ; ./test01
 regress:: test02 ; ./test02 < DATA/pkgreloc.json
-
-######
-
-include \
-$(PATSHOME)/share/atsmake-post.mk
 
 ######
 

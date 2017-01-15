@@ -5,7 +5,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -15,7 +15,7 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 ######
 
 MAKE=make
-ATSPKGRELOC2=$(PATSHOME)/bin/atspkgreloc_wget
+ATSRELOC2=$(PATSHOME)/bin/atsreloc_wget
 
 ######
 
@@ -33,39 +33,46 @@ regress::
 cleanall::
 
 ######
-
+#
 all:: \
 test00
-test00: test00.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
-regress:: test00; ./$<
+test00: \
+test00.dats ; \
+$(PATSCC) -I$(PATSCONTRIBQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
+#
+regress:: \
+test00; ./test00
+#
 cleanall:: ; $(RMF) test00
-
-######
-#
-test00-pkgreloc:: \
-test00-pkgreloc.dats ; \
-$(PATSCC) -I ./.TEST00/. -IATS ./.TEST00/. \
--DATS ATSPKGRELOCROOT=\\\".TEST00\\\" $(CFLAGS) -o $@ $< $(LDFLAGS)
-#
-test00-pkgreloc.mk: ; \
-$(PATSOPT) --pkgreloc \
--DATS ATSPKGRELOCROOT=\".TEST00\" -d test00-pkgreloc.dats | $(ATSPKGRELOC2) --output-w $@
-#
-test00-pkgreloc.wget:: test00-pkgreloc.mk ; $(MAKE) -f ./$< wgetall
-#
-cleanall:: ; $(RMF) test00-pkgreloc
-cleanall:: ; $(RMF) test00-pkgreloc.mk
 #
 ######
-
+#
 all:: \
 test01
-test01: test01.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
-regress:: test01; echo | ./$<
+test01: \
+test01.dats ; \
+$(PATSCC) -I$(PATSCONTRIBQ)/contrib $(CFLAGS) -o $@ $< $(LDFLAGS)
+#
+regress:: \
+test01; echo | ./test01
+#
 cleanall:: ; $(RMF) test01
-
+#
+######
+#
+test00-reloc:: \
+test00-reloc.dats ; \
+$(PATSCC) -I ./.TEST00/. -IATS ./.TEST00/. \
+-DATS ATSRELOCROOT=\\\".TEST00\\\" $(CFLAGS) -o $@ $< $(LDFLAGS)
+#
+test00-reloc.mk: ; \
+$(PATSOPT) --atsreloc -DATS ATSRELOCROOT=\".TEST00\" -d test00-reloc.dats | $(ATSRELOC2) --output-w $@
+#
+test00-reloc.wget:: test00-reloc.mk ; $(MAKE) -f ./$< wgetall
+#
+cleanall:: ; $(RMF) test00-reloc
+cleanall:: ; $(RMF) test00-reloc.mk
+#
 ######
 
 testall:: all

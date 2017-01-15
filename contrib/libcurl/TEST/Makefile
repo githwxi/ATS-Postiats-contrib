@@ -5,7 +5,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -21,7 +21,7 @@ cleanall::
 
 all:: test00
 test00: test00.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@  $< testlib.dats -lcurl
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@  $< testlib.dats -lcurl
 #
 regress:: test00 ; ./$<
 #
@@ -31,7 +31,7 @@ cleanall:: ; $(RMF) test00
 
 all:: test01
 test01: test01.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib -o $@  $< testlib.dats -lcurl
+  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSCONTRIBQ)/contrib -o $@  $< testlib.dats -lcurl
 #
 regress:: test01 ; ./$<
 #

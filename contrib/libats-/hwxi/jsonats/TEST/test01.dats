@@ -19,17 +19,22 @@ atstyarr_field_undef(fname) fname[]
 
 (* ****** ****** *)
 //
-staload "{$LIBATSHWXI}/cstream/SATS/cstream.sats"
-staload "{$LIBATSHWXI}/cstream/SATS/cstream_tokener.sats"
+#staload
+"{$HX_CSTREAM}/SATS/cstream.sats"
+#staload
+"{$HX_CSTREAM}/SATS/cstream_tokener.sats"
 //
-staload _ = "libats/DATS/stringbuf.dats"
-staload _ = "{$LIBATSHWXI}/cstream/DATS/cstream.dats"
-staload _ = "{$LIBATSHWXI}/cstream/DATS/cstream_tokener.dats"
+#staload _ =
+"libats/DATS/stringbuf.dats"
+#staload _ =
+"{$HX_CSTREAM}/DATS/cstream.dats"
+#staload _ =
+"{$HX_CSTREAM}/DATS/cstream_tokener.dats"
 //
 (* ****** ****** *)
 
-staload "./../SATS/jsonats.sats"
-staload "./../DATS/jsonats.dats"
+#staload "./../SATS/jsonats.sats"
+#staload "./../DATS/jsonats.dats"
 
 (* ****** ****** *)
 

@@ -20,9 +20,9 @@ PATSCONTRIB
 //
 (* ****** ****** *)
 //
-require "{$PATSCONTRIB}/libev/SATS/ev.sats"
-require "{$PATSCONTRIB}/libev/DATS/ev.dats"
-require "{$PATSCONTRIB}/libev/CATS/ev.cats"
+#require "{$PATSCONTRIB}/libev/SATS/ev.sats"
+#require "{$PATSCONTRIB}/libev/DATS/ev.dats"
+#require "{$PATSCONTRIB}/libev/CATS/ev.cats"
 //
 (* ****** ****** *)
 
@@ -47,4 +47,4 @@ implement main0 () = ()
 
 (* ****** ****** *)
 
-(* end of [test00-pkgreloc.dats] *)
+(* end of [test00-reloc.dats] *)

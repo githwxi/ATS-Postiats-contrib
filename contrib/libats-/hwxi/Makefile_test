@@ -9,11 +9,8 @@ all::
 ######
 
 SUBDIRS :=
-SUBDIRS += intinf/TEST
 SUBDIRS += weboxy/TEST
 SUBDIRS += testing/TEST
-SUBDIRS += globals/TEST
-SUBDIRS += cstream/TEST
 SUBDIRS += jsonats/TEST
 SUBDIRS += threadkit/TEST
 SUBDIRS += teaching/myGTK/TEST

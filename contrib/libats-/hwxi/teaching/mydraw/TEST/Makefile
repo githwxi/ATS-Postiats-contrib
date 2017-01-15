@@ -4,8 +4,12 @@
 
 ######
 
+EMCC=emcc
+
+######
+
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -14,7 +18,8 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
 
-PATSCCOMP2=emcc -Wno-warn-absolute-paths -D_XOPEN_SOURCE -I${PATSHOME} -I${PATSHOME}/ccomp/runtime
+PATSCCOMP2=\
+$(EMCC) -Wno-warn-absolute-paths -D_XOPEN_SOURCE -I${PATSHOME} -I${PATSHOME}/ccomp/runtime
 
 ######
 
@@ -37,7 +42,7 @@ all:: \
 test01-cairo
 test01-cairo: \
   test01-cairo.dats test01.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: test01-cairo; ./$<
 cleanall:: ; $(RMF) test01-cairo test01.png
 
@@ -59,7 +64,7 @@ upload_test01:: ; scp test01.html test01-canvas2d.js \
 all:: \
 test02-cairo
 test02-cairo: test02-cairo.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: test02-cairo; ./$<
 cleanall:: ; $(RMF) test02-cairo test02.png
 
@@ -81,7 +86,7 @@ all:: \
 test03-cairo
 test03-cairo: \
   test03-cairo.dats test03.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: test03-cairo; ./$<
 cleanall:: ; $(RMF) test03-cairo test03.png
 
@@ -103,7 +108,7 @@ all:: \
 test04-cairo
 test04-cairo: \
   test04-cairo.dats test04.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: test04-cairo; ./$<
 cleanall:: ; $(RMF) test04-cairo test04.png
 

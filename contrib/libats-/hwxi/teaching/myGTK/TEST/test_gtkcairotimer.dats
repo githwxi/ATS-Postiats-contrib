@@ -20,17 +20,19 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
-staload "./../SATS/gtkcairotimer.sats"
+#staload "./../SATS/gtkcairotimer.sats"
 //
-staload "./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
-dynload "./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#staload
+"./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#dynload
+"./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
 //
-staload CP = "./../DATS/gtkcairotimer/ControlPanel.dats"
-staload DP = "./../DATS/gtkcairotimer/DrawingPanel.dats"
+#staload CP = "./../DATS/gtkcairotimer/ControlPanel.dats"
+#staload DP = "./../DATS/gtkcairotimer/DrawingPanel.dats"
 //
-staload MAIN = "./../DATS/gtkcairotimer/gtkcairotimer_main.dats"
+#staload MAIN = "./../DATS/gtkcairotimer/gtkcairotimer_main.dats"
 //
-staload TIMER = "./../DATS/gtkcairotimer/gtkcairotimer_timer.dats"
+#staload TIMER = "./../DATS/gtkcairotimer/gtkcairotimer_timer.dats"
 //
 (* ****** ****** *)
 //
@@ -38,9 +40,9 @@ typedef dbl = double
 //  
 (* ****** ****** *)
 //
-staload
+#staload
 "libats/libc/SATS/math.sats"
-staload
+#staload
 _(*anon*) = "libats/libc/DATS/math.dats"
 //
 (* ****** ****** *)
@@ -51,7 +53,7 @@ macdef _2PI = 2*PI
 //
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload "{$CAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
   

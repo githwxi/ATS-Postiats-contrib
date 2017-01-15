@@ -15,15 +15,13 @@ ATS_PACKNAME "M_N_K_game"
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
+//
 staload
 "libats/SATS/athread.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
 staload
@@ -73,7 +71,7 @@ fun
 initize (x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -90,7 +88,7 @@ fun
 initize(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 //

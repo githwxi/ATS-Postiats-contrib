@@ -18,7 +18,8 @@ CFLAGS += -O2
 
 ######
 
-GTKCFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
+GTKCFLAGS=\
+$(shell pkg-config gtk+-3.0 --cflags)
 
 ######
 
@@ -58,7 +59,8 @@ MYPORTDIR=MYPORTDIR
 #
 ######
 
-ifdef MYCCRULE
+ifdef \
+MYCCRULE
 else
 game_gtkgui_dats.o: game_gtkgui.dats ; \
   $(PATSCC) -cleanaft $(INCLUDE) $(INCLUDE_ATS) $(MALLOCFLAG) $(CFLAGS) $(GTKCFLAGS) -c $<
@@ -68,6 +70,11 @@ endif
 
 include $(PATSHOME)/share/atsmake-post.mk
 
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
 ######
 
 testall:: all

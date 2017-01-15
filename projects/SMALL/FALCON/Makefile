@@ -1,7 +1,8 @@
 #
 # A simple Makefile
 #
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 #
 CFLAGS += -O2
 #

@@ -40,18 +40,18 @@
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSHWXI}/cstream/SATS/cstream.sats"
-staload
-"{$LIBATSHWXI}/cstream/SATS/cstream_tokener.sats"
+#staload
+"{$HX_CSTREAM}/SATS/cstream.sats"
+#staload
+"{$HX_CSTREAM}/SATS/cstream_tokener.sats"
 //
 (* ****** ****** *)
 //
-staload UN = $UNSAFE
+#staload UN = $UNSAFE
 //
 (* ****** ****** *)
 
-staload "./../SATS/jsonats.sats"
+#staload "./../SATS/jsonats.sats"
 
 (* ****** ****** *)
 

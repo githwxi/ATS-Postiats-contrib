@@ -5,7 +5,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -20,27 +20,27 @@ cleanall::
 ######
 
 all:: test00
-test00: test00.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
+test00: test00.dats ; $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test00
 
 all:: test01
-test01: test01.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
+test01: test01.dats ; $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test01
 
 all:: test02
-test02: test02.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
+test02: test02.dats ; $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test02
 
 all:: test03
-test03: test03.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
+test03: test03.dats ; $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test03
 
 all:: test04
-test04: test04.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
+test04: test04.dats ; $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test04
 
 all:: test_textview
-test_textview: test_textview.dats ; $(PATSCC) -I$(PATSHOMERELOCQ)/contrib -o $@ $< $(GTKFLAGS)
+test_textview: test_textview.dats ; $(PATSCC) -I$(PATSCONTRIBQ)/contrib -o $@ $< $(GTKFLAGS)
 cleanall:: ; $(RMF) test_textview
 
 ######

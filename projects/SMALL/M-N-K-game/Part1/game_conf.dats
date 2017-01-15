@@ -32,7 +32,7 @@ fun
 initize (x: &T? >> T): void = x := 0
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -53,7 +53,7 @@ fun
 initize (x: &T? >> T): void = x := 0
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -74,7 +74,7 @@ fun
 initize (x: &T? >> T): void = x := 0
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 

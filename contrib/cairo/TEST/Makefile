@@ -6,7 +6,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -73,27 +73,27 @@ cleanall:: ; $(RMF) test09
 ######
 
 test00: test00.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test01: test01.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test02: test02.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test03: test03.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test04: test04.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test05-1: test05-1.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test05-2: test05-2.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test06: test06.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test07: test07.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test08: test08.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 test09: test09.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 
 ######
 
@@ -101,7 +101,7 @@ all:: \
 cairo-multable
 cairo-multable: \
 cairo-multable.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: cairo-multable; ./$<
 cleanall:: ; $(RMF) cairo-multable
 
@@ -111,7 +111,7 @@ all:: \
 cairo-Bulge02c
 cairo-Bulge02c: \
 cairo-Bulge02c.dats ; \
-  $(PATSCC) -I$(PATSHOMERELOCQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
+  $(PATSCC) -I$(PATSCONTRIBQ)/contrib $(XRCFLAGS) -o $@ $< $(XRLIBS) -lm 
 regress:: cairo-Bulge02c; ./$<
 cleanall:: ; $(RMF) cairo-Bulge02c
 

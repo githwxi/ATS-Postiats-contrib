@@ -16,10 +16,11 @@ NCLICK = {
 typedef T = int
 //
 fun
-initize (x: &T? >> T): void = x := 0
+initize
+(x: &T? >> T): void = x := 0
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [NCLICK] *)
 
@@ -31,10 +32,11 @@ TOPWIN = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TOPWIN] *)
 
@@ -46,10 +48,11 @@ BUTTONstart = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONstart] *)
 
@@ -61,10 +64,11 @@ BUTTONfinish = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONfinish] *)
 
@@ -76,10 +80,11 @@ BUTTONpause = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONpause] *)
 
@@ -91,10 +96,11 @@ BUTTONresume = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONresume] *)
 
@@ -106,10 +112,11 @@ BUTTONreset = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONreset] *)
 

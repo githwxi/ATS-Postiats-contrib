@@ -66,7 +66,9 @@ fun loop
 ) : ulint = let
 in
 //
-if i < n then let
+if
+(i < n)
+then let
   val res = K * res + $UN.cast{ulint}(str[i])
 in
   loop (succ(i), res)
@@ -75,7 +77,7 @@ end else (res) // end of [if]
 end // end of [loop]
 //
 in
-  $effmask_all (loop (i2sz(0), 31415926536UL))
+  $effmask_all(loop(i2sz(0), 31415926536UL))
 end // end of [hash_key]
 //
 implement
@@ -86,7 +88,9 @@ hashtbl_linprb_keyitm_is_null<strarr,itm> (kx) = ($UN.cast2ptr(kx.0) = 0)
 //
 in (* in of [local] *)
 
-#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_linprb.hats"
+#include
+"{$HX_GLOBALS}\
+/HATS/ghashtbl_linprb.hats"
 
 end // end of [local]
 

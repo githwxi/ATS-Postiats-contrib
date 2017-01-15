@@ -24,7 +24,7 @@ atstyarr_field_undef(fname) fname[]
 
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream.dats"
+"{$HX_CSTREAM}/DATS/cstream.dats"
 in (* in-of-local *)
 end // end of [local]
 
@@ -32,7 +32,7 @@ end // end of [local]
 
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_fun.dats"
+"{$HX_CSTREAM}/DATS/cstream_fun.dats"
 in (* in-of-local *)
 end // end of [local]
 
@@ -40,7 +40,7 @@ end // end of [local]
 
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_cloref.dats"
+"{$HX_CSTREAM}/DATS/cstream_cloref.dats"
 in (* in-of-local *)
 end // end of [local]
 
@@ -48,12 +48,12 @@ end // end of [local]
 
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_string.dats"
+"{$HX_CSTREAM}/DATS/cstream_string.dats"
 in (* in-of-local *)
 end // end of [local]
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_strptr.dats"
+"{$HX_CSTREAM}/DATS/cstream_strptr.dats"
 in (* in-of-local *)
 end // end of [local]
 
@@ -61,12 +61,12 @@ end // end of [local]
 
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_fileref.dats"
+"{$HX_CSTREAM}/DATS/cstream_fileref.dats"
 in (* in-of-local *)
 end // end of [local]
 local
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_fileptr.dats"
+"{$HX_CSTREAM}/DATS/cstream_fileptr.dats"
 in (* in-of-local *)
 end // end of [local]
 
@@ -75,7 +75,7 @@ end // end of [local]
 local
 //
 #include
-"{$LIBATSHWXI}/cstream/DATS/cstream_tokener.dats"
+"{$HX_CSTREAM}/DATS/cstream_tokener.dats"
 //
 in (* in-of-local *)
 end // end of [local]
