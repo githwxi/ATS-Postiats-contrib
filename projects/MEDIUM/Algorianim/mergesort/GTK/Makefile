@@ -4,7 +4,8 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
@@ -17,8 +18,14 @@ LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+include \
+$(PATSHOME)/share/atsmake-post.mk
 
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
 ######
 
 all:: \

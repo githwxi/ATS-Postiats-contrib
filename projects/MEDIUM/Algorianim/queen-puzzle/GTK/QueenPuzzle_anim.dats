@@ -5,31 +5,35 @@
 //
 (* ****** ****** *)
 
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
-#include "share/HATS/atspre_staload_libats_ML.hats"
+#include
+"share/atspre_define.hats"
+#include
+"share/atspre_staload.hats"
+#include
+"share/HATS/atspre_staload_libats_ML.hats"
 
 (* ****** ****** *)
 
 staload UN = $UNSAFE
 
 (* ****** ****** *)
-
-staload
-_(*MATH*) = "libc/DATS/math.dats"
-
+//
+#staload
+_(*MATH*) =
+"libats/libc/DATS/math.dats"
+//
 (* ****** ****** *)
 
 #define N 8 // the number of queen pieces
 
 (* ****** ****** *)
 
-staload
+#staload
 DF = "./../depth-first.sats"
 
 (* ****** ****** *)
 //
-staload "./gtkcairotimer_toplevel.dats"
+#staload "./gtkcairotimer_toplevel.dats"
 //
 (* ****** ****** *)
 

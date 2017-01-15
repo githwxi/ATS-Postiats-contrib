@@ -257,7 +257,8 @@ end // end of [draw_array0]
 (* ****** ****** *)
 
 extern
-fun mydraw_clock
+fun
+mydraw_clock
 (
   cr: !cairo_ref1, width: int, height: int
 ) : void // end of [mydraw_clock]
@@ -266,8 +267,8 @@ implement
 mydraw_clock
   (cr, W, H) = let
 //
-val A = snapshot_pop ()
-val asz = array0_get_size (A)
+val A = snapshot_pop()
+val asz = array0_get_size(A)
 //
 val sx = g0i2f(W) / $UN.cast{double}(asz)
 val sy = g0i2f(H) / $UN.cast{double}(MYMAX)
@@ -281,12 +282,17 @@ in
 end // [mydraw_clock]
 
 (* ****** ****** *)
-
-staload "libc/SATS/time.sats"
-staload "libc/SATS/stdlib.sats"
-staload "{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _ = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
-
+//
+staload
+"libats/libc/SATS/time.sats"
+staload
+"libats/libc/SATS/stdlib.sats"
+//
+staload
+"{$LIBATSHWXI}/testing/SATS/randgen.sats"
+staload _ =
+"{$LIBATSHWXI}/testing/DATS/randgen.dats"
+//
 (* ****** ****** *)
 
 %{^

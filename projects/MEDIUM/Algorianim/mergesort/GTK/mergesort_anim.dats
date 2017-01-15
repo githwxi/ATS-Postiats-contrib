@@ -249,8 +249,8 @@ end // [mydraw_clock]
 
 (* ****** ****** *)
 
-staload "libc/SATS/time.sats"
-staload "libc/SATS/stdlib.sats"
+staload "libats/libc/SATS/time.sats"
+staload "libats/libc/SATS/stdlib.sats"
 staload "{$LIBATSHWXI}/testing/SATS/randgen.sats"
 staload _ = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
 

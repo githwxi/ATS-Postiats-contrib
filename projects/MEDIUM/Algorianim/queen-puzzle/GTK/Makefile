@@ -2,11 +2,21 @@
 # A simple Makefile
 #
 #
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 #
-include $(PATSHOME)/share/atsmake-post.mk
+GTKFLAGS=\
+$(shell pkg-config gtk+-3.0 --cflags --libs)
 #
-GTKFLAGS=$(shell pkg-config gtk+-3.0 --cflags --libs)
+include \
+$(PATSHOME)/share/atsmake-post.mk
+#
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
+######
 #
 all::\
 QueenPuzzle_anim

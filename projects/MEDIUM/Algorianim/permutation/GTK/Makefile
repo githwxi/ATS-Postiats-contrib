@@ -4,7 +4,8 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
@@ -16,6 +17,16 @@ LDFLAGS += -lgc
 LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
 ######
+
+include \
+$(PATSHOME)/share/atsmake-post.mk
+
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
+######
 #
 all:: permutation_anim
 #
@@ -25,10 +36,6 @@ permutation_anim: \
 #
 cleanall:: ; $(RMF) permutation_anim
 #
-######
-
-include $(PATSHOME)/share/atsmake-post.mk
-
 ######
 
 cleanats:: ; $(RMF) *_?ats.c

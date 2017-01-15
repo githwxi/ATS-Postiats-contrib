@@ -4,20 +4,23 @@
 //
 (* ****** ****** *)
 //
-#define ATS_PACKNAME
+#define
+ATS_PACKNAME
 "ATSCNTRB.libats-hwxi\
 .teaching.gtkcairotimer_toplevel"
 //
 (* ****** ****** *)
-
+//
 #include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 local
 #include
-"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+"{$LIBATSHWXI}\
+/teaching/myGTK/DATS\
+/gtkcairotimer/gtkcairotimer_toplevel.dats"
 in (*nothing*) end
 
 (* ****** ****** *)
@@ -31,7 +34,7 @@ DF = "./../depth-first.sats"
 typedef T = $DF.nodelst
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+#include "{$HX_GLOBALS}/HATS/gstacklst.hats"
 //
 } (* end of [staload] *)
 

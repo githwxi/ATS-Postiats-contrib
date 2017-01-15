@@ -4,7 +4,8 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
@@ -15,6 +16,16 @@ CFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
 LDFLAGS += -lgc
 LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
+######
+
+include \
+$(PATSHOME)/share/atsmake-post.mk
+
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
 ######
 #
 all:: insertsort_anim
@@ -49,10 +60,6 @@ insertsort_anim2_all: \
 #
 cleanall:: ; $(RMF) insertsort_anim2_all
 #
-######
-
-include $(PATSHOME)/share/atsmake-post.mk
-
 ######
 
 cleanats:: ; $(RMF) *_?ats.c

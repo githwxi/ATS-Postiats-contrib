@@ -32,7 +32,7 @@ mandelbrot_v2df
 mandelbrot_v2df: \
 mandelbrot_v2df.dats ; \
 $(PATSCC) -verbose -D_GNU_SOURCE \
-  -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi \
+  -DATS_MEMALLOC_LIBC -I$(PATSCONTRIB)/contrib/libats-/hwxi \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@
 endif #end-of-ifeq
 
@@ -44,7 +44,7 @@ mandelbrot_v2df_smp
 mandelbrot_v2df_smp: \
 mandelbrot_v2df_smp.dats ; \
 $(PATSCC) -verbose -D_GNU_SOURCE \
-  -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOC)/contrib/libats-/hwxi \
+  -DATS_MEMALLOC_LIBC -I$(PATSCONTRIB)/contrib/libats-/hwxi \
   -pipe -O3 -fomit-frame-pointer -march=native -std=c99 -mfpmath=sse -msse2 $< -o $@ -lpthread
 endif #end-of-ifeq
 

@@ -9,18 +9,18 @@
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
-//
 #include
 "share/HATS/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 
-staload
-_(*MATH*) = "libc/DATS/math.dats"
+#staload
+_(*MATH*) =
+"libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 //
-staload UN = $UNSAFE
+#staload UN = $UNSAFE
 //
 (* ****** ****** *)
 
