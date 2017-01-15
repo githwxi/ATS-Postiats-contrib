@@ -72,8 +72,8 @@ stringbuf = $SBF.stringbuf
 //
 staload
 CS0 =
-"{$LIBATSHWXI}\
-/cstream/SATS/cstream.sats"
+"{$HX_CSTREAM}\
+/SATS/cstream.sats"
 //
 stadef cstream = $CS0.cstream
 //

@@ -50,7 +50,7 @@ hashtbl$recapacitize<> () = 1(*resizable*)
 //
 #define CAPACITY 1024
 //
-#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_chain.hats"
+#include "{$HX_GLOBALS}/HATS/ghashtbl_chain.hats"
 //
 } (* end of [staload] *)
 

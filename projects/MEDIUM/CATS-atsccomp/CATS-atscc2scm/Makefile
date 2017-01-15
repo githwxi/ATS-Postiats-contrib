@@ -51,7 +51,7 @@ RMF=rm -f
 ######
 #
 CATSPARSEMIT_source=\
-$(PATSHOMERELOC)/projects/MEDIUM/CATS-parsemit
+$(PATSCONTRIB)/projects/MEDIUM/CATS-parsemit
 #
 pkgreloc:: ; \
 $(CPF) $(CATSPARSEMIT_source)/SATS/catsparse.sats $(CATSPARSEMIT)/.
