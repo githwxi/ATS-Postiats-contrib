@@ -12,7 +12,7 @@ $(JAVA) -Xss4m \
 #
 CLOJURE2=\
 $(CLOJURE) clojure.main \
-  -i $(LIBATSCC2CLJ)/libatscc2clj_all.clj
+  -i ./libatscc2clj/libatscc2clj_all.clj
 #
 ######
 #
@@ -21,12 +21,15 @@ PATSOPT=${PATSHOME}/bin/patsopt
 #
 ATSCC2CLJ=${PATSHOME}/bin/atscc2clj
 #
-LIBATSCC2CLJ=$(PATSHOME_contrib)/contrib/libatscc/libatscc2clj
+LIBATSCC2CLJ=$(PATSCONTRIB)/contrib/libatscc/libatscc2clj
 #
 ######
 #
-all: \
-GameOf24_clj_dats.clj ; $(CLOJURE2) $<
+all:: \
+GameOf24_clj_dats.clj
+#
+regress:: \
+GameOf24_clj_dats.clj; $(CLOJURE2) $<
 #
 ######
 #
@@ -37,16 +40,20 @@ GameOf24_clj_dats.clj: GameOf24_clj_dats.c; $(ATSCC2CLJ) -o $@ -i $<
 ######
 #
 libatscc2clj:: ; \
-  $(CPRF) $(LIBATSCC2CLJ)/libatscc2clj_all.clj ./libatscc2clj/.
+$(CPF) $(LIBATSCC2CLJ)/output/libatscc2clj_all.clj ./libatscc2clj/.
+#
+######
+#
+CPF=cp -rf
+RMF=rm -f
+RMRF=rm -rf
 #
 ######
 
-RMF=rm -f
-RMRF=rm -rf
-
-######
-
-CPRF=cp -rf
+testall:: all
+testall:: libatscc2clj
+testall:: regress
+testall:: cleanall
 
 ######
 
@@ -57,6 +64,7 @@ clean:: ; $(RMF) GameOf24_clj_dats.c
 #
 cleanall:: clean
 cleanall:: ; $(RMF) GameOf24_clj_dats.clj
+cleanall:: ; $(RMF) ./libatscc2clj/libatscc2clj_all.clj
 #
 # cleanall:: ; $(RMF) ./libatscc2clj/libatscc2clj_all.clj
 #
