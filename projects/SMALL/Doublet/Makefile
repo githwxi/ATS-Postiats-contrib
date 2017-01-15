@@ -38,7 +38,8 @@ MYTARGET=doublet
 
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+include \
+$(PATSHOME)/share/atsmake-post.mk
 
 ######
 

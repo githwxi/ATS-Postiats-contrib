@@ -21,10 +21,10 @@ Start Time: October 2013
 //
 #define
 HTML_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten"
+"$PATSCONTRIB/contrib/HTML-emscripten"
 #define
 HTML5canvas2d_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
+"$PATSCONTRIB/contrib/HTML-emscripten/canvas-2d"
 //
 (* ****** ****** *)
 

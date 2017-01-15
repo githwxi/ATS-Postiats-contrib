@@ -40,7 +40,7 @@ staload "./calculator.sats"
 
 datatype
 cstream =
-  CSTREAM of (strarr, ref(size))
+CSTREAM of (strarr, ref(size))
 // end of [cstream]
 
 (* ****** ****** *)
