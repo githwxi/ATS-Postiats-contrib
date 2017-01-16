@@ -29,7 +29,7 @@ UN = "prelude/SATS/unsafe.sats"
 //
 #define
 Z3_targetloc
-"$PATSHOMERELOC/contrib/SMT/Z3"
+"$PATSCONTRIB/contrib/SMT/Z3"
 //
 #define
 PATSOLVE_targetloc "./.ATS-extsolve"

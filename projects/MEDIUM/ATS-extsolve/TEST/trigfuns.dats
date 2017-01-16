@@ -10,17 +10,17 @@
 *)
 //
 (* ****** ****** *)
-//
-staload
-"libats/SATS/Number/real.sats"
-//
-staload
-"libats/DATS/Number/real_double.dats"
-//
-(* ****** ****** *)
 
 #define i2r(x) int2real(x)
 
+(* ****** ****** *)
+//
+#staload
+"libats/SATS/Number/real.sats"
+//
+#staload
+"libats/DATS/Number/real_double.dats"
+//
 (* ****** ****** *)
 //
 extern

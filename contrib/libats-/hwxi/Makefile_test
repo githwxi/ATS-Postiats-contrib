@@ -10,7 +10,6 @@ all::
 
 SUBDIRS :=
 SUBDIRS += weboxy/TEST
-SUBDIRS += testing/TEST
 SUBDIRS += jsonats/TEST
 SUBDIRS += threadkit/TEST
 SUBDIRS += teaching/myGTK/TEST

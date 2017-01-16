@@ -10,11 +10,6 @@ all::
 
 SUBDIRS :=
 
-SUBDIRS += CATS-atscc2pl
-SUBDIRS += CATS-atscc2erl
-SUBDIRS += CATS-atscc2scm
-SUBDIRS += CATS-atscc2clj
-
 ######
 #
 all:: ; \
