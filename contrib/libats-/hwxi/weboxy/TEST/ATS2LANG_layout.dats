@@ -20,12 +20,13 @@
 //
 (* ****** ****** *)
 //
-#include "./../weboxy.dats"
+#include "./../DATS/weboxy.dats"
 //
 (* ****** ****** *)
 //
 implement
-randcolor<>() = let
+randcolor<>
+((*void*)) = let
 //
 val M = 256
 //
@@ -34,7 +35,7 @@ val b = randint<>(M)
 val g = randint<>(M)
 //
 val bsz = 16
-val (pf,pfgc|p) = malloc_gc (i2sz(bsz))
+val (pf,pfgc|p) = malloc_gc(i2sz(bsz))
 val
 (
 (*void*)
