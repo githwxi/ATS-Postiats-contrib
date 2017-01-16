@@ -26,10 +26,11 @@ TOPWIN = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TOPWIN] *)
 
@@ -39,7 +40,7 @@ staload
 KEYPRESSED = {
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/gcount.hats"
+#include "{$HX_GLOBALS}/HATS/gcount.hats"
 //
 } (* end of [KEYPRESSED] *)
 
@@ -51,10 +52,11 @@ HADJUST = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [HADJUST] *)
 
@@ -66,10 +68,11 @@ VADJUST = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [VADJUST] *)
 
@@ -81,10 +84,11 @@ TEXTBUF = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TEXTBUF] *)
 
@@ -96,10 +100,11 @@ TEXTBUF2 = {
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
 #include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TEXTBUF2] *)
 
