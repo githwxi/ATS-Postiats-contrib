@@ -58,11 +58,7 @@ val res0 = csv_parse_line_nerr(line, nerr)
 
 (* ****** ****** *)
 //
-local
-//
-#include "./csv_parse_line.hats"
-//
-in (* nothing *) end // [local]
+local #include "./csv_parse_line.hats" in (*nothing*) end
 //
 (* ****** ****** *)
 

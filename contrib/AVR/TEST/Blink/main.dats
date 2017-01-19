@@ -16,6 +16,11 @@ void
 //
 (* ****** ****** *)
 //
+#define
+AVR_targetloc "./../.."
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 //
@@ -27,20 +32,18 @@ staload "{$AVR}/SATS/avr/iom328p.sats"
 staload "{$AVR}/SATS/util/delay.sats"
 //
 (* ****** ****** *)
-
-#define NDELAY 250.0
-
-(* ****** ****** *)
-
+//
 extern
 fun
-main (): int = "main"
-
+main ():int = "main"
+//
 (* ****** ****** *)
 
 implement
-main () = 0 where
+main() = 0 where
 {
+//
+#define NDELAY 250.0
 //
 (*
 val () =

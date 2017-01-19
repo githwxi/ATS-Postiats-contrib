@@ -202,14 +202,14 @@ main0((*void*)) =
 val ts0 = cstream_gen()
 //
 val ptok =
-  token_parser(any_parser<int> ())
+token_parser(any_parser<int>())
 //
 val ptoklst = list0_parser(ptok)
 //
 val toks = parser_apply_stream(ptoklst, ts0)
 //
 val out = stdout_ref
-val ((*void*)) = fprintln! (out, "toks = ", toks)
+val ((*void*)) = fprintln!(out, "toks = ", toks)
 //
 } (* end of [main0] *)
 

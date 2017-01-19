@@ -186,7 +186,8 @@ in
 //
 if
 c1 >= 0
-then (
+then
+(
 //
 if (
 c1 != DQUOTE

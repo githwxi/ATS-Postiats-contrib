@@ -31,10 +31,9 @@ for i in $(SUBDIRS); \
   do $(MAKE) -C $$i -f Makefile testall; done
 #
 ######
-#
+
 all:: ; $(MAKE) -C MEDIUM/ATS-extsolve -f Makefile testall
-all:: ; $(MAKE) -C MEDIUM/ATS-extsolve/ATS-extsolve-smt2 -f Makefile testall
-#
+
 ######
 
 all:: ; $(MAKE) -C MEDIUM/CATS-parsemit -f Makefile testall
