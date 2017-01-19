@@ -25,12 +25,14 @@
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/DATS/json.dats"
+staload
+"{$LIBJSONC}/DATS/json.dats"
 
 (* ****** ****** *)
 //
 local
-#include"{$JSONC}/DATS/json_ML.dats"
+#include
+"{$LIBJSONC}/DATS/json_ML.dats"
 in (*nothing*) end // end of [local]
 //
 (* ****** ****** *)
