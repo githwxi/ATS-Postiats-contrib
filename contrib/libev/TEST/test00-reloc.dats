@@ -26,18 +26,20 @@ PATSCONTRIB
 //
 (* ****** ****** *)
 
-staload "{$PATSCONTRIB}/libev/SATS/ev.sats"
+#staload "{$PATSCONTRIB}/libev/SATS/ev.sats"
 
 (* ****** ****** *)
 
 val () =
 {
 //
-val major = ev_version_major ()
-val minor = ev_version_minor ()
+val
+major = ev_version_major()
+val
+minor = ev_version_minor()
 //
-val () = println! ("ev_version_major() = ", major)
-val () = println! ("ev_version_minor() = ", minor)
+val () = println!("ev_version_major() = ", major)
+val () = println!("ev_version_minor() = ", minor)
 //
 } (* end of [val] *)
 

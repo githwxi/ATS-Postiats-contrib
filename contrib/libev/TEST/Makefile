@@ -62,11 +62,12 @@ cleanall:: ; $(RMF) test01
 #
 test00-reloc:: \
 test00-reloc.dats ; \
-$(PATSCC) -I ./.TEST00/. -IATS ./.TEST00/. \
+$(PATSCC) -IIATS ./.TEST00/. \
 -DATS ATSRELOCROOT=\\\".TEST00\\\" $(CFLAGS) -o $@ $< $(LDFLAGS)
 #
 test00-reloc.mk: ; \
-$(PATSOPT) --atsreloc -DATS ATSRELOCROOT=\".TEST00\" -d test00-reloc.dats | $(ATSRELOC2) --output-w $@
+$(PATSOPT) --atsreloc \
+-DATS PATSRELOCROOT=\".TEST00\" -d test00-reloc.dats | $(ATSRELOC2) --output-w $@
 #
 test00-reloc.wget:: test00-reloc.mk ; $(MAKE) -f ./$< wgetall
 #
