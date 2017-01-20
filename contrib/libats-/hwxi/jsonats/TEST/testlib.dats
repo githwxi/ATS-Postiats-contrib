@@ -47,8 +47,7 @@ end // end of [local]
 (* ****** ****** *)
 
 local
-#include"{$LIBATSHWXI}/jsonats/DATS/jsonats.dats"
-in (*in-of-local *)
+#include"./../DATS/jsonats.dats" in (*nothing*)
 end // end of [local]
 
 (* ****** ****** *)

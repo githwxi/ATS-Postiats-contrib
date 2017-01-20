@@ -6,11 +6,12 @@
 (* ****** ****** *)
 
 staload
-STDLIB = "libc/SATS/stdlib.sats"
+STDLIB =
+"libats/libc/SATS/stdlib.sats"
 
 (* ****** ****** *)
 
-staload "./../DATS/BUCS.dats"
+staload "./../DATS/BUCS320.dats"
 
 (* ****** ****** *)
 
@@ -48,7 +49,7 @@ fun test
 (
   dir: string, command: string
 ) : int = let
-  val path = string_append3 (dir, "/", command)
+  val path = string_append(dir, "/", command)
   val answer = test_file_ixoth ($UN.strptr2string(path))
   val ((*void*)) = free (path)
 in
