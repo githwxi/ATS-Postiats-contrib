@@ -286,4 +286,4 @@ aux2(): stream(int) =
 
 (* ****** ****** *)
 
-(* end of [BUCS320.hats] *)
+(* end of [BUCS320.dats] *)

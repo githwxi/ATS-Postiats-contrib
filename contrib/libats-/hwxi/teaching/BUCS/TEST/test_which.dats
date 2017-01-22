@@ -11,7 +11,7 @@ STDLIB =
 
 (* ****** ****** *)
 
-#include "./../HATS/BUCS320.hats"
+#include "./../DATS/BUCS320.dats"
 
 (* ****** ****** *)
 
