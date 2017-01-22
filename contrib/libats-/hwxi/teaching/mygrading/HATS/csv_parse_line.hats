@@ -274,17 +274,21 @@ in
 if
 c0 >= 0
 then let
+//
   val x0 = parse_item(sbf, nerr)
   val res = list_vt_cons(x0, res)
   val cont = parse_char(COMMA, nerr)
+//
 in
   if cont
     then auxlst(sbf, nerr, res) else res
   // end of [if]
 end // end of [then]
 else let
+//
   val x0 = string_nil()
   prval() = lemma_strnptr_param(x0)
+//
 in
   list_vt_cons(strnptr2strptr(x0), res)
 end (* end of [else] *)
@@ -295,7 +299,7 @@ in
 //
 if char_get() >= 0
   then list_vt_reverse(auxlst(sbf, nerr, list_vt_nil))
-  else list_vt_nil()
+  else list_vt_nil((*void*))
 //
 end // end of [parse_itemlst]
 
@@ -304,9 +308,13 @@ in
 res where
 {
 //
-val sbf =
-  $SBF.stringbuf_make_nil(1024)
-val res = parse_itemlst(sbf, nerr)
+val
+sbf =
+$SBF.stringbuf_make_nil(1024)
+//
+val
+res = parse_itemlst(sbf, nerr)
+//
 val ((*freed*)) = $SBF.stringbuf_free(sbf)
 //
 } (* end of [where] *)
@@ -317,4 +325,4 @@ end // end of [local]
 
 (* ****** ****** *)
 
-(* end of [csv_parse_nerr.hats] *)
+(* end of [csv_parse_line.hats] *)

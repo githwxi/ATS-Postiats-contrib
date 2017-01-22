@@ -10,13 +10,14 @@
 #include
 "share/atspre_staload.hats"
 #include
-"share/HATS/atspre_staload_libats_ML.hats"
+"share/HATS\
+/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 //
 #staload
 "{$LIBATSHWXI}\
-/teaching/BUCS/DATS/BUCS.dats"
+/teaching/BUCS/DATS/BUCS320.dats"
 //
 (* ****** ****** *)
 //

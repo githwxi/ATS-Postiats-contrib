@@ -33,14 +33,18 @@
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
-
-staload "libats/ML/SATS/basis.sats"
-staload "libats/ML/SATS/list0.sats"
-staload "libats/ML/SATS/array0.sats"
-
+//
+staload
+"libats/ML/SATS/basis.sats"
+staload
+"libats/ML/SATS/list0.sats"
+staload
+"libats/ML/SATS/array0.sats"
+//
 (* ****** ****** *)
 //
 staload
@@ -69,10 +73,13 @@ fun{}
 test_file_ixoth
   (path: string): int = let
 //
-macdef S_IXOTH = $UN.cast2uint($STAT.S_IXOTH)
+macdef
+S_IXOTH =
+$UN.cast2uint($STAT.S_IXOTH)
 //
 implement
-test_file_mode$pred<> (mode) = (mode land S_IXOTH) != 0u
+test_file_mode$pred<>
+  (mode) = (mode land S_IXOTH) != 0u
 //
 in
 //
@@ -160,7 +167,8 @@ else let
     str2, i2sz(0), len2
   ) (* end of [val] *)
 prval () = lemma_strnptr_param(x)
-  val res = list_vt_cons(strnptr2strptr(x), res)
+  val res =
+  list_vt_cons(strnptr2strptr(x), res)
 in
   loop(ptr_add<char> (plen, len2), res)
 end // end of [else]
@@ -204,7 +212,9 @@ $UN.castvwtp1{arrayref(string,n)}(argv), n
 ) (* end of [val] *)
 //
 in
-  array0_make_arrayref(arrayptr_refize(A), n)
+//
+array0_make_arrayref(arrayptr_refize(A), n)
+//
 end // end of [array0_make_argv]
 //
 (* ****** ****** *)
@@ -218,7 +228,9 @@ implement
 cstream_make_stdin
   ((*void*)) =
 (
-(fix f(): stream(int) => $delay(stream_cons($STDIO.getchar0(), f())))()
+(fix f(): stream(int) =>
+  $delay(stream_cons($STDIO.getchar0(), f()))
+)((*void*))
 ) (* end of [cstream_make_stdin] *)
 //
 (* ****** ****** *)
@@ -235,7 +247,8 @@ cstream_make_fileref
 {
 //
 fun
-aux (
+aux
+(
  inp: FILEref
 ) : stream(int) = $delay
 (
@@ -273,4 +286,4 @@ aux2(): stream(int) =
 
 (* ****** ****** *)
 
-(* end of [BUCS320.dats] *)
+(* end of [BUCS320.hats] *)

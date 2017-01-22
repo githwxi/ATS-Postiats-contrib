@@ -11,34 +11,44 @@ STDLIB =
 
 (* ****** ****** *)
 
-staload "./../DATS/BUCS320.dats"
+#include "./../HATS/BUCS320.hats"
 
 (* ****** ****** *)
 
 implement
-main0 (argc, argv) =
+main0(argc, argv) =
 {
 //
 val () =
-if (argc <= 1) then
+if
+(argc <= 1)
+then
 {
 val () =
-fprintln! (stderr_ref, "Usage: ", argv[0], " ", "<command>")
+fprintln!
+(
+stderr_ref, "Usage: ", argv[0], " ", "<command>"
+) (* end of [val] *)
 } (* end of [if] *)
 //
-val () = assert (argc >= 2)
+val () =
+assertloc(argc >= 2)
 //
 val command = argv[1]
 //
-val (fpf | path) = $STDLIB.getenv ("PATH")
+val (fpf | path) = $STDLIB.getenv("PATH")
 //
 val () =
-if (
+if
+(
 strptr2ptr(path) = 0
-) then {
-  val () =
-  prerrln! ("The environment variable [PATH] is undefined!")
-  val () = exit(1){void}
+) then
+{
+//
+val () =
+prerrln! ("The environment variable [PATH] is undefined!")
+val () = exit(1){void}
+//
 } (* end of [if] *)
 //
 (*
@@ -49,16 +59,23 @@ fun test
 (
   dir: string, command: string
 ) : int = let
-  val path = string_append(dir, "/", command)
-  val answer = test_file_ixoth ($UN.strptr2string(path))
-  val ((*void*)) = free (path)
+//
+val path =
+  string_append(dir, "/", command)
+val answer =
+  test_file_ixoth ($UN.strptr2string(path))
+//
+val ((*void*)) = strptr_free(path)
+//
 in
   answer
 end // end of [test]
 //
-val () = assertloc (strptr2ptr(path) > 0)
+val () =
+assertloc (strptr2ptr(path) > 0)
+//
 val dirs =
-string_split_delim_string ($UN.strptr2string(path), ":")
+string_split_delim_string($UN.strptr2string(path), ":")
 //
 prval ((*void*)) = fpf (path)
 //
@@ -76,7 +93,7 @@ fun loop
         test ($UN.strptr2string(dir), command)
       val ((*void*)) =
         if ans >= 1 then println! (dir, "/", command)
-      val () = strptr_free (dir)
+      val ((*freed*)) = strptr_free(dir)
     in
       loop (dirs, command)
     end // end of [list_vt_cons]
