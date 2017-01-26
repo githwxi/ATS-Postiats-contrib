@@ -14,7 +14,7 @@ CCOPT=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -44,7 +44,7 @@ test01.exe: test01_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
@@ -60,7 +60,7 @@ test02.exe: test02_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
@@ -76,7 +76,7 @@ test03.exe: test03_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
@@ -92,7 +92,7 @@ test04.exe: test04_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
@@ -108,7 +108,7 @@ test05.exe: test05_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
@@ -124,7 +124,7 @@ test06.exe: test06_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 

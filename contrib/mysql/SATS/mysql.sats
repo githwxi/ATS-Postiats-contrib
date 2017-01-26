@@ -123,31 +123,39 @@ abstype query = string
 
 (* ****** ****** *)
 //
+prfun
+mysql_free_null
+  {l:addr | l <= null} (x: MYSQLptr (l)):<> void
+//
+prfun
+mysqlres_free_null
+  {l:addr | l <= null} (x: MYSQLRESptr (l)):<> void
+//
+prfun
+mysqlrow_free_null
+  {l1,l2:addr | l2 <= null} (x: MYSQLROW (l1, l2)):<> void
+//
+prfun
+mysqlfield_free_null
+  {l1,l2:addr | l2 <= null} (x: MYSQLFIELDptr (l1, l2)):<> void
+//
 symintr free_null
 //
-prfun mysql_free_null
-  {l:addr | l <= null} (x: MYSQLptr (l)):<> void
 overload free_null with mysql_free_null
-//
-prfun mysqlres_free_null
-  {l:addr | l <= null} (x: MYSQLRESptr (l)):<> void
 overload free_null with mysqlres_free_null
-//
-prfun mysqlrow_free_null
-  {l1,l2:addr | l2 <= null} (x: MYSQLROW (l1, l2)):<> void
 overload free_null with mysqlrow_free_null
-//
-prfun mysqlfield_free_null
-  {l1,l2:addr | l2 <= null} (x: MYSQLFIELDptr (l1, l2)):<> void
 overload free_null with mysqlfield_free_null
 //
 (* ****** ****** *)
 //
-symintr mysql_init
+fun
+mysql_init0 ((*null*)): MYSQLptr0 = "mac#%"
+fun
+mysql_init0_exn ((*null*)): MYSQLptr1 = "mac#%"
+fun
+mysql_init1 {l:agz} (x: !MYSQLptr (l)): ptr (l) = "mac#%"
 //
-fun mysql_init0 ((*null*)): MYSQLptr0 = "mac#%"
-fun mysql_init0_exn ((*null*)): MYSQLptr1 = "mac#%"
-fun mysql_init1 {l:agz} (x: !MYSQLptr (l)): ptr (l) = "mac#%"
+symintr mysql_init
 //
 overload mysql_init with mysql_init0
 overload mysql_init with mysql_init1
@@ -204,21 +212,24 @@ mysql_change_user
 /*
 int mysql_ping(MYSQL *mysql);
 */
-fun mysql_ping (mysql: !MYSQLptr1): int = "mac#%"
+fun
+mysql_ping (mysql: !MYSQLptr1): int = "mac#%"
 //
 (* ****** ****** *)
 //
 /*
 my_bool mysql_commit (MYSQL *mysql);
 */
-fun mysql_commit (mysql: !MYSQLptr1): int = "mac#%"
+fun
+mysql_commit (mysql: !MYSQLptr1): int = "mac#%"
 //
 (* ****** ****** *)
 //
 /*
 int mysql_query(MYSQL *mysql, const char *q);
 */
-fun mysql_query
+fun
+mysql_query
   (mysql: !MYSQLptr1, q: query): int(*err*) = "mac#%"
 // end of [mysql_query]
 //
@@ -245,7 +256,8 @@ int mysql_drop_db (MYSQL *mysql, const char *db)
 MYSQL_RES*
 mysql_list_dbs(MYSQL *mysql, const char *wild)
 */
-fun mysql_list_dbs
+fun
+mysql_list_dbs
   {l:agz} (
   mysql: !MYSQLptr l, wild: NSH(stropt)
 ) : MYSQLRESptr0 = "mac#%" // endfun
@@ -255,7 +267,8 @@ MYSQL_RES*
 mysql_list_fields
   (MYSQL *mysql, const char *table, const char *wild)
 */
-fun mysql_list_fields
+fun
+mysql_list_fields
   {l:agz} (
   mysql: !MYSQLptr l
 , table: NSH(string), wild: NSH(stropt)
@@ -263,54 +276,62 @@ fun mysql_list_fields
 //
 (* ****** ****** *)
 
-fun mysql_field_count (mysql: !MYSQLptr1): uint = "mac#%"
+fun
+mysql_field_count (mysql: !MYSQLptr1): uint = "mac#%"
 
 (* ****** ****** *)
-
-absprop MYSQLRESnrow (addr, int)
-
+//
+absprop
+MYSQLRESnrow (addr, int)
+//
 (* ****** ****** *)
-
+//
 praxi
 lemma_MYSQLRESnrow_param
-  {l:addr}{n:int} (pf: MYSQLRESnrow (l, n)): [l>null;n>=0] void
+  {l:addr}{n:int}
+  (pf: MYSQLRESnrow (l, n)): [l>null;n>=0] void
 // end of [lemma_MYSQLRESnrow_param]
-
+//
 (* ****** ****** *)
-
-absprop MYSQLRESnfield (addr, int)
-
+//
+absprop
+MYSQLRESnfield(addr, int)
+//
 praxi
 lemma_MYSQLRESnfield_param
-  {l:addr}{n:int} (pf: MYSQLRESnfield (l, n)): [l>null;n>=0] void
+  {l:addr}{n:int}
+  (pf: MYSQLRESnfield (l, n)): [l>null;n>=0] void
 // end of [lemma_MYSQLRESnfield_param]
-
+//
 praxi
 MYSQLRESnfield_istot
   {l:addr} (): [n:nat] MYSQLRESnfield (l, n)
 // end of [MYSQLRESnfield_istot]
-
+//
 praxi
 MYSQLRESnfield_isfun
   {l:addr}{n1,n2:int} (
   pf1: MYSQLRESnfield (l, n1)
 , pf2: MYSQLRESnfield (l, n2)
 ) : [n1==n2] void // end of [MYSQLRESnfield_isfun]
-
+//
 (* ****** ****** *)
-
-fun mysql_num_rows
+//
+fun
+mysql_num_rows
   {l:agz} (
   res: !MYSQLRESptr l
 ) : [n:nat] (MYSQLRESnrow (l, n) | ullint n) = "mac#%"
-macdef mysqlres_get_nrow = mysql_num_rows
-
-fun mysql_num_fields
+//
+fun
+mysql_num_fields
   {l:agz} (
   res: !MYSQLRESptr l
 ) : [n:nat] (MYSQLRESnfield (l, n) | int n) = "mac#%"
+//
+macdef mysqlres_get_nrow = mysql_num_rows
 macdef mysqlres_get_nfield = mysql_num_fields
-
+//
 (* ****** ****** *)
 
 /*
@@ -321,141 +342,180 @@ typedef unsigned int MYSQL_FIELD_OFFSET ;
 MYSQL_FIELD_OFFSET
 mysql_field_tell (MYSQL_RES *result);
 */
-fun mysql_field_tell
+fun
+mysql_field_tell
   {l:agz}{n:int} (
   pf: MYSQLRESnfield (l, n) | res: !MYSQLRESptr l
 ) : natLte (n) = "mac#%"
 
 /*
 MYSQL_FIELD_OFFSET
-mysql_field_seek (MYSQL_RES *result, MYSQL_FIELD_OFFSET offset);
+mysql_field_seek
+  (MYSQL_RES *result, MYSQL_FIELD_OFFSET offset);
 */
-fun mysql_field_seek
-  {l:agz}{n:int} (
+fun
+mysql_field_seek
+{l:agz}{n:int}
+(
   pf: MYSQLRESnfield (l, n) | res: !MYSQLRESptr l, i: natLte (n)
 ) : natLte (n) = "mac#%"
 
 (* ****** ****** *)
-
+//
 /*
-my_ulonglong mysql_affected_rows(MYSQL *mysql)
+my_ulonglong
+mysql_affected_rows(MYSQL *mysql)
 */
-fun mysql_affected_rows
+fun
+mysql_affected_rows
   {l:agz} (mysql: !MYSQLptr l): ullint = "mac#%"
 // end of [mysql_affected_rows]
-
+//
 (* ****** ****** *)
-
+//
 /*
 MYSQL_RES *mysql_use_result(MYSQL *mysql);
 */
 fun mysql_use_result
   {l:agz} (mysql: !MYSQLptr (l)): MYSQLRESptr0 = "mac#%"
 // end of [mysql_use_result]
-
+//
 /*
 MYSQL_RES *mysql_store_result(MYSQL *mysql);
 */
-fun mysql_store_result
-  {l:agz} (mysql: !MYSQLptr (l)): MYSQLRESptr0 = "mac#%"
+fun
+mysql_store_result
+  {l:agz}
+  (mysql: !MYSQLptr (l)): MYSQLRESptr0 = "mac#%"
 // end of [mysql_store_result]
-
+//
 (* ****** ****** *)
-
+//
 /*
 void mysql_free_result(MYSQL_RES *result);
 */
-fun mysql_free_result (result: MYSQLRESptr0): void = "mac#%"
-
+fun
+mysql_free_result
+  (result: MYSQLRESptr0): void = "mac#%"
+//
 (* ****** ****** *)
-
+//
 /*
-void mysql_data_seek (MYSQL_RES *result, my_ulonglong offset)
+void
+mysql_data_seek
+  (MYSQL_RES *result, my_ulonglong offset)
 */
-fun mysql_data_seek
-  {l:agz} (result: !MYSQLRESptr l, ofs: ullint): void = "mac#%"
-// end of [mysql_data_seek]
-
+fun
+mysql_data_seek
+  {l:agz}
+(
+  res: !MYSQLRESptr l, ofs: ullint
+) : void = "mac#%" // end of [mysql_data_seek]
+//
 (* ****** ****** *)
-
+//
 /*
 MYSQL_ROW mysql_fetch_row(MYSQL_RES *result);
 */
-fun mysql_fetch_row
+fun
+mysql_fetch_row
   {l:agz} (res: !MYSQLRESptr (l)): MYSQLROW0 (l) = "mac#%"
-macdef mysqlres_fetch_row = mysql_fetch_row
-
-prfun mysql_unfetch_row
+//
+prfun
+mysql_unfetch_row
   {l1,l2:addr} (
   res: !MYSQLRESptr (l1), row: MYSQLROW (l1, l2)
 ) :<> void // end of [mysql_unfetch_row]
+//
+macdef mysqlres_fetch_row = mysql_fetch_row
 macdef mysqlres_unfetch_row = mysql_unfetch_row
-
+//
 (* ****** ****** *)
-
+//
 /*
 MYSQL_ROWLEN
 mysql_fetch_lengths(MYSQL_RES *result);
 */
-fun mysql_fetch_lengths
+fun
+mysql_fetch_lengths
   {l:agz} (res: !MYSQLRESptr (l)): MYSQLROWLEN0 (l) = "mac#%"
-macdef mysqlres_fetch_lengths = mysql_fetch_lengths
-
-prfun mysql_unfetch_lengths
+//
+prfun
+mysql_unfetch_lengths
   {l1,l2:addr} (
   res: !MYSQLRESptr l1, rowlen: MYSQLROWLEN (l1, l2)
 ) :<> void // end of [mysql_unfetch_rowlen]
+//
+macdef mysqlres_fetch_lengths = mysql_fetch_lengths
 macdef mysqlres_unfetch_lengths = mysql_unfetch_lengths
-
+//
 (* ****** ****** *)
 
-fun mysqlrow_get_at
-  {l1,l2:addr | l2 > null}{n:int} (
+fun
+mysqlrow_get_at
+{l1,l2:addr | l2 > null}{n:int}
+(
   pfrow: MYSQLRESnfield (l1, n) | row: !MYSQLROW (l1, l2), i: natLt n
 ) : ptr = "mac#%" // endfun
 
 (* ****** ****** *)
 
-fun mysqlrowlen_get_at
-  {l1,l2:addr | l2 > null}{n:int} (
+fun
+mysqlrowlen_get_at
+{l1,l2:addr | l2 > null}{n:int}
+(
   pfrow: MYSQLRESnfield (l1, n) | rowlen: !MYSQLROWLEN (l1, l2), i: natLt n
 ) : ulint = "mac#%" // endfun
 
 (* ****** ****** *)
-
+//
 /*
 MYSQL_FIELD mysql_fetch_field(MYSQL_RES *result);
 */
-fun mysql_fetch_field
-  {l:agz} (res: !MYSQLRESptr l): MYSQLFIELDptr0 (l) = "mac#%"
-macdef mysqlres_fetch_field = mysql_fetch_field
+fun
+mysql_fetch_field
+{l:agz}
+(
+  res: !MYSQLRESptr l
+) : MYSQLFIELDptr0 (l) = "mac#%" // end-of-function
 
 prfun
 mysql_unfetch_field
-  {l1,l2:addr}
-  (res: !MYSQLRESptr (l1), field: MYSQLFIELDptr (l1, l2)): void
-macdef mysqlres_unfetch_field = mysql_unfetch_field
-
+{l1,l2:addr}
+(
+  res: !MYSQLRESptr(l1), field: MYSQLFIELDptr(l1, l2)
+) : void // end of [mysql_unfetch_field]
+//
+macdef
+mysqlres_fetch_field = mysql_fetch_field
+macdef
+mysqlres_unfetch_field = mysql_unfetch_field
+//
 (* ****** ****** *)
-
+//
 /*
 MYSQL_FIELD*
 mysql_fetch_field_direct
   (MYSQL_RES *result, unsigned int fieldnr);
 */
-fun mysql_fetch_field_direct
-  {l:agz}{n:int} (
+fun
+mysql_fetch_field_direct
+{l:agz}{n:int}
+(
   pf: MYSQLRESnfield (l, n) | res: !MYSQLRESptr l, i: natLt n
 ) : MYSQLFIELDptr1 (l) = "mac#%" // endfun
+//
 macdef mysqlres_fetch_field_at = mysql_fetch_field_direct
-
+//
 (* ****** ****** *)
-
+//
 /*
 MYSQL_FIELD *mysql_fetch_fields (MYSQL_RES *result) 
 */
-fun mysql_fetch_fields
-  {l:agz}{n:int} (
+fun
+mysql_fetch_fields
+{l:agz}{n:int}
+(
   pf: MYSQLRESnfield (l, n) | res: !MYSQLRESptr l
 ) : [la:addr] (
   array_v (MYSQLROW1 (l), la, n)
@@ -464,69 +524,82 @@ fun mysql_fetch_fields
 ) = "mac#%" // end of [mysql_fetch_fields]
 
 (* ****** ****** *)
-
-fun mysqlfield_get_name
+//
+fun
+mysqlfield_get_name
   {l1,l2:addr | l2 > null}
-  (fld: !MYSQLFIELDptr (l1, l2)): ptr(*char*) = "mac#%"
-// end of [mysqlfield_get_name]
-
-fun mysqlfield_get_length
-  {l1,l2:addr | l2 > null} (fld: !MYSQLFIELDptr (l1, l2)): ulint = "mac#%"
+(
+  fld: !MYSQLFIELDptr(l1, l2)
+) : ptr(*char*) = "mac#%" // end-of-function
+//
+fun
+mysqlfield_get_length
+  {l1,l2:addr | l2 > null}
+  (fld: !MYSQLFIELDptr(l1, l2)): ulint = "mac#%"
 // end of [mysqlfield_get_length]
-
-fun mysqlfield_get_max_length
-  {l1,l2:addr | l2 > null} (fld: !MYSQLFIELDptr (l1, l2)): ulint = "mac#%"
+//
+fun
+mysqlfield_get_max_length
+  {l1,l2:addr | l2 > null}
+  (fld: !MYSQLFIELDptr(l1, l2)): ulint = "mac#%"
 // end of [mysqlfield_get_max_length]
-
+//
 (* ****** ****** *)
-
+//
 /*
 const char *mysql_info (MYSQL *mysql);
 */
-fun mysql_info
+fun
+mysql_info
   {l:agz} (mysql: !MYSQLptr l): string = "mac#%"
 // end of [mysql_info]  
-
+//
 (* ****** ****** *)
-
+//
 /*
 const char *mysql_stat (MYSQL *mysql);
 */
-fun mysql_stat
-  {l:agz} (mysql: !MYSQLptr l): string = "mac#%"
+fun
+mysql_stat
+  {l:agz}(mysql: !MYSQLptr l): string = "mac#%"
 // end of [mysql_stat]  
-
+//
 (* ****** ****** *)
-
+//
 /*
 const char *mysql_sqlstate (MYSQL *mysql);
 */
-fun mysql_sqlstate (mysql: !MYSQLptr1): string = "mac#%"
-
+fun
+mysql_sqlstate(mysql: !MYSQLptr1): string = "mac#%"
+//
 (* ****** ****** *)
-
+//
 /*
 const char *mysql_get_host_info (MYSQL *mysql);
 */
-fun mysql_get_host_info (mysql: !MYSQLptr1): string = "mac#%"
-
+fun
+mysql_get_host_info (mysql: !MYSQLptr1): string = "mac#%"
+//
 /*
 unsigned int mysql_get_proto_info(MYSQL *mysql)
 */
-fun mysql_get_proto_info (mysql: !MYSQLptr1): uint = "mac#%"
-
+fun
+mysql_get_proto_info (mysql: !MYSQLptr1): uint = "mac#%"
+//
 (* ****** ****** *)
-
+//
 /*
 const char *mysql_get_server_info (MYSQL *mysql);
 */
-fun mysql_get_server_info (mysql: !MYSQLptr1) : string = "mac#%"
-
+fun
+mysql_get_server_info (mysql: !MYSQLptr1) : string = "mac#%"
+//
 /*
 unsigned long int mysql_get_server_version(MYSQL *mysql)
 */
-fun mysql_get_server_version (mysql: !MYSQLptr1) : ulint = "mac#%"
-
+fun
+mysql_get_server_version (mysql: !MYSQLptr1) : ulint = "mac#%"
+//
 (* ****** ****** *)
 
 /*
@@ -549,19 +622,21 @@ my_bool mysql_eof(MYSQL_RES *result);
 *)
 
 (* ****** ****** *)
-
+//
 /*
 unsigned int
 mysql_errno(MYSQL *mysql);
 */
-fun mysql_errno (mysql: !MYSQLptr1) : uint = "mac#%"
-
+fun
+mysql_errno (mysql: !MYSQLptr1) : uint = "mac#%"
+//
 /*
 const char*
 mysql_error(MYSQL *mysql);
 */
-fun mysql_error (mysql: !MYSQLptr1) : string = "mac#%"
-
+fun
+mysql_error (mysql: !MYSQLptr1) : string = "mac#%"
+//
 (* ****** ****** *)
 
 /*
@@ -569,7 +644,8 @@ unsigned long
 mysql_hex_string
   (char *to, const char *from, unsigned long from_length) ; 
 */
-fun mysql_hex_string
+fun
+mysql_hex_string
   {lb:addr}
   {m,n:int | m >= 2*n+1} (
   pf: b0ytes(m) @ lb | pbuf: ptr lb, src: NSH(string(n)), n: size_t n
@@ -580,7 +656,8 @@ unsigned long
 mysql_escape_string
   (char *to, const char *from, unsigned long from_length) ; 
 */
-fun mysql_escape_string
+fun
+mysql_escape_string
   {lb:addr}
   {m,n:int | m >= 2*n+1} (
   pf: b0ytes(m) @ lb | pbuf: ptr lb, src: NSH(string(n)), n: size_t n
@@ -591,7 +668,8 @@ unsigned long
 mysql_real_escape_string
   (MYSQL *mysql, char *to,const char *from, unsigned long length);
 */
-fun mysql_real_escape_string
+fun
+mysql_real_escape_string
   {lb:addr}
   {m,n:int | m >= 2*n+1} (
   pf: b0ytes(m) @ lb
@@ -610,22 +688,23 @@ fun mysql_warning_count (mysql: !MYSQLptr1) : uint = "mac#%"
 // Some convenience functions
 //
 (* ****** ****** *)
-
-fun{
-} fprint_mysql_error (out: FILEref, mysql: !MYSQLptr1) : void
-
+//
+fun{}
+fprint_mysql_error
+  (out: FILEref, mysql: !MYSQLptr1): void
+//
 (* ****** ****** *)
 //
-fun{
-} fprint_mysqlres$sep1 (FILEref): void
-fun{
-} fprint_mysqlres$sep2 (FILEref): void
-fun{
-} fprint_mysqlres{l:agz}
+fun{}
+fprint_mysqlres$sep1 (FILEref): void
+fun{}
+fprint_mysqlres$sep2 (FILEref): void
+fun{}
+fprint_mysqlres{l:agz}
   (out: FILEref, res: !MYSQLRESptr (l)): void
 // end of [fprint_mysqlres]
-fun{
-} fprint_mysqlres_sep{l:agz}
+fun{}
+fprint_mysqlres_sep{l:agz}
 (
   out: FILEref
 , res: !MYSQLRESptr(l), sep1: NSH(string), sep2: NSH(string)
@@ -636,11 +715,11 @@ overload fprint with fprint_mysqlres_sep
 //
 (* ****** ****** *)
 
-fun{
-} fprint_mysqlrow$sep (FILEref): void
-fun{
-} fprint_mysqlrow
-  {l1,l2:addr | l2 > null}{n:int}
+fun{}
+fprint_mysqlrow$sep (FILEref): void
+fun{}
+fprint_mysqlrow
+{l1,l2:addr | l2 > null}{n:int}
 (
   pfrow: MYSQLRESnfield (l1, n)
 | out: FILEref, row: !MYSQLROW (l1, l2), n: int n

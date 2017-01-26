@@ -26,7 +26,7 @@ all:: \\\n\
   $(CCOPT) $(CCFLAGS) \\\n\
     -I$(PATSHOMEQ) \\\n\
     -I$(PATSHOMEQ)/ccomp/runtime \\\n\
-    -I$(PATSHOMERELOCQ)/contrib \\\n\
+    -I$(PATSCONTRIBQ)/contrib \\\n\
     $(MYSQLCFLAGS) \\\n\
     -o $@ $< \\\n\
     $(MYSQLLIBS) \n\
@@ -59,7 +59,7 @@ CCOPT=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 

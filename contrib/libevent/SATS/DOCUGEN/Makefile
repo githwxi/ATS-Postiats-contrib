@@ -24,6 +24,11 @@ SHAREDOCU=$(PATSHOMEQ)/share/DOCUGEN
 
 ######
 
+LDPATH :=
+LDPATH += -L$(PATSHOME)/ccomp/atslib/lib
+
+######
+
 INCLUDE:=-I $(PATSHOMEQ)/src
 INCLATS:=-IATS $(SHAREDOCU) -IATS $(PATSHOMEQ) -IATS $(ATSHOMEQ)
 
@@ -58,7 +63,7 @@ all_html::
 all_html:: HTML/event.html
 HTML/event.html:   event_atxt.exe ; ./$< > $@
 event_atxt.txt: event.atxt ; $(CAT) $< |   $(ATSDOC) --prefix __datatok --outcode htmlgendecl_data_atxt.dats > $@
-event_atxt.exe: htmlgendecl_atxt.dats   event_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) -D_ATS_GCATS -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(PATSHOMEQ)/libatsynmark/libatsynmark.a -latsdoc
+event_atxt.exe: htmlgendecl_atxt.dats   event_atxt.txt $(DECLATEXT) $(HTMLGENDECL) ;   $(ATSCC) $(INCLUDE) $(INCLATS) -o $@ $<     $(DECLATEXT) $(HTMLGENDECL) $(LDPATH) -latsynmark -latsopt -latsdoc -lats -lgmp
 upload_event:: ;   scp HTML/event.html ats-hwxi,ats-lang@web.sourceforge.net:htdocs/LIBRARY/contrib/libevent/SATS/DOCUGEN/HTML
 clean:: ; $(RMF) event_atxt.exe
 cleanall:: ; $(RMF) HTML/event.html
