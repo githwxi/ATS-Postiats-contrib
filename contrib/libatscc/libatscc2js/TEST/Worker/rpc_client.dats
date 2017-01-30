@@ -7,16 +7,12 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-  
+//
 #include
 "share/atspre_define.hats"
 #include
 "{$LIBATSCC2JS}/staloadall.hats"
-  
-(* ****** ****** *)
-
-staload "libats/ML/SATS/basis.sats"
-
+//
 (* ****** ****** *)
 
 staload

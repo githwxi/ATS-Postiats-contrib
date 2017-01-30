@@ -7,16 +7,12 @@
 #define ATS_DYNLOADFLAG 0
 
 (* ****** ****** *)
-  
+//  
 #include
 "share/atspre_define.hats"
 #include
 "{$LIBATSCC2JS}/staloadall.hats"
-  
-(* ****** ****** *)
-
-staload "libats/ML/SATS/basis.sats"
-
+//
 (* ****** ****** *)
 
 staload
@@ -25,11 +21,11 @@ UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 //
 staload
-"{$LIBATSCC2JS}/SATS/Worker/channel.sats"
+"./../../SATS/Worker/channel.sats"
 staload
-"{$LIBATSCC2JS}/DATS/Worker/channel.dats"
+"./../../DATS/Worker/channel.dats"
 #include
-"{$LIBATSCC2JS}/DATS/Worker/channeg.dats"
+"./../../DATS/Worker/channeg.dats"
 //
 (* ****** ****** *)
 //
