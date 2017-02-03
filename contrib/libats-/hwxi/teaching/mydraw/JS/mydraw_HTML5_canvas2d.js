@@ -1,11 +1,18 @@
+/*
+HTML5 Canvas functions for ATS2
+*/
+/* ****** ****** */
+
 /**
-  HTML5 Canvas functions for ATS2
   Author: Will Blair
-  Authoremail: wdblairATcsDOTbuDOTedu
   Start Time: September 2013
+  Authoremail: wdblairATcsDOTbuDOTedu
+ */
+
+/**
   Author: Hongwei Xi
-  Authoremail: hwxi AT cs DOT bu DOT edu
   Start Time: October 2013
+  Authoremail: hwxi AT cs DOT bu DOT edu
  */
 
 /* ****** ****** */

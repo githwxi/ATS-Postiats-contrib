@@ -1,7 +1,7 @@
 (*
 ** Author: Hongwei Xi
-** Authoremail: gmhwxiATgmailDOTcom
 ** Start time: October, 2013
+** Authoremail: gmhwxiATgmailDOTcom
 *)
 (* ****** ****** *)
 //
@@ -17,7 +17,7 @@ staload _(*anon*) = "./../DATS/mydraw.dats"
 //
 (* ****** ****** *)
 //
-staload _(*M*) = "libc/DATS/math.dats"
+staload _(*M*) = "libats/libc/DATS/math.dats"
 //
 (* ****** ****** *)
 //
@@ -78,16 +78,20 @@ main0 () =
 val id =
   "KochSnowflake"
 //
-val ctx = canvas2d_make (id)
-val p_ctx = ptrcast (ctx)
-val () = assertloc (p_ctx > 0)
+val
+ctx = canvas2d_make (id)
+//
+val ((*void*)) =
+  assertloc(ptrcast(ctx) > 0)
 //
 val WH = min (W, H)
 val WH2 = WH / 2.0
 val WH3 = WH / 3.0
 //
 val () =
-canvas2d_translate (ctx, WH2, (WH2+WH3)/2)
+canvas2d_translate
+  (ctx, WH2, (WH2+WH3)/2)
+//
 val (pf0 | ()) = canvas2d_save (ctx)
 //
 val p1 = point_make (~WH3,  WH3)

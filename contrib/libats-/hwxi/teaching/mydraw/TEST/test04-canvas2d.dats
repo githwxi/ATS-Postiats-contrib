@@ -17,7 +17,7 @@ staload _(*anon*) = "./../DATS/mydraw.dats"
 //
 (* ****** ****** *)
 //
-staload _(*M*) = "libc/DATS/math.dats"
+staload _(*M*) = "libats/libc/DATS/math.dats"
 //
 (* ****** ****** *)
 //
