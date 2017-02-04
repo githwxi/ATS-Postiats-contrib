@@ -9,15 +9,11 @@ all::
 ######
 
 SUBDIRS :=
-SUBDIRS += weboxy/TEST
 SUBDIRS += jsonats/TEST
 SUBDIRS += threadkit/TEST
 SUBDIRS += teaching/myGTK/TEST
-SUBDIRS += teaching/mydraw/TEST
 SUBDIRS += teaching/mythread/TEST
 SUBDIRS += teaching/fileAsLock/TEST
-SUBDIRS += teaching/mysession2/TEST
-SUBDIRS += teaching/mysession-g/TEST
 
 ######
 
