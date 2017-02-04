@@ -13,28 +13,40 @@
 //
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 staload
 _(*M*) =
 "libats/libc/DATS/math.dats"
 //
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload
+"{$LIBCAIRO}/SATS/cairo.sats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/mydraw.sats"
-staload _(*anon*) = "./../DATS/mydraw.dats"
+#staload
+"./../SATS/mydraw.sats"
+#staload
+_(*anon*) = "./../DATS/mydraw.dats"
+//
+(* ****** ****** *)
+//
+#staload
+"./../SATS/mydraw_cairo.sats"
+#staload
+_(*anon*) = "./../DATS/mydraw_cairo.dats"
 //
 (* ****** ****** *)
 
-staload "./test04.dats"
+#staload "./test04.dats"
 
-(* ****** ****** *)
-//
-staload "./../SATS/mydraw_cairo.sats"
-staload _(*anon*) = "./../DATS/mydraw_cairo.dats"
-//
 (* ****** ****** *)
 
 extern

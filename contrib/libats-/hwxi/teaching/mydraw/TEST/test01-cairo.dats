@@ -13,22 +13,34 @@
 //
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/mydraw.sats"
-staload _(*anon*) = "./../DATS/mydraw.dats"
+staload
+"{$LIBCAIRO}/SATS/cairo.sats"
+//
+(* ****** ****** *)
+//
+#staload
+"./../SATS/mydraw.sats"
+#staload
+_(*anon*) = "./../DATS/mydraw.dats"
+//
+(* ****** ****** *)
+//
+#staload
+"./../SATS/mydraw_cairo.sats"
+#staload
+_(*anon*) = "./../DATS/mydraw_cairo.dats"
 //
 (* ****** ****** *)
 
-staload "./test01.dats"
+#staload "./test01.dats"
 
-(* ****** ****** *)
-//
-staload "./../SATS/mydraw_cairo.sats"
-staload _(*anon*) = "./../DATS/mydraw_cairo.dats"
-//
 (* ****** ****** *)
 
 extern

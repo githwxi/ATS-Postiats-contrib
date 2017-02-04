@@ -12,17 +12,21 @@
 //
 (* ****** ****** *)
 //
-staload "./../SATS/mydraw.sats"
-staload _(*anon*) = "./../DATS/mydraw.dats"
+#staload
+"./../SATS/mydraw.sats"
+#staload
+_(*anon*) = "./../DATS/mydraw.dats"
 //
 (* ****** ****** *)
 //
-staload "./test01.dats"
+#staload
+"./../SATS/mydraw_HTML5_canvas2d.sats"
+#staload _(*anon*) =
+"./../DATS/mydraw_HTML5_canvas2d.dats"
 //
 (* ****** ****** *)
 //
-staload "./../SATS/mydraw_HTML5_canvas2d.sats"
-staload _(*anon*) = "./../DATS/mydraw_HTML5_canvas2d.dats"
+#staload "./test01.dats"
 //
 (* ****** ****** *)
 

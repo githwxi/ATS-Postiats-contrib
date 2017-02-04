@@ -36,8 +36,15 @@
 "share/atspre_define.hats"
 
 (* ****** ****** *)
+//
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
@@ -46,7 +53,7 @@ staload "./../SATS/mydraw_cairo.sats"
 
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 
@@ -54,8 +61,9 @@ macdef PI = 3.1415926535898
 
 (* ****** ****** *)
 
-implement{
-} mydraw_get1_cairo () = let
+implement
+{}(*tmp*)
+mydraw_get1_cairo () = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -67,8 +75,9 @@ end // end of [mydraw_get1_cairo]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_new_path () = let
+implement
+{}(*tmp*)
+mydraw_new_path () = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -80,8 +89,9 @@ end // end of [mydraw_new_path]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_close_path () = let
+implement
+{}(*tmp*)
+mydraw_close_path () = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -93,8 +103,9 @@ end // end of [mydraw_close_path]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_move_to (p) = let
+implement
+{}(*tmp*)
+mydraw_move_to (p) = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -104,8 +115,9 @@ in
   // nothing
 end // end of [mydraw_move_to]
 
-implement{
-} mydraw_move_to_xy (x, y) = let
+implement
+{}(*tmp*)
+mydraw_move_to_xy (x, y) = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -117,8 +129,9 @@ end // end of [mydraw_move_to_xy]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_line_to (p) = let
+implement
+{}(*tmp*)
+mydraw_line_to (p) = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -128,8 +141,9 @@ in
   // nothing
 end // end of [mydraw_line_to]
 
-implement{
-} mydraw_line_to_xy (x, y) = let
+implement
+{}(*tmp*)
+mydraw_line_to_xy (x, y) = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -141,8 +155,9 @@ end // end of [mydraw_line_to_xy]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_rel_line_to (v) = let
+implement
+{}(*tmp*)
+mydraw_rel_line_to (v) = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -152,8 +167,9 @@ in
   // nothing
 end // end of [mydraw_rel_line_to]
 
-implement{
-} mydraw_rel_line_to_dxy (dx, dy) = let
+implement
+{}(*tmp*)
+mydraw_rel_line_to_dxy (dx, dy) = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -165,8 +181,9 @@ end // end of [mydraw_rel_line_to_dxy]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_rectangle
+implement
+{}(*tmp*)
+mydraw_rectangle
   (pul, w, h) = let
   val (
     fpf | cr
@@ -179,8 +196,9 @@ end // end of [mydraw_rectangle]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_arc
+implement
+{}(*tmp*)
+mydraw_arc
   (pc, rad, ang1, ang2) = let
   val (
     fpf | cr
@@ -191,8 +209,9 @@ in
   // nothing
 end // end of [mydraw_arc]
 
-implement{
-} mydraw_arc_neg
+implement
+{}(*tmp*)
+mydraw_arc_neg
   (pc, rad, ang1, ang2) = let
   val (
     fpf | cr
@@ -203,8 +222,9 @@ in
   // nothing
 end // end of [mydraw_arc_neg]
 
-implement{
-} mydraw_circle
+implement
+{}(*tmp*)
+mydraw_circle
   (pc, rad) = let
   val (
     fpf | cr
@@ -218,8 +238,9 @@ end // end of [mydraw_circle]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_fill () = let
+implement
+{}(*tmp*)
+mydraw_fill () = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -229,8 +250,9 @@ in
   // nothing
 end // end of [mydraw_fill]
 
-implement{
-} mydraw_fill_set_rgb
+implement
+{}(*tmp*)
+mydraw_fill_set_rgb
   (r, g, b) = let
   val (
     fpf | cr
@@ -241,8 +263,9 @@ in
   // nothing
 end // end of [mydraw_fill_set_rgb]
 
-implement{
-} mydraw_fill_set_rgba
+implement
+{}(*tmp*)
+mydraw_fill_set_rgba
   (r, g, b, a) = let
   val (
     fpf | cr
@@ -255,8 +278,9 @@ end // end of [mydraw_fill_set_rgba]
 
 (* ****** ****** *)
 
-implement{
-} mydraw_stroke () = let
+implement
+{}(*tmp*)
+mydraw_stroke () = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -266,8 +290,9 @@ in
   // nothing
 end // end of [mydraw_stroke]
 
-implement{
-} mydraw_stroke_set_rgb
+implement
+{}(*tmp*)
+mydraw_stroke_set_rgb
   (r, g, b) = let
   val (
     fpf | cr
@@ -278,8 +303,9 @@ in
   // nothing
 end // end of [mydraw_stroke_set_rgb]
 
-implement{
-} mydraw_stroke_set_rgba
+implement
+{}(*tmp*)
+mydraw_stroke_set_rgba
   (r, g, b, a) = let
   val (
     fpf | cr
@@ -298,8 +324,9 @@ assume mydraw_save_v = unit_v
 
 in (* in of [local] *)
 
-implement{
-} mydraw_save () = let
+implement
+{}(*tmp*)
+mydraw_save () = let
   val (
     fpf | cr
   ) = mydraw_get0_cairo<> ()
@@ -310,8 +337,9 @@ in
   (pf | ())
 end // end of [mydraw_save]
 
-implement{
-} mydraw_restore (pf | (*void*)) = let
+implement
+{}(*tmp*)
+mydraw_restore (pf | (*void*)) = let
   val [l:addr]
     (fpf | cr) = mydraw_get0_cairo<> ()
   prval pf = $UN.castview0{cairo_save_v(l)}(pf)

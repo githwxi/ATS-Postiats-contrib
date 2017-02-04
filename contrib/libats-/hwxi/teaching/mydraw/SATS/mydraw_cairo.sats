@@ -39,15 +39,18 @@ ATS_PACKNAME
 //
 (* ****** ****** *)
 //
-#include "share/atspre_define.hats"
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils/contrib/atscntrb-libcairo"
 //
 (* ****** ****** *)
-
-staload
-XR = "{$CAIRO}/SATS/cairo.sats"
+//
+#staload
+XR = "{$LIBCAIRO}/SATS/cairo.sats"
+//
 stadef cairo_ref = $XR.cairo_ref
 stadef cairo_ref1 = $XR.cairo_ref1
-
+//
 (* ****** ****** *)
 //
 fun{
