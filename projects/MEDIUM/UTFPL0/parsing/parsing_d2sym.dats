@@ -18,9 +18,9 @@ staload "./../utfpl.sats"
 staload "./parsing.sats"
 
 (* ****** ****** *)
-
-staload "{$JSONC}/SATS/json_ML.sats"
-
+//
+staload "{$LIBJSONC}/SATS/json_ML.sats"
+//
 (* ****** ****** *)
 
 implement

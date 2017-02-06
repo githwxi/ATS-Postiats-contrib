@@ -16,8 +16,8 @@
 
 local
 //
-#include "{$JSONC}/DATS/json.dats"
-#include "{$JSONC}/DATS/json_ML.dats"
+#include "{$LIBJSONC}/DATS/json.dats"
+#include "{$LIBJSONC}/DATS/json_ML.dats"
 //
 in (* in of [local] *)
 //

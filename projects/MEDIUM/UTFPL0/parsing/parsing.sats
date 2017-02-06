@@ -33,13 +33,23 @@
 staload "./../utfpl.sats"
 
 (* ****** ****** *)
+//
+#define
+JSONC_targetloc
+"$PATSHOME\
+/contrib/atscntrb-libjson-c"
+//
+(* ****** ****** *)
 
 staload "{$JSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 //
-fun jsonval_get_field
-  (jsv: jsonval, name: string): Option_vt (jsonval)
+fun
+jsonval_get_field
+(
+  jsv: jsonval, name: string
+) : Option_vt(jsonval) // end-of-fun
 //
 (* ****** ****** *)
 

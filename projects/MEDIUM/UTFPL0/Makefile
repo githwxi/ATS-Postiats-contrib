@@ -22,9 +22,9 @@ CCOPT=gcc -std=c99 -D_XOPEN_SOURCE -D_GNU_SOURCE
 ######
 
 CFLAGS :=
-CFLAGS += -IIATS $(PATSHOMEQ)
-CFLAGS += -IIATS $(PATSHOMEQ)/ccomp/runtime
-CFLAGS += -IIATS $(PATSHOMERELOCQ)/contrib
+CFLAGS += -I$(PATSHOMEQ)
+CFLAGS += -I$(PATSHOMEQ)/ccomp/runtime
+CFLAGS += -I$(PATSHOMEQ)/contrib
 CFLAGS +=  $(shell pkg-config --cflags json-c)
 
 ######

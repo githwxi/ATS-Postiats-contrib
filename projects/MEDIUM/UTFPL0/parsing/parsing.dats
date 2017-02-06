@@ -20,7 +20,7 @@ staload "./../utfpl.sats"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "{$LIBJSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 

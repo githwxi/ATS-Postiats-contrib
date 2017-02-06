@@ -19,9 +19,9 @@ staload "./parsing.sats"
 staload _ = "./parsing.dats"
 
 (* ****** ****** *)
-
-staload "{$JSONC}/SATS/json_ML.sats"
-
+//
+staload "{$LIBJSONC}/SATS/json_ML.sats"
+//
 (* ****** ****** *)
 
 extern
