@@ -29,7 +29,7 @@ all:: pidigits_gcc
 pidigits: \
 pidigits.dats ; \
 $(PATSCC) -verbose \
-  -I${PATSHOME}/contrib/atscntrb-libgmp \
+  -I${PATSHOME}/contrib \
   -pipe -O3 -fomit-frame-pointer -march=native $< -o $@ -lgmp
 
 ######

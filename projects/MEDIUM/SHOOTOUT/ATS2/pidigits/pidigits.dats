@@ -37,9 +37,9 @@ staload "{$LIBGMP}/SATS/gmp.sats"
 local
 
 var t1: mpz
-val ((*void*)) = mpz_init (t1)
+val ((*void*)) = mpz_init(t1)
 var t2: mpz
-val ((*void*)) = mpz_init (t2)
+val ((*void*)) = mpz_init(t2)
 
 in (* in-of-local *)
 
