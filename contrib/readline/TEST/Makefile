@@ -28,7 +28,7 @@ $(PATSHOME)/share/atsmake-post.mk
 #
 PATSCC2=\
 $(PATSCC) -I$(PATSHOME) \
-  -I$(PATSHOME)/ccomp/runtime -I$(PATSCONTRIB)/contrib
+-I$(PATSHOME)/ccomp/runtime -I$(PATSCONTRIB)/contrib
 #
 ######
 #
@@ -56,6 +56,11 @@ test02.dats ; $(PATSCC2) $(MALLOCFLAG) -o $@ $< $(LDFLAGS)
 #
 cleanall:: ; $(RMF) test02
 #
+######
+
+testall:: all
+testall:: cleanall
+
 ######
 
 cleanats:: ; $(RMF) *_?ats.c

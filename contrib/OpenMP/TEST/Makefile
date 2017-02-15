@@ -9,7 +9,7 @@ GCC=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -33,7 +33,7 @@ regress::
 all:: \
 omp_hello
 omp_hello: \
-omp_hello.dats ; $(PATSCC) -I$(PATSHOMERELOC)/contrib -fopenmp -o $@ $<
+omp_hello.dats ; $(PATSCC) -I$(PATSCONTRIB)/contrib -fopenmp -o $@ $<
 regress:: \
 omp_hello; ./omp_hello
 cleanall:: ; $(RMF) omp_hello

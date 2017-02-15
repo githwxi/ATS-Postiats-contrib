@@ -19,7 +19,7 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 INCLUDE := -I${PATSHOME}
 INCLUDE += -I${PATSHOME}/ccomp/runtime 
-INCLUDE += -I${PATSHOMERELOC}/contrib
+INCLUDE += -I${PATSCONTRIB}/contrib
 
 ######
 
