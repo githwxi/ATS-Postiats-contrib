@@ -5,14 +5,16 @@
 // Drawing Sierpinski carpet
 //
 (* ****** ****** *)
-//
-#include
-"share/atspre_define.hats"
-//
-(* ****** ****** *)
 
 #define ATS_DYNLOADFLAG 0
 
+(* ****** ****** *)
+//
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
+//
 (* ****** ****** *)
 //
 staload
