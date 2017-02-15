@@ -9,7 +9,6 @@ all::
 ######
 
 SUBDIRS :=
-SUBDIRS += jsonats/TEST
 SUBDIRS += threadkit/TEST
 SUBDIRS += teaching/myGTK/TEST
 SUBDIRS += teaching/mythread/TEST
