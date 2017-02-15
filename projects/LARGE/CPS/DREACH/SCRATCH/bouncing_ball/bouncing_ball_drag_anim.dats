@@ -19,8 +19,10 @@ ATS_STATIC_PREFIX "bouncing_ball_anim_"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
@@ -426,7 +428,7 @@ in
 //
 val () = loop1(STATE1(int2real(20), int2real(0)))
 //
-val () = theTicks.onValue(lam(_) =<cloref1> theFwork_eval())
+val () = theTicks.onValue()(lam(_) =<cloref1> theFwork_eval())
 //
 end // end of [local]
 
