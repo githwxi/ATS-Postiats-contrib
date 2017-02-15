@@ -39,11 +39,14 @@
 //
 (* ****** ****** *)
 //
-#include "share/atspre_define.hats"
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
 //
 (* ****** ****** *)
 
-#staload "{$CAIRO}/SATS/cairo.sats"
+#staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 //

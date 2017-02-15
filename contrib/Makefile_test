@@ -10,8 +10,6 @@ all::
 
 SUBDIRS :=
 SUBDIRS += GTK
-SUBDIRS += cairo
-SUBDIRS += jansson
 SUBDIRS += libfloats
 
 ######
