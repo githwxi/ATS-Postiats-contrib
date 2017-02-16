@@ -14,6 +14,13 @@
 *)
 
 (* ****** ****** *)
+//
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
 
 #include
 "share/atspre_define.hats"
@@ -39,13 +46,14 @@ staload
 "libats/libc/SATS/time.sats"
 //
 (* ****** ****** *)
-
-staload "{$CAIRO}/SATS/cairo.sats"
-
+//
+staload
+"{$LIBCAIRO}/SATS/cairo.sats"
+//
 (* ****** ****** *)
 
 stadef dbl = double
-stadef cr (l:addr) = cairo_ref l
+stadef cr(l:addr) = cairo_ref(l)
 
 (* ****** ****** *)
 

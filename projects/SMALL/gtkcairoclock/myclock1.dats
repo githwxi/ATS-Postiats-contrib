@@ -17,15 +17,23 @@
 
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
 staload
@@ -35,7 +43,7 @@ macdef PI = M_PI and PI2 = M_PI / 2
 //
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 

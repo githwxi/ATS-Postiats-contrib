@@ -33,6 +33,13 @@
 //
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #define ATS_PACKNAME
 "ATSCNTRB.libats-hwxi.teaching"
 //
@@ -42,7 +49,7 @@
 //
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 //
