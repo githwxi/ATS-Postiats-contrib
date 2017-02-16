@@ -26,7 +26,8 @@
 
 /* ****** ****** */
 
-#include "kernelats/pats_ccomp.h"
+#include \
+"kernelats/ccomp/pats_ccomp.h"
 
 /* ****** ****** */
 //
