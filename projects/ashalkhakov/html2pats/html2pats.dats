@@ -14,18 +14,20 @@
 "share/atspre_staload.hats"
 //
 #define
-LIBXML2_targetloc "$PATSHOMERELOC/contrib/libxml2/libxml"
+LIBXML2_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libxml2/libxml"
 //
 (* ****** ****** *)
 //
-staload "{$LIBXML2}/SATS/xml0.sats"
-staload _ = "{$LIBXML2}/DATS/xml0.dats"
-//
+#include "{$LIBXML2}/mylibies.hats"
+
 (* ****** ****** *)
 
-staload "{$LIBXML2}/SATS/tree.sats"
-staload "{$LIBXML2}/SATS/parser.sats"
-staload "{$LIBXML2}/SATS/HTMLparser.sats"
+#staload $LIBXML2_xml0
+#staload $LIBXML2_tree
+#staload $LIBXML2_parser
+#staload $LIBXML2_HTMLparser
 
 (* ****** ****** *)
 

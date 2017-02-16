@@ -9,7 +9,7 @@ CCOPT=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -23,7 +23,7 @@ HTML2PATS="./../html2pats"
 ######
 
 CFLAGS :=
-CFLAGS += -I$(PATSHOMERELOCQ)/contrib
+CFLAGS += -I$(PATSCONTRIBQ)/contrib
 
 ######
 
