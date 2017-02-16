@@ -11,12 +11,16 @@
 (* ****** ****** *)
 
 #define
-ATS_STATIC_PREFIX "Wormlike_keyboard_"
+ATS_STATIC_PREFIX
+"Wormlike_keyboard_"
 
 (* ****** ****** *)
 
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "Wormlike_keyboard_initize"
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME
+"Wormlike_keyboard_initize"
 
 (* ****** ****** *)
 //

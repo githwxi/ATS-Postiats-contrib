@@ -14,8 +14,11 @@ ATS_STATIC_PREFIX "tetris_autoplay__"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME/contrib\
+/libatscc2js/ATS2-0.3.2"
+//
 //
 staload
 UN = "prelude/SATS/unsafe.sats"
