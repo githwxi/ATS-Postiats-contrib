@@ -32,7 +32,7 @@ staload _ = "libats/ML/DATS/array0.dats"
 //
 #define
 HTML_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten"
+"$PATSCONTRIB/contrib/HTML-emscripten"
 //
 staload "{$HTML}/SATS/document.sats"
 staload "{$HTML}/canvas-2d/SATS/canvas2d.sats"
@@ -49,8 +49,8 @@ fun Math_random
 
 (* ****** ****** *)
 
-staload "{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _ = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
+staload "{$HX_MYTESTING}/SATS/randgen.sats"
+staload _ = "{$HX_MYTESTING}/DATS/randgen.dats"
 
 (* ****** ****** *)
 
@@ -230,9 +230,9 @@ extern
 fun thePartition_get (): range_t
 and thePartition_set (range_t): void
 extern
-fun theNextRender_get (): double
-and theNextRender_set (double): void
-and theNextRender_incby (double): void
+fun theNextRender_get (): int
+and theNextRender_set (int): void
+and theNextRender_incby (int): void
 
 (* ****** ****** *)
 
@@ -244,7 +244,7 @@ and
 thePartition = ref<range_t> @(i2sz(0), i2sz(0))
 
 val
-theNextRender = ref<double> (0.0)
+theNextRender = ref<int> (0)
 
 in (* in of [local] *)
 
@@ -314,7 +314,7 @@ draw_array0
 
 local
 
-val dt = 100.0
+val dt = 100
 
 in (* in of [local] *)
 
@@ -389,7 +389,7 @@ fun canvas2d_set_size_int
 //
 extern
 fun window_requestAnimationFrame
-  (f: (double)-> void): void = "ext#JS_window_requestAnimationFrame"
+  (f: (int)-> void): void = "ext#JS_window_requestAnimationFrame"
 //
 (* ****** ****** *)
 
@@ -400,7 +400,7 @@ implement
 start_animation () =
 window_requestAnimationFrame
 (
-fix step (timestamp:double): void =>
+fix step (timestamp:int): void =>
 (
   if theNextRender_get() < timestamp then let
     val shot = snapshot_pop ()

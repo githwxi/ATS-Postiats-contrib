@@ -3,6 +3,13 @@
 //
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
@@ -31,14 +38,15 @@ staload _ = "libats/DATS/hashtbl_chain.dats"
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/testing/SATS/randgen.sats"
+"{$HX_MYTESTING}/SATS/randgen.sats"
 staload _ =
-"{$LIBATSHWXI}/testing/DATS/randgen.dats"
+"{$HX_MYTESTING}/DATS/randgen.dats"
 //
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/teaching/BUCS/DATS/BUCS.dats"
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/BUCS/DATS/BUCS320.dats"
 //
 (* ****** ****** *)
 
@@ -227,15 +235,26 @@ end // end of [local]
 
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw.sats"
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw_cairo.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw_cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_bargraph.dats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_bargraph.dats"
 //
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw.dats"
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_cairo.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_cairo.dats"
+//
 //
 (* ****** ****** *)
 //

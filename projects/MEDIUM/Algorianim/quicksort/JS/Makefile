@@ -21,8 +21,8 @@ quicksort_anim.js: \
   quicksort_anim.dats ; \
   $(PATSCC) -atsccomp $(PATSCCOMP2) \
      --js-library quicksort_anim_lib.js \
-     --js-library ${PATSHOME}/contrib/HTML-emscripten/JS/HTMLdocument.js \
-     --js-library ${PATSHOME}/contrib/HTML-emscripten/canvas-2d/JS/HTML5canvas2d.js \
+     --js-library ${PATSCONTRIB}/contrib/HTML-emscripten/JS/HTMLdocument.js \
+     --js-library ${PATSCONTRIB}/contrib/HTML-emscripten/canvas-2d/JS/HTML5canvas2d.js \
      -DATS_MEMALLOC_LIBC -I${PATSHOME}/contrib -o $@ $<
 cleanall:: ; $(RMF) quicksort_anim.js
 cleanall:: ; $(RMF) quicksort_anim.js.map

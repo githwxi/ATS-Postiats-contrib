@@ -2,6 +2,13 @@
 // Animating Quicksort
 //
 (* ****** ****** *)
+//
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
 
 #include
 "share/atspre_define.hats"
@@ -214,7 +221,7 @@ end // end of [intqsort]
 
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 
@@ -289,9 +296,9 @@ staload
 "libats/libc/SATS/stdlib.sats"
 //
 staload
-"{$LIBATSHWXI}/testing/SATS/randgen.sats"
+"{$HX_MYTESTING}/SATS/randgen.sats"
 staload _ =
-"{$LIBATSHWXI}/testing/DATS/randgen.dats"
+"{$HX_MYTESTING}/DATS/randgen.dats"
 //
 (* ****** ****** *)
 
