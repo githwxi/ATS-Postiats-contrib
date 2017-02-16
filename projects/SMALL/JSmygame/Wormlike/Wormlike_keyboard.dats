@@ -20,19 +20,23 @@ ATS_STATIC_PREFIX "Wormlike_keyboard_"
 
 (* ****** ****** *)
 //
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME/contrib\
+/libatscc2js/ATS2-0.3.2"
 #include
-"share/atspre_define.hats"
+"{$LIBATSCC2JS}/staloadall.hats"
 //
 #include
 "{$LIBATSCC2JS}/staloadall.hats"
 //
 (* ****** ****** *)
 //
-staload (*opened*) "./Wormlike.sats"
+#staload (*opened*) "./Wormlike.sats"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSCC2JS}/SATS/Bacon.js/baconjs.sats"
 //
 (* ****** ****** *)

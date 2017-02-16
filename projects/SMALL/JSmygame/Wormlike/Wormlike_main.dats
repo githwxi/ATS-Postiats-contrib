@@ -16,10 +16,14 @@
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME/contrib\
+/libatscc2js/ATS2-0.3.2"
 //
-staload
+(* ****** ****** *)
+//
+#staload
 UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
@@ -41,15 +45,15 @@ ATS_STATIC_PREFIX "Wormlike__"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSCC2JS}/SATS/print.sats"
 //
-staload
+#staload
 _ = "{$LIBATSCC2JS}/DATS/print.dats"
 //
 (* ****** ****** *)
 
-staload "./Wormlike.sats"
+#staload "./Wormlike.sats"
 
 (* ****** ****** *)
 
