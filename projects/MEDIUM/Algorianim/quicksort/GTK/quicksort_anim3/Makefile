@@ -25,7 +25,8 @@ $(PATSHOME)/share/atsmake-post.mk
 ######
 #
 PATSCC2=$(PATSCC) $(INCLUDE)
-INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+INCLUDE+=-I $(PATSCONTRIB)/contrib
+INCLUDE+=-I $(PATSHOME)/npm-utils/contrib
 #
 ######
 #
@@ -36,8 +37,16 @@ array0_qsort_anim.dats \
 gtkcairotimer_toplevel.dats ; \
 $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
 #
+regress:: \
+array0_qsort_anim; ./$<
 cleanall:: ; $(RMF) array0_qsort_anim
 #
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
 ######
 
 cleanats:: ; $(RMF) *_?ats.c

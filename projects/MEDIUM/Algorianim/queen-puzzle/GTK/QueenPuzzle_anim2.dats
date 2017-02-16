@@ -5,6 +5,13 @@
 //
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
@@ -182,15 +189,25 @@ staload "{$GLIB}/SATS/glib-object.sats"
 //
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw.sats"
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw_cairo.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw_cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_matgraph.dats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_matgraph.dats"
 //
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw.dats"
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_cairo.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_cairo.dats"
 //
 (* ****** ****** *)
 

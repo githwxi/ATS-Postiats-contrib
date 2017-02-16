@@ -31,14 +31,23 @@ INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
 #
 ######
 #
-all:: permutation_anim
+all:: \
+permutation_anim
 #
 permutation_anim: \
   permutation_anim.dats ; \
   $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $< $(LDFLAGS)
 #
+regress:: \
+permutation_anim; ./$<
 cleanall:: ; $(RMF) permutation_anim
 #
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
 ######
 
 cleanats:: ; $(RMF) *_?ats.c

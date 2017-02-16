@@ -17,15 +17,15 @@ LIBCAIRO_targetloc
 
 (* ****** ****** *)
 //
-staload
+#staload
 UN = "prelude/SATS/unsafe.sats"
 //
-staload "libats/ML/SATS/basis.sats"
-staload "libats/ML/SATS/list0.sats"
-staload "libats/ML/SATS/array0.sats"
+#staload "libats/ML/SATS/basis.sats"
+#staload "libats/ML/SATS/list0.sats"
+#staload "libats/ML/SATS/array0.sats"
 //
-staload _ = "libats/ML/DATS/list0.dats"
-staload _ = "libats/ML/DATS/array0.dats"
+#staload _ = "libats/ML/DATS/list0.dats"
+#staload _ = "libats/ML/DATS/array0.dats"
 //
 (* ****** ****** *)
 
@@ -221,7 +221,7 @@ end // end of [intqsort]
 
 (* ****** ****** *)
 
-staload "{$LIBCAIRO}/SATS/cairo.sats"
+#staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 
@@ -290,14 +290,14 @@ end // [mydraw_clock]
 
 (* ****** ****** *)
 //
-staload
+#staload
 "libats/libc/SATS/time.sats"
-staload
+#staload
 "libats/libc/SATS/stdlib.sats"
 //
-staload
+#staload
 "{$HX_MYTESTING}/SATS/randgen.sats"
-staload _ =
+#staload _ =
 "{$HX_MYTESTING}/DATS/randgen.dats"
 //
 (* ****** ****** *)
@@ -309,9 +309,9 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
-staload
+#staload
 _ = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
 //
 (* ****** ****** *)

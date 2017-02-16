@@ -37,6 +37,8 @@ quicksort_anim: \
 quicksort_anim.dats ; \
   $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $< $(LDFLAGS)
 #
+regress:: \
+quicksort_anim; ./$<
 cleanall:: ; $(RMF) quicksort_anim
 #
 ######
@@ -48,8 +50,18 @@ quicksort_anim2.dats \
 gtkcairotimer_toplevel.dats ; \
 $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
 #
+regress:: \
+quicksort_anim2; ./$<
 cleanall:: ; $(RMF) quicksort_anim2
 #
+######
+
+MAKE=make
+
+testall:: all
+testall:: cleanall
+testall:: ; $(MAKE) -C quicksort_anim3 cleanall
+
 ######
 
 cleanats:: ; $(RMF) *_?ats.c

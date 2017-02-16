@@ -15,18 +15,14 @@ LIBCAIRO_targetloc
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
+#include
+"share/HATS\
+/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 //
 #staload
 UN = "prelude/SATS/unsafe.sats"
-//
-#staload "libats/ML/SATS/basis.sats"
-#staload "libats/ML/SATS/list0.sats"
-#staload "libats/ML/SATS/array0.sats"
-//
-#staload _ = "libats/ML/DATS/list0.dats"
-#staload _ = "libats/ML/DATS/array0.dats"
 //
 (* ****** ****** *)
 //

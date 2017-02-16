@@ -14,7 +14,7 @@
 //
 #define
 ATS_DYNLOADNAME
-"catsparse_include_all_dynload"
+"catsparse_all_dynload"
 //
 (* ****** ****** *)
 //
@@ -47,4 +47,4 @@ local #include "./DATS/catsparse_fundecl.dats" in (*nothing*) end
 //
 (* ****** ****** *)
 
-(* end of [catsparse_include_all.dats] *)
+(* end of [catsparse_all.dats] *)
