@@ -120,7 +120,7 @@ $list{char}
 val cs = g0ofg1_list(cs)
 //
 val s0 = state_create((*void*))
-val (sz, _) = stmonad_eval(PlayGame(cs), s0)
+val (sz, _) = stmonad_runState(PlayGame(cs), s0)
 //
 val+~STATE(b, v) = sz
 //

@@ -58,7 +58,7 @@ state_destroy(state): void
 extern
 fun
 {a:vt@ype}
-stmonad_eval(M(a), state): @(state, a)
+stmonad_runState(M(a), state): @(state, a)
 //
 (* ****** ****** *)
 
@@ -95,7 +95,7 @@ stmonad_bind
 //
 implement
 {a}(*tmp*)
-stmonad_eval
+stmonad_runState
   (mx, s) = sx where
 {
   val sx = mx(s)
