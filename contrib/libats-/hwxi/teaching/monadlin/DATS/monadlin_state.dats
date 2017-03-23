@@ -38,7 +38,7 @@ fun
 {a:vt@ype}
 {b:vt@ype}
 stmonad_bind
-  (mx: M(a), fopr: cfun(a, M(b))): M(b)
+  (mx: M(a), fopr: (a) -<lincloptr1> M(b)): M(b)
 //
 (* ****** ****** *)
 //
@@ -83,12 +83,15 @@ implement
 {a}{b}(*tmp*)
 stmonad_bind
   (mx, fopr) =
-  llam s =>
-  fopr(x)(s) where
+  llam s => sy where
   {
   val (s, x) = mx(s)
   val ((*void*)) =
     cloptr_free($UN.castvwtp0{cloptr(void)}(mx))
+  // end of [val]
+  val sy = fopr(x)(s)
+  val ((*void*)) =
+    cloptr_free($UN.castvwtp0{cloptr(void)}(fopr))
   // end of [val]
   } // end of [where] // end of [llam]
 //

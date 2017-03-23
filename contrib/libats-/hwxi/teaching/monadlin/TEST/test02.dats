@@ -114,22 +114,22 @@ main0() =
 {
 //
 val cs =
-$list{char}
+$list_vt{char}
   ('c', 'a', 'b', 'a', 'c', 'd', 'a', 'b')
 //
-val cs = g0ofg1_list(cs)
+val cs_ = g0ofg1_list($UN.list_vt2t(cs))
 //
 val s0 = state_create((*void*))
-val (sz, _) = stmonad_runState(PlayGame(cs), s0)
+val (sz, _) = stmonad_runState(PlayGame(cs_), s0)
 //
 val+~STATE(b, v) = sz
 //
-val () = println! ("The final state = (", b, ", ", v, ")")
+val () = list_vt_free(cs)
 //
-val () = list_vt_free($UN.castvwtp0{List0_vt(char)}(cs))
+val () = println! ("The final state = (", b, ", ", v, ")")
 //
 } (* end of [val] *)
 
 (* ****** ****** *)
 
-(* end of [test01.dats] *)
+(* end of [test02.dats] *)

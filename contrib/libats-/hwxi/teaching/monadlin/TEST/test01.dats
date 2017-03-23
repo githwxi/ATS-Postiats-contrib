@@ -44,7 +44,7 @@ state_destroy(st) = { val-~STATE _ = st }
 extern
 fun
 PlayChar
-  (c0: char): GameValue -<cloref1> M(GameValue)
+  (c0: char): GameValue -<lincloptr1> M(GameValue)
 //
 extern
 fun
@@ -56,7 +56,7 @@ implement
 PlayChar
 (
   c0
-) = lam(v0) => let
+) = llam(v0) => let
 //
 reassume stmonad_vtype
 //
@@ -113,19 +113,19 @@ main0() =
 {
 //
 val cs =
-$list{char}
+$list_vt{char}
   ('c', 'a', 'b', 'a', 'c', 'd', 'a', 'b')
 //
-val cs = g0ofg1_list(cs)
+val cs_ =
+  g0ofg1($UN.list_vt2t(cs))
 //
 val s0 = state_create((*void*))
 val (sz, vz) =
-  stmonad_runState<GameValue>(PlayGame(cs), s0)
+  stmonad_runState<GameValue>(PlayGame(cs_), s0)
 //
 val+~STATE(b) = sz
 //
-val () =
-  list_vt_free($UN.castvwtp0{List0_vt(char)}(cs))
+val () = list_vt_free(cs)
 //
 val () =
   println! ("The final state = (", b, ", ", vz, ")")
