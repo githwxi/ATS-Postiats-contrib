@@ -1,8 +1,8 @@
+(* ****** ****** *)
 (*
-** Training:
-** Building decision trees
+** Decision trees:
+** training and testing
 *)
-
 (* ****** ****** *)
 //
 abstype point_type

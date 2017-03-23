@@ -1,8 +1,8 @@
+(* ****** ****** *)
 (*
-** Training:
-** Building decision trees
+** Decision trees:
+** DecisionTree$train
 *)
-
 (* ****** ****** *)
 //
 #staload

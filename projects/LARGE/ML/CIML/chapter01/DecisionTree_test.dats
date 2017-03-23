@@ -1,8 +1,8 @@
+(* ****** ****** *)
 (*
-** Training:
-** Building decision trees
+** Decision trees:
+** DecisionTree$test
 *)
-
 (* ****** ****** *)
 //
 #staload
@@ -13,15 +13,14 @@
 extern
 fun{}
 DecisionTree$point_guess_at
-  (x0: point, f0: feature): guess
+  (point, feature): guess
 //
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
 DecisionTree$test
-  (dt, x0) =
-  test(dt) where
+  (dt, x0) = test(dt) where
 {
 //
 fun
