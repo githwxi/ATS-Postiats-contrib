@@ -35,9 +35,10 @@ stmonad_return(x: a): M(a)
 //
 extern
 fun
-{a,b:vt@ype}
+{a:vt@ype}
+{b:vt@ype}
 stmonad_bind
-  (fopr: cfun(a, b), mx: M(a)): M(b)
+  (mx: M(a), fopr: cfun(a, M(b))): M(b)
 //
 (* ****** ****** *)
 //
@@ -79,11 +80,11 @@ stmonad_return(x) = llam s => (s, x)
 (* ****** ****** *)
 //
 implement
-{a,b}(*tmp*)
+{a}{b}(*tmp*)
 stmonad_bind
-  (fopr, mx) =
+  (mx, fopr) =
   llam s =>
-  (s, fopr(x)) where
+  fopr(x)(s) where
   {
   val (s, x) = mx(s)
   val ((*void*)) =

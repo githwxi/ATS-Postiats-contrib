@@ -21,7 +21,7 @@ typedef GameValue = int
 typedef GameState = bool
 //
 datavtype state =
-  | STATE of (GameState)
+  | STATE of (GameState, GameValue)
 //
 (* ****** ****** *)
 
@@ -31,7 +31,7 @@ assume state_vtype = state
 
 implement
 {}(*tmp*)
-state_create() = STATE(false)
+state_create() = STATE(false, 0)
 
 (* ****** ****** *)
 
@@ -43,20 +43,17 @@ state_destroy(st) = { val-~STATE _ = st }
 //
 extern
 fun
-PlayChar
-  (c0: char): GameValue -<cloref1> M(GameValue)
+PlayChar(c0: char): M(unit)
 //
 extern
 fun
-PlayGame(cs: list0(char)): M(GameValue)
+PlayGame(cs: list0(char)): M(unit)
 //
 (* ****** ****** *)
 //
 implement
 PlayChar
-(
-  c0
-) = lam(v0) => let
+(c0) = let
 //
 reassume stmonad_vtype
 //
@@ -66,22 +63,24 @@ case c0 of
 | 'a' =>
   (
   llam (s) =>
-    let val+STATE(b) = s in (s, if(b)then(v0+1)else(v0)) end
+    let val+@STATE(b, v) = s in
+      if(b)then(v := v+1); fold@(s); (s, unit()) end
   // end of [llam]
   )
 | 'b' =>
   (
   llam (s) =>
-    let val+STATE(b) = s in (s, if(b)then(v0-1)else(v0)) end
+    let val+@STATE(b, v) = s in
+      if(b)then(v := v-1); fold@(s); (s, unit()) end
   // end of [llam]
   )
 | 'c' =>
   (
   llam (s) =>
-    let val+@STATE(b) = s in b := not(b); fold@(s); (s, v0) end
-  // end of [lam]
+    let val+@STATE(b, _) = s in b := not(b); fold@(s); (s, unit()) end
+  // end of [llam]
   )
-| _(*rest*) => llam(s) => (s, v0)
+| _(*rest*) => llam(s) => (s, unit())
 //
 end // end of [PlayChar]
 //
@@ -95,15 +94,17 @@ reassume stmonad_vtype
 fun
 aux
 (
-cs: list0(char), mx: M(GameValue)
-) : M(GameValue) =
+ s: state, cs: list0(char)
+) : (state, unit) =
 //
 case+ cs of
-| list0_nil() => mx
-| list0_cons(c, cs) => aux(cs, stmonad_bind<GameValue><GameValue>(mx, PlayChar(c)))
-  //
+| list0_nil() =>
+  (s, unit())
+| list0_cons(c, cs) =>
+  let val (s, _) = PlayChar(c)(s) in aux(s, cs) end
+//
 in
-  aux(cs, stmonad_return<GameValue>(0))
+  llam (s) => aux(s, cs)
 end // end of [PlayGame]
 
 (* ****** ****** *)
@@ -119,16 +120,13 @@ $list{char}
 val cs = g0ofg1_list(cs)
 //
 val s0 = state_create((*void*))
-val (sz, vz) =
-  stmonad_runState<GameValue>(PlayGame(cs), s0)
+val (sz, _) = stmonad_runState(PlayGame(cs), s0)
 //
-val+~STATE(b) = sz
+val+~STATE(b, v) = sz
 //
-val () =
-  list_vt_free($UN.castvwtp0{List0_vt(char)}(cs))
+val () = println! ("The final state = (", b, ", ", v, ")")
 //
-val () =
-  println! ("The final state = (", b, ", ", vz, ")")
+val () = list_vt_free($UN.castvwtp0{List0_vt(char)}(cs))
 //
 } (* end of [val] *)
 
