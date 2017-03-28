@@ -15,7 +15,7 @@
 #define
 ATS_EXTERN_PREFIX "ats2phppre_"
 #define
-ATS_STATIC_PREFIX "_ats2phppre_list_"
+ATS_STATIC_PREFIX "_ats2phppre_list_vt_"
 //
 (* ****** ****** *)
 //

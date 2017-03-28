@@ -44,11 +44,13 @@ state_destroy(st) = { val-~STATE _ = st }
 extern
 fun
 PlayChar
-  (c0: char): GameValue -<lincloptr1> M(GameValue)
+(
+c0: char
+) : GameValue -<lincloptr1> M(GameValue)
 //
 extern
 fun
-PlayGame(cs: list0(char)): M(GameValue)
+PlayGame (cs: list0(char)): M(GameValue)
 //
 (* ****** ****** *)
 //

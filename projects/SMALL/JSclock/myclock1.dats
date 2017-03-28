@@ -97,16 +97,22 @@ val ey = ~120 * ca
 val nx =  80 * sa
 val ny = ~80 * ca
 //
-val i5 = g0int2string (i/5)
-val () = canvas2d_fillText (ctx, $UN.strptr2string(i5), nx, ny)
-val () = strptr_free (i5)
+val i5 =
+  g0int2string(i/5)
 //
-val () = canvas2d_set_lineWidth (ctx, 8)
+val () = canvas2d_fillText(ctx, $UN.strptr2string(i5), nx, ny)
+//
+val () = strptr_free(i5)
+//
+val () =
+  canvas2d_set_lineWidth (ctx, 8)
+//
 val () = canvas2d_beginPath (ctx)
 val () = canvas2d_moveTo (ctx, sx, sy)
 val () = canvas2d_lineTo (ctx, ex, ey)
 val () = canvas2d_closePath (ctx)
-val () = canvas2d_stroke (ctx)
+//
+val ((*void*)) = canvas2d_stroke (ctx)
 //
 } (* end of [draw_mark2] *)
 
