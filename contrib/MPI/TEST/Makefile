@@ -53,6 +53,12 @@ mpi_hello2; mpirun -n 4 ./mpi_hello2
 
 ######
 
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 clean:: ; rm -f *~
 clean:: ; rm -f *.o
 clean:: ; rm -f *_dats.c
