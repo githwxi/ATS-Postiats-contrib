@@ -61,7 +61,7 @@ john = let
   val
   addresszip = compose(address, zip)
 in
-  addresszip.over2(john, lam(x) => x+3)
+  addresszip.over2(lam(x) => x+x, john)
 end // end of [val]
 
 (* ****** ****** *)

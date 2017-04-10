@@ -78,7 +78,7 @@ extern
 fun
 {a
 ,b:t@ype}
-lens_over2(lens(a, b), x: a, f: cfun(b, b)): (a)
+lens_over2(lens(a, b), f: cfun(b, b), x: a): (a)
 //
 overload .over with lens_over
 overload .over2 with lens_over2
@@ -103,7 +103,7 @@ lens_over(lns, fopr) =
   lam(x) => lns.set(x, fopr(lns.get(x)))
 implement
 {a,b}(*tmp*)
-lens_over2(lns, x, fopr) = lns.set(x, fopr(lns.get(x)))
+lens_over2(lns, fopr, x) = lns.set(x, fopr(lns.get(x)))
 //
 (* ****** ****** *)
 //
