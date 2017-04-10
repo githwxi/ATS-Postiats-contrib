@@ -1,0 +1,27 @@
+#######
+#
+# HX-2017-04-10:
+#
+# This package is deprecated!
+#
+###### beg of [README] ######
+#
+# Please note that libatscc is now a proper
+# part of ATS-Postiats. The version kept inside
+# ATS-Postiats-contrib is frozen and its use is
+# discouraged.
+#
+######
+
+libatscc2js: freezing is done on 2017-04-10
+
+######
+
+libatscc2pl:
+libatscc2py3:
+libatscc2php:
+libatscc2erl:
+libatscc2scm:
+libatscc2clj:
+
+###### end of [README] ######
