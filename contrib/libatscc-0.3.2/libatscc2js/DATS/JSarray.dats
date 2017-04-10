@@ -19,8 +19,14 @@ ATS_STATIC_PREFIX "_ats2jspre_JSarray_"
 //
 (* ****** ****** *)
 //
+(*
 #include
 "share/atspre_define.hats"
+*)
+//
+#define
+LIBATSCC_targetloc
+"$PATSCONTRIB/contrib/libatscc-0.3.2"
 //
 (* ****** ****** *)
 //

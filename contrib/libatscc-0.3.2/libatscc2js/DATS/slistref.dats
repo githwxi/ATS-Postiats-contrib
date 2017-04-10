@@ -23,6 +23,17 @@ ATS_STATIC_PREFIX "_ats2jspre_slistref_"
 //
 (* ****** ****** *)
 //
+(*
+#include
+"share/atspre_define.hats"
+*)
+//
+#define
+LIBATSCC_targetloc
+"$PATSCONTRIB/contrib/libatscc-0.3.2"
+//
+(* ****** ****** *)
+//
 staload
 UN = "prelude/SATS/unsafe.sats"
 //
@@ -31,8 +42,6 @@ UN = "prelude/SATS/unsafe.sats"
 #include "./../staloadall.hats"
 //
 (* ****** ****** *)
-//
-#include "share/atspre_define.hats"
 //
 #include "{$LIBATSCC}/DATS/slistref.dats"
 //
