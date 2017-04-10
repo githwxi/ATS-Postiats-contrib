@@ -10,9 +10,12 @@ ATS_MAINATSFLAG 1
 ATS_DYNLOADNAME "theWorker_start"
 //
 (* ****** ****** *)
-//  
-#include
-"share/atspre_define.hats"
+//
+#define
+LIBATSCC2JS_targetloc
+"$PATSCONTRIB/contrib\
+/libatscc-0.3.2/libatscc2js"
+//
 #include
 "{$LIBATSCC2JS}/staloadall.hats"
 //

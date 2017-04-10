@@ -1,9 +1,8 @@
 (* ****** ****** *)
-//
-#include
-"share/atspre_define.hats"
-//
-(* ****** ****** *)
+#define
+LIBATSCC2JS_targetloc
+"$PATSCONTRIB/contrib\
+/libatscc-0.3.2/libatscc2js"
 //
 staload
 "{$LIBATSCC2JS}/SATS/Worker/channel.sats"
