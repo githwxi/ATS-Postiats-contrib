@@ -1,20 +1,25 @@
+(* ****** ****** *)
 (*
 ** SpaceInvaders
 *)
+(* ****** ****** *)
+
+#define
+ATS_STATIC_PREFIX "mygame_keyboard_"
 
 (* ****** ****** *)
 
-#define ATS_STATIC_PREFIX "mygame_keyboard_"
-
-(* ****** ****** *)
-
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "mygame_keyboard_initize"
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "mygame_keyboard_initize"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
