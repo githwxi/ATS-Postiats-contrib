@@ -169,7 +169,10 @@ val () = gprintln!("</div>")
 }
 implement
 gprint_val<mytable_2_2_x>
-  (MYTABLE_2_2_x(elt)) = gprintln!("<td class=\"text-center\">", elt, "</td>")
+  (MYTABLE_2_2_x(elt)) =
+(
+gprintln!("<td class=\"text-center\">", elt, "</td>")
+)
 //
 (* ****** ****** *)
 //
