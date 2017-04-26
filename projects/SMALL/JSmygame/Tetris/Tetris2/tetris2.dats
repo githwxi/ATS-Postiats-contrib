@@ -4,7 +4,8 @@
 (* ****** ****** *)
 (*
 ##myatsccdef=\
-patsopt -d $1 | atscc2js -o $fname($1)_dats.js -i
+patsopt -d $1 | \
+atscc2js -o $fname($1)_dats.js -i -
 *)
 (* ****** ****** *)
 //

@@ -4,6 +4,32 @@
 // Animating QueenPuzzle (LazyEval)
 //
 (* ****** ****** *)
+
+(*
+##myatsccdef=patscc \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
+  -I${PATSHOME}/npm-utils/contrib -I${PATSCONTRIB}/contrib \
+  -o $fname($1) $1 `pkg-config gtk+-3.0 --cflags --libs` -lm
+*)
+
+(* ****** ****** *)
+
+%{^
+/*
+##myatsccdef=\
+tcc -run \
+  -D_GNU_SOURCE \
+  -DATS_MEMALLOC_LIBC \
+  -I${PATSHOME} \
+  -I${PATSHOME}/ccomp/runtime \
+  -I${PATSHOME}/npm-utils/contrib \
+  -I${PATSCONTRIB}/contrib \
+  `pkg-config gtk+-3.0 --cflags --libs` -lm \
+   QueenPuzzle_anim2_dats.c >& /dev/null &
+*/
+%}
+
+(* ****** ****** *)
 //
 #define
 LIBCAIRO_targetloc
