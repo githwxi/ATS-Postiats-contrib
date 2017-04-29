@@ -15,26 +15,31 @@ ATS_MAINATSFLAG 1
 ATS_DYNLOADNAME "inputform_dynload"
 //
 (* ****** ****** *)
-
-#include "{$LIBATSCC2JS}/staloadall.hats"
-
+//
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
+//
 (* ****** ****** *)
 //
-staload
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
+(* ****** ****** *)
+//
+#staload
 "{$LIBATSCC2JS}/SATS/Worker/channel.sats"
-staload
+#staload
 "{$LIBATSCC2JS}/DATS/Worker/channel.dats"
 #include
 "{$LIBATSCC2JS}/DATS/Worker/channeg.dats"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "{$PATSHOME}\
-/utils/libatsopt/SATS/libatsopt_ext.sats"
-staload
-"{$PATSHOMERELOC}\
-/projects/MEDIUM/CATS-atsccomp/CATS-atscc2js/libatscc2js_ext.sats"
+/contrib/CATS-atscc2js/DATS/libatscc2js_ext.dats"
 //
 (* ****** ****** *)
 
@@ -431,6 +436,15 @@ in
   // nothing
 end // end of [Atscc2js_output_box_onclick]
 
+(* ****** ****** *)
+//
+datatype
+patsoptres =
+PATSOPTRES of
+(
+  int(*nerr*), string(*stdout*), string(*stderr*)
+) (* end of [patsoptres] *)
+//
 (* ****** ****** *)
 
 datatype

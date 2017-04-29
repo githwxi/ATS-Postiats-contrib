@@ -10,8 +10,13 @@
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2PY3_targetloc
+"$PATSHOME\
+/contrib/libatscc2py3/ATS2-0.3.2"
+//
+(* ****** ****** *)
+//
 #include
 "{$LIBATSCC2PY3}/staloadall.hats"
 //
@@ -29,7 +34,7 @@ UN = "prelude/SATS/unsafe.sats"
 //
 #define
 LIBTUTORIATS_targetloc
-"$PATSHOMERELOC\
+"$PATSCONTRIB\
 /projects/LARGE/TUTORIATS/libtutoriats"
 //
 staload

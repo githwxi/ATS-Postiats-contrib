@@ -25,6 +25,13 @@ ATS_STATIC_PREFIX "_tutoriats_patsopt_"
 //
 (* ****** ****** *)
 //
+#define
+LIBATSCC2PHP_targetloc
+"$PATSHOME\
+/contrib/libatscc2php/ATS2-0.3.2"
+//
+(* ****** ****** *)
+//
 staload
 "{$LIBATSCC2PHP}/basics_php.sats"
 staload
