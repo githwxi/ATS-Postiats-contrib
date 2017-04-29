@@ -19,6 +19,14 @@ void
 #include
 "share/atspre_define.hats"
 //
+#define
+AVR_targetloc
+"$PATSCONTRIB/contrib/AVR"
+#define
+ARDUINO_targetloc "./../.."
+//
+(* ****** ****** *)
+//
 staload "{$AVR}/basics.sats"
 //
 staload "{$AVR}/SATS/avr/io.sats"

@@ -1,0 +1,126 @@
+#
+# Makefile for regression test
+#
+######
+#
+# Author: Hongwei Xi (HX-2014-05)
+#
+######
+
+all:: Blink
+all:: Blink2
+all:: Blink3
+all:: ATSgreet
+all:: BlinkTalk
+all:: Fade
+all:: EEPROM
+all:: ListOps
+all:: Permute
+all:: QueenPuzzle
+all:: ListMergeSort
+all:: ArrayQuickSort
+
+######
+#
+Blink:: ; \
+make -C TEST/Blink \
+-f Makefile_ats all
+Blink:: ; make -C TEST/Blink all
+Blink:: ; make -C TEST/Blink cleanall
+#
+Blink2:: ; \
+make -C TEST/Blink \
+-f Makefile_ats all2
+Blink2:: ; make -C TEST/Blink all
+Blink2:: ; make -C TEST/Blink cleanall
+#
+Blink3:: ; \
+make -C TEST/Blink \
+-f Makefile_ats all3
+Blink3:: ; make -C TEST/Blink all
+Blink3:: ; make -C TEST/Blink cleanall
+#
+######
+#
+ATSgreet:: ; \
+make -C TEST/ATSgreet \
+-f Makefile_ats all
+ATSgreet:: ; make -C TEST/ATSgreet all
+ATSgreet:: ; make -C TEST/ATSgreet cleanall
+#
+######
+#
+BlinkTalk:: ; \
+make -C TEST/BlinkTalk \
+-f Makefile_ats all
+BlinkTalk:: ; make -C TEST/BlinkTalk all
+BlinkTalk:: ; make -C TEST/BlinkTalk cleanall
+#
+######
+#
+Fade:: ; \
+make -C TEST/Fade \
+-f Makefile_ats all
+Fade:: ; make -C TEST/Fade all
+Fade:: ; make -C TEST/Fade cleanall
+#
+######
+#
+EEPROM:: ; \
+make -C TEST/EEPROM \
+-f Makefile_ats all
+EEPROM:: ; make -C TEST/EEPROM all
+EEPROM:: ; make -C TEST/EEPROM cleanall
+#
+######
+#
+Permute:: ; \
+make -C TEST/Permute \
+-f Makefile_ats all
+Permute:: ; make -C TEST/Permute all
+Permute:: ; make -C TEST/Permute cleanall
+#
+######
+#
+ListOps:: ; \
+make -C TEST/ListOps \
+-f Makefile_ats all
+ListOps:: ; make -C TEST/ListOps all
+ListOps:: ; make -C TEST/ListOps cleanall
+#
+######
+#
+QueenPuzzle:: ; \
+make -C TEST/QueenPuzzle \
+-f Makefile_ats all
+QueenPuzzle:: ; make -C TEST/QueenPuzzle all
+QueenPuzzle:: ; make -C TEST/QueenPuzzle cleanall
+#
+######
+#
+ListMergeSort:: ; \
+make -C TEST/ListMergeSort \
+-f Makefile_ats all
+ListMergeSort:: ; make -C TEST/ListMergeSort all
+ListMergeSort:: ; make -C TEST/ListMergeSort cleanall
+#
+######
+#
+ArrayQuickSort:: ; \
+make -C TEST/ArrayQuickSort \
+-f Makefile_ats all
+ArrayQuickSort:: ; make -C TEST/ArrayQuickSort all
+ArrayQuickSort:: ; make -C TEST/ArrayQuickSort cleanall
+#
+######
+
+.PHONY: testall
+
+######
+
+testall:: all
+testall:: cleanall
+
+######
+
+###### end of [Makefile_test] ######
