@@ -1,0 +1,75 @@
+#
+# A Simple Makefile
+#
+
+######
+
+include $(PATSHOME)/share/atsmake-pre.mk
+
+######
+
+CCOMP=gcc -std=c99 -D_XOPEN_SOURCE -D_GNU_SOURCE 
+
+######
+
+CFLAGS :=
+CFLAGS += -I $(PATSHOMEQ)
+CFLAGS += -I $(PATSHOMEQ)/ccomp/runtime
+
+######
+
+PATSCC2=$(PATSCC) -atsccomp "$(CCOMP)"
+
+######
+
+all:: evaling.o
+
+######
+
+cleanall:: ; $(RMF) evaling.o
+
+######
+
+SOURCES_SATS +=
+
+SOURCES_DATS += \
+  print.dats \
+  cloenv.dats \
+  eval_d2cst.dats \
+  eval_d2var.dats \
+  eval_d2sym.dats \
+  eval_d2exp.dats \
+  eval_d2ecl.dats \
+
+######
+
+MYTARGET=MYTARGET
+MYCCRULE=MYCCRULE
+
+######
+
+include $(PATSHOME)/share/atsmake-post.mk
+
+######
+
+OBJECTS :=
+OBJECTS += $(MYTARGET_SATS_O)
+OBJECTS += $(MYTARGET_DATS_O)
+
+######
+
+evaling.o: \
+  $(OBJECTS) dynloadall_dats.o ; ld -r -o $@ $^
+
+######
+
+%_sats.o: %.sats ; $(PATSCC2) $(CFLAGS) -c $<
+%_dats.o: %.dats ; $(PATSCC2) $(CFLAGS) -c $<
+
+######
+
+cleanats:: ; $(RMF) *_?ats.c
+
+######
+
+###### end of [Makefile] ######

@@ -42,6 +42,26 @@ all:: queens_utfpl.json
 #
 ######
 
+UTFPLEVAL=./../BUILD/utfpleval
+  
+######
+
+regress:: ; $(UTFPLEVAL) ./test01_utfpl.json
+regress:: ; $(UTFPLEVAL) ./test02_utfpl.json
+regress:: ; $(UTFPLEVAL) ./test03_utfpl.json
+regress:: ; $(UTFPLEVAL) ./test04_utfpl.json
+regress:: ; $(UTFPLEVAL) ./test05_utfpl.json
+regress:: ; $(UTFPLEVAL) ./test06_utfpl.json < ./test06_utfpl.json
+regress:: ; $(UTFPLEVAL) ./queens_utfpl.json
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
+
+######
+
 RMF=rm -f
 
 ######
