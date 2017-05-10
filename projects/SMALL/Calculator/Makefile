@@ -56,6 +56,8 @@ testall:: cleanall
 ######
 
 cleanall:: ; $(RMF) MYPORTDIR/*
+cleanall:: ; $(RMF) calc
+cleanall:: ; $(RMF) *.exe
 
 ######
 
