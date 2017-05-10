@@ -1,0 +1,80 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'idea' // '' for creating an IntelliJ project
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+ext {
+    taskLen = project.gradle.startParameter.taskNames.size()
+}
+
+task baseNull {
+    println "Gradle finished."
+}
+
+def myNextTask(Integer i) {
+    if (i > 0) {
+        return "${project.gradle.startParameter.taskNames[i - 1]}"
+    } else {
+        return "baseNull"
+    }
+}
+
+taskLen.times { i ->
+    task "${project.gradle.startParameter.taskNames[i]}" (
+            type: MyExternTask,
+            dependsOn: myNextTask(i)) {
+        mycmdln = "make ${project.gradle.startParameter.taskNames[i]}"
+    }
+}
+
+// Need to include this somehow, so as to avoid copying it each time
+// (like atsmake-pre, etc.)
+
+/* ****** ****** */
+class \
+MyExternTask
+        extends DefaultTask
+{
+//
+    def mycmdln
+//
+    def OSName
+    def CYGHOME = System.getenv('CYGHOME')
+    def SHELL = ''
+//
+    @TaskAction
+    def myrun()
+    {
+        OSName = System.getProperty("os.name")
+//
+        if (OSName.startsWith("Windows")) {
+            if (CYGHOME != null) {
+                if (!File(CYGHOME).isDirectory()) {
+                    CYGHOME = "C:\\cygwin64"
+                }
+            } else {
+                CYGHOME = "C:\\cygwin64"
+            }
+// For now need to use Cygwin
+// Probably should use `cygpath` in the future for lower chance of breaking.
+            SHELL = "${CYGHOME}\\bin\\bash"
+            mycmdln = "${SHELL} -l -c 'cd \"${project.projectDir}\"; ${mycmdln}'"
+        }
+        project.exec
+                {
+                    commandLine = mycmdln.split().toList()
+                }
+    }
+//
+} // end of [MyExternTask]
+/* ****** ****** */
