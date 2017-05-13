@@ -15,10 +15,11 @@ typedef state = state_type
 //
 extern
 fun
-state_search (symbol): Option_vt(value)
+state_search(symbol): Option_vt(value)
+//
 extern
 fun
-state_insert (symbol, v0: value): Option_vt(value)
+state_insert(symbol, v0: value): Option_vt(value)
 //
 (* ****** ****** *)
 

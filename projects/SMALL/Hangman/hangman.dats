@@ -155,14 +155,17 @@ play_hangman(given: string): bool
 implement
 play_hangman(given) = let
 //
-val cs = string_explode(given)
-val xs = cs.map(TYPE{mychar})(lam c => Hidden(c))
+val cs =
+string_explode(given)
+val xs =
+cs.map(TYPE{mychar})(lam c => Hidden(c))
 //
 val ks =
 kbstream(stdin_ref, 60)
 //
 val xss =
-stream_vt_scan_cloptr<myword><char>(ks, xs, lam(xs, c) => myword_update(xs, c))
+stream_vt_scan_cloptr<myword><char>
+  (ks, xs, lam(xs, c) => myword_update(xs, c))
 //
 fun
 auxmain

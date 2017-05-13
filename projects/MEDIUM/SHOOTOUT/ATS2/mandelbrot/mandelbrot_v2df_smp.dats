@@ -15,8 +15,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -30,6 +28,12 @@
 staload
 UN = "prelude/SATS/unsafe.sats"
 
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+//
 (* ****** ****** *)
 //
 staload
@@ -164,9 +168,11 @@ end // end of [row_process]
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/nwaiter.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/nwaiter.sats"
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/parallelize.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/parallelize.sats"
 //
 (* ****** ****** *)
 
@@ -199,24 +205,30 @@ end // end of [mandelbrot]
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/workshop.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/workshop.sats"
 //  
 (* ****** ****** *)
 //
 staload _ = "libats/DATS/deqarray.dats"
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
 //
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/nwaiter.dats"
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/parallelize.dats"
-//
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/workshop.dats"
+(* ****** ****** *)
 //
 staload _ = "libats/DATS/athread.dats"
 staload _ = "libats/DATS/athread_posix.dats"
+//
+(* ****** ****** *)
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/channel.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/nwaiter.dats"
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/parallelize.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/workshop.dats"
 //
 (* ****** ****** *)
 

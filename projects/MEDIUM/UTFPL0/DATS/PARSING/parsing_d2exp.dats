@@ -27,18 +27,19 @@ staload "{$LIBJSONC}/SATS/json_ML.sats"
 (* ****** ****** *)
 
 extern
-fun parse_d2exparg (jsonval): d2exparg
+fun
+parse_d2exparg(jsonval): d2exparg
 
 (* ****** ****** *)
 
-extern fun parse_d2lab (jsonval): d2lab
-extern fun parse_d2lab_node (jsonval): d2lab
+extern fun parse_d2lab(jsonval): d2lab
+extern fun parse_d2lab_node(jsonval): d2lab
 
 (* ****** ****** *)
 //
 extern
 fun
-parse_d2exp_node (jsonval): d2exp_node
+parse_d2exp_node(jsonval): d2exp_node
 //
 (* ****** ****** *)
 
@@ -46,10 +47,10 @@ implement
 parse_d2exp
   (jsv0) = let
 //
-val-~Some_vt (jsv) =
+val-~Some_vt(jsv) =
   jsonval_get_field (jsv0, "d2exp_loc") 
 val loc = parse_location (jsv)
-val-~Some_vt (jsv) =
+val-~Some_vt(jsv) =
   jsonval_get_field (jsv0, "d2exp_node") 
 val node = parse_d2exp_node (jsv)
 //
@@ -62,28 +63,28 @@ end // end of [parse_d2exp]
 implement
 parse_d2explst
   (jsv0) = (
-  parse_list<d2exp> (jsv0, parse_d2exp)
+  parse_list<d2exp>(jsv0, parse_d2exp)
 ) (* end of [parse_d2explst] *)
 //
 implement
 parse_d2expopt
   (jsv0) = (
-  parse_option<d2exp> (jsv0, parse_d2exp)
+  parse_option<d2exp>(jsv0, parse_d2exp)
 ) (* end of [parse_d2expopt] *)
 //
 (* ****** ****** *)
 
 extern
-fun parse_D2Ecst (jsonval): d2exp_node
+fun parse_D2Ecst(jsonval): d2exp_node
 extern
-fun parse_D2Evar (jsonval): d2exp_node
+fun parse_D2Evar(jsonval): d2exp_node
 extern
-fun parse_D2Esym (jsonval): d2exp_node
+fun parse_D2Esym(jsonval): d2exp_node
 
 extern
-fun parse_D2Eint (jsonval): d2exp_node
+fun parse_D2Eint(jsonval): d2exp_node
 extern
-fun parse_D2Eintrep (jsonval): d2exp_node
+fun parse_D2Eintrep(jsonval): d2exp_node
 
 extern
 fun parse_D2Ei0nt (jsonval): d2exp_node

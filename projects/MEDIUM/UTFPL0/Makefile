@@ -1,7 +1,7 @@
+######
 #
 # A Simple Makefile
 #
-
 ######
 
 make=make

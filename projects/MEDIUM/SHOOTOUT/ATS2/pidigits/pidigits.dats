@@ -14,12 +14,10 @@ $(PATSCC) -I${PATSHOMERELOC}/contrib \
 *)
 
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 staload
@@ -30,7 +28,10 @@ UN = "prelude/SATS/unsafe.sats"
 staload
 "libats/libc/SATS/stdio.sats"
 //
-staload "{$LIBGMP}/SATS/gmp.sats"
+(* ****** ****** *)
+//
+staload
+"contrib/atscntrb-libgmp/SATS/gmp.sats"
 //
 (* ****** ****** *)
 

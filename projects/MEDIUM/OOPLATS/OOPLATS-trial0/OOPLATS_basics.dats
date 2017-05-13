@@ -21,9 +21,10 @@ toval_string (x) = VALstring(x)
 (* ****** ****** *)
 //
 implement
-print_value(x) = fprint (stdout_ref, x)
+print_value(x) = fprint(stdout_ref, x)
+//
 implement
-print_object(x) = fprint (stdout_ref, x)
+print_object(x) = fprint(stdout_ref, x)
 //
 (* ****** ****** *)
 

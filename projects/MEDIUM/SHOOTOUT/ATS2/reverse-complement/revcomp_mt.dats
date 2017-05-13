@@ -24,8 +24,6 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -127,10 +125,18 @@ end // end of [reverse_buf]
 //
 (* ****** ****** *)
 //
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+//
+(* ****** ****** *)
+//
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/nwaiter.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/nwaiter.sats"
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/workshop.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/workshop.sats"
 //  
 (* ****** ****** *)
 //
@@ -204,17 +210,22 @@ val ((*void*)) = nwaiter_destroy (nw)
 (* ****** ****** *)
 //
 staload _ = "libats/DATS/deqarray.dats"
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
 //
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/nwaiter.dats"
-//
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/workshop.dats"
+(* ****** ****** *)
 //
 staload _ = "libats/DATS/athread.dats"
 staload _ = "libats/DATS/athread_posix.dats"
+//
+(* ****** ****** *)
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/channel.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/nwaiter.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/workshop.dats"
 //
 (* ****** ****** *)
 
