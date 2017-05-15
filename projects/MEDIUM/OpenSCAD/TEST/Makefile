@@ -26,7 +26,7 @@ test01.dats ; \
 $(PATSCC) \
 -DATS_MEMALLOC_LIBC -o $@ $< -latslib
 #
-regress:: test01; ./$
+regress:: test01; ./$<
 cleanall:: ; $(RMF) test01
 #
 ######
@@ -48,5 +48,6 @@ clean:: ; $(RMF) *_?ats.o
 ######
 
 cleanall:: clean
+cleanall:: ; $(RMF) test01_dats.scad
 
 ###### end of [Makefile] ######

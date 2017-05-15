@@ -5,12 +5,13 @@
 *)
 (* ****** ****** *)
 //
-#staload
-"libats/ML/SATS/basis.sats"
-//
-(* ****** ****** *)
-//
 datatype
+scadarg =
+//
+| SCADARGexp of scadexp
+| SCADARGlabexp of (string, scadexp)
+//
+and
 scadexp =
 //
 | SCADEXPnil of ()
@@ -19,15 +20,29 @@ scadexp =
 | SCADEXPbool of (bool)
 | SCADEXPfloat of (double)
 //
+| SCADEXPextfcall of
+    (string(*fun*), scadarglst)
+  // SCADEXPextfcall
+//
+where scadarglst = List0(scadarg)
+//
 (* ****** ****** *)
 //
 datatype
-scadv2d =
-| SCADV2D of (scadexp, scadexp)
+scadvec(n:int) =
+{n:int}
+SCADVEC of list(scadexp, n)
 //
-datatype
-scadv3d =
-| SCADV3D of (scadexp, scadexp, scadexp)
+typedef scadv2d = scadvec(2)
+typedef scadv3d = scadvec(3)
+typedef scadvec0 = [n:int | n >= 0] scadvec(n)
+//
+macdef
+SCADV2D(x, y) =
+SCADVEC($list{scadexp}(,(x), ,(y)))
+macdef
+SCADV3D(x, y, z) =
+SCADVEC($list{scadexp}(,(x), ,(y), ,(z)))
 //
 (* ****** ****** *)
 //
@@ -36,7 +51,10 @@ scadobj =
 //
 | SCADOBJcube of
     (scadv3d, scadexp(*center*))
+| SCADOBJsquare of
+    (scadv2d, scadexp(*center*))
 //
+| SCADOBJcircle of scadexp(*radius*)
 | SCADOBJsphere of scadexp(*radius*)
 //
 | SCADOBJcylinder1 of
@@ -52,6 +70,9 @@ scadobj =
 //
 | SCADOBJhullize of (scadobj, scadobj)
 | SCADOBJminkowski of (scadobj, scadobj)
+//
+| SCADOBJextmcall of (string(*module*), scadarglst)
+//
 // end of [scadobj]
 
 and
@@ -77,14 +98,17 @@ scadxyz =
 (* ****** ****** *)
 //
 fun
+fprint_scadarg
+  : fprint_type(scadarg)
+fun
 fprint_scadexp
   : fprint_type(scadexp)
 fun
-fprint_scadv2d
-  : fprint_type(scadv2d)
-fun
-fprint_scadv3d
-  : fprint_type(scadv3d)
+fprint_scadvec
+  {n:int}
+(
+  FILEref, scadvec(n)
+) : void // fprint_scadvec
 fun
 fprint_scadobj
   : fprint_type(scadobj)
@@ -94,49 +118,60 @@ fprint_scadxyz
 //
 (* ****** ****** *)
 //
+overload fprint with fprint_scadarg
 overload fprint with fprint_scadexp
-overload fprint with fprint_scadv2d
-overload fprint with fprint_scadv3d
+overload fprint with fprint_scadvec
 overload fprint with fprint_scadobj
 overload fprint with fprint_scadxyz
 //
 (* ****** ****** *)
 //
 fun{}
+scadarg_femit
+  (out: FILEref, scadarg): void
+//
+fun{}
 scadexp_femit
   (out: FILEref, scadexp): void
 //
 fun{}
-scadv2d_femit
-  (out: FILEref, scadv2d): void
+scadvec_femit
+  {n:int}
+  (out: FILEref, scadvec(n)): void
+//
 fun{}
-scadv3d_femit
-  (out: FILEref, scadv3d): void
+scadind_femit
+  (out: FILEref, nsp: int): void
 //
 fun{}
 scadobj_femit
-  (out: FILEref, scadobj): void
+  (out: FILEref, nsp: int, scadobj): void
 //
 fun{}
 scadxyz_femit
-  (out: FILEref, scadxyz): void
+  (out: FILEref, nsp: int, scadxyz): void
 //
 symintr femit
 //
 overload femit with scadexp_femit
-overload femit with scadv2d_femit
-overload femit with scadv3d_femit
+overload femit with scadvec_femit
 overload femit with scadobj_femit
 overload femit with scadxyz_femit
 //
 (* ****** ****** *)
 //
 fun{}
+scadobj_cube_int1
+  (x: int): scadobj
+fun{}
 scadobj_cube_int3
   (x: int, y: int, z: int): scadobj
 fun{}
 scadobj_cube_int3_bool
   (x: int, y: int, z: int, ct: bool): scadobj
+fun{}
+scadobj_cube_float1
+  (x: double): scadobj
 fun{}
 scadobj_cube_float3
   (x: double, y: double, z: double): scadobj
@@ -148,9 +183,13 @@ symintr
 scadobj_cube
 //
 overload
+scadobj_cube with scadobj_cube_int1
+overload
 scadobj_cube with scadobj_cube_int3
 overload
 scadobj_cube with scadobj_cube_int3_bool
+overload
+scadobj_cube with scadobj_cube_float1
 overload
 scadobj_cube with scadobj_cube_float3
 overload
@@ -294,6 +333,17 @@ scadxyz_translate with scadxyz_translate_int3
 overload
 scadxyz_translate with scadxyz_translate_float3
 //
+(* ****** ****** *)
+
+fun{}
+scadxyz_color_name
+  (name: string, a: double): scadxyz
+fun{}
+scadxyz_color_rgba
+(
+ r: double, g: double, b: double, a: double
+) : scadxyz // end of [scadxyz_color_rgba]
+
 (* ****** ****** *)
 //
 fun{}

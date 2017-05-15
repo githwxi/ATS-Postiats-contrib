@@ -47,14 +47,31 @@ val r = 0.5
 //
 val ball = 
   scadobj_sphere(sqrt(2.0)*r)
+(*
 val cube =
-  scadobj_centerize(scadobj_cube(h, h, h))
+  scadobj_centerize(scadobj_cube(h))
+*)
+//
+val arg1 =
+  SCADARGexp(SCADEXPfloat(h))
+val arg2 =
+  SCADARGlabexp("center", SCADEXPbool(true))
+val cube =
+  SCADOBJextmcall("cube", $list(arg1, arg2))
+//
+val red =
+  scadxyz_color_name("red", 1.0)
+val blue =
+  scadxyz_color_name("blue", 1.0)
+//
+val ball = SCADOBJxyzobj(red, ball)
+val cube = SCADOBJxyzobj(blue, cube)
 //
 val cylinder =
   scadobj_centerize
-  (scadobj_cylinder(1.1*h, 0.9*r))
+  (scadobj_cylinder(h, 0.9*r))
 val cylinder =
-  scadxyzobj_translate(0.0, 0.0, 0.2, cylinder)
+  scadxyzobj_translate(0.0, 0.0, 0.1, cylinder)
 //
 in
 scadxyzobj_scale
@@ -70,12 +87,31 @@ implement
 main0() = () where
 {
 //
+val out = stdout_ref
+//
 val obj =
 beer_mug(10.0, 10.0, 17.5)
-val ((*void*)) =
-scadobj_femit(stdout_ref, obj)
-val ((*void*)) =
-fprint_newline(stdout_ref)
+//
+val () =
+fprintln!
+(out, "\
+/*
+The code is automatically
+generated from [test01.dats]
+*/\n\
+")
+val () =
+fprintln!
+(out, "$fa=0.1; $fs=0.1;")
+//
+val () =
+scadobj_femit(out, 0(*nsp*), obj)
+//
+val () =
+fprint! (out, "\n")
+val () =
+fprintln!
+(out, "/* end of [test01_dats.scad] */")
 //
 } (* end of [main0] *)
 

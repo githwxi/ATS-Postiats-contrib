@@ -19,6 +19,8 @@
 (* ****** ****** *)
 
 implement
+fprint_val<scadarg> = fprint_scadarg
+implement
 fprint_val<scadexp> = fprint_scadexp
 implement
 fprint_val<scadobj> = fprint_scadobj
@@ -26,9 +28,27 @@ fprint_val<scadobj> = fprint_scadobj
 (* ****** ****** *)
 //
 implement
-fprint_scadexp
-  (out, exp) =
+fprint_scadarg
+  (out, arg) =
 (
+case+ arg of
+| SCADARGexp(e) =>
+  fprint!(out, "SCADARGexp(", e, ")")
+| SCADARGlabexp(l, e) =>
+  fprint!(out, "SCADARGlabexp(", l, "=", e, ")")
+)
+//
+(* ****** ****** *)
+//
+implement
+fprint_scadexp
+  (out, exp) = let
+(*
+val () =
+println! ("fprint_scadexp")
+*)
+in
+//
 case+ exp of
 | SCADEXPnil() =>
   fprint!(out, "SCADEXPnil()")
@@ -38,41 +58,51 @@ case+ exp of
   fprint!(out, "SCADEXPbool(", x, ")")
 | SCADEXPfloat(x) =>
   $extfcall(void, "fprintf", out, "SCADEXPfloat(%.2f)", x)
-)
+//
+| SCADEXPextfcall(f, xs) =>
+  fprint!(out, "SCADEXPextfcall(", f, "; ", xs, ")")
+//
+end // end of [fprint_scadexp]
 //
 (* ****** ****** *)
 //
 implement
-fprint_scadv2d
-  (out, v2d) =
+fprint_scadvec
+  (out, vec) =
 (
-case+ v2d of
-| SCADV2D(x0, x1) =>
-  fprint!(out, "SCADV2D(", x0, ", ", x1, ")")
-)
-//
-(* ****** ****** *)
-//
-implement
-fprint_scadv3d
-  (out, v3d) =
-(
-case+ v3d of
-| SCADV3D(x0, x1, x2) =>
-  fprint!(out, "SCADV3D(", x0, ", ", x1, ", ", x2, ")")
+case+ vec of
+| SCADVEC(xs) =>
+  fprint!(out, "SCADVEC(", xs, ")")
 )
 //
 (* ****** ****** *)
 //
 implement
 fprint_scadobj
-  (out, obj) =
-(
+  (out, obj) = let
+//
+(*
+val =
+println! ("fprint_scadobj")
+*)
+//
+in
+//
 case+ obj of
+//
 | SCADOBJcube(v3d, ct) =>
   fprint!
-  (out, "SCADOBJcube(", v3d, ", ", ct, ")")
+  ( out
+  , "SCADOBJcube(", v3d, ", ", ct, ")"
+  ) (* fprint! *)
+| SCADOBJsquare(v2d, ct) =>
+  fprint!
+  ( out
+  , "SCADOBJsquare(", v2d, ", ", ct, ")"
+  ) (* fprint! *)
 //
+| SCADOBJcircle(rad) =>
+  fprint! (out, "SCADOBJcircle(", rad, ")")
 | SCADOBJsphere(rad) =>
   fprint! (out, "SCADOBJsphere(", rad, ")")
 //
@@ -99,7 +129,13 @@ case+ obj of
   fprint! (out, "SCADOBJhullize(", x1, ", ", x2, ")")
 | SCADOBJminkowski(x1, x2) =>
   fprint! (out, "SCADOBJminkowski(", x1, ", ", x2, ")")
-)
+//
+| SCADOBJextmcall(f, args) =>
+  (
+    fprint!(out, "SCADEXPextmcall(", f, "; ", args, ")")
+  )
+//
+end (* end of [fprint_scadobj] *)
 
 (* ****** ****** *)
 
