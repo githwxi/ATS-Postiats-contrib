@@ -47,7 +47,7 @@ void *theStream = 0;
 void *theStream_get()
 {
   void *res;
-  res = theStream; theStream = NULL;
+  res = theStream; theStream = 0;
   return res;
 } /* end of [theStream_get] */
 %} // end of [%{^]
@@ -80,31 +80,22 @@ from
   m: int, n: int
 ) : stream_vt(int) = $ldelay
 (
-if m >= n
-  then
-  (
-    stream_vt_nil((*void*))
-  )
-  else
-  (
-    stream_vt_cons(m, from(m+1, n))
-  )
+if
+(m >= n)
+then
+(
+  stream_vt_nil((*void*))
+)
+else
+(
+  stream_vt_cons(m, from(m+1, n))
+)
 // end of [if]
 ) (* end of [from] *)
 //
 extvar "theStream" = from(0, 10)
 //
 } (* end of [setup] *)
-//
-(* ****** ****** *)
-//
-implement
-fprint_val<int>
-  (out, x) =
-(
-$extmcall
-  (void, Serial, "print", x)
-)
 //
 (* ****** ****** *)
 //
@@ -120,44 +111,32 @@ loop() =
 myloop() where
 {
 //
-val
-out = $extval(FILEref, "0")
 //
 fun
 lrotate
 (
 xs: stream_vt(int)
-) : stream_vt(int) = $ldelay
+) : stream_vt(int) =
 (
 case+ !xs of
 | ~stream_vt_nil() =>
-    stream_vt_nil()
+    stream_vt_make_nil()
 | ~stream_vt_cons(x, xs) => let
-    val () = fprint_val<int>(out, x)
+    val () = Serial_ptr.print(x)
+    val () = Serial_ptr.println()
   in
-    !(stream_vt_append(xs, stream_vt_make_sing(x)))
+    stream_vt_append(xs, stream_vt_make_sing(x))
   end // end of [stream_vt_cons]
-,
-~(xs) // called if the stream is freed
 )
 //
 fun
 myloop(): void = let
 //
-(*
-val () =
-Serial_ptr.println("myloop(bef)")
-*)
+val
+xs = theStream_get()
 //
-val xs = theStream_get()
-//
-extvar "theStream" = lrotate(xs)
-val () = Serial_ptr.println()
-//
-(*
-val () =
-Serial_ptr.println("myloop(aft)")
-*)
+extvar
+"theStream" = lrotate(xs)
 //
 val () = digitalWrite(LEDPIN, 1)
 val () = delay(250)
