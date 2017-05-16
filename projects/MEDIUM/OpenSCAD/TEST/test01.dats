@@ -29,7 +29,7 @@
 (* ****** ****** *)
 //
 extern
-fun{}
+fun
 beer_mug
 (
 x0: double, y0: double, z0: double
@@ -38,7 +38,6 @@ x0: double, y0: double, z0: double
 (* ****** ****** *)
 
 implement
-{}(*tmp*)
 beer_mug
   (x0, y0, z0) = let
 //
