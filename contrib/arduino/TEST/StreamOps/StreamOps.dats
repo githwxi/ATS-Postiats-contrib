@@ -1,6 +1,6 @@
 (*
 #
-# ListOps
+# StreamOps
 #
 *)
 (* ****** ****** *)
@@ -23,8 +23,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload _ = "prelude/DATS/list.dats"
-staload _ = "prelude/DATS/list_vt.dats"
+staload _ = "prelude/DATS/stream_vt.dats"
 
 (* ****** ****** *)
 
@@ -44,17 +43,18 @@ abstype charptr = $extype"charptr"
 (* ****** ****** *)
 
 %{^
-void *theList = NULL;
-void *theList_get(/*void*/)
+void *theStream = 0;
+void *theStream_get()
 {
   void *res;
-  res = theList; theList = NULL; return res;
-} /* end of [theList_get] */
+  res = theStream; theStream = NULL;
+  return res;
+} /* end of [theStream_get] */
 %} // end of [%{^]
 //
 extern
 fun
-theList_get(): List0_vt(int) = "mac#"
+theStream_get(): stream_vt(int) = "mac#"
 //
 (* ****** ****** *)
 
@@ -65,13 +65,10 @@ macdef BAUD_RATE = 9600
 //
 extern
 fun
-setup
-(
-// argless
-) : void = "mac#"
+setup (): void = "mac#"
 //
 implement
-setup() = () where
+setup () = () where
 {
 //
 val () = pinMode(LEDPIN, OUTPUT)
@@ -81,18 +78,21 @@ fun
 from
 (
   m: int, n: int
-) : List0_vt(int) =
+) : stream_vt(int) = $ldelay
 (
-if m < n
+if m >= n
   then
   (
-    cons_vt(m, from(m+1, n))
+    stream_vt_nil((*void*))
   )
-  else nil_vt(*void*)
+  else
+  (
+    stream_vt_cons(m, from(m+1, n))
+  )
 // end of [if]
 ) (* end of [from] *)
 //
-extvar "theList" = from(0, 10)
+extvar "theStream" = from(0, 10)
 //
 } (* end of [setup] *)
 //
@@ -100,12 +100,11 @@ extvar "theList" = from(0, 10)
 //
 implement
 fprint_val<int>
-  (out, x) = $extmcall(void, Serial, "print", x)
-//
-(* ****** ****** *)
-//
-implement
-fprint_string (out, x) = ()
+  (out, x) =
+(
+$extmcall
+  (void, Serial, "print", x)
+)
 //
 (* ****** ****** *)
 //
@@ -117,43 +116,43 @@ loop
 ) : void = "mac#"
 //
 implement
-loop() = myloop() where
+loop() =
+myloop() where
 {
 //
+val
+out = $extval(FILEref, "0")
+//
 fun
-{a:t0p}
-lrotate{n:int}
+lrotate
 (
-xs: list_vt(a, n)
-) : list_vt(a, n) =
+xs: stream_vt(int)
+) : stream_vt(int) = $ldelay
 (
-case+ xs of
-| list_vt_nil() => xs
-| list_vt_cons _ => let
-    val
-    (hd, tl) =
-    list_vt_split_at(xs, 1)
+case+ !xs of
+| ~stream_vt_nil() =>
+    stream_vt_nil()
+| ~stream_vt_cons(x, xs) => let
+    val () = fprint_val<int>(out, x)
   in
-    list_vt_append<a>(tl, hd)
-  end // end of [list_vt_cons]
+    !(stream_vt_append(xs, stream_vt_make_sing(x)))
+  end // end of [stream_vt_cons]
+,
+~(xs) // called if the stream is freed
 )
 //
 fun
 myloop(): void = let
-//
-val
-out = $extval(FILEref, "0")
 //
 (*
 val () =
 Serial_ptr.println("myloop(bef)")
 *)
 //
-val xs = theList_get()
-val () = fprint_list_vt(out, xs)
-val () = Serial_ptr.println()
+val xs = theStream_get()
 //
-extvar "theList" = lrotate<int>(xs)
+extvar "theStream" = lrotate(xs)
+val () = Serial_ptr.println()
 //
 (*
 val () =
@@ -173,4 +172,4 @@ end // end of [myloop]
 //
 (* ****** ****** *)
 
-(* end of [ListOps.dats] *)
+(* end of [StreamOps.dats] *)

@@ -116,7 +116,9 @@ if
 test(0)
 then
 (
-  if i+1=n then true else find_next(A, n)
+if i+1=n
+  then true else find_next(A, n)
+// end of [if]
 ) (* end of [then] *)
 else (A[i] := A[i]+1; find2_next(A, n, i))
 //
@@ -124,7 +126,10 @@ end // end of [then]
 else let
   val () = A[i] := 0
 in
-  if i > 0 then (A[i-1] := A[i-1]+1; find2_next (A, n, i-1)) else false
+  if i > 0
+    then (A[i-1] := A[i-1]+1; find2_next(A, n, i-1))
+    else (false)
+  // end of [if]
 end // end of [else]
 //
 end // end of [find2_next]
@@ -147,17 +152,20 @@ staload "{$ARDUINO}/SATS/Bridge/Console.sats"
 //
 extern
 fun
-setup (): void = "mac#"
+setup
+(
+// argless
+) : void = "mac#"
 //
 implement
-setup () = () where
+setup() = () where
 {
 //
 val () = Bridge_ptr._begin()
 //
 val () = Console_ptr._begin()
 val () = while (~Console_ptr.connected()) ()
-val () = Console_ptr.println ("Let us solve the 8-queen puzzle!\n")
+val () = Console_ptr.println("Let us solve the 8-queen puzzle!\n")
 //
 } (* end of [setup] *)
 //
@@ -199,7 +207,10 @@ fprint_array$sep<>(out) = ()
 //
 extern
 fun
-loop(): void = "mac#"
+loop
+(
+// argless
+) : void = "mac#"
 //
 implement
 loop() =

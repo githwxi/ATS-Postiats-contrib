@@ -55,7 +55,7 @@ find_next
 fun
 loop
 (
-  i: natLte(n)
+ i: natLte(n)
 ) : natLte(n) =
 (
 if
@@ -73,11 +73,11 @@ if
 i0 < n
 then
 (
-  A[i0] := 1; find2_next (A, n, i0)
+  A[i0] := 1; find2_next(A, n, i0)
 ) (* end of [then] *)
 else
 (
-  A[n-1] := A[n-1] + 1; find2_next (A, n, n-1)
+  A[n-1] := A[n-1] + 1; find2_next(A, n, n-1)
 ) (* end of [else] *)
 //
 end // end of [find_next]
@@ -86,7 +86,7 @@ and
 find2_next
   {n:pos}
 (
-  A: arrayref(int, n), n: int(n), i: natLt(n)
+ A: arrayref(int, n), n: int(n), i: natLt(n)
 ) : bool = let
 //
 fun
@@ -115,7 +115,9 @@ if
 test(0)
 then
 (
-  if i+1=n then true else find_next(A, n)
+if i+1=n
+  then true else find_next(A, n)
+// end of [if]
 ) (* end of [then] *)
 else (A[i] := A[i]+1; find2_next(A, n, i))
 //
@@ -123,7 +125,10 @@ end // end of [then]
 else let
   val () = A[i] := 0
 in
-  if i > 0 then (A[i-1] := A[i-1]+1; find2_next (A, n, i-1)) else false
+  if i > 0
+    then (A[i-1] := A[i-1]+1; find2_next(A, n, i-1))
+    else false
+  // end of [if]
 end // end of [else]
 //
 end // end of [find2_next]
@@ -173,27 +178,29 @@ end // end of [fprint_val]
 (* ****** ****** *)
 //
 implement
-fprint_string (out, x) = Serial_ptr.print(x)
+fprint_string
+  (out, x) = Serial_ptr.print(x)
 //
 (* ****** ****** *)
 //
 implement
-fprint_array$sep<> (out) = ()
+fprint_array$sep<>(out) = ((*void*))
 //
 (* ****** ****** *)
 //
 extern
-fun loop (): void = "mac#"
+fun
+loop(): void = "mac#"
 //
 implement
-loop () =
+loop() =
 myloop() where
 {
 fun
 myloop(): void = let
 //
 val
-out = $extval (FILEref, "0")
+out = $extval(FILEref, "0")
 //
 (*
 val () =
@@ -201,7 +208,7 @@ randomSeed($UN.cast{uint}(millis()))
 *)
 //
 val A = theArray
-val found = find_next (A, N)
+val found = find_next(A, N)
 //
 val () =
 if found then
@@ -216,7 +223,7 @@ if ~found then
 {
 //
   val () =
-  fprint_string (out, "All solutions are found!")
+  fprint_string(out, "All solutions are found!")
   val () = Serial_ptr.println()
 //
 } (* end of [then] *)
@@ -227,7 +234,7 @@ val () = digitalWrite(LEDPIN, 0)
 val () = delay(1000)
 //
 in
-  myloop ()
+  myloop((*void*))
 end // end of [myloop]
 //
 } (* end of [loop] *)
