@@ -13,18 +13,18 @@ ATS_EXTERN_PREFIX "ats2phppre_"
 //
 (* ****** ****** *)
 //
-// Python datatypes
+// PHP datatypes
 //
 staload "./../basics_php.sats"
 //
 (* ****** ****** *)
 //
 fun
-PHParray_nil{a:t0p}(): PHParray(a) = "mac#"
+PHParray_nil{a:t0p}(): PHParray(a) = "mac#%"
 fun
-PHParray_sing{a:t0p}(x: a): PHParray(a) = "mac#"
+PHParray_sing{a:t0p}(x: a): PHParray(a) = "mac#%"
 fun
-PHParray_pair{a:t0p}(x1: a, x2: a): PHParray(a) = "mac#"
+PHParray_pair{a:t0p}(x1: a, x2: a): PHParray(a) = "mac#%"
 //
 (* ****** ****** *)
 

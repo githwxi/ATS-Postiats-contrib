@@ -13,7 +13,7 @@ ATS_EXTERN_PREFIX "ats2phppre_"
 //
 (* ****** ****** *)
 //
-// Python datatypes
+// PHP datatypes
 //
 staload "./../basics_php.sats"
 //
