@@ -17,12 +17,10 @@ LIBCAIRO_targetloc
 /contrib/atscntrb-libcairo"
 //
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 staload
@@ -255,6 +253,12 @@ extern double drand48 (/*void*/) ;
 %} ;
 abstype charptrptr = $extype"charptrptr"
 
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
 (* ****** ****** *)
 
 staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"

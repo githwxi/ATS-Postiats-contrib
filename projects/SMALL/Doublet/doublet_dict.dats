@@ -5,8 +5,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -87,11 +85,13 @@ implement(itm)
 hashtbl_linprb_keyitm_is_null<strarr,itm> (kx) = ($UN.cast2ptr(kx.0) = 0)
 //
 in (* in of [local] *)
-
+//
+#define
+HX_GLOBALS_targetloc
+"$PATSHOME/contrib/atscntrb-hx-globals"
 #include
-"{$HX_GLOBALS}\
-/HATS/ghashtbl_linprb.hats"
-
+"{$HX_GLOBALS}/HATS/ghashtbl_linprb.hats"
+//
 end // end of [local]
 
 (* ****** ****** *)

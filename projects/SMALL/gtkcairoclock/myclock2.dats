@@ -22,12 +22,10 @@ LIBCAIRO_targetloc
 /contrib/atscntrb-libcairo"
 //
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 //
 staload
@@ -167,6 +165,12 @@ typedef char **charptrptr ;
 %} ;
 abstype charptrptr = $extype"charptrptr"
 
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
 (* ****** ****** *)
 //
 staload

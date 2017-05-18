@@ -25,8 +25,6 @@ LIBCAIRO_targetloc
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -203,6 +201,11 @@ typedef char **charptrptr ;
 %} ;
 abstype charptrptr = $extype"charptrptr"
 
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc "$PATSCONTRIB/contrib/libats-/hwxi"
+//
 (* ****** ****** *)
 
 staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
