@@ -6,11 +6,6 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
-//
-(* ****** ****** *)
-//
 #define
 ATS_DYNLOADFLAG 0
 //

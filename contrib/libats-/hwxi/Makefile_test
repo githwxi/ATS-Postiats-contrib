@@ -9,10 +9,8 @@ all::
 ######
 
 SUBDIRS :=
-SUBDIRS += threadkit/TEST
 SUBDIRS += teaching/myGTK/TEST
-SUBDIRS += teaching/mythread/TEST
-SUBDIRS += teaching/fileAsLock/TEST
+SUBDIRS += teaching/mythread-0.3.2/TEST
 
 ######
 
