@@ -5,9 +5,13 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
+#define
+HX_CSTREAM_targetloc
+"$PATSHOME/contrib/atscntrb-hx-cstream"
 //
 (* ****** ****** *)
 

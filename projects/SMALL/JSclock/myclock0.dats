@@ -15,9 +15,14 @@ Start Time: October 2013
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 #define
 HTML_targetloc

@@ -15,8 +15,10 @@ http://www.neilwallis.com/projects/html5/clock/
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 

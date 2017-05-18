@@ -3,13 +3,6 @@
 *)
 
 (* ****** ****** *)
-//
-typedef
-print_type (a:t@ype) = (a) -> void
-typedef
-fprint_type (a:t@ype) = (FILEref, a) -> void
-//
-(* ****** ****** *)
 
 abstype symbol_type = ptr
 typedef symbol = symbol_type
