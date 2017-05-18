@@ -9,14 +9,15 @@
 // Author: HX-2014-03
 //
 (* ****** ****** *)
-
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
-
+//
+#include
+"share/atspre_staload.hats"
+//
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 %{^
@@ -26,6 +27,11 @@ typedef char **charptrptr ;
 abstype charptr = $extype"charptr"
 abstype charptrptr = $extype"charptrptr"
 
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc "$PATSCONTRIB/contrib/libats-/hwxi"
+//
 (* ****** ****** *)
 //
 staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
@@ -54,9 +60,14 @@ macdef PI2 = PI/2
 macdef _2PI = 2*PI
 //
 (* ****** ****** *)
-
+//
+#define
+CAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
 staload "{$CAIRO}/SATS/cairo.sats"
-
+//
 (* ****** ****** *)
   
 extern
