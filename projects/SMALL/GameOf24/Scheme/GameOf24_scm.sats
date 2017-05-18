@@ -46,10 +46,10 @@ typedef card = card_type
 
 (* ****** ****** *)
 //
-fun add_card_card (card, card): card
-fun sub_card_card (card, card): card
-fun mul_card_card (card, card): card
-fun div_card_card (card, card): card
+fun add_card_card(card, card): card
+fun sub_card_card(card, card): card
+fun mul_card_card(card, card): card
+fun div_card_card(card, card): card
 //
 overload + with add_card_card
 overload - with sub_card_card
@@ -58,22 +58,22 @@ overload / with div_card_card
 //
 (* ****** ****** *)
 
-fun card_get_val (card): double
+fun card_get_val(card): double
 
 (* ****** ****** *)
 
-fun card_make_int (v: int): card
+fun card_make_int(v: int): card
 
 (* ****** ****** *)
 
-typedef cardlst = List0 (card)
+typedef cardlst = List0(card)
 
 (* ****** ****** *)
 //
 fun
-fprint_card (out: SCMfilr, x: card): void
+fprint_card(out: SCMfilr, x: card): void
 fun
-fprint_cardlst (out: SCMfilr, xs: cardlst): void
+fprint_cardlst(out: SCMfilr, xs: cardlst): void
 //
 overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10
@@ -81,9 +81,9 @@ overload fprint with fprint_cardlst of 10
 (* ****** ****** *)
 //
 fun
-fpprint_card (out: SCMfilr, x: card): void
+fpprint_card(out: SCMfilr, x: card): void
 fun
-fpprint_cardlst (out: SCMfilr, xs: cardlst): void
+fpprint_cardlst(out: SCMfilr, xs: cardlst): void
 //
 (* ****** ****** *)
 
@@ -92,7 +92,7 @@ typedef cardset = cardset_type
 
 (* ****** ****** *)
 
-fun cardset_size (cardset): int
+fun cardset_size(cardset): int
 
 (* ****** ****** *)
 //
@@ -105,9 +105,9 @@ overload [] with cardset_get_at
 (* ****** ****** *)
 //
 fun
-cardset_make_nil (): cardset
+cardset_make_nil(): cardset
 fun
-cardset_make_list (cardlst): cardset
+cardset_make_list(cardlst): cardset
 //
 (* ****** ****** *)
 

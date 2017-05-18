@@ -21,7 +21,7 @@ PATSOPT=${PATSHOME}/bin/patsopt
 #
 ATSCC2CLJ=${PATSHOME}/bin/atscc2clj
 #
-LIBATSCC2CLJ=$(PATSCONTRIB)/contrib/libatscc/libatscc2clj
+LIBATSCC2CLJ=$(PATSHOME)/contrib/libatscc2clj/ATS2-0.3.2
 #
 ######
 #

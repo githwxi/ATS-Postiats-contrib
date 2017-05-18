@@ -36,6 +36,7 @@ libatscc2scm:: ; \
 ######
 
 testall:: all
+testall:: libatscc2scm
 testall:: regress
 testall:: cleanall
 

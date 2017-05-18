@@ -29,12 +29,14 @@ are a good quad.
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2CLJ_targetloc
+"$PATSHOME\
+/contrib/libatscc2clj/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSCC2CLJ}/basics_clj.sats"
 //
 (* ****** ****** *)
