@@ -34,8 +34,10 @@ ATS_PACKNAME "GameOf24_php"
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2PHP_targetloc
+"$PATSHOME\
+/contrib/libatscc2php/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
@@ -49,10 +51,10 @@ typedef card = card_type
 
 (* ****** ****** *)
 //
-fun add_card_card (card, card): card
-fun sub_card_card (card, card): card
-fun mul_card_card (card, card): card
-fun div_card_card (card, card): card
+fun add_card_card(card, card): card
+fun sub_card_card(card, card): card
+fun mul_card_card(card, card): card
+fun div_card_card(card, card): card
 //
 overload + with add_card_card
 overload - with sub_card_card
@@ -61,11 +63,11 @@ overload / with div_card_card
 //
 (* ****** ****** *)
 
-fun card_get_val (card): double
+fun card_get_val(card): double
 
 (* ****** ****** *)
 
-fun card_make_int (v: int): card
+fun card_make_int(v: int): card
 
 (* ****** ****** *)
 
@@ -74,9 +76,11 @@ typedef cardlst = List0 (card)
 (* ****** ****** *)
 //
 fun
-fprint_card (out: PHPfilr, x: card): void
+fprint_card
+  (out: PHPfilr, x: card): void
 fun
-fprint_cardlst (out: PHPfilr, xs: cardlst): void
+fprint_cardlst
+  (out: PHPfilr, xs: cardlst): void
 //
 overload fprint with fprint_card
 overload fprint with fprint_cardlst of 10

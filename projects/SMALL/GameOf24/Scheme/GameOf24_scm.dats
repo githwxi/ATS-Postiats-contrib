@@ -10,11 +10,6 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
-//
-(* ****** ****** *)
-//
 #define
 ATS_MAINATSFLAG 1
 #define
@@ -23,12 +18,19 @@ ATS_DYNLOADNAME
 //
 (* ****** ****** *)
 //
+#define
+LIBATSCC2SCM_targetloc
+"$PATSHOME\
+/contrib/libatscc2scm/ATS2-0.3.2"
+//
+(* ****** ****** *)
+//
 #include
 "{$LIBATSCC2SCM}/staloadall.hats"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "./GameOf24_scm.sats"
 //
 (* ****** ****** *)

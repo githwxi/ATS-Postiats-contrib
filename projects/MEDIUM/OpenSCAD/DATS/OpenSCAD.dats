@@ -94,14 +94,14 @@ SCADEXPbool(ct)
 //
 implement
 {}(*tmp*)
-scadobj_sphere_int3
+scadobj_sphere_int1
   (rad) =
 (
 SCADOBJsphere(SCADEXPint(rad))
 )
 implement
 {}(*tmp*)
-scadobj_sphere_float3
+scadobj_sphere_float1
   (rad) =
 (
 SCADOBJsphere(SCADEXPfloat(rad))

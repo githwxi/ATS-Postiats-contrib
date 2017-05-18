@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
-** The prelude for Ardunio
+** Prelude for Arduino
 *)
-
 (* ****** ****** *)
 
 %{#

@@ -11,11 +11,11 @@ OpenSCAD = "./SATS/OpenSCAD.sats"
 (* ****** ****** *)
 //
 #staload
-_(*GETARGS*) = "./DATS/OpenSCAD.dats"
+_(*OpenSCAD*) = "./DATS/OpenSCAD.dats"
 #staload
-_(*GETARGS*) = "./DATS/OpenSCAD_emit.dats"
+_(*OpenSCAD*) = "./DATS/OpenSCAD_emit.dats"
 #staload
-_(*GETARGS*) = "./DATS/OpenSCAD_print.dats"
+_(*OpenSCAD*) = "./DATS/OpenSCAD_print.dats"
 //
 (* ****** ****** *)
 

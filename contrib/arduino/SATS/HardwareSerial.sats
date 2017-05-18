@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
-** The prelude for Ardunio
+** Prelude for Arduino
 *)
-
 (* ****** ****** *)
 
 %{#
@@ -45,14 +45,17 @@ overload
 ._begin with HardwareSerial_begin_ulint
 //
 fun
-HardwareSerial_end (HardwareSerial_ptr): void = "mac#"
+HardwareSerial_end(HardwareSerial_ptr): void = "mac#"
 //
 overload ._end with HardwareSerial_end
 //
 (* ****** ****** *)
 //
 fun
-HardwareSerial_connected (HardwareSerial_ptr): bool = "mac#"
+HardwareSerial_connected
+  (HardwareSerial_ptr): bool = "mac#"
+//
+overload .connected with HardwareSerial_connected
 //
 (* ****** ****** *)
 //
@@ -64,13 +67,17 @@ overload .available with HardwareSerial_available
 //
 (* ****** ****** *)
 //
-fun HardwareSerial_read (HardwareSerial_ptr): int = "mac#"
-fun HardwareSerial_peek (HardwareSerial_ptr): int = "mac#"
+fun
+HardwareSerial_read(HardwareSerial_ptr): int = "mac#"
+fun
+HardwareSerial_peek(HardwareSerial_ptr): int = "mac#"
 //
-fun HardwareSerial_write_char
+fun
+HardwareSerial_write_char
   (p0: HardwareSerial_ptr, c: uint8): size_t = "mac#"
 //
-fun HardwareSerial_flush (HardwareSerial_ptr): void = "mac#"
+fun
+HardwareSerial_flush(HardwareSerial_ptr): void = "mac#"
 //
 (* ****** ****** *)
 

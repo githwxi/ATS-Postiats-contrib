@@ -11,7 +11,7 @@ include $(PATSHOME)/share/atsmake-post.mk
 #
 # You may need to change this:
 #
-JNIincl=/usr/lib/jvm/java-7-openjdk-amd64/include
+JNIincl=$(PATSCONTRIB)/contrib
 #
 ######
 #
@@ -29,7 +29,7 @@ GameOf24:: libGameOf24_dats.so
 
 ######
 
-GameOf24.h: GameOf24.class ; javah GameOf24
+GameOf24.h: GameOf24.class ; javah ./$<
 
 ######
 #

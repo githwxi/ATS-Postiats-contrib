@@ -198,17 +198,17 @@ scadobj_cube with scadobj_cube_float3_bool
 (* ****** ****** *)
 //
 fun{}
-scadobj_sphere_int3(int): scadobj
+scadobj_sphere_int1(int): scadobj
 fun{}
-scadobj_sphere_float3(double): scadobj
+scadobj_sphere_float1(double): scadobj
 //
 symintr
 scadobj_sphere
 //
 overload
-scadobj_sphere with scadobj_sphere_int3
+scadobj_sphere with scadobj_sphere_int1
 overload
-scadobj_sphere with scadobj_sphere_float3
+scadobj_sphere with scadobj_sphere_float1
 //
 (* ****** ****** *)
 //

@@ -1,7 +1,8 @@
+(* ****** ****** *)
 (*
-#
-# QueenPuzzle
-#
+//
+// QueenPuzzle
+//
 *)
 (* ****** ****** *)
 //
@@ -213,25 +214,31 @@ val found = find_next(A, N)
 val () =
 if found then
 {
-  val () =
-  fprint_arrayref (out, A, i2sz(N))
-  val () = Serial_ptr.println()
+//
+val () =
+fprint_arrayref (out, A, i2sz(N))
+//
+val () = Serial_ptr.println((*void*))
+//
 } (* end of [then] *)
 //
 val () =
 if ~found then
 {
 //
-  val () =
-  fprint_string(out, "All solutions are found!")
-  val () = Serial_ptr.println()
+val () =
+fprint_string
+  (out, "All solutions are found!")
+// end of [val]
+val () = Serial_ptr.println((*void*))
 //
 } (* end of [then] *)
 //
-val () = digitalWrite(LEDPIN, 1)
-val () = delay(250)
-val () = digitalWrite(LEDPIN, 0)
-val () = delay(1000)
+val () =
+(
+digitalWrite(LEDPIN, 1); delay(250);
+digitalWrite(LEDPIN, 0); delay(1000);
+)
 //
 in
   myloop((*void*))
