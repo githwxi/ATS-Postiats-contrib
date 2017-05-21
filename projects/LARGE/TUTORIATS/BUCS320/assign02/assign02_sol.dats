@@ -22,20 +22,20 @@ LIBATSCC2PY3_targetloc
 //
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSCC2PY3}/SATS/PYLIBC/random.sats"
-staload
+#staload
 "{$LIBATSCC2PY3}/SATS/PYLIBC/datetime.sats"
 //
 (* ****** ****** *)
 //
-staload
+#staload
 UN =
 "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
-staload "./PAGEN-assign.dats"
+#staload "./PAGEN-assign.dats"
 //
 (* ****** ****** *)
 //
@@ -149,8 +149,11 @@ ATS_MAINATSFLAG 1
 #define
 ATS_DYNLOADNAME \"my_dynload\"
 //
-#include
-\"share/atspre_define.hats\"
+#define
+LIBATSCC2JS_targetloc
+\"$PATSHOME\\
+/contrib/libatscc2js/ATS2-0.3.2\"
+//
 #include
 \"{$LIBATSCC2JS}/staloadall.hats\"
 //
