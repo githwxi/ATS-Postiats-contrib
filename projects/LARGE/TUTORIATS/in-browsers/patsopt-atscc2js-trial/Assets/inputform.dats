@@ -38,8 +38,8 @@ LIBATSCC2JS_targetloc
 (* ****** ****** *)
 //
 #staload
-"{$PATSHOME}\
-/contrib/CATS-atscc2js/DATS/libatscc2js_ext.dats"
+"{$PATSHOME}/contrib\
+/CATS-atscc2js/DATS/libatscc2js_ext.dats"
 //
 (* ****** ****** *)
 
