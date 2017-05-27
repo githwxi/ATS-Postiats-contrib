@@ -15,17 +15,30 @@
 "share/atspre_define.hats"
 //
 (* ****** ****** *)
+
+#define
+SOURCE_targetloc "./../src"
+
+(* ****** ****** *)
 //
 local
-#include "./../GameOf24_card.dats"
-in end
+#include
+"{$SOURCE}/GameOf24_card.dats"
+in (* nothing *) end
 local
-#include "./../GameOf24_cardset.dats"
-in end
+#include
+"{$SOURCE}/GameOf24_cardset.dats"
+in (* nothing *) end
 local
-#include "./../GameOf24_solve.dats"
-in end
+#include
+"{$SOURCE}/GameOf24_solve.dats"
+in (* nothing *) end
 //
+(* ****** ****** *)
+
+staload
+"{$SOURCE}/GameOf24.sats"
+
 (* ****** ****** *)
 //
 staload
@@ -42,10 +55,6 @@ stadef JNIEnvPtr = $JNI.JNIEnvPtr
 stadef jstring (l:addr) = $JNI.jstring(l)
 stadef jobject (l:addr) = $JNI.jobject(l)
 //
-(* ****** ****** *)
-
-staload "./../GameOf24.sats"
-
 (* ****** ****** *)
 //
 // HX-2013-08:
