@@ -1,62 +1,41 @@
+######
 #
 # A Simple Makefile
 #
+######
+
+CPF=cp -f
+RMF=rm -f
+MAKE=make
 
 ######
 
-include \
-$(PATSHOME)/share/atsmake-pre.mk
+copy:: ; \
+$(CPF) src/*.?ats BUILD/.
 
 ######
 
-CFLAGS += -O2
+build:: ; \
+$(MAKE) \
+-C BUILD -f ../Makefile_build
 
 ######
 
-LDFLAGS :=
-
-######
-
-PATSCCOMP = $(CC) -D_XOPEN_SOURCE
-
-######
-
-SOURCES_SATS += \
-  calculator.sats \
-
-SOURCES_DATS += \
-  calculator.dats \
-  calculator_aexp.dats \
-  calculator_token.dats \
-  calculator_cstream.dats \
-  calculator_tstream.dats \
-  calculator_parsing.dats \
-  calculator_print.dats \
-  calculator_mylib.dats \
-
-######
-
-MYTARGET=calc
+testall:: ; \
+$(MAKE) -C TEST testall 
 
 ######
 #
-MYPORTDIR=MYPORTDIR
+clean:: ; $(RMF) ./BUILD/*.o
+clean:: ; $(RMF) ./BUILD/*.c
+clean:: ; $(RMF) ./BUILD/*.?ats
 #
-#MYPORTCPP=MYPORTCPP
+######
 #
-######
-
-include $(PATSHOME)/share/atsmake-post.mk
-
-######
-
-testall:: all
-testall:: cleanall
-
-######
-
-cleanall:: ; $(RMF) MYPORTDIR/*
-
+cleanall:: clean
+#
+cleanall:: ; $(RMF) ./BUILD/calc
+#
 ######
 
 ###### end of [Makefile] ######
