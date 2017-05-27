@@ -1,77 +1,41 @@
+######
 #
 # A Simple Makefile
 #
+######
+
+CPF=cp -f
+RMF=rm -f
+MAKE=make
 
 ######
 
-include \
-$(PATSHOME)/share/atsmake-pre.mk
+copy:: ; \
+$(CPF) src/*.?ats BUILD/.
 
 ######
 
-CFLAGS += -O2
+build:: ; \
+$(MAKE) \
+-C BUILD -f ../Makefile_build
 
 ######
 
-LDFLAGS :=
-LDFLAGS += -lgc
-
-######
-
-MALLOCFLAG := -DATS_MEMALLOC_GCBDW
-
-######
-
-SOURCES_SATS += \
-  GameOf24.sats \
-
-SOURCES_DATS += \
-  GameOf24.dats \
-  GameOf24_card.dats \
-  GameOf24_cardset.dats \
-  GameOf24_solve.dats \
-  GameOf24_mylib.dats \
-
-######
-
-MYTARGET=GameOf24
+testall:: ; \
+$(MAKE) -C TEST testall 
 
 ######
 #
-MYPORTDIR=MYPORTDIR
-#
-#MYPORTCPP=MYPORTCPP
-#
-######
-
-include $(PATSHOME)/share/atsmake-post.mk
-
-######
-
-testall:: all
-testall:: regress
-testall:: cleanall
-
-######
-
-regress:: GameOf24; ./GameOf24
-
-######
-#
-CMKBLD:: ; (cd CMKBLD; cmake ./..)
-CMKBLD:: ; (make -C CMKBLD -f Makefile)
-#
-CMKBLD_test:: ; (cd CMKBLD; ctest --verbose)
-#
-CMKBLD_clean:: ; $(RMRF) CMKBLD/*
+clean:: ; $(RMF) ./BUILD/*.o
+clean:: ; $(RMF) ./BUILD/*.c
+clean:: ; $(RMF) ./BUILD/*.?ats
 #
 ######
-
-cleanall:: CMKBLD_clean
-cleanall:: ; $(RMF) $(MYPORTDIR)/*
-cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.o
-cleanats:: ; $(RMF) $(MYPORTDIR)/*_?ats.c
-
+#
+cleanall:: clean
+#
+cleanall:: ; $(RMF) ./BUILD/GameOf24
+#
 ######
 
 ###### end of [Makefile] ######
