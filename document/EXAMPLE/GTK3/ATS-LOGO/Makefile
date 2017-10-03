@@ -5,7 +5,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -17,7 +17,8 @@ GTKFLAGS=`pkg-config gtk+-3.0 --cflags --libs`
 all:: \
 ats-logo
 ats-logo: ats-logo.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib -o $@ $^ $(GTKFLAGS)
+  $(PATSCC) -DATS_MEMALLOC_LIBC \
+  -I$(PATSHOME)/npm-utils/contrib -I$(PATSCONTRIBQ)/contrib -o $@ $^ $(GTKFLAGS)
 cleanall:: ; $(RMF) ats-logo
 
 ######
