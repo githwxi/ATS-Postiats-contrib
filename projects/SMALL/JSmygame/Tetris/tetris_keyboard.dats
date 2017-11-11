@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
 ** Tetris
 *)
-
 (* ****** ****** *)
 
 #define
@@ -50,7 +50,7 @@ local
 //
 val
 theKeyDowns =
-  $extval(EStream(JSevent), "theKeyDowns")
+$extval(EStream(JSevent), "theKeyDowns")
 //
 val
 theKeyCodes =

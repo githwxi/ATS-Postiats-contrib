@@ -82,7 +82,7 @@ theScore_incby(delta)
 function
 theScore_reset(score)
 {
-    document.getElementById("score_well").innerHTML = score;
+  document.getElementById("score_well").innerHTML = score;
 }
 //
 %}
