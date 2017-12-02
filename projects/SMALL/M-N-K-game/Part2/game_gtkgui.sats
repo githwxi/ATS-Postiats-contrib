@@ -10,7 +10,8 @@
 (* ****** ****** *)
 //
 staload CHAN =
-"{$LIBATSHWXI}/teaching/mythread/SATS/channel.sats"
+"{$LIBATSHWXI}\
+/teaching/mythread-0.3.2/SATS/channel.sats"
 //
 (* ****** ****** *)
 

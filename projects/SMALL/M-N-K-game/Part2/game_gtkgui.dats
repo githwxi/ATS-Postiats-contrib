@@ -45,7 +45,8 @@ staload _ = "libats/DATS/athread.dats"
 staload _ = "libats/DATS/athread_posix.dats"
 //
 staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
+"{$LIBATSHWXI}\
+/teaching/mythread-0.3.2/DATS/channel.dats"
 //
 (* ****** ****** *)
 
