@@ -36,13 +36,14 @@ staload "./../utfpl.sats"
 (* ****** ****** *)
 //
 #define
-JSONC_targetloc
-"$PATSHOME\
-/contrib/atscntrb-libjson-c"
+LIBJSONC_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-libjson-c"
 //
 (* ****** ****** *)
 
-staload "{$JSONC}/SATS/json_ML.sats"
+staload "{$LIBJSONC}/SATS/json_ML.sats"
 
 (* ****** ****** *)
 //

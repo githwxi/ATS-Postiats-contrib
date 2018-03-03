@@ -17,7 +17,7 @@
 
 (* ****** ****** *)
 
-#include "../SHARE/utfpl_symintr.hats"
+#include "./../SHARE/utfpl_symintr.hats"
 
 (* ****** ****** *)
 

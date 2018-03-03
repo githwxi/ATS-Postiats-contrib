@@ -15,7 +15,7 @@ CCOMP=gcc -std=c99 -D_XOPEN_SOURCE -D_GNU_SOURCE
 CFLAGS :=
 CFLAGS += -I $(PATSHOMEQ)
 CFLAGS += -I $(PATSHOMEQ)/ccomp/runtime
-CFLAGS += -I $(PATSHOMEQ)/contrib
+CFLAGS += -I $(PATSHOMEQ)/contrib/atscntrb
 CFLAGS +=  $(shell pkg-config --cflags json-c)
 
 ######
