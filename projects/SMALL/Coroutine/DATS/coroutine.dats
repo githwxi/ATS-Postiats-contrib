@@ -7,9 +7,9 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
-staload "../SATS/coroutine.sats"
-
+//
+staload "./../SATS/coroutine.sats"
+//
 (* ****** ****** *)
 
 stadef co = cortn

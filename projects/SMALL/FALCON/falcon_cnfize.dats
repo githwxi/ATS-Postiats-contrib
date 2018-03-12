@@ -6,6 +6,8 @@
 //
 #include
 "share/atspre_staload.hats"
+#include
+"share/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 
@@ -338,14 +340,14 @@ case+ gx of
   end // end of [GRgene]
 | GRconj (gxs) => let
     val cnfs =
-      list_map_fun<grexp><grcnf> (gxs, grexp_cnfize)
+      list_map_fun<grexp><grcnf>(gxs, grexp_cnfize)
     // end of [val]
   in
     grcnf_conj (cnfs)
   end // end of [GRconj]
 | GRdisj (gxs) => let
     val cnfs =
-      list_map_fun<grexp><grcnf> (gxs, grexp_cnfize)
+      list_map_fun<grexp><grcnf>(gxs, grexp_cnfize)
     // end of [val]
   in
     grcnf_disj (cnfs)

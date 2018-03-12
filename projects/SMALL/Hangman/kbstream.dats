@@ -53,7 +53,8 @@ val
 alarm_set(g1i2u(nwait))
 //
 val
-[l:addr,n:int] line = $extfcall
+[l:addr,n:int]
+line = $extfcall
 (
   Strnptr0
 , "atspre_fileref_get_line_string_main2", nbyte, inp, addr@(nlen)
@@ -63,26 +64,27 @@ val
 nlen = $UN.cast{int(n)}(nlen)
 //
 val
-isnot = strnptr_isnot_null(line)
+isnil = strnptr_is_null(line)
 //
-val cinp =
-  (if nlen > 0 then line[0] else '_'): char
+val
+cinp =
+(if nlen > 0 then line[0] else '_'): char
 //
 val ((*freed*)) = strnptr_free(line)
 //
-val leftover = alarm_cancel(pf | (*void*))
+val _(*leftover*) = alarm_cancel(pf | (*void*))
 //
 in
 //  
 if
-isnot
+isnil
 then
 (
-  stream_vt_cons(cinp, kbstream(inp, nwait))
+stream_vt_nil((*void*))
 ) (* end of [then] *)
 else
 (
-  stream_vt_nil((*void*))
+stream_vt_cons(cinp, kbstream(inp, nwait))
 ) (* end of [else] *)
 //
 end

@@ -31,7 +31,11 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := ~1
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
@@ -48,7 +52,11 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := ~1
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)

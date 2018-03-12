@@ -9,8 +9,8 @@
 //
 (* ****** ****** *)
 //
-staload UN =
-"prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
@@ -88,7 +88,9 @@ in (* in of [local] *)
 //
 #define
 HX_GLOBALS_targetloc
-"$PATSHOME/contrib/atscntrb-hx-globals"
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include
 "{$HX_GLOBALS}/HATS/ghashtbl_linprb.hats"
 //

@@ -36,7 +36,7 @@ Calculator:: libCalculator_dats.so
 ######
 #
 Calculator.h: \
-Calculator.class; javah $<
+Calculator.class; javah Calculator
 Calculator.class: Calculator.java ; javac $<
 #
 Calculator_dats.o: Calculator.dats; \

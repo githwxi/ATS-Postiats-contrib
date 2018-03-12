@@ -4,13 +4,15 @@
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
 //
 (* ****** ****** *)
 //
 staload CHAN =
-"{$LIBATSHWXI}\
+"\
+{$LIBATSHWXI}\
 /teaching/mythread-0.3.2/SATS/channel.sats"
 //
 (* ****** ****** *)

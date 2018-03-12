@@ -47,10 +47,14 @@
 
 (* ****** ****** *)
 //
-#include "share/atspre_define.hats"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
 //
-staload GLIB = "{$GLIB}/SATS/glib.sats"
-staload GLIBOBJ = "{$GLIB}/SATS/glib-object.sats"
+staload
+GLIB = "{$GLIB}/SATS/glib.sats"
+staload
+GLIBOBJ = "{$GLIB}/SATS/glib-object.sats"
 //
 (* ****** ****** *)
 

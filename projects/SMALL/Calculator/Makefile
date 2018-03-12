@@ -21,8 +21,9 @@ $(MAKE) \
 
 ######
 
-testall:: ; \
-$(MAKE) -C TEST testall 
+testall:: copy
+testall:: build
+testall:: clean
 
 ######
 #

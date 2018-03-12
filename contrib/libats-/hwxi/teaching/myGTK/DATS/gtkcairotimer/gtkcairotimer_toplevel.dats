@@ -19,8 +19,13 @@ fun
 initize
 (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$HX_GLOBALS}/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
+#include
+"{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [NCLICK] *)
 
@@ -35,7 +40,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TOPWIN] *)
@@ -51,7 +60,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONstart] *)
@@ -67,7 +80,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONfinish] *)
@@ -83,7 +100,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONpause] *)
@@ -99,7 +120,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONresume] *)
@@ -115,7 +140,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [BUTTONreset] *)

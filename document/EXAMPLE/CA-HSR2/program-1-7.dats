@@ -5,8 +5,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -38,12 +36,20 @@ in
 end // end of [RSum]
 
 (* ****** ****** *)
-
+//
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-mytesting"
+//
+(* ****** ****** *)
+//
 staload RG =
 "{$HX_MYTESTING}/SATS/randgen.sats"
 staload _(*RG*) =
 "{$HX_MYTESTING}/DATS/randgen.dats"
-
+//
 (* ****** ****** *)
 //
 %{^

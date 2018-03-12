@@ -11,18 +11,21 @@
 //
 #define
 LIBCAIRO_targetloc
-"$PATSHOME/npm-utils\
-/contrib/atscntrb-libcairo"
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
-
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
-
-#staload UN = "prelude/SATS/unsafe.sats"
-
+//
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 %{^

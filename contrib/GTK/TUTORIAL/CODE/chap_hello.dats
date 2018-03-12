@@ -7,9 +7,16 @@
 *)
 
 (* ****** ****** *)
+//
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
+//
+(* ****** ****** *)
 
-#include
-"share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
 
@@ -24,12 +31,12 @@ staload UN = $UNSAFE
 (* ****** ****** *)
 //
 staload
-"{$GLIB}/SATS/glib.sats"
+"{$GTK}/SATS/gtk.sats"
 //
 staload
+"{$GLIB}/SATS/glib.sats"
+staload
 "{$GLIB}/SATS/glib-object.sats"
-//
-staload "{$GTK}/SATS/gtk.sats"
 //
 (* ****** ****** *)
 

@@ -20,7 +20,8 @@ $(PATSHOME)/share/atsmake-post.mk
 ######
 #
 PATSCC2=$(PATSCC) $(INCLUDE)
-INCLUDE+=-IIATS $(PATSHOME)/npm-utils/contrib
+#
+INCLUDE+=-IIATS $(PATSHOME)/npm-utils/contrib/atscntrb
 INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
 #
 ######

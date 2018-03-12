@@ -29,7 +29,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TOPWIN] *)
@@ -39,7 +43,11 @@ initize
 staload
 KEYPRESSED = {
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/gcount.hats"
 //
 } (* end of [KEYPRESSED] *)
@@ -55,7 +63,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [HADJUST] *)
@@ -71,7 +83,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [VADJUST] *)
@@ -87,7 +103,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TEXTBUF] *)
@@ -103,7 +123,11 @@ fun
 initize
 (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [TEXTBUF2] *)

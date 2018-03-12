@@ -19,12 +19,16 @@
 *)
 
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 staload UN = $UNSAFE

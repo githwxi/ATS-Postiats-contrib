@@ -9,8 +9,21 @@ ATS_PACKNAME "M_N_K_game"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
+//
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
 //
@@ -71,7 +84,11 @@ typedef T = ptr
 fun
 initize (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
@@ -88,7 +105,11 @@ typedef T = ptr
 fun
 initize(x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
 #include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)

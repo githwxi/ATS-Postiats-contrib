@@ -11,8 +11,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -42,6 +40,14 @@ in
   loop(A, n, 0, 0.0f)
 end // end of [Sum]
 
+(* ****** ****** *)
+//
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-mytesting"
+//
 (* ****** ****** *)
 //
 staload RG =

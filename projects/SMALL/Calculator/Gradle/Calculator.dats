@@ -25,8 +25,10 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+JNI_targetloc
+"\
+$PATSCONTRIB/contrib/JNI"
 //
 (* ****** ****** *)
 //

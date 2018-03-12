@@ -45,7 +45,12 @@ LIBCAIRO_targetloc
 //
 (* ****** ****** *)
 //
-#include"share/atspre_define.hats"
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 
