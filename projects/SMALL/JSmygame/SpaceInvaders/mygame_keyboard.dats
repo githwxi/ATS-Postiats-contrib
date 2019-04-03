@@ -1,20 +1,25 @@
+(* ****** ****** *)
 (*
 ** SpaceInvaders
 *)
+(* ****** ****** *)
+
+#define
+ATS_STATIC_PREFIX "mygame_keyboard_"
 
 (* ****** ****** *)
 
-#define ATS_STATIC_PREFIX "mygame_keyboard_"
-
-(* ****** ****** *)
-
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "mygame_keyboard_initize"
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "mygame_keyboard_initize"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
@@ -48,12 +53,13 @@ theKeyDowns =
 //
 val
 theKeyCodes =
-  theKeyDowns.map(lam(x) =<cloref1> JSevent_keyCode(x))
+theKeyDowns.map(TYPE{int})
+  (lam(x) =<cloref1> JSevent_keyCode(x))
 //
 in (* in-of-local *)
 
 implement
-theKeyDowns_handle(fwork) = theKeyCodes.onValue(fwork)
+theKeyDowns_handle(fwork) = theKeyCodes.onValue()(fwork)
 
 end // end of [local]
 

@@ -11,12 +11,27 @@
 (* ****** ****** *)
 
 (*
-** Ported to ATS2 by Hongwei Xi, September, 2013
+** Ported to ATS2
+** by Hongwei Xi, September, 2013
 *)
 
 (* ****** ****** *)
+//
+#define
+CAIRO_targetloc
+"$PATSHOME\
+/npm-utils\
+/contrib/atscntrb-libcairo"
+#define
+LIBATSHWXI_targetloc
+"$PATSHOME\
+/npm-utils/contrib/libats-hwxi"
+#define
+LIBATSHWXI2_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+//
+(* ****** ****** *)
 
-#include "share/atspre_define.hats"
 #include "share/atspre_staload.hats"
 
 (* ****** ****** *)
@@ -83,15 +98,21 @@ end // end of [local]
 
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload
+"{$CAIRO}/SATS/cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw.sats"
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw_cairo.sats"
+#staload
+"{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw.sats"
+#staload
+"{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw_cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_matgraph.dats"
+#staload
+"{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_matgraph.dats"
 //
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw.dats"
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_cairo.dats"
+#staload _(*anon*) =
+"{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw.dats"
+#staload _(*anon*) =
+"{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_cairo.dats"
 //
 (* ****** ****** *)
 
@@ -203,10 +224,12 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
-staload
-"{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
+#staload
+"{$LIBATSHWXI2}\
+/teaching/myGTK/SATS/gtkcairoclock.sats"
 staload _ =
-"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
+"{$LIBATSHWXI2}\
+/teaching/myGTK/DATS/gtkcairoclock.dats"
 //
 (* ****** ****** *)
 
@@ -232,4 +255,4 @@ val ((*void*)) = gtkcairoclock_main ((*void*))
 
 (* ****** ****** *)
 
-(* end of [myclock2.dats] *)
+(* end of [ats-logo.dats] *)

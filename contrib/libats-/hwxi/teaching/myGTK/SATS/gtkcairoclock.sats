@@ -33,16 +33,28 @@
 //
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #define ATS_PACKNAME
 "ATSCNTRB.libats-hwxi.teaching"
 //
 (* ****** ****** *)
 //
-#include"share/atspre_define.hats"
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 //

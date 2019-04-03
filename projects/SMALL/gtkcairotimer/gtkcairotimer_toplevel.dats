@@ -9,15 +9,22 @@
 .teaching.gtkcairotimer_toplevel"
 //
 (* ****** ****** *)
-
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
-
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
 (* ****** ****** *)
 
 local
 #include
-"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+"{$LIBATSHWXI}/teaching\
+/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
 in (*nothing*) end
 
 (* ****** ****** *)

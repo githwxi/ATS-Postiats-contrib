@@ -154,46 +154,53 @@ EVP_MD_CTX = $extype"EVP_MD_CTX" // stack allocation
 (* ****** ****** *)
 //
 absvtype
-EVP_MD_CTX_ptr (l:addr) = ptr (l)
-vtypedef EVP_MD_CTX_ptr0 = [l:agez] EVP_MD_CTX_ptr (l)
-vtypedef EVP_MD_CTX_ptr1 = [l:addr | l > null] EVP_MD_CTX_ptr (l)
+EVP_MD_CTX_ptr(l:addr) = ptr(l)
+vtypedef
+EVP_MD_CTX_ptr0 = [l:agez] EVP_MD_CTX_ptr (l)
+vtypedef
+EVP_MD_CTX_ptr1 = [l:addr | l > null] EVP_MD_CTX_ptr (l)
 //
 (* ****** ****** *)
-
+//
 castfn
 EVP_MD_CTX_ptr2ptr
-  {l:addr} (ctx: !EVP_MD_CTX_ptr (l)):<> ptr (l)
+  {l:addr}
+  (ctx: !EVP_MD_CTX_ptr(l)):<> ptr(l)
+//
 overload ptrcast with EVP_MD_CTX_ptr2ptr
-
+//
 (* ****** ****** *)
-  
-praxi
+//
+castfn
 EVP_MD_CTX_takeout
   {l:agz}
 (
   ctx: !EVP_MD_CTX_ptr (l)
-): (EVP_MD_CTX @ l, minus (EVP_MD_CTX_ptr (l), EVP_MD_CTX @ l))
-  
+) :<>
+( EVP_MD_CTX @ l
+, minus_v(EVP_MD_CTX_ptr(l), EVP_MD_CTX @ l) | ptr(l)
+) (* EVP_MD_CTX_takeout *)
+//
 (* ****** ****** *)
 
 praxi
 EVP_MD_CTX_objfize
   {l:addr}
 (
-  pf: EVP_MD_CTX@l | p: !ptrlin l >> EVP_MD_CTX_ptr (l)
+  pf: EVP_MD_CTX@l | p: !ptrlin l >> EVP_MD_CTX_ptr(l)
 ) :<prf> mfree_ngc_v (l) // endfun
 
 praxi
 EVP_MD_CTX_unobjfize
   {l:addr}
 (
-  pfgc: mfree_ngc_v (l) | ctx: !EVP_MD_CTX_ptr (l) >> ptrlin l
+  pfgc: mfree_ngc_v(l) | ctx: !EVP_MD_CTX_ptr(l) >> ptrlin l
 ) :<prf> EVP_MD_CTX @ l // endfun
   
 (* ****** ****** *)
 
-fun EVP_MD_CTX_init (&EVP_MD_CTX? >> _): void = "mac#%"
-fun EVP_MD_CTX_cleanup (&EVP_MD_CTX >> _?): interr = "mac#%"
+fun EVP_MD_CTX_init(&EVP_MD_CTX? >> _): void = "mac#%"
+fun EVP_MD_CTX_cleanup(&EVP_MD_CTX >> _?): interr = "mac#%"
 
 (* ****** ****** *)
 

@@ -3,22 +3,25 @@
 //
 (* ****** ****** *)
 //
+//
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
+#include
+"share/HATS\
+/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 //
-staload
-UN = "prelude/SATS/unsafe.sats"
-//
-staload "libats/ML/SATS/basis.sats"
-staload "libats/ML/SATS/list0.sats"
-staload "libats/ML/SATS/array0.sats"
-//
-staload _ = "libats/ML/DATS/list0.dats"
-staload _ = "libats/ML/DATS/array0.dats"
+#staload UN = $UNSAFE // opening
 //
 (* ****** ****** *)
 
@@ -185,7 +188,7 @@ end // end of [sortedmerge]
 
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 
@@ -248,12 +251,13 @@ in
 end // [mydraw_clock]
 
 (* ****** ****** *)
-
-staload "libc/SATS/time.sats"
-staload "libc/SATS/stdlib.sats"
-staload "{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _ = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
-
+//
+#staload "libats/libc/SATS/time.sats"
+#staload "libats/libc/SATS/stdlib.sats"
+//
+#staload "{$HX_MYTESTING}/SATS/randgen.sats"
+#staload _ = "{$HX_MYTESTING}/DATS/randgen.dats"
+//
 (* ****** ****** *)
 
 %{^
@@ -263,9 +267,9 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
-staload
+#staload
 "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
-staload
+#staload
 _ = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
 //
 (* ****** ****** *)

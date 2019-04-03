@@ -4,23 +4,56 @@
 // Animating QueenPuzzle (LazyEval)
 //
 (* ****** ****** *)
+
+(*
+##myatsccdef=patscc \
+  -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
+  -I${PATSHOME}/npm-utils/contrib -I${PATSCONTRIB}/contrib \
+  -o $fname($1) $1 `pkg-config gtk+-3.0 --cflags --libs` -lm
+*)
+
+(* ****** ****** *)
+
+%{^
+/*
+##myatsccdef=\
+tcc -run \
+  -D_GNU_SOURCE \
+  -DATS_MEMALLOC_LIBC \
+  -I${PATSHOME} \
+  -I${PATSHOME}/ccomp/runtime \
+  -I${PATSHOME}/npm-utils/contrib \
+  -I${PATSCONTRIB}/contrib \
+  `pkg-config gtk+-3.0 --cflags --libs` -lm \
+   QueenPuzzle_anim2_dats.c >& /dev/null &
+*/
+%}
+
+(* ****** ****** *)
+//
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
 //
 #include
 "share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
-//
 #include
 "share/HATS/atspre_staload_libats_ML.hats"
 //
 (* ****** ****** *)
 
-staload
-_(*MATH*) = "libc/DATS/math.dats"
+#staload
+_(*MATH*) =
+"libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 //
-staload UN = $UNSAFE
+#staload UN = $UNSAFE
 //
 (* ****** ****** *)
 
@@ -182,15 +215,25 @@ staload "{$GLIB}/SATS/glib-object.sats"
 //
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw.sats"
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw_cairo.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw_cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_matgraph.dats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_matgraph.dats"
 //
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw.dats"
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_cairo.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_cairo.dats"
 //
 (* ****** ****** *)
 

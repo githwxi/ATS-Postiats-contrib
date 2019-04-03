@@ -4,7 +4,8 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
 
@@ -13,8 +14,16 @@ MYCCRULE=MYCCRULE
 
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+include \
+$(PATSHOME)/share/atsmake-post.mk
 
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+#
+INCLUDE+=-IIATS $(PATSHOME)/npm-utils/contrib/atscntrb
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
 ######
 
 GTKFLAGS=`pkg-config gtk+-3.0 --cflags --libs`

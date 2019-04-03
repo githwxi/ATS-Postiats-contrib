@@ -51,12 +51,12 @@
 
 (* ****** ****** *)
 
-fun rl_library_version (): string = "mac#%"
-fun rl_readline_version ((*void*)): int = "mac#%"
+fun rl_library_version(): string = "mac#%"
+fun rl_readline_version((*void*)): int = "mac#%"
 
 (* ****** ****** *)
 //
-fun readline (prompt: string): Strptr0 = "mac#%"
+fun readline(prompt: string): Strptr0 = "mac#%"
 //
 (* ****** ****** *)
 

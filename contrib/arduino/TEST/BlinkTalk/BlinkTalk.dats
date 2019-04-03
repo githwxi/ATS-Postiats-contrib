@@ -29,9 +29,14 @@ void loop() {
 *)
 
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
+//
+#define
+ATS_DYNLOADFLAG 0
+//
+//
+#define
+ARDUINO_targetloc "./../.."
+//
 (* ****** ****** *)
 //
 #include

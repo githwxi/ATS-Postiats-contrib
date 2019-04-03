@@ -4,30 +4,49 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
-
-CFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
-
+#
+CFLAGS+=\
+-I$(PATSHOME)/npm-utils/contrib
+#
+CFLAGS+=$(shell pkg-config gtk+-3.0 --cflags)
+#
 ######
 
 LDFLAGS += -lgc
 LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
 ######
+
+include \
+$(PATSHOME)/share/atsmake-post.mk
+
+######
 #
-all:: permutation_anim
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
+######
+#
+all:: \
+permutation_anim
 #
 permutation_anim: \
   permutation_anim.dats ; \
   $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $< $(LDFLAGS)
 #
+regress:: \
+permutation_anim; ./$<
 cleanall:: ; $(RMF) permutation_anim
 #
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

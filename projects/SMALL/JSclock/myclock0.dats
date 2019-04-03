@@ -15,16 +15,21 @@ Start Time: October 2013
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 #define
 HTML_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten"
+"$PATSCONTRIB/contrib/HTML-emscripten"
 #define
 HTML5canvas2d_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
+"$PATSCONTRIB/contrib/HTML-emscripten/canvas-2d"
 //
 (* ****** ****** *)
 

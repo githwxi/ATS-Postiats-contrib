@@ -8,8 +8,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -25,7 +23,7 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "libc/SATS/string.sats"
+staload "libats/libc/SATS/string.sats"
 
 (* ****** ****** *)
 
@@ -593,10 +591,18 @@ abstype charptr = $extype"charptr"
   
 (* ****** ****** *)
 //
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+//
+(* ****** ****** *)
+//
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/spinvar.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/spinvar.sats"
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/spinref.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/spinref.sats"
 //
 (* ****** ****** *)  
   
@@ -643,7 +649,8 @@ end // end of [local]
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/nwaiter.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/nwaiter.sats"
 //
 (* ****** ****** *)
 
@@ -674,7 +681,8 @@ write_fqlst_tick
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/parallelize.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/parallelize.sats"
 //
 (* ****** ****** *)
 
@@ -732,30 +740,40 @@ gequal_val_val<uint64> (x1, x2) = (x1 = x2)
 (* ****** ****** *)
 //
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/workshop.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/workshop.sats"
 //  
 (* ****** ****** *)
 //
 staload _ = "libats/DATS/deqarray.dats"
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
 //
-staload _(*anon*) =
-"{$LIBATSHWXI}/teaching/mythread/DATS/spinvar.dats"
-staload _(*anon*) =
-"{$LIBATSHWXI}/teaching/mythread/DATS/spinref.dats"
-//
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/nwaiter.dats"
-//
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/workshop.dats"
-//
-staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/parallelize.dats"
+(* ****** ****** *)
 //
 staload _ = "libats/DATS/athread.dats"
 staload _ = "libats/DATS/athread_posix.dats"
+//
+(* ****** ****** *)
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/channel.dats"
+//
+(* ****** ****** *)
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/spinvar.dats"
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/spinref.dats"
+//
+(* ****** ****** *)
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/nwaiter.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/workshop.dats"
+//
+staload _ =
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/parallelize.dats"
 //
 (* ****** ****** *)
 

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TUTORIATS-patsopt-atscc2js-trial</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+
+<script
+src="//cdn.jsdelivr.net/filesaver.js/0.2/FileSaver.min.js"></script>
+
+<script
+ src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+ src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/CATS/Ajax/Ajax_cats.js">
+</script>
+
+<script>
+//
+function
+program_input_compile()
+{
+/*
+  alert("program_input_compile: enter");
+*/
+  patsopt_atscc2js
+    (document.getElementById("program_input").value);
+  // end of [patsopt_atscc2js]
+/*
+  alert("program_input_compile: leave");
+*/
+  return;
+}
+//
+function
+patsopt_waiting(msg)
+{
+  document.getElementById("program_output").value = msg;
+  return;
+}
+//
+function
+patsopt_atscc2js_do_response(resp)
+{
+  var comparr =
+    JSON.parse(decodeURIComponent(resp));
+  // end of [var]
+/*
+  alert(comparr[0]);
+  alert(comparr[1]);
+*/
+  document.getElementById("compres").value=comparr[0];
+  document.getElementById("program_output").value=comparr[1];
+  return;
+}
+//
+</script>
+
+<script src="./DATS_JS/inputform_process_js_dats.js"></script>
+
+<script>
+function
+program_output_evaluate()
+{
+  var compres = 
+    parseInt(document.getElementById("compres").value);
+  if(compres > 0)
+  {
+    alert("The generated code cannot be evaluated!");
+  }
+  if(compres===0)
+  {
+    eval(document.getElementById("program_output").value);
+  }
+  return;
+} /* end of [program_output_evaluate] */
+</script>
+
+<body>
+
+<h1>
+Patsopt/Atscc2js as a service
+</h1>
+
+<h2>Input/Output Forms</h2>
+<form>
+<param id="compres" value=0>
+
+<center>
+<table border=0>
+
+<tr bgcolor="#cccccc">
+  <td width=0>Input</td>
+  <td width=0>Output</td>
+</tr>
+
+<tr bgcolor="#cccccc">
+<td>
+<br>
+Please type in your code in ATS:
+<br>
+<br>
+<TEXTAREA
+ ID="program_input"
+ ROWS="24" COLS="78">
+//
+#include
+"share/atspre_define.hats"
+//
+(* ****** ****** *)
+//
+#define ATS_DYNLOADFLAG 0
+//
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
+(* ****** ****** *)
+//
+extern
+fun
+fact{n:nat} : int(n) -> int = "mac#"
+//
+implement
+fact(n) = if n > 0 then n * fact(n-1) else 1
+//
+(* ****** ****** *)
+//
+%{$
+/*
+External JS code for testing:
+*/
+alert("fact(12) = " + fact(12));
+//
+%} // end of [%{$]
+</TEXTAREA>
+</td>
+
+<td>
+<br>
+The output generated from the given ATS source:
+<br>
+<br>
+<TEXTAREA
+ ID="program_output"
+ PLACEHOLDER="There is no output yet..."
+ ROWS="24" COLS="78">
+</TEXTAREA>
+</td>
+</tr>
+
+<tr>
+  <td align=left>
+    <button type="button" onclick="program_input_compile()">Submit-for-Compilation(JS)</button>
+  </td>
+  <td align=left>
+    <button type="button" onclick="program_output_evaluate()">Submit-for-Evaluation(JS)</button>
+  </td>
+</tr>
+</table>
+</center>
+
+</form>
+
+<hr>
+
+<table>
+<tr>
+<td style="width: 100%;">
+This page is created with
+<a href="http://www.ats-lang.org">ATS</a>
+by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>
+and also maintained by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>.
+</td>
+<td style="width: 0%;"><!--pushed to the right-->
+<a href="http://sourceforge.net">
+<img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=205722&amp;type=2"
+width="120"
+height="36"
+alt="SourceForge.net Logo"
+/>
+</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

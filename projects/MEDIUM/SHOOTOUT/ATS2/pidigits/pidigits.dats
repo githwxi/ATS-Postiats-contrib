@@ -14,31 +14,33 @@ $(PATSCC) -I${PATSHOMERELOC}/contrib \
 *)
 
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
-staload "libc/SATS/stdio.sats"
-
-staload "{$LIBGMP}/SATS/gmp.sats"
-
+//
+staload
+"libats/libc/SATS/stdio.sats"
+//
+(* ****** ****** *)
+//
+staload
+"contrib/atscntrb-libgmp/SATS/gmp.sats"
+//
 (* ****** ****** *)
 
 local
 
 var t1: mpz
-val ((*void*)) = mpz_init (t1)
+val ((*void*)) = mpz_init(t1)
 var t2: mpz
-val ((*void*)) = mpz_init (t2)
+val ((*void*)) = mpz_init(t2)
 
 in (* in-of-local *)
 

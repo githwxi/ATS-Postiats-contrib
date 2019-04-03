@@ -10,64 +10,93 @@
 //
 (* ****** ****** *)
 //
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
+#include
+"share/atspre_staload.hats"
 //
 (* ****** ****** *)
 
-fun Sum
-  {n:int} (
+fun
+Sum
+{n:int} .<>.
+(
   A: &array(float, n), n: int n
 ) : float = let
 //
-prval () = lemma_array_param (A)
+prval () =
+lemma_array_param (A)
 //
-fun loop
-  {n:int}{i:nat | i <= n} .<n-i>. (
+fun
+loop
+{n:int}
+{i:nat | i <= n} .<n-i>.
+(
   A: &array(float, n), n: int n, i: int i, res: float
 ) :<> float = let
 in
-  if i < n then loop (A, n, i+1, res+A.[i]) else res
+  if i < n then loop(A, n, i+1, res+A.[i]) else res
 end // end of [loop]
 //
 in
-  loop (A, n, 0, 0.0f)
+  loop(A, n, 0, 0.0f)
 end // end of [Sum]
 
 (* ****** ****** *)
-
-staload RG = "{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _(*RG*) = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
-
+//
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-mytesting"
+//
 (* ****** ****** *)
-
+//
+staload RG =
+"{$HX_MYTESTING}/SATS/randgen.sats"
+staload _(*RG*) =
+"{$HX_MYTESTING}/DATS/randgen.dats"
+//
+(* ****** ****** *)
+//
 %{^
-extern double drand48 () ; // HX: excluded from c99
+//
+// HX: excluded from c99
+//
+extern double drand48(/*void*/) ;
 %}
-staload "libc/SATS/stdlib.sats"
-
+//
+staload "libats/libc/SATS/stdlib.sats"
+//
 (* ****** ****** *)
 
 implement
-main0 () = {
+main0((*void*)) =
+{
 //
 #define N 1000
 typedef T = float
-val asz = g1int2uint (N)
+//
+val asz = g1int2uint(N)
 //
 implement
-$RG.randgen_val<T> () = g0float2float (drand48 ())
-val A = $RG.randgen_arrayptr<T> (asz)
-//
-val p = arrayptr2ptr (A)
-prval pfarr = arrayptr_takeout (A)
-val sum = Sum (!p, N)
-prval () = arrayptr_addback (pfarr | A)
-val () = arrayptr_free (A)
-val () =
+$RG.randgen_val<T>
+  () =
 (
-  print "sum of the array = "; print sum; print_newline ()
-) // end of [val]
+  g0float2float(drand48())
+)
+//
+  val A =
+  $RG.randgen_arrayptr<T>(asz)
+//
+  val p0 = arrayptr2ptr(A)
+prval pfarr = arrayptr_takeout(A)
+//
+  val sum = Sum (!p0, N)
+prval () = arrayptr_addback(pfarr | A)
+  val () = arrayptr_free(A)
+  val () =
+  (
+    print "sum of the array = "; print sum; print_newline()
+  ) // end of [val]
 //
 } // end of [main0]
 

@@ -9,7 +9,6 @@ CCOPT=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 ######
 
@@ -17,11 +16,14 @@ PATSCC=$(PATSHOMEQ)/bin/patscc
 PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 ######
-
+#
 CFLAGS :=
-CFLAGS += -I$(PATSHOMERELOCQ)/contrib 
-CFLAGS += $(shell xml2-config --cflags)
-
+#
+CFLAGS +=\
+-I$(PATSHOMEQ)/npm-utils/contrib
+#
+CFLAGS +=$(shell xml2-config --cflags)
+#
 ######
 
 LDFLAGS :=

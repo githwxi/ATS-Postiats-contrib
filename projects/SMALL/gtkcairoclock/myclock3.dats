@@ -14,32 +14,46 @@
 *)
 
 (* ****** ****** *)
-
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
-
+//
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
+//
+(* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN =
+"prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-staload "libc/SATS/math.sats"
+staload
+"libats/libc/SATS/math.sats"
 //
 macdef PI = M_PI and PI2 = PI/2
 //
 (* ****** ****** *)
-
-staload "libc/SATS/time.sats"
-
+//
+staload
+"libats/libc/SATS/time.sats"
+//
 (* ****** ****** *)
-
-staload "{$CAIRO}/SATS/cairo.sats"
-
+//
+staload
+"{$LIBCAIRO}/SATS/cairo.sats"
+//
 (* ****** ****** *)
 
 stadef dbl = double
-stadef cr (l:addr) = cairo_ref l
+stadef cr(l:addr) = cairo_ref(l)
 
 (* ****** ****** *)
 
@@ -216,10 +230,16 @@ typedef char **charptrptr ;
 abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
-
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
+(* ****** ****** *)
+//
 staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
 staload _ = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
-
+//
 (* ****** ****** *)
 
 implement

@@ -27,14 +27,16 @@
 *)
 
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 staload
-STRING = "libc/SATS/string.sats"
+STRING =
+"libats/libc/SATS/string.sats"
 
 (* ****** ****** *)
 
@@ -79,14 +81,16 @@ array_p_set_at
 //
 (* ****** ****** *)
 
-implement{
-} array_p_memcpy
+implement
+{}(*tmp*)
+array_p_memcpy
   (pf1, pf2 | p1, p2, n) = $STRING.memcpy_unsafe (p1, p2, n)
 
 (* ****** ****** *)
 
-implement{
-} array_p_memmove
+implement
+{}(*tmp*)
+array_p_memmove
   (pf1, pf2 | p1, p2, n) = $STRING.memmove_unsafe (p1, p2, n)
 
 (* ****** ****** *)

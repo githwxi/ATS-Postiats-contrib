@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
 ** The M-N-K-game
 *)
-
 (* ****** ****** *)
 
 #define
@@ -13,15 +13,12 @@ ATS_PACKNAME "M_N_K_game"
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
+//
 staload "./game.sats"
 staload "./game_gtkgui.sats"
-
+//
+staload UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 #define PLAYER1 1
@@ -36,8 +33,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := ~1
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -53,8 +54,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := ~1
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -70,8 +75,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -81,18 +90,23 @@ implement the_pid_set (pid) = $PID.set (pid)
 (* ****** ****** *)
 //
 extern
-fun fprint_the_board (FILEref): void
+fun
+fprint_the_board (FILEref): void
+//
 implement
 fprint_the_board (out) =
-  fprint_board (out, game_conf_get_board())
+fprint_board (out, game_conf_get_board())
 //
 (* ****** ****** *)
 //
 extern
-fun the_board_mark_at
+fun
+the_board_mark_at
   (pid: int, i: int, j: int): bool
+//
 extern
-fun the_board_check_at
+fun
+the_board_check_at
   (pid: int, i: int, j: int): bool
 //
 (* ****** ****** *)
@@ -145,10 +159,10 @@ in (* in of [local] *)
 
 implement
 player1_move () =
-  let val () = the_pid_set (PLAYER1) in player_move () end
+  let val () = the_pid_set(PLAYER1) in player_move() end
 implement
 player2_move () =
-  let val () = the_pid_set (PLAYER2) in player_move () end
+  let val () = the_pid_set(PLAYER2) in player_move() end
 
 end // end of [local]
 
@@ -159,7 +173,8 @@ exception WinnerExn of (int(*pid*))
 (* ****** ****** *)
 
 extern
-fun game_mainloop2 ((*void*)): void
+fun
+game_mainloop2 ((*void*)): void
 
 (* ****** ****** *)
 
@@ -178,11 +193,13 @@ in
 end with
   | ~WinnerExn
       (pid) => let
-      val () = fprint_the_board (out)
-      val () = fprint_newline (out)
+      val () =
+        fprint_the_board(out)
+      // end of [val]
+      val () = fprint_newline(out)
       val () = fprintln! (out, "Game Over: Player", pid, " is the winner!")
     in
-      game_finalize ()
+      game_finalize((*void*))
     end // end of [WinnerExn]
 // end of [try-with]
 //
@@ -191,41 +208,53 @@ end (* end of [game_mainloop] *)
 (* ****** ****** *)
 
 implement
-game_mainloop2 () =
+game_mainloop2() =
 {
 //
 val inp = stdin_ref
 val out = stdout_ref
 //
 val () =
-fprint (out, "Player1's turn (x-y): ")
-val () = fileref_flush (out)
-val (i, j) = player1_move ()
-val () = fprintln! (out, i, "-", j)
+fprint(out, "Player1's turn (x-y): ")
 //
-val done = the_board_mark_at (PLAYER1, i, j)
+val () = fileref_flush (out)
+val ij = player1_move ()
+val () = fprintln! (out, ij.0, "-", ij.1)
+//
+val
+done = the_board_mark_at(PLAYER1, ij.0, ij.1)
+//
 val () =
 if not(done)
   then fprintln! (out, "Player1: illegal move!")
 // end of [if]
 //
-val result = the_board_check_at (PLAYER1, i, j)
-val () = if result then $raise WinnerExn(PLAYER1)
+val
+result =
+the_board_check_at(PLAYER1, ij.0, ij.1)
+val () =
+if result then $raise WinnerExn(PLAYER1)
 //
 val () =
-fprint (out, "Player2's turn (x-y): ")
-val () = fileref_flush (out)
-val (i, j) = player2_move ()
-val () = fprintln! (out, i, "-", j)
+fprint(out, "Player2's turn (x-y): ")
 //
-val done = the_board_mark_at (PLAYER2, i, j)
+val () = fileref_flush(out)
+val ij = player2_move()
+val () = fprintln!(out, ij.0, "-", ij.1)
+//
+val
+done = the_board_mark_at(PLAYER2, ij.0, ij.1)
+//
 val () =
 if not(done)
   then fprintln! (out, "Player2: illegal move!")
 // end of [if]
 //
-val result = the_board_check_at (PLAYER2, i, j)
-val () = if result then $raise WinnerExn(PLAYER2)
+val
+result =
+the_board_check_at (PLAYER2, ij.0, ij.1)
+val () =
+if result then $raise WinnerExn(PLAYER2)
 //
 val () = game_mainloop2 ()
 //

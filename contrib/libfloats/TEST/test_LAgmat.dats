@@ -1,6 +1,7 @@
 (* ****** ****** ****** ****** ****** ****** ****** ****** *)
 //
-// Some test for Linear Algebra vector and matrix operations
+// Some test for
+// Linear Algebra vector and matrix operations
 //
 (* ****** ****** ****** ****** ****** ****** ****** ****** *)
 
@@ -78,14 +79,16 @@ val M = 3 and N = 5
 //
 local
 implement
-LAgmat_tabulate$fopr<T> (i, j) = $UN.cast{T}(i+j)
+LAgmat_tabulate$fopr<T>
+  (i, j) = $UN.cast{T}(i+j)
 in
 val A = LAgmat_tabulate<T> (ord, M, N)
 end // end of [local]
 //
 local
 implement
-LAgmat_tabulate$fopr<T> (i, j) = $UN.cast{T}(i+j)
+LAgmat_tabulate$fopr<T>
+  (i, j) = $UN.cast{T}(i+j)
 in
 val B = LAgmat_tabulate<T> (ord, M, N)
 end // end of [local]

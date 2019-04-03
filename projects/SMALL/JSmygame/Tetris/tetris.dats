@@ -14,8 +14,10 @@ ATS_STATIC_PREFIX "tetris__"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME/contrib\
+/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
@@ -80,7 +82,7 @@ theScore_incby(delta)
 function
 theScore_reset(score)
 {
-    document.getElementById("score_well").innerHTML = score;
+  document.getElementById("score_well").innerHTML = score;
 }
 //
 %}

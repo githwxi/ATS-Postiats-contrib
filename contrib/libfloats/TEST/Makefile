@@ -21,7 +21,6 @@ CCOMP=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
 
 ######
 
@@ -43,41 +42,41 @@ cleanall::
 
 all:: test_gemm
 regress:: test_gemm; ./$<
-test_gemm: test_gemm.dats ; \
-  $(PATSCC) -atsccomp $(ATSCCOMP) -IATS $(PATSHOMERELOCQ)/contrib -o $@ $<
+test_gemm: test_gemm.dats ; $(PATSCC) -atsccomp $(ATSCCOMP) -o $@ $<
 cleanall:: ; $(RMF) test_gemm
 
 all:: test_LUPdec
 regress:: test_LUPdec; ./$<
-test_LUPdec: test_LUPdec.dats ; \
-  $(PATSCC) -atsccomp $(ATSCCOMP) -IATS $(PATSHOMERELOCQ)/contrib -o $@ $<
+test_LUPdec: test_LUPdec.dats ; $(PATSCC) -atsccomp $(ATSCCOMP) -o $@ $<
 cleanall:: ; $(RMF) test_LUPdec
 
 all:: test_LUPdec2
 regress:: test_LUPdec2; ./$<
-test_LUPdec2: test_LUPdec2.dats ; \
-  $(PATSCC) -atsccomp $(ATSCCOMP) -IATS $(PATSHOMERELOCQ)/contrib -o $@ $<
+test_LUPdec2: test_LUPdec2.dats ; $(PATSCC) -atsccomp $(ATSCCOMP) -o $@ $<
 cleanall:: ; $(RMF) test_LUPdec2
 
 all:: test_Strassen
 regress:: test_Strassen; ./$<
-test_Strassen: test_Strassen.dats ; \
-  $(PATSCC) -atsccomp $(ATSCCOMP) -IATS $(PATSHOMERELOCQ)/contrib -o $@ $<
+test_Strassen: test_Strassen.dats ; $(PATSCC) -atsccomp $(ATSCCOMP) -o $@ $<
 cleanall:: ; $(RMF) test_Strassen
 
 ######
 
 all:: test_LAgvec
 regress:: test_LAgvec; ./$<
-test_LAgvec: test_LAgvec.dats ; \
-  $(PATSCC) -atsccomp $(ATSCCOMP) -IATS $(PATSHOMERELOCQ)/contrib -o $@ $<
+test_LAgvec: test_LAgvec.dats ; $(PATSCC) -atsccomp $(ATSCCOMP) -o $@ $<
 cleanall:: ; $(RMF) test_LAgvec
 
 all:: test_LAgmat
 regress:: test_LAgmat; ./$<
-test_LAgmat: test_LAgmat.dats ; \
-  $(PATSCC) -atsccomp $(ATSCCOMP) -IATS $(PATSHOMERELOCQ)/contrib -o $@ $<
+test_LAgmat: test_LAgmat.dats ; $(PATSCC) -atsccomp $(ATSCCOMP) -o $@ $<
 cleanall:: ; $(RMF) test_LAgmat
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

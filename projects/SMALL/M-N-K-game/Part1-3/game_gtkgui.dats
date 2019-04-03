@@ -9,8 +9,15 @@ ATS_PACKNAME "M_N_K_game"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
 //
@@ -53,10 +60,15 @@ staload WINDOW =
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize
+(x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 

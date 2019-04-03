@@ -46,7 +46,10 @@ token_null
 implement
 tokbuf_set_ntok_null
   (buf, n0) = let
-  val () = tokbuf_set_ntok (buf, n0) in synent_null ()
+//
+val () =
+  tokbuf_set_ntok(buf, n0) in synent_null()
+//
 end // end of [tokbuf_set_ntok_null]
 
 (* ****** ****** *)
@@ -414,11 +417,13 @@ err > 0
 then (res := list_vt_nil)
 else let
   val () =
-    res := list_vt_cons{a}{0}(x, _)
-  // end of [val]
+  (
+    res :=
+    list_vt_cons{a}{0}(x, _)
+  ) // end of [val]
   val+list_vt_cons(_, res1) = res
   val ((*void*)) = loop (buf, res1, err)
-  prval () = fold@ (res)
+  prval ((*folded*)) = fold@ (res)
 in
   // nothing
 end // end of [else]
@@ -611,7 +616,7 @@ tok.token_node of
     val () = incby1 () in i0dex_make_string (loc, x)
   end // end of [T_IDENT_alp]
 //
-| _ => let
+| _ (*non-IDENT_alp*) => let
     val () = err := err + 1
     val () = the_parerrlst_add_ifnbt (bt, loc, PARERR_i0dex)
   in

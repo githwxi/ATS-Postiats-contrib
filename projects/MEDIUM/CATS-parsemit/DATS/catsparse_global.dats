@@ -27,7 +27,7 @@ staload "./../SATS/catsparse.sats"
 //
 typedef T = fil_t
 //
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+#include "{$HX_GLOBALS}/HATS/gstacklst.hats"
 //
 implement
 the_filename_pop () = pop_exn ()
@@ -64,7 +64,7 @@ staload
 //
 implement hashtbl$recapacitize<> () = 0
 //
-#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_linprb.hats"
+#include "{$HX_GLOBALS}/HATS/ghashtbl_linprb.hats"
 //
 } (* end of [staload] *)
 
@@ -214,6 +214,9 @@ val-~None_vt() = kwordins ("ATSINSstore_fltrec_ofs", ATSINSstore_fltrec_ofs)
 val-~None_vt() = kwordins ("ATSINSmove_delay", ATSINSmove_delay)
 val-~None_vt() = kwordins ("ATSINSmove_lazyeval", ATSINSmove_lazyeval)
 //
+val-~None_vt() = kwordins ("ATSINSmove_ldelay", ATSINSmove_ldelay)
+val-~None_vt() = kwordins ("ATSINSmove_llazyeval", ATSINSmove_llazyeval)
+//
 val-~None_vt() = kwordins ("ATStailcal_beg", ATStailcal_beg)
 val-~None_vt() = kwordins ("ATStailcal_end", ATStailcal_end)
 val-~None_vt() = kwordins ("ATSINSmove_tlcal", ATSINSmove_tlcal)
@@ -235,6 +238,10 @@ val-~None_vt() = kwordins ("ATSdynloadflag_minit", ATSdynloadflag_minit)
 //
 val-~None_vt() = kwordins ("ATSclosurerize_beg", ATSclosurerize_beg)
 val-~None_vt() = kwordins ("ATSclosurerize_end", ATSclosurerize_end)
+//
+val-~None_vt() = kwordins ("ATSdynexn_dec", ATSdynexn_dec)
+val-~None_vt() = kwordins ("ATSdynexn_extdec", ATSdynexn_extdec)
+val-~None_vt() = kwordins ("ATSdynexn_initize", ATSdynexn_initize)
 //
 } (* end of [val] *)
 
@@ -266,7 +273,7 @@ staload "./../SATS/catsparse.sats"
 //
 typedef T = lexerr
 //
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+#include "{$HX_GLOBALS}/HATS/gstacklst.hats"
 //
 implement
 the_lexerrlst_insert (x) = push (x)
@@ -289,13 +296,14 @@ staload "./../SATS/catsparse_parsing.sats"
 //
 typedef T = parerr
 //
-#include "{$LIBATSHWXI}/globals/HATS/gstacklst.hats"
+#include
+"{$HX_GLOBALS}/HATS/gstacklst.hats"
 //
 implement
-the_parerrlst_insert (x) = push (x)
+the_parerrlst_insert(x) = push(x)
 //
 implement
-the_parerrlst_pop_all () = pop_all ()
+the_parerrlst_pop_all() = pop_all()
 //
 } (* end of [staload] *)
 

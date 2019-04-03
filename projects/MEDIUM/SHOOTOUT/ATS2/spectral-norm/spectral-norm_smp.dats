@@ -23,8 +23,6 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -47,15 +45,18 @@ $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_LIBC \
 %} // end of [%{^]
 
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
-
-staload "libc/SATS/math.sats"
-staload _ = "libc/DATS/math.dats"
-
+//
+staload
+"libats/libc/SATS/math.sats"
+staload _ =
+"libats/libc/DATS/math.dats"
+//
 (* ****** ****** *)
 //
 abst@ype __m128d = $extype"__m128d"
@@ -108,10 +109,18 @@ fun{} mult_Av_one
 //
 (* ****** ****** *)
 //
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+//
+(* ****** ****** *)
+//
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/nwaiter.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/nwaiter.sats"
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/parallelize.sats"
+"{$LIBATSHWXI}/teaching\
+/mythread-0.3.2/SATS/parallelize.sats"
 //
 (* ****** ****** *)
 
@@ -240,25 +249,28 @@ mult_AtAv (v0, out, n, tmp) =
 
 (* ****** ****** *)
 //
+staload _ = "libats/DATS/athread.dats"
+//
+staload _ = "libats/DATS/deqarray.dats"
+staload _ = "libats/DATS/athread_posix.dats"
+//
+(* ****** ****** *)
+//
 staload
-"{$LIBATSHWXI}/teaching/mythread/SATS/workshop.sats"
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/SATS/workshop.sats"
 //  
 (* ****** ****** *)
 //
-staload _ = "libats/DATS/deqarray.dats"
 staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/channel.dats"
 //
 staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/nwaiter.dats"
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/nwaiter.dats"
 staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/parallelize.dats"
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/parallelize.dats"
 //
 staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/workshop.dats"
-//
-staload _ = "libats/DATS/athread.dats"
-staload _ = "libats/DATS/athread_posix.dats"
+"{$LIBATSHWXI}/teaching/mythread-0.3.2/DATS/workshop.dats"
 //
 (* ****** ****** *)
 

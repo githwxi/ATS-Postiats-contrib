@@ -5,14 +5,12 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 //
-staload UN =
-"prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 
@@ -28,6 +26,7 @@ staload
 //
 (* ****** ****** *)
 //
+staload _ = "libats/DATS/qlist.dats"
 staload _ = "libats/DATS/hashfun.dats"
 staload _ = "libats/DATS/hashtbl_linprb.dats"
 //
@@ -65,7 +64,9 @@ fun loop
 ) : ulint = let
 in
 //
-if i < n then let
+if
+(i < n)
+then let
   val res = K * res + $UN.cast{ulint}(str[i])
 in
   loop (succ(i), res)
@@ -74,7 +75,7 @@ end else (res) // end of [if]
 end // end of [loop]
 //
 in
-  $effmask_all (loop (i2sz(0), 31415926536UL))
+  $effmask_all(loop(i2sz(0), 31415926536UL))
 end // end of [hash_key]
 //
 implement
@@ -84,9 +85,15 @@ implement(itm)
 hashtbl_linprb_keyitm_is_null<strarr,itm> (kx) = ($UN.cast2ptr(kx.0) = 0)
 //
 in (* in of [local] *)
-
-#include "{$LIBATSHWXI}/globals/HATS/ghashtbl_linprb.hats"
-
+//
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
+#include
+"{$HX_GLOBALS}/HATS/ghashtbl_linprb.hats"
+//
 end // end of [local]
 
 (* ****** ****** *)
@@ -95,13 +102,21 @@ end // end of [local]
 
 (* ****** ****** *)
 
-val () = // initialization
+val () = let // initialization
+//
+val opt =
+fileref_open_opt(WORDS, file_mode_r)
+//
+in
+//
+case+ opt of
+| ~None_vt() => ()
+| ~Some_vt(filr) =>
 {
 //
-val-~Some_vt(filr) =
-  fileref_open_opt (WORDS, file_mode_r)
-//
-val () = let
+val () =
+loop(filr) where
+{
 //
 fun loop
 (
@@ -112,10 +127,10 @@ in
   if isnot
     then let
       val str =
-        fileref_get_line_string (filr)
-      val str2 = strarr_make_string ($UN.castvwtp1{string}(str))
-      val ((*void*)) = strptr_free (str)
-      val-~None_vt() = insert_opt (str2, 1)
+        fileref_get_line_string(filr)
+      val str2 = strarr_make_string($UN.castvwtp1{string}(str))
+      val ((*void*)) = strptr_free(str)
+      val-~None_vt() = insert_opt(str2, 1)
     in
       loop (filr)
     end // end of [then]
@@ -123,21 +138,21 @@ in
   // end of [if]
 end // end of [loop]
 //
-in
-  loop (filr)
-end // end of [val]
-//
-val ((*void*)) = fileref_close (filr)
-//
 } (* end of [val] *)
+//
+val ((*void*)) = fileref_close(filr)
+//
+} (* end of [Some_vt] *)
+//
+end // end of [initialization] *)
 
 (* ****** ****** *)
 
 implement
-word_is_legal (w) = let
+word_is_legal(w) = let
   val cp = search_ref (w)
 in
-  if cptr2ptr (cp) > 0 then true else false
+  if cptr2ptr(cp) > 0 then true else false
 end // end of [word_is_legal]
 
 (* ****** ****** *)

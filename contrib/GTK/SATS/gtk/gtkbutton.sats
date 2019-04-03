@@ -23,10 +23,9 @@ fun gtk_button_new_from_stock
 //
 fun
 gtk_button_get_label
-  {l:agz} (button: !GtkButton (l))
-: [l2:agez] (
-  minus (GtkButton (l), gstrptr (l2)) | gstrptr (l2)
-) = "mac#%" // endfun
+  {l:agz}
+  (button: !GtkButton(l))
+: [l2:agez] vtget1(GtkButton(l), gstrptr(l2)) = "mac#%"
 
 (* ****** ****** *)
 

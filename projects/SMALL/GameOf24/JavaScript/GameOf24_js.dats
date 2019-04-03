@@ -10,31 +10,32 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
 //
-#define ATS_DYNLOADFLAG 0
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
 #include
 "{$LIBATSCC2JS}/staloadall.hats"
 //
-staload
+#staload
 "{$LIBATSCC2JS}/SATS/Node.js/basics.sats"
-staload
+#staload
 "{$LIBATSCC2JS}/SATS/Node.js/fprint.sats"
-staload
+#staload
 "{$LIBATSCC2JS}/SATS/Node.js/process.sats"
 //
 (* ****** ****** *)
 //
-staload "./GameOf24_js.sats"
+#staload "./GameOf24_js.sats"
 //
-staload
-"{$LIBATSCC2JS}/DATS/basics.dats"
+#staload "{$LIBATSCC2JS}/DATS/basics.dats"
 //
 (* ****** ****** *)
 
@@ -134,8 +135,8 @@ card_val= v, card_node= CARDdiv (c1, c2)
 
 implement
 fprint_card
-  (out, c0) = let
-in
+  (out, c0) =
+(
 //
 case+ c0.card_node of
 | CARDint (v) => fprint! (out, "CARDint(", v, ")")
@@ -144,7 +145,7 @@ case+ c0.card_node of
 | CARDmul (c1, c2) => fprint! (out, "CARDmul(", c1, ", ", c2, ")")
 | CARDdiv (c1, c2) => fprint! (out, "CARDdiv(", c1, ", ", c2, ")")
 //
-end // end of [fprint_card]
+) // end of [fprint_card]
 
 (* ****** ****** *)
 

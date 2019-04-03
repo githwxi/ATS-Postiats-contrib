@@ -34,10 +34,12 @@
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
 //
 staload
-STRING = "libc/SATS/string.sats"
+STRING =
+"libats/libc/SATS/string.sats"
 //
 (* ****** ****** *)
 
@@ -45,7 +47,8 @@ staload "./../SATS/evp.sats"
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fprint_mdval{n}
   (out, mdval, mdlen) = let
 //
@@ -68,7 +71,8 @@ end // end of [fprint_mdval]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 EVP_Digestize_string
   (dname, src, asz) = let
 //
@@ -120,7 +124,8 @@ end // end of [EVP_Digestize_string]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 EVP_Digestize_fileref
   (dname, inp, asz) = let
 //
@@ -172,7 +177,8 @@ end // end of [EVP_Digestize_fileref]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 EVP_DigestUpdate_string
   (ctx, src) = let
   val [n:int] src = g1ofg0 (src)
@@ -183,7 +189,8 @@ end // end of [EVP_DigestUpdate_string]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 EVP_DigestUpdate_fileref
   (ctx, inp) = let
 //

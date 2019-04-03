@@ -23,8 +23,6 @@ $(PATSCC) -DATS_MEMALLOC_LIBC \
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -36,14 +34,17 @@ $(PATSCC) -DATS_MEMALLOC_LIBC \
 %} // end of [%{^]
 
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
-staload "libc/SATS/math.sats"
-staload _ = "libc/DATS/math.dats"
+staload
+"libats/libc/SATS/math.sats"
+staload _ =
+"libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 //

@@ -26,7 +26,8 @@
 
 /* ****** ****** */
 
-#include "kernelats/pats_ccomp.h"
+#include \
+"kernelats/ccomp/pats_ccomp.h"
 
 /* ****** ****** */
 //
@@ -34,6 +35,17 @@
 "kernelats/prelude/CATS/integer.cats"
 #include \
 "kernelats/prelude/CATS/pointer.cats"
+//
+/* ****** ****** */
+//
+#include \
+"kernelats/prelude/CATS/integer_long.cats"
+#include \
+"kernelats/prelude/CATS/integer_size.cats"
+#include \
+"kernelats/prelude/CATS/integer_short.cats"
+//
+/* ****** ****** */
 //
 #include "kernelats/prelude/CATS/bool.cats"
 #include "kernelats/prelude/CATS/char.cats"
@@ -46,7 +58,8 @@
 /* ****** ****** */
 //
 #include <linux/types.h>
-#include \
+//
+#include					\
 "kernelats/prelude/CATS/integer_fixed.cats"
 //
 /* ****** ****** */

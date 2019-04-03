@@ -9,21 +9,22 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+ATS_DYNLOADFLAG 0
 //
 (* ****** ****** *)
 //
-#define ATS_DYNLOADFLAG 0
+#define
+LIBATSCC2PHP_targetloc
+"$PATSHOME\
+/contrib/libatscc2php/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
 #include
 "{$LIBATSCC2PHP}/staloadall.hats"
 //
-(* ****** ****** *)
-//
-staload
+#staload
 "{$LIBATSCC2PHP}/DATS/basics.dats"
 //
 (* ****** ****** *)

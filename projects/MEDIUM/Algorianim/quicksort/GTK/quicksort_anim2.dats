@@ -3,6 +3,13 @@
 //
 (* ****** ****** *)
 //
+#define
+LIBCAIRO_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libcairo"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include
@@ -10,35 +17,36 @@
 //
 (* ****** ****** *)
 //
-staload
+#staload
 UN = "prelude/SATS/unsafe.sats"
 //
-staload "libats/ML/SATS/basis.sats"
-staload "libats/ML/SATS/list0.sats"
-staload "libats/ML/SATS/array0.sats"
+#staload "libats/ML/SATS/basis.sats"
+#staload "libats/ML/SATS/list0.sats"
+#staload "libats/ML/SATS/array0.sats"
 //
-staload _ = "libats/ML/DATS/list0.dats"
-staload _ = "libats/ML/DATS/array0.dats"
-//
-(* ****** ****** *)
-//
-staload "libats/SATS/hashfun.sats"
-staload "libats/SATS/hashtbl_chain.sats"
-//
-staload _ = "libats/DATS/hashfun.dats"
-staload _ = "libats/DATS/hashtbl_chain.dats"
+#staload _ = "libats/ML/DATS/list0.dats"
+#staload _ = "libats/ML/DATS/array0.dats"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _ =
-"{$LIBATSHWXI}/testing/DATS/randgen.dats"
+#staload "libats/SATS/hashfun.sats"
+#staload "libats/SATS/hashtbl_chain.sats"
+//
+#staload _ = "libats/DATS/hashfun.dats"
+#staload _ = "libats/DATS/hashtbl_chain.dats"
 //
 (* ****** ****** *)
 //
-staload
-"{$LIBATSHWXI}/teaching/BUCS/DATS/BUCS.dats"
+#staload
+"{$HX_MYTESTING}/SATS/randgen.sats"
+#staload _ =
+"{$HX_MYTESTING}/DATS/randgen.dats"
+//
+(* ****** ****** *)
+//
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/BUCS/DATS/BUCS320.dats"
 //
 (* ****** ****** *)
 
@@ -227,29 +235,39 @@ end // end of [local]
 
 (* ****** ****** *)
 //
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload "{$LIBCAIRO}/SATS/cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw.sats"
-staload "{$LIBATSHWXI}/teaching/mydraw/SATS/mydraw_cairo.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw.sats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/SATS/mydraw_cairo.sats"
 //
-staload "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_bargraph.dats"
+#staload
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_bargraph.dats"
 //
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw.dats"
-staload _(*anon*) = "{$LIBATSHWXI}/teaching/mydraw/DATS/mydraw_cairo.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw.dats"
+#staload _ =
+"{$PATSHOME}/npm-utils/contrib\
+/libats-hwxi/teaching/mydraw/DATS/mydraw_cairo.dats"
 //
 (* ****** ****** *)
 //
-staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
-staload "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
+#staload "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
 //
-staload CP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/ControlPanel.dats"
-staload DP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/DrawingPanel.dats"
-staload MAIN = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_main.dats"
-staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_timer.dats"
+#staload CP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/ControlPanel.dats"
+#staload DP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/DrawingPanel.dats"
+#staload MAIN = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_main.dats"
+#staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_timer.dats"
 //
 (* ****** ****** *)
 
-dynload "./gtkcairotimer_toplevel.dats"
+#dynload "./gtkcairotimer_toplevel.dats"
 
 (* ****** ****** *)
 

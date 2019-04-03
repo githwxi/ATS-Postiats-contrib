@@ -17,12 +17,19 @@
 *)
 
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 staload
@@ -30,7 +37,7 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 
@@ -58,10 +65,12 @@ triangle = @{
 } // end of [triangle]
 
 (* ****** ****** *)
-
-staload TIME = "libc/SATS/time.sats"
-staload STDLIB = "libc/SATS/stdlib.sats"
-
+//
+staload
+TIME = "libats/libc/SATS/time.sats"
+staload
+STDLIB = "libats/libc/SATS/stdlib.sats"
+//
 (* ****** ****** *)
 
 extern
@@ -115,6 +124,12 @@ extern double drand48 (/*void*/) ;
 %} ;
 abstype charptrptr = $extype"charptrptr"
 
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
 (* ****** ****** *)
 
 staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"

@@ -102,7 +102,7 @@ Z3_solver_get_model
   ctx: !Z3_context, s: !Z3_solver l
 ) : [l2:addr]
 (
-  minus (Z3_solver l, Z3_model l2) | Z3_model l2
+  minus_vt(Z3_solver l, Z3_model l2) | Z3_model l2
 ) = "mac#%" // end of [Z3_solver_get_model]
 
 fun Z3_mk_tactic

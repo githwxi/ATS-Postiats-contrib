@@ -14,7 +14,7 @@ CCOPT=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -37,102 +37,108 @@ RMF=rm -f
 
 ######
 
-all:: test01
+all:: \
+test01
 test01: test01.exe
 test01.exe: test01_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
 test01_dats.c: test01.dats ; \
   $(PATSOPT) --output test01_dats.c --dynamic test01.dats
-clean:: ; $(RMF) test01_dats.o
-clean:: ; $(RMF) test01_dats.c
+regress:: test01.exe; ./$<
 cleanall:: ; $(RMF) test01.exe
 
-all:: test02
+all:: \
+test02
 test02: test02.exe
 test02.exe: test02_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
 test02_dats.c: test02.dats ; \
   $(PATSOPT) --output test02_dats.c --dynamic test02.dats
-clean:: ; $(RMF) test02_dats.o
-clean:: ; $(RMF) test02_dats.c
+regress:: test02.exe; ./$<
 cleanall:: ; $(RMF) test02.exe
 
-all:: test03
+all:: \
+test03
 test03: test03.exe
 test03.exe: test03_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
 test03_dats.c: test03.dats ; \
   $(PATSOPT) --output test03_dats.c --dynamic test03.dats
-clean:: ; $(RMF) test03_dats.o
-clean:: ; $(RMF) test03_dats.c
+regress:: test03.exe; ./$<
 cleanall:: ; $(RMF) test03.exe
 
-all:: test04
+all:: \
+test04
 test04: test04.exe
 test04.exe: test04_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
 test04_dats.c: test04.dats ; \
   $(PATSOPT) --output test04_dats.c --dynamic test04.dats
-clean:: ; $(RMF) test04_dats.o
-clean:: ; $(RMF) test04_dats.c
+regress:: test04.exe; ./$<
 cleanall:: ; $(RMF) test04.exe
 
-all:: test05
+all:: \
+test05
 test05: test05.exe
 test05.exe: test05_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
 test05_dats.c: test05.dats ; \
   $(PATSOPT) --output test05_dats.c --dynamic test05.dats
-clean:: ; $(RMF) test05_dats.o
-clean:: ; $(RMF) test05_dats.c
+regress:: test05.exe; ./$<
 cleanall:: ; $(RMF) test05.exe
 
-all:: test06
+all:: \
+test06
 test06: test06.exe
 test06.exe: test06_dats.c ; \
   $(CCOPT) $(CCFLAGS) \
     -I$(PATSHOMEQ) \
     -I$(PATSHOMEQ)/ccomp/runtime \
-    -I$(PATSHOMERELOCQ)/contrib \
+    -I$(PATSCONTRIBQ)/contrib \
     $(MYSQLCFLAGS) \
     -o $@ $< \
     $(MYSQLLIBS) 
 test06_dats.c: test06.dats ; \
   $(PATSOPT) --output test06_dats.c --dynamic test06.dats
-clean:: ; $(RMF) test06_dats.o
-clean:: ; $(RMF) test06_dats.c
+regress:: test06.exe; ./$<
 cleanall:: ; $(RMF) test06.exe
 
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

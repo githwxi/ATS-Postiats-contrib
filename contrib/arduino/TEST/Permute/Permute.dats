@@ -4,9 +4,12 @@
 #
 *)
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
+//
+#define
+ATS_DYNLOADFLAG 0
+#define
+ARDUINO_targetloc "./../.."
+//
 (* ****** ****** *)
 //
 #include
@@ -54,13 +57,13 @@ permute_next
 fun
 loop
 (
-  i: natLt(n)
+ i: natLt(n)
 ) : natLt(n) =
 (
 if
 i > 0
 then
-  if A[i] < A[i-1] then loop (i-1) else i
+  if A[i] < A[i-1] then loop(i-1) else i
 else 0
 ) (* end of [loop] *)
 //
@@ -69,9 +72,10 @@ val i0 = loop (n0-1)
 //
 val () = let
   val (vbox pf | p) =
-    arrayref_get_viewptr (A)
+    arrayref_get_viewptr(A)
+  // end of [val]
 in
-  array_subreverse (!p, i2sz(i0), i2sz(n0))
+  array_subreverse(!p, i2sz(i0), i2sz(n0))
 end // end of [val]
 //
 in
@@ -80,14 +84,19 @@ if
 i0 > 0
 then let
   val i1 = i0 - 1
-  fun loop2
-    (i: natLt(n), x1: int): void =
+  fun
+  loop2
+  (
+   i: natLt(n), x1: int
+  ) : void =
+  (
     if x1 < A[i]
       then (A[i1] := A[i]; A[i] := x1)
       else loop2 ($UN.cast{natLt(n)}(i+1), x1)
     // end of [if]
+  ) (* end of [loop2] *)
 in
-  loop2 (i0, A[i1])
+  loop2(i0, A[i1])
 end // end of [then]
 else () // end of [else]
 //
@@ -123,17 +132,19 @@ fprint_val<int>
 //
 (*
 implement
-fprint_string (out, x) = Serial_ptr.print(x)
+fprint_string
+  (out, x) = Serial_ptr.print(x)
 *)
 (* ****** ****** *)
 //
 implement
-fprint_array$sep<> (out) = ()
+fprint_array$sep<> (out) = ((*void*))
 //
 (* ****** ****** *)
 //
 extern
-fun loop (): void = "mac#"
+fun
+loop(): void = "mac#"
 //
 implement
 loop () =
@@ -143,18 +154,18 @@ fun
 myloop(): void = let
 //
 val
-out = $extval (FILEref, "0")
+out = $extval(FILEref, "0")
 //
 (*
 val () =
 randomSeed($UN.cast{uint}(millis()))
 *)
 //
-val A = theArray
-val () = fprint_arrayref (out, A, i2sz(N))
+val A0 = theArray
+val () = fprint_arrayref(out, A0, i2sz(N))
 val () = Serial_ptr.println()
 //
-val () = permute_next (A, N)
+val () = permute_next(A0, N)
 //
 val () = digitalWrite(LEDPIN, 1)
 val () = delay(250)
@@ -162,7 +173,7 @@ val () = digitalWrite(LEDPIN, 0)
 val () = delay(1000)
 //
 in
-  myloop ()
+  myloop((*void*))
 end // end of [myloop]
 //
 } (* end of [loop] *)

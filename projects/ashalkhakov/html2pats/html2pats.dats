@@ -14,18 +14,20 @@
 "share/atspre_staload.hats"
 //
 #define
-LIBXML2_targetloc "$PATSHOMERELOC/contrib/libxml2/libxml"
+LIBXML2_targetloc
+"$PATSHOME/npm-utils\
+/contrib/atscntrb-libxml2/libxml"
 //
 (* ****** ****** *)
 //
-staload "{$LIBXML2}/SATS/xml0.sats"
-staload _ = "{$LIBXML2}/DATS/xml0.dats"
-//
+#include "{$LIBXML2}/mylibies.hats"
+
 (* ****** ****** *)
 
-staload "{$LIBXML2}/SATS/tree.sats"
-staload "{$LIBXML2}/SATS/parser.sats"
-staload "{$LIBXML2}/SATS/HTMLparser.sats"
+#staload $LIBXML2_xml0
+#staload $LIBXML2_tree
+#staload $LIBXML2_parser
+#staload $LIBXML2_HTMLparser
 
 (* ****** ****** *)
 
@@ -700,7 +702,7 @@ in
     // - otherwise: just print it
     //   - look out for text nodes, these might contain what we want to use
     //     - similarly to attribute values, these might contain stuff we want to use
-    val name = __name (node)
+    val name = node.name()
     val name = xmlString2string (name)
   in
     case+ 0 of
@@ -722,7 +724,7 @@ in
         val () = emit_dynargs (out, dynargs, false)
         val () = fprintln! (out, " where {")
         // recur
-        val (fpf | nodelst) = __children (node)
+        val (fpf | nodelst) = node.children()
         val () = auxNode (out, doc, nodelst, nspace+2)
         prval () = minus_addback (fpf, nodelst | node)
         // end
@@ -766,7 +768,7 @@ in
         val () = strnptr_free (tmpargs)
         val () = strnptr_free (dynargs)
         // recur
-        val (fpf | nodelst) = __children (node)
+        val (fpf | nodelst) = node.children()
         val () = auxNode (out, doc, nodelst, nspace+2)
         prval () = minus_addback (fpf, nodelst | node)
         // end
@@ -778,7 +780,7 @@ in
       val () = indent (out, nspace)
       val () = fprintln! (out, "val () = htmlprint_tagname (out, \"", name, "\")")
     //
-      val (fpf | proplst) = __properties (node)
+      val (fpf | proplst) = node.properties()
       val () = auxAttr (out, doc, proplst, nspace)
       prval () = minus_addback (fpf, proplst | node)
     //
@@ -787,7 +789,7 @@ in
     //
       val () = indent (out, nspace)
       val () = fprintln!(out, "val () = {")
-      val (fpf | nodelst) = __children (node)
+      val (fpf | nodelst) = node.children()
       val () = auxNode (out, doc, nodelst, nspace+2)
       prval () = minus_addback (fpf, nodelst | node)
       val () = indent (out, nspace)
@@ -796,7 +798,7 @@ in
       val () = indent (out, nspace)
       val () = fprintln! (out, "val () = htmlprint_tagend (out, \"", name, "\")")
     //
-      val (fpf | node_next) = __next (node)
+      val (fpf | node_next) = node.next()
       val () = auxNode (out, doc, node_next, nspace)
       prval () = minus_addback (fpf, node_next | node)
     //
@@ -832,7 +834,7 @@ in
     // list of whatever(identifiers) separated by , and ; // for dynargs, tmpargs, ats-dynargs
     val () = strnptr_free (text)
     val () = fprintln!(out)
-    val (fpf | node_next) = __next (node)
+    val (fpf | node_next) = node.next()
     val () = auxNode (out, doc, node_next, nspace)
     prval () = minus_addback (fpf, node_next | node)
   in
@@ -848,7 +850,7 @@ in
     val () = strptr_free (text)
     val () = indent (out, nspace)
     val () = fprintln!(out, "val () = htmlprint_comend (out)")
-    val (fpf | node_next) = __next (node)
+    val (fpf | node_next) = node.next()
     val () = auxNode (out, doc, node_next, nspace)
     prval () = minus_addback (fpf, node_next | node)
   in
@@ -856,7 +858,7 @@ in
     // otherwise, skip!
     val () = fprintln!(out, "unknown node type!")
     val () = fprintln!(out, $UNSAFE.castvwtp0{int}(nodetype))
-    val (fpf | node_next) = __next (node)
+    val (fpf | node_next) = node.next()
     val () = auxNode (out, doc, node_next, nspace)
     prval () = minus_addback (fpf, node_next | node)
   in
@@ -877,7 +879,7 @@ and auxAttr {l0:agz;l1:agez}
 in
 //
 if p_attr > 0 then let
-  val name = __name (attr)
+  val name = attr.name()
   val name = xmlString2string (name)
 //
   val () =
@@ -885,7 +887,7 @@ if p_attr > 0 then let
   | _ when name = ATS_DYNARGS_TOP => ()
   | _ => {
     // NOTE: some special attributes should not be parsed this way!
-    val (fpf_children | children) = __children (attr)
+    val (fpf_children | children) = attr.children()
     val value = xmlNodeListGetString (doc, children, 1)
     val value = xmlStrptr2strptr (value)
     val value = strptr2strnptr (value)
@@ -918,7 +920,7 @@ if p_attr > 0 then let
     prval () = minus_addback (fpf_children, children | attr)
   }
 //
-  val (fpf | attr2) = __next (attr)
+  val (fpf | attr2) = attr.next()
   val () = auxAttr (out, doc, attr2, nspace)
   prval () = minus_addback (fpf, attr2 | attr)
 in

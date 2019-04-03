@@ -16,9 +16,10 @@
 staload UN = $UNSAFE
 
 (* ****** ****** *)
-
-staload "libc/SATS/stdlib.sats"
-
+//
+staload
+"libats/libc/SATS/stdlib.sats"
+//
 (* ****** ****** *)
 
 staload "{$ZEROMQ}/SATS/zmq.sats"

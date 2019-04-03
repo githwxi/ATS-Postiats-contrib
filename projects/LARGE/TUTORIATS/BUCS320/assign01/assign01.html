@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BUCASCS320-assign01</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style type="text/css">
+  .patsyntax {width:100%;margin:auto;}
+  .patsyntax {color:#808080;background-color:#E0E0E0;}
+  .patsyntax span.keyword {color:#000000;font-weight:bold;}
+  .patsyntax span.comment {color:#787878;font-style:italic;}
+  .patsyntax span.extcode {color:#A52A2A;}
+  .patsyntax span.neuexp  {color:#800080;}
+  .patsyntax span.staexp  {color:#0000F0;}
+  .patsyntax span.prfexp  {color:#603030;}
+  .patsyntax span.dynexp  {color:#F00000;}
+  .patsyntax span.stalab  {color:#0000F0;font-style:italic}
+  .patsyntax span.dynlab  {color:#F00000;font-style:italic}
+  .patsyntax span.dynstr  {color:#008000;font-style:normal}
+  .patsyntax span.stacstdec  {text-decoration:none;}
+  .patsyntax span.stacstuse  {color:#0000CF;text-decoration:underline;}
+  .patsyntax span.dyncstdec  {text-decoration:none;}
+  .patsyntax span.dyncstuse  {color:#B80000;text-decoration:underline;}
+  .patsyntax span.dyncst_implement  {color:#B80000;text-decoration:underline;}
+</style>
+<script
+ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script
+ src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+</script>
+<script
+ src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/libatscc2js/libatscc2js_print_store_cats.js">
+</script>
+<script
+ src="https://ats-lang.github.io/LIBRARY/ats2langweb/pats2xhtmlize_dats.js">
+</script>
+</head>
+<body>
+
+<div
+ class="container-fluid">
+
+<h1>BUCASCS320</h1>
+
+The following assignment shows some basic steps involved in
+compiling a single-file ATS program.
+
+<h1>Assignment #1</h1>
+
+<p>
+Please implement a function ##fun("isTriangle") that determines
+whether three given integers ##arg("x"), ##arg("y"), and #arg("z") can
+form a triangle. The interface for ##fun("isTriangle") is given as follows:
+</p>
+
+<p>
+<sats2xhtml>//
+fun
+isTriangle
+  (x: int, y: int, z: int) : bool
+//</sats2xhtml>
+</p>
+
+<p>
+Note that three numbers can form the three sides of a triangle
+if and only if the sum of any two of them exceeds the remaining one.
+</p>
+
+<hr></hr>
+
+<p>
+An implementation of ##fun("isTriangle") is given as follows:
+</p>
+
+<table
+ class="table">
+<thead>
+<tr>
+<th class="text-center" width="50%">Source</th>
+<th class="text-center" width="50%">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">
+<button
+ type="button"
+ id="assign01_patssrc_saveAs_button"
+ onclick="assign02_patssrc_saveAs_onclick('assign01')"
+>saveAs</button>
+<input
+ type="text"
+ id="assign01_patssrc_saveAs_input"
+ size=18 maxlength=32 placeholder="assign01_sol.dats"></input>
+</td>
+<td align="center">
+</td>
+</tr>
+<tr
+ id="assign01_table_tr1">
+<td
+ align="center">
+<textarea
+ id="assign01_source"
+ rows=24 cols=72
+ spellcheck="false">//
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "my_dynload"
+//
+#include
+"share/atspre_define.hats"
+#include
+"{$LIBATSCC2JS}/staloadall.hats"
+//
+staload
+"{$LIBATSCC2JS}/SATS/print.sats"
+//
+%{$
+//
+ats2jspre_the_print_store_clear();
+my_dynload();
+alert(ats2jspre_the_print_store_join());
+//
+%} // end of [%{$]
+//
+extern
+fun
+isTriangle
+  (x: int, y: int, z: int) : bool
+//
+implement
+isTriangle
+  (x, y, z) = (
+//
+ifcase
+  | x + y <= z => false | y + z <= x => false
+  | z + x <= y => false | _ (* else *) => true
+// end of [ifcase]
+) (* isTriangle *)
+//
+val () =
+println! ("isTriangle(1,3,5) = ", isTriangle(1,3,5))
+val () =
+println! ("isTriangle(3,4,5) = ", isTriangle(3,4,5))
+//</textarea>
+</td>
+<td align="center">
+<textarea
+ id="assign01_output"
+ rows=24 cols=80
+ spellcheck="false"
+ placeholder="The output goes here...">
+</textarea>
+</td>
+</tr>
+<tr
+ id="assign01_table_tr2"
+ hidden="hidden">
+<td align="center">
+<pre
+ class="text-left"
+ id="assign01_source2">source2
+</pre>
+</td>
+<td align="center">
+<div
+ class="text-left"
+ id="assign01_output2">output2
+</div>
+</td>
+</tr>
+<tr>
+<td align="center">
+<button
+ type="button"
+ id="assign01_patsopt_tc_button"
+ onclick="assign02_patsopt_tc_onclick('assign01')"
+>patsopt_tc</button>
+<button
+ type="button"
+ id="assign01_patsopt_cc_button"
+ onclick="assign02_patsopt_cc_onclick('assign01')"
+>patsopt_cc</button>
+<button
+ type="button"
+ id="assign01_patsopt_cc2js_button"
+ onclick="assign02_patsopt_cc2js_onclick('assign01')"
+>patsopt_cc2js</button>
+<button
+ type="button"
+ id="assign01_pats2xhtml_button"
+ onclick="assign02_pats2xhtml_toggle_onclick('assign01')"
+>pats2xhtml-toggle</button>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<hr></hr>
+
+<p>
+The functionalities of the above buttons
+can be briefly described as follows:
+</p>
+<ul>
+<li> Patsopt-tc: for typechecking ATS code.
+<li> Patsopt-cc: for typechecking and compiling ATS code to C.
+<li> Patsopt-cc2js: for compiling ATS code to JS and then evaluating the JS code.
+<li> Pats2xhtml-toggle: for syntax-hiliting ATS code and adding/removing line numbers.
+</ul>
+
+<hr></hr>
+
+<p>
+The Python3 code generating this page is prepared with atscc2py3.
+</p>
+
+</div>
+
+<script
+ src="https://ats-lang.github.io/LIBRARY/libtutoriats/libtutoriats_assign02_patsopt_services_dats.js">
+</script>
+<script>
+$(document).ready(function(){pats2xhtmlize_process_all();return;});
+$(document).ready(function(){assign02_patsopt_services_initize("assign01");return;});
+</script>
+</body>
+</html>

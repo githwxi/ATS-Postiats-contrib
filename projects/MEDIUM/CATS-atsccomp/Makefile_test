@@ -4,20 +4,18 @@
 
 ######
 
-SUBDIRS :=
+all::
+  
+######
 
-SUBDIRS += CATS-atscc2js
-SUBDIRS += CATS-atscc2erl
-SUBDIRS += CATS-atscc2pl
-SUBDIRS += CATS-atscc2py
-SUBDIRS += CATS-atscc2php
+SUBDIRS :=
 
 ######
 #
-testall:: ; \
+all:: ; \
 $(MAKE) -C ./../CATS-parsemit DATS_C
 #
-testall:: ; \
+all:: ; \
 for i in $(SUBDIRS); do $(MAKE) -C $$i -f Makefile testall; done
 #
 ######

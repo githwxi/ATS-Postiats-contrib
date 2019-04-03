@@ -13,14 +13,10 @@ ATS_PACKNAME "M_N_K_game"
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
+//
 staload "./game.sats"
-
+staload UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 #define PLAYER1 1
@@ -35,8 +31,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := ~1
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -52,8 +52,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := ~1
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 

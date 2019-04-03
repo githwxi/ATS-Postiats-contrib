@@ -19,13 +19,16 @@ staload UN = $UNSAFE
 
 (* ****** ****** *)
 
-staload "./../SATS/catsparse.sats"
-staload "./../SATS/catsparse_parsing.sats"
+staload
+"./../SATS/catsparse.sats"
+staload
+"./../SATS/catsparse_parsing.sats"
 
 (* ****** ****** *)
-
-implement abort() = $raise(FatalErrorExn())
-
+//
+implement abort() =
+  let val () = ($raise(FatalErrorExn())): void in () end
+//
 (* ****** ****** *)
 
 (* end of [catsparse_error.dats] *)

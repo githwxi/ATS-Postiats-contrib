@@ -38,14 +38,16 @@
 
 (* ****** ****** *)
 
-#include "share/atspre_define.hats"
+#include
+"share/atspre_define.hats"
 
 (* ****** ****** *)
-
+//
 staload CS =
-"{$LIBATSHWXI}/cstream/SATS/cstream.sats"
+"{$HX_CSTREAM}/SATS/cstream.sats"
+//
 vtypedef cstream = $CS.cstream
-
+//
 (* ****** ****** *)
 
 fun{}

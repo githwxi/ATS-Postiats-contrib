@@ -5,7 +5,7 @@
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -19,7 +19,7 @@ TextProcessing
 TextProcessing: \
 TextProcessing.dats \
 TextProcessing_toplevel.dats ; \
-  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSHOMERELOCQ)/contrib -o $@ $^ $(GTKFLAGS)
+  $(PATSCC) -DATS_MEMALLOC_LIBC -I$(PATSCONTRIBQ)/contrib -o $@ $^ $(GTKFLAGS)
 cleanall:: ; $(RMF) TextProcessing
 
 ######

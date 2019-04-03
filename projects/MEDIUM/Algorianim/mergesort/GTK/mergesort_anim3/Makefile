@@ -7,9 +7,14 @@
 include $(PATSHOME)/share/atsmake-pre.mk
 
 ######
-
-CFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
-
+#
+CFLAGS+=\
+-I$(PATSCONTRIB)/contrib
+CFLAGS+=\
+-I$(PATSHOME)/npm-utils/contrib
+#
+CFLAGS+=$(shell pkg-config gtk+-3.0 --cflags)
+#
 ######
 
 LDFLAGS += -lgc

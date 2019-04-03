@@ -9,6 +9,7 @@ addons:
     - libgtk-3-dev
     - libev-dev
     - libjson0-dev
+    # libjson-c-dev
     - libjansson-dev
 before_install:
   - date
@@ -19,7 +20,6 @@ before_install:
   # Download ATS2
   - git clone git://git.code.sf.net/p/ats2-lang/code ATS2-srcfrg
   # Seting-up ATS2-contrib
-  - export PATSHOMERELOC=${TRAVIS_BUILD_DIR}
 script:
   # Building ATS2
   - export PATSHOME=${HOME}/ATS2-srcfrg
@@ -27,6 +27,7 @@ script:
   - (cd ${PATSHOME} && ./configure && make all)
   # Testing extensively
   - cd ${TRAVIS_BUILD_DIR}
-  - make -f Makefile_test testall
+  - export PATSCONTRIB=${TRAVIS_BUILD_DIR}
+  - make -f Makefile_test all
 after_script:
   - date

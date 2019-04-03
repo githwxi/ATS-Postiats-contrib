@@ -19,7 +19,7 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 
 INCLUDE := -I${PATSHOME}
 INCLUDE += -I${PATSHOME}/ccomp/runtime 
-INCLUDE += -I${PATSHOMERELOC}/contrib
+INCLUDE += -I${PATSCONTRIB}/contrib
 
 ######
 
@@ -50,6 +50,12 @@ regress:: \
 mpi_hello; mpirun -n 4 ./mpi_hello
 regress:: \
 mpi_hello2; mpirun -n 4 ./mpi_hello2
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

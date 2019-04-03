@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
 ** Tetris
 *)
-
 (* ****** ****** *)
 
 #define
@@ -14,8 +14,10 @@ ATS_STATIC_PREFIX "tetris_keyboard__"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBATSCC2JS_targetloc
+"$PATSHOME/contrib\
+/libatscc2js/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
@@ -48,16 +50,17 @@ local
 //
 val
 theKeyDowns =
-  $extval(EStream(JSevent), "theKeyDowns")
+$extval(EStream(JSevent), "theKeyDowns")
 //
 val
 theKeyCodes =
-  theKeyDowns.map(lam(x) =<cloref1> JSevent_keyCode(x))
+theKeyDowns.map(TYPE{int})
+  (lam(x) =<cloref1> JSevent_keyCode(x))
 //
 in (* in-of-local *)
 
 implement
-theKeyDowns_handle(fwork) = theKeyCodes.onValue(fwork)
+theKeyDowns_handle(fwork) = theKeyCodes.onValue()(fwork)
 
 end // end of [local]
 

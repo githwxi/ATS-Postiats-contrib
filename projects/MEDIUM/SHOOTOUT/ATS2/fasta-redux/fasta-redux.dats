@@ -19,8 +19,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -30,8 +28,8 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "libc/SATS/stdio.sats"  
-staload "libc/SATS/string.sats"  
+staload "libats/libc/SATS/stdio.sats"  
+staload "libats/libc/SATS/string.sats"  
   
 (* ****** ****** *)
 

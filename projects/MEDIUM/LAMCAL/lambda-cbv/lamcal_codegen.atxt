@@ -1,0 +1,107 @@
+(* ****** ****** *)
+//
+// lamcal.sats
+//
+(* ****** ****** *)
+(*
+//
+##atext_fopen_path("\
+./CODEGEN/lamcal_sats.hats\
+")
+//
+##atext_fprintln('(*')
+##atext_fprintln('##ctime()*)')
+##atext_fprintln("(* ****** ****** *)")
+
+##ats2decl_fprint(tvar)
+##ats2decl_compare(tvar)
+
+##atext_fprintln("(* ****** ****** *)")
+
+##ats2decl_fprint(tcst)
+
+##atext_fprintln("(* ****** ****** *)")
+
+##ats2decl_fprint(term)
+
+##atext_fprintln("(* ****** ****** *)")
+
+##ats2decl_equal(aterm)
+##ats2decl_fprint(aterm)
+
+##atext_fprintln("(* ****** ****** *)")
+//
+##atext_fclose_top()
+//
+*)
+(* ****** ****** *)
+//
+// lamcal_tvar.dats
+//
+(* ****** ****** *)
+(*
+##atext_fopen_path\
+("\
+./CODEGEN/lamcal_tvar_order.hats\
+")
+##ats2impl_compare2cmpops(tvar)
+##atext_fclose_top()
+*)
+//
+(* ****** ****** *)
+//
+// lamcal_tcst.dats
+//
+(* ****** ****** *)
+(*
+##atext_fopen_path\
+("\
+./CODEGEN/lamcal_tcst_order.hats\
+")
+##ats2impl_compare2cmpops(tcst)
+##atext_fclose_top()
+*)
+//
+(* ****** ****** *)
+(*
+##atext_fopen_path\
+("\
+./CODEGEN/lamcal_tvar_funset.hats\
+")
+##ats2impl_myfunset(tvar, TVARSET)
+##atext_fclose_top()
+*)
+(* ****** ****** *)
+//
+// lamcal_term.dats
+//
+(* ****** ****** *)
+(*
+//
+##atext_fopen_path\
+("\
+./CODEGEN/lamcal_term_fprint.hats\
+")
+##ats2impl_fprint2printerr(term)
+//
+##atext_fclose_top()
+*)
+(* ****** ****** *)
+//
+// lamcal_aterm.dats
+//
+(* ****** ****** *)
+(*
+//
+##atext_fopen_path\
+("\
+./CODEGEN/lamcal_aterm_fprint.hats\
+")
+##ats2impl_fprint2printerr(aterm)
+//
+##atext_fclose_top()
+//
+*)
+(* ****** ****** *)
+
+(* end of [lamcal_codegen.atxt] *)

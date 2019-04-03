@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TUTORIATS-pats2xhtml-trial</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<style type="text/css">
+  .patsyntax {width:99%;margin:auto;}
+  .patsyntax {color:#808080;background-color:#E0E0E0;}
+  .patsyntax span.keyword {color:#000000;font-weight:bold;}
+  .patsyntax span.comment {color:#787878;font-style:italic;}
+  .patsyntax span.extcode {color:#A52A2A;}
+  .patsyntax span.neuexp  {color:#800080;}
+  .patsyntax span.staexp  {color:#0000F0;}
+  .patsyntax span.prfexp  {color:#603030;}
+  .patsyntax span.dynexp  {color:#F00000;}
+  .patsyntax span.stalab  {color:#0000F0;font-style:italic}
+  .patsyntax span.dynlab  {color:#F00000;font-style:italic}
+  .patsyntax span.dynstr  {color:#008000;font-style:normal}
+  .patsyntax span.stacstdec  {text-decoration:none;}
+  .patsyntax span.stacstuse  {color:#0000CF;text-decoration:underline;}
+  .patsyntax span.dyncstdec  {text-decoration:none;}
+  .patsyntax span.dyncstuse  {color:#B80000;text-decoration:underline;}
+  .patsyntax span.dyncst_implement  {color:#B80000;text-decoration:underline;}
+</style>
+
+<script
+ src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+ src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/CATS/Ajax/Ajax_cats.js">
+</script>
+
+<script>
+//
+function
+program_input_process()
+{
+/*
+  alert("program_input_process: enter");
+*/
+  pats2xhtml_eval
+    (null, document.getElementById("program_input").value);
+  // end of [pats2xhtml_eval]
+/*
+  alert("program_input_process: leave");
+*/
+  return;
+}
+//
+function
+pats2xhtml_waiting(msg)
+{
+  document.getElementById("program_output").value = msg;
+  return;
+}
+//
+function
+pats2xhtml_do_response(null, resp)
+{
+  var comparr =
+    JSON.parse(decodeURIComponent(resp));
+  // end of [var]
+/*
+  alert(comparr[0]);
+  alert(comparr[1]);
+*/
+  document.getElementById("compres").value=comparr[0];
+  document.getElementById("program_output").value=comparr[1];
+  if (comparr[0] > 0)
+  {
+    comparr[1] =
+    "<pre>" + document.getElementById("program_input").value + "</pre>";
+  }
+  document.getElementById("program_output2").innerHTML=comparr[1];
+  return;
+}
+//
+</script>
+
+<script src="./DATS_JS/inputform_process_js_dats.js"></script>
+
+</head>
+
+<body>
+
+<h1>
+Pats2xhtml as a service
+</h1>
+
+<h2>Input/Output Forms</h2>
+<form>
+<param id="compres" value="-1">
+<center>
+<table border=0>
+
+<tr bgcolor="#cccccc">
+
+<td>
+<br>
+Please type in your code in ATS:
+<br>
+<br>
+<TEXTAREA
+ ID="program_input"
+ ROWS="24" COLS="78">
+</TEXTAREA>
+</td>
+<td>
+<br>
+The syntax-hilited output by pats2xhtml:
+<br>
+<br>
+<TEXTAREA
+ ID="program_output"
+ PLACEHOLDER="There is no output yet..."
+ ROWS="24" COLS="78">
+</TEXTAREA>
+</td>
+
+</tr>
+
+<tr>
+  <td align=left>
+    <button type="button" onclick="program_input_process()">Submit-for-Synhiliting(PHP)</button>
+  </td>
+  <td>
+  </td>
+</tr>
+
+</table>
+</center>
+
+</form>
+
+<hr>
+
+<div ID="program_output2">
+<p>The output goes here...</p>
+</div> 
+
+<hr>
+
+<table>
+<tr>
+<td style="width: 100%;">
+This page is created with
+<a href="http://www.ats-lang.org">ATS</a>
+by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>
+and also maintained by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>.
+</td>
+<td style="width: 0%;"><!--pushed to the right-->
+<a href="http://sourceforge.net">
+<img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=205722&amp;type=2"
+width="120"
+height="36"
+alt="SourceForge.net Logo"
+/>
+</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

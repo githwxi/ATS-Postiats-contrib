@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
-** The prelude for Ardunio
+** For Arduino
 *)
-
 (* ****** ****** *)
 
 #define BIN 2

@@ -4,17 +4,31 @@
 
 ######
 
-include $(PATSHOME)/share/atsmake-pre.mk
+include \
+$(PATSHOME)/share/atsmake-pre.mk
 
 ######
-
-CFLAGS=$(shell pkg-config gtk+-3.0 --cflags)
-
+#
+CFLAGS+=\
+-I$(PATSHOME)/npm-utils/contrib
+#
+CFLAGS+=$(shell pkg-config gtk+-3.0 --cflags)
+#
 ######
 
 LDFLAGS += -lgc
 LDFLAGS += $(shell pkg-config gtk+-3.0 --libs)
 
+######
+
+include \
+$(PATSHOME)/share/atsmake-post.mk
+
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
 ######
 #
 all:: insertsort_anim
@@ -24,6 +38,8 @@ insertsort_anim: \
   insertsort_anim.dats ; \
   $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
 #
+regress:: \
+insertsort_anim; ./$<
 cleanall:: ; $(RMF) insertsort_anim
 #
 ######
@@ -36,6 +52,8 @@ insertsort_anim2: \
   gtkcairotimer_toplevel.dats ; \
   $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
 #
+regress:: \
+insertsort_anim2; ./$<
 cleanall:: ; $(RMF) insertsort_anim2
 #
 ######
@@ -47,11 +65,15 @@ insertsort_anim2_all: \
   insertsort_anim2_all.dats ; \
   $(PATSCC2) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $(CFLAGS) $^ $(LDFLAGS)
 #
+regress:: \
+insertsort_anim2_all; ./$<
 cleanall:: ; $(RMF) insertsort_anim2_all
 #
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 

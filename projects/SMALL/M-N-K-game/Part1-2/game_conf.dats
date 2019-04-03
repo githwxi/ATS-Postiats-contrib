@@ -8,13 +8,11 @@
 ATS_PACKNAME "M_N_K_game"
 
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
+//
 staload "./game.sats"
-
+//
+staload UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 implement
@@ -35,8 +33,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -56,8 +58,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -77,8 +83,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -99,8 +109,12 @@ typedef T = ptr
 fun
 initize (x: &T? >> _): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 

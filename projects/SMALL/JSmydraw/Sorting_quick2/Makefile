@@ -8,9 +8,10 @@ PATSCC=patscc
 ATSCC2JS=atscc2js
 
 ######
-
+#
 all:: \
-Sorting_quick2_php.dats
+Sorting_quick2_php_dats.js
+#
 Sorting_quick2_php.dats: Sorting_quick2.php ; $(PHP) -f $< > $@
 Sorting_quick2_php_dats.c: Sorting_quick2_php.dats; $(PATSCC) -ccats $<
 Sorting_quick2_php_dats.js: Sorting_quick2_php_dats.c; $(ATSCC2JS) -o $@ -i $<

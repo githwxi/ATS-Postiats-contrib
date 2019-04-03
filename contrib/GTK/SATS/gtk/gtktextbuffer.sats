@@ -72,17 +72,15 @@ gtk_text_buffer_get_text
 ) : gstrptr1 = "mac#%" // end of [gtk_text_buffer_get_text]
 
 (* ****** ****** *)
-
+//
 fun
 gtk_text_buffer_get_insert
   {l:agz}
-(
-  tbuf: !GtkTextBuffer(l)
-) : [l2:agez]
-(
-  minus (GtkTextBuffer(l), GtkTextMark(l2)) | GtkTextMark(l2)
-) = "mac#%" // end of [gtk_text_buffer_get_insert]
-
+  (tbuf: !GtkTextBuffer(l))
+: [l2:agez]
+  vtget1(GtkTextBuffer(l), GtkTextMark(l2)) = "mac#%"
+// end of [gtk_text_buffer_get_insert]
+//
 (* ****** ****** *)
 //
 fun

@@ -16,16 +16,19 @@ http://www.neilwallis.com/projects/html5/clock/
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 #define
+LIBATSCC2JS_targetloc
+"$PATSHOME\
+/contrib/libatscc2js/ATS2-0.3.2"
+//
+#define
 HTML_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten"
+"$PATSCONTRIB/contrib/HTML-emscripten"
 #define
 HTML5canvas2d_targetloc
-"$PATSHOMERELOC/contrib/HTML-emscripten/canvas-2d"
+"$PATSCONTRIB/contrib/HTML-emscripten/canvas-2d"
 //
 (* ****** ****** *)
 //
@@ -44,15 +47,18 @@ staload "{$HTML5canvas2d}/SATS/canvas2d.sats"
 (* ****** ****** *)
 
 extern
-fun wallclock_now
+fun
+wallclock_now
 (
   nhr: &double? >> double, nmin: &double? >> double, nsec: &double? >> double
 ) : void = "ext#JS_wallclock_now"
 
 (* ****** ****** *)
 
-staload M = "libc/SATS/math.sats"
-staload _(*anon*) = "libc/DATS/math.dats"
+staload
+M = "libats/libc/SATS/math.sats"
+staload
+_(*anon*) = "libats/libc/DATS/math.dats"
 
 (* ****** ****** *)
 
@@ -94,16 +100,22 @@ val ey = ~120 * ca
 val nx =  80 * sa
 val ny = ~80 * ca
 //
-val i5 = g0int2string (i/5)
-val () = canvas2d_fillText (ctx, $UN.strptr2string(i5), nx, ny)
-val () = strptr_free (i5)
+val i5 =
+  g0int2string(i/5)
 //
-val () = canvas2d_set_lineWidth (ctx, 8)
+val () = canvas2d_fillText(ctx, $UN.strptr2string(i5), nx, ny)
+//
+val () = strptr_free(i5)
+//
+val () =
+  canvas2d_set_lineWidth (ctx, 8)
+//
 val () = canvas2d_beginPath (ctx)
 val () = canvas2d_moveTo (ctx, sx, sy)
 val () = canvas2d_lineTo (ctx, ex, ey)
 val () = canvas2d_closePath (ctx)
-val () = canvas2d_stroke (ctx)
+//
+val ((*void*)) = canvas2d_stroke (ctx)
 //
 } (* end of [draw_mark2] *)
 

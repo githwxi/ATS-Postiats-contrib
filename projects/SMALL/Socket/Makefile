@@ -19,6 +19,8 @@ tcpclient_daytime
 tcpclient_daytime: \
 tcpclient_daytime.dats ; \
 $(PATSCC) $(CFLAGS) -o $@ $< -L $(PATSLIB) -latslib
+regress:: tcpclient_daytime; ./$<
+cleanall:: ; $(RMF) tcpclient_daytime
 
 ######
 
@@ -27,6 +29,10 @@ tcpserver_daytime
 tcpserver_daytime: \
 tcpserver_daytime.dats ; \
 $(PATSCC) $(CFLAGS) -o $@ $< -L $(PATSLIB) -latslib
+#
+# regress:: tcpserver_daytime; ./$<
+#
+cleanall:: ; $(RMF) tcpserver_daytime
 
 ######
 
@@ -35,6 +41,7 @@ all_scons:: ; scons -Q
 ######
 
 testall:: all
+testall:: regress
 testall:: cleanall
 
 ######
@@ -45,8 +52,6 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) tcpclient_daytime
-cleanall:: ; $(RMF) tcpserver_daytime
 
 ######
 

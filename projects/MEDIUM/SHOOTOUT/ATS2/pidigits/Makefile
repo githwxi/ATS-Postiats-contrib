@@ -7,14 +7,17 @@
 GCC=gcc
 
 ######
-
+#
 PATSCC=$(PATSHOME)/bin/patscc
-
+#
+PATSLIB=$(PATSHOME)/ccomp/atslib/lib
+#
 ######
 #
-export PATSCCOMP=\
+export \
+PATSCCOMP=\
 $(GCC) -std=c99 -D_XOPEN_SOURCE \
-  -I${PATSHOME} -I${PATSHOME}/ccomp/runtime -L${PATSHOME}/ccomp/atslib/lib
+-I${PATSHOME} -I${PATSHOME}/ccomp/runtime -L$(PATSLIB)
 #
 ######
 
@@ -23,13 +26,16 @@ all:: pidigits_gcc
 
 ######
 
-pidigits: pidigits.dats ; \
-$(PATSCC) -verbose -I${PATSHOMERELOC}/contrib \
+pidigits: \
+pidigits.dats ; \
+$(PATSCC) -verbose \
+  -I${PATSHOME}/contrib \
   -pipe -O3 -fomit-frame-pointer -march=native $< -o $@ -lgmp
 
 ######
 
-pidigits_gcc: pidigits_gcc.c ; \
+pidigits_gcc: \
+pidigits_gcc.c ; \
 $(GCC) -pipe -Wall -O3 -fomit-frame-pointer -march=native $< -o $@ -lgmp
 
 ######

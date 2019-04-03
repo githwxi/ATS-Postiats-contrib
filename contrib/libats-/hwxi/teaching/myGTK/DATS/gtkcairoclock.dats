@@ -28,8 +28,21 @@
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
+//
+(* ****** ****** *)
+//
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
 //
 (* ****** ****** *)
 
@@ -40,7 +53,7 @@ staload "{$GLIB}/SATS/glib-object.sats"
 
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 

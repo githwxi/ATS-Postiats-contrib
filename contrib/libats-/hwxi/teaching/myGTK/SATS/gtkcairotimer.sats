@@ -39,26 +39,32 @@
 //
 (* ****** ****** *)
 //
-#include"share/atspre_define.hats"
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload
+"{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
 //
-fun{
-} gtkcairotimer_main (): void
+fun{}
+gtkcairotimer_main (): void
 //
-fun{
-} gtkcairotimer_title (): stropt
-fun{
-} gtkcairotimer_timeout_update (): void
-fun{
-} gtkcairotimer_timeout_interval (): uint
+fun{}
+gtkcairotimer_title (): stropt
+fun{}
+gtkcairotimer_timeout_update (): void
+fun{}
+gtkcairotimer_timeout_interval (): uint
 //
-fun{
-} gtkcairotimer_mydraw
+fun{}
+gtkcairotimer_mydraw
   (cr: !cairo_ref1, width: int, height: int): void
 //
 (* ****** ****** *)

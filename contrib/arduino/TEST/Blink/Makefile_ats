@@ -1,6 +1,9 @@
+######
 #
 MAKE=make
 PATSOPT=$(PATSHOME)/bin/patsopt
+#
+######
 #
 all:: \
 Blink_dats.ino
@@ -39,7 +42,10 @@ clean:: ; $(RMF) *_?ats.c
 ######
 #
 cleanall:: clean
-cleanall:: ; $(MAKE) -f Makefile clean
+#
+cleanall:: ; \
+$(MAKE) -f Makefile clean
+#
 cleanall:: ; $(RMF) *_dats.ino
 #
-###### end of [Makefile] ######
+###### end of [Makefile_ats] ######

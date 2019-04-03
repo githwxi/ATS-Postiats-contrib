@@ -1,9 +1,12 @@
 (* ****** ****** *)
 //
-staload
+#staload
 "libats/ML/SATS/basis.sats"
 //
-staload "./../OOPLATS.sats"
+#staload "./../OOPLATS.sats"
+//
+#staload _ = "./../OOPLATS_basics.dats"
+#staload _ = "./../OOPLATS_object.dats"
 //
 (* ****** ****** *)
 
@@ -73,14 +76,21 @@ overload tocls with tocls_string
 //
 fun
 print_int
-  (x: int): void = evalmsg$print(tocls(x), toval(x))
+  (x: int): void =
+  evalmsg$print(tocls(x), toval(x))
 fun
 print_double
-  (x: double): void = evalmsg$print(tocls(x), toval(x))
+  (x: double): void =
+  evalmsg$print(tocls(x), toval(x))
 fun
 print_string
-  (x: string): void = evalmsg$print(tocls(x), toval(x))
+  (x: string): void =
+  evalmsg$print(tocls(x), toval(x))
 //
+(* ****** ****** *)
+
+implement main0() = { (*nothing*) }
+
 (* ****** ****** *)
 
 (* end of [test02.dats] *)

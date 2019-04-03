@@ -14,7 +14,7 @@ staload "./game.sats"
 (* ****** ****** *)
 
 implement
-fprint_conf (out) =
+fprint_conf(out) =
 {
   val M = game_conf_get_m ()
   val N = game_conf_get_n ()
@@ -31,8 +31,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -52,8 +56,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -73,8 +81,12 @@ typedef T = int
 fun
 initize (x: &T? >> T): void = x := 0
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 

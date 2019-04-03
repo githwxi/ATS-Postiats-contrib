@@ -4,12 +4,23 @@
 
 ######
 
+RMF=rm -f
+RMRF=rm -rf
+CPRF=cp -rf
+
+######
+
 NODEJS=nodejs
 
 ######
 
 PATSCC=${PATSHOME}/bin/patscc
 ATSCC2JS=${PATSHOME}/bin/atscc2js
+
+######
+
+LIBATSCC2JS=\
+$(PATSHOME)/contrib/libatscc2js/ATS2-0.3.2
 
 ######
 #
@@ -24,20 +35,11 @@ GameOf24_js_dats.js: GameOf24_js_dats.c; ${ATSCC2JS} -o $@ -i $<
 regress:: ; $(NODEJS) mytest.js
 
 ######
-
-RMF=rm -f
-RMRF=rm -rf
-
-######
-
-CPRF=cp -rf
-
-######
 #
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/CATS libatscc2js/.
+$(CPRF) $(LIBATSCC2JS)/CATS libatscc2js/.
 libatscc2js:: ; \
-$(CPRF) $(PATSHOME_contrib)/contrib/libatscc/libatscc2js/output/DATS libatscc2js/.
+$(CPRF) $(LIBATSCC2JS)/output/DATS libatscc2js/.
 #
 ######
 

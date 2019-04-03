@@ -11,9 +11,16 @@
 // HX-2014-04-23: ported from GTK/TEST/test01.dats
 //
 (* ****** ****** *)
+//
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
+//
+(* ****** ****** *)
 
-#include
-"share/atspre_define.hats"
 #include
 "share/atspre_staload.hats"
 
@@ -24,9 +31,9 @@ staload UN = $UNSAFE
 (* ****** ****** *)
 //
 staload
+"{$GTK}/SATS/gtk.sats"
+staload
 "{$GLIB}/SATS/glib-object.sats"
-//
-staload "{$GTK}/SATS/gtk.sats"
 //
 (* ****** ****** *)
 

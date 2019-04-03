@@ -4,9 +4,12 @@
 #
 *)
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-
+//
+#define
+ATS_DYNLOADFLAG 0
+#define
+ARDUINO_targetloc "./../.."
+//
 (* ****** ****** *)
 //
 #include
@@ -42,7 +45,7 @@ abstype charptr = $extype"charptr"
 
 %{^
 void *theList = NULL;
-void *theList_get ()
+void *theList_get(/*void*/)
 {
   void *res;
   res = theList; theList = NULL; return res;
@@ -62,10 +65,13 @@ macdef BAUD_RATE = 9600
 //
 extern
 fun
-setup (): void = "mac#"
+setup
+(
+// argless
+) : void = "mac#"
 //
 implement
-setup () = () where
+setup() = () where
 {
 //
 val () = pinMode(LEDPIN, OUTPUT)
@@ -78,7 +84,11 @@ from
 ) : List0_vt(int) =
 (
 if m < n
-  then cons_vt (m, from(m+1, n)) else nil_vt ()
+  then
+  (
+    cons_vt(m, from(m+1, n))
+  )
+  else nil_vt(*void*)
 // end of [if]
 ) (* end of [from] *)
 //
@@ -100,26 +110,31 @@ fprint_string (out, x) = ()
 (* ****** ****** *)
 //
 extern
-fun loop (): void = "mac#"
+fun
+loop
+(
+// argless
+) : void = "mac#"
 //
 implement
-loop () =
-myloop() where
+loop() = myloop() where
 {
 //
 fun
 {a:t0p}
 lrotate{n:int}
 (
-  xs: list_vt(INV(a), n)
+xs: list_vt(a, n)
 ) : list_vt(a, n) =
 (
 case+ xs of
-| list_vt_nil () => xs
+| list_vt_nil() => xs
 | list_vt_cons _ => let
-    val (hd, tl) = list_vt_split_at (xs, 1)
+    val
+    (hd, tl) =
+    list_vt_split_at(xs, 1)
   in
-    list_vt_append (tl, hd)
+    list_vt_append<a>(tl, hd)
   end // end of [list_vt_cons]
 )
 //
@@ -127,7 +142,7 @@ fun
 myloop(): void = let
 //
 val
-out = $extval (FILEref, "0")
+out = $extval(FILEref, "0")
 //
 (*
 val () =
@@ -135,9 +150,10 @@ Serial_ptr.println("myloop(bef)")
 *)
 //
 val xs = theList_get()
-val () = fprint_list_vt (out, xs)
+val () = fprint_list_vt(out, xs)
 val () = Serial_ptr.println()
-extvar "theList" = lrotate(xs)
+//
+extvar "theList" = lrotate<int>(xs)
 //
 (*
 val () =

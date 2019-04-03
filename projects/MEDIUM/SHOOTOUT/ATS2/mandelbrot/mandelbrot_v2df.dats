@@ -15,8 +15,6 @@
 (* ****** ****** *)
 //
 #include
-"share/atspre_define.hats"
-#include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
@@ -26,7 +24,11 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-staload
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+//
+#staload
 "{$LIBATSHWXI}/SIMD/SATS/v2df.sats"
 //
 (* ****** ****** *)

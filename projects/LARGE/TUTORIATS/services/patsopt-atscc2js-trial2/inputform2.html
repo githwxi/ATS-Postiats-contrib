@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TUTORIATS-patsopt-atscc2js-trial</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<script
+src="//cdn.jsdelivr.net/ace/1.1.6/min/ace.js"></script>
+<script
+src="//cdn.jsdelivr.net/filesaver.js/0.2/FileSaver.min.js"></script>
+
+<script
+ src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/libatscc2js_all.js">
+</script>
+<script
+ src="http://ats-lang.sourceforge.net/LIBRARY/contrib/libatscc/libatscc2js/CATS/Ajax/Ajax_cats.js">
+</script>
+
+<script>
+
+var hello = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+/* ****** ****** */\n\
+//\n\
+#define ATS_MAINATSFLAG 1\n\
+#define ATS_DYNLOADNAME \"my_dynload\"\n\
+//\n\
+/* ****** ****** */\n\
+//\n\
+val () = alert (\"Hello, world!\")\n\
+//\n\
+/* ****** ****** */\n\
+\n\
+%{$\n\
+my_dynload();\n\
+%}\n\
+\n\
+/* ****** ****** */\n\
+\n\
+/* end of [hello.dats] */\n\
+" ; // end of [hello]
+
+var fact = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+#define ATS_DYNLOADFLAG 0\n\
+//\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+extern\n\
+fun\n\
+fact{n:nat} : int(n) -> int = \"mac#\"\n\
+//\n\
+implement\n\
+fact(n) = if n > 0 then n * fact(n-1) else 1\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+%{$\n\
+/*\n\
+External JS code for testing:\n\
+*/\n\
+alert(\"fact(12) = \" + fact(12));\n\
+//\n\
+%} // end of [%{$]\n\
+" ; // end of [var fact]
+
+var fibats = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+#define ATS_DYNLOADFLAG 0\n\
+//\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+dataprop FIB (int, int) =\n\
+  | FIB0 (0, 0) | FIB1 (1, 1)\n\
+  | {n:nat} {r0,r1:int}\n\
+    FIB2 (n+2, r0+r1) of (FIB (n, r0), FIB (n+1, r1))\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+extern\n\
+fun fibats{n:nat}\n\
+  : int(n) -> [r:int] (FIB(n,r) | int(r)) = \"mac#fibats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+implement\n\
+fibats{n}(n) = let\n\
+//\n\
+fun loop\n\
+  {i:nat | i <= n}{r0,r1:int} .<n-i>.\n\
+(\n\
+  pf0: FIB (i, r0)\n\
+, pf1: FIB (i+1, r1)\n\
+| ni: int (n-i), r0: int r0, r1: int r1\n\
+) : [r:int] (FIB (n, r) | int r) =\n\
+(\n\
+  if ni > 0 then\n\
+    loop {i+1} (pf1, FIB2 (pf0, pf1) | ni - 1, r1, r0 + r1)\n\
+  else (pf0 | r0)\n\
+) (* end of [loop] *)\n\
+//\n\
+in\n\
+  loop {0} (FIB0 (), FIB1 () | n, 0, 1)\n\
+end // end of [fibats]\n\
+//\n\
+%{$\n\
+/*\n\
+External JS code for testing:\n\
+*/\n\
+alert(\"fibats(20) = \" + fibats(20));\n\
+//\n\
+%} // end of [%{$]\n\
+" ; // end of [var fibats]
+
+var rtfind = "\
+//\n\
+#include\n\
+\"share/atspre_define.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+\n\
+#define ATS_MAINATSFLAG 1\n\
+#define ATS_DYNLOADNAME \"my_dynload\"\n\
+\n\
+(* ****** ****** *)\n\
+//\n\
+#include\n\
+\"{$LIBATSCC2JS}/staloadall.hats\"\n\
+//\n\
+(* ****** ****** *)\n\
+//\n\
+extern\n\
+fun\n\
+rtfind (f: int -> int): int = \"mac#\"\n\
+//\n\
+implement\n\
+rtfind (f) = let\n\
+//\n\
+fun loop\n\
+  (i: int): int =\n\
+  if f (i) = 0 then i else loop (i+1)\n\
+//\n\
+in\n\
+  loop (0(*i*))\n\
+end // end of [rtfind]\n\
+//\n\
+val () = alert\n\
+(\n\
+  \"The polynomial(x*x+2*x-99) has a root \" + String(rtfind(lam(x)=>x*x+2*x-99))\n\
+) (* end of [val] *)\n\
+//\n\
+%{$\n\
+/*\n\
+External JS code for testing:\n\
+*/\n\
+my_dynload();\n\
+//\n\
+%} // end of [%{$]\n\
+" // end of [var]
+
+var thePreselected =
+  [hello, fact, fibats, rtfind];
+
+function
+program_input_choose()
+{
+  var n, E;
+  n = thePreselected.length;
+  if (n===0) return; // there is nothing to be done
+  E = ace.edit('program_input');
+  E.getSession().setValue(thePreselected[Math.floor(n*0.999999*Math.random())]);
+  return;
+} // end of [program_input_choose]
+
+</script>
+
+<script>
+//
+function
+program_input_saveAs()
+{
+  var E, code, blob, fname;
+/*
+  alert('program_input_saveAs()!');
+*/
+  E = ace.edit('program_input');
+  code = E.getSession().getValue();
+  blob = new Blob([code], {type: 'text/plain'});
+  fname = document.getElementById('saveAs_fname').value;
+  if (!fname) fname = 'scratch.dats';
+  saveAs(blob, fname);
+  return;
+}
+//
+function
+program_output_saveAs()
+{
+  var E, code, blob, fname;
+/*
+  alert('program_output_saveAs()!');
+*/
+  E = ace.edit('program_output');
+  code = E.getSession().getValue();
+  blob = new Blob([code], {type: 'text/plain'});
+  fname = document.getElementById('saveAs_fname2').value;
+  if (!fname) fname = 'scratch_dats.js';
+  saveAs(blob, fname);
+  return;
+}
+//
+function
+program_input_compile()
+{
+/*
+  alert("program_input_compile: enter");
+*/
+  var E = ace.edit("program_input");
+  patsopt_atscc2js(E.getSession().getValue());
+/*
+  alert("program_input_compile: leave");
+*/
+  return;
+}
+//
+function
+patsopt_waiting(msg)
+{
+  var E = ace.edit("program_output"); E.getSession().setValue(msg);
+  return;
+}
+//
+function
+patsopt_atscc2js_do_response(resp)
+{
+  var comparr =
+    JSON.parse(decodeURIComponent(resp));
+  // end of [var]
+  document.getElementById("compres").value=comparr[0];
+  var E = ace.edit("program_output"); E.getSession().setValue(comparr[1]);
+  return;
+}
+//
+</script>
+
+<script src="./DATS_JS/inputform_process_js_dats.js"></script>
+
+<script>
+function
+program_output_evaluate()
+{
+  var compres = 
+    parseInt(document.getElementById("compres").value);
+  if(compres > 0)
+  {
+    alert("The generated code cannot be evaluated!");
+  }
+  if(compres===0)
+  {
+    eval(ace.edit("program_output").getSession().getValue());
+  }
+  return;
+} /* end of [program_output_evaluate] */
+</script>
+
+</head>
+
+<body>
+
+<h1>
+Patsopt/Atscc2js as a service
+</h1>
+
+<h2>Input/Output Forms</h2>
+<form>
+<param id="compres" value="-1">
+<table border=0>
+
+<tr bgcolor="#cccccc">
+  <td width=0>Input of ATS code</td>
+  <td width=0>Output from ATS source</td>
+</tr>
+
+<tr bgcolor="#cccccc">
+<td>
+<DIV ID="program_input">
+(*
+//
+Please input code directly or choose from a pre-selected set of examples.
+//
+*)
+</DIV>
+</td>
+
+<td>
+<DIV ID="program_output">
+There is no output yet.
+</DIV>
+</td>
+</tr>
+
+<tr>
+  <td align=left>
+    <button type="button" onclick="program_input_choose()">Choose-in-Random</button>
+    <button type="button" onclick="program_input_compile()">Submit-for-Compilation(Ajax)</button>
+    <button type="button" onclick="program_input_saveAs()">SaveAs</button>
+      <input type="text" id="saveAs_fname" placeholder="scratch.dats" size=12 maxlength=32>
+  </td>
+  <td align=left>
+    <button type="button" onclick="program_output_evaluate()">Submit-for-Evaluation(JS)</button>
+    <button type="button" onclick="program_output_saveAs()">SaveAs</button>
+      <input type="text" id="saveAs_fname2" placeholder="scratch_dats.js" size=12 maxlength=32>
+  </td>
+</tr>
+</table>
+</form>
+
+<hr>
+
+<table>
+<tr>
+<td style="width: 100%;">
+This page is created with
+<a href="http://www.ats-lang.org">ATS</a>
+by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>
+and also maintained by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>.
+</td>
+<td style="width: 0%;"><!--pushed to the right-->
+<a href="http://sourceforge.net">
+<img
+src="http://sflogo.sourceforge.net/sflogo.php?group_id=205722&amp;type=2"
+width="120"
+height="36"
+alt="SourceForge.net Logo"
+/>
+</a>
+</td>
+</tr>
+</table>
+
+<script>
+(
+function()
+{
+  var id = 'program_input'
+  var editor = ace.edit(id);
+  var id2 = 'program_output'
+  var editor2 = ace.edit(id2);
+/*
+** There are lots of other themes available
+*/
+  editor.setFontSize("16px");
+  editor.setTheme("ace/theme/monokai");
+  editor2.setFontSize("16px");
+  editor2.setTheme("ace/theme/xcode");
+/*
+** Sets the editor to be half the window height and fills
+   the window width. You can adjust as needed.
+*/
+  var elm = document.getElementById(id);
+  elm.style.width = (document.documentElement.clientWidth/2-12) + "px";
+  elm.style.height = 6*document.documentElement.clientHeight/10 + "px";
+
+  var elm2 = document.getElementById(id2);
+  elm2.style.width = (document.documentElement.clientWidth/2-12) + "px";
+  elm2.style.height = 6*document.documentElement.clientHeight/10 + "px";
+}
+)();
+</script>
+
+</body>
+</html>

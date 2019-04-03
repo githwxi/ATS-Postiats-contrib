@@ -28,11 +28,13 @@ $(PATSCC) -D_GNU_SOURCE \
 //
 (* ****** ****** *)
 
-staload "libc/SATS/stdio.sats"
+staload
+"libats/libc/SATS/stdio.sats"
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 

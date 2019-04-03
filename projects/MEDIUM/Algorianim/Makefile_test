@@ -1,0 +1,36 @@
+#
+# For testing
+#
+
+######
+
+RMRF=rm -rf
+
+######
+
+all::
+
+######
+
+SUBDIRS :=
+SUBDIRS += quicksort/JS
+SUBDIRS += quicksort/GTK
+SUBDIRS += mergesort/GTK
+SUBDIRS += insertsort/GTK
+SUBDIRS += permutation/GTK
+SUBDIRS += queen-puzzle/GTK
+
+######
+
+all:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i all; done
+all:: ; \
+for i in $(SUBDIRS); do $(MAKE) -C $$i cleanall; done
+
+######
+
+cleanall:: ; $(RMRF) ./node_modules
+
+######
+
+###### end of [Makefile_test] ######

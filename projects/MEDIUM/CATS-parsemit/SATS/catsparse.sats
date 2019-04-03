@@ -72,16 +72,19 @@ stringbuf = $SBF.stringbuf
 //
 staload
 CS0 =
-"{$LIBATSHWXI}\
-/cstream/SATS/cstream.sats"
+"{$HX_CSTREAM}\
+/SATS/cstream.sats"
 //
 stadef cstream = $CS0.cstream
 //
 (* ****** ****** *)
-
+//
 exception FatalErrorExn
+//
+(* ****** ****** *)
+//
 fun abort ((*void*)):<!exn> void
-
+//
 (* ****** ****** *)
 //
 abstype
@@ -333,6 +336,9 @@ keyword =
   | ATSINSmove_delay of ()
   | ATSINSmove_lazyeval of ()
 //
+  | ATSINSmove_ldelay of ()
+  | ATSINSmove_llazyeval of ()
+//
   | ATStailcal_beg of ()
   | ATStailcal_end of ()
   | ATSINSmove_tlcal of ()
@@ -354,6 +360,10 @@ keyword =
 //
   | ATSclosurerize_beg of ()
   | ATSclosurerize_end of ()
+//
+  | ATSdynexn_dec of ()
+  | ATSdynexn_extdec of ()
+  | ATSdynexn_initize of ()
 //
   | KWORDnone of () // for indicating a non-keyword
 //
@@ -997,6 +1007,9 @@ instr_node =
   | ATSINSmove_delay of (i0de, s0exp, d0exp)
   | ATSINSmove_lazyeval of (i0de, s0exp, d0exp)
 //
+  | ATSINSmove_ldelay of (i0de, s0exp, d0exp)
+  | ATSINSmove_llazyeval of (i0de, s0exp, d0exp)
+//
   | ATStailcalseq of instrlst
   | ATSINSmove_tlcal of (i0de, d0exp)
   | ATSINSargmove_tlcal of (i0de, i0de)
@@ -1014,6 +1027,10 @@ instr_node =
   | ATSdynloadflag_ext of (i0de)
   | ATSdynloadflag_init of (i0de)
   | ATSdynloadflag_minit of (i0de)
+//
+  | ATSdynexn_dec of (i0de)
+  | ATSdynexn_extdec of (i0de)
+  | ATSdynexn_initize of (i0de, string(*fullname*))
 //
 // end of [instr_node]
 //
@@ -1099,6 +1116,10 @@ d0ecl_node =
 //
   | D0Cdynloadflag_init of (i0de)
   | D0Cdynloadflag_minit of (i0de)
+//
+  | D0Cdynexn_dec of (i0de(*exn*))
+  | D0Cdynexn_extdec of (i0de(*exn*))
+  | D0Cdynexn_initize of (i0de(*exn*), s0tring(*fullname*))
 //
 // end of [d0ecl_node]
 

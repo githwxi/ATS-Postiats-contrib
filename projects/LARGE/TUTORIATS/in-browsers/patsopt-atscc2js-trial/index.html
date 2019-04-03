@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+
+<head>
+<title>Patsopt-Atsccc2js-Eval</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.53/Bacon.min.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/ATS2-0.3.2/libatscc2js_all.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/ATS2-0.3.2/libatscc2js_print_store_cats.js">
+</script>
+<script
+  src="https://ats-lang.github.io/LIBRARY/libatscc2js/ATS2-0.3.2/libatscc2js_baconjs_all.js">
+</script>
+</head>
+
+<body>
+<h1>Try ATS in your browser</h1>
+<p>
+This server-less service is entirely done in client-side JS.
+</p>
+<ul>
+<li>
+Patsopt is the command for compiling ATS source code into C.
+The JS-version of Patsopt used here is generated with the help of Emscripten.
+<li>
+Atscc2js is the command for compiling C code generated from ATS source into JS.
+The JS-version of Atscc2js used here is generated with the help of Emscripten.
+</ul>
+<p>
+The GUI for Try-ATS-in-your-browser is largely intuitive:
+</p>
+<ul>
+<li>
+The input box following the button Patsopt is for
+passing options to Patsopt.
+<li>
+If the box in front of the button Atscc2js is checked,
+then the C code produced by calling Patsopt is automatically compiled
+by Atscc2js.
+<li>
+If the box in front of the button Evaluate is checked,
+then the JS code produced by calling Atscc2js is automatically evaluated
+(by the browser).
+<li>
+The boxes of the names Patsopt-out and Atscc2js-out (at the lower
+right corner) can be checked to choose whether the output produced by
+Patsopt or Atscc2js should be displayed in the right window.
+</ul>
+<hr></hr>
+<div>
+<button
+ id="Patsopt_button"
+ type="button"
+ onclick="Patsopt_button_onclick()"
+>Patsopt</button>
+<input
+ id="Patsopt_optstr"
+ type="text"
+ value="--dynamic" size="24"
+></input>
+<input
+ id="Atscc2js_box"
+ type="checkbox" checked="true"
+></input>
+<button
+ id="Atscc2js_button"
+ type="button"
+ onclick="Atscc2js_button_onclick()"
+>Atscc2js</button>
+<input
+ id="Evaluate_box"
+ type="checkbox" checked="true"
+></input>
+<button
+ id="Evaluate_button"
+ type="button"
+ onclick="Evaluate_button_onclick()"
+>Evaluate</button>
+</div>
+<hr></hr>
+<table>
+<!-- ============ -->
+<tr>
+<td width="10%"></td>
+<td>
+<textarea
+ id="Patsopt_input_text" rows="24" cols="80"
+>
+//
+// Yes, you can edit
+//
+(* ****** ****** *)
+//
+// Eratosthenes Sieve
+//
+(* ****** ****** *)
+
+#define cons stream_cons
+
+(* ****** ****** *)
+
+fun
+from{n:int}
+(
+  n: int(n)
+) : stream (int) = $delay(cons(n, from(n+1)))
+
+(* ****** ****** *)
+
+fun sieve
+(
+  ns: stream int
+) :<!laz>
+  stream(int) = $delay
+(
+let
+  val-cons(n, ns) = !ns
+in
+  cons(n, sieve(stream_filter_cloref(ns, lam x => x % n > 0)))
+end : stream_con (int)
+) (* end of [sieve] *)
+
+(* ****** ****** *)
+//
+fun
+nth{a:t@ype}
+(
+  xs: stream(INV(a)), n: int
+) : a = let
+//
+val-cons (x, xs) = !xs
+//
+in
+  if n > 0 then nth(xs, n-1) else x
+end // end of [nth]
+//
+overload [] with nth of 1000
+//
+(* ****** ****** *)
+//
+val primes = sieve(from(2))
+//
+val () = println! ("primes[0] = ", primes[0])
+val () = println! ("primes[1] = ", primes[1])
+val () = println! ("primes[2] = ", primes[2])
+val () = println! ("primes[3] = ", primes[3])
+val () = println! ("primes[4] = ", primes[4])
+val () = println! ("primes[5] = ", primes[5])
+val () = println! ("primes[6] = ", primes[6])
+val () = println! ("primes[7] = ", primes[7])
+val () = println! ("primes[8] = ", primes[8])
+val () = println! ("primes[9] = ", primes[9])
+//
+val () = println! ("primes[10] = ", primes[10])
+//
+val () = println! ("primes[100] = ", primes[100])
+//
+val () = println! ("primes[1000] = ", primes[1000])
+//
+(* ****** ****** *)
+
+(* end-of-program-unit *)
+
+</textarea>
+</td>
+<td>
+<textarea
+ id="Patsopt_output_text" rows="24" cols="80"
+>
+</textarea>
+</td>
+<td width="10%"></td>
+</tr>
+<!-- ============ -->
+<tr>
+<td width="10%"></td>
+<td></td>
+<td align="right">
+<input
+ id="Patsopt_output_box"
+ type="checkbox"
+ onclick="Patsopt_output_box_onclick()"
+>Patsopt-out</input>
+<input
+ id="Atscc2js_output_box"
+ type="checkbox" checked="true"
+ onclick="Atscc2js_output_box_onclick()"
+>Atscc2js-out</input>
+</td>
+<td width="10%"></td>
+</tr>
+<!-- ============ -->
+</table>
+<hr></hr>
+
+<table>
+<tr><td>
+This page is created and also maintained by
+<a href="http://www.cs.bu.edu/~hwxi/">Hongwei Xi</a>
+(email: <a href="mailto:hwxiATcsDOTbuDOTedu">hwxiATcsDOTbuDOTedu</a>).
+</td></tr>
+</table>
+
+<script src="./Assets/inputform_dats.js"></script>
+
+</body>
+
+</html>

@@ -1,7 +1,12 @@
+(* ****** ****** *)
 (*
 ** For trying out some OOP ideas
 *)
-
+(* ****** ****** *)
+//
+#staload
+"libats/ML/SATS/basis.sats"
+//
 (* ****** ****** *)
 
 (*
@@ -56,7 +61,7 @@ datatype value =
   | {a:type} VALboxed of (a)
 *)
 //
-typedef valuelst = List0 (value)
+typedef valuelst = list0(value)
 //
 (* ****** ****** *)
 //

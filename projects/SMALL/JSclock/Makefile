@@ -28,9 +28,9 @@ all:: \
 myclock0.js
 myclock0.js: \
 myclock0.dats myclock0_lib.js ; \
-$(PATSCC) -atsccomp $(PATSCCOMP2) -I${PATSHOME}/contrib \
+$(PATSCC) -atsccomp $(PATSCCOMP2) -I${PATSCONTRIB}/contrib \
   --js-library myclock0_lib.js \
-  --js-library ${PATSHOME}/contrib/HTML-emscripten/canvas-2d/JS/HTML5canvas2d.js -o $@ $<
+  --js-library ${PATSCONTRIB}/contrib/HTML-emscripten/canvas-2d/JS/HTML5canvas2d.js -o $@ $<
 
 ######
 
@@ -38,9 +38,9 @@ all:: \
 myclock1.js
 myclock1.js: \
 myclock1.dats myclock1_lib.js ; \
-$(PATSCC) -atsccomp $(PATSCCOMP2) -DATS_MEMALLOC_LIBC -I${PATSHOME}/contrib \
+$(PATSCC) -atsccomp $(PATSCCOMP2) -DATS_MEMALLOC_LIBC -I${PATSCONTRIB}/contrib \
   --js-library myclock1_lib.js \
-  --js-library ${PATSHOME}/contrib/HTML-emscripten/canvas-2d/JS/HTML5canvas2d.js -o $@ $<
+  --js-library ${PATSCONTRIB}/contrib/HTML-emscripten/canvas-2d/JS/HTML5canvas2d.js -o $@ $<
 
 ######
 

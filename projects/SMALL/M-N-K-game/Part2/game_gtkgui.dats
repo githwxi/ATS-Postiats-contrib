@@ -9,21 +9,32 @@ ATS_PACKNAME "M_N_K_game"
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
+//
+(* ****** ****** *)
+//
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-/hwxi"
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
+//
 staload
 "libats/SATS/athread.sats"
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 //
 staload
@@ -47,7 +58,8 @@ staload _ = "libats/DATS/athread.dats"
 staload _ = "libats/DATS/athread_posix.dats"
 //
 staload _ =
-"{$LIBATSHWXI}/teaching/mythread/DATS/channel.dats"
+"{$LIBATSHWXI}\
+/teaching/mythread-0.3.2/DATS/channel.dats"
 //
 (* ****** ****** *)
 
@@ -72,8 +84,12 @@ typedef T = ptr
 fun
 initize (x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
 
@@ -87,15 +103,23 @@ staload CH2 =
 typedef T = ptr
 //
 fun
-initize (x: &T? >> T): void = x := the_null_ptr
+initize(x: &T? >> T): void = x := the_null_ptr
 //
-#include "share/atspre_define.hats"
-#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+#define
+HX_GLOBALS_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb/atscntrb-hx-globals"
+#include "{$HX_GLOBALS}/HATS/globvar.hats"
 //
 } (* end of [staload] *)
-
-val () = $CH2.set ($UN.cast2ptr($CHAN.channel_create_exn<int> (i2sz(2))))
-
+//
+val () =
+$CH2.set
+(
+$UN.cast2ptr($CHAN.channel_create_exn<int>(i2sz(2)))
+)
+//
 (* ****** ****** *)
 
 implement
@@ -115,7 +139,7 @@ in
 end // end of [game_gtkgui_enter]
 
 implement
-game_gtkgui_enter_after () = let
+game_gtkgui_enter_after() = let
   val ch1 = game_gtkgui_get_chan1 ()
   val tok = $CHAN.channel_takeout (ch1)
 in
@@ -125,7 +149,7 @@ end // end of [game_gtkgui_enter_after]
 (* ****** ****** *)
 
 implement
-game_gtkgui_return () = let
+game_gtkgui_return() = let
   val ch2 = game_gtkgui_get_chan2 ()
   val tok = $CHAN.channel_takeout (ch2)
 in
@@ -133,7 +157,7 @@ in
 end // end of [game_gtkgui_return]
 
 implement
-game_gtkgui_return_before () = let
+game_gtkgui_return_before() = let
 //
 val ch2 = game_gtkgui_get_chan2 ()
 //
@@ -162,9 +186,11 @@ case+ xs of
 | list_nil () => ()
 | list_cons (x, xs) => let
     val btn = $UN.castvwtp0{GtkButton1}(x)
-    val () = gtk_button_set_label (btn, (gstring)" ")
-    val () = gtk_widget_set_sensitive (btn, GTRUE)
-    prval () = $UN.cast2void (btn)
+    val () =
+      gtk_button_set_label(btn, (gstring)" ")
+    // end of [val]
+    val () = gtk_widget_set_sensitive(btn, GTRUE)
+    prval ((*returned*)) = $UN.cast2void(btn)
   in
     loop (xs)
   end // end of [list_cons]

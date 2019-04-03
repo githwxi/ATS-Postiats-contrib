@@ -3,14 +3,29 @@
 *)
 
 (* ****** ****** *)
-
-#include "share/atspre_define.hats"
-#include "share/atspre_staload.hats"
-
+//
+#include
+"share/atspre_define.hats"
+//
 (* ****** ****** *)
-
-staload UN = "prelude/SATS/unsafe.sats"
-
+//
+#define
+LIBCAIRO_targetloc
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
+//
+(* ****** ****** *)
+//
+#include
+"share/atspre_staload.hats"
+//
+(* ****** ****** *)
+//
+#staload
+UN = "prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
 
 %{^
@@ -20,17 +35,19 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
-staload "./../SATS/gtkcairotimer.sats"
+#staload "./../SATS/gtkcairotimer.sats"
 //
-staload "./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
-dynload "./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#staload
+"./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#dynload
+"./../DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
 //
-staload CP = "./../DATS/gtkcairotimer/ControlPanel.dats"
-staload DP = "./../DATS/gtkcairotimer/DrawingPanel.dats"
+#staload CP = "./../DATS/gtkcairotimer/ControlPanel.dats"
+#staload DP = "./../DATS/gtkcairotimer/DrawingPanel.dats"
 //
-staload MAIN = "./../DATS/gtkcairotimer/gtkcairotimer_main.dats"
+#staload MAIN = "./../DATS/gtkcairotimer/gtkcairotimer_main.dats"
 //
-staload TIMER = "./../DATS/gtkcairotimer/gtkcairotimer_timer.dats"
+#staload TIMER = "./../DATS/gtkcairotimer/gtkcairotimer_timer.dats"
 //
 (* ****** ****** *)
 //
@@ -38,8 +55,12 @@ typedef dbl = double
 //  
 (* ****** ****** *)
 //
-staload "libc/SATS/math.sats"
-staload _(*anon*) = "libc/DATS/math.dats"
+#staload
+"libats/libc/SATS/math.sats"
+#staload
+_(*anon*) = "libats/libc/DATS/math.dats"
+//
+(* ****** ****** *)
 //
 macdef PI = M_PI
 macdef PI2 = PI/2
@@ -47,7 +68,7 @@ macdef _2PI = 2*PI
 //
 (* ****** ****** *)
 
-staload "{$CAIRO}/SATS/cairo.sats"
+#staload "{$LIBCAIRO}/SATS/cairo.sats"
 
 (* ****** ****** *)
   

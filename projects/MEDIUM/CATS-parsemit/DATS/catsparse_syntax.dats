@@ -12,15 +12,17 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
+//
 staload
-UN = "prelude/SATS/unsafe.sats"
-
+UN =
+"prelude/SATS/unsafe.sats"
+//
 (* ****** ****** *)
-
+//
 staload
-STRING = "libc/SATS/string.sats"
-
+STRING =
+"libats/libc/SATS/string.sats"
+//
 (* ****** ****** *)
 
 staload "./../SATS/catsparse.sats"
@@ -773,53 +775,166 @@ in '{
 (* ****** ****** *)
 //
 implement
-tmpvar_is_sta (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "sta", i2sz(3)) = 0
+tmpvar_is_sta(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "sta", i2sz(3)) = 0
 ) (* end of [tmpvar_is_sta] *)
 implement
-tmpvar_is_arg (tmp) = (
+tmpvar_is_arg(tmp) =
+(
   $STRING.strncmp (symbol_get_name(tmp), "arg", i2sz(3)) = 0
 ) (* end of [tmpvar_is_arg] *)
 implement
-tmpvar_is_apy (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "apy", i2sz(3)) = 0
+tmpvar_is_apy(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "apy", i2sz(3)) = 0
 ) (* end of [tmpvar_is_apy] *)
 //  
 implement
-tmpvar_is_env (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "env", i2sz(3)) = 0
+tmpvar_is_env(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "env", i2sz(3)) = 0
 ) (* end of [tmpvar_is_env] *)
 //
 implement
-tmpvar_is_tmp (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "tmp", i2sz(3)) = 0
+tmpvar_is_tmp(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "tmp", i2sz(3)) = 0
 ) (* end of [tmpvar_is_tmp] *)
 implement
-tmpvar_is_tmpret (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
+tmpvar_is_tmpret(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "tmpret", i2sz(6)) = 0
 ) (* end of [tmpvar_is_tmpret] *)
 //
+(* ****** ****** *)
+//
+(*
 implement
-tmpvar_is_a2rg (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "a2rg", i2sz(4)) = 0
+tmpvar_is_a2rg(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "a2rg", i2sz(4)) = 0
 ) (* end of [tmpvar_is_a2rg] *)
 implement
-tmpvar_is_a2py (tmp) = (
-  $STRING.strncmp (symbol_get_name(tmp), "a2py", i2sz(4)) = 0
+tmpvar_is_a2py(tmp) =
+(
+  $STRING.strncmp(symbol_get_name(tmp), "a2py", i2sz(4)) = 0
 ) (* end of [tmpvar_is_a2py] *)
+*)
 //
+(* ****** ****** *)
+
+local
 //
+fun
+skipds
+(
+  p1: ptr
+) : ptr = let
+  val c1 = $UN.ptr0_get<char>(p1)
+in
+  if isdigit(c1)
+    then skipds(ptr_succ<char>(p1)) else p1
+  // end of [if]
+end // end of [skipds]
+//
+in (* in-of-local *)
+
+implement
+tmpvar_is_axrg(tmp) = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(tmp))
+//
+val c0 =
+  $UN.ptr0_get<char>(p0)
+//
+in
+//
+if
+(c0 = 'a')
+then let
+//
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val c1 = $UN.ptr0_get<char>(p1)
+//
+in
+//
+if
+(c1 = 'r')
+then let
+  val p2 = ptr_succ<char>(p1)
+  val c2 = $UN.ptr0_get<char>(p2)
+in
+  if (c2 = 'g') then true else false
+end // end of [then]
+else false
+//
+end // end of [then]
+else false
+//
+end // end of [tmpvar_is_axrg]
+
+implement
+tmpvar_is_axpy(tmp) = let
+//
+val p0 =
+string2ptr
+  (symbol_get_name(tmp))
+//
+val c0 =
+  $UN.ptr0_get<char>(p0)
+//
+in
+//
+if
+(c0 = 'a')
+then let
+//
+val p1 =
+  skipds(ptr_succ<char>(p0))
+//
+val c1 = $UN.ptr0_get<char>(p1)
+//
+in
+//
+if
+(c1 = 'p')
+then let
+  val p2 = ptr_succ<char>(p1)
+  val c2 = $UN.ptr0_get<char>(p2)
+in
+  if (c2 = 'y') then true else false
+end // end of [then]
+else false
+//
+end // end of [then]
+else false
+//
+end // end of [tmpvar_is_axpy]
+
+end // end of [local]
+
 (* ****** ****** *)
 //
 implement
 tmpvar_is_local (tmp) =
 (
-  if tmpvar_is_tmp(tmp) then true
-  else if tmpvar_is_arg(tmp) then true
-  else if tmpvar_is_apy(tmp) then true
-  else if tmpvar_is_env(tmp) then true
-  else if tmpvar_is_a2rg(tmp) then true
-  else if tmpvar_is_a2py(tmp) then true else false
+  ifcase
+  | tmpvar_is_tmp(tmp) => true
+//
+  | tmpvar_is_arg(tmp) => true
+  | tmpvar_is_apy(tmp) => true
+//
+  | tmpvar_is_env(tmp) => true
+//
+  | tmpvar_is_axrg(tmp) => true
+  | tmpvar_is_axpy(tmp) => true
+//
+  | _ (* else *) => false
 ) (* end of [tmpvar_is_local] *)
 //
 (* ****** ****** *)
@@ -1432,6 +1547,36 @@ end // end of [ATSINSmove_lazyeval_make]
 (* ****** ****** *)
 
 implement
+ATSINSmove_ldelay_make
+(
+  tok1, tmp, s0e_res, thunk, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_ldelay(tmp, s0e_res, thunk))
+end // end of [ATSINSmove_ldelay_make]
+
+(* ****** ****** *)
+
+implement
+ATSINSmove_llazyeval_make
+(
+  tok1, tmp, s0e_res, lazyval, tok2
+) = let
+//
+val loc =
+  tok1.token_loc ++ tok2.token_loc
+//
+in
+  instr_make_node (loc, ATSINSmove_llazyeval(tmp, s0e_res, lazyval))
+end // end of [ATSINSmove_llazyeval_make]
+
+(* ****** ****** *)
+
+implement
 ATStailcalseq_make
 (
   tok1, inss, tok2
@@ -1958,6 +2103,38 @@ val loc = tok1.token_loc ++ tok2.token_loc
 in
   d0ecl_make_node (loc, D0Cdynloadflag_minit (flag))
 end // end of [d0ecl_dynloadflag_minit]
+
+(* ****** ****** *)
+
+implement
+d0ecl_dynexn_dec
+  (tok1, idexn, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynexn_dec (idexn))
+end // end of [d0ecl_dynexn_dec]
+
+implement
+d0ecl_dynexn_extdec
+  (tok1, idexn, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynexn_extdec (idexn))
+end // end of [d0ecl_dynexn_extdec]
+
+implement
+d0ecl_dynexn_initize
+  (tok1, idexn, fullname, tok2) = let
+//
+val loc = tok1.token_loc ++ tok2.token_loc
+//
+in
+  d0ecl_make_node (loc, D0Cdynexn_initize (idexn, fullname))
+end // end of [d0ecl_dynexn_initize]
 
 (* ****** ****** *)
 

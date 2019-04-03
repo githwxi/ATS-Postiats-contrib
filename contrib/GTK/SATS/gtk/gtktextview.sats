@@ -19,17 +19,19 @@ gtk_text_view_new_with_buffer
 ) : gobjref0(GtkTextView) = "mac#%"
 
 (* ****** ****** *)
-
+//
 fun
 gtk_text_view_set_buffer
-  (tv: !GtkTextView1, tb: !GtkTextBuffer0): void = "mac#%"
+(
+  tv: !GtkTextView1, tb: !GtkTextBuffer0
+) : void = "mac#%" // end-of-function
+//
 fun
 gtk_text_view_get_buffer
-  {l:agz} (tv: !GtkTextView(l)): [l2:agez]
-(
-  minus (GtkTextView(l), GtkTextBuffer(l2)) | GtkTextBuffer(l2)
-) = "mac#%" // end of [gtk_text_view_get_buffer]
-
+  {l:agz} (tv: !GtkTextView(l))
+: [l2:agez]
+  vtget1(GtkTextView(l), GtkTextBuffer(l2)) = "mac#%"
+//
 (* ****** ****** *)
 //
 fun

@@ -63,9 +63,11 @@ MODULE_LICENSE("Dual BSD/GPL") ;
 (* ****** ****** *)
 
 static
-fun init_module(): interr = "mac#"
+fun
+init_module(): interr = "mac#"
 static
-fun cleanup_module(): void = "mac#"
+fun
+cleanup_module(): void = "mac#"
 
 (* ****** ****** *)
 

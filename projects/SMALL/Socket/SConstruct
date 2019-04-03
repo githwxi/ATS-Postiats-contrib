@@ -11,7 +11,7 @@ import os
 
 OS_PATH= os.environ['PATH']
 PATSHOME= os.environ['PATSHOME']
-PATSHOMERELOC= os.environ['PATSHOMERELOC']
+PATSCONTRIB= os.environ['PATSCONTRIB']
 
 ######
 
@@ -31,7 +31,7 @@ myenv['ENV']['PATH'] = \
   OS_PATH + os.pathsep + PATSHOMEbin
 #
 myenv['ENV']['PATSHOME'] = PATSHOME
-myenv['ENV']['PATSHOMERELOC'] = PATSHOMERELOC
+myenv['ENV']['PATSCONTRIB'] = PATSCONTRIB
 #
 myenv['ENV']['PATSCC'] = PATSCC
 myenv['ENV']['PATSOPT'] = PATSOPT

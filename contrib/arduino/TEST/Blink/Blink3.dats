@@ -9,6 +9,11 @@
 
 (* ****** ****** *)
 //
+#define
+ARDUINO_targetloc "./../.."
+//
+(* ****** ****** *)
+//
 #include
 "share/atspre_define.hats"
 #include

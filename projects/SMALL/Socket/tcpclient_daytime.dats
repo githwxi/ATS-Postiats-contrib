@@ -14,12 +14,10 @@
 *)
 
 (* ****** ****** *)
-
-#include
-"share/atspre_define.hats"
+//
 #include
 "share/atspre_staload.hats"
-
+//
 (* ****** ****** *)
 
 staload
@@ -27,11 +25,11 @@ UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload "libc/SATS/stdio.sats"
-staload "libc/sys/SATS/socket.sats"
-staload "libc/arpa/SATS/inet.sats"
-staload "libc/netinet/SATS/in.sats"
-staload "libc/sys/SATS/socket_in.sats"
+staload "libats/libc/SATS/stdio.sats"
+staload "libats/libc/SATS/sys/socket.sats"
+staload "libats/libc/SATS/arpa/inet.sats"
+staload "libats/libc/SATS/netinet/in.sats"
+staload "libats/libc/SATS/sys/socket_in.sats"
 
 (* ****** ****** *)
 

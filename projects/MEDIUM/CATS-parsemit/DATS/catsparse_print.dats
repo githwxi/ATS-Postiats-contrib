@@ -203,6 +203,9 @@ case+ x of
 | ATSINSmove_delay () => pr "ATSINSmove_delay"
 | ATSINSmove_lazyeval () => pr "ATSINSmove_lazyeval"
 //
+| ATSINSmove_ldelay () => pr "ATSINSmove_ldelay"
+| ATSINSmove_llazyeval () => pr "ATSINSmove_llazyeval"
+//
 | ATStailcal_beg () => pr "ATStailcal_beg"
 | ATStailcal_end () => pr "ATStailcal_end"
 | ATSINSmove_tlcal () => pr "ATSINSmove_tlcal"
@@ -224,6 +227,10 @@ case+ x of
 //
 | ATSclosurerize_beg () => pr "ATSclosurerize_beg"
 | ATSclosurerize_end () => pr "ATSclosurerize_end"
+//
+| ATSdynexn_dec () => pr "ATSdynexn_dec"
+| ATSdynexn_extdec () => pr "ATSdynexn_extdec"
+| ATSdynexn_initize () => pr "ATSdynexn_initize"
 //
 | KWORDnone () => pr "KWORDnone"
 //
@@ -715,6 +722,13 @@ x.d0ecl_node of
     fprint! (out, "D0Cdynloadflag_init(", flag, ")")
 | D0Cdynloadflag_minit (flag) =>
     fprint! (out, "D0Cdynloadflag_minit(", flag, ")")
+//
+| D0Cdynexn_dec (idexn) =>
+    fprint! (out, "D0Cdynexn_dec(", idexn, ")")
+| D0Cdynexn_extdec (idexn) =>
+    fprint! (out, "D0Cdynexn_extdec(", idexn, ")")
+| D0Cdynexn_initize (idexn, fullname) =>
+    fprint! (out, "D0Cdynexn_initize(", idexn, fullname, ")")
 //
 end // end of [fprint_d0ecl]
 //

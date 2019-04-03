@@ -130,24 +130,27 @@ fun zlog_profile (!zlgctx1): void = "mac#%"
 castfn zlgcat2ptr {l:addr} (!zlgcat (l)):<> ptr (l)
 
 (* ****** ****** *)
-
-fun zlog_get_category
+//
+fun
+zlog_get_category
   {n:int | n >= 0}
 (
   ctx: !zlgctx (n), cname: NSH(string)
-) : [l:addr]
-(
-  minus (zlgctx(n), zlgcat(l)) | zlgcat(l)
-) = "mac#%" // endfun
-
+) : [l:addr] vtget1(zlgctx(n), zlgcat(l)) = "mac#%"
+//
 (* ****** ****** *)
-
+//
 fun zlog_get_mdc
   (!zlgctx1, string(*key*)): vStrptr0 = "mac#%"
 fun zlog_put_mdc
   (!zlgctx1, string(*key*), string(*val*)): int = "mac#%"
+//
+(* ****** ****** *)
 
-fun zlog_remove_mdc (!zlgctx1, string(*key*)): void = "mac#%"
+fun
+zlog_remove_mdc (!zlgctx1, string(*key*)): void = "mac#%"
+
+(* ****** ****** *)
 
 fun zlog_clean_mdc (!zlgctx1): void = "mac#%"
 

@@ -23,16 +23,16 @@ gtk_scrolled_window_new
 //
 fun
 gtk_scrolled_window_get_hadjustment
-  {l:agz} (sw: !GtkScrolledWindow(l)): [l2:agez]
-(
-  minus (GtkScrolledWindow(l), GtkAdjustment(l2)) | GtkAdjustment(l2)
-) = "mac#%" // end of [gtk_scrolled_window_get_hadjustment]
+  {l:agz} (sw: !GtkScrolledWindow(l))
+: [l2:agez]
+  vtget1(GtkScrolledWindow(l), GtkAdjustment(l2)) = "mac#%"
+// end of [gtk_scrolled_window_get_hadjustment]
 fun
 gtk_scrolled_window_get_vadjustment
-  {l:agz} (sw: !GtkScrolledWindow(l)): [l2:agez]
-(
-  minus (GtkScrolledWindow(l), GtkAdjustment(l2)) | GtkAdjustment(l2)
-) = "mac#%" // end of [gtk_scrolled_window_get_vadjustment]
+  {l:agz} (sw: !GtkScrolledWindow(l))
+: [l2:agez]
+  vtget1(GtkScrolledWindow(l), GtkAdjustment(l2)) = "mac#%"
+// end of [gtk_scrolled_window_get_vadjustment]
 //
 (* ****** ****** *)
 //

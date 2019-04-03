@@ -6,7 +6,10 @@
 *)
 (* ****** ****** *)
 
-#define ATS_DYNLOADFLAG 0
+#define
+ATS_DYNLOADFLAG 0
+#define
+ARDUINO_targetloc "./../.."
 
 (* ****** ****** *)
 //
@@ -59,7 +62,7 @@ loop
 if
 i < n
 then
-  if A[i] > 0 then loop (i+1) else i
+(if A[i] > 0 then loop(i+1) else i)
 else n
 ) (* end of [loop] *)
 //
@@ -71,11 +74,11 @@ if
 i0 < n
 then
 (
-  A[i0] := 1; find2_next (A, n, i0)
+  A[i0] := 1; find2_next(A, n, i0)
 ) (* end of [then] *)
 else
 (
-  A[n-1] := A[n-1] + 1; find2_next (A, n, n-1)
+  A[n-1] := A[n-1] + 1; find2_next(A, n, n-1)
 ) (* end of [else] *)
 //
 end // end of [find_next]
@@ -113,7 +116,9 @@ if
 test(0)
 then
 (
-  if i+1=n then true else find_next(A, n)
+if i+1=n
+  then true else find_next(A, n)
+// end of [if]
 ) (* end of [then] *)
 else (A[i] := A[i]+1; find2_next(A, n, i))
 //
@@ -121,7 +126,10 @@ end // end of [then]
 else let
   val () = A[i] := 0
 in
-  if i > 0 then (A[i-1] := A[i-1]+1; find2_next (A, n, i-1)) else false
+  if i > 0
+    then (A[i-1] := A[i-1]+1; find2_next(A, n, i-1))
+    else (false)
+  // end of [if]
 end // end of [else]
 //
 end // end of [find2_next]
@@ -144,17 +152,20 @@ staload "{$ARDUINO}/SATS/Bridge/Console.sats"
 //
 extern
 fun
-setup (): void = "mac#"
+setup
+(
+// argless
+) : void = "mac#"
 //
 implement
-setup () = () where
+setup() = () where
 {
 //
 val () = Bridge_ptr._begin()
 //
 val () = Console_ptr._begin()
 val () = while (~Console_ptr.connected()) ()
-val () = Console_ptr.println ("Let us solve the 8-queen puzzle!\n")
+val () = Console_ptr.println("Let us solve the 8-queen puzzle!\n")
 //
 } (* end of [setup] *)
 //
@@ -183,27 +194,33 @@ end // end of [fprint_val]
 (* ****** ****** *)
 //
 implement
-fprint_string (out, x) = Console_ptr.print(x)
+fprint_string
+  (out, x) =
+  Console_ptr.print(x)
 //
 (* ****** ****** *)
 //
 implement
-fprint_array$sep<> (out) = ()
+fprint_array$sep<>(out) = ()
 //
 (* ****** ****** *)
 //
 extern
-fun loop (): void = "mac#"
+fun
+loop
+(
+// argless
+) : void = "mac#"
 //
 implement
-loop () =
+loop() =
 myloop() where
 {
 fun
 myloop(): void = let
 //
 val
-out = $extval (FILEref, "0")
+out = $extval(FILEref, "0")
 //
 (*
 val () =
@@ -211,14 +228,14 @@ randomSeed($UN.cast{uint}(millis()))
 *)
 //
 val A = theArray
-val found = find_next (A, N)
+val found = find_next(A, N)
 //
 val () =
 if found then
 {
   val () =
-  fprint_arrayref (out, A, i2sz(N))
-  val () = Console_ptr.println()
+  fprint_arrayref(out, A, i2sz(N))
+  val () = Console_ptr.println((*void*))
 } (* end of [then] *)
 //
 val () =
@@ -226,13 +243,16 @@ if ~found then
 {
 //
   val () =
-  fprint_string (out, "All solutions are found!\n")
-  val () = Console_ptr.println()
+  fprint_string
+    (out, "All solutions are found!\n")
+  // end of [val]
+//
+  val () = Console_ptr.println((*void*))
 //
 } (* end of [then] *)
 //
 in
-  delay (1000); myloop ()
+  delay(1000); myloop((*void*))
 end // end of [myloop]
 //
 } (* end of [loop] *)

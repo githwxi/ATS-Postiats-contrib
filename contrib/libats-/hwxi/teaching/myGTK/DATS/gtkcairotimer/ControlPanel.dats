@@ -28,8 +28,12 @@
 
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
 //
 (* ****** ****** *)
 //

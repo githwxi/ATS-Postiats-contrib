@@ -14,7 +14,7 @@ PATSOPT=$(PATSHOMEQ)/bin/patsopt
 ######
 
 PATSCCOMP2=\
-"emcc -Wno-warn-absolute-paths -I${PATSHOME} -I${PATSHOME}/ccomp/runtime"
+"emcc -DASSERTIONS=2 -Werror -Wno-warn-absolute-paths -I${PATSHOME} -I${PATSHOME}/ccomp/runtime"
 
 ######
 

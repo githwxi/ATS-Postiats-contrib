@@ -23,25 +23,31 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+JNI_targetloc
+"$PATSCONTRIB/contrib/JNI"
 //
+(* ****** ****** *)
+
+#define
+SOURCE_targetloc "./../src"
+
 (* ****** ****** *)
 //
 staload
-CALC = "./../calculator.sats"
+CALC = "{$SOURCE}/calculator.sats"
 //
 (* ****** ****** *)
 
 local
 //
-#include "./../calculator_aexp.dats"
-#include "./../calculator_token.dats"
-#include "./../calculator_cstream.dats"
-#include "./../calculator_tstream.dats"
-#include "./../calculator_parsing.dats"
-#include "./../calculator_print.dats"
-#include "./../calculator_mylib.dats"
+#include "{$SOURCE}/calculator_aexp.dats"
+#include "{$SOURCE}/calculator_mylib.dats"
+#include "{$SOURCE}/calculator_print.dats"
+#include "{$SOURCE}/calculator_token.dats"
+#include "{$SOURCE}/calculator_cstream.dats"
+#include "{$SOURCE}/calculator_tstream.dats"
+#include "{$SOURCE}/calculator_parsing.dats"
 //
 in (*nothing*) end
 
@@ -66,7 +72,8 @@ stadef jobject (l:addr) = $JNI.jobject(l)
 // [eval] is declared in Java class [Calculator]
 //
 extern
-fun JNI_eval{l1,l2:addr}
+fun
+JNI_eval{l1,l2:addr}
 (
   env: !JNIEnvPtr, obj: !jobject l1, inp: jstring l2
 ) : double = "ext#Java_Calculator_eval" // endfun

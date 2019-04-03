@@ -55,7 +55,7 @@ staload SYMCNT =
 staload _(*anon*) =
 "prelude/DATS/integer.dats"
 //
-#include "{$LIBATSHWXI}/globals/HATS/gcount.hats"
+#include "{$HX_GLOBALS}/HATS/gcount.hats"
 //
 } (* end of [staload] *)
 
@@ -80,7 +80,7 @@ staload
 implement hashtbl$recapacitize<> () = 1
 //
 #include
-"{$LIBATSHWXI}/globals/HATS/ghashtbl_linprb.hats"
+"{$HX_GLOBALS}/HATS/ghashtbl_linprb.hats"
 //
 } (* end of [staload] *)
 

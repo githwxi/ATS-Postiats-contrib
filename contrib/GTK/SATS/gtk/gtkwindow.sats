@@ -30,7 +30,7 @@ gtk_window_get_title
   win: !gobjref (c, l)
 ) : [l2:agez]
 (
-  minus(gobjref(c, l), gstrptr l2) | gstrptr l2
+  vtget1(gobjref(c, l), gstrptr(l2))
 ) = "mac#%" // endfun
 
 fun gtk_window_set_title

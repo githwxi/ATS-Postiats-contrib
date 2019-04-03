@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
 ** API in ATS for GNU-readline
 *)
-
 (* ****** ****** *)
 
 (*
@@ -50,11 +50,13 @@
 #define ATS_EXTERN_PREFIX "atscntrb_readline_" // prefix for external names
 
 (* ****** ****** *)
-
+//
 staload
-TIME = "libc/SATS/time.sats"
+TIME =
+"libats/libc/SATS/time.sats"
+//
 typedef time_t = $TIME.time_t
-
+//
 (* ****** ****** *)
 
 abstype charptr = ptr
@@ -62,17 +64,17 @@ abstype histdata_t = ptr
 
 (* ****** ****** *)
 
-absvtype HISTENTptr (l:addr) = ptr(l)
-vtypedef HISTENTptr0 = [l:agez] HISTENTptr (l)
-vtypedef HISTENTptr1 = [l:addr | l > null] HISTENTptr (l)
+absvtype HISTENTptr(l:addr) = ptr(l)
+vtypedef HISTENTptr0 = [l:agez] HISTENTptr(l)
+vtypedef HISTENTptr1 = [l:addr | l > null] HISTENTptr(l)
 
 (* ****** ****** *)
 //
 vtypedef
-vHISTENTptr(l:addr) = vttakeout0 (HISTENTptr(l))
+vHISTENTptr(l:addr) = vttakeout0(HISTENTptr(l))
 //
-vtypedef vHISTENTptr0 = [l:agez] vHISTENTptr (l)
-vtypedef vHISTENTptr1 = [l:addr | l > null] vHISTENTptr (l)
+vtypedef vHISTENTptr0 = [l:agez] vHISTENTptr(l)
+vtypedef vHISTENTptr1 = [l:addr | l > null] vHISTENTptr(l)
 //
 (* ****** ****** *)
 
@@ -97,55 +99,55 @@ overload ptrcast with HISTENTptr2ptr
 (* ****** ****** *)
 
 praxi
-HISTENTptr_free_null (HISTENTptr(null)): void
+HISTENTptr_free_null(HISTENTptr(null)): void
 
 (* ****** ****** *)
 
-fun add_history (line: !Strptr1): void = "mac#%"
-fun add_history_time (line: !Strptr1): void = "mac#%"
+fun add_history(line: !Strptr1): void = "mac#%"
+fun add_history_time(line: !Strptr1): void = "mac#%"
 
 (* ****** ****** *)
 
-fun remove_history (int): HISTENTptr0 = "mac#%"
+fun remove_history(int): HISTENTptr0 = "mac#%"
 
 (* ****** ****** *)
 
-fun free_history_entry (ent: HISTENTptr0): histdata_t = "mac#%"
+fun free_history_entry(ent: HISTENTptr0): histdata_t = "mac#%"
 
 (* ****** ****** *)
 
-fun where_history ((*void*)): int = "mac#%"
+fun where_history((*void*)): int = "mac#%"
 
 (* ****** ****** *)
 
-fun current_history ((*void*)): vHISTENTptr0 = "mac#%"
+fun current_history((*void*)): vHISTENTptr0 = "mac#%"
 
 (* ****** ****** *)
 
-fun history_total_bytes ((*void*)): int = "mac#%"
+fun history_total_bytes((*void*)): int = "mac#%"
 
 (* ****** ****** *)
 
-fun history_get (ofs: int): vHISTENTptr0 = "mac#%"
+fun history_get(ofs: int): vHISTENTptr0 = "mac#%"
 
 (* ****** ****** *)
 
-fun history_get_time (ent: !HISTENTptr0): time_t = "mac#%"
+fun history_get_time(ent: !HISTENTptr0): time_t = "mac#%"
 
 (* ****** ****** *)
 
-fun history_set_pos (pos: int): int(*err*) = "mac#%"
+fun history_set_pos(pos: int): int(*err*) = "mac#%"
 
 (* ****** ****** *)
 
-fun next_history ((*void*)): vHISTENTptr0 = "mac#%"
-fun previous_history ((*void*)): vHISTENTptr0 = "mac#%"
+fun next_history((*void*)): vHISTENTptr0 = "mac#%"
+fun previous_history((*void*)): vHISTENTptr0 = "mac#%"
 
 (* ****** ****** *)
 
-fun history_search (str: string, dir: int): int = "mac#%"
-fun history_search_prefix (str: string, dir: int): int = "mac#%"
-fun history_search_pos (str: string, dir: int, pos: int): int = "mac#%"
+fun history_search(str: string, dir: int): int = "mac#%"
+fun history_search_prefix(str: string, dir: int): int = "mac#%"
+fun history_search_pos(str: string, dir: int, pos: int): int = "mac#%"
 
 (* ****** ****** *)
 

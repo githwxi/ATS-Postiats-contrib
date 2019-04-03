@@ -8,7 +8,7 @@
 #include
 "share/atspre_staload.hats"
 #include
-"share/HATS/atslib_staload_libc.hats"
+"share/HATS/atslib_staload_libats_libc.hats"
 //
 staload "libats/ML/SATS/basis.sats"
 staload "libats/ML/SATS/list0.sats"

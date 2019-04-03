@@ -10,23 +10,23 @@
 //
 (* ****** ****** *)
 //
-#include
-"share/atspre_define.hats"
+#define
+ATS_MAINATSFLAG 1
+#define
+ATS_DYNLOADNAME "GameOf24_pl_dynload"
 //
 (* ****** ****** *)
 //
-#define ATS_MAINATSFLAG 1
-#define ATS_DYNLOADNAME "GameOf24_pl_dynload"
+#define
+LIBATSCC2PL_targetloc
+"$PATSHOME/contrib/libatscc2pl/ATS2-0.3.2"
 //
 (* ****** ****** *)
 //
-#include
-"{$LIBATSCC2PL}/staloadall.hats"
+#staload "./GameOf24_pl.sats"
 //
-(* ****** ****** *)
-
-staload "./GameOf24_pl.sats"
-
+#include "{$LIBATSCC2PL}/staloadall.hats"
+//
 (* ****** ****** *)
 
 local

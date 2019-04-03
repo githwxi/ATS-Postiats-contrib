@@ -332,8 +332,11 @@ fun tmpvar_is_apy (tmp: symbol): bool
 fun tmpvar_is_env (tmp: symbol): bool
 fun tmpvar_is_tmp (tmp: symbol): bool
 fun tmpvar_is_tmpret (tmp: symbol): bool
-fun tmpvar_is_a2rg (tmp: symbol): bool
-fun tmpvar_is_a2py (tmp: symbol): bool
+//
+(* ****** ****** *)
+//
+fun tmpvar_is_axrg (tmp: symbol): bool
+fun tmpvar_is_axpy (tmp: symbol): bool
 //
 fun tmpvar_is_local (tmp: symbol): bool
 //
@@ -582,6 +585,22 @@ ATSINSmove_lazyeval_make
 , tok_end: token
 ) : instr // end-of-function
 //
+fun
+ATSINSmove_ldelay_make
+(
+  tok_kwd: token
+, tmp: i0de, s0e_res: s0exp, d0e: d0exp (*thunk*)
+, tok_end: token
+) : instr // end-of-function
+//
+fun
+ATSINSmove_llazyeval_make
+(
+  tok_kwd: token
+, tmp: i0de, s0e_res: s0exp, d0e: d0exp (*lazyval*)
+, tok_end: token
+) : instr // end-of-function
+//
 (* ****** ****** *)
 //
 fun
@@ -744,6 +763,20 @@ d0ecl_dynloadflag_init
 fun
 d0ecl_dynloadflag_minit
   (tok_kwd: token, flag: i0de, tok_end: token): d0ecl
+//
+(* ****** ****** *)
+//
+fun
+d0ecl_dynexn_dec
+  (tok_kwd: token, idexn: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dynexn_extdec
+  (tok_kwd: token, idexn: i0de, tok_end: token): d0ecl
+fun
+d0ecl_dynexn_initize
+(
+  tok_kwd: token, idexn: i0de, fullname: s0tring, tok_end: token
+) : d0ecl // end of [d0ecl_dynexn_initize]
 //
 (* ****** ****** *)
 

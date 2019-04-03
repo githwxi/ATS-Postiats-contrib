@@ -63,12 +63,10 @@ gtk_message_dialog_set_image
 fun
 gtk_message_dialog_get_image
   {l:agz}
-(
-  dialog: !GtkMessageDialog(l)
-) : [l2:agez]
-(
-  minus (GtkMessageDialog(l), GtkWidget(l2)) | GtkWidget(l2)
-) = "mac#%" // end of [gtk_message_dialog_get_image]
+  (dialog: !GtkMessageDialog(l))
+: [l2:agez]
+  vtget1(GtkMessageDialog(l), GtkWidget(l2)) = "mac#%"
+// end of [gtk_message_dialog_get_image]
 //
 (* ****** ****** *)
 

@@ -1,7 +1,7 @@
+(* ****** ****** *)
 (*
 ** For programming Arduino
 *)
-
 (* ****** ****** *)
 //
 staload _ =
@@ -12,6 +12,12 @@ staload _ =
 staload _ =
 "prelude/DATS/pointer.dats"
 //
+staload _ =
+"prelude/DATS/integer_long.dats"
+staload _ =
+"prelude/DATS/integer_size.dats"
+staload _ =
+"prelude/DATS/integer_short.dats"
 staload _ =
 "prelude/DATS/integer_fixed.dats"
 //

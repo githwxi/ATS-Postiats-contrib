@@ -95,7 +95,7 @@ fprint_val<myint> (out, x) = fprint (out, x)
 (* ****** ****** *)
 
 implement
-gcompare_val<myint>
+gcompare_val_val<myint>
   (x1, x2) = let
   val+MYINT(i1, _) = x1
   and MYINT(i2, _) = x2
@@ -162,7 +162,9 @@ fnx loop_lf
   l: size_t, r: size_t
 ) : size_t =
   if l < r then let
-    val sgn = gcompare_val<myint> (A[l], pivot)
+    val sgn =
+      gcompare_val_val<myint> (A[l], pivot)
+    // end of [val]
   in
     if sgn < 0
       then loop_lf (succ(l), r) else loop_rb (l, r)
@@ -175,7 +177,9 @@ and loop_rb
 ) : size_t =
   if l < r then let
     val r1 = pred (r)
-    val sgn = gcompare_val<myint> (pivot, A[r1])
+    val sgn =
+      gcompare_val_val<myint> (pivot, A[r1])
+    // end of [val]
   in
     if sgn <= 0
       then loop_rb (l, r1) else loop_swap (l, r1)
@@ -262,7 +266,7 @@ array0_swap<myint>
 }
 //
 in
-  qsort<myint> (A, i2sz(0), A.size)
+  qsort<myint> (A, i2sz(0), A.size())
 end // end of [intqsort]
 
 (* ****** ****** *)
@@ -282,7 +286,7 @@ draw_array0
 , W: double, H: double, A: array0 (myint)
 ) : void = let
 //
-val n = A.size
+val n = A.size()
 //
 fun
 loop{l:agz}
@@ -328,12 +332,17 @@ in
 end // end of [draw_array0]
 
 (* ****** ****** *)
-
-staload "libc/SATS/time.sats"
-staload "libc/SATS/stdlib.sats"
-staload "{$LIBATSHWXI}/testing/SATS/randgen.sats"
-staload _ = "{$LIBATSHWXI}/testing/DATS/randgen.dats"
-
+//
+staload "libats/libc/SATS/time.sats"
+staload "libats/libc/SATS/stdlib.sats"
+//
+staload
+"{$PATSHOME}/contrib\
+/atscntrb-hx-mytesting/SATS/randgen.sats"
+staload
+"{$PATSHOME}/contrib\
+/atscntrb-hx-mytesting/DATS/randgen.dats"
+//
 (* ****** ****** *)
 //
 extern
@@ -345,7 +354,7 @@ fun canvas2d_set_size_int
 //
 extern
 fun request_animation_frame
-  (f: (double) -> void): void = "ext#JS_request_animation_frame"
+  (f: (int) -> void): void = "ext#JS_request_animation_frame"
 //
 (* ****** ****** *)
 
@@ -364,7 +373,7 @@ request_animation_frame
 (
 fix step
 (
-  stamp: double
+  stamp: int
 ) : void => let
 //
 val A = snapshot_pop ()

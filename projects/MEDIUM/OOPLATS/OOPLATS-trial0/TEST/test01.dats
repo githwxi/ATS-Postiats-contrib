@@ -4,9 +4,12 @@
 "share/atspre_staload.hats"
 //
 (* ****** ****** *)
-
-staload "./../OOPLATS.sats"
-
+//
+#staload "./../OOPLATS.sats"
+//
+#staload _ = "./../OOPLATS_basics.dats"
+#staload _ = "./../OOPLATS_object.dats"
+//
 (* ****** ****** *)
 //
 val-

@@ -21,7 +21,10 @@ clean:: ; $(RMF) *_?ats.c
 ######
 #
 cleanall:: clean
-cleanall:: ; $(MAKE) -f Makefile clean
+#
+cleanall:: ; \
+$(MAKE) -f Makefile clean
+#
 cleanall:: ; $(RMF) *_dats.ino
 #
 ###### end of [Makefile] ######

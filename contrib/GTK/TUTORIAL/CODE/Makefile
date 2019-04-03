@@ -13,21 +13,29 @@ CFLAGS :=
 LDFLAGS :=
 
 ######
-
-GTKCFLAGS=`pkg-config gtk+-3.0 --cflags`
+#
+GTKCFLAGS=\
+`pkg-config gtk+-3.0 --cflags`
+#
 GTKLDFLAGS=`pkg-config gtk+-3.0 --libs`
-
+#
 ######
 
-include $(PATSHOME)/share/atsmake-post.mk
+include \
+$(PATSHOME)/share/atsmake-post.mk
 
+######
+#
+PATSCC2=$(PATSCC) $(INCLUDE)
+INCLUDE+=-IIATS $(PATSCONTRIB)/contrib
+#
 ######
 #
 all:: \
 chap_start
 chap_start: \
 chap_start.dats ; \
-  $(PATSCC2) -DATS_MEMALLOC_LIBC -D_GNU_SOURCE -o $@ $(GTKCFLAGS) $< $(GTKLDFLAGS)
+$(PATSCC2) -DATS_MEMALLOC_LIBC -D_GNU_SOURCE -o $@ $(GTKCFLAGS) $< $(GTKLDFLAGS)
 cleanall:: ; $(RMF) chap_start
 #
 ######
@@ -36,7 +44,7 @@ all:: \
 chap_hello
 chap_hello: \
 chap_hello.dats ; \
-  $(PATSCC2) -DATS_MEMALLOC_LIBC -D_GNU_SOURCE -o $@ $(GTKCFLAGS) $< $(GTKLDFLAGS)
+$(PATSCC2) -DATS_MEMALLOC_LIBC -D_GNU_SOURCE -o $@ $(GTKCFLAGS) $< $(GTKLDFLAGS)
 cleanall:: ; $(RMF) chap_hello
 #
 ######
@@ -45,7 +53,7 @@ all:: \
 chap_boxpack
 chap_boxpack: \
 chap_boxpack.dats ; \
-  $(PATSCC2) -DATS_MEMALLOC_LIBC -D_GNU_SOURCE -o $@ $(GTKCFLAGS) $< $(GTKLDFLAGS)
+$(PATSCC2) -DATS_MEMALLOC_LIBC -D_GNU_SOURCE -o $@ $(GTKCFLAGS) $< $(GTKLDFLAGS)
 cleanall:: ; $(RMF) chap_boxpack
 #
 ######

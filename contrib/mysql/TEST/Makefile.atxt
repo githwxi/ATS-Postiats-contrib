@@ -19,22 +19,22 @@ fun make_entry
   (nm: string): atext = let
 //
 val ent = sprintf ("\
-all:: %s\n\
+all:: \\\n\
+%s\n\
 %s: %s.exe\n\
 %s.exe: %s_dats.c ; \\\n\
   $(CCOPT) $(CCFLAGS) \\\n\
     -I$(PATSHOMEQ) \\\n\
     -I$(PATSHOMEQ)/ccomp/runtime \\\n\
-    -I$(PATSHOMERELOCQ)/contrib \\\n\
+    -I$(PATSCONTRIBQ)/contrib \\\n\
     $(MYSQLCFLAGS) \\\n\
     -o $@ $< \\\n\
     $(MYSQLLIBS) \n\
 %s_dats.c: %s.dats ; \\\n\
   $(PATSOPT) --output %s_dats.c --dynamic %s.dats\n\
-clean:: ; $(RMF) %s_dats.o\n\
-clean:: ; $(RMF) %s_dats.c\n\
+regress:: %s.exe; ./$<
 cleanall:: ; $(RMF) %s.exe\n\
-", @(nm, nm, nm, nm, nm, nm, nm, nm, nm, nm, nm, nm)
+", @(nm, nm, nm, nm, nm, nm, nm, nm, nm, nm, nm)
 ) // end of [val]
 //
 val ent = string_of_strptr (ent)
@@ -59,7 +59,7 @@ CCOPT=gcc
 ######
 
 PATSHOMEQ="$(PATSHOME)"
-PATSHOMERELOCQ="$(PATSHOMERELOC)"
+PATSCONTRIBQ="$(PATSCONTRIB)"
 
 ######
 
@@ -88,6 +88,12 @@ RMF=rm -f
 #make_entry("test04")
 #make_entry("test05")
 #make_entry("test06")
+
+######
+
+testall:: all
+testall:: regress
+testall:: cleanall
 
 ######
 
