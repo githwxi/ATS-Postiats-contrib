@@ -8,6 +8,11 @@ staload "./../SATS/SDL.sats"
 
 (* ****** ****** *)
 
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "ats_dynload"
+
+(* ****** ****** *)
+
 val () = let
   var ver: SDL_version
   val () = SDL_VERSION (ver)
@@ -22,7 +27,12 @@ end // end of [val]
 
 (* ****** ****** *)
 
-implement main0 () = ()
+%{$
+int main(int argc, char *argv[]) {
+  ats_dynload();
+  return 0;
+}
+%}
 
 (* ****** ****** *)
 
