@@ -16,8 +16,13 @@
 (* ****** ****** *)
 
 local
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
 #include
-"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+"\
+{$LIBATSHWXI}\
+/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
 in (*nothing*) end
 
 (* ****** ****** *)

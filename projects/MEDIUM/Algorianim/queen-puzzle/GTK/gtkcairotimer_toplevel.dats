@@ -11,9 +11,18 @@ ATS_PACKNAME
 //
 (* ****** ****** *)
 //
+(*
 #include "share/atspre_define.hats"
+*)
+//
 #include "share/atspre_staload.hats"
 //
+(* ****** ****** *)
+
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
+
 (* ****** ****** *)
 
 local
@@ -28,7 +37,12 @@ in (*nothing*) end
 staload
 PATHLST = {
 //
-staload
+#define
+HX_GLOBALS_targetloc
+"$PATSHOME/contrib\
+/atscntrb/atscntrb-hx-globals"
+//
+#staload
 DF = "./../depth-first.sats"
 //
 typedef T = $DF.nodelst

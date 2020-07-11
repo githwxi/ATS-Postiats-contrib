@@ -5,8 +5,11 @@
 //
 #define
 LIBCAIRO_targetloc
-"$PATSHOME/npm-utils\
-/contrib/atscntrb-libcairo"
+"\
+$PATSHOME\
+/npm-utils\
+/contrib/atscntrb\
+/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 
@@ -295,6 +298,14 @@ end // [mydraw_clock]
 #staload
 "libats/libc/SATS/stdlib.sats"
 //
+(* ****** ****** *)
+//
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb\
+/atscntrb-hx-mytesting"
 #staload
 "{$HX_MYTESTING}/SATS/randgen.sats"
 #staload _ =
@@ -309,6 +320,9 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
 #staload
 "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
 #staload
