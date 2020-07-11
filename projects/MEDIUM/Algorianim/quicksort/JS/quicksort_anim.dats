@@ -43,15 +43,27 @@ staload "{$HTML}/canvas-2d/SATS/canvas2d.sats"
 ** Generate a number in [0, 1)
 *)
 extern
-fun Math_random
-  ((*void*)): double = "ext#JS_Math_random"
+fun
+Math_random
+(
+(*void*)
+) : double = "ext#JS_Math_random"
 // end of [Math_random]
 
 (* ****** ****** *)
-
-staload "{$HX_MYTESTING}/SATS/randgen.sats"
-staload _ = "{$HX_MYTESTING}/DATS/randgen.dats"
-
+//
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb\
+/atscntrb-hx-mytesting"
+//
+staload
+"{$HX_MYTESTING}/SATS/randgen.sats"
+staload _ =
+"{$HX_MYTESTING}/DATS/randgen.dats"
+//
 (* ****** ****** *)
 
 extern
