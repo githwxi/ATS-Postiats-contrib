@@ -26,7 +26,7 @@ $(PATSHOME)/share/atsmake-post.mk
 PATSCC2=$(PATSCC) $(INCLUDE)
 #
 INCLUDE+=-I$(PATSCONTRIB)/contrib
-INCLUDE+=-I$(PATSHOME)/npm-utils/contrib
+INCLUDE+=-I$(PATSHOME)/npm-utils/contrib/atscntrb
 #
 ######
 

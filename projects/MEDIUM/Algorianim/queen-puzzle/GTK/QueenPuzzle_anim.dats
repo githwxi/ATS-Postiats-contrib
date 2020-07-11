@@ -203,6 +203,7 @@ the_timer_reset_after<> () =
 } (* end of [the_timer_reset_after] *)
 
 (* ****** ****** *)
+//
 #define
 GTK_targetloc
 "$PATSCONTRIB/contrib/GTK"

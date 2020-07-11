@@ -6,8 +6,10 @@
 //
 #define
 LIBCAIRO_targetloc
-"$PATSHOME/npm-utils\
-/contrib/atscntrb-libcairo"
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 
@@ -112,7 +114,8 @@ end // end of [local]
 
 (* ****** ****** *)
 //
-staload "{$LIBCAIRO}/SATS/cairo.sats"
+staload
+"{$LIBCAIRO}/SATS/cairo.sats"
 //
 #staload
 "{$PATSHOME}/npm-utils/contrib\
@@ -150,7 +153,7 @@ cairo_draw_list
   cr, p1, p2, p3, p4, xs
 ) = let
 //
-val p_cr = ptrcast (cr)
+val p_cr = ptrcast(cr)
 //
 implement
 mydraw_get0_cairo<> () = let
@@ -170,24 +173,26 @@ val alpha =
   0.50 * (xs[i]+1) / N
 //
 in
-  color_make (alpha, alpha, alpha)
+  color_make
+  (alpha, alpha, alpha)
 end // end of [mydraw_bargraph$color]
 
 implement
-mydraw_bargraph$height<> (i) = 1.0 * (xs[i]+1) / N
+mydraw_bargraph$height<>
+  (i) = 1.0 * (xs[i]+1) / N
 //
 in
   mydraw_bargraph (N, p1, p2, p3, p4)
 end // end of [cairo_draw_list]
 
 (* ****** ****** *)
-
+//
 extern
 fun mydraw_clock
 (
   cr: !cairo_ref1, width: int, height: int
 ) : void // end of [mydraw_clock]
-
+//
 (* ****** ****** *)
 
 implement
@@ -229,10 +234,13 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
 staload
 "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
-staload
-_ = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
+staload _ =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
 //
 (* ****** ****** *)
 

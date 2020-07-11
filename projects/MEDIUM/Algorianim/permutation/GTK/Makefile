@@ -1,7 +1,7 @@
+######
 #
 # A simple Makefile
 #
-
 ######
 
 include \
@@ -10,7 +10,7 @@ $(PATSHOME)/share/atsmake-pre.mk
 ######
 #
 CFLAGS+=\
--I$(PATSHOME)/npm-utils/contrib
+-I$(PATSHOME)/npm-utils/contrib/atscntrb
 #
 CFLAGS+=$(shell pkg-config gtk+-3.0 --cflags)
 #
