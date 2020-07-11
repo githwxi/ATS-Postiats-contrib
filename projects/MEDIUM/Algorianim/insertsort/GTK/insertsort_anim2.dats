@@ -5,8 +5,10 @@
 //
 #define
 LIBCAIRO_targetloc
-"$PATSHOME/npm-utils\
-/contrib/atscntrb-libcairo"
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 //
@@ -29,6 +31,13 @@ LIBCAIRO_targetloc
 //
 (* ****** ****** *)
 //
+//
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb\
+/atscntrb-hx-mytesting"
 #staload
 "{$HX_MYTESTING}/SATS/randgen.sats"
 #staload _ =
@@ -164,13 +173,23 @@ end // end of [local]
 //
 (* ****** ****** *)
 //
-#staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
-#staload "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
 //
-#staload CP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/ControlPanel.dats"
-#staload DP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/DrawingPanel.dats"
-#staload MAIN = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_main.dats"
-#staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_timer.dats"
+#staload
+"{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
+#staload
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+//
+#staload CP =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/ControlPanel.dats"
+#staload DP =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/DrawingPanel.dats"
+#staload MAIN =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_main.dats"
+#staload TIMER =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_timer.dats"
 //
 (* ****** ****** *)
 

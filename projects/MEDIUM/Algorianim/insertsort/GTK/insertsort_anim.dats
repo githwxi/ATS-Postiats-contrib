@@ -5,8 +5,9 @@
 //
 #define
 LIBCAIRO_targetloc
-"$PATSHOME/npm-utils\
-/contrib/atscntrb-libcairo"
+"$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 //
@@ -21,6 +22,12 @@ LIBCAIRO_targetloc
 //
 (* ****** ****** *)
 //
+#define
+HX_MYTESTING_targetloc
+"\
+$PATSHOME\
+/contrib/atscntrb\
+/atscntrb-hx-mytesting"
 #staload
 "{$HX_MYTESTING}/SATS/randgen.sats"
 #staload _ =
@@ -292,10 +299,13 @@ abstype charptrptr = $extype"charptrptr"
 
 (* ****** ****** *)
 //
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
 #staload
 "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairoclock.sats"
-#staload
-_ = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
+#staload _ =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairoclock.dats"
 //
 (* ****** ****** *)
 
