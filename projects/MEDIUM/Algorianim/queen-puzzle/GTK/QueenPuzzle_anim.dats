@@ -7,8 +7,10 @@
 //
 #define
 LIBCAIRO_targetloc
-"$PATSHOME/npm-utils\
-/contrib/atscntrb-libcairo"
+"\
+$PATSHOME\
+/npm-utils/contrib\
+/atscntrb/atscntrb-hx-libcairo"
 //
 (* ****** ****** *)
 
@@ -173,13 +175,23 @@ val () = loop (path)
 
 (* ****** ****** *)
 //
-staload "{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
-staload "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+#define
+LIBATSHWXI_targetloc
+"$PATSCONTRIB/contrib/libats-hwxi"
 //
-staload CP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/ControlPanel.dats"
-staload DP = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/DrawingPanel.dats"
-staload MAIN = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_main.dats"
-staload TIMER = "{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_timer.dats"
+#staload
+"{$LIBATSHWXI}/teaching/myGTK/SATS/gtkcairotimer.sats"
+#staload
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_toplevel.dats"
+//
+#staload CP =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/ControlPanel.dats"
+#staload DP =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/DrawingPanel.dats"
+#staload MAIN =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_main.dats"
+#staload TIMER =
+"{$LIBATSHWXI}/teaching/myGTK/DATS/gtkcairotimer/gtkcairotimer_timer.dats"
 //
 (* ****** ****** *)
 
@@ -191,6 +203,12 @@ the_timer_reset_after<> () =
 } (* end of [the_timer_reset_after] *)
 
 (* ****** ****** *)
+#define
+GTK_targetloc
+"$PATSCONTRIB/contrib/GTK"
+#define
+GLIB_targetloc
+"$PATSCONTRIB/contrib/glib"
 //
 staload "{$GTK}/SATS/gdk.sats"
 staload "{$GTK}/SATS/gtk.sats"
@@ -199,7 +217,8 @@ staload "{$GLIB}/SATS/glib-object.sats"
 //
 (* ****** ****** *)
 //
-staload "{$LIBCAIRO}/SATS/cairo.sats"
+staload
+"{$LIBCAIRO}/SATS/cairo.sats"
 //
 #staload
 "{$PATSHOME}/npm-utils/contrib\
