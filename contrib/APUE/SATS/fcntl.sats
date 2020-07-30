@@ -25,8 +25,7 @@ creat
 //
 fun
 creat
-( path
-: cp2tr1(char)
+( path: string
 , mode: mode_t): interr = "mac#"
 //
 (* ****** ****** *)

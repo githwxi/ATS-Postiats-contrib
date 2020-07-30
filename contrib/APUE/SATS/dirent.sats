@@ -67,7 +67,7 @@ readdir_r
 ( dirp
 : p2tr1(DIR)
 , entry
-: p2tr1(dirent)
+: dirent_ptr1
 , result
 : p2tr1(dirent_ptr0)): interr = "mac#"
 //          
