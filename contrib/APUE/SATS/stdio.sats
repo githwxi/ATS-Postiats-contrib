@@ -12,26 +12,26 @@
 staload "./../basics.sats"
 
 (* ****** ****** *)
-
-absvt0ype FILE = $extype"FILE"
-
+abstflt
+FILE_t0 = $extype"FILE"
+typedef FILE = FILE_t0
 (* ****** ****** *)
 //
 fun
 fopen
 (
   path: string, mode: string
-) : cPtr0(FILE) = "mac#"
+) : ptr0(FILE) = "mac#"
 fun
 fdopen
 (
-  fd: fildes, mode: string
-) : cPtr0(FILE) = "mac#"
+  fdes: fildes, mode: string
+) : ptr0(FILE) = "mac#"
 fun
 freopen
 (
-  path: string, mode: string, stream: cPtr1(FILE)
-) : cPtr0(FILE) = "mac#"
+  path: string, mode: string, stream: ptr1(FILE)
+) : ptr0(FILE) = "mac#"
 //
 (* ****** ****** *)
                

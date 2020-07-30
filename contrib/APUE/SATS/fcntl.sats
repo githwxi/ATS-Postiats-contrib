@@ -9,22 +9,25 @@
 
 (* ****** ****** *)
 //
-staload
-"./../basics.sats"
+#staload "./../basics.sats"
 //
 (* ****** ****** *)
 
-staload "./sys/types.sats"
+#staload "./sys/types.sats"
 
 (* ****** ****** *)
 //
 (*
 int
-creat(const char *path, mode_t mode);
+creat
+(const char *path, mode_t mode);
 *)
 //
 fun
-creat(path: string, mode: mode_t): interr
+creat
+( path
+: cp2tr1(char)
+, mode: mode_t): interr = "mac#"
 //
 (* ****** ****** *)
 
