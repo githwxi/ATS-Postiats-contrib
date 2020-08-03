@@ -31,8 +31,9 @@ typedef dirent_cptr1 = cp2tr1(dirent)
 //
 fun
 dirent_get_d_name
-( ent
-: dirent_cptr1): string = "mac#"
+(
+ent:
+dirent_cptr1): string = "mac#"
 //
 overload
 .d_name with dirent_get_d_name
@@ -65,7 +66,7 @@ readdir
 fun
 readdir_r
 ( dirp
-: p2tr1(DIR)
+: DIR_ptr1
 , entry
 : dirent_ptr1
 , result

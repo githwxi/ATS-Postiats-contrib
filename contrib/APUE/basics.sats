@@ -118,6 +118,13 @@ p2tr_neqzq
 {l:a0}(p2tr(a, l)): bool(l > null)
 
 (* ****** ****** *)
+fun
+{a:vt}
+{l:addr}
+p2tr_constize
+(p0: p2tr(a, l)):<> cp2tr(a, l)
+overload cp2tr with p2tr_constize
+(* ****** ****** *)
 
 fun
 cp2tr_eqzq
