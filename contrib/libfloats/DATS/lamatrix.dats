@@ -389,7 +389,7 @@ LAgmat_get_at
 {
 //
 val cp = LAgmat_getref_at (M, i, j)
-val (pf, fpf | p) = $UN.cptr_vtake (cp)
+val (pf, fpf | p) = $UN.p2tr_vtake (cp)
 val x = !p
 prval () = fpf (pf)
 //
@@ -401,7 +401,7 @@ LAgmat_set_at
 {
 //
 val cp = LAgmat_getref_at (M, i, j)
-val (pf, fpf | p) = $UN.cptr_vtake (cp)
+val (pf, fpf | p) = $UN.p2tr_vtake (cp)
 val () = (!p := x)
 prval () = fpf (pf)
 //
@@ -430,7 +430,7 @@ case+ ord of
 prval () = fpf (pf)
 //
 in
-  $UN.cast{cPtr1(a)}(p_ij)
+  $UN.cast{P2tr1(a)}(p_ij)
 end // end of [Lagmat_getref_at]
 
 (* ****** ****** *)

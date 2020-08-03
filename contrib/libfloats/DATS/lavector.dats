@@ -161,7 +161,7 @@ LAgvec_get_at
 {
 //
 val cp = LAgvec_getref_at (V, i)
-val (pf, fpf | p) = $UN.cptr_vtake (cp)
+val (pf, fpf | p) = $UN.p2tr_vtake (cp)
 val x = !p
 prval () = fpf (pf)
 //
@@ -173,7 +173,7 @@ LAgvec_set_at
 {
 //
 val cp = LAgvec_getref_at (V, i)
-val (pf, fpf | p) = $UN.cptr_vtake (cp)
+val (pf, fpf | p) = $UN.p2tr_vtake (cp)
 val () = !p := x
 prval () = fpf (pf)
 //
@@ -191,7 +191,7 @@ val p_i = ptr_add<a>(p, i*d)
 prval () = fpf (pf)
 //
 in
-  $UN.cast{cPtr1(a)}(p_i)
+  $UN.cast{P2tr1(a)}(p_i)
 end // end of [LAgvec_getref_at]
 
 (* ****** ****** *)

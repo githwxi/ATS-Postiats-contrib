@@ -156,7 +156,7 @@ val p = hashtbl_search_ref<key,itm> (map, gn)
 in
 //
 if isneqz(p) then let
-  val (pf, fpf | p) = $UN.cptr_vtake (p)
+  val (pf, fpf | p) = $UN.p2tr_vtake (p)
   val () = res := !p
   prval () = fpf (pf)
   prval () = opt_some{itm}(res) in true

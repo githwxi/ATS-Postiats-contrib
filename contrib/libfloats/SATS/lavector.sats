@@ -133,7 +133,7 @@ LAgvec_set_at{n:int}
 //
 fun{a:t0p}
 LAgvec_getref_at{n:int}
-  (V: !LAgvec(a, n), i: natLt(n)) : cPtr1(a)
+  (V: !LAgvec(a, n), i: natLt(n)) : P2tr1(a)
 //
 (* ****** ****** *)
 //

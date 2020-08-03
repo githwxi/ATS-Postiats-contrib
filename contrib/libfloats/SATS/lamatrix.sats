@@ -236,7 +236,7 @@ LAgmat_getref_at
   {mo:mord}{m,n:int}
 (
   M: !LAgmat(a, mo, m, n), i: natLt(m), j: natLt(n)
-) : cPtr1(a) // end of [LAgmat_getref_at]
+) : P2tr1(a) // end of [LAgmat_getref_at]
 
 (* ****** ****** *)
 

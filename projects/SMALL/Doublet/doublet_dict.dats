@@ -152,7 +152,7 @@ implement
 word_is_legal(w) = let
   val cp = search_ref (w)
 in
-  if cptr2ptr(cp) > 0 then true else false
+  if p2tr2ptr(cp) > 0 then true else false
 end // end of [word_is_legal]
 
 (* ****** ****** *)
