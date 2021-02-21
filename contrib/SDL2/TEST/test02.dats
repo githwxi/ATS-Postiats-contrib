@@ -19,8 +19,12 @@ staload "./../SATS/SDL_image.sats"
 
 (* ****** ****** *)
 
-implement
-main0 () = () where
+#define ATS_MAINATSFLAG 1
+#define ATS_DYNLOADNAME "ats_dynload"
+
+(* ****** ****** *)
+
+val () =
 {
 //
 val err = SDL_Init (SDL_INIT_VIDEO)
@@ -61,6 +65,15 @@ val () = SDL_DestroyWindow (window)
 val () = SDL_Quit ((*void*))
 //
 } (* end of [main0] *)
+
+(* ****** ****** *)
+
+%{$
+int main(int argc, char *argv[]) {
+  ats_dynload();
+  return 0;
+}
+%}
 
 (* ****** ****** *)
 

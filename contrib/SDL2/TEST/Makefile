@@ -19,6 +19,12 @@ CFLAGS_image += $(shell pkg-config SDL2_image --cflags)
 
 ######
 
+PATSHOMERELOCQ="$(PATSHOMERELOC)"
+CFLAGS0 += -I$(PATSHOMERELOCQ)/contrib
+CFLAGS_image += -I$(PATSHOMERELOCQ)/contrib
+
+######
+
 LDFLAGS0 = $(LDFLAGS)
 LDFLAGS_image = $(LDFLAGS)
 
